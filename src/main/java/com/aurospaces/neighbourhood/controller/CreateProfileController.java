@@ -4,6 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -26,6 +27,7 @@ import com.aurospaces.neighbourhood.db.dao.BranchDao;
 import com.aurospaces.neighbourhood.db.dao.CountriesDao;
 import com.aurospaces.neighbourhood.db.dao.UserDetailsDao;
 import com.aurospaces.neighbourhood.db.dao.UsersDao;
+import com.aurospaces.neighbourhood.util.EmailUtil;
 import com.aurospaces.neighbourhood.util.MiscUtils;
 
 @Controller
@@ -37,6 +39,8 @@ public class CreateProfileController {
 	 @Autowired BranchDao objBranchDao;
    @Autowired UsersDao objUsersDao;
    @Autowired UserDetailsDao objUserDetailsDao;
+   @Autowired
+	ServletContext objContext;
 	@RequestMapping(value = "/CreateProfile")
 	public String CreateProfile(@ModelAttribute("createProfile") UsersBean objUsersBean, ModelMap model,
 			HttpServletRequest request, HttpSession session) {
@@ -99,6 +103,9 @@ public class CreateProfileController {
 			objUsersBean.setRole_id(4);
 			objUsersDao.save(objUsersBean);
 			objUserDetailsDao.save(objUsersBean);
+			EmailUtil emailUtil = new EmailUtil();
+			emailUtil.sendEmail(objUsersBean, objContext, "admin_send_password");
+			
 			/*listOrderBeans = objCountriesDao.getAllCountries();
 			if (listOrderBeans != null && listOrderBeans.size() > 0) {
 				objectMapper = new ObjectMapper();

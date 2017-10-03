@@ -20,14 +20,16 @@ public class EmailUtil {
 	public String sendEmail(UsersBean objUsersBean,
 			ServletContext objContext, String sMailTo) throws AddressException,
 			MessagingException, IOException {
+		String subject = null;
+		Properties prop = new Properties();
+		InputStream input = null;
+		String body = null;
+		try{
 	 
-	        String mailTo = "andraju.kotaiah@gmail.com";
+	        String mailTo = objUsersBean.getEmail();
 	        
 //	        -------------------------------------------------------------------------------------------
-			String subject = null;
-			Properties prop = new Properties();
-			InputStream input = null;
-			String body = null;
+			
 			
 	        String propertiespath = objContext.getRealPath("Resources" +File.separator+"DataBase.properties");
 			//String propertiespath = "C:\\PRO\\Database.properties";
@@ -54,7 +56,7 @@ public class EmailUtil {
 //	        inlineImages.put("image1", objContext.getRealPath("images" +File.separator+"telugu.png"));
 	        inlineImages.put("image2", objContext.getRealPath("images" +File.separator+"telugu.png"));
 	 
-	        try {
+	       
 	            EmbeddedImageEmailUtil.send(host, port, mailFrom, password, mailTo,
 	                subject, body.toString(), inlineImages);
 	            System.out.println("Email sent.");
