@@ -76,7 +76,7 @@ public class LoginController {
 				session.setAttribute("userName", objUserBean.getName());
 				int rolId = objUserBean.getRole_id();
 					 rolId = objUserBean.getRole_id();
-					if(rolId == 1 || rolId == 2 || rolId == 3){
+					if(rolId == 1 || rolId == 2 || rolId == 3 ){
 						return "redirect:admin/OccupationHome";
 					}else{
 //						return "redirect:employeeHome1.htm";
