@@ -160,8 +160,7 @@ s.parentNode.insertBefore(ga, s);
 			dom: 'Bfrtip',
 			buttons: [{extend:"print",className:"btn default"},{extend:"pdf",className:"btn default"},{extend:"csv",className:"btn default"}]
 		}); */
-		$.fn.dataTableExt.sErrMode = 'console';
-		$('#DataTables_Table_0').dataTable();
+		
 		 /*$('#datatable-buttons').DataTable({
 		        "dom": 'C<"clear">lfrtip',
 		        "colVis": {
