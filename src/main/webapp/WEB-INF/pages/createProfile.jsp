@@ -57,15 +57,17 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.createdByName" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-								  		<form:input path="created_by" type="text" class="form-control" maxlength="255"/>						
+								  		<form:input path="created_by" type="text" class="form-control numericOnly"  autocomplete="off" onblur="validate(this.id);" maxlength="255"/>						
+								  		<span class="hasError" id="created_byError"></span>
 								  		<div><form:errors path="created_by" cssClass="error" /></div>
 									</div>
 							  	</div>
 							  	<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.executiveName" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-									<form:input path="executiveName" type="text" class="form-control" maxlength="255"/>	
-									
+									<form:input path="executiveName" type="text" class="form-control onlyCharacters" autocomplete="off" onblur="validate1(this.id);"  maxlength="255"/>	
+									<span class="hasError" id="executiveNameError"></span>
+									<div><form:errors path="executiveName" cssClass="error" /></div>
 									</div>
 								</div>
 							</div>
@@ -78,59 +80,67 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.casteName" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-4">
-								  		<form:select path="cast"  class="form-control">
-														<form:option value="">-- Choose Department Head --</form:option>
+								  		<form:select path="cast"  class="form-control" onblur="validate2(this.id);">
+														<form:option value="">-- Choose Cast --</form:option>
 														<form:options items="${cast}"></form:options>
 										</form:select>
+								  		<span class="hasError" id="castError"></span>
 								  		<div><form:errors path="cast" cssClass="error" /></div>
 									</div>
 							  	</div>
 							  	<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.subCaste" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-									<form:input path="subCaste" type="text" class="form-control" maxlength="255"/>	
+									<form:input path="subCaste" type="text" class="form-control onlyCharacters" autocomplete="off" onblur="validate3(this.id);"  maxlength="255"/>	
 								  		<%-- <form:select path="subCaste" class="form-control" tabindex="2" onchange="classNameFilter()" required="true">
 											<form:option value="" >-- Choose Board --</form:option>
 										</form:select>
 								  		<div><form:errors path="subCaste" cssClass="error" /></div> --%>
+									<span class="hasError" id="subCasteError"></span>
+								  		<div><form:errors path="subCaste" cssClass="error" /></div>
 									</div>
 							  	</div>
 							  	<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.surName" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-										<form:input path="sname" type="text" class="form-control" maxlength="255"/>						
+										<form:input path="sname" type="text" class="form-control onlyCharacters" autocomplete="off" onblur="validate4(this.id);"  maxlength="255"/>						
+								  		<span class="hasError" id="snameError"></span>
 								  		<div><form:errors path="sname" cssClass="error" /></div>
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.name" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-										<form:input path="name" type="text" class="form-control" maxlength="255"/>						
+										<form:input path="name" type="text" class="form-control onlyCharacters"  autocomplete="off" onblur="validate5(this.id);" maxlength="255"/>						
+								  		<span class="hasError" id="nameError"></span>
 								  		<div><form:errors path="name" cssClass="error" /></div>
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.gender" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-4">
-								  		<form:select path="gender" class="form-control" style="width:200px;" required="true">
+								  		<form:select path="gender" class="form-control" style="width:200px;" onblur="validate6(this.id);"  required="true">
 											<form:option value="">-- Choose Gender --</form:option>
 											<form:option value="Male">Male</form:option>
 											<form:option value="Female">Female</form:option>
 										</form:select>
+								  		<span class="hasError" id="genderError"></span>
 								  		<div><form:errors path="gender" cssClass="error" /></div>
 									</div>
 							  	</div>
 							  	<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.dob" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-										<form:input path="dob" type="text" class="form-control" maxlength="255"/>						
+										<form:input path="dob" type="text" class="form-control"  autocomplete="off" onblur="validate7(this.id);" maxlength="255"/>						
+								  		<span class="hasError" id="dobError"></span>
 								  		<div><form:errors path="dob" cssClass="error" /></div>
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="col-sm-4 col-xs-12 control-label required"><spring:message code="label.tob" text="default text" /></label>
 									<div class="col-sm-8">
-										<form:input path="tob" type="text" class="form-control" maxlength="255"/>						
+										<form:input path="tob" type="text" class="form-control"  autocomplete="off" onblur="validate8(this.id);" maxlength="255"/>						
+								  		<span class="hasError" id="tobError"></span>
 								  		<div><form:errors path="tob" cssClass="error" /></div>
 									</div>
 									
@@ -138,30 +148,34 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.pob" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-										<form:input path="pob" type="text" class="form-control" maxlength="255"/>						
+										<form:input path="pob" type="text" class="form-control" autocomplete="off" onblur="validate8(this.id);" maxlength="255"/>						
+								  		<span class="hasError" id="pobError"></span>
 								  		<div><form:errors path="pob" cssClass="error" /></div>
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.height" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-4">
-										<form:select path="height"  class="form-control">
-														<form:option value="">-- Choose Department Head --</form:option>
+										<form:select path="height"  class="form-control" onblur="validate9(this.id);">
+														<form:option value="">-- Choose Height --</form:option>
 														<form:options items="${height}"></form:options>
 										</form:select>
 								  		<%-- <form:select path="height" class="form-control" style="width:200px;" required="true">
 											<form:option value="">-- Choose Height --</form:option>
 										</form:select>
 								  		<div><form:errors path="height" cssClass="error" /></div> --%>
+									<span class="hasError" id="heightError"></span>
+								  		<div><form:errors path="height" cssClass="error" /></div>
 									</div>
 							  	</div>
 							  	<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.complexion" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-4">
-								  		<form:select path="complexion" class="form-control" style="width:200px;" required="true">
+								  		<form:select path="complexion" class="form-control"  onblur="validate10(this.id);" style="width:200px;" required="true">
 											<form:option value="">-- Choose Complexion --</form:option>
 											<form:options items="${complexion}"></form:options>
 										</form:select>
+								  		<span class="hasError" id="complexionError"></span>
 								  		<div><form:errors path="complexion" cssClass="error" /></div>
 									</div>
 							  	</div>
@@ -169,7 +183,7 @@
 									<label class="col-sm-4 control-label required"><spring:message code="label.raasi" text="default text" /></label>
 									<div class="col-sm-4">
 										<form:select path="raasi" class="form-control" style="width:200px;" required="true">
-											<form:option value="">-- Choose raasi --</form:option>
+											<form:option value="">-- Choose Raasi --</form:option>
 											<form:options items="${raasi}"></form:options>
 										</form:select>
 									</div>
@@ -178,7 +192,7 @@
 									<label class="col-sm-4 control-label required"><spring:message code="label.star" text="default text" /></label>
 									<div class="col-sm-4">
 										<form:select path="star" class="form-control" style="width:200px;" required="true">
-											<form:option value="">-- Choose raasi --</form:option>
+											<form:option value="">-- Choose Star --</form:option>
 											<form:options items="${star}"></form:options>
 										</form:select>
 									</div>
@@ -192,7 +206,9 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.gothram" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-										<form:input path="gotram" type="text" class="form-control" maxlength="255"/>	
+										<form:input path="gotram" type="text" class="form-control onlyCharacters" autocomplete="off" onblur="validate11(this.id);"  maxlength="255"/>	
+									<span class="hasError" id="gotramError"></span>
+									<div><form:errors path="gotram" cssClass="error" /></div>
 									</div>
 								</div>
 								<div class="form-group">
@@ -836,6 +852,575 @@
 
 <!-- <script type="text/javascript" src="js/custom.js"></script>		 -->
 <script type="text/javascript">
+
+$("#dob").datepicker({
+    dateFormat: "dd-MM-yy",
+    changeDate : true,
+	changeMonth : true,
+	changeYear : true,
+	maxDate :0
+});
+
+$("#pob").datepicker({
+    dateFormat: "dd-MM-yy",
+    changeDate : true,
+	changeMonth : true,
+	changeYear : true,
+	maxDate :0
+});
+$("#tob").datepicker({
+    dateFormat: "dd-MM-yy",
+    changeDate : true,
+	changeMonth : true,
+	changeYear : true,
+	maxDate :0
+});
+
+
+
+
+function validate(id){
+	if($('#created_by').val() ==  null || $('#created_by').val() == ""  || $('#created_by').val()=="undefined" ) {
+		$('#created_byError').css('color','red');
+	    $("#created_byError").text("Created By cannot be blank.");
+	}else{
+		$("#nameError").text("");
+	}
+	}
+function validate1(id){
+	if($('#executiveName').val() ==  null || $('#executiveName').val() == ""  || $('#executiveName').val()=="undefined" ) {
+		$('#executiveNameError').css('color','red');
+	    $("#executiveNameError").text("Executive Name cannot be blank.");
+	}else{
+		$("#executiveNameError").text("");
+	}
+	}
+function validate2(id){
+	if($('#cast').val() ==  null || $('#cast').val() == ""  || $('#cast').val()=="undefined" ) {
+		$('#castError').css('color','red');
+	    $("#castError").text("cast cannot be blank.");
+	}else{
+		$("#castError").text("");
+	}
+	}
+function validate3(id){
+	if($('#subCaste').val() ==  null || $('#subCaste').val() == ""  || $('#subCaste').val()=="undefined" ) {
+		$('#subCasteError').css('color','red');
+	    $("#subCasteError").text("subCaste cannot be blank.");
+	}else{
+		$("#subCasteError").text("");
+	}
+	}
+function validate4(id){
+	if($('#sname').val() ==  null || $('#sname').val() == ""  || $('#sname').val()=="undefined" ) {
+		$('#snameError').css('color','red');
+	    $("#snameError").text("SurName cannot be blank.");
+	}else{
+		$("#snameError").text("");
+	}
+	}
+function validate5(id){
+	if($('#name').val() ==  null || $('#name').val() == ""  || $('#name').val()=="undefined" ) {
+		$('#nameError').css('color','red');
+	    $("#nameError").text("Name cannot be blank.");
+	}else{
+		$("#nameError").text("");
+	}
+	}
+function validate6(id){
+	if($('#gender').val() ==  null || $('#gender').val() == ""  || $('#gender').val()=="undefined" ) {
+		$('#genderError').css('color','red');
+	    $("#genderError").text("Gender cannot be blank.");
+	}else{
+		$("#genderError").text("");
+	}
+	}
+function validate7(id){
+	if($('#dob').val() ==  null || $('#dob').val() == ""  || $('#dob').val()=="undefined" ) {
+		$('#dobError').css('color','red');
+	    $("#dobError").text("Date of Brith cannot be blank.");
+	}else{
+		$("#dobError").text("");
+	}
+	}
+function validate8(id){
+	if($('#pob').val() ==  null || $('#pob').val() == ""  || $('#pob').val()=="undefined" ) {
+		$('#pobError').css('color','red');
+	    $("#pobError").text("Place of Brith cannot be blank.");
+	}else{
+		$("#pobError").text("");
+	}
+	}
+function validate9(id){
+	if($('#height').val() ==  null || $('#height').val() == ""  || $('#height').val()=="undefined" ) {
+		$('#heightError').css('color','red');
+	    $("#heightError").text(" Height cannot be blank.");
+	}else{
+		$("#heightError").text("");
+	}
+	}
+function validate10(id){
+	if($('#complexion').val() ==  null || $('#complexion').val() == ""  || $('#complexion').val()=="undefined" ) {
+		$('#complexionError').css('color','red');
+	    $("#complexionError").text(" Complexion cannot be blank.");
+	}else{
+	}
+	}
+function validate11(id){
+	if($('#gotram').val() ==  null || $('#gotram').val() == ""  || $('#gotram').val()=="undefined" ) {
+		$('#gotramError').css('color','red');
+	    $("#gotramError").text(" Gotram cannot be blank.");
+	}else{
+	}
+	}
+function validate12(id){
+	if($('#religion').val() ==  null || $('#religion').val() == ""  || $('#religion').val()=="undefined" ) {
+		$('#religionError').css('color','red');
+	    $("#religionError").text(" Religion cannot be blank.");
+	}else{
+	}
+	}
+function validate13(id){
+	if($('#mtongue').val() ==  null || $('#mtongue').val() == ""  || $('#mtongue').val()=="undefined" ) {
+		$('#mtongueError').css('color','red');
+	    $("#mtongueError").text(" Mtongue cannot be blank.");
+	}else{
+	}
+	}
+function validate13(id){
+	if($('#mtongue').val() ==  null || $('#mtongue').val() == ""  || $('#mtongue').val()=="undefined" ) {
+		$('#mtongueError').css('color','red');
+	    $("#mtongueError").text(" Mtongue cannot be blank.");
+	}else{
+	}
+	}
+function validate14(id){
+	if($('#aboutYourself').val() ==  null || $('#aboutYourself').val() == ""  || $('#aboutYourself').val()=="undefined" ) {
+		$('#aboutYourselfError').css('color','red');
+	    $("#aboutYourselfError").text(" AboutYourself cannot be blank.");
+	}else{
+	}
+	}
+function validate15(id){
+	if($('#fname').val() ==  null || $('#fname').val() == ""  || $('#fname').val()=="undefined" ) {
+		$('#fnameError').css('color','red');
+	    $("#fnameError").text(" Father Name cannot be blank.");
+	}else{
+	}
+	}
+function validate16(id){
+	if($('#feducation').val() ==  null || $('#feducation').val() == ""  || $('#feducation').val()=="undefined" ) {
+		$('#feducationError').css('color','red');
+	    $("#feducationError").text(" Father Education cannot be blank.");
+	}else{
+	}
+	}
+function validate17(id){
+	if($('#foccupation').val() ==  null || $('#foccupation').val() == ""  || $('#foccupation').val()=="undefined" ) {
+		$('#foccupationError').css('color','red');
+	    $("#foccupationError").text(" Father Occupation cannot be blank.");
+	}else{
+	}
+	}
+function validate18(id){
+	if($('#fnativeAddress').val() ==  null || $('#fnativeAddress').val() == ""  || $('#fnativeAddress').val()=="undefined" ) {
+		$('#fnativeAddressError').css('color','red');
+	    $("#fnativeAddressError").text(" Father Native Address cannot be blank.");
+	}else{
+	}
+	}
+function validate19(id){
+	if($('#presentAddress').val() ==  null || $('#presentAddress').val() == ""  || $('#presentAddress').val()=="undefined" ) {
+		$('#presentAddressError').css('color','red');
+	    $("#presentAddressError").text(" Present Address cannot be blank.");
+	}else{
+	}
+	}
+function validate20(id){
+	if($('#phone1').val() ==  null || $('#phone1').val() == ""  || $('#phone1').val()=="undefined" ) {
+		$('#phone1Error').css('color','red');
+	    $("#phone1Error").text(" Mobile cannot be blank.");
+	}else{
+	}
+	}
+function validate21(id){
+	if($('#email').val() ==  null || $('#email').val() == ""  || $('#email').val()=="undefined" ) {
+		$('#emailError').css('color','red');
+	    $("#emailError").text(" Email cannot be blank.");
+	}else{
+	}
+	}
+function validate22(id){
+	if($('#mname').val() ==  null || $('#mname').val() == ""  || $('#mname').val()=="undefined" ) {
+		$('#mnameError').css('color','red');
+	    $("#mnameError").text("Mother Name cannot be blank.");
+	}else{
+	}
+	}
+function validate23(id){
+	if($('#meducation').val() ==  null || $('#meducation').val() == ""  || $('#meducation').val()=="undefined" ) {
+		$('#meducationError').css('color','red');
+	    $("#meducationError").text(" Mother Education cannot be blank.");
+	}else{
+	}
+	}
+function validate24(id){
+	if($('#mfName').val() ==  null || $('#mfName').val() == ""  || $('#mfName').val()=="undefined" ) {
+		$('#mfNameError').css('color','red');
+	    $("#mfNameError").text(" Mother Father's cannot be blank.");
+	}else{
+	}
+	}
+function validate25(id){
+	if($('#mnativeAddress').val() ==  null || $('#mnativeAddress').val() == ""  || $('#mnativeAddress').val()=="undefined" ) {
+		$('#mnativeAddressError').css('color','red');
+	    $("#mnativeAddressError").text(" Mother Native Address cannot be blank.");
+	}else{
+	}
+	}
+function validate26(id){
+	if($('#sibilings').val() ==  null || $('#sibilings').val() == ""  || $('#sibilings').val()=="undefined" ) {
+		$('#sibilingsError').css('color','red');
+	    $("#sibilingsError").text("Sibilings cannot be blank.");
+	}else{
+	}
+	}
+function validate27(id){
+	if($('#property').val() ==  null || $('#property').val() == ""  || $('#property').val()=="undefined" ) {
+		$('#propertyError').css('color','red');
+	    $("#propertyError").text(" Property cannot be blank.");
+	}else{
+	}
+	}
+function validate28(id){
+	if($('#branch').val() ==  null || $('#branch').val() == ""  || $('#branch').val()=="undefined" ) {
+		$('#branchError').css('color','red');
+	    $("#branchError").text(" Branch cannot be blank.");
+	}else{
+	}
+	}
+function validate29(id){
+	if($('#education').val() ==  null || $('#education').val() == ""  || $('#education').val()=="undefined" ) {
+		$('#educationError').css('color','red');
+	    $("#educationError").text(" Education cannot be blank.");
+	}else{
+	}
+	}
+function validate30(id){
+	if($('#occupation').val() ==  null || $('#occupation').val() == ""  || $('#occupation').val()=="undefined" ) {
+		$('#occupationError').css('color','red');
+	    $("#occupationError").text(" Occupation cannot be blank.");
+	}else{
+	}
+	}
+function validate31(id){
+	if($('#occupationDetails').val() ==  null || $('#occupationDetails').val() == ""  || $('#occupationDetails').val()=="undefined" ) {
+		$('#occupationDetailsError').css('color','red');
+	    $("#occupationDetailsError").text(" Occupation Details cannot be blank.");
+	}else{
+	}
+	}
+function validate32(id){
+	if($('#sinceWorking').val() ==  null || $('#sinceWorking').val() == ""  || $('#sinceWorking').val()=="undefined" ) {
+		$('#sinceWorkingError').css('color','red');
+	    $("#sinceWorkingError").text(" Since Working cannot be blank.");
+	}else{
+	}
+	}
+function validate33(id){
+	if($('#ncitizenOf').val() ==  null || $('#ncitizenOf').val() == ""  || $('#ncitizenOf').val()=="undefined" ) {
+		$('#ncitizenOfError').css('color','red');
+	    $("#ncitizenOfError").text(" CitizenOf cannot be blank.");
+	}else{
+	}
+	}
+function validate34(id){
+	if($('#crCountry').val() ==  null || $('#crCountry').val() == ""  || $('#crCountry').val()=="undefined" ) {
+		$('#crCountryError').css('color','red');
+	    $("#crCountryError").text(" Country cannot be blank.");
+	}else{
+	}
+	}
+function validate35(id){
+	if($('#ageGap').val() ==  null || $('#ageGap').val() == ""  || $('#ageGap').val()=="undefined" ) {
+		$('#ageGapError').css('color','red');
+	    $("#ageGapError").text(" Age Gap cannot be blank.");
+	}else{
+	}
+	}
+function validate36(id){
+	if($('#rHeightFrom').val() ==  null || $('#rHeightFrom').val() == ""  || $('#rHeightFrom').val()=="undefined" ) {
+		$('#rHeightFromError').css('color','red');
+	    $("#rHeightFromError").text("Height From cannot be blank.");
+	}else{
+	}
+	}
+function validate37(id){
+	if($('#rHeightTo').val() ==  null || $('#rHeightTo').val() == ""  || $('#rHeightTo').val()=="undefined" ) {
+		$('#rHeightToError').css('color','red');
+	    $("#rHeightToError").text(" Height To cannot be blank.");
+	}else{
+	}
+	}
+function validate38(id){
+	if($('#rComplexion').val() ==  null || $('#rComplexion').val() == ""  || $('#rComplexion').val()=="undefined" ) {
+		$('#rComplexionError').css('color','red');
+	    $("#rComplexionError").text(" Complexion cannot be blank.");
+	}else{
+	}
+	}
+function validate39(id){
+	if($('#rprofession').val() ==  null || $('#rprofession').val() == ""  || $('#rprofession').val()=="undefined" ) {
+		$('#rprofessionError').css('color','red');
+	    $("#rprofessionError").text(" Profession cannot be blank.");
+	}else{
+	}
+	}
+function validate40(id){
+	if($('#Users_terms').prop("checked") == false || $('#Users_terms').val() != 1 || $('#Users_terms').val()=="undefined") {
+		$('#Users_termsError').css('color','red');
+	    $("#Users_termsError").text("Please check the terms & conditions.");
+	}else if($('#Users_terms').prop("checked") == true){$('#Users_termsError').text("");}
+	} 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+$("#submit1").click(function()
+		{			
+			if($('#created_by').val() ==  null || $('#created_by').val() == ""  || $('#created_by').val()=="undefined")
+			{
+				if($('#created_by').val() ==  null || $('#created_by').val() == ""  || $('#created_by').val()=="undefined" ) 
+				{			    
+				    $('#created_byError').css('color','red');
+				    $("#created_byError").text("Created By cannot be blank.");
+			    }
+				if($('#executiveName').val() ==  null || $('#executiveName').val() == ""  || $('#executiveName').val()=="undefined" ) 
+				{			    
+				    $('#executiveNameError').css('color','red');
+				    $("#executiveNameError").text("ExecutiveName cannot be blank.");
+			    }
+				if($('#cast').val() ==  null || $('#cast').val() == ""  || $('#cast').val()=="undefined" ) 
+				{			    
+				    $('#castError').css('color','red');
+				    $("#castError").text("cast cannot be blank.");
+			    }
+				if($('#subCaste').val() ==  null || $('#subCaste').val() == ""  || $('#subCaste').val()=="undefined" ) 
+				{			    
+				    $('#subCasteError').css('color','red');
+				    $("#subCasteError").text("subCaste cannot be blank.");
+			    }
+				if($('#sname').val() ==  null || $('#sname').val() == ""  || $('#sname').val()=="undefined" ) 
+				{			    
+				    $('#snameError').css('color','red');
+				    $("#snameError").text("SurName cannot be blank.");
+			    }
+				if($('#name').val() ==  null || $('#name').val() == ""  || $('#name').val()=="undefined" ) 
+				{			    
+				    $('#nameError').css('color','red');
+				    $("#nameError").text("Name cannot be blank.");
+			    }
+				if($('#gender').val() ==  null || $('#gender').val() == ""  || $('#gender').val()=="undefined" ) 
+				{			    
+				    $('#genderError').css('color','red');
+				    $("#genderError").text("Gender cannot be blank.");
+			    }
+				if($('#dob').val() ==  null || $('#dob').val() == ""  || $('#dob').val()=="undefined" ) 
+				{			    
+				    $('#dobError').css('color','red');
+				    $("#dobError").text("Date OF Brith cannot be blank.");
+			    }
+				if($('#pob').val() ==  null || $('#pob').val() == ""  || $('#pob').val()=="undefined" ) 
+				{			    
+				    $('#pobError').css('color','red');
+				    $("#pobError").text("Place OF Brith cannot be blank.");
+			    }
+				if($('#height').val() ==  null || $('#height').val() == ""  || $('#height').val()=="undefined" ) 
+				{			    
+				    $('#heightError').css('color','red');
+				    $("#heightError").text("Height  cannot be blank.");
+			    }
+				if($('#complexion').val() ==  null || $('#complexion').val() == ""  || $('#complexion').val()=="undefined" ) 
+				{			    
+				    $('#complexiontError').css('color','red');
+				    $("#complexionError").text("Complexion  cannot be blank.");
+			    }
+				if($('#gotram').val() ==  null || $('#gotram').val() == ""  || $('#gotram').val()=="undefined" ) 
+				{			    
+				    $('#gotramError').css('color','red');
+				    $("#gotramError").text("Gotram  cannot be blank.");
+			    }
+				if($('#religion').val() ==  null || $('#religion').val() == ""  || $('#religion').val()=="undefined" ) 
+				{			    
+				    $('#religionError').css('color','red');
+				    $("#religionError").text("Religion  cannot be blank.");
+			    }
+				if($('#mtongue').val() ==  null || $('#mtongue').val() == ""  || $('#mtongue').val()=="undefined" ) 
+				{			    
+				    $('#mtongueError').css('color','red');
+				    $("#mtongueError").text("MTongue  cannot be blank.");
+			    }
+				if($('#mtongue').val() ==  null || $('#mtongue').val() == ""  || $('#mtongue').val()=="undefined" ) 
+				{			    
+				    $('#mtongueError').css('color','red');
+				    $("#mtongueError").text("MTongue  cannot be blank.");
+			    }
+				if($('#aboutYourself').val() ==  null || $('#aboutYourself').val() == ""  || $('#aboutYourself').val()=="undefined" ) 
+				{			    
+				    $('#aboutYourselfError').css('color','red');
+				    $("#aboutYourselfError").text("AboutYourself  cannot be blank.");
+			    }
+				if($('#fname').val() ==  null || $('#fname').val() == ""  || $('#fname').val()=="undefined" ) 
+				{			    
+				    $('#fnameError').css('color','red');
+				    $("#fnameError").text("Father Name  cannot be blank.");
+			    }
+				if($('#feducation').val() ==  null || $('#feducation').val() == ""  || $('#feducation').val()=="undefined" ) 
+				{			    
+				    $('#feducationError').css('color','red');
+				    $("#feducationError").text("Father Education  cannot be blank.");
+			    }
+				if($('#foccupation').val() ==  null || $('#foccupation').val() == ""  || $('#foccupation').val()=="undefined" ) 
+				{			    
+				    $('#foccupationError').css('color','red');
+				    $("#foccupationError").text("Father Occupation  cannot be blank.");
+			    }
+				if($('#fnativeAddress').val() ==  null || $('#fnativeAddress').val() == ""  || $('#fnativeAddress').val()=="undefined" ) 
+				{			    
+				    $('#fnativeAddressError').css('color','red');
+				    $("#fnativeAddressError").text("Father Native Address  cannot be blank.");
+			    }
+				if($('#presentAddress').val() ==  null || $('#presentAddress').val() == ""  || $('#presentAddress').val()=="undefined" ) 
+				{			    
+				    $('#presentAddressError').css('color','red');
+				    $("#presentAddressError").text("Present Address  cannot be blank.");
+			    }
+				if($('#phone1').val() ==  null || $('#phone1').val() == ""  || $('#phone1').val()=="undefined" ) 
+				{			    
+				    $('#phone1Error').css('color','red');
+				    $("#phone1Error").text("Mobile  cannot be blank.");
+			    }
+				if($('#email').val() ==  null || $('#email').val() == ""  || $('#email').val()=="undefined" ) 
+				{			    
+				    $('#emailError').css('color','red');
+				    $("#emailError").text("Email  cannot be blank.");
+			    }
+				if($('#mname').val() ==  null || $('#mname').val() == ""  || $('#mname').val()=="undefined" ) 
+				{			    
+				    $('#mnameError').css('color','red');
+				    $("#mnameError").text("Mother Name  cannot be blank.");
+			    }
+				if($('#meducation').val() ==  null || $('#meducation').val() == ""  || $('#meducation').val()=="undefined" ) 
+				{			    
+				    $('#meducationError').css('color','red');
+				    $("#meducationError").text("Mother Education  cannot be blank.");
+			    }
+				if($('#mfName').val() ==  null || $('#mfName').val() == ""  || $('#mfName').val()=="undefined" ) 
+				{			    
+				    $('#mfNameError').css('color','red');
+				    $("#mfNameError").text("Mother Father's  cannot be blank.");
+			    }
+				if($('#mnativeAddress').val() ==  null || $('#mnativeAddress').val() == ""  || $('#mnativeAddress').val()=="undefined" ) 
+				{			    
+				    $('#mnativeAddressError').css('color','red');
+				    $("#mnativeAddressError").text("Mother Native Address  cannot be blank.");
+			    }
+				if($('#sibilings').val() ==  null || $('#sibilings').val() == ""  || $('#sibilings').val()=="undefined" ) 
+				{			    
+				    $('#sibilingsError').css('color','red');
+				    $("#sibilingsError").text("Sibilings  cannot be blank.");
+			    }
+				if($('#property').val() ==  null || $('#property').val() == ""  || $('#property').val()=="undefined" ) 
+				{			    
+				    $('#propertyError').css('color','red');
+				    $("#propertyError").text("Property  cannot be blank.");
+			    }
+				if($('#branch').val() ==  null || $('#branch').val() == ""  || $('#branch').val()=="undefined" ) 
+				{			    
+				    $('#branchError').css('color','red');
+				    $("#branchError").text("Branch  cannot be blank.");
+			    }
+				if($('#education').val() ==  null || $('#education').val() == ""  || $('#education').val()=="undefined" ) 
+				{			    
+				    $('#educationError').css('color','red');
+				    $("#educationError").text("Education  cannot be blank.");
+			    }
+				if($('#occupation').val() ==  null || $('#occupation').val() == ""  || $('#occupation').val()=="undefined" ) 
+				{			    
+				    $('#occupationError').css('color','red');
+				    $("#occupationError").text("occupation  cannot be blank.");
+			    }
+				if($('#occupationDetails').val() ==  null || $('#occupationDetails').val() == ""  || $('#occupationDetails').val()=="undefined" ) 
+				{			    
+				    $('#occupationDetailsError').css('color','red');
+				    $("#occupationDetailsError").text("occupation Details  cannot be blank.");
+			    }
+				if($('#sinceWorking').val() ==  null || $('#sinceWorking').val() == ""  || $('#sinceWorking').val()=="undefined" ) 
+				{			    
+				    $('#sinceWorkingError').css('color','red');
+				    $("#sinceWorkingError").text("Since Working  cannot be blank.");
+			    }
+				if($('#ncitizenOf').val() ==  null || $('#ncitizenOf').val() == ""  || $('#ncitizenOf').val()=="undefined" ) 
+				{			    
+				    $('#ncitizenOfError').css('color','red');
+				    $("#ncitizenOfError").text("CitizenOf  cannot be blank.");
+			    }
+				if($('#crCountry').val() ==  null || $('#crCountry').val() == ""  || $('#crCountry').val()=="undefined" ) 
+				{			    
+				    $('#crCountryError').css('color','red');
+				    $("#crCountryError").text("Country  cannot be blank.");
+			    }
+				if($('#ageGap').val() ==  null || $('#ageGap').val() == ""  || $('#ageGap').val()=="undefined" ) 
+				{			    
+				    $('#ageGapError').css('color','red');
+				    $("#ageGapError").text("AgeGap  cannot be blank.");
+			    }
+				if($('#rHeightFrom').val() ==  null || $('#rHeightFrom').val() == ""  || $('#rHeightFrom').val()=="undefined" ) 
+				{			    
+				    $('#rHeightFromError').css('color','red');
+				    $("#rHeightFromError").text("HeightFrom  cannot be blank.");
+			    }
+				if($('#rHeightTo').val() ==  null || $('#rHeightTo').val() == ""  || $('#rHeightTo').val()=="undefined" ) 
+				{			    
+				    $('#rHeightToError').css('color','red');
+				    $("#rHeightToError").text("HeightTo  cannot be blank.");
+			    }
+				if($('#rComplexion').val() ==  null || $('#rComplexion').val() == ""  || $('#rComplexion').val()=="undefined" ) 
+				{			    
+				    $('#rComplexionError').css('color','red');
+				    $("#rComplexionError").text("Complexion  cannot be blank.");
+			    }
+				if($('#rprofession').val() ==  null || $('#rprofession').val() == ""  || $('#rprofession').val()=="undefined" ) 
+				{			    
+				    $('#rprofessionError').css('color','red');
+				    $("#rprofessionError").text("Profession  cannot be blank.");
+			    }
+				if(!this.form.Users_terms.checked || $('#Users_terms').val() != 1 || $('#Users_terms').val()=="undefined" ) {
+					$('#Users_termsError').css('color','red');
+				    $("#Users_termsError").text("Please check the terms & conditions.");
+				}else if(this.form.Users_terms.checked){$('#Users_termsError').text("");}
+
+				return false;
+				 $("#creteProfile-form").submit();
+			}
+			});
+
+
+
+
+
+
+
+
+
 $('.widow_divorcee_details').hide();
 function check_mstatus()
 {
