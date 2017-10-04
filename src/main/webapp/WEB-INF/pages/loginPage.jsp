@@ -65,17 +65,19 @@
 		</h1>
 		<div class="login-body">
 			<h2>SIGN IN</h2>
-			<form:form commandName="loginForm" action="loginAction" method='post' class='form-validate' id="test">
+			<form:form commandName="loginForm" action="loginAction" method='post' class='form-validate' id="loginform">
 				<div class="form-group">
 					<div class="email controls">
-						<form:input path="userName" placeholder="User Name" class='form-control'/>
+						<form:input path="userName" placeholder="User Name"  autocomplete="off" onblur="validate(this.id);" class='form-control'/>
+						<span class="hasError" id="userNameError"></span>
 						<div><form:errors path="userName" cssClass="error" /></div>	
 						<div></div>
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="pw controls">
-					<form:password path="password" placeholder="Password" class='form-control'/>
+					<form:password path="password" placeholder="Password"   autocomplete="off" onblur="validate1(this.id);" class='form-control'/>
+					<span class="hasError" id="passwordError"></span>
 					<div><form:errors path="password" cssClass="error" /></div>	
 					</div>
 				</div>
@@ -84,7 +86,7 @@
 						<input type="checkbox" name="remember" class='icheck-me' data-skin="square" data-color="blue" id="remember">
 						<label for="remember">Remember me</label>
 					</div> -->
-					<input type="submit" value="Sign in" class='btn btn-primary'>
+					<input type="submit" value="Sign in"  id="submit1"  class='btn btn-primary'>
 				</div>
 			</form:form>
 			<div class="forget">
@@ -95,6 +97,51 @@
 		</div>
 	</div>
 	<script type="text/javascript">
+	function validate(id){
+		if($('#userName').val() ==  null || $('#userName').val() == ""  || $('#userName').val()=="undefined" ) {
+			$('#userNameError').css('color','red');
+		    $("#userNameError").text("UserName  cannot be blank.");
+		}else{
+			$("#userNameError").text("");
+		}
+		}
+	function validate1(id){
+		if($('#password').val() ==  null || $('#password').val() == ""  || $('#password').val()=="undefined" ) {
+			$('#passwordError').css('color','red');
+		    $("#passwordError").text("Password cannot be blank.");
+		}else{
+			$("#passwordError").text("");
+		}
+		}
+	
+	
+	$("#submit1").click(function()
+			{			
+				if($('#userName').val() ==  null || $('#userName').val() == ""  || $('#userName').val()=="undefined")
+				{
+					if($('#userName').val() ==  null || $('#userName').val() == ""  || $('#userName').val()=="undefined" ) 
+					{
+					    $('#userNameError').css('color','red');
+					    $("#userNameError").text("UserName cannot be blank.");
+				    }
+					if($('#password').val() ==  null || $('#password').val() == ""  || $('#password').val()=="undefined" ) 
+					{
+					    $('#passwordError').css('color','red');
+					    $("#passwordError").text("Password cannot be blank.");
+				    }
+					return false;
+					 $("#loginform").submit();
+				}
+				});
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	var _gaq = _gaq || [];
 	_gaq.push(['_setAccount', 'UA-38620714-4']);
 	_gaq.push(['_trackPageview']);

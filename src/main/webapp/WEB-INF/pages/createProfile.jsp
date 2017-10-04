@@ -11,6 +11,8 @@
     }
 </style>
 <%-- <% pages1 = "createprofile"; %> --%>
+<link href="${baseurl }/css/datepicker1.css" rel="stylesheet" type="text/css" />
+<script src="${baseurl }/js/jquery-ui.min.js"></script>
 <div id="main">
 <div class="container-fluid">
 	<div class="page-header">
@@ -57,7 +59,7 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.createdByName" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-								  		<form:input path="created_by" type="text" class="form-control numericOnly"  autocomplete="off" onblur="validate(this.id);" maxlength="255"/>						
+								  		<form:input path="created_by" type="text" class="form-control" autocomplete="off" onblur="validate(this.id);" maxlength="255"/>						
 								  		<span class="hasError" id="created_byError"></span>
 								  		<div><form:errors path="created_by" cssClass="error" /></div>
 									</div>
@@ -65,7 +67,7 @@
 							  	<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.executiveName" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-									<form:input path="executiveName" type="text" class="form-control onlyCharacters" autocomplete="off" onblur="validate1(this.id);"  maxlength="255"/>	
+									<form:input path="executiveName" type="text" class="form-control onlyCharacters" autocomplete="off" onblur="validate1(this.id);" maxlength="255"/>	
 									<span class="hasError" id="executiveNameError"></span>
 									<div><form:errors path="executiveName" cssClass="error" /></div>
 									</div>
@@ -91,7 +93,7 @@
 							  	<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.subCaste" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-									<form:input path="subCaste" type="text" class="form-control onlyCharacters" autocomplete="off" onblur="validate3(this.id);"  maxlength="255"/>	
+									<form:input path="subCaste" type="text" class="form-control" autocomplete="off" onblur="validate3(this.id);"  maxlength="255"/>	
 								  		<%-- <form:select path="subCaste" class="form-control" tabindex="2" onchange="classNameFilter()" required="true">
 											<form:option value="" >-- Choose Board --</form:option>
 										</form:select>
@@ -483,23 +485,27 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.religion" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-4">
-										<form:select path="religion" class="form-control" style="width:200px;" >
-											<form:option value="">-- Choose religion --</form:option>
+										<form:select path="religion" class="form-control" onblur="validate12(this.id);" style="width:200px;" >
+											<form:option value="">-- Choose Religion --</form:option>
 											<form:options items="${religion}"></form:options>
 										</form:select>
+									<span class="hasError" id="religionError"></span>
+									<div><form:errors path="religion" cssClass="error" /></div>
 									</div>
 							  	</div>
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.motherTongue" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-										<form:input path="mtongue"  class="form-control" />
+										<form:input path="mtongue"  class="form-control onlyCharacters"  autocomplete="off" onblur="validate13(this.id);"/>
+									<span class="hasError" id="mtongueError"></span>
+									<div><form:errors path="mtongue" cssClass="error" /></div>
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.spokenLanguages" text="default text" /></label>
 									<div class="col-sm-4">
-										<form:select path="sLanguages" class="form-control" style="width:200px;" >
-											<form:option value="">-- Choose religion --</form:option>
+										<form:select path="sLanguages" class="form-control"  style="width:200px;" >
+											<form:option value="">-- Choose Spoken Languages --</form:option>
 											<form:options items="${language}"></form:options>
 										</form:select>
 									</div>
@@ -507,7 +513,9 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.aboutYourself" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-									<form:textarea path="aboutYourself" class="form-control"/>
+									<form:textarea path="aboutYourself"  autocomplete="off" onblur="validate14(this.id);" class="form-control onlyCharacters"/>
+									<span class="hasError" id="aboutYourselfError"></span>
+									<div><form:errors path="aboutYourself" cssClass="error" /></div>
 									</div>
 								</div>
 							</div>
@@ -516,25 +524,31 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.fatherName" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-									<form:input path="fname"  class="form-control" />
+									<form:input path="fname"  class="form-control onlyCharacters"  autocomplete="off" onblur="validate15(this.id);"/>
+							  		<span class="hasError" id="fnameError"></span>
+									<div><form:errors path="fname" cssClass="error" /></div>
 							  		</div>
 								</div>
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.fatherEducation" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-										<form:select path="feducation" class="form-control" style="width:200px;" >
-											<form:option value="">-- Choose religion --</form:option>
+										<form:select path="feducation" class="form-control"  onblur="validate16(this.id);" style="width:200px;" >
+											<form:option value="">-- Choose Father Education --</form:option>
 											<form:options items="${education}"></form:options>
 										</form:select>
+									<span class="hasError" id="feducationError"></span>
+									<div><form:errors path="feducation" cssClass="error" /></div>
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.fatherOccupation" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-										<form:select path="foccupation" class="form-control" style="width:200px;" >
-											<form:option value="">-- Choose occupation --</form:option>
+										<form:select path="foccupation" class="form-control" onblur="validate17(this.id);"   style="width:200px;" >
+											<form:option value="">-- Choose Father occupation --</form:option>
 											<form:options items="${occupation}"></form:options>
 										</form:select>
+									<span class="hasError" id="foccupationError"></span>
+									<div><form:errors path="foccupation" cssClass="error" /></div>
 									</div>
 								</div>
 								<div class="form-group">
@@ -553,37 +567,45 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.fatherNativeAddress" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-									<form:textarea path="fnativeAddress"  class="form-control" />
+									<form:textarea path="fnativeAddress" autocomplete="off" onblur="validate18(this.id);"   class="form-control onlyCharacters" />
+								  	<span class="hasError" id="fnativeAddressError"></span>
+									<div><form:errors path="fnativeAddress" cssClass="error" /></div>
 								  	</div>
 								</div>
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.presentAddress" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-									<form:textarea path="presentAddress"  class="form-control" />
+									<form:textarea path="presentAddress" autocomplete="off" onblur="validate19(this.id);"  class="form-control onlyCharacters" />
+							  		<span class="hasError" id="presentAddressError"></span>
+									<div><form:errors path="presentAddress" cssClass="error" /></div>
 							  		</div>
 								</div>
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.contactPhNo" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-									<form:input path="phone1"  class="form-control" />
+									<form:input path="phone1"  class="form-control numericOnly"  maxlength="13" autocomplete="off" onblur="validate20(this.id);"  />
+							  		<span class="hasError" id="phone1Error"></span>
+									<div><form:errors path="phone1" cssClass="error" /></div>
 							  		</div>
 								</div>
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.contactPhNo2" text="default text" /></label>
 									<div class="col-sm-8">
-							  				<form:input path="phone2"  class="form-control" />
+							  				<form:input path="phone2"  maxlength="13" autocomplete="off"  class="form-control numericOnly" />
 							  		</div>
 								</div>
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.landLine" text="default text" /></label>
 									<div class="col-sm-8">
-							  				<form:input path="landLine"  class="form-control" />
+							  				<form:input path="landLine"  maxlength="13" autocomplete="off"  class="form-control numericOnly" />
 							  		</div>
 								</div>
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.email" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-							  			<form:input path="email"  class="form-control" />
+							  			<form:input path="email" onblur="validate21(this.id);"  class="form-control" />
+							  		<span class="hasError" id="emailError"></span>
+									<div><form:errors path="email" cssClass="error" /></div>
 							  		</div>
 								</div>
 								<div class="form-group">
@@ -595,23 +617,27 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.motherName" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-							  			<form:input path="mname"  class="form-control" />
+							  			<form:input path="mname"  class="form-control onlyCharacters"  autocomplete="off" onblur="validate22(this.id);" />
+							  		<span class="hasError" id="mnameError"></span>
+									<div><form:errors path="mname" cssClass="error" /></div>
 							  		</div>
 								</div>
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.motherEducation" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-										<form:select path="meducation" class="form-control" style="width:200px;" >
-											<form:option value="">-- Choose occupation --</form:option>
+										<form:select path="meducation" class="form-control"  onblur="validate23(this.id);" style="width:200px;" >
+											<form:option value="">-- Choose Mother Education --</form:option>
 											<form:options items="${education}"></form:options>
 										</form:select>
+									<span class="hasError" id="meducationError"></span>
+									<div><form:errors path="meducation" cssClass="error" /></div>
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.motherOccupation" text="default text" /></label>
 									<div class="col-sm-8">
 										<form:select path="moccupation" class="form-control" style="width:200px;" >
-											<form:option value="">-- Choose occupation --</form:option>
+											<form:option value="">-- Choose Mother occupation --</form:option>
 											<form:options items="${occupation}"></form:options>
 										</form:select>
 									</div>
@@ -625,25 +651,33 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.mothersFatherName" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-							  			<form:input path="mfName"  class="form-control" />
+							  			<form:input path="mfName"  autocomplete="off" onblur="validate24(this.id);"  class="form-control onlyCharacters" />
+							  		<span class="hasError" id="mfNameError"></span>
+									<div><form:errors path="mfName" cssClass="error" /></div>
 							  		</div>
 								</div>
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.motherNativeAddress" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-								  		<form:textarea path="mnativeAddress"  class="form-control" />
+								  		<form:textarea path="mnativeAddress"  onblur="validate25(this.id);" autocomplete="off"  class="form-control onlyCharacters" />
+								  	<span class="hasError" id="mnativeAddressError"></span>
+									<div><form:errors path="mnativeAddress" cssClass="error" /></div>
 								  	</div>
 								</div>
 								<div class="form-group">
-									<label class="col-sm-4 control-label required"><spring:message code="label.siblings" text="default text" /> <span style="color:red;">*</span></label>
+									<label class="col-sm-4 control-label required"><spring:message code="label.siblings" text="default text" /> <span style="color: red;">*</span></label>
 									<div class="col-sm-8">
-								  		<form:input path="sibilings"  class="form-control" />
+								  		<form:input path="sibilings"  onblur="validate26(this.id);" autocomplete="off"  class="form-control onlyCharacters" />
+								  	<span class="hasError" id="sibilingsError"></span>
+									<div><form:errors path="sibilings" cssClass="error" /></div>
 								  	</div>
 								</div>
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.property" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-								  	     <form:input path="property"  class="form-control" />
+								  	     <form:input path="property" onblur="validate27(this.id);" autocomplete="off"  class="form-control onlyCharacters" />
+								  	<span class="hasError" id="propertyError"></span>
+									<div><form:errors path="property" cssClass="error" /></div>
 								  	</div>
 								</div>
 								<div class="form-group">
@@ -655,10 +689,12 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.selectNearestBranch" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-										<form:select path="branch" class="form-control" style="width:200px;" >
+										<form:select path="branch" class="form-control" onblur="validate28(this.id);"  style="width:200px;" >
 											<form:option value="">-- Choose branch --</form:option>
 											<form:options items="${branch}"></form:options>
 										</form:select>								
+									<span class="hasError" id="branchError"></span>
+									<div><form:errors path="branch" cssClass="error" /></div>
 									</div>
 								</div>
 							</div>
@@ -670,10 +706,12 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.education" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-md-4">
-										<form:select path="education" class="form-control" style="width:200px;" >
+										<form:select path="education" class="form-control" onblur="validate29(this.id);"  style="width:200px;" >
 											<form:option value="">-- Choose education --</form:option>
 											<form:options items="${education}"></form:options>
 										</form:select>
+									<span class="hasError" id="educationError"></span>
+									<div><form:errors path="education" cssClass="error" /></div>
 									</div>
 								</div>
 								<div class="form-group">
@@ -691,22 +729,28 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.occupation" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-md-4">
-										<form:select path="occupation" class="form-control" style="width:200px;" >
+										<form:select path="occupation" class="form-control"   onblur="validate30(this.id);" style="width:200px;" >
 											<form:option value="">-- Choose education --</form:option>
 											<form:options items="${occupation}"></form:options>
 										</form:select>
+									<span class="hasError" id="occupationError"></span>
+									<div><form:errors path="occupation" cssClass="error" /></div>
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.occupationDetails" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-										 <form:input path="occupationDetails"  class="form-control" />
+										 <form:input path="occupationDetails"  autocomplete="off" onblur="validate31(this.id);"  class="form-control onlyCharacters" />
+									<span class="hasError" id="occupationDetailsError"></span>
+									<div><form:errors path="occupationDetails" cssClass="error" /></div>
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.sinceWorking" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-										 <form:input path="sinceWorking"  class="form-control" />
+										 <form:input path="sinceWorking"   autocomplete="off" onblur="validate32(this.id);" class="form-control onlyCharacters" />
+									<span class="hasError" id="sinceWorkingError"></span>
+									<div><form:errors path="sinceWorking" cssClass="error" /></div>
 									</div>
 								</div>
 								<div class="form-group">
@@ -727,19 +771,23 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.citizenOf" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-md-4">
-										<form:select path="ncitizenOf" class="form-control" style="width:200px;" >
-											<form:option value="">-- Choose education --</form:option>
+										<form:select path="ncitizenOf" class="form-control" onblur="validate33(this.id);"  style="width:200px;" >
+											<form:option value="">-- Choose Citizen Of --</form:option>
 											<form:options items="${countries}"></form:options>
 										</form:select>
+									<span class="hasError" id="ncitizenOfError"></span>
+									<div><form:errors path="ncitizenOf" cssClass="error" /></div>
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.currentResidenceCountry" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-md-4">
-										<form:select path="crCountry" class="form-control" style="width:200px;" >
-											<form:option value="">-- Choose education --</form:option>
+										<form:select path="crCountry" class="form-control"  onblur="validate34(this.id);" style="width:200px;" >
+											<form:option value="">-- Choose crCountry --</form:option>
 											<form:options items="${countries}"></form:options>
 										</form:select>
+									<span class="hasError" id="crCountryError"></span>
+									<div><form:errors path="crCountry" cssClass="error" /></div>
 									</div>
 								</div>
 								<div class="form-group">
@@ -769,53 +817,63 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.ageGap" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-										<form:input path="ageGap"  class="form-control" />
+										<form:input path="ageGap"  onblur="validate35(this.id);" autocomplete="pff"  class="form-control " />
 										<div class="errorMessage" id="Users_req_age_em_" style="display:none"></div>
+									<span class="hasError" id="ageGapError"></span>
+									<div><form:errors path="ageGap" cssClass="error" /></div>
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.heightFrom" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-3">
-										<form:select path="rHeightFrom" class="form-control" >
-											<form:option value="">-- Choose height --</form:option>
+										<form:select path="rHeightFrom"  onblur="validate36(this.id);" class="form-control" >
+											<form:option value="">-- Choose Height --</form:option>
 											<form:options items="${height}"></form:options>
 										</form:select>
 										<%-- <form:select path="heightFrom" class="form-control" tabindex="2" required="true">
 											<form:option value="" >-- Choose Height --</form:option>
 										</form:select>
 								  		<div><form:errors path="heightFrom" cssClass="error" /></div> --%>
+									<span class="hasError" id="rHeightFromError"></span>
+									<div><form:errors path="rHeightFrom" cssClass="error" /></div>
 									</div>
 									<label class="col-sm-2 control-label required" style="text-align: center;"><spring:message code="label.to" text="default text"/></label>
 									<div class="col-sm-3">
-										<form:select path="rHeightTo" class="form-control">
-											<form:option value="">-- Choose height --</form:option>
+										<form:select path="rHeightTo" onblur="validate37(this.id);"  class="form-control">
+											<form:option value="">-- Choose Height --</form:option>
 											<form:options items="${height}"></form:options>
 										</form:select>
 										<%-- <form:select path="heightTo" class="form-control" tabindex="2" required="true">
 											<form:option value="" >-- Choose Height --</form:option>
 										</form:select>
 								  		<div><form:errors path="heightTo" cssClass="error" /></div> --%>
+									<span class="hasError" id="rHeightToError"></span>
+									<div><form:errors path="rHeightTo" cssClass="error" /></div>
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.complexion" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-										<form:select path="rComplexion" class="form-control" style="width:200px;" >
-											<form:option value="">-- Choose height --</form:option>
+										<form:select path="rComplexion" class="form-control"  onblur="validate38(this.id);" style="width:200px;" >
+											<form:option value="">-- Choose Complexion --</form:option>
 											<form:options items="${complexion}"></form:options>
 										</form:select>						
-								  		<div><form:errors path="complexion" cssClass="error" /></div>
+								  		<%-- <div><form:errors path="complexion" cssClass="error" /></div> --%>
+									<span class="hasError" id="rComplexionError"></span>
+									<div><form:errors path="rComplexion" cssClass="error" /></div>
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.profession" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
 										<form:select path="rprofession" class="form-control" style="width:200px;" >
-											<form:option value="">-- Choose education --</form:option>
+											<form:option value="">-- Choose Profession --</form:option>
 											<form:options items="${occupation}"></form:options>
 										</form:select>
 										<%-- <form:input path="profession" type="text" class="form-control" maxlength="255"/>						
 								  		<div><form:errors path="profession" cssClass="error" /></div> --%>
+									<span class="hasError" id="rprofessionError"></span>
+									<div><form:errors path="rprofession" cssClass="error" /></div>
 									</div>
 								</div>
 								<div class="form-group">
@@ -827,9 +885,9 @@
 			 					</div>
 			 					<div class="form-group">
 									<div class="col-sm-8 col-sm-offset-4">
-									
-										<input value="1" checked="checked" name="Users[profile_pic_status]" id="Users_terms" type="checkbox" style="cursor: pointer;">
-										<label class="control-label" for="Users_terms" style="cursor: pointer;">I accept the terms & conditions <span style="color:red;">*</span></label>					
+										<input value="1" checked="true" name="Users_terms" id="Users_terms" type="checkbox" style="cursor: pointer;" onclick="validate40(this.id);">
+										<label class="control-label" for="Users_terms" style="cursor: pointer;" onclick="validate40(this.id);">I accept the terms & conditions <span style="color:red;">*</span></label>					
+										<br><span class="hasError" id="Users_termsError"></span>
 									</div>
 			 					</div>
 							</div>
@@ -837,7 +895,7 @@
 						</div>
 						<div class="col-sm-6 col-sm-offset-4">
 							<div class="form-group">
-								<div class="col-sm-8 col-sm-offset-2"><input class="btn btn btn-primary" type="submit" name="yt0" value="Register"></div>
+								<div class="col-sm-8 col-sm-offset-2"><input class="btn btn btn-primary" type="submit"  id="submit1" name="yt0" value="Register"></div>
 							</div>
 						</div>
 					</form:form>
@@ -884,7 +942,7 @@ function validate(id){
 		$('#created_byError').css('color','red');
 	    $("#created_byError").text("Created By cannot be blank.");
 	}else{
-		$("#nameError").text("");
+		$("#created_byError").text("");
 	}
 	}
 function validate1(id){
@@ -964,6 +1022,7 @@ function validate10(id){
 		$('#complexionError').css('color','red');
 	    $("#complexionError").text(" Complexion cannot be blank.");
 	}else{
+		$("#complexionError").text("");
 	}
 	}
 function validate11(id){
@@ -971,6 +1030,7 @@ function validate11(id){
 		$('#gotramError').css('color','red');
 	    $("#gotramError").text(" Gotram cannot be blank.");
 	}else{
+		$("#gotramError").text("");
 	}
 	}
 function validate12(id){
@@ -978,6 +1038,7 @@ function validate12(id){
 		$('#religionError').css('color','red');
 	    $("#religionError").text(" Religion cannot be blank.");
 	}else{
+		$("#religionError").text("");
 	}
 	}
 function validate13(id){
@@ -985,20 +1046,23 @@ function validate13(id){
 		$('#mtongueError').css('color','red');
 	    $("#mtongueError").text(" Mtongue cannot be blank.");
 	}else{
+		$("#mtongueError").text("");
 	}
 	}
-function validate13(id){
+/* function validate13(id){
 	if($('#mtongue').val() ==  null || $('#mtongue').val() == ""  || $('#mtongue').val()=="undefined" ) {
 		$('#mtongueError').css('color','red');
 	    $("#mtongueError").text(" Mtongue cannot be blank.");
 	}else{
+		$("#mtongueError").text("");
 	}
-	}
+	} */
 function validate14(id){
 	if($('#aboutYourself').val() ==  null || $('#aboutYourself').val() == ""  || $('#aboutYourself').val()=="undefined" ) {
 		$('#aboutYourselfError').css('color','red');
 	    $("#aboutYourselfError").text(" AboutYourself cannot be blank.");
 	}else{
+		$("#aboutYourselfError").text("");
 	}
 	}
 function validate15(id){
@@ -1006,6 +1070,7 @@ function validate15(id){
 		$('#fnameError').css('color','red');
 	    $("#fnameError").text(" Father Name cannot be blank.");
 	}else{
+		$("#fnameError").text("");
 	}
 	}
 function validate16(id){
@@ -1013,6 +1078,7 @@ function validate16(id){
 		$('#feducationError').css('color','red');
 	    $("#feducationError").text(" Father Education cannot be blank.");
 	}else{
+		$("#feducationError").text("");
 	}
 	}
 function validate17(id){
@@ -1020,6 +1086,7 @@ function validate17(id){
 		$('#foccupationError').css('color','red');
 	    $("#foccupationError").text(" Father Occupation cannot be blank.");
 	}else{
+		$("#foccupationError").text("");
 	}
 	}
 function validate18(id){
@@ -1027,6 +1094,7 @@ function validate18(id){
 		$('#fnativeAddressError').css('color','red');
 	    $("#fnativeAddressError").text(" Father Native Address cannot be blank.");
 	}else{
+		$("#fnativeAddressError").text("");
 	}
 	}
 function validate19(id){
@@ -1034,6 +1102,7 @@ function validate19(id){
 		$('#presentAddressError').css('color','red');
 	    $("#presentAddressError").text(" Present Address cannot be blank.");
 	}else{
+		$("#presentAddressError").text("");
 	}
 	}
 function validate20(id){
@@ -1041,6 +1110,7 @@ function validate20(id){
 		$('#phone1Error').css('color','red');
 	    $("#phone1Error").text(" Mobile cannot be blank.");
 	}else{
+		$("#phone1Error").text("");
 	}
 	}
 function validate21(id){
@@ -1048,6 +1118,7 @@ function validate21(id){
 		$('#emailError').css('color','red');
 	    $("#emailError").text(" Email cannot be blank.");
 	}else{
+		$("#emailError").text("");
 	}
 	}
 function validate22(id){
@@ -1055,6 +1126,7 @@ function validate22(id){
 		$('#mnameError').css('color','red');
 	    $("#mnameError").text("Mother Name cannot be blank.");
 	}else{
+		$("#mnameError").text("");
 	}
 	}
 function validate23(id){
@@ -1062,6 +1134,7 @@ function validate23(id){
 		$('#meducationError').css('color','red');
 	    $("#meducationError").text(" Mother Education cannot be blank.");
 	}else{
+		$("#meducationError").text("");
 	}
 	}
 function validate24(id){
@@ -1069,6 +1142,7 @@ function validate24(id){
 		$('#mfNameError').css('color','red');
 	    $("#mfNameError").text(" Mother Father's cannot be blank.");
 	}else{
+		$("#mfNameError").text("");
 	}
 	}
 function validate25(id){
@@ -1076,6 +1150,7 @@ function validate25(id){
 		$('#mnativeAddressError').css('color','red');
 	    $("#mnativeAddressError").text(" Mother Native Address cannot be blank.");
 	}else{
+		$("#mnativeAddressError").text("");
 	}
 	}
 function validate26(id){
@@ -1083,6 +1158,7 @@ function validate26(id){
 		$('#sibilingsError').css('color','red');
 	    $("#sibilingsError").text("Sibilings cannot be blank.");
 	}else{
+		$("#sibilingsError").text("");
 	}
 	}
 function validate27(id){
@@ -1090,6 +1166,7 @@ function validate27(id){
 		$('#propertyError').css('color','red');
 	    $("#propertyError").text(" Property cannot be blank.");
 	}else{
+		$("#propertyError").text("");
 	}
 	}
 function validate28(id){
@@ -1097,6 +1174,7 @@ function validate28(id){
 		$('#branchError').css('color','red');
 	    $("#branchError").text(" Branch cannot be blank.");
 	}else{
+		$("#branchError").text("");
 	}
 	}
 function validate29(id){
@@ -1104,6 +1182,7 @@ function validate29(id){
 		$('#educationError').css('color','red');
 	    $("#educationError").text(" Education cannot be blank.");
 	}else{
+		$("#educationError").text("");
 	}
 	}
 function validate30(id){
@@ -1111,6 +1190,7 @@ function validate30(id){
 		$('#occupationError').css('color','red');
 	    $("#occupationError").text(" Occupation cannot be blank.");
 	}else{
+		$("#occupationError").text("");
 	}
 	}
 function validate31(id){
@@ -1118,6 +1198,7 @@ function validate31(id){
 		$('#occupationDetailsError').css('color','red');
 	    $("#occupationDetailsError").text(" Occupation Details cannot be blank.");
 	}else{
+		$("#occupationDetailsError").text("");
 	}
 	}
 function validate32(id){
@@ -1125,6 +1206,7 @@ function validate32(id){
 		$('#sinceWorkingError').css('color','red');
 	    $("#sinceWorkingError").text(" Since Working cannot be blank.");
 	}else{
+		$("#sinceWorkingError").text("");
 	}
 	}
 function validate33(id){
@@ -1132,6 +1214,7 @@ function validate33(id){
 		$('#ncitizenOfError').css('color','red');
 	    $("#ncitizenOfError").text(" CitizenOf cannot be blank.");
 	}else{
+		$("#ncitizenOfError").text("");
 	}
 	}
 function validate34(id){
@@ -1139,6 +1222,7 @@ function validate34(id){
 		$('#crCountryError').css('color','red');
 	    $("#crCountryError").text(" Country cannot be blank.");
 	}else{
+		$("#crCountryError").text("");
 	}
 	}
 function validate35(id){
@@ -1146,6 +1230,7 @@ function validate35(id){
 		$('#ageGapError').css('color','red');
 	    $("#ageGapError").text(" Age Gap cannot be blank.");
 	}else{
+		$("#ageGapError").text("");
 	}
 	}
 function validate36(id){
@@ -1153,6 +1238,7 @@ function validate36(id){
 		$('#rHeightFromError').css('color','red');
 	    $("#rHeightFromError").text("Height From cannot be blank.");
 	}else{
+		$("#rHeightFromError").text("");
 	}
 	}
 function validate37(id){
@@ -1160,6 +1246,7 @@ function validate37(id){
 		$('#rHeightToError').css('color','red');
 	    $("#rHeightToError").text(" Height To cannot be blank.");
 	}else{
+		$("#rHeightToError").text("");
 	}
 	}
 function validate38(id){
@@ -1167,6 +1254,7 @@ function validate38(id){
 		$('#rComplexionError').css('color','red');
 	    $("#rComplexionError").text(" Complexion cannot be blank.");
 	}else{
+		$("#rComplexionError").text("");
 	}
 	}
 function validate39(id){
@@ -1174,6 +1262,7 @@ function validate39(id){
 		$('#rprofessionError').css('color','red');
 	    $("#rprofessionError").text(" Profession cannot be blank.");
 	}else{
+		$("#rprofessionError").text("");
 	}
 	}
 function validate40(id){
