@@ -104,7 +104,9 @@ public class CreateProfileController {
 			objUsersDao.save(objUsersBean);
 			objUserDetailsDao.save(objUsersBean);
 			EmailUtil emailUtil = new EmailUtil();
+			if(StringUtils.isNotBlank(objUsersBean.getEmail())){
 			emailUtil.sendEmail(objUsersBean, objContext, "admin_send_password");
+			}
 			
 			/*listOrderBeans = objCountriesDao.getAllCountries();
 			if (listOrderBeans != null && listOrderBeans.size() > 0) {
