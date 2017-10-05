@@ -35,7 +35,7 @@
 			<div class="portlet" id="yw0">
 				<div class="portlet-content w3-animate-zoom">
 					<!-- Body Type Form Starts Here-->
-					<form:form modelAttribute="branchForm" class="form-horizontal" role="form" id="branch-form" action="addBranch" method="post">								
+					<form:form modelAttribute="branchForm" class="form-horizontal" action="addBranch" role="form" id="branch-form"  method="post">								
 						<div class="form-group">
 							<div class="col-sm-12">
 								<div class="errorMessage" id="Height_invalid_em_" >
@@ -51,7 +51,7 @@
 					  			<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.branchName" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-								  		<form:input path="name" type="text" class="form-control onlyCharacters" autocomplete="off" onblur="validate(this.id);" maxlength="255"/>							
+								  		<form:input path="name" placeholder="Enter Branch Name" type="text" class="form-control onlyCharacters validate" autocomplete="off"  maxlength="255"/>							
 								  		<span class="hasError" id="nameError"></span>
 								  		<div><form:errors path="name" cssClass="error" /></div>										
 									</div>
@@ -61,7 +61,7 @@
 					  			<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.prefix" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-								  		<form:input path="prefix" type="text" class="form-control onlyCharacters"  autocomplete="off" onblur="validate1(this.id);" maxlength="255"/>							
+								  		<form:input path="prefix" placeholder="Enter Prefix " type="text" class="form-control onlyCharacters validate"  autocomplete="off"  maxlength="255"/>							
 								  		<span class="hasError" id="prefixError"></span>
 								  		<div><form:errors path="prefix" cssClass="error" /></div>										
 									</div>
@@ -71,7 +71,7 @@
 					  			<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.adminRegNo" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-								  		<form:input path="admin" type="text" class="form-control numericOnly"  autocomplete="off" onblur="validate2(this.id);" maxlength="255"/>							
+								  		<form:input path="admin" placeholder="Enter Admin Reg No"  type="text" class="form-control numericOnly validate"  autocomplete="off"  maxlength="255"/>							
 								  		<span class="hasError" id="adminError"></span>
 								  		<div><form:errors path="admin" cssClass="error" /></div>										
 									</div>
@@ -83,7 +83,7 @@
 					  			<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.premiumRegNo" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-								  		<form:input path="premium" type="text" class="form-control numericOnly" autocomplete="off" onblur="validate3(this.id);"  maxlength="255"/>							
+								  		<form:input path="premium" placeholder="Enter Premium Reg No" type="text" class="form-control numericOnly validate" autocomplete="off"  maxlength="255"/>							
 								  		<span class="hasError" id="premiumError"></span>
 								  		<div><form:errors path="premium" cssClass="error" /></div>										
 									</div>
@@ -93,7 +93,7 @@
 					  			<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.freeRegNo" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-								  		<form:input path="free" type="text" class="form-control numericOnly" autocomplete="off" onblur="validate4(this.id);"  maxlength="255"/>							
+								  		<form:input path="free" placeholder="Enter Free Reg No" type="text" class="form-control numericOnly validate" autocomplete="off"  maxlength="255"/>							
 								  		<span class="hasError" id="freeError"></span>
 								  		<div><form:errors path="free" cssClass="error" /></div>										
 									</div>
@@ -103,7 +103,7 @@
 					  			<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.widowRegNo" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-								  		<form:input path="widow" type="text" class="form-control numericOnly"  autocomplete="off" onblur="validate5(this.id);" maxlength="255"/>							
+								  		<form:input path="widow" placeholder="Enter Widow / Divorcee Reg No" type="text" class="form-control numericOnly validate"  autocomplete="off"  maxlength="255"/>							
 								  		<span class="hasError" id="widowError"></span>
 								  		<div><form:errors path="widow" cssClass="error" /></div>										
 									</div>
@@ -113,7 +113,7 @@
 					  	<div class="row">
 					  		<div class="col-sm-8 col-offset-sm-4">
 					  			<div class="form-group">
-									<div class="col-sm-4 col-sm-offset-8"><input class="btn btn btn-primary" type="submit"  id="submit1" name="yt0" value="Add"></div>
+									<div class="col-sm-4 col-sm-offset-8"><input class="btn btn btn-primary" type="submit"  id="submit1"  name="yt0" value="Add" ></div>
 							  	</div>
 					  		</div>
 					  	</div>
@@ -153,6 +153,57 @@
 
 		
 <script type="text/javascript">
+/* // input placeholders 
+$("input").each(
+        function(){
+            $(this).data('holder',$(this).attr('placeholder'));
+            $(this).focusin(function(){
+                $(this).attr('placeholder','');
+            });
+            $(this).focusout(function(){
+                $(this).attr('placeholder',$(this).data('holder'));
+            });
+            
+    });
+    // onblur validation 
+$('.validate').blur(function(){
+  var id=  $(this).attr('id');
+  var placeholder =  $(this).attr('placeholder');
+  var value=$("#"+id).val();
+  if(value ==  null || value == ""  || value=="undefined" ) {
+	  $("#"+id+"Error").text("Please "+placeholder);
+  }
+}); 
+    
+var idArray = $.makeArray($('.validate').map(function() {
+	  return this.id;
+	}));
+	console.log(idArray);
+//submit validation
+var validation = false;
+
+$('#submit1').click(function(event) {
+	$.each(idArray , function(i, val) { 
+		 var value=$("#"+idArray[i]).val();
+		 var placeholder =  $("#"+idArray[i]).attr('placeholder');
+		 if(value ==  null || value == ""  || value=="undefined" ) {
+  		  $("#"+idArray[i]+"Error").text("Please "+placeholder);
+  		validation = false;
+  	  }else{
+  		validation = true;
+  	  }
+});
+	if(validation){
+		return true;
+	}else{
+		return false;
+		  event.preventDefault();
+	}
+	}); */
+
+
+
+
 function validate(id){
 	if($('#name').val() ==  null || $('#name').val() == ""  || $('#name').val()=="undefined" ) {
 		$('#nameError').css('color','red');
@@ -208,7 +259,7 @@ function validate5(id){
 
 
 
-$("#submit1").click(function()
+$("#submit14").click(function()
 		{			
 			if($('#name').val() ==  null || $('#name').val() == ""  || $('#name').val()=="undefined" ||$('#prefix').val() ==  null || $('#prefix').val() == ""  || $('#prefix').val()=="undefined")
 			{

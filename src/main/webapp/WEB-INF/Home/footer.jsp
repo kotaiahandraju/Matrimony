@@ -48,3 +48,8 @@
 	<script src="${baseurl }/js/plugins/datatables/extensions/dataTables.scroller.min.js"></script>
 	<script src="${baseurl }/js/ajax.js"></script>
 	<script src="${baseurl }/js/custemValidation.js"></script>
+	<script src="${baseurl }/js/chosen.jquery.js"></script>
+	<script src="${baseurl }/js/custompagination.js"></script>
+	 <script src="${baseurl }/js/prism.js" type="text/javascript" charset="utf-8"></script>
+  <script src="${baseurl }/js/init.js" type="text/javascript" charset="utf-8"></script>
+	

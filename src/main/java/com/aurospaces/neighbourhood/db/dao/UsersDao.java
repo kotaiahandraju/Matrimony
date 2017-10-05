@@ -44,4 +44,5 @@ public class UsersDao extends BaseUsersDao {
 			int maxId = jdbcTemplate.queryForInt(sql);
 			return (maxId+1);
 		}
+	
 }
