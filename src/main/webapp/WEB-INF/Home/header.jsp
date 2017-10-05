@@ -44,6 +44,8 @@ session.setAttribute("baseurl", baseurl);
 	<!-- Color CSS -->
 	<link rel="stylesheet" href="${baseurl }/css/themes.css">
 	<link rel="stylesheet" href="${baseurl }/css/plugins/datatable/TableTools.css">
+	<link rel="stylesheet" href="${baseurl }/css/chosen.css">
+	
 	<!-- jQuery -->
 	<script src="${baseurl }/js/jquery.min.js"></script>
 
@@ -62,6 +64,22 @@ session.setAttribute("baseurl", baseurl);
 <!-- 	<link rel="shortcut icon" href="img/favicon.html" /> -->
 	<!-- Apple devices Homescreen icon -->
 	<link rel="apple-touch-icon-precomposed" href="img/apple-touch-icon-precomposed.png" />
+	<style>
+span.has-error,span.hasError
+{
+  font-weight:normal;
+  border-color: #e73d4a;
+  color:red;
+  margin-top: -3px;
+  display: block !important;
+  position: absolute;
+}
+.your-class::-webkit-input-placeholder {color: #e73d4a !important;}
+.your-class::-moz-placeholder {color: #e73d4a !important;}
+
+.default-class::-webkit-input-placeholder {color: #e73d4a !important;}
+.default-class::-moz-placeholder {color: #e73d4a !important;}
+</style>
 </head>
 
 <body>
@@ -181,4 +199,5 @@ session.setAttribute("baseurl", baseurl);
 			</div>
 		</div>
 	</div>
+	
 		
