@@ -107,7 +107,7 @@ function validate(id){
 
 
 
-$("#submit1").click(function()
+$("#submit11").click(function()
 		{			
 			if($('#name').val() ==  null || $('#name').val() == ""  || $('#name').val()=="undefined")
 			{

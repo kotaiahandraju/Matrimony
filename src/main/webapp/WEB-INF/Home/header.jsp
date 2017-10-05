@@ -23,7 +23,7 @@ session.setAttribute("baseurl", baseurl);
 	<link rel="shortcut icon" href="img/aarna.png"/>
 	
 	<!-- 	animate zoom -->
-	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link rel="stylesheet" href="${baseurl }/css/w3animate.css">
 	<!-- Bootstrap -->
 	<link rel="stylesheet" href="${baseurl }/css/bootstrap.min.css">
 	<!-- jQuery UI -->

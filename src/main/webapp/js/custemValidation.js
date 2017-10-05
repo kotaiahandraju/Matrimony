@@ -183,8 +183,8 @@ $('.validate').blur(function() {
 	if (value == null || value == "" || value == "undefined") {
 		
 		 $("#" + id ).attr("placeholder", "Please " + placeholder);
-		 $("#" + id ).css('border-color','#cc0000');
-		    $("#" + id ).css('color','#cc0000');
+		 $("#" + id ).css('border-color','#e73d4a');
+		    $("#" + id ).css('color','#e73d4a');
 		    $("#" + id ).addClass('your-class');
 //		$("#" + id + "Error").text("Please " + placeholder);
 	} else {
@@ -205,7 +205,13 @@ $('#submit1').click(function(event) {
 		var value = $("#" + idArray[i]).val();
 		var placeholder = $("#" + idArray[i]).attr('placeholder');
 		if (value == null || value == "" || value == "undefined") {
-			$("#" + idArray[i] + "Error").text("Please " + placeholder);
+			
+			 $("#" + idArray[i] ).attr("placeholder", placeholder);
+			 $("#" + idArray[i] ).css('border-color','#e73d4a');
+			    $("#" + idArray[i] ).css('color','#e73d4a');
+			    $("#" + idArray[i] ).addClass('your-class');
+			    
+//			$("#" + idArray[i] + "Error").text("Please " + placeholder);
 			validation = false;
 		} 
 	});

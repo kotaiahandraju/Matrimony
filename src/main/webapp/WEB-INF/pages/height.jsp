@@ -123,7 +123,7 @@ function validate1(id){
 
 
 
-$("#submit1").click(function()
+$("#submit11").click(function()
 		{			
 			if($('#inches').val() ==  null || $('#inches').val() == ""  || $('#inches').val()=="undefined")
 			{
