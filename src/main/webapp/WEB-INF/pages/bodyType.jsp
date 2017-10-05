@@ -13,72 +13,33 @@
 <div class="container-fluid">
 	<div class="page-header">
 		<div class="pull-left">
-			<h1>Body Type</h1> 
-		</div>
-		<div class="pull-right">
-			<ul class="minitiles">
-				<li class='grey'>
-					<a href="#">
-						<i class="fa fa-cogs"></i>
-					</a>
-				</li>
-				<li class='lightgrey'>
-					<a href="#">
-						<i class="fa fa-globe"></i>
-					</a>
-				</li>
-			</ul>
-			<ul class="stats">
-				<li class='satgreen'>
-					<i class="fa fa-money"></i>
-					<div class="details">
-						<span class="big">$324,12</span>
-						<span>Balance</span>
-					</div>
-				</li>
-				<li class='lightred'>
-					<i class="fa fa-calendar"></i>
-					<div class="details">
-						<span class="big">February 22, 2013</span>
-						<span>Wednesday, 13:56</span>
-					</div>
-				</li>
-			</ul>
+			<h1>Branch</h1> 
 		</div>
 	</div>
 	<div class="breadcrumbs">
 		<ul>
 			<li>
-				<a href="more-login.html">Home</a>
-				<i class="fa fa-angle-right"></i>
+				<i class="fa fa-edit"></i>
+				<a href="javascript:void(0)" style="color: blue;text-decoration: none;">Catalog 1</a>
+				<i class="fa fa-angle-right"></i>&nbsp;
 			</li>
 			<li>
-				<a href="forms-basic.html">Forms</a>
-				<i class="fa fa-angle-right"></i>
-			</li>
-			<li>
-				<a href="forms-basic.html">Body Type</a>
+				&nbsp;<i class="fa fa-file"></i>
+				<span style="color: #999;cursor: auto;">Branch</span>
 			</li>
 		</ul>
 		
 	</div>
-	<div class="col-lg-8">
-			<div>
-				<div class="portlet" id="yw0" class="">
-<div class="portlet-content w3-animate-zoom">
-										<c:if test="${not empty msg}">
-											<div class="alert alert-success fadeIn animated">${msg}</div>
-										</c:if>
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="portlet" id="yw0" class="">
+				<div class="portlet-content w3-animate-zoom">
 					<form:form modelAttribute="bodyTypeForm" class="form-horizontal" role="form" id="branch-form" action="addBodyType" method="post">								
-					<div class="form-group">
-						<div class="col-sm-12">
-							<div class="errorMessage" id="Branch_invalid_em_" style="display:none"></div>										</div>
-					  </div>
-						
-						
-						
+						<c:if test="${not empty msg}">
+							<div class="alert alert-success fadeIn animated">${msg}</div>
+						</c:if>					
 						<div class="form-group">
-							 <label class="col-sm-4 control-label required"><spring:message code="label.bodyType" text="default text" /><span style="color:red;">*</span></label>
+							<label class="col-sm-4 control-label required"><spring:message code="label.bodyType" text="default text" /><span style="color:red;">*</span></label>
 							<div class="col-sm-8">
 							<form:hidden path="id"/>
 						  <form:input path="name" type="text" class="form-control onlyCharacters validate" placeholder="Enter Body Type"  autocomplete="off"  maxlength="255"/>						
@@ -89,12 +50,13 @@
 						
 				  			  <div class="form-group">
 							<div class="col-sm-9 col-sm-offset-4"><input class="btn btn btn-primary" type="submit"  id="submit1" name="yt0" value="Add"></div>
-					  </div>
-					  								
+					  	</div>
 					</form:form>
-					</div><!-- form -->
-					</div>
-</div>					</div>
+					<!-- form -->
+				</div>
+			</div>
+		</div>
+	</div>
 
 
 <div class="row">

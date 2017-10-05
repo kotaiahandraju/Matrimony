@@ -74,6 +74,11 @@ span.has-error,span.hasError
   display: block !important;
   position: absolute;
 }
+.your-class::-webkit-input-placeholder {color: #e73d4a !important;}
+.your-class::-moz-placeholder {color: #e73d4a !important;}
+
+.default-class::-webkit-input-placeholder {color: #e73d4a !important;}
+.default-class::-moz-placeholder {color: #e73d4a !important;}
 </style>
 </head>
 

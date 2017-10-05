@@ -181,7 +181,12 @@ $('.validate').blur(function() {
 	var placeholder = $(this).attr('placeholder');
 	var value = $("#" + id).val();
 	if (value == null || value == "" || value == "undefined") {
-		$("#" + id + "Error").text("Please " + placeholder);
+		
+		 $("#" + id ).attr("placeholder", "Please " + placeholder);
+		 $("#" + id ).css('border-color','#cc0000');
+		    $("#" + id ).css('color','#cc0000');
+		    $("#" + id ).addClass('your-class');
+//		$("#" + id + "Error").text("Please " + placeholder);
 	} else {
 		$("#" + id + "Error").text(" ");
 	}
@@ -218,3 +223,16 @@ $('#submit1').click(function(event) {
 	
 	
 });
+
+//
+$('.validate').keydown(function() {
+	var id = $(this).attr('id');
+	removeBorder(id);
+	
+});
+//remove borders
+function removeBorder(el){	
+	  $("#"+el).css("border", ""); 	
+	  $("#"+el).css('color','black');
+	  $('#'+el).addClass('default-class');
+}
