@@ -84,6 +84,7 @@ public class LoginController {
 					
 			} else {
 				redirect.addFlashAttribute("msg", "Login Faile");
+				return "redirect:LoginHome";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

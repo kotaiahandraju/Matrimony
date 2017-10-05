@@ -76,6 +76,9 @@ span.has-error,span.hasError
 		</h1>
 		<div class="login-body">
 			<h2>SIGN IN</h2>
+								<c:if test="${not empty msg}">
+									<div class="alert alert-success fadeIn animated">${msg}</div>
+								</c:if>
 			<form:form commandName="loginForm" action="loginAction" method='post' class='form-validate' id="loginform">
 				<div class="form-group">
 					<div class="email controls">

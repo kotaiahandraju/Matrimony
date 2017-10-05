@@ -9,10 +9,16 @@
  .error {
         color: red; font-weight: bold;
     }
+    select:invalid { color: gray; }
 </style>
 <%-- <% pages1 = "createprofile"; %> --%>
 <link href="${baseurl }/css/datepicker1.css" rel="stylesheet" type="text/css" />
 <script src="${baseurl }/js/jquery-ui.min.js"></script>
+<script>
+$(document).ready(function() {
+		chosenDropDown(); 
+		});
+		</script>
 <div id="main">
 <div class="container-fluid">
 	<div class="page-header">
@@ -82,8 +88,8 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.casteName" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-4">
-								  		<form:select path="cast"  class="form-control" onblur="validate2(this.id);">
-														<form:option value="">-- Choose Cast --</form:option>
+								  		<form:select path="cast" data-placeholder="--Choose Caste--"  class="form-control chosen-select validate">
+														<form:option value="" ></form:option>
 														<form:options items="${cast}"></form:options>
 										</form:select>
 								  		<span class="hasError" id="castError"></span>
@@ -916,6 +922,7 @@ $("#dob").datepicker({
     changeDate : true,
 	changeMonth : true,
 	changeYear : true,
+	yearRange:'1986:+nn',
 	maxDate :0
 });
 
@@ -1276,7 +1283,7 @@ function validate40(id){
 	
 	
 	
-$("#submit1").click(function()
+$("#submit11").click(function()
 		{			
 			if($('#created_by').val() ==  null || $('#created_by').val() == ""  || $('#created_by').val()=="undefined" ||$('#executiveName').val() ==  null || $('#executiveName').val() == ""  || $('#executiveName').val()=="undefined"||$('#cast').val() ==  null || $('#cast').val() == ""  || $('#cast').val()=="undefined" ||$('#subCaste').val() ==  null || $('#subCaste').val() == ""  || $('#subCaste').val()=="undefined"||$('#sname').val() ==  null || $('#sname').val() == ""  || $('#sname').val()=="undefined" ||$('#name').val() ==  null || $('#name').val() == ""  || $('#name').val()=="undefined" ||$('#gender').val() ==  null || $('#gender').val() == ""  || $('#gender').val()=="undefined" ||$('#dob').val() ==  null || $('#dob').val() == ""  || $('#dob').val()=="undefined"||$('#pob').val() ==  null || $('#pob').val() == ""  || $('#pob').val()=="undefined"||$('#height').val() ==  null || $('#height').val() == ""  || $('#height').val()=="undefined"||$('#complexion').val() ==  null || $('#complexion').val() == ""  || $('#complexion').val()=="undefined"||$('#gotram').val() ==  null || $('#gotram').val() == ""  || $('#gotram').val()=="undefined"||$('#religion').val() ==  null || $('#religion').val() == ""  || $('#religion').val()=="undefined"||$('#mtongue').val() ==  null || $('#mtongue').val() == ""  || $('#mtongue').val()=="undefined"||$('#aboutYourself').val() ==  null || $('#aboutYourself').val() == ""  || $('#aboutYourself').val()=="undefined"||$('#fname').val() ==  null || $('#fname').val() == ""  || $('#fname').val()=="undefined"||$('#feducation').val() ==  null || $('#feducation').val() == ""  || $('#feducation').val()=="undefined"||$('#foccupation').val() ==  null || $('#foccupation').val() == ""  || $('#foccupation').val()=="undefined"||$('#fnativeAddress').val() ==  null || $('#fnativeAddress').val() == ""  || $('#fnativeAddress').val()=="undefined"||$('#presentAddress').val() ==  null || $('#presentAddress').val() == ""  || $('#presentAddress').val()=="undefined"||$('#phone1').val() ==  null || $('#phone1').val() == ""  || $('#phone1').val()=="undefined"||$('#email').val() ==  null || $('#email').val() == ""  || $('#email').val()=="undefined"||$('#mname').val() ==  null || $('#mname').val() == ""  || $('#mname').val()=="undefined"||$('#meducation').val() ==  null || $('#meducation').val() == ""  || $('#meducation').val()=="undefined"||$('#mfName').val() ==  null || $('#mfName').val() == ""  || $('#mfName').val()=="undefined"||$('#mnativeAddress').val() ==  null || $('#mnativeAddress').val() == ""  || $('#mnativeAddress').val()=="undefined"||$('#sibilings').val() ==  null || $('#sibilings').val() == ""  || $('#sibilings').val()=="undefined"||$('#property').val() ==  null || $('#property').val() == ""  || $('#property').val()=="undefined"||$('#branch').val() ==  null || $('#branch').val() == ""  || $('#branch').val()=="undefined"||$('#education').val() ==  null || $('#education').val() == ""  || $('#education').val()=="undefined"||$('#occupation').val() ==  null || $('#occupation').val() == ""  || $('#occupation').val()=="undefined"||$('#occupationDetails').val() ==  null || $('#occupationDetails').val() == ""  || $('#occupationDetails').val()=="undefined"||($('#sinceWorking').val() ==  null || $('#sinceWorking').val() == ""  || $('#sinceWorking').val()=="undefined")||$('#ncitizenOf').val() ==  null || $('#ncitizenOf').val() == ""  || $('#ncitizenOf').val()=="undefined"||$('#crCountry').val() ==  null || $('#crCountry').val() == ""  || $('#crCountry').val()=="undefined"||$('#ageGap').val() ==  null || $('#ageGap').val() == ""  || $('#ageGap').val()=="undefined"||$('#rHeightFrom').val() ==  null || $('#rHeightFrom').val() == ""  || $('#rHeightFrom').val()=="undefined"||$('#rHeightTo').val() ==  null || $('#rHeightTo').val() == ""  || $('#rHeightTo').val()=="undefined"||$('#rComplexion').val() ==  null || $('#rComplexion').val() == ""  || $('#rComplexion').val()=="undefined"||$('#rprofession').val() ==  null || $('#rprofession').val() == ""  || $('#rprofession').val()=="undefined"||!this.form.Users_terms.checked || $('#Users_terms').val() != 1 || $('#Users_terms').val()=="undefined")
 			{
@@ -1516,6 +1523,16 @@ function check_mstatus()
 
 $(".profiles").addClass("active");
 $(".createProfile").addClass("active");
+function chosenDropDown(){
+	  var config = {
+		      '.some-select'           : {placeholder:'--- Prasad ----'},
+		      '.some-select-theme'     : {},
+		      '.some-select-state'  : {allow_single_deselect:true}
+		    }
+		    for (var selector in config) {
+		      $(selector).chosen(config[selector]);
+		    }
+	  }
 </script>
 </body>
 
