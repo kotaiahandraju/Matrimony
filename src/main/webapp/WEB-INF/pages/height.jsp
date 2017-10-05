@@ -49,7 +49,7 @@
 						<div class="form-group">
 							<label class="col-sm-4 control-label required"><spring:message code="label.inchesName" text="default text" /> <span style="color:red;">*</span></label>
 							<div class="col-sm-8">
-						  		<form:input path="inches" type="text" class="form-control" autocomplete="off" onblur="validate(this.id);"  maxlength="255"/>						
+						  		<form:input path="inches" type="text" class="form-control validate" autocomplete="off" placeholder="Enter Inches" maxlength="255"/>						
 						  		<span class="hasError" id="inchesError"></span>
 						  		<div><form:errors path="inches" cssClass="error" /></div>										
 							</div>
@@ -57,7 +57,7 @@
 					  	<div class="form-group">
 							<label class="col-sm-4 control-label required"><spring:message code="label.cmName" text="default text" /> <span style="color:red;">*</span></label>
 							<div class="col-sm-8">
-						  		<form:input path="cm" type="text" class="form-control"  autocomplete="off" onblur="validate1(this.id);" maxlength="255"/>						
+						  		<form:input path="cm" type="text" class="form-control validate"  autocomplete="off" placeholder="Enter Cm" maxlength="255"/>						
 						  		<span class="hasError" id="cmError"></span>
 						  		<div><form:errors path="cm" cssClass="error" /></div>										
 							</div>

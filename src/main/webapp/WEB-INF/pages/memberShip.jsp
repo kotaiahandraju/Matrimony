@@ -48,7 +48,7 @@
 						<div class="form-group">
 							<label class="col-sm-4 control-label required"><spring:message code="label.membershipName" text="default text" /><span style="color:red;">*</span></label>
 							<div class="col-sm-8">
-						  		<form:input path="name" type="text" class="form-control nospecialCharacter" autocomplete="off" onblur="validate(this.id);"  maxlength="255"/>						
+						  		<form:input path="name" type="text" class="form-control nospecialCharacter validate" autocomplete="off" placeholder="Enter MemberShip Name"  maxlength="255"/>						
 						  		<span class="hasError" id="nameError"></span>
 						  		<div><form:errors path="name" cssClass="error" /></div>										
 							</div>
@@ -56,7 +56,7 @@
 					  	<div class="form-group">
 							<label class="col-sm-4 control-label required"><spring:message code="label.price" text="default text" /><span style="color:red;">*</span></label>
 							<div class="col-sm-8">
-						  		<form:input path="price" type="text" class="form-control numericOnly" autocomplete="off" onblur="validate1(this.id);"  maxlength="255"/>						
+						  		<form:input path="price" type="text" class="form-control numericOnly validate" autocomplete="off"  placeholder="Enter Price" maxlength="255"/>						
 						  		<span class="hasError" id="priceError"></span>
 						  		<div><form:errors path="price" cssClass="error" /></div>										
 							</div>
@@ -64,7 +64,7 @@
 					  	<div class="form-group">
 							<label class="col-sm-4 control-label required"><spring:message code="label.duration" text="default text" /><span style="color:red;">*</span></label>
 							<div class="col-sm-8">
-						  		<form:input path="duration" type="text" class="form-control numericOnly"  autocomplete="off" onblur="validate2(this.id);" maxlength="255"/>						
+						  		<form:input path="duration" type="text" class="form-control numericOnly validate"  autocomplete="off" Placeholder="Enter Duration" maxlength="255"/>						
 						  		<span class="hasError" id="durationError"></span>
 						  		<div><form:errors path="duration" cssClass="error" /></div>										
 							</div>
@@ -72,7 +72,7 @@
 					  	<div class="form-group">
 							<label class="col-sm-4 control-label required"><spring:message code="label.description" text="default text" /><span style="color:red;">*</span></label>
 							<div class="col-sm-8">
-						  		<form:textarea path="description" type="text" class="form-control nospecialCharacter"  autocomplete="off" onblur="validate3(this.id);" maxlength="255"/>						
+						  		<form:textarea path="description" type="text" class="form-control nospecialCharacter validate"  autocomplete="off" Placeholder="Enter Description" maxlength="255"/>						
 						  		<span class="hasError" id="descriptionError"></span>
 						  		<div><form:errors path="description" cssClass="error" /></div>										
 							</div>

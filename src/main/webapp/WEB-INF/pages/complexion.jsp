@@ -49,7 +49,7 @@
 						<div class="form-group">
 							<label class="col-sm-4 control-label required"><spring:message code="label.complexionName" text="default text" /> <span style="color:red;">*</span></label>
 							<div class="col-sm-8">
-						  		<form:input path="name" type="text" class="form-control onlyCharacters" autocomplete="off" onblur="validate(this.id);"  maxlength="255"/>						
+						  		<form:input path="name" type="text" class="form-control onlyCharacters validate" autocomplete="off" placeholder="Enter Complexion"   maxlength="255"/>						
 						  		<span class="hasError" id="nameError"></span>
 						  		<div><form:errors path="name" cssClass="error" /></div>										
 							</div>
