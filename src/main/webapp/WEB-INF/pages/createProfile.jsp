@@ -59,7 +59,7 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.createdByName" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-								  		<form:input path="created_by" type="text" class="form-control" autocomplete="off" onblur="validate(this.id);" maxlength="255"/>						
+								  		<form:input path="created_by" type="text"  placeholder=" Enter Created By"   class="form-control validate" autocomplete="off" onblur="validate(this.id);" maxlength="255"/>						
 								  		<span class="hasError" id="created_byError"></span>
 								  		<div><form:errors path="created_by" cssClass="error" /></div>
 									</div>
@@ -67,7 +67,7 @@
 							  	<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.executiveName" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-									<form:input path="executiveName" type="text" class="form-control onlyCharacters" autocomplete="off" onblur="validate1(this.id);" maxlength="255"/>	
+									<form:input path="executiveName" type="text" class="form-control onlyCharacters validate"  placeholder=" Enter ExecutiveName" autocomplete="off" onblur="validate1(this.id);" maxlength="255"/>	
 									<span class="hasError" id="executiveNameError"></span>
 									<div><form:errors path="executiveName" cssClass="error" /></div>
 									</div>
@@ -93,7 +93,7 @@
 							  	<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.subCaste" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-									<form:input path="subCaste" type="text" class="form-control" autocomplete="off" onblur="validate3(this.id);"  maxlength="255"/>	
+									<form:input path="subCaste" type="text"  placeholder="Enter SubCast" class="form-control validate" autocomplete="off" onblur="validate3(this.id);"  maxlength="255"/>	
 								  		<%-- <form:select path="subCaste" class="form-control" tabindex="2" onchange="classNameFilter()" required="true">
 											<form:option value="" >-- Choose Board --</form:option>
 										</form:select>
@@ -105,7 +105,7 @@
 							  	<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.surName" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-										<form:input path="sname" type="text" class="form-control onlyCharacters" autocomplete="off" onblur="validate4(this.id);"  maxlength="255"/>						
+										<form:input path="sname" type="text" placeholder="Enter SurName"  class="form-control onlyCharacters validate" autocomplete="off" onblur="validate4(this.id);"  maxlength="255"/>						
 								  		<span class="hasError" id="snameError"></span>
 								  		<div><form:errors path="sname" cssClass="error" /></div>
 									</div>
@@ -113,7 +113,7 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.name" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-										<form:input path="name" type="text" class="form-control onlyCharacters"  autocomplete="off" onblur="validate5(this.id);" maxlength="255"/>						
+										<form:input path="name" type="text" class="form-control onlyCharacters validate" placeholder="Enter Name"  autocomplete="off" onblur="validate5(this.id);" maxlength="255"/>						
 								  		<span class="hasError" id="nameError"></span>
 								  		<div><form:errors path="name" cssClass="error" /></div>
 									</div>
@@ -133,7 +133,7 @@
 							  	<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.dob" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-										<form:input path="dob" type="text" class="form-control"  autocomplete="off" onblur="validate7(this.id);" maxlength="255"/>						
+										<form:input path="dob" type="text" class="form-control validate" placeholder="Enter Date Of Brith" autocomplete="off" onblur="validate7(this.id);" maxlength="255"/>						
 								  		<span class="hasError" id="dobError"></span>
 								  		<div><form:errors path="dob" cssClass="error" /></div>
 									</div>
@@ -141,7 +141,7 @@
 								<div class="form-group">
 									<label class="col-sm-4 col-xs-12 control-label required"><spring:message code="label.tob" text="default text" /></label>
 									<div class="col-sm-8">
-										<form:input path="tob" type="text" class="form-control"  autocomplete="off" onblur="validate8(this.id);" maxlength="255"/>						
+										<form:input path="tob" type="text" class="form-control validate" placeholder="Time Of Brith"  autocomplete="off" onblur="validate8(this.id);" maxlength="255"/>						
 								  		<span class="hasError" id="tobError"></span>
 								  		<div><form:errors path="tob" cssClass="error" /></div>
 									</div>
@@ -150,7 +150,7 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.pob" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-										<form:input path="pob" type="text" class="form-control" autocomplete="off" onblur="validate8(this.id);" maxlength="255"/>						
+										<form:input path="pob" type="text" class="form-control validate" placeholder="Place Of Brith" autocomplete="off" onblur="validate8(this.id);" maxlength="255"/>						
 								  		<span class="hasError" id="pobError"></span>
 								  		<div><form:errors path="pob" cssClass="error" /></div>
 									</div>
@@ -202,13 +202,13 @@
 							  	<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.padam" text="default text" /></label>
 									<div class="col-sm-8">
-										<form:input path="padam" type="text" class="form-control" maxlength="255"/>	
+										<form:input path="padam" type="text"  placeholder=" Enter Padam" class="form-control validate" maxlength="255"/>	
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.gothram" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-										<form:input path="gotram" type="text" class="form-control onlyCharacters" autocomplete="off" onblur="validate11(this.id);"  maxlength="255"/>	
+										<form:input path="gotram" type="text" class="form-control onlyCharacters validate" placeholder="Enter Gotram" autocomplete="off" onblur="validate11(this.id);"  maxlength="255"/>	
 									<span class="hasError" id="gotramError"></span>
 									<div><form:errors path="gotram" cssClass="error" /></div>
 									</div>
@@ -229,13 +229,13 @@
 									<div class="form-group">
 										<label class="col-sm-4 control-label required"><spring:message code="label.defendentName" text="default text" /></label>
 										<div class="col-sm-8">
-							  				<input class="form-control" name="Users[defendent_name]" id="Users_defendent_name" type="text">
+							  				<input class="form-control validate"  placeholder="Enter Defendent Name" name="Users[defendent_name]" id="Users_defendent_name" type="text">
 							  			</div>
 									</div>
 									<div class="form-group">
 										<label class="col-sm-4 control-label required"><spring:message code="label.sOrD" text="default text" /></label>
 										<div class="col-sm-8">
-							  				<input class="form-control" name="Users[son_of]" id="Users_son_of" type="text">
+							  				<input class="form-control validate"  placeholder="Enter S/O or D/o" name="Users[son_of]" id="Users_son_of" type="text">
 							  			</div>
 									</div>
 									<div class="form-group">
@@ -459,25 +459,25 @@
 									<div class="form-group">
 										<label class="col-sm-4 control-label required"><spring:message code="label.courtCase" text="default text" /></label>
 										<div class="col-sm-8">
-							  				<input class="form-control" name="Users[court]" id="Users_court" type="text">
+							  				<input class="form-control validate"  placeholder="Enter Court" name="Users[court]" id="Users_court" type="text">
 							  			</div>
 									</div>
 									<div class="form-group">
 										<label class="col-sm-4 control-label required"><spring:message code="label.reason" text="default text" /></label>
 										<div class="col-sm-8">
-							  				<input class="form-control" name="Users[wm_reason]" id="Users_wm_reason" type="text">
+							  				<input class="form-control validate"  placeholder="Enter Reason" name="Users[wm_reason]" id="Users_wm_reason" type="text">
 							  			</div>
 									</div>
 									<div class="form-group">
 										<label class="col-sm-4 control-label required"><spring:message code="label.maleChildrens" text="default text" /></label>
 										<div class="col-sm-8">
-							  				<input class="form-control" name="Users[male_childrens]" id="Users_male_childrens" type="text">
+							  				<input class="form-control validate" placeholder="Enter Male Childrens"  name="Users[male_childrens]" id="Users_male_childrens" type="text">
 							  			</div>
 									</div>
 									<div class="form-group">
 										<label class="col-sm-4 control-label required"><spring:message code="label.femaleChildrens" text="default text" /></label>
 										<div class="col-sm-8">
-							  				<input class="form-control" name="Users[female_childrens]" id="Users_female_childrens" type="text">
+							  				<input class="form-control validate" placeholder="Enter Female Childrens" name="Users[female_childrens]" id="Users_female_childrens" type="text">
 							  			</div>
 									</div>
 								</div>
@@ -496,7 +496,7 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.motherTongue" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-										<form:input path="mtongue"  class="form-control onlyCharacters"  autocomplete="off" onblur="validate13(this.id);"/>
+										<form:input path="mtongue"  class="form-control onlyCharacters validate" placeholder="Enter Mother Tongue"  autocomplete="off" onblur="validate13(this.id);"/>
 									<span class="hasError" id="mtongueError"></span>
 									<div><form:errors path="mtongue" cssClass="error" /></div>
 									</div>
@@ -513,7 +513,7 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.aboutYourself" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-									<form:textarea path="aboutYourself"  autocomplete="off" onblur="validate14(this.id);" class="form-control onlyCharacters"/>
+									<form:textarea path="aboutYourself"  autocomplete="off" onblur="validate14(this.id);"  placeholder="Enter AboutYourself" class="form-control onlyCharacters validate"/>
 									<span class="hasError" id="aboutYourselfError"></span>
 									<div><form:errors path="aboutYourself" cssClass="error" /></div>
 									</div>
@@ -524,7 +524,7 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.fatherName" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-									<form:input path="fname"  class="form-control onlyCharacters"  autocomplete="off" onblur="validate15(this.id);"/>
+									<form:input path="fname"  class="form-control onlyCharacters validate" placeholder="Enter Father Name"  autocomplete="off" onblur="validate15(this.id);"/>
 							  		<span class="hasError" id="fnameError"></span>
 									<div><form:errors path="fname" cssClass="error" /></div>
 							  		</div>
@@ -554,7 +554,7 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.fatherOccupationDetails" text="default text" /></label>
 									<div class="col-sm-8">
-									<form:input path="foDetails"  class="form-control" />
+									<form:input path="foDetails"  class="form-control validate" />
 							  			
 								  	</div>
 								</div>

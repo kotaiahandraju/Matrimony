@@ -23,6 +23,7 @@
 	<meta names="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
 	<title>Matrimony - Login</title>
+	<link rel="shortcut icon" href="img/aarna-fav.png"/>
 
 	<!-- Bootstrap -->
 	<link rel="stylesheet" href="css/bootstrap.min.css">
@@ -51,24 +52,34 @@
 
 
 	<!-- Favicon -->
-	<link rel="shortcut icon" href="img/favicon.html" />
+<!-- 	<link rel="shortcut icon" href="img/favicon.html" /> -->
 	<!-- Apple devices Homescreen icon -->
 	<link rel="apple-touch-icon-precomposed" href="img/apple-touch-icon-precomposed.png" />
-
+<style>
+span.has-error,span.hasError
+{
+  font-weight:normal;
+  border-color: #e73d4a;
+  color:red;
+  margin-top: -3px;
+  display: block !important;
+  position: absolute;
+}
+</style>
 </head>
 
 <body class='login'>
 	<div class="wrapper">
 		<h1>
 			<a href="#">
-				<img src="img/logo-big.png" alt="" class='retina-ready' width="59" height="49">AARNA</a>
+				<img src="img/aarna-fav.png" alt="" class='retina-ready' width="59" height="49">AARNA</a>
 		</h1>
 		<div class="login-body">
 			<h2>SIGN IN</h2>
 			<form:form commandName="loginForm" action="loginAction" method='post' class='form-validate' id="loginform">
 				<div class="form-group">
 					<div class="email controls">
-						<form:input path="userName" placeholder="User Name"  autocomplete="off" onblur="validate(this.id);" class='form-control'/>
+						<form:input path="userName" placeholder="User Name" autocomplete="off" onblur="validate('userName','Please Enter Username..!');" class='form-control'/>
 						<span class="hasError" id="userNameError"></span>
 						<div><form:errors path="userName" cssClass="error" /></div>	
 						<div></div>
@@ -76,7 +87,7 @@
 				</div>
 				<div class="form-group">
 					<div class="pw controls">
-					<form:password path="password" placeholder="Password"   autocomplete="off" onblur="validate1(this.id);" class='form-control'/>
+					<form:password path="password" placeholder="Password" autocomplete="off" onblur="validate('password','Password cannot be blank..!');" class='form-control'/>
 					<span class="hasError" id="passwordError"></span>
 					<div><form:errors path="password" cssClass="error" /></div>	
 					</div>
@@ -97,7 +108,16 @@
 		</div>
 	</div>
 	<script type="text/javascript">
-	function validate(id){
+	function validate(id, errorMessage)
+	{
+		if($('#'+id).val() ==  null || $('#'+id).val() == ""  || $('#'+id).val()=="undefined" ) {
+			$('#'+id+'Error').text(errorMessage);
+		}else{
+			$('#'+id+'Error').text("");
+		}
+	}
+	
+	/* function validate1(id){
 		if($('#userName').val() ==  null || $('#userName').val() == ""  || $('#userName').val()=="undefined" ) {
 			$('#userNameError').css('color','red');
 		    $("#userNameError").text("UserName  cannot be blank.");
@@ -105,14 +125,14 @@
 			$("#userNameError").text("");
 		}
 		}
-	function validate1(id){
+	function validate2(id){
 		if($('#password').val() ==  null || $('#password').val() == ""  || $('#password').val()=="undefined" ) {
 			$('#passwordError').css('color','red');
 		    $("#passwordError").text("Password cannot be blank.");
 		}else{
 			$("#passwordError").text("");
 		}
-		}
+		} */
 	
 	
 	$("#submit1").click(function()
