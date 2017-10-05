@@ -9,10 +9,16 @@
  .error {
         color: red; font-weight: bold;
     }
+    select:invalid { color: gray; }
 </style>
 <%-- <% pages1 = "createprofile"; %> --%>
 <link href="${baseurl }/css/datepicker1.css" rel="stylesheet" type="text/css" />
 <script src="${baseurl }/js/jquery-ui.min.js"></script>
+<script>
+$(document).ready(function() {
+		chosenDropDown(); 
+		});
+		</script>
 <div id="main">
 <div class="container-fluid">
 	<div class="page-header">
@@ -82,8 +88,8 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.casteName" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-4">
-								  		<form:select path="cast"  class="form-control" onblur="validate2(this.id);">
-														<form:option value="">-- Choose Cast --</form:option>
+								  		<form:select path="cast" data-placeholder="--Choose Caste--"  class="form-control chosen-select validate">
+														<form:option value="" ></form:option>
 														<form:options items="${cast}"></form:options>
 										</form:select>
 								  		<span class="hasError" id="castError"></span>
@@ -916,6 +922,7 @@ $("#dob").datepicker({
     changeDate : true,
 	changeMonth : true,
 	changeYear : true,
+	yearRange:'1986:+nn',
 	maxDate :0
 });
 
@@ -1283,7 +1290,7 @@ function validate40(id){
 	
 	
 	
-$("#submit1").click(function()
+$("#submit11").click(function()
 		{			
 			if($('#created_by').val() ==  null || $('#created_by').val() == ""  || $('#created_by').val()=="undefined")
 			{
@@ -1523,6 +1530,16 @@ function check_mstatus()
 
 $(".profiles").addClass("active");
 $(".createProfile").addClass("active");
+function chosenDropDown(){
+	  var config = {
+		      '.some-select'           : {placeholder:'--- Prasad ----'},
+		      '.some-select-theme'     : {},
+		      '.some-select-state'  : {allow_single_deselect:true}
+		    }
+		    for (var selector in config) {
+		      $(selector).chosen(config[selector]);
+		    }
+	  }
 </script>
 </body>
 
