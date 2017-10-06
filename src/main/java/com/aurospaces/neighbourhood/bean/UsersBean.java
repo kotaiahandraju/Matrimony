@@ -210,6 +210,7 @@ public class UsersBean {
 	public void setMstatus(String mstatus) {
 		this.mstatus = mstatus;
 	}
+	
 	public Date getDob1() {
 		return dob1;
 	}

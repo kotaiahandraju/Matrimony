@@ -49,7 +49,7 @@ public class UsersDao extends BaseUsersDao {
 	 public List<Map<String, String>> getAllProfiles1(UsersBean objUsersBean){
 			jdbcTemplate = custom.getJdbcTemplate();
 			StringBuffer buffer = new StringBuffer();
-			buffer.append("select u.created_time,u.updated_time,u.role_id,r.role_name as rolename,u.username,u.password,"
+			buffer.append("select u.id, u.created_time,u.updated_time,u.role_id,r.role_name as rolename,u.username,u.password,"
 					+ "u.email,u.name,u.sname,u.gender,u.height,h.inches as inches,h.cm as cm,u.mstatus,u.dob,u.tob,u.pob,"
 					+ "u.created_by,u.cast,c.name as castname,u.complexion,co.name as complexionName,u.mtongue,u.education,"
 					+ "e.name as educationName,emply_type,fname,feducation,e1.name as fatherEducation,foccupation,"
@@ -81,7 +81,7 @@ public class UsersDao extends BaseUsersDao {
 			String sql =buffer.toString();
 //			System.out.println(sql);
 			
-			RowValueCallbackHandler handler = new RowValueCallbackHandler(new String[] {"created_time","updated_time",
+			RowValueCallbackHandler handler = new RowValueCallbackHandler(new String[] {"id","created_time","updated_time",
 					"role_id","rolename","username","password","email","name","sname","gender","height","inches","cm",
 					"mstatus","dob","tob","pob","created_by","cast","castname","complexion","complexionName","mtongue",
 					"education","educationName","emply_type","fname","feducation","fatherEducation","foccupation",

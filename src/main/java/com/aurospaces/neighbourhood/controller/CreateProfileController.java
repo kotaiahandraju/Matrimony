@@ -100,6 +100,7 @@ public class CreateProfileController {
 			objUsersBean.setLast_ip(ipAddress);
 			}
 			objUsersBean.setPassword(MiscUtils.generateRandomString(6));
+			
 			objUsersBean.setRole_id(4);
 			objUsersDao.save(objUsersBean);
 			objUserDetailsDao.save(objUsersBean);
@@ -133,11 +134,11 @@ public class CreateProfileController {
 	public String getAllProfiles(@ModelAttribute("createProfile") UsersBean objUsersBean, ModelMap model,
 			HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
 		System.out.println("getAllProfiles Page");
-		List<UsersBean> listOrderBeans = null;
+		List<Map<String, String>> listOrderBeans = null;
 		ObjectMapper objectMapper = null;
 		String sJson = null;
 		try {
-			listOrderBeans = objUsersDao.getAllProfiles();
+			listOrderBeans = objUsersDao.getAllProfiles1(objUsersBean);
 			if (listOrderBeans != null && listOrderBeans.size() > 0) {
 				objectMapper = new ObjectMapper();
 				sJson = objectMapper.writeValueAsString(listOrderBeans);

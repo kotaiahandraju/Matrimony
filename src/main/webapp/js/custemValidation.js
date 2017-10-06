@@ -147,9 +147,9 @@ $(".onlyCharacters").on("keypress",	function(event) {
 			return false;
 		});
 
-$('.onlyCharacters').on("paste", function(e) {
+/*$('.onlyCharacters').on("paste", function(e) {
 	e.preventDefault();
-});
+});*/
 
 // ---------------------------------------------------
 

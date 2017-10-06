@@ -47,7 +47,7 @@
 							</div>
 					  	</div>
 					  	<div class="row">
-					  		<div class="col-lg-4 col-md-4">
+					  		<div class="col-lg-4 col-md-6">
 					  			<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.branchName" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
@@ -57,7 +57,7 @@
 									</div>
 							  	</div>
 					  		</div>
-					  		<div class="col-lg-4 col-md-4">
+					  		<div class="col-lg-4 col-md-6">
 					  			<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.prefix" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
@@ -67,7 +67,7 @@
 									</div>
 							  	</div>
 					  		</div>
-					  		<div class="col-lg-4 col-md-4">
+					  		<div class="col-lg-4 col-md-6">
 					  			<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.adminRegNo" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
