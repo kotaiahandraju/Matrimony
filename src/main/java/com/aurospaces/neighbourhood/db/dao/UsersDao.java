@@ -46,7 +46,7 @@ public class UsersDao extends BaseUsersDao {
 			int maxId = jdbcTemplate.queryForInt(sql);
 			return (maxId+1);
 		}
-	 public List<Map<String, String>> getAllProfiles1(UsersBean objUsersBean){
+	 public List<Map<String, String>> getAllProfiles1(UsersBean objUsersBean,String type){
 			jdbcTemplate = custom.getJdbcTemplate();
 			StringBuffer buffer = new StringBuffer();
 			buffer.append("select u.id, u.created_time,u.updated_time,u.role_id,r.role_name as rolename,u.username,u.password,"
@@ -75,11 +75,17 @@ public class UsersDao extends BaseUsersDao {
 					+ "lg.id=ud.sLanguages left join occupation oc3 on oc3.id=ud.Occupation left join countries ct2 on "
 					+ "ct2.id=ud.ncitizenOf left join countries ct3 on ct3.id=ud.crCountry left join height ht2 on "
 					+ "ht2.id=rHeightFrom left join height ht3 on ht3.id=rHeightTo left join complexion co1 on "
-					+ "co1.id=ud.rComplexion left join occupation oc4 on oc4.id=ud.rprofession");
+					+ "co1.id=ud.rComplexion left join occupation oc4 on oc4.id=ud.rprofession where 1=1 ");
 			
+			if(type.equals("all")){
+				buffer.append( " and u.status in( '0','1')" );
+			}
+			if(type.equals("delete")){
+				buffer.append( " and u.status in( '2')" );
+			}
 			
 			String sql =buffer.toString();
-//			System.out.println(sql);
+			System.out.println(sql);
 			
 			RowValueCallbackHandler handler = new RowValueCallbackHandler(new String[] {"id","created_time","updated_time",
 					"role_id","rolename","username","password","email","name","sname","gender","height","inches","cm",
@@ -99,6 +105,24 @@ public class UsersDao extends BaseUsersDao {
 			List<Map<String, String>> result = handler.getResult();
 			return result;
 			
+		}
+		public boolean updateStatus(UsersBean objUsersBean) {
+		 jdbcTemplate = custom.getJdbcTemplate();
+			boolean isStatusUpdate = false;
+			try {
+				String sSql = "update users set status = ? where id = ?";
+				int iCount = jdbcTemplate.update(sSql,
+						objUsersBean.getStatus(),
+						objUsersBean.getId());
+				if (iCount != 0) {
+					isStatusUpdate = true;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+
+			}
+			return isStatusUpdate;
 		}
 	
 }

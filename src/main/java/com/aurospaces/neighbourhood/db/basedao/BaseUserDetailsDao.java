@@ -147,7 +147,7 @@ public class BaseUserDetailsDao {
 
 	public UsersBean getById(int id) {
 		jdbcTemplate = custom.getJdbcTemplate();
-		String sql = "SELECT * from userdetails where id = ?";
+		String sql = "SELECT * from userdetails where userId = ?";
 		List<UsersBean> retlist = jdbcTemplate.query(sql, new Object[] { id },
 				ParameterizedBeanPropertyRowMapper.newInstance(UsersBean.class));
 		if (retlist.size() > 0)

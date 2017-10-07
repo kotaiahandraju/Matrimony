@@ -4,6 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.ui.Model;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -11,11 +12,15 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.aurospaces.neighbourhood.bean.BranchBean;
@@ -42,7 +47,7 @@ public class CreateProfileController {
    @Autowired
 	ServletContext objContext;
 	@RequestMapping(value = "/CreateProfile")
-	public String CreateProfile(@ModelAttribute("createProfile") UsersBean objUsersBean, ModelMap model,
+	public String CreateProfile(@ModelAttribute("createProfile") UsersBean objUsersBean, Model objeModel ,
 			HttpServletRequest request, HttpSession session) {
 		System.out.println("CreateProfile Page");
 		List<ContriesBean> listOrderBeans = null;
@@ -51,6 +56,8 @@ public class CreateProfileController {
 		String ipAddress = null;
 		
 		try {
+//			objUsersBean =objUsersDao.getById(2756);
+			objeModel.addAttribute("createProfile", objUsersBean);
 			 ipAddress =MiscUtils.getClientIpAddress(request);
 		
 			/*listOrderBeans = objCountriesDao.getAllCountries();
@@ -74,6 +81,44 @@ public class CreateProfileController {
 		}
 		return "createProfile";
 	}
+	@RequestMapping(value = "/CreateProfile/{id}/{page}")
+	public String CreateProfile1(@ModelAttribute("createProfile") UsersBean objUsersBean, Model objeModel ,
+			HttpServletRequest request, HttpSession session, @PathVariable("id") int id,@PathVariable("page") String pageName) {
+		System.out.println("CreateProfile Page");
+		List<ContriesBean> listOrderBeans = null;
+		ObjectMapper objectMapper = null;
+		String sJson = null;
+		String ipAddress = null;
+		
+		try {
+			objUsersBean =objUsersDao.getById(id);
+			objUsersBean.setPageName(pageName);
+//			objUsersBean = objUserDetailsDao.getById(id);
+			objeModel.addAttribute("createProfile", objUsersBean);
+			 ipAddress =MiscUtils.getClientIpAddress(request);
+		
+			/*listOrderBeans = objCountriesDao.getAllCountries();
+			if (listOrderBeans != null && listOrderBeans.size() > 0) {
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(listOrderBeans);
+				request.setAttribute("allOrders1", sJson);
+				// System.out.println(sJson);
+			} else {
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(listOrderBeans);
+				request.setAttribute("allOrders1", "''");
+			}*/
+			 request.setAttribute("pageName", pageName);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			logger.error(e);
+			logger.fatal("error in CreateProfile class createProfile method  ");
+			return "countriesHome";
+		}
+		return "createProfile";
+	}
 	@RequestMapping(value = "/addProfile")
 	public String addProfile(@ModelAttribute("createProfile") UsersBean objUsersBean, ModelMap model,
 			HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
@@ -83,31 +128,41 @@ public class CreateProfileController {
 		String sJson = null;
 		BranchBean objBranch = null;
 		String ipAddress = null;
+		String msg= null;
 		
 		try {
 			ipAddress =MiscUtils.getClientIpAddress(request);
-			int userId = objUsersDao.getNewUserId();
-			if(StringUtils.isNotBlank(objUsersBean.getBranch())){
-			int branchid = Integer.parseInt(objUsersBean.getBranch());
-			objBranch = objBranchDao.getById(branchid);
-			String prefix = objBranch.getPrefix();
-			prefix = prefix.concat(objBranch.getFree());
-			String ss=	StringUtils.leftPad(String.valueOf(userId), 6, "0");
-			prefix = prefix.concat(ss);
-			objUsersBean.setUsername(prefix);
-			}
+			
+			
+			
 			if(StringUtils.isNotBlank(ipAddress)){
 			objUsersBean.setLast_ip(ipAddress);
 			}
 			objUsersBean.setPassword(MiscUtils.generateRandomString(6));
 			
 			objUsersBean.setRole_id(4);
+			if(objUsersBean.getId() ==0){
+				int userId = objUsersDao.getNewUserId();
+				if(StringUtils.isNotBlank(objUsersBean.getBranch())){
+				int branchid = Integer.parseInt(objUsersBean.getBranch());
+				objBranch = objBranchDao.getById(branchid);
+				String prefix = objBranch.getPrefix();
+				prefix = prefix.concat(objBranch.getFree());
+				String ss=	StringUtils.leftPad(String.valueOf(userId), 6, "0");
+				prefix = prefix.concat(ss);
+				objUsersBean.setUsername(prefix);
+				}
+				objUsersBean.setStatus("0");
+				EmailUtil emailUtil = new EmailUtil();
+				if(StringUtils.isNotBlank(objUsersBean.getEmail())){
+					emailUtil.sendEmail(objUsersBean, objContext, "admin_send_password");
+				}
+				msg = "inserted";
+			}else{
+				msg = "updated";
+			}
 			objUsersDao.save(objUsersBean);
 			objUserDetailsDao.save(objUsersBean);
-			EmailUtil emailUtil = new EmailUtil();
-			if(StringUtils.isNotBlank(objUsersBean.getEmail())){
-			emailUtil.sendEmail(objUsersBean, objContext, "admin_send_password");
-			}
 			
 			/*listOrderBeans = objCountriesDao.getAllCountries();
 			if (listOrderBeans != null && listOrderBeans.size() > 0) {
@@ -120,7 +175,10 @@ public class CreateProfileController {
 				sJson = objectMapper.writeValueAsString(listOrderBeans);
 				request.setAttribute("allOrders1", "''");
 			}*/
-			redir.addFlashAttribute("msg", "inserted");
+			redir.addFlashAttribute("msg", msg);
+			if(StringUtils.isNotBlank(objUsersBean.getPageName())){
+				return "redirect:"+objUsersBean.getPageName();
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e);
@@ -130,36 +188,53 @@ public class CreateProfileController {
 		}
 		return "redirect:CreateProfile";
 	}
-	@RequestMapping(value = "/AllProfilesHome")
-	public String getAllProfiles(@ModelAttribute("createProfile") UsersBean objUsersBean, ModelMap model,
-			HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
-		System.out.println("getAllProfiles Page");
+	
+	
+	@RequestMapping(value = "/updateStatus")
+	public @ResponseBody String updateStatus( UsersBean objUsersBean,ModelMap model,HttpServletRequest request,HttpSession session,BindingResult objBindingResult) {
+		System.out.println(" create Profile updateStatus page...");
 		List<Map<String, String>> listOrderBeans = null;
+		JSONObject jsonObj = new JSONObject();
 		ObjectMapper objectMapper = null;
-		String sJson = null;
-		try {
-			listOrderBeans = objUsersDao.getAllProfiles1(objUsersBean);
+		String sJson=null;
+		boolean delete = false;
+		try{
+			if(objUsersBean.getStatus() != "0"){
+				delete=	objUsersDao.updateStatus(objUsersBean);
+ 				if(delete){
+ 					jsonObj.put("message", "Delete Profile");
+ 				}else{
+ 					jsonObj.put("message", "Delete Profile Faile");
+ 				}
+ 			}
+ 				
+			listOrderBeans = objUsersDao.getAllProfiles1(objUsersBean,"all");
+			 objectMapper = new ObjectMapper();
 			if (listOrderBeans != null && listOrderBeans.size() > 0) {
+				
 				objectMapper = new ObjectMapper();
 				sJson = objectMapper.writeValueAsString(listOrderBeans);
 				request.setAttribute("allOrders1", sJson);
+				jsonObj.put("allOrders1", listOrderBeans);
 				// System.out.println(sJson);
 			} else {
 				objectMapper = new ObjectMapper();
 				sJson = objectMapper.writeValueAsString(listOrderBeans);
 				request.setAttribute("allOrders1", "''");
+				jsonObj.put("allOrders1", listOrderBeans);
 			}
-			
-			
-		} catch (Exception e) {
+		}catch(Exception e){
 			e.printStackTrace();
-			System.out.println(e);
+	System.out.println(e);
 			logger.error(e);
-			logger.fatal("error in CountriesController class CountriesHome method  ");
-			return "CreateProfile";
+			logger.fatal("BranchController class deleteBodyType method  ");
+			jsonObj.put("message", "excetption"+e);
+			return String.valueOf(jsonObj);
+			
 		}
-		return "allProfiles";
+		return String.valueOf(jsonObj);
 	}
+	
 	@ModelAttribute("cast")
 	public Map<Integer, String> populatecast() {
 		Map<Integer, String> statesMap = new LinkedHashMap<Integer, String>();

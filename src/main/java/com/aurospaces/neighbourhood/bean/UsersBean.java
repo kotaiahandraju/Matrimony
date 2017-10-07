@@ -2,8 +2,6 @@ package com.aurospaces.neighbourhood.bean;
 
 import java.util.Date;
 
-import org.springframework.beans.factory.annotation.Value;
-
 public class UsersBean {
 	private int id=0;
 	protected Date createdTime ;
@@ -85,10 +83,15 @@ public class UsersBean {
 	private String rprofession;
 	private String maritalStatus;
 	private int userdetailsId=0;
-	@Value("0")
 	private String showall;
+	private String pageName;
 	
-	
+	public String getPageName() {
+		return pageName;
+	}
+	public void setPageName(String pageName) {
+		this.pageName = pageName;
+	}
 	public String getShowall() {
 		return showall;
 	}

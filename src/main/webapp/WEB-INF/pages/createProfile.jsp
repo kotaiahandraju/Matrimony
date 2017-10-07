@@ -38,18 +38,22 @@
 		<div class="col-lg-12">
 			<div class="portlet" id="yw0">
 				<div class="portlet-content w3-animate-zoom">
-					<!-- Create Profile Form Starts Here-->
-					<form:form modelAttribute="createProfile" class="form-horizontal" role="form" id="creteProfile-form" action="addProfile" method="post">
+					<!-- Create Profile Form Starts Here -->
+					<form:form commandName="createProfile" class="form-horizontal" role="form"  action="${baseurl }/admin/addProfile" method="post">
 					<form:hidden path="id"/>
 					<form:hidden path="userdetailsId"/>
 						<div class="form-group">
 							<div class="col-sm-12">
 								<div class="errorMessage" id="Create Profile_invalid_em_" >
+								
 									<c:if test="${not empty msg}">
 										<div class="alert alert-success fadeIn animated">${msg}</div>
 									</c:if>
 								</div>
 								<form:hidden path="id"/>
+								<c:if test="${not empty pageName}">
+										<form:hidden path="pageName"/>
+									</c:if>
 							</div>
 					  	</div>
 						
@@ -217,9 +221,12 @@
 									<label class="col-sm-4 control-label required"><spring:message code="label.maritalStatus" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
 										<span id="Users_mstatus">
-											<input class="mstatus_valid" onchange="check_mstatus()" id="Users_mstatus_0" value="Unmarried" checked="checked" type="radio" name="maritalStatus"> <label for="Users_mstatus_0">Unmarried</label> 
-											<input class="mstatus_valid" onchange="check_mstatus()" id="Users_mstatus_1" value="Widower" type="radio" name="maritalStatus"> <label for="Users_mstatus_1">Widower</label> 
-											<input class="mstatus_valid" onchange="check_mstatus()" id="Users_mstatus_2" value="Divorcee" type="radio" name="maritalStatus"> <label for="Users_mstatus_2">Divorcee</label>
+<!-- 											<input class="mstatus_valid" onchange="check_mstatus()" id="Users_mstatus_0" value="Unmarried" checked="checked" type="radio" name="maritalStatus"> <label for="Users_mstatus_0">Unmarried</label>  -->
+<!-- 											<input class="mstatus_valid" onchange="check_mstatus()" id="Users_mstatus_1" value="Widower" type="radio" name="maritalStatus"> <label for="Users_mstatus_1">Widower</label>  -->
+<!-- 											<input class="mstatus_valid" onchange="check_mstatus()" id="Users_mstatus_2" value="Divorcee" type="radio" name="maritalStatus"> <label for="Users_mstatus_2">Divorcee</label> -->
+											<form:radiobutton path="maritalStatus" onchange="check_mstatus()" value="Unmarried" />Unmarried
+											<form:radiobutton path="maritalStatus" onchange="check_mstatus()" value="Widower" />Widower
+											<form:radiobutton path="maritalStatus" onchange="check_mstatus()" value="Divorcee" />Divorcee
 										</span>
 									</div>
 								</div>
@@ -1504,6 +1511,10 @@ $("#submit11").click(function()
 
 
 $('.widow_divorcee_details').hide();
+$(function(){
+	check_mstatus();
+});
+
 function check_mstatus()
 {
 	var checked = $('input[name="maritalStatus"]:checked').val();
@@ -1513,6 +1524,7 @@ function check_mstatus()
 	else
 		$('.widow_divorcee_details').hide();
 }
+
 
 $(".profiles").addClass("active");
 $(".createProfile").addClass("active");

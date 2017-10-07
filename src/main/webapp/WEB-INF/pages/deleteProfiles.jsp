@@ -37,7 +37,7 @@ $( document ).ready(function() {
 			</li>
 			<li>
 				&nbsp;<i class="fa fa-file"></i>
-				<span style="color: #999;cursor: auto;">All Profiles</span>
+				<span style="color: #999;cursor: auto;">Delete Profiles</span>
 			</li>
 		</ul>
 		
@@ -84,7 +84,7 @@ $( document ).ready(function() {
 			<div class="box-title">
 				<h3>
 					<i class="fa fa-table"></i>
-					All Profiles List
+					Delete Profiles List
 				</h3>
 			</div>
 			<div class="box-content nopadding w3-animate-zoom" id="tableId">
@@ -130,35 +130,23 @@ s.parentNode.insertBefore(ga, s);
 		$('#tableId').html(tableHead);
 		serviceUnitArray = {};
 		$.each(listOrders,function(i, orderObj) {
-							var edit = "<a onclick='editProfile("+ orderObj.id+ ")'><i style='color: green;' class='fa fa-edit'></i></a>"
-							var deleterow = "<a onclick='deleteProfile("+ orderObj.id+ ")'><i style='color: red;' class='fa fa-trash'></i></a>"
-							var viewProfile = "<a onclick='viewProfile("+ orderObj.id+ ")'><i style='color: blue;' class='fa fa-eye'></i></a>"
+							var edit = "<a onclick='editProfile("+ orderObj.id+ ")'><i style='color: green;cursor: pointer;' class='fa fa-edit'></i></a>"
+							var restote = "<a onclick='restoreDeleteProfile("+ orderObj.id+ ")'><i style='color: green;cursor: pointer;' class='fa fa-repeat'></i></a>"
+							var viewProfile = "<a onclick='viewProfile("+ orderObj.id+ ")'><i style='color: blue;cursor: pointer;' class='fa fa-eye'></i></a>"
 							serviceUnitArray[orderObj.id] = orderObj;
 							var tblRow = "<tr >"
 									+ "<td title='"+orderObj.username+"'>" + orderObj.username + "</td>"
 									+ "<td title='"+orderObj.name+"'>" + orderObj.name + "</td>"
 									+ "<td title='"+orderObj.sname+"'>" + orderObj.sname + "</td>"
-									+ "<td style='text-align: center;'>" + edit + "&nbsp;|&nbsp;" + viewProfile + "&nbsp;|&nbsp;" + deleterow + "</td>" 
+									+ "<td style='text-align: center;'>" + edit + "&nbsp;|&nbsp;" + viewProfile + "&nbsp;|&nbsp;" + restote + "</td>" 
 									+ "</tr >";
 							$(tblRow).appendTo("#tableId table tbody");
 						});
-		/* $('#DataTables_Table_0').DataTable({
-			dom: 'Bfrtip',
-			buttons: [{extend:"print",className:"btn default"},{extend:"pdf",className:"btn default"},{extend:"csv",className:"btn default"}]
-		}); */
 		
-		 /*$('#datatable-buttons').DataTable({
-		        "dom": 'C<"clear">lfrtip',
-		        "colVis": {
-		            "buttonText": "Change columns",
-		        "buttons": [{extend:"copy",className:"btn default"},{extend:"print",className:"btn default"},{extend:"pdf",className:"btn default"},{extend:"csv",className:"btn default"}]
-		        }
-		    });*/
 	}
  function editProfile(id) {
 	 var location = $("#loc").val();
-//  	 var win = window.open(""+location+"/admin/CreateProfile/"+id+"");
- 	 window.location.href =location+"/admin/CreateProfile/"+id+"/AllProfilesHome";
+ 	 window.location.href =location+"/admin/CreateProfile/"+id+"/DeleteProfilesHome";
 	 if (win) {
 	     //Browser has allowed it to be opened
 	     win.focus();
@@ -290,7 +278,7 @@ s.parentNode.insertBefore(ga, s);
 //	 	$('#view_list1').hide();
  }
  $(".profiles").addClass("active");
- $(".allProfiles").addClass("active"); 
+ $(".deleteProfiles").addClass("active"); 
 </script>
 
 </body>

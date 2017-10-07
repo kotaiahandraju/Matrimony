@@ -127,9 +127,9 @@ public class BaseUsersDao{
 		else
 		{
 
-			String sql = "UPDATE users set updated_time = ? ,role_id=?, username=?, password=?, email=?, name = ?, sname=?, gender=?, height=?, mstatus=?, dob=?, tob=?, pob=?, created_by=?, cast=?, complexion=?, mtongue=?, education=?, emply_type=?, fname=?, feducation=?, foccupation=?, mname=?, meducation=?, moccupation=?, Address=?, country=?, mobile=?, branch=?, register_with=?, profile_pic_status=?, last_login=?, last_ip=?, status = ?,showall=? where id = ? ";
+			String sql = "UPDATE users set updated_time = ? ,  email=?, name = ?, sname=?, gender=?, height=?, mstatus=?, dob=?, tob=?, pob=?, created_by=?, cast=?, complexion=?, mtongue=?, education=?, emply_type=?, fname=?, feducation=?, foccupation=?, mname=?, meducation=?, moccupation=?, Address=?, country=?, mobile=?, branch=?, register_with=?, profile_pic_status=?, last_login=?, last_ip=?,showall=? where id = ? ";
 	
-			jdbcTemplate.update(sql, new Object[]{updatedTime, objUsersBean.getRole_id(),objUsersBean.getUsername(),objUsersBean.getPassword(),objUsersBean.getEmail(),objUsersBean.getName(),objUsersBean.getSname(),objUsersBean.getGender(),objUsersBean.getHeight(), objUsersBean.getMstatus(),objUsersBean.getDob(),objUsersBean.getTob(),objUsersBean.getPob(),objUsersBean.getCreated_by(),objUsersBean.getCast(),objUsersBean.getComplexion(),objUsersBean.getMtongue(),objUsersBean.getEducation(),objUsersBean.getEmply_type(),objUsersBean.getFname(),objUsersBean.getFeducation(),objUsersBean.getFoccupation(),objUsersBean.getMname(),objUsersBean.getMeducation(),objUsersBean.getMoccupation(),objUsersBean.getAddress(),objUsersBean.getCountry(),objUsersBean.getMobile(),objUsersBean.getBranch(),objUsersBean.getRegister_with(),objUsersBean.getProfile_pic_status(),objUsersBean.getLast_login1(),objUsersBean.getLast_ip(),objUsersBean.getStatus(),objUsersBean.getShowall(),objUsersBean.getId()});
+			jdbcTemplate.update(sql, new Object[]{updatedTime, objUsersBean.getEmail(),objUsersBean.getName(),objUsersBean.getSname(),objUsersBean.getGender(),objUsersBean.getHeight(), objUsersBean.getMstatus(),objUsersBean.getDob(),objUsersBean.getTob(),objUsersBean.getPob(),objUsersBean.getCreated_by(),objUsersBean.getCast(),objUsersBean.getComplexion(),objUsersBean.getMtongue(),objUsersBean.getEducation(),objUsersBean.getEmply_type(),objUsersBean.getFname(),objUsersBean.getFeducation(),objUsersBean.getFoccupation(),objUsersBean.getMname(),objUsersBean.getMeducation(),objUsersBean.getMoccupation(),objUsersBean.getAddress(),objUsersBean.getCountry(),objUsersBean.getMobile(),objUsersBean.getBranch(),objUsersBean.getRegister_with(),objUsersBean.getProfile_pic_status(),objUsersBean.getLast_login1(),objUsersBean.getLast_ip(),objUsersBean.getShowall(),objUsersBean.getId()});
 		}
 	}
 		
@@ -143,9 +143,9 @@ public class BaseUsersDao{
 
 	 public UsersBean getById(int id) {
 		 jdbcTemplate = custom.getJdbcTemplate();
-			String sql = "SELECT * from users where id = ?";
+			String sql = "SELECT * from users u ,userdetails ud where u.id = ud.userId and u.id= "+id;
 			List<UsersBean> retlist = jdbcTemplate.query(sql,
-			new Object[]{id},
+			new Object[]{},
 			ParameterizedBeanPropertyRowMapper.newInstance(UsersBean.class));
 			if(retlist.size() > 0)
 				return retlist.get(0);
