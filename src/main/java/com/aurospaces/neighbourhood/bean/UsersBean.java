@@ -85,7 +85,15 @@ public class UsersBean {
 	private int userdetailsId=0;
 	private String showall;
 	private String pageName;
+	private String statusName;
 	
+	
+	public String getStatusName() {
+		return statusName;
+	}
+	public void setStatusName(String statusName) {
+		this.statusName = statusName;
+	}
 	public String getPageName() {
 		return pageName;
 	}

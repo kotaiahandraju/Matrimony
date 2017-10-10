@@ -190,50 +190,7 @@ public class CreateProfileController {
 	}
 	
 	
-	@RequestMapping(value = "/updateStatus")
-	public @ResponseBody String updateStatus( UsersBean objUsersBean,ModelMap model,HttpServletRequest request,HttpSession session,BindingResult objBindingResult) {
-		System.out.println(" create Profile updateStatus page...");
-		List<Map<String, String>> listOrderBeans = null;
-		JSONObject jsonObj = new JSONObject();
-		ObjectMapper objectMapper = null;
-		String sJson=null;
-		boolean delete = false;
-		try{
-			if(objUsersBean.getStatus() != "0"){
-				delete=	objUsersDao.updateStatus(objUsersBean);
- 				if(delete){
- 					jsonObj.put("message", "Delete Profile");
- 				}else{
- 					jsonObj.put("message", "Delete Profile Faile");
- 				}
- 			}
- 				
-			listOrderBeans = objUsersDao.getAllProfiles1(objUsersBean,"all");
-			 objectMapper = new ObjectMapper();
-			if (listOrderBeans != null && listOrderBeans.size() > 0) {
-				
-				objectMapper = new ObjectMapper();
-				sJson = objectMapper.writeValueAsString(listOrderBeans);
-				request.setAttribute("allOrders1", sJson);
-				jsonObj.put("allOrders1", listOrderBeans);
-				// System.out.println(sJson);
-			} else {
-				objectMapper = new ObjectMapper();
-				sJson = objectMapper.writeValueAsString(listOrderBeans);
-				request.setAttribute("allOrders1", "''");
-				jsonObj.put("allOrders1", listOrderBeans);
-			}
-		}catch(Exception e){
-			e.printStackTrace();
-	System.out.println(e);
-			logger.error(e);
-			logger.fatal("BranchController class deleteBodyType method  ");
-			jsonObj.put("message", "excetption"+e);
-			return String.valueOf(jsonObj);
-			
-		}
-		return String.valueOf(jsonObj);
-	}
+	
 	
 	@ModelAttribute("cast")
 	public Map<Integer, String> populatecast() {

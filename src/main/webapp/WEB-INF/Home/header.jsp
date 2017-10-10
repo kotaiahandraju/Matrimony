@@ -20,7 +20,7 @@ session.setAttribute("baseurl", baseurl);
 	<meta names="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
 	<title>Matrimony</title>
-	<link rel="shortcut icon" href="img/aarna.png"/>
+	<link rel="shortcut icon" href="${baseurl }/img/aarna.png"/>
 	
 	<!-- 	animate zoom -->
 	<link rel="stylesheet" href="${baseurl }/css/w3animate.css">
@@ -45,6 +45,7 @@ session.setAttribute("baseurl", baseurl);
 	<link rel="stylesheet" href="${baseurl }/css/themes.css">
 	<link rel="stylesheet" href="${baseurl }/css/plugins/datatable/TableTools.css">
 	<link rel="stylesheet" href="${baseurl }/css/chosen.css">
+<!-- 	<link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css"> -->
 	
 	<!-- jQuery -->
 	<script src="${baseurl }/js/jquery.min.js"></script>

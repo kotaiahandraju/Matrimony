@@ -1,4 +1,4 @@
-<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <html>
    <head>
@@ -6,6 +6,6 @@
 
    <body>
 <%--       <c:redirect url = "/HomePage"/> --%>
-      <jsp:forward page="LoginHome"/> 
+      <jsp:forward page="HomePage"/> 
    </body>
 </html>

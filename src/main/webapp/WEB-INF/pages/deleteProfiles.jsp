@@ -130,9 +130,9 @@ s.parentNode.insertBefore(ga, s);
 		$('#tableId').html(tableHead);
 		serviceUnitArray = {};
 		$.each(listOrders,function(i, orderObj) {
-							var edit = "<a onclick='editProfile("+ orderObj.id+ ")'><i style='color: green;cursor: pointer;' class='fa fa-edit'></i></a>"
-							var restote = "<a onclick='restoreDeleteProfile("+ orderObj.id+ ")'><i style='color: green;cursor: pointer;' class='fa fa-repeat'></i></a>"
-							var viewProfile = "<a onclick='viewProfile("+ orderObj.id+ ")'><i style='color: blue;cursor: pointer;' class='fa fa-eye'></i></a>"
+							var edit = "<a title='Edit Profile' onclick='editProfile("+ orderObj.id+ ")'><i style='color: green;cursor: pointer;' class='fa fa-edit'></i></a>"
+							var restote = "<a  title='Restore Profile' onclick='restoreDeleteProfile("+ orderObj.id+ ")'><i style='color: green;cursor: pointer;' class='fa fa-repeat'></i></a>"
+							var viewProfile = "<a title='View Profile' onclick='viewProfile("+ orderObj.id+ ")'><i style='color: blue;cursor: pointer;' class='fa fa-eye'></i></a>"
 							serviceUnitArray[orderObj.id] = orderObj;
 							var tblRow = "<tr >"
 									+ "<td title='"+orderObj.username+"'>" + orderObj.username + "</td>"
@@ -157,16 +157,18 @@ s.parentNode.insertBefore(ga, s);
 	 
 	
 		}
- function deleteProfile(id){
-		var checkstr =  confirm('Are you sure you want to delete this?');
+ function restoreDeleteProfile(id){
+		var checkstr =  confirm('Are you sure you want to restore this?');
 		if(checkstr == true){
 		var formData = new FormData();
-	     formData.append('status', 2);
+	     formData.append('status', 1);
 	     formData.append('id', id);
+	     formData.append('statusName', "delete");
 		$.fn.makeMultipartRequest('POST', 'updateStatus', false,
 				formData, false, 'text', function(data){
 			var jsonobj = $.parseJSON(data);
 			alert(jsonobj.message);
+// 			location.reload();
 			var alldata = jsonobj.allOrders1;
 			console.log(jsonobj.allOrders1);
 			displayTable(alldata);

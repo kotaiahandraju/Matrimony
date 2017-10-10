@@ -16,7 +16,7 @@ $( document ).ready(function() {
 </script>
 <link href="${baseurl }/css/datepicker1.css" rel="stylesheet" type="text/css" />
 <script src="${baseurl }/js/jquery-ui.min.js"></script>
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" />
+<!-- <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" /> -->
 <!-- 	<script src="http://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script> -->
 <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.1/themes/black-tie/jquery-ui.css"> -->
 <!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.js"></script> -->
@@ -130,17 +130,21 @@ s.parentNode.insertBefore(ga, s);
 		$('#tableId').html(tableHead);
 		serviceUnitArray = {};
 		$.each(listOrders,function(i, orderObj) {
-							var edit = "<a onclick='editProfile("+ orderObj.id+ ")'><i style='color: green;' class='fa fa-edit'></i></a>"
-							var deleterow = "<a onclick='deleteProfile("+ orderObj.id+ ")'><i style='color: red;' class='fa fa-trash'></i></a>"
-							var viewProfile = "<a onclick='viewProfile("+ orderObj.id+ ")'><i style='color: blue;' class='fa fa-eye'></i></a>"
+							var edit = "<a title='Edit Profile' onclick='editProfile("+ orderObj.id+ ")'><i style='color: green;' class='fa fa-edit'></i></a>"
+							var deleterow = "<a title='Delete Profile' onclick='deleteProfile("+ orderObj.id+ ",2)'><i style='color: red;' class='fa fa-trash' ></i></a>"
+							var viewProfile = "<a title='View Profile' onclick='viewProfile("+ orderObj.id+ ")'><i style='color: blue;' class='fa fa-eye'></i></a>"
+							var inactive = "<a title='Inactive Profile' onclick='deleteProfile("+ orderObj.id+ ",0)'><i style='color: blue;' class='fa fa-eye'></i></a>"
+							/* var viewProfile = "<a title='View Profile' onclick='viewProfile("+ orderObj.id+ ")'><i style='color: blue;' class='fa fa-eye'></i></a>"
+							var viewProfile = "<a title='View Profile' onclick='viewProfile("+ orderObj.id+ ")'><i style='color: blue;' class='fa fa-eye'></i></a>"
+							var viewProfile = "<a title='View Profile' onclick='viewProfile("+ orderObj.id+ ")'><i style='color: blue;' class='fa fa-eye'></i></a>" */
 							serviceUnitArray[orderObj.id] = orderObj;
 							var tblRow = "<tr >"
 									+ "<td title='"+orderObj.username+"'>" + orderObj.username + "</td>"
 									+ "<td title='"+orderObj.name+"'>" + orderObj.name + "</td>"
 									+ "<td title='"+orderObj.sname+"'>" + orderObj.sname + "</td>"
-									+ "<td style='text-align: center;'>" + edit + "&nbsp;|&nbsp;" + viewProfile + "&nbsp;|&nbsp;" + deleterow + "</td>" 
+									+ "<td style='text-align: center;' >" + edit + "&nbsp;|&nbsp;" + viewProfile + "&nbsp;|&nbsp;" + deleterow + "&nbsp;|&nbsp;" + inactive + "</td>" 
 									+ "</tr >";
-							$(tblRow).appendTo("#tableId table tbody");
+							$(tblRow).appendTo("#tableId table tbody"); 
 						});
 		/* $('#DataTables_Table_0').DataTable({
 			dom: 'Bfrtip',
@@ -169,16 +173,18 @@ s.parentNode.insertBefore(ga, s);
 	 
 	
 		}
- function deleteProfile(id){
+ function deleteProfile(id,statusId){
 		var checkstr =  confirm('Are you sure you want to delete this?');
 		if(checkstr == true){
 		var formData = new FormData();
-	     formData.append('status', 2);
+	     formData.append('status', statusId);
 	     formData.append('id', id);
+	     formData.append('statusName', "all");
 		$.fn.makeMultipartRequest('POST', 'updateStatus', false,
 				formData, false, 'text', function(data){
 			var jsonobj = $.parseJSON(data);
 			alert(jsonobj.message);
+			
 			var alldata = jsonobj.allOrders1;
 			console.log(jsonobj.allOrders1);
 			displayTable(alldata);

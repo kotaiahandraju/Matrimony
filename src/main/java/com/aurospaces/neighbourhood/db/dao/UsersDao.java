@@ -78,7 +78,7 @@ public class UsersDao extends BaseUsersDao {
 					+ "co1.id=ud.rComplexion left join occupation oc4 on oc4.id=ud.rprofession where 1=1 ");
 			
 			if(type.equals("all")){
-				buffer.append( " and u.status in( '0','1')" );
+				buffer.append( " and u.status in( '1')" );
 			}
 			if(type.equals("delete")){
 				buffer.append( " and u.status in( '2')" );
@@ -124,5 +124,15 @@ public class UsersDao extends BaseUsersDao {
 			}
 			return isStatusUpdate;
 		}
-	
+		
+		public UsersBean emailExistOrNot(UsersBean  objUsersBean) {
+			 jdbcTemplate = custom.getJdbcTemplate();
+				String sql = "SELECT * FROM users where email= ? ";
+				List<UsersBean> retlist = jdbcTemplate.query(sql,
+				new Object[]{objUsersBean.getEmail()},
+				ParameterizedBeanPropertyRowMapper.newInstance(UsersBean.class));
+				if(retlist.size() > 0)
+					return retlist.get(0);
+				return null;
+			}
 }
