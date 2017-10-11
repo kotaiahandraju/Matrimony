@@ -85,6 +85,11 @@
 		margin-left: auto;
 	}
 }
+.your-class::-webkit-input-placeholder {color: #e73d4a !important;}
+.your-class::-moz-placeholder {color: #e73d4a !important;}
+
+.default-class::-webkit-input-placeholder {color: #e73d4a !important;}
+.default-class::-moz-placeholder {color: #e73d4a !important;}
 </style>
 </head>
 
@@ -129,20 +134,20 @@
 				</div>
 				<div class="modal-body">
 
-					<form:form commandName="createProfile" action="userRegistration" method="post" class="login-form">
+					<form:form commandName="createProfile" action="userRegistration" id="registration"  method="post" class="login-form">
 
 						<div>
 
 							<div class="form-group">
-								<label for="user_name">Enter Your Email Id :</label> 
+								<label for="user_name">Enter Your Email-Id :</label> 
 								<form:input	path="email" class="form-control" placeholder="Enter Email"/>
 							</div>
 							<div class="form-group">
-								<label for="user_password">Creeat Password :</label> 
-								<form:password path="password" class="form-control"  placeholder=" Enter Password"/>
+								<label for="user_password">Create Password :</label> 
+								<form:password path="password" class="form-control" placeholder="Enter Password"/>
 							</div>
 							<div class="form-group">
-								<label for="user_ssword">Creeat Profile for :</label> 
+								<label for="user_ssword">Create Profile for :</label> 
 								<select	id="created_by" name="created_by" class="form-control">
 									<option value="">Select</option>
 									<option value="Self">Self</option>
@@ -158,18 +163,17 @@
 							<div class="form-group">
 								<div>
 									<label class="radio-inline" for="radios-0">
-									 <input	name="gender" id="radios-0" value="Male" checked="checked"
-										type="radio"> Male
-									</label> <label class="radio-inline" for="radios-1"> 
-									<input	name="gender" id="radios-1" value="Female" type="radio">
-										Female
+									 <input	name="gender" id="radios-0" value="Male" checked="checked" type="radio"> Male
+									</label>
+									<label class="radio-inline" for="radios-1"> 
+									 <input name="gender" id="radios-1" value="Female" type="radio"> Female
 									</label>
 
 								</div>
 							</div>
 
 							<div class="form-group">
-								<button type="submit" class="btn btn-info btn-block">CONTINUE...</button>
+								<button type="submit" id="submit11" class="btn btn-info btn-block">CONTINUE...</button>
 							</div>
 						</div>
 					</form:form>
@@ -574,7 +578,6 @@
 
 
 
-
 	<script src="user/js/ie10-viewport-bug-workaround.js"></script>
 	<script src="user/vendor/jquery/jquery.min.js"></script>
 	<script src="user/vendor/bootstrap/js/bootstrap.min.js"></script>
@@ -586,14 +589,20 @@
 	<script defer
 		src="user/vendor/woocommerce-FlexSlider/jquery.flexslider.js"></script>
 	<script src="user/js/toucheffects.js"></script>
+<script src="js/custemValidation.js"></script>
 <script src="js/ajax.js"></script>
-</body>
 <script type="text/javascript">
 var emailExist = false;
+// var validEmail = false;
+var expr = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
 $('#email').blur(function() {
 	var email = $('#email').val();
-	if(email == "" || email.length ==0 || email =="undefined"){
-		alert("enter email");
+	if(email != "" && !email.match(expr)){
+// 		alert("Please Enter Valid Email");
+    	$("#email").css("border-color","#e73d4a");
+    	$("#email").attr("title","Please Enter Email-ID");
+    	$('#email').css('color','red');
+//     	$('#email').focus();
 		return false;
 	}
 	var formData = new FormData();
@@ -601,9 +610,12 @@ $('#email').blur(function() {
 	$.fn.makeMultipartRequest('POST', 'emailChecking', false,
 			formData, false, 'text', function(data){
 		var jsonobj = $.parseJSON(data);
-		if(jsonobj.msg ="exist"){
+		if(jsonobj.msg =="exist"){
 			//error message write 
 			emailExist = true;
+		}else{
+			emailExist = false;
+
 		}
 	});
 });
@@ -611,6 +623,8 @@ $('#created_by').blur(function() {
 	var created_by = $('#created_by').val();
 	if(created_by == "" || created_by.length == 0 || created_by =="undefined"){
 // 		alert("enter createdby");
+    $("#created_by").css("border-color","#e73d4a");
+    $('#created_by').css('color','red');
 		return false;
 	}
 });
@@ -618,9 +632,66 @@ $('#password').blur(function() {
 	var password = $('#password').val();
 	if(password == "" || password.length == 0 || password =="undefined"){
 // 		alert("enter password");
+    $("#password").css("border-color","#e73d4a");
+    $('#password').css('color','red');
 		return false;
 	}
 });
 
+
+
+
+$("#submit11").click(function()
+{		
+	var email = $('#email').val();
+	if($('#email').val() ==  null || $('#email').val() == "" || $('#email').val()=="undefined" || 
+		$('#created_by').val() ==  null || $('#created_by').val() == "" || $('#created_by').val()=="undefined" ||
+		$('#password').val() ==  null || $('#password').val() == "" || $('#password').val()=="undefined")
+	{
+		if($('#email').val() ==  null || $('#email').val() == "" || $('#email').val()=="undefined") 
+		{
+			$("#email").css("border-color","#e73d4a");
+			$("#email").attr("placeholder","Please Enter Mail");
+			$('#email').addClass('your-class');
+			$('#email').css('color','red');
+		}
+		if($('#created_by').val() ==  null || $('#created_by').val() == "" || $('#created_by').val()=="undefined" ) 
+		{
+			$("#created_by").css("border-color","#e73d4a");
+			$("#created_by").attr("placeholder","Please Enter Created_By");
+			$('#created_by').addClass('your-class');
+			$('#created_by').css('color','red');
+		}
+		if($('#password').val() ==  null || $('#password').val() == "" || $('#password').val()=="undefined" ) 
+		{
+			$("#password").css("border-color","#e73d4a");
+			$("#password").attr("placeholder","Please Enter Password");
+			$('#password').addClass('your-class');
+			$('#password').css('color','red');
+		}		
+		return false;
+	}
+	if(email != "" && !email.match(expr)){
+// 		alert("Please Enter Valid Email");
+    	$("#email").css("border-color","#e73d4a");
+    	$("#email").attr("title","Please Enter Email-ID");
+    	$('#email').css('color','red');
+    	$('#email').focus();
+		return false;
+	}
+	if(emailExist){
+		alert("exist");
+		return false;
+	}
+		$("#registration").submit();
+		event.preventDefault();
+});
+
+
+
+
+
+
 </script>
+</body>
 </html>
