@@ -138,11 +138,11 @@
 								<form:input	path="email" class="form-control" placeholder="Enter Email"/>
 							</div>
 							<div class="form-group">
-								<label for="user_password">Creeat Password :</label> 
+								<label for="user_password">Create Password :</label> 
 								<form:password path="password" class="form-control"  placeholder=" Enter Password"/>
 							</div>
 							<div class="form-group">
-								<label for="user_ssword">Creeat Profile for :</label> 
+								<label for="user_ssword">Create Profile for :</label> 
 								<select	id="created_by" name="created_by" class="form-control">
 									<option value="">Select</option>
 									<option value="Self">Self</option>
@@ -172,6 +172,69 @@
 								<button type="submit" class="btn btn-info btn-block">CONTINUE...</button>
 							</div>
 						</div>
+						
+						 <!--second step form-->
+                                                
+                                                <div style="display:none">
+                                                <h4 style="margin-bottom:20px;">Great, Now some basic details </h4>
+                                                 <div class="row">
+                                                 <div class="form-group">
+                                                    <label for="" class="col-md-12" >Your Name</label>
+                           <div class="col-md-6"><input type="text" name="user_name" class="form-control" id="user_name" placeholder="First Name"></div>
+                           <div class="col-md-6"><input type="text" name="user_name" class="form-control" id="user_name" placeholder="Last Name"></div>
+                           <div class="clearfix"></div>
+                                                </div>
+                                                </div>
+                                                
+                                               <div class="form-group">
+                                               <div  class="row">
+                                                    <label for="" class="col-md-12" >Date of Birth</label>
+                           <div class="col-md-4"><select id="selectbasic" name="selectbasic" class="form-control">
+                                                      <option value="1">Option one</option>
+                                                      <option value="2">Option two</option>
+                                                    </select></div>
+                           <div class="col-md-4"><select id="selectbasic" name="selectbasic" class="form-control">
+                                                      <option value="1">Option one</option>
+                                                      <option value="2">Option two</option>
+                                                    </select></div>
+                                                     <div class="col-md-4"><select id="selectbasic" name="selectbasic" class="form-control">
+                                                      <option value="1">Option one</option>
+                                                      <option value="2">Option two</option>
+                                                    </select></div>
+                                                </div> 
+                                                </div>
+                                                
+                                                
+                                                 <div class="form-group">
+                                                    <label for="">Religion</label>
+                          <select id="selectbasic" name="selectbasic" class="form-control">
+                                                      <option value="1">Option one</option>
+                                                      <option value="2">Option two</option>
+                                                    </select>
+                                                </div> 
+                                                
+                                                 <div class="form-group">
+                                                    <label for="">Mother tongue</label>
+                          <select id="selectbasic" name="selectbasic" class="form-control">
+                                                      <option value="1">Option one</option>
+                                                      <option value="2">Option two</option>
+                                                    </select>
+                                                </div> 
+                                                
+                                                <div class="form-group">
+                                                    <label for="">Where do you live?</label>
+                          <select id="selectbasic" name="selectbasic" class="form-control">
+                                                      <option value="1">Option one</option>
+                                                      <option value="2">Option two</option>
+                                                    </select>
+                                                </div> 
+                                                 <div class="form-group">
+                                                    <button type="submit" class="btn btn-info btn-block">SIGNUP...</button>
+                                                </div>
+                                                
+                                                </div>
+                                                <!--second form end here-->
+						
 					</form:form>
 					<div class="clearfix"></div>
 				</div>
