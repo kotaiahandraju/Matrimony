@@ -85,6 +85,20 @@
 		margin-left: auto;
 	}
 }
+.your-class::-webkit-input-placeholder {color: #e73d4a !important;}
+.your-class::-moz-placeholder {color: #e73d4a !important;}
+
+.default-class::-webkit-input-placeholder {color: #e73d4a !important;}
+.default-class::-moz-placeholder {color: #e73d4a !important;}
+span.has-error,span.hasError
+{
+  font-weight: normal;
+  border-color: #e73d4a;
+  color:red;
+  margin-top: -3px;
+  display: block !important;
+  position: absolute;
+}
 </style>
 </head>
 
@@ -129,21 +143,22 @@
 				</div>
 				<div class="modal-body">
 
-					<form:form commandName="createProfile" action="userRegistration" method="post" class="login-form">
+					<form:form commandName="createProfile" action="#"  id="registration"  method="post" class="login-form">
 
-						<div>
+						<div id="firstForm">
 
 							<div class="form-group">
-								<label for="user_name">Enter Your Email Id :</label> 
-								<form:input	path="email" class="form-control" placeholder="Enter Email"/>
+								<label for="user_name">Enter Your Email-Id :</label> 
+								<form:input	path="email" onkeydown="removeBorder(this.id)" class="form-control" placeholder="Enter Email"/>
+								<span class="hasError" id="emailError"></span>
 							</div>
 							<div class="form-group">
 								<label for="user_password">Create Password :</label> 
-								<form:password path="password" class="form-control"  placeholder=" Enter Password"/>
+								<form:password path="password" class="form-control" onkeydown="removeBorder(this.id)"  placeholder=" Enter Password"/>
 							</div>
 							<div class="form-group">
 								<label for="user_ssword">Create Profile for :</label> 
-								<select	id="created_by" name="created_by" class="form-control">
+								<select	id="created_by" name="created_by" onfocus="removeBorder(this.id)" class="form-control">
 									<option value="">Select</option>
 									<option value="Self">Self</option>
 									<option value="Son">Son</option>
@@ -158,30 +173,29 @@
 							<div class="form-group">
 								<div>
 									<label class="radio-inline" for="radios-0">
-									 <input	name="gender" id="radios-0" value="Male" checked="checked"
-										type="radio"> Male
-									</label> <label class="radio-inline" for="radios-1"> 
-									<input	name="gender" id="radios-1" value="Female" type="radio">
-										Female
+									 <input	name="gender" id="radios-0" value="Male" checked="checked" type="radio"> Male
+									</label>
+									<label class="radio-inline" for="radios-1"> 
+									 <input name="gender" id="radios-1" value="Female" type="radio"> Female
 									</label>
 
 								</div>
 							</div>
 
 							<div class="form-group">
-								<button type="submit" class="btn btn-info btn-block">CONTINUE...</button>
+								<button type="submit" id="submit11" class="btn btn-info btn-block">CONTINUE...</button>
 							</div>
 						</div>
 						
 						 <!--second step form-->
                                                 
-                                                <div style="display:none">
+                                                <div style="display:none" id="secondForm">
                                                 <h4 style="margin-bottom:20px;">Great, Now some basic details </h4>
                                                  <div class="row">
                                                  <div class="form-group">
                                                     <label for="" class="col-md-12" >Your Name</label>
-                           <div class="col-md-6"><input type="text" name="user_name" class="form-control" id="user_name" placeholder="First Name"></div>
-                           <div class="col-md-6"><input type="text" name="user_name" class="form-control" id="user_name" placeholder="Last Name"></div>
+                           <div class="col-md-6"><input type="text" name="name" onkeydown="removeBorder(this.id)" class="form-control" id="name" placeholder="First Name"></div>
+                           <div class="col-md-6"><input type="text" name="sname" onkeydown="removeBorder(this.id)" class="form-control" id="sname" placeholder="Last Name"></div>
                            <div class="clearfix"></div>
                                                 </div>
                                                 </div>
@@ -189,47 +203,37 @@
                                                <div class="form-group">
                                                <div  class="row">
                                                     <label for="" class="col-md-12" >Date of Birth</label>
-                           <div class="col-md-4"><select id="selectbasic" name="selectbasic" class="form-control">
-                                                      <option value="1">Option one</option>
-                                                      <option value="2">Option two</option>
-                                                    </select></div>
-                           <div class="col-md-4"><select id="selectbasic" name="selectbasic" class="form-control">
-                                                      <option value="1">Option one</option>
-                                                      <option value="2">Option two</option>
-                                                    </select></div>
-                                                     <div class="col-md-4"><select id="selectbasic" name="selectbasic" class="form-control">
-                                                      <option value="1">Option one</option>
-                                                      <option value="2">Option two</option>
-                                                    </select></div>
+                           <div class="col-md-12"><input type="text" name="dob" onkeydown="removeBorder(this.id)" class="form-control" id="dob" placeholder="Enter Date of Birth"></div>
                                                 </div> 
                                                 </div>
                                                 
                                                 
                                                  <div class="form-group">
                                                     <label for="">Religion</label>
-                          <select id="selectbasic" name="selectbasic" class="form-control">
-                                                      <option value="1">Option one</option>
-                                                      <option value="2">Option two</option>
-                                                    </select>
+                          				<form:select path="Religion" onfocus="removeBorder(this.id)"  class="form-control" >
+														<form:option value="">-- Choose Religion --</form:option>
+														<form:options items="${religion}"></form:options>
+										</form:select>
                                                 </div> 
                                                 
                                                  <div class="form-group">
                                                     <label for="">Mother tongue</label>
-                          <select id="selectbasic" name="selectbasic" class="form-control">
-                                                      <option value="1">Option one</option>
-                                                      <option value="2">Option two</option>
-                                                    </select>
+                        				 <form:select path="sLanguages" onfocus="removeBorder(this.id)"  class="form-control" >
+														<form:option value="">-- Choose Mother tongue --</form:option>
+														<form:options items="${language}"></form:options>
+										</form:select>
                                                 </div> 
                                                 
                                                 <div class="form-group">
-                                                    <label for="">Where do you live?</label>
-                          <select id="selectbasic" name="selectbasic" class="form-control">
-                                                      <option value="1">Option one</option>
-                                                      <option value="2">Option two</option>
-                                                    </select>
+                                                    <label for="">Where do you live? </label>
+                          				 <form:select path="crCountry" onfocus="removeBorder(this.id)"  class="form-control" >
+														<form:option value="">-- Choose Country --</form:option>
+														<form:options items="${countries}"></form:options>
+										</form:select>
                                                 </div> 
                                                  <div class="form-group">
-                                                    <button type="submit" class="btn btn-info btn-block">SIGNUP...</button>
+                                                 <input type="button" id ="secondButton" value="SIGNUP..." class="btn btn-info btn-block" />
+<!--                                                     <button type="button"  id ="secondButton" onclick="submit();" class="btn btn-info btn-block">SIGNUP...</button> -->
                                                 </div>
                                                 
                                                 </div>
@@ -309,7 +313,7 @@
 								<option value="3">Brahmin</option>
 							</select>
 						</div>
-						<button type="submit" class="btn btn-danger">Search</button>
+						<button type="button" id="submit12" class="btn btn-danger">Search</button>
 					</form>
 				</div>
 			</div>
@@ -637,7 +641,6 @@
 
 
 
-
 	<script src="user/js/ie10-viewport-bug-workaround.js"></script>
 	<script src="user/vendor/jquery/jquery.min.js"></script>
 	<script src="user/vendor/bootstrap/js/bootstrap.min.js"></script>
@@ -649,14 +652,20 @@
 	<script defer
 		src="user/vendor/woocommerce-FlexSlider/jquery.flexslider.js"></script>
 	<script src="user/js/toucheffects.js"></script>
+<script src="js/custemValidation.js"></script>
 <script src="js/ajax.js"></script>
-</body>
 <script type="text/javascript">
 var emailExist = false;
+// var validEmail = false;
+var expr = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
 $('#email').blur(function() {
 	var email = $('#email').val();
-	if(email == "" || email.length ==0 || email =="undefined"){
-		alert("enter email");
+	if(email != "" && !email.match(expr)){
+// 		alert("Please Enter Valid Email");
+    	$("#email").css("border-color","#e73d4a");
+    	$("#email").attr("title","Please Enter Email-ID");
+    	$('#email').css('color','red');
+//     	$('#email').focus();
 		return false;
 	}
 	var formData = new FormData();
@@ -664,9 +673,14 @@ $('#email').blur(function() {
 	$.fn.makeMultipartRequest('POST', 'emailChecking', false,
 			formData, false, 'text', function(data){
 		var jsonobj = $.parseJSON(data);
-		if(jsonobj.msg ="exist"){
-			//error message write 
+		if(jsonobj.msg =="exist"){
+			//error message write
+			$('#emailError').text("Email already in Use. Please Try Another.");
 			emailExist = true;
+		}else{
+			$('#emailError').text("");
+			emailExist = false;
+
 		}
 	});
 });
@@ -674,6 +688,8 @@ $('#created_by').blur(function() {
 	var created_by = $('#created_by').val();
 	if(created_by == "" || created_by.length == 0 || created_by =="undefined"){
 // 		alert("enter createdby");
+    $("#created_by").css("border-color","#e73d4a");
+    $('#created_by').css('color','red');
 		return false;
 	}
 });
@@ -681,9 +697,136 @@ $('#password').blur(function() {
 	var password = $('#password').val();
 	if(password == "" || password.length == 0 || password =="undefined"){
 // 		alert("enter password");
+    $("#password").css("border-color","#e73d4a");
+    $('#password').css('color','red');
 		return false;
 	}
 });
 
+
+
+
+$("#submit11").click(function()
+{		
+	var email = $('#email').val();
+	if($('#email').val() ==  null || $('#email').val() == "" || $('#email').val()=="undefined" || 
+		$('#created_by').val() ==  null || $('#created_by').val() == "" || $('#created_by').val()=="undefined" ||
+		$('#password').val() ==  null || $('#password').val() == "" || $('#password').val()=="undefined")
+	{
+		if($('#email').val() ==  null || $('#email').val() == "" || $('#email').val()=="undefined") 
+		{
+			$("#email").css("border-color","#e73d4a");
+			$("#email").attr("placeholder","Please Enter Mail");
+			$('#email').addClass('your-class');
+			$('#email').css('color','red');
+		}
+		if($('#created_by').val() ==  null || $('#created_by').val() == "" || $('#created_by').val()=="undefined" ) 
+		{
+			$("#created_by").css("border-color","#e73d4a");
+			$("#created_by").attr("placeholder","Please Enter Created_By");
+			$('#created_by').addClass('your-class');
+			$('#created_by').css('color','red');
+		}
+		if($('#password').val() ==  null || $('#password').val() == "" || $('#password').val()=="undefined" ) 
+		{
+			$("#password").css("border-color","#e73d4a");
+			$("#password").attr("placeholder","Please Enter Password");
+			$('#password').addClass('your-class');
+			$('#password').css('color','red');
+		}		
+		return false;
+	}
+	if(email != "" && !email.match(expr)){
+// 		alert("Please Enter Valid Email");
+    	$("#email").css("border-color","#e73d4a");
+    	$("#email").attr("title","Please Enter Email-ID");
+    	$('#email').css('color','red');
+    	$('#email').focus();
+		return false;
+	}
+	if(emailExist){
+		alert("exist");
+		return false;
+	}
+ 	$("#firstForm").hide();
+	$('#secondForm').css({'display':'block'});
+// 		$("#registration").submit();
+ 
+		event.preventDefault();
+});
+$("#secondButton").click(function()
+// 		function formSubmit()
+		{		
+			if($('#name').val() ==  null || $('#name').val() == "" || $('#name').val()=="undefined" || 
+				$('#sname').val() ==  null || $('#sname').val() == "" || $('#sname').val()=="undefined" ||
+				$('#dob').val() ==  null || $('#dob').val() == "" || $('#dob').val()=="undefined"  || 
+				$('#Religion').val() ==  null || $('#Religion').val() == "" || $('#Religion').val()=="undefined" ||
+				$('#sLanguages').val() ==  null || $('#sLanguages').val() == "" || $('#sLanguages').val()=="undefined" ||
+				$('#crCountry').val() ==  null || $('#crCountry').val() == "" || $('#crCountry').val()=="undefined" )
+			{
+				if($('#name').val() ==  null || $('#name').val() == "" || $('#name').val()=="undefined") 
+				{
+					$("#name").css("border-color","#e73d4a");
+					$("#name").attr("placeholder","Please Enter Name");
+					$('#name').addClass('your-class');
+					$('#name').css('color','red');
+				}
+				if($('#sname').val() ==  null || $('#sname').val() == "" || $('#sname').val()=="undefined" ) 
+				{
+					$("#sname").css("border-color","#e73d4a");
+					$("#sname").attr("placeholder","Please Enter Last Name");
+					$('#sname').addClass('your-class');
+					$('#sname').css('color','red');
+				}
+				if($('#dob').val() ==  null || $('#dob').val() == "" || $('#dob').val()=="undefined" ) 
+				{
+					$("#dob").css("border-color","#e73d4a");
+					$("#dob").attr("placeholder","Please Enter Password");
+					$('#dob').addClass('your-class');
+					$('#dob').css('color','red');
+				}
+				if($('#Religion').val() ==  null || $('#Religion').val() == "" || $('#Religion').val()=="undefined" ) 
+				{
+					$("#Religion").css("border-color","#e73d4a");
+					$("#Religion").attr("placeholder","Please Enter Password");
+					$('#Religion').addClass('your-class');
+					$('#Religion').css('color','red');
+				}
+				if($('#sLanguages').val() ==  null || $('#sLanguages').val() == "" || $('#sLanguages').val()=="undefined" ) 
+				{
+					$("#sLanguages").css("border-color","#e73d4a");
+					$("#sLanguages").attr("placeholder","Please Enter Password");
+					$('#sLanguages').addClass('your-class');
+					$('#sLanguages').css('color','red');
+				}
+				if($('#crCountry').val() ==  null || $('#crCountry').val() == "" || $('#crCountry').val()=="undefined" ) 
+				{
+					$("#crCountry").css("border-color","#e73d4a");
+					$("#crCountry").attr("placeholder","Please Enter Password");
+					$('#crCountry').addClass('your-class');
+					$('#crCountry').css('color','red');
+				}
+				return false;
+			}
+			
+// 		 	$("#firstForm").css({'display':'none'})
+// 			$('#secondForm').css({'display':'block'});
+//		 		$("#registration").submit();
+		 $('#registration').attr('action',"userRegistration");
+			$("#registration").submit();											
+			event.preventDefault();	
+		}
+		);
+
+
+		function removeBorder(el){	
+			  $("#"+el).css("border", ""); 	
+			  $("#"+el).css('color','black');
+			  $('#'+el).addClass('default-class');
+		}
+
+
+
 </script>
+</body>
 </html>
