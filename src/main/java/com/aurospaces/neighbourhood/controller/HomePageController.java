@@ -96,12 +96,12 @@ public class HomePageController {
 				request.setAttribute("mesg", "1");
 				return "homepage";
 			}
-			if(StringUtils.isNotBlank(objUsersBean.getEmail())){
+//			if(StringUtils.isNotBlank(objUsersBean.getEmail())){
 			objUsersDao.save(objUsersBean);
 			objUserDetailsDao.save(objUsersBean);
 			session.setAttribute("cacheGuest", objUsersBean);
-			response.sendRedirect("profile?gp=page_1");
-			}
+//			response.sendRedirect("profile?gp=page_1");
+//			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -109,33 +109,33 @@ public class HomePageController {
 			logger.error(e);
 			logger.fatal("error in CreateProfile class createProfile method  ");
 		}
-		return "homepage";
+		return "redirect:profile";
 	}
 	@RequestMapping(value = "/profile")
 	public String profile(@ModelAttribute("createProfile") UsersBean objUsersBean, Model objeModel ,
 			HttpServletRequest request,HttpServletResponse response, HttpSession session) {
 		System.out.println("userRegistration Page");
+		String pageName =  null;
 		
 		try {
-			if(session.getAttribute("cacheGuest") != null){
+			 pageName = request.getParameter("gp");
+			 // get page name
+			 if(StringUtils.isNotBlank(pageName)){
+				 request.setAttribute("page", pageName);
+			 }
+			 //session checking
+//			if(session.getAttribute("cacheGuest") != null){
 				UsersBean sessionBean =(UsersBean)session.getAttribute("cacheGuest");
+			//get session bean values 
+			 objUsersBean = objUsersDao.getByEmail("kkkkk@hjkjfha.com");
+			 if(objUsersBean != null){
+			 objeModel.addAttribute("createProfile", objUsersBean);
+			 }
+//			objeModel.addAttribute("createProfile", objUsersBean);
+//			}else{
+//				return "redirect:HomePage";
+//			}
 			
-			 objUsersBean = objUsersDao.getById(sessionBean.getId());
-			objeModel.addAttribute("createProfile", objUsersBean);
-			}else{
-				return "redirect:HomePage";
-			}
-			/*UsersBean userbean = objUsersDao.emailExistOrNot(objUsersBean);
-			if(userbean != null){	
-				request.setAttribute("mesg", "1");
-				return "homepage";
-			}
-			if(StringUtils.isNotBlank(objUsersBean.getEmail())){
-			objUsersDao.save(objUsersBean);
-			objUserDetailsDao.save(objUsersBean);
-			response.sendRedirect("profile?gp=page_1");
-			}
-			session.setAttribute("cacheGuest", objUsersBean);*/
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -143,7 +143,7 @@ public class HomePageController {
 			logger.error(e);
 			logger.fatal("error in CreateProfile class createProfile method  ");
 		}
-		return "registration";
+		return "registration_form";
 	}
 
 	@ModelAttribute("cast")

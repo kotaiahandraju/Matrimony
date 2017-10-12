@@ -26,7 +26,8 @@ public class BaseUserDetailsDao {
 
 	public final String INSERT_SQL = "INSERT INTO userdetails ( created_time, updated_time, executiveName, SubCaste, raasi, star, padam, gotram, Religion, sLanguages, aboutYourself, educationDetails, educationInfo, Occupation, occupationDetails, sinceWorking, salaryperMonth, "
 			+ "salaryperyear, foDetails, ffName, fnativeAddress, mnativeAddress, presentAddress, phone1, phone2, landLine, email2, moDetails, mfName, sibilings, property, aboutFamily, ncitizenOf, "
-			+ "crCountry, visaType, stayingSince, visaValidity, ageGap, rHeightFrom, rHeightTo, rComplexion, rprofession, maritalStatus,userId) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,?)";
+			+ "crCountry, visaType, stayingSince, visaValidity, ageGap, rHeightFrom, rHeightTo, rComplexion, rprofession, maritalStatus,userId,state,city,dosham,workingWith,companyName,diet,smoke,drink,bodyType,disability) "
+			+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,?,?,?,?,?,?,?,?,?,?,?)";
 
 	/* this should be conditional based on whether the id is present or not */
 	@Transactional
@@ -102,13 +103,24 @@ public class BaseUserDetailsDao {
 					ps.setString(42, objUsersBean.getRprofession());
 					ps.setString(43, objUsersBean.getMaritalStatus());
 					ps.setInt(44, objUsersBean.getId());
-
+					ps.setString(45, objUsersBean.getState());
+					ps.setString(46, objUsersBean.getCity());
+					ps.setString(47, objUsersBean.getDosham());
+					ps.setString(48, objUsersBean.getWorkingWith());
+					ps.setString(49, objUsersBean.getCompanyName());
+					ps.setString(50, objUsersBean.getDiet());
+					ps.setString(51, objUsersBean.getSmoke());
+					ps.setString(52, objUsersBean.getDrink());
+					ps.setString(53, objUsersBean.getBodyType());
+					ps.setString(54, objUsersBean.getDisability());
+					
+//					state,city,dosham,workingWith,companyName,diet,smoke,drink,bodyType,disability
 					return ps;
 				}
 			}, keyHolder);
 
 			Number unId = keyHolder.getKey();
-			objUsersBean.setId(unId.intValue());
+			objUsersBean.setUserdetailsId(unId.intValue());
 
 		} else {
 
@@ -116,7 +128,7 @@ public class BaseUserDetailsDao {
 
 			jdbcTemplate
 					.update(sql,
-							new Object[] { objUsersBean.getId(), updatedTime, objUsersBean.getExecutiveName(),
+							new Object[] { objUsersBean.getUserdetailsId(), updatedTime, objUsersBean.getExecutiveName(),
 									objUsersBean.getSubCaste(), objUsersBean.getRaasi(), objUsersBean.getStar(),
 									objUsersBean.getPadam(), objUsersBean.getGotram(), objUsersBean.getReligion(),
 									objUsersBean.getsLanguages(), objUsersBean.getAboutYourself(),

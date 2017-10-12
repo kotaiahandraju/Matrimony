@@ -668,6 +668,7 @@ $('#email').blur(function() {
 //     	$('#email').focus();
 		return false;
 	}
+	if(email !=null && email != "" && email !="undefined"){
 	var formData = new FormData();
     formData.append('email', email);
 	$.fn.makeMultipartRequest('POST', 'emailChecking', false,
@@ -683,6 +684,7 @@ $('#email').blur(function() {
 
 		}
 	});
+	}
 });
 $('#created_by').blur(function() {
 	var created_by = $('#created_by').val();
@@ -706,8 +708,7 @@ $('#password').blur(function() {
 
 
 
-$("#submit11").click(function()
-{		
+$("#submit11").click(function(){		
 	var email = $('#email').val();
 	if($('#email').val() ==  null || $('#email').val() == "" || $('#email').val()=="undefined" || 
 		$('#created_by').val() ==  null || $('#created_by').val() == "" || $('#created_by').val()=="undefined" ||
