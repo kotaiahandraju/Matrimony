@@ -71,8 +71,9 @@ span.has-error,span.hasError
 		<h1>
 			<a href="#"><img src="img/aarna.jpg" alt="" class='retina-ready' width="59" height="49">AARNA</a>
 		</h1>
-		<div class="login-body" style="padding: 40px 30px 20px;">
+		<div class="login-body" style="padding: 40px 5px 20px 5px;">
 <!-- 			<h3 style="padding-left: 30px;margin-top: auto;">SIGN IN</h3> -->
+			<h2 style="padding: 0px 0px 5px 30px;margin-top: auto;">SIGN IN</h2>
 			<form:form commandName="loginForm" action="loginAction" method='post' class='form-validate' id="loginform">
 				<c:if test="${not empty msg}">
 					<div class="msgcss controls fadeOut animated alert alert-danger" style="animation-delay: 5s;">
@@ -99,7 +100,7 @@ span.has-error,span.hasError
 						<label for="remember">Remember me</label>
 					</div> -->
 					<input type="submit" value="Log in" id="submit1" class='btn btn-primary'>
-					<input type="button" value="Reset" id="cancel" class='btn btn-danger'>
+					<input type="button" value="Reset" class='cancel btn btn-danger'>
 				</div>
 			</form:form>
 			<!-- <div class="forget">
@@ -172,9 +173,9 @@ span.has-error,span.hasError
 	{
 		$("#loginform")[0].reset();
 		$('#userName').css('border-color','');
-		$('#userName').removeClass('placeholder-style');
+		$('#userName').removeClass('placeholder-style your-class');
 		$('#password').css('border-color','');
-		$('#password').removeClass('placeholder-style');
+		$('#password').removeClass('placeholder-style your-class');
 	});
 
 	window.setTimeout(function() {

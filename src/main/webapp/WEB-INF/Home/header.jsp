@@ -81,6 +81,16 @@ span.has-error,span.hasError
 .default-class::-webkit-input-placeholder {color: #e73d4a !important;}
 .default-class::-moz-placeholder {color: #e73d4a !important;}
 </style>
+<script>
+		window.setTimeout(function() {
+		    $(".msgcss").fadeTo(500, 0).slideUp(500, function(){
+		        $(this).remove(); 
+		    });
+		}, 5000);
+		$(document).ready(function(){
+		    $('[data-toggle="tooltip"]').tooltip();   
+		});
+	</script>
 </head>
 
 <body>
