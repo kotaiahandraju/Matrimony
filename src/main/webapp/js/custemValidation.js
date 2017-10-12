@@ -176,26 +176,46 @@ $("input").each(function() {
 			}
 		});*/
 // onblur validation
+var styleBlock = '.placeholder-style.placeholder-style::-moz-placeholder {color: #cc0000;} .placeholder-style::-webkit-input-placeholder {color: #cc0000;}';
 $('.validate').blur(function() {
 	var id = $(this).attr('id');
 	var placeholder = $(this).attr('placeholder');
 	var value = $("#" + id).val();
 	if (value == null || value == "" || value == "undefined") {
-		
-		 $("#" + id ).attr("placeholder", "Please " + placeholder);
-		 $("#" + id ).css('border-color','#e73d4a');
-		    $("#" + id ).css('color','#e73d4a');
-		    $("#" + id ).addClass('your-class');
+		$('style').append(styleBlock);
+		$("#" + id ).attr("placeholder", placeholder);
+		$("#" + id ).css('border-color','#e73d4a');
+		$("#" + id ).css('color','#e73d4a');
+		$("#" + id ).addClass('placeholder-style your-class');
 //		$("#" + id + "Error").text("Please " + placeholder);
 	} else {
-		$("#" + id + "Error").text(" ");
+		$("#" + id + "Error").text("");
 	}
+});
+
+$('select.validate').focusin(function() {
+	var id = $(this).attr('id');
+	var selectValue = $("select#" + id).val();
+	$("select#" + id).removeClass('your-class');
+	$("select#" + id ).css('border-color','');
+	$("select#" + id ).css('color','black');
+	/*if (selectValue == null || selectValue == "" || selectValue == "undefined") {
+		$("select#" + id ).css('border-color','#e73d4a');
+		$("select#" + id ).css('color','#e73d4a');
+		$("select#" + id ).addClass('your-class');
+	} else {
+		$("select#" + id).removeClass('your-class');
+	}*/
 });
 
 var idArray = $.makeArray($('.validate').map(function() {
 	return this.id;
 }));
 console.log(idArray);
+var selectId = $.makeArray($('select.validate').map(function() {
+	return this.id;
+}));
+console.log(selectId);
 // submit validation
 var validation = true;
 
@@ -203,24 +223,31 @@ $('#submit1').click(function(event) {
 	validation = true;
 	$.each(idArray, function(i, val) {
 		var value = $("#" + idArray[i]).val();
+		var selectValue = $("select#" + idArray[i]).val();
 		var placeholder = $("#" + idArray[i]).attr('placeholder');
 		if (value == null || value == "" || value == "undefined") {
 			
-			 $("#" + idArray[i] ).attr("placeholder", placeholder);
-			 $("#" + idArray[i] ).css('border-color','#e73d4a');
-			    $("#" + idArray[i] ).css('color','#e73d4a');
-			    $("#" + idArray[i] ).addClass('your-class');
+			$('style').append(styleBlock);
+			$("#" + idArray[i] ).attr("placeholder", placeholder);
+			$("#" + idArray[i] ).css('border-color','#e73d4a');
+			$("#" + idArray[i] ).css('color','#e73d4a');
+			$("#" + idArray[i] ).addClass('placeholder-style your-class');
 			    
 //			$("#" + idArray[i] + "Error").text("Please " + placeholder);
+			if (selectValue == null || selectValue == "" || selectValue == "undefined") {
+				$("select#" + selectId[i] ).css('border-color','#e73d4a');
+				$("select#" + selectId[i] ).css('color','#e73d4a');
+				$("select#" + selectId[i] ).addClass('your-class');
+//				validation = false;
+			}else{ $("select#" + id).removeClass('your-class'); }
 			validation = false;
 		} 
 	});
 	if (validation) {
-		
 		$("#submit1").attr("disabled",true);
-		 $("#submit1").val("Please wait...");
-		 $("form").submit();											
-			event.preventDefault();
+		$("#submit1").val("Please wait...");
+		$("form").submit();											
+		event.preventDefault();
 		
 	} else {
 		return false;

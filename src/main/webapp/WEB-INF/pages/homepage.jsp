@@ -140,15 +140,15 @@
 
 							<div class="form-group">
 								<label for="user_name">Enter Your Email-Id :</label> 
-								<form:input	path="email" class="form-control" placeholder="Enter Email"/>
+								<form:input	path="email" class="form-control"  onkeydown="removeBorder(this.id);" placeholder="Enter Email"/>
 							</div>
 							<div class="form-group">
 								<label for="user_password">Create Password :</label> 
-								<form:password path="password" class="form-control" placeholder="Enter Password"/>
+								<form:password path="password" class="form-control" onkeydown="removeBorder(this.id);"  placeholder="Enter Password"/>
 							</div>
 							<div class="form-group">
 								<label for="user_ssword">Create Profile for :</label> 
-								<select	id="created_by" name="created_by" class="form-control">
+								<select	id="created_by" name="created_by" onchange="removeBorder(this.id);"   class="form-control">
 									<option value="">Select</option>
 									<option value="Self">Self</option>
 									<option value="Son">Son</option>
