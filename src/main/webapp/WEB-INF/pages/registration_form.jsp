@@ -361,7 +361,7 @@ body {
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Your Mobile number <span class='manditory'>*</span></label>  
       <div class="col-md-6">
-        <input type="text" name="mobile" id="mobile" class="form-control numericOnly" maxlength="13" placeholder="Mobile Number">
+      <form:input path="mobile" class="form-control numericOnly" maxlength="13" placeholder="Mobile Number"/>
       </div>
     </div>
 
@@ -470,7 +470,15 @@ body {
                
         </div>
 
-   
+    <c:choose>
+	    <c:when test="${empty param.page}">
+ <c:set var="pagenum" value=""/> 
+	    </c:when>
+	    <c:otherwise>
+	
+	<c:set var="pagenum" value="${param.page}"/> 
+	    </c:otherwise>
+	</c:choose>
     
     <script src="user/js/ie10-viewport-bug-workaround.js"></script>
     <script src="user/vendor/jquery/jquery.min.js"></script>
@@ -481,73 +489,10 @@ body {
     <script src="user/js/custom.js"></script>
     <script defer src="user/vendor/woocommerce-FlexSlider/jquery.flexslider.js"></script>
     <script src="user/js/toucheffects.js"></script>
-<script>
-   $(function(){
-      $("#secondForm").hide();
-      $("#thirdForm").hide();
-      $("#fourthForm").hide();
-  });
-  /* $(".btn1").click(function(){
-    $("#firstForm").hide();
-    $("#secondForm").show();
-  });
-  $(".btn2").click(function(){
-    $("#firstForm").hide();
-    $("#secondForm").hide();
-    $("#thirdForm").show();
-  });
-  $(".btn3").click(function(){
-    $("#firstForm").hide();
-    $("#secondForm").hide();
-    $("#thirdForm").hide();
-    $("#fourthForm").show();
-  });
-  $(".btn4").click(function(){
-    $("#firstForm").show();
-    $("#secondForm").hide();
-    $("#thirdForm").hide();
-    $("#fourthForm").hide();
-  });  */
-  
-  $("#firstButton").click(function(){		
-		
-	 	$("#firstForm").hide();
-		$('#secondForm').css({'display':'block'});
-//	 		$("#registration").submit();
-	 location.hash = "page_2";
-			event.preventDefault();
-	});
-  
+    <script>
+    
 
-  
-  $("#secondButton").click(function(){		
-		
-	 	$("#firstForm").hide();
-	 	$('#secondForm').hide();
-		$("#thirdForm").show();
-		 location.hash = "page_3";
-//	 		$("#registration").submit();
-	 
-			event.preventDefault();
-	});
-  $("#thirdButton").click(function(){		
-		
-	 	$("#firstForm").hide();
-	 	$('#secondForm').hide();
-		$("#thirdForm").hide();
-		$('#fourthForm').show();
-		 location.hash = "page_3";
-//	 		$("#registration").submit();
-	 
-			event.preventDefault();
-	});
-  $("#fourthButton").click(function(){		
-		
-		 $('#profileRegistration').attr('action',"userRegistration");
-			$("#profileRegistration").submit();											
-			event.preventDefault();	
-	});
- 
+</script>
 </script>
   </body>
 
