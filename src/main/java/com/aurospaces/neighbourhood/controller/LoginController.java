@@ -48,7 +48,6 @@ public class LoginController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e);
-			return "login";
 
 		}
 		return "loginPage";

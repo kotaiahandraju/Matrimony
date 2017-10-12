@@ -151,6 +151,16 @@ public class BaseUsersDao{
 				return retlist.get(0);
 			return null;
 		}
+	 public UsersBean getByEmail(String email) {
+		 jdbcTemplate = custom.getJdbcTemplate();
+			String sql = "SELECT * from users u ,userdetails ud where u.id = ud.userId and u.email= '"+email+"'";
+			List<UsersBean> retlist = jdbcTemplate.query(sql,
+			new Object[]{},
+			ParameterizedBeanPropertyRowMapper.newInstance(UsersBean.class));
+			if(retlist.size() > 0)
+				return retlist.get(0);
+			return null;
+		}
 	 public List<UsersBean> getAllProfiles() {
 		 jdbcTemplate = custom.getJdbcTemplate();
 			String sql = "SELECT * from users ";

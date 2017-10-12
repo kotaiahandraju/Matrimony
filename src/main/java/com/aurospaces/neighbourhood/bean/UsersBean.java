@@ -86,8 +86,79 @@ public class UsersBean {
 	private String showall;
 	private String pageName;
 	private String statusName;
+	private String state;
+	private String city;
+	private String dosham;
+	private String workingWith;
+	private String companyName;
+	private String diet;
+	private String smoke;
+	private String drink;
+	private String bodyType;
+	private String disability;
 	
+//	state,city,dosham,workingWith,companyName,diet,smoke,drink,bodyType,disability
 	
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+	public String getDosham() {
+		return dosham;
+	}
+	public void setDosham(String dosham) {
+		this.dosham = dosham;
+	}
+	public String getWorkingWith() {
+		return workingWith;
+	}
+	public void setWorkingWith(String workingWith) {
+		this.workingWith = workingWith;
+	}
+	public String getCompanyName() {
+		return companyName;
+	}
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+	public String getDiet() {
+		return diet;
+	}
+	public void setDiet(String diet) {
+		this.diet = diet;
+	}
+	public String getSmoke() {
+		return smoke;
+	}
+	public void setSmoke(String smoke) {
+		this.smoke = smoke;
+	}
+	public String getDrink() {
+		return drink;
+	}
+	public void setDrink(String drink) {
+		this.drink = drink;
+	}
+	public String getBodyType() {
+		return bodyType;
+	}
+	public void setBodyType(String bodyType) {
+		this.bodyType = bodyType;
+	}
+	public String getDisability() {
+		return disability;
+	}
+	public void setDisability(String disability) {
+		this.disability = disability;
+	}
 	public String getStatusName() {
 		return statusName;
 	}

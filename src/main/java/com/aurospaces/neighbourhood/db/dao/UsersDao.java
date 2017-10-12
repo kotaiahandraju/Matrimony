@@ -22,9 +22,9 @@ public class UsersDao extends BaseUsersDao {
 	JdbcTemplate jdbcTemplate ; 
 	 public UsersBean loginChecking(LoginBean objUsersBean) {
 		 jdbcTemplate = custom.getJdbcTemplate();
-			String sql = "SELECT * FROM users where AES_DECRYPT(PASSWORD,'mykey')= ? and username=? ";
+			String sql = "SELECT * FROM users where AES_DECRYPT(PASSWORD,'mykey')= ? and username=? or email =? ";
 			List<UsersBean> retlist = jdbcTemplate.query(sql,
-			new Object[]{objUsersBean.getPassword(),objUsersBean.getUserName()},
+			new Object[]{objUsersBean.getPassword(),objUsersBean.getUserName(),objUsersBean.getUserName()},
 			ParameterizedBeanPropertyRowMapper.newInstance(UsersBean.class));
 			if(retlist.size() > 0)
 				return retlist.get(0);
