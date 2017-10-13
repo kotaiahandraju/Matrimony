@@ -27,7 +27,14 @@
     <link rel="stylesheet" type="text/css" href="user/css/component.css" />
     <script src="user/js/modernizr.custom.js"></script>
     <style>
-
+.dispnone
+{
+display: none !important;
+}
+.hiddencss
+{
+visibility: hidden;
+}
 body {
 	background:#F1F1F2;
 }
@@ -103,7 +110,7 @@ function validate(id, errorMessage)
 <fieldset>
 
 <!-- 1st Step starts here-->
-<div id="firstForm">
+<div id="firstForm" class="dispnone">
     <div class="col-md-12">
       <h3>Thanks for Registering. Now lets build your profile</h3>
     </div>
@@ -181,14 +188,14 @@ function validate(id, errorMessage)
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput"></label>  
       <div class="col-md-6">
-      	<button type="submit" id="firstButton" class="btn1 btn btn-info">CONTINUE...</button>
+      	<button type="submit" id="firstButton" onclick="firstForm();" class="btn1 btn btn-info">CONTINUE...</button>
       </div>
     </div>
 </div>
 <!-- 1st Step ends here-->
 
 <!-- 2nd Step starts here-->
-<div id="secondForm">
+<div id="secondForm" class="dispnone">
     <div class="col-md-12">
       <h3>Just a few more steps! Please add your education & career details</h3>
     </div>
@@ -249,14 +256,14 @@ function validate(id, errorMessage)
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput"></label>  
       <div class="col-md-6">
-      <button type="submit" id="secondButton" class="btn2 btn btn-info">CONTINUE...</button>
+      <button type="submit" id="secondButton" onclick="secondForm();" class="btn2 btn btn-info">CONTINUE...</button>
       </div>
     </div>
 </div>
 <!-- 2nd Step ends here-->
 
 <!-- 3rd Step starts here-->
-<div id="thirdForm">
+<div id="thirdForm" class="dispnone">
     <div class="col-md-12">
       <h3>Add your lifestyle details and we are almost done</h3>
     </div>
@@ -333,14 +340,14 @@ function validate(id, errorMessage)
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput"></label>  
       <div class="col-md-6">
-      <button type="button" id="thirdButton" class="btn3 btn btn-info">CONTINUE...</button>
+      <button type="button" id="thirdButton" onclick="thirdForm();" class="btn3 btn btn-info">CONTINUE...</button>
       </div>
     </div>
 </div>
 <!-- 3rd Step ends here-->
 
 <!-- 4th Step starts here-->
-<div id="fourthForm">
+<div id="fourthForm" class="dispnone">
     <div class="col-md-12">
       <h3>One last thing! Describe yourself in a few words</h3>
     </div>
@@ -364,7 +371,7 @@ function validate(id, errorMessage)
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput"></label>  
       <div class="col-md-6">
-      <button type="button" id="fourthButton" class="btn4 btn btn-info">Create Profile</button>
+      <button type="button" id="fourthButton" onclick="fourthForm();" class="btn4 btn btn-info">Create Profile</button>
       </div>
     </div>
 </div>
@@ -497,10 +504,170 @@ $( document ).ready(function() {
 
 	});
 
+function firstForm()
+{
+	if($('#state').val() ==  null || $('#state').val() == "" || $('#state').val()=="undefined" || 
+		$('#city').val() ==  null || $('#city').val() == "" || $('#city').val()=="undefined" ||
+		$('#maritalStatus').val() ==  null || $('#maritalStatus').val() == "" || $('#maritalStatus').val()=="undefined" || 
+		$('#cast').val() ==  null || $('#cast').val() == "" || $('#cast').val()=="undefined")
+	{
+		if($('#state').val() ==  null || $('#state').val() == "" || $('#state').val()=="undefined" ) 
+		{			    
+			$('#state').css('border-color','red');
+			$('#state').css('color','#cc0000');
+			$('#state').addClass('your-class');
+// 			$('#stateError').css('color','red');
+// 			$("#stateError").text("Created By cannot be blank.");
+		}
+		if($('#city').val() ==  null || $('#city').val() == "" || $('#city').val()=="undefined" ) 
+		{			    
+			$('#city').css('border-color','red');
+		    $('#city').css('color','#cc0000');
+			$('#city').addClass('your-class');
+	    }
+		if($('#maritalStatus').val() ==  null || $('#maritalStatus').val() == "" || $('#maritalStatus').val()=="undefined" ) 
+		{			    
+		    $('#maritalStatus').css('border-color','red');
+		    $('#maritalStatus').css('color','#cc0000');
+			$('#maritalStatus').addClass('your-class');
+	    }
+		if($('#cast').val() ==  null || $('#cast').val() == "" || $('#cast').val()=="undefined" ) 
+		{	
+			$('#cast').css('border-color','red');
+		    $('#cast').css('color','#cc0000');
+			$('#cast').addClass('your-class');
+	    }
+		event.preventDefault();
+		return false;
+	}
+	else
+	{
+		$("#firstButton").attr("disabled",true);
+	    $("#firstButton").val("Please wait...");
+	    $("#firstForm").hide();
+	    $('#secondForm').css({'display':'block'});
+	    ChangeUrl('page1', 'profile.htm?page=2');
+    	event.preventDefault();
+    	return true;
+	}
+}
+
+function secondForm()
+{
+	if($('#education').val() ==  null || $('#education').val() == "" || $('#education').val()=="undefined" || 
+		$('#salaryperyear').val() ==  null || $('#salaryperyear').val() == "" || $('#salaryperyear').val()=="undefined")
+	{
+		if($('#education').val() ==  null || $('#education').val() == "" || $('#education').val()=="undefined" ) 
+		{			    
+			$('#education').css('border-color','red');
+			$('#education').css('color','#cc0000');
+			$('#education').addClass('your-class');
+		}
+		if($('#salaryperyear').val() ==  null || $('#salaryperyear').val() == "" || $('#salaryperyear').val()=="undefined" ) 
+		{			    
+			$('#salaryperyear').css('border-color','red');
+			$('#salaryperyear').css('color','#cc0000');
+			$('#salaryperyear').addClass('your-class');
+		}
+		event.preventDefault();
+		return false;
+	}
+	else
+	{
+		$("#firstForm").hide();
+		$('#secondForm').hide();
+		$("#thirdForm").show();
+		ChangeUrl('page1', 'profile.htm?page=3');
+		event.preventDefault();
+		return true;
+	}
+}
+
+function thirdForm()
+{
+	if($('#smoke').val() ==  null || $('#smoke').val() == "" || $('#smoke').val()=="undefined" || 
+		$('#drink').val() ==  null || $('#drink').val() == ""  || $('#drink').val()=="undefined" || 
+		$('#height').val() ==  null || $('#height').val() == ""  || $('#height').val()=="undefined" || 
+		$('#mobile').val() ==  null || $('#mobile').val() == ""  || $('#mobile').val()=="undefined")
+	{
+		if($('#smoke').val() ==  null || $('#smoke').val() == "" || $('#smoke').val()=="undefined") 
+		{			    
+			$('#smoke').css('border-color','red');
+			$('#smoke').css('color','#cc0000');
+			$('#smoke').addClass('your-class');
+		}
+		if($('#drink').val() ==  null || $('#drink').val() == "" || $('#drink').val()=="undefined") 
+		{			    
+			$('#drink').css('border-color','red');
+			$('#drink').css('color','#cc0000');
+			$('#drink').addClass('your-class');
+		}
+		if($('#height').val() ==  null || $('#height').val() == "" || $('#height').val()=="undefined") 
+		{			    
+			$('#height').css('border-color','red');
+			$('#height').css('color','#cc0000');
+			$('#height').addClass('your-class');
+		}
+		if($('#mobile').val() ==  null || $('#mobile').val() == "" || $('#mobile').val()=="undefined") 
+		{			    
+			$('#mobile').css('border-color','red');
+			$('#mobile').css('color','#cc0000');
+			$('#mobile').addClass('your-class');
+		}
+		event.preventDefault();
+		return false;
+	}
+	else
+	{
+		$("#firstForm").hide();
+		$('#secondForm').hide();
+		$("#thirdForm").hide();
+		$('#fourthForm').show();
+		ChangeUrl('page1', 'profile.htm?page=4');
+		event.preventDefault();
+		return true;
+	}
+}
+function fourthForm(){
+	var formOne = firstForm();
+	var formTwo = secondForm();
+	var formThree = thirdForm();
+	if(!formOne){
+		ChangeUrl('page1', 'profile.htm?page=1');
+		$("#firstForm").show();
+	 	$('#secondForm').hide();
+		$("#thirdForm").hide();
+		$('#fourthForm').hide();
+		return false;
+	}
+	if(!formTwo){
+		ChangeUrl('page1', 'profile.htm?page=2');
+		$("#firstForm").hide();
+	 	$('#secondForm').show();
+		$("#thirdForm").hide();
+		$('#fourthForm').hide();
+		return false;
+	}
+	if(!formThree){
+		ChangeUrl('page1', 'profile.htm?page=3');
+		$("#firstForm").hide();
+	 	$('#secondForm').hide();
+		$("#thirdForm").show();
+		$('#fourthForm').hide();
+		return false;
+	}
+	else
+	{
+	}
+		$("#fourthButton").attr("disabled",true);
+	    $("#fourthButton").val("Please wait...");
+		$('#profileRegistration').attr('action',"userRegistration");
+		$("#profileRegistration").submit();
+		event.preventDefault();
+}
 
 
-
-
+/* 
 $("#firstButton").click(function()
 {			
 	ChangeUrl('page1', 'profile.htm?page=2');
@@ -633,17 +800,7 @@ $("#firstButton").click(function()
 								event.preventDefault();
 						}
 						
-			});
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
+			}); */
    
   /* $(".btn1").click(function(){
     $("#firstForm").hide();
@@ -696,12 +853,12 @@ $("#firstButton").click(function()
 	 
 			event.preventDefault();
 	}); */
-  $("#fourthButton").click(function(){		
+/* $("#fourthButton").click(function(){		
 		
 		 $('#profileRegistration').attr('action',"saveUserProfile");
 			$("#profileRegistration").submit();											
 			event.preventDefault();	
-	});
+	}); */
 
 	function ChangeUrl(page, url) {
 	      if (typeof (history.pushState) != "undefined") {
@@ -740,6 +897,14 @@ $("#firstButton").click(function()
 			
 		});
 		
+	});
+	$(function(){
+		$("#firstForm").removeClass("dispnone");
+		$("#secondForm").removeClass("dispnone");
+		$("#thirdForm").removeClass("dispnone");
+		$("#fourthForm").removeClass("dispnone");
+//	 	$(".dispnone").addClass("hiddencss");
+//	 	$('body').removeClass("dispnone");
 	});
 </script>
   </body>
