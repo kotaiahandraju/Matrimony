@@ -661,7 +661,7 @@ function fourthForm(){
 	}
 		$("#fourthButton").attr("disabled",true);
 	    $("#fourthButton").val("Please wait...");
-		$('#profileRegistration').attr('action',"userRegistration");
+		$('#profileRegistration').attr('action',"saveUserProfile");
 		$("#profileRegistration").submit();
 		event.preventDefault();
 }
