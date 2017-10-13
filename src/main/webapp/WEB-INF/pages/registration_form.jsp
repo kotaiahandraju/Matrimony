@@ -58,6 +58,7 @@ function validate(id, errorMessage)
 	if($('#'+id).val() ==  null || $('#'+id).val() == ""  || $('#'+id).val()=="undefined" ) {
 		$('style').append(styleBlock);
 		$('#'+id).css('border-color','#cc0000');
+		$('#'+id).css('color','#cc0000');
 		$('#'+id).attr('placeholder',errorMessage);
 		$('#'+id).addClass('placeholder-style your-class');
 //			$('#'+id).css('color','#cc0000');
@@ -119,12 +120,12 @@ function validate(id, errorMessage)
       <label class="col-md-4 control-label" for="textinput">You live in <span class='manditory'>*</span></label>  
       <div class="col-md-6">
 <!--       state,city,dosham,workingWith,companyName,diet,smoke,drink,bodyType,disability -->
-      	<form:select path="state" class="form-control u1" onblur="validate('state','');" onchange="removeBorder(this.id)">
+      	<form:select path="state" class="form-control u1" onblur="validate('state','');" onfocus="removeBorder(this.id)">
       		<form:option value="">-- Choose State --</form:option>
 			<form:option value="AP">AP</form:option>
       	</form:select>
        	<br>
-       	<form:select path="city" class="form-control u1" onblur="validate('city','');" onchange="removeBorder(this.id)">
+       	<form:select path="city" class="form-control u1" onblur="validate('city','');" onfocus="removeBorder(this.id)">
       		<form:option value="">-- Choose City --</form:option>
 			<form:option value="Guntur">Guntur</form:option>
 			<form:option value="Vijayawada">Vijayawada</form:option>
@@ -135,7 +136,7 @@ function validate(id, errorMessage)
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Your Marital Status <span class='manditory'>*</span></label>  
       <div class="col-md-6">
-      	<form:select path="maritalStatus" class="form-control u1" onblur="validate('maritalStatus','');" onchange="removeBorder(this.id)">
+      	<form:select path="maritalStatus" class="form-control u1" onblur="validate('maritalStatus','');" onfocus="removeBorder(this.id)">
 <%--       		<form:option value="">-- Choose Cast --</form:option> --%>
 <%-- 			<form:options items="${cast}"></form:options> --%>
 			<form:option value="">-- Martial Status --</form:option>
@@ -149,7 +150,7 @@ function validate(id, errorMessage)
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Your Community <span class='manditory'>*</span></label>  
       <div class="col-md-6">
-      	<form:select path="cast" class="form-control u" onblur="validate('cast','');" onchange="removeBorder(this.id)">
+      	<form:select path="cast" class="form-control u" onblur="validate('cast','');" onfocus="removeBorder(this.id)">
 			<form:option value="">-- Choose Community --</form:option>
 			<form:options items="${cast}"></form:options>
 		</form:select>
@@ -202,7 +203,7 @@ function validate(id, errorMessage)
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Your education level <span class='manditory'>*</span></label>  
       <div class="col-md-6">
-      	<form:select path="education" class="form-control u" onblur="validate('education','');" onchange="removeBorder(this.id)">
+      	<form:select path="education" class="form-control u" onblur="validate('education','');" onfocus="removeBorder(this.id)">
 			<form:option value="">-- Choose Education --</form:option>
 			<form:options items="${education}"></form:options>
 		</form:select>
@@ -242,7 +243,7 @@ function validate(id, errorMessage)
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Your Annual Income <span class='manditory'>*</span></label>  
       <div class="col-md-6">
-      	<form:select path="salaryperyear" class="form-control u1" onblur="validate('salaryperyear','');" onchange="removeBorder(this.id)">
+      	<form:select path="salaryperyear" class="form-control u1" onblur="validate('salaryperyear','');" onfocus="removeBorder(this.id)">
 			<form:option value="">-- Annual Income --</form:option>
 			<form:option value="Upto INR 1 Lakh">Upto INR 1 Lakh</form:option>
 			<form:option value="INR 2 Lakh to 4 Lakh">INR 2 Lakh to 4 Lakh</form:option>
@@ -284,7 +285,7 @@ function validate(id, errorMessage)
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Do you smoke? <span class='manditory'>*</span></label>  
       <div class="col-md-6">
-      	<form:select path="smoke" class="form-control u1" onblur="validate('smoke','');" onchange="removeBorder(this.id)">
+      	<form:select path="smoke" class="form-control u1" onblur="validate('smoke','');" onfocus="removeBorder(this.id)">
 			<form:option value="">-- Do you Smoke --</form:option>
 			<form:option value="No">No</form:option>
 			<form:option value="Occasionally">Occasionally</form:option>
@@ -295,7 +296,7 @@ function validate(id, errorMessage)
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Drink? <span class='manditory'>*</span></label>  
       <div class="col-md-6">
-      	<form:select path="drink" class="form-control u1" onblur="validate('drink','');" onchange="removeBorder(this.id)">
+      	<form:select path="drink" class="form-control u1" onblur="validate('drink','');" onfocus="removeBorder(this.id)">
 			<form:option value="">-- Do you Drink --</form:option>
 			<form:option value="No">No</form:option>
 			<form:option value="Occasionally">Occasionally</form:option>
@@ -306,7 +307,7 @@ function validate(id, errorMessage)
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Your height <span class='manditory'>*</span></label>  
       <div class="col-md-6">
-      	<form:select path="height" class="form-control u" onblur="validate('height','');" onchange="removeBorder(this.id)">
+      	<form:select path="height" class="form-control u" onblur="validate('height','');" onfocus="removeBorder(this.id)">
 			<form:option value="">-- Choose Height --</form:option>
 			<form:options items="${height}"></form:options>
 		</form:select>
@@ -333,7 +334,7 @@ function validate(id, errorMessage)
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Your Mobile number <span class='manditory'>*</span></label>  
       <div class="col-md-6">
-      <form:input path="mobile" class="form-control numericOnly u"  onblur="validate('mobile','Enter Mobile');" onchange="removeBorder(this.id)" maxlength="13" placeholder="Mobile Number"/>
+      <form:input path="mobile" class="form-control numericOnly u"  onblur="validate('mobile','Enter Mobile');" onkeydown="removeBorder(this.id)" maxlength="13" placeholder="Mobile Number"/>
       </div>
     </div>
 
@@ -371,7 +372,7 @@ function validate(id, errorMessage)
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput"></label>  
       <div class="col-md-6">
-      <button type="button" id="fourthButton" onclick="fourthForm();" class="btn4 btn btn-info">Create Profile</button>
+      <button type="button" id="fourthButton" onclick="fourthForm();" value="Create Profile" class="btn4 btn btn-info">Create Profile</button>
       </div>
     </div>
 </div>

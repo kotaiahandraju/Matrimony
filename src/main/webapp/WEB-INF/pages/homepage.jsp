@@ -318,7 +318,9 @@ span.has-error,span.hasError
 								<option value="3">Brahmin</option>
 							</select>
 						</div>
-						<button type="button" id="submit12" class="btn btn-danger">Search</button>
+						<div class="form-group">
+							<button type="button" id="submit12" class="btn btn-danger">Search</button>
+						</div>
 					</div>
 					</div>
 				</form>
