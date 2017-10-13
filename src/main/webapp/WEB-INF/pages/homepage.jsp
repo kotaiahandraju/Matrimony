@@ -659,6 +659,12 @@ var emailExist = false;
 var expr = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
 $('#email').blur(function() {
 	var email = $('#email').val();
+	if(email == "" || email == null || email == "undefined")
+	{
+		$("#email").css("border-color","#e73d4a");
+    	$("#email").attr("placeholder","Enter Email");
+    	$('#email').css('color','red');
+	}
 	if(email != "" && !email.match(expr)){
 // 		alert("Please Enter Valid Email");
     	$("#email").css("border-color","#e73d4a");
@@ -716,21 +722,21 @@ $("#submit11").click(function(){
 		if($('#email').val() ==  null || $('#email').val() == "" || $('#email').val()=="undefined") 
 		{
 			$("#email").css("border-color","#e73d4a");
-			$("#email").attr("placeholder","Please Enter Mail");
+			$("#email").attr("placeholder","Enter Mail");
 			$('#email').addClass('your-class');
 			$('#email').css('color','red');
 		}
 		if($('#created_by').val() ==  null || $('#created_by').val() == "" || $('#created_by').val()=="undefined" ) 
 		{
 			$("#created_by").css("border-color","#e73d4a");
-			$("#created_by").attr("placeholder","Please Enter Created_By");
+// 			$("#created_by").attr("placeholder","Please Enter Created_By");
 			$('#created_by').addClass('your-class');
 			$('#created_by').css('color','red');
 		}
 		if($('#password').val() ==  null || $('#password').val() == "" || $('#password').val()=="undefined" ) 
 		{
 			$("#password").css("border-color","#e73d4a");
-			$("#password").attr("placeholder","Please Enter Password");
+			$("#password").attr("placeholder","Enter Password");
 			$('#password').addClass('your-class');
 			$('#password').css('color','red');
 		}		
