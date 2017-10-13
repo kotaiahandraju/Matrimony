@@ -20,8 +20,8 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="">
-<meta name="author" content="">
+<meta name="description" content="Aarna Matrimony">
+<meta name="author" content="Aarna Matrimony">
 
 <title>Aarna Matrimony</title>
 <link rel="shortcut icon" href="img/aarna-fav.png"/>
@@ -99,6 +99,14 @@ span.has-error,span.hasError
   display: block !important;
   position: absolute;
 }
+.dispnone
+{
+	display: none !important;
+}
+.dispblock
+{
+	display: block !important;
+}
 </style>
 </head>
 
@@ -150,7 +158,7 @@ span.has-error,span.hasError
 							<div class="form-group">
 								<label for="user_name">Enter Your Email-Id :</label> 
 								<form:input	path="email" onkeydown="removeBorder(this.id)" class="form-control" placeholder="Enter Email"/>
-								<span class="hasError" id="emailError"></span>
+								<span class="hasError" id="emailError" style="font-size: 13px;"></span>
 							</div>
 							<div class="form-group">
 								<label for="user_password">Create Password :</label> 
@@ -328,7 +336,7 @@ span.has-error,span.hasError
 		<div class="container">
 			<div class="row">
 				<div class="col-md-4 col-sm-5 col-md-push-8 col-sm-push-7">
-					<div class="right-side">
+					<div class="right-side dispnone">
 						<div class="section-title white-section">
 							<h1>Login</h1>
 							<img src="user/images/line-01.jpg" alt="" />
@@ -671,8 +679,12 @@ $('#email').blur(function() {
     	$("#email").css("border-color","#e73d4a");
     	$("#email").attr("title","Please Enter Email-ID");
     	$('#email').css('color','red');
+    	$('#emailError').text("Please Enter Valid Email-ID.");
 //     	$('#email').focus();
 		return false;
+	}
+	else{
+		$('#emailError').text("");
 	}
 	if(email !=null && email != "" && email !="undefined"){
 	var formData = new FormData();
@@ -687,7 +699,6 @@ $('#email').blur(function() {
 		}else{
 			$('#emailError').text("");
 			emailExist = false;
-
 		}
 	});
 	}
@@ -833,7 +844,11 @@ $("#secondButton").click(function()
 		}
 
 
-
+$(function(){
+// 	$("#right-side").addClass("dispnone");
+	$("#right-side").removeClass("dispnone");
+// 	$("#right-side").css("display","block");
+});
 </script>
 </body>
 </html>

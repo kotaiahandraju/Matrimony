@@ -11,8 +11,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="Aarna Matrimony">
+    <meta name="author" content="Aarna Matrimony">
 
     <title>Aarna Matrimony</title>
 
@@ -29,11 +29,11 @@
     <style>
 .dispnone
 {
-display: none !important;
+	display: none !important;
 }
 .hiddencss
 {
-visibility: hidden;
+	visibility: hidden;
 }
 body {
 	background:#F1F1F2;
