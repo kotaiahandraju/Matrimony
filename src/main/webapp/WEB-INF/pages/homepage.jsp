@@ -336,21 +336,28 @@ span.has-error,span.hasError
 
 						<div class="quote-form row">
 							<!-- contact form -->
-							<form class="" action="#" id="quote" name="quote" method="post">
+							<form:form commandName="loginForm" action="loginAction" method='post' class='form-validate' id="loginform">
+								<c:if test="${not empty msg}">
+									<div class="msgcss controls fadeOut animated alert alert-danger" style="animation-delay: 5s;">
+										${msg}
+									</div>
+								</c:if>
 								<div class="form-group col-md-12">
-									<input type="text" class="form-control" name="WriteName"
-										id="WriteName" placeholder="User Name" required>
+									<form:input path="userName" placeholder="Enter Email" autocomplete="off" class='form-control validate'/>
+									<span class="hasError" id="userNameError"></span>
+									<span><form:errors path="userName" cssClass="error" /></span>
 								</div>
 
 								<div class="form-group col-md-12">
-									<input type="tel" class="form-control" name="Password"
-										id="Password" placeholder="Password" required>
+									<form:password path="password" placeholder="Enter Password" autocomplete="off" class='form-control validate'/>
+									<span class="hasError" id="passwordError"></span>
+									<span><form:errors path="password" cssClass="error" /></span>
 								</div>
 
 								<div class="form-group col-md-12">
 									<button name="submit" type="submit" class="btn btn-default">Login</button>
 								</div>
-							</form>
+							</form:form>
 						</div>
 					</div>
 				</div>
