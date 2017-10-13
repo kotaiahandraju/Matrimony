@@ -124,11 +124,12 @@ public class BaseUserDetailsDao {
 
 		} else {
 
-			String sql = "UPDATE userdetails SET userId =?, updated_time = ?, executiveName = ?, SubCaste = ?, raasi = ?, star = ?, padam = ?, gotram = ?, Religion = ?, sLanguages = ?, aboutYourself = ?, educationDetails = ?, educationInfo = ?, Occupation = ?, occupationDetails = ?, sinceWorking = ?, salaryperMonth = ?, salaryperyear = ?, foDetails = ?, ffName = ?, fnativeAddress = ?, mnativeAddress = ?, presentAddress = ?, phone1 = ?, phone2 = ?, landLine = ?, email2 = ?, moDetails = ?, mfName = ?, sibilings = ?, property = ?, aboutFamily = ?, ncitizenOf = ?, crCountry = ?, visaType = ?, stayingSince = ?, visaValidity = ?, ageGap = ?, rHeightFrom = ?, rHeightTo = ?, rComplexion = ?, rprofession = ?, maritalStatus = ? WHERE userdetailsId=? ";
+			String sql = "UPDATE userdetails SET userId =?, updated_time = ?, executiveName = ?, SubCaste = ?, raasi = ?, star = ?, padam = ?, gotram = ?, Religion = ?, sLanguages = ?, aboutYourself = ?, educationDetails = ?, educationInfo = ?, Occupation = ?, occupationDetails = ?, sinceWorking = ?, salaryperMonth = ?, salaryperyear = ?, foDetails = ?, ffName = ?, fnativeAddress = ?, mnativeAddress = ?, presentAddress = ?, phone1 = ?, phone2 = ?, landLine = ?, email2 = ?, moDetails = ?, mfName = ?, sibilings = ?, property = ?, aboutFamily = ?, ncitizenOf = ?, crCountry = ?, visaType = ?, stayingSince = ?, visaValidity = ?, ageGap = ?, rHeightFrom = ?, rHeightTo = ?, rComplexion = ?, rprofession = ?, maritalStatus = ?, "
+					+ " state =?,city=?,dosham=?,workingWith=?,companyName=?,diet=?,smoke=?,drink=?,bodyType=?,disability=? WHERE userdetailsId=? ";
 
 			jdbcTemplate
 					.update(sql,
-							new Object[] { objUsersBean.getUserdetailsId(), updatedTime, objUsersBean.getExecutiveName(),
+							new Object[] { objUsersBean.getId(), updatedTime, objUsersBean.getExecutiveName(),
 									objUsersBean.getSubCaste(), objUsersBean.getRaasi(), objUsersBean.getStar(),
 									objUsersBean.getPadam(), objUsersBean.getGotram(), objUsersBean.getReligion(),
 									objUsersBean.getsLanguages(), objUsersBean.getAboutYourself(),
@@ -146,7 +147,12 @@ public class BaseUserDetailsDao {
 									objUsersBean.getVisaValidity(), objUsersBean.getAgeGap(),
 									objUsersBean.getrHeightFrom(), objUsersBean.getrHeightTo(),
 									objUsersBean.getrComplexion(), objUsersBean.getRprofession(),
-									objUsersBean.getMaritalStatus(), objUsersBean.getUserdetailsId() });
+									objUsersBean.getMaritalStatus(),
+									objUsersBean.getState(),objUsersBean.getCity(),
+									objUsersBean.getDosham(),objUsersBean.getWorkingWith(),
+									objUsersBean.getCompanyName(),objUsersBean.getDiet(),
+									objUsersBean.getSmoke(),objUsersBean.getDrink(),
+									objUsersBean.getBodyType(),objUsersBean.getDisability(), objUsersBean.getUserdetailsId()});
 		}
 	}
 

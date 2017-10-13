@@ -11,18 +11,14 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.aurospaces.neighbourhood.bean.BranchBean;
-import com.aurospaces.neighbourhood.bean.ContriesBean;
 import com.aurospaces.neighbourhood.bean.EducationBean;
 import com.aurospaces.neighbourhood.bean.HeightBean;
 import com.aurospaces.neighbourhood.bean.UsersBean;
@@ -30,7 +26,6 @@ import com.aurospaces.neighbourhood.db.dao.BranchDao;
 import com.aurospaces.neighbourhood.db.dao.CountriesDao;
 import com.aurospaces.neighbourhood.db.dao.UserDetailsDao;
 import com.aurospaces.neighbourhood.db.dao.UsersDao;
-import com.aurospaces.neighbourhood.util.MiscUtils;
 
 @Controller
 public class HomePageController {
@@ -109,7 +104,7 @@ public class HomePageController {
 			logger.error(e);
 			logger.fatal("error in CreateProfile class createProfile method  ");
 		}
-		return "redirect:profile";
+		return "redirect:profile.htm?page=1";
 	}
 	@RequestMapping(value = "/profile")
 	public String profile(@ModelAttribute("createProfile") UsersBean objUsersBean, Model objeModel ,
@@ -118,16 +113,16 @@ public class HomePageController {
 		String pageName =  null;
 		
 		try {
-			 pageName = request.getParameter("gp");
+			 /*pageName = request.getParameter("gp");
 			 // get page name
 			 if(StringUtils.isNotBlank(pageName)){
 				 request.setAttribute("page", pageName);
-			 }
+			 }*/
 			 //session checking
 //			if(session.getAttribute("cacheGuest") != null){
 				UsersBean sessionBean =(UsersBean)session.getAttribute("cacheGuest");
 			//get session bean values 
-			 objUsersBean = objUsersDao.getByEmail("kkkkk@hjkjfha.com");
+			 objUsersBean = objUsersDao.getById(2784);
 			 if(objUsersBean != null){
 			 objeModel.addAttribute("createProfile", objUsersBean);
 			 }
@@ -145,7 +140,34 @@ public class HomePageController {
 		}
 		return "registration_form";
 	}
-
+	@RequestMapping(value = "/saveUserProfile")
+	public String saveUserProfile(@ModelAttribute("createProfile") UsersBean objUsersBean, Model objeModel ,
+			HttpServletRequest request,HttpServletResponse response, HttpSession session) {
+		System.out.println("saveUserProfile Page");
+		
+		try {
+			objUsersBean.setRole_id(4);
+			objUsersBean.setStatus("0");
+			UsersBean userbean = objUsersDao.emailExistOrNot(objUsersBean);
+			if(userbean != null){	
+				request.setAttribute("mesg", "1");
+				return "homepage";
+			}
+//			if(StringUtils.isNotBlank(objUsersBean.getEmail())){
+			objUsersDao.save(objUsersBean);
+			objUserDetailsDao.save(objUsersBean);
+			session.setAttribute("cacheGuest", objUsersBean);
+//			response.sendRedirect("profile?gp=page_1");
+//			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			logger.error(e);
+			logger.fatal("error in CreateProfile class createProfile method  ");
+		}
+		return "redirect:profile.htm?page=1";
+	}
 	@ModelAttribute("cast")
 	public Map<Integer, String> populatecast() {
 		Map<Integer, String> statesMap = new LinkedHashMap<Integer, String>();

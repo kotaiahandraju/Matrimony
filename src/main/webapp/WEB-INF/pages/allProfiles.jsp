@@ -87,11 +87,11 @@ $( document ).ready(function() {
 					All Profiles List
 				</h3>
 			</div>
-			<div class="box-content nopadding w3-animate-zoom" id="tableId">
-				<table class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,null">
+			<div class="box-content nopadding table-responsive w3-animate-zoom" id="tableId">
+				<table class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,text,text,text,text,null">
 					<thead>
 					<tr>
-						<th>Name</th>
+						<th>UserName</th><th>Sur Name</th><th>Name</th><th>Email</th><th>Mobile</th>
 						<th></th>
 					</tr>
 					</thead>
@@ -125,8 +125,8 @@ s.parentNode.insertBefore(ga, s);
 	}
  function displayTable(listOrders) {
 		$('#tableId').html('');
-		var tableHead = '<table  class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,null">'
-				+ '<thead><tr><th>UserName</th><th>Name</th><th>Sur Name</th><th></th></tr></thead><tbody></tbody></table>';
+		var tableHead = '<table class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,text,text,text,text,null">'
+			+ '<thead><tr><th>UserName</th><th>Sur Name</th><th>Name</th><th>Email</th><th>Mobile</th><th></th></tr></thead><tbody></tbody></table>';
 		$('#tableId').html(tableHead);
 		serviceUnitArray = {};
 		$.each(listOrders,function(i, orderObj) {
@@ -135,8 +135,8 @@ s.parentNode.insertBefore(ga, s);
 			var moveToHidden = "<a data-toggle='tooltip' title='Move To Hidden' onclick='moveToHidden("+ orderObj.id+ ")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-eye-slash'></i></a>"
 			var editProfile = "<a data-toggle='tooltip' title='Edit' onclick='editProfile("+ orderObj.id+ ")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-pencil'></i></a>"
 			var sendMail = "<a data-toggle='tooltip' title='Mail' onclick='sendMail("+ orderObj.id+ ")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-envelope'></i></a>"
-			var inactive = "<a data-toggle='tooltip' title='Inactive' onclick='inactive("+ orderObj.id+ ",0)'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-eye'></i></a>"
-			var compareProfiles = "<a data-toggle='tooltip' title='Compare Profiles' onclick='compareProfiles("+ orderObj.id+ ")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-transfer'></i></a>"
+			var inactive = "<a data-toggle='tooltip' title='Inactive' onclick='inactive("+ orderObj.id+ ",0)'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-remove'></i></a>"
+			var compareProfiles = "<a data-toggle='tooltip' title='Compare Profiles' onclick='compareProfiles("+ orderObj.id+ ")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-exchange'></i></a>"
 			var deleteProfile = "<a data-toggle='tooltip' title='Delete' onclick='deleteProfile("+ orderObj.id+ ",2)'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-trash'></i></a>"
 			var payment = "<a data-toggle='tooltip' title='Payment' onclick='payment("+ orderObj.id+ ",0)'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-usd'></i></a>"
 			var resetPassword = "<a data-toggle='tooltip' title='Reset Password' onclick='resetPassword("+ orderObj.id+ ",0)'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-repeat'></i></a>"
@@ -145,10 +145,12 @@ s.parentNode.insertBefore(ga, s);
 							var viewProfile = "<a title='View Profile' onclick='viewProfile("+ orderObj.id+ ")'><i style='color: blue;' class='fa fa-eye'></i></a>" */
 							serviceUnitArray[orderObj.id] = orderObj;
 							var tblRow = "<tr >"
-									+ "<td title='"+orderObj.username+"'>" + orderObj.username + "</td>"
-									+ "<td title='"+orderObj.name+"'>" + orderObj.name + "</td>"
-									+ "<td title='"+orderObj.sname+"'>" + orderObj.sname + "</td>"
-									+ "<td style='text-align: center;'>" + viewProfile + "&nbsp;&nbsp;" + uploadPhotos + "&nbsp;&nbsp;" 
+								+ "<td title='"+orderObj.username+"'>" + orderObj.username + "</td>"
+								+ "<td title='"+orderObj.sname+"'>" + orderObj.sname + "</td>"
+								+ "<td title='"+orderObj.name+"'>" + orderObj.name + "</td>"
+								+ "<td title='"+orderObj.email+"'>" + orderObj.email + "</td>"
+								+ "<td title='"+orderObj.mobile+"'>" + orderObj.mobile + "</td>"
+									+ "<td style='text-align: center;white-space: nowrap;'>" + viewProfile + "&nbsp;&nbsp;" + uploadPhotos + "&nbsp;&nbsp;" 
 									+		moveToHidden + "&nbsp;&nbsp;" + editProfile + "&nbsp;&nbsp;" + sendMail + "&nbsp;&nbsp;" 
 									+		inactive + "&nbsp;&nbsp;" + compareProfiles + "&nbsp;&nbsp;" + deleteProfile + "&nbsp;&nbsp;"
 									+		payment + "&nbsp;&nbsp;" + resetPassword
