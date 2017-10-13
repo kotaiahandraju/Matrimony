@@ -275,36 +275,35 @@ span.has-error,span.hasError
 	<section class="darkSection">
 		<div class="container">
 			<div class="searchbg">
-				<div>
-					<form role="form" class="form-inline">
-						<div class="form-group" style="margin-right: 25px;">
+				<form role="form" class="form-inline">
+					<div class="row">
+					<div class="col-md-12">
+						<div class="form-group">
 							<select class="custom-select col-md-12 form-control">
-								<option selected>I am Looking for Bride/Groom....
-									&nbsp;&nbsp;</option>
-								<option value="1">Female</option>
-								<option value="2">Male</option>
+								<option selected>I am Looking for... &nbsp;&nbsp;</option>
+								<option value="Female">Bride</option>
+								<option value="Male">Groom</option>
 							</select>
 						</div>
 						<div class="form-group">
 							<select class="custom-select col-md-12 form-control">
-								<option selected>Starting Age from.... &nbsp;&nbsp;</option>
+								<option selected>Age from... &nbsp;&nbsp;</option>
 								<option value="1">21</option>
 								<option value="2">22</option>
 								<option value="3">23</option>
 							</select>
 						</div>
 						<div class="form-group">&nbsp;&nbsp; to &nbsp;&nbsp;</div>
-						<div class="form-group" style="margin-right: 25px;">
+						<div class="form-group">
 							<select class="custom-select col-md-12 form-control">
-								<option selected>Age upto.... &nbsp;&nbsp;</option>
+								<option selected>Age upto... &nbsp;&nbsp;</option>
 								<option value="1">21</option>
 								<option value="2">22</option>
 								<option value="3">23</option>
 							</select>
 						</div>
 						<div class="form-group">
-							<select class="custom-select col-md-12 form-control"
-								style="margin-right: 25px;">
+							<select class="custom-select col-md-12 form-control">
 								<option selected>of Religion.... &nbsp;&nbsp;</option>
 								<option value="1">Hindu</option>
 								<option value="2">Muslim</option>
@@ -312,8 +311,7 @@ span.has-error,span.hasError
 							</select>
 						</div>
 						<div class="form-group">
-							<select class="custom-select col-md-12 form-control"
-								style="margin-right: 25px;">
+							<select class="custom-select col-md-12 form-control">
 								<option selected>of Caste.... &nbsp;&nbsp;</option>
 								<option value="1">Kamma</option>
 								<option value="2">Kapu</option>
@@ -321,8 +319,9 @@ span.has-error,span.hasError
 							</select>
 						</div>
 						<button type="button" id="submit12" class="btn btn-danger">Search</button>
-					</form>
-				</div>
+					</div>
+					</div>
+				</form>
 			</div>
 		</div>
 	</section>
@@ -662,6 +661,10 @@ span.has-error,span.hasError
 <script src="js/custemValidation.js"></script>
 <script src="js/ajax.js"></script>
 <script type="text/javascript">
+$(function(){
+	$(".right-side").removeClass("dispnone");
+});
+
 var emailExist = false;
 // var validEmail = false;
 var expr = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
@@ -842,12 +845,6 @@ $("#secondButton").click(function()
 			  $('#'+el).addClass('default-class');
 		}
 
-
-$(function(){
-// 	$("#right-side").addClass("dispnone");
-	$("#right-side").removeClass("dispnone");
-// 	$("#right-side").css("display","block");
-});
 </script>
 </body>
 </html>
