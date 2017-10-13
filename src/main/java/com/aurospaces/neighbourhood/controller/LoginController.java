@@ -67,21 +67,23 @@ public class LoginController {
 				return "loginPage";
 			}
 			objUserBean = objUsersDao.loginChecking(userObj);
-			if (objUserBean != null) {
+			if (objUserBean != null ) {
+				if(objUserBean.getRole_id() ==1){
 				session.setAttribute("cacheUserBean", objUserBean);
 				session.setAttribute("rolId", objUserBean.getRole_id());
 				session.setAttribute("userName", objUserBean.getName());
-				int rolId = objUserBean.getRole_id();
-					 rolId = objUserBean.getRole_id();
-					if(rolId == 1 || rolId == 2 || rolId == 3 ){
-						return "redirect:admin/OccupationHome";
-					}else{
-//						return "redirect:employeeHome1.htm";
-					}
+				return "redirect:admin/OccupationHome";
+				}else{
+				session.setAttribute("cacheGuest", objUserBean);
+				session.setAttribute("rolId", objUserBean.getRole_id());
+				session.setAttribute("userName", objUserBean.getName());
+				return "redirect:profile.htm?page=1";
+				}
+				
 					
 			} else {
 				redirect.addFlashAttribute("msg", "Login Faile");
-				return "redirect:LoginHome";
+				return "redirect:HomePage";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -114,7 +116,7 @@ public class LoginController {
 				// response.sendRedirect(baseUrl+"/LoginHome1.htm" );
 //				response.sendRedirect(request.getContextPath() + "/LoginHome");
 			}
-			return "redirect:LoginHome";
+			return "redirect:HomePage";
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e);

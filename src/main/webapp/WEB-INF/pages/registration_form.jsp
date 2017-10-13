@@ -91,6 +91,15 @@ function validate(id, errorMessage)
    <form:form commandName="createProfile" action="#" class="form-horizontal" id="profileRegistration" method="post">
    <form:hidden path="id"/>
    <form:hidden path="userdetailsId"/>
+   <form:hidden path="email"/>
+   <form:hidden path="created_by"/>
+   <form:hidden path="gender"/>
+   <form:hidden path="name"/>
+   <form:hidden path="sname"/>
+   <form:hidden path="dob"/>
+   <form:hidden path="Religion"/>
+   <form:hidden path="sLanguages"/>
+   <form:hidden path="crCountry"/>
 <fieldset>
 
 <!-- 1st Step starts here-->
@@ -103,12 +112,12 @@ function validate(id, errorMessage)
       <label class="col-md-4 control-label" for="textinput">You live in <span class='manditory'>*</span></label>  
       <div class="col-md-6">
 <!--       state,city,dosham,workingWith,companyName,diet,smoke,drink,bodyType,disability -->
-      	<form:select path="state" class="form-control" onblur="validate('state','');" onchange="removeBorder(this.id)">
+      	<form:select path="state" class="form-control u1" onblur="validate('state','');" onchange="removeBorder(this.id)">
       		<form:option value="">-- Choose State --</form:option>
 			<form:option value="AP">AP</form:option>
       	</form:select>
        	<br>
-       	<form:select path="city" class="form-control" onblur="validate('city','');" onchange="removeBorder(this.id)">
+       	<form:select path="city" class="form-control u1" onblur="validate('city','');" onchange="removeBorder(this.id)">
       		<form:option value="">-- Choose City --</form:option>
 			<form:option value="Guntur">Guntur</form:option>
 			<form:option value="Vijayawada">Vijayawada</form:option>
@@ -119,7 +128,7 @@ function validate(id, errorMessage)
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Your Marital Status <span class='manditory'>*</span></label>  
       <div class="col-md-6">
-      	<form:select path="maritalStatus" class="form-control" onblur="validate('maritalStatus','');" onchange="removeBorder(this.id)">
+      	<form:select path="maritalStatus" class="form-control u1" onblur="validate('maritalStatus','');" onchange="removeBorder(this.id)">
 <%--       		<form:option value="">-- Choose Cast --</form:option> --%>
 <%-- 			<form:options items="${cast}"></form:options> --%>
 			<form:option value="">-- Martial Status --</form:option>
@@ -133,7 +142,7 @@ function validate(id, errorMessage)
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Your Community <span class='manditory'>*</span></label>  
       <div class="col-md-6">
-      	<form:select path="cast" class="form-control" onblur="validate('cast','');" onchange="removeBorder(this.id)">
+      	<form:select path="cast" class="form-control u" onblur="validate('cast','');" onchange="removeBorder(this.id)">
 			<form:option value="">-- Choose Community --</form:option>
 			<form:options items="${cast}"></form:options>
 		</form:select>
@@ -143,14 +152,14 @@ function validate(id, errorMessage)
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Gothram</label>  
       <div class="col-md-6">
-      	<form:input path="gotram" type="text" class="form-control onlyCharacters" placeholder="Enter Gotram" maxlength="255"/>
+      	<form:input path="gotram" type="text" class="form-control onlyCharacters u1" placeholder="Enter Gotram" maxlength="255"/>
       </div>
     </div>
 
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Nakshatram</label>  
       <div class="col-md-6">
-      	<form:select path="star" class="form-control">
+      	<form:select path="star" class="form-control u1">
 			<form:option value="">-- Choose Nakshatram --</form:option>
 			<form:options items="${star}"></form:options>
 		</form:select>
@@ -160,21 +169,12 @@ function validate(id, errorMessage)
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Dosham</label>  
       <div class="col-md-6">
-      	<form:select path="dosham" class="form-control">
+      	<form:select path="dosham" class="form-control u1">
 			<form:option value="">-- Dosham --</form:option>
 			<form:option value="Yes">Yes</form:option>
 			<form:option value="No">No</form:option>
 			<form:option value="Don't Know">Don't Know</form:option>
 		</form:select>
-      	<!-- <label class="radio-inline" for="dosham-0">
-          <input name="dosham" id="dosham-0" value="1" checked="checked" type="radio"> Yes
-        </label> 
-        <label class="radio-inline" for="dosham-1">
-          <input name="dosham" id="dosham-1" value="2" type="radio"> No
-        </label> 
-        <label class="radio-inline" for="dosham-2">
-          <input name="dosham" id="dosham-2" value="3" type="radio"> Don't Know
-        </label>  -->
       </div>
     </div>
 
@@ -195,35 +195,17 @@ function validate(id, errorMessage)
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Your education level <span class='manditory'>*</span></label>  
       <div class="col-md-6">
-      	<form:select path="education" class="form-control" onblur="validate('education','');" onchange="removeBorder(this.id)">
+      	<form:select path="education" class="form-control u" onblur="validate('education','');" onchange="removeBorder(this.id)">
 			<form:option value="">-- Choose Education --</form:option>
 			<form:options items="${education}"></form:options>
 		</form:select>
       </div>
     </div>
 
-    <%-- <div class="form-group">
-      <label class="col-md-4 control-label" for="textinput">Your education field <span class='manditory'>*</span></label>  
-      <div class="col-md-6">
-      	<form:select path="occupation" class="form-control">
-			<form:option value="">-- Choose Occupation --</form:option>
-			<form:options items="${occupation}"></form:options>
-		</form:select>
-      </div>
-    </div>
-
-    <div class="form-group" style="display: none;">
-      <label class="col-md-4 control-label" for="textinput">Colleges you attended</label>  
-      <div class="col-md-6">
-        <input type="text" name="college1" id="college1" class="form-control" maxlength="100" placeholder="Specify Highest Degree College"><br>
-        <input type="text" name="college2" id="college2" class="form-control" maxlength="100" placeholder="Specify another College Name">
-      </div>
-    </div> --%>
-
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">You work with</label>  
       <div class="col-md-6">
-      	<form:select path="workingWith" class="form-control">
+      	<form:select path="workingWith" class="form-control u1">
 			<form:option value="">-- Select --</form:option>
 			<form:option value="Private Company">Private Company</form:option>
 			<form:option value="Government/Public Sector">Government/Public Sector</form:option>
@@ -236,7 +218,7 @@ function validate(id, errorMessage)
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">As</label>  
       <div class="col-md-6">
-	  	<form:select path="occupation" class="form-control">
+	  	<form:select path="occupation" class="form-control u1">
 			<form:option value="">-- Choose Occupation --</form:option>
 			<form:options items="${occupation}"></form:options>
 		</form:select>
@@ -246,14 +228,14 @@ function validate(id, errorMessage)
     <div class="form-group" style="display: none;">
       <label class="col-md-4 control-label" for="textinput">Your Employer Name</label>  
       <div class="col-md-6">
-      	<form:input path="emply_type"  class="form-control onlyCharacters" maxlength="100" placeholder="Specify Current Organization"/>
+      	<form:input path="emply_type"  class="form-control onlyCharacters u" maxlength="100" placeholder="Specify Current Organization"/>
       </div>
     </div>
 
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Your Annual Income <span class='manditory'>*</span></label>  
       <div class="col-md-6">
-      	<form:select path="salaryperyear" class="form-control" onblur="validate('salaryperyear','');" onchange="removeBorder(this.id)">
+      	<form:select path="salaryperyear" class="form-control u1" onblur="validate('salaryperyear','');" onchange="removeBorder(this.id)">
 			<form:option value="">-- Annual Income --</form:option>
 			<form:option value="Upto INR 1 Lakh">Upto INR 1 Lakh</form:option>
 			<form:option value="INR 2 Lakh to 4 Lakh">INR 2 Lakh to 4 Lakh</form:option>
@@ -262,25 +244,6 @@ function validate(id, errorMessage)
 		</form:select>
       </div>
     </div>
-    <!-- <div class="form-group">
-      <label class="col-md-4 control-label" for="textinput"></label>  
-      <div class="col-md-6">
-        <div class="income_required">Why is income required <span title="Your income will be used for matchmaking. You can hide your income from others using Privacy Settings.">?</span>
-          <div class="tooltip_wrapper">
-            <div class="tt">
-              <span onmouseover="cancelclosetime(); img_tool_tip('tool_top98');" onmouseout="set_tooltip_timeout('tool_top98');" id="tool_top98" style="left: 0px; top: 0px; display: none;" class="tooltip">
-                <span class="top" style="left: -48px; top: 57px;"></span>
-                <span class="middle-tip" style="left: -48px; top: 57px;">
-                  Your income will be used for matchmaking. You can hide your income from others using Privacy Settings.
-                </span>
-                <span class="bottom" style="left: -48px; top: 57px;"></span>
-              </span>
-            </div>
-            <a id="income_required_reg" href="javascript:void(0);" onmouseover="cancelclosetime();ttBehaviour(this.id);show_bubble_tool_tip(this.id, 'tool_top98')" onmouseout="canceldelayclosetime();set_tooltip_timeout('tool_top98')" class="tooltip_icon"></a>
-          </div>                                
-        </div>
-      </div>
-    </div> -->
     
 
     <div class="form-group">
@@ -300,7 +263,7 @@ function validate(id, errorMessage)
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">What's your diet?</label>  
       <div class="col-md-6">
-      	<form:select path="diet" class="form-control" >
+      	<form:select path="diet" class="form-control u1" >
 			<form:option value="">-- Select Diet--</form:option>
 			<form:option value="Veg">Veg</form:option>
 			<form:option value="Non-Veg">Non-Veg</form:option>
@@ -314,7 +277,7 @@ function validate(id, errorMessage)
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Do you smoke? <span class='manditory'>*</span></label>  
       <div class="col-md-6">
-      	<form:select path="smoke" class="form-control" onblur="validate('smoke','');" onchange="removeBorder(this.id)">
+      	<form:select path="smoke" class="form-control u1" onblur="validate('smoke','');" onchange="removeBorder(this.id)">
 			<form:option value="">-- Do you Smoke --</form:option>
 			<form:option value="No">No</form:option>
 			<form:option value="Occasionally">Occasionally</form:option>
@@ -325,7 +288,7 @@ function validate(id, errorMessage)
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Drink? <span class='manditory'>*</span></label>  
       <div class="col-md-6">
-      	<form:select path="drink" class="form-control" onblur="validate('drink','');" onchange="removeBorder(this.id)">
+      	<form:select path="drink" class="form-control u1" onblur="validate('drink','');" onchange="removeBorder(this.id)">
 			<form:option value="">-- Do you Drink --</form:option>
 			<form:option value="No">No</form:option>
 			<form:option value="Occasionally">Occasionally</form:option>
@@ -336,7 +299,7 @@ function validate(id, errorMessage)
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Your height <span class='manditory'>*</span></label>  
       <div class="col-md-6">
-      	<form:select path="height" class="form-control" onblur="validate('height','');" onchange="removeBorder(this.id)">
+      	<form:select path="height" class="form-control u" onblur="validate('height','');" onchange="removeBorder(this.id)">
 			<form:option value="">-- Choose Height --</form:option>
 			<form:options items="${height}"></form:options>
 		</form:select>
@@ -345,57 +308,25 @@ function validate(id, errorMessage)
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Body Type</label>  
       <div class="col-md-6">
-      	<form:select path="bodyType" class="form-control">
+      	<form:select path="bodyType" class="form-control u1">
 			<form:option value="">-- Choose Body Type --</form:option>
 			<form:options items="${bodyType}"></form:options>
 		</form:select>
-      <!-- <label class="radio-inline" for="bodyType-0">
-          <input name="bodyType" id="bodyType-0" value="1" checked="checked" type="radio">
-         Slim
-        </label> 
-        <label class="radio-inline" for="bodyType-1">
-          <input name="bodyType" id="bodyType-1" value="2" type="radio">
-          Athletic
-        </label> 
-        <label class="radio-inline" for="bodyType-2">
-          <input name="bodyType" id="bodyType-2" value="3" type="radio">
-          Average
-        </label> 
-        <label class="radio-inline" for="bodyType-3">
-          <input name="bodyType" id="bodyType-3" value="4" type="radio">
-          Heavy
-        </label>  -->
       </div>
     </div>
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Skin tone</label>  
       <div class="col-md-6">
-      	<form:select path="complexion" class="form-control">
+      	<form:select path="complexion" class="form-control u">
 			<form:option value="">-- Choose Skin tone --</form:option>
 			<form:options items="${complexion}"></form:options>
 		</form:select>
-      <!-- <label class="radio-inline" for="skinTone-0">
-          <input name="skinTone" id="skinTone-0" value="1" checked="checked" type="radio">
-         Very Fair
-        </label> 
-        <label class="radio-inline" for="skinTone-1">
-          <input name="skinTone" id="skinTone-1" value="2" type="radio">
-          Fair
-        </label> 
-        <label class="radio-inline" for="skinTone-2">
-          <input name="skinTone" id="skinTone-2" value="3" type="radio">
-          Wheatish
-        </label> 
-        <label class="radio-inline" for="skinTone-3">
-          <input name="skinTone" id="skinTone-3" value="4" type="radio">
-          Dark
-        </label>  -->
       </div>
     </div>
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Your Mobile number <span class='manditory'>*</span></label>  
       <div class="col-md-6">
-      <form:input path="mobile" class="form-control numericOnly"  onblur="validate('mobile','Enter Mobile');" onchange="removeBorder(this.id)" maxlength="13" placeholder="Mobile Number"/>
+      <form:input path="mobile" class="form-control numericOnly u"  onblur="validate('mobile','Enter Mobile');" onchange="removeBorder(this.id)" maxlength="13" placeholder="Mobile Number"/>
       </div>
     </div>
 
@@ -416,13 +347,13 @@ function validate(id, errorMessage)
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">About myself</label>  
       <div class="col-md-6">
-      	<form:textarea rows="6" path="aboutYourself" class="form-control onlyCharacters"></form:textarea>
+      	<form:textarea rows="6" path="aboutYourself" class="form-control onlyCharacters u1"></form:textarea>
       </div>
     </div>
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Any Disability?</label>  
       <div class="col-md-6">
-      	<form:select path="disability" class="form-control">
+      	<form:select path="disability" class="form-control u1">
 			<form:option value="">-- Choose Disability --</form:option>
 			<form:option value="None">None</form:option>
 			<form:option value="Physical Disability">Physical Disability</form:option>
@@ -526,6 +457,7 @@ function validate(id, errorMessage)
     <script defer src="user/vendor/woocommerce-FlexSlider/jquery.flexslider.js"></script>
     <script src="user/js/toucheffects.js"></script>
     <script src="js/custemValidation.js"></script>
+    <script src="js/ajax.js"></script>
     <script>
     
 
@@ -766,7 +698,7 @@ $("#firstButton").click(function()
 	}); */
   $("#fourthButton").click(function(){		
 		
-		 $('#profileRegistration').attr('action',"userRegistration");
+		 $('#profileRegistration').attr('action',"saveUserProfile");
 			$("#profileRegistration").submit();											
 			event.preventDefault();	
 	});
@@ -780,6 +712,35 @@ $("#firstButton").click(function()
 	      }
 	  }
  
+	$('.u').blur(function() {
+		var id = $(this).attr('id');
+		var value=$("#"+id).val();
+		var constant ='u';
+		var formData = new FormData();
+	     formData.append('id', id);
+	     formData.append('value', value);
+	     formData.append('constant', constant);
+		$.fn.makeMultipartRequest('POST', 'autoCompleteSave', false,
+				formData, false, 'text', function(data){
+			
+		});
+// 		alert(id);
+		
+	});
+	$('.u1').blur(function() {
+		var id = $(this).attr('id');
+		var value=$("#"+id).val();
+		var constant ='u1';
+		var formData = new FormData();
+	     formData.append('id', id);
+	     formData.append('value', value);
+	     formData.append('constant', constant);
+		$.fn.makeMultipartRequest('POST', 'autoCompleteSave', false,
+				formData, false, 'text', function(data){
+			
+		});
+		
+	});
 </script>
   </body>
 

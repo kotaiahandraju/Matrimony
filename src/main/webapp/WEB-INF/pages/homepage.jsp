@@ -336,28 +336,21 @@ span.has-error,span.hasError
 
 						<div class="quote-form row">
 							<!-- contact form -->
-							<form:form commandName="loginForm" action="loginAction" method='post' class='form-validate' id="loginform">
-								<c:if test="${not empty msg}">
-									<div class="msgcss controls fadeOut animated alert alert-danger" style="animation-delay: 5s;">
-										${msg}
-									</div>
-								</c:if>
+							<form class="" action="loginAction" id="quote" name="quote" method="post">
 								<div class="form-group col-md-12">
-									<form:input path="userName" placeholder="Enter Email" autocomplete="off" class='form-control validate'/>
-									<span class="hasError" id="userNameError"></span>
-									<span><form:errors path="userName" cssClass="error" /></span>
+									<input type="text" class="form-control" name="userName"
+										id="WriteName" placeholder="User Name" required>
 								</div>
 
 								<div class="form-group col-md-12">
-									<form:password path="password" placeholder="Enter Password" autocomplete="off" class='form-control validate'/>
-									<span class="hasError" id="passwordError"></span>
-									<span><form:errors path="password" cssClass="error" /></span>
+									<input type="password" class="form-control" name="password"
+										id="Password" placeholder="Password" required>
 								</div>
 
 								<div class="form-group col-md-12">
 									<button name="submit" type="submit" class="btn btn-default">Login</button>
 								</div>
-							</form:form>
+							</form>
 						</div>
 					</div>
 				</div>
@@ -667,12 +660,6 @@ var emailExist = false;
 var expr = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
 $('#email').blur(function() {
 	var email = $('#email').val();
-	if(email == "" || email == null || email == "undefined")
-	{
-		$("#email").css("border-color","#e73d4a");
-    	$("#email").attr("placeholder","Enter Email");
-    	$('#email').css('color','red');
-	}
 	if(email != "" && !email.match(expr)){
 // 		alert("Please Enter Valid Email");
     	$("#email").css("border-color","#e73d4a");
@@ -730,21 +717,21 @@ $("#submit11").click(function(){
 		if($('#email').val() ==  null || $('#email').val() == "" || $('#email').val()=="undefined") 
 		{
 			$("#email").css("border-color","#e73d4a");
-			$("#email").attr("placeholder","Enter Email");
+			$("#email").attr("placeholder","Please Enter Mail");
 			$('#email').addClass('your-class');
 			$('#email').css('color','red');
 		}
 		if($('#created_by').val() ==  null || $('#created_by').val() == "" || $('#created_by').val()=="undefined" ) 
 		{
 			$("#created_by").css("border-color","#e73d4a");
-// 			$("#created_by").attr("placeholder","Enter Created_By");
+			$("#created_by").attr("placeholder","Please Enter Created_By");
 			$('#created_by').addClass('your-class');
 			$('#created_by').css('color','red');
 		}
 		if($('#password').val() ==  null || $('#password').val() == "" || $('#password').val()=="undefined" ) 
 		{
 			$("#password").css("border-color","#e73d4a");
-			$("#password").attr("placeholder","Enter Password");
+			$("#password").attr("placeholder","Please Enter Password");
 			$('#password').addClass('your-class');
 			$('#password').css('color','red');
 		}		

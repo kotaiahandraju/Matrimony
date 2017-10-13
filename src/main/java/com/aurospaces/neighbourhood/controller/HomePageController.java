@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.aurospaces.neighbourhood.bean.AutoCompleteBean;
 import com.aurospaces.neighbourhood.bean.EducationBean;
 import com.aurospaces.neighbourhood.bean.HeightBean;
 import com.aurospaces.neighbourhood.bean.UsersBean;
@@ -91,12 +92,12 @@ public class HomePageController {
 				request.setAttribute("mesg", "1");
 				return "homepage";
 			}
-//			if(StringUtils.isNotBlank(objUsersBean.getEmail())){
+			if(StringUtils.isNotBlank(objUsersBean.getEmail())){
 			objUsersDao.save(objUsersBean);
 			objUserDetailsDao.save(objUsersBean);
 			session.setAttribute("cacheGuest", objUsersBean);
 //			response.sendRedirect("profile?gp=page_1");
-//			}
+			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -113,23 +114,18 @@ public class HomePageController {
 		String pageName =  null;
 		
 		try {
-			 /*pageName = request.getParameter("gp");
-			 // get page name
-			 if(StringUtils.isNotBlank(pageName)){
-				 request.setAttribute("page", pageName);
-			 }*/
 			 //session checking
-//			if(session.getAttribute("cacheGuest") != null){
+			if(session.getAttribute("cacheGuest") != null){
 				UsersBean sessionBean =(UsersBean)session.getAttribute("cacheGuest");
 			//get session bean values 
-			 objUsersBean = objUsersDao.getById(2784);
+			 objUsersBean = objUsersDao.getById(sessionBean.getId());
 			 if(objUsersBean != null){
 			 objeModel.addAttribute("createProfile", objUsersBean);
 			 }
-//			objeModel.addAttribute("createProfile", objUsersBean);
-//			}else{
-//				return "redirect:HomePage";
-//			}
+			objeModel.addAttribute("createProfile", objUsersBean);
+			}else{
+				return "redirect:HomePage";
+			}
 			
 			
 		} catch (Exception e) {
@@ -148,11 +144,7 @@ public class HomePageController {
 		try {
 			objUsersBean.setRole_id(4);
 			objUsersBean.setStatus("0");
-			UsersBean userbean = objUsersDao.emailExistOrNot(objUsersBean);
-			if(userbean != null){	
-				request.setAttribute("mesg", "1");
-				return "homepage";
-			}
+			
 //			if(StringUtils.isNotBlank(objUsersBean.getEmail())){
 			objUsersDao.save(objUsersBean);
 			objUserDetailsDao.save(objUsersBean);
@@ -167,6 +159,26 @@ public class HomePageController {
 			logger.fatal("error in CreateProfile class createProfile method  ");
 		}
 		return "redirect:profile.htm?page=1";
+	}
+	@RequestMapping(value = "/autoCompleteSave")
+	public @ResponseBody String autoCompleteSave(AutoCompleteBean objAutoCompleteBean, Model objeModel ,
+			HttpServletRequest request,HttpServletResponse response, HttpSession session) {
+		System.out.println("saveUserProfile Page");
+		String msg = null;
+		String id =null;
+		String value= null;
+		String constant = null;
+		try {
+			
+				objUsersDao.autoCompleteSave(objAutoCompleteBean);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			logger.error(e);
+			logger.fatal("error in CreateProfile class createProfile method  ");
+		}
+		return null;
 	}
 	@ModelAttribute("cast")
 	public Map<Integer, String> populatecast() {
@@ -333,6 +345,22 @@ public class HomePageController {
 		Map<Integer, String> statesMap = new LinkedHashMap<Integer, String>();
 		try {
 			String sSql = "select id,name from language  where status='1' order by name asc";
+			List<EducationBean> list = objUsersDao.populate(sSql);
+			for (EducationBean bean : list) {
+				statesMap.put(bean.getId(), bean.getName());
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+		}
+		return statesMap;
+	}
+	@ModelAttribute("bodyType")
+	public Map<Integer, String> populatebodyType() {
+		Map<Integer, String> statesMap = new LinkedHashMap<Integer, String>();
+		try {
+			String sSql = "select id,name from body_type  where status='1' order by name asc";
 			List<EducationBean> list = objUsersDao.populate(sSql);
 			for (EducationBean bean : list) {
 				statesMap.put(bean.getId(), bean.getName());

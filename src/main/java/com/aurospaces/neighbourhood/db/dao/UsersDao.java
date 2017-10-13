@@ -3,11 +3,14 @@ package com.aurospaces.neighbourhood.db.dao;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.ParameterizedBeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
 
+import com.aurospaces.neighbourhood.bean.AutoCompleteBean;
 import com.aurospaces.neighbourhood.bean.EducationBean;
 import com.aurospaces.neighbourhood.bean.HeightBean;
 import com.aurospaces.neighbourhood.bean.LoginBean;
@@ -20,11 +23,12 @@ public class UsersDao extends BaseUsersDao {
 	@Autowired
 	CustomConnection custom;
 	JdbcTemplate jdbcTemplate ; 
+	@Autowired HttpSession session;
 	 public UsersBean loginChecking(LoginBean objUsersBean) {
 		 jdbcTemplate = custom.getJdbcTemplate();
-			String sql = "SELECT * FROM users where AES_DECRYPT(PASSWORD,'mykey')= ? and username=? or email =? ";
+			String sql = "SELECT * FROM users u,userdetails ud where u.id=ud.userId and  AES_DECRYPT(PASSWORD,'mykey')= ? and  email =? ";
 			List<UsersBean> retlist = jdbcTemplate.query(sql,
-			new Object[]{objUsersBean.getPassword(),objUsersBean.getUserName(),objUsersBean.getUserName()},
+			new Object[]{objUsersBean.getPassword(),objUsersBean.getUserName()},
 			ParameterizedBeanPropertyRowMapper.newInstance(UsersBean.class));
 			if(retlist.size() > 0)
 				return retlist.get(0);
@@ -135,4 +139,36 @@ public class UsersDao extends BaseUsersDao {
 					return retlist.get(0);
 				return null;
 			}
+		public boolean autoCompleteSave(AutoCompleteBean objAutoCompleteBean){
+			
+			jdbcTemplate = custom.getJdbcTemplate();
+			boolean isStatusUpdate = false;
+			String tableName = null;
+			String sSql  = null;
+			String colum =objAutoCompleteBean.getId();
+			UsersBean objuserBean = (UsersBean) session.getAttribute("cacheGuest");
+			int id =objuserBean.getId();
+			int userdetailsId = objuserBean.getUserdetailsId();
+			
+			try {
+				if(objAutoCompleteBean.getConstant().equals("u")){
+					tableName = "users";
+					 sSql = "update users set "+colum+" = ? where id = "+id;
+				}
+				if(objAutoCompleteBean.getConstant().equals("u1")){
+					tableName = "userdetails";
+					sSql = "update userdetails set "+colum+" = ? where userdetailsId = "+userdetailsId;
+				}
+//				String sSql = "update users set status = ? where id = ?";
+				int iCount = jdbcTemplate.update(sSql,objAutoCompleteBean.getValue());
+				if (iCount != 0) {
+					isStatusUpdate = true;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+
+			}
+			return isStatusUpdate;
+		}
 }
