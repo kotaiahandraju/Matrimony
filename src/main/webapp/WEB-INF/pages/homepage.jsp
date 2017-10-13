@@ -131,7 +131,6 @@ span.has-error,span.hasError
 		<!-- /.container-fluid -->
 	</nav>
 
-
 	<div id="register-info" class="modal modal fade" data-backdrop="static"
 		data-keyboard="false">
 		<div class="modal-dialog modal-sm">
