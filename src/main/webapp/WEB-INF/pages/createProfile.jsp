@@ -544,7 +544,7 @@
 											<form:options items="${education}"></form:options>
 										</form:select>
 									<span class="hasError" id="feducationError"></span>
-									<div><form:errors path="feducation" cssClass="error" /></div>
+									<div><form:errors path="feducation"   cssClass="error" /></div>
 									</div>
 								</div>
 								<div class="form-group">
@@ -598,7 +598,7 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.contactPhNo2" text="default text" /></label>
 									<div class="col-sm-8">
-							  				<form:input path="phone2"  placeholder="Enter Alter Native Number"   maxlength="13" autocomplete="off"  class="form-control numericOnly" />
+							  				<form:input path="phone2"  placeholder="Enter Alter Native Phone Number"   maxlength="13" autocomplete="off"  class="form-control numericOnly" />
 							  		</div>
 								</div>
 								<div class="form-group">
@@ -724,13 +724,13 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.educationDetails" text="default text" /></label>
 									<div class="col-sm-8">
-										 <form:input path="educationDetails"  class="form-control" />
+										 <form:input path="educationDetails" placeholder="Enter Education Details" class="form-control" />
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.educationInfo" text="default text" /></label>
 									<div class="col-sm-8">
-										 <form:input path="educationInfo"  class="form-control" />
+										 <form:input path="educationInfo" placeholder="Enter Education Information"  class="form-control" />
 									</div>
 								</div>
 								<div class="form-group">
@@ -747,7 +747,7 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.occupationDetails" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-										 <form:input path="occupationDetails"  autocomplete="off" onblur="validate31(this.id);"  class="form-control onlyCharacters" />
+										 <form:input path="occupationDetails"  placeHolder="Enter Occupation Details" autocomplete="off" onblur="validate31(this.id);"  class="form-control onlyCharacters" />
 									<span class="hasError" id="occupationDetailsError"></span>
 									<div><form:errors path="occupationDetails" cssClass="error" /></div>
 									</div>
@@ -755,7 +755,7 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.sinceWorking" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-										 <form:input path="sinceWorking"   autocomplete="off" onblur="validate32(this.id);" class="form-control onlyCharacters" />
+										 <form:input path="sinceWorking"  placeHolder="Enter Since Working"  autocomplete="off" onblur="validate32(this.id);" class="form-control onlyCharacters" />
 									<span class="hasError" id="sinceWorkingError"></span>
 									<div><form:errors path="sinceWorking" cssClass="error" /></div>
 									</div>
@@ -763,13 +763,13 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.salaryPerMonth" text="default text" /></label>
 									<div class="col-sm-8">
-										 <form:input path="salaryperMonth"  class="form-control" />
+										 <form:input path="salaryperMonth"  placeHolder="Enter Salary Per Month"  class="form-control" />
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.salaryPerYear" text="default text" /></label>
 									<div class="col-sm-8">
-										 <form:input path="salaryperyear"  class="form-control" />
+										 <form:input path="salaryperyear" placeHolder="Enter Salary Per Year"   class="form-control" />
 									</div>
 								</div>
 							</div>
@@ -800,19 +800,19 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.visaType" text="default text" /></label>
 									<div class="col-sm-8">
-										 <form:input path="visaType"  class="form-control" />
+										 <form:input path="visaType" placeholder="Enter Visa Type"  class="form-control" />
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.stayingSince" text="default text" /></label>
 									<div class="col-md-8">
-										<form:input path="stayingSince"  class="form-control" />
+										<form:input path="stayingSince"  placeHolder="Enter Staying Since" class="form-control" />
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.visaValidity" text="default text" /></label>
 									<div class="col-sm-8">
-											<form:input path="visaValidity"  class="form-control" />
+											<form:input path="visaValidity" placeHolder="Enter Visa Validity"  class="form-control" />
 									</div>
 								</div>
 							</div>
@@ -824,7 +824,7 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.ageGap" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-										<form:input path="ageGap"  onblur="validate35(this.id);" autocomplete="pff"  class="form-control " />
+										<form:input path="ageGap"  placeholder="Enter Age Gap"  onblur="validate35(this.id);" autocomplete="pff"  class="form-control " />
 										<div class="errorMessage" id="Users_req_age_em_" style="display:none"></div>
 									<span class="hasError" id="ageGapError"></span>
 									<div><form:errors path="ageGap" cssClass="error" /></div>
