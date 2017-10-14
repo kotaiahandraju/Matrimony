@@ -87,6 +87,9 @@ public class UsersDao extends BaseUsersDao {
 			if(type.equals("delete")){
 				buffer.append( " and u.status in( '2')" );
 			}
+			if(type.equals("inactive")){
+				buffer.append( " and u.status in( '0')" );
+			}
 			
 			String sql =buffer.toString();
 			System.out.println(sql);

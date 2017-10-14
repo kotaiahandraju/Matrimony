@@ -9,16 +9,10 @@
         color: red; font-weight: bold;
     }
 </style>
-<script type="text/javascript">
-$( document ).ready(function() {
-    $("#editProfile").hide();
-});
-</script>
+
 <link href="${baseurl }/css/datepicker1.css" rel="stylesheet" type="text/css" />
 <script src="${baseurl }/js/jquery-ui.min.js"></script>
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" />
-<%-- <script src="${baseurl }/js/viewProfile.js"></script> --%>
-
 <!-- 	<script src="http://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script> -->
 <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.1/themes/black-tie/jquery-ui.css"> -->
 <!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.js"></script> -->
@@ -27,7 +21,7 @@ $( document ).ready(function() {
 <div class="container-fluid">
 	<div class="page-header">
 		<div class="pull-left">
-			<h1>All Profiles </h1> 
+			<h1>Inactive Profiles </h1> 
 		</div>
 	</div>
 	<div class="breadcrumbs">
@@ -39,44 +33,11 @@ $( document ).ready(function() {
 			</li>
 			<li>
 				&nbsp;<i class="fa fa-file"></i>
-				<span style="color: #999;cursor: auto;">Delete Profiles</span>
+				<span style="color: #999;cursor: auto;">Inactive Profiles</span>
 			</li>
 		</ul>
 		
 	</div>
-	<div class="col-lg-8">
-		<div>
-			<div class="portlet" id="yw0">
-				<div class="portlet-content w3-animate-zoom">
-					<!-- Body Type Form Starts Here-->
-					<%-- <form:form modelAttribute="casteForm" class="form-horizontal" role="form" id="branch-form" action="addCaste" method="post">								
-						<div class="form-group">
-							<div class="col-sm-12">
-								<div class="errorMessage" id="Branch_invalid_em_" >
-									<c:if test="${not empty msg}">
-										<div class="alert alert-success fadeIn animated">${msg}</div>
-									</c:if>
-								</div>
-								<form:hidden path="id"/>
-							</div>
-					  	</div>
-						<div class="form-group">
-							<label class="col-sm-4 control-label required"><spring:message code="label.casteName" text="default text" /> <span style="color:red;">*</span></label>
-							<div class="col-sm-8">
-						  		<form:input path="name" type="text" class="form-control" maxlength="255"/>						
-						  		<div><form:errors path="name" cssClass="error" /></div>										
-							</div>
-					  	</div>
-				  		<div class="form-group">
-							<div class="col-sm-8 col-sm-offset-4"><input class="btn btn btn-primary" type="submit" name="yt0" value="Add"></div>
-					  	</div>
-					</form:form> --%>
-					<!-- Body Type Form Ends Here-->
-				</div>
-			</div>
-		</div>
-	</div>
-
 
 <div id="dial1"></div>
 
@@ -86,7 +47,7 @@ $( document ).ready(function() {
 			<div class="box-title">
 				<h3>
 					<i class="fa fa-table"></i>
-					Delete Profiles List
+					Inactive Profiles List
 				</h3>
 			</div>
 			<div class="box-content nopadding w3-animate-zoom" id="tableId">
@@ -108,19 +69,7 @@ $( document ).ready(function() {
 
 		
 <script type="text/javascript">
-/* var _gaq = _gaq || [];
-_gaq.push(['_setAccount', 'UA-38620714-4']);
-_gaq.push(['_trackPageview']);
 
-(function() {
-var ga = document.createElement('script');
-ga.type = 'text/javascript';
-ga.async = true;
-ga.src = ('https:' == document.k.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-var s = document.getElementsByTagName('script')[0];
-s.parentNode.insertBefore(ga, s);
-})();
- */
  var listOrders1 = ${allOrders1};
 	if (listOrders1 != "") {
 		displayTable(listOrders1);
@@ -132,45 +81,33 @@ s.parentNode.insertBefore(ga, s);
 		$('#tableId').html(tableHead);
 		serviceUnitArray = {};
 		$.each(listOrders,function(i, orderObj) {
-							var edit = "<a title='Edit Profile' onclick='editProfile("+ orderObj.id+ ")'><i style='color: green;cursor: pointer;' class='fa fa-edit'></i></a>"
-							var restote = "<a  title='Restore Profile' onclick='restoreDeleteProfile("+ orderObj.id+ ")'><i style='color: green;cursor: pointer;' class='fa fa-repeat'></i></a>"
 							var viewProfile = "<a title='View Profile' onclick='viewProfile("+ orderObj.id+ ")'><i style='color: blue;cursor: pointer;' class='fa fa-eye'></i></a>"
+							var active = "<a  title='Active Profile' onclick='profileAction("+ orderObj.id+ ",1)'><i style='color: green;cursor: pointer;' class='fa fa-repeat'></i></a>"
+							var deleteProfile = "<a title='Delete Profile' onclick='profileAction("+ orderObj.id+ ",2)'><i style='color: green;cursor: pointer;' class='fa fa-remove'></i></a>"
 							serviceUnitArray[orderObj.id] = orderObj;
-							var tblRow = "<tr >"
+							var tblRow = "<tr>"
 									+ "<td title='"+orderObj.username+"'>" + orderObj.username + "</td>"
 									+ "<td title='"+orderObj.name+"'>" + orderObj.name + "</td>"
 									+ "<td title='"+orderObj.sname+"'>" + orderObj.sname + "</td>"
-									+ "<td style='text-align: center;'>" + edit + "&nbsp;|&nbsp;" + viewProfile + "&nbsp;|&nbsp;" + restote + "</td>" 
+									+ "<td style='text-align: center;'>" + viewProfile + "&nbsp;|&nbsp;" + active + "&nbsp;|&nbsp;" + deleteProfile + "</td>" 
 									+ "</tr >";
 							$(tblRow).appendTo("#tableId table tbody");
 						});
 		
 	}
- function editProfile(id) {
-	 var location = $("#loc").val();
- 	 window.location.href =location+"/admin/CreateProfile/"+id+"/DeleteProfilesHome";
-	 if (win) {
-	     //Browser has allowed it to be opened
-	     win.focus();
-	 } else {
-	     //Browser has blocked it
-	     alert('Please allow popups for this website');
-	 }
-	 
-	
-		}
- function restoreDeleteProfile(id){
-		var checkstr =  confirm('Are you sure you want to restore this?');
+ 
+ function profileAction(id,statusId){
+		var checkstr =  confirm('Are you sure you want do  this?');
 		if(checkstr == true){
 		var formData = new FormData();
-	     formData.append('status', 1);
+	     formData.append('status', statusId);
 	     formData.append('id', id);
-	     formData.append('statusName', "delete");
+	     formData.append('statusName', "inactive");
 		$.fn.makeMultipartRequest('POST', 'updateStatus', false,
 				formData, false, 'text', function(data){
 			var jsonobj = $.parseJSON(data);
 			alert(jsonobj.message);
-// 			location.reload();
+			
 			var alldata = jsonobj.allOrders1;
 			console.log(jsonobj.allOrders1);
 			displayTable(alldata);
@@ -178,7 +115,6 @@ s.parentNode.insertBefore(ga, s);
 		}
 		
 	}
- 
  function viewProfile(id){
 		$('#dial1').html('');
 		
@@ -677,8 +613,9 @@ s.parentNode.insertBefore(ga, s);
 //		 	$('#view_list1').hide();
 	 }
 
+ 
  $(".profiles").addClass("active");
- $(".deleteProfiles").addClass("active"); 
+ $(".inactiveProfiles").addClass("active"); 
 </script>
 
 </body>

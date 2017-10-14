@@ -89,7 +89,7 @@ public class HomePageController {
 			objUsersBean.setStatus("0");
 			UsersBean userbean = objUsersDao.emailExistOrNot(objUsersBean);
 			if(userbean != null){	
-				request.setAttribute("mesg", "1");
+				request.setAttribute("msg", "Email Already Exist ");
 				return "homepage";
 			}
 			if(StringUtils.isNotBlank(objUsersBean.getEmail())){

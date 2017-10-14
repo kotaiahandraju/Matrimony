@@ -345,6 +345,11 @@ span.has-error,span.hasError
 						<div class="quote-form row">
 							<!-- contact form -->
 							<form class="" action="loginAction" id="quote" name="quote" method="post">
+							<c:if test="${not empty msg}">
+								<div class="msgcss controls fadeOut animated alert alert-danger" style="animation-delay: 5s;">
+									${msg}
+								</div>
+							</c:if>
 								<div class="form-group col-md-12">
 									<input type="text" class="form-control" name="userName"
 										id="WriteName" placeholder="User Name" required>

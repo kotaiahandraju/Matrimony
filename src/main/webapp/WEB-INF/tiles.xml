@@ -70,6 +70,9 @@
 		<definition name="deleteProfiles" extends="base.definition">
 		<put-attribute name="body" value="/WEB-INF/pages/deleteProfiles.jsp" />
 	</definition>
+	<definition name="inactiveProfiles" extends="base.definition">
+		<put-attribute name="body" value="/WEB-INF/pages/inactiveProfiles.jsp" />
+	</definition>
 </tiles-definitions>
 
 

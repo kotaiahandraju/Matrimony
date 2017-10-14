@@ -140,6 +140,7 @@ span.has-error,span.hasError
 					<ul class="dropdown-menu">
 						<li class="createProfile"><a href="${baseurl }/admin/CreateProfile">Create Profile</a></li>
 						<li class="allProfiles"><a href="${baseurl }/admin/AllProfilesHome">All Profiles</a></li>
+						<li class="inactiveProfiles"><a href="${baseurl }/admin/InactiveProfilesHome">Inactive Profiles</a></li>
 						<li class="deleteProfiles"><a href="${baseurl }/admin/DeleteProfilesHome">Delete Profiles</a></li>
 					</ul>
 				</li>

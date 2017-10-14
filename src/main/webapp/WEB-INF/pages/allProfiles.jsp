@@ -135,9 +135,9 @@ s.parentNode.insertBefore(ga, s);
 			var moveToHidden = "<a data-toggle='tooltip' title='Move To Hidden' onclick='moveToHidden("+ orderObj.id+ ")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-eye-slash'></i></a>"
 			var editProfile = "<a data-toggle='tooltip' title='Edit' onclick='editProfile("+ orderObj.id+ ")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-pencil'></i></a>"
 			var sendMail = "<a data-toggle='tooltip' title='Mail' onclick='sendMail("+ orderObj.id+ ")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-envelope'></i></a>"
-			var inactive = "<a data-toggle='tooltip' title='Inactive' onclick='inactive("+ orderObj.id+ ",0)'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-remove'></i></a>"
+			var inactive = "<a data-toggle='tooltip' title='Inactive' onclick='profileStatusChange("+ orderObj.id+ ",0)'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-remove'></i></a>"
 			var compareProfiles = "<a data-toggle='tooltip' title='Compare Profiles' onclick='compareProfiles("+ orderObj.id+ ")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-exchange'></i></a>"
-			var deleteProfile = "<a data-toggle='tooltip' title='Delete' onclick='deleteProfile("+ orderObj.id+ ",2)'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-trash'></i></a>"
+			var deleteProfile = "<a data-toggle='tooltip' title='Delete' onclick='profileStatusChange("+ orderObj.id+ ",2)'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-trash'></i></a>"
 			var payment = "<a data-toggle='tooltip' title='Payment' onclick='payment("+ orderObj.id+ ",0)'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-usd'></i></a>"
 			var resetPassword = "<a data-toggle='tooltip' title='Reset Password' onclick='resetPassword("+ orderObj.id+ ",0)'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-repeat'></i></a>"
 			/* var viewProfile = "<a title='View Profile' onclick='viewProfile("+ orderObj.id+ ")'><i style='color: blue;' class='fa fa-eye'></i></a>"
@@ -185,8 +185,8 @@ s.parentNode.insertBefore(ga, s);
 	 
 	
 		}
- function deleteProfile(id,statusId){
-		var checkstr =  confirm('Are you sure you want to delete this?');
+ function profileStatusChange(id,statusId){
+		var checkstr =  confirm('Are you sure you want to  this?');
 		if(checkstr == true){
 		var formData = new FormData();
 	     formData.append('status', statusId);
@@ -267,7 +267,7 @@ s.parentNode.insertBefore(ga, s);
 		var mtongue = null; mtongue = serviceUnitArray[id].mtongue;
 		if(mtongue == "" || mtongue == null || mtongue == "undefined"){mtongue = "---";}
 		
-		var sLanguages = null; sLanguages = serviceUnitArray[id].sLanguages;
+		var sLanguages = null; sLanguages = serviceUnitArray[id].languageName;
 		if(sLanguages == "" || sLanguages == null || sLanguages == "undefined"){sLanguages = "---";}
 		
 		var aboutYourself = null; aboutYourself = serviceUnitArray[id].aboutYourself;
@@ -417,39 +417,7 @@ s.parentNode.insertBefore(ga, s);
 		var femaleChildrens = null;
 		if(femaleChildrens == "" || femaleChildrens == null || femaleChildrens == "undefined"){femaleChildrens = "---";}
 		
-		var mStatus = null;
-		if(mStatus == "" || mStatus == null || mStatus == "undefined")
-		{
-			if(maritalStatus == "Widower" || maritalStatus == "Divorcee")
-			{
-				mStatus = "<tr class='bg'><td colspan='6' style='color: green;'><b>Widow/Divorcee Details</b></td></tr>"
-				+			"<tr>"
-				+				"<td><b><spring:message code='label.defendentName' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+gender+"</td>"
-				+				"<td><b><spring:message code='label.sOrD' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+dob+"</td>"
-				+			"</tr>"
-				+			"<tr>"
-				+				"<td><b><spring:message code='label.marriedOn' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+gender+"</td>"
-				+				"<td><b><spring:message code='label.dateOfSeparation' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+dob+"</td>"
-				+			"</tr>"
-				+			"<tr>"
-				+				"<td><b><spring:message code='label.courtCase' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+gender+"</td>"
-				+				"<td><b><spring:message code='label.reason' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+dob+"</td>"
-				+			"</tr>"
-				+			"<tr>"
-				+				"<td><b><spring:message code='label.maleChildrens' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+gender+"</td>"
-				+				"<td><b><spring:message code='label.femaleChildrens' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+dob+"</td>"
-				+			"</tr>";
-			}
-		}
-		else{mStatus = "<tr></tr>";}
+		
 			 
 		 
 //	 	 Occupation :	 "46"	 Religion	 :	 "1"	 SubCaste	 :	 "xvcxv"	 aboutFamily	 :	 "xcx"	 aboutYourself	 :	 "zxczxc"	 ageGap	 :	 "xxcxc"
@@ -534,7 +502,7 @@ s.parentNode.insertBefore(ga, s);
 				+				"<td>:</td><td colspan='4'>"+maritalStatus+"</td>"
 				+			"</tr>"
 				//Widow / Divorcee Details
-//	 			+			mStatus
+	 			+		"<tr id='mstatusId'></tr>"
 				+			"<tr>"
 				+				"<td><b><spring:message code='label.religion' text='default text'/></b></td>"
 				+				"<td>:</td><td>"+religionName+"</td>"
@@ -697,6 +665,40 @@ s.parentNode.insertBefore(ga, s);
 		 		+ "</div></div>";
 		 
 		 $(tblRow).appendTo('#dial1');
+		 var mStatus = null;
+			if(mStatus == "" || mStatus == null || mStatus == "undefined")
+			{
+				if(maritalStatus == "Widower" || maritalStatus == "Divorcee")
+				{
+					mStatus = "<tr class='bg'><td colspan='6' style='color: green;'><b>Widow/Divorcee Details</b></td></tr>"
+					+			"<tr>"
+					+				"<td><b><spring:message code='label.defendentName' text='default text'/></b></td>"
+					+				"<td>:</td><td>"+gender+"</td>"
+					+				"<td><b><spring:message code='label.sOrD' text='default text'/></b></td>"
+					+				"<td>:</td><td>"+dob+"</td>"
+					+			"</tr>"
+					+			"<tr>"
+					+				"<td><b><spring:message code='label.marriedOn' text='default text'/></b></td>"
+					+				"<td>:</td><td>"+gender+"</td>"
+					+				"<td><b><spring:message code='label.dateOfSeparation' text='default text'/></b></td>"
+					+				"<td>:</td><td>"+dob+"</td>"
+					+			"</tr>"
+					+			"<tr>"
+					+				"<td><b><spring:message code='label.courtCase' text='default text'/></b></td>"
+					+				"<td>:</td><td>"+gender+"</td>"
+					+				"<td><b><spring:message code='label.reason' text='default text'/></b></td>"
+					+				"<td>:</td><td>"+dob+"</td>"
+					+			"</tr>"
+					+			"<tr>"
+					+				"<td><b><spring:message code='label.maleChildrens' text='default text'/></b></td>"
+					+				"<td>:</td><td>"+gender+"</td>"
+					+				"<td><b><spring:message code='label.femaleChildrens' text='default text'/></b></td>"
+					+				"<td>:</td><td>"+dob+"</td>"
+					+			"</tr>";
+				}
+			}
+			else{mStatus = "<tr></tr>";}
+			 $(mStatus).appendTo('#mstatusId');
 		 $('#dial1').dialog({title: "Profile of "+username, width: 1199, height: 600, modal: true}).dialog('open');
 //		 	$(window).scrollTop($('.wrapper').offset().top);
 //		 	$(".view_list").hide();
