@@ -37,6 +37,8 @@
 	type="text/css" media="screen" />
 <link href="user/css/style.css" rel="stylesheet">
 <link href="user/css/custom.css" rel="stylesheet">
+ <link href="css/datepicker1.css" rel="stylesheet" type="text/css" />
+<!-- <script src="js/jquery-ui.min.js"></script> -->
 <link rel="stylesheet" type="text/css" href="user/css/component.css" />
 <script src="user/js/modernizr.custom.js"></script>
 <style>
@@ -201,8 +203,8 @@ span.has-error,span.hasError
                                                  <div class="row">
                                                  <div class="form-group">
                                                     <label for="" class="col-md-12" >Your Name</label>
-                           <div class="col-md-6"><input type="text" name="name" onkeydown="removeBorder(this.id)" class="form-control" id="name" placeholder="First Name"></div>
-                           <div class="col-md-6"><input type="text" name="sname" onkeydown="removeBorder(this.id)" class="form-control" id="sname" placeholder="Last Name"></div>
+                           <div class="col-md-6"><input type="text" name="name" onkeydown="removeBorder(this.id)" class="form-control onlyCharacters" id="name" placeholder="First Name"></div>
+                           <div class="col-md-6"><input type="text" name="sname" onkeydown="removeBorder(this.id)" class="form-control onlyCharacters" id="sname" placeholder="Last Name"></div>
                            <div class="clearfix"></div>
                                                 </div>
                                                 </div>
@@ -210,7 +212,7 @@ span.has-error,span.hasError
                                                <div class="form-group">
                                                <div  class="row">
                                                     <label for="" class="col-md-12" >Date of Birth</label>
-                           <div class="col-md-12"><input type="text" name="dob" onkeydown="removeBorder(this.id)" class="form-control" id="dob" placeholder="Enter Date of Birth"></div>
+                           <div class="col-md-12"><input type="text" name="dob" onclick="removeBorder(this.id)" class="form-control" id="dob" placeholder="Enter Date of Birth"></div>
                                                 </div> 
                                                 </div>
                                                 
@@ -297,26 +299,34 @@ span.has-error,span.hasError
 						<div class="form-group">
 							<select class="custom-select col-md-12 form-control">
 								<option selected>Age upto... &nbsp;&nbsp;</option>
-								<option value="1">21</option>
-								<option value="2">22</option>
-								<option value="3">23</option>
+								<option value="1">31</option>
+								<option value="2">32</option>
+								<option value="3">33</option>
 							</select>
 						</div>
 						<div class="form-group">
-							<select class="custom-select col-md-12 form-control">
+							<!-- <select class="custom-select col-md-12 form-control">
 								<option selected>of Religion.... &nbsp;&nbsp;</option>
 								<option value="1">Hindu</option>
 								<option value="2">Muslim</option>
 								<option value="3">Christian</option>
-							</select>
+							</select> -->
+							<form:select path="cast" class="custom-select col-md-12 form-control">
+								<form:option value="">of Religion.... &nbsp;&nbsp;</form:option>
+								<form:options items="${religion}"></form:options>
+							</form:select>
 						</div>
 						<div class="form-group">
-							<select class="custom-select col-md-12 form-control">
+							<!-- <select class="custom-select col-md-12 form-control">
 								<option selected>of Caste.... &nbsp;&nbsp;</option>
 								<option value="1">Kamma</option>
 								<option value="2">Kapu</option>
 								<option value="3">Brahmin</option>
-							</select>
+							</select> -->
+							<form:select path="cast" class="custom-select col-md-12 form-control">
+								<form:option value="">of Caste.... &nbsp;&nbsp;</form:option>
+								<form:options items="${cast}"></form:options>
+							</form:select>
 						</div>
 						<div class="form-group">
 							<button type="button" id="submit12" class="btn btn-danger">Search</button>
@@ -341,7 +351,29 @@ span.has-error,span.hasError
 							<h1>Login</h1>
 							<img src="user/images/line-01.jpg" alt="" />
 						</div>
+<script>
 
+function validate(id, errorMessage)
+{
+	var styleBlock = '.placeholder-style.placeholder-style::-moz-placeholder {color: #cc0000;} .placeholder-style::-webkit-input-placeholder {color: #cc0000;}';
+	if($('#'+id).val() ==  null || $('#'+id).val() == ""  || $('#'+id).val()=="undefined" ) {
+		$('style').append(styleBlock);
+		$('#'+id).css('border-color','#cc0000');
+		$('#'+id).css('color','#cc0000');
+		$('#'+id).attr('placeholder',errorMessage);
+		$('#'+id).addClass('placeholder-style your-class');
+//			$('#'+id).css('color','#cc0000');
+//			$('#'+id+'Error').text(errorMessage);
+	}else{
+		$('#'+id).css('border-color','');
+		$('#'+id).removeClass('placeholder-style your-class');
+//			$('#'+id).css('color','');
+//			$('#'+id+'Error').text("");
+	}
+	
+}
+
+</script>
 						<div class="quote-form row">
 							<!-- contact form -->
 							<form class="" action="loginAction" id="quote" name="quote" method="post">
@@ -351,17 +383,15 @@ span.has-error,span.hasError
 								</div>
 							</c:if>
 								<div class="form-group col-md-12">
-									<input type="text" class="form-control" name="userName"
-										id="WriteName" placeholder="User Name" required>
+									<input type="text" class="form-control" onblur="validate('userName','Username')" onkeydown="removeBorder(this.id)" name="userName" id="userName" placeholder="Username" required>
 								</div>
 
 								<div class="form-group col-md-12">
-									<input type="password" class="form-control" name="password"
-										id="Password" placeholder="Password" required>
+									<input type="password" class="form-control" onblur="validate('password','Password')" onkeydown="removeBorder(this.id)" name="password" id="password" placeholder="Password" required>
 								</div>
 
 								<div class="form-group col-md-12">
-									<button name="submit" type="submit" class="btn btn-default">Login</button>
+									<button name="submit" type="submit" id="userLoginButton" class="btn btn-default">Login</button>
 								</div>
 							</form>
 						</div>
@@ -657,17 +687,29 @@ span.has-error,span.hasError
 	<script src="user/js/ie10-viewport-bug-workaround.js"></script>
 	<script src="user/vendor/jquery/jquery.min.js"></script>
 	<script src="user/vendor/bootstrap/js/bootstrap.min.js"></script>
-	<script
-		src="user/vendor/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+	<script src="user/vendor/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
 	<script src="user/vendor/scrollreveal/scrollreveal.min.js"></script>
 	<script src="user/js/theme.js"></script>
 	<script src="user/js/custom.js"></script>
-	<script defer
-		src="user/vendor/woocommerce-FlexSlider/jquery.flexslider.js"></script>
+	<script src="user/vendor/woocommerce-FlexSlider/jquery.flexslider.js"></script>
 	<script src="user/js/toucheffects.js"></script>
 <script src="js/custemValidation.js"></script>
 <script src="js/ajax.js"></script>
+<script src="js/jquery-ui.min.js"></script>
 <script type="text/javascript">
+
+
+  $("#dob").datepicker({
+    dateFormat: "dd-MM-yy",
+    changeDate : true,
+	changeMonth : true,
+	changeYear : true,
+	maxDate :0
+});
+  
+
+
+
 $(function(){
 	$(".right-side").removeClass("dispnone");
 });
