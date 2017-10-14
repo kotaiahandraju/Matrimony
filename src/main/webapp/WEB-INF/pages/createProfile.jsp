@@ -12,7 +12,10 @@
 </style>
 <%-- <% pages1 = "createprofile"; %> --%>
 <link href="${baseurl }/css/datepicker1.css" rel="stylesheet" type="text/css" />
+<link href="${baseurl }/css/mdtimepicker.css" rel="stylesheet" type="text/css" />
+
 <script src="${baseurl }/js/jquery-ui.min.js"></script>
+<script src="${baseurl }/js/mdtimepicker.js"></script>
 <div id="main">
 <div class="container-fluid">
 	<div class="page-header">
@@ -147,7 +150,7 @@
 							  	<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.dob" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-										<form:input path="dob" type="text" class="form-control " placeholder="Enter Date Of Brith" autocomplete="off" onblur="validate7(this.id);" maxlength="255"/>						
+										<form:input path="dob" type="text" class="form-control " placeholder="Enter Date Of Brith" autocomplete="off" onblur="validate7(this.id);" maxlength="255" readonly="true"/>						
 								  		<span class="hasError" id="dobError"></span>
 								  		<div><form:errors path="dob" cssClass="error" /></div>
 									</div>
@@ -935,14 +938,9 @@ $("#dob").datepicker({
 	changeYear : true,
 	maxDate :0
 });
+$('#tob').mdtimepicker(); //Initializes the time picker
 
-$("#tob").datepicker({
-    dateFormat: "dd-MM-yy",
-    changeDate : true,
-	changeMonth : true,
-	changeYear : true,
-	maxDate :0
-});
+
 
 
 
