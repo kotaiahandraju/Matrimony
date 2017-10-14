@@ -41,6 +41,16 @@
 					<!-- Create Profile Form Starts Here -->
 					<form:form commandName="createProfile" class="form-horizontal" role="form"  action="${baseurl }/admin/addProfile" method="post">
 					<form:hidden path="id"/>
+					<form:hidden path="state"/>
+					<form:hidden path="city"/>
+					<form:hidden path="workingWith"/>
+					<form:hidden path="companyName"/>
+					<form:hidden path="smoke"/>
+					<form:hidden path="drink"/>
+					<form:hidden path="bodyType"/>
+					<form:hidden path="disability"/>
+					<form:hidden path="diet"/>
+					<form:hidden path="dosham"/>
 					<form:hidden path="userdetailsId"/>
 						<div class="form-group">
 							<div class="col-sm-12">
@@ -87,8 +97,8 @@
 									<label class="col-sm-4 control-label required"><spring:message code="label.casteName" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-4">
 								  		<form:select path="cast"  class="form-control" onblur="validate2(this.id);">
-														<form:option value="">-- Choose Cast --</form:option>
-														<form:options items="${cast}"></form:options>
+											<form:option value="">-- Choose Cast --</form:option>
+											<form:options items="${cast}"></form:options>
 										</form:select>
 								  		<span class="hasError" id="castError"></span>
 								  		<div><form:errors path="cast" cssClass="error" /></div>
