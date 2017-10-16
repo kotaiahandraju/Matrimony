@@ -698,13 +698,14 @@ function validate(id, errorMessage)
 <script src="js/jquery-ui.min.js"></script>
 <script type="text/javascript">
 
-
-  $("#dob").datepicker({
+var ss =new Date().getFullYear()-16;
+$("#dob").datepicker({
     dateFormat: "dd-MM-yy",
     changeDate : true,
 	changeMonth : true,
 	changeYear : true,
-	maxDate :0
+// 	maxDate :0,
+	yearRange: '1950:' + ss
 });
   
 
@@ -776,7 +777,7 @@ $('#password').blur(function() {
 
 
 
-$("#submit11").click(function(){		
+$("#submit11").click(function(event){		
 	var email = $('#email').val();
 	if($('#email').val() ==  null || $('#email').val() == "" || $('#email').val()=="undefined" || 
 		$('#created_by').val() ==  null || $('#created_by').val() == "" || $('#created_by').val()=="undefined" ||
@@ -821,9 +822,9 @@ $("#submit11").click(function(){
 	$('#secondForm').css({'display':'block'});
 // 		$("#registration").submit();
  
-		event.preventDefault();
+	event.preventDefault();
 });
-$("#secondButton").click(function()
+$("#secondButton").click(function(event)
 // 		function formSubmit()
 		{		
 			if($('#name').val() ==  null || $('#name').val() == "" || $('#name').val()=="undefined" || 
