@@ -1,5 +1,7 @@
 package com.aurospaces.neighbourhood.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +35,7 @@ import com.aurospaces.neighbourhood.db.dao.CountriesDao;
 import com.aurospaces.neighbourhood.db.dao.UserDetailsDao;
 import com.aurospaces.neighbourhood.db.dao.UsersDao;
 import com.aurospaces.neighbourhood.util.EmailUtil;
+import com.aurospaces.neighbourhood.util.HRMSUtil;
 import com.aurospaces.neighbourhood.util.MiscUtils;
 
 @Controller
@@ -91,23 +94,24 @@ public class CreateProfileController {
 		String ipAddress = null;
 		
 		try {
+//			yyyy.MM.dd dd-MMMM-yyyy
+			
 			objUsersBean =objUsersDao.getById(id);
+			String date = objUsersBean.getDob();
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			Date date1 = formatter.parse(date);
+			
+			SimpleDateFormat format1 = new SimpleDateFormat("dd-MMMM-yyyy");
+			String inActiveDate = null;
+			inActiveDate = format1.format(date1);
+			objUsersBean.setDob(inActiveDate);
+			
+			
 			objUsersBean.setPageName(pageName);
 //			objUsersBean = objUserDetailsDao.getById(id);
 			objeModel.addAttribute("createProfile", objUsersBean);
 			 ipAddress =MiscUtils.getClientIpAddress(request);
 		
-			/*listOrderBeans = objCountriesDao.getAllCountries();
-			if (listOrderBeans != null && listOrderBeans.size() > 0) {
-				objectMapper = new ObjectMapper();
-				sJson = objectMapper.writeValueAsString(listOrderBeans);
-				request.setAttribute("allOrders1", sJson);
-				// System.out.println(sJson);
-			} else {
-				objectMapper = new ObjectMapper();
-				sJson = objectMapper.writeValueAsString(listOrderBeans);
-				request.setAttribute("allOrders1", "''");
-			}*/
 			 request.setAttribute("pageName", pageName);
 			
 		} catch (Exception e) {
@@ -133,17 +137,25 @@ public class CreateProfileController {
 		try {
 			ipAddress =MiscUtils.getClientIpAddress(request);
 			
-			
+			Date dob1 = HRMSUtil.dateFormate(objUsersBean.getDob());
+			if(dob1 !=null){
+				objUsersBean.setDob1(dob1);
+			}
 			
 			if(StringUtils.isNotBlank(ipAddress)){
 			objUsersBean.setLast_ip(ipAddress);
 			}
-			objUsersBean.setPassword(MiscUtils.generateRandomString(6));
 			
+			
+			UsersBean objuserBean1 = (UsersBean) session.getAttribute("cacheUserBean");
+			if (objuserBean1 != null) {
+				objUsersBean.setRegister_with(String.valueOf(objuserBean1.getId()));
+			}
 			objUsersBean.setRole_id(4);
 			if(objUsersBean.getId() ==0){
 				int userId = objUsersDao.getNewUserId();
 				if(StringUtils.isNotBlank(objUsersBean.getBranch())){
+				objUsersBean.setPassword(MiscUtils.generateRandomString(6));
 				int branchid = Integer.parseInt(objUsersBean.getBranch());
 				objBranch = objBranchDao.getById(branchid);
 				String prefix = objBranch.getPrefix();

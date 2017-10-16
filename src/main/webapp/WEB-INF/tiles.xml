@@ -73,6 +73,10 @@
 	<definition name="inactiveProfiles" extends="base.definition">
 		<put-attribute name="body" value="/WEB-INF/pages/inactiveProfiles.jsp" />
 	</definition>
+	<definition name="adminCreateProfile" extends="base.definition">
+		<put-attribute name="body" value="/WEB-INF/pages/adminCreateProfile.jsp" />
+	</definition>
+	
 </tiles-definitions>
 
 

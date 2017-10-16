@@ -1,5 +1,6 @@
 package com.aurospaces.neighbourhood.controller;
 
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +28,7 @@ import com.aurospaces.neighbourhood.db.dao.BranchDao;
 import com.aurospaces.neighbourhood.db.dao.CountriesDao;
 import com.aurospaces.neighbourhood.db.dao.UserDetailsDao;
 import com.aurospaces.neighbourhood.db.dao.UsersDao;
+import com.aurospaces.neighbourhood.util.HRMSUtil;
 
 @Controller
 public class HomePageController {
@@ -85,6 +87,10 @@ public class HomePageController {
 		System.out.println("userRegistration Page");
 		
 		try {
+			Date dob1 = HRMSUtil.dateFormate(objUsersBean.getDob());
+			if(dob1 !=null){
+				objUsersBean.setDob1(dob1);
+			}
 			objUsersBean.setRole_id(4);
 			objUsersBean.setStatus("0");
 			UsersBean userbean = objUsersDao.emailExistOrNot(objUsersBean);

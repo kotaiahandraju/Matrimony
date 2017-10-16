@@ -930,19 +930,16 @@
 
 <!-- <script type="text/javascript" src="js/custom.js"></script>		 -->
 <script type="text/javascript">
-
+var ss =new Date().getFullYear()-16;
 $("#dob").datepicker({
     dateFormat: "dd-MM-yy",
     changeDate : true,
 	changeMonth : true,
 	changeYear : true,
-	maxDate :0
+// 	maxDate :0,
+	yearRange: '1950:' + ss
 });
 $('#tob').mdtimepicker(); //Initializes the time picker
-
-
-
-
 
 
 function validate(id){

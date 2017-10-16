@@ -142,6 +142,7 @@ span.has-error,span.hasError
 						<li class="allProfiles"><a href="${baseurl }/admin/AllProfilesHome">All Profiles</a></li>
 						<li class="inactiveProfiles"><a href="${baseurl }/admin/InactiveProfilesHome">Inactive Profiles</a></li>
 						<li class="deleteProfiles"><a href="${baseurl }/admin/DeleteProfilesHome">Delete Profiles</a></li>
+						<li class="adminProfiles"><a href="${baseurl }/admin/AdminRegisterProfiles">Admin Register Profiles</a></li>
 					</ul>
 				</li>
 				
