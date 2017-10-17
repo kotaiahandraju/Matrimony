@@ -198,7 +198,7 @@ function validate(id, errorMessage)
 <!-- 2nd Step starts here-->
 <div id="secondForm" class="dispnone">
     <div class="col-md-12">
-      <h3>Just a few more steps! Please add your education & career details</h3>
+      <h3>Just A Few More Steps! Please Add Your Education & Career Details</h3>
     </div>
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Your education level <span class='manditory'>*</span></label>  
@@ -241,7 +241,7 @@ function validate(id, errorMessage)
     </div>
 
     <div class="form-group">
-      <label class="col-md-4 control-label" for="textinput">Your Annual Income <span class='manditory'>*</span></label>  
+      <label class="col-md-4 control-label" for="textinput">Your Annual Income <span class='manditory'></span></label>  
       <div class="col-md-6">
       	<form:select path="salaryperyear" class="form-control u1" onblur="validate('salaryperyear','');" onfocus="removeBorder(this.id)">
 			<form:option value="">-- Annual Income --</form:option>
@@ -555,8 +555,7 @@ function firstForm()
 
 function secondForm()
 {
-	if($('#education').val() ==  null || $('#education').val() == "" || $('#education').val()=="undefined" || 
-		$('#salaryperyear').val() ==  null || $('#salaryperyear').val() == "" || $('#salaryperyear').val()=="undefined")
+	if($('#education').val() ==  null || $('#education').val() == "" || $('#education').val()=="undefined") 
 	{
 		if($('#education').val() ==  null || $('#education').val() == "" || $('#education').val()=="undefined" ) 
 		{			    
@@ -564,12 +563,12 @@ function secondForm()
 			$('#education').css('color','#cc0000');
 			$('#education').addClass('your-class');
 		}
-		if($('#salaryperyear').val() ==  null || $('#salaryperyear').val() == "" || $('#salaryperyear').val()=="undefined" ) 
+		 /* if($('#salaryperyear').val() ==  null || $('#salaryperyear').val() == "" || $('#salaryperyear').val()=="undefined" ) 
 		{			    
 			$('#salaryperyear').css('border-color','red');
 			$('#salaryperyear').css('color','#cc0000');
 			$('#salaryperyear').addClass('your-class');
-		}
+		} */ 
 		event.preventDefault();
 		return false;
 	}

@@ -692,7 +692,7 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.property" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-								  	     <form:input path="property" onblur="validate27(this.id);"  placeholder="Enter Property"  autocomplete="off"  class="form-control onlyCharacters" />
+								  	     <form:input path="property" onblur="validate27(this.id);"  placeholder="Enter Property"  autocomplete="off"  class="form-control" />
 								  	<span class="hasError" id="propertyError"></span>
 									<div><form:errors path="property" cssClass="error" /></div>
 								  	</div>
@@ -765,7 +765,7 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.sinceWorking" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-										 <form:input path="sinceWorking"  placeHolder="Enter Since Working"  autocomplete="off" onblur="validate32(this.id);" class="form-control onlyCharacters" />
+										 <form:input path="sinceWorking"  placeHolder="Enter Since Working"  autocomplete="off" onblur="validate32(this.id);" class="form-control numericOnly" />
 									<span class="hasError" id="sinceWorkingError"></span>
 									<div><form:errors path="sinceWorking" cssClass="error" /></div>
 									</div>
@@ -830,7 +830,7 @@
 						<div class="row">
 							<div class="col-md-3"></div>
 							<div class="col-md-6">
-								<legend align="center">Requirment</legend>
+								<legend align="center">Requirement</legend>
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.ageGap" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
@@ -950,7 +950,7 @@ $("#tob").datepicker({
 function validate(id){
 	if($('#created_by').val() ==  null || $('#created_by').val() == ""  || $('#created_by').val()=="undefined" ) {
 		$('#created_byError').css('color','red');
-	    $("#created_byError").text("Created By cannot be blank.");
+	    $("#created_byError").text("Created By Cannot be blank.");
 	}else{
 		$("#created_byError").text("");
 	}
@@ -958,7 +958,7 @@ function validate(id){
 function validate1(id){
 	if($('#executiveName').val() ==  null || $('#executiveName').val() == ""  || $('#executiveName').val()=="undefined" ) {
 		$('#executiveNameError').css('color','red');
-	    $("#executiveNameError").text("Executive Name cannot be blank.");
+	    $("#executiveNameError").text("Executive Name Cannot be blank.");
 	}else{
 		$("#executiveNameError").text("");
 	}
@@ -966,7 +966,7 @@ function validate1(id){
 function validate2(id){
 	if($('#cast').val() ==  null || $('#cast').val() == ""  || $('#cast').val()=="undefined" ) {
 		$('#castError').css('color','red');
-	    $("#castError").text("cast cannot be blank.");
+	    $("#castError").text("Cast Cannot be blank.");
 	}else{
 		$("#castError").text("");
 	}
@@ -974,7 +974,7 @@ function validate2(id){
 function validate3(id){
 	if($('#subCaste').val() ==  null || $('#subCaste').val() == ""  || $('#subCaste').val()=="undefined" ) {
 		$('#subCasteError').css('color','red');
-	    $("#subCasteError").text("subCaste cannot be blank.");
+	    $("#subCasteError").text("Sub Caste Cannot be blank.");
 	}else{
 		$("#subCasteError").text("");
 	}
@@ -982,7 +982,7 @@ function validate3(id){
 function validate4(id){
 	if($('#sname').val() ==  null || $('#sname').val() == ""  || $('#sname').val()=="undefined" ) {
 		$('#snameError').css('color','red');
-	    $("#snameError").text("SurName cannot be blank.");
+	    $("#snameError").text("SurName Cannot be blank.");
 	}else{
 		$("#snameError").text("");
 	}
@@ -990,7 +990,7 @@ function validate4(id){
 function validate5(id){
 	if($('#name').val() ==  null || $('#name').val() == ""  || $('#name').val()=="undefined" ) {
 		$('#nameError').css('color','red');
-	    $("#nameError").text("Name cannot be blank.");
+	    $("#nameError").text("Name Cannot be blank.");
 	}else{
 		$("#nameError").text("");
 	}
@@ -998,7 +998,7 @@ function validate5(id){
 function validate6(id){
 	if($('#gender').val() ==  null || $('#gender').val() == ""  || $('#gender').val()=="undefined" ) {
 		$('#genderError').css('color','red');
-	    $("#genderError").text("Gender cannot be blank.");
+	    $("#genderError").text("Gender Cannot be blank.");
 	}else{
 		$("#genderError").text("");
 	}
@@ -1006,7 +1006,7 @@ function validate6(id){
 function validate7(id){
 	if($('#dob').val() ==  null || $('#dob').val() == ""  || $('#dob').val()=="undefined" ) {
 		$('#dobError').css('color','red');
-	    $("#dobError").text("Date of Brith cannot be blank.");
+	    $("#dobError").text("Date of Brith Cannot be blank.");
 	}else{
 		$("#dobError").text("");
 	}
@@ -1014,7 +1014,7 @@ function validate7(id){
 function validate8(id){
 	if($('#pob').val() ==  null || $('#pob').val() == ""  || $('#pob').val()=="undefined" ) {
 		$('#pobError').css('color','red');
-	    $("#pobError").text("Place of Brith cannot be blank.");
+	    $("#pobError").text("Place Of Brith Cannot be blank.");
 	}else{
 		$("#pobError").text("");
 	}
@@ -1022,7 +1022,7 @@ function validate8(id){
 function validate9(id){
 	if($('#height').val() ==  null || $('#height').val() == ""  || $('#height').val()=="undefined" ) {
 		$('#heightError').css('color','red');
-	    $("#heightError").text(" Height cannot be blank.");
+	    $("#heightError").text(" Height Cannot be blank.");
 	}else{
 		$("#heightError").text("");
 	}
@@ -1030,7 +1030,7 @@ function validate9(id){
 function validate10(id){
 	if($('#complexion').val() ==  null || $('#complexion').val() == ""  || $('#complexion').val()=="undefined" ) {
 		$('#complexionError').css('color','red');
-	    $("#complexionError").text(" Complexion cannot be blank.");
+	    $("#complexionError").text(" Complexion Cannot be blank.");
 	}else{
 		$("#complexionError").text("");
 	}
@@ -1038,7 +1038,7 @@ function validate10(id){
 function validate11(id){
 	if($('#gotram').val() ==  null || $('#gotram').val() == ""  || $('#gotram').val()=="undefined" ) {
 		$('#gotramError').css('color','red');
-	    $("#gotramError").text(" Gotram cannot be blank.");
+	    $("#gotramError").text(" Gotram Cannot be blank.");
 	}else{
 		$("#gotramError").text("");
 	}
@@ -1046,7 +1046,7 @@ function validate11(id){
 function validate12(id){
 	if($('#religion').val() ==  null || $('#religion').val() == ""  || $('#religion').val()=="undefined" ) {
 		$('#religionError').css('color','red');
-	    $("#religionError").text(" Religion cannot be blank.");
+	    $("#religionError").text(" Religion Cannot be blank.");
 	}else{
 		$("#religionError").text("");
 	}
@@ -1054,7 +1054,7 @@ function validate12(id){
 function validate13(id){
 	if($('#mtongue').val() ==  null || $('#mtongue').val() == ""  || $('#mtongue').val()=="undefined" ) {
 		$('#mtongueError').css('color','red');
-	    $("#mtongueError").text(" Mtongue cannot be blank.");
+	    $("#mtongueError").text(" Mother Tongue Cannot be blank.");
 	}else{
 		$("#mtongueError").text("");
 	}
@@ -1070,7 +1070,7 @@ function validate13(id){
 function validate14(id){
 	if($('#aboutYourself').val() ==  null || $('#aboutYourself').val() == ""  || $('#aboutYourself').val()=="undefined" ) {
 		$('#aboutYourselfError').css('color','red');
-	    $("#aboutYourselfError").text(" AboutYourself cannot be blank.");
+	    $("#aboutYourselfError").text(" About YourSelf Cannot be blank.");
 	}else{
 		$("#aboutYourselfError").text("");
 	}
@@ -1078,7 +1078,7 @@ function validate14(id){
 function validate15(id){
 	if($('#fname').val() ==  null || $('#fname').val() == ""  || $('#fname').val()=="undefined" ) {
 		$('#fnameError').css('color','red');
-	    $("#fnameError").text(" Father Name cannot be blank.");
+	    $("#fnameError").text(" Father Name Cannot be blank.");
 	}else{
 		$("#fnameError").text("");
 	}
@@ -1086,7 +1086,7 @@ function validate15(id){
 function validate16(id){
 	if($('#feducation').val() ==  null || $('#feducation').val() == ""  || $('#feducation').val()=="undefined" ) {
 		$('#feducationError').css('color','red');
-	    $("#feducationError").text(" Father Education cannot be blank.");
+	    $("#feducationError").text(" Father Education Cannot be blank.");
 	}else{
 		$("#feducationError").text("");
 	}
@@ -1094,7 +1094,7 @@ function validate16(id){
 function validate17(id){
 	if($('#foccupation').val() ==  null || $('#foccupation').val() == ""  || $('#foccupation').val()=="undefined" ) {
 		$('#foccupationError').css('color','red');
-	    $("#foccupationError").text(" Father Occupation cannot be blank.");
+	    $("#foccupationError").text(" Father Occupation Cannot be blank.");
 	}else{
 		$("#foccupationError").text("");
 	}
@@ -1102,7 +1102,7 @@ function validate17(id){
 function validate18(id){
 	if($('#fnativeAddress').val() ==  null || $('#fnativeAddress').val() == ""  || $('#fnativeAddress').val()=="undefined" ) {
 		$('#fnativeAddressError').css('color','red');
-	    $("#fnativeAddressError").text(" Father Native Address cannot be blank.");
+	    $("#fnativeAddressError").text(" Father Native Address Cannot be blank.");
 	}else{
 		$("#fnativeAddressError").text("");
 	}
@@ -1110,7 +1110,7 @@ function validate18(id){
 function validate19(id){
 	if($('#presentAddress').val() ==  null || $('#presentAddress').val() == ""  || $('#presentAddress').val()=="undefined" ) {
 		$('#presentAddressError').css('color','red');
-	    $("#presentAddressError").text(" Present Address cannot be blank.");
+	    $("#presentAddressError").text(" Present Address Cannot be blank.");
 	}else{
 		$("#presentAddressError").text("");
 	}
@@ -1118,7 +1118,7 @@ function validate19(id){
 function validate20(id){
 	if($('#mobile').val() ==  null || $('#mobile').val() == ""  || $('#mobile').val()=="undefined" ) {
 		$('#phone1Error').css('color','red');
-	    $("#phone1Error").text(" Mobile cannot be blank.");
+	    $("#phone1Error").text(" Mobile Cannot be blank.");
 	}else{
 		$("#phone1Error").text("");
 	}
@@ -1126,7 +1126,7 @@ function validate20(id){
 function validate21(id){
 	if($('#email').val() ==  null || $('#email').val() == ""  || $('#email').val()=="undefined" ) {
 		$('#emailError').css('color','red');
-	    $("#emailError").text(" Email cannot be blank.");
+	    $("#emailError").text(" Email Cannot be blank.");
 	}else{
 		$("#emailError").text("");
 	}
@@ -1134,7 +1134,7 @@ function validate21(id){
 function validate22(id){
 	if($('#mname').val() ==  null || $('#mname').val() == ""  || $('#mname').val()=="undefined" ) {
 		$('#mnameError').css('color','red');
-	    $("#mnameError").text("Mother Name cannot be blank.");
+	    $("#mnameError").text("Mother Name Cannot be blank.");
 	}else{
 		$("#mnameError").text("");
 	}
@@ -1142,7 +1142,7 @@ function validate22(id){
 function validate23(id){
 	if($('#meducation').val() ==  null || $('#meducation').val() == ""  || $('#meducation').val()=="undefined" ) {
 		$('#meducationError').css('color','red');
-	    $("#meducationError").text(" Mother Education cannot be blank.");
+	    $("#meducationError").text(" Mother Education Cannot be blank.");
 	}else{
 		$("#meducationError").text("");
 	}
@@ -1150,7 +1150,7 @@ function validate23(id){
 function validate24(id){
 	if($('#mfName').val() ==  null || $('#mfName').val() == ""  || $('#mfName').val()=="undefined" ) {
 		$('#mfNameError').css('color','red');
-	    $("#mfNameError").text(" Mother Father's cannot be blank.");
+	    $("#mfNameError").text(" Mother Father's Cannot be blank.");
 	}else{
 		$("#mfNameError").text("");
 	}
@@ -1158,7 +1158,7 @@ function validate24(id){
 function validate25(id){
 	if($('#mnativeAddress').val() ==  null || $('#mnativeAddress').val() == ""  || $('#mnativeAddress').val()=="undefined" ) {
 		$('#mnativeAddressError').css('color','red');
-	    $("#mnativeAddressError").text(" Mother Native Address cannot be blank.");
+	    $("#mnativeAddressError").text(" Mother Native Address Cannot be blank.");
 	}else{
 		$("#mnativeAddressError").text("");
 	}
@@ -1166,7 +1166,7 @@ function validate25(id){
 function validate26(id){
 	if($('#sibilings').val() ==  null || $('#sibilings').val() == ""  || $('#sibilings').val()=="undefined" ) {
 		$('#sibilingsError').css('color','red');
-	    $("#sibilingsError").text("Sibilings cannot be blank.");
+	    $("#sibilingsError").text("Sibilings Cannot be blank.");
 	}else{
 		$("#sibilingsError").text("");
 	}
@@ -1174,7 +1174,7 @@ function validate26(id){
 function validate27(id){
 	if($('#property').val() ==  null || $('#property').val() == ""  || $('#property').val()=="undefined" ) {
 		$('#propertyError').css('color','red');
-	    $("#propertyError").text(" Property cannot be blank.");
+	    $("#propertyError").text(" Property Cannot be blank.");
 	}else{
 		$("#propertyError").text("");
 	}
@@ -1182,7 +1182,7 @@ function validate27(id){
 function validate28(id){
 	if($('#branch').val() ==  null || $('#branch').val() == ""  || $('#branch').val()=="undefined" ) {
 		$('#branchError').css('color','red');
-	    $("#branchError").text(" Branch cannot be blank.");
+	    $("#branchError").text(" Branch Cannot be blank.");
 	}else{
 		$("#branchError").text("");
 	}
@@ -1190,7 +1190,7 @@ function validate28(id){
 function validate29(id){
 	if($('#education').val() ==  null || $('#education').val() == ""  || $('#education').val()=="undefined" ) {
 		$('#educationError').css('color','red');
-	    $("#educationError").text(" Education cannot be blank.");
+	    $("#educationError").text(" Education Cannot be blank.");
 	}else{
 		$("#educationError").text("");
 	}
@@ -1198,7 +1198,7 @@ function validate29(id){
 function validate30(id){
 	if($('#occupation').val() ==  null || $('#occupation').val() == ""  || $('#occupation').val()=="undefined" ) {
 		$('#occupationError').css('color','red');
-	    $("#occupationError").text(" Occupation cannot be blank.");
+	    $("#occupationError").text(" Occupation Cannot be blank.");
 	}else{
 		$("#occupationError").text("");
 	}
@@ -1206,7 +1206,7 @@ function validate30(id){
 function validate31(id){
 	if($('#occupationDetails').val() ==  null || $('#occupationDetails').val() == ""  || $('#occupationDetails').val()=="undefined" ) {
 		$('#occupationDetailsError').css('color','red');
-	    $("#occupationDetailsError").text(" Occupation Details cannot be blank.");
+	    $("#occupationDetailsError").text(" Occupation Details Cannot be blank.");
 	}else{
 		$("#occupationDetailsError").text("");
 	}
@@ -1214,7 +1214,7 @@ function validate31(id){
 function validate32(id){
 	if($('#sinceWorking').val() ==  null || $('#sinceWorking').val() == ""  || $('#sinceWorking').val()=="undefined" ) {
 		$('#sinceWorkingError').css('color','red');
-	    $("#sinceWorkingError").text(" Since Working cannot be blank.");
+	    $("#sinceWorkingError").text(" Since Working Cannot be blank.");
 	}else{
 		$("#sinceWorkingError").text("");
 	}
@@ -1222,7 +1222,7 @@ function validate32(id){
 function validate33(id){
 	if($('#ncitizenOf').val() ==  null || $('#ncitizenOf').val() == ""  || $('#ncitizenOf').val()=="undefined" ) {
 		$('#ncitizenOfError').css('color','red');
-	    $("#ncitizenOfError").text(" CitizenOf cannot be blank.");
+	    $("#ncitizenOfError").text(" CitizenOf Cannot be blank.");
 	}else{
 		$("#ncitizenOfError").text("");
 	}
@@ -1230,7 +1230,7 @@ function validate33(id){
 function validate34(id){
 	if($('#crCountry').val() ==  null || $('#crCountry').val() == ""  || $('#crCountry').val()=="undefined" ) {
 		$('#crCountryError').css('color','red');
-	    $("#crCountryError").text(" Country cannot be blank.");
+	    $("#crCountryError").text(" Country Cannot be blank.");
 	}else{
 		$("#crCountryError").text("");
 	}
@@ -1238,7 +1238,7 @@ function validate34(id){
 function validate35(id){
 	if($('#ageGap').val() ==  null || $('#ageGap').val() == ""  || $('#ageGap').val()=="undefined" ) {
 		$('#ageGapError').css('color','red');
-	    $("#ageGapError").text(" Age Gap cannot be blank.");
+	    $("#ageGapError").text(" Age Gap Cannot be blank.");
 	}else{
 		$("#ageGapError").text("");
 	}
@@ -1246,7 +1246,7 @@ function validate35(id){
 function validate36(id){
 	if($('#rHeightFrom').val() ==  null || $('#rHeightFrom').val() == ""  || $('#rHeightFrom').val()=="undefined" ) {
 		$('#rHeightFromError').css('color','red');
-	    $("#rHeightFromError").text("Height From cannot be blank.");
+	    $("#rHeightFromError").text("Height From Cannot be blank.");
 	}else{
 		$("#rHeightFromError").text("");
 	}
@@ -1254,7 +1254,7 @@ function validate36(id){
 function validate37(id){
 	if($('#rHeightTo').val() ==  null || $('#rHeightTo').val() == ""  || $('#rHeightTo').val()=="undefined" ) {
 		$('#rHeightToError').css('color','red');
-	    $("#rHeightToError").text(" Height To cannot be blank.");
+	    $("#rHeightToError").text(" Height To Cannot be blank.");
 	}else{
 		$("#rHeightToError").text("");
 	}
@@ -1262,7 +1262,7 @@ function validate37(id){
 function validate38(id){
 	if($('#rComplexion').val() ==  null || $('#rComplexion').val() == ""  || $('#rComplexion').val()=="undefined" ) {
 		$('#rComplexionError').css('color','red');
-	    $("#rComplexionError").text(" Complexion cannot be blank.");
+	    $("#rComplexionError").text(" Complexion Cannot be blank.");
 	}else{
 		$("#rComplexionError").text("");
 	}
@@ -1270,7 +1270,7 @@ function validate38(id){
 function validate39(id){
 	if($('#rprofession').val() ==  null || $('#rprofession').val() == ""  || $('#rprofession').val()=="undefined" ) {
 		$('#rprofessionError').css('color','red');
-	    $("#rprofessionError").text(" Profession cannot be blank.");
+	    $("#rprofessionError").text(" Profession Cannot be blank.");
 	}else{
 		$("#rprofessionError").text("");
 	}
@@ -1278,7 +1278,7 @@ function validate39(id){
 function validate40(id){
 	if($('#Users_terms').prop("checked") == false || $('#Users_terms').val() != 1 || $('#Users_terms').val()=="undefined") {
 		$('#Users_termsError').css('color','red');
-	    $("#Users_termsError").text("Please check the terms & conditions.");
+	    $("#Users_termsError").text("Please Check The Terms & Conditions.");
 	}else if($('#Users_terms').prop("checked") == true){$('#Users_termsError').text("");}
 	} 
 	
@@ -1300,211 +1300,211 @@ $("#submit11").click(function()
 				if($('#created_by').val() ==  null || $('#created_by').val() == ""  || $('#created_by').val()=="undefined" ) 
 				{			    
 				    $('#created_byError').css('color','red');
-				    $("#created_byError").text("Created By cannot be blank.");
+				    $("#created_byError").text("Created By Cannot be blank.");
 			    }
 				if($('#executiveName').val() ==  null || $('#executiveName').val() == ""  || $('#executiveName').val()=="undefined" ) 
 				{			    
 				    $('#executiveNameError').css('color','red');
-				    $("#executiveNameError").text("ExecutiveName cannot be blank.");
+				    $("#executiveNameError").text("Executive Name Cannot be blank.");
 			    }
 				if($('#cast').val() ==  null || $('#cast').val() == ""  || $('#cast').val()=="undefined" ) 
 				{			    
 				    $('#castError').css('color','red');
-				    $("#castError").text("cast cannot be blank.");
+				    $("#castError").text("Cast Cannot be blank.");
 			    }
 				if($('#subCaste').val() ==  null || $('#subCaste').val() == ""  || $('#subCaste').val()=="undefined" ) 
 				{			    
 				    $('#subCasteError').css('color','red');
-				    $("#subCasteError").text("subCaste cannot be blank.");
+				    $("#subCasteError").text("Sub Cast Cannot be blank.");
 			    }
 				if($('#sname').val() ==  null || $('#sname').val() == ""  || $('#sname').val()=="undefined" ) 
 				{			    
 				    $('#snameError').css('color','red');
-				    $("#snameError").text("SurName cannot be blank.");
+				    $("#snameError").text("SurName Cannot be blank.");
 			    }
 				if($('#name').val() ==  null || $('#name').val() == ""  || $('#name').val()=="undefined" ) 
 				{			    
 				    $('#nameError').css('color','red');
-				    $("#nameError").text("Name cannot be blank.");
+				    $("#nameError").text("Name Cannot be blank.");
 			    }
 				if($('#gender').val() ==  null || $('#gender').val() == ""  || $('#gender').val()=="undefined" ) 
 				{			    
 				    $('#genderError').css('color','red');
-				    $("#genderError").text("Gender cannot be blank.");
+				    $("#genderError").text("Gender Cannot be blank.");
 			    }
 				if($('#dob').val() ==  null || $('#dob').val() == ""  || $('#dob').val()=="undefined" ) 
 				{			    
 				    $('#dobError').css('color','red');
-				    $("#dobError").text("Date OF Brith cannot be blank.");
+				    $("#dobError").text("Date OF Brith Cannot be blank.");
 			    }
 				if($('#pob').val() ==  null || $('#pob').val() == ""  || $('#pob').val()=="undefined" ) 
 				{			    
 				    $('#pobError').css('color','red');
-				    $("#pobError").text("Place OF Brith cannot be blank.");
+				    $("#pobError").text("Place OF Brith Cannot be blank.");
 			    }
 				if($('#height').val() ==  null || $('#height').val() == ""  || $('#height').val()=="undefined" ) 
 				{			    
 				    $('#heightError').css('color','red');
-				    $("#heightError").text("Height  cannot be blank.");
+				    $("#heightError").text("Height  Cannot be blank.");
 			    }
 				if($('#complexion').val() ==  null || $('#complexion').val() == ""  || $('#complexion').val()=="undefined" ) 
 				{			    
 					$('#complexionError').css('color','red');
-				    $("#complexionError").text("Complexion  cannot be blank.");
+				    $("#complexionError").text("Complexion  Cannot be blank.");
 			    }
 				if($('#gotram').val() ==  null || $('#gotram').val() == ""  || $('#gotram').val()=="undefined" ) 
 				{			    
 				    $('#gotramError').css('color','red');
-				    $("#gotramError").text("Gotram  cannot be blank.");
+				    $("#gotramError").text("Gotram  Cannot be blank.");
 			    }
 				if($('#religion').val() ==  null || $('#religion').val() == ""  || $('#religion').val()=="undefined" ) 
 				{			    
 				    $('#religionError').css('color','red');
-				    $("#religionError").text("Religion  cannot be blank.");
+				    $("#religionError").text("Religion  Cannot be blank.");
 			    }
 				if($('#mtongue').val() ==  null || $('#mtongue').val() == ""  || $('#mtongue').val()=="undefined" ) 
 				{			    
 				    $('#mtongueError').css('color','red');
-				    $("#mtongueError").text("MTongue  cannot be blank.");
+				    $("#mtongueError").text("Mother Tongue  Cannot be blank.");
 			    }
-				if($('#mtongue').val() ==  null || $('#mtongue').val() == ""  || $('#mtongue').val()=="undefined" ) 
+				/* if($('#mtongue').val() ==  null || $('#mtongue').val() == ""  || $('#mtongue').val()=="undefined" ) 
 				{			    
 				    $('#mtongueError').css('color','red');
 				    $("#mtongueError").text("MTongue  cannot be blank.");
-			    }
+			    } */
 				if($('#aboutYourself').val() ==  null || $('#aboutYourself').val() == ""  || $('#aboutYourself').val()=="undefined" ) 
 				{			    
 				    $('#aboutYourselfError').css('color','red');
-				    $("#aboutYourselfError").text("AboutYourself  cannot be blank.");
+				    $("#aboutYourselfError").text("About Yourself  cannot be blank.");
 			    }
 				if($('#fname').val() ==  null || $('#fname').val() == ""  || $('#fname').val()=="undefined" ) 
 				{			    
 				    $('#fnameError').css('color','red');
-				    $("#fnameError").text("Father Name  cannot be blank.");
+				    $("#fnameError").text("Father Name  Cannot be blank.");
 			    }
 				if($('#feducation').val() ==  null || $('#feducation').val() == ""  || $('#feducation').val()=="undefined" ) 
 				{			    
 				    $('#feducationError').css('color','red');
-				    $("#feducationError").text("Father Education  cannot be blank.");
+				    $("#feducationError").text("Father Education  Cannot be blank.");
 			    }
 				if($('#foccupation').val() ==  null || $('#foccupation').val() == ""  || $('#foccupation').val()=="undefined" ) 
 				{			    
 				    $('#foccupationError').css('color','red');
-				    $("#foccupationError").text("Father Occupation  cannot be blank.");
+				    $("#foccupationError").text("Father Occupation  Cannot be blank.");
 			    }
 				if($('#fnativeAddress').val() ==  null || $('#fnativeAddress').val() == ""  || $('#fnativeAddress').val()=="undefined" ) 
 				{			    
 				    $('#fnativeAddressError').css('color','red');
-				    $("#fnativeAddressError").text("Father Native Address  cannot be blank.");
+				    $("#fnativeAddressError").text("Father Native Address  Cannot be blank.");
 			    }
 				if($('#presentAddress').val() ==  null || $('#presentAddress').val() == ""  || $('#presentAddress').val()=="undefined" ) 
 				{			    
 				    $('#presentAddressError').css('color','red');
-				    $("#presentAddressError").text("Present Address  cannot be blank.");
+				    $("#presentAddressError").text("Present Address  Cannot be blank.");
 			    }
 				if($('#mobile').val() ==  null || $('#mobile').val() == ""  || $('#mobile').val()=="undefined" ) 
 				{			    
 				    $('#phone1Error').css('color','red');
-				    $("#phone1Error").text("Mobile  cannot be blank.");
+				    $("#phone1Error").text("Mobile Number  Cannot be blank.");
 			    }
 				if($('#email').val() ==  null || $('#email').val() == ""  || $('#email').val()=="undefined" ) 
 				{			    
 				    $('#emailError').css('color','red');
-				    $("#emailError").text("Email  cannot be blank.");
+				    $("#emailError").text("Email  Cannot be blank.");
 			    }
 				if($('#mname').val() ==  null || $('#mname').val() == ""  || $('#mname').val()=="undefined" ) 
 				{			    
 				    $('#mnameError').css('color','red');
-				    $("#mnameError").text("Mother Name  cannot be blank.");
+				    $("#mnameError").text("Mother Name  Cannot be blank.");
 			    }
 				if($('#meducation').val() ==  null || $('#meducation').val() == ""  || $('#meducation').val()=="undefined" ) 
 				{			    
 				    $('#meducationError').css('color','red');
-				    $("#meducationError").text("Mother Education  cannot be blank.");
+				    $("#meducationError").text("Mother Education  Cannot be blank.");
 			    }
 				if($('#mfName').val() ==  null || $('#mfName').val() == ""  || $('#mfName').val()=="undefined" ) 
 				{			    
 				    $('#mfNameError').css('color','red');
-				    $("#mfNameError").text("Mother Father's  cannot be blank.");
+				    $("#mfNameError").text("Mother Father's Name  Cannot be blank.");
 			    }
 				if($('#mnativeAddress').val() ==  null || $('#mnativeAddress').val() == ""  || $('#mnativeAddress').val()=="undefined" ) 
 				{			    
 				    $('#mnativeAddressError').css('color','red');
-				    $("#mnativeAddressError").text("Mother Native Address  cannot be blank.");
+				    $("#mnativeAddressError").text("Mother Native Address  Cannot be blank.");
 			    }
 				if($('#sibilings').val() ==  null || $('#sibilings').val() == ""  || $('#sibilings').val()=="undefined" ) 
 				{			    
 				    $('#sibilingsError').css('color','red');
-				    $("#sibilingsError").text("Sibilings  cannot be blank.");
+				    $("#sibilingsError").text("Sibilings  Cannot be blank.");
 			    }
 				if($('#property').val() ==  null || $('#property').val() == ""  || $('#property').val()=="undefined" ) 
 				{			    
 				    $('#propertyError').css('color','red');
-				    $("#propertyError").text("Property  cannot be blank.");
+				    $("#propertyError").text("Property  Cannot be blank.");
 			    }
 				if($('#branch').val() ==  null || $('#branch').val() == ""  || $('#branch').val()=="undefined" ) 
 				{			    
 				    $('#branchError').css('color','red');
-				    $("#branchError").text("Branch  cannot be blank.");
+				    $("#branchError").text("Branch  Cannot be blank.");
 			    }
 				if($('#education').val() ==  null || $('#education').val() == ""  || $('#education').val()=="undefined" ) 
 				{			    
 				    $('#educationError').css('color','red');
-				    $("#educationError").text("Education  cannot be blank.");
+				    $("#educationError").text("Education  Cannot be blank.");
 			    }
 				if($('#occupation').val() ==  null || $('#occupation').val() == ""  || $('#occupation').val()=="undefined" ) 
 				{			    
 				    $('#occupationError').css('color','red');
-				    $("#occupationError").text("occupation  cannot be blank.");
+				    $("#occupationError").text("Occupation  Cannot be blank.");
 			    }
 				if($('#occupationDetails').val() ==  null || $('#occupationDetails').val() == ""  || $('#occupationDetails').val()=="undefined" ) 
 				{			    
 				    $('#occupationDetailsError').css('color','red');
-				    $("#occupationDetailsError").text("occupation Details  cannot be blank.");
+				    $("#occupationDetailsError").text("Occupation Details  Cannot be blank.");
 			    }
 				if($('#sinceWorking').val() ==  null || $('#sinceWorking').val() == ""  || $('#sinceWorking').val()=="undefined" ) 
 				{			    
 				    $('#sinceWorkingError').css('color','red');
-				    $("#sinceWorkingError").text("Since Working  cannot be blank.");
+				    $("#sinceWorkingError").text("Since Working  Cannot be blank.");
 			    }
 				if($('#ncitizenOf').val() ==  null || $('#ncitizenOf').val() == ""  || $('#ncitizenOf').val()=="undefined" ) 
 				{			    
 				    $('#ncitizenOfError').css('color','red');
-				    $("#ncitizenOfError").text("CitizenOf  cannot be blank.");
+				    $("#ncitizenOfError").text("CitizenOf  Cannot be blank.");
 			    }
 				if($('#crCountry').val() ==  null || $('#crCountry').val() == ""  || $('#crCountry').val()=="undefined" ) 
 				{			    
 				    $('#crCountryError').css('color','red');
-				    $("#crCountryError").text("Country  cannot be blank.");
+				    $("#crCountryError").text("Country  Cannot be blank.");
 			    }
 				if($('#ageGap').val() ==  null || $('#ageGap').val() == ""  || $('#ageGap').val()=="undefined" ) 
 				{			    
 				    $('#ageGapError').css('color','red');
-				    $("#ageGapError").text("AgeGap  cannot be blank.");
+				    $("#ageGapError").text("AgeGap  Cannot be blank.");
 			    }
 				if($('#rHeightFrom').val() ==  null || $('#rHeightFrom').val() == ""  || $('#rHeightFrom').val()=="undefined" ) 
 				{			    
 				    $('#rHeightFromError').css('color','red');
-				    $("#rHeightFromError").text("HeightFrom  cannot be blank.");
+				    $("#rHeightFromError").text("Height From  Cannot be blank.");
 			    }
 				if($('#rHeightTo').val() ==  null || $('#rHeightTo').val() == ""  || $('#rHeightTo').val()=="undefined" ) 
 				{			    
 				    $('#rHeightToError').css('color','red');
-				    $("#rHeightToError").text("HeightTo  cannot be blank.");
+				    $("#rHeightToError").text("Height To  Cannot be blank.");
 			    }
 				if($('#rComplexion').val() ==  null || $('#rComplexion').val() == ""  || $('#rComplexion').val()=="undefined" ) 
 				{			    
 				    $('#rComplexionError').css('color','red');
-				    $("#rComplexionError").text("Complexion  cannot be blank.");
+				    $("#rComplexionError").text("Complexion  Cannot be blank.");
 			    }
 				if($('#rprofession').val() ==  null || $('#rprofession').val() == ""  || $('#rprofession').val()=="undefined" ) 
 				{			    
 				    $('#rprofessionError').css('color','red');
-				    $("#rprofessionError").text("Profession  cannot be blank.");
+				    $("#rprofessionError").text("Profession  Cannot be blank.");
 			    }
 				if(!this.form.Users_terms.checked || $('#Users_terms').val() != 1 || $('#Users_terms').val()=="undefined" ) {
 					$('#Users_termsError').css('color','red');
-				    $("#Users_termsError").text("Please check the terms & conditions.");
+				    $("#Users_termsError").text("Please Check The Terms & Conditions.");
 				}else if(this.form.Users_terms.checked){$('#Users_termsError').text("");}
 
 				return false;
