@@ -189,7 +189,7 @@ function validate(id, errorMessage)
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput"></label>  
       <div class="col-md-6">
-      	<button type="submit" id="firstButton" onclick="firstForm();" class="btn1 btn btn-info">CONTINUE...</button>
+      	<button type="submit" id="firstButton" onclick="firstForm(event);" class="btn1 btn btn-info">CONTINUE...</button>
       </div>
     </div>
 </div>
@@ -257,7 +257,7 @@ function validate(id, errorMessage)
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput"></label>  
       <div class="col-md-6">
-      <button type="submit" id="secondButton" onclick="secondForm();" class="btn2 btn btn-info">CONTINUE...</button>
+      <button type="submit" id="secondButton" onclick="secondForm(event);" class="btn2 btn btn-info">CONTINUE...</button>
       </div>
     </div>
 </div>
@@ -341,7 +341,7 @@ function validate(id, errorMessage)
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput"></label>  
       <div class="col-md-6">
-      <button type="button" id="thirdButton" onclick="thirdForm();" class="btn3 btn btn-info">CONTINUE...</button>
+      <button type="button" id="thirdButton" onclick="thirdForm(event);" class="btn3 btn btn-info">CONTINUE...</button>
       </div>
     </div>
 </div>
@@ -372,7 +372,7 @@ function validate(id, errorMessage)
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput"></label>  
       <div class="col-md-6">
-      <button type="button" id="fourthButton" onclick="fourthForm();" value="Create Profile" class="btn4 btn btn-info">Create Profile</button>
+      <button type="button" id="fourthButton" onclick="fourthForm(event);" value="Create Profile" class="btn4 btn btn-info">Create Profile</button>
       </div>
     </div>
 </div>
@@ -505,7 +505,7 @@ $( document ).ready(function() {
 
 	});
 
-function firstForm()
+function firstForm(event)
 {
 	if($('#state').val() ==  null || $('#state').val() == "" || $('#state').val()=="undefined" || 
 		$('#city').val() ==  null || $('#city').val() == "" || $('#city').val()=="undefined" ||
@@ -553,7 +553,7 @@ function firstForm()
 	}
 }
 
-function secondForm()
+function secondForm(event)
 {
 	if($('#education').val() ==  null || $('#education').val() == "" || $('#education').val()=="undefined") 
 	{
@@ -583,7 +583,7 @@ function secondForm()
 	}
 }
 
-function thirdForm()
+function thirdForm(event)
 {
 	if($('#smoke').val() ==  null || $('#smoke').val() == "" || $('#smoke').val()=="undefined" || 
 		$('#drink').val() ==  null || $('#drink').val() == ""  || $('#drink').val()=="undefined" || 
@@ -628,10 +628,10 @@ function thirdForm()
 		return true;
 	}
 }
-function fourthForm(){
-	var formOne = firstForm();
-	var formTwo = secondForm();
-	var formThree = thirdForm();
+function fourthForm(event){
+	var formOne = firstForm(event);
+	var formTwo = secondForm(event);
+	var formThree = thirdForm(event);
 	if(!formOne){
 		ChangeUrl('page1', 'profile.htm?page=1');
 		$("#firstForm").show();

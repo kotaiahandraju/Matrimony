@@ -54,7 +54,7 @@ public class UsersDao extends BaseUsersDao {
 			jdbcTemplate = custom.getJdbcTemplate();
 			StringBuffer buffer = new StringBuffer();
 			buffer.append("select u.id, u.created_time,u.updated_time,u.role_id,r.role_name as rolename,u.username,u.password,"
-					+ "u.email,u.name,u.sname,u.gender,u.height,h.inches as inches,h.cm as cm,u.mstatus,u.dob,u.tob,u.pob,"
+					+ "u.email,u.name,u.sname,u.gender,u.height,h.inches as inches,h.cm as cm,u.mstatus,DATE_FORMAT(u.dob, '%d-%M-%Y') as dob,u.tob,u.pob,"
 					+ "u.created_by,u.cast,c.name as castname,u.complexion,co.name as complexionName,u.mtongue,u.education,"
 					+ "e.name as educationName,emply_type,fname,feducation,e1.name as fatherEducation,foccupation,"
 					+ "oc1.name as fatherOccupation,mname,meducation,e2.name as motherEducation,moccupation,oc2."
@@ -86,6 +86,12 @@ public class UsersDao extends BaseUsersDao {
 			}
 			if(type.equals("delete")){
 				buffer.append( " and u.status in( '2')" );
+			}
+			if(type.equals("inactive")){
+				buffer.append( " and u.status in( '0')" );
+			}
+			if(type.equals("admin")){
+				buffer.append( " and u.register_with is not null " );
 			}
 			
 			String sql =buffer.toString();

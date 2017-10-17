@@ -17,8 +17,6 @@ $( document ).ready(function() {
 <link href="${baseurl }/css/datepicker1.css" rel="stylesheet" type="text/css" />
 <script src="${baseurl }/js/jquery-ui.min.js"></script>
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" />
-<%-- <script src="${baseurl }/js/viewProfile.js"></script> --%>
-
 <!-- 	<script src="http://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script> -->
 <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.1/themes/black-tie/jquery-ui.css"> -->
 <!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.js"></script> -->
@@ -27,7 +25,7 @@ $( document ).ready(function() {
 <div class="container-fluid">
 	<div class="page-header">
 		<div class="pull-left">
-			<h1>All Profiles </h1> 
+			<h1>Admin Register Profiles </h1> 
 		</div>
 	</div>
 	<div class="breadcrumbs">
@@ -39,7 +37,7 @@ $( document ).ready(function() {
 			</li>
 			<li>
 				&nbsp;<i class="fa fa-file"></i>
-				<span style="color: #999;cursor: auto;">Delete Profiles</span>
+				<span style="color: #999;cursor: auto;">Admin Register Profiles</span>
 			</li>
 		</ul>
 		
@@ -86,14 +84,14 @@ $( document ).ready(function() {
 			<div class="box-title">
 				<h3>
 					<i class="fa fa-table"></i>
-					Delete Profiles List
+					Admin Register  Profiles List
 				</h3>
 			</div>
-			<div class="box-content nopadding w3-animate-zoom" id="tableId">
-				<table class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,null">
+			<div class="box-content nopadding table-responsive w3-animate-zoom" id="tableId">
+				<table class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,text,text,text,text,null">
 					<thead>
 					<tr>
-						<th>Name</th>
+						<th>UserName</th><th>Sur Name</th><th>Name</th><th>Email</th><th>Mobile</th>
 						<th></th>
 					</tr>
 					</thead>
@@ -127,28 +125,56 @@ s.parentNode.insertBefore(ga, s);
 	}
  function displayTable(listOrders) {
 		$('#tableId').html('');
-		var tableHead = '<table  class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,text,text,null">'
-				+ '<thead><tr><th>UserName</th><th>Name</th><th>Sur Name</th><th></th></tr></thead><tbody></tbody></table>';
+		var tableHead = '<table class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,text,text,text,text,null">'
+			+ '<thead><tr><th>UserName</th><th>Sur Name</th><th>Name</th><th>Email</th><th>Mobile</th><th></th></tr></thead><tbody></tbody></table>';
 		$('#tableId').html(tableHead);
 		serviceUnitArray = {};
 		$.each(listOrders,function(i, orderObj) {
-							var edit = "<a title='Edit Profile' onclick='editProfile("+ orderObj.id+ ")'><i style='color: green;cursor: pointer;' class='fa fa-edit'></i></a>"
-							var restote = "<a  title='Restore Profile' onclick='restoreDeleteProfile("+ orderObj.id+ ")'><i style='color: green;cursor: pointer;' class='fa fa-repeat'></i></a>"
-							var viewProfile = "<a title='View Profile' onclick='viewProfile("+ orderObj.id+ ")'><i style='color: blue;cursor: pointer;' class='fa fa-eye'></i></a>"
+			var viewProfile = "<a data-toggle='tooltip' title='View' onclick='viewProfile("+ orderObj.id+ ")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-eye'></i></a>"
+			var uploadPhotos = "<a data-toggle='tooltip' title='Upload Photos' onclick='uploadPhotos("+ orderObj.id+ ")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-photo'></i></a>"
+			var moveToHidden = "<a data-toggle='tooltip' title='Move To Hidden' onclick='moveToHidden("+ orderObj.id+ ")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-eye-slash'></i></a>"
+			var editProfile = "<a data-toggle='tooltip' title='Edit' onclick='editProfile("+ orderObj.id+ ")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-pencil'></i></a>"
+			var sendMail = "<a data-toggle='tooltip' title='Mail' onclick='sendMail("+ orderObj.id+ ")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-envelope'></i></a>"
+			var inactive = "<a data-toggle='tooltip' title='Inactive' onclick='profileStatusChange("+ orderObj.id+ ",0)'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-remove'></i></a>"
+			var compareProfiles = "<a data-toggle='tooltip' title='Compare Profiles' onclick='compareProfiles("+ orderObj.id+ ")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-exchange'></i></a>"
+			var deleteProfile = "<a data-toggle='tooltip' title='Delete' onclick='profileStatusChange("+ orderObj.id+ ",2)'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-trash'></i></a>"
+			var payment = "<a data-toggle='tooltip' title='Payment' onclick='payment("+ orderObj.id+ ",0)'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-usd'></i></a>"
+			var resetPassword = "<a data-toggle='tooltip' title='Reset Password' onclick='resetPassword("+ orderObj.id+ ",0)'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-repeat'></i></a>"
+			/* var viewProfile = "<a title='View Profile' onclick='viewProfile("+ orderObj.id+ ")'><i style='color: blue;' class='fa fa-eye'></i></a>"
+							var viewProfile = "<a title='View Profile' onclick='viewProfile("+ orderObj.id+ ")'><i style='color: blue;' class='fa fa-eye'></i></a>"
+							var viewProfile = "<a title='View Profile' onclick='viewProfile("+ orderObj.id+ ")'><i style='color: blue;' class='fa fa-eye'></i></a>" */
 							serviceUnitArray[orderObj.id] = orderObj;
 							var tblRow = "<tr >"
-									+ "<td title='"+orderObj.username+"'>" + orderObj.username + "</td>"
-									+ "<td title='"+orderObj.name+"'>" + orderObj.name + "</td>"
-									+ "<td title='"+orderObj.sname+"'>" + orderObj.sname + "</td>"
-									+ "<td style='text-align: center;'>" + edit + "&nbsp;|&nbsp;" + viewProfile + "&nbsp;|&nbsp;" + restote + "</td>" 
+								+ "<td title='"+orderObj.username+"'>" + orderObj.username + "</td>"
+								+ "<td title='"+orderObj.sname+"'>" + orderObj.sname + "</td>"
+								+ "<td title='"+orderObj.name+"'>" + orderObj.name + "</td>"
+								+ "<td title='"+orderObj.email+"'>" + orderObj.email + "</td>"
+								+ "<td title='"+orderObj.mobile+"'>" + orderObj.mobile + "</td>"
+									+ "<td style='text-align: center;white-space: nowrap;'>" + viewProfile + "&nbsp;&nbsp;" + uploadPhotos + "&nbsp;&nbsp;" 
+									+		moveToHidden + "&nbsp;&nbsp;" + editProfile + "&nbsp;&nbsp;" + sendMail + "&nbsp;&nbsp;" 
+									+		inactive + "&nbsp;&nbsp;" + compareProfiles + "&nbsp;&nbsp;" + deleteProfile + "&nbsp;&nbsp;"
+									+		payment + "&nbsp;&nbsp;" + resetPassword
+									+ "</td>"  
 									+ "</tr >";
-							$(tblRow).appendTo("#tableId table tbody");
+							$(tblRow).appendTo("#tableId table tbody"); 
 						});
+		/* $('#DataTables_Table_0').DataTable({
+			dom: 'Bfrtip',
+			buttons: [{extend:"print",className:"btn default"},{extend:"pdf",className:"btn default"},{extend:"csv",className:"btn default"}]
+		}); */
 		
+		 /*$('#datatable-buttons').DataTable({
+		        "dom": 'C<"clear">lfrtip',
+		        "colVis": {
+		            "buttonText": "Change columns",
+		        "buttons": [{extend:"copy",className:"btn default"},{extend:"print",className:"btn default"},{extend:"pdf",className:"btn default"},{extend:"csv",className:"btn default"}]
+		        }
+		    });*/
 	}
  function editProfile(id) {
 	 var location = $("#loc").val();
- 	 window.location.href =location+"/admin/CreateProfile/"+id+"/DeleteProfilesHome";
+//  	 var win = window.open(""+location+"/admin/CreateProfile/"+id+"");
+ 	 window.location.href =location+"/admin/CreateProfile/"+id+"/AdminRegisterProfiles";
 	 if (win) {
 	     //Browser has allowed it to be opened
 	     win.focus();
@@ -159,18 +185,18 @@ s.parentNode.insertBefore(ga, s);
 	 
 	
 		}
- function restoreDeleteProfile(id){
-		var checkstr =  confirm('Are you sure you want to restore this?');
+ function profileStatusChange(id,statusId){
+		var checkstr =  confirm('Are you sure you want to  this?');
 		if(checkstr == true){
 		var formData = new FormData();
-	     formData.append('status', 1);
+	     formData.append('status', statusId);
 	     formData.append('id', id);
-	     formData.append('statusName', "delete");
+	     formData.append('statusName', "all");
 		$.fn.makeMultipartRequest('POST', 'updateStatus', false,
 				formData, false, 'text', function(data){
 			var jsonobj = $.parseJSON(data);
 			alert(jsonobj.message);
-// 			location.reload();
+			
 			var alldata = jsonobj.allOrders1;
 			console.log(jsonobj.allOrders1);
 			displayTable(alldata);
@@ -391,39 +417,7 @@ s.parentNode.insertBefore(ga, s);
 		var femaleChildrens = null;
 		if(femaleChildrens == "" || femaleChildrens == null || femaleChildrens == "undefined"){femaleChildrens = "---";}
 		
-		var mStatus = null;
-		if(mStatus == "" || mStatus == null || mStatus == "undefined")
-		{
-			if(maritalStatus == "Widower" || maritalStatus == "Divorcee")
-			{
-				mStatus = "<tr class='bg'><td colspan='6' style='color: green;'><b>Widow/Divorcee Details</b></td></tr>"
-				+			"<tr>"
-				+				"<td><b><spring:message code='label.defendentName' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+gender+"</td>"
-				+				"<td><b><spring:message code='label.sOrD' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+dob+"</td>"
-				+			"</tr>"
-				+			"<tr>"
-				+				"<td><b><spring:message code='label.marriedOn' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+gender+"</td>"
-				+				"<td><b><spring:message code='label.dateOfSeparation' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+dob+"</td>"
-				+			"</tr>"
-				+			"<tr>"
-				+				"<td><b><spring:message code='label.courtCase' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+gender+"</td>"
-				+				"<td><b><spring:message code='label.reason' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+dob+"</td>"
-				+			"</tr>"
-				+			"<tr>"
-				+				"<td><b><spring:message code='label.maleChildrens' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+gender+"</td>"
-				+				"<td><b><spring:message code='label.femaleChildrens' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+dob+"</td>"
-				+			"</tr>";
-			}
-		}
-		else{mStatus = "<tr></tr>";}
+		
 			 
 		 
 //	 	 Occupation :	 "46"	 Religion	 :	 "1"	 SubCaste	 :	 "xvcxv"	 aboutFamily	 :	 "xcx"	 aboutYourself	 :	 "zxczxc"	 ageGap	 :	 "xxcxc"
@@ -508,7 +502,7 @@ s.parentNode.insertBefore(ga, s);
 				+				"<td>:</td><td colspan='4'>"+maritalStatus+"</td>"
 				+			"</tr>"
 				//Widow / Divorcee Details
-//	 			+			mStatus
+	 			+		"<tr id='mstatusId'></tr>"
 				+			"<tr>"
 				+				"<td><b><spring:message code='label.religion' text='default text'/></b></td>"
 				+				"<td>:</td><td>"+religionName+"</td>"
@@ -671,14 +665,47 @@ s.parentNode.insertBefore(ga, s);
 		 		+ "</div></div>";
 		 
 		 $(tblRow).appendTo('#dial1');
+		 var mStatus = null;
+			if(mStatus == "" || mStatus == null || mStatus == "undefined")
+			{
+				if(maritalStatus == "Widower" || maritalStatus == "Divorcee")
+				{
+					mStatus = "<tr class='bg'><td colspan='6' style='color: green;'><b>Widow/Divorcee Details</b></td></tr>"
+					+			"<tr>"
+					+				"<td><b><spring:message code='label.defendentName' text='default text'/></b></td>"
+					+				"<td>:</td><td>"+gender+"</td>"
+					+				"<td><b><spring:message code='label.sOrD' text='default text'/></b></td>"
+					+				"<td>:</td><td>"+dob+"</td>"
+					+			"</tr>"
+					+			"<tr>"
+					+				"<td><b><spring:message code='label.marriedOn' text='default text'/></b></td>"
+					+				"<td>:</td><td>"+gender+"</td>"
+					+				"<td><b><spring:message code='label.dateOfSeparation' text='default text'/></b></td>"
+					+				"<td>:</td><td>"+dob+"</td>"
+					+			"</tr>"
+					+			"<tr>"
+					+				"<td><b><spring:message code='label.courtCase' text='default text'/></b></td>"
+					+				"<td>:</td><td>"+gender+"</td>"
+					+				"<td><b><spring:message code='label.reason' text='default text'/></b></td>"
+					+				"<td>:</td><td>"+dob+"</td>"
+					+			"</tr>"
+					+			"<tr>"
+					+				"<td><b><spring:message code='label.maleChildrens' text='default text'/></b></td>"
+					+				"<td>:</td><td>"+gender+"</td>"
+					+				"<td><b><spring:message code='label.femaleChildrens' text='default text'/></b></td>"
+					+				"<td>:</td><td>"+dob+"</td>"
+					+			"</tr>";
+				}
+			}
+			else{mStatus = "<tr></tr>";}
+			 $(mStatus).appendTo('#mstatusId');
 		 $('#dial1').dialog({title: "Profile of "+username, width: 1199, height: 600, modal: true}).dialog('open');
 //		 	$(window).scrollTop($('.wrapper').offset().top);
 //		 	$(".view_list").hide();
 //		 	$('#view_list1').hide();
 	 }
-
  $(".profiles").addClass("active");
- $(".deleteProfiles").addClass("active"); 
+ $(".adminProfiles").addClass("active"); 
 </script>
 
 </body>

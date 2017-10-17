@@ -66,6 +66,66 @@ public class FilterController {
 		}
 		return "allProfiles";
 	}
+   @RequestMapping(value = "/InactiveProfilesHome")
+	public String InactiveProfilesHome(@ModelAttribute("createProfile") UsersBean objUsersBean, ModelMap model,
+			HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
+		System.out.println("InactiveProfiles Page");
+		List<Map<String, String>> listOrderBeans = null;
+		ObjectMapper objectMapper = null;
+		String sJson = null;
+		try {
+			listOrderBeans = objUsersDao.getAllProfiles1(objUsersBean,"inactive");
+			if (listOrderBeans != null && listOrderBeans.size() > 0) {
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(listOrderBeans);
+				request.setAttribute("allOrders1", sJson);
+				// System.out.println(sJson);
+			} else {
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(listOrderBeans);
+				request.setAttribute("allOrders1", "''");
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			logger.error(e);
+			logger.fatal("error in FilterController class InactiveProfilesHome method  ");
+//			return "CreateProfile";
+		}
+		return "inactiveProfiles";
+	}
+   @RequestMapping(value = "/AdminRegisterProfiles")
+  	public String AdminRegisterProfiles(@ModelAttribute("createProfile") UsersBean objUsersBean, ModelMap model,
+  			HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
+  		System.out.println("AdminRegisterProfiles Page");
+  		List<Map<String, String>> listOrderBeans = null;
+  		ObjectMapper objectMapper = null;
+  		String sJson = null;
+  		try {
+  			listOrderBeans = objUsersDao.getAllProfiles1(objUsersBean,"admin");
+  			if (listOrderBeans != null && listOrderBeans.size() > 0) {
+  				objectMapper = new ObjectMapper();
+  				sJson = objectMapper.writeValueAsString(listOrderBeans);
+  				request.setAttribute("allOrders1", sJson);
+  				// System.out.println(sJson);
+  			} else {
+  				objectMapper = new ObjectMapper();
+  				sJson = objectMapper.writeValueAsString(listOrderBeans);
+  				request.setAttribute("allOrders1", "''");
+  			}
+  			
+  			
+  		} catch (Exception e) {
+  			e.printStackTrace();
+  			System.out.println(e);
+  			logger.error(e);
+  			logger.fatal("error in FilterController class InactiveProfilesHome method  ");
+//  			return "CreateProfile";
+  		}
+  		return "adminCreateProfile";
+  	}
    @RequestMapping(value = "/DeleteProfilesHome")
 	public String DeleteProfilesHome(@ModelAttribute("createProfile") UsersBean objUsersBean, ModelMap model,
 			HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
