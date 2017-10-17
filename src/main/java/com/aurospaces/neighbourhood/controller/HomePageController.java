@@ -148,6 +148,10 @@ public class HomePageController {
 		System.out.println("saveUserProfile Page");
 		
 		try {
+			Date dob1 = HRMSUtil.dateFormate(objUsersBean.getDob());
+			if(dob1 !=null){
+				objUsersBean.setDob1(dob1);
+			}
 			objUsersBean.setRole_id(4);
 			objUsersBean.setStatus("0");
 			

@@ -143,10 +143,11 @@ public class BaseUsersDao{
 
 	 public UsersBean getById(int id) {
 		 jdbcTemplate = custom.getJdbcTemplate();
-			String sql = "SELECT * from users u ,userdetails ud where u.id = ud.userId and u.id= "+id;
+			String sql = "SELECT *,DATE_FORMAT(dob, '%d-%M-%Y') as dob from users u ,userdetails ud where u.id = ud.userId and u.id= "+id;
 			List<UsersBean> retlist = jdbcTemplate.query(sql,
 			new Object[]{},
 			ParameterizedBeanPropertyRowMapper.newInstance(UsersBean.class));
+			System.out.println(sql);
 			if(retlist.size() > 0)
 				return retlist.get(0);
 			return null;

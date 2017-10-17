@@ -227,7 +227,7 @@ span.has-error,span.hasError
                                                 
                                                  <div class="form-group">
                                                     <label for="">Mother tongue</label>
-                        				 <form:select path="sLanguages" onfocus="removeBorder(this.id)"  class="form-control" >
+                        				 <form:select path="mtongue" onfocus="removeBorder(this.id)"  class="form-control" >
 														<form:option value="">-- Choose Mother tongue --</form:option>
 														<form:options items="${language}"></form:options>
 										</form:select>
@@ -831,7 +831,7 @@ $("#secondButton").click(function(event)
 				$('#sname').val() ==  null || $('#sname').val() == "" || $('#sname').val()=="undefined" ||
 				$('#dob').val() ==  null || $('#dob').val() == "" || $('#dob').val()=="undefined"  || 
 				$('#Religion').val() ==  null || $('#Religion').val() == "" || $('#Religion').val()=="undefined" ||
-				$('#sLanguages').val() ==  null || $('#sLanguages').val() == "" || $('#sLanguages').val()=="undefined" ||
+				$('#mtongue').val() ==  null || $('#mtongue').val() == "" || $('#mtongue').val()=="undefined" ||
 				$('#crCountry').val() ==  null || $('#crCountry').val() == "" || $('#crCountry').val()=="undefined" )
 			{
 				if($('#name').val() ==  null || $('#name').val() == "" || $('#name').val()=="undefined") 
@@ -862,12 +862,12 @@ $("#secondButton").click(function(event)
 					$('#Religion').addClass('your-class');
 					$('#Religion').css('color','red');
 				}
-				if($('#sLanguages').val() ==  null || $('#sLanguages').val() == "" || $('#sLanguages').val()=="undefined" ) 
+				if($('#mtongue').val() ==  null || $('#mtongue').val() == "" || $('#mtongue').val()=="undefined" ) 
 				{
-					$("#sLanguages").css("border-color","#e73d4a");
-					$("#sLanguages").attr("placeholder","Please Enter Password");
-					$('#sLanguages').addClass('your-class');
-					$('#sLanguages').css('color','red');
+					$("#mtongue").css("border-color","#e73d4a");
+					$("#mtongue").attr("placeholder","Please Enter Password");
+					$('#mtongue').addClass('your-class');
+					$('#mtongue').css('color','red');
 				}
 				if($('#crCountry').val() ==  null || $('#crCountry').val() == "" || $('#crCountry').val()=="undefined" ) 
 				{

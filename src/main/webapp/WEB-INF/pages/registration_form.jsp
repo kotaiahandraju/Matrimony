@@ -106,7 +106,7 @@ function validate(id, errorMessage)
    <form:hidden path="sname"/>
    <form:hidden path="dob"/>
    <form:hidden path="Religion"/>
-   <form:hidden path="sLanguages"/>
+   <form:hidden path="mtongue"/>
    <form:hidden path="crCountry"/>
 <fieldset>
 

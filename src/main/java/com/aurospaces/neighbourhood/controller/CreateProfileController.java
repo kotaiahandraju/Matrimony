@@ -97,14 +97,7 @@ public class CreateProfileController {
 //			yyyy.MM.dd dd-MMMM-yyyy
 			
 			objUsersBean =objUsersDao.getById(id);
-			String date = objUsersBean.getDob();
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-			Date date1 = formatter.parse(date);
 			
-			SimpleDateFormat format1 = new SimpleDateFormat("dd-MMMM-yyyy");
-			String inActiveDate = null;
-			inActiveDate = format1.format(date1);
-			objUsersBean.setDob(inActiveDate);
 			
 			
 			objUsersBean.setPageName(pageName);
@@ -119,7 +112,7 @@ public class CreateProfileController {
 			System.out.println(e);
 			logger.error(e);
 			logger.fatal("error in CreateProfile class createProfile method  ");
-			return "countriesHome";
+			//return "countriesHome";
 		}
 		return "createProfile";
 	}

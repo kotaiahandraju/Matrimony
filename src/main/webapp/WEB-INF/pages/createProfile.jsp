@@ -803,7 +803,7 @@
 									<label class="col-sm-4 control-label required"><spring:message code="label.currentResidenceCountry" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-md-4">
 										<form:select path="crCountry" class="form-control"  onblur="validate34(this.id);" style="width:200px;" >
-											<form:option value="">-- Choose crCountry --</form:option>
+											<form:option value="">-- Choose Country --</form:option>
 											<form:options items="${countries}"></form:options>
 										</form:select>
 									<span class="hasError" id="crCountryError"></span>
