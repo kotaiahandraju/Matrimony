@@ -196,7 +196,7 @@ $('.validate').blur(function() {
 var idArray = $.makeArray($('.validate').map(function() {
 	return this.id;
 }));
-console.log(idArray);
+//console.log(idArray);
 // submit validation
 var validation = true;
 
