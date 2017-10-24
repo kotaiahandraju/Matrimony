@@ -1,12 +1,15 @@
 package com.aurospaces.neighbourhood.controller;
 
-import java.text.SimpleDateFormat;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.ui.Model;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -14,25 +17,28 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.aurospaces.neighbourhood.bean.BranchBean;
 import com.aurospaces.neighbourhood.bean.ContriesBean;
 import com.aurospaces.neighbourhood.bean.EducationBean;
 import com.aurospaces.neighbourhood.bean.HeightBean;
+import com.aurospaces.neighbourhood.bean.UserImagesBean;
 import com.aurospaces.neighbourhood.bean.UsersBean;
 import com.aurospaces.neighbourhood.db.dao.BranchDao;
 import com.aurospaces.neighbourhood.db.dao.CountriesDao;
 import com.aurospaces.neighbourhood.db.dao.UserDetailsDao;
+import com.aurospaces.neighbourhood.db.dao.UserImageUploadDao;
 import com.aurospaces.neighbourhood.db.dao.UsersDao;
 import com.aurospaces.neighbourhood.util.EmailUtil;
 import com.aurospaces.neighbourhood.util.HRMSUtil;
@@ -49,6 +55,7 @@ public class CreateProfileController {
    @Autowired UserDetailsDao objUserDetailsDao;
    @Autowired
 	ServletContext objContext;
+   @Autowired UserImageUploadDao objUserImageUploadDao;
 	@RequestMapping(value = "/CreateProfile")
 	public String CreateProfile(@ModelAttribute("createProfile") UsersBean objUsersBean, Model objeModel ,
 			HttpServletRequest request, HttpSession session) {
@@ -193,7 +200,79 @@ public class CreateProfileController {
 		}
 		return "redirect:CreateProfile";
 	}
-	
+	@RequestMapping(value = "/imageUpload")
+	public @ResponseBody String imageUpload(@RequestParam("imageName") MultipartFile file, ModelMap model,
+			HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
+		String id =null;
+		String msg= null;
+		String name=null;
+		String sTomcatRootPath = null;
+		String sDirPath = null;
+		String filepath = null;
+		UserImagesBean objUerImagesBean = null;
+		try {
+			objUerImagesBean = new UserImagesBean();
+			id=request.getParameter("id");
+			if(StringUtils.isNotBlank(id)){
+				objUerImagesBean.setUserId(id);
+			}
+			if (!file.isEmpty()) {
+				byte[] bytes = file.getBytes();
+				name =file.getOriginalFilename();
+				int n=name.lastIndexOf(".");
+				/*name=name.substring(n + 1);
+				name=name+".png";*/
+				long millis = System.currentTimeMillis() % 1000;
+				filepath= id+millis+".png";
+				
+				
+				
+				 String latestUploadPhoto = "";
+			        String rootPath = request.getSession().getServletContext().getRealPath("/");
+			        File dir = new File(rootPath + File.separator + "img");
+			        if (!dir.exists()) {
+			            dir.mkdirs();
+			        }
+			         
+			        File serverFile = new File(dir.getAbsolutePath() + File.separator + filepath);
+			      //  latestUploadPhoto = file.getOriginalFilename();
+//			        file.transferTo(serverFile);
+			    //write uploaded image to disk
+			        try {
+			            try (InputStream is = file.getInputStream(); BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile))) {
+			                int i;
+			                while ((i = is.read()) != -1) {
+			                    stream.write(i);
+			                }
+			                stream.flush();
+			                //send photo name to jsp
+			            }
+			        } catch (IOException e) {
+			            System.out.println("error : " + e);
+			        }
+				  
+				
+			        filepath= "img/"+filepath;
+			        objUerImagesBean.setImage(filepath);
+			        objUerImagesBean.setStatus("1");
+			        
+			     /*   ----------------------------------------*/
+			        sTomcatRootPath = System.getProperty("catalina.base");
+					sDirPath = sTomcatRootPath + File.separator + "webapps"+ File.separator + "img" ;
+					System.out.println(sDirPath);
+					File file1 = new File(sDirPath);
+				    file.transferTo(file1);
+				    objUserImageUploadDao.save(objUerImagesBean);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			logger.error(e);
+			logger.fatal("error in CreateProfile class addProfile method  ");
+		}
+		return "redirect:CreateProfile";
+	}
 	
 	
 	

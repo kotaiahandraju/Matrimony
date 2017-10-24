@@ -107,8 +107,7 @@ function validate(id){
 
 
 
-$("#submit11").click(function()
-		{			
+$("#submit11").click(function(){			
 			if($('#name').val() ==  null || $('#name').val() == ""  || $('#name').val()=="undefined")
 			{
 				if($('#name').val() ==  null || $('#name').val() == ""  || $('#name').val()=="undefined" ) 
@@ -151,8 +150,8 @@ s.parentNode.insertBefore(ga, s);
 		$('#tableId').html(tableHead);
 		serviceUnitArray = {};
 		$.each(listOrders,function(i, orderObj) {
-							var edit = "<a  onclick='editBodyType("	+ orderObj.id+ ")'><i style='color: green;' class='fa fa-edit'></i></a>"
-							var deleterow = "<a  onclick='deleteBodyType("+ orderObj.id+ ")'><i style='color: red;' class='fa fa-trash'></i></a>"
+							var edit = "<a  class='edit'  onclick='editBodyType("	+ orderObj.id+ ")'><i style='color: green;' class='fa fa-edit'></i></a>"
+							var deleterow = "<a class='delete' onclick='deleteBodyType("+ orderObj.id+ ")'><i style='color: red;' class='fa fa-trash'></i></a>"
 							serviceUnitArray[orderObj.id] = orderObj;
 							var tblRow = "<tr >"
 									+ "<td  id='"+orderObj.departmentId+"name'"+" title='"+orderObj.name+"'>"

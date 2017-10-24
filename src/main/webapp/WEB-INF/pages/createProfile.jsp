@@ -76,7 +76,7 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.createdByName" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-								  		<form:input path="created_by" type="text"  placeholder=" Enter Created By"   class="form-control " autocomplete="off" onblur="validate(this.id);" maxlength="255"/>						
+								  		<form:input path="created_by" type="text"  placeholder="Enter Created By" class="form-control nospecialCharacter" autocomplete="off" onblur="validate(this.id);" maxlength="255"/>						
 								  		<span class="hasError" id="created_byError"></span>
 								  		<div><form:errors path="created_by" cssClass="error" /></div>
 									</div>
@@ -84,7 +84,7 @@
 							  	<div class="form-group">
 									<label class="col-sm-4 control-label required"><spring:message code="label.executiveName" text="default text" /> <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-									<form:input path="executiveName" type="text" class="form-control onlyCharacters "  placeholder=" Enter ExecutiveName" autocomplete="off" onblur="validate1(this.id);" maxlength="255"/>	
+									<form:input path="executiveName" type="text" class="form-control onlyCharacters"  placeholder=" Enter ExecutiveName" autocomplete="off" onblur="validate1(this.id);" maxlength="255"/>	
 									<span class="hasError" id="executiveNameError"></span>
 									<div><form:errors path="executiveName" cssClass="error" /></div>
 									</div>
@@ -249,7 +249,7 @@
 									<div class="form-group">
 										<label class="col-sm-4 control-label required"><spring:message code="label.defendentName" text="default text" /></label>
 										<div class="col-sm-8">
-							  				<input class="form-control "  placeholder="Enter Defendent Name" name="Users[defendent_name]" id="Users_defendent_name" type="text">
+							  				<input class="form-control "  placeholder="Enter Defendant  Name" name="Users[defendent_name]" id="Users_defendent_name" type="text">
 							  			</div>
 									</div>
 									<div class="form-group">
@@ -906,7 +906,7 @@
 			 					<div class="form-group">
 									<div class="col-sm-8 col-sm-offset-4">
 										<input value="1" checked="true" name="Users_terms" id="Users_terms" type="checkbox" style="cursor: pointer;" onclick="validate40(this.id);">
-										<label class="control-label" for="Users_terms" style="cursor: pointer;" onclick="validate40(this.id);">I accept the terms & conditions <span style="color:red;">*</span></label>					
+										<label class="control-label" for="Users_terms" style="cursor: pointer;" onclick="validate40(this.id);">I accept the Terms & Conditions <span style="color:red;">*</span></label>					
 										<br><span class="hasError" id="Users_termsError"></span>
 									</div>
 			 					</div>
@@ -1009,7 +1009,7 @@ function validate7(id){
 function validate8(id){
 	if($('#pob').val() ==  null || $('#pob').val() == ""  || $('#pob').val()=="undefined" ) {
 		$('#pobError').css('color','red');
-	    $("#pobError").text("Place Of Brith Cannot be blank.");
+	    $("#pobError").text("Place of Brith Cannot be blank.");
 	}else{
 		$("#pobError").text("");
 	}
@@ -1217,7 +1217,7 @@ function validate32(id){
 function validate33(id){
 	if($('#ncitizenOf').val() ==  null || $('#ncitizenOf').val() == ""  || $('#ncitizenOf').val()=="undefined" ) {
 		$('#ncitizenOfError').css('color','red');
-	    $("#ncitizenOfError").text(" CitizenOf Cannot be blank.");
+	    $("#ncitizenOfError").text(" Citizen of Cannot be blank.");
 	}else{
 		$("#ncitizenOfError").text("");
 	}
@@ -1315,7 +1315,7 @@ $("#submit11").click(function()
 				if($('#sname').val() ==  null || $('#sname').val() == ""  || $('#sname').val()=="undefined" ) 
 				{			    
 				    $('#snameError').css('color','red');
-				    $("#snameError").text("SurName Cannot be blank.");
+				    $("#snameError").text("Surname Cannot be blank.");
 			    }
 				if($('#name').val() ==  null || $('#name').val() == ""  || $('#name').val()=="undefined" ) 
 				{			    
@@ -1330,12 +1330,12 @@ $("#submit11").click(function()
 				if($('#dob').val() ==  null || $('#dob').val() == ""  || $('#dob').val()=="undefined" ) 
 				{			    
 				    $('#dobError').css('color','red');
-				    $("#dobError").text("Date OF Brith Cannot be blank.");
+				    $("#dobError").text("Date of Brith Cannot be blank.");
 			    }
 				if($('#pob').val() ==  null || $('#pob').val() == ""  || $('#pob').val()=="undefined" ) 
 				{			    
 				    $('#pobError').css('color','red');
-				    $("#pobError").text("Place OF Brith Cannot be blank.");
+				    $("#pobError").text("Place of Brith Cannot be blank.");
 			    }
 				if($('#height').val() ==  null || $('#height').val() == ""  || $('#height').val()=="undefined" ) 
 				{			    
@@ -1475,12 +1475,12 @@ $("#submit11").click(function()
 				if($('#ageGap').val() ==  null || $('#ageGap').val() == ""  || $('#ageGap').val()=="undefined" ) 
 				{			    
 				    $('#ageGapError').css('color','red');
-				    $("#ageGapError").text("AgeGap  Cannot be blank.");
+				    $("#ageGapError").text("Age Gap  Cannot be blank.");
 			    }
 				if($('#rHeightFrom').val() ==  null || $('#rHeightFrom').val() == ""  || $('#rHeightFrom').val()=="undefined" ) 
 				{			    
 				    $('#rHeightFromError').css('color','red');
-				    $("#rHeightFromError").text("Height From  Cannot be blank.");
+				    $("#rHeightFromError").text("Height from  Cannot be blank.");
 			    }
 				if($('#rHeightTo').val() ==  null || $('#rHeightTo').val() == ""  || $('#rHeightTo').val()=="undefined" ) 
 				{			    
