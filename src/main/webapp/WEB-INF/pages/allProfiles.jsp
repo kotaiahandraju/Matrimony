@@ -104,6 +104,28 @@ $( document ).ready(function() {
 </div>
 </div>
 
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Image Upload</h4>
+        </div>
+        <div class="modal-body">
+         <input type="hidden" name="profileId" id="profileId">
+        <input id="imageName" type="file" value="" name="imageName" >
+          <button type="button" onclick="imageAjax()" class="btn btn-default" >upload</button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
 		
 <script type="text/javascript">
 /* var _gaq = _gaq || [];
@@ -131,7 +153,7 @@ s.parentNode.insertBefore(ga, s);
 		serviceUnitArray = {};
 		$.each(listOrders,function(i, orderObj) {
 			var viewProfile = "<a data-toggle='tooltip' title='View' onclick='viewProfile("+ orderObj.id+ ")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-eye'></i></a>"
-			var uploadPhotos = "<a data-toggle='tooltip' title='Upload Photos' onclick='uploadPhotos("+ orderObj.id+ ")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-photo'></i></a>"
+			var uploadPhotos = "<a data-toggle='tooltip'  title='Upload Photos' onclick='uploadPhotos("+ orderObj.id+ ")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-photo'></i></a>"
 			var moveToHidden = "<a data-toggle='tooltip' title='Move To Hidden' onclick='moveToHidden("+ orderObj.id+ ")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-eye-slash'></i></a>"
 			var editProfile = "<a data-toggle='tooltip' title='Edit' onclick='editProfile("+ orderObj.id+ ")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-pencil'></i></a>"
 			var sendMail = "<a data-toggle='tooltip' title='Mail' onclick='sendMail("+ orderObj.id+ ")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-envelope'></i></a>"
@@ -171,6 +193,21 @@ s.parentNode.insertBefore(ga, s);
 		        }
 		    });*/
 	}
+ function uploadPhotos(id){
+
+	 $("#profileId").val(id);
+	    $('#myModal').modal();
+	} 
+ function imageAjax(){
+	var id= $("#profileId").val();
+	var formData = new FormData();
+	formData.append("imageName", imageName.files[0]);
+	formData.append("id", id);
+	  $.fn.makeMultipartRequest('POST', 'imageUpload', false,
+				formData, false, 'text', function(data){
+			
+		});
+ }
  function editProfile(id) {
 	 var location = $("#loc").val();
 //  	 var win = window.open(""+location+"/admin/CreateProfile/"+id+"");
@@ -209,7 +246,7 @@ s.parentNode.insertBefore(ga, s);
 		$('#dial1').html('');
 		
 		var username = serviceUnitArray[id].username;
-		
+		var imageUrl = serviceUnitArray[id].image;
 		var created_by = null; created_by = serviceUnitArray[id].created_by;
 		if(created_by == "" || created_by == null || created_by == "undefined"){created_by = "---";}
 
@@ -439,10 +476,10 @@ s.parentNode.insertBefore(ga, s);
 //	 	 status	 :	 null	 stayingSince	 :	 ""	 tob	 :	 "0000-00-00"	 udcreated_time	 :	 "2017-10-06 16:16:42.0"	 udupdated_time	 :	 "2017-10-06 16:16:42.0"
 //	 	 updated_time	 :	 "2017-10-06 16:16:42.0"	 userId	 :	 "2756"	 userdetailsId	 :	 "21"	 username	 :	 "VMB3002756"	 visaType	 :	 ""	 
 //	 	 visaValidity	
-
+// var url= ${baseurl };
 		 var tblRow = "<div class='container table-responsive'><div class='row'>"
 		 		+ 	"<div class='col-sm-2'>"
-		 		+		"<i class='fa fa-user' style='font-size: 10em;'></i>"
+		 		+		"<img src='${baseurl }/"+imageUrl+"'   width='200px'/>"
 //	 	 		+		"<img class='img-responsive' src='../img/default.png' style='width: auto !important;height: 120px !important;'>"
 		 		+ 	"</div>"
 		 		+ 	"<div class='col-sm-10' style='border: 1px solid red;'>"

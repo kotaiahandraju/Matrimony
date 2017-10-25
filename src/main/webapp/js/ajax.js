@@ -1,6 +1,3 @@
-/**
- * 
- */
 $.fn.makeMultipartRequest = function(method, url, processData, formData,
 		contentType, dataType, successFunction) {
 	$("#loadAjax").show();

@@ -49,6 +49,59 @@ body {
 
 .default-class::-webkit-input-placeholder {color: #e73d4a !important;}
 .default-class::-moz-placeholder {color: #e73d4a !important;}
+
+
+
+
+
+/* body{margin:40px;} */
+
+.stepwizard-step p {
+    margin-top: 10px;    
+}
+
+.stepwizard-row {
+    display: table-row;
+}
+
+.stepwizard {
+    display: table;     
+    width: 100%;
+    position: relative;
+}
+
+.stepwizard-step button[disabled] {
+    opacity: 1 !important;
+    filter: alpha(opacity=100) !important;
+}
+
+.stepwizard-row:before {
+    top: 14px;
+    bottom: 0;
+    position: absolute;
+    content: " ";
+    width: 100%;
+    height: 1px;
+    background-color: #ccc;
+    z-order: 0;
+    
+}
+
+.stepwizard-step {    
+    display: table-cell;
+    text-align: center;
+    position: relative;
+}
+
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 15px;
+}
 </style>
 <script>
 
@@ -82,12 +135,38 @@ function validate(id, errorMessage)
   </head>
 
   <body>
+  
+  
+  
+  
         <div class="container">
             <div class="row">
             <div class="ilogo">
-            <div class="col-md-8 col-sm-7">
+            <div class="col-md-7 col-sm-7">
               <img src="user/images/logo.jpg" class="img-responsive">
-              </div>
+            </div>
+            <div class="col-md-5 col-sm-12">
+            	<div class="stepwizard">
+				    <div class="stepwizard-row">
+				        <div class="stepwizard-step">
+				            <button type="button" id="step1" class="btn btn-default btn-circle">1</button>
+<!-- 				            <p>Cart</p> -->
+				        </div>
+				        <div class="stepwizard-step">
+				            <button type="button" id="step2" class="btn btn-default btn-circle">2</button>
+<!-- 				            <p>Shipping</p> -->
+				        </div>
+				        <div class="stepwizard-step">
+				            <button type="button" id="step3" class="btn btn-default btn-circle">3</button>
+<!-- 				            <p>Shipping</p> -->
+				        </div>
+				        <div class="stepwizard-step">
+				            <button type="button"  id="step4" class="btn btn-default btn-circle" >4</button>
+<!-- 				            <p>Payment</p> -->
+				        </div> 
+				    </div>
+				</div>
+            </div>
             <div  class="clearfix"></div>    
     		</div>
      </div>
@@ -475,35 +554,53 @@ $( document ).ready(function() {
 	   $("#secondForm").hide();
 	      $("#thirdForm").hide();
 	      $("#fourthForm").hide();
-//	   alert("${pagenum}");
-	   var pagenum = "${pagenum}";
+
+	 var pagenum = "${pagenum}";
 	   if(pagenum ==1){
 		   $("#firstForm").show();
 		 	$('#secondForm').hide();
 			$("#thirdForm").hide();
 			$('#fourthForm').hide();
+			 $("#step1").addClass("btn-primary");
+			 $("#step2").removeClass("btn-primary");
+			 $("#step3").removeClass("btn-primary");
+			 $("#step4").removeClass("btn-primary");
+			
 	   }
 	   if(pagenum ==2){
 		   $("#firstForm").hide();
 		 	$('#secondForm').show();
 			$("#thirdForm").hide();
 			$('#fourthForm').hide();
+			
+			$("#step1").removeClass("btn-primary");
+			 $("#step2").addClass("btn-primary");
+			 $("#step3").removeClass("btn-primary");
+			 $("#step4").removeClass("btn-primary");
 	   }
 	   if(pagenum ==3){
 		   $("#firstForm").hide();
 		 	$('#secondForm').hide();
 			$("#thirdForm").show();
 			$('#fourthForm').hide();
+			
+			$("#step1").removeClass("btn-primary");
+			 $("#step2").removeClass("btn-primary");
+			 $("#step3").addClass("btn-primary");
+			 $("#step4").removeClass("btn-primary");
 	   }
 	   if(pagenum ==4){
 		   $("#firstForm").hide();
 		 	$('#secondForm').hide();
 			$("#thirdForm").hide();
 			$('#fourthForm').show();
+			
+			$("#step1").removeClass("btn-primary");
+			 $("#step2").removeClass("btn-primary");
+			 $("#step3").removeClass("btn-primary");
+			 $("#step4").addClass("btn-primary");
 	   }
-//	   alert(pagenum);
-
-	});
+});
 
 function firstForm(event)
 {
@@ -548,6 +645,12 @@ function firstForm(event)
 	    $("#firstForm").hide();
 	    $('#secondForm').css({'display':'block'});
 	    ChangeUrl('page1', 'profile.htm?page=2');
+	    
+	    $("#step1").removeClass("btn-primary");
+		 $("#step2").addClass("btn-primary");
+		 $("#step3").removeClass("btn-primary");
+		 $("#step4").removeClass("btn-primary");
+	    
     	event.preventDefault();
     	return true;
 	}
@@ -579,6 +682,11 @@ function secondForm(event)
 		$("#thirdForm").show();
 		ChangeUrl('page1', 'profile.htm?page=3');
 		event.preventDefault();
+		
+		$("#step1").removeClass("btn-primary");
+		 $("#step2").removeClass("btn-primary");
+		 $("#step3").addClass("btn-primary");
+		 $("#step4").removeClass("btn-primary");
 		return true;
 	}
 }
@@ -625,6 +733,11 @@ function thirdForm(event)
 		$('#fourthForm').show();
 		ChangeUrl('page1', 'profile.htm?page=4');
 		event.preventDefault();
+		
+		$("#step1").removeClass("btn-primary");
+		 $("#step2").removeClass("btn-primary");
+		 $("#step3").removeClass("btn-primary");
+		 $("#step4").addClass("btn-primary");
 		return true;
 	}
 }
@@ -666,6 +779,54 @@ function fourthForm(event){
 		event.preventDefault();
 }
 
+
+$("#step1").click(function(){
+	$("#firstForm").show();
+ 	$('#secondForm').hide();
+	$("#thirdForm").hide();
+	$('#fourthForm').hide();
+	ChangeUrl('page1', 'profile.htm?page=1');
+	$("#step1").addClass("btn-primary");
+	 $("#step2").removeClass("btn-primary");
+	 $("#step3").removeClass("btn-primary");
+	 $("#step4").removeClass("btn-primary");
+});
+
+$("#step2").click(function(){
+	$("#firstForm").hide();
+ 	$('#secondForm').show();
+	$("#thirdForm").hide();
+	$('#fourthForm').hide();
+	ChangeUrl('page1', 'profile.htm?page=2');
+	$("#step1").removeClass("btn-primary");
+	 $("#step2").addClass("btn-primary");
+	 $("#step3").removeClass("btn-primary");
+	 $("#step4").removeClass("btn-primary");
+});
+
+ $("#step3").click(function(){
+	 	$("#firstForm").hide();
+	 	$('#secondForm').hide();
+		$("#thirdForm").show();
+		$('#fourthForm').hide();
+		ChangeUrl('page1', 'profile.htm?page=3');
+		$("#step1").removeClass("btn-primary");
+		 $("#step2").removeClass("btn-primary");
+		 $("#step3").addClass("btn-primary");
+		 $("#step4").removeClass("btn-primary");
+});
+
+$("#step4").click(function(){
+	$("#firstForm").hide();
+ 	$('#secondForm').hide();
+	$("#thirdForm").hide();
+	$('#fourthForm').show();
+	ChangeUrl('page1', 'profile.htm?page=4');
+	$("#step1").removeClass("btn-primary");
+	 $("#step2").removeClass("btn-primary");
+	 $("#step3").removeClass("btn-primary");
+	 $("#step4").addClass("btn-primary");
+}); 
 
 /* 
 $("#firstButton").click(function()

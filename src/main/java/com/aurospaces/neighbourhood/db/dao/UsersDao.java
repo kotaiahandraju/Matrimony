@@ -53,7 +53,7 @@ public class UsersDao extends BaseUsersDao {
 	 public List<Map<String, String>> getAllProfiles1(UsersBean objUsersBean,String type){
 			jdbcTemplate = custom.getJdbcTemplate();
 			StringBuffer buffer = new StringBuffer();
-			buffer.append("select u.id, u.created_time,u.updated_time,u.role_id,r.role_name as rolename,u.username,u.password,"
+			buffer.append("select u.id,GROUP_CONCAT(uimg.image) as image, u.created_time,u.updated_time,u.role_id,r.role_name as rolename,u.username,u.password,"
 					+ "u.email,u.name,u.sname,u.gender,u.height,h.inches as inches,h.cm as cm,u.mstatus,DATE_FORMAT(u.dob, '%d-%M-%Y') as dob,u.tob,u.pob,"
 					+ "u.created_by,u.cast,c.name as castname,u.complexion,co.name as complexionName,u.mtongue,u.education,"
 					+ "e.name as educationName,emply_type,fname,feducation,e1.name as fatherEducation,foccupation,"
@@ -79,7 +79,7 @@ public class UsersDao extends BaseUsersDao {
 					+ "lg.id=ud.sLanguages left join occupation oc3 on oc3.id=ud.Occupation left join countries ct2 on "
 					+ "ct2.id=ud.ncitizenOf left join countries ct3 on ct3.id=ud.crCountry left join height ht2 on "
 					+ "ht2.id=rHeightFrom left join height ht3 on ht3.id=rHeightTo left join complexion co1 on "
-					+ "co1.id=ud.rComplexion left join occupation oc4 on oc4.id=ud.rprofession where 1=1 ");
+					+ "co1.id=ud.rComplexion left join occupation oc4 on oc4.id=ud.rprofession left join user_images uimg on uimg.user_id=u.id where 1=1 ");
 			
 			if(type.equals("all")){
 				buffer.append( " and u.status in( '1')" );
@@ -100,10 +100,11 @@ public class UsersDao extends BaseUsersDao {
 				buffer.append( " and u.role_id in ('6') " );
 			}
 			
+			buffer.append(" group by u.id");
 			String sql =buffer.toString();
 			System.out.println(sql);
 			
-			RowValueCallbackHandler handler = new RowValueCallbackHandler(new String[] {"id","created_time","updated_time",
+			RowValueCallbackHandler handler = new RowValueCallbackHandler(new String[] {"id","image","created_time","updated_time",
 					"role_id","rolename","username","password","email","name","sname","gender","height","inches","cm",
 					"mstatus","dob","tob","pob","created_by","cast","castname","complexion","complexionName","mtongue",
 					"education","educationName","emply_type","fname","feducation","fatherEducation","foccupation",

@@ -88,7 +88,11 @@ span.has-error,span.hasError
 		    });
 		}, 5000);
 		$(document).ready(function(){
-		    $('[data-toggle="tooltip"]').tooltip();   
+			$('.edit').attr('data-toggle','tooltip');
+			$('.edit').attr('data-original-title','Edit');
+			$('.delete').attr('data-toggle','tooltip');
+			$('.delete').attr('data-original-title','Delete');
+			$('[data-toggle="tooltip"]').tooltip();
 		});
 	</script>
 </head>
