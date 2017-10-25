@@ -93,6 +93,12 @@ public class UsersDao extends BaseUsersDao {
 			if(type.equals("admin")){
 				buffer.append( " and u.register_with is not null " );
 			}
+			if(type.equals("free")){
+				buffer.append( " and u.role_id in ('4') " );
+			}
+			if(type.equals("premium")){
+				buffer.append( " and u.role_id in ('6') " );
+			}
 			
 			String sql =buffer.toString();
 			System.out.println(sql);
