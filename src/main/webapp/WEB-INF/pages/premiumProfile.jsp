@@ -705,7 +705,7 @@ s.parentNode.insertBefore(ga, s);
 //		 	$('#view_list1').hide();
 	 }
  $(".profiles").addClass("active");
- $(".adminProfiles").addClass("active"); 
+ $(".premiumProfiles").addClass("active"); 
 </script>
 
 </body>
