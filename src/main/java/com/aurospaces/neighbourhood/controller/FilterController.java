@@ -202,5 +202,66 @@ public class FilterController {
 		}
 		return String.valueOf(jsonObj);
 	}
+   
+   @RequestMapping(value = "/FreeRegisterProfile")
+  	public String freeRegisterProfile(@ModelAttribute("createProfile") UsersBean objUsersBean, ModelMap model,
+  			HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
+  		System.out.println("getAllProfiles Page");
+  		List<Map<String, String>> listOrderBeans = null;
+  		ObjectMapper objectMapper = null;
+  		String sJson = null;
+  		try {
+  			listOrderBeans = objUsersDao.getAllProfiles1(objUsersBean,"free");
+  			if (listOrderBeans != null && listOrderBeans.size() > 0) {
+  				objectMapper = new ObjectMapper();
+  				sJson = objectMapper.writeValueAsString(listOrderBeans);
+  				request.setAttribute("allOrders1", sJson);
+  				// System.out.println(sJson);
+  			} else {
+  				objectMapper = new ObjectMapper();
+  				sJson = objectMapper.writeValueAsString(listOrderBeans);
+  				request.setAttribute("allOrders1", "''");
+  			}
+  			
+  			
+  		} catch (Exception e) {
+  			e.printStackTrace();
+  			System.out.println(e);
+  			logger.error(e);
+  			logger.fatal("error in CountriesController class CountriesHome method  ");
+  			return "CreateProfile";
+  		}
+  		return "freeRegisterProfile";
+  	}
+   @RequestMapping(value = "/PremiumProfile")
+ 	public String premiumProfile(@ModelAttribute("createProfile") UsersBean objUsersBean, ModelMap model,
+ 			HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
+ 		System.out.println("getAllProfiles Page");
+ 		List<Map<String, String>> listOrderBeans = null;
+ 		ObjectMapper objectMapper = null;
+ 		String sJson = null;
+ 		try {
+ 			listOrderBeans = objUsersDao.getAllProfiles1(objUsersBean,"premium");
+ 			if (listOrderBeans != null && listOrderBeans.size() > 0) {
+ 				objectMapper = new ObjectMapper();
+ 				sJson = objectMapper.writeValueAsString(listOrderBeans);
+ 				request.setAttribute("allOrders1", sJson);
+ 				// System.out.println(sJson);
+ 			} else {
+ 				objectMapper = new ObjectMapper();
+ 				sJson = objectMapper.writeValueAsString(listOrderBeans);
+ 				request.setAttribute("allOrders1", "''");
+ 			}
+ 			
+ 			
+ 		} catch (Exception e) {
+ 			e.printStackTrace();
+ 			System.out.println(e);
+ 			logger.error(e);
+ 			logger.fatal("error in CountriesController class CountriesHome method  ");
+ 			return "CreateProfile";
+ 		}
+ 		return "premiumProfile";
+ 	}
 
 }

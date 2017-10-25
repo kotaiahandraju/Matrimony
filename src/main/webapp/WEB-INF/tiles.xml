@@ -76,6 +76,12 @@
 	<definition name="adminCreateProfile" extends="base.definition">
 		<put-attribute name="body" value="/WEB-INF/pages/adminCreateProfile.jsp" />
 	</definition>
+	<definition name="freeRegisterProfile" extends="base.definition">
+		<put-attribute name="body" value="/WEB-INF/pages/freeRegisterProfile.jsp" />
+	</definition>
+	<definition name="premiumProfile" extends="base.definition">
+		<put-attribute name="body" value="/WEB-INF/pages/premiumProfile.jsp" />
+	</definition>
 	
 </tiles-definitions>
 
