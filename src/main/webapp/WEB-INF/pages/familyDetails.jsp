@@ -158,19 +158,19 @@ body {
       <h3>Please share some details about Cvbc's Family</h3>
     </div>
     <div class="form-group">
-      <label class="col-md-4 control-label" for="textinput">Mother's Status</label>  
+      <label class="col-md-4 control-label" for="textinput">Father Name</label>  
       <div class="col-md-8">
       	<form:input path="fatherName" class="form-control" placeholder="Enter Father Name"/>
       </div>
     </div>
     <div class="form-group">
-      <label class="col-md-4 control-label" for="textinput">Mother's Status</label>  
+      <label class="col-md-4 control-label" for="textinput">Mother Name</label>  
       <div class="col-md-8">
       	<form:input path="motherName" class="form-control" placeholder="Enter Mother Name"/>
       </div>
     </div>
     <div class="form-group">
-      <label class="col-md-4 control-label" for="textinput">Father's Status</label>  
+      <label class="col-md-4 control-label" for="textinput">Father's Occupation</label>  
       <div class="col-md-8">
       	<form:select path="fOccupation" class="form-control u1" >
 	<form:options items="${occupation}"></form:options>
@@ -179,7 +179,7 @@ body {
     </div>
     
     <div class="form-group">
-      <label class="col-md-4 control-label" for="textinput">Mother's Status</label>  
+      <label class="col-md-4 control-label" for="textinput">Mother's Occupation</label>  
       <div class="col-md-8">
       	<form:select path="mOccupation" class="form-control u1" >
       	<form:options items="${occupation}"></form:options>

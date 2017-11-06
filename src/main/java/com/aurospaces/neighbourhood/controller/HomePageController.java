@@ -171,13 +171,16 @@ public class HomePageController {
 				objUsersBean.setDob1(dob1);
 			}
 			
-			
-//			if(StringUtils.isNotBlank(objUsersBean.getEmail())){
-			objUsersDao.save(objUsersBean);
-//			objUserDetailsDao.save(objUsersBean);
-			session.setAttribute("cacheGuest", objUsersBean);
-//			response.sendRedirect("profile?gp=page_1");
-//			}
+			if(session.getAttribute("cacheGuest") != null){
+				UsersBean sessionBean =(UsersBean)session.getAttribute("cacheGuest");
+			//get session bean values 
+			UsersBean  objUsersBean1 = objUsersDao.getById1(sessionBean.getId());
+			 if(objUsersBean != null){
+			 objeModel.addAttribute("createProfile", objUsersBean);
+			 }
+			 BeanUtils.copyProperties(objUsersBean1,objUsersBean,getNullPropertyNames(objUsersBean1));
+			 objUsersDao.save(objUsersBean);
+			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -523,7 +523,132 @@
 							  	</div>
 							</div>
 						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<legend>Family Details</legend>
+							</div>
+							
+							<div class="row">
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="col-sm-4 control-label required">Father Name </label>
+									<div class="col-sm-8">
+											<form:input path="fatherName" class="form-control" placeholder="Enter Father Name"/>
+								  		<div><form:errors path="fatherName" cssClass="error" /></div>
+									</div>
+							  	</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="col-sm-4 control-label required">Mother Name <span style="color:red;">*</span></label>
+									<div class="col-sm-8">
+											<form:input path="motherName" class="form-control" placeholder="Enter Mother Name"/>
+								  		<div><form:errors path="smoking" cssClass="error" /></div>
+									</div>
+							  	</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="col-sm-4 control-label required">Father's Occupation<span style="color:red;">*</span></label>
+									<div class="col-sm-8">
+											<form:select path="fOccupation" class="form-control u1" >
+											<form:options items="${occupation}"></form:options>
+											</form:select>
+										<div><form:errors path="drinking" cssClass="error" /></div>
+									</div>
+							  	</div>
+							</div>
+						</div>
 						
+						<div class="row">
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="col-sm-4 control-label required">Mother's Occupation <span style="color:red;">*</span></label>
+									<div class="col-sm-8">
+										<form:select path="mOccupation" class="form-control u1" >
+								      	<form:options items="${occupation}"></form:options>
+										</form:select>
+								  		<div><form:errors path="height" cssClass="error" /></div>
+									</div>
+							  	</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="col-sm-4 control-label required">No. of Brothers</label>
+									<div class="col-sm-8">
+										<form:select path="noOfBrothers" class="form-control u1">
+											<form:option value="">-- Select --</form:option>
+											<form:option value="1">1</form:option>
+											<form:option value="2">2</form:option>
+											<form:option value="3">3</form:option>
+										</form:select>
+								  		<div><form:errors path="bodyType" cssClass="error" /></div>
+									</div>
+							  	</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="col-sm-4 control-label required">No. of Sisters</label>
+									<div class="col-sm-8">
+										<form:select path="noOfSisters" class="form-control u1">
+											<form:option value="">-- Select --</form:option>
+											<form:option value="1">1</form:option>
+											<form:option value="2">2</form:option>
+											<form:option value="3">3</form:option>
+										</form:select>
+										<div><form:errors path="complexion" cssClass="error" /></div>
+									</div>
+							  	</div>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="col-sm-4 control-label required">noOfBrothersMarried <span style="color:red;">*</span></label>
+									<div class="col-sm-8">
+										<form:select path="noOfBrothersMarried" class="form-control u1">
+											<form:option value="">-- Select --</form:option>
+											<form:option value="1">1</form:option>
+											<form:option value="2">2</form:option>
+											<form:option value="3">3</form:option>
+										</form:select>
+										<div><form:errors path="mobile" cssClass="error" /></div>
+									</div>
+							  	</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="col-sm-4 control-label required">noOfSistersMarried</label>
+									<div class="col-sm-8">
+										<form:select path="noOfSistersMarried" class="form-control u1">
+											<form:option value="">-- Select --</form:option>
+											<form:option value="1">1</form:option>
+											<form:option value="2">2</form:option>
+											<form:option value="3">3</form:option>
+										</form:select>
+								  		<div><form:errors path="aboutMyself" cssClass="error" /></div>
+									</div>
+							  	</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="col-sm-4 control-label required">Any Disability?</label>
+									<div class="col-sm-8">
+										<form:select path="disability" class="form-control u">
+											<form:option value="">-- Choose Disability --</form:option>
+											<form:option value="None">None</form:option>
+											<form:option value="Physical Disability">Physical Disability</form:option>
+										</form:select>
+										<div><form:errors path="disability" cssClass="error" /></div>
+									</div>
+							  	</div>
+							</div>
+						</div>
+							
+							
+							
+						</div>
 						<jsp:include page="p1.jsp" /> 
 						<div class="row">
 							<div class="col-md-offset-5 col-md-4">
