@@ -162,22 +162,31 @@ body {
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Age From</label>  
       <div class="col-md-6">
-      <form:input path="rAgeFrom" class="form-control u1" placeholder="Enter Age From" />
+      <form:input path="rAgeFrom" class="form-control  numericOnly u1" placeholder="Enter Age From" />
 <!--       	<input type="text" name="age" class="form-control u1" placeholder="Enter Age" maxlength="255"/> -->
       </div>
     </div>
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Age To</label>  
       <div class="col-md-6">
-      <form:input path="rAgeTo" class="form-control u1" placeholder="Enter Age To" />
+      <form:input path="rAgeTo" class="form-control numericOnly u1" placeholder="Enter Age To" />
 <!--       	<input type="text" name="age" class="form-control u1" placeholder="Enter Age" maxlength="255"/> -->
       </div>
     </div>
-    <div class="form-group">
+    <%-- <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Height</label>  
       <div class="col-md-6">
        <form:input path="rHeight" placeholder="Enter Height"/>
-<!--       	<input type="text" name="height" class="form-control u1" placeholder="Enter Height" maxlength="255"/> -->
+       	<input type="text" name="height" class="form-control u1" placeholder="Enter Height" maxlength="255"/> -->
+      </div>
+    </div> --%>
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="textinput">Height</label>  
+      <div class="col-md-6">
+      	<form:select path="rReligion" class="form-control u1">
+			<form:option value="">-- Choose Height --</form:option>
+			<form:options items="${height}"></form:options>
+		</form:select>
       </div>
     </div>
 
