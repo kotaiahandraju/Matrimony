@@ -1,10 +1,7 @@
-<%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://displaytag.sf.net" prefix="display"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
-<c:set var = "activePage" scope = "session" value = "createProfileActive"/>
 <style>
  .error {
         color: red; font-weight: bold;
@@ -42,19 +39,9 @@
 			<div class="portlet" id="yw0">
 				<div class="portlet-content w3-animate-zoom">
 					<!-- Create Profile Form Starts Here -->
-					<form:form commandName="createProfile" class="form-horizontal" role="form"  action="${baseurl }/admin/addProfile" method="post">
+					<form:form commandName="createProfile" class="form-horizontal" id="creteProfile-form" role="form"  action="${baseurl }/admin/addProfile" method="post">
 					<form:hidden path="id"/>
-					<form:hidden path="state"/>
-					<form:hidden path="city"/>
-					<form:hidden path="workingWith"/>
-					<form:hidden path="companyName"/>
-					<form:hidden path="smoke"/>
-					<form:hidden path="drink"/>
-					<form:hidden path="bodyType"/>
-					<form:hidden path="disability"/>
-					<form:hidden path="diet"/>
-					<form:hidden path="dosham"/>
-					<form:hidden path="userdetailsId"/>
+					<form:hidden path="userrequirementId"/>
 						<div class="form-group">
 							<div class="col-sm-12">
 								<div class="errorMessage" id="Create Profile_invalid_em_" >
@@ -70,7 +57,7 @@
 							</div>
 					  	</div>
 						
-						<div class="row">
+						<%-- <div class="row">
 							<div class="col-md-3"></div>
 							<div class="col-md-6">
 								<div class="form-group">
@@ -91,833 +78,463 @@
 								</div>
 							</div>
 							<div class="col-md-3"></div>
+						</div> --%>
+						
+						<div class="row">
+							<div class="col-md-12">
+								<legend>Basic Information</legend>
+							</div>
 						</div>
 						
 						<div class="row">
-							<div class="col-lg-6">
-								<legend>Basic Information</legend>
+							<div class="col-md-4">
 								<div class="form-group">
-									<label class="col-sm-4 control-label required"><spring:message code="label.casteName" text="default text" /> <span style="color:red;">*</span></label>
-									<div class="col-sm-4">
-								  		<form:select path="cast"  class="form-control" onblur="validate2(this.id);">
-											<form:option value="">-- Choose Cast --</form:option>
-											<form:options items="${cast}"></form:options>
-										</form:select>
-								  		<span class="hasError" id="castError"></span>
-								  		<div><form:errors path="cast" cssClass="error" /></div>
+									<label class="col-sm-4 control-label required">Email-Id <span style="color:red;">*</span></label>
+									<div class="col-sm-8">
+								  		<form:input	path="email" onkeydown="removeBorder(this.id)" class="form-control"  onblur="validate(this.id,'Enter Email');"  placeholder="Enter Email"/>
+								  		<div><form:errors path="email" cssClass="error" /></div>
 									</div>
 							  	</div>
-							  	<div class="form-group">
-									<label class="col-sm-4 control-label required"><spring:message code="label.subCaste" text="default text" /> <span style="color:red;">*</span></label>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="col-sm-4 control-label required">Create Password <span style="color:red;"></span></label>
 									<div class="col-sm-8">
-									<form:input path="subCaste" type="text"  placeholder="Enter SubCast" class="form-control " autocomplete="off" onblur="validate3(this.id);"  maxlength="255"/>	
-								  		<%-- <form:select path="subCaste" class="form-control" tabindex="2" onchange="classNameFilter()" required="true">
-											<form:option value="" >-- Choose Board --</form:option>
-										</form:select>
-								  		<div><form:errors path="subCaste" cssClass="error" /></div> --%>
-									<span class="hasError" id="subCasteError"></span>
-								  		<div><form:errors path="subCaste" cssClass="error" /></div>
+									  	<form:password path="password" class="form-control"   placeholder=" Enter Password"/> 
+								  		<div><form:errors path="password" cssClass="error" /></div>
 									</div>
 							  	</div>
-							  	<div class="form-group">
-									<label class="col-sm-4 control-label required"><spring:message code="label.surName" text="default text" /> <span style="color:red;">*</span></label>
-									<div class="col-sm-8">
-										<form:input path="sname" type="text" placeholder="Enter SurName"  class="form-control onlyCharacters " autocomplete="off" onblur="validate4(this.id);"  maxlength="255"/>						
-								  		<span class="hasError" id="snameError"></span>
-								  		<div><form:errors path="sname" cssClass="error" /></div>
-									</div>
-								</div>
+							</div>
+							<div class="col-md-4">
 								<div class="form-group">
-									<label class="col-sm-4 control-label required"><spring:message code="label.name" text="default text" /> <span style="color:red;">*</span></label>
+									<label class="col-sm-4 control-label required">Create Profile for <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-										<form:input path="name" type="text" class="form-control onlyCharacters " placeholder="Enter Name"  autocomplete="off" onblur="validate5(this.id);" maxlength="255"/>						
-								  		<span class="hasError" id="nameError"></span>
-								  		<div><form:errors path="name" cssClass="error" /></div>
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-4 control-label required"><spring:message code="label.gender" text="default text" /> <span style="color:red;">*</span></label>
-									<div class="col-sm-4">
-								  		<form:select path="gender" class="form-control" style="width:200px;" onblur="validate6(this.id);"  required="true">
-											<form:option value="">-- Choose Gender --</form:option>
-											<form:option value="Male">Male</form:option>
-											<form:option value="Female">Female</form:option>
+									  	<form:select path="createProfileFor" onfocus="removeBorder(this.id)" onblur="validate(this.id,'');"  class="form-control">
+											<form:option value="">-- Select --</form:option>
+											<form:option value="Self">Self</form:option>
+											<form:option value="Son">Son</form:option>
+											<form:option value="Daughter">Daughter</form:option>
+											<form:option value="Brother">Brother</form:option>
+											<form:option value="Sister">Sister</form:option>
+											<form:option value="Friend">Friend</form:option>
+											<form:option value="Relative">Relative</form:option>
 										</form:select>
-								  		<span class="hasError" id="genderError"></span>
+								  		<div><form:errors path="createProfileFor" cssClass="error" /></div>
+									</div>
+							  	</div>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="col-sm-4 control-label required">Gender <span style="color:red;">*</span></label>
+									<div class="col-sm-8">
+								  		<label class="radio-inline" for="radios-0">
+								  			<form:radiobutton path="gender" onmouseover="removeBorder(this.id)"   onclick="validate1(this.id,'');"  value="Male"/>Male
+<!-- 										<input	name="gender" id="radios-0" value="Male" checked="checked" type="radio"> Male -->
+										</label>
+										<label class="radio-inline" for="radios-1"> 
+<!-- 										<input name="gender" id="radios-1" value="Female" type="radio"> Female -->
+											<form:radiobutton path="gender"  onclick="validate1(this.id,'');"  value="Female"/>Female
+										</label>
 								  		<div><form:errors path="gender" cssClass="error" /></div>
+									<div ><span id="dis"></span></div>
 									</div>
 							  	</div>
-							  	<div class="form-group">
-									<label class="col-sm-4 control-label required"><spring:message code="label.dob" text="default text" /> <span style="color:red;">*</span></label>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="col-sm-4 control-label required">First Name <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-										<form:input path="dob" type="text" class="form-control " placeholder="Enter Date Of Brith" autocomplete="off" onblur="validate7(this.id);" maxlength="255" readonly="true"/>						
-								  		<span class="hasError" id="dobError"></span>
+									<form:input path="firstName" onkeydown="removeBorder(this.id)" onblur="validate(this.id,'Enter  FirstName');"  class="form-control onlyCharacters"  placeholder="First Name"/>
+<!-- 									  	<input type="text" name="firstName" onkeydown="removeBorder(this.id)" class="form-control onlyCharacters" id="firstName" placeholder="First Name"> -->
+								  		<span class="hasError" id="firstNameError" style="font-size: 13px;"></span>
+								  		<div><form:errors path="firstName" cssClass="error" /></div>
+									</div>
+							  	</div>
+							</div>
+							<div class="col-md-4">
+									<div class="form-group">
+										<label class="col-sm-4 control-label required">Last Name <span style="color:red;">*</span></label>
+										<div class="col-sm-8">
+										<form:input path="lastName" onkeydown="removeBorder(this.id)"  onblur="validate(this.id,'Enter  LastName');"  class="form-control onlyCharacters"  placeholder="Last Name"/>
+<!-- 										  	<input type="text" name="lastName" onkeydown="removeBorder(this.id)" class="form-control onlyCharacters" id="firstName" placeholder="Last Name"> -->
+									  		<div><form:errors path="lastName" cssClass="error" /></dlastNameiv>
+										</div>
+								  	</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="col-sm-4 control-label required">Date of Birth <span style="color:red;">*</span></label>
+									<div class="col-sm-8">
+									<form:input path="dob" onchange="removeBorder(this.id)" class="form-control"  onblur="validate(this.id,'');"  placeholder="Enter Date of Birth" readonly="true"/>
+<!-- 									  	<input type="text" name="dob" onclick="removeBorder(this.id)" class="form-control" id="dob" placeholder="Enter Date of Birth" readonly="readonly"> -->
 								  		<div><form:errors path="dob" cssClass="error" /></div>
 									</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-4 col-xs-12 control-label required"><spring:message code="label.tob" text="default text" /></label>
-									<div class="col-sm-8">
-										<form:input path="tob" type="text" class="form-control " placeholder="Time Of Brith"  autocomplete="off" onblur="validate8(this.id);" maxlength="255"/>						
-								  		<span class="hasError" id="tobError"></span>
-								  		<div><form:errors path="tob" cssClass="error" /></div>
-									</div>
-									
-								</div>
-								<div class="form-group">
-									<label class="col-sm-4 control-label required"><spring:message code="label.pob" text="default text" /> <span style="color:red;">*</span></label>
-									<div class="col-sm-8">
-										<form:input path="pob" type="text" class="form-control " placeholder="Place Of Brith" autocomplete="off" onblur="validate8(this.id);" maxlength="255"/>						
-								  		<span class="hasError" id="pobError"></span>
-								  		<div><form:errors path="pob" cssClass="error" /></div>
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-4 control-label required"><spring:message code="label.height" text="default text" /> <span style="color:red;">*</span></label>
-									<div class="col-sm-4">
-										<form:select path="height"  class="form-control" onblur="validate9(this.id);">
-														<form:option value="">-- Choose Height --</form:option>
-														<form:options items="${height}"></form:options>
-										</form:select>
-								  		<%-- <form:select path="height" class="form-control" style="width:200px;" required="true">
-											<form:option value="">-- Choose Height --</form:option>
-										</form:select>
-								  		<div><form:errors path="height" cssClass="error" /></div> --%>
-									<span class="hasError" id="heightError"></span>
-								  		<div><form:errors path="height" cssClass="error" /></div>
-									</div>
 							  	</div>
-							  	<div class="form-group">
-									<label class="col-sm-4 control-label required"><spring:message code="label.complexion" text="default text" /> <span style="color:red;">*</span></label>
-									<div class="col-sm-4">
-								  		<form:select path="complexion" class="form-control"  onblur="validate10(this.id);" style="width:200px;" required="true">
-											<form:option value="">-- Choose Complexion --</form:option>
-											<form:options items="${complexion}"></form:options>
-										</form:select>
-								  		<span class="hasError" id="complexionError"></span>
-								  		<div><form:errors path="complexion" cssClass="error" /></div>
-									</div>
-							  	</div>
-							  	<div class="form-group">
-									<label class="col-sm-4 control-label required"><spring:message code="label.raasi" text="default text" /></label>
-									<div class="col-sm-4">
-										<form:select path="raasi" class="form-control" style="width:200px;" required="true">
-											<form:option value="">-- Choose Raasi --</form:option>
-											<form:options items="${raasi}"></form:options>
-										</form:select>
-									</div>
-							  	</div>
-							  	<div class="form-group">
-									<label class="col-sm-4 control-label required"><spring:message code="label.star" text="default text" /></label>
-									<div class="col-sm-4">
-										<form:select path="star" class="form-control" style="width:200px;" required="true">
-											<form:option value="">-- Choose Star --</form:option>
-											<form:options items="${star}"></form:options>
-										</form:select>
-									</div>
-							  	</div>
-							  	<div class="form-group">
-									<label class="col-sm-4 control-label required"><spring:message code="label.padam" text="default text" /></label>
-									<div class="col-sm-8">
-										<form:input path="padam" type="text"  placeholder=" Enter Padam" class="form-control " maxlength="255"/>	
-									</div>
-								</div>
+							</div>
+							<div class="col-md-4">
 								<div class="form-group">
-									<label class="col-sm-4 control-label required"><spring:message code="label.gothram" text="default text" /> <span style="color:red;">*</span></label>
+									<label class="col-sm-4 control-label required">Religion <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-										<form:input path="gotram" type="text" class="form-control onlyCharacters " placeholder="Enter Gotram" autocomplete="off" onblur="validate11(this.id);"  maxlength="255"/>	
-									<span class="hasError" id="gotramError"></span>
-									<div><form:errors path="gotram" cssClass="error" /></div>
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-4 control-label required"><spring:message code="label.maritalStatus" text="default text" /> <span style="color:red;">*</span></label>
-									<div class="col-sm-8">
-										<span id="Users_mstatus">
-<!-- 											<input class="mstatus_valid" onchange="check_mstatus()" id="Users_mstatus_0" value="Unmarried" checked="checked" type="radio" name="maritalStatus"> <label for="Users_mstatus_0">Unmarried</label>  -->
-<!-- 											<input class="mstatus_valid" onchange="check_mstatus()" id="Users_mstatus_1" value="Widower" type="radio" name="maritalStatus"> <label for="Users_mstatus_1">Widower</label>  -->
-<!-- 											<input class="mstatus_valid" onchange="check_mstatus()" id="Users_mstatus_2" value="Divorcee" type="radio" name="maritalStatus"> <label for="Users_mstatus_2">Divorcee</label> -->
-											<form:radiobutton path="maritalStatus" onchange="check_mstatus()" value="Unmarried" />Unmarried
-											<form:radiobutton path="maritalStatus" onchange="check_mstatus()" value="Widower" />Widower
-											<form:radiobutton path="maritalStatus" onchange="check_mstatus()" value="Divorcee" />Divorcee
-										</span>
-									</div>
-								</div>
-								
-								<div class="widow_divorcee_details">		
-									<legend>Widow / Divorcee Detail </legend>						
-									<div class="form-group">
-										<label class="col-sm-4 control-label required"><spring:message code="label.defendentName" text="default text" /></label>
-										<div class="col-sm-8">
-							  				<input class="form-control "  placeholder="Enter Defendant  Name" name="Users[defendent_name]" id="Users_defendent_name" type="text">
-							  			</div>
-									</div>
-									<div class="form-group">
-										<label class="col-sm-4 control-label required"><spring:message code="label.sOrD" text="default text" /></label>
-										<div class="col-sm-8">
-							  				<input class="form-control "  placeholder="Enter S/O or D/o" name="Users[son_of]" id="Users_son_of" type="text">
-							  			</div>
-									</div>
-									<div class="form-group">
-										<label class="col-sm-4 col-xs-12 control-label required"><spring:message code="label.marriedOn" text="default text" /></label>
-										<div class="col-sm-2 col-xs-4">
-											<select class="form-control" name="Users[wm_dd]" id="Users_wm_dd">
-												<option value="">Day</option>
-												<option value="1">1</option>
-												<option value="2">2</option>
-												<option value="3">3</option>
-												<option value="4">4</option>
-												<option value="5">5</option>
-												<option value="6">6</option>
-												<option value="7">7</option>
-												<option value="8">8</option>
-												<option value="9">9</option>
-												<option value="10">10</option>
-												<option value="11">11</option>
-												<option value="12">12</option>
-												<option value="13">13</option>
-												<option value="14">14</option>
-												<option value="15">15</option>
-												<option value="16">16</option>
-												<option value="17">17</option>
-												<option value="18">18</option>
-												<option value="19">19</option>
-												<option value="20">20</option>
-												<option value="21">21</option>
-												<option value="22">22</option>
-												<option value="23">23</option>
-												<option value="24">24</option>
-												<option value="25">25</option>
-												<option value="26">26</option>
-												<option value="27">27</option>
-												<option value="28">28</option>
-												<option value="29">29</option>
-												<option value="30">30</option>
-												<option value="31">31</option>
-											</select>
-										</div>
-										<div class="col-sm-3 col-xs-4">
-											<select class="form-control" name="Users[wm_mm]" id="Users_wm_mm">
-												<option value="">Month</option>
-												<option value="1">Jan</option>
-												<option value="2">Feb</option>
-												<option value="3">Mar</option>
-												<option value="4">Apr</option>
-												<option value="5">May</option>
-												<option value="6">Jun</option>
-												<option value="7">Jul</option>
-												<option value="8">Aug</option>
-												<option value="9">Sep</option>
-												<option value="10">Oct</option>
-												<option value="11">Nov</option>
-												<option value="12">Dec</option>
-											</select>
-										</div>
-										<div class="col-sm-3 col-xs-4">
-											<select class="form-control" name="Users[wm_yy]" id="Users_wm_yy">
-												<option value="">Year</option>
-												<option value="1999">1999</option>
-												<option value="1998">1998</option>
-												<option value="1997">1997</option>
-												<option value="1996">1996</option>
-												<option value="1995">1995</option>
-												<option value="1994">1994</option>
-												<option value="1993">1993</option>
-												<option value="1992">1992</option>
-												<option value="1991">1991</option>
-												<option value="1990">1990</option>
-												<option value="1989">1989</option>
-												<option value="1988">1988</option>
-												<option value="1987">1987</option>
-												<option value="1986">1986</option>
-												<option value="1985">1985</option>
-												<option value="1984">1984</option>
-												<option value="1983">1983</option>
-												<option value="1982">1982</option>
-												<option value="1981">1981</option>
-												<option value="1980">1980</option>
-												<option value="1979">1979</option>
-												<option value="1978">1978</option>
-												<option value="1977">1977</option>
-												<option value="1976">1976</option>
-												<option value="1975">1975</option>
-												<option value="1974">1974</option>
-												<option value="1973">1973</option>
-												<option value="1972">1972</option>
-												<option value="1971">1971</option>
-												<option value="1970">1970</option>
-												<option value="1969">1969</option>
-												<option value="1968">1968</option>
-												<option value="1967">1967</option>
-												<option value="1966">1966</option>
-												<option value="1965">1965</option>
-												<option value="1964">1964</option>
-												<option value="1963">1963</option>
-												<option value="1962">1962</option>
-												<option value="1961">1961</option>
-												<option value="1960">1960</option>
-												<option value="1959">1959</option>
-												<option value="1958">1958</option>
-												<option value="1957">1957</option>
-												<option value="1956">1956</option>
-												<option value="1955">1955</option>
-												<option value="1954">1954</option>
-												<option value="1953">1953</option>
-												<option value="1952">1952</option>
-											</select>
-										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-sm-4 col-xs-12 control-label required"><spring:message code="label.dateOfSeparation" text="default text" /></label>
-										<div class="col-sm-2 col-xs-4">
-											<select class="form-control" name="Users[ws_dd]" id="Users_ws_dd">
-												<option value="">Day</option>
-												<option value="1">1</option>
-												<option value="2">2</option>
-												<option value="3">3</option>
-												<option value="4">4</option>
-												<option value="5">5</option>
-												<option value="6">6</option>
-												<option value="7">7</option>
-												<option value="8">8</option>
-												<option value="9">9</option>
-												<option value="10">10</option>
-												<option value="11">11</option>
-												<option value="12">12</option>
-												<option value="13">13</option>
-												<option value="14">14</option>
-												<option value="15">15</option>
-												<option value="16">16</option>
-												<option value="17">17</option>
-												<option value="18">18</option>
-												<option value="19">19</option>
-												<option value="20">20</option>
-												<option value="21">21</option>
-												<option value="22">22</option>
-												<option value="23">23</option>
-												<option value="24">24</option>
-												<option value="25">25</option>
-												<option value="26">26</option>
-												<option value="27">27</option>
-												<option value="28">28</option>
-												<option value="29">29</option>
-												<option value="30">30</option>
-												<option value="31">31</option>
-											</select>
-										</div>
-										<div class="col-sm-3 col-xs-4">
-											<select class="form-control" name="Users[ws_mm]" id="Users_ws_mm">
-												<option value="">Month</option>
-												<option value="1">Jan</option>
-												<option value="2">Feb</option>
-												<option value="3">Mar</option>
-												<option value="4">Apr</option>
-												<option value="5">May</option>
-												<option value="6">Jun</option>
-												<option value="7">Jul</option>
-												<option value="8">Aug</option>
-												<option value="9">Sep</option>
-												<option value="10">Oct</option>
-												<option value="11">Nov</option>
-												<option value="12">Dec</option>
-											</select>
-										</div>
-										<div class="col-sm-3 col-xs-4">
-											<select class="form-control" name="Users[ws_yy]" id="Users_ws_yy">
-												<option value="">Year</option>
-												<option value="1999">1999</option>
-												<option value="1998">1998</option>
-												<option value="1997">1997</option>
-												<option value="1996">1996</option>
-												<option value="1995">1995</option>
-												<option value="1994">1994</option>
-												<option value="1993">1993</option>
-												<option value="1992">1992</option>
-												<option value="1991">1991</option>
-												<option value="1990">1990</option>
-												<option value="1989">1989</option>
-												<option value="1988">1988</option>
-												<option value="1987">1987</option>
-												<option value="1986">1986</option>
-												<option value="1985">1985</option>
-												<option value="1984">1984</option>
-												<option value="1983">1983</option>
-												<option value="1982">1982</option>
-												<option value="1981">1981</option>
-												<option value="1980">1980</option>
-												<option value="1979">1979</option>
-												<option value="1978">1978</option>
-												<option value="1977">1977</option>
-												<option value="1976">1976</option>
-												<option value="1975">1975</option>
-												<option value="1974">1974</option>
-												<option value="1973">1973</option>
-												<option value="1972">1972</option>
-												<option value="1971">1971</option>
-												<option value="1970">1970</option>
-												<option value="1969">1969</option>
-												<option value="1968">1968</option>
-												<option value="1967">1967</option>
-												<option value="1966">1966</option>
-												<option value="1965">1965</option>
-												<option value="1964">1964</option>
-												<option value="1963">1963</option>
-												<option value="1962">1962</option>
-												<option value="1961">1961</option>
-												<option value="1960">1960</option>
-												<option value="1959">1959</option>
-												<option value="1958">1958</option>
-												<option value="1957">1957</option>
-												<option value="1956">1956</option>
-												<option value="1955">1955</option>
-												<option value="1954">1954</option>
-												<option value="1953">1953</option>
-												<option value="1952">1952</option>
-											</select>
-										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-sm-4 control-label required"><spring:message code="label.courtCase" text="default text" /></label>
-										<div class="col-sm-8">
-							  				<input class="form-control "  placeholder="Enter Court" name="Users[court]" id="Users_court" type="text">
-							  			</div>
-									</div>
-									<div class="form-group">
-										<label class="col-sm-4 control-label required"><spring:message code="label.reason" text="default text" /></label>
-										<div class="col-sm-8">
-							  				<input class="form-control "  placeholder="Enter Reason" name="Users[wm_reason]" id="Users_wm_reason" type="text">
-							  			</div>
-									</div>
-									<div class="form-group">
-										<label class="col-sm-4 control-label required"><spring:message code="label.maleChildrens" text="default text" /></label>
-										<div class="col-sm-8">
-							  				<input class="form-control " placeholder="Enter Male Childrens"  name="Users[male_childrens]" id="Users_male_childrens" type="text">
-							  			</div>
-									</div>
-									<div class="form-group">
-										<label class="col-sm-4 control-label required"><spring:message code="label.femaleChildrens" text="default text" /></label>
-										<div class="col-sm-8">
-							  				<input class="form-control " placeholder="Enter Female Childrens" name="Users[female_childrens]" id="Users_female_childrens" type="text">
-							  			</div>
-									</div>
-								</div>
-								
-								<div class="form-group">
-									<label class="col-sm-4 control-label required"><spring:message code="label.religion" text="default text" /> <span style="color:red;">*</span></label>
-									<div class="col-sm-4">
-										<form:select path="religion" class="form-control" onblur="validate12(this.id);" style="width:200px;" >
+									  	<form:select path="religion" onfocus="removeBorder(this.id)" onblur="validate(this.id,'');"  class="form-control" >
 											<form:option value="">-- Choose Religion --</form:option>
 											<form:options items="${religion}"></form:options>
 										</form:select>
-									<span class="hasError" id="religionError"></span>
-									<div><form:errors path="religion" cssClass="error" /></div>
+								  		<div><form:errors path="religion" cssClass="error" /></div>
 									</div>
 							  	</div>
+							</div>
+							<div class="col-md-4">
 								<div class="form-group">
-									<label class="col-sm-4 control-label required"><spring:message code="label.motherTongue" text="default text" /> <span style="color:red;">*</span></label>
+									<label class="col-sm-4 control-label required">Mother tongue <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-										<form:input path="mtongue"  class="form-control onlyCharacters " placeholder="Enter Mother Tongue"  autocomplete="off" onblur="validate13(this.id);"/>
-									<span class="hasError" id="mtongueError"></span>
-									<div><form:errors path="mtongue" cssClass="error" /></div>
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-4 control-label required"><spring:message code="label.spokenLanguages" text="default text" /></label>
-									<div class="col-sm-4">
-										<form:select path="sLanguages" class="form-control"  style="width:200px;" >
-											<form:option value="">-- Choose Spoken Languages --</form:option>
+									  	<form:select path="motherTongue" onfocus="removeBorder(this.id)"   onblur="validate(this.id,'');"  class="form-control" >
+											<form:option value="">-- Choose Mother Tongue --</form:option>
 											<form:options items="${language}"></form:options>
 										</form:select>
+								  		<div><form:errors path="motherTongue" cssClass="error" /></div>
 									</div>
 							  	</div>
-								<div class="form-group">
-									<label class="col-sm-4 control-label required"><spring:message code="label.aboutYourself" text="default text" /> <span style="color:red;">*</span></label>
-									<div class="col-sm-8">
-									<form:textarea path="aboutYourself"  autocomplete="off" onblur="validate14(this.id);"  placeholder="Enter AboutYourself" class="form-control onlyCharacters "/>
-									<span class="hasError" id="aboutYourselfError"></span>
-									<div><form:errors path="aboutYourself" cssClass="error" /></div>
-									</div>
-								</div>
-							</div>
-							<div class="col-lg-6">
-								<legend>About My Family</legend>
-								<div class="form-group">
-									<label class="col-sm-4 control-label required"><spring:message code="label.fatherName" text="default text" /> <span style="color:red;">*</span></label>
-									<div class="col-sm-8">
-									<form:input path="fname"  class="form-control onlyCharacters " placeholder="Enter Father Name"  autocomplete="off" onblur="validate15(this.id);"/>
-							  		<span class="hasError" id="fnameError"></span>
-									<div><form:errors path="fname" cssClass="error" /></div>
-							  		</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-4 control-label required"><spring:message code="label.fatherEducation" text="default text" /> <span style="color:red;">*</span></label>
-									<div class="col-sm-8">
-										<form:select path="feducation" class="form-control"  onblur="validate16(this.id);" style="width:200px;" >
-											<form:option value="">-- Choose Father Education --</form:option>
-											<form:options items="${education}"></form:options>
-										</form:select>
-									<span class="hasError" id="feducationError"></span>
-									<div><form:errors path="feducation"   cssClass="error" /></div>
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-4 control-label required"><spring:message code="label.fatherOccupation" text="default text" /> <span style="color:red;">*</span></label>
-									<div class="col-sm-8">
-										<form:select path="foccupation" class="form-control" onblur="validate17(this.id);"   style="width:200px;" >
-											<form:option value="">-- Choose Father occupation --</form:option>
-											<form:options items="${occupation}"></form:options>
-										</form:select>
-									<span class="hasError" id="foccupationError"></span>
-									<div><form:errors path="foccupation" cssClass="error" /></div>
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-4 control-label required"><spring:message code="label.fatherOccupationDetails" text="default text" /></label>
-									<div class="col-sm-8">
-									<form:input path="foDetails"  placeholder="Enter Father Occupation Details"  class="form-control " />
-							  			
-								  	</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-4 control-label required"><spring:message code="label.fathersFatherName" text="default text" /></label>
-									<div class="col-sm-8">
-									<form:input path="ffName" placeholder="Enter Father Father's Name"   class="form-control" />
-							  		</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-4 control-label required"><spring:message code="label.fatherNativeAddress" text="default text" /> <span style="color:red;">*</span></label>
-									<div class="col-sm-8">
-									<form:textarea path="fnativeAddress" placeholder="Enter Father Native Address"   autocomplete="off" onblur="validate18(this.id);"   class="form-control onlyCharacters" />
-								  	<span class="hasError" id="fnativeAddressError"></span>
-									<div><form:errors path="fnativeAddress" cssClass="error" /></div>
-								  	</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-4 control-label required"><spring:message code="label.presentAddress" text="default text" /> <span style="color:red;">*</span></label>
-									<div class="col-sm-8">
-									<form:textarea path="presentAddress"  placeholder="Enter Present Address"  autocomplete="off" onblur="validate19(this.id);"  class="form-control onlyCharacters" />
-							  		<span class="hasError" id="presentAddressError"></span>
-									<div><form:errors path="presentAddress" cssClass="error" /></div>
-							  		</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-4 control-label required"><spring:message code="label.contactPhNo" text="default text" /> <span style="color:red;">*</span></label>
-									<div class="col-sm-8">
-									<form:input path="mobile"   placeholder="Enter Mobile Number"   class="form-control numericOnly"  maxlength="13" autocomplete="off" onblur="validate20(this.id);"  />
-							  		<span class="hasError" id="phone1Error"></span>
-									<div><form:errors path="mobile" cssClass="error" /></div>
-							  		</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-4 control-label required"><spring:message code="label.contactPhNo2" text="default text" /></label>
-									<div class="col-sm-8">
-							  				<form:input path="phone2"  placeholder="Enter Alter Native Phone Number"   maxlength="13" autocomplete="off"  class="form-control numericOnly" />
-							  		</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-4 control-label required"><spring:message code="label.landLine" text="default text" /></label>
-									<div class="col-sm-8">
-							  				<form:input path="landLine"  placeholder="Enter landLine Number"  maxlength="13" autocomplete="off"  class="form-control numericOnly" />
-							  		</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-4 control-label required"><spring:message code="label.email" text="default text" /> <span style="color:red;">*</span></label>
-									<div class="col-sm-8">
-							  			<form:input path="email" onblur="validate21(this.id);" placeholder="Enter Mail"   class="form-control" />
-							  		<span class="hasError" id="emailError"></span>
-									<div><form:errors path="email" cssClass="error" /></div>
-							  		</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-4 control-label required"><spring:message code="label.email2" text="default text" /></label>
-									<div class="col-sm-8">
-							  			<form:input path="email2"   placeholder="Enter Alter Native Mail" class="form-control" />
-							  		</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-4 control-label required"><spring:message code="label.motherName" text="default text" /> <span style="color:red;">*</span></label>
-									<div class="col-sm-8">
-							  			<form:input path="mname"  class="form-control onlyCharacters"  placeholder="Enter Mother Name"  autocomplete="off" onblur="validate22(this.id);" />
-							  		<span class="hasError" id="mnameError"></span>
-									<div><form:errors path="mname" cssClass="error" /></div>
-							  		</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-4 control-label required"><spring:message code="label.motherEducation" text="default text" /> <span style="color:red;">*</span></label>
-									<div class="col-sm-8">
-										<form:select path="meducation" class="form-control"  placeholder="Enter Mother Education"  onblur="validate23(this.id);" style="width:200px;" >
-											<form:option value="">-- Choose Mother Education --</form:option>
-											<form:options items="${education}"></form:options>
-										</form:select>
-									<span class="hasError" id="meducationError"></span>
-									<div><form:errors path="meducation" cssClass="error" /></div>
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-4 control-label required"><spring:message code="label.motherOccupation" text="default text" /></label>
-									<div class="col-sm-8">
-										<form:select path="moccupation" class="form-control"  placeholder="Enter Mother Occupation" style="width:200px;" >
-											<form:option value="">-- Choose Mother occupation --</form:option>
-											<form:options items="${occupation}"></form:options>
-										</form:select>
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-4 control-label required"><spring:message code="label.motherOccupationDetails" text="default text" /></label>
-									<div class="col-sm-8">
-							  			<form:input path="moDetails"  placeholder="Enter Mother Occupation Details"  class="form-control" />
-								  	</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-4 control-label required"><spring:message code="label.mothersFatherName" text="default text" /> <span style="color:red;">*</span></label>
-									<div class="col-sm-8">
-							  			<form:input path="mfName"  autocomplete="off" placeholder="Enter Mother Father's Name"  onblur="validate24(this.id);"  class="form-control onlyCharacters" />
-							  		<span class="hasError" id="mfNameError"></span>
-									<div><form:errors path="mfName" cssClass="error" /></div>
-							  		</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-4 control-label required"><spring:message code="label.motherNativeAddress" text="default text" /> <span style="color:red;">*</span></label>
-									<div class="col-sm-8">
-								  		<form:textarea path="mnativeAddress"   placeholder="Enter Mother Native Address " onblur="validate25(this.id);" autocomplete="off"  class="form-control onlyCharacters" />
-								  	<span class="hasError" id="mnativeAddressError"></span>
-									<div><form:errors path="mnativeAddress" cssClass="error" /></div>
-								  	</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-4 control-label required"><spring:message code="label.siblings" text="default text" /> <span style="color: red;">*</span></label>
-									<div class="col-sm-8">
-								  		<form:input path="sibilings"  onblur="validate26(this.id);"  placeholder="Enter Sibilings" autocomplete="off"  class="form-control onlyCharacters" />
-								  	<span class="hasError" id="sibilingsError"></span>
-									<div><form:errors path="sibilings" cssClass="error" /></div>
-								  	</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-4 control-label required"><spring:message code="label.property" text="default text" /> <span style="color:red;">*</span></label>
-									<div class="col-sm-8">
-								  	     <form:input path="property" onblur="validate27(this.id);"  placeholder="Enter Property"  autocomplete="off"  class="form-control" />
-								  	<span class="hasError" id="propertyError"></span>
-									<div><form:errors path="property" cssClass="error" /></div>
-								  	</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-4 control-label required"><spring:message code="label.aboutFamily" text="default text" /></label>
-									<div class="col-sm-8">
-								  		<form:textarea path="aboutFamily"  placeholder="Enter About Family"  class="form-control" />
-								  	</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-4 control-label required"><spring:message code="label.selectNearestBranch" text="default text" /> <span style="color:red;">*</span></label>
-									<div class="col-sm-8">
-										<form:select path="branch" class="form-control"  placeholder="Enter Branch" onblur="validate28(this.id);"  style="width:200px;" >
-											<form:option value="">-- Choose branch --</form:option>
-											<form:options items="${branch}"></form:options>
-										</form:select>								
-									<span class="hasError" id="branchError"></span>
-									<div><form:errors path="branch" cssClass="error" /></div>
-									</div>
-								</div>
 							</div>
 						</div>
 						
 						<div class="row">
-							<div class="col-lg-6">
-								<legend>Education &amp; Job information</legend>
+							<div class="col-md-4">
 								<div class="form-group">
-									<label class="col-sm-4 control-label required"><spring:message code="label.education" text="default text" /> <span style="color:red;">*</span></label>
-									<div class="col-md-4">
-										<form:select path="education" class="form-control" onblur="validate29(this.id);"  style="width:200px;" >
-											<form:option value="">-- Choose education --</form:option>
-											<form:options items="${education}"></form:options>
-										</form:select>
-									<span class="hasError" id="educationError"></span>
-									<div><form:errors path="education" cssClass="error" /></div>
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-4 control-label required"><spring:message code="label.educationDetails" text="default text" /></label>
+									<label class="col-sm-4 control-label required">Where you live? <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-										 <form:input path="educationDetails" placeholder="Enter Education Details" class="form-control" />
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-4 control-label required"><spring:message code="label.educationInfo" text="default text" /></label>
-									<div class="col-sm-8">
-										 <form:input path="educationInfo" placeholder="Enter Education Information"  class="form-control" />
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-4 control-label required"><spring:message code="label.occupation" text="default text" /> <span style="color:red;">*</span></label>
-									<div class="col-md-4">
-										<form:select path="occupation" class="form-control"   onblur="validate30(this.id);" style="width:200px;" >
-											<form:option value="">-- Choose education --</form:option>
-											<form:options items="${occupation}"></form:options>
-										</form:select>
-									<span class="hasError" id="occupationError"></span>
-									<div><form:errors path="occupation" cssClass="error" /></div>
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-4 control-label required"><spring:message code="label.occupationDetails" text="default text" /> <span style="color:red;">*</span></label>
-									<div class="col-sm-8">
-										 <form:input path="occupationDetails"  placeHolder="Enter Occupation Details" autocomplete="off" onblur="validate31(this.id);"  class="form-control onlyCharacters" />
-									<span class="hasError" id="occupationDetailsError"></span>
-									<div><form:errors path="occupationDetails" cssClass="error" /></div>
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-4 control-label required"><spring:message code="label.sinceWorking" text="default text" /> <span style="color:red;">*</span></label>
-									<div class="col-sm-8">
-										 <form:input path="sinceWorking"  placeHolder="Enter Since Working"  autocomplete="off" onblur="validate32(this.id);" class="form-control numericOnly" />
-									<span class="hasError" id="sinceWorkingError"></span>
-									<div><form:errors path="sinceWorking" cssClass="error" /></div>
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-4 control-label required"><spring:message code="label.salaryPerMonth" text="default text" /></label>
-									<div class="col-sm-8">
-										 <form:input path="salaryperMonth"  placeHolder="Enter Salary Per Month"  class="form-control" />
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-4 control-label required"><spring:message code="label.salaryPerYear" text="default text" /></label>
-									<div class="col-sm-8">
-										 <form:input path="salaryperyear" placeHolder="Enter Salary Per Year"   class="form-control" />
-									</div>
-								</div>
-							</div>
-							<div class="col-lg-6">
-								<legend>for NRI - Visa Details</legend>
-								<div class="form-group">
-									<label class="col-sm-4 control-label required"><spring:message code="label.citizenOf" text="default text" /> <span style="color:red;">*</span></label>
-									<div class="col-md-4">
-										<form:select path="ncitizenOf" class="form-control" onblur="validate33(this.id);"  style="width:200px;" >
-											<form:option value="">-- Choose Citizen Of --</form:option>
-											<form:options items="${countries}"></form:options>
-										</form:select>
-									<span class="hasError" id="ncitizenOfError"></span>
-									<div><form:errors path="ncitizenOf" cssClass="error" /></div>
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-4 control-label required"><spring:message code="label.currentResidenceCountry" text="default text" /> <span style="color:red;">*</span></label>
-									<div class="col-md-4">
-										<form:select path="crCountry" class="form-control"  onblur="validate34(this.id);" style="width:200px;" >
+									  	<form:select path="currentCountry" onfocus="removeBorder(this.id)"  onblur="validate(this.id,'');"   class="form-control" >
 											<form:option value="">-- Choose Country --</form:option>
 											<form:options items="${countries}"></form:options>
 										</form:select>
-									<span class="hasError" id="crCountryError"></span>
-									<div><form:errors path="crCountry" cssClass="error" /></div>
+								  		<div><form:errors path="currentCountry" cssClass="error" /></div>
 									</div>
-								</div>
+							  	</div>
+							</div>
+							<div class="col-md-4">
 								<div class="form-group">
-									<label class="col-sm-4 control-label required"><spring:message code="label.visaType" text="default text" /></label>
+									<label class="col-sm-4 control-label required">You live in <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-										 <form:input path="visaType" placeholder="Enter Visa Type"  class="form-control" />
+									  	<form:select path="currentState" onfocus="removeBorder(this.id)" onchange="getCitys(this.id)" onblur="validate(this.id,'');"    class="form-control" >
+											<form:option value="">-- Choose State --</form:option>
+												<form:options items="${states }" ></form:options>
+										</form:select>
+								  		<div><form:errors path="currentState" cssClass="error" /></div>
 									</div>
-								</div>
+							  	</div>
+							</div>
+							<div class="col-md-4">
 								<div class="form-group">
-									<label class="col-sm-4 control-label required"><spring:message code="label.stayingSince" text="default text" /></label>
-									<div class="col-md-8">
-										<form:input path="stayingSince"  placeHolder="Enter Staying Since" class="form-control" />
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-4 control-label required"><spring:message code="label.visaValidity" text="default text" /></label>
+									<label class="col-sm-4 control-label required">You live in <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-											<form:input path="visaValidity" placeHolder="Enter Visa Validity"  class="form-control" />
+									  	<form:select path="currentCity" onfocus="removeBorder(this.id)"  onblur="validate(this.id,'');"   class="form-control" >
+											<form:option value="">-- Choose City --</form:option>
+											<form:options items="${citys }"></form:options>
+										</form:select>
+								  		<div><form:errors path="currentCity" cssClass="error" /></div>
 									</div>
-								</div>
+							  	</div>
 							</div>
 						</div>
+						
 						<div class="row">
-							<div class="col-md-3"></div>
-							<div class="col-md-6">
-								<legend align="center">Requirement</legend>
+							<div class="col-md-4">
 								<div class="form-group">
-									<label class="col-sm-4 control-label required"><spring:message code="label.ageGap" text="default text" /> <span style="color:red;">*</span></label>
+									<label class="col-sm-4 control-label required">Marital Status <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-										<form:input path="ageGap"  placeholder="Enter Age Gap"  onblur="validate35(this.id);" autocomplete="pff"  class="form-control " />
-										<div class="errorMessage" id="Users_req_age_em_" style="display:none"></div>
-									<span class="hasError" id="ageGapError"></span>
-									<div><form:errors path="ageGap" cssClass="error" /></div>
+										<form:select path="maritalStatus" class="form-control u"   onblur="validate(this.id,'');"  onfocus="removeBorder(this.id)">
+											<form:option value="">-- Martial Status --</form:option>
+											<form:option value="Married">Married</form:option>
+											<form:option value="Unmarried">Unmarried</form:option>
+											<form:option value="Widow/Divorced">Widow/Divorced</form:option>
+										</form:select>
+								  		<div><form:errors path="maritalStatus" cssClass="error" /></div>
 									</div>
-								</div>
+							  	</div>
+							</div>
+							<div class="col-md-4">
 								<div class="form-group">
-									<label class="col-sm-4 control-label required"><spring:message code="label.heightFrom" text="default text" /> <span style="color:red;">*</span></label>
-									<div class="col-sm-3">
-										<form:select path="rHeightFrom"  onblur="validate36(this.id);" class="form-control" >
-											<form:option value="">-- Choose Height --</form:option>
-											<form:options items="${height}"></form:options>
-										</form:select>
-										<%-- <form:select path="heightFrom" class="form-control" tabindex="2" required="true">
-											<form:option value="" >-- Choose Height --</form:option>
-										</form:select>
-								  		<div><form:errors path="heightFrom" cssClass="error" /></div> --%>
-									<span class="hasError" id="rHeightFromError"></span>
-									<div><form:errors path="rHeightFrom" cssClass="error" /></div>
-									</div>
-									<label class="col-sm-2 control-label required" style="text-align: center;"><spring:message code="label.to" text="default text"/></label>
-									<div class="col-sm-3">
-										<form:select path="rHeightTo" onblur="validate37(this.id);"  class="form-control">
-											<form:option value="">-- Choose Height --</form:option>
-											<form:options items="${height}"></form:options>
-										</form:select>
-										<%-- <form:select path="heightTo" class="form-control" tabindex="2" required="true">
-											<form:option value="" >-- Choose Height --</form:option>
-										</form:select>
-								  		<div><form:errors path="heightTo" cssClass="error" /></div> --%>
-									<span class="hasError" id="rHeightToError"></span>
-									<div><form:errors path="rHeightTo" cssClass="error" /></div>
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-4 control-label required"><spring:message code="label.complexion" text="default text" /> <span style="color:red;">*</span></label>
+									<label class="col-sm-4 control-label required">Community <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-										<form:select path="rComplexion" class="form-control"  onblur="validate38(this.id);" style="width:200px;" >
-											<form:option value="">-- Choose Complexion --</form:option>
-											<form:options items="${complexion}"></form:options>
-										</form:select>						
-								  		<%-- <div><form:errors path="complexion" cssClass="error" /></div> --%>
-									<span class="hasError" id="rComplexionError"></span>
-									<div><form:errors path="rComplexion" cssClass="error" /></div>
+									  	<form:select path="caste" class="form-control u"  onblur="validate(this.id,'');"   onfocus="removeBorder(this.id)">
+											<form:option value="">-- Choose Community --</form:option>
+											<form:options items="${cast}"></form:options>
+										</form:select>
+								  		<div><form:errors path="caste" cssClass="error" /></div>
 									</div>
-								</div>
+							  	</div>
+							</div>
+							<div class="col-md-4">
 								<div class="form-group">
-									<label class="col-sm-4 control-label required"><spring:message code="label.profession" text="default text" /> <span style="color:red;">*</span></label>
+									<label class="col-sm-4 control-label required">Gotram </label>
 									<div class="col-sm-8">
-										<form:select path="rprofession" class="form-control"   onblur="validate39(this.id);"  style="width:200px;" >
-											<form:option value="">-- Choose Profession --</form:option>
+									  	<form:input path="gotram" type="text" class="form-control onlyCharacters u" placeholder="Enter Gotram" maxlength="255"/>
+								  		<div><form:errors path="gotram" cssClass="error" /></div>
+									</div>
+							  	</div>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="col-sm-4 control-label required">Nakshatram </label>
+									<div class="col-sm-8">
+										<form:select path="star" class="form-control u">
+											<form:option value="">-- Choose Nakshatram --</form:option>
+											<form:options items="${star}"></form:options>
+										</form:select>
+								  		<div><form:errors path="star" cssClass="error" /></div>
+									</div>
+							  	</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="col-sm-4 control-label required">Dosham </label>
+									<div class="col-sm-8">
+									  	<form:select path="dosam" class="form-control u">
+											<form:option value="">-- Dosham --</form:option>
+											<form:option value="Yes">Yes</form:option>
+											<form:option value="No">No</form:option>
+											<form:option value="Don't Know">Don't Know</form:option>
+										</form:select>
+								  		<div><form:errors path="dosam" cssClass="error" /></div>
+									</div>
+							  	</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="col-sm-4 control-label required">Dosham Name </label>
+									<div class="col-sm-8">
+										<form:input path="dosamName" type="text" class="form-control onlyCharacters u" placeholder="Enter Dosham Name" maxlength="255"/>
+										<div><form:errors path="dosamName" cssClass="error" /></div>
+									</div>
+							  	</div>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-md-12">
+								<legend>Education & Career Details</legend>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="col-sm-4 control-label required">Education level <span style="color:red;">*</span></label>
+									<div class="col-sm-8">
+										<form:select path="education" class="form-control u"  onblur="validate(this.id,'');"   onfocus="removeBorder(this.id)">
+											<form:option value="">-- Choose Education --</form:option>
+											<form:options items="${education}"></form:options>
+										</form:select>
+								  		<div><form:errors path="education" cssClass="error" /></div>
+									</div>
+							  	</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="col-sm-4 control-label required">You work with </label>
+									<div class="col-sm-8">
+										<form:select path="workingWith" class="form-control u">
+											<form:option value="">-- Select --</form:option>
+											<form:option value="Private Company">Private Company</form:option>
+											<form:option value="Government/Public Sector">Government/Public Sector</form:option>
+											<form:option value="Defense/Civil Services">Defense/Civil Services</form:option>
+											<form:option value="Not Working">Not Working</form:option>
+										</form:select>
+								  		<div><form:errors path="workingWith" cssClass="error" /></div>
+									</div>
+							  	</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group" style="display: none;">
+									<label class="col-sm-4 control-label required">Company Name </label>
+									<div class="col-sm-8">
+										<form:input path="companyName" type="text" class="form-control onlyCharacters u" placeholder="Enter Company Name" maxlength="255"/>
+										<div><form:errors path="companyName" cssClass="error" /></div>
+									</div>
+							  	</div>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="col-sm-4 control-label required">As </label>
+									<div class="col-sm-8">
+										<form:select path="occupation" class="form-control u">
+											<form:option value="">-- Choose Occupation --</form:option>
 											<form:options items="${occupation}"></form:options>
 										</form:select>
-										<%-- <form:input path="profession" type="text" class="form-control" maxlength="255"/>						
-								  		<div><form:errors path="profession" cssClass="error" /></div> --%>
-									<span class="hasError" id="rprofessionError"></span>
-									<div><form:errors path="rprofession" cssClass="error" /></div>
+								  		<div><form:errors path="occupation" cssClass="error" /></div>
 									</div>
-								</div>
+							  	</div>
+							</div>
+							<div class="col-md-4">
 								<div class="form-group">
-									<div class="col-sm-8 col-sm-offset-4">
-									<form:checkbox path="showall" value="1"/>
-<!-- 										<input value="1" checked="checked" name="profile_pic_status" id="profile_pic_status" type="checkbox" style="cursor: pointer;"> -->
-										<label class="control-label" for="profile_pic_status" style="cursor: pointer;">Show Profile photo to all</label>					
+									<label class="col-sm-4 control-label required">Annual Income </label>
+									<div class="col-sm-8">
+										<form:select path="annualIncome" class="form-control u" onblur="validate('salaryperyear','');" onfocus="removeBorder(this.id)">
+											<form:option value="">-- Annual Income --</form:option>
+											<form:option value="Upto INR 1 Lakh">Upto INR 1 Lakh</form:option>
+											<form:option value="INR 2 Lakh to 4 Lakh">INR 2 Lakh to 4 Lakh</form:option>
+											<form:option value="INR 5 Lakh to 7 Lakh">INR 5 Lakh to 7 Lakh</form:option>
+											<form:option value="Above INR 7 Lakh">Above INR 7 Lakh</form:option>
+										</form:select>
+										<div><form:errors path="annualIncome" cssClass="error" /></div>
 									</div>
-			 					</div>
-			 					<div class="form-group">
-									<div class="col-sm-8 col-sm-offset-4">
-										<input value="1" checked="true" name="Users_terms" id="Users_terms" type="checkbox" style="cursor: pointer;" onclick="validate40(this.id);">
-										<label class="control-label" for="Users_terms" style="cursor: pointer;" onclick="validate40(this.id);">I accept the Terms & Conditions <span style="color:red;">*</span></label>					
-										<br><span class="hasError" id="Users_termsError"></span>
-									</div>
-			 					</div>
+							  	</div>
 							</div>
-							<div class="col-md-3"></div>
-						</div>
-						<div class="col-sm-6 col-sm-offset-4">
-							<div class="form-group">
-								<div class="col-sm-8 col-sm-offset-2"><input class="btn btn btn-primary" type="submit"  id="submit11" name="yt0" value="Register"></div>
+							<div class="col-md-4">
+								
 							</div>
 						</div>
+						
+						<div class="row">
+							<div class="col-md-12">
+								<legend>Personal Details</legend>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="col-sm-4 control-label required">What's your diet? </label>
+									<div class="col-sm-8">
+										<form:select path="diet" class="form-control u" >
+											<form:option value="">-- Select Diet--</form:option>
+											<form:option value="Veg">Veg</form:option>
+											<form:option value="Non-Veg">Non-Veg</form:option>
+											<form:option value="Occasionally Non-Veg">Occasionally Non-Veg</form:option>
+											<form:option value="Eggetarian">Eggetarian</form:option>
+											<form:option value="Jain">Jain</form:option>
+											<form:option value="Vegan">Vegan</form:option>
+										</form:select>
+								  		<div><form:errors path="diet" cssClass="error" /></div>
+									</div>
+							  	</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="col-sm-4 control-label required">Smoke? <span style="color:red;">*</span></label>
+									<div class="col-sm-8">
+										<form:select path="smoking" class="form-control u"   onblur="validate(this.id,'');"  onfocus="removeBorder(this.id)">
+											<form:option value="">-- Do you Smoke --</form:option>
+											<form:option value="No">No</form:option>
+											<form:option value="Occasionally">Occasionally</form:option>
+											<form:option value="Yes">Yes</form:option>
+										</form:select>
+								  		<div><form:errors path="smoking" cssClass="error" /></div>
+									</div>
+							  	</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="col-sm-4 control-label required">Drink? <span style="color:red;">*</span></label>
+									<div class="col-sm-8">
+										<form:select path="drinking" class="form-control u"  onblur="validate(this.id,'');"   onfocus="removeBorder(this.id)">
+											<form:option value="">-- Do you Drink --</form:option>
+											<form:option value="No">No</form:option>
+											<form:option value="Occasionally">Occasionally</form:option>
+											<form:option value="Yes">Yes</form:option>
+										</form:select>
+										<div><form:errors path="drinking" cssClass="error" /></div>
+									</div>
+							  	</div>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="col-sm-4 control-label required">Your Height? <span style="color:red;">*</span></label>
+									<div class="col-sm-8">
+										<form:select path="height" class="form-control u"  onblur="validate(this.id,'');"   onfocus="removeBorder(this.id)">
+											<form:option value="">-- Choose Height --</form:option>
+											<form:options items="${height}"></form:options>
+										</form:select>
+								  		<div><form:errors path="height" cssClass="error" /></div>
+									</div>
+							  	</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="col-sm-4 control-label required">Body Type</label>
+									<div class="col-sm-8">
+										<form:select path="bodyType" class="form-control u">
+											<form:option value="">-- Choose Body Type --</form:option>
+											<form:options items="${bodyType}"></form:options>
+										</form:select>
+								  		<div><form:errors path="bodyType" cssClass="error" /></div>
+									</div>
+							  	</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="col-sm-4 control-label required">Skin tone</label>
+									<div class="col-sm-8">
+										<form:select path="complexion" class="form-control u">
+											<form:option value="">-- Choose Skin tone --</form:option>
+											<form:options items="${complexion}"></form:options>
+										</form:select>
+										<div><form:errors path="complexion" cssClass="error" /></div>
+									</div>
+							  	</div>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="col-sm-4 control-label required">Mobile <span style="color:red;">*</span></label>
+									<div class="col-sm-8">
+										<form:input path="mobile" class="form-control numericOnly u" onblur="validate(this.id,'Enter Mobile');"   onkeydown="removeBorder(this.id)" maxlength="13" placeholder="Mobile Number"/>
+										<div><form:errors path="mobile" cssClass="error" /></div>
+									</div>
+							  	</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="col-sm-4 control-label required">About myself</label>
+									<div class="col-sm-8">
+										<form:textarea rows="4" path="aboutMyself" class="form-control onlyCharacters u" placeholder="Enter few words about you"></form:textarea>
+								  		<div><form:errors path="aboutMyself" cssClass="error" /></div>
+									</div>
+							  	</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="col-sm-4 control-label required">Any Disability?</label>
+									<div class="col-sm-8">
+										<form:select path="disability" class="form-control u">
+											<form:option value="">-- Choose Disability --</form:option>
+											<form:option value="None">None</form:option>
+											<form:option value="Physical Disability">Physical Disability</form:option>
+										</form:select>
+										<div><form:errors path="disability" cssClass="error" /></div>
+									</div>
+							  	</div>
+							</div>
+						</div>
+						
+						<jsp:include page="p1.jsp" /> 
+						<div class="row">
+							<div class="col-md-offset-5 col-md-4">
+								<div class="form-group">
+								<div class=" col-md-offset-1 col-md-6">
+									<input class="btn btn btn-primary" type="submit" id="submit11" name="yt0" value="Submit">
+									<input class="btn btn btn-danger" type="reset" id="reset11" name="yt1" value="Cancel">
+								</div>
+								</div>
+							</div>
+						</div>						
 					</form:form>
 					<!-- Create Profile Form Ends Here-->
 				</div>
@@ -941,572 +558,174 @@ $("#dob").datepicker({
 });
 $('#tob').mdtimepicker(); //Initializes the time picker
 
+function validate(id, errorMessage)
+{
+	var styleBlock = '.placeholder-style.placeholder-style::-moz-placeholder {color: #cc0000;} .placeholder-style::-webkit-input-placeholder {color: #cc0000;}';
+	if($('#'+id).val() ==  null || $('#'+id).val() == ""  || $('#'+id).val()=="undefined" ) {
+		$('style').append(styleBlock);
+		$('#'+id).css('border-color','#cc0000');
+		$('#'+id).attr('placeholder',errorMessage);
+		$('#'+id).addClass('placeholder-style');
+//			$('#'+id).css('color','#cc0000');
+//			$('#'+id+'Error').text(errorMessage);
+	}else{
+		$('#'+id).css('border-color','');
+		$('#'+id).removeClass('placeholder-style');
+//			$('#'+id).css('color','');
+//			$('#'+id+'Error').text("");
+	}
+}
 
-function validate(id){
-	if($('#created_by').val() ==  null || $('#created_by').val() == ""  || $('#created_by').val()=="undefined" ) {
-		$('#created_byError').css('color','red');
-	    $("#created_byError").text("Created By Cannot be blank.");
-	}else{
-		$("#created_byError").text("");
-	}
-	}
-function validate1(id){
-	if($('#executiveName').val() ==  null || $('#executiveName').val() == ""  || $('#executiveName').val()=="undefined" ) {
-		$('#executiveNameError').css('color','red');
-	    $("#executiveNameError").text("Executive Name Cannot be blank.");
-	}else{
-		$("#executiveNameError").text("");
-	}
-	}
-function validate2(id){
-	if($('#cast').val() ==  null || $('#cast').val() == ""  || $('#cast').val()=="undefined" ) {
-		$('#castError').css('color','red');
-	    $("#castError").text("Cast Cannot be blank.");
-	}else{
-		$("#castError").text("");
-	}
-	}
-function validate3(id){
-	if($('#subCaste').val() ==  null || $('#subCaste').val() == ""  || $('#subCaste').val()=="undefined" ) {
-		$('#subCasteError').css('color','red');
-	    $("#subCasteError").text("Sub Caste Cannot be blank.");
-	}else{
-		$("#subCasteError").text("");
-	}
-	}
-function validate4(id){
-	if($('#sname').val() ==  null || $('#sname').val() == ""  || $('#sname').val()=="undefined" ) {
-		$('#snameError').css('color','red');
-	    $("#snameError").text("SurName Cannot be blank.");
-	}else{
-		$("#snameError").text("");
-	}
-	}
-function validate5(id){
-	if($('#name').val() ==  null || $('#name').val() == ""  || $('#name').val()=="undefined" ) {
-		$('#nameError').css('color','red');
-	    $("#nameError").text("Name Cannot be blank.");
-	}else{
-		$("#nameError").text("");
-	}
-	}
-function validate6(id){
-	if($('#gender').val() ==  null || $('#gender').val() == ""  || $('#gender').val()=="undefined" ) {
-		$('#genderError').css('color','red');
-	    $("#genderError").text("Gender Cannot be blank.");
-	}else{
-		$("#genderError").text("");
-	}
-	}
-function validate7(id){
-	if($('#dob').val() ==  null || $('#dob').val() == ""  || $('#dob').val()=="undefined" ) {
-		$('#dobError').css('color','red');
-	    $("#dobError").text("Date of Brith Cannot be blank.");
-	}else{
-		$("#dobError").text("");
-	}
-	}
-function validate8(id){
-	if($('#pob').val() ==  null || $('#pob').val() == ""  || $('#pob').val()=="undefined" ) {
-		$('#pobError').css('color','red');
-	    $("#pobError").text("Place of Brith Cannot be blank.");
-	}else{
-		$("#pobError").text("");
-	}
-	}
-function validate9(id){
-	if($('#height').val() ==  null || $('#height').val() == ""  || $('#height').val()=="undefined" ) {
-		$('#heightError').css('color','red');
-	    $("#heightError").text(" Height Cannot be blank.");
-	}else{
-		$("#heightError").text("");
-	}
-	}
-function validate10(id){
-	if($('#complexion').val() ==  null || $('#complexion').val() == ""  || $('#complexion').val()=="undefined" ) {
-		$('#complexionError').css('color','red');
-	    $("#complexionError").text(" Complexion Cannot be blank.");
-	}else{
-		$("#complexionError").text("");
-	}
-	}
-function validate11(id){
-	if($('#gotram').val() ==  null || $('#gotram').val() == ""  || $('#gotram').val()=="undefined" ) {
-		$('#gotramError').css('color','red');
-	    $("#gotramError").text(" Gotram Cannot be blank.");
-	}else{
-		$("#gotramError").text("");
-	}
-	}
-function validate12(id){
-	if($('#religion').val() ==  null || $('#religion').val() == ""  || $('#religion').val()=="undefined" ) {
-		$('#religionError').css('color','red');
-	    $("#religionError").text(" Religion Cannot be blank.");
-	}else{
-		$("#religionError").text("");
-	}
-	}
-function validate13(id){
-	if($('#mtongue').val() ==  null || $('#mtongue').val() == ""  || $('#mtongue').val()=="undefined" ) {
-		$('#mtongueError').css('color','red');
-	    $("#mtongueError").text(" Mother Tongue Cannot be blank.");
-	}else{
-		$("#mtongueError").text("");
-	}
-	}
-/* function validate13(id){
-	if($('#mtongue').val() ==  null || $('#mtongue').val() == ""  || $('#mtongue').val()=="undefined" ) {
-		$('#mtongueError').css('color','red');
-	    $("#mtongueError").text(" Mtongue cannot be blank.");
-	}else{
-		$("#mtongueError").text("");
-	}
-	} */
-function validate14(id){
-	if($('#aboutYourself').val() ==  null || $('#aboutYourself').val() == ""  || $('#aboutYourself').val()=="undefined" ) {
-		$('#aboutYourselfError').css('color','red');
-	    $("#aboutYourselfError").text(" About YourSelf Cannot be blank.");
-	}else{
-		$("#aboutYourselfError").text("");
-	}
-	}
-function validate15(id){
-	if($('#fname').val() ==  null || $('#fname').val() == ""  || $('#fname').val()=="undefined" ) {
-		$('#fnameError').css('color','red');
-	    $("#fnameError").text(" Father Name Cannot be blank.");
-	}else{
-		$("#fnameError").text("");
-	}
-	}
-function validate16(id){
-	if($('#feducation').val() ==  null || $('#feducation').val() == ""  || $('#feducation').val()=="undefined" ) {
-		$('#feducationError').css('color','red');
-	    $("#feducationError").text(" Father Education Cannot be blank.");
-	}else{
-		$("#feducationError").text("");
-	}
-	}
-function validate17(id){
-	if($('#foccupation').val() ==  null || $('#foccupation').val() == ""  || $('#foccupation').val()=="undefined" ) {
-		$('#foccupationError').css('color','red');
-	    $("#foccupationError").text(" Father Occupation Cannot be blank.");
-	}else{
-		$("#foccupationError").text("");
-	}
-	}
-function validate18(id){
-	if($('#fnativeAddress').val() ==  null || $('#fnativeAddress').val() == ""  || $('#fnativeAddress').val()=="undefined" ) {
-		$('#fnativeAddressError').css('color','red');
-	    $("#fnativeAddressError").text(" Father Native Address Cannot be blank.");
-	}else{
-		$("#fnativeAddressError").text("");
-	}
-	}
-function validate19(id){
-	if($('#presentAddress').val() ==  null || $('#presentAddress').val() == ""  || $('#presentAddress').val()=="undefined" ) {
-		$('#presentAddressError').css('color','red');
-	    $("#presentAddressError").text(" Present Address Cannot be blank.");
-	}else{
-		$("#presentAddressError").text("");
-	}
-	}
-function validate20(id){
-	if($('#mobile').val() ==  null || $('#mobile').val() == ""  || $('#mobile').val()=="undefined" ) {
-		$('#phone1Error').css('color','red');
-	    $("#phone1Error").text(" Mobile Cannot be blank.");
-	}else{
-		$("#phone1Error").text("");
-	}
-	}
-function validate21(id){
-	if($('#email').val() ==  null || $('#email').val() == ""  || $('#email').val()=="undefined" ) {
-		$('#emailError').css('color','red');
-	    $("#emailError").text(" Email Cannot be blank.");
-	}else{
-		$("#emailError").text("");
-	}
-	}
-function validate22(id){
-	if($('#mname').val() ==  null || $('#mname').val() == ""  || $('#mname').val()=="undefined" ) {
-		$('#mnameError').css('color','red');
-	    $("#mnameError").text("Mother Name Cannot be blank.");
-	}else{
-		$("#mnameError").text("");
-	}
-	}
-function validate23(id){
-	if($('#meducation').val() ==  null || $('#meducation').val() == ""  || $('#meducation').val()=="undefined" ) {
-		$('#meducationError').css('color','red');
-	    $("#meducationError").text(" Mother Education Cannot be blank.");
-	}else{
-		$("#meducationError").text("");
-	}
-	}
-function validate24(id){
-	if($('#mfName').val() ==  null || $('#mfName').val() == ""  || $('#mfName').val()=="undefined" ) {
-		$('#mfNameError').css('color','red');
-	    $("#mfNameError").text(" Mother Father's Cannot be blank.");
-	}else{
-		$("#mfNameError").text("");
-	}
-	}
-function validate25(id){
-	if($('#mnativeAddress').val() ==  null || $('#mnativeAddress').val() == ""  || $('#mnativeAddress').val()=="undefined" ) {
-		$('#mnativeAddressError').css('color','red');
-	    $("#mnativeAddressError").text(" Mother Native Address Cannot be blank.");
-	}else{
-		$("#mnativeAddressError").text("");
-	}
-	}
-function validate26(id){
-	if($('#sibilings').val() ==  null || $('#sibilings').val() == ""  || $('#sibilings').val()=="undefined" ) {
-		$('#sibilingsError').css('color','red');
-	    $("#sibilingsError").text("Sibilings Cannot be blank.");
-	}else{
-		$("#sibilingsError").text("");
-	}
-	}
-function validate27(id){
-	if($('#property').val() ==  null || $('#property').val() == ""  || $('#property').val()=="undefined" ) {
-		$('#propertyError').css('color','red');
-	    $("#propertyError").text(" Property Cannot be blank.");
-	}else{
-		$("#propertyError").text("");
-	}
-	}
-function validate28(id){
-	if($('#branch').val() ==  null || $('#branch').val() == ""  || $('#branch').val()=="undefined" ) {
-		$('#branchError').css('color','red');
-	    $("#branchError").text(" Branch Cannot be blank.");
-	}else{
-		$("#branchError").text("");
-	}
-	}
-function validate29(id){
-	if($('#education').val() ==  null || $('#education').val() == ""  || $('#education').val()=="undefined" ) {
-		$('#educationError').css('color','red');
-	    $("#educationError").text(" Education Cannot be blank.");
-	}else{
-		$("#educationError").text("");
-	}
-	}
-function validate30(id){
-	if($('#occupation').val() ==  null || $('#occupation').val() == ""  || $('#occupation').val()=="undefined" ) {
-		$('#occupationError').css('color','red');
-	    $("#occupationError").text(" Occupation Cannot be blank.");
-	}else{
-		$("#occupationError").text("");
-	}
-	}
-function validate31(id){
-	if($('#occupationDetails').val() ==  null || $('#occupationDetails').val() == ""  || $('#occupationDetails').val()=="undefined" ) {
-		$('#occupationDetailsError').css('color','red');
-	    $("#occupationDetailsError").text(" Occupation Details Cannot be blank.");
-	}else{
-		$("#occupationDetailsError").text("");
-	}
-	}
-function validate32(id){
-	if($('#sinceWorking').val() ==  null || $('#sinceWorking').val() == ""  || $('#sinceWorking').val()=="undefined" ) {
-		$('#sinceWorkingError').css('color','red');
-	    $("#sinceWorkingError").text(" Since Working Cannot be blank.");
-	}else{
-		$("#sinceWorkingError").text("");
-	}
-	}
-function validate33(id){
-	if($('#ncitizenOf').val() ==  null || $('#ncitizenOf').val() == ""  || $('#ncitizenOf').val()=="undefined" ) {
-		$('#ncitizenOfError').css('color','red');
-	    $("#ncitizenOfError").text(" Citizen of Cannot be blank.");
-	}else{
-		$("#ncitizenOfError").text("");
-	}
-	}
-function validate34(id){
-	if($('#crCountry').val() ==  null || $('#crCountry').val() == ""  || $('#crCountry').val()=="undefined" ) {
-		$('#crCountryError').css('color','red');
-	    $("#crCountryError").text(" Country Cannot be blank.");
-	}else{
-		$("#crCountryError").text("");
-	}
-	}
-function validate35(id){
-	if($('#ageGap').val() ==  null || $('#ageGap').val() == ""  || $('#ageGap').val()=="undefined" ) {
-		$('#ageGapError').css('color','red');
-	    $("#ageGapError").text(" Age Gap Cannot be blank.");
-	}else{
-		$("#ageGapError").text("");
-	}
-	}
-function validate36(id){
-	if($('#rHeightFrom').val() ==  null || $('#rHeightFrom').val() == ""  || $('#rHeightFrom').val()=="undefined" ) {
-		$('#rHeightFromError').css('color','red');
-	    $("#rHeightFromError").text("Height From Cannot be blank.");
-	}else{
-		$("#rHeightFromError").text("");
-	}
-	}
-function validate37(id){
-	if($('#rHeightTo').val() ==  null || $('#rHeightTo').val() == ""  || $('#rHeightTo').val()=="undefined" ) {
-		$('#rHeightToError').css('color','red');
-	    $("#rHeightToError").text(" Height To Cannot be blank.");
-	}else{
-		$("#rHeightToError").text("");
-	}
-	}
-function validate38(id){
-	if($('#rComplexion').val() ==  null || $('#rComplexion').val() == ""  || $('#rComplexion').val()=="undefined" ) {
-		$('#rComplexionError').css('color','red');
-	    $("#rComplexionError").text(" Complexion Cannot be blank.");
-	}else{
-		$("#rComplexionError").text("");
-	}
-	}
-function validate39(id){
-	if($('#rprofession').val() ==  null || $('#rprofession').val() == ""  || $('#rprofession').val()=="undefined" ) {
-		$('#rprofessionError').css('color','red');
-	    $("#rprofessionError").text(" Profession Cannot be blank.");
-	}else{
-		$("#rprofessionError").text("");
-	}
-	}
-function validate40(id){
-	if($('#Users_terms').prop("checked") == false || $('#Users_terms').val() != 1 || $('#Users_terms').val()=="undefined") {
-		$('#Users_termsError').css('color','red');
-	    $("#Users_termsError").text("Please Check The Terms & Conditions.");
-	}else if($('#Users_terms').prop("checked") == true){$('#Users_termsError').text("");}
-	} 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-$("#submit11").click(function()
-		{			
-			if($('#created_by').val() ==  null || $('#created_by').val() == ""  || $('#created_by').val()=="undefined" ||$('#executiveName').val() ==  null || $('#executiveName').val() == ""  || $('#executiveName').val()=="undefined"||$('#cast').val() ==  null || $('#cast').val() == ""  || $('#cast').val()=="undefined" ||$('#subCaste').val() ==  null || $('#subCaste').val() == ""  || $('#subCaste').val()=="undefined"||$('#sname').val() ==  null || $('#sname').val() == ""  || $('#sname').val()=="undefined" ||$('#name').val() ==  null || $('#name').val() == ""  || $('#name').val()=="undefined" ||$('#gender').val() ==  null || $('#gender').val() == ""  || $('#gender').val()=="undefined" ||$('#dob').val() ==  null || $('#dob').val() == ""  || $('#dob').val()=="undefined"||$('#pob').val() ==  null || $('#pob').val() == ""  || $('#pob').val()=="undefined"||$('#height').val() ==  null || $('#height').val() == ""  || $('#height').val()=="undefined"||$('#complexion').val() ==  null || $('#complexion').val() == ""  || $('#complexion').val()=="undefined"||$('#gotram').val() ==  null || $('#gotram').val() == ""  || $('#gotram').val()=="undefined"||$('#religion').val() ==  null || $('#religion').val() == ""  || $('#religion').val()=="undefined"||$('#mtongue').val() ==  null || $('#mtongue').val() == ""  || $('#mtongue').val()=="undefined"||$('#aboutYourself').val() ==  null || $('#aboutYourself').val() == ""  || $('#aboutYourself').val()=="undefined"||$('#fname').val() ==  null || $('#fname').val() == ""  || $('#fname').val()=="undefined"||$('#feducation').val() ==  null || $('#feducation').val() == ""  || $('#feducation').val()=="undefined"||$('#foccupation').val() ==  null || $('#foccupation').val() == ""  || $('#foccupation').val()=="undefined"||$('#fnativeAddress').val() ==  null || $('#fnativeAddress').val() == ""  || $('#fnativeAddress').val()=="undefined"||$('#presentAddress').val() ==  null || $('#presentAddress').val() == ""  || $('#presentAddress').val()=="undefined"||$('#mobile').val() ==  null || $('#mobile').val() == ""  || $('#mobile').val()=="undefined"||$('#email').val() ==  null || $('#email').val() == ""  || $('#email').val()=="undefined"||$('#mname').val() ==  null || $('#mname').val() == ""  || $('#mname').val()=="undefined"||$('#meducation').val() ==  null || $('#meducation').val() == ""  || $('#meducation').val()=="undefined"||$('#mfName').val() ==  null || $('#mfName').val() == ""  || $('#mfName').val()=="undefined"||$('#mnativeAddress').val() ==  null || $('#mnativeAddress').val() == ""  || $('#mnativeAddress').val()=="undefined"||$('#sibilings').val() ==  null || $('#sibilings').val() == ""  || $('#sibilings').val()=="undefined"||$('#property').val() ==  null || $('#property').val() == ""  || $('#property').val()=="undefined"||$('#branch').val() ==  null || $('#branch').val() == ""  || $('#branch').val()=="undefined"||$('#education').val() ==  null || $('#education').val() == ""  || $('#education').val()=="undefined"||$('#occupation').val() ==  null || $('#occupation').val() == ""  || $('#occupation').val()=="undefined"||$('#occupationDetails').val() ==  null || $('#occupationDetails').val() == ""  || $('#occupationDetails').val()=="undefined"||($('#sinceWorking').val() ==  null || $('#sinceWorking').val() == ""  || $('#sinceWorking').val()=="undefined")||$('#ncitizenOf').val() ==  null || $('#ncitizenOf').val() == ""  || $('#ncitizenOf').val()=="undefined"||$('#crCountry').val() ==  null || $('#crCountry').val() == ""  || $('#crCountry').val()=="undefined"||$('#ageGap').val() ==  null || $('#ageGap').val() == ""  || $('#ageGap').val()=="undefined"||$('#rHeightFrom').val() ==  null || $('#rHeightFrom').val() == ""  || $('#rHeightFrom').val()=="undefined"||$('#rHeightTo').val() ==  null || $('#rHeightTo').val() == ""  || $('#rHeightTo').val()=="undefined"||$('#rComplexion').val() ==  null || $('#rComplexion').val() == ""  || $('#rComplexion').val()=="undefined"||$('#rprofession').val() ==  null || $('#rprofession').val() == ""  || $('#rprofession').val()=="undefined"||!this.form.Users_terms.checked || $('#Users_terms').val() != 1 || $('#Users_terms').val()=="undefined")
-			{
-				if($('#created_by').val() ==  null || $('#created_by').val() == ""  || $('#created_by').val()=="undefined" ) 
-				{			    
-				    $('#created_byError').css('color','red');
-				    $("#created_byError").text("Created By Cannot be blank.");
-			    }
-				if($('#executiveName').val() ==  null || $('#executiveName').val() == ""  || $('#executiveName').val()=="undefined" ) 
-				{			    
-				    $('#executiveNameError').css('color','red');
-				    $("#executiveNameError").text("Executive Name Cannot be blank.");
-			    }
-				if($('#cast').val() ==  null || $('#cast').val() == ""  || $('#cast').val()=="undefined" ) 
-				{			    
-				    $('#castError').css('color','red');
-				    $("#castError").text("Cast Cannot be blank.");
-			    }
-				if($('#subCaste').val() ==  null || $('#subCaste').val() == ""  || $('#subCaste').val()=="undefined" ) 
-				{			    
-				    $('#subCasteError').css('color','red');
-				    $("#subCasteError").text("Sub Cast Cannot be blank.");
-			    }
-				if($('#sname').val() ==  null || $('#sname').val() == ""  || $('#sname').val()=="undefined" ) 
-				{			    
-				    $('#snameError').css('color','red');
-				    $("#snameError").text("Surname Cannot be blank.");
-			    }
-				if($('#name').val() ==  null || $('#name').val() == ""  || $('#name').val()=="undefined" ) 
-				{			    
-				    $('#nameError').css('color','red');
-				    $("#nameError").text("Name Cannot be blank.");
-			    }
-				if($('#gender').val() ==  null || $('#gender').val() == ""  || $('#gender').val()=="undefined" ) 
-				{			    
-				    $('#genderError').css('color','red');
-				    $("#genderError").text("Gender Cannot be blank.");
-			    }
-				if($('#dob').val() ==  null || $('#dob').val() == ""  || $('#dob').val()=="undefined" ) 
-				{			    
-				    $('#dobError').css('color','red');
-				    $("#dobError").text("Date of Brith Cannot be blank.");
-			    }
-				if($('#pob').val() ==  null || $('#pob').val() == ""  || $('#pob').val()=="undefined" ) 
-				{			    
-				    $('#pobError').css('color','red');
-				    $("#pobError").text("Place of Brith Cannot be blank.");
-			    }
-				if($('#height').val() ==  null || $('#height').val() == ""  || $('#height').val()=="undefined" ) 
-				{			    
-				    $('#heightError').css('color','red');
-				    $("#heightError").text("Height  Cannot be blank.");
-			    }
-				if($('#complexion').val() ==  null || $('#complexion').val() == ""  || $('#complexion').val()=="undefined" ) 
-				{			    
-					$('#complexionError').css('color','red');
-				    $("#complexionError").text("Complexion  Cannot be blank.");
-			    }
-				if($('#gotram').val() ==  null || $('#gotram').val() == ""  || $('#gotram').val()=="undefined" ) 
-				{			    
-				    $('#gotramError').css('color','red');
-				    $("#gotramError").text("Gotram  Cannot be blank.");
-			    }
-				if($('#religion').val() ==  null || $('#religion').val() == ""  || $('#religion').val()=="undefined" ) 
-				{			    
-				    $('#religionError').css('color','red');
-				    $("#religionError").text("Religion  Cannot be blank.");
-			    }
-				if($('#mtongue').val() ==  null || $('#mtongue').val() == ""  || $('#mtongue').val()=="undefined" ) 
-				{			    
-				    $('#mtongueError').css('color','red');
-				    $("#mtongueError").text("Mother Tongue  Cannot be blank.");
-			    }
-				/* if($('#mtongue').val() ==  null || $('#mtongue').val() == ""  || $('#mtongue').val()=="undefined" ) 
-				{			    
-				    $('#mtongueError').css('color','red');
-				    $("#mtongueError").text("MTongue  cannot be blank.");
-			    } */
-				if($('#aboutYourself').val() ==  null || $('#aboutYourself').val() == ""  || $('#aboutYourself').val()=="undefined" ) 
-				{			    
-				    $('#aboutYourselfError').css('color','red');
-				    $("#aboutYourselfError").text("About Yourself  cannot be blank.");
-			    }
-				if($('#fname').val() ==  null || $('#fname').val() == ""  || $('#fname').val()=="undefined" ) 
-				{			    
-				    $('#fnameError').css('color','red');
-				    $("#fnameError").text("Father Name  Cannot be blank.");
-			    }
-				if($('#feducation').val() ==  null || $('#feducation').val() == ""  || $('#feducation').val()=="undefined" ) 
-				{			    
-				    $('#feducationError').css('color','red');
-				    $("#feducationError").text("Father Education  Cannot be blank.");
-			    }
-				if($('#foccupation').val() ==  null || $('#foccupation').val() == ""  || $('#foccupation').val()=="undefined" ) 
-				{			    
-				    $('#foccupationError').css('color','red');
-				    $("#foccupationError").text("Father Occupation  Cannot be blank.");
-			    }
-				if($('#fnativeAddress').val() ==  null || $('#fnativeAddress').val() == ""  || $('#fnativeAddress').val()=="undefined" ) 
-				{			    
-				    $('#fnativeAddressError').css('color','red');
-				    $("#fnativeAddressError").text("Father Native Address  Cannot be blank.");
-			    }
-				if($('#presentAddress').val() ==  null || $('#presentAddress').val() == ""  || $('#presentAddress').val()=="undefined" ) 
-				{			    
-				    $('#presentAddressError').css('color','red');
-				    $("#presentAddressError").text("Present Address  Cannot be blank.");
-			    }
-				if($('#mobile').val() ==  null || $('#mobile').val() == ""  || $('#mobile').val()=="undefined" ) 
-				{			    
-				    $('#phone1Error').css('color','red');
-				    $("#phone1Error").text("Mobile Number  Cannot be blank.");
-			    }
-				if($('#email').val() ==  null || $('#email').val() == ""  || $('#email').val()=="undefined" ) 
-				{			    
-				    $('#emailError').css('color','red');
-				    $("#emailError").text("Email  Cannot be blank.");
-			    }
-				if($('#mname').val() ==  null || $('#mname').val() == ""  || $('#mname').val()=="undefined" ) 
-				{			    
-				    $('#mnameError').css('color','red');
-				    $("#mnameError").text("Mother Name  Cannot be blank.");
-			    }
-				if($('#meducation').val() ==  null || $('#meducation').val() == ""  || $('#meducation').val()=="undefined" ) 
-				{			    
-				    $('#meducationError').css('color','red');
-				    $("#meducationError").text("Mother Education  Cannot be blank.");
-			    }
-				if($('#mfName').val() ==  null || $('#mfName').val() == ""  || $('#mfName').val()=="undefined" ) 
-				{			    
-				    $('#mfNameError').css('color','red');
-				    $("#mfNameError").text("Mother Father's Name  Cannot be blank.");
-			    }
-				if($('#mnativeAddress').val() ==  null || $('#mnativeAddress').val() == ""  || $('#mnativeAddress').val()=="undefined" ) 
-				{			    
-				    $('#mnativeAddressError').css('color','red');
-				    $("#mnativeAddressError").text("Mother Native Address  Cannot be blank.");
-			    }
-				if($('#sibilings').val() ==  null || $('#sibilings').val() == ""  || $('#sibilings').val()=="undefined" ) 
-				{			    
-				    $('#sibilingsError').css('color','red');
-				    $("#sibilingsError").text("Sibilings  Cannot be blank.");
-			    }
-				if($('#property').val() ==  null || $('#property').val() == ""  || $('#property').val()=="undefined" ) 
-				{			    
-				    $('#propertyError').css('color','red');
-				    $("#propertyError").text("Property  Cannot be blank.");
-			    }
-				if($('#branch').val() ==  null || $('#branch').val() == ""  || $('#branch').val()=="undefined" ) 
-				{			    
-				    $('#branchError').css('color','red');
-				    $("#branchError").text("Branch  Cannot be blank.");
-			    }
-				if($('#education').val() ==  null || $('#education').val() == ""  || $('#education').val()=="undefined" ) 
-				{			    
-				    $('#educationError').css('color','red');
-				    $("#educationError").text("Education  Cannot be blank.");
-			    }
-				if($('#occupation').val() ==  null || $('#occupation').val() == ""  || $('#occupation').val()=="undefined" ) 
-				{			    
-				    $('#occupationError').css('color','red');
-				    $("#occupationError").text("Occupation  Cannot be blank.");
-			    }
-				if($('#occupationDetails').val() ==  null || $('#occupationDetails').val() == ""  || $('#occupationDetails').val()=="undefined" ) 
-				{			    
-				    $('#occupationDetailsError').css('color','red');
-				    $("#occupationDetailsError").text("Occupation Details  Cannot be blank.");
-			    }
-				if($('#sinceWorking').val() ==  null || $('#sinceWorking').val() == ""  || $('#sinceWorking').val()=="undefined" ) 
-				{			    
-				    $('#sinceWorkingError').css('color','red');
-				    $("#sinceWorkingError").text("Since Working  Cannot be blank.");
-			    }
-				if($('#ncitizenOf').val() ==  null || $('#ncitizenOf').val() == ""  || $('#ncitizenOf').val()=="undefined" ) 
-				{			    
-				    $('#ncitizenOfError').css('color','red');
-				    $("#ncitizenOfError").text("CitizenOf  Cannot be blank.");
-			    }
-				if($('#crCountry').val() ==  null || $('#crCountry').val() == ""  || $('#crCountry').val()=="undefined" ) 
-				{			    
-				    $('#crCountryError').css('color','red');
-				    $("#crCountryError").text("Country  Cannot be blank.");
-			    }
-				if($('#ageGap').val() ==  null || $('#ageGap').val() == ""  || $('#ageGap').val()=="undefined" ) 
-				{			    
-				    $('#ageGapError').css('color','red');
-				    $("#ageGapError").text("Age Gap  Cannot be blank.");
-			    }
-				if($('#rHeightFrom').val() ==  null || $('#rHeightFrom').val() == ""  || $('#rHeightFrom').val()=="undefined" ) 
-				{			    
-				    $('#rHeightFromError').css('color','red');
-				    $("#rHeightFromError").text("Height from  Cannot be blank.");
-			    }
-				if($('#rHeightTo').val() ==  null || $('#rHeightTo').val() == ""  || $('#rHeightTo').val()=="undefined" ) 
-				{			    
-				    $('#rHeightToError').css('color','red');
-				    $("#rHeightToError").text("Height To  Cannot be blank.");
-			    }
-				if($('#rComplexion').val() ==  null || $('#rComplexion').val() == ""  || $('#rComplexion').val()=="undefined" ) 
-				{			    
-				    $('#rComplexionError').css('color','red');
-				    $("#rComplexionError").text("Complexion  Cannot be blank.");
-			    }
-				if($('#rprofession').val() ==  null || $('#rprofession').val() == ""  || $('#rprofession').val()=="undefined" ) 
-				{			    
-				    $('#rprofessionError').css('color','red');
-				    $("#rprofessionError").text("Profession  Cannot be blank.");
-			    }
-				if(!this.form.Users_terms.checked || $('#Users_terms').val() != 1 || $('#Users_terms').val()=="undefined" ) {
-					$('#Users_termsError').css('color','red');
-				    $("#Users_termsError").text("Please Check The Terms & Conditions.");
-				}else if(this.form.Users_terms.checked){$('#Users_termsError').text("");}
 
-				return false;
-				 $("#creteProfile-form").submit();
-			}
-			});
 
+
+			$("#submit11").click(function()
+					{
+				
+						if($('#email').val() ==  null || $('#email').val() == "" || $('#email').val()=="undefined"||$('#createProfileFor').val() ==  null || $('#createProfileFor').val() == ""  || $('#createProfileFor').val()=="undefined"||$('#lastName').val() ==  null || $('#lastName').val() == ""  || $('#lastName').val()=="undefined"||$('#dob').val() ==  null || $('#dob').val() == ""  || $('#dob').val()=="undefined"||$('#religion').val() ==  null || $('#religion').val() == ""  || $('#religion').val()=="undefined"||$('#motherTongue').val() ==  null || $('#motherTongue').val() == ""  || $('#motherTongue').val()=="undefined"||$('#currentCountry').val() ==  null || $('#currentCountry').val() == ""  || $('#currentCountry').val()=="undefined"||$('#currentState').val() ==  null || $('#currentState').val() == ""  || $('#currentState').val()=="undefined"||$('#currentCity').val() ==  null || $('#currentCity').val() == ""  || $('#currentCity').val()=="undefined"||$('#maritalStatus').val() ==  null || $('#maritalStatus').val() == ""  || $('#maritalStatus').val()=="undefined"||$('#caste').val() ==  null || $('#caste').val() == ""  || $('#caste').val()=="undefined"||$('#education').val() ==  null || $('#education').val() == ""  || $('#education').val()=="undefined"||$('#smoking').val() ==  null || $('#smoking').val() == ""  || $('#smoking').val()=="undefined"||$('#drinking').val() ==  null || $('#drinking').val() == ""  || $('#drinking').val()=="undefined"||$('#height').val() ==  null || $('#height').val() == ""  || $('#height').val()=="undefined"||$('#mobile').val() ==  null || $('#mobile').val() == ""  || $('#mobile').val()=="undefined"||$("input[name='gender']").is(':checked') != true||$("#mobile").val().length<10)
+						{
+							 if($('#email').val() ==  null || $('#email').val() == ""  || $('#email').val()=="undefined" ) 
+							{
+								$('#email').css('color','#cc0000');
+								$('#email').css('border-color','#cc0000');
+								$('#email').attr('placeholder','Please Enter Email');
+								$('#email').addClass('placeholder-style');
+							}
+							 if($('#createProfileFor').val() ==  null || $('#createProfileFor').val() == ""  || $('#createProfileFor').val()=="undefined" ) 
+							{
+								$('#createProfileFor').css('color','#cc0000');
+								$('#createProfileFor').css('border-color','#cc0000');
+								$('#createProfileFor').attr('placeholder','Please CreateProfileFor');
+								$('#createProfileFor').addClass('placeholder-style');
+							}
+							if($('#firstName').val() ==  null || $('#firstName').val() == ""  || $('#firstName').val()=="undefined" ) 
+							{
+								$('#firstName').css('color','#cc0000');
+								$('#firstName').css('border-color','#cc0000');
+								$('#firstName').attr('placeholder','Please FirstName');
+								$('#firstName').addClass('placeholder-style');
+							}
+							if($('#lastName').val() ==  null || $('#lastName').val() == ""  || $('#lastName').val()=="undefined" ) 
+							{
+								$('#lastName').css('color','#cc0000');
+								$('#lastName').css('border-color','#cc0000');
+								$('#lastName').attr('placeholder','Please LastName');
+								$('#lastName').addClass('placeholder-style');
+							}
+							if($('#dob').val() ==  null || $('#dob').val() == ""  || $('#dob').val()=="undefined" ) 
+							{
+								$('#dob').css('color','#cc0000');
+								$('#dob').css('border-color','#cc0000');
+								$('#dob').attr('placeholder','Please Enter Date Of Brith');
+								$('#dob').addClass('placeholder-style');
+							}
+							if($('#religion').val() ==  null || $('#religion').val() == ""  || $('#religion').val()=="undefined" ) 
+							{
+								$('#religion').css('color','#cc0000');
+								$('#religion').css('border-color','#cc0000');
+								$('#religion').attr('placeholder','Please Enter Religion');
+								$('#religion').addClass('placeholder-style');
+							}
+							if($('#motherTongue').val() ==  null || $('#motherTongue').val() == ""  || $('#motherTongue').val()=="undefined" ) 
+							{
+								$('#motherTongue').css('color','#cc0000');
+								$('#motherTongue').css('border-color','#cc0000');
+								$('#motherTongue').attr('placeholder','Please Enter Mother Tongue');
+								$('#motherTongue').addClass('placeholder-style');
+							}
+							if($('#currentCountry').val() ==  null || $('#currentCountry').val() == ""  || $('#currentCountry').val()=="undefined" ) 
+							{
+								$('#currentCountry').css('color','#cc0000');
+								$('#currentCountry').css('border-color','#cc0000');
+								$('#currentCountry').attr('placeholder','Please Enter CurrentCountry');
+								$('#currentCountry').addClass('placeholder-style');
+							}
+							if($('#currentState').val() ==  null || $('#currentState').val() == ""  || $('#currentState').val()=="undefined" ) 
+							{
+								$('#currentState').css('color','#cc0000');
+								$('#currentState').css('border-color','#cc0000');
+								$('#currentState').attr('placeholder','Please Enter Current State');
+								$('#currentState').addClass('placeholder-style');
+							}
+							if($('#currentCity').val() ==  null || $('#currentCity').val() == ""  || $('#currentCity').val()=="undefined" ) 
+							{
+								$('#currentCity').css('color','#cc0000');
+								$('#currentCity').css('border-color','#cc0000');
+								$('#currentCity').attr('placeholder','Please Enter Current City');
+								$('#currentCity').addClass('placeholder-style');
+							}
+							if($('#maritalStatus').val() ==  null || $('#maritalStatus').val() == ""  || $('#maritalStatus').val()=="undefined" ) 
+							{
+								$('#maritalStatus').css('color','#cc0000');
+								$('#maritalStatus').css('border-color','#cc0000');
+								$('#maritalStatus').attr('placeholder','Please Enter Marital Status');
+								$('#maritalStatus').addClass('placeholder-style');
+							}
+							if($('#caste').val() ==  null || $('#caste').val() == ""  || $('#caste').val()=="undefined" ) 
+							{
+								$('#caste').css('color','#cc0000');
+								$('#caste').css('border-color','#cc0000');
+								$('#caste').attr('placeholder','Please Enter Caste');
+								$('#caste').addClass('placeholder-style');
+							}
+							if($('#education').val() ==  null || $('#education').val() == ""  || $('#education').val()=="undefined") 
+							{
+								$('#education').css('color','#cc0000');
+								$('#education').css('border-color','#cc0000');
+								$('#education').attr('placeholder','Please Enter Education');
+								$('#education').addClass('placeholder-style');
+							}
+							if($('#smoking').val() ==  null || $('#smoking').val() == ""  || $('#smoking').val()=="undefined") 
+							{
+								$('#smoking').css('color','#cc0000');
+								$('#smoking').css('border-color','#cc0000');
+								$('#smoking').attr('placeholder','Please Enter Smoking');
+								$('#smoking').addClass('placeholder-style');
+							}
+							if($('#drinking').val() ==  null || $('#drinking').val() == ""  || $('#drinking').val()=="undefined") 
+							{
+								$('#drinking').css('color','#cc0000');
+								$('#drinking').css('border-color','#cc0000');
+								$('#drinking').attr('placeholder','Please Enter Drinking');
+								$('#drinking').addClass('placeholder-style');
+							}
+							if($('#height').val() ==  null || $('#height').val() == ""  || $('#height').val()=="undefined") 
+							{
+								$('#height').css('color','#cc0000');
+								$('#height').css('border-color','#cc0000');
+								$('#height').attr('placeholder','Please Enter Height');
+								$('#height').addClass('placeholder-style');
+							}
+							if($('#mobile').val() ==  null || $('#mobile').val() == ""  || $('#mobile').val()=="undefined") 
+							{
+								$('#mobile').css('color','#cc0000');
+								$('#mobile').css('border-color','#cc0000');
+								$('#mobile').attr('placeholder','Please Enter Mobile Number');
+								$('#mobile').addClass('placeholder-style');
+							}
+							if($('#mobile').val().length<10) 
+							{
+								$('#mobile').css('color','#cc0000');
+								$('#mobile').css('border-color','#cc0000');
+								$('#mobile').attr('placeholder','Invalid Mobile Number');
+								$('#mobile').addClass('placeholder-style');
+							}
+							if($("input[name='gender']").is(':checked') != true) 
+							{
+								
+								$('#dis').css('color','#cc0000');
+								$('#dis').css('border-color','#cc0000');
+								$('#dis').text('Please Enter Gender');
+								$('#dis').addClass('placeholder-style');
+								
+							} 
+							return false;
+
+						}
+						
+						
+						$("#creteProfile").submit();
+					});
 
 
 
@@ -1530,7 +749,41 @@ function check_mstatus()
 		$('.widow_divorcee_details').hide();
 }
 
+function validate1(id){
+	var gender = $("#"+id).val()
+	if(gender != null){
+		$("#dis").text("");
+	}
+}
 
+function getCitys(id){
+	
+	if($("#"+id).val()== null   || $('#'+id).val() == "" || $('#'+id).val()=="undefined"){
+		$("#currentCity").attr("readonly", true);
+		$("#currentCity").attr("disabled" ,"disabled");
+		$("#currentCity").val("");
+	}else{
+		$("#currentCity").removeAttr("disabled");
+		$("#currentCity").removeAttr("readonly");
+		var stateId =$("#"+id).val();
+		var formData = new FormData();
+	     formData.append('id', stateId);
+		$.fn.makeMultipartRequest('POST', '../getCitys', false,
+				formData, false, 'text', function(data){
+			var jsonobj = $.parseJSON(data);
+			var alldata = jsonobj.citys;
+// 			alert(alldata);
+         $("#currentCity").empty();
+			$("#currentCity").append("<option value='' >Choose City</option>");
+			
+			$.each(alldata, function(i, tests) {
+				$("#currentCity").append("<option value="+tests.id+" >"+ tests.name+"</option>");
+			});
+			
+		});
+		
+	}
+}
 $(".profiles").addClass("active");
 $(".createProfile").addClass("active");
 </script>

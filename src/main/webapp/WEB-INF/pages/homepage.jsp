@@ -125,7 +125,7 @@ span.has-error,span.hasError
 
 				<!-- Logo Here -->
 				<a class="navbar-brand page-scroll" href="#page-top"><img
-					src="user/images/logo.jpg" alt="" class="img-responsive" /></a>
+					src="user/images/logo.jpg" style="height: 70px;width: auto;" alt="" class="img-responsive" /></a>
 			</div>
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
@@ -167,7 +167,7 @@ span.has-error,span.hasError
 							</div>
 							<div class="form-group">
 								<label for="user_ssword">Create Profile for :</label> 
-								<select	id="created_by" name="created_by" onfocus="removeBorder(this.id)" class="form-control">
+								<select	id="createProfileFor" name="createProfileFor" onfocus="removeBorder(this.id)" class="form-control">
 									<option value="">Select</option>
 									<option value="Self">Self</option>
 									<option value="Son">Son</option>
@@ -203,8 +203,8 @@ span.has-error,span.hasError
                                                  <div class="row">
                                                  <div class="form-group">
                                                     <label for="" class="col-md-12" >Your Name</label>
-                           <div class="col-md-6"><input type="text" name="name" onkeydown="removeBorder(this.id)" class="form-control onlyCharacters" id="name" placeholder="First Name"></div>
-                           <div class="col-md-6"><input type="text" name="sname" onkeydown="removeBorder(this.id)" class="form-control onlyCharacters" id="sname" placeholder="Last Name"></div>
+                           <div class="col-md-6"><input type="text" name="firstName" onkeydown="removeBorder(this.id)" class="form-control onlyCharacters" id="firstName" placeholder="First Name"></div>
+                           <div class="col-md-6"><input type="text" name="lastName" onkeydown="removeBorder(this.id)" class="form-control onlyCharacters" id="lastName" placeholder="Last Name"></div>
                            <div class="clearfix"></div>
                                                 </div>
                                                 </div>
@@ -212,14 +212,14 @@ span.has-error,span.hasError
                                                <div class="form-group">
                                                <div  class="row">
                                                     <label for="" class="col-md-12" >Date of Birth</label>
-                           <div class="col-md-12"><input type="text" name="dob" onclick="removeBorder(this.id)" class="form-control" id="dob" placeholder="Enter Date of Birth"></div>
+                           <div class="col-md-12"><input type="text" name="dob" onclick="removeBorder(this.id)" class="form-control" id="dob" placeholder="Enter Date of Birth" readonly="readonly"></div>
                                                 </div> 
                                                 </div>
                                                 
                                                 
                                                  <div class="form-group">
                                                     <label for="">Religion</label>
-                          				<form:select path="Religion" onfocus="removeBorder(this.id)"  class="form-control" >
+                          				<form:select path="religion" onfocus="removeBorder(this.id)"  class="form-control" >
 														<form:option value="">-- Choose Religion --</form:option>
 														<form:options items="${religion}"></form:options>
 										</form:select>
@@ -227,15 +227,15 @@ span.has-error,span.hasError
                                                 
                                                  <div class="form-group">
                                                     <label for="">Mother tongue</label>
-                        				 <form:select path="mtongue" onfocus="removeBorder(this.id)"  class="form-control" >
-														<form:option value="">-- Choose Mother tongue --</form:option>
+                        				 <form:select path="motherTongue" onfocus="removeBorder(this.id)"  class="form-control" >
+														<form:option value="">-- Choose Mother Tongue --</form:option>
 														<form:options items="${language}"></form:options>
 										</form:select>
                                                 </div> 
                                                 
                                                 <div class="form-group">
                                                     <label for="">Where do you live? </label>
-                          				 <form:select path="crCountry" onfocus="removeBorder(this.id)"  class="form-control" >
+                          				 <form:select path="currentCountry" onfocus="removeBorder(this.id)"  class="form-control" >
 														<form:option value="">-- Choose Country --</form:option>
 														<form:options items="${countries}"></form:options>
 										</form:select>
@@ -755,12 +755,12 @@ $('#email').blur(function() {
 	});
 	}
 });
-$('#created_by').blur(function() {
-	var created_by = $('#created_by').val();
-	if(created_by == "" || created_by.length == 0 || created_by =="undefined"){
+$('#createProfileFor').blur(function() {
+	var createProfileFor = $('#createProfileFor').val();
+	if(createProfileFor == "" || createProfileFor.length == 0 || createProfileFor =="undefined"){
 // 		alert("enter createdby");
-    $("#created_by").css("border-color","#e73d4a");
-    $('#created_by').css('color','red');
+    $("#createProfileFor").css("border-color","#e73d4a");
+    $('#createProfileFor').css('color','red');
 		return false;
 	}
 });
@@ -780,7 +780,7 @@ $('#password').blur(function() {
 $("#submit11").click(function(event){		
 	var email = $('#email').val();
 	if($('#email').val() ==  null || $('#email').val() == "" || $('#email').val()=="undefined" || 
-		$('#created_by').val() ==  null || $('#created_by').val() == "" || $('#created_by').val()=="undefined" ||
+		$('#createProfileFor').val() ==  null || $('#createProfileFor').val() == "" || $('#createProfileFor').val()=="undefined" ||
 		$('#password').val() ==  null || $('#password').val() == "" || $('#password').val()=="undefined")
 	{
 		if($('#email').val() ==  null || $('#email').val() == "" || $('#email').val()=="undefined") 
@@ -790,12 +790,12 @@ $("#submit11").click(function(event){
 			$('#email').addClass('your-class');
 			$('#email').css('color','red');
 		}
-		if($('#created_by').val() ==  null || $('#created_by').val() == "" || $('#created_by').val()=="undefined" ) 
+		if($('#createProfileFor').val() ==  null || $('#createProfileFor').val() == "" || $('#createProfileFor').val()=="undefined" ) 
 		{
-			$("#created_by").css("border-color","#e73d4a");
-// 			$("#created_by").attr("placeholder","Please Enter Created_By");
-			$('#created_by').addClass('your-class');
-			$('#created_by').css('color','red');
+			$("#createProfileFor").css("border-color","#e73d4a");
+// 			$("#createProfileFor").attr("placeholder","Please Enter createProfileFor");
+			$('#createProfileFor').addClass('your-class');
+			$('#createProfileFor').css('color','red');
 		}
 		if($('#password').val() ==  null || $('#password').val() == "" || $('#password').val()=="undefined" ) 
 		{
@@ -827,26 +827,26 @@ $("#submit11").click(function(event){
 $("#secondButton").click(function(event)
 // 		function formSubmit()
 		{		
-			if($('#name').val() ==  null || $('#name').val() == "" || $('#name').val()=="undefined" || 
-				$('#sname').val() ==  null || $('#sname').val() == "" || $('#sname').val()=="undefined" ||
+			if($('#firstName').val() ==  null || $('#firstName').val() == "" || $('#firstName').val()=="undefined" || 
+				$('#lastName').val() ==  null || $('#lastName').val() == "" || $('#lastName').val()=="undefined" ||
 				$('#dob').val() ==  null || $('#dob').val() == "" || $('#dob').val()=="undefined"  || 
-				$('#Religion').val() ==  null || $('#Religion').val() == "" || $('#Religion').val()=="undefined" ||
-				$('#mtongue').val() ==  null || $('#mtongue').val() == "" || $('#mtongue').val()=="undefined" ||
-				$('#crCountry').val() ==  null || $('#crCountry').val() == "" || $('#crCountry').val()=="undefined" )
+				$('#religion').val() ==  null || $('#religion').val() == "" || $('#religion').val()=="undefined" ||
+				$('#motherTongue').val() ==  null || $('#motherTongue').val() == "" || $('#motherTongue').val()=="undefined" ||
+				$('#currentCountry').val() ==  null || $('#currentCountry').val() == "" || $('#currentCountry').val()=="undefined" )
 			{
-				if($('#name').val() ==  null || $('#name').val() == "" || $('#name').val()=="undefined") 
+				if($('#firstName').val() ==  null || $('#firstName').val() == "" || $('#firstName').val()=="undefined") 
 				{
-					$("#name").css("border-color","#e73d4a");
-					$("#name").attr("placeholder","Please Enter Name");
-					$('#name').addClass('your-class');
-					$('#name').css('color','red');
+					$("#firstName").css("border-color","#e73d4a");
+					$("#firstName").attr("placeholder","Please Enter FirstName");
+					$('#firstName').addClass('your-class');
+					$('#firstName').css('color','red');
 				}
-				if($('#sname').val() ==  null || $('#sname').val() == "" || $('#sname').val()=="undefined" ) 
+				if($('#lastName').val() ==  null || $('#lastName').val() == "" || $('#lastName').val()=="undefined" ) 
 				{
-					$("#sname").css("border-color","#e73d4a");
-					$("#sname").attr("placeholder","Please Enter Last Name");
-					$('#sname').addClass('your-class');
-					$('#sname').css('color','red');
+					$("#lastName").css("border-color","#e73d4a");
+					$("#lastName").attr("placeholder","Please Enter Last Name");
+					$('#lastName').addClass('your-class');
+					$('#lastName').css('color','red');
 				}
 				if($('#dob').val() ==  null || $('#dob').val() == "" || $('#dob').val()=="undefined" ) 
 				{
@@ -855,26 +855,26 @@ $("#secondButton").click(function(event)
 					$('#dob').addClass('your-class');
 					$('#dob').css('color','red');
 				}
-				if($('#Religion').val() ==  null || $('#Religion').val() == "" || $('#Religion').val()=="undefined" ) 
+				if($('#religion').val() ==  null || $('#religion').val() == "" || $('#religion').val()=="undefined" ) 
 				{
-					$("#Religion").css("border-color","#e73d4a");
-					$("#Religion").attr("placeholder","Please Enter Password");
-					$('#Religion').addClass('your-class');
-					$('#Religion').css('color','red');
+					$("#religion").css("border-color","#e73d4a");
+					$("#religion").attr("placeholder","Please Enter Password");
+					$('#religion').addClass('your-class');
+					$('#religion').css('color','red');
 				}
-				if($('#mtongue').val() ==  null || $('#mtongue').val() == "" || $('#mtongue').val()=="undefined" ) 
+				if($('#motherTongue').val() ==  null || $('#motherTongue').val() == "" || $('#motherTongue').val()=="undefined" ) 
 				{
-					$("#mtongue").css("border-color","#e73d4a");
-					$("#mtongue").attr("placeholder","Please Enter Password");
-					$('#mtongue').addClass('your-class');
-					$('#mtongue').css('color','red');
+					$("#motherTongue").css("border-color","#e73d4a");
+					$("#motherTongue").attr("placeholder","Please Enter Password");
+					$('#motherTongue').addClass('your-class');
+					$('#motherTongue').css('color','red');
 				}
-				if($('#crCountry').val() ==  null || $('#crCountry').val() == "" || $('#crCountry').val()=="undefined" ) 
+				if($('#currentCountry').val() ==  null || $('#currentCountry').val() == "" || $('#currentCountry').val()=="undefined" ) 
 				{
-					$("#crCountry").css("border-color","#e73d4a");
-					$("#crCountry").attr("placeholder","Please Enter Password");
-					$('#crCountry').addClass('your-class');
-					$('#crCountry').css('color','red');
+					$("#currentCountry").css("border-color","#e73d4a");
+					$("#currentCountry").attr("placeholder","Please Enter Password");
+					$('#currentCountry').addClass('your-class');
+					$('#currentCountry').css('color','red');
 				}
 				return false;
 			}

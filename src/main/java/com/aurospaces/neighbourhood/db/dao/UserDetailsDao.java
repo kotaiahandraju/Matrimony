@@ -1,4 +1,4 @@
-package com.aurospaces.neighbourhood.db.dao;
+/*package com.aurospaces.neighbourhood.db.dao;
 
 import java.util.List;
 
@@ -43,3 +43,4 @@ public class UserDetailsDao extends BaseUserDetailsDao {
 			return (maxId+1);
 		}
 }
+*/

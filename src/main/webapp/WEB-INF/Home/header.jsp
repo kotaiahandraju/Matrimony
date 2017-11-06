@@ -108,7 +108,7 @@ span.has-error,span.hasError
 				<li><a href=""><span>Dashboard</span></a></li>
 				<li class="catalog1">
 					<a href="#" data-toggle="dropdown" class='dropdown-toggle'>
-						<span>Catalog 1</span>
+						<span>Data List 1</span>
 						<span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
@@ -123,7 +123,7 @@ span.has-error,span.hasError
 				</li>
 				<li class="catalog2">
 					<a href="#" data-toggle="dropdown" class='dropdown-toggle'>
-						<span>Catalog 2</span>
+						<span>Data List 2</span>
 						<span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
@@ -133,6 +133,10 @@ span.has-error,span.hasError
 						<li class="raasi"><a href="${baseurl }/admin/RaasiHome">Raasi</a></li>
 						<li class="religion"><a href="${baseurl }/admin/ReligionHome">Religion</a></li>
 						<li class="star"><a href="${baseurl }/admin/StarHome">Star</a></li>
+						<li class="state"><a href="${baseurl }/admin/StateHome">State</a></li>
+						<li class="city"><a href="${baseurl }/admin/CityHome">City</a></li>
+						<li class="dosham"><a href="${baseurl }/admin/DoshamHome">Dosham</a></li>
+						<li class="Salary"><a href="${baseurl }/admin/SalaryHome">Salary</a></li>
 					</ul>
 				</li>
 
@@ -207,9 +211,10 @@ span.has-error,span.hasError
 						</ul>
 					</li> --%>
 				</ul>
-				<div class="dropdown" style="top: 5px;">
+				<div class="dropdown" style="">
 					<a href="#" class='dropdown-toggle' data-toggle="dropdown">Admin
-						<img src="${baseurl }/img/demo/user-avatar.jpg" alt="">
+					<i class="fa fa-2x fa-user"></i>
+<%-- 						<img src="${baseurl }/img/demo/user-avatar.jpg" alt=""> --%>
 					</a>
 					<ul class="dropdown-menu pull-right">
 						<li><a href="#">Edit profile</a></li>

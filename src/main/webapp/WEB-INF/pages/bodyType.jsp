@@ -13,19 +13,19 @@
 <div class="container-fluid">
 	<div class="page-header">
 		<div class="pull-left">
-			<h1>Branch</h1> 
+			<h1>Body Type</h1> 
 		</div>
 	</div>
 	<div class="breadcrumbs">
 		<ul>
 			<li>
 				<i class="fa fa-edit"></i>
-				<a href="javascript:void(0)" style="color: blue;text-decoration: none;">Catalog 1</a>
+				<a href="javascript:void(0)" style="color: blue;text-decoration: none;">Data List 1</a>
 				<i class="fa fa-angle-right"></i>&nbsp;
 			</li>
 			<li>
 				&nbsp;<i class="fa fa-file"></i>
-				<span style="color: #999;cursor: auto;">Branch</span>
+				<span style="color: #999;cursor: auto;">Body Type</span>
 			</li>
 		</ul>
 		
@@ -65,7 +65,7 @@
 			<div class="box-title">
 				<h3>
 					<i class="fa fa-table"></i>
-					Column filter/search
+					Body Type's List
 				</h3>
 			</div>
 			<div class="box-content nopadding w3-animate-zoom" id="tableId">

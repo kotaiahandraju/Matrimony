@@ -85,13 +85,15 @@
 							var active = "<a  title='Active Profile' onclick='profileAction("+ orderObj.id+ ",1)'><i style='color: green;cursor: pointer;' class='fa fa-repeat'></i></a>"
 							var deleteProfile = "<a title='Delete Profile' onclick='profileAction("+ orderObj.id+ ",2)'><i style='color: green;cursor: pointer;' class='fa fa-remove'></i></a>"
 							serviceUnitArray[orderObj.id] = orderObj;
+							if(orderObj.firstName !=null){
 							var tblRow = "<tr>"
 									+ "<td title='"+orderObj.username+"'>" + orderObj.username + "</td>"
-									+ "<td title='"+orderObj.name+"'>" + orderObj.name + "</td>"
-									+ "<td title='"+orderObj.sname+"'>" + orderObj.sname + "</td>"
+									+ "<td title='"+orderObj.firstName+"'>" + orderObj.firstName + "</td>"
+									+ "<td title='"+orderObj.lastName+"'>" + orderObj.lastName + "</td>"
 									+ "<td style='text-align: center;'>" + viewProfile + "&nbsp;|&nbsp;" + active + "&nbsp;|&nbsp;" + deleteProfile + "</td>" 
 									+ "</tr >";
 							$(tblRow).appendTo("#tableId table tbody");
+							}
 						});
 		
 	}

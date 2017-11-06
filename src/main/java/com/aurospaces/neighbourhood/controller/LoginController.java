@@ -37,9 +37,9 @@ public class LoginController {
 		try {
 			UsersBean objuserBean = (UsersBean) session.getAttribute("cacheUserBean");
 			if (objuserBean != null) {
-				int rolId =objuserBean.getRole_id();
+				int rolId =objuserBean.getRoleId();
 				if(rolId == 1 || rolId == 2 || rolId == 3 ){
-					return "redirect:admin/OccupationHome";
+					return "redirect:admin//BodyTypeHome";
 				}else{
 //					return "redirect:employeeHome1.htm";
 				}
@@ -68,15 +68,15 @@ public class LoginController {
 			}
 			objUserBean = objUsersDao.loginChecking(userObj);
 			if (objUserBean != null ) {
-				if(objUserBean.getRole_id() ==1){
+				if(objUserBean.getRoleId() ==1){
 				session.setAttribute("cacheUserBean", objUserBean);
-				session.setAttribute("rolId", objUserBean.getRole_id());
-				session.setAttribute("userName", objUserBean.getName());
-				return "redirect:admin/OccupationHome";
+				session.setAttribute("rolId", objUserBean.getRoleId());
+				session.setAttribute("userName", objUserBean.getUsername());
+				return "redirect:admin//BodyTypeHome";
 				}else{
 				session.setAttribute("cacheGuest", objUserBean);
-				session.setAttribute("rolId", objUserBean.getRole_id());
-				session.setAttribute("userName", objUserBean.getName());
+				session.setAttribute("rolId", objUserBean.getRoleId());
+				session.setAttribute("userName", objUserBean.getUsername());
 				return "redirect:profile.htm?page=1";
 				}
 				

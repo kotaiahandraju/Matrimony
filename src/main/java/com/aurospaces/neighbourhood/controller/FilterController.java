@@ -19,10 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.aurospaces.neighbourhood.bean.CityBean;
 import com.aurospaces.neighbourhood.bean.UsersBean;
 import com.aurospaces.neighbourhood.db.dao.BranchDao;
+import com.aurospaces.neighbourhood.db.dao.CityDao;
 import com.aurospaces.neighbourhood.db.dao.CountriesDao;
-import com.aurospaces.neighbourhood.db.dao.UserDetailsDao;
 import com.aurospaces.neighbourhood.db.dao.UsersDao;
 
 @Controller
@@ -33,9 +34,10 @@ public class FilterController {
 	CountriesDao objCountriesDao;
 	 @Autowired BranchDao objBranchDao;
    @Autowired UsersDao objUsersDao;
-   @Autowired UserDetailsDao objUserDetailsDao;
+//   @Autowired UserDetailsDao objUserDetailsDao;
    @Autowired
 	ServletContext objContext;
+   @Autowired CityDao objCityDao;
    @RequestMapping(value = "/AllProfilesHome")
 	public String getAllProfiles(@ModelAttribute("createProfile") UsersBean objUsersBean, ModelMap model,
 			HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
@@ -263,5 +265,6 @@ public class FilterController {
  		}
  		return "premiumProfile";
  	}
-
+  
+   
 }

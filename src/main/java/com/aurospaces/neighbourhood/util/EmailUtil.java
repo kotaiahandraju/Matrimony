@@ -42,7 +42,7 @@ public class EmailUtil {
 			String password = prop.getProperty("mailpassword");
 	        
 			body = prop.getProperty("admin_send_password");
-			body = body.replace("_name_",objUsersBean.getName());
+			body = body.replace("_name_",objUsersBean.getFirstName());
 			body = body.replace("_username_", objUsersBean.getUsername());
 			body = body.replace("_password_", objUsersBean.getPassword());
 			body = body.replace("_img_", "cid:image2");

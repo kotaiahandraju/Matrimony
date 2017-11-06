@@ -177,16 +177,16 @@ function validate(id, errorMessage)
    <div class="col-md-8">
    <form:form commandName="createProfile" action="#" class="form-horizontal" id="profileRegistration" method="post">
    <form:hidden path="id"/>
-   <form:hidden path="userdetailsId"/>
+<%--    <form:hidden path="userdetailsId"/> --%>
    <form:hidden path="email"/>
-   <form:hidden path="created_by"/>
+   <form:hidden path="createProfileFor"/>
    <form:hidden path="gender"/>
-   <form:hidden path="name"/>
-   <form:hidden path="sname"/>
+   <form:hidden path="firstName"/>
+   <form:hidden path="lastName"/>
    <form:hidden path="dob"/>
-   <form:hidden path="Religion"/>
-   <form:hidden path="mtongue"/>
-   <form:hidden path="crCountry"/>
+   <form:hidden path="religion"/>
+   <form:hidden path="motherTongue"/>
+   <form:hidden path="currentCountry"/>
 <fieldset>
 
 <!-- 1st Step starts here-->
@@ -198,16 +198,14 @@ function validate(id, errorMessage)
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">You live in <span class='manditory'>*</span></label>  
       <div class="col-md-6">
-<!--       state,city,dosham,workingWith,companyName,diet,smoke,drink,bodyType,disability -->
-      	<form:select path="state" class="form-control u1" onblur="validate('state','');" onfocus="removeBorder(this.id)">
+      	<form:select path="currentState" class="form-control u" onblur="validate(this.id,'');" onchange="getCitys(this.id)" onfocus="removeBorder(this.id)">
       		<form:option value="">-- Choose State --</form:option>
-			<form:option value="AP">AP</form:option>
+			<form:options items="${states }" ></form:options>
       	</form:select>
        	<br>
-       	<form:select path="city" class="form-control u1" onblur="validate('city','');" onfocus="removeBorder(this.id)">
+       	<form:select path="currentCity" class="form-control u" onblur="validate(this.id,'');" onfocus="removeBorder(this.id)" disabled="true">
       		<form:option value="">-- Choose City --</form:option>
-			<form:option value="Guntur">Guntur</form:option>
-			<form:option value="Vijayawada">Vijayawada</form:option>
+			<form:options items="${citys }"></form:options>
       	</form:select>
       </div>
     </div>
@@ -215,9 +213,7 @@ function validate(id, errorMessage)
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Your Marital Status <span class='manditory'>*</span></label>  
       <div class="col-md-6">
-      	<form:select path="maritalStatus" class="form-control u1" onblur="validate('maritalStatus','');" onfocus="removeBorder(this.id)">
-<%--       		<form:option value="">-- Choose Cast --</form:option> --%>
-<%-- 			<form:options items="${cast}"></form:options> --%>
+      	<form:select path="maritalStatus" class="form-control u" onblur="validate(this.id,'');" onfocus="removeBorder(this.id)">
 			<form:option value="">-- Martial Status --</form:option>
 			<form:option value="Married">Married</form:option>
 			<form:option value="Unmarried">Unmarried</form:option>
@@ -229,7 +225,7 @@ function validate(id, errorMessage)
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Your Community <span class='manditory'>*</span></label>  
       <div class="col-md-6">
-      	<form:select path="cast" class="form-control u" onblur="validate('cast','');" onfocus="removeBorder(this.id)">
+      	<form:select path="caste" class="form-control u" onblur="validate(this.id,'');" onfocus="removeBorder(this.id)">
 			<form:option value="">-- Choose Community --</form:option>
 			<form:options items="${cast}"></form:options>
 		</form:select>
@@ -239,14 +235,14 @@ function validate(id, errorMessage)
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Gothram</label>  
       <div class="col-md-6">
-      	<form:input path="gotram" type="text" class="form-control onlyCharacters u1" placeholder="Enter Gotram" maxlength="255"/>
+      	<form:input path="gotram" type="text" class="form-control onlyCharacters u" placeholder="Enter Gotram" maxlength="255"/>
       </div>
     </div>
 
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Nakshatram</label>  
       <div class="col-md-6">
-      	<form:select path="star" class="form-control u1">
+      	<form:select path="star" class="form-control u">
 			<form:option value="">-- Choose Nakshatram --</form:option>
 			<form:options items="${star}"></form:options>
 		</form:select>
@@ -256,7 +252,7 @@ function validate(id, errorMessage)
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Dosham</label>  
       <div class="col-md-6">
-      	<form:select path="dosham" class="form-control u1">
+      	<form:select path="dosam" class="form-control u">
 			<form:option value="">-- Dosham --</form:option>
 			<form:option value="Yes">Yes</form:option>
 			<form:option value="No">No</form:option>
@@ -282,7 +278,7 @@ function validate(id, errorMessage)
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Your education level <span class='manditory'>*</span></label>  
       <div class="col-md-6">
-      	<form:select path="education" class="form-control u" onblur="validate('education','');" onfocus="removeBorder(this.id)">
+      	<form:select path="education" class="form-control u" onblur="validate(this.id,'');" onfocus="removeBorder(this.id)">
 			<form:option value="">-- Choose Education --</form:option>
 			<form:options items="${education}"></form:options>
 		</form:select>
@@ -292,7 +288,7 @@ function validate(id, errorMessage)
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">You work with</label>  
       <div class="col-md-6">
-      	<form:select path="workingWith" class="form-control u1">
+      	<form:select path="workingWith" class="form-control u">
 			<form:option value="">-- Select --</form:option>
 			<form:option value="Private Company">Private Company</form:option>
 			<form:option value="Government/Public Sector">Government/Public Sector</form:option>
@@ -305,7 +301,7 @@ function validate(id, errorMessage)
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">As</label>  
       <div class="col-md-6">
-	  	<form:select path="occupation" class="form-control u1">
+	  	<form:select path="occupation" class="form-control u">
 			<form:option value="">-- Choose Occupation --</form:option>
 			<form:options items="${occupation}"></form:options>
 		</form:select>
@@ -315,14 +311,14 @@ function validate(id, errorMessage)
     <div class="form-group" style="display: none;">
       <label class="col-md-4 control-label" for="textinput">Your Employer Name</label>  
       <div class="col-md-6">
-      	<form:input path="emply_type"  class="form-control onlyCharacters u" maxlength="100" placeholder="Specify Current Organization"/>
+      	<form:input path="companyName"  class="form-control onlyCharacters u" maxlength="100" placeholder="Specify Current Organization"/>
       </div>
     </div>
 
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Your Annual Income <span class='manditory'></span></label>  
       <div class="col-md-6">
-      	<form:select path="salaryperyear" class="form-control u1" onblur="validate('salaryperyear','');" onfocus="removeBorder(this.id)">
+      	<form:select path="annualIncome" class="form-control u" onblur="validate(this.id,'');" onfocus="removeBorder(this.id)">
 			<form:option value="">-- Annual Income --</form:option>
 			<form:option value="Upto INR 1 Lakh">Upto INR 1 Lakh</form:option>
 			<form:option value="INR 2 Lakh to 4 Lakh">INR 2 Lakh to 4 Lakh</form:option>
@@ -350,7 +346,7 @@ function validate(id, errorMessage)
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">What's your diet?</label>  
       <div class="col-md-6">
-      	<form:select path="diet" class="form-control u1" >
+      	<form:select path="diet" class="form-control u" >
 			<form:option value="">-- Select Diet--</form:option>
 			<form:option value="Veg">Veg</form:option>
 			<form:option value="Non-Veg">Non-Veg</form:option>
@@ -364,7 +360,7 @@ function validate(id, errorMessage)
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Do you smoke? <span class='manditory'>*</span></label>  
       <div class="col-md-6">
-      	<form:select path="smoke" class="form-control u1" onblur="validate('smoke','');" onfocus="removeBorder(this.id)">
+      	<form:select path="smoking" class="form-control u" onblur="validate(this.id,'');" onfocus="removeBorder(this.id)">
 			<form:option value="">-- Do you Smoke --</form:option>
 			<form:option value="No">No</form:option>
 			<form:option value="Occasionally">Occasionally</form:option>
@@ -375,7 +371,7 @@ function validate(id, errorMessage)
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Drink? <span class='manditory'>*</span></label>  
       <div class="col-md-6">
-      	<form:select path="drink" class="form-control u1" onblur="validate('drink','');" onfocus="removeBorder(this.id)">
+      	<form:select path="drinking" class="form-control u" onblur="validate(this.id,'');" onfocus="removeBorder(this.id)">
 			<form:option value="">-- Do you Drink --</form:option>
 			<form:option value="No">No</form:option>
 			<form:option value="Occasionally">Occasionally</form:option>
@@ -386,7 +382,7 @@ function validate(id, errorMessage)
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Your height <span class='manditory'>*</span></label>  
       <div class="col-md-6">
-      	<form:select path="height" class="form-control u" onblur="validate('height','');" onfocus="removeBorder(this.id)">
+      	<form:select path="height" class="form-control u" onblur="validate(this.id,'');" onfocus="removeBorder(this.id)">
 			<form:option value="">-- Choose Height --</form:option>
 			<form:options items="${height}"></form:options>
 		</form:select>
@@ -395,7 +391,7 @@ function validate(id, errorMessage)
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Body Type</label>  
       <div class="col-md-6">
-      	<form:select path="bodyType" class="form-control u1">
+      	<form:select path="bodyType" class="form-control u">
 			<form:option value="">-- Choose Body Type --</form:option>
 			<form:options items="${bodyType}"></form:options>
 		</form:select>
@@ -413,7 +409,7 @@ function validate(id, errorMessage)
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Your Mobile number <span class='manditory'>*</span></label>  
       <div class="col-md-6">
-      <form:input path="mobile" class="form-control numericOnly u"  onblur="validate('mobile','Enter Mobile');" onkeydown="removeBorder(this.id)" maxlength="13" placeholder="Mobile Number"/>
+      <form:input path="mobile" class="form-control numericOnly u"  onblur="validate(this.id,'Enter Mobile');" onkeydown="removeBorder(this.id)" maxlength="13" placeholder="Mobile Number"/>
       </div>
     </div>
 
@@ -434,13 +430,13 @@ function validate(id, errorMessage)
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">About myself</label>  
       <div class="col-md-6">
-      	<form:textarea rows="6" path="aboutYourself" class="form-control onlyCharacters u1"></form:textarea>
+      	<form:textarea rows="6" path="aboutMyself" class="form-control onlyCharacters u"></form:textarea>
       </div>
     </div>
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Any Disability?</label>  
       <div class="col-md-6">
-      	<form:select path="disability" class="form-control u1">
+      	<form:select path="disability" class="form-control u">
 			<form:option value="">-- Choose Disability --</form:option>
 			<form:option value="None">None</form:option>
 			<form:option value="Physical Disability">Physical Disability</form:option>
@@ -551,6 +547,11 @@ function validate(id, errorMessage)
 </script>
 <script>
 $( document ).ready(function() {
+	if($("#currentState").val()== null   || $("#currentState").val() == "" || $("#currentState").val()=="undefined"){
+		$("#currentCity").attr("readonly", true);
+	}else{
+		$("#currentCity").removeAttr("disabled");
+	}
 	   $("#secondForm").hide();
 	      $("#thirdForm").hide();
 	      $("#fourthForm").hide();
@@ -604,24 +605,24 @@ $( document ).ready(function() {
 
 function firstForm(event)
 {
-	if($('#state').val() ==  null || $('#state').val() == "" || $('#state').val()=="undefined" || 
-		$('#city').val() ==  null || $('#city').val() == "" || $('#city').val()=="undefined" ||
+	if($('#currentState').val() ==  null || $('#currentState').val() == "" || $('#currentState').val()=="undefined" || 
+		$('#currentCity').val() ==  null || $('#currentCity').val() == "" || $('#currentCity').val()=="undefined" ||
 		$('#maritalStatus').val() ==  null || $('#maritalStatus').val() == "" || $('#maritalStatus').val()=="undefined" || 
-		$('#cast').val() ==  null || $('#cast').val() == "" || $('#cast').val()=="undefined")
+		$('#caste').val() ==  null || $('#caste').val() == "" || $('#caste').val()=="undefined")
 	{
-		if($('#state').val() ==  null || $('#state').val() == "" || $('#state').val()=="undefined" ) 
+		if($('#currentState').val() ==  null || $('#currentState').val() == "" || $('#currentState').val()=="undefined" ) 
 		{			    
-			$('#state').css('border-color','red');
-			$('#state').css('color','#cc0000');
-			$('#state').addClass('your-class');
-// 			$('#stateError').css('color','red');
-// 			$("#stateError").text("Created By cannot be blank.");
+			$('#currentState').css('border-color','red');
+			$('#currentState').css('color','#cc0000');
+			$('#currentState').addClass('your-class');
+// 			$('#currentStateError').css('color','red');
+// 			$("#currentStateError").text("Created By cannot be blank.");
 		}
-		if($('#city').val() ==  null || $('#city').val() == "" || $('#city').val()=="undefined" ) 
+		if($('#currentCity').val() ==  null || $('#currentCity').val() == "" || $('#currentCity').val()=="undefined" ) 
 		{			    
-			$('#city').css('border-color','red');
-		    $('#city').css('color','#cc0000');
-			$('#city').addClass('your-class');
+			$('#currentCity').css('border-color','red');
+		    $('#currentCity').css('color','#cc0000');
+			$('#currentCity').addClass('your-class');
 	    }
 		if($('#maritalStatus').val() ==  null || $('#maritalStatus').val() == "" || $('#maritalStatus').val()=="undefined" ) 
 		{			    
@@ -629,11 +630,11 @@ function firstForm(event)
 		    $('#maritalStatus').css('color','#cc0000');
 			$('#maritalStatus').addClass('your-class');
 	    }
-		if($('#cast').val() ==  null || $('#cast').val() == "" || $('#cast').val()=="undefined" ) 
+		if($('#caste').val() ==  null || $('#caste').val() == "" || $('#caste').val()=="undefined" ) 
 		{	
-			$('#cast').css('border-color','red');
-		    $('#cast').css('color','#cc0000');
-			$('#cast').addClass('your-class');
+			$('#caste').css('border-color','red');
+		    $('#caste').css('color','#cc0000');
+			$('#caste').addClass('your-class');
 	    }
 		event.preventDefault();
 		return false;
@@ -693,22 +694,22 @@ function secondForm(event)
 
 function thirdForm(event)
 {
-	if($('#smoke').val() ==  null || $('#smoke').val() == "" || $('#smoke').val()=="undefined" || 
-		$('#drink').val() ==  null || $('#drink').val() == ""  || $('#drink').val()=="undefined" || 
+	if($('#smoking').val() ==  null || $('#smoking').val() == "" || $('#smoking').val()=="undefined" || 
+		$('#drinking').val() ==  null || $('#drinking').val() == ""  || $('#drinking').val()=="undefined" || 
 		$('#height').val() ==  null || $('#height').val() == ""  || $('#height').val()=="undefined" || 
 		$('#mobile').val() ==  null || $('#mobile').val() == ""  || $('#mobile').val()=="undefined")
 	{
-		if($('#smoke').val() ==  null || $('#smoke').val() == "" || $('#smoke').val()=="undefined") 
+		if($('#smoking').val() ==  null || $('#smoking').val() == "" || $('#smoking').val()=="undefined") 
 		{			    
-			$('#smoke').css('border-color','red');
-			$('#smoke').css('color','#cc0000');
-			$('#smoke').addClass('your-class');
+			$('#smoking').css('border-color','red');
+			$('#smoking').css('color','#cc0000');
+			$('#smoking').addClass('your-class');
 		}
-		if($('#drink').val() ==  null || $('#drink').val() == "" || $('#drink').val()=="undefined") 
+		if($('#drinking').val() ==  null || $('#drinking').val() == "" || $('#drinking').val()=="undefined") 
 		{			    
-			$('#drink').css('border-color','red');
-			$('#drink').css('color','#cc0000');
-			$('#drink').addClass('your-class');
+			$('#drinking').css('border-color','red');
+			$('#drinking').css('color','#cc0000');
+			$('#drinking').addClass('your-class');
 		}
 		if($('#height').val() ==  null || $('#height').val() == "" || $('#height').val()=="undefined") 
 		{			    
@@ -828,198 +829,34 @@ $("#step4").click(function(){
 	 $("#step4").addClass("btn-primary");
 }); 
 
-/* 
-$("#firstButton").click(function()
-{			
-	ChangeUrl('page1', 'profile.htm?page=2');
-			if($('#state').val() ==  null || $('#state').val() == ""  || $('#state').val()=="undefined" || $('#maritalStatus').val() ==  null || $('#maritalStatus').val() == ""  || $('#maritalStatus').val()=="undefined" ||$('#cast').val() ==  null || $('#cast').val() == ""  || $('#cast').val()=="undefined"||$('#city').val() ==  null || $('#city').val() == ""  || $('#city').val()=="undefined")
-			{
-				if($('#state').val() ==  null || $('#state').val() == ""  || $('#state').val()=="undefined" ) 
-				{			    
-					$('#state').css('border-color','red');
-				    $('#state').css('color','#cc0000');
-					$('#state').addClass('your-class');
-// 					$('#stateError').css('color','red');
-// 				    $("#stateError").text("Created By cannot be blank.");
-			    }
-				if($('#city').val() ==  null || $('#city').val() == ""  || $('#city').val()=="undefined" ) 
-				{			    
-					$('#city').css('border-color','red');
-				    $('#city').css('color','#cc0000');
-					$('#city').addClass('your-class');
-// 					$('#stateError').css('color','red');
-// 				    $("#stateError").text("Created By cannot be blank.");
-			    }
-				if($('#maritalStatus').val() ==  null || $('#maritalStatus').val() == ""  || $('#maritalStatus').val()=="undefined" ) 
-				{			    
-				    $('#maritalStatus').css('border-color','red');
-				    $('#maritalStatus').css('color','#cc0000');
-				    //$("#gotram").attr('placeholder','Enter Gotram');
-					$('#maritalStatus').addClass('your-class');
-			    }
-				  if($('#cast').val() ==  null || $('#cast').val() == ""  || $('#cast').val()=="undefined" ) 
-				{	
-					$('#maritalStatus').css('border-color','red');
-				    $('#cast').css('color','#cc0000');
-				    $('#maritalStatus').addClass('your-class');
-				    
-				    //$("#cast").text("ExecutiveName cannot be blank.");
-			    } 
-				return false;
-			}
-			else{
-				$("#firstButton").attr("disabled",true);
-	            $("#firstButton").val("Please wait...");
-	            $("#firstForm").hide();
-	    		$('#secondForm').css({'display':'block'});
-    			event.preventDefault();
-			}
-});
+function getCitys(id){
 	
-	
-	
-	
-	$("#secondButton").click(function()
-			{		
-		ChangeUrl('page1', 'profile.htm?page=3');
-						if($('#education').val() ==  null || $('#education').val() == ""  || $('#education').val()=="undefined" || $('#salaryperyear').val() ==  null || $('#salaryperyear').val() == ""  || $('#salaryperyear').val()=="undefined")
-						{
-							if($('#education').val() ==  null || $('#education').val() == ""  || $('#education').val()=="undefined" ) 
-							{			    
-								$('#education').css('border-color','red');
-							    $('#education').css('color','#cc0000');
-								$('#education').addClass('your-class');
-//			 					$('#stateError').css('color','red');
-//			 				    $("#stateError").text("Created By cannot be blank.");
-						    }
-							if($('#salaryperyear').val() ==  null || $('#salaryperyear').val() == ""  || $('#salaryperyear').val()=="undefined" ) 
-							{			    
-							    $('#salaryperyear').css('border-color','red');
-							    $('#salaryperyear').css('color','#cc0000');
-							    //$("#gotram").attr('placeholder','Enter Gotram');
-								$('#salaryperyear').addClass('your-class');
-						    }
-							   
-							return false;
-						}
-						else{
-							$("#firstForm").hide();
-						 	$('#secondForm').hide();
-							$("#thirdForm").show();
-//						 		$("#registration").submit();
-						 
-								event.preventDefault();
-						}
-						
+	if($("#"+id).val()== null   || $('#'+id).val() == "" || $('#'+id).val()=="undefined"){
+		$("#currentCity").attr("readonly", true);
+		$("#currentCity").attr("disabled" ,"disabled");
+		$("#currentCity").val("");
+	}else{
+		$("#currentCity").removeAttr("disabled");
+		$("#currentCity").removeAttr("readonly");
+		var stateId =$("#"+id).val();
+		var formData = new FormData();
+	     formData.append('id', stateId);
+		$.fn.makeMultipartRequest('POST', 'getCitys', false,
+				formData, false, 'text', function(data){
+			var jsonobj = $.parseJSON(data);
+			var alldata = jsonobj.citys;
+// 			alert(alldata);
+         $("#currentCity").empty();
+			$("#currentCity").append("<option value='' >Choose City</option>");
+			
+			$.each(alldata, function(i, tests) {
+				$("#currentCity").append("<option value="+tests.id+" >"+ tests.name+"</option>");
 			});
-	
-	
-	$("#thirdButton").click(function()
-			{			
-		ChangeUrl('page1', 'profile.htm?page=4');
-						if($('#smoke').val() ==  null || $('#smoke').val() == ""  || $('#smoke').val()=="undefined" || $('#drink').val() ==  null || $('#drink').val() == ""  || $('#drink').val()=="undefined"||$('#height').val() ==  null || $('#height').val() == ""  || $('#height').val()=="undefined" ||$('#mobile').val() ==  null || $('#mobile').val() == ""  || $('#mobile').val()=="undefined")
-						{
-							if($('#smoke').val() ==  null || $('#smoke').val() == ""  || $('#smoke').val()=="undefined" ) 
-							{			    
-								$('#smoke').css('border-color','red');
-							    $('#smoke').css('color','#cc0000');
-								$('#smoke').addClass('your-class');
-//			 					$('#stateError').css('color','red');
-//			 				    $("#stateError").text("Created By cannot be blank.");
-						    }
-							if($('#drink').val() ==  null || $('#drink').val() == ""  || $('#drink').val()=="undefined" ) 
-							{			    
-							    $('#drink').css('border-color','red');
-							    $('#drink').css('color','#cc0000');
-							    //$("#gotram").attr('placeholder','Enter Gotram');
-								$('#drink').addClass('your-class');
-						    }
-							if($('#height').val() ==  null || $('#height').val() == ""  || $('#height').val()=="undefined" ) 
-							{			    
-							    $('#height').css('border-color','red');
-							    $('#height').css('color','#cc0000');
-							    //$("#gotram").attr('placeholder','Enter Gotram');
-								$('#height').addClass('your-class');
-						    }
-							if($('#mobile').val() ==  null || $('#mobile').val() == ""  || $('#mobile').val()=="undefined" ) 
-							{			    
-							    $('#mobile').css('border-color','red');
-							    $('#mobile').css('color','#cc0000');
-							    //$("#gotram").attr('placeholder','Enter Gotram');
-								$('#mobile').addClass('your-class');
-						    }
-							   
-							return false;
-						}
-						else{
-							$("#firstForm").hide();
-						 	$('#secondForm').hide();
-							$("#thirdForm").hide();
-							$('#fourthForm').show();
-//						 		$("#registration").submit();
-						 
-								event.preventDefault();
-						}
-						
-			}); */
-   
-  /* $(".btn1").click(function(){
-    $("#firstForm").hide();
-    $("#secondForm").show();
-  });
-  $(".btn2").click(function(){
-    $("#firstForm").hide();
-    $("#secondForm").hide();
-    $("#thirdForm").show();
-  });
-  $(".btn3").click(function(){
-    $("#firstForm").hide();
-    $("#secondForm").hide();
-    $("#thirdForm").hide();
-    $("#fourthForm").show();
-  });
-  $(".btn4").click(function(){
-    $("#firstForm").show();
-    $("#secondForm").hide();
-    $("#thirdForm").hide();
-    $("#fourthForm").hide();
-  });  */
-  
-  /* $("#firstButton").click(function(){		
+			
+		});
 		
-	 	$("#firstForm").hide();
-		$('#secondForm').css({'display':'block'});
-//	 		$("#registration").submit();
-			event.preventDefault();
-	}); */
-  
-
-  
-  /* $("#secondButton").click(function(){		
-		
-	 	$("#firstForm").hide();
-	 	$('#secondForm').hide();
-		$("#thirdForm").show();
-//	 		$("#registration").submit();
-	 
-			event.preventDefault();
-	}); */
-  /* $("#thirdButton").click(function(){		
-		
-	 	$("#firstForm").hide();
-	 	$('#secondForm').hide();
-		$("#thirdForm").hide();
-		$('#fourthForm').show();
-//	 		$("#registration").submit();
-	 
-			event.preventDefault();
-	}); */
-/* $("#fourthButton").click(function(){		
-		
-		 $('#profileRegistration').attr('action',"saveUserProfile");
-			$("#profileRegistration").submit();											
-			event.preventDefault();	
-	}); */
+	}
+}
 
 	function ChangeUrl(page, url) {
 	      if (typeof (history.pushState) != "undefined") {
@@ -1045,10 +882,10 @@ $("#firstButton").click(function()
 // 		alert(id);
 		
 	});
-	$('.u1').blur(function() {
+	$('.u').blur(function() {
 		var id = $(this).attr('id');
 		var value=$("#"+id).val();
-		var constant ='u1';
+		var constant ='u';
 		var formData = new FormData();
 	     formData.append('id', id);
 	     formData.append('value', value);

@@ -91,7 +91,7 @@ $( document ).ready(function() {
 				<table class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,text,text,text,text,null">
 					<thead>
 					<tr>
-						<th>UserName</th><th>Sur Name</th><th>Name</th><th>Email</th><th>Mobile</th>
+						<th>UserName</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Mobile</th>
 						<th></th>
 					</tr>
 					</thead>
@@ -144,10 +144,11 @@ s.parentNode.insertBefore(ga, s);
 							var viewProfile = "<a title='View Profile' onclick='viewProfile("+ orderObj.id+ ")'><i style='color: blue;' class='fa fa-eye'></i></a>"
 							var viewProfile = "<a title='View Profile' onclick='viewProfile("+ orderObj.id+ ")'><i style='color: blue;' class='fa fa-eye'></i></a>" */
 							serviceUnitArray[orderObj.id] = orderObj;
+							if(orderObj.firstName !=null){
 							var tblRow = "<tr >"
 								+ "<td title='"+orderObj.username+"'>" + orderObj.username + "</td>"
-								+ "<td title='"+orderObj.sname+"'>" + orderObj.sname + "</td>"
-								+ "<td title='"+orderObj.name+"'>" + orderObj.name + "</td>"
+								+ "<td title='"+orderObj.firstName+"'>" + orderObj.firstName + "</td>"
+								+ "<td title='"+orderObj.lastName+"'>" + orderObj.lastName + "</td>"
 								+ "<td title='"+orderObj.email+"'>" + orderObj.email + "</td>"
 								+ "<td title='"+orderObj.mobile+"'>" + orderObj.mobile + "</td>"
 									+ "<td style='text-align: center;white-space: nowrap;'>" + viewProfile + "&nbsp;&nbsp;" + uploadPhotos + "&nbsp;&nbsp;" 
@@ -157,6 +158,7 @@ s.parentNode.insertBefore(ga, s);
 									+ "</td>"  
 									+ "</tr >";
 							$(tblRow).appendTo("#tableId table tbody"); 
+							}
 						});
 		/* $('#DataTables_Table_0').DataTable({
 			dom: 'Bfrtip',
@@ -197,9 +199,9 @@ s.parentNode.insertBefore(ga, s);
 			var jsonobj = $.parseJSON(data);
 			alert(jsonobj.message);
 			
-			var alldata = jsonobj.allOrders1;
+			/* var alldata = jsonobj.allOrders1;
 			console.log(jsonobj.allOrders1);
-			displayTable(alldata);
+			displayTable(alldata); */
 		});
 		}
 		

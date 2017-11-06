@@ -82,7 +82,19 @@
 	<definition name="premiumProfile" extends="base.definition">
 		<put-attribute name="body" value="/WEB-INF/pages/premiumProfile.jsp" />
 	</definition>
+	<definition name="StateHome" extends="base.definition">
+		<put-attribute name="body" value="/WEB-INF/pages/state.jsp" />
+	</definition>
 	
+	<definition name="CityHome" extends="base.definition">
+		<put-attribute name="body" value="/WEB-INF/pages/city.jsp" />
+	</definition>
+	<definition name="DoshamHome" extends="base.definition">
+		<put-attribute name="body" value="/WEB-INF/pages/dosham.jsp" />
+	</definition>
+	<definition name="SalaryHome" extends="base.definition">
+		<put-attribute name="body" value="/WEB-INF/pages/salary.jsp" />
+	</definition>
 </tiles-definitions>
 
 

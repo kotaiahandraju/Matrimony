@@ -37,8 +37,8 @@ import com.aurospaces.neighbourhood.bean.UserImagesBean;
 import com.aurospaces.neighbourhood.bean.UsersBean;
 import com.aurospaces.neighbourhood.db.dao.BranchDao;
 import com.aurospaces.neighbourhood.db.dao.CountriesDao;
-import com.aurospaces.neighbourhood.db.dao.UserDetailsDao;
 import com.aurospaces.neighbourhood.db.dao.UserImageUploadDao;
+import com.aurospaces.neighbourhood.db.dao.UserrequirementDao;
 import com.aurospaces.neighbourhood.db.dao.UsersDao;
 import com.aurospaces.neighbourhood.util.EmailUtil;
 import com.aurospaces.neighbourhood.util.HRMSUtil;
@@ -52,7 +52,7 @@ public class CreateProfileController {
 	CountriesDao objCountriesDao;
 	 @Autowired BranchDao objBranchDao;
    @Autowired UsersDao objUsersDao;
-   @Autowired UserDetailsDao objUserDetailsDao;
+   @Autowired UserrequirementDao objUserrequirementDao;
    @Autowired
 	ServletContext objContext;
    @Autowired UserImageUploadDao objUserImageUploadDao;
@@ -67,8 +67,8 @@ public class CreateProfileController {
 		
 		try {
 //			objUsersBean =objUsersDao.getById(2756);
-			objeModel.addAttribute("createProfile", objUsersBean);
-			 ipAddress =MiscUtils.getClientIpAddress(request);
+//			objeModel.addAttribute("createProfile", objUsersBean);
+//			 ipAddress =MiscUtils.getClientIpAddress(request);
 		
 			/*listOrderBeans = objCountriesDao.getAllCountries();
 			if (listOrderBeans != null && listOrderBeans.size() > 0) {
@@ -87,7 +87,7 @@ public class CreateProfileController {
 			System.out.println(e);
 			logger.error(e);
 			logger.fatal("error in CreateProfile class createProfile method  ");
-			return "countriesHome";
+//			return "countriesHome";
 		}
 		return "createProfile";
 	}
@@ -148,11 +148,10 @@ public class CreateProfileController {
 			
 			
 			UsersBean objuserBean1 = (UsersBean) session.getAttribute("cacheUserBean");
-			if (objuserBean1 != null) {
-				objUsersBean.setRegister_with(String.valueOf(objuserBean1.getId()));
-			}
-			objUsersBean.setRole_id(4);
+			
+			
 			if(objUsersBean.getId() ==0){
+				objUsersBean.setRoleId(4);
 				int userId = objUsersDao.getNewUserId();
 				if(StringUtils.isNotBlank(objUsersBean.getBranch())){
 				objUsersBean.setPassword(MiscUtils.generateRandomString(6));
@@ -169,12 +168,17 @@ public class CreateProfileController {
 				if(StringUtils.isNotBlank(objUsersBean.getEmail())){
 					emailUtil.sendEmail(objUsersBean, objContext, "admin_send_password");
 				}
+				if (objuserBean1 != null) {
+					objUsersBean.setRegisterwith(String.valueOf(objuserBean1.getId()));
+				}
 				msg = "inserted";
 			}else{
 				msg = "updated";
 			}
 			objUsersDao.save(objUsersBean);
-			objUserDetailsDao.save(objUsersBean);
+			objUsersBean.setUserId(objUsersBean.getId());
+			objUserrequirementDao.save(objUsersBean);
+//			objUserDetailsDao.save(objUsersBean);
 			
 			/*listOrderBeans = objCountriesDao.getAllCountries();
 			if (listOrderBeans != null && listOrderBeans.size() > 0) {
@@ -452,4 +456,53 @@ public class CreateProfileController {
 		}
 		return statesMap;
 	}
+	@ModelAttribute("bodyType")
+	public Map<Integer, String> populatebodyType() {
+		Map<Integer, String> statesMap = new LinkedHashMap<Integer, String>();
+		try {
+			String sSql = "select id,name from body_type  where status='1' order by name asc";
+			List<EducationBean> list = objUsersDao.populate(sSql);
+			for (EducationBean bean : list) {
+				statesMap.put(bean.getId(), bean.getName());
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+		}
+		return statesMap;
+	}
+	@ModelAttribute("states")
+	public Map<Integer, String> populateState() {
+		Map<Integer, String> statesMap = new LinkedHashMap<Integer, String>();
+		try {
+			String sSql = "select id,name from state  where status='1' order by name asc";
+			List<EducationBean> list = objUsersDao.populate(sSql);
+			for (EducationBean bean : list) {
+				statesMap.put(bean.getId(), bean.getName());
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+		}
+		return statesMap;
+	}
+	@ModelAttribute("citys")
+	public Map<Integer, String> populateCity() {
+		Map<Integer, String> statesMap = new LinkedHashMap<Integer, String>();
+		try {
+			String sSql = "select id,name from city where status='1' order by name asc";
+			List<EducationBean> list = objUsersDao.populate(sSql);
+			for (EducationBean bean : list) {
+				statesMap.put(bean.getId(), bean.getName());
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+		}
+		return statesMap;
+	}
+	
 }

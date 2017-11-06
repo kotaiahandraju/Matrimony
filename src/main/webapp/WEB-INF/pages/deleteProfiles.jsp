@@ -128,7 +128,7 @@ s.parentNode.insertBefore(ga, s);
  function displayTable(listOrders) {
 		$('#tableId').html('');
 		var tableHead = '<table  class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,text,text,null">'
-				+ '<thead><tr><th>UserName</th><th>Name</th><th>Sur Name</th><th></th></tr></thead><tbody></tbody></table>';
+				+ '<thead><tr><th>UserName</th><th>First Name</th><th>Last Name</th><th></th></tr></thead><tbody></tbody></table>';
 		$('#tableId').html(tableHead);
 		serviceUnitArray = {};
 		$.each(listOrders,function(i, orderObj) {
@@ -136,13 +136,15 @@ s.parentNode.insertBefore(ga, s);
 							var restote = "<a  title='Restore Profile' onclick='restoreDeleteProfile("+ orderObj.id+ ")'><i style='color: green;cursor: pointer;' class='fa fa-repeat'></i></a>"
 							var viewProfile = "<a title='View Profile' onclick='viewProfile("+ orderObj.id+ ")'><i style='color: blue;cursor: pointer;' class='fa fa-eye'></i></a>"
 							serviceUnitArray[orderObj.id] = orderObj;
+							if(orderObj.firstName !=null){
 							var tblRow = "<tr >"
 									+ "<td title='"+orderObj.username+"'>" + orderObj.username + "</td>"
-									+ "<td title='"+orderObj.name+"'>" + orderObj.name + "</td>"
-									+ "<td title='"+orderObj.sname+"'>" + orderObj.sname + "</td>"
+									+ "<td title='"+orderObj.firstName+"'>" + orderObj.firstName + "</td>"
+									+ "<td title='"+orderObj.lastName+"'>" + orderObj.lastName + "</td>"
 									+ "<td style='text-align: center;'>" + edit + "&nbsp;|&nbsp;" + viewProfile + "&nbsp;|&nbsp;" + restote + "</td>" 
 									+ "</tr >";
 							$(tblRow).appendTo("#tableId table tbody");
+							}
 						});
 		
 	}

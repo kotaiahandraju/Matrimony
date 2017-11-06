@@ -20,7 +20,7 @@
 		<ul>
 			<li>
 				<i class="fa fa-edit"></i>
-				<a href="javascript:void(0)" style="color: blue;text-decoration: none;">Catalog 2</a>
+				<a href="javascript:void(0)" style="color: blue;text-decoration: none;">Data List 2</a>
 				<i class="fa fa-angle-right"></i>&nbsp;
 			</li>
 			<li>
