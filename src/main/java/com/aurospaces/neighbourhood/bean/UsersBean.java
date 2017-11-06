@@ -64,7 +64,64 @@ protected String rMotherTongue ;
 protected String haveChildren;
 protected String  rCountry,rState,rEducation,rWorkingWith,rOccupation,rAnnualIncome,rCreateProfileFor,rDiet;
 protected int userrequirementId;
+protected String fatherName, motherName, fOccupation, mOccupation, noOfBrothers, noOfSisters, noOfBrothersMarried, noOfSistersMarried;
+protected String rhaveChildren;
 
+
+public String getRhaveChildren() {
+	return rhaveChildren;
+}
+public void setRhaveChildren(String rhaveChildren) {
+	this.rhaveChildren = rhaveChildren;
+}
+public String getFatherName() {
+	return fatherName;
+}
+public void setFatherName(String fatherName) {
+	this.fatherName = fatherName;
+}
+public String getMotherName() {
+	return motherName;
+}
+public void setMotherName(String motherName) {
+	this.motherName = motherName;
+}
+public String getfOccupation() {
+	return fOccupation;
+}
+public void setfOccupation(String fOccupation) {
+	this.fOccupation = fOccupation;
+}
+public String getmOccupation() {
+	return mOccupation;
+}
+public void setmOccupation(String mOccupation) {
+	this.mOccupation = mOccupation;
+}
+public String getNoOfBrothers() {
+	return noOfBrothers;
+}
+public void setNoOfBrothers(String noOfBrothers) {
+	this.noOfBrothers = noOfBrothers;
+}
+public String getNoOfSisters() {
+	return noOfSisters;
+}
+public void setNoOfSisters(String noOfSisters) {
+	this.noOfSisters = noOfSisters;
+}
+public String getNoOfBrothersMarried() {
+	return noOfBrothersMarried;
+}
+public void setNoOfBrothersMarried(String noOfBrothersMarried) {
+	this.noOfBrothersMarried = noOfBrothersMarried;
+}
+public String getNoOfSistersMarried() {
+	return noOfSistersMarried;
+}
+public void setNoOfSistersMarried(String noOfSistersMarried) {
+	this.noOfSistersMarried = noOfSistersMarried;
+}
 public int getUserrequirementId() {
 	return userrequirementId;
 }

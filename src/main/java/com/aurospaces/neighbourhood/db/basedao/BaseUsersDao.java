@@ -27,7 +27,7 @@ public class BaseusersDao{
 CustomConnection custom;
 JdbcTemplate jdbcTemplate;
  
-	public final String INSERT_SQL = "INSERT INTO users( created_time, updated_time, role_id, username, password, email, createProfileFor, gender, firstName, lastName, dob, religion, motherTongue, currentCountry, currentState, currentCity, maritalStatus, caste, gotram, star, dosam, dosamName, education, workingWith, companyName, annualIncome, monthlyIncome, diet, smoking, drinking, height, bodyType, complexion, mobile, aboutMyself, disability, status, showall,registerwith) values (?, ?, ?, ?, AES_ENCRYPT(?,?), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)"; 
+	public final String INSERT_SQL = "INSERT INTO users( created_time, updated_time, role_id, username, password, email, createProfileFor, gender, firstName, lastName, dob, religion, motherTongue, currentCountry, currentState, currentCity, maritalStatus, caste, gotram, star, dosam, dosamName, education, workingWith, companyName, annualIncome, monthlyIncome, diet, smoking, drinking, height, bodyType, complexion, mobile, aboutMyself, disability, status, showall,registerwith,fatherName, motherName, fOccupation, mOccupation, noOfBrothers, noOfSisters, noOfBrothersMarried, noOfSistersMarried,haveChildren) values (?, ?, ?, ?, AES_ENCRYPT(?,?), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?,?,?,?,?,?)"; 
 
 
 
@@ -102,6 +102,15 @@ ps.setString(37, users.getDisability());
 ps.setString(38, users.getStatus());
 ps.setString(39, users.getShowall());
 ps.setString(40, users.getRegisterwith());
+ps.setString(41, users.getFatherName());
+ps.setString(42, users.getMotherName());
+ps.setString(43, users.getfOccupation());
+ps.setString(44, users.getmOccupation());
+ps.setString(45, users.getNoOfBrothers());
+ps.setString(46, users.getNoOfSisters());
+ps.setString(47, users.getNoOfBrothersMarried());
+ps.setString(48, users.getNoOfSistersMarried());
+ps.setString(49, users.getHaveChildren());
 
 							return ps;
 						}
@@ -116,9 +125,9 @@ ps.setString(40, users.getRegisterwith());
 		else
 		{
 
-			String sql = "UPDATE users  set updated_time = ?  ,createProfileFor = ? ,gender = ? ,firstName = ? ,lastName = ? ,dob = ? ,religion = ? ,motherTongue = ? ,currentCountry = ? ,currentState = ? ,currentCity = ? ,maritalStatus = ? ,caste = ? ,gotram = ? ,star = ? ,dosam = ? ,dosamName = ? ,education = ? ,workingWith = ? ,companyName = ? ,annualIncome = ? ,monthlyIncome = ? ,diet = ? ,smoking = ? ,drinking = ? ,height = ? ,bodyType = ? ,complexion = ? ,mobile = ? ,aboutMyself = ? ,disability = ?   where id = ? ";
+			String sql = "UPDATE users  set updated_time = ?  ,createProfileFor = ? ,gender = ? ,firstName = ? ,lastName = ? ,dob = ? ,religion = ? ,motherTongue = ? ,currentCountry = ? ,currentState = ? ,currentCity = ? ,maritalStatus = ? ,caste = ? ,gotram = ? ,star = ? ,dosam = ? ,dosamName = ? ,education = ? ,workingWith = ? ,companyName = ? ,annualIncome = ? ,monthlyIncome = ? ,diet = ? ,smoking = ? ,drinking = ? ,height = ? ,bodyType = ? ,complexion = ? ,mobile = ? ,aboutMyself = ? ,disability = ? ,fatherName=?, motherName=?, fOccupation=?, mOccupation=?, noOfBrothers=?, noOfSisters=?, noOfBrothersMarried=?, noOfSistersMarried=?,haveChildren=?  where id = ? ";
 	
-			jdbcTemplate.update(sql, new Object[]{users.getUpdatedTime(),users.getCreateProfileFor(),users.getGender(),users.getFirstName(),users.getLastName(),users.getDob(),users.getReligion(),users.getMotherTongue(),users.getCurrentCountry(),users.getCurrentState(),users.getCurrentCity(),users.getMaritalStatus(),users.getCaste(),users.getGotram(),users.getStar(),users.getDosam(),users.getDosamName(),users.getEducation(),users.getWorkingWith(),users.getCompanyName(),users.getAnnualIncome(),users.getMonthlyIncome(),users.getDiet(),users.getSmoking(),users.getDrinking(),users.getHeight(),users.getBodyType(),users.getComplexion(),users.getMobile(),users.getAboutMyself(),users.getDisability(),users.getId()});
+			jdbcTemplate.update(sql, new Object[]{users.getUpdatedTime(),users.getCreateProfileFor(),users.getGender(),users.getFirstName(),users.getLastName(),users.getDob(),users.getReligion(),users.getMotherTongue(),users.getCurrentCountry(),users.getCurrentState(),users.getCurrentCity(),users.getMaritalStatus(),users.getCaste(),users.getGotram(),users.getStar(),users.getDosam(),users.getDosamName(),users.getEducation(),users.getWorkingWith(),users.getCompanyName(),users.getAnnualIncome(),users.getMonthlyIncome(),users.getDiet(),users.getSmoking(),users.getDrinking(),users.getHeight(),users.getBodyType(),users.getComplexion(),users.getMobile(),users.getAboutMyself(),users.getDisability(),users.getFatherName(),users.getMotherName(),users.getfOccupation(),users.getmOccupation(), users.getNoOfBrothers(),users.getNoOfSisters(),users.getNoOfBrothersMarried(),users.getNoOfSistersMarried(),users.getHaveChildren(),users.getId()});
 		}
 	}
 		
@@ -130,9 +139,19 @@ ps.setString(40, users.getRegisterwith());
 		}
 		
 
+		public UsersBean getById1(int id) {
+			 jdbcTemplate = custom.getJdbcTemplate();
+				String sql = "SELECT * from users where id = ? ";
+				List<UsersBean> retlist = jdbcTemplate.query(sql,
+				new Object[]{id},
+				ParameterizedBeanPropertyRowMapper.newInstance(UsersBean.class));
+				if(retlist.size() > 0)
+					return retlist.get(0);
+				return null;
+			}
 	 public UsersBean getById(int id) {
 		 jdbcTemplate = custom.getJdbcTemplate();
-			String sql = "SELECT u.*,ur.* from users u,userrequirement ur  where u.id=ur.userId and u.id = ? ";
+			String sql = "SELECT u.*,ur.* from users u left join userrequirement ur  on u.id=ur.userId where u.id = ? ";
 			List<UsersBean> retlist = jdbcTemplate.query(sql,
 			new Object[]{id},
 			ParameterizedBeanPropertyRowMapper.newInstance(UsersBean.class));
@@ -140,6 +159,7 @@ ps.setString(40, users.getRegisterwith());
 				return retlist.get(0);
 			return null;
 		}
+	 
 
 	
 

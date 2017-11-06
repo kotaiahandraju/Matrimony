@@ -28,7 +28,7 @@ public class BaseUserrequirementDao{
 	 
 
  
-	public final String INSERT_SQL = "INSERT INTO userrequirement( created_time, updated_time, userId, rAgeFrom, rAgeTo, rHeight, rMaritalStatus, rReligion, rCaste, rMotherTongue,haveChildren,rCountry,rState,rEducation,rWorkingWith,rOccupation,rAnnualIncome,rCreateProfileFor,rDiet) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?,?,?,?,?)"; 
+	public final String INSERT_SQL = "INSERT INTO userrequirement( created_time, updated_time, userId, rAgeFrom, rAgeTo, rHeight, rMaritalStatus, rReligion, rCaste, rMotherTongue,rhaveChildren,rCountry,rState,rEducation,rWorkingWith,rOccupation,rAnnualIncome,rCreateProfileFor,rDiet) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?,?,?,?,?)"; 
 
 
 
@@ -73,7 +73,7 @@ ps.setString(7, userrequirement.getrMaritalStatus());
 ps.setString(8, userrequirement.getrReligion());
 ps.setString(9, userrequirement.getrCaste());
 ps.setString(10, userrequirement.getrMotherTongue());
-ps.setString(11, userrequirement.getHaveChildren());
+ps.setString(11, userrequirement.getRhaveChildren());
 ps.setString(12, userrequirement.getrCountry());	
 ps.setString(13, userrequirement.getrState());
 ps.setString(14, userrequirement.getrEducation());
@@ -100,7 +100,7 @@ return ps;
 					+ "  ,rCountry=?,rState=?,rEducation=?,rWorkingWith=?,rOccupation=?,rAnnualIncome=?,rCreateProfileFor=?,rDiet=?  where userrequirementId = ? ";
 	
 			jdbcTemplate.update(sql, new Object[]{userrequirement.getUpdatedTime(),userrequirement.getUserId(),userrequirement.getrAgeFrom(),userrequirement.getrAgeTo(),userrequirement.getrHeight(),userrequirement.getrMaritalStatus(),userrequirement.getrReligion(),
-					userrequirement.getrCaste(),userrequirement.getrMotherTongue(),userrequirement.getHaveChildren()
+					userrequirement.getrCaste(),userrequirement.getrMotherTongue(),userrequirement.getRhaveChildren()
 					,userrequirement.getrCountry(),userrequirement.getrState(),userrequirement.getrEducation(),userrequirement.getrWorkingWith(),userrequirement.getrOccupation(),userrequirement.getrAnnualIncome(),userrequirement.getrCreateProfileFor(),userrequirement.getrDiet(),userrequirement.getUserrequirementId()});
 		}
 	}
