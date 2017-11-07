@@ -158,27 +158,39 @@ body {
       <h3>Please share some details about Cvbc's Family</h3>
     </div>
     <div class="form-group">
-      <label class="col-md-4 control-label" for="textinput">Father's Status</label>  
+      <label class="col-md-4 control-label" for="textinput">Father Name</label>  
       <div class="col-md-8">
-      	<form:select path="foccupation" class="form-control u1" >
+      	<form:input path="fatherName" class="form-control" placeholder="Enter Father Name"/>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="textinput">Mother Name</label>  
+      <div class="col-md-8">
+      	<form:input path="motherName" class="form-control" placeholder="Enter Mother Name"/>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="textinput">Father's Occupation</label>  
+      <div class="col-md-8">
+      	<form:select path="fOccupation" class="form-control u1" >
 	<form:options items="${occupation}"></form:options>
 		</form:select>
       </div>
     </div>
     
     <div class="form-group">
-      <label class="col-md-4 control-label" for="textinput">Mother's Status</label>  
+      <label class="col-md-4 control-label" for="textinput">Mother's Occupation</label>  
       <div class="col-md-8">
-      	<form:select path="moccupation" class="form-control u1" >
+      	<form:select path="mOccupation" class="form-control u1" >
       	<form:options items="${occupation}"></form:options>
 		</form:select>
       </div>
     </div>
-    
+<!--     fatherName, motherName, fOccupation, mOccupation, noOfBrothers, noOfSisters, noOfBrothersMarried, noOfSistersMarried -->
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">No. of Brothers</label>  
       <div class="col-md-2">
-      	<form:select path="noOfBros" class="form-control u1">
+      	<form:select path="noOfBrothers" class="form-control u1">
 			<form:option value="">-- Select --</form:option>
 			<form:option value="1">1</form:option>
 			<form:option value="2">2</form:option>
@@ -187,7 +199,7 @@ body {
       </div>
       <label class="col-md-2">of whom</label>
       <div class="col-md-2">
-      	<form:select path="ofWhom" class="form-control u1">
+      	<form:select path="noOfBrothersMarried" class="form-control u1">
 			<form:option value="">-- Select --</form:option>
 			<form:option value="1">1</form:option>
 			<form:option value="2">2</form:option>
@@ -209,7 +221,7 @@ body {
       </div>
       <label class="col-md-2">of whom</label>
       <div class="col-md-2">
-      	<form:select path="smoke" class="form-control u1">
+      	<form:select path="noOfSistersMarried" class="form-control u1">
 			<form:option value="">-- Select --</form:option>
 			<form:option value="1">1</form:option>
 			<form:option value="2">2</form:option>
@@ -219,14 +231,6 @@ body {
       <label class="col-md-2">are married</label>
     </div>
     
-    <div class="form-group">
-      <label class="col-md-4 control-label" for="textinput">Family affluence</label>  
-      <div class="col-md-8">
-      	<form:select path="diet" class="form-control u1" >
-			<form:option value="">-- Select --</form:option>
-		</form:select>
-      </div>
-    </div>    
 
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput"></label>  

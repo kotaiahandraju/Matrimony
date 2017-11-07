@@ -32,6 +32,16 @@ public class UserrequirementDao extends BaseUserrequirementDao
 				return retlist.get(0);
 			return null;
 		}
+	 public UsersBean getByFilterUserId(int id) {
+		 jdbcTemplate = custom.getJdbcTemplate();
+			String sql = "SELECT * from userrequirement where userId = ? ";
+			List<UsersBean> retlist = jdbcTemplate.query(sql,
+			new Object[]{id},
+			ParameterizedBeanPropertyRowMapper.newInstance(UsersBean.class));
+			if(retlist.size() > 0)
+				return retlist.get(0);
+			return null;
+		}
 
 
 }

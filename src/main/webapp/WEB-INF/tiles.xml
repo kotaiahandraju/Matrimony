@@ -21,7 +21,10 @@
 	<!-- <definition name="partnerLoginHome" extends="base.definition"> <put-attribute 
 		name="body" value="/WEB-INF/pages/partnerLogin.jsp" /> </definition> -->
 	<!-- Exception page -->
-
+	
+	<definition name="changePasswordPage" extends="base.definition">
+		<put-attribute name="body" value="/WEB-INF/pages/changePasswordPage.jsp" />
+	</definition>
 	<definition name="bodyTypeHome" extends="base.definition">
 		<put-attribute name="body" value="/WEB-INF/pages/bodyType.jsp" />
 	</definition>

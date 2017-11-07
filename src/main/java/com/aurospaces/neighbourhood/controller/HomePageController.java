@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -137,7 +138,7 @@ public class HomePageController {
 			if(session.getAttribute("cacheGuest") != null){
 				UsersBean sessionBean =(UsersBean)session.getAttribute("cacheGuest");
 			//get session bean values 
-			 objUsersBean = objUsersDao.getById(sessionBean.getId());
+			 objUsersBean = objUsersDao.getById1(sessionBean.getId());
 			 if(objUsersBean != null){
 			 objeModel.addAttribute("createProfile", objUsersBean);
 			 }
@@ -170,13 +171,16 @@ public class HomePageController {
 				objUsersBean.setDob1(dob1);
 			}
 			
-			
-//			if(StringUtils.isNotBlank(objUsersBean.getEmail())){
-			objUsersDao.save(objUsersBean);
-//			objUserDetailsDao.save(objUsersBean);
-			session.setAttribute("cacheGuest", objUsersBean);
-//			response.sendRedirect("profile?gp=page_1");
-//			}
+			if(session.getAttribute("cacheGuest") != null){
+				UsersBean sessionBean =(UsersBean)session.getAttribute("cacheGuest");
+			//get session bean values 
+			UsersBean  objUsersBean1 = objUsersDao.getById1(sessionBean.getId());
+			 if(objUsersBean != null){
+			 objeModel.addAttribute("createProfile", objUsersBean);
+			 }
+			 BeanUtils.copyProperties(objUsersBean1,objUsersBean,getNullPropertyNames(objUsersBean1));
+			 objUsersDao.save(objUsersBean);
+			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -184,8 +188,66 @@ public class HomePageController {
 			logger.error(e);
 			logger.fatal("error in CreateProfile class createProfile method  ");
 		}
-		return "redirect:partner-profile";
+		return "redirect:family-details";
 	}
+	
+	 @RequestMapping(value = "/family-details")
+	 public String familyDetails(@ModelAttribute("familyDetails") UsersBean objUsersBean, Model objeModel ,
+	   HttpServletRequest request, HttpSession session) {
+	  System.out.println("familyDetails Page");
+	  try {
+		  if(session.getAttribute("cacheGuest") != null){
+			  UsersBean sessionBean =(UsersBean)session.getAttribute("cacheGuest");
+			  UsersBean UserrequirementBean=  objUsersDao.getById1(sessionBean.getId());
+			if(UserrequirementBean != null){
+			objeModel.addAttribute("familyDetails", UserrequirementBean);
+			}
+			   
+		   }else{
+			   return "redirect:HomePage";
+		   }	   
+	  } catch (Exception e) {
+	   e.printStackTrace();
+	   System.out.println(e);
+	   logger.error(e);
+	   logger.fatal("error in HomePageController class familyDetails method");
+	   return "familyDetails";
+	  }
+	  return "familyDetails";
+	 }
+	
+	 
+	 @RequestMapping(value = "/saveImproveFamilyDetails")
+	 public String saveImproveFamilyDetails(@ModelAttribute("familyDetails") UsersBean objUsersBean, Model objeModel ,
+	   HttpServletRequest request, HttpSession session) {
+	  System.out.println("saveImproveFamilyDetails..... Page");
+	  try {
+		  UsersBean sessionBean =  null;
+		  UsersBean objUsersBean1 =new UsersBean();
+		  if(session.getAttribute("cacheGuest") != null){
+				 sessionBean =(UsersBean)session.getAttribute("cacheGuest");
+			//get session bean values 
+			 objUsersBean1 = objUsersDao.getById1(sessionBean.getId());
+			 objUsersBean1.setFatherName(objUsersBean.getFatherName());
+			 objUsersBean1.setMotherName(objUsersBean.getMotherName());
+			 objUsersBean1.setfOccupation(objUsersBean.getfOccupation());
+			 objUsersBean1.setmOccupation(objUsersBean.getmOccupation());
+			 objUsersBean1.setNoOfBrothers(objUsersBean.getNoOfBrothers());
+			 objUsersBean1.setNoOfSisters(objUsersBean.getNoOfSisters());
+			 objUsersBean1.setNoOfBrothersMarried(objUsersBean.getNoOfBrothersMarried());
+			 objUsersBean1.setNoOfSisters(objUsersBean.getNoOfSistersMarried());
+			 objUsersDao.save(objUsersBean1);
+			}else{
+				return "redirect:HomePage";
+			}	   
+	  } catch (Exception e) {
+	   e.printStackTrace();
+	   System.out.println(e);
+	   logger.error(e);
+	   logger.fatal("error in HomePageController class familyDetails method");
+	  }
+	  return "redirect:partner-profile";
+	 }
 	 @RequestMapping(value = "/partner-profile")
 	 public String partnerProfile(@ModelAttribute("partnerProfile") UsersBean objUsersBean, Model objeModel ,
 	   HttpServletRequest request, HttpSession session) {
@@ -193,7 +255,7 @@ public class HomePageController {
 	  try {
 	   if(session.getAttribute("cacheGuest") != null){
 		  UsersBean sessionBean =(UsersBean)session.getAttribute("cacheGuest");
-		  UsersBean UserrequirementBean=  objUserrequirementDao.getByUserId(sessionBean.getId());
+		  UsersBean UserrequirementBean=  objUserrequirementDao.getByFilterUserId(sessionBean.getId());
 		if(UserrequirementBean != null){
 		objeModel.addAttribute("partnerProfile", UserrequirementBean);
 		}
@@ -222,7 +284,7 @@ public class HomePageController {
 		  if(session.getAttribute("cacheGuest") != null){
 				 sessionBean =(UsersBean)session.getAttribute("cacheGuest");
 			//get session bean values 
-			 objUsersBean1 = objUsersDao.getById(sessionBean.getId());
+			 objUsersBean1 = objUsersDao.getById1(sessionBean.getId());
 			 objUserrequirementBean.setUserId(sessionBean.getId());
 			 objUserrequirementDao.save(objUserrequirementBean);
 //			 BeanUtils.copyProperties(objUsersBean1,objUsersBean,getNullPropertyNames(objUsersBean1));
@@ -235,71 +297,6 @@ public class HomePageController {
 	   System.out.println(e);
 	   logger.error(e);
 	   logger.fatal("error in HomePageController class partnerProfile method");
-	  }
-	  return "redirect:thankyou";
-	 }
-	 @RequestMapping(value = "/improve-family-details")
-	 public String familyDetails(@ModelAttribute("familyDetails") UsersBean objUsersBean, Model objeModel ,
-	   HttpServletRequest request, HttpSession session) {
-	  System.out.println("familyDetails Page");
-	  try {
-	//   
-	   
-	  } catch (Exception e) {
-	   e.printStackTrace();
-	   System.out.println(e);
-	   logger.error(e);
-	   logger.fatal("error in HomePageController class familyDetails method");
-	   return "familyDetails";
-	  }
-	  return "familyDetails";
-	 }
-	 @RequestMapping(value = "/membershipPlans")
-	 public String membershipPlans(@ModelAttribute("familyDetails") UsersBean objUsersBean, Model objeModel ,
-	   HttpServletRequest request, HttpSession session) {
-	  System.out.println("familyDetails Page");
-	  try {
-	//   
-	   
-	  } catch (Exception e) {
-	   e.printStackTrace();
-	   System.out.println(e);
-	   logger.error(e);
-	   logger.fatal("error in HomePageController class familyDetails method");
-	   return "familyDetails";
-	  }
-	  return "membership1";
-	 }
-	 @RequestMapping(value = "/profileView")
-	 public String profileView( Model objeModel ,
-	   HttpServletRequest request, HttpSession session) {
-	  System.out.println("familyDetails Page");
-	  try {
-	//   
-	   
-	  } catch (Exception e) {
-	   e.printStackTrace();
-	   System.out.println(e);
-	   logger.error(e);
-	   logger.fatal("error in HomePageController class familyDetails method");
-	   return "familyDetails";
-	  }
-	  return "profile_page";
-	 }
-	 
-	 @RequestMapping(value = "/saveImproveFamilyDetails")
-	 public String saveImproveFamilyDetails(@ModelAttribute("familyDetails") UsersBean objUsersBean, Model objeModel ,
-	   HttpServletRequest request, HttpSession session) {
-	  System.out.println("saveImproveFamilyDetails..... Page");
-	  try {
-	//   
-	   
-	  } catch (Exception e) {
-	   e.printStackTrace();
-	   System.out.println(e);
-	   logger.error(e);
-	   logger.fatal("error in HomePageController class familyDetails method");
-	   return "familyDetails";
 	  }
 	  return "redirect:thankyou";
 	 }
@@ -319,6 +316,38 @@ public class HomePageController {
 	   return "thankYou";
 	  }
 	  return "thankYou";
+	 }
+	 @RequestMapping(value = "/membershipPlans")
+	 public String membershipPlans(@ModelAttribute("familyDetails") UsersBean objUsersBean, Model objeModel ,
+	   HttpServletRequest request, HttpSession session) {
+	  System.out.println("membershipPlans Page");
+	  try {
+	//   
+	   
+	  } catch (Exception e) {
+	   e.printStackTrace();
+	   System.out.println(e);
+	   logger.error(e);
+	   logger.fatal("error in HomePageController class familyDetails method");
+	   return "familyDetails";
+	  }
+	  return "membership1";
+	 }
+	 @RequestMapping(value = "/profileView")
+	 public String profileView( Model objeModel ,
+	   HttpServletRequest request, HttpSession session) {
+	  System.out.println("profileView Page");
+	  try {
+	//   
+	   
+	  } catch (Exception e) {
+	   e.printStackTrace();
+	   System.out.println(e);
+	   logger.error(e);
+	   logger.fatal("error in HomePageController class familyDetails method");
+	   return "familyDetails";
+	  }
+	  return "profile_page";
 	 }
 	 @RequestMapping(value = "/getCitys")
 		public  @ResponseBody String getCitys( ModelMap model,
@@ -342,7 +371,7 @@ public class HomePageController {
 	@RequestMapping(value = "/autoCompleteSave")
 	public @ResponseBody String autoCompleteSave(AutoCompleteBean objAutoCompleteBean, Model objeModel ,
 			HttpServletRequest request,HttpServletResponse response, HttpSession session) {
-		System.out.println("saveUserProfile Page");
+		System.out.println("autoCompleteSave Page");
 		String msg = null;
 		String id =null;
 		String value= null;

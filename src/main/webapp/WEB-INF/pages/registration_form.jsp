@@ -213,11 +213,22 @@ function validate(id, errorMessage)
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Your Marital Status <span class='manditory'>*</span></label>  
       <div class="col-md-6">
-      	<form:select path="maritalStatus" class="form-control u" onblur="validate(this.id,'');" onfocus="removeBorder(this.id)">
+      	<form:select path="maritalStatus" class="form-control u" onchange="hideChildren();" onblur="validate(this.id,'');" onfocus="removeBorder(this.id)">
 			<form:option value="">-- Martial Status --</form:option>
 			<form:option value="Married">Married</form:option>
 			<form:option value="Unmarried">Unmarried</form:option>
 			<form:option value="Widow/Divorced">Widow/Divorced</form:option>
+		</form:select>
+      </div>
+    </div>
+    
+    <div class="form-group" id="haveChildrenId" style="display: none">
+      <label class="col-md-4 control-label" for="textinput" >Have Children</label>  
+      <div class="col-md-6">
+      	<form:select path="haveChildren" class="form-control u">
+			<form:option value="No Children">No Children</form:option>
+			<form:option value="1">1</form:option>
+			<form:option value="2">2</form:option>
 		</form:select>
       </div>
     </div>
@@ -904,6 +915,15 @@ function getCitys(id){
 //	 	$(".dispnone").addClass("hiddencss");
 //	 	$('body').removeClass("dispnone");
 	});
+	function hideChildren() {
+		 var maritalStatus=$("#maritalStatus").val();
+		 if(maritalStatus == "Unmarried" || maritalStatus ==""){
+			 $("#haveChildrenId").hide();
+			 $("#haveChildren").val();
+		 }else{
+			 $("#haveChildrenId").show();
+		 }
+		}
 </script>
   </body>
 
