@@ -202,7 +202,7 @@ public class UsersDao extends BaseusersDao
 				try {
 					String sSql = "update users set password = AES_ENCRYPT(?,?) , updated_time = ? where id = ?";
 					int updated_cnt = jdbcTemplate.update(sSql,
-							objUsersBean.getPassword(),"mykey",//new Timestnew Date().getTime()
+							objUsersBean.getPassword(),"mykey", new java.sql.Timestamp(new Date().getTime()),
 							objUsersBean.getId());
 					if (updated_cnt != 0) {
 						updated = true;
