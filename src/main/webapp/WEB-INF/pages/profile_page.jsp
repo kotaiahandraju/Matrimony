@@ -387,9 +387,21 @@ function displayMatches(listOrders) {
 	{
 		serviceUnitArray[orderObj.id] = orderObj;
 		
+		var array = null;
+// 		var imageUrl =null;
+		
 		var image = null; image = orderObj.image;
-		if(image == "" || image == null || image == "undefined"){image = "img/default.png";}
-
+		if(image == "" || image == null || image == "undefined"){
+			image = "img/default.png";
+		}
+		else{
+		array = image.split(",");
+		
+		$.each(array,function(i){
+			image = array[i];
+// 			   alert(array[i]);
+			});
+		}
 		if(orderObj.firstName !=null)
 		{
 			var tblRow = '<div class="row container-fluid">'
