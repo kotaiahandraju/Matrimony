@@ -341,7 +341,19 @@ public class HomePageController {
 	  UsersBean objUsersBean = null;
 		ObjectMapper objectMapper = null;
 		String sJson = null;
+		
 		try {
+			UsersBean sessionBean =  null;
+			  UsersBean objUsersBean1 =new UsersBean();
+			  if(session.getAttribute("cacheGuest") != null){
+					 sessionBean =(UsersBean)session.getAttribute("cacheGuest");
+//				 objUsersBean1 = objUsersDao.getById1(sessionBean.getId());
+				}else{
+					return "redirect:HomePage";
+				}
+			
+			
+			
 			objUsersBean = new UsersBean();
 			listOrderBeans = objUsersDao.getAllProfiles1(objUsersBean,"all");
 			if (listOrderBeans != null && listOrderBeans.size() > 0) {
