@@ -103,6 +103,7 @@ public class LoginController {
 			UsersBean objuserBean = (UsersBean) session.getAttribute("cacheUserBean");
 			if (objuserBean != null) {
 				session.removeAttribute("cacheUserBean");
+				session.removeAttribute("cacheGuest");
 				session.removeAttribute("rolId");
 				session.removeAttribute("userName");
 				session.invalidate();

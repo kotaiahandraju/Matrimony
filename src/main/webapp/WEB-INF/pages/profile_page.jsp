@@ -1,4 +1,9 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://displaytag.sf.net" prefix="display"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <!DOCTYPE html>
+<%@page import="com.aurospaces.neighbourhood.bean.UsersBean"%>
 <html>
 <head>
 <title>View Profiles</title>
@@ -33,6 +38,12 @@
 </head>
 	
 <body>
+<%
+UsersBean userBean = null;
+if(session.getAttribute("cacheGuest") != null){
+	userBean= (UsersBean)session.getAttribute("cacheGuest");
+}
+%>
 <!-- top-header -->
 
 <!-- top-header -->
@@ -57,7 +68,7 @@
       
 		<div class="col-md-5">
 			<div class="cart box_1">
-				<p>Dear, Ramesh Babu | &nbsp;&nbsp;<a href="#" >Upgrade</a> &nbsp;&nbsp;|&nbsp;&nbsp; <a href="#" >Help</a> &nbsp;&nbsp;|&nbsp;&nbsp; <a href="#" >Signout</a></p>
+				<p>Dear, <%= userBean.getFirstName() %> <%= userBean.getLastName() %> | &nbsp;&nbsp;<a href="#" >Upgrade</a> &nbsp;&nbsp;|&nbsp;&nbsp; <a href="#" >Help</a> &nbsp;&nbsp;|&nbsp;&nbsp; <a href="logoutHome" >Signout</a></p>
 				<div class="clearfix"> </div>
 			</div>				 
 		</div>
@@ -76,7 +87,7 @@
 		 <div class="menu_sec">
 		 <!-- start header menu -->
 		<ul class="megamenu skyblue">
-			<li class="active" ><a class="color1" href="#">Dashboard</a></li>
+			<li class="active" ><a class="color1" href="profileView">Dashboard</a></li>
 			<li><a class="color1" href="#">My Profile</a></li>
             <li><a class="color1" href="#">My Photos</a></li>
             <li><a class="color1" href="#">Partner Preferences</a></li>
@@ -92,7 +103,7 @@
 		<div class="container">
 			<div class="mid-grids">
             <div class="col-md-12">
-            <h4>Hello Srinivas Rayudu. K <span>(AMV1234500)</span></h4>
+            <h4>Hello <%= userBean.getFirstName() %>. <%= userBean.getLastName() %><span>(<%= userBean.getUsername() %>)</span></h4>
             </div>   
             
 				<div class="col-md-3 products-grid-right">
@@ -213,60 +224,7 @@
 	            	New Matches (150) <span class="pull-right"> <a href="#">View All</a></span>
 	            </div>
 				<div class="panel-body" id="matches">
-				
-					<div class="row container-fluid">
-						<div class="col-md-2" style="margin-right:0; padding-right:0;">	
-		                	<img src="user/images/avtar.jpg" class="img-responsive thumbnail" style="margin-bottom: 0px;">
-			            </div>   
-	                  	<div class="col-md-9">
-	                  		<div class="profilesimilar">
-	                  			<table width="100%" border="0" cellspacing="0" cellpadding="0">
-			                    	<tr>
-			                        	<td><h4>firstName lastName</h4></td>
-			                      	</tr>
-			                       	<tr>
-			                        	<td><p>dob, religionName, casteName,</p></td>
-			                      	</tr>
-			                       	<tr>
-			                        	<td><p>occupationName, currentCity , currentCountryName.</p></td>
-			                      	</tr>
-			                       	<tr>
-			                        	<td><span>Full Profile</span> >></td>
-			                      	</tr>
-	                    		</table>
-	                    	</div>
-	                  	</div> 
-	                  	<div class="clearfix"></div> 
-	                   	<hr>
-                  	</div>
-				
-					<div >
-				<div class="col-md-2" style="margin-right:0; padding-right:0;">	
-                  <img src="images/p1.jpg" class="img-responsive  thumbnail" style="margin-bottom: 0px;">
-                  </div>   
-                  <div class="col-md-9">
-                  <div class="profilesimilar">
-                  <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                      <tr>
-                        <td><h4>Srinivasrao Rayudu Kota</h4></td>
-                      </tr>
-                       <tr>
-                        <td><p>40, Hindu, Kapu,</p> </td>
-                      </tr>
-                       <tr>
-                        <td><p>QA Manager, Guntur , India.</p>  </td>
-                      </tr>
-                       <tr>
-                        <td><span>Full Profile</span> >></td>
-                      </tr>
-                    </table>
-                    </div>
-                  </div> 
-                  <div class="clearfix"></div> 
-                   <hr>
-					</div>
-                   
-                   
+					
 				</div>
 			</div>
 				</div>
@@ -287,15 +245,20 @@
 				</div>
 				<div class="panel-body">
 					
-<form class="form-horizontal">
+<form action="searchProfile" method="post" class="form-horizontal">
 <fieldset>
 
 <!-- Text input-->
 <div class="form-group">
   <label class="col-md-4 control-label" for="textinput">Age</label>  
-  <div class="col-md-8">
-  <input id="textinput" name="textinput" type="text" placeholder="Age" class="form-control input-md">
-    
+  <div class="col-md-4">
+  	<select id="ageFrom" id="ageFrom" class="form-control" style="padding: 0px;"></select>
+<!--   	<input type="number" min="20" max="55" name="ageFrom" placeholder="from" class="form-control"/> -->
+<!--    <input id="textinput" name="textinput" type="text" placeholder="Age" class="form-control input-md"> -->
+  </div>
+  <div class="col-md-4">
+  	<select name="ageTo" id="ageTo" class="form-control" style="padding: 0px;"></select>
+<!--   	<input type="number" min="20" max="55" name="ageTo" placeholder="to" class="form-control"/> -->
   </div>
 </div>
 
@@ -303,8 +266,11 @@
 <div class="form-group">
   <label class="col-md-4 control-label" for="textinput">Education</label>  
   <div class="col-md-8">
-  <input id="textinput" name="textinput" type="text" placeholder="Education" class="form-control input-md">
-    
+  	<form:select path="education" class="form-control">
+		<form:option value="">-- Education --</form:option>
+		<form:options items="${education}"></form:options>
+	</form:select>
+<!--   <input id="textinput" name="textinput" type="text" placeholder="Education" class="form-control input-md"> -->
   </div>
 </div>
 
@@ -312,7 +278,11 @@
 <div class="form-group">
   <label class="col-md-4 control-label" for="textinput">Location</label>  
   <div class="col-md-8">
-  <input id="textinput" name="textinput" type="text" placeholder="Location" class="form-control input-md">
+  	<form:select path="education" class="form-control">
+		<form:option value="">-- Location --</form:option>
+		<form:options items="${citys}"></form:options>
+	</form:select>
+<!--   <input id="textinput" name="textinput" type="text" placeholder="Location" class="form-control input-md"> -->
     
   </div>
 </div>
@@ -373,9 +343,18 @@
 	<div class="footer-copy">
 		<p>© 2017. All rights reserved.</p>
 	</div>
-<!-- //footer -->
 
+<!-- //footer -->
 <script type="text/javascript">
+
+$(function(){
+    $("#ageFrom").append('<option value="">From</option>');
+    $("#ageTo").append('<option value="">To</option>');
+    for (var i=18;i<=55;i++){
+        $("#ageFrom,#ageTo").append('<option value='+i+'>'+i+'</option>');
+    }
+});
+
 var listOrders1 = ${allOrders1};
 if (listOrders1 != "") {
 	displayMatches(listOrders1);

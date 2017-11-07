@@ -1,4 +1,9 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://displaytag.sf.net" prefix="display"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <!DOCTYPE html>
+<%@page import="com.aurospaces.neighbourhood.bean.UsersBean"%>
 <html>
 <head>
 <title>Search Profiles</title>
@@ -100,45 +105,42 @@
 }
 </style>
 
-
-
-
-
-
 </head>
 	
 <body>
+<%
+UsersBean userBean = null;
+if(session.getAttribute("cacheGuest") != null){
+	userBean= (UsersBean)session.getAttribute("cacheGuest");
+}
+%>
 <!-- top-header -->
 
 <!-- top-header -->
 <!-- logo-cart -->
 <div class="header_top">
 	<div class="container">
-    <div class=" col-md-3">
-		<div class="logo">
-		 	<img src="user/images/logo1.jpg" class="img-responsive" >
-	  </div>
-      <div class="clearfix"></div>
-      </div>
-      
-      <div class="col-md-4 ">
-      <div class=" box_1 midfont">
-		<p> <a href="#">Matches</a>  <span class="badge badge-notify">30</span>&nbsp;&nbsp;&nbsp;
-        <a href="#">Search</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-       <a href="#">Inbox</a>  <span class="badge badge-notify">30</span></p>
-        
-        </div>      
-      </div>
+    	<div class=" col-md-3">
+			<div class="logo">
+			 	<img src="user/images/logo1.jpg" class="img-responsive" >
+			</div>
+	      	<div class="clearfix"></div>
+		</div>
+      	
+      	<div class="col-md-4 ">
+      		<div class=" box_1 midfont">
+				<p><a href="#">Matches</a>  <span class="badge badge-notify">30</span>&nbsp;&nbsp;&nbsp;
+        		<a href="#">Search</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       			<a href="#">Inbox</a>  <span class="badge badge-notify">30</span></p>
+        	</div>      
+		</div>
       
 		<div class="col-md-5">
 			<div class="cart box_1">
-				<p>Dear, Ramesh Babu | &nbsp;&nbsp;<a href="#" >Upgrade</a> &nbsp;&nbsp;|&nbsp;&nbsp; <a href="#" >Help</a> &nbsp;&nbsp;|&nbsp;&nbsp; <a href="#" >Signout</a></p>
+				<p>Dear, <%= userBean.getFirstName() %> <%= userBean.getLastName() %> | &nbsp;&nbsp;<a href="#" >Upgrade</a> &nbsp;&nbsp;|&nbsp;&nbsp; <a href="#" >Help</a> &nbsp;&nbsp;|&nbsp;&nbsp; <a href="logoutHome" >Signout</a></p>
 				<div class="clearfix"> </div>
 			</div>				 
 		</div>
-        
-        
-        
 	</div>
 </div>
 <!-- //logo-cart -->
@@ -147,21 +149,21 @@
 	
 </div>
 <div class="mega_nav">
-	 <div class="container">
-		 <div class="menu_sec">
-		 <!-- start header menu -->
-		<ul class="megamenu skyblue">
-			<li class="active" ><a class="color1" href="#">Dashboard</a></li>
-			<li><a class="color1" href="#">My Profile</a></li>
-            <li><a class="color1" href="#">My Photos</a></li>
-            <li><a class="color1" href="#">Partner Preferences</a></li>
-             <li><a class="color1" href="#">More</a></li>
-		</ul> 
+	<div class="container">
+		<div class="menu_sec">
+		<!-- start header menu -->
+			<ul class="megamenu skyblue">
+				<li class="active" ><a class="color1" href="profileView">Dashboard</a></li>
+				<li><a class="color1" href="#">My Profile</a></li>
+	            <li><a class="color1" href="#">My Photos</a></li>
+	            <li><a class="color1" href="#">Partner Preferences</a></li>
+	            <li><a class="color1" href="#">More</a></li>
+			</ul>
 			<div class="clearfix"></div>
-		 </div>
-	  </div>
+		</div>
+	</div>
 </div>
-<!---->
+
 <!-- products -->
 	<div class="products">
 		<div class="container">
@@ -232,7 +234,6 @@
 									<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Balija</label>
 									<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Brahmin</label>
 								</div>
-								
 							</div>
 						</section>
 					</div>
@@ -241,349 +242,15 @@
              
              
              <div class="col-md-9">
-   <div class="searchresults">
+<div class="searchresults">
     <h3>Your Search Results</h3>
-    <p>2000 Profiles found : Female 20 - 25  <a href="#">Modify Search</a></p>
-    
-    <div class="panel panel-default">
-				<div class="panel-heading">
-					<h5 class="panel-title">
-						 <div class="form-check">
-    <label class="form-check-label">
-      <input type="checkbox" class="form-check-input"> 
-      AMV00025
-    </label>
-    <span class="pull-right">Created by Brother</span>
-  </div> 
-					</h3>
-				</div>
-				<div class="panel-body">
-				<div class="col-md-3">
-                   <a href="#"> <img src="images/p1.jpg" class="img-responsive thumbnail"></a>
-                    </div>
-                
-                <div class="col-md-6">
-				<table >
-  <tr>
-    <td>Age/Height</td>
-    <td><span>: 25, 5'.4"</span></td>
-  </tr>
-   <tr>
-    <td>Religion</td>
-    <td><span>: Hindu</span></td>
-  </tr>
-   <tr>
-    <td>Mother Tongue</td>
-    <td><span>: Telugu</span></td>
-  </tr>
-   <tr>
-    <td>Community</td>
-    <td><span>: Brahmin</span></td>
-  </tr>
-   <tr>
-    <td>Location</td>
-    <td><span>: Vijayawada</span></td>
-  </tr>
-   <tr>
-    <td>Education</td>
-    <td><span>: Masters - Engineering and Technology</span></td>
-  </tr>
-   <tr>
-    <td>Profession</td>
-    <td><span>: Software Engineer</span></td>
-  </tr>
-  <tr>
-  <td colspan="2">She is polite, kind nature, My Sister has completed her master degree M.E(ECE). She is currently working in... <a href="#"> read more..</a> </td>
-  </tr>
-</table>
-
-                
-                </div>
-              
-                <div class="col-md-3">
-   <h4 style="margin-bottom:20px;">Like her Profile?</h4>
-   <button class="btn btn-primary btn-block">Yes I'm interested</button>
-    <button class="btn btn-danger  btn-block">View Full Prifile</button>
-    <div class="clearfix"></div>
-   </div>
-                </div>
-			</div>
-    
-    <div class="panel panel-default">
-				<div class="panel-heading">
-					<h5 class="panel-title">
-						 <div class="form-check">
-    <label class="form-check-label">
-      <input type="checkbox" class="form-check-input"> 
-      AMV00025
-    </label>
-    <span class="pull-right">Created by Brother</span>
-  </div> 
-					</h3>
-				</div>
-				<div class="panel-body">
-				<div class="col-md-3">
-                   <a href="#"> <img src="images/p1.jpg" class="img-responsive thumbnail"></a>
-                    </div>
-                
-                <div class="col-md-6">
-				<table >
-  <tr>
-    <td>Age/Height</td>
-    <td><span>: 25, 5'.4"</span></td>
-  </tr>
-   <tr>
-    <td>Religion</td>
-    <td><span>: Hindu</span></td>
-  </tr>
-   <tr>
-    <td>Mother Tongue</td>
-    <td><span>: Telugu</span></td>
-  </tr>
-   <tr>
-    <td>Community</td>
-    <td><span>: Brahmin</span></td>
-  </tr>
-   <tr>
-    <td>Location</td>
-    <td><span>: Vijayawada</span></td>
-  </tr>
-   <tr>
-    <td>Education</td>
-    <td><span>: Masters - Engineering and Technology</span></td>
-  </tr>
-   <tr>
-    <td>Profession</td>
-    <td><span>: Software Engineer</span></td>
-  </tr>
-  <tr>
-  <td colspan="2">She is polite, kind nature, My Sister has completed her master degree M.E(ECE). She is currently working in... <a href="#"> read more..</a> </td>
-  </tr>
-</table>
-
-                
-                </div>
-              
-                <div class="col-md-3">
-   <h4 style="margin-bottom:20px;">Like her Profile?</h4>
-   <button class="btn btn-primary btn-block">Yes I'm interested</button>
-    <button class="btn btn-danger  btn-block">View Full Prifile</button>
-    <div class="clearfix"></div>
-   </div>
-                </div>
-			</div>
-            
-    <div class="panel panel-default">
-				<div class="panel-heading">
-					<h5 class="panel-title">
-						 <div class="form-check">
-    <label class="form-check-label">
-      <input type="checkbox" class="form-check-input"> 
-      AMV00025
-    </label>
-    <span class="pull-right">Created by Brother</span>
-  </div> 
-					</h3>
-				</div>
-				<div class="panel-body">
-				<div class="col-md-3">
-                   <a href="#"> <img src="images/p1.jpg" class="img-responsive thumbnail"></a>
-                    </div>
-                
-                <div class="col-md-6">
-				<table >
-  <tr>
-    <td>Age/Height</td>
-    <td><span>: 25, 5'.4"</span></td>
-  </tr>
-   <tr>
-    <td>Religion</td>
-    <td><span>: Hindu</span></td>
-  </tr>
-   <tr>
-    <td>Mother Tongue</td>
-    <td><span>: Telugu</span></td>
-  </tr>
-   <tr>
-    <td>Community</td>
-    <td><span>: Brahmin</span></td>
-  </tr>
-   <tr>
-    <td>Location</td>
-    <td><span>: Vijayawada</span></td>
-  </tr>
-   <tr>
-    <td>Education</td>
-    <td><span>: Masters - Engineering and Technology</span></td>
-  </tr>
-   <tr>
-    <td>Profession</td>
-    <td><span>: Software Engineer</span></td>
-  </tr>
-  <tr>
-  <td colspan="2">She is polite, kind nature, My Sister has completed her master degree M.E(ECE). She is currently working in... <a href="#"> read more..</a> </td>
-  </tr>
-</table>
-
-                
-                </div>
-              
-                <div class="col-md-3">
-   <h4 style="margin-bottom:20px;">Like her Profile?</h4>
-   <button class="btn btn-primary btn-block">Yes I'm interested</button>
-    <button class="btn btn-danger  btn-block">View Full Prifile</button>
-    <div class="clearfix"></div>
-   </div>
-                </div>
-			</div>
-    
-    <div class="panel panel-default">
-				<div class="panel-heading">
-					<h5 class="panel-title">
-						 <div class="form-check">
-    <label class="form-check-label">
-      <input type="checkbox" class="form-check-input"> 
-      AMV00025
-    </label>
-    <span class="pull-right">Created by Brother</span>
-  </div> 
-					</h3>
-				</div>
-				<div class="panel-body">
-				<div class="col-md-3">
-                   <a href="#"> <img src="images/p1.jpg" class="img-responsive thumbnail"></a>
-                    </div>
-                
-                <div class="col-md-6">
-				<table >
-  <tr>
-    <td>Age/Height</td>
-    <td><span>: 25, 5'.4"</span></td>
-  </tr>
-   <tr>
-    <td>Religion</td>
-    <td><span>: Hindu</span></td>
-  </tr>
-   <tr>
-    <td>Mother Tongue</td>
-    <td><span>: Telugu</span></td>
-  </tr>
-   <tr>
-    <td>Community</td>
-    <td><span>: Brahmin</span></td>
-  </tr>
-   <tr>
-    <td>Location</td>
-    <td><span>: Vijayawada</span></td>
-  </tr>
-   <tr>
-    <td>Education</td>
-    <td><span>: Masters - Engineering and Technology</span></td>
-  </tr>
-   <tr>
-    <td>Profession</td>
-    <td><span>: Software Engineer</span></td>
-  </tr>
-  <tr>
-  <td colspan="2">She is polite, kind nature, My Sister has completed her master degree M.E(ECE). She is currently working in... <a href="#"> read more..</a> </td>
-  </tr>
-</table>
-
-                
-                </div>
-              
-                <div class="col-md-3">
-   <h4 style="margin-bottom:20px;">Like her Profile?</h4>
-   <button class="btn btn-primary btn-block">Yes I'm interested</button>
-    <button class="btn btn-danger  btn-block">View Full Prifile</button>
-    <div class="clearfix"></div>
-   </div>
-                </div>
-			</div>
-    
-    <div class="panel panel-default">
-				<div class="panel-heading">
-					<h5 class="panel-title">
-						 <div class="form-check">
-    <label class="form-check-label">
-      <input type="checkbox" class="form-check-input"> 
-      AMV00025
-    </label>
-    <span class="pull-right">Created by Brother</span>
-  </div> 
-					</h3>
-				</div>
-				<div class="panel-body">
-				<div class="col-md-3">
-                   <a href="#"> <img src="images/p1.jpg" class="img-responsive thumbnail"></a>
-                    </div>
-                
-                <div class="col-md-6">
-				<table >
-  <tr>
-    <td>Age/Height</td>
-    <td><span>: 25, 5'.4"</span></td>
-  </tr>
-   <tr>
-    <td>Religion</td>
-    <td><span>: Hindu</span></td>
-  </tr>
-   <tr>
-    <td>Mother Tongue</td>
-    <td><span>: Telugu</span></td>
-  </tr>
-   <tr>
-    <td>Community</td>
-    <td><span>: Brahmin</span></td>
-  </tr>
-   <tr>
-    <td>Location</td>
-    <td><span>: Vijayawada</span></td>
-  </tr>
-   <tr>
-    <td>Education</td>
-    <td><span>: Masters - Engineering and Technology</span></td>
-  </tr>
-   <tr>
-    <td>Profession</td>
-    <td><span>: Software Engineer</span></td>
-  </tr>
-  <tr>
-  <td colspan="2">She is polite, kind nature, My Sister has completed her master degree M.E(ECE). She is currently working in... <a href="#"> read more..</a> </td>
-  </tr>
-</table>
-
-                
-                </div>
-              
-                <div class="col-md-3">
-   <h4 style="margin-bottom:20px;">Like her Profile?</h4>
-   <button class="btn btn-primary btn-block">Yes I'm interested</button>
-    <button class="btn btn-danger  btn-block">View Full Prifile</button>
-    <div class="clearfix"></div>
-   </div>
-                </div>
-			</div>
-            
-    <div class="page-nation">
-            <ul class="pagination pagination-large">
-            <li class="disabled"><span>«</span></li>
-            <li class="active"><span>1</span></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">6</a></li>
-            <li><a href="#">7</a></li>
-            <li><a href="#">8</a></li>
-            <li><a href="#">9</a></li>
-            <li class="disabled"><span>...</span></li>
-            <li><a rel="next" href="#">Next</a></li>
-
-         </ul>
-                            </div>        
+    <p><span id="countId">count</span> Profiles found : <span id="genderId">Gender</span> <span>20</span> - <span>25</span>  <a href="#">Modify Search</a></p>
+	<div id="searchResults">
+		
+	</div>
             
    <div class="clearfix"></div>
-   </div>
+</div>
     <div class="clearfix"></div>
    </div>
                 
@@ -645,7 +312,7 @@ if (listOrders1 != "") {
 	displayMatches(listOrders1);
 }
 function displayMatches(listOrders) {
-	$('#matches').html('');
+	$('#searchResults').html('');
 	serviceUnitArray = {};
 	$.each(listOrders,function(i, orderObj) 
 	{
@@ -668,24 +335,40 @@ function displayMatches(listOrders) {
 		}
 		if(orderObj.firstName !=null)
 		{
-			var tblRow = '<div class="row container-fluid">'
-				+ '<div class="col-md-2" style="margin-right:0; padding-right:0;">'
-	            + 	"<img src="+image+" class='img-responsive thumbnail' style='margin-bottom: 0px;'>"
-	            + '</div>'
-	            + '<div class="col-md-9">'
-	            + 	'<div class="profilesimilar">'
-	            + 		'<table width="100%" border="0" cellspacing="0" cellpadding="0">'
-	            + 			'<tr><td><h4>'+orderObj.firstName+'&nbsp;'+orderObj.lastName+'</h4></td></tr>'
-	            + 			'<tr><td><p>'+orderObj.dob+', '+orderObj.religionName+', '+orderObj.casteName+',</p></td></tr>'
-	            + 			'<tr><td><p>'+orderObj.occupationName+', '+orderObj.currentCity+', '+orderObj.currentCountryName+'.</p></td></tr>'
-	            + 			'<tr><td><span>Full Profile</span> >></td></tr>'
-	            + 		'</table>'
-	            + 	'</div>'
-	            + '</div>'
-	            + '<div class="clearfix"></div>'
-	            + '<hr>'
-	            + '</div>';
-			$(tblRow).appendTo("#matches"); 
+			var tblRow = '<div class="panel panel-default">'
+				+ '<div class="panel-heading">'
+				+ '<h5 class="panel-title">'
+				+ '<div class="form-check">'
+				+ '	<label class="form-check-label"> <input type="checkbox" class="form-check-input"> '+orderObj.firstName+' '+orderObj.lastName+'</label>'
+				+ '	<span class="pull-right">Created by '+orderObj.createProfileFor+'</span>'
+				+ '</div>'
+				+ '</h5>'
+				+ '</div>'
+				+ '<div class="panel-body">'
+				+ '<div class="col-md-3">'
+				+ '<a href="#"> <img src='+image+' class="img-responsive thumbnail"></a>'
+            	+ '</div>'
+            	+ '<div class="col-md-6">'
+            	+ '<table>'
+            	+ '	<tr><td>Age/Height</td><td><span>: '+orderObj.dob+', '+orderObj.height+'</span></td></tr>'
+            	+ '	<tr><td>Religion</td><td><span>: '+orderObj.religionName+'</span></td></tr>'
+            	+ '	<tr><td>Mother Tongue</td><td><span>: '+orderObj.motherTongueName+'</span></td></tr>'
+            	+ '	<tr><td>Community</td><td><span>: '+orderObj.casteName+'</span></td></tr>'
+            	+ '	<tr><td>Location</td><td><span>: '+orderObj.currentCityName+'</span></td></tr>'
+            	+ '	<tr><td>Education</td><td><span>: '+orderObj.educationName+'</span></td></tr>'
+            	+ '	<tr><td>Profession</td><td><span>: '+orderObj.occupationName+'</span></td></tr>'
+            	+ '	<tr><td colspan="2">'+orderObj.aboutMyself+'... <a href="#"> read more..</a> </td></tr>'
+            	+ '</table>'
+            	+ '</div>'
+            	+ '<div class="col-md-3">'
+            	+ '<h4 style="margin-bottom:20px;">Like her Profile?</h4>'
+            	+ '<button class="btn btn-primary btn-block">Yes I\'m interested</button>'
+            	+ '<button class="btn btn-danger btn-block">View Full Profile</button>'
+            	+ '<div class="clearfix"></div>'
+            	+ '</div>'
+            	+ '</div>'
+            	+ '</div>';
+			$(tblRow).appendTo("#searchResults");
 		}
 	});
 }
