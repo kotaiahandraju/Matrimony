@@ -64,6 +64,7 @@ protected String rMotherTongue ;
 protected String haveChildren;
 protected String  rCountry,rState,rEducation,rWorkingWith,rOccupation,rAnnualIncome,rCreateProfileFor,rDiet;
 protected int userrequirementId;
+protected String  reTypedPassword;
 
 public int getUserrequirementId() {
 	return userrequirementId;
@@ -526,6 +527,12 @@ public String getShowall()
 public void setShowall(final String showall)
 {
   this.showall = showall;
+}
+public String getReTypedPassword() {
+	return reTypedPassword;
+}
+public void setReTypedPassword(String reTypedPassword) {
+	this.reTypedPassword = reTypedPassword;
 }
 
 }

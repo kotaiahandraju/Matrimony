@@ -161,7 +161,7 @@ s.parentNode.insertBefore(ga, s);
 			var compareProfiles = "<a data-toggle='tooltip' title='Compare Profiles' onclick='compareProfiles("+ orderObj.id+ ")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-exchange'></i></a>"
 			var deleteProfile = "<a data-toggle='tooltip' title='Delete' onclick='profileStatusChange("+ orderObj.id+ ",2)'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-trash'></i></a>"
 			var payment = "<a data-toggle='tooltip' title='Payment' onclick='payment("+ orderObj.id+ ",0)'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-usd'></i></a>"
-			var resetPassword = "<a data-toggle='tooltip' title='Reset Password' onclick='resetPassword("+ orderObj.id+ ",0)'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-repeat'></i></a>"
+			var resetPassword = "<a data-toggle='tooltip' title='Reset Password' onclick='resetPassword("+ orderObj.id+ ")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-repeat'></i></a>"
 			/* var viewProfile = "<a title='View Profile' onclick='viewProfile("+ orderObj.id+ ")'><i style='color: blue;' class='fa fa-eye'></i></a>"
 							var viewProfile = "<a title='View Profile' onclick='viewProfile("+ orderObj.id+ ")'><i style='color: blue;' class='fa fa-eye'></i></a>"
 							var viewProfile = "<a title='View Profile' onclick='viewProfile("+ orderObj.id+ ")'><i style='color: blue;' class='fa fa-eye'></i></a>" */
@@ -226,7 +226,7 @@ s.parentNode.insertBefore(ga, s);
 	
 		}
  function profileStatusChange(id,statusId){
-		var checkstr =  confirm('Are you sure you want to  this?');
+		var checkstr =  confirm('Are you sure you want to do this?');
 		if(checkstr == true){
 		var formData = new FormData();
 	     formData.append('status', statusId);
@@ -244,6 +244,25 @@ s.parentNode.insertBefore(ga, s);
 		}
 		
 	}
+ function resetPassword(id){
+	 var userObj = serviceUnitArray[id];
+	 var firstName = userObj.firstName;
+	 var lastName = userObj.lastName;
+	 var username = userObj.username;
+	 var email = userObj.email;
+		var formData = new FormData();
+	    formData.append('id', id);
+	    formData.append('firstName', firstName);
+	    formData.append('lastName', lastName);
+	    formData.append('username', username);
+	    formData.append('email', email);
+	    //return false;
+	    $.fn.makeMultipartRequest('POST', 'resetPassword', false,
+				formData, false, 'text', function(data){
+			var jsonobj = $.parseJSON(data);
+			alert(jsonobj.message);
+		});
+ }
  
  function viewProfile(id){
 		$('#dial1').html('');

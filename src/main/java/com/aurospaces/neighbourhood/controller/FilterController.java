@@ -25,6 +25,8 @@ import com.aurospaces.neighbourhood.db.dao.BranchDao;
 import com.aurospaces.neighbourhood.db.dao.CityDao;
 import com.aurospaces.neighbourhood.db.dao.CountriesDao;
 import com.aurospaces.neighbourhood.db.dao.UsersDao;
+import com.aurospaces.neighbourhood.util.EmailUtil;
+import com.aurospaces.neighbourhood.util.MiscUtils;
 
 @Controller
 @RequestMapping(value="/admin")
@@ -199,6 +201,41 @@ public class FilterController {
 			logger.error(e);
 			logger.fatal("BranchController class deleteBodyType method  ");
 			jsonObj.put("message", "excetption"+e);
+			return String.valueOf(jsonObj);
+			
+		}
+		return String.valueOf(jsonObj);
+	}
+   
+   @RequestMapping(value = "/resetPassword")
+	public @ResponseBody String resetPassword( UsersBean objUsersBean,ModelMap model,HttpServletRequest request,HttpSession session,BindingResult objBindingResult) {
+		System.out.println(" resetPassword action...");
+		List<Map<String, String>> listOrderBeans = null;
+		JSONObject jsonObj = new JSONObject();
+		ObjectMapper objectMapper = null;
+		String sJson=null;
+		boolean updated = false;
+		String statusName= null;
+		try{
+				objUsersBean.setPassword(MiscUtils.generateRandomString(6));
+				updated=	objUsersDao.updatePassword(objUsersBean);
+				try{
+					EmailUtil emailUtil = new EmailUtil();
+					emailUtil.sendResetPasswordEmail(objUsersBean, objContext, "admin_reset_password");
+				}catch(Exception e) {
+					e.printStackTrace();
+				}
+				if(updated){
+					jsonObj.put("message", "Reset Password Success");
+				}else{
+					jsonObj.put("message", "Reset Password Failed");
+				}
+		}catch(Exception e){
+			e.printStackTrace();
+	System.out.println(e);
+			logger.error(e);
+			//logger.fatal("BranchController class deleteBodyType method  ");
+			jsonObj.put("message", "excetption:"+e);
 			return String.valueOf(jsonObj);
 			
 		}

@@ -1,6 +1,7 @@
 
 package com.aurospaces.neighbourhood.db.dao;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -194,6 +195,26 @@ public class UsersDao extends BaseusersDao
 			}
 			return isStatusUpdate;
 		}
+		
+		public boolean updatePassword(UsersBean objUsersBean) {
+			 jdbcTemplate = custom.getJdbcTemplate();
+				boolean updated = false;
+				try {
+					String sSql = "update users set password = AES_ENCRYPT(?,?) , updated_time = ? where id = ?";
+					int updated_cnt = jdbcTemplate.update(sSql,
+							objUsersBean.getPassword(),"mykey",//new Timestnew Date().getTime()
+							objUsersBean.getId());
+					if (updated_cnt != 0) {
+						updated = true;
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+					return updated;
+				} finally {
+
+				}
+				return updated;
+			}
 		
 		public UsersBean emailExistOrNot(UsersBean  objUsersBean) {
 			 jdbcTemplate = custom.getJdbcTemplate();

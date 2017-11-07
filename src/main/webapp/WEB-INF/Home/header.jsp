@@ -219,6 +219,7 @@ span.has-error,span.hasError
 					<ul class="dropdown-menu pull-right">
 						<li><a href="#">Edit profile</a></li>
 						<li><a href="#">Account settings</a></li>
+						<li><a href="changePassword">Change Password</a></li>
 						<li><a href="${baseurl }/logoutHome">Sign out</a></li>
 					</ul>
 				</div>
