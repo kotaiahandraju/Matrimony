@@ -10,25 +10,25 @@
 <!-- //for-mobile-apps -->
 <link href="user/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 <link href="user/css/style-profile.css" rel="stylesheet" type="text/css" media="all" />
+<link href="user/css/megamenu.css" rel="stylesheet" type="text/css" media="all" />
 <!-- js -->
 <script src="user/js/jquery-1.11.1.min.js"></script>
 <!-- //js -->
 <!-- start-smoth-scrolling -->
-<script type="text/javascript" src="user/js/move-top.js"></script>
+<!-- <script type="text/javascript" src="user/js/move-top.js"></script>
 <script type="text/javascript" src="user/js/easing.js"></script>
-<link href="user/css/megamenu.css" rel="stylesheet" type="text/css" media="all" />
 <script type="text/javascript" src="user/js/megamenu.js"></script>
 <script>$(document).ready(function(){$(".megamenu").megamenu();});</script>
 <script src="user/js/menu_jquery.js"></script>
-<link href='http://fonts.googleapis.com/css?family=Monda:400,700' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Monda:400,700' rel='stylesheet' type='text/css'> -->
 <!-- the jScrollPane script -->
-<script type="text/javascript" src="js/jquery.jscrollpane.min.js"></script>
+<!-- <script type="text/javascript" src="js/jquery.jscrollpane.min.js"></script>
 		<script type="text/javascript" id="sourcecode">
 			$(function()
 			{
 				$('.scroll-pane').jScrollPane();
 			});
-		</script>
+		</script> -->
 <!-- //the jScrollPane script -->
 </head>
 	
@@ -41,7 +41,7 @@
 	<div class="container">
     <div class=" col-md-3">
 		<div class="logo">
-		 	<img src="images/logo1.jpg" class="img-responsive" >
+		 	<img src="user/images/logo1.jpg" class="img-responsive" >
 	  </div>
       <div class="clearfix"></div>
       </div>
@@ -209,11 +209,38 @@
             
             
             <div class="panel panel-default">
-            <div class="panel-heading">
-            New Matches (150) <span class="pull-right"> <a href="#">View All</a></span>
-            </div>
-				<div class="panel-body">
-                <div >
+	            <div class="panel-heading">
+	            	New Matches (150) <span class="pull-right"> <a href="#">View All</a></span>
+	            </div>
+				<div class="panel-body" id="matches">
+				
+					<div class="row container-fluid">
+						<div class="col-md-2" style="margin-right:0; padding-right:0;">	
+		                	<img src="user/images/avtar.jpg" class="img-responsive thumbnail" style="margin-bottom: 0px;">
+			            </div>   
+	                  	<div class="col-md-9">
+	                  		<div class="profilesimilar">
+	                  			<table width="100%" border="0" cellspacing="0" cellpadding="0">
+			                    	<tr>
+			                        	<td><h4>firstName lastName</h4></td>
+			                      	</tr>
+			                       	<tr>
+			                        	<td><p>dob, religionName, casteName,</p></td>
+			                      	</tr>
+			                       	<tr>
+			                        	<td><p>occupationName, currentCity , currentCountryName.</p></td>
+			                      	</tr>
+			                       	<tr>
+			                        	<td><span>Full Profile</span> >></td>
+			                      	</tr>
+	                    		</table>
+	                    	</div>
+	                  	</div> 
+	                  	<div class="clearfix"></div> 
+	                   	<hr>
+                  	</div>
+				
+					<div >
 				<div class="col-md-2" style="margin-right:0; padding-right:0;">	
                   <img src="images/p1.jpg" class="img-responsive  thumbnail" style="margin-bottom: 0px;">
                   </div>   
@@ -236,90 +263,10 @@
                     </div>
                   </div> 
                   <div class="clearfix"></div> 
-                  </div>
                    <hr>
-                   
-                    <div >
-				<div class="col-md-2" style="margin-right:0; padding-right:0;">	
-                  <img src="images/p1.jpg" class="img-responsive  thumbnail" style="margin-bottom: 0;">
-                  </div>   
-                  <div class="col-md-9">
-                  <div class="profilesimilar">
-                  <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                      <tr>
-                        <td><h4>Srinivasrao Rayudu Kota</h4></td>
-                      </tr>
-                       <tr>
-                        <td><p>40, Hindu, Kapu,</p> </td>
-                      </tr>
-                       <tr>
-                        <td><p>QA Manager, Guntur , India.</p>  </td>
-                      </tr>
-                       <tr>
-                        <td><span>Full Profile</span> >></td>
-                      </tr>
-                    </table>
-                    </div>
-                  </div> 
-                  <div class="clearfix"></div> 
-                  </div>
-                   <hr>
-                   
-                    <div >
-				<div class="col-md-2" style="margin-right:0; padding-right:0;">	
-                  <img src="images/p1.jpg" class="img-responsive  thumbnail" style="margin-bottom: 0;">
-                  </div>   
-                  <div class="col-md-9">
-                  <div class="profilesimilar">
-                  <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                      <tr>
-                        <td><h4>Srinivasrao Rayudu Kota</h4></td>
-                      </tr>
-                       <tr>
-                        <td><p>40, Hindu, Kapu,</p> </td>
-                      </tr>
-                       <tr>
-                        <td><p>QA Manager, Guntur , India.</p>  </td>
-                      </tr>
-                       <tr>
-                        <td><span>Full Profile</span> >></td>
-                      </tr>
-                    </table>
-                    </div>
-                  </div> 
-                  <div class="clearfix"></div> 
-                  </div>
-                   <hr>
-                   
-                    <div >
-				<div class="col-md-2" style="margin-right:0; padding-right:0;">	
-                  <img src="images/p1.jpg" class="img-responsive  thumbnail" style="margin-bottom: 0;">
-                  </div>   
-                  <div class="col-md-9">
-                  <div class="profilesimilar">
-                  <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                      <tr>
-                        <td><h4>Srinivasrao Rayudu Kota</h4></td>
-                      </tr>
-                       <tr>
-                        <td><p>40, Hindu, Kapu,</p> </td>
-                      </tr>
-                       <tr>
-                        <td><p>QA Manager, Guntur , India.</p>  </td>
-                      </tr>
-                       <tr>
-                        <td><span>Full Profile</span> >></td>
-                      </tr>
-                    </table>
-                    </div>
-                  </div> 
-                  <div class="clearfix"></div> 
-                  </div>
-                   <hr>
-            
+					</div>
                    
                    
-                    
 				</div>
 			</div>
 				</div>
@@ -383,7 +330,7 @@
 				</div>
 			</div>  
             <br>
-            <img src="images/ad.jpg"  class="img-responsive"></div>
+            <img src="user/images/ad.jpg"  class="img-responsive"></div>
 				<div class="clearfix"></div>
 			</div>
 		</div>
@@ -427,5 +374,46 @@
 		<p>© 2017. All rights reserved.</p>
 	</div>
 <!-- //footer -->
+
+<script type="text/javascript">
+var listOrders1 = ${allOrders1};
+if (listOrders1 != "") {
+	displayMatches(listOrders1);
+}
+function displayMatches(listOrders) {
+	$('#matches').html('');
+	serviceUnitArray = {};
+	$.each(listOrders,function(i, orderObj) 
+	{
+		serviceUnitArray[orderObj.id] = orderObj;
+		
+		var image = null; image = orderObj.image;
+		if(image == "" || image == null || image == "undefined"){image = "img/default.png";}
+
+		if(orderObj.firstName !=null)
+		{
+			var tblRow = '<div class="row container-fluid">'
+				+ '<div class="col-md-2" style="margin-right:0; padding-right:0;">'
+	            + 	"<img src="+image+" class='img-responsive thumbnail' style='margin-bottom: 0px;'>"
+	            + '</div>'
+	            + '<div class="col-md-9">'
+	            + 	'<div class="profilesimilar">'
+	            + 		'<table width="100%" border="0" cellspacing="0" cellpadding="0">'
+	            + 			'<tr><td><h4>'+orderObj.firstName+'&nbsp;'+orderObj.lastName+'</h4></td></tr>'
+	            + 			'<tr><td><p>'+orderObj.dob+', '+orderObj.religionName+', '+orderObj.casteName+',</p></td></tr>'
+	            + 			'<tr><td><p>'+orderObj.occupationName+', '+orderObj.currentCity+', '+orderObj.currentCountryName+'.</p></td></tr>'
+	            + 			'<tr><td><span>Full Profile</span> >></td></tr>'
+	            + 		'</table>'
+	            + 	'</div>'
+	            + '</div>'
+	            + '<div class="clearfix"></div>'
+	            + '<hr>'
+	            + '</div>';
+			$(tblRow).appendTo("#matches"); 
+		}
+	});
+}
+</script>
+
 </body>
 </html>

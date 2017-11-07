@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.json.JSONObject;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapper;
@@ -334,18 +335,32 @@ public class HomePageController {
 	  return "membership1";
 	 }
 	 @RequestMapping(value = "/profileView")
-	 public String profileView( Model objeModel ,
-	   HttpServletRequest request, HttpSession session) {
+	 public String profileView( Model objeModel, HttpServletRequest request, HttpSession session) {
 	  System.out.println("profileView Page");
-	  try {
-	//   
-	   
-	  } catch (Exception e) {
+	  List<Map<String, String>> listOrderBeans = null;
+	  UsersBean objUsersBean = null;
+		ObjectMapper objectMapper = null;
+		String sJson = null;
+		try {
+			objUsersBean = new UsersBean();
+			listOrderBeans = objUsersDao.getAllProfiles1(objUsersBean,"all");
+			if (listOrderBeans != null && listOrderBeans.size() > 0) {
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(listOrderBeans);
+				request.setAttribute("allOrders1", sJson);
+				// System.out.println(sJson);
+			} else {
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(listOrderBeans);
+				request.setAttribute("allOrders1", "''");
+			}
+			
+			
+		} catch (Exception e) {
 	   e.printStackTrace();
 	   System.out.println(e);
 	   logger.error(e);
 	   logger.fatal("error in HomePageController class familyDetails method");
-	   return "familyDetails";
 	  }
 	  return "profile_page";
 	 }
