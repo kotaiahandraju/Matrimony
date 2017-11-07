@@ -24,7 +24,7 @@
 		<ul>
 			<li>
 				<i class="fa fa-laptop"></i>
-				<a href="javascript:void(0)" style="color: blue;text-decoration: none;"><label>{first_name}</label> &nbsp;<label> {last_name}</label></a>
+				<a href="javascript:void(0)" style="color: blue;text-decoration: none;"><label>${first_name}</label> &nbsp;<label> ${last_name}</label></a>
 				<i class="fa fa-angle-right"></i>&nbsp;
 			</li>
 			<li>

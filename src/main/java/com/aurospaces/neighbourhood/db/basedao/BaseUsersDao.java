@@ -20,7 +20,7 @@ import com.aurospaces.neighbourhood.daosupport.CustomConnection;
 
 
 
-public class BaseusersDao{
+public class BaseUsersDao{
 
 //@Autowired public JdbcTemplate jdbcTemplate;
 @Autowired

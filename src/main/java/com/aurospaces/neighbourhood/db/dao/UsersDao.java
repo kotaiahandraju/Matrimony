@@ -18,7 +18,7 @@ import com.aurospaces.neighbourhood.bean.HeightBean;
 import com.aurospaces.neighbourhood.bean.LoginBean;
 import com.aurospaces.neighbourhood.bean.UsersBean;
 import com.aurospaces.neighbourhood.daosupport.CustomConnection;
-import com.aurospaces.neighbourhood.db.basedao.BaseusersDao;
+import com.aurospaces.neighbourhood.db.basedao.BaseUsersDao;
 import com.aurospaces.neighbourhood.db.callback.RowValueCallbackHandler;
 
 
@@ -26,7 +26,7 @@ import com.aurospaces.neighbourhood.db.callback.RowValueCallbackHandler;
 
 
 @Repository(value = "usersDao")
-public class UsersDao extends BaseusersDao
+public class UsersDao extends BaseUsersDao
 {
 	@Autowired
 	CustomConnection custom;
