@@ -364,6 +364,36 @@ public class HomePageController {
 	  }
 	  return "profile_page";
 	 }
+	 @RequestMapping(value = "/searchProfile")
+	 public String searchProfile( Model objeModel, HttpServletRequest request, HttpSession session) {
+	  System.out.println("profileView Page");
+	  List<Map<String, String>> listOrderBeans = null;
+	  UsersBean objUsersBean = null;
+		ObjectMapper objectMapper = null;
+		String sJson = null;
+		try {
+			objUsersBean = new UsersBean();
+			listOrderBeans = objUsersDao.getAllProfiles1(objUsersBean,"all");
+			if (listOrderBeans != null && listOrderBeans.size() > 0) {
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(listOrderBeans);
+				request.setAttribute("allOrders1", sJson);
+				// System.out.println(sJson);
+			} else {
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(listOrderBeans);
+				request.setAttribute("allOrders1", "''");
+			}
+			
+			
+		} catch (Exception e) {
+	   e.printStackTrace();
+	   System.out.println(e);
+	   logger.error(e);
+	   logger.fatal("error in HomePageController class familyDetails method");
+	  }
+	  return "search_profile";
+	 }
 	 @RequestMapping(value = "/getCitys")
 		public  @ResponseBody String getCitys( ModelMap model,
 				HttpServletRequest request, HttpSession session,RedirectAttributes redir) {

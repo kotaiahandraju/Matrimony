@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Profile page</title>
+<title>View Profiles</title>
 <!-- for-mobile-apps -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
-		function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+		function hideURLbar(){ window.scrollTo(0,1); } </script> -->
 <!-- //for-mobile-apps -->
 <link href="user/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 <link href="user/css/style-profile.css" rel="stylesheet" type="text/css" media="all" />
@@ -413,7 +413,7 @@ function displayMatches(listOrders) {
 	            + 		'<table width="100%" border="0" cellspacing="0" cellpadding="0">'
 	            + 			'<tr><td><h4>'+orderObj.firstName+'&nbsp;'+orderObj.lastName+'</h4></td></tr>'
 	            + 			'<tr><td><p>'+orderObj.dob+', '+orderObj.religionName+', '+orderObj.casteName+',</p></td></tr>'
-	            + 			'<tr><td><p>'+orderObj.occupationName+', '+orderObj.currentCity+', '+orderObj.currentCountryName+'.</p></td></tr>'
+	            + 			'<tr><td><p>'+orderObj.occupationName+', '+orderObj.currentCityName+', '+orderObj.currentCountryName+'.</p></td></tr>'
 	            + 			'<tr><td><span>Full Profile</span> >></td></tr>'
 	            + 		'</table>'
 	            + 	'</div>'
