@@ -96,7 +96,7 @@ return ps;
 		else
 		{
 
-			String sql = "UPDATE userrequirement  set updated_time = ? ,userId = ? ,rAgeFrom = ? ,rAgeTo = ? ,rHeight = ? ,rMaritalStatus = ? ,rReligion = ? ,rCaste = ? ,rMotherTongue = ?,haveChildren=?"
+			String sql = "UPDATE userrequirement  set updated_time = ? ,userId = ? ,rAgeFrom = ? ,rAgeTo = ? ,rHeight = ? ,rMaritalStatus = ? ,rReligion = ? ,rCaste = ? ,rMotherTongue = ?,rhaveChildren=?"
 					+ "  ,rCountry=?,rState=?,rEducation=?,rWorkingWith=?,rOccupation=?,rAnnualIncome=?,rCreateProfileFor=?,rDiet=?  where userrequirementId = ? ";
 	
 			jdbcTemplate.update(sql, new Object[]{userrequirement.getUpdatedTime(),userrequirement.getUserId(),userrequirement.getrAgeFrom(),userrequirement.getrAgeTo(),userrequirement.getrHeight(),userrequirement.getrMaritalStatus(),userrequirement.getrReligion(),

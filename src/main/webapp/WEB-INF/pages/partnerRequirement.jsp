@@ -183,7 +183,7 @@ body {
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Height</label>  
       <div class="col-md-6">
-      	<form:select path="rReligion" class="form-control u1">
+      	<form:select path="rHeight" class="form-control u1">
 			<form:option value="">-- Choose Height --</form:option>
 			<form:options items="${height}"></form:options>
 		</form:select>

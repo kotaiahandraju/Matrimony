@@ -255,7 +255,7 @@ public class HomePageController {
 	  try {
 	   if(session.getAttribute("cacheGuest") != null){
 		  UsersBean sessionBean =(UsersBean)session.getAttribute("cacheGuest");
-		  UsersBean UserrequirementBean=  objUsersDao.getById1(sessionBean.getId());
+		  UsersBean UserrequirementBean=  objUserrequirementDao.getByFilterUserId(sessionBean.getId());
 		if(UserrequirementBean != null){
 		objeModel.addAttribute("partnerProfile", UserrequirementBean);
 		}
