@@ -129,7 +129,7 @@ public class UsersDao extends BaseUsersDao
 			jdbcTemplate.query(sql, handler);
 			List<Map<String, String>> result = handler.getResult();
 			return result;*/
-			buffer.append("select u.id,u.occupation,oc.name as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
+			buffer.append("select u.id,sta.name as currentStateName,cit.name as currentCityName,u.occupation,oc.name as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
 					+"u.firstName, u.lastName, u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName, u.currentCountry,co.name as currentCountryName, " 
 					+"u.currentState, u.currentCity, " 
 					+"u.maritalStatus, u.caste,c.name as casteName, u.gotram, u.star,s.name as starName, u.dosam, u.dosamName, u.education, u.workingWith, u.companyName, " 
@@ -141,6 +141,7 @@ public class UsersDao extends BaseUsersDao
 					+"left join cast c on c.id=u.caste left join star s on s.id =u.star left join height h on h.id=u.height left join body_type b on b.id=u.bodyType left join religion re1  on re1.id=rReligion "
 					+"left join complexion com on com.id =u.complexion left join cast c1 on c1.id=rCaste left join language l1 on l1.id=rMotherTongue "
 					+"left join countries con1 on con1.id=rCountry left join education e1 on e1.id=rEducation left join occupation oc1 on oc1.id=rOccupation  left join user_images uimg on uimg.user_id=u.id left join occupation oc on u.occupation=oc.id left join education ed on ed.id=u.education "
+					+ " left join state sta on sta.id=u.currentState left join city cit on cit.id=u.currentCity "
 					+" where 1=1  ");
 								
 								if(type.equals("all")){
@@ -165,7 +166,7 @@ public class UsersDao extends BaseUsersDao
 								String sql =buffer.toString();
 								System.out.println(sql);
 								
-								RowValueCallbackHandler handler = new RowValueCallbackHandler(new String[] {"id","occupation","occupationName","educationName","userrequirementId","image","created_time","updated_time",
+								RowValueCallbackHandler handler = new RowValueCallbackHandler(new String[] {"id","currentStateName","currentCityName","occupation","occupationName","educationName","userrequirementId","image","created_time","updated_time",
 										"role_id","username","password","email","createProfileFor","gender","firstName","lastName","dob","religion","religionName","motherTongue","motherTongueName","currentCountry","currentCountryName",
 										"currentState","currentCity","maritalStatus",
 										"caste","casteName","gotram","star","starName","dosam","dosamName","education","workingWith","companyName","annualIncome",
