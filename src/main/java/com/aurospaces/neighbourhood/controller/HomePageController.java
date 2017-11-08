@@ -3,6 +3,7 @@ package com.aurospaces.neighbourhood.controller;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -29,6 +30,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.aurospaces.neighbourhood.bean.AutoCompleteBean;
+import com.aurospaces.neighbourhood.bean.CastBean;
 import com.aurospaces.neighbourhood.bean.CityBean;
 import com.aurospaces.neighbourhood.bean.EducationBean;
 import com.aurospaces.neighbourhood.bean.HeightBean;
@@ -377,14 +379,17 @@ public class HomePageController {
 	  return "profile_page";
 	 }
 	 @RequestMapping(value = "/searchProfile")
-	 public String searchProfile( Model objeModel, HttpServletRequest request, HttpSession session) {
+	 public String searchProfile(@ModelAttribute("createProfile") UsersBean objUsersBean, Model objeModel, HttpServletRequest request, HttpSession session) {
 	  System.out.println("profileView Page");
 	  List<Map<String, String>> listOrderBeans = null;
-	  UsersBean objUsersBean = null;
+	  List<CastBean> castList = null;
+	  //UsersBean objUsersBean = null;
 		ObjectMapper objectMapper = null;
 		String sJson = null;
 		try {
-			objUsersBean = new UsersBean();
+			//objUsersBean = new UsersBean();
+			castList = objUsersDao.getCastList();
+			request.setAttribute("castList", castList!=null?castList:new LinkedList<Map<String, Object>>());
 			listOrderBeans = objUsersDao.getAllProfiles1(objUsersBean,"all");
 			if (listOrderBeans != null && listOrderBeans.size() > 0) {
 				objectMapper = new ObjectMapper();
@@ -416,6 +421,25 @@ public class HomePageController {
 				List<CityBean> ojCityBean = objCityDao.filterByState(id);
 				if(ojCityBean !=null){
 					objJson.put("citys", ojCityBean);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println(e);
+				logger.error(e);
+				logger.fatal("error in CountriesController class CountriesHome method  ");
+			}
+			return String.valueOf(objJson);
+		}
+	 @RequestMapping(value = "/updateProfilesList")
+		public  @ResponseBody String updateProfilesList(ModelMap model,
+				HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
+			JSONObject objJson =new JSONObject();
+			List<Map<String, String>> filteredProfiles = null;
+			try {
+				String selectedCasts = request.getParameter("selected_casts");
+				if(StringUtils.isNotBlank(selectedCasts)){
+					filteredProfiles = objUsersDao.getProfilesFilteredByCast(selectedCasts);
+					objJson.put("filtered_profiles", filteredProfiles!=null?filteredProfiles:new LinkedList<Map<String, String>>());
 				}
 			} catch (Exception e) {
 				e.printStackTrace();

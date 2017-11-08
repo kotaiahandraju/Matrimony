@@ -167,6 +167,7 @@ if(session.getAttribute("cacheGuest") != null){
 <!-- products -->
 	<div class="products">
 		<div class="container">
+			<form:form commandName="createProfile" class="form-horizontal" id="searchForm" role="form"   method="post">
 			<div class="mid-grids">
 				<div class="col-md-3 products-grid-right">
 					<div class="w_sidebar">
@@ -174,9 +175,12 @@ if(session.getAttribute("cacheGuest") != null){
 							<h4>catogories</h4>
 							<div class="row1 scroll-pane">
 								<div class="col col-4">
-									<label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i></i>Kamma</label>
+									<div id="castdiv">
+										<form:checkboxes items="${castList}" path="caste" itemValue="id" itemLabel="name" />
+									</div>
 								</div>
 								<div class="col col-4">
+									<label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i></i>Kamma</label>
 									<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Kapu</label>
 									<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Balija</label>
 									<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Brahmin</label>
@@ -264,6 +268,7 @@ if(session.getAttribute("cacheGuest") != null){
               
 				<div class="clearfix"></div>
 			</div>
+			</form:form>
 		</div>
 	</div>
 <!-- //products -->
@@ -305,7 +310,7 @@ if(session.getAttribute("cacheGuest") != null){
 		<p>© 2017. All rights reserved.</p>
 	</div>
 <!-- //footer -->
-
+<script src="js/ajax.js"></script>
 <script type="text/javascript">
 var listOrders1 = ${allOrders1};
 if (listOrders1 != "") {
@@ -372,6 +377,30 @@ function displayMatches(listOrders) {
 		}
 	});
 }
+function updateList(){
+	var allVals = [];
+    $('#castdiv :checked').each(function () {
+        allVals.push($(this).val());
+    });
+    if(allVals!=""){
+    	//alert(allVals);
+    	var formData = new FormData();
+
+    	formData.append('selected_casts',allVals);
+    	jQuery.fn.makeMultipartRequest('POST', 'updateProfilesList', false,
+    			formData, false, 'text', function(data){
+	    		var jsonobj = $.parseJSON(data);
+	    		var filtered_list = jsonobj.filtered_profiles;
+	    		displayMatches(filtered_list);
+    			
+    		});
+    }
+	
+}
+$(function () {
+    $('#castdiv input').click(updateList);
+    updateList();
+});
 </script>
 </body>
 </html>

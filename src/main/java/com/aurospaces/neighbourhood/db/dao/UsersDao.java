@@ -14,6 +14,7 @@ import org.springframework.jdbc.core.simple.ParameterizedBeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.aurospaces.neighbourhood.bean.AutoCompleteBean;
+import com.aurospaces.neighbourhood.bean.CastBean;
 import com.aurospaces.neighbourhood.bean.EducationBean;
 import com.aurospaces.neighbourhood.bean.HeightBean;
 import com.aurospaces.neighbourhood.bean.LoginBean;
@@ -48,6 +49,11 @@ public class UsersDao extends BaseUsersDao
 				List<EducationBean> retlist = jdbcTemplate.query(sql,ParameterizedBeanPropertyRowMapper.newInstance(EducationBean.class));
 					return retlist;
 		 }
+	 public List<CastBean> getCastList(){
+		 jdbcTemplate = custom.getJdbcTemplate();
+		 List<CastBean> list = jdbcTemplate.query("select * from cast order by name asc ",ParameterizedBeanPropertyRowMapper.newInstance(CastBean.class));
+			return list;
+	 }
 	 public List<HeightBean> populate1(String sql ){
 		 jdbcTemplate = custom.getJdbcTemplate();
 				List<HeightBean> retlist = jdbcTemplate.query(sql,ParameterizedBeanPropertyRowMapper.newInstance(HeightBean.class));
@@ -189,6 +195,62 @@ public class UsersDao extends BaseUsersDao
 			return new LinkedList<Map<String, String>>();*/
 			
 		}
+	 public List<Map<String, String>> getProfilesFilteredByCast(String castValues){
+			jdbcTemplate = custom.getJdbcTemplate();
+			StringBuffer buffer = new StringBuffer();
+			buffer.append("select u.id,sta.name as currentStateName,cit.name as currentCityName,u.occupation,oc.name as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
+					+"u.firstName, u.lastName, u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName, u.currentCountry,co.name as currentCountryName, " 
+					+"u.currentState, u.currentCity, " 
+					+"u.maritalStatus, u.caste,c.name as casteName, u.gotram, u.star,s.name as starName, u.dosam, u.dosamName, u.education, u.workingWith, u.companyName, " 
+					+"u.annualIncome, u.monthlyIncome, u.diet, u.smoking, u.drinking, u.height ,h.inches,h.cm, u.bodyType,b.name as bodyTypeName, u.complexion,com.name as complexionName, u.mobile, " 
+					+"u.aboutMyself, u.disability, u.status, u.showall,ur.userId, rAgeFrom, rAgeTo, "
+					+"rHeight, rMaritalStatus, rReligion,re1.name as requiredReligionName, rCaste,c1.name as requiredCasteName, rMotherTongue,l1.name as requiredMotherTongue,haveChildren,rCountry , con1.name as requiredCountry,rState,rEducation,e1.name as requiredEducationName, "
+					+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet from users u left join userrequirement ur on u.id=ur.userId "
+					+"left join religion re on re.id=u.religion left join language l on l.id=u.motherTongue left join countries co on co.id=u.currentCountry "
+					+"left join cast c on c.id=u.caste left join star s on s.id =u.star left join height h on h.id=u.height left join body_type b on b.id=u.bodyType left join religion re1  on re1.id=rReligion "
+					+"left join complexion com on com.id =u.complexion left join cast c1 on c1.id=rCaste left join language l1 on l1.id=rMotherTongue "
+					+"left join countries con1 on con1.id=rCountry left join education e1 on e1.id=rEducation left join occupation oc1 on oc1.id=rOccupation  left join user_images uimg on uimg.user_id=u.id left join occupation oc on u.occupation=oc.id left join education ed on ed.id=u.education "
+					+ " left join state sta on sta.id=u.currentState left join city cit on cit.id=u.currentCity "
+					+" where 1=1  ");
+								
+								/*if(type.equals("all")){
+									buffer.append( " and u.status in( '1')" );
+								}
+								if(type.equals("delete")){
+									buffer.append( " and u.status in( '2')" );
+								}
+								if(type.equals("inactive")){
+									buffer.append( " and u.status in( '0')" );
+								}
+								if(type.equals("admin")){
+									buffer.append( " and u.registerwith is not null " );
+								}
+								if(type.equals("free")){
+									buffer.append( " and u.role_id in ('4') " );
+								}
+								if(type.equals("premium")){
+									buffer.append( " and u.role_id in ('6') " );
+								}
+								if(type.equals("hidden")){
+									buffer.append( " and u.role_id in ('10') " );
+								}*/
+								buffer.append(" and u.caste in ("+castValues+")  ");
+								buffer.append(" group by u.id ");
+								String sql =buffer.toString();
+								System.out.println(sql);
+								
+								RowValueCallbackHandler handler = new RowValueCallbackHandler(new String[] {"id","currentStateName","currentCityName","occupation","occupationName","educationName","userrequirementId","image","created_time","updated_time",
+										"role_id","username","password","email","createProfileFor","gender","firstName","lastName","dob","religion","religionName","motherTongue","motherTongueName","currentCountry","currentCountryName",
+										"currentState","currentCity","maritalStatus",
+										"caste","casteName","gotram","star","starName","dosam","dosamName","education","workingWith","companyName","annualIncome",
+										"monthlyIncome","diet","smoking","drinking","height","inches","cm",
+										"bodyType","bodyTypeName","complexion","complexionName","mobile","aboutMyself","disability",
+										"status","showall","userId","rAgeFrom","rAgeTo","rHeight","rMaritalStatus","rReligion","requiredReligionName","rCaste","requiredCasteName","rMotherTongue","requiredMotherTongue","haveChildren","rCountry","requiredCountry","rState","rEducation","requiredEducationName",
+										"rWorkingWith","rOccupation","requiredOccupationName","rAnnualIncome","rCreateProfileFor","rDiet"});
+								jdbcTemplate.query(sql, handler);
+								List<Map<String, String>> result = handler.getResult();
+								return result;
+	 }
 		public boolean updateStatus(UsersBean objUsersBean) {
 		 jdbcTemplate = custom.getJdbcTemplate();
 			boolean isStatusUpdate = false;
