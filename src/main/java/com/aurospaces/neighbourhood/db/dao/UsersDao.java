@@ -2,6 +2,7 @@
 package com.aurospaces.neighbourhood.db.dao;
 
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -61,6 +62,10 @@ public class UsersDao extends BaseUsersDao
 	 public List<Map<String, String>> getAllProfiles1(UsersBean objUsersBean,String type){
 			jdbcTemplate = custom.getJdbcTemplate();
 			StringBuffer buffer = new StringBuffer();
+			UsersBean objuserBean = (UsersBean) session.getAttribute("cacheUserBean");
+			if(objuserBean != null){
+				int roleId = objuserBean.getRoleId();
+			
 			/*buffer.append("select u.id,GROUP_CONCAT(uimg.image) as image, u.created_time,u.updated_time,u.role_id,r.role_name as rolename,u.username,u.password,"
 					+ "u.email,u.name,u.sname,u.gender,u.height,h.inches as inches,h.cm as cm,u.mstatus,DATE_FORMAT(u.dob, '%d-%M-%Y') as dob,u.tob,u.pob,"
 					+ "u.created_by,u.cast,c.name as castname,u.complexion,co.name as complexionName,u.mtongue,u.education,"
@@ -162,6 +167,9 @@ public class UsersDao extends BaseUsersDao
 								if(type.equals("premium")){
 									buffer.append( " and u.role_id in ('6') " );
 								}
+								if(type.equals("hidden")){
+									buffer.append( " and u.role_id in ('10') " );
+								}
 								buffer.append(" group by u.id ");
 								String sql =buffer.toString();
 								System.out.println(sql);
@@ -177,6 +185,8 @@ public class UsersDao extends BaseUsersDao
 								jdbcTemplate.query(sql, handler);
 								List<Map<String, String>> result = handler.getResult();
 								return result;
+			}
+			return new LinkedList<Map<String, String>>();
 			
 		}
 		public boolean updateStatus(UsersBean objUsersBean) {
@@ -197,6 +207,26 @@ public class UsersDao extends BaseUsersDao
 			}
 			return isStatusUpdate;
 		}
+		
+		public boolean moveToHidden(UsersBean objUsersBean) {
+			 jdbcTemplate = custom.getJdbcTemplate();
+				boolean isStatusUpdate = false;
+				try {
+					String sSql = "update users set role_id = ? where id = ?";
+					int iCount = jdbcTemplate.update(sSql,
+							10,
+							objUsersBean.getId());
+					if (iCount != 0) {
+						isStatusUpdate = true;
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				} finally {
+
+				}
+				return isStatusUpdate;
+			}
+		
 		
 		public boolean updatePassword(UsersBean objUsersBean) {
 			 jdbcTemplate = custom.getJdbcTemplate();
