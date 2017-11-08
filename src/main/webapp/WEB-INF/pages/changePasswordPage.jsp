@@ -13,6 +13,7 @@
 
 <script src="${baseurl }/js/jquery-ui.min.js"></script>
 <script src="${baseurl }/js/mdtimepicker.js"></script>
+<input type="hidden" name="loc" id="loc" value="${baseurl }" />
 <div id="main">
 <div class="container-fluid">
 	<div class="page-header">
@@ -148,11 +149,15 @@ function changePassword(){
 	jQuery.fn.makeMultipartRequest('POST', 'changePasswordAction', false,
 			formData, false, 'text', function(data){
 		var jsonobj = $.parseJSON(data);
-			alert(jsonobj.message);
+			//alert(jsonobj.message);
 			if(jsonobj.message == "success"){
 				alert("Password Updated Successfully");
-				var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
-				window.location.href= baseUrl+'/admin/LoginHome'
+				//var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+				//window.location.href= baseUrl+'/admin/homepage';
+				var location = $("#loc").val();
+		 	 	window.location.href =location+"/HomePage";
+			}else{
+				alert("Password not updated.");
 			}
 		});
 }

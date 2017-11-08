@@ -48,7 +48,7 @@ public class AdminController {
 		try {
 			UsersBean sessionBean = (UsersBean) session.getAttribute("cacheUserBean");
 			if(sessionBean == null){
-				return "redirect:LoginHome";
+				return "redirect:HomePage";
 			}
 			request.setAttribute("first_name", sessionBean.getFirstName());
 			request.setAttribute("last_name", sessionBean.getLastName());
@@ -60,13 +60,13 @@ public class AdminController {
 			System.out.println(e);
 			logger.error(e);
 			//logger.fatal("error in CountriesController class CountriesHome method  ");
-			return "redirect:LoginHome";
+			return "redirect:HomePage";
 		}
 		return "changePasswordPage";
 	}
    
    @RequestMapping(value = "/changePasswordAction")
-	public String changePasswordAction(@ModelAttribute("changePaddword") UsersBean objUsersBean, ModelMap model,
+	public @ResponseBody String changePasswordAction(@ModelAttribute("changePaddword") UsersBean objUsersBean, ModelMap model,
 			HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
 		System.out.println("changePasswordAction Page");
 		JSONObject jsonObj = new JSONObject();
@@ -75,33 +75,30 @@ public class AdminController {
 			//objUsersBean.setPassword(MiscUtils.generateRandomString(6));
 			UsersBean userSessionBean = (UsersBean) session.getAttribute("cacheUserBean");
 			
-			if(userSessionBean != null){
+			if(userSessionBean == null){
+				return jsonObj.put("message", "failed").toString(); 
+			}
 				userSessionBean.setPassword(objUsersBean.getPassword());
-				updated=	objUsersDao.updatePassword(userSessionBean);
-				try{
-					EmailUtil emailUtil = new EmailUtil();
-					emailUtil.sendResetPasswordEmail(userSessionBean, objContext, "change_password");
-				}catch(Exception e) {
-					e.printStackTrace();
-				}
+				updated =	objUsersDao.updatePassword(userSessionBean);
 				if(updated){
 					jsonObj.put("message", "success");
+					try{
+						EmailUtil emailUtil = new EmailUtil();
+						emailUtil.sendResetPasswordEmail(userSessionBean, objContext, "change_password");
+					}catch(Exception e) {
+						e.printStackTrace();
+					}
 				}else{
 					jsonObj.put("message", "failed");
 				}
-			}
-			
-			
-			
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e);
 			logger.error(e);
-			logger.fatal("error in CountriesController class CountriesHome method  ");
-			return "CreateProfile";
+			//logger.fatal("error in CountriesController class CountriesHome method  ");
+			return jsonObj.put("message", "failed").toString();
 		}
-		return "redirect:LoginHome";
+		return jsonObj.toString();
 	}
 
    
