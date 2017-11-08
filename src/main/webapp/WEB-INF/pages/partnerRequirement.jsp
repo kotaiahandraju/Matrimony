@@ -162,15 +162,15 @@ body {
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Age From</label>  
       <div class="col-md-6">
-      <form:input path="rAgeFrom" class="form-control  numericOnly u1" placeholder="Enter Age From" />
-<!--       	<input type="text" name="age" class="form-control u1" placeholder="Enter Age" maxlength="255"/> -->
+      	<form:select path="rAgeFrom" class="form-control  numericOnly u1" placeholder="Enter Age From"></form:select>
+<%--       <form:input path="rAgeFrom" class="form-control  numericOnly u1" placeholder="Enter Age From" /> --%>
       </div>
     </div>
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Age To</label>  
       <div class="col-md-6">
-      <form:input path="rAgeTo" class="form-control numericOnly u1" placeholder="Enter Age To" />
-<!--       	<input type="text" name="age" class="form-control u1" placeholder="Enter Age" maxlength="255"/> -->
+      	<form:select path="rAgeTo" class="form-control numericOnly u1" placeholder="Enter Age To"></form:select>
+<%--       <form:input path="rAgeTo" class="form-control numericOnly u1" placeholder="Enter Age To" /> --%>
       </div>
     </div>
     <%-- <div class="form-group">
@@ -498,6 +498,13 @@ $(document).ready(function(){
     <script src="js/ajax.js"></script>
 
 <script type="text/javascript">
+$(function(){
+    $("#rAgeFrom").append('<option value="">From</option>');
+    $("#rAgeTo").append('<option value="">To</option>');
+    for (var i=18;i<=55;i++){
+        $("#rAgeFrom,#rAgeTo").append('<option value='+i+'>'+i+'</option>');
+    }
+});
 
 function hideChildren() {
 	 var maritalStatus=$("#rMaritalStatus").val();
