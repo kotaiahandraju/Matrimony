@@ -62,9 +62,9 @@ public class UsersDao extends BaseUsersDao
 	 public List<Map<String, String>> getAllProfiles1(UsersBean objUsersBean,String type){
 			jdbcTemplate = custom.getJdbcTemplate();
 			StringBuffer buffer = new StringBuffer();
-			UsersBean objuserBean = (UsersBean) session.getAttribute("cacheUserBean");
+			/*UsersBean objuserBean = (UsersBean) session.getAttribute("cacheUserBean");
 			if(objuserBean != null){
-				int roleId = objuserBean.getRoleId();
+				int roleId = objuserBean.getRoleId();*/
 			
 			/*buffer.append("select u.id,GROUP_CONCAT(uimg.image) as image, u.created_time,u.updated_time,u.role_id,r.role_name as rolename,u.username,u.password,"
 					+ "u.email,u.name,u.sname,u.gender,u.height,h.inches as inches,h.cm as cm,u.mstatus,DATE_FORMAT(u.dob, '%d-%M-%Y') as dob,u.tob,u.pob,"
@@ -185,8 +185,8 @@ public class UsersDao extends BaseUsersDao
 								jdbcTemplate.query(sql, handler);
 								List<Map<String, String>> result = handler.getResult();
 								return result;
-			}
-			return new LinkedList<Map<String, String>>();
+			/*}
+			return new LinkedList<Map<String, String>>();*/
 			
 		}
 		public boolean updateStatus(UsersBean objUsersBean) {
