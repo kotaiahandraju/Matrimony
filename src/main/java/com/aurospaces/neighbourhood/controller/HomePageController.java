@@ -390,7 +390,8 @@ public class HomePageController {
 			//objUsersBean = new UsersBean();
 			castList = objUsersDao.getCastList();
 			request.setAttribute("castList", castList!=null?castList:new LinkedList<Map<String, Object>>());
-			listOrderBeans = objUsersDao.getAllProfiles1(objUsersBean,"all");
+			//listOrderBeans = objUsersDao.getAllProfiles1(objUsersBean,"all");
+			listOrderBeans = objUsersDao.getProfilesFilteredByPreferences();
 			if (listOrderBeans != null && listOrderBeans.size() > 0) {
 				objectMapper = new ObjectMapper();
 				sJson = objectMapper.writeValueAsString(listOrderBeans);
@@ -437,10 +438,10 @@ public class HomePageController {
 			List<Map<String, String>> filteredProfiles = null;
 			try {
 				String selectedCasts = request.getParameter("selected_casts");
-				if(StringUtils.isNotBlank(selectedCasts)){
+				//if(selectedCasts!=null){
 					filteredProfiles = objUsersDao.getProfilesFilteredByCast(selectedCasts);
-					objJson.put("filtered_profiles", filteredProfiles!=null?filteredProfiles:new LinkedList<Map<String, String>>());
-				}
+					objJson.put("filtered_profiles", filteredProfiles.size()>0?filteredProfiles:"");
+				//}
 			} catch (Exception e) {
 				e.printStackTrace();
 				System.out.println(e);

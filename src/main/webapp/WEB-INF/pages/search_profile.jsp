@@ -314,6 +314,8 @@ if(session.getAttribute("cacheGuest") != null){
 <script type="text/javascript">
 var listOrders1 = ${allOrders1};
 if (listOrders1 != "") {
+	$('#countId').html('');
+	$('#countId').html(listOrders1.length);
 	displayMatches(listOrders1);
 }
 function displayMatches(listOrders) {
@@ -379,7 +381,7 @@ function displayMatches(listOrders) {
 }
 function updateList(){
 	var allVals = [];
-    $('#castdiv :checked').each(function () {
+    $("#castdiv :checked").each(function () {
         allVals.push($(this).val());
     });
     if(allVals!=""){
@@ -391,14 +393,23 @@ function updateList(){
     			formData, false, 'text', function(data){
 	    		var jsonobj = $.parseJSON(data);
 	    		var filtered_list = jsonobj.filtered_profiles;
-	    		displayMatches(filtered_list);
+	    		$('#countId').html('');
+	    		if(filtered_list==""){
+	    			$('#countId').html('0');
+	    			var str = '<div class="panel panel-default"><h6>No results found.</h6></div>';
+	    			$('#searchResults').html('');
+	    			$(str).appendTo("#searchResults");
+	    		}else{
+	    			$('#countId').html(filtered_list.length);
+	    			displayMatches(filtered_list);
+	    		}
     			
     		});
     }
 	
 }
 $(function () {
-    $('#castdiv input').click(updateList);
+    $("#castdiv input[name='caste']").click(updateList);
     updateList();
 });
 </script>
