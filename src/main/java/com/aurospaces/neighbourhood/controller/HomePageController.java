@@ -1,5 +1,6 @@
 package com.aurospaces.neighbourhood.controller;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -25,6 +26,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -276,7 +278,7 @@ public class HomePageController {
 	 }
 	 
 	 @RequestMapping(value = "/savePartnerProfile")
-	 public String savePartnerProfile(@ModelAttribute("partnerProfile") UsersBean objUserrequirementBean, Model objeModel ,
+	 public String savePartnerProfile(@ModelAttribute("partnerProfile") UsersBean objUserrequirementBean, @RequestParam String[] rCountry, Model objeModel ,
 	   HttpServletRequest request, HttpSession session) {
 	  System.out.println("Partner Profile save Page");
 	  try {
@@ -287,6 +289,15 @@ public class HomePageController {
 			//get session bean values 
 			 objUsersBean1 = objUsersDao.getById1(sessionBean.getId());
 			 objUserrequirementBean.setUserId(sessionBean.getId());
+			 if(rCountry != null)
+			 {
+				 String reqCountry = Arrays.toString(rCountry);
+				 reqCountry = reqCountry.replace("[", "");
+				 reqCountry = reqCountry.replace(", ", ",");
+				 reqCountry = reqCountry.replace("]", "");
+				 objUserrequirementBean.setrCountry(reqCountry);
+			 }
+//			 objUserrequirementBean.setrCountry(Arrays.toString(rCountry).replaceAll("/[", "").replaceAll("/]", ""));
 			 objUserrequirementDao.save(objUserrequirementBean);
 //			 BeanUtils.copyProperties(objUsersBean1,objUsersBean,getNullPropertyNames(objUsersBean1));
 			}else{

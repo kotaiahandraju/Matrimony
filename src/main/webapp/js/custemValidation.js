@@ -232,9 +232,10 @@ $(".cancel").click(function()
 	$.each(idArray, function(i, val)
 	{
 		var value = $("#" + idArray[i]).val();
-		$("form")[0].reset();
+//		$("form")[0].reset();
+		$("#"+idArray[i]).val('');
 		$("#"+idArray[i]).css('border-color','');
-		$("#"+idArray[i]).removeClass('placeholder-style your-class');
+		$("#"+idArray[i]).removeClass('placeholder-style your-class default-class');
 	});
 });
 
