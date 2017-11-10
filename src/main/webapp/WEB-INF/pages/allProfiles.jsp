@@ -126,7 +126,7 @@ $( document ).ready(function() {
       
     </div>
   </div>
-	<script src="${baseurl }/js/comman.js"></script>	
+<script src="${baseurl}/js/common.js"></script>	
 <script type="text/javascript">
 /* var _gaq = _gaq || [];
 _gaq.push(['_setAccount', 'UA-38620714-4']);
@@ -154,7 +154,7 @@ s.parentNode.insertBefore(ga, s);
 		$.each(listOrders,function(i, orderObj) {
 			var viewProfile = "<a data-toggle='tooltip' title='View' onclick='viewProfile("+ orderObj.id+ ")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-eye'></i></a>"
 			var uploadPhotos = "<a data-toggle='tooltip'  title='Upload Photos' onclick='uploadPhotos("+ orderObj.id+ ")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-photo'></i></a>"
-			var moveToHidden = "<a data-toggle='tooltip' title='Move To Hidden' onclick='moveToHidden("+ orderObj.id+ ")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-eye-slash'></i></a>"
+			var moveToHidden = "<a data-toggle='tooltip' title='Move To Hidden' onclick='moveToHidden("+ orderObj.id+ ",\"all\")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-eye-slash'></i></a>"
 			var editProfile = "<a data-toggle='tooltip' title='Edit' onclick='editProfile("+ orderObj.id+ ")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-pencil'></i></a>"
 			var sendMail = "<a data-toggle='tooltip' title='Mail' onclick='sendMail("+ orderObj.id+ ")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-envelope'></i></a>"
 			var inactive = "<a data-toggle='tooltip' title='Inactive' onclick='profileStatusChange("+ orderObj.id+ ",0)'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-remove'></i></a>"
@@ -224,6 +224,7 @@ s.parentNode.insertBefore(ga, s);
 	 
 	
 		}
+ 
  function profileStatusChange(id,statusId){
 		var checkstr =  confirm('Are you sure you want to do this?');
 		if(checkstr == true){
@@ -243,7 +244,6 @@ s.parentNode.insertBefore(ga, s);
 		}
 		
 	}
- 
  
  function viewProfile(id){
 		$('#dial1').html('');
