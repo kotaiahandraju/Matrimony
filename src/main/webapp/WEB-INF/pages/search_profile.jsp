@@ -418,7 +418,7 @@ $("#castdiv input[name='caste']").click(function(){
         allVals.push($(this).val());
     });
    // if(allVals!=""){
-    	alert(allVals);
+    	//alert(allVals);
     	var formData = new FormData();
 
     	formData.append('selected_casts',allVals);
