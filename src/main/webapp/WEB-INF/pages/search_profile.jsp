@@ -379,7 +379,7 @@ function displayMatches(listOrders) {
 		}
 	});
 }
-function updateList(){
+/* function updateList(){
 	var allVals = [];
     $("#castdiv :checked").each(function () {
         allVals.push($(this).val());
@@ -411,7 +411,36 @@ function updateList(){
 $(function () {
     $("#castdiv input[name='caste']").click(updateList);
     updateList();
+}); */
+$("#castdiv input[name='caste']").click(function(){
+	var allVals = [];
+    $("#castdiv :checked").each(function () {
+        allVals.push($(this).val());
+    });
+   // if(allVals!=""){
+    	alert(allVals);
+    	var formData = new FormData();
+
+    	formData.append('selected_casts',allVals);
+    	jQuery.fn.makeMultipartRequest('POST', 'updateProfilesList', false,
+    			formData, false, 'text', function(data){
+	    		var jsonobj = $.parseJSON(data);
+	    		var filtered_list = jsonobj.filtered_profiles;
+	    		$('#countId').html('');
+	    		if(filtered_list==""){
+	    			$('#countId').html('0');
+	    			var str = '<div class="panel panel-default"><h6>No results found.</h6></div>';
+	    			$('#searchResults').html('');
+	    			$(str).appendTo("#searchResults");
+	    		}else{
+	    			$('#countId').html(filtered_list.length);
+	    			displayMatches(filtered_list);
+	    		}
+    			
+    		});
+   // }
 });
+
 </script>
 </body>
 </html>
