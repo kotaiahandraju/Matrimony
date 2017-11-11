@@ -25,12 +25,9 @@
     <link href="user/css/style.css" rel="stylesheet">
     <link href="user/css/custom.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="user/css/component.css" />
-    
-    <link rel="stylesheet" href="css/chosen.css">
-    
     <script src="user/js/modernizr.custom.js"></script>
-<!--     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
-<!--   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <style>
 .dispnone
 {
@@ -165,15 +162,15 @@ body {
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Age From</label>  
       <div class="col-md-6">
-      	<form:select path="rAgeFrom" class="form-control  numericOnly u1" placeholder="Enter Age From"></form:select>
-<%--       <form:input path="rAgeFrom" class="form-control  numericOnly u1" placeholder="Enter Age From" /> --%>
+      <form:input path="rAgeFrom" class="form-control  numericOnly u1" placeholder="Enter Age From" />
+<!--       	<input type="text" name="age" class="form-control u1" placeholder="Enter Age" maxlength="255"/> -->
       </div>
     </div>
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Age To</label>  
       <div class="col-md-6">
-      	<form:select path="rAgeTo" class="form-control numericOnly u1" placeholder="Enter Age To"></form:select>
-<%--       <form:input path="rAgeTo" class="form-control numericOnly u1" placeholder="Enter Age To" /> --%>
+      <form:input path="rAgeTo" class="form-control numericOnly u1" placeholder="Enter Age To" />
+<!--       	<input type="text" name="age" class="form-control u1" placeholder="Enter Age" maxlength="255"/> -->
       </div>
     </div>
     <%-- <div class="form-group">
@@ -247,7 +244,29 @@ body {
       </div>
     </div>
  <script>
-
+$(document).ready(function(){
+	$(".ifMore").hide();
+	$(".incomeBlock").hide();
+	
+    $(".more").click(function(){
+    	$(".hideMe").hide();
+    	$(".ifMore").show();
+    });
+    
+    $(".incomeRange").click(function(){
+    	$(".incomeBlock").show();
+    });
+    $(".incomeMatter").click(function(){
+    	$(".incomeBlock").hide();
+    });
+    /* $(".more").click(function(){
+        $(".ifMore").collapse('toggle');
+    });
+    $(".more").click(function(){
+        $(".ifMore").collapse('hide');
+    }); */
+    
+});
 </script>   
     <div class="form-group hideMe">
       <label class="col-md-4 control-label" for="textinput"></label>  
@@ -262,13 +281,14 @@ body {
       <label class="col-md-4 control-label" for="textinput"></label>
       <div class="col-md-6">Location Details</div>
     </div>
-
+   
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Country living in</label>  
       <div class="col-md-6">
-      	<form:select path="rCountry" data-placeholder="-- Choose Country --" multiple="true" class="chosen-select form-control u">
-<%-- 			<form:option value="" disabled="true">-- Choose Country --</form:option> --%>
+      	<form:select path="rCountry" class="form-control u">
+			<form:option value="">-- Choose Country --</form:option>
 			<form:options items="${countries}"></form:options>
+			
 		</form:select>
       </div>
     </div>
@@ -476,47 +496,9 @@ body {
     <script src="user/js/toucheffects.js"></script>
     <script src="js/custemValidation.js"></script>
     <script src="js/ajax.js"></script>
-    
-    <script src="js/chosen.jquery.js" type="text/javascript"></script>
 
 <script type="text/javascript">
-$(function(){
-    $("#rAgeFrom").append('<option value="">From</option>');
-    $("#rAgeTo").append('<option value="">To</option>');
-    for (var i=18;i<=55;i++){
-        $("#rAgeFrom,#rAgeTo").append('<option value='+i+'>'+i+'</option>');
-    }
-//     $(".chosen-select").trigger("chosen:updated");
-});
-$(document).ready(function(){
-//     $(".chosen-select").chosen();
-	$(".chosen-select").chosen();
-    $(".chosen-select").chosen({no_results_text: "Oops, nothing found!"});
-	$("#rCountry_chosen").trigger("chosen:updated");
-    
-	$(".ifMore").hide();
-	$(".incomeBlock").hide();
-	
-    $(".more").click(function(){
-    	$(".hideMe").hide();
-    	$(".ifMore").show();
-    });
-    
-    $(".incomeRange").click(function(){
-    	$(".incomeBlock").show();
-    });
-    
-    $(".incomeMatter").click(function(){
-    	$(".incomeBlock").hide();
-    });
-    /* $(".more").click(function(){
-        $(".ifMore").collapse('toggle');
-    });
-    $(".more").click(function(){
-        $(".ifMore").collapse('hide');
-    }); */
-    
-});
+
 function hideChildren() {
 	 var maritalStatus=$("#rMaritalStatus").val();
 	 if(maritalStatus == "Unmarried"){
