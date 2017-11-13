@@ -119,6 +119,8 @@ public class HomePageController {
 			}
 			if(StringUtils.isNotBlank(objUsersBean.getEmail())){
 			objUsersDao.save(objUsersBean);
+			objUsersBean.setUserId(objUsersBean.getId());
+			objUserrequirementDao.save(objUsersBean);
 //			objUserDetailsDao.save(objUsersBean);
 			session.setAttribute("cacheGuest", objUsersBean);
 //			response.sendRedirect("profile?gp=page_1");
@@ -143,7 +145,7 @@ public class HomePageController {
 			if(session.getAttribute("cacheGuest") != null){
 				UsersBean sessionBean =(UsersBean)session.getAttribute("cacheGuest");
 			//get session bean values 
-			 objUsersBean = objUsersDao.getById1(sessionBean.getId());
+			 objUsersBean = objUsersDao.getById(sessionBean.getId());
 			 if(objUsersBean != null){
 			 objeModel.addAttribute("createProfile", objUsersBean);
 			 }
@@ -179,7 +181,7 @@ public class HomePageController {
 			if(session.getAttribute("cacheGuest") != null){
 				UsersBean sessionBean =(UsersBean)session.getAttribute("cacheGuest");
 			//get session bean values 
-			UsersBean  objUsersBean1 = objUsersDao.getById1(sessionBean.getId());
+			UsersBean  objUsersBean1 = objUsersDao.getById(sessionBean.getId());
 			 if(objUsersBean != null){
 			 objeModel.addAttribute("createProfile", objUsersBean);
 			 }
@@ -203,7 +205,7 @@ public class HomePageController {
 	  try {
 		  if(session.getAttribute("cacheGuest") != null){
 			  UsersBean sessionBean =(UsersBean)session.getAttribute("cacheGuest");
-			  UsersBean UserrequirementBean=  objUsersDao.getById1(sessionBean.getId());
+			  UsersBean UserrequirementBean=  objUsersDao.getById(sessionBean.getId());
 			if(UserrequirementBean != null){
 			objeModel.addAttribute("familyDetails", UserrequirementBean);
 			}
@@ -232,7 +234,7 @@ public class HomePageController {
 		  if(session.getAttribute("cacheGuest") != null){
 				 sessionBean =(UsersBean)session.getAttribute("cacheGuest");
 			//get session bean values 
-			 objUsersBean1 = objUsersDao.getById1(sessionBean.getId());
+			 objUsersBean1 = objUsersDao.getById(sessionBean.getId());
 			 objUsersBean1.setFatherName(objUsersBean.getFatherName());
 			 objUsersBean1.setMotherName(objUsersBean.getMotherName());
 			 objUsersBean1.setfOccupation(objUsersBean.getfOccupation());
@@ -289,7 +291,7 @@ public class HomePageController {
 		  if(session.getAttribute("cacheGuest") != null){
 				 sessionBean =(UsersBean)session.getAttribute("cacheGuest");
 			//get session bean values 
-			 objUsersBean1 = objUsersDao.getById1(sessionBean.getId());
+			 objUsersBean1 = objUsersDao.getById(sessionBean.getId());
 			 objUserrequirementBean.setUserId(sessionBean.getId());
 			 if(rCountry != null)
 			 {
@@ -356,19 +358,23 @@ public class HomePageController {
 		String sJson = null;
 		
 		try {
-			UsersBean sessionBean =  null;
+			/*UsersBean sessionBean =  null;
 			  UsersBean objUsersBean1 =new UsersBean();
 			  if(session.getAttribute("cacheGuest") != null){
 					 sessionBean =(UsersBean)session.getAttribute("cacheGuest");
 //				 objUsersBean1 = objUsersDao.getById1(sessionBean.getId());
 				}else{
 					return "redirect:HomePage";
-				}
+				}*/
 			
-			
+			UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
+			if(sessionBean == null){
+				return "redirect:HomePage";
+			}
 			
 			objUsersBean = new UsersBean();
-			listOrderBeans = objUsersDao.getAllProfiles1(objUsersBean,"all");
+			//listOrderBeans = objUsersDao.getAllProfiles1(objUsersBean,"all");
+			listOrderBeans = objUsersDao.getProfilesFilteredByPreferences();
 			if (listOrderBeans != null && listOrderBeans.size() > 0) {
 				objectMapper = new ObjectMapper();
 				sJson = objectMapper.writeValueAsString(listOrderBeans);

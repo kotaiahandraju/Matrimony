@@ -194,7 +194,7 @@ body {
       <label class="col-md-4 control-label" i for="textinput">Marital Status</label>  
       <div class="col-md-6">
       	<form:select path="rMaritalStatus" class="form-control u1" onchange="hideChildren();">
-			<form:option value="Doesn't Matter">Doesn't Matter</form:option>
+			<form:option value="all">Doesn't Matter</form:option>
 			<form:option value="Married">Married</form:option>
 			<form:option value="Unmarried">Unmarried</form:option>
 			<form:option value="Widow/Divorced">Widow/Divorced</form:option>
@@ -206,7 +206,7 @@ body {
       <label class="col-md-4 control-label" for="textinput" >Have Children</label>  
       <div class="col-md-6">
       	<form:select path="rhaveChildren" class="form-control u1">
-			<form:option value="Doesn't Matter">Doesn't Matter</form:option>
+			<form:option value="all">Doesn't Matter</form:option>
 			<form:option value="1">1</form:option>
 			<form:option value="2">2</form:option>
 			<form:option value="No Children">No Children</form:option>
@@ -313,7 +313,7 @@ $(document).ready(function(){
       <label class="col-md-4 control-label" for="textinput">Education</label>  
       <div class="col-md-6">
       	<form:select path="rEducation" class="form-control u">
-			<form:option value="Doesn't Matter">Doesn't Matter</form:option>
+			<form:option value="all">Doesn't Matter</form:option>
 			<form:options items="${education}"></form:options>
 		</form:select>
       </div>
@@ -323,7 +323,7 @@ $(document).ready(function(){
       <label class="col-md-4 control-label" for="textinput">Working with</label>  
       <div class="col-md-6">
       	<form:select path="rWorkingWith" class="form-control u1">
-			<form:option value="Doesn't Matter">Doesn't Matter</form:option>
+			<form:option value="all">Doesn't Matter</form:option>
 			<form:option value="Private Company">Private Company</form:option>
 			<form:option value="Government/Public Sector">Government/Public Sector</form:option>
 			<form:option value="Defense/Civil Services">Defense/Civil Services</form:option>
@@ -336,7 +336,7 @@ $(document).ready(function(){
       <label class="col-md-4 control-label" for="textinput">Profession area</label>  
       <div class="col-md-6">
       	<form:select path="rOccupation" class="form-control u">
-			<form:option value="Doesn't Matter">Doesn't Matter</form:option>
+			<form:option value="all">Doesn't Matter</form:option>
 			<form:options items="${occupation}"></form:options>
 		</form:select>
       </div>
@@ -345,10 +345,10 @@ $(document).ready(function(){
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Annual Income</label>  
       <div class="col-md-6">
-      	<input type="radio" name="annualIncome" class="incomeMatter" id="ai1" value="Doesn't Matter"> <label for="ai1">Doesn't Matter</label>
+      	<input type="radio" name="annualIncome" class="incomeMatter" id="ai1" value="all"> <label for="ai1">Doesn't Matter</label>
       	<input type="radio" name="annualIncome" class="incomeRange" id="ai2" value="Specify an income range"> <label for="ai2">Specify an income range</label>
       	<%-- <form:select path="education" class="form-control u">
-			<form:option value="Doesn't Matter">Doesn't Matter</form:option>
+			<form:option value="all">Doesn't Matter</form:option>
 			<form:option value="Specify an income range">Specify an income range</form:option>
 		</form:select> --%>
       </div>

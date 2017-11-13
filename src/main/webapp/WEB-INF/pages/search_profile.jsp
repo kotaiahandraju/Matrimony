@@ -248,7 +248,7 @@ if(session.getAttribute("cacheGuest") != null){
              <div class="col-md-9">
 <div class="searchresults">
     <h3>Your Search Results</h3>
-    <p><span id="countId">count</span> Profiles found : <span id="genderId">Gender</span> <span>20</span> - <span>25</span>  <a href="#">Modify Search</a></p>
+    <p><span id="countId">${count}</span> Profiles found : <span id="genderId">Gender</span> <span>20</span> - <span>25</span>  <a href="#">Modify Search</a></p>
 	<div id="searchResults">
 		
 	</div>
@@ -347,7 +347,7 @@ function displayMatches(listOrders) {
 			if(expressed==0){
 				insert_str = '<button class="btn btn-primary btn-block" onclick="expressInterest('+orderObj.id+')">Yes I\'m interested</button>';
 			}else if(expressed>0){
-				insert_str = '<label class="btn btn-primary btn-block">Expressed Interest</label>';
+				insert_str = '<button class="btn btn-primary btn-block">Expressed Interest</button>';
 			}
 			var tblRow = '<div class="panel panel-default">'
 				+ '<div class="panel-heading">'

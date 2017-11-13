@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.apache.commons.lang.StringUtils;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -69,15 +70,35 @@ public class LoginController {
 			objUserBean = objUsersDao.loginChecking(userObj);
 			if (objUserBean != null ) {
 				if(objUserBean.getRoleId() ==1){
-				session.setAttribute("cacheUserBean", objUserBean);
-				session.setAttribute("rolId", objUserBean.getRoleId());
-				session.setAttribute("userName", objUserBean.getUsername());
-				return "redirect:admin//BodyTypeHome";
+					session.setAttribute("cacheUserBean", objUserBean);
+					session.setAttribute("rolId", objUserBean.getRoleId());
+					session.setAttribute("userName", objUserBean.getUsername());
+					return "redirect:admin//BodyTypeHome";
+				}else if(objUserBean.getRoleId() == 4){
+					session.setAttribute("cacheGuest", objUserBean);
+					session.setAttribute("rolId", objUserBean.getRoleId());
+					session.setAttribute("userName", objUserBean.getUsername());
+					if(StringUtils.isBlank(objUserBean.getMaritalStatus())){
+						return "redirect:profile.htm?page=1";
+					}else if(StringUtils.isBlank(objUserBean.getEducation())){
+						return "redirect:profile.htm?page=2";
+					}else if(StringUtils.isBlank(objUserBean.getHeight())){
+						return "redirect:profile.htm?page=3";
+					}else if(StringUtils.isBlank(objUserBean.getAboutMyself()) && StringUtils.isBlank(objUserBean.getDisability())){
+						return "redirect:profile.htm?page=4";
+					}else if(StringUtils.isBlank(objUserBean.getFatherName())){
+						return "redirect:family-details";
+					}else{
+						return "redirect:profileView";
+					}
+					
+				}else if(objUserBean.getRoleId() == 6){
+					return "redirect:profileView";
 				}else{
-				session.setAttribute("cacheGuest", objUserBean);
-				session.setAttribute("rolId", objUserBean.getRoleId());
-				session.setAttribute("userName", objUserBean.getUsername());
-				return "redirect:profile.htm?page=1";
+					session.setAttribute("cacheGuest", objUserBean);
+					session.setAttribute("rolId", objUserBean.getRoleId());
+					session.setAttribute("userName", objUserBean.getUsername());
+					return "redirect:profile.htm?page=1";
 				}
 				
 					

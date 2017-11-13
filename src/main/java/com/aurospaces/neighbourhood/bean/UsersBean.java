@@ -67,6 +67,7 @@ protected int userrequirementId;
 protected String  reTypedPassword;
 protected String fatherName, motherName, fOccupation, mOccupation, noOfBrothers, noOfSisters, noOfBrothersMarried, noOfSistersMarried;
 protected String rhaveChildren;
+protected int expressedInterest;
 
 
 public String getRhaveChildren() {
@@ -590,6 +591,12 @@ public String getReTypedPassword() {
 }
 public void setReTypedPassword(String reTypedPassword) {
 	this.reTypedPassword = reTypedPassword;
+}
+public int getExpressedInterest() {
+	return expressedInterest;
+}
+public void setExpressedInterest(int expressedInterest) {
+	this.expressedInterest = expressedInterest;
 }
 
 }
