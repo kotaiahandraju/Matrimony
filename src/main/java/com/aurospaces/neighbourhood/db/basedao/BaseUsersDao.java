@@ -86,7 +86,7 @@ ps.setString(8, users.getCreateProfileFor());
 ps.setString(9, users.getGender());
 ps.setString(10, users.getFirstName());
 ps.setString(11, users.getLastName());
-ps.setString(12, users.getDob());
+ps.setDate(12, (java.sql.Date) users.getDob1());
 ps.setString(13, users.getReligion());
 ps.setString(14, users.getMotherTongue());
 ps.setString(15, users.getCurrentCountry());
@@ -140,7 +140,7 @@ ps.setString(49, users.getHaveChildren());
 
 			String sql = "UPDATE users  set updated_time = ?  ,createProfileFor = ? ,gender = ? ,firstName = ? ,lastName = ? ,dob = ? ,religion = ? ,motherTongue = ? ,currentCountry = ? ,currentState = ? ,currentCity = ? ,maritalStatus = ? ,caste = ? ,gotram = ? ,star = ? ,dosam = ? ,dosamName = ? ,education = ? ,workingWith = ? ,companyName = ? ,annualIncome = ? ,monthlyIncome = ? ,diet = ? ,smoking = ? ,drinking = ? ,height = ? ,bodyType = ? ,complexion = ? ,mobile = ? ,aboutMyself = ? ,disability = ? ,fatherName=?, motherName=?, fOccupation=?, mOccupation=?, noOfBrothers=?, noOfSisters=?, noOfBrothersMarried=?, noOfSistersMarried=?,haveChildren=?  where id = ? ";
 	
-			jdbcTemplate.update(sql, new Object[]{users.getUpdatedTime(),users.getCreateProfileFor(),users.getGender(),users.getFirstName(),users.getLastName(),users.getDob(),users.getReligion(),users.getMotherTongue(),users.getCurrentCountry(),users.getCurrentState(),users.getCurrentCity(),users.getMaritalStatus(),users.getCaste(),users.getGotram(),users.getStar(),users.getDosam(),users.getDosamName(),users.getEducation(),users.getWorkingWith(),users.getCompanyName(),users.getAnnualIncome(),users.getMonthlyIncome(),users.getDiet(),users.getSmoking(),users.getDrinking(),users.getHeight(),users.getBodyType(),users.getComplexion(),users.getMobile(),users.getAboutMyself(),users.getDisability(),users.getFatherName(),users.getMotherName(),users.getfOccupation(),users.getmOccupation(), users.getNoOfBrothers(),users.getNoOfSisters(),users.getNoOfBrothersMarried(),users.getNoOfSistersMarried(),users.getHaveChildren(),users.getId()});
+			jdbcTemplate.update(sql, new Object[]{users.getUpdatedTime(),users.getCreateProfileFor(),users.getGender(),users.getFirstName(),users.getLastName(),(java.sql.Date) users.getDob1(),users.getReligion(),users.getMotherTongue(),users.getCurrentCountry(),users.getCurrentState(),users.getCurrentCity(),users.getMaritalStatus(),users.getCaste(),users.getGotram(),users.getStar(),users.getDosam(),users.getDosamName(),users.getEducation(),users.getWorkingWith(),users.getCompanyName(),users.getAnnualIncome(),users.getMonthlyIncome(),users.getDiet(),users.getSmoking(),users.getDrinking(),users.getHeight(),users.getBodyType(),users.getComplexion(),users.getMobile(),users.getAboutMyself(),users.getDisability(),users.getFatherName(),users.getMotherName(),users.getfOccupation(),users.getmOccupation(), users.getNoOfBrothers(),users.getNoOfSisters(),users.getNoOfBrothersMarried(),users.getNoOfSistersMarried(),users.getHaveChildren(),users.getId()});
 		}
 	}
 		
@@ -154,7 +154,7 @@ ps.setString(49, users.getHaveChildren());
 
 		public UsersBean getById1(int id) {
 			 jdbcTemplate = custom.getJdbcTemplate();
-				String sql = "SELECT * from users where id = ? ";
+				String sql = "SELECT u.*,DATE_FORMAT(u.dob, '%d-%M-%Y') as dob  from users u where id = ? ";
 				List<UsersBean> retlist = jdbcTemplate.query(sql,
 				new Object[]{id},
 				ParameterizedBeanPropertyRowMapper.newInstance(UsersBean.class));
@@ -164,7 +164,7 @@ ps.setString(49, users.getHaveChildren());
 			}
 	 public UsersBean getById(int id) {
 		 jdbcTemplate = custom.getJdbcTemplate();
-			String sql = "SELECT u.*,ur.* from users u left join userrequirement ur  on u.id=ur.userId where u.id = ? ";
+			String sql = "SELECT u.*,ur.*,DATE_FORMAT(u.dob, '%d-%M-%Y') as dob from users u left join userrequirement ur  on u.id=ur.userId where u.id = ? ";
 			List<UsersBean> retlist = jdbcTemplate.query(sql,
 			new Object[]{id},
 			ParameterizedBeanPropertyRowMapper.newInstance(UsersBean.class));

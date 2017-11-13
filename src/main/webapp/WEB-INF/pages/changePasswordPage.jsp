@@ -2,11 +2,7 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://displaytag.sf.net" prefix="display"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<style>
- .error {
-        color: red; font-weight: bold;
-    }
-</style>
+
 <%-- <% pages1 = "createprofile"; %> --%>
 <link href="${baseurl }/css/datepicker1.css" rel="stylesheet" type="text/css" />
 <link href="${baseurl }/css/mdtimepicker.css" rel="stylesheet" type="text/css" />
@@ -15,32 +11,31 @@
 <script src="${baseurl }/js/mdtimepicker.js"></script>
 <input type="hidden" name="loc" id="loc" value="${baseurl }" />
 <div id="main">
-<div class="container-fluid">
-	<div class="page-header">
-		<div class="pull-left">
-			<h1>Change Password</h1> 
+	<div class="container-fluid">
+		<div class="page-header">
+			<div class="pull-left">
+				<h1>Change Password</h1> 
+			</div>
 		</div>
-	</div>
-	<div class="breadcrumbs">
-		<ul>
-			<li>
-				<i class="fa fa-laptop"></i>
-				<a href="javascript:void(0)" style="color: blue;text-decoration: none;"><label>${first_name}</label> &nbsp;<label> ${last_name}</label></a>
-				<i class="fa fa-angle-right"></i>&nbsp;
-			</li>
-			<li>
-				&nbsp;<i class="fa fa-user"></i>
-				<span style="color: #999;cursor: auto;">Change Password</span>
-			</li>
-		</ul>
-		
-	</div>
-	<div class="row">
-		<div class="col-lg-12">
-			<div class="portlet" id="yw0">
-				<div class="portlet-content w3-animate-zoom">
-					<div class="quote-form row">
-							<!-- contact form -->
+		<div class="breadcrumbs">
+			<ul>
+				<li>
+					<i class="fa fa-laptop"></i>
+					<a href="javascript:void(0)" style="color: blue;text-decoration: none;"><label>${first_name}</label> &nbsp;<label> ${last_name}</label></a>
+					<i class="fa fa-angle-right"></i>&nbsp;
+				</li>
+				<li>
+					&nbsp;<i class="fa fa-user"></i>
+					<span style="color: #999;cursor: auto;">Change Password</span>
+				</li>
+			</ul>
+			
+		</div>
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="portlet" id="yw0">
+					<div class="portlet-content w3-animate-zoom">
+						<div class="quote-form row">
 							<form:form commandName="changePaddword" class="form-horizontal" id="change-password-form" role="form"   method="post">
 								<div class="row">
 									<div class="col-md-4">
@@ -60,37 +55,40 @@
 											<label class="col-sm-4 control-label required"><spring:message code="label.confirmNewPasswordName" text="default text" /><span style="color:red;">*</span></label>
 											<div class="col-sm-8">
 										  		<form:input path="reTypedPassword" onkeydown="removeBorder(this.id);" class="form-control form-control-solid placeholder-no-fix" type="password" required="true" autocomplete="off" placeholder="Confirm New Password" />						
-										  		<span class="hasError" id="reTypedPasswordError"></span>
-										  		<div><form:errors path="reTypedPassword" cssClass="error" /></div>										
-											</div>
-									  	</div>
-									  </div>
-									</div>
-									<div class="row">
-									  <div class="col-md-4">
-									  	<div class="form-group">
-											<div class="col-sm-9 col-sm-offset-4">
-												<label><input type="checkbox" id="chkbox" onclick="showCharacters(this)" title="Show Characters"/> Show Characters</label>
-											</div>
-									  	</div>
-									  </div>
-									</div> 
-									  	
-                                    <div class="row">
-										<div class="col-md-offset-5 col-md-4">
-											<div class="form-group">
-											<div class=" col-md-offset-1 col-md-6">
-												<button class="btn btn btn-primary" type="button" id="submit11" name="yt0" onclick="changePassword()">Change Password</button>
-												<input class="btn btn btn-danger" type="reset" id="reset11" name="yt1" value="Reset">
-											</div>
+											  		<span class="hasError" id="reTypedPasswordError"></span>
+											  		<div><form:errors path="reTypedPassword" cssClass="error" /></div>										
+												</div>
+										  	</div>
+										  </div>
+										</div>
+										<div class="row">
+										  <div class="col-md-4">
+										  	<div class="form-group">
+												<div class="col-sm-9 col-sm-offset-4">
+													<label><input type="checkbox" id="chkbox" onclick="showCharacters(this)" title="Show Characters"/> Show Characters</label>
+												</div>
+										  	</div>
+										  </div>
+										</div> 
+										  	
+	                                    <div class="row">
+											<div class="col-md-offset-5 col-md-4">
+												<div class="form-group">
+												<div class=" col-md-offset-1 col-md-6">
+													<button class="btn btn btn-primary" type="button" id="submit11" name="yt0" onclick="changePassword()">Change Password</button>
+													<input class="btn btn btn-danger" type="reset" id="reset11" name="yt1" value="Reset">
+												</div>
+												</div>
 											</div>
 										</div>
-									</div>
 							</form:form>
 						</div>
-
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
-</div></div></div></div></div>
 
 <!-- <script type="text/javascript" src="js/custom.js"></script>		 -->
 <script type="text/javascript">

@@ -24,6 +24,7 @@ session.setAttribute("baseurl", baseurl);
 	
 	<!-- 	animate zoom -->
 	<link rel="stylesheet" href="${baseurl }/css/w3animate.css">
+<%-- 	<link rel="stylesheet" href="${baseurl }/css/animate.min.css"> --%>
 	<!-- Bootstrap -->
 	<link rel="stylesheet" href="${baseurl }/css/bootstrap.min.css">
 	<!-- jQuery UI -->
@@ -75,11 +76,22 @@ span.has-error,span.hasError
   display: block !important;
   position: absolute;
 }
+
+.error{color: red; font-weight: bold;}
+
+.alert-success, .alert-warning, .alert-danger{color: white !important;}
+.alert-success{background-color: #4CAF50 !important;}
+.alert-warning{background-color: #ff6600 !important;}
+.alert-danger{background-color: #d43f3a !important;}
+
 .your-class::-webkit-input-placeholder {color: #e73d4a !important;}
 .your-class::-moz-placeholder {color: #e73d4a !important;}
 
 .default-class::-webkit-input-placeholder {color: #e73d4a !important;}
 .default-class::-moz-placeholder {color: #e73d4a !important;}
+
+.form-horizontal .control-label{text-align: right;}
+span.impColor{color: red;}
 </style>
 <script>
 		window.setTimeout(function() {
@@ -217,8 +229,8 @@ span.has-error,span.hasError
 <%-- 						<img src="${baseurl }/img/demo/user-avatar.jpg" alt=""> --%>
 					</a>
 					<ul class="dropdown-menu pull-right">
-						<li><a href="#">Edit profile</a></li>
-						<li><a href="#">Account settings</a></li>
+						<!-- <li><a href="#">Edit profile</a></li>
+						<li><a href="#">Account settings</a></li> -->
 						<li><a href="changePassword">Change Password</a></li>
 						<li><a href="${baseurl }/logoutHome">Sign out</a></li>
 					</ul>
