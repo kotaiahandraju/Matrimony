@@ -207,6 +207,51 @@ public class FilterController {
 		return String.valueOf(jsonObj);
 	}
    
+   @RequestMapping(value = "/moveToHidden")
+	public @ResponseBody String moveToHidden( UsersBean objUsersBean,ModelMap model,HttpServletRequest request,HttpSession session,BindingResult objBindingResult) {
+		System.out.println(" moveToHidden action...");
+		List<Map<String, String>> listOrderBeans = null;
+		JSONObject jsonObj = new JSONObject();
+		ObjectMapper objectMapper = null;
+		String sJson=null;
+		boolean delete = false;
+		String statusName= null;
+		try{
+				delete=	objUsersDao.moveToHidden(objUsersBean);
+				statusName = objUsersBean.getStatusName();
+				if(delete){
+					jsonObj.put("message", "Success");
+				}else{
+					jsonObj.put("message", "Failed");
+				}
+				
+			listOrderBeans = objUsersDao.getAllProfiles1(objUsersBean,statusName);
+			 objectMapper = new ObjectMapper();
+			if (listOrderBeans != null && listOrderBeans.size() > 0) {
+				
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(listOrderBeans);
+				request.setAttribute("allOrders1", sJson);
+				jsonObj.put("allOrders1", listOrderBeans);
+				// System.out.println(sJson);
+			} else {
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(listOrderBeans);
+				request.setAttribute("allOrders1", "''");
+				jsonObj.put("allOrders1", listOrderBeans);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+	System.out.println(e);
+			logger.error(e);
+			logger.fatal("BranchController class deleteBodyType method  ");
+			jsonObj.put("message", "excetption"+e);
+			return String.valueOf(jsonObj);
+			
+		}
+		return String.valueOf(jsonObj);
+	}
+   
    @RequestMapping(value = "/resetPassword")
 	public @ResponseBody String resetPassword( UsersBean objUsersBean,ModelMap model,HttpServletRequest request,HttpSession session,BindingResult objBindingResult) {
 		System.out.println(" resetPassword action...");

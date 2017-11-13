@@ -1,4 +1,6 @@
 
+	<script src="${baseurl }/js/custemValidation.js"></script>
+	
 	<!-- Nice Scroll -->
 	<script src="${baseurl }/js/plugins/nicescroll/jquery.nicescroll.min.js"></script>
 	<!-- jQuery UI -->

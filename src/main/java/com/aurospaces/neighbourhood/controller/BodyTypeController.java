@@ -30,7 +30,7 @@ public class BodyTypeController {
 	BodyTypeDao objBodyTypeDao;
 
 	@RequestMapping(value = "/BodyTypeHome")
-	public String BodyTypeHome(@ModelAttribute("bodyTypeForm") BodyTypeBean objBodyTypeBean, ModelMap model,
+	public String bodyTypeHome(@ModelAttribute("bodyTypeForm") BodyTypeBean objBodyTypeBean, ModelMap model,
 			HttpServletRequest request, HttpSession session) {
 		System.out.println("BodyTypeHome Page");
 		List<BodyTypeBean> listOrderBeans = null;
@@ -54,7 +54,7 @@ public class BodyTypeController {
 			e.printStackTrace();
 			System.out.println(e);
 			logger.error(e);
-			logger.fatal("error in BodyTypeController class BodyTypeHome method  ");
+			logger.fatal("error in BodyTypeController class bodyTypeHome method");
 			return "bodyTypeHome";
 		}
 		return "bodyTypeHome";
@@ -66,7 +66,6 @@ public class BodyTypeController {
 		int id = 0;
 //		model.put("userForm", user);
 		try {
-		
 			if (result.hasErrors()) {
 //				model.addAttribute("newUser", userObj);
 				return "bodyTypeHome";
@@ -83,28 +82,32 @@ public class BodyTypeController {
 				if(id == dummyId || bodyTypeBean == null )
 				{
 					objBodyTypeDao.save(objBodyTypeBean);
-					redir.addFlashAttribute("msg", "Updated");
+					redir.addFlashAttribute("msg", "Body Type Updated Successfully");
+					redir.addFlashAttribute("cssMsg", "warning");
 				}
 				else
 				{
-					redir.addFlashAttribute("msg", "AlreadyExist");
+					redir.addFlashAttribute("msg", "Already Body Type Exist");
+					redir.addFlashAttribute("cssMsg", "danger");
 				}
 			}
 			if(objBodyTypeBean.getId() == 0 && bodyTypeBean == null)
 			{
 				objBodyTypeDao.save(objBodyTypeBean);
-				redir.addFlashAttribute("msg", "inserted");
+				redir.addFlashAttribute("msg", "Body Type Inserted Successfully");
+				redir.addFlashAttribute("cssMsg", "success");
 			}
 			if(objBodyTypeBean.getId() == 0 && bodyTypeBean != null)
 			{
-				redir.addFlashAttribute("msg", "AlreadyExist");
+				redir.addFlashAttribute("msg", "Already Body Type Exist");
+				redir.addFlashAttribute("cssMsg", "danger");
 			}
 			//redir.addFlashAttribute("msg", "success fully created");
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e);
 			logger.error(e);
-			logger.fatal("error in userLogin method in school DepartmentController class DepartmentHome method  ");
+			logger.fatal("error in BodyTypeController class addBodyType method");
 			redir.addFlashAttribute("msg", e);
 		}
 		return "redirect:BodyTypeHome";
@@ -121,9 +124,9 @@ public class BodyTypeController {
 			if(objBodyTypeBean.getId() != 0){
  				delete = objBodyTypeDao.delete(objBodyTypeBean.getId());
  				if(delete){
- 					jsonObj.put("message", "deleted");
+ 					jsonObj.put("message", "Body Type Deleted Successfully");
  				}else{
- 					jsonObj.put("message", "delete fail");
+ 					jsonObj.put("message", "Failed to Delete..!");
  				}
  			}
  				
@@ -144,81 +147,12 @@ public class BodyTypeController {
 			}
 		}catch(Exception e){
 			e.printStackTrace();
-	System.out.println(e);
+			System.out.println(e);
 			logger.error(e);
-			logger.fatal("error in userLogin method in school DepartmentController class DepartmentHome method  ");
+			logger.fatal("error in BodyTypeController class deleteBodyType method");
 			jsonObj.put("message", "excetption"+e);
 			return String.valueOf(jsonObj);
-			
 		}
 		return String.valueOf(jsonObj);
 	}
 }
-
-/*
-@RequestMapping(value = "/submitPercentage")
-public String addclass(GSTPercentageBean objPercentageBean,ModelMap model,HttpServletRequest request,HttpServletResponse response,HttpSession session) throws JsonGenerationException, JsonMappingException, IOException {
-	List<Map<String, String>> listOrderBeans = null;
-	ObjectMapper objectMapper = null;
-	String sJson = "";
-	int id = 0;
-	try
-	{
-		if(StringUtils.isNotBlank(objPercentageBean.getPercentage1())){
-			objPercentageBean.setPercentage(Double.parseDouble(objPercentageBean.getPercentage1()));
-		}
-		else{
-			objPercentageBean.setPercentage(0.00);
-		}
-		GSTPercentageBean percentageBean = objGstPercentageDao.getByName(objPercentageBean);
-		int dummyId =0;
-		if(percentageBean != null){
-			dummyId = percentageBean.getId();
-		}
-		if(objPercentageBean.getId() != 0)
-		{
-			id = objPercentageBean.getId();
-			if(id == dummyId || percentageBean == null )
-			{
-				objGstPercentageDao.save(objPercentageBean);
-				session.setAttribute("updated", "GSTPercentage Updated Successfully");
-				System.out.println("GSTPercentage Updated");
-			}
-			else
-			{
-				session.setAttribute("error", "Record Already Exists");
-				System.out.println("Duplicate GSTPercentage");
-			}
-		}
-		if(objPercentageBean.getId() == 0 && percentageBean == null)
-		{
-			objGstPercentageDao.save(objPercentageBean);
-			session.setAttribute("created", "GSTPercentage Added Successfully");
-			System.out.println("GSTPercentage Added");
-		}
-		if(objPercentageBean.getId() == 0 && percentageBean != null)
-		{
-			session.setAttribute("error", "Record Already Exists");
-			System.out.println("Duplicate GSTPercentage");
-		}
-//		objGstPercentageDao.save(objPercentageBean);
-		
-		listOrderBeans = objGstPercentageDao.getAllGSTPercentages();
-		if(listOrderBeans != null && listOrderBeans.size() > 0) {
-			  objectMapper = new ObjectMapper(); 
-			  sJson =objectMapper.writeValueAsString(listOrderBeans);
-			  request.setAttribute("allOrders1", sJson);
-			 // System.out.println(sJson); 
-		}else{
-			 objectMapper = new ObjectMapper(); 
-			  sJson =objectMapper.writeValueAsString(listOrderBeans);
-			  request.setAttribute("allOrders1", "''");
-		}
-	}catch(Exception e){
-e.printStackTrace();
-System.out.println(e);
-		logger.error(e);
-	}
-
-	return "redirect:GstPercentage";
-}*/
