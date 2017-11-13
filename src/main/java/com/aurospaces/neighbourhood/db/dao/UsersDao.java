@@ -347,11 +347,11 @@ public class UsersDao extends BaseUsersDao
 			
 					String tempQryStr = " from userrequirement ureq where ureq.userId = "+objUserBean.getId()+" ";
 					//buffer.append( " and u.age between (select ureq.rAgeFrom "+tempQryStr+") and (select ureq.rAgeTo "+tempQryStr+")  ") ;
-					buffer.append( " and u.height >= ifnull(if((select ureq.rHeight "+tempQryStr+" )='all' or (select ureq.rHeight  "+tempQryStr+" ) is null,null,(select ureq.rHeight  "+tempQryStr+" )),u.height)  ");
-					buffer.append( " and u.maritalStatus = ifnull(if((select ureq.rMaritalStatus "+tempQryStr+" )='all' or (select ureq.rMaritalStatus  "+tempQryStr+" ) is null,null,(select ureq.rMaritalStatus  "+tempQryStr+" )),u.maritalStatus)  ");
-					buffer.append( " and u.caste = ifnull(if((select ureq.rCaste "+tempQryStr+" )='all' or (select ureq.rCaste  "+tempQryStr+" ) is null,null,(select ureq.rCaste  "+tempQryStr+" )),u.caste)  ");
-					buffer.append( " and u.currentCountry = ifnull(if((select ureq.rCountry "+tempQryStr+" )='all' or (select ureq.rCountry  "+tempQryStr+" ) is null,null,(select ureq.rCountry  "+tempQryStr+" )),u.currentCountry) ");
-					buffer.append( " and u.education = ifnull(if((select ureq.rEducation "+tempQryStr+" )='all' or (select ureq.rEducation  "+tempQryStr+" ) is null,null,(select ureq.rEducation  "+tempQryStr+" )),u.education)  ");
+					buffer.append( " and u.height >= ifnull(if((select ureq.rHeight "+tempQryStr+" )='' or (select ureq.rHeight "+tempQryStr+" )='all' or (select ureq.rHeight  "+tempQryStr+" ) is null,null,(select ureq.rHeight  "+tempQryStr+" )),u.height)  ");
+					buffer.append( " and u.maritalStatus = ifnull(if((select ureq.rMaritalStatus "+tempQryStr+" )='' or (select ureq.rMaritalStatus "+tempQryStr+" )='all' or (select ureq.rMaritalStatus  "+tempQryStr+" ) is null,null,(select ureq.rMaritalStatus  "+tempQryStr+" )),u.maritalStatus)  ");
+					buffer.append( " and u.caste = ifnull(if((select ureq.rCaste "+tempQryStr+" )='' or (select ureq.rCaste "+tempQryStr+" )='all' or (select ureq.rCaste  "+tempQryStr+" ) is null,null,(select ureq.rCaste  "+tempQryStr+" )),u.caste)  ");
+					buffer.append( " and u.currentCountry = ifnull(if((select ureq.rCountry "+tempQryStr+" )='' or (select ureq.rCountry "+tempQryStr+" )='all' or (select ureq.rCountry  "+tempQryStr+" ) is null,null,(select ureq.rCountry  "+tempQryStr+" )),u.currentCountry) ");
+					buffer.append( " and u.education = ifnull(if((select ureq.rEducation "+tempQryStr+" )='' or (select ureq.rEducation "+tempQryStr+" )='all' or (select ureq.rEducation "+tempQryStr+" )='any'  or (select ureq.rEducation  "+tempQryStr+" ) is null,null,(select ureq.rEducation  "+tempQryStr+" )),u.education)  ");
 					//buffer.append( " and u.occupation = ifnull((select ureq.rOccupation "+tempQryStr+"),u.occupation) ");
 					
 					if(objUserBean.getRoleId()!=1){
