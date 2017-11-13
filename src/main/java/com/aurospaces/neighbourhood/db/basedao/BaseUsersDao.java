@@ -7,6 +7,10 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+import org.joda.time.LocalDate;
+import org.joda.time.Period;
+import org.joda.time.PeriodType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -17,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.aurospaces.neighbourhood.bean.UsersBean;
 import com.aurospaces.neighbourhood.daosupport.CustomConnection;
+import com.aurospaces.neighbourhood.util.HRMSUtil;
 
 
 
@@ -59,7 +64,15 @@ JdbcTemplate jdbcTemplate;
 					}
 					java.sql.Timestamp updatedTime = 
 						new java.sql.Timestamp(users.getUpdatedTime().getTime()); 
-							
+					float age;
+					if(StringUtils.isNotBlank(users.getDob())){
+						Date dob = HRMSUtil.dateFormate(users.getDob());
+						LocalDate birthdate = new LocalDate (dob); 
+						LocalDate now = new LocalDate();
+						Period period = new Period(birthdate, now, PeriodType.yearMonthDay());
+						age = Float.valueOf(period.getYears()+"."+period.getMonths());
+					}
+					
 					PreparedStatement ps =
 									connection.prepareStatement(INSERT_SQL,new String[]{"id"});
 	ps.setTimestamp(1, createdTime);

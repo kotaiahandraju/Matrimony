@@ -450,6 +450,34 @@ public class HomePageController {
 			}
 			return String.valueOf(objJson);
 		}
+	 
+	 @RequestMapping(value = "/expressInterestTo")
+		public  @ResponseBody String expressInterestTo(ModelMap model,
+				HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
+			JSONObject objJson =new JSONObject();
+			List<Map<String,String>> allProfiles = null;
+			boolean success = false;
+			try {
+				String profileId = request.getParameter("profile_id");
+				success = objUsersDao.expressInterestTo(profileId);
+				if(success)
+					objJson.put("message", "success");
+				else
+					objJson.put("message", "failed");
+				allProfiles = objUsersDao.getProfilesFilteredByPreferences();
+				if (allProfiles != null && allProfiles.size() > 0) {
+					objJson.put("allProfiles", allProfiles);
+				} else {
+					objJson.put("allProfiles", "");
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println(e);
+				logger.error(e);
+				objJson.put("message", "failed");
+			}
+			return String.valueOf(objJson);
+		}
 	@RequestMapping(value = "/autoCompleteSave")
 	public @ResponseBody String autoCompleteSave(AutoCompleteBean objAutoCompleteBean, Model objeModel ,
 			HttpServletRequest request,HttpServletResponse response, HttpSession session) {

@@ -342,6 +342,13 @@ function displayMatches(listOrders) {
 		}
 		if(orderObj.firstName !=null)
 		{
+			var insert_str = '';
+			var expressed = orderObj.expressedInterest;
+			if(expressed==0){
+				insert_str = '<button class="btn btn-primary btn-block" onclick="expressInterest('+orderObj.id+')">Yes I\'m interested</button>';
+			}else if(expressed>0){
+				insert_str = '<label class="btn btn-primary btn-block">Expressed Interest</label>';
+			}
 			var tblRow = '<div class="panel panel-default">'
 				+ '<div class="panel-heading">'
 				+ '<h5 class="panel-title">'
@@ -369,7 +376,9 @@ function displayMatches(listOrders) {
             	+ '</div>'
             	+ '<div class="col-md-3">'
             	+ '<h4 style="margin-bottom:20px;">Like her Profile?</h4>'
-            	+ '<button class="btn btn-primary btn-block">Yes I\'m interested</button>'
+            	+ '<c:if test="${(cacheGuest.roleId == 6)}">'
+            	+ insert_str
+				+ '</c:if>	 '
             	+ '<button class="btn btn-danger btn-block">View Full Profile</button>'
             	+ '<div class="clearfix"></div>'
             	+ '</div>'
@@ -440,6 +449,46 @@ $("#castdiv input[name='caste']").click(function(){
     		});
    // }
 });
+
+function expressInterest(profile_id){
+	var formData = new FormData();
+
+	formData.append('profile_id',profile_id);
+	jQuery.fn.makeMultipartRequest('POST', 'expressInterestTo', false,
+			formData, false, 'text', function(data){
+    		var jsonobj = $.parseJSON(data);
+    		var msg = jsonobj.message;
+    		var profiles = jsonobj.allProfiles;
+    		if(typeof msg != "undefined" ){
+    			if("success"==msg){
+    				alert("Interest request has been sent successfully");
+    			}else if("failed"==msg || "exception"==msg){
+    				alert("Interest request is not successful. Please try again.");
+    			}
+    		}
+    		if(profiles==""){
+    			$('#countId').html('0');
+    			var str = '<div class="panel panel-default"><h6>No results found.</h6></div>';
+    			$('#searchResults').html('');
+    			$(str).appendTo("#searchResults");
+    		}else{
+    			$('#countId').html(profiles.length);
+    			displayMatches(profiles);
+    		}
+    		/* var filtered_list = jsonobj.filtered_profiles;
+    		$('#countId').html('');
+    		if(filtered_list==""){
+    			$('#countId').html('0');
+    			var str = '<div class="panel panel-default"><h6>No results found.</h6></div>';
+    			$('#searchResults').html('');
+    			$(str).appendTo("#searchResults");
+    		}else{
+    			$('#countId').html(filtered_list.length);
+    			displayMatches(filtered_list);
+    		} */
+			
+		});
+}
 
 </script>
 </body>

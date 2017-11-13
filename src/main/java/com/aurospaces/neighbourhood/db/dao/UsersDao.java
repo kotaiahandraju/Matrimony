@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.ParameterizedBeanPropertyRowMapper;
@@ -268,6 +269,26 @@ public class UsersDao extends BaseUsersDao
 			return new LinkedList<Map<String, String>>();
 	 }
 	 
+	 public boolean expressInterestTo(String profileId){
+			jdbcTemplate = custom.getJdbcTemplate();
+			StringBuffer buffer = new StringBuffer();
+			UsersBean objUserBean = null;
+			objUserBean = (UsersBean) session.getAttribute("cacheGuest");
+			if(objUserBean!=null){
+				try{
+					buffer.append("insert into express_intrest(user_id,intrest_to,created_on,status) values(?,?,?,?)");
+					int inserted_count = jdbcTemplate.update(buffer.toString(), new Object[]{objUserBean.getId(),profileId,
+											new java.sql.Timestamp(new DateTime().getMillis()),"0"});
+					if(inserted_count==1)
+						return true;
+				}catch(Exception e){
+					e.printStackTrace();
+					return false;
+				}
+			}
+			return false;
+	 }
+	 
 	 public List<Map<String, String>> getProfilesFilteredByPreferences(){
 			jdbcTemplate = custom.getJdbcTemplate();
 			StringBuffer buffer = new StringBuffer();
@@ -283,7 +304,9 @@ public class UsersDao extends BaseUsersDao
 					+"u.annualIncome, u.monthlyIncome, u.diet, u.smoking, u.drinking, u.height ,h.inches,h.cm, u.bodyType,b.name as bodyTypeName, u.complexion,com.name as complexionName, u.mobile, " 
 					+"u.aboutMyself, u.disability, u.status, u.showall,ur.userId, rAgeFrom, rAgeTo, "
 					+"rHeight, rMaritalStatus, rReligion,re1.name as requiredReligionName, rCaste,c1.name as requiredCasteName, rMotherTongue,l1.name as requiredMotherTongue,haveChildren,rCountry , con1.name as requiredCountry,rState,rEducation,e1.name as requiredEducationName, "
-					+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet from users u left join userrequirement ur on u.id=ur.userId "
+					+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,"
+					+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.intrest_to=u.id) as expressedInterest "
+					+" from users u left join userrequirement ur on u.id=ur.userId "
 					+"left join religion re on re.id=u.religion left join language l on l.id=u.motherTongue left join countries co on co.id=u.currentCountry "
 					+"left join cast c on c.id=u.caste left join star s on s.id =u.star left join height h on h.id=u.height left join body_type b on b.id=u.bodyType left join religion re1  on re1.id=rReligion "
 					+"left join complexion com on com.id =u.complexion left join cast c1 on c1.id=rCaste left join language l1 on l1.id=rMotherTongue "
@@ -343,7 +366,7 @@ public class UsersDao extends BaseUsersDao
 										"monthlyIncome","diet","smoking","drinking","height","inches","cm",
 										"bodyType","bodyTypeName","complexion","complexionName","mobile","aboutMyself","disability",
 										"status","showall","userId","rAgeFrom","rAgeTo","rHeight","rMaritalStatus","rReligion","requiredReligionName","rCaste","requiredCasteName","rMotherTongue","requiredMotherTongue","haveChildren","rCountry","requiredCountry","rState","rEducation","requiredEducationName",
-										"rWorkingWith","rOccupation","requiredOccupationName","rAnnualIncome","rCreateProfileFor","rDiet"});
+										"rWorkingWith","rOccupation","requiredOccupationName","rAnnualIncome","rCreateProfileFor","rDiet","expressedInterest"});
 								jdbcTemplate.query(sql, handler);
 								List<Map<String, String>> result = handler.getResult();
 								return result;
