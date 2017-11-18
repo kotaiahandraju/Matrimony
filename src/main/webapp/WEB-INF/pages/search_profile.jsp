@@ -172,14 +172,14 @@ if(session.getAttribute("cacheGuest") != null){
 				<div class="col-md-3 products-grid-right">
 					<div class="w_sidebar">
 						<section  class="sky-form">
-							<h4>catogories</h4>
+							<h4>Cast</h4>
 							<div class="row1 scroll-pane">
 								<div class="col col-4">
 									<div id="castdiv">
 										<form:checkboxes items="${castList}" path="caste" itemValue="id" itemLabel="name" />
 									</div>
 								</div>
-								<div class="col col-4">
+								<!-- <div class="col col-4">
 									<label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i></i>Kamma</label>
 									<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Kapu</label>
 									<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Balija</label>
@@ -194,14 +194,17 @@ if(session.getAttribute("cacheGuest") != null){
 									<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Kapu</label>
 									<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Balija</label>
 									<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Brahmin</label>
-								</div>
+								</div> -->
 							</div>
 						</section>
 						<section  class="sky-form">
-							<h4>Category</h4>
+							<h4>Religion</h4>
 							<div class="row1 scroll-pane">
 								<div class="col col-4">
-									<label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i></i>assumenda est</label>
+									<div id="religiondiv">
+										<form:checkboxes items="${religionList}" path="religion" itemValue="id" itemLabel="name" />
+									</div>
+									<!-- <label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i></i>assumenda est</label>
 									<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Kapu</label>
 									<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Balija</label>
 									<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Brahmin</label>
@@ -214,16 +217,19 @@ if(session.getAttribute("cacheGuest") != null){
 									<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Arya Vysya</label>
 									<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Kapu</label>
 									<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Balija</label>
-									<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Brahmin</label>
+									<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Brahmin</label> -->
 								</div>
 								
 							</div>
 						</section>
                         <section  class="sky-form">
-							<h4>Category</h4>
+							<h4>Education</h4>
 							<div class="row1 scroll-pane">
 								<div class="col col-4">
-									<label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i></i>assumenda est</label>
+									<div id="educationdiv">
+										<form:checkboxes items="${educationList}" path="education" itemValue="id" itemLabel="name" />
+									</div>
+									<!-- <label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i></i>assumenda est</label>
 									<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Kapu</label>
 									<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Balija</label>
 									<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Brahmin</label>
@@ -236,7 +242,7 @@ if(session.getAttribute("cacheGuest") != null){
 									<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Arya Vysya</label>
 									<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Kapu</label>
 									<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Balija</label>
-									<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Brahmin</label>
+									<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Brahmin</label> -->
 								</div>
 							</div>
 						</section>
@@ -342,12 +348,19 @@ function displayMatches(listOrders) {
 		}
 		if(orderObj.firstName !=null)
 		{
+			var login_user_role_id = ${cacheGuest.roleId};
 			var insert_str = '';
+			var mobile_no__str = '';
+			var more_details_str = '';
 			var expressed = orderObj.expressedInterest;
 			if(expressed==0){
 				insert_str = '<button class="btn btn-primary btn-block" onclick="expressInterest('+orderObj.id+')">Yes I\'m interested</button>';
 			}else if(expressed>0){
 				insert_str = '<button class="btn btn-primary btn-block">Expressed Interest</button>';
+			}
+			if(login_user_role_id == 6){ //means premium user
+				//more_details_str = '<tr><td><span><a href="#" onclick="showMoreDetails(this)">read more...</a></span></td></tr>';
+				//mobile_no__str = '<tr><td><span><a href="#" onclick="viewMobileNumber('+orderObj.id+')">View Mobile Number</a></span></td></tr>';
 			}
 			var tblRow = '<div class="panel panel-default">'
 				+ '<div class="panel-heading">'
@@ -371,15 +384,26 @@ function displayMatches(listOrders) {
             	+ '	<tr><td>Location</td><td><span>: '+orderObj.currentCityName+'</span></td></tr>'
             	+ '	<tr><td>Education</td><td><span>: '+orderObj.educationName+'</span></td></tr>'
             	+ '	<tr><td>Profession</td><td><span>: '+orderObj.occupationName+'</span></td></tr>'
-            	+ '	<tr><td colspan="2">'+orderObj.aboutMyself+'... <a href="#"> read more..</a> </td></tr>'
+            	+ '	<tr><td>Age</td><td><span>: '+orderObj.age+'</span></td></tr>'
+            	//+ '	<tr><td colspan="2">'+orderObj.aboutMyself+'... <a href="#" onclick="showMore('+orderObj.id+')"> read more..</a> </td></tr>'
+            	+  more_details_str
+            	//+ '	<tr class="showMore" hidden="true"><td colspan="2">'+orderObj.aboutMyself+'... <a href="#" > read more..</a> </td></tr>'
+            	//+ '	<tr class="showMore" hidden="true"><td colspan="2">'+orderObj.aboutMyself+'... <a href="#" > more detailssss</a> </td></tr>'
+            	//+ '	<tr class="showMore" hidden="true"><td colspan="2">'+orderObj.aboutMyself+'... <a href="#" > more detailssss</a> </td></tr>'
             	+ '</table>'
             	+ '</div>'
+            	/* + '<div id="hideMe'+orderObj.id+'" class="form-group hideMe">'
+            	+ '    <label class="col-md-4 control-label" for="textinput"></label>'  
+            	+ '    <div class="col-md-6 text-center">'
+            	+ '    	<span class="more" style="color: #0087AF;cursor: pointer;"><a href="#" >read more </a></span><i style="cursor: pointer;" class="fa fa-angle-down"></i>'
+            	+ '    </div>'
+            	+ '</div>' */
             	+ '<div class="col-md-3">'
             	+ '<h4 style="margin-bottom:20px;">Like her Profile?</h4>'
             	+ '<c:if test="${(cacheGuest.roleId == 6)}">'
             	+ insert_str
 				+ '</c:if>	 '
-            	+ '<button class="btn btn-danger btn-block">View Full Profile</button>'
+				+ '<button class="btn btn-danger btn-block">View Full Profile</button>'
             	+ '<div class="clearfix"></div>'
             	+ '</div>'
             	+ '</div>'
@@ -421,7 +445,49 @@ $(function () {
     $("#castdiv input[name='caste']").click(updateList);
     updateList();
 }); */
-$("#castdiv input[name='caste']").click(function(){
+function updateProfilesList(){
+	var castVals = [];
+	var religionVals = [];
+	var educationVals = [];
+    $("#castdiv :checked").each(function () {
+    	castVals.push($(this).val());
+    });
+    $("#religiondiv :checked").each(function () {
+    	religionVals.push($(this).val());
+    });
+    $("#educationdiv :checked").each(function () {
+    	educationVals.push($(this).val());
+    });
+   // if(allVals!=""){
+    	//alert(allVals);
+    	var formData = new FormData();
+
+    	formData.append('selected_casts',castVals);
+    	formData.append('selected_religions',religionVals);
+    	formData.append('selected_educations',educationVals);
+    	jQuery.fn.makeMultipartRequest('POST', 'updateProfilesList', false,
+    			formData, false, 'text', function(data){
+	    		var jsonobj = $.parseJSON(data);
+	    		var filtered_list = jsonobj.filtered_profiles;
+	    		$('#countId').html('');
+	    		if(filtered_list==""){
+	    			$('#countId').html('0');
+	    			var str = '<div class="panel panel-default"><h6>No results found.</h6></div>';
+	    			$('#searchResults').html('');
+	    			$(str).appendTo("#searchResults");
+	    		}else{
+	    			$('#countId').html(filtered_list.length);
+	    			displayMatches(filtered_list);
+	    		}
+    			
+    		});
+}
+   
+$("#castdiv input[name='caste']").click(updateProfilesList);   
+$("#religiondiv input[name='religion']").click(updateProfilesList);
+$("#educationdiv input[name='education']").click(updateProfilesList);
+   
+/* $("#castdiv input[name='caste']").click(function(){
 	var allVals = [];
     $("#castdiv :checked").each(function () {
         allVals.push($(this).val());
@@ -448,7 +514,7 @@ $("#castdiv input[name='caste']").click(function(){
     			
     		});
    // }
-});
+}); */
 
 function expressInterest(profile_id){
 	var formData = new FormData();
@@ -488,6 +554,36 @@ function expressInterest(profile_id){
     		} */
 			
 		});
+}
+
+/* $(".more").click(function(){
+	$(".hideMe").hide();
+	$(".ifMore").show();
+}); */
+
+function showMoreDetails(thisObj){
+	//$("#hideMe"+id).prop("hidden",true);
+	var isHidden = $(".showMore").prop("hidden");
+	if(isHidden){
+		$(".showMore").removeAttr("hidden");
+		thisObj.innerHTML="hide...";
+	}else{
+		$(".showMore").prop("hidden",true);
+		thisObj.innerHTML="read more...";
+	}
+	
+	
+}
+
+function viewMobileNumber(profile_id){
+	var formData = new FormData();
+	formData.append('profile_id',profile_id);
+	jQuery.fn.makeMultipartRequest('POST', 'viewMobileNumber', false,
+			formData, false, 'text', function(data){
+    		var jsonobj = $.parseJSON(data);
+    		
+    		
+	});
 }
 
 </script>

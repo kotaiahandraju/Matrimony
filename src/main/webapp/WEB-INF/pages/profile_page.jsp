@@ -110,7 +110,7 @@ if(session.getAttribute("cacheGuest") != null){
 					<div class="well">
                     <div class="row">
 					<div class="col-md-5 ">
-                      <img src="images/p1.jpg" class="img-responsive thumbnail" style="margin-bottom:0;">
+                      <img src="${cacheGuest.profileImage}" class="img-responsive thumbnail" style="margin-bottom:0;">
                       </div>	
                       
                       <div class="col-md-7" style="padding-left:0;" >
@@ -245,19 +245,19 @@ if(session.getAttribute("cacheGuest") != null){
 				</div>
 				<div class="panel-body">
 					
-<form action="searchProfile" method="post" class="form-horizontal">
+<form:form commandName="createProfile"  action="searchProfile" method="post" class="form-horizontal">
 <fieldset>
 
 <!-- Text input-->
 <div class="form-group">
   <label class="col-md-4 control-label" for="textinput">Age</label>  
   <div class="col-md-4">
-  	<select id="ageFrom" id="ageFrom" class="form-control" style="padding: 0px;"></select>
+  	<select id="ageFrom" id="rAgeFrom" class="form-control" style="padding: 0px;"></select>
 <!--   	<input type="number" min="20" max="55" name="ageFrom" placeholder="from" class="form-control"/> -->
 <!--    <input id="textinput" name="textinput" type="text" placeholder="Age" class="form-control input-md"> -->
   </div>
   <div class="col-md-4">
-  	<select name="ageTo" id="ageTo" class="form-control" style="padding: 0px;"></select>
+  	<select name="ageTo" id="rAgeTo" class="form-control" style="padding: 0px;"></select>
 <!--   	<input type="number" min="20" max="55" name="ageTo" placeholder="to" class="form-control"/> -->
   </div>
 </div>
@@ -266,7 +266,7 @@ if(session.getAttribute("cacheGuest") != null){
 <div class="form-group">
   <label class="col-md-4 control-label" for="textinput">Education</label>  
   <div class="col-md-8">
-  	<form:select path="education" class="form-control">
+  	<form:select path="rEducation" class="form-control">
 		<form:option value="">-- Education --</form:option>
 		<form:options items="${education}"></form:options>
 	</form:select>
@@ -278,7 +278,7 @@ if(session.getAttribute("cacheGuest") != null){
 <div class="form-group">
   <label class="col-md-4 control-label" for="textinput">Location</label>  
   <div class="col-md-8">
-  	<form:select path="education" class="form-control">
+  	<form:select path="currentCity" class="form-control">
 		<form:option value="">-- Location --</form:option>
 		<form:options items="${citys}"></form:options>
 	</form:select>
@@ -291,12 +291,12 @@ if(session.getAttribute("cacheGuest") != null){
 <div class="form-group">
   <label class="col-md-4 control-label" for="singlebutton"></label>
   <div class="col-md-8">
-    <button id="singlebutton" name="singlebutton" class="btn btn-primary">Button</button>
+    <button id="singlebutton" name="singlebutton" class="btn btn-primary" type="submit">Search</button>
   </div>
 </div>
 
 </fieldset>
-</form>
+</form:form>
 				</div>
 			</div>  
             <br>
@@ -345,13 +345,17 @@ if(session.getAttribute("cacheGuest") != null){
 	</div>
 
 <!-- //footer -->
+<input type="hidden" name="loc" id="loc" value="${baseurl }" />
 <script type="text/javascript">
 
 $(function(){
-    $("#ageFrom").append('<option value="">From</option>');
-    $("#ageTo").append('<option value="">To</option>');
+    $("#rAgeFrom").append('<option value="">From</option>');
+    $("#rAgeTo").append('<option value="">To</option>');
     for (var i=18;i<=55;i++){
-        $("#ageFrom,#ageTo").append('<option value='+i+'>'+i+'</option>');
+        $("#rAgeFrom").append('<option value='+i+'>'+i+'</option>');
+    }
+    for (var i=18;i<=55;i++){
+        $("#rAgeTo").append('<option value='+i+'>'+i+'</option>');
     }
 });
 
@@ -392,7 +396,7 @@ function displayMatches(listOrders) {
 	            + 		'<table width="100%" border="0" cellspacing="0" cellpadding="0">'
 	            + 			'<tr><td><h4>'+orderObj.firstName+'&nbsp;'+orderObj.lastName+'</h4></td></tr>'
 	            + 			'<tr><td><p>'+orderObj.dob+', '+orderObj.religionName+', '+orderObj.casteName+',</p></td></tr>'
-	            + 			'<tr><td><p>'+orderObj.occupationName+', '+orderObj.currentCityName+', '+orderObj.currentCountryName+'.</p></td></tr>'
+	            + 			'<tr><td><p>'+orderObj.age+'&nbsp'+orderObj.occupationName+', '+orderObj.currentCityName+', '+orderObj.currentCountryName+'.</p></td></tr>'
 	            + 			'<tr><td><span>Full Profile</span> >></td></tr>'
 	            + 		'</table>'
 	            + 	'</div>'
@@ -404,6 +408,38 @@ function displayMatches(listOrders) {
 		}
 	});
 }
+function searchProfiles(){
+	
+	var ageFrom = $("#ageFrom").val();
+	var ageTo = $("#ageTo").val();
+	var edu = $("#education").val();
+	var loc = $("#currentCity").val();
+	var formData = new FormData();
+
+	formData.append('ageFrom',ageFrom);
+	formData.append('ageTo',ageTo);
+	formData.append('education',edu);
+	formData.append('currentCity',loc);
+	jQuery.fn.makeMultipartRequest('POST', 'searchProfiles', false,
+			formData, false, 'text', function(data){
+    		var jsonobj = $.parseJSON(data);
+    		var filtered_list = jsonobj.filtered_profiles;
+    		$('#countId').html('');
+    		if(filtered_list==""){
+    			$('#countId').html('0');
+    			var str = '<div class="panel panel-default"><h6>No results found.</h6></div>';
+    			$('#searchResults').html('');
+    			$(str).appendTo("#searchResults");
+    		}else{
+    			$('#countId').html(filtered_list.length);
+    			displayMatches(filtered_list);
+    		}
+    		var location = $("#loc").val();
+    		window.location.href =location+"/searchProfile";
+			
+		});
+}
+
 </script>
 
 </body>

@@ -32,7 +32,7 @@ public class BaseUsersDao{
 CustomConnection custom;
 JdbcTemplate jdbcTemplate;
  
-	public final String INSERT_SQL = "INSERT INTO users( created_time, updated_time, role_id, username, password, email, createProfileFor, gender, firstName, lastName, dob, religion, motherTongue, currentCountry, currentState, currentCity, maritalStatus, caste, gotram, star, dosam, dosamName, education, workingWith, companyName, annualIncome, monthlyIncome, diet, smoking, drinking, height, bodyType, complexion, mobile, aboutMyself, disability, status, showall,registerwith,fatherName, motherName, fOccupation, mOccupation, noOfBrothers, noOfSisters, noOfBrothersMarried, noOfSistersMarried,haveChildren) values (?, ?, ?, ?, AES_ENCRYPT(?,?), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?,?,?,?,?,?)"; 
+	public final String INSERT_SQL = "INSERT INTO users( created_time, updated_time, role_id, username, password, email, createProfileFor, gender, firstName, lastName, dob, religion, motherTongue, currentCountry, currentState, currentCity, maritalStatus, caste, gotram, star, dosam, dosamName, education, workingWith, companyName, annualIncome, monthlyIncome, diet, smoking, drinking, height, bodyType, complexion, mobile, aboutMyself, disability, status, showall,registerwith,fatherName, motherName, fOccupation, mOccupation, noOfBrothers, noOfSisters, noOfBrothersMarried, noOfSistersMarried,haveChildren,age) values (?, ?, ?, ?, AES_ENCRYPT(?,?), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?,?,?,?,?,?,?)"; 
 
 
 
@@ -64,7 +64,7 @@ JdbcTemplate jdbcTemplate;
 					}
 					java.sql.Timestamp updatedTime = 
 						new java.sql.Timestamp(users.getUpdatedTime().getTime()); 
-					float age;
+					float age = 0.0f;
 					if(StringUtils.isNotBlank(users.getDob())){
 						Date dob = HRMSUtil.dateFormate(users.getDob());
 						LocalDate birthdate = new LocalDate (dob); 
@@ -124,6 +124,7 @@ ps.setString(46, users.getNoOfSisters());
 ps.setString(47, users.getNoOfBrothersMarried());
 ps.setString(48, users.getNoOfSistersMarried());
 ps.setString(49, users.getHaveChildren());
+ps.setString(50, age+"");
 
 							return ps;
 						}

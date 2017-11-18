@@ -68,6 +68,9 @@ protected String  reTypedPassword;
 protected String fatherName, motherName, fOccupation, mOccupation, noOfBrothers, noOfSisters, noOfBrothersMarried, noOfSistersMarried;
 protected String rhaveChildren;
 protected int expressedInterest;
+protected String image;
+protected String profileImage;
+protected String age;
 
 
 public String getRhaveChildren() {
@@ -597,6 +600,24 @@ public int getExpressedInterest() {
 }
 public void setExpressedInterest(int expressedInterest) {
 	this.expressedInterest = expressedInterest;
+}
+public String getImage() {
+	return image;
+}
+public void setImage(String image) {
+	this.image = image;
+}
+public String getProfileImage() {
+	return profileImage;
+}
+public void setProfileImage(String profileImage) {
+	this.profileImage = profileImage;
+}
+public String getAge() {
+	return age;
+}
+public void setAge(String age) {
+	this.age = age;
 }
 
 }

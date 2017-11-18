@@ -93,6 +93,9 @@ public class LoginController {
 					}
 					
 				}else if(objUserBean.getRoleId() == 6){
+					session.setAttribute("cacheGuest", objUserBean);
+					session.setAttribute("rolId", objUserBean.getRoleId());
+					session.setAttribute("userName", objUserBean.getUsername());
 					return "redirect:profileView";
 				}else{
 					session.setAttribute("cacheGuest", objUserBean);

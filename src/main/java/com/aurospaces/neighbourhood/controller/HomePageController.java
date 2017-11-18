@@ -1,5 +1,11 @@
 package com.aurospaces.neighbourhood.controller;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
@@ -29,6 +35,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.aurospaces.neighbourhood.bean.AutoCompleteBean;
@@ -36,10 +43,13 @@ import com.aurospaces.neighbourhood.bean.CastBean;
 import com.aurospaces.neighbourhood.bean.CityBean;
 import com.aurospaces.neighbourhood.bean.EducationBean;
 import com.aurospaces.neighbourhood.bean.HeightBean;
+import com.aurospaces.neighbourhood.bean.ReligionBean;
+import com.aurospaces.neighbourhood.bean.UserImagesBean;
 import com.aurospaces.neighbourhood.bean.UsersBean;
 import com.aurospaces.neighbourhood.db.dao.BranchDao;
 import com.aurospaces.neighbourhood.db.dao.CityDao;
 import com.aurospaces.neighbourhood.db.dao.CountriesDao;
+import com.aurospaces.neighbourhood.db.dao.UserImageUploadDao;
 import com.aurospaces.neighbourhood.db.dao.UserrequirementDao;
 import com.aurospaces.neighbourhood.db.dao.UsersDao;
 import com.aurospaces.neighbourhood.util.HRMSUtil;
@@ -55,6 +65,7 @@ public class HomePageController {
    @Autowired UserrequirementDao objUserrequirementDao;
    @Autowired	ServletContext objContext;
    @Autowired CityDao objCityDao;
+   @Autowired UserImageUploadDao objUserImageUploadDao;
 	@RequestMapping(value = "/HomePage")
 	public String CreateProfile(@ModelAttribute("createProfile") UsersBean objUsersBean, Model objeModel ,
 			HttpServletRequest request, HttpSession session) {
@@ -186,7 +197,7 @@ public class HomePageController {
 			 objeModel.addAttribute("createProfile", objUsersBean);
 			 }
 			 BeanUtils.copyProperties(objUsersBean1,objUsersBean,getNullPropertyNames(objUsersBean1));
-			 objUsersDao.save(objUsersBean);
+			 objUsersDao.save(objUsersBean1);
 			}
 			
 		} catch (Exception e) {
@@ -253,8 +264,118 @@ public class HomePageController {
 	   logger.error(e);
 	   logger.fatal("error in HomePageController class familyDetails method");
 	  }
-	  return "redirect:partner-profile";
+	  //return "redirect:partner-profile";
+	  return "redirect:uploadPhotos";
 	 }
+	 @RequestMapping(value = "/uploadPhotos")
+	 public String uploadPhotos(@ModelAttribute("uploadPhoto") UsersBean objUsersBean, Model objeModel ,
+	   HttpServletRequest request, HttpSession session) {
+	  System.out.println("uploadPhotos Page");
+	  try {
+		  if(session.getAttribute("cacheGuest") != null){
+			  UsersBean sessionBean =(UsersBean)session.getAttribute("cacheGuest");
+			  UsersBean UserrequirementBean=  objUsersDao.getById(sessionBean.getId());
+			if(UserrequirementBean != null){
+			//objeModel.addAttribute("familyDetails", UserrequirementBean);
+			}
+			   
+		   }else{
+			   return "redirect:HomePage";
+		   }
+	   
+	  } catch (Exception e) {
+	   e.printStackTrace();
+	   System.out.println(e);
+	   logger.error(e);
+	   return "redirect:HomePage";
+	  }
+	  return "uploadPhoto";
+	 }
+	 @RequestMapping(value = "/photoUpload")
+	public @ResponseBody String photoUpload(@RequestParam("imageName") MultipartFile file, ModelMap model,
+				HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
+			String id =null;
+			String msg= null;
+			String name=null;
+			String sTomcatRootPath = null;
+			String sDirPath = null;
+			String filepath = null;
+			UserImagesBean objUerImagesBean = null;
+			JSONObject objJson =new JSONObject();
+			try {
+				UsersBean sessionBean =(UsersBean)session.getAttribute("cacheGuest");
+				if(sessionBean!=null){
+					
+				
+					objUerImagesBean = new UserImagesBean();
+					id=sessionBean.getId()+"";
+					if(StringUtils.isNotBlank(id)){
+						objUerImagesBean.setUserId(id);
+					}
+					if (!file.isEmpty()) {
+						byte[] bytes = file.getBytes();
+						name =file.getOriginalFilename();
+						int n=name.lastIndexOf(".");
+						/*name=name.substring(n + 1);
+						name=name+".png";*/
+						long millis = System.currentTimeMillis() % 1000;
+						filepath= id+millis+".png";
+						
+						
+						
+						 String latestUploadPhoto = "";
+					        String rootPath = request.getSession().getServletContext().getRealPath("/");
+					        File dir = new File(rootPath + File.separator + "img");
+					        if (!dir.exists()) {
+					            dir.mkdirs();
+					        }
+					         
+					        File serverFile = new File(dir.getAbsolutePath() + File.separator + filepath);
+					      //  latestUploadPhoto = file.getOriginalFilename();
+	//				        file.transferTo(serverFile);
+					    //write uploaded image to disk
+					        try {
+					            try (InputStream is = file.getInputStream(); BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile))) {
+					                int i;
+					                while ((i = is.read()) != -1) {
+					                    stream.write(i);
+					                }
+					                stream.flush();
+					                //send photo name to jsp
+					            }
+					        } catch (IOException e) {
+					            System.out.println("error : " + e);
+					        }
+						  
+						
+					        filepath= "img/"+filepath;
+					        objUerImagesBean.setImage(filepath);
+					        objUerImagesBean.setStatus("1");
+					        
+					     /*   ----------------------------------------*/
+					        sTomcatRootPath = System.getProperty("catalina.base");
+							sDirPath = sTomcatRootPath + File.separator + "webapps"+ File.separator + "img" ;
+							System.out.println(sDirPath);
+							File file1 = new File(sDirPath);
+						    file.transferTo(file1);
+						    try{
+						    	objUserImageUploadDao.save(objUerImagesBean);
+						    	objJson.put("message", "success");
+						    }catch(Exception e){
+						    	e.printStackTrace();
+						    	objJson.put("message", "failed");
+						    }
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println(e);
+				logger.error(e);
+				logger.fatal("error in CreateProfile class addProfile method  ");
+			}
+			return objJson.toString();
+		}
+	 
 	 @RequestMapping(value = "/partner-profile")
 	 public String partnerProfile(@ModelAttribute("partnerProfile") UsersBean objUsersBean, Model objeModel ,
 	   HttpServletRequest request, HttpSession session) {
@@ -350,7 +471,7 @@ public class HomePageController {
 	  return "membership1";
 	 }
 	 @RequestMapping(value = "/profileView")
-	 public String profileView( Model objeModel, HttpServletRequest request, HttpSession session) {
+	 public String profileView(@ModelAttribute("createProfile") UsersBean objUserssBean, Model objeModel, HttpServletRequest request, HttpSession session) {
 	  System.out.println("profileView Page");
 	  List<Map<String, String>> listOrderBeans = null;
 	  UsersBean objUsersBean = null;
@@ -371,10 +492,13 @@ public class HomePageController {
 			if(sessionBean == null){
 				return "redirect:HomePage";
 			}
-			
+			int page_no = 0;
+			String clicked_btn = request.getParameter("btn_id");
+			if(StringUtils.isNotBlank(clicked_btn))
+				page_no = (Integer.parseInt(clicked_btn))-1;
 			objUsersBean = new UsersBean();
 			//listOrderBeans = objUsersDao.getAllProfiles1(objUsersBean,"all");
-			listOrderBeans = objUsersDao.getProfilesFilteredByPreferences();
+			listOrderBeans = objUsersDao.getProfilesFilteredByPreferences(page_no);
 			if (listOrderBeans != null && listOrderBeans.size() > 0) {
 				objectMapper = new ObjectMapper();
 				sJson = objectMapper.writeValueAsString(listOrderBeans);
@@ -400,6 +524,8 @@ public class HomePageController {
 	  System.out.println("profileView Page");
 	  List<Map<String, String>> listOrderBeans = null;
 	  List<CastBean> castList = null;
+	  List<ReligionBean> religionList = null;
+	  List<EducationBean> educationList = null;
 	  //UsersBean objUsersBean = null;
 		ObjectMapper objectMapper = null;
 		String sJson = null;
@@ -407,8 +533,24 @@ public class HomePageController {
 			//objUsersBean = new UsersBean();
 			castList = objUsersDao.getCastList();
 			request.setAttribute("castList", castList!=null?castList:new LinkedList<Map<String, Object>>());
+			religionList = objUsersDao.getReligionList();
+			request.setAttribute("religionList", religionList!=null?religionList:new LinkedList<Map<String, Object>>());
+			educationList = objUsersDao.getEducationList();
+			request.setAttribute("educationList", educationList!=null?educationList:new LinkedList<Map<String, Object>>());
 			//listOrderBeans = objUsersDao.getAllProfiles1(objUsersBean,"all");
-			listOrderBeans = objUsersDao.getProfilesFilteredByPreferences();
+			int page_no = 0;
+			String clicked_btn = request.getParameter("btn_id");
+			if(StringUtils.isNotBlank(clicked_btn))
+				page_no = (Integer.parseInt(clicked_btn))-1;
+			//listOrderBeans = objUsersDao.getProfilesFilteredByPreferences(page_no);
+
+			String ageFrom = objUsersBean.getrAgeFrom();
+			String ageTo = objUsersBean.getrAgeTo();
+			String education = objUsersBean.getrEducation();
+			String currentCity = objUsersBean.getCurrentCity();
+			
+			//if(selectedCasts!=null){
+			listOrderBeans = objUsersDao.getProfilesFilteredByAge(ageFrom, ageTo, education, currentCity);
 			if (listOrderBeans != null && listOrderBeans.size() > 0) {
 				objectMapper = new ObjectMapper();
 				sJson = objectMapper.writeValueAsString(listOrderBeans);
@@ -455,8 +597,34 @@ public class HomePageController {
 			List<Map<String, String>> filteredProfiles = null;
 			try {
 				String selectedCasts = request.getParameter("selected_casts");
+				String selectedReligions = request.getParameter("selected_religions");
+				String selectedEducations = request.getParameter("selected_educations");
 				//if(selectedCasts!=null){
-					filteredProfiles = objUsersDao.getProfilesFilteredByCast(selectedCasts);
+					filteredProfiles = objUsersDao.getProfilesFilteredByCast(selectedCasts,selectedReligions,selectedEducations);
+					objJson.put("filtered_profiles", filteredProfiles.size()>0?filteredProfiles:"");
+				//}
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println(e);
+				logger.error(e);
+				logger.fatal("error in CountriesController class CountriesHome method  ");
+			}
+			return String.valueOf(objJson);
+		}
+	 
+	 @RequestMapping(value = "/searchProfiles")
+		public  @ResponseBody String searchProfiles(ModelMap model,
+				HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
+			JSONObject objJson =new JSONObject();
+			List<Map<String, String>> filteredProfiles = null;
+			try {
+				String ageFrom = request.getParameter("ageFrom");
+				String ageTo = request.getParameter("ageTo");
+				String education = request.getParameter("education");
+				String currentCity = request.getParameter("currentCity");
+				
+				//if(selectedCasts!=null){
+					filteredProfiles = objUsersDao.getProfilesFilteredByAge(ageFrom, ageTo, education, currentCity);
 					objJson.put("filtered_profiles", filteredProfiles.size()>0?filteredProfiles:"");
 				//}
 			} catch (Exception e) {
@@ -474,14 +642,20 @@ public class HomePageController {
 			JSONObject objJson =new JSONObject();
 			List<Map<String,String>> allProfiles = null;
 			boolean success = false;
+			int page_no = 0;
 			try {
+				String clicked_btn = request.getParameter("btn_id");
+				if(StringUtils.isNotBlank(clicked_btn)){
+					page_no = (Integer.parseInt(clicked_btn))-1;
+				}
 				String profileId = request.getParameter("profile_id");
 				success = objUsersDao.expressInterestTo(profileId);
 				if(success)
 					objJson.put("message", "success");
 				else
 					objJson.put("message", "failed");
-				allProfiles = objUsersDao.getProfilesFilteredByPreferences();
+				
+				allProfiles = objUsersDao.getProfilesFilteredByPreferences(page_no);
 				if (allProfiles != null && allProfiles.size() > 0) {
 					objJson.put("allProfiles", allProfiles);
 				} else {
