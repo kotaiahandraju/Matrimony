@@ -90,7 +90,7 @@ if(session.getAttribute("cacheGuest") != null){
 			<li class="active" ><a class="color1" href="PreferredProfiles">Dashboard</a></li>
 			<li><a class="color1" href="myProfile">My Profile</a></li>
             <li><a class="color1" href="#">My Photos</a></li>
-            <li><a class="color1" href="searchPage">Search</a></li>
+            <li><a class="color1" href="searchProfiles">Search</a></li>
              <li><a class="color1" href="#">More</a></li>
 		</ul> 
 			<div class="clearfix"></div>
@@ -208,99 +208,41 @@ if(session.getAttribute("cacheGuest") != null){
                 
                 
                 <div class="col-md-6 products-grid-left">
-					<div class="panel panel-default">
-				<div class="panel-body">
-					Complete the remaining Profile
-               <div class="progress">
-  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
-  aria-valuemin="0" aria-valuemax="100" style="width:${profile_filled_status}%">
-    <%= session.getAttribute("profile_filled_status") %>% Complete 
-  </div>
-</div>
-				<p>
-                <span class="glyphicon glyphicon-envelope"></span> Verify your Email <a href="#"><u>Verify Email Address</u></a>
-                </p>
-				</div>
-				
-			</div>
-            
-            
+					
             <div class="panel panel-default">
-	            <div class="panel-heading">
-	            	New Matches (150) <span class="pull-right"> <a href="#">View All</a></span>
-	            </div>
-				<div class="panel-body" id="matches">
-					
+            
+            <div class="panel-body">
+				<div class="col-md-3">
+					<c:if test="${not empty cacheGuest.profileImage}">
+						<img src="${cacheGuest.profileImage}" class="img-responsive thumbnail" style="margin-bottom:0;">
+					</c:if>
+					<c:if test="${empty cacheGuest.profileImage}">
+						<img src="img/default.png" class="img-responsive thumbnail" style="margin-bottom:0;">
+					</c:if>
+					<label><b>${cacheGuest.username}</b></label>
+            	</div>
+            	<div class="col-md-6">
+            	<table>
+            		<tr><td>Name</td><td><span>:	${cacheGuest.firstName}</span></td></tr>
+            		<tr><td>Sur Name</td><td><span>:${cacheGuest.lastName} </span></td></tr>
+            		<tr><td>Gender</td><td><span>:${cacheGuest.gender} </span></td></tr>
+            		<tr><td>Caste</td><td><span>:${cacheGuest.casteName} </span></td></tr>
+            		<tr><td>Religion</td><td><span>: ${cacheGuest.religionName}</span></td></tr>
+            		<tr><td>Marital Status</td><td><span>: ${cacheGuest.maritalStatus}</span></td></tr>
+            		<tr><td>Education</td><td><span>:${cacheGuest.educationName} </span></td></tr>
+            		<tr><td>Profession</td><td><span>: ${cacheGuest.occupationName}</span></td></tr>
+            		<tr><td>City</td><td><span>:${cacheGuest.currentCityName} </span></td></tr>
+            	</table>
+            	</div>
+         </div></div>
 				</div>
-			</div>
-				</div>
                 
                 
                 
                 
                 
-              <div class="col-md-3 products-grid-right">
-					
-                    
-                    
-                  <!-- <div class="panel panel-default">
-				
-				<div class="panel-body"> -->
-					
-<%-- <form:form commandName="createProfile"  action="searchProfile" method="post" class="form-horizontal">
-<fieldset>
-
-<!-- Text input-->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="textinput">Age</label>  
-  <div class="col-md-4">
-  	<select  id="rAgeFrom" class="form-control" style="padding: 0px;"></select>
-<!--   	<input type="number" min="20" max="55" name="ageFrom" placeholder="from" class="form-control"/> -->
-<!--    <input id="textinput" name="textinput" type="text" placeholder="Age" class="form-control input-md"> -->
-  </div>
-  <div class="col-md-4">
-  	<select  id="rAgeTo" class="form-control" style="padding: 0px;"></select>
-<!--   	<input type="number" min="20" max="55" name="ageTo" placeholder="to" class="form-control"/> -->
-  </div>
-</div>
-
-<!-- Text input-->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="textinput">Education</label>  
-  <div class="col-md-8">
-  	<form:select path="rEducation" class="form-control">
-		<form:option value="">-- Education --</form:option>
-		<form:options items="${education}"></form:options>
-	</form:select>
-<!--   <input id="textinput" name="textinput" type="text" placeholder="Education" class="form-control input-md"> -->
-  </div>
-</div>
-
-<!-- Text input-->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="textinput">Location</label>  
-  <div class="col-md-8">
-  	<form:select path="currentCity" class="form-control">
-		<form:option value="">-- Location --</form:option>
-		<form:options items="${citys}"></form:options>
-	</form:select>
-<!--   <input id="textinput" name="textinput" type="text" placeholder="Location" class="form-control input-md"> -->
-    
-  </div>
-</div>
-
-<!-- Button -->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="singlebutton"></label>
-  <div class="col-md-8">
-    <button id="singlebutton" name="singlebutton" class="btn btn-primary" type="submit">Search</button>
-  </div>
-</div>
-
-</fieldset>
-</form:form> --%>
-			<!-- 	</div>
-			</div>  --> 
+              
+			</div>  
             <br>
             <img src="user/images/ad.jpg"  class="img-responsive"></div>
 				<div class="clearfix"></div>
@@ -362,10 +304,10 @@ $(function(){
     }
 });
 
-var listOrders1 = ${allOrders1};
+/* var listOrders1 = ${allOrders1};
 if (listOrders1 != "") {
 	displayMatches(listOrders1);
-}
+} */
 function displayMatches(listOrders) {
 	$('#matches').html('');
 	serviceUnitArray = {};
@@ -472,7 +414,7 @@ function displayMobileNum(profileId,listType){
     			displayMatches(filtered_list);
     		}
     		var location = $("#loc").val();
-    		window.location.href =location+"/searchProfile";
+    		window.location.href =location+"/searchProfiles";
 			
 		});
 }

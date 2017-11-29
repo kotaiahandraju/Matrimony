@@ -28,7 +28,7 @@ public class BaseUserrequirementDao{
 	 
 
  
-	public final String INSERT_SQL = "INSERT INTO userrequirement( created_time, updated_time, userId, rAgeFrom, rAgeTo, rHeight, rMaritalStatus, rReligion, rCaste, rMotherTongue,rhaveChildren,rCountry,rState,rEducation,rWorkingWith,rOccupation,rAnnualIncome,rCreateProfileFor,rDiet) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?,?,?,?,?)"; 
+	public final String INSERT_SQL = "INSERT INTO userrequirement( created_time, updated_time, userId, rAgeFrom, rAgeTo, rHeight, rMaritalStatus, rReligion, rCaste, rMotherTongue,rhaveChildren,rCountry,rState,rEducation,rWorkingWith,rOccupation,rAnnualIncome,rCreateProfileFor,rDiet,rHeightTo) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?,?,?,?,?)"; 
 
 
 
@@ -36,7 +36,7 @@ public class BaseUserrequirementDao{
 
 	/* this should be conditional based on whether the id is present or not */
 	@Transactional
-	public void save(final UsersBean userrequirement) 
+	public void save(final UsersBean userrequirement) throws Exception
 	{
 		jdbcTemplate = custom.getJdbcTemplate();
 	if(userrequirement.getUserrequirementId() == 0)	{
@@ -82,6 +82,7 @@ ps.setString(16, userrequirement.getrOccupation());
 ps.setString(17, userrequirement.getrAnnualIncome());
 ps.setString(18, userrequirement.getrCreateProfileFor());
 ps.setString(19, userrequirement.getrDiet());
+ps.setString(20, userrequirement.getrHeightTo());
 
 return ps;
 						}
@@ -97,11 +98,14 @@ return ps;
 		{
 
 			String sql = "UPDATE userrequirement  set updated_time = ? ,userId = ? ,rAgeFrom = ? ,rAgeTo = ? ,rHeight = ? ,rMaritalStatus = ? ,rReligion = ? ,rCaste = ? ,rMotherTongue = ?,rhaveChildren=?"
-					+ "  ,rCountry=?,rState=?,rEducation=?,rWorkingWith=?,rOccupation=?,rAnnualIncome=?,rCreateProfileFor=?,rDiet=?  where userrequirementId = ? ";
+					+ "  ,rCountry=?,rState=?,rEducation=?,rWorkingWith=?,rOccupation=?,rAnnualIncome=?,rCreateProfileFor=?,rDiet=?,rHeightTo=?  where userrequirementId = ? ";
 	
-			jdbcTemplate.update(sql, new Object[]{userrequirement.getUpdatedTime(),userrequirement.getUserId(),userrequirement.getrAgeFrom(),userrequirement.getrAgeTo(),userrequirement.getrHeight(),userrequirement.getrMaritalStatus(),userrequirement.getrReligion(),
+			int updated = jdbcTemplate.update(sql, new Object[]{userrequirement.getUpdatedTime(),userrequirement.getUserId(),userrequirement.getrAgeFrom(),userrequirement.getrAgeTo(),userrequirement.getrHeight(),userrequirement.getrMaritalStatus(),userrequirement.getrReligion(),
 					userrequirement.getrCaste(),userrequirement.getrMotherTongue(),userrequirement.getRhaveChildren()
-					,userrequirement.getrCountry(),userrequirement.getrState(),userrequirement.getrEducation(),userrequirement.getrWorkingWith(),userrequirement.getrOccupation(),userrequirement.getrAnnualIncome(),userrequirement.getrCreateProfileFor(),userrequirement.getrDiet(),userrequirement.getUserrequirementId()});
+					,userrequirement.getrCountry(),userrequirement.getrState(),userrequirement.getrEducation(),userrequirement.getrWorkingWith(),userrequirement.getrOccupation(),userrequirement.getrAnnualIncome(),userrequirement.getrCreateProfileFor(),userrequirement.getrDiet(),userrequirement.getrHeightTo(),userrequirement.getUserrequirementId()});
+			if(updated==1)
+				;
+			
 		}
 	}
 		

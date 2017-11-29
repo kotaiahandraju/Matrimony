@@ -328,6 +328,23 @@ public class CreateProfileController {
 		}
 		return statesMap;
 	}
+	
+	@ModelAttribute("maleOccupation")
+	public Map<Integer, String> populateMaleOccupation() {
+		Map<Integer, String> statesMap = new LinkedHashMap<Integer, String>();
+		try {
+			String sSql = "select id,name from occupation  where status='1' and upper(name) not like upper('%house%wife%') order by name asc";
+			List<EducationBean> list = objUsersDao.populate(sSql);
+			for (EducationBean bean : list) {
+				statesMap.put(bean.getId(), bean.getName());
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+		}
+		return statesMap;
+	}
 	@ModelAttribute("height")
 	public Map<Integer, String> populateheight() {
 		Map<Integer, String> statesMap = new LinkedHashMap<Integer, String>();

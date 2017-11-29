@@ -19,6 +19,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.aurospaces.neighbourhood.bean.Paymenthistory;
 import com.aurospaces.neighbourhood.bean.UsersBean;
 import com.aurospaces.neighbourhood.daosupport.CustomConnection;
 import com.aurospaces.neighbourhood.util.HRMSUtil;
@@ -174,7 +175,22 @@ ps.setString(50, age+"");
 			return null;
 		}
 	 
-
-	
+	 public int getPackagePriceById(int id) {
+		 jdbcTemplate = custom.getJdbcTemplate();
+			String sql = "select price from package where id = "+id;
+			int price = jdbcTemplate.queryForInt(sql);
+			
+			return price;
+		}
+	 
+	 @Transactional
+		public boolean upgradeUser(int userId,int roleId) {
+			jdbcTemplate = custom.getJdbcTemplate();
+			String sql = "update users set role_id = ? where id = ?";
+			int updatedCount = jdbcTemplate.update(sql, new Object[]{roleId,userId});
+			if(updatedCount==1)
+				return true;
+			return false;
+		}
 
 }

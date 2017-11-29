@@ -22,6 +22,7 @@ public class BranchBean {
 	private String widow;
 	private String sms_sender;
 	private String status;
+	private String image;
 	public int getId() {
 		return id;
 	}
@@ -88,6 +89,12 @@ public class BranchBean {
 	}
 	public void setSms_sender(String sms_sender) {
 		this.sms_sender = sms_sender;
+	}
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
 	}
 	
 	

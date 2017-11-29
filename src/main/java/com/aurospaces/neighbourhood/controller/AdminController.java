@@ -1,30 +1,48 @@
 package com.aurospaces.neighbourhood.controller;
 
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.aurospaces.neighbourhood.bean.CityBean;
+import com.aurospaces.neighbourhood.bean.ContriesBean;
+import com.aurospaces.neighbourhood.bean.EducationBean;
+import com.aurospaces.neighbourhood.bean.Members;
+import com.aurospaces.neighbourhood.bean.Paymenthistory;
 import com.aurospaces.neighbourhood.bean.UsersBean;
 import com.aurospaces.neighbourhood.db.dao.BranchDao;
 import com.aurospaces.neighbourhood.db.dao.CityDao;
 import com.aurospaces.neighbourhood.db.dao.CountriesDao;
+import com.aurospaces.neighbourhood.db.dao.PaymentDao;
+import com.aurospaces.neighbourhood.db.dao.PaymenthistoryDao;
 import com.aurospaces.neighbourhood.db.dao.UsersDao;
+import com.aurospaces.neighbourhood.filter.JavaIntegrationKit;
 import com.aurospaces.neighbourhood.util.EmailUtil;
 import com.aurospaces.neighbourhood.util.MiscUtils;
 
@@ -34,6 +52,8 @@ public class AdminController {
 	private Logger logger = Logger.getLogger(FilterController.class);
 	
    @Autowired UsersDao objUsersDao;
+   @Autowired PaymentDao paymentDao;
+   @Autowired PaymenthistoryDao paymenthistoryDao;
 //   @Autowired UserDetailsDao objUserDetailsDao;
    @Autowired
 	ServletContext objContext;
@@ -100,6 +120,292 @@ public class AdminController {
 		}
 		return jsonObj.toString();
 	}
-
    
+  /* @RequestMapping(value = "/paymentDetails/{id}/{page}")
+	public String paymentDetails(@ModelAttribute("payment") UsersBean objUsersBean, Model objeModel ,
+			HttpServletRequest request, HttpSession session, @PathVariable("id") int id,@PathVariable("page") String pageName) {
+		System.out.println("paymentDetails Page");
+		List<ContriesBean> listOrderBeans = null;
+		ObjectMapper objectMapper = null;
+		String sJson = null;
+		String ipAddress = null;
+		
+		try {
+//			yyyy.MM.dd dd-MMMM-yyyy
+			
+			objUsersBean =objUsersDao.getById(id);
+			
+			
+			
+			objUsersBean.setPageName(pageName);
+//			objUsersBean = objUserDetailsDao.getById(id);
+			objeModel.addAttribute("payment", objUsersBean);
+			 ipAddress =MiscUtils.getClientIpAddress(request);
+		
+			 request.setAttribute("pageName", pageName);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			logger.error(e);
+			logger.fatal("error in CreateProfile class createProfile method  ");
+			//return "countriesHome";
+		}
+		return "paymentDetails";
+	}*/
+   
+
+   /*@RequestMapping(value = "/savePayment")
+	public String savePayment(@ModelAttribute("payment") UsersBean objUsersBean, ModelMap model,
+			HttpServletRequest request, HttpServletResponse response, HttpSession session,RedirectAttributes redir) {
+		System.out.println("savePayment Page");
+		List<ContriesBean> listOrderBeans = null;
+		String msg= null;
+		try{
+			
+			UsersBean userSessionBean = (UsersBean) session.getAttribute("cacheUserBean");
+			if(userSessionBean==null)
+				return null;
+			//session.setAttribute("", arg1);
+			int userId = userSessionBean.getId();
+			Paymenthistory packageObj = objUsersDao.getPackageById(Integer.parseInt(objUsersBean.getPaymentObject().getPackageId()));
+			JavaIntegrationKit integrationKit = new JavaIntegrationKit();
+	        Map<String, String> values = integrationKit.hashCalMethod(request, response);
+			
+	        Paymenthistory objPaymenthistoryBean =new Paymenthistory();
+	         objPaymenthistoryBean.setTxid(values.get("txnid").trim());
+	         objPaymenthistoryBean.setMemberId(String.valueOf(userId));
+	         objPaymenthistoryBean.setPaymentStatus("In Progress");
+	         objPaymenthistoryBean.setPrice(packageObj.getPrice());
+	         
+	         paymenthistoryDao.save(objPaymenthistoryBean);
+	         
+	         PrintWriter writer = response.getWriter();
+	         String htmlResponse = "<html> <body> \n"
+	                 + "      \n"
+	                 + "  \n"
+	                 + "  <h1>PayUForm </h1>\n"
+	                 + "  \n" + "<div>"
+	                 + "        <form id=\"payuform\" action=\"" + values.get("action") + "\"  name=\"payuform\" method=POST >\n"
+	                 + "      <input type=\"hidden\" name=\"key\" value='m7fkbzwB'>"
+	                 + "      <input type=\"hidden\" name=\"hash\" value=" + values.get("hash").trim() + ">"
+	                 + "      <input type=\"hidden\" name=\"txnid\" value=" + values.get("txnid").trim() + ">"
+	                 + "      <table>\n"
+	                 + "        <tr>\n"
+	                 + "          <td><b>Mandatory Parameters</b></td>\n"
+	                 + "        </tr>\n"
+	                 + "        <tr>\n"
+	                 + "         <td>Amount: </td>\n"
+	                 + "          <td><input type=\"hidden\" name=\"amount\" value=" + values.get("amount").trim() + " /></td>\n"
+	                 + "          <td>First Name: </td>\n"
+	                 + "          <td><input type=\"hidden\" name=\"firstname\" id=\"firstname\" value=" + values.get("firstname").trim() + " /></td>\n"
+	                 + "        <tr>\n"
+	                 + "          <td>Email: </td>\n"
+	                 + "          <td><input type=\"hidden\" name=\"email\" id=\"email\" value=" + values.get("email").trim() + " /></td>\n"
+	                 + "          <td>Phone: </td>\n"
+	                 + "          <td><input type=\"hidden\" name=\"phone\" value=" + values.get("phone") + " ></td>\n"
+	                 + "        </tr>\n"
+	                 + "        <tr>\n"
+	                 + "          <td>Product Info: </td>\n"
+	                 + "<td><input type=\"hidden\" name=\"productinfo\" value=" + values.get("productinfo").trim() + " ></td>\n"
+	                 + "        </tr>\n"
+	                 + "        <tr>\n"
+	                 + "          <td>Success URI: </td>\n"
+	                 + "          <td colspan=\"3\"><input type=\"hidden\" name=\"surl\"  size=\"64\" value=" + values.get("surl") + "></td>\n"
+	                 + "        </tr>\n"
+	                 + "        <tr>\n"
+	                 + "          <td>Failure URI: </td>\n"
+	                 + "          <td colspan=\"3\"><input type=\"hidden\" name=\"furl\" value=" + values.get("furl") + " size=\"64\" ></td>\n"
+	                 + "        </tr>\n"
+	                 + "\n"
+	                 + "        <tr>\n"
+	                 + "          <td colspan=\"3\"><input type=\"hidden\" name=\"service_provider\" value=\"payu_paisa\" /></td>\n"
+	                 + "        </tr>\n"
+	                 + "             <tr>\n"
+	                 + "          <td><b>Optional Parameters</b></td>\n"
+	                 + "        </tr>\n"
+	                 + "        <tr>\n"
+	                 + "          <td>Last Name: </td>\n"
+	                 + "          <td><input type=\"hidden\" name=\"lastname\" id=\"lastname\" value=" + values.get("lastname") + " ></td>\n"
+	                 + "          <td>Cancel URI: </td>\n"
+	                 + "          <td><input type=\"hidden\" name=\"curl\" value=" + values.get("curl") + " ></td>\n"
+	                 + "        </tr>\n"
+	                 + "        <tr>\n"
+	                 + "          <td>Address1: </td>\n"
+	                 + "          <td><input type=\"hidden\" name=\"address1\" value=" + values.get("address1") + " ></td>\n"
+	                 + "          <td>Address2: </td>\n"
+	                 + "          <td><input type=\"hidden\" name=\"address2\" value=" + values.get("address2") + " ></td>\n"
+	                 + "        </tr>\n"
+	                 + "        <tr>\n"
+	                 + "          <td>City: </td>\n"
+	                 + "          <td><input type=\"hidden\" name=\"city\" value=" + values.get("city") + "></td>\n"
+	                 + "          <td>State: </td>\n"
+	                 + "          <td><input type=\"hidden\" name=\"state\" value=" + values.get("state") + "></td>\n"
+	                 + "        </tr>\n"
+	                 + "        <tr>\n"
+	                 + "          <td>Country: </td>\n"
+	                 + "          <td><input type=\"hidden\" name=\"country\" value=" + values.get("country") + " ></td>\n"
+	                 + "          <td>Zipcode: </td>\n"
+	                 + "          <td><input type=\"hidden\" name=\"zipcode\" value=" + values.get("zipcode") + " ></td>\n"
+	                 + "        </tr>\n"
+	                 + "          <td>UDF1: </td>\n"
+	                 + "          <td><input type=\"hidden\" name=\"udf1\" value=" + values.get("udf1") + "></td>\n"
+	                 + "          <td>UDF2: </td>\n"
+	                 + "          <td><input  type=\"hidden\" name=\"udf2\" value=" + values.get("udf2") + "></td>\n"
+	                 + " <td><input type=\"hidden\" name=\"hashString\" value=" + values.get("hashString") + "></td>\n"
+	                 + "          <td>UDF3: </td>\n"
+	                 + "          <td><input type=\"hidden\" name=\"udf3\" value=" + values.get("udf3") + " ></td>\n"
+	                 + "          <td>UDF4: </td>\n"
+	                 + "          <td><input type=\"hidden\" name=\"udf4\" value=" + values.get("udf4") + " ></td>\n"
+	                 + "          <td>UDF5: </td>\n"
+	                + "          <td><input type=\"hidden\" name=\"udf5\" value=" + values.get("udf5") + " ></td>\n"
+	                  + "          <td>PG: </td>\n"
+	                + "          <td><input type=\"hidden\" name=\"pg\" value=" + values.get("pg") + " ></td>\n"
+	                 + "        <td colspan=\"4\"><input type=\"submit\" value=\"Submit\"  /></td>\n"
+	                 + "      \n"
+	                 + "    \n"
+	                 + "      </table>\n"
+	                 + "    </form>\n"
+	                 + " <script> "
+	                 + " document.getElementById(\"payuform\").submit(); "
+	                 + " </script> "
+	                 + "       </div>   "
+	                 + "  \n"
+	                 + "  </body>\n"
+	                 + "</html>";
+	 // return response
+	         writer.println(htmlResponse);
+			
+			boolean success = paymentDao.save(objUsersBean.getPayment());
+			if(success){
+				msg = "Payment Done successfully.";
+			}else{
+				msg = "Payment is not saved. Please try again.";
+			}
+			redir.addFlashAttribute("msg", msg);
+			if(StringUtils.isNotBlank(objUsersBean.getPageName())){
+				return "redirect:"+objUsersBean.getPageName();
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			logger.error(e);
+			logger.fatal("error in savePayment method  ");
+			return "CreateProfile";
+		}
+		return "redirect:paymentDetails";
+   }
+   
+   @RequestMapping(value = "/success")
+	public  String success(Members objMembers, ModelMap model,
+			HttpServletRequest request, HttpSession session,RedirectAttributes redirect) {
+		JSONObject objJson = new JSONObject();
+		try{
+			Enumeration paramNames = request.getParameterNames();
+	        Map<String, String> params = new HashMap<String, String>();
+	        Map<String, String> urlParams = new HashMap<String, String>();
+	       while (paramNames.hasMoreElements()) {
+	            String paramName = (String) paramNames.nextElement();
+	            String paramValue = request.getParameter(paramName);
+	            params.put(paramName, paramValue);
+	        }
+	       redirect.addFlashAttribute("params", params);
+//	       request.setAttribute("params", params);
+	       
+					 
+				
+				//session.setAttribute("txnid", txnid);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			logger.error(e);
+			logger.fatal("error in MembersController class AddMembers method  ");
+		}
+		return "redirect:successPrint";
+	}
+	@RequestMapping(value = "/failed")
+	public  String failed(Members objMembersBean, ModelMap model,
+			HttpServletRequest request, HttpSession session) {
+		JSONObject objJson = new JSONObject();
+		try{
+			Enumeration paramNames = request.getParameterNames();
+	        Map<String, String> params = new HashMap<String, String>();
+	        Map<String, String> urlParams = new HashMap<String, String>();
+	       while (paramNames.hasMoreElements()) {
+	            String paramName = (String) paramNames.nextElement();
+	            String paramValue = request.getParameter(paramName);
+	            params.put(paramName, paramValue);
+	        }
+	       request.setAttribute("params", params);
+	       Paymenthistory objPamenthistory = new Paymenthistory();
+			String unmappedstatus = request.getParameter("unmappedstatus");
+			String tx=params.get("txnid");
+			String txnid = request.getParameter("txnid");
+			String status = request.getParameter("status");
+			objPamenthistory.setRemarks(unmappedstatus);
+			objPamenthistory.setPaymentStatus(status);
+			objPamenthistory.setTxid(txnid);
+			paymenthistoryDao.pamentStatusUpdate(objPamenthistory);
+			session.setAttribute("txnid", txnid);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			logger.error(e);
+			logger.fatal("error in MembersController class AddMembers method  ");
+		}
+		return "failedPament";
+	}
+	@RequestMapping(value = "/successPrint")
+	public  String successPrint(Members objMembersBean, ModelMap model,
+			HttpServletRequest request, HttpSession session) {
+		 List<Map<String, Object>> listOrderBeans  = null;
+		JSONObject jsonObj = new JSONObject();
+		ObjectMapper objectMapper = null;
+		String sJson=null;
+		try{
+			request.getAttribute("params");
+			request.getAttribute("requestBean");
+			listOrderBeans = objMembersDao.getPrinting();
+			 objectMapper = new ObjectMapper();
+			if (listOrderBeans != null && listOrderBeans.size() > 0) {
+				
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(listOrderBeans);
+				request.setAttribute("allOrders1", sJson);
+				jsonObj.put("allOrders1", listOrderBeans);
+				// System.out.println(sJson);
+			} else {
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(listOrderBeans);
+				request.setAttribute("allOrders1", "' '");
+				jsonObj.put("allOrders1", "' '");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			logger.error(e);
+			logger.fatal("error in MembersController class AddMembers method  ");
+		}
+		return "successPament";
+	}
+   
+   @ModelAttribute("packages")
+	public Map<Integer, String> populatestar() {
+		Map<Integer, String> statesMap = new LinkedHashMap<Integer, String>();
+		try {
+			String sSql = "select id,name from package  where status='1' order by name asc";
+			List<EducationBean> list = objUsersDao.populate(sSql);
+			for (EducationBean bean : list) {
+				statesMap.put(bean.getId(), bean.getName());
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+		}
+		return statesMap;
+	}
+   */
 }

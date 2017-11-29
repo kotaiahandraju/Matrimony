@@ -90,7 +90,7 @@ if(session.getAttribute("cacheGuest") != null){
 			<li class="active" ><a class="color1" href="PreferredProfiles">Dashboard</a></li>
 			<li><a class="color1" href="myProfile">My Profile</a></li>
             <li><a class="color1" href="#">My Photos</a></li>
-            <li><a class="color1" href="searchPage">Search</a></li>
+            <li><a class="color1" href="searchProfiles">Search</a></li>
              <li><a class="color1" href="#">More</a></li>
 		</ul> 
 			<div class="clearfix"></div>
@@ -405,7 +405,7 @@ function displayMatches(listOrders) {
 	            + 	'<div class="profilesimilar">'
 	            + 		'<table width="100%" border="0" cellspacing="0" cellpadding="0">'
 	            + 			'<tr><td><h4>'+orderObj.firstName+'&nbsp;'+orderObj.lastName+'</h4></td></tr>'
-	            + 			'<tr><td><p>'+orderObj.dob+', '+orderObj.religionName+', '+orderObj.casteName+',</p></td></tr>'
+	            + 			'<tr><td><p>'+orderObj.dobString+', '+orderObj.religionName+', '+orderObj.casteName+',</p></td></tr>'
 	            + 			'<tr><td><p>'+orderObj.age+'&nbsp'+orderObj.occupationName+', '+orderObj.currentCityName+', '+orderObj.currentCountryName+'.</p></td></tr>'
 	            +			mobile_no__str
 	            + 			'<tr><td><span>Full Profile</span> >></td></tr>'
@@ -472,7 +472,7 @@ function displayMobileNum(profileId,listType){
     			displayMatches(filtered_list);
     		}
     		var location = $("#loc").val();
-    		window.location.href =location+"/searchProfile";
+    		window.location.href =location+"/searchProfiles";
 			
 		});
 }

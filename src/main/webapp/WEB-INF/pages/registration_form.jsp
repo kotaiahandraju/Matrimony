@@ -441,7 +441,7 @@ function validate(id, errorMessage)
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">About myself</label>  
       <div class="col-md-6">
-      	<form:textarea rows="6" path="aboutMyself" class="form-control onlyCharacters u"></form:textarea>
+      	<form:textarea rows="6" path="aboutMyself" class="form-control u"></form:textarea>
       </div>
     </div>
     <div class="form-group">
@@ -459,6 +459,7 @@ function validate(id, errorMessage)
       <label class="col-md-4 control-label" for="textinput"></label>  
       <div class="col-md-6">
       <button type="button" id="fourthButton" onclick="fourthForm(event);" value="Create Profile" class="btn4 btn btn-info">Create Profile</button>
+      <button type="button" id="skipfourthButton" onclick="skipfourthForm(event);" value="Skip" class="btn4 btn btn-info">Skip</button>
       </div>
     </div>
 </div>
@@ -577,6 +578,7 @@ $( document ).ready(function() {
 			 $("#step2").removeClass("btn-primary");
 			 $("#step3").removeClass("btn-primary");
 			 $("#step4").removeClass("btn-primary");
+			
 			
 	   }
 	   if(pagenum ==2){
@@ -791,6 +793,11 @@ function fourthForm(event){
 		event.preventDefault();
 }
 
+function skipfourthForm(){
+	var location = "${baseurl}";
+	window.location.href =location+"/family-details";
+	//event.preventDefault();
+}
 
 $("#step1").click(function(){
 	$("#firstForm").show();

@@ -40,6 +40,7 @@ protected String diet ;
 protected String smoking ;
 protected String drinking ;
 protected String height ;
+protected String heightName ;
 protected String bodyType ;
 protected String complexion ;
 protected String mobile ;
@@ -57,6 +58,7 @@ protected String occupation;
 protected String rAgeFrom ;
 protected String rAgeTo ;
 protected String rHeight ;
+protected String rHeightTo ;
 protected String rMaritalStatus ;
 protected String rReligion ;
 protected String rCaste ;
@@ -71,6 +73,11 @@ protected int expressedInterest;
 protected String image;
 protected String profileImage;
 protected String age;
+protected Paymenthistory paymentObject;
+protected String casteName;protected String religionName;protected String educationName;
+protected String occupationName;
+protected String currentCityName;
+protected String packageId;
 
 
 public String getRhaveChildren() {
@@ -618,6 +625,60 @@ public String getAge() {
 }
 public void setAge(String age) {
 	this.age = age;
+}
+public String getrHeightTo() {
+	return rHeightTo;
+}
+public void setrHeightTo(String rHeightTo) {
+	this.rHeightTo = rHeightTo;
+}
+public String getHeightName() {
+	return heightName;
+}
+public void setHeightName(String heightName) {
+	this.heightName = heightName;
+}
+public String getCasteName() {
+	return casteName;
+}
+public void setCasteName(String casteName) {
+	this.casteName = casteName;
+}
+public String getReligionName() {
+	return religionName;
+}
+public void setReligionName(String religionName) {
+	this.religionName = religionName;
+}
+public String getEducationName() {
+	return educationName;
+}
+public void setEducationName(String educationName) {
+	this.educationName = educationName;
+}
+public String getOccupationName() {
+	return occupationName;
+}
+public void setOccupationName(String occupationName) {
+	this.occupationName = occupationName;
+}
+public String getCurrentCityName() {
+	return currentCityName;
+}
+public void setCurrentCityName(String currentCityName) {
+	this.currentCityName = currentCityName;
+}
+public Paymenthistory getPaymentObject() {
+	return paymentObject;
+}
+public void setPaymentObject(Paymenthistory paymentObject) {
+	this.paymentObject = paymentObject;
+}
+public String getPackageId() {
+	return packageId;
+}
+public void setPackageId(String packageId) {
+	this.packageId = packageId;
 }
 
 }

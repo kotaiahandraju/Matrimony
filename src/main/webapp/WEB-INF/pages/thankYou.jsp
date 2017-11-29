@@ -180,7 +180,8 @@ body {
     		<p><i style="color: green;" class="fa fa-2x fa-check"></i></p>
     		<p><i style="color: green;" class="fa fa-2x fa-check"></i></p>
 <!--       		<button type="button" id="thirdButton" class="btn3 btn btn-info">View Membership Plans</button> -->
-      		<a href="membershipPlans" class="btn1 btn btn-info">View Membership Plans</a>
+      		<a href="paymentDetails" class="btn1 btn btn-info">View Membership Plans</a>
+      		<a href="PreferredProfiles" class="btn1 btn btn-info">My Account</a>
     	</div>
     	</div>
     </div>

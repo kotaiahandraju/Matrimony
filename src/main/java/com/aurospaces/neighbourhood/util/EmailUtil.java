@@ -54,7 +54,7 @@ public class EmailUtil {
 	        // inline images
 	        Map<String, String> inlineImages = new HashMap<String, String>();
 //	        inlineImages.put("image1", objContext.getRealPath("images" +File.separator+"telugu.png"));
-	        inlineImages.put("image2", objContext.getRealPath("images" +File.separator+"telugu.png"));
+	        inlineImages.put("image2", objContext.getRealPath("images" +File.separator+"logo1.png"));
 	 
 	       
 	            EmbeddedImageEmailUtil.send(host, port, mailFrom, password, mailTo,

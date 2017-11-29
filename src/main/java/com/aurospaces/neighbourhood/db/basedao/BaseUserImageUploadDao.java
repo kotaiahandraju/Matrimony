@@ -114,6 +114,16 @@ public class BaseUserImageUploadDao{
 			return null;
 		}
 	
+	 public BranchBean getByUserId(String userId) {
+		 jdbcTemplate = custom.getJdbcTemplate();
+			String sql = "select * from user_images where user_id = ? order by id desc limit 1 ";
+			List<BranchBean> retlist = jdbcTemplate.query(sql,
+			new Object[]{userId},
+			ParameterizedBeanPropertyRowMapper.newInstance(BranchBean.class));
+			if(retlist.size() > 0)
+				return retlist.get(0);
+			return null;
+		}
 	
 
 	

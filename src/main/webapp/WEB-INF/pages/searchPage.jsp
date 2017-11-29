@@ -257,25 +257,280 @@ if(session.getAttribute("cacheGuest") != null){
 							</div>
 						</section>
 					</div>
-				</div>
-             
-             
+				</div></div>
+             </form:form>
+             <form:form commandName="createProfile" action="SearchResults" class="form-horizontal" id="searchForm2" role="form"   method="post">
              
              <div class="col-md-9">
-<div class="searchresults">
+<div id="searchresultsDiv">
+	<div class="searchresults">
     <h3>Your Search Results</h3>
     <p><span id="countId">${count}</span> Profiles found <a href="searchProfiles">Modify Search</a></p>
 	<div id="searchResults">
 		
 	</div>
-            
+</div>           
    <div class="clearfix"></div>
 </div>
     <div class="clearfix"></div>
+   <div id="search_criteria">
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="textinput">Age From</label>  
+      <div class="col-md-6">
+      <form:input path="rAgeFrom" class="form-control  numericOnly u1" placeholder="Enter Age From" />
+<!--       	<input type="text" name="age" class="form-control u1" placeholder="Enter Age" maxlength="255"/> -->
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="textinput">Age To</label>  
+      <div class="col-md-6">
+      <form:input path="rAgeTo" class="form-control numericOnly u1" placeholder="Enter Age To" />
+<!--       	<input type="text" name="age" class="form-control u1" placeholder="Enter Age" maxlength="255"/> -->
+      </div>
+    </div>
+    <%-- <div class="form-group">
+      <label class="col-md-4 control-label" for="textinput">Height</label>  
+      <div class="col-md-6">
+       <form:input path="rHeight" placeholder="Enter Height"/>
+       	<input type="text" name="height" class="form-control u1" placeholder="Enter Height" maxlength="255"/> -->
+      </div>
+    </div> --%>
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="textinput">Height From</label>  
+      <div class="col-md-6">
+      	<form:select path="rHeight" class="form-control u1">
+			<form:option value="">-- Choose Height --</form:option>
+			<form:options items="${height}"></form:options>
+		</form:select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="textinput">Height To</label>  
+      <div class="col-md-6">
+      	<form:select path="rHeightTo" class="form-control u1">
+			<form:option value="">-- Choose Height --</form:option>
+			<form:options items="${height}"></form:options>
+		</form:select>
+      </div>
+    </div>
+
+    <div class="form-group" >
+      <label class="col-md-4 control-label" i for="textinput">Marital Status</label>  
+      <div class="col-md-6">
+      	<form:select path="rMaritalStatus" class="form-control u1" onchange="hideChildren();" multiple="true" >
+			<form:option value="">Doesn't Matter</form:option>
+			<form:option value="Married">Married</form:option>
+			<form:option value="Unmarried">Unmarried</form:option>
+			<form:option value="Widow/Divorced">Widow/Divorced</form:option>
+		</form:select>
+      </div>
+    </div>
+
+    <div class="form-group" id="haveChildrenId" style="display: none">
+      <label class="col-md-4 control-label" for="textinput" >Have Children</label>  
+      <div class="col-md-6">
+      	<form:select path="rhaveChildren" class="form-control u1">
+			<form:option value="">Doesn't Matter</form:option>
+			<form:option value="1">1</form:option>
+			<form:option value="2">2</form:option>
+			<form:option value="No Children">No Children</form:option>
+		</form:select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="textinput">Religion</label>  
+      <div class="col-md-6">
+      	<form:select path="rReligion" class="form-control u1">
+			<form:option value="">-- Choose Religion --</form:option>
+			<form:options items="${religion}"></form:options>
+		</form:select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="textinput">Community</label>  
+      <div class="col-md-6">
+      	<form:select path="rCaste" class="form-control u1" multiple="true">
+			<form:option value="">-- Choose Community --</form:option>
+			<form:options items="${cast}"></form:options>
+		</form:select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="textinput">Mother Tongue</label>  
+      <div class="col-md-6">
+      	<form:select path="rMotherTongue" class="form-control u1">
+			<form:option value="">-- Choose Mother Tongue --</form:option>
+			<form:options items="${language}"></form:options>
+		</form:select>
+      </div>
+    </div>
+ <script>
+$(document).ready(function(){
+	$(".ifMore").hide();
+	$(".incomeBlock").hide();
+	
+    $(".more").click(function(){
+    	$(".hideMe").hide();
+    	$(".ifMore").show();
+    });
+    
+    $(".incomeRange").click(function(){
+    	$(".incomeBlock").show();
+    });
+    $(".incomeMatter").click(function(){
+    	$(".incomeBlock").hide();
+    });
+    /* $(".more").click(function(){
+        $(".ifMore").collapse('toggle');
+    });
+    $(".more").click(function(){
+        $(".ifMore").collapse('hide');
+    }); */
+    
+});
+</script>   
+    <div class="form-group hideMe">
+      <label class="col-md-4 control-label" for="textinput"></label>  
+      <div class="col-md-6 text-center">
+      	<span class="more" style="color: #0087AF;cursor: pointer;">MORE </span><i style="cursor: pointer;" class="fa fa-angle-down"></i>
+      </div>
+    </div>
+    
+<div class="ifMore" id="ifMore">
+    
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="textinput"></label>
+      <div class="col-md-6">Location Details</div>
+    </div>
+   
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="textinput">Country living in</label>  
+      <div class="col-md-6">
+      	<form:select path="rCountry" class="form-control u">
+			<form:option value="">-- Choose Country --</form:option>
+			<form:options items="${countries}"></form:options>
+			
+		</form:select>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="textinput">State living in</label>  
+      <div class="col-md-6">
+      	<form:select path="rState" class="form-control u" multiple="true">
+			<form:option value="">-- Choose State --</form:option>
+			<form:option value="AP">AP</form:option>
+			<form:option value="Telangana">Telangana</form:option>
+		</form:select>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="textinput"></label>
+      <div class="col-md-6">Education & Profession Details</div>
+    </div>
+<!--      rCountry,rState,rEducation,rWorkingWith,rOccupation,rAnnualIncome,rCreateProfileFor,rDiet -->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="textinput">Education</label>  
+      <div class="col-md-6">
+      	<form:select path="rEducation" class="form-control u" multiple="true">
+			<form:option value="">Doesn't Matter</form:option>
+			<form:options items="${education}"></form:options>
+		</form:select>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="textinput">Working with</label>  
+      <div class="col-md-6">
+      	<form:select path="rWorkingWith" class="form-control u1">
+			<form:option value="">Doesn't Matter</form:option>
+			<form:option value="Private Company">Private Company</form:option>
+			<form:option value="Government/Public Sector">Government/Public Sector</form:option>
+			<form:option value="Defense/Civil Services">Defense/Civil Services</form:option>
+			<form:option value="Not Working">Not Working</form:option>
+		</form:select>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="textinput">Profession area</label>  
+      <div class="col-md-6">
+      	<form:select path="rOccupation" class="form-control u">
+			<form:option value="">Doesn't Matter</form:option>
+			<form:options items="${occupation}"></form:options>
+		</form:select>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="textinput">Annual Income</label>  
+      <div class="col-md-6">
+      	<input type="radio" name="annualIncome" class="incomeMatter" id="ai1" value=""> <label for="ai1">Doesn't Matter</label>
+      	<input type="radio" name="annualIncome" class="incomeRange" id="ai2" value="Specify an income range"> <label for="ai2">Specify an income range</label>
+      	<%-- <form:select path="education" class="form-control u">
+			<form:option value="">Doesn't Matter</form:option>
+			<form:option value="Specify an income range">Specify an income range</form:option>
+		</form:select> --%>
+      </div>
+    </div>
+    
+    <div class="form-group incomeBlock">
+      <label class="col-md-4 control-label" for="textinput"></label>  
+      <div class="col-md-6">
+      	<form:select path="rAnnualIncome" class="form-control u1">
+			<form:option value="">-- Annual Income --</form:option>
+			<form:option value="Upto INR 1 Lakh">Upto INR 1 Lakh</form:option>
+			<form:option value="INR 2 Lakh to 4 Lakh">INR 2 Lakh to 4 Lakh</form:option>
+			<form:option value="INR 5 Lakh to 7 Lakh">INR 5 Lakh to 7 Lakh</form:option>
+			<form:option value="Above INR 7 Lakh">Above INR 7 Lakh</form:option>
+		</form:select>
+      </div>
+    </div>
+    
+    <div class="form-group incomeBlock">
+      <label class="col-md-4 control-label" for="textinput"></label>  
+      <div class="col-md-8">
+      	<!-- <input type="checkbox" name="includeProfiles" id="includeProfiles"> -->
+      	<%-- <form:checkbox path="specifiedIncome" value="specifiedIncome" placeholder="Enter Height"/>
+      	Include Profiles who have not specified their income --%>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="textinput"></label>
+      <div class="col-md-6">Other Details</div>
+    </div>
+    
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="textinput">Diet</label>  
+      <div class="col-md-6">
+      	<form:select path="rDiet" class="form-control u" >
+			<form:option value="">-- Select Diet--</form:option>
+			<form:option value="Veg">Veg</form:option>
+			<form:option value="Non-Veg">Non-Veg</form:option>
+			<form:option value="Occasionally Non-Veg">Occasionally Non-Veg</form:option>
+			<form:option value="Eggetarian">Eggetarian</form:option>
+			<form:option value="Jain">Jain</form:option>
+			<form:option value="Vegan">Vegan</form:option>
+		</form:select>
+      </div>
+    </div>
    </div>
+   <div class="form-group">
+      <label class="col-md-4 control-label" for="textinput"></label>  
+      <div class="col-md-6 text-center">
+     	<button type="button" id="searchBtn" class="btn1 btn btn-info" onclick="submitSearch()">Search</button> 
+      <!-- 	<a href="savePartnerProfile" class="btn1 btn btn-info">Save & Continue</a> -->
+      </div>
+    </div>
+   </div>
+ </div>               
                 
-                
-                
+   </form:form>             
                 
                 
                 
@@ -284,9 +539,7 @@ if(session.getAttribute("cacheGuest") != null){
               
 				<div class="clearfix"></div>
 			</div>
-			</form:form>
 		</div>
-	</div>
 <!-- //products -->
 <!-- footer -->
 	<div class="footer">
@@ -328,14 +581,20 @@ if(session.getAttribute("cacheGuest") != null){
 <!-- //footer -->
 <script src="js/ajax.js"></script>
 <script type="text/javascript">
-var listOrders1 = ${allOrders1};
+ var listOrders1 = ${allOrders1};
 if (listOrders1 != "") {
 	$('#countId').html('');
 	$('#countId').html(listOrders1.length);
 	displayMatches(listOrders1);
-}
+}else{
+	$('#search_criteria').removeAttr("hidden");
+	$('#searchResults').html('');
+	$("#searchresultsDiv").prop("hidden",true);
+} 
 function displayMatches(listOrders) {
 	$('#searchResults').html('');
+	$("#search_criteria").prop("hidden",true);
+	$('#searchresultsDiv').removeAttr("hidden");
 	serviceUnitArray = {};
 	$.each(listOrders,function(i, orderObj) 
 	{
@@ -364,11 +623,12 @@ function displayMatches(listOrders) {
 			var more_details_str = '';
 			var expressed = orderObj.expressedInterest;
 			if(expressed==0){
-				insert_str = '<button class="btn btn-primary btn-block" onclick="expressInterest('+orderObj.id+')">Yes I\'m interested</button>';
+				insert_str = '<button id="expInterest'+orderObj.id+'" type="button" class="btn btn-primary btn-block" onclick="expressInterest('+orderObj.id+')">Yes I\'m interested</button>';
 			}else if(expressed>0){
 				insert_str = '<button class="btn btn-primary btn-block">Expressed Interest</button>';
 			}
-			if(login_user_role_id == 6){ //means premium user
+			if((login_user_role_id == 6) || (login_user_role_id == 11)){ //means premium user
+				mobile_no__str = '<tr id="row'+orderObj.id+'"><td><button type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button></td></tr>';
 				//more_details_str = '<tr><td><span><a href="#" onclick="showMoreDetails(this)">read more...</a></span></td></tr>';
 				//mobile_no__str = '<tr><td><span><a href="#" onclick="viewMobileNumber('+orderObj.id+')">View Mobile Number</a></span></td></tr>';
 			}
@@ -394,9 +654,11 @@ function displayMatches(listOrders) {
             	+ '	<tr><td>Location</td><td><span>: '+orderObj.currentCityName+'</span></td></tr>'
             	+ '	<tr><td>Education</td><td><span>: '+orderObj.educationName+'</span></td></tr>'
             	+ '	<tr><td>Profession</td><td><span>: '+orderObj.occupationName+'</span></td></tr>'
+            	+ mobile_no__str
+            	
             	//+ '	<tr><td>Age</td><td><span>: '+orderObj.age+'</span></td></tr>'
             	//+ '	<tr><td colspan="2">'+orderObj.aboutMyself+'... <a href="#" onclick="showMore('+orderObj.id+')"> read more..</a> </td></tr>'
-            	+  more_details_str
+            	//+  more_details_str
             	//+ '	<tr class="showMore" hidden="true"><td colspan="2">'+orderObj.aboutMyself+'... <a href="#" > read more..</a> </td></tr>'
             	//+ '	<tr class="showMore" hidden="true"><td colspan="2">'+orderObj.aboutMyself+'... <a href="#" > more detailssss</a> </td></tr>'
             	//+ '	<tr class="showMore" hidden="true"><td colspan="2">'+orderObj.aboutMyself+'... <a href="#" > more detailssss</a> </td></tr>'
@@ -480,6 +742,8 @@ function updateProfilesList(){
 	    		var jsonobj = $.parseJSON(data);
 	    		var filtered_list = jsonobj.filtered_profiles;
 	    		$('#countId').html('');
+	    		$("#search_criteria").prop("hidden",true);
+	    		$('#searchresultsDiv').removeAttr("hidden");
 	    		if(filtered_list==""){
 	    			$('#countId').html('0');
 	    			var str = '<div class="panel panel-default"><h6>No results found.</h6></div>';
@@ -496,6 +760,13 @@ function updateProfilesList(){
 $("#castdiv input[name='caste']").click(updateProfilesList);   
 $("#religiondiv input[name='religion']").click(updateProfilesList);
 $("#educationdiv input[name='education']").click(updateProfilesList);
+
+
+function submitSearch(){
+	$("#searchForm2").submit();
+	
+}
+
    
 /* $("#castdiv input[name='caste']").click(function(){
 	var allVals = [];
@@ -535,14 +806,16 @@ function expressInterest(profile_id){
     		var jsonobj = $.parseJSON(data);
     		var msg = jsonobj.message;
     		var profiles = jsonobj.allProfiles;
-    		if(typeof msg != "undefined" ){
+    		//if(typeof msg != "undefined" ){
     			if("success"==msg){
     				alert("Interest request has been sent successfully");
+    				$("#expInterest"+profile_id).html('Expressed Interest');
+    				$("#expInterest"+profile_id).prop("disabled",true);
     			}else if("failed"==msg || "exception"==msg){
     				alert("Interest request is not successful. Please try again.");
     			}
-    		}
-    		if(profiles==""){
+    		//}
+    		/* if(profiles==""){
     			$('#countId').html('0');
     			var str = '<div class="panel panel-default"><h6>No results found.</h6></div>';
     			$('#searchResults').html('');
@@ -550,7 +823,7 @@ function expressInterest(profile_id){
     		}else{
     			$('#countId').html(profiles.length);
     			displayMatches(profiles);
-    		}
+    		} */
     		/* var filtered_list = jsonobj.filtered_profiles;
     		$('#countId').html('');
     		if(filtered_list==""){
@@ -585,7 +858,7 @@ function showMoreDetails(thisObj){
 	
 }
 
-function viewMobileNumber(profile_id){
+/* function viewMobileNumber(profile_id){
 	var formData = new FormData();
 	formData.append('profile_id',profile_id);
 	jQuery.fn.makeMultipartRequest('POST', 'viewMobileNumber', false,
@@ -594,7 +867,7 @@ function viewMobileNumber(profile_id){
     		
     		
 	});
-}
+} */
 
 function displayMobileNum(profileId,listType){
 	var profileObj = serviceUnitArray[profileId];

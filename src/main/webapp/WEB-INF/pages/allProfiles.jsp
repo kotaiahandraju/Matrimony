@@ -16,7 +16,10 @@ $( document ).ready(function() {
 </script>
 <link href="${baseurl }/css/datepicker1.css" rel="stylesheet" type="text/css" />
 <script src="${baseurl }/js/jquery-ui.min.js"></script>
+
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" />
+
+	
 <!-- 	<script src="http://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script> -->
 <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.1/themes/black-tie/jquery-ui.css"> -->
 <!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.js"></script> -->
@@ -25,7 +28,7 @@ $( document ).ready(function() {
 <div class="container-fluid">
 	<div class="page-header">
 		<div class="pull-left">
-			<h1>All Profiles </h1> 
+			<h1>Active Profiles </h1> 
 		</div>
 	</div>
 	<div class="breadcrumbs">
@@ -37,7 +40,7 @@ $( document ).ready(function() {
 			</li>
 			<li>
 				&nbsp;<i class="fa fa-file"></i>
-				<span style="color: #999;cursor: auto;">All Profiles</span>
+				<span style="color: #999;cursor: auto;">Active Profiles</span>
 			</li>
 		</ul>
 		
@@ -84,7 +87,7 @@ $( document ).ready(function() {
 			<div class="box-title">
 				<h3>
 					<i class="fa fa-table"></i>
-					All Profiles List
+					Active Profiles List
 				</h3>
 			</div>
 			<div class="box-content nopadding table-responsive w3-animate-zoom" id="tableId">
@@ -225,6 +228,21 @@ s.parentNode.insertBefore(ga, s);
 	
 		}
  
+ function payment(id) {
+	 /* var location = $("#loc").val();
+//  	 var win = window.open(""+location+"/admin/CreateProfile/"+id+"");
+ 	 window.location.href =location+"/admin/paymentDetails/"+id+"/AllProfilesHome";
+	 if (win) {
+	     //Browser has allowed it to be opened
+	     win.focus();
+	 } else {
+	     //Browser has blocked it
+	     alert('Please allow popups for this website');
+	 } */
+	 
+	
+}
+ 
  function profileStatusChange(id,statusId){
 		var checkstr =  confirm('Are you sure you want to do this?');
 		if(checkstr == true){
@@ -288,7 +306,10 @@ s.parentNode.insertBefore(ga, s);
 		var lastName = null; lastName = serviceUnitArray[id].lastName;
 		if(lastName == "" || lastName == null || lastName == "undefined"){lastName = "---";}
 		
-		var dob = null; dob = serviceUnitArray[id].dob;
+		/* var dob = null; dob = serviceUnitArray[id].dob;
+		if(dob == "" || dob == null || dob == "undefined"){dob = "---";} */
+		
+		var dob = null; dob = serviceUnitArray[id].dobString;
 		if(dob == "" || dob == null || dob == "undefined"){dob = "---";}
 		
 		var religionName = null; religionName = serviceUnitArray[id].religionName;
@@ -419,7 +440,7 @@ s.parentNode.insertBefore(ga, s);
 		
 		 var tblRow = "<div class='container table-responsive'><div class='row'>"
 		 		+ 	"<div class='col-sm-2'>"
-		 		+		"<img src=${baseurl }/"+image+" width='200px'/>"
+		 		+		"<img src=${baseurl }/"+image+" width='150px'/>"
 // 				+		"<i class='fa fa-user' style='font-size: 10em;'></i>"
 //	 	 		+		"<img class='img-responsive' src='../img/default.png' style='width: auto !important;height: 120px !important;'>"
 		 		+ 	"</div>"
@@ -630,6 +651,7 @@ s.parentNode.insertBefore(ga, s);
 			}
 			else{mStatus = "<tr></tr>";}
 			 $(mStatus).appendTo('#mstatusId');
+			 
 		 $('#dial1').dialog({title: "Profile of "+username, width: 1199, height: 600, modal: true}).dialog('open');
 //		 	$(window).scrollTop($('.wrapper').offset().top);
 //		 	$(".view_list").hide();

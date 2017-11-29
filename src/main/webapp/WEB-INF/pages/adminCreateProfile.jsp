@@ -15,8 +15,9 @@ $( document ).ready(function() {
 });
 </script>
 <link href="${baseurl }/css/datepicker1.css" rel="stylesheet" type="text/css" />
-<script src="${baseurl }/js/jquery-ui.min.js"></script>
+
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" />
+<script src="${baseurl }/js/jquery-ui.min.js"></script>
 <!-- 	<script src="http://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script> -->
 <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.1/themes/black-tie/jquery-ui.css"> -->
 <!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.js"></script> -->

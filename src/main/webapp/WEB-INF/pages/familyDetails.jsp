@@ -160,20 +160,20 @@ body {
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Father Name</label>  
       <div class="col-md-8">
-      	<form:input path="fatherName" class="form-control" placeholder="Enter Father Name"/>
+      	<form:input path="fatherName" class="form-control onlyCharacters" placeholder="Enter Father Name"/>
       </div>
     </div>
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Mother Name</label>  
       <div class="col-md-8">
-      	<form:input path="motherName" class="form-control" placeholder="Enter Mother Name"/>
+      	<form:input path="motherName" class="form-control onlyCharacters" placeholder="Enter Mother Name"/>
       </div>
     </div>
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Father's Occupation</label>  
       <div class="col-md-8">
       	<form:select path="fOccupation" class="form-control u1" >
-	<form:options items="${occupation}"></form:options>
+	<form:options items="${maleOccupation}"></form:options>
 		</form:select>
       </div>
     </div>
@@ -235,7 +235,8 @@ body {
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput"></label>  
       <div class="col-md-6">
-    	<button type="submit" id="secondButton" class="btn2 btn btn-info">Continue</button>
+    	<button type="button" id="secondButton" class="btn2 btn btn-info" onclick="submitForm()">Continue</button>
+    	<button type="button" id="skipsecondButton" class="btn2 btn btn-info" onclick="skip()">Skip</button>
       <!-- 	<a href="thankyou" class="btn1 btn btn-info">Continue</a> -->
       </div>
     </div>
@@ -314,6 +315,17 @@ body {
     <script src="user/js/toucheffects.js"></script>
     <script src="js/custemValidation.js"></script>
     <script src="js/ajax.js"></script>
+    <script type="text/javascript" >
+    	function submitForm(){
+    		$("#saveImproveFamilyDetails").submit();
+    	}
+    
+	    function skip(){
+	    	var location = "${baseurl}";
+	    	window.location.href =location+"/uploadPhotos";
+	    	
+	    }
+    </script>
 
 </body>
 

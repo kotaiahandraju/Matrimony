@@ -181,7 +181,7 @@ body {
       </div>
     </div> --%>
     <div class="form-group">
-      <label class="col-md-4 control-label" for="textinput">Height</label>  
+      <label class="col-md-4 control-label" for="textinput">Height From</label>  
       <div class="col-md-6">
       	<form:select path="rHeight" class="form-control u1">
 			<form:option value="">-- Choose Height --</form:option>
@@ -189,12 +189,21 @@ body {
 		</form:select>
       </div>
     </div>
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="textinput">Height To</label>  
+      <div class="col-md-6">
+      	<form:select path="rHeightTo" class="form-control u1">
+			<form:option value="">-- Choose Height --</form:option>
+			<form:options items="${height}"></form:options>
+		</form:select>
+      </div>
+    </div>
 
     <div class="form-group" >
-      <label class="col-md-4 control-label" i for="textinput">Marital Status</label>  
+      <label class="col-md-4 control-label" for="textinput">Marital Status</label>  
       <div class="col-md-6">
-      	<form:select path="rMaritalStatus" class="form-control u1" onchange="hideChildren();">
-			<form:option value="all">Doesn't Matter</form:option>
+      	<form:select path="rMaritalStatus" class="form-control u1" onchange="hideChildren();" multiple="true" >
+			<form:option value="">Doesn't Matter</form:option>
 			<form:option value="Married">Married</form:option>
 			<form:option value="Unmarried">Unmarried</form:option>
 			<form:option value="Widow/Divorced">Widow/Divorced</form:option>
@@ -206,7 +215,7 @@ body {
       <label class="col-md-4 control-label" for="textinput" >Have Children</label>  
       <div class="col-md-6">
       	<form:select path="rhaveChildren" class="form-control u1">
-			<form:option value="all">Doesn't Matter</form:option>
+			<form:option value="">Doesn't Matter</form:option>
 			<form:option value="1">1</form:option>
 			<form:option value="2">2</form:option>
 			<form:option value="No Children">No Children</form:option>
@@ -227,7 +236,7 @@ body {
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Community</label>  
       <div class="col-md-6">
-      	<form:select path="rCaste" class="form-control u1">
+      	<form:select path="rCaste" class="form-control u1" multiple="true">
 			<form:option value="">-- Choose Community --</form:option>
 			<form:options items="${cast}"></form:options>
 		</form:select>
@@ -265,6 +274,20 @@ $(document).ready(function(){
     $(".more").click(function(){
         $(".ifMore").collapse('hide');
     }); */
+    var selected_values = "${cacheGuest.rMaritalStatus}";
+    $("#rMaritalStatus").val(selected_values.split(","));
+    
+    selected_values="";
+    selected_values = "${cacheGuest.rCaste}";
+    $("#rCaste").val(selected_values.split(","));
+    
+    selected_values="";
+    selected_values = "${cacheGuest.rState}";
+    $("#rState").val(selected_values.split(","));
+    
+    selected_values="";
+    selected_values = "${cacheGuest.rEducation}";
+    $("#rEducation").val(selected_values.split(","));
     
 });
 </script>   
@@ -296,7 +319,7 @@ $(document).ready(function(){
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">State living in</label>  
       <div class="col-md-6">
-      	<form:select path="rState" class="form-control u">
+      	<form:select path="rState" class="form-control u" multiple="true">
 			<form:option value="">-- Choose State --</form:option>
 			<form:option value="AP">AP</form:option>
 			<form:option value="Telangana">Telangana</form:option>
@@ -312,8 +335,8 @@ $(document).ready(function(){
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Education</label>  
       <div class="col-md-6">
-      	<form:select path="rEducation" class="form-control u">
-			<form:option value="all">Doesn't Matter</form:option>
+      	<form:select path="rEducation" class="form-control u" multiple="true">
+			<form:option value="">Doesn't Matter</form:option>
 			<form:options items="${education}"></form:options>
 		</form:select>
       </div>
@@ -323,7 +346,7 @@ $(document).ready(function(){
       <label class="col-md-4 control-label" for="textinput">Working with</label>  
       <div class="col-md-6">
       	<form:select path="rWorkingWith" class="form-control u1">
-			<form:option value="all">Doesn't Matter</form:option>
+			<form:option value="">Doesn't Matter</form:option>
 			<form:option value="Private Company">Private Company</form:option>
 			<form:option value="Government/Public Sector">Government/Public Sector</form:option>
 			<form:option value="Defense/Civil Services">Defense/Civil Services</form:option>
@@ -336,7 +359,7 @@ $(document).ready(function(){
       <label class="col-md-4 control-label" for="textinput">Profession area</label>  
       <div class="col-md-6">
       	<form:select path="rOccupation" class="form-control u">
-			<form:option value="all">Doesn't Matter</form:option>
+			<form:option value="">Doesn't Matter</form:option>
 			<form:options items="${occupation}"></form:options>
 		</form:select>
       </div>
@@ -345,10 +368,10 @@ $(document).ready(function(){
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Annual Income</label>  
       <div class="col-md-6">
-      	<input type="radio" name="annualIncome" class="incomeMatter" id="ai1" value="all"> <label for="ai1">Doesn't Matter</label>
+      	<input type="radio" name="annualIncome" class="incomeMatter" id="ai1" value=""> <label for="ai1">Doesn't Matter</label>
       	<input type="radio" name="annualIncome" class="incomeRange" id="ai2" value="Specify an income range"> <label for="ai2">Specify an income range</label>
       	<%-- <form:select path="education" class="form-control u">
-			<form:option value="all">Doesn't Matter</form:option>
+			<form:option value="">Doesn't Matter</form:option>
 			<form:option value="Specify an income range">Specify an income range</form:option>
 		</form:select> --%>
       </div>
@@ -381,23 +404,6 @@ $(document).ready(function(){
       <div class="col-md-6">Other Details</div>
     </div>
     
-     <div class="form-group">
-      <label class="col-md-4 control-label" for="textinput">Profile created by</label>  
-      <div class="col-md-6">
-      
-      	<form:select	path="rCreateProfileFor" id="createProfileFor" onfocus="removeBorder(this.id)" class="form-control">
-									<form:option value="">Select</form:option>
-									<form:option value="Self">Self</form:option>
-									<form:option value="Son">Son</form:option>
-									<form:option value="Daughter">Daughter</form:option>
-									<form:option value="Brother">Brother</form:option>
-									<form:option value="Sister">Sister</form:option>
-									<form:option value="Friend">Friend</form:option>
-									<form:option value="Relative">Relative</form:option>
-			</form:select>
-      </div>
-    </div>
-    
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Diet</label>  
       <div class="col-md-6">
@@ -418,7 +424,8 @@ $(document).ready(function(){
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput"></label>  
       <div class="col-md-6 text-center">
-     	<button type="submit" id="firstButton" class="btn1 btn btn-info">Save & Continue</button> 
+     	<button type="button" id="firstButton" class="btn1 btn btn-info" onclick="submitForm()">Save & Continue</button> 
+     	<button type="button" id="skipfirstButton" class="btn1 btn btn-info" onclick="skip()">Skip</button>
       <!-- 	<a href="savePartnerProfile" class="btn1 btn btn-info">Save & Continue</a> -->
       </div>
     </div>
@@ -508,6 +515,16 @@ function hideChildren() {
 		 $("#haveChildrenId").show();
 	 }
 	}
+	
+function submitForm(){
+	$("#savePartnerProfile").submit();
+}
+
+function skip(){
+	var location = "${baseurl}";
+	window.location.href =location+"/thankyou";
+	
+}	
 </script>
 </body>
 

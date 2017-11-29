@@ -552,7 +552,7 @@
 									<label class="col-sm-4 control-label required">Father's Occupation<span style="color:red;">*</span></label>
 									<div class="col-sm-8">
 											<form:select path="fOccupation" class="form-control u1" >
-											<form:options items="${occupation}"></form:options>
+											<form:options items="${maleOccupation}"></form:options>
 											</form:select>
 										<div><form:errors path="drinking" cssClass="error" /></div>
 									</div>
