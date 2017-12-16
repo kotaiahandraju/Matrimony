@@ -121,16 +121,6 @@ $(document).ready(function(){
 </head>
 
 <body>
-	<!-- <div class="inform-fixed inform-shadow inform-animate">
-		<div class="inform">
-			<div class="inform-message-wrap w3-animate-right">
-				<div class="inform-message alert alert-success alert-dismissible" role="alert">
-					<button type="button" class="close"><span>×</span></button>
-					<span class="inform-message-content ng-binding">Data received from server</span>
-				</div>
-			</div>
-		</div>
-	</div> -->
 	<c:if test="${not empty msg}">
 		<div class="msgcss">
 			<div class="col-sm-offset-8 col-sm-4">
@@ -140,7 +130,6 @@ $(document).ready(function(){
 			</div>
 		</div>
 	</c:if>
-	
 	<div id="navigation">
 		<div class="container-fluid">
 			<a href="#" id="brand">&nbsp;AARNA</a>
