@@ -88,6 +88,7 @@ span.has-error,span.hasError
 .form-horizontal .control-label{text-align: right;}
 span.impColor{color: red;}
 
+.breadcrumbs{margin-bottom: 10px;}
 .msgcss
 {	
 	position: fixed;

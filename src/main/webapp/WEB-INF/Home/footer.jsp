@@ -1,5 +1,5 @@
 
-	<script src="${baseurl }/js/custemValidation.js"></script>
+	<script src="${baseurl }/js/customValidation.js"></script>
 	
 	<!-- Nice Scroll -->
 	<script src="${baseurl }/js/plugins/nicescroll/jquery.nicescroll.min.js"></script>

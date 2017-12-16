@@ -30,13 +30,6 @@
 				<div class="portlet" id="yw0" class="">
 					<div class="portlet-content w3-animate-zoom">
 						<form:form modelAttribute="bodyTypeForm" class="form-horizontal" role="form" id="branch-form" action="addBodyType" method="post">								
-							<c:if test="${not empty msg}">
-								<div class="form-group">
-									<div class="col-sm-6 col-sm-offset-3">
-										<div class="msgcss alert alert-${cssMsg} fadeIn animated">${msg}</div>
-									</div>
-							  	</div>
-							</c:if>
 							<div class="form-group">
 								<label class="col-sm-3 control-label required"><spring:message code="label.bodyType" text="default text" /> <span class="impColor">*</span></label>
 								<div class="col-sm-6">
@@ -128,7 +121,7 @@ function displayTable(listOrders) {
 	$('#tableId').html(tableHead);
 	serviceUnitArray = {};
 	$.each(listOrders,function(i, orderObj) {
-		var edit = "<a class='edit' onclick='editBodyType("+orderObj.id+")'><i style='color: green;' class='fa fa-edit'></i></a>"
+		var edit = "<a class='edit editIt' onclick='editBodyType("+orderObj.id+")'><i style='color: green;' class='fa fa-pencil'></i></a>"
 		var deleterow = "<a class='delete' onclick='deleteBodyType("+orderObj.id+")'><i style='color: red;' class='fa fa-trash'></i></a>"
 		serviceUnitArray[orderObj.id] = orderObj;
 		var tblRow = "<tr>"
@@ -154,6 +147,7 @@ function editBodyType(id)
 {
 	$("#id").val(serviceUnitArray[id].id);
 	$("#name").val(serviceUnitArray[id].name);
+	$("#submit1").val("Update");
 	$(window).scrollTop($('body').offset().top);
 }
 function deleteBodyType(id)
