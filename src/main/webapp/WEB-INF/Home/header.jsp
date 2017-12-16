@@ -5,11 +5,9 @@
 <%-- <%! String pages1= null; %> --%>
 <c:set var = "activePage" scope = "session" value = ""/>
      
-     <%
-     
-     
-String baseurl =  request.getScheme() + "://" + request.getServerName() +      ":" +   request.getServerPort() +  request.getContextPath();
-session.setAttribute("baseurl", baseurl);
+<%
+	String baseurl =  request.getScheme() + "://" + request.getServerName() +      ":" +   request.getServerPort() +  request.getContextPath();
+	session.setAttribute("baseurl", baseurl);
 %>
 <head>
 	<meta charset="utf-8">
@@ -20,7 +18,7 @@ session.setAttribute("baseurl", baseurl);
 	<meta names="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
 	<title>Matrimony</title>
-	<link rel="shortcut icon" href="${baseurl }/img/aarna.png"/>
+	<link rel="shortcut icon" href="${baseurl }/img/aarna-fav.png"/>
 	
 	<!-- 	animate zoom -->
 	<link rel="stylesheet" href="${baseurl }/css/w3animate.css">
@@ -50,10 +48,8 @@ session.setAttribute("baseurl", baseurl);
 	<!-- jQuery -->
 	<script src="${baseurl }/js/jquery.min.js"></script>
 
-
-
 	<!--[if lte IE 9]>
-		<script src="js/plugins/placeholder/jquery.placeholder.min.js"></script>
+		<script src="${baseurl }/js/plugins/placeholder/jquery.placeholder.min.js"></script>
 		<script>
 			$(document).ready(function() {
 				$('input, textarea').placeholder();
@@ -61,35 +57,9 @@ session.setAttribute("baseurl", baseurl);
 		</script>
 	<![endif]-->
 	
-	<script>
-		window.setTimeout(function() {
-		    $(".msgcss").fadeTo(500, 0).slideUp(500, function(){
-		        $(this).remove(); 
-		    });
-		}, 5000);
-		$(document).ready(function(){
-			$('.edit').attr('data-toggle','tooltip');
-			$('.edit').attr('data-original-title','Edit');
-			$('.delete').attr('data-toggle','tooltip');
-			$('.delete').attr('data-original-title','Delete');
-			$('[data-toggle="tooltip"]').tooltip();
-		});
-	</script>
-
-	<!--[if lte IE 9]>
-		<script src="js/plugins/placeholder/jquery.placeholder.min.js"></script>
-		<script>
-			$(document).ready(function() {
-				$('input, textarea').placeholder();
-			});
-		</script>
-		<![endif]-->
-
-	<!-- Favicon -->
-<!-- 	<link rel="shortcut icon" href="img/favicon.html" /> -->
 	<!-- Apple devices Homescreen icon -->
 	<link rel="apple-touch-icon-precomposed" href="img/apple-touch-icon-precomposed.png" />
-	<style>
+<style>
 span.has-error,span.hasError
 {
   font-weight:normal;
@@ -117,10 +87,60 @@ span.has-error,span.hasError
 
 .form-horizontal .control-label{text-align: right;}
 span.impColor{color: red;}
+
+.msgcss
+{	
+	position: fixed;
+    top: 4.5em;
+    left: 0;
+    right: 0;
+    z-index: 1002;
+}
 </style>
+
+<script type="text/javascript">
+window.setTimeout(function() {
+    $(".msgcss").fadeTo(500, 0).slideUp(500, function(){
+        $(this).remove();
+    });
+}, 5000);
+$(document).ready(function(){
+	$('.edit').attr('data-toggle','tooltip');
+	$('.edit').attr('data-original-title','Edit');
+	$('.activate').attr('data-toggle','tooltip');
+	$('.activate').attr('data-original-title','Activate');
+	$('.deactivate').attr('data-toggle','tooltip');
+	$('.deactivate').attr('data-original-title','Deactivate');
+	$('.delete').attr('data-toggle','tooltip');
+	$('.delete').attr('data-original-title','Delete');
+	$('.reset').attr('data-toggle','tooltip');
+	$('.reset').attr('data-original-title','Reset Password');
+	$('[data-toggle="tooltip"]').tooltip();
+});
+</script>
 </head>
 
 <body>
+	<!-- <div class="inform-fixed inform-shadow inform-animate">
+		<div class="inform">
+			<div class="inform-message-wrap w3-animate-right">
+				<div class="inform-message alert alert-success alert-dismissible" role="alert">
+					<button type="button" class="close"><span>×</span></button>
+					<span class="inform-message-content ng-binding">Data received from server</span>
+				</div>
+			</div>
+		</div>
+	</div> -->
+	<c:if test="${not empty msg}">
+		<div class="msgcss">
+			<div class="col-sm-offset-8 col-sm-4">
+				<div class="form-group w3-animate-right">
+					<div class="alert alert-${cssMsg}">${msg}</div>
+				</div>
+			</div>
+		</div>
+	</c:if>
+	
 	<div id="navigation">
 		<div class="container-fluid">
 			<a href="#" id="brand">&nbsp;AARNA</a>
@@ -262,4 +282,3 @@ span.impColor{color: red;}
 		</div>
 	</div>
 	
-		

@@ -3,15 +3,14 @@
 	
 	<!-- Nice Scroll -->
 	<script src="${baseurl }/js/plugins/nicescroll/jquery.nicescroll.min.js"></script>
-	<!-- Bootstrap -->
-	<%-- <script src="${baseurl }/js/bootstrap.min.js"></script> --%>
 	<!-- jQuery UI -->
 	<script src="${baseurl }/js/plugins/jquery-ui/jquery-ui.js"></script>
 	<!-- Touch enable for jquery UI -->
 	<script src="${baseurl }/js/plugins/touch-punch/jquery.touch-punch.min.js"></script>
 	<!-- slimScroll -->
-	<script src="${baseurl }/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-	
+	<script src="${baseurl }/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>	
+	<!-- Bootstrap -->
+	<script src="${baseurl }/js/bootstrap.min.js"></script>
 	<!-- vmap -->
 	<script src="${baseurl }/js/plugins/vmap/jquery.vmap.min.js"></script>
 	<script src="${baseurl }/js/plugins/vmap/jquery.vmap.world.js"></script>
@@ -44,13 +43,13 @@
 	<!-- Just for demonstration -->
 	<script src="${baseurl }/js/demonstration.min.js"></script>
 	
-<script src="${baseurl }/js/plugins/datatables/jquery.dataTables.min.js"></script>
+	<!-- Datatables -->
+	<script src="${baseurl }/js/plugins/datatables/jquery.dataTables.min.js"></script>
 	<script src="${baseurl }/js/plugins/datatables/extensions/dataTables.tableTools.min.js"></script>
 	<script src="${baseurl }/js/plugins/datatables/extensions/dataTables.colReorder.min.js"></script>
 	<script src="${baseurl }/js/plugins/datatables/extensions/dataTables.colVis.min.js"></script>
 	<script src="${baseurl }/js/plugins/datatables/extensions/dataTables.scroller.min.js"></script>
 	<script src="${baseurl }/js/ajax.js"></script>
-	<script src="${baseurl }/js/custemValidation.js"></script>
 	<script src="${baseurl }/js/chosen.jquery.js"></script>
 	 <script src="${baseurl }/js/prism.js" type="text/javascript" charset="utf-8"></script>
   <script src="${baseurl }/js/init.js" type="text/javascript" charset="utf-8"></script>
