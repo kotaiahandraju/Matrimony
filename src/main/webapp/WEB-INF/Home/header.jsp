@@ -207,11 +207,11 @@ $(document).ready(function(){
 					</a>
 				</li>
 				
-				<li class="profiles">
-					<a href="${baseurl }/admin/updatedProfiles">
-						<span>Updated Profiles</span>
-					</a>
-				</li>
+<!-- 				<li class="profiles"> -->
+<%-- 					<a href="${baseurl }/admin/updatedProfiles"> --%>
+<!-- 						<span>Updated Profiles</span> -->
+<!-- 					</a> -->
+<!-- 				</li> -->
 			</ul>
 			<div class="user">
 				<ul class="icon-nav">
