@@ -73,6 +73,9 @@
 		<definition name="deleteProfiles" extends="base.definition">
 		<put-attribute name="body" value="/WEB-INF/pages/deleteProfiles.jsp" />
 	</definition>
+	<definition name="hiddenProfiles" extends="base.definition">
+		<put-attribute name="body" value="/WEB-INF/pages/hiddenProfiles.jsp" />
+	</definition>
 	<definition name="inactiveProfiles" extends="base.definition">
 		<put-attribute name="body" value="/WEB-INF/pages/inactiveProfiles.jsp" />
 	</definition>
@@ -97,6 +100,12 @@
 	</definition>
 	<definition name="SalaryHome" extends="base.definition">
 		<put-attribute name="body" value="/WEB-INF/pages/salary.jsp" />
+	</definition>
+	<definition name="interestRequests" extends="base.definition">
+		<put-attribute name="body" value="/WEB-INF/pages/interestRequests.jsp" />
+	</definition>
+	<definition name="userFullProfile" extends="base.definition">
+		<put-attribute name="body" value="/WEB-INF/pages/userFullProfile.jsp" />
 	</definition>
 </tiles-definitions>
 

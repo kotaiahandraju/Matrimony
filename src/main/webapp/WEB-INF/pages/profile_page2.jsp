@@ -68,7 +68,7 @@ if(session.getAttribute("cacheGuest") != null){
       
 		<div class="col-md-5">
 			<div class="cart box_1">
-				<p>Dear, <%= userBean.getFirstName() %> <%= userBean.getLastName() %> | &nbsp;&nbsp;<a href="paymentDetails" >Upgrade</a> &nbsp;&nbsp;|&nbsp;&nbsp; <a href="#" >Help</a> &nbsp;&nbsp;|&nbsp;&nbsp; <a href="logoutHome" >Signout</a></p>
+				<p>Dear, <%= userBean.getFirstName() %> <%= userBean.getLastName() %> | &nbsp;&nbsp;<a href="#" >Upgrade</a> &nbsp;&nbsp;|&nbsp;&nbsp; <a href="#" >Help</a> &nbsp;&nbsp;|&nbsp;&nbsp; <a href="logoutHome" >Signout</a></p>
 				<div class="clearfix"> </div>
 			</div>				 
 		</div>
@@ -87,9 +87,9 @@ if(session.getAttribute("cacheGuest") != null){
 		 <div class="menu_sec">
 		 <!-- start header menu -->
 		<ul class="megamenu skyblue">
-			<li><a class="color1" href="dashboard">Dashboard</a></li>
-			<li class="active"><a class="color1" href="myProfile">My Profile</a></li>
-            <li><a class="color1" href="myPhotos">My Photos</a></li>
+			<li class="active" ><a class="color1" href="profileView">Dashboard</a></li>
+			<li><a class="color1" href="#">My Profile</a></li>
+            <li><a class="color1" href="#">My Photos</a></li>
             <li><a class="color1" href="searchProfiles">Search</a></li>
              <li><a class="color1" href="#">More</a></li>
 		</ul> 
@@ -207,9 +207,23 @@ if(session.getAttribute("cacheGuest") != null){
              
                 
                 
-                <div class="col-md-9 products-grid-left">
-					
-            <div class="panel panel-default">
+                <div class="col-md-6 products-grid-left">
+					<div class="panel panel-default">
+				<div class="panel-body">
+					Complete the remaining Profile
+               <div class="progress">
+  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
+  aria-valuemin="0" aria-valuemax="100" style="width:${profile_filled_status}%">
+    <%= session.getAttribute("profile_filled_status") %>% Complete 
+  </div>
+</div>
+				<p>
+                <span class="glyphicon glyphicon-envelope"></span> Verify your Email <a href="#"><u>Verify Email Address</u></a>
+                </p>
+				</div>
+				
+			</div>
+            
             
             <div class="panel-body">
 				<div class="col-md-3">
@@ -219,51 +233,96 @@ if(session.getAttribute("cacheGuest") != null){
 					<c:if test="${empty cacheGuest.profileImage}">
 						<img src="img/default.png" class="img-responsive thumbnail" style="margin-bottom:0;">
 					</c:if>
-					<label><b>${cacheGuest.username}</b></label>
+					<label><b>${empty cacheGuest.username}</b></label>
             	</div>
-            	<div class="col-md-9 well">
+            	<div class="col-md-6">
             	<table>
-            		<tr><th>Name</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>${profileBean.firstName}</span></td></tr>
-            		<tr><th>SurName</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>${profileBean.lastName} </span></td></tr>
-            		<tr><th>Gender</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>${profileBean.gender} </span></td></tr>
-            		<tr><th>Date of Birth</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>${profileBean.dob} </span></td></tr>
-            		<tr><th>Caste</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>${profileBean.casteName} </span></td></tr>
-            		<tr><th>Religion</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>${profileBean.religionName}</span></td></tr>
-            		<tr><th>Marital Status</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>${profileBean.maritalStatus}</span></td></tr>
-            		<tr><th>Education</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>${profileBean.educationName} </span></td></tr>
-            		<tr><th>Profession</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>${profileBean.occupationName}</span></td></tr>
-            		<tr><th>Working with</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>${profileBean.workingWith}</span></td></tr>
-            		<tr><th>Annual Income</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>${profileBean.annualIncome}</span></td></tr>
-            		<tr><th>City</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>${profileBean.currentCityName} </span></td></tr>
-            		<tr><th>State</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>${profileBean.currentStateName} </span></td></tr>
-            		<tr><th>Country</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>${profileBean.currentCountryName} </span></td></tr>
-            		
-            		
-            		<tr><th>Mothertongue</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>${profileBean.motherTongueName} </span></td></tr>
-            		<tr><th>E-mail</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>${profileBean.email} </span></td></tr>
-            		<tr><th>Gotram</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>${profileBean.gotram} </span></td></tr>
-            		<tr><th>Nakshatram</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>${profileBean.starName} </span></td></tr>
-            		<tr><th>Dosham</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>${profileBean.dosam} </span></td></tr>
-            		<tr><th>Dosham Name</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>${profileBean.dosamName} </span></td></tr>
-            		<tr><th>Diet</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>${profileBean.diet} </span></td></tr>
-            		<tr><th>Smoking</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>${profileBean.smoking} </span></td></tr>
-            		<tr><th>Drinking</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>${profileBean.drinking} </span></td></tr>
-            		<tr><th>Height</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>${profileBean.heightInches} </span></td></tr>
-            		<tr><th>Body Type</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>${profileBean.bodyTypeName} </span></td></tr>
-            		<tr><th>Complexion</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>${profileBean.complexionName} </span></td></tr>
-            		<tr><th>Disability</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>${cacheGuest.disability} </span></td></tr>
+            		<tr><td>Name</td><td><span>:	${cacheGuest.firstName}</span></td></tr>
+            		<tr><td>Sur Name</td><td><span>:${cacheGuest.lastName} </span></td></tr>
+            		<tr><td>Gender</td><td><span>:${cacheGuest.gender} </span></td></tr>
+            		<tr><td>Caste</td><td><span>:${cacheGuest.casteName} </span></td></tr>
+            		<tr><td>Religion</td><td><span>: ${cacheGuest.religionName}</span></td></tr>
+            		<tr><td>Marital Status</td><td><span>: ${cacheGuest.maritalStatus}</span></td></tr>
+            		<tr><td>Education</td><td><span>:${cacheGuest.educationName} </span></td></tr>
+            		<tr><td>Profession</td><td><span>: ${cacheGuest.occupationName}</span></td></tr>
+            		<tr><td>City</td><td><span>:${cacheGuest.currentCityName} </span></td></tr>
             	</table>
             	</div>
-         </div></div>
+         </div>
 				</div>
                 
                 
                 
                 
                 
-              
+              <div class="col-md-3 products-grid-right">
+					
+                    
+                    
+                  <div class="panel panel-default">
+				<div class="panel-heading">
+					<h4 class="panel-title">
+						Partner Search
+					</h4>
+				</div>
+				<div class="panel-body">
+					
+<form:form commandName="createProfile"  action="searchProfile" method="post" class="form-horizontal">
+<fieldset>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="textinput">Age</label>  
+  <div class="col-md-4">
+  	<select  id="rAgeFrom" class="form-control" style="padding: 0px;"></select>
+<!--   	<input type="number" min="20" max="55" name="ageFrom" placeholder="from" class="form-control"/> -->
+<!--    <input id="textinput" name="textinput" type="text" placeholder="Age" class="form-control input-md"> -->
+  </div>
+  <div class="col-md-4">
+  	<select  id="rAgeTo" class="form-control" style="padding: 0px;"></select>
+<!--   	<input type="number" min="20" max="55" name="ageTo" placeholder="to" class="form-control"/> -->
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="textinput">Education</label>  
+  <div class="col-md-8">
+  	<form:select path="rEducation" class="form-control">
+		<form:option value="">-- Education --</form:option>
+		<form:options items="${education}"></form:options>
+	</form:select>
+<!--   <input id="textinput" name="textinput" type="text" placeholder="Education" class="form-control input-md"> -->
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="textinput">Location</label>  
+  <div class="col-md-8">
+  	<form:select path="currentCity" class="form-control">
+		<form:option value="">-- Location --</form:option>
+		<form:options items="${citys}"></form:options>
+	</form:select>
+<!--   <input id="textinput" name="textinput" type="text" placeholder="Location" class="form-control input-md"> -->
+    
+  </div>
+</div>
+
+<!-- Button -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="singlebutton"></label>
+  <div class="col-md-8">
+    <button id="singlebutton" name="singlebutton" class="btn btn-primary" type="submit">Search</button>
+  </div>
+</div>
+
+</fieldset>
+</form:form>
+				</div>
 			</div>  
-            
+            <br>
+            <img src="user/images/ad.jpg"  class="img-responsive"></div>
 				<div class="clearfix"></div>
 			</div>
 		</div>
@@ -312,6 +371,79 @@ if(session.getAttribute("cacheGuest") != null){
 <script src="js/ajax.js"></script>
 <script type="text/javascript">
 
+$(function(){
+    $("#rAgeFrom").append('<option value="">From</option>');
+    $("#rAgeTo").append('<option value="">To</option>');
+    for (var i=18;i<=55;i++){
+        $("#rAgeFrom").append('<option value='+i+'>'+i+'</option>');
+    }
+    for (var i=18;i<=55;i++){
+        $("#rAgeTo").append('<option value='+i+'>'+i+'</option>');
+    }
+});
+
+/* var listOrders1 = ${allOrders1};
+if (listOrders1 != "") {
+	displayMatches(listOrders1);
+} */
+function displayMatches(listOrders) {
+	$('#matches').html('');
+	serviceUnitArray = {};
+	$.each(listOrders,function(i, orderObj) 
+	{
+		serviceUnitArray[orderObj.id] = orderObj;
+		
+		var array = null;
+// 		var imageUrl =null;
+		
+		var image = null; image = orderObj.image;
+		if(image == "" || image == null || image == "undefined"){
+			image = "img/default.png";
+		}
+		else{
+		array = image.split(",");
+		
+		$.each(array,function(i){
+			image = array[i];
+// 			   alert(array[i]);
+			});
+		}
+		if(orderObj.firstName !=null)
+		{
+			var login_user_role_id = ${cacheGuest.roleId};
+			var mobile_no__str = '';
+			if((login_user_role_id == 6) || (login_user_role_id == 11)){ //means premium user
+				mobile_no__str = '<tr id="row'+orderObj.id+'"><td><button class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button></td></tr>';
+				//more_details_str = '<tr><td><span><a href="#" onclick="showMoreDetails(this)">read more...</a></span></td></tr>';
+				//mobile_no__str = '<tr><td><span><a href="#" onclick="viewMobileNumber('+orderObj.id+')">View Mobile Number</a></span></td></tr>';
+			}
+			var tblRow = '<div class="row container-fluid">'
+				+ '<div class="col-md-2" style="margin-right:0; padding-right:0;">'
+	            + 	"<img src="+image+" class='img-responsive thumbnail' style='margin-bottom: 0px;'>"
+	            + '</div>'
+	            + '<div class="col-md-9">'
+	            + 	'<div class="profilesimilar">'
+	            + 		'<table width="100%" border="0" cellspacing="0" cellpadding="0">'
+	            + 			'<tr><td><h4>'+orderObj.firstName+'&nbsp;'+orderObj.lastName+'</h4></td></tr>'
+	            + 			'<tr><td><p>'+orderObj.dob+', '+orderObj.religionName+', '+orderObj.casteName+',</p></td></tr>'
+	            + 			'<tr><td><p>'+orderObj.age+'&nbsp'+orderObj.occupationName+', '+orderObj.currentCityName+', '+orderObj.currentCountryName+'.</p></td></tr>'
+	            +			mobile_no__str
+	            + 			'<tr><td><span>Full Profile</span> >></td></tr>'
+	            + 		'</table>'
+	            + 	'</div>'
+	            + '</div>'
+	            + '<div class="clearfix"></div>'
+	            + '<hr>'
+	            + '</div>';
+	        /* var login_user_role_id = ${cacheGuest.roleId};
+	        if(login_user_role_id==4){ // means free user
+	        	$("#mobileBtn"+orderObj.id).prop("disabled",true);
+	        } */
+			$(tblRow).appendTo("#matches"); 
+		}
+	});
+}
+
 function displayMobileNum(profileId,listType){
 	 var profileObj = serviceUnitArray[profileId];
 	var formData = new FormData();
@@ -333,7 +465,38 @@ function displayMobileNum(profileId,listType){
 	
 }
 
+/* function searchProfiles(){
+	
+	var ageFrom = $("#ageFrom").val();
+	var ageTo = $("#ageTo").val();
+	var edu = $("#education").val();
+	var loc = $("#currentCity").val();
+	var formData = new FormData();
 
+	formData.append('ageFrom',ageFrom);
+	formData.append('ageTo',ageTo);
+	formData.append('education',edu);
+	formData.append('currentCity',loc);
+	jQuery.fn.makeMultipartRequest('POST', 'searchProfiles', false,
+			formData, false, 'text', function(data){
+    		var jsonobj = $.parseJSON(data);
+    		var filtered_list = jsonobj.filtered_profiles;
+    		$('#countId').html('');
+    		if(filtered_list==""){
+    			$('#countId').html('0');
+    			var str = '<div class="panel panel-default"><h6>No results found.</h6></div>';
+    			$('#searchResults').html('');
+    			$(str).appendTo("#searchResults");
+    		}else{
+    			$('#countId').html(filtered_list.length);
+    			displayMatches(filtered_list);
+    		}
+    		var location = $("#loc").val();
+    		window.location.href =location+"/searchProfile";
+			
+		});
+}
+ */
 </script>
 
 </body>

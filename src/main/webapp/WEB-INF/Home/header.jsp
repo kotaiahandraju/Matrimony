@@ -24,7 +24,6 @@ session.setAttribute("baseurl", baseurl);
 	
 	<!-- 	animate zoom -->
 	<link rel="stylesheet" href="${baseurl }/css/w3animate.css">
-<%-- 	<link rel="stylesheet" href="${baseurl }/css/animate.min.css"> --%>
 	<!-- Bootstrap -->
 	<link rel="stylesheet" href="${baseurl }/css/bootstrap.min.css">
 	<!-- jQuery UI -->
@@ -60,6 +59,30 @@ session.setAttribute("baseurl", baseurl);
 				$('input, textarea').placeholder();
 			});
 		</script>
+	<![endif]-->
+	
+	<script>
+		window.setTimeout(function() {
+		    $(".msgcss").fadeTo(500, 0).slideUp(500, function(){
+		        $(this).remove(); 
+		    });
+		}, 5000);
+		$(document).ready(function(){
+			$('.edit').attr('data-toggle','tooltip');
+			$('.edit').attr('data-original-title','Edit');
+			$('.delete').attr('data-toggle','tooltip');
+			$('.delete').attr('data-original-title','Delete');
+			$('[data-toggle="tooltip"]').tooltip();
+		});
+	</script>
+
+	<!--[if lte IE 9]>
+		<script src="js/plugins/placeholder/jquery.placeholder.min.js"></script>
+		<script>
+			$(document).ready(function() {
+				$('input, textarea').placeholder();
+			});
+		</script>
 		<![endif]-->
 
 	<!-- Favicon -->
@@ -79,6 +102,8 @@ span.has-error,span.hasError
 
 .error{color: red; font-weight: bold;}
 
+.edit, .delete, .active, .deactive {cursor: pointer;}
+
 .alert-success, .alert-warning, .alert-danger{color: white !important;}
 .alert-success{background-color: #4CAF50 !important;}
 .alert-warning{background-color: #ff6600 !important;}
@@ -93,20 +118,6 @@ span.has-error,span.hasError
 .form-horizontal .control-label{text-align: right;}
 span.impColor{color: red;}
 </style>
-<script>
-		window.setTimeout(function() {
-		    $(".msgcss").fadeTo(500, 0).slideUp(500, function(){
-		        $(this).remove(); 
-		    });
-		}, 5000);
-		$(document).ready(function(){
-			$('.edit').attr('data-toggle','tooltip');
-			$('.edit').attr('data-original-title','Edit');
-			$('.delete').attr('data-toggle','tooltip');
-			$('.delete').attr('data-original-title','Delete');
-			$('[data-toggle="tooltip"]').tooltip();
-		});
-	</script>
 </head>
 
 <body>
@@ -165,10 +176,22 @@ span.impColor{color: red;}
 						<li class="adminProfiles"><a href="${baseurl }/admin/AdminRegisterProfiles">Admin Register Profiles</a></li>
 						<li class="freeProfiles"><a href="${baseurl }/admin/FreeRegisterProfile">Free Register Profiles</a></li>
 						<li class="premiumProfiles"><a href="${baseurl }/admin/PremiumProfile">Premium Profiles</a></li>
+						<li class="hiddenProfiles"><a href="${baseurl }/admin/HiddenProfilesHome">Hidden Profiles</a></li>
 						 
 					</ul>
 				</li>
 				
+				<li class="profiles">
+					<a href="${baseurl }/admin/interestRequests">
+						<span>Interest Requests</span>
+					</a>
+				</li>
+				
+				<li class="profiles">
+					<a href="${baseurl }/admin/updatedProfiles">
+						<span>Updated Profiles</span>
+					</a>
+				</li>
 			</ul>
 			<div class="user">
 				<ul class="icon-nav">

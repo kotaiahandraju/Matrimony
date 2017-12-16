@@ -88,8 +88,8 @@ if(session.getAttribute("cacheGuest") != null){
 		 <!-- start header menu -->
 		<ul class="megamenu skyblue">
 			<li><a class="color1" href="dashboard">Dashboard</a></li>
-			<li class="active"><a class="color1" href="myProfile">My Profile</a></li>
-            <li><a class="color1" href="myPhotos">My Photos</a></li>
+			<li><a class="color1" href="myProfile">My Profile</a></li>
+            <li class="active"><a class="color1" href="myPhotos">My Photos</a></li>
             <li><a class="color1" href="searchProfiles">Search</a></li>
              <li><a class="color1" href="#">More</a></li>
 		</ul> 
@@ -212,48 +212,51 @@ if(session.getAttribute("cacheGuest") != null){
             <div class="panel panel-default">
             
             <div class="panel-body">
-				<div class="col-md-3">
-					<c:if test="${not empty cacheGuest.profileImage}">
-						<img src="${cacheGuest.profileImage}" class="img-responsive thumbnail" style="margin-bottom:0;">
-					</c:if>
-					<c:if test="${empty cacheGuest.profileImage}">
-						<img src="img/default.png" class="img-responsive thumbnail" style="margin-bottom:0;">
-					</c:if>
-					<label><b>${cacheGuest.username}</b></label>
-            	</div>
-            	<div class="col-md-9 well">
-            	<table>
-            		<tr><th>Name</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>${profileBean.firstName}</span></td></tr>
-            		<tr><th>SurName</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>${profileBean.lastName} </span></td></tr>
-            		<tr><th>Gender</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>${profileBean.gender} </span></td></tr>
-            		<tr><th>Date of Birth</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>${profileBean.dob} </span></td></tr>
-            		<tr><th>Caste</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>${profileBean.casteName} </span></td></tr>
-            		<tr><th>Religion</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>${profileBean.religionName}</span></td></tr>
-            		<tr><th>Marital Status</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>${profileBean.maritalStatus}</span></td></tr>
-            		<tr><th>Education</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>${profileBean.educationName} </span></td></tr>
-            		<tr><th>Profession</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>${profileBean.occupationName}</span></td></tr>
-            		<tr><th>Working with</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>${profileBean.workingWith}</span></td></tr>
-            		<tr><th>Annual Income</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>${profileBean.annualIncome}</span></td></tr>
-            		<tr><th>City</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>${profileBean.currentCityName} </span></td></tr>
-            		<tr><th>State</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>${profileBean.currentStateName} </span></td></tr>
-            		<tr><th>Country</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>${profileBean.currentCountryName} </span></td></tr>
-            		
-            		
-            		<tr><th>Mothertongue</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>${profileBean.motherTongueName} </span></td></tr>
-            		<tr><th>E-mail</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>${profileBean.email} </span></td></tr>
-            		<tr><th>Gotram</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>${profileBean.gotram} </span></td></tr>
-            		<tr><th>Nakshatram</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>${profileBean.starName} </span></td></tr>
-            		<tr><th>Dosham</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>${profileBean.dosam} </span></td></tr>
-            		<tr><th>Dosham Name</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>${profileBean.dosamName} </span></td></tr>
-            		<tr><th>Diet</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>${profileBean.diet} </span></td></tr>
-            		<tr><th>Smoking</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>${profileBean.smoking} </span></td></tr>
-            		<tr><th>Drinking</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>${profileBean.drinking} </span></td></tr>
-            		<tr><th>Height</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>${profileBean.heightInches} </span></td></tr>
-            		<tr><th>Body Type</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>${profileBean.bodyTypeName} </span></td></tr>
-            		<tr><th>Complexion</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>${profileBean.complexionName} </span></td></tr>
-            		<tr><th>Disability</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>${cacheGuest.disability} </span></td></tr>
-            	</table>
-            	</div>
+				<div id="imagesDiv" class="row" style="margin-bottom: 0.4em;">
+			      	<c:forEach items="${photosList}" var="photo" >
+			      		<div class="col-md-2">
+			      			<img src="${photo.image}" class="img-responsive thumbnail" style="margin-bottom:0;">
+			      		</div>
+					</c:forEach>
+			    	
+			    </div>
+   
+			   <div class="col-md-8">
+			   	<fieldset>
+			   		
+			   		<div id="secondForm">
+			   			<div class="col-md-12">
+					      <h3>Upload photo.</h3>
+					    </div>
+					    <div class="form-group">
+					      <div class="col-md-8">
+					      	<input type="file" id='imageName'  onchange="checkImg(this)"><br>
+					    	
+					      </div>
+					    </div>
+					    <div class="form-group">
+					    	<div class="col-md-8">
+					    	<img alt="Preview" id="previewImg" align="middle" style="border-style: solid;height: 100px;width: 100px;border-bottom-style: none;border-left-style: none;border-top-style: none;">
+					    	</div>
+					    </div>
+					    <div class="form-group">
+					    	<div class="col-md-8">
+					    		<input type="button" id="uploadBtn" value="Upload Photo" onclick="imageAjax()">
+					    	</div>
+					    </div>
+					    
+			   		</div>
+			   	</fieldset>
+			   </div>
+   
+    
+    
+    
+   <div class="clearfix"></div>
+   
+   </div>
+   
+   </div> 
          </div></div>
 				</div>
                 
@@ -264,10 +267,7 @@ if(session.getAttribute("cacheGuest") != null){
               
 			</div>  
             
-				<div class="clearfix"></div>
-			</div>
-		</div>
-	</div>
+
 <!-- //products -->
 <!-- footer -->
 	<div class="footer">
@@ -311,29 +311,42 @@ if(session.getAttribute("cacheGuest") != null){
 <input type="hidden" name="loc" id="loc" value="${baseurl }" />
 <script src="js/ajax.js"></script>
 <script type="text/javascript">
-
-function displayMobileNum(profileId,listType){
-	 var profileObj = serviceUnitArray[profileId];
-	var formData = new FormData();
-	formData.append('profile_id',profileId);
-	formData.append('list_type',listType);
-	jQuery.fn.makeMultipartRequest('POST', 'viewedMobileNumber', false,
-			formData, false, 'text', function(data){
-    		var jsonobj = $.parseJSON(data);
-    		var msg = jsonobj.message;
-    		if(typeof msg != "undefined"){
-    			if(msg=="success"){
-    				$("#row"+profileId).html('<td>'+profileObj.mobile+'</td>');
-    			}else{
-    				alert("Some problem occured. Please try again.");
-    			}
-    		}
-    		
-	}); 
-	
+function checkImg(objImg)
+{
+	$("#previewImg").prop("src",window.URL.createObjectURL(objImg.files[0]));
 }
 
-
+	function imageAjax(){
+		$("#uploadBtn").prop("disabled",true);
+		$("#uploadBtn").val("Please wait...");
+	var formData = new FormData();
+	formData.append("imageName", imageName.files[0]);
+	//formData.append("id", id);
+	  $.fn.makeMultipartRequest('POST', 'photoUpload', false,
+				formData, false, 'text', function(data){
+		  	var jsonobj = $.parseJSON(data);
+		  	var msg = jsonobj.message;
+		  	var photosList = jsonobj.photosList;
+		  	if("success" == msg){
+		  		alert("Photo uploaded successfully.");
+		  		updateImagesList(photosList);
+		  	}else{
+		  		alert("Photo upload failed. Please try again.");
+		  	}
+		  	$("#uploadBtn").removeAttr("disabled");
+	   		$("#uploadBtn").val("Upload Photo");
+		});
+ }
+function updateImagesList(photosList){
+	var str = "";
+	$.each(photosList,function(i,photoObj){
+		 str += '<div class="col-md-2">'
+  			+'<img src="'+photoObj.image+'" class="img-responsive thumbnail" style="margin-bottom:0;">'
+  			+'</div>';
+		
+	});
+	$("#imagesDiv").html(str);
+}
 </script>
 
 </body>

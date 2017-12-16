@@ -118,8 +118,8 @@ span.item_price {
 .box_1 h3 img{
 	margin-left: 5px;
 }
-.box_1 p {
-  color: #000;
+..box_1 p {
+  color: #F00;
   font-size: 0.85em;
   margin: 0.5em 0.3em 0;
 }
@@ -1379,7 +1379,7 @@ span.valsa{
 }
 .sky-form h4{
 	margin-top: 10px;
-	background: #ECECEC;
+	background: #f0d5a6;
 	padding: 10px 20px;
 	color: #333333;
 	text-transform: uppercase;
@@ -3290,4 +3290,15 @@ label.radio {
 
 label {
     font-weight: 400;
+}
+
+.well {
+    min-height: 20px;
+    padding: 19px;
+    margin-bottom: 20px;
+    background-color: #ffebc8;
+    border: 1px solid #e3e3e3;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
 }

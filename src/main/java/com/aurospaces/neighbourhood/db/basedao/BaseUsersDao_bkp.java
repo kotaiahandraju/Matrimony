@@ -1,11 +1,18 @@
 
 package com.aurospaces.neighbourhood.db.basedao;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
+
+import javax.servlet.ServletContext;
 
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.LocalDate;
@@ -23,22 +30,21 @@ import com.aurospaces.neighbourhood.bean.Paymenthistory;
 import com.aurospaces.neighbourhood.bean.UsersBean;
 import com.aurospaces.neighbourhood.daosupport.CustomConnection;
 import com.aurospaces.neighbourhood.util.HRMSUtil;
-import com.aurospaces.neighbourhood.util.MiscUtils;
 
 
 
-public class BaseUsersDao{
+public class BaseUsersDao_bkp{
 
 //@Autowired public JdbcTemplate jdbcTemplate;
 @Autowired
 CustomConnection custom;
 JdbcTemplate jdbcTemplate;
+
+//@Autowired	ServletContext objContext;
  
-	public final String INSERT_SQL = "INSERT INTO users( created_time, updated_time, role_id, username, password, email, createProfileFor, gender, firstName, lastName, dob, religion, motherTongue, currentCountry, currentState, currentCity, maritalStatus, caste, gotram, star, dosam, dosamName, education, workingWith, companyName, annualIncome, monthlyIncome, diet, smoking, drinking, height, bodyType, complexion, mobile, aboutMyself, disability, status, showall,registerwith,fatherName, motherName, fOccupation, mOccupation, noOfBrothers, noOfSisters, noOfBrothersMarried, noOfSistersMarried,haveChildren,age) values (?, ?, ?, ?, AES_ENCRYPT(?,?), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?,?,?,?,?,?,?)"; 
-
-
-
-
+	 
+	public final String INSERT_SQL = "INSERT INTO users( created_time, updated_time, role_id, username, password, email, createProfileFor, gender, firstName, lastName, dob, religion, motherTongue, currentCountry, currentState, currentCity, maritalStatus, caste, gotram, star, dosam, dosamName, education, workingWith, companyName, annualIncome, monthlyIncome, diet, smoking, drinking, height, bodyType, complexion, mobile, aboutMyself, disability, status, showall,registerwith,fatherName, motherName, fOccupation, mOccupation, noOfBrothers, noOfSisters, noOfBrothersMarried, noOfSistersMarried,haveChildren,age) values (?, ?, ?, concat('AM',(select auto_increment from INFORMATION_SCHEMA.TABLES " 
+			+" where TABLE_SCHEMA = 'vasireddy1' AND TABLE_NAME = 'users')), AES_ENCRYPT(?,?), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?,?,?,?,?,?,?)";
 
 	/* this should be conditional based on whether the id is present or not */
 	@Transactional
@@ -46,7 +52,21 @@ JdbcTemplate jdbcTemplate;
 	{
 		jdbcTemplate = custom.getJdbcTemplate();
 	if(users.getId() == 0)	{
-
+		
+		/*InputStream input = null;
+		String body = null;
+		Properties prop = new Properties();
+		String propertiespath = objContext.getRealPath("Resources" +File.separator+"DataBase.properties");
+		try {
+			input = new FileInputStream(propertiespath);
+			prop.load(input);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String databaseName = prop.getProperty("db");
+		final String INSERT_SQL = "INSERT INTO users( created_time, updated_time, role_id, username, password, email, createProfileFor, gender, firstName, lastName, dob, religion, motherTongue, currentCountry, currentState, currentCity, maritalStatus, caste, gotram, star, dosam, dosamName, education, workingWith, companyName, annualIncome, monthlyIncome, diet, smoking, drinking, height, bodyType, complexion, mobile, aboutMyself, disability, status, showall,registerwith,fatherName, motherName, fOccupation, mOccupation, noOfBrothers, noOfSisters, noOfBrothersMarried, noOfSistersMarried,haveChildren,age) values (?, ?, ?, concat('AM',(select auto_increment from INFORMATION_SCHEMA.TABLES " 
+				+" where TABLE_SCHEMA = '"+databaseName+"' AND TABLE_NAME = 'users')), AES_ENCRYPT(?,?), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?,?,?,?,?,?,?)";*/
 	KeyHolder keyHolder = new GeneratedKeyHolder();
 	int update = jdbcTemplate.update(
 			new PreparedStatementCreator() {
@@ -80,53 +100,53 @@ JdbcTemplate jdbcTemplate;
 	ps.setTimestamp(1, createdTime);
 ps.setTimestamp(2, updatedTime);
 ps.setInt(3, users.getRoleId());
-ps.setString(4, users.getUsername());
-ps.setString(5, users.getPassword());
-ps.setString(6, "mykey");
-ps.setString(7, users.getEmail());
-ps.setString(8, users.getCreateProfileFor());
-ps.setString(9, users.getGender());
-ps.setString(10, users.getFirstName());
-ps.setString(11, users.getLastName());
-ps.setTimestamp(12, new java.sql.Timestamp(users.getDob1().getTime()));
-ps.setString(13, users.getReligion());
-ps.setString(14, users.getMotherTongue());
-ps.setString(15, users.getCurrentCountry());
-ps.setString(16, users.getCurrentState());
-ps.setString(17, users.getCurrentCity());
-ps.setString(18, users.getMaritalStatus());
-ps.setString(19, users.getCaste());
-ps.setString(20, users.getGotram());
-ps.setString(21, users.getStar());
-ps.setString(22, users.getDosam());
-ps.setString(23, users.getDosamName());
-ps.setString(24, users.getEducation());
-ps.setString(25, users.getWorkingWith());
-ps.setString(26, users.getCompanyName());
-ps.setString(27, users.getAnnualIncome());
-ps.setString(28, users.getMonthlyIncome());
-ps.setString(29, users.getDiet());
-ps.setString(30, users.getSmoking());
-ps.setString(31, users.getDrinking());
-ps.setString(32, users.getHeight());
-ps.setString(33, users.getBodyType());
-ps.setString(34, users.getComplexion());
-ps.setString(35, users.getMobile());
-ps.setString(36, users.getAboutMyself());
-ps.setString(37, users.getDisability());
-ps.setString(38, users.getStatus());
-ps.setString(39, users.getShowall());
-ps.setString(40, users.getRegisterwith());
-ps.setString(41, users.getFatherName());
-ps.setString(42, users.getMotherName());
-ps.setString(43, users.getfOccupation());
-ps.setString(44, users.getmOccupation());
-ps.setString(45, users.getNoOfBrothers());
-ps.setString(46, users.getNoOfSisters());
-ps.setString(47, users.getNoOfBrothersMarried());
-ps.setString(48, users.getNoOfSistersMarried());
-ps.setString(49, users.getHaveChildren());
-ps.setString(50, age+"");
+//ps.setString(4, users.getUsername());
+ps.setString(4, users.getPassword());
+ps.setString(5, "mykey");
+ps.setString(6, users.getEmail());
+ps.setString(7, users.getCreateProfileFor());
+ps.setString(8, users.getGender());
+ps.setString(9, users.getFirstName());
+ps.setString(10, users.getLastName());
+ps.setTimestamp(11, new java.sql.Timestamp(users.getDob1().getTime()));
+ps.setString(12, users.getReligion());
+ps.setString(13, users.getMotherTongue());
+ps.setString(14, users.getCurrentCountry());
+ps.setString(15, users.getCurrentState());
+ps.setString(16, users.getCurrentCity());
+ps.setString(17, users.getMaritalStatus());
+ps.setString(18, users.getCaste());
+ps.setString(19, users.getGotram());
+ps.setString(20, users.getStar());
+ps.setString(21, users.getDosam());
+ps.setString(22, users.getDosamName());
+ps.setString(23, users.getEducation());
+ps.setString(24, users.getWorkingWith());
+ps.setString(25, users.getCompanyName());
+ps.setString(26, users.getAnnualIncome());
+ps.setString(27, users.getMonthlyIncome());
+ps.setString(28, users.getDiet());
+ps.setString(29, users.getSmoking());
+ps.setString(30, users.getDrinking());
+ps.setString(31, users.getHeight());
+ps.setString(32, users.getBodyType());
+ps.setString(33, users.getComplexion());
+ps.setString(34, users.getMobile());
+ps.setString(35, users.getAboutMyself());
+ps.setString(36, users.getDisability());
+ps.setString(37, users.getStatus());
+ps.setString(38, users.getShowall());
+ps.setString(39, users.getRegisterwith());
+ps.setString(40, users.getFatherName());
+ps.setString(41, users.getMotherName());
+ps.setString(42, users.getfOccupation());
+ps.setString(43, users.getmOccupation());
+ps.setString(44, users.getNoOfBrothers());
+ps.setString(45, users.getNoOfSisters());
+ps.setString(46, users.getNoOfBrothersMarried());
+ps.setString(47, users.getNoOfSistersMarried());
+ps.setString(48, users.getHaveChildren());
+ps.setString(49, age+"");
 
 							return ps;
 						}
@@ -135,11 +155,6 @@ ps.setString(50, age+"");
 				
 				Number unId = keyHolder.getKey();
 				users.setId(unId.intValue());
-				
-				if(StringUtils.isNotBlank(users.getCurrentCity())){
-					String sSql = "update users set username = concat('AM',(select city_code from city where id = "+users.getCurrentCity()+"),'"+MiscUtils.generateRandomNumber(6)+"') where id = "+users.getId();
-					int updated_count = jdbcTemplate.update(sSql);
-				}
 				
 
 		}

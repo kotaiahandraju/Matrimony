@@ -87,9 +87,9 @@ if(session.getAttribute("cacheGuest") != null){
 		 <div class="menu_sec">
 		 <!-- start header menu -->
 		<ul class="megamenu skyblue">
-			<li class="active" ><a class="color1" href="PreferredProfiles">Dashboard</a></li>
+			<li class="active" ><a class="color1" href="dashboard">Dashboard</a></li>
 			<li><a class="color1" href="myProfile">My Profile</a></li>
-            <li><a class="color1" href="#">My Photos</a></li>
+            <li><a class="color1" href="myPhotos">My Photos</a></li>
             <li><a class="color1" href="searchPage">Search</a></li>
              <li><a class="color1" href="#">More</a></li>
 		</ul> 
@@ -156,7 +156,7 @@ if(session.getAttribute("cacheGuest") != null){
                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td><a href="#">Invitations</a></td>
-    <td><div class="badge pull-right">15</div></td>
+    <td><div class="badge pull-right">${cacheGuest.receivedInterestCount}</div></td>
   </tr>
 </table>
 
@@ -176,7 +176,7 @@ if(session.getAttribute("cacheGuest") != null){
                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td><a href="#">Members</a></td>
-    <td><div class="badge pull-right">5</div></td>
+    <td><div class="badge pull-right">${cacheGuest.acceptedInterestCount}</div></td>
   </tr>
 </table>
 
@@ -196,7 +196,7 @@ if(session.getAttribute("cacheGuest") != null){
                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td><a href="#">Invitations</a></td>
-    <td><div class="badge pull-right">25</div></td>
+    <td><div class="badge pull-right">${cacheGuest.sentInterestCount}</div></td>
   </tr>
 </table>
 

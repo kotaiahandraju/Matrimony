@@ -110,7 +110,7 @@ body {
 
   <body>
   
-  
+  <input type="hidden" name="loc" id="loc" value="${baseurl }" />
   
   
         <div class="container">
@@ -149,106 +149,40 @@ body {
    <div class="midcontnet">
    
    <div class="col-md-8">
-   <form:form commandName="familyDetails" action="saveImproveFamilyDetails" class="form-horizontal" id="saveImproveFamilyDetails"  method="post">
-<fieldset>
-
-<!-- 2nd Step starts here-->
-<div id="secondForm">
-    <div class="col-md-12">
-      <h3>Please share some details about Cvbc's Family</h3>
-    </div>
-    <div class="form-group">
-      <label class="col-md-4 control-label" for="textinput">Father Name</label>  
-      <div class="col-md-8">
-      	<form:input path="fatherName" class="form-control onlyCharacters" placeholder="Enter Father Name"/>
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="col-md-4 control-label" for="textinput">Mother Name</label>  
-      <div class="col-md-8">
-      	<form:input path="motherName" class="form-control onlyCharacters" placeholder="Enter Mother Name"/>
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="col-md-4 control-label" for="textinput">Father's Occupation</label>  
-      <div class="col-md-8">
-      	<form:select path="fOccupation" class="form-control u1" >
-	<form:options items="${maleOccupation}"></form:options>
-		</form:select>
-      </div>
-    </div>
-    
-    <div class="form-group">
-      <label class="col-md-4 control-label" for="textinput">Mother's Occupation</label>  
-      <div class="col-md-8">
-      	<form:select path="mOccupation" class="form-control u1" >
-      	<form:options items="${occupation}"></form:options>
-		</form:select>
-      </div>
-    </div>
-<!--     fatherName, motherName, fOccupation, mOccupation, noOfBrothers, noOfSisters, noOfBrothersMarried, noOfSistersMarried -->
-    <div class="form-group">
-      <label class="col-md-4 control-label" for="textinput">No. of Brothers</label>  
-      <div class="col-md-2">
-      	<form:select path="noOfBrothers" class="form-control u1">
-			<form:option value="">-- Select --</form:option>
-			<form:option value="1">1</form:option>
-			<form:option value="2">2</form:option>
-			<form:option value="3">3</form:option>
-		</form:select>
-      </div>
-      <label class="col-md-2">of whom</label>
-      <div class="col-md-2">
-      	<form:select path="noOfBrothersMarried" class="form-control u1">
-			<form:option value="">-- Select --</form:option>
-			<form:option value="1">1</form:option>
-			<form:option value="2">2</form:option>
-			<form:option value="3">3</form:option>
-		</form:select>
-      </div>
-      <label class="col-md-2">are married</label>
-    </div>
-    
-    <div class="form-group">
-      <label class="col-md-4 control-label" for="textinput">No. of Sisters</label>  
-      <div class="col-md-2">
-      	<form:select path="noOfSisters" class="form-control u1">
-			<form:option value="">-- Select --</form:option>
-			<form:option value="1">1</form:option>
-			<form:option value="2">2</form:option>
-			<form:option value="3">3</form:option>
-		</form:select>
-      </div>
-      <label class="col-md-2">of whom</label>
-      <div class="col-md-2">
-      	<form:select path="noOfSistersMarried" class="form-control u1">
-			<form:option value="">-- Select --</form:option>
-			<form:option value="1">1</form:option>
-			<form:option value="2">2</form:option>
-			<form:option value="3">3</form:option>
-		</form:select>
-      </div>
-      <label class="col-md-2">are married</label>
-    </div>
-    
-
-    <div class="form-group">
-      <label class="col-md-4 control-label" for="textinput"></label>  
-      <div class="col-md-6">
-    	<button type="button" id="secondButton" class="btn2 btn btn-info" onclick="submitForm()">Continue</button>
-<!--     	<button type="button" id="skipsecondButton" class="btn2 btn btn-info" onclick="skip()">Skip</button> -->
-    	<a style="color: blue;text-decoration: none;" href="${baseurl}/uploadPhotos">&nbsp;&nbsp;Skip</a>
-      </div>
-    </div>
-</div>
-<!-- 2nd Step ends here-->
-
-</fieldset>
-</form:form>
-   
+   	<fieldset>
+   		<div id="secondForm">
+   			<div class="col-md-12">
+		      <h3>Upload photo.</h3>
+		    </div>
+		    <div class="form-group">
+		      <div class="col-md-8">
+		      	<input type="file" id='imageName'  onchange="checkImg(this)"><br>
+		    	
+		      </div>
+		    </div>
+		    <div class="form-group">
+		    	<div class="col-md-8">
+		    	<img alt="Preview" id="previewImg" align="middle" style="border-style: solid;height: 100px;width: 100px;border-bottom-style: none;border-left-style: none;border-top-style: none;">
+		    	</div>
+		    </div>
+		    <div class="form-group">
+		    	<div class="col-md-8">
+		    		<input type="button" id="uploadBtn" value="Upload Photo" onclick="imageAjax()">
+		    	</div>
+		    </div>
+		    <div class="form-group">
+		      <label class="col-md-4 control-label" for="textinput"></label>  
+		      <div class="col-md-6">
+		    	<button id="secondButton" class="btn2 btn btn-info" onclick="goToNextPage()">Continue/Skip</button>
+		      <!-- 	<a href="thankyou" class="btn1 btn btn-info">Continue</a> -->
+		      </div>
+		    </div>
+   		</div>
+   	</fieldset>
    </div>
    
-   <div class="col-md-4">
+    
+    <div class="col-md-4">
      <img src="user/images/pad.jpg" class="img-responsive">
    </div>
     
@@ -256,9 +190,8 @@ body {
    
    </div>
    
-   </div>  
-     
-
+   </div>   
+  
      
     
     
@@ -315,18 +248,39 @@ body {
     <script src="user/js/toucheffects.js"></script>
     <script src="js/custemValidation.js"></script>
     <script src="js/ajax.js"></script>
-    <script type="text/javascript" >
-    	function submitForm(){
-    		$("#saveImproveFamilyDetails").submit();
-    	}
-    
-	    function skip(){
-	    	var location = "${baseurl}";
-	    	window.location.href =location+"/uploadPhotos";
-	    	
-	    }
-    </script>
+    <script src="${baseurl }/js/jquery-ui.min.js"></script>
+    <script type="text/javascript">
 
+    function checkImg(objImg)
+    {
+    	$("#previewImg").prop("src",window.URL.createObjectURL(objImg.files[0]));
+    }
+    
+   	function imageAjax(){
+   		$("#uploadBtn").prop("disabled",true);
+   		$("#uploadBtn").val("Please wait...");
+		var formData = new FormData();
+		formData.append("imageName", imageName.files[0]);
+		//formData.append("id", id);
+		  $.fn.makeMultipartRequest('POST', 'photoUpload', false,
+					formData, false, 'text', function(data){
+			  	var jsonobj = $.parseJSON(data);
+			  	var msg = jsonobj.message;
+			  	if("success" == msg){
+			  		alert("Photo uploaded successfully.");
+			  	}else{
+			  		alert("Photo upload failed. Please try again.");
+			  	}
+			  	$("#uploadBtn").removeAttr("disabled");
+		   		$("#uploadBtn").val("Upload Photo");
+			});
+	 }
+   	function goToNextPage(){
+   		var location = $("#loc").val();
+   		window.location.href =location+"/partner-profile";
+   	}
+  
+ </script>
 </body>
 
 </html>

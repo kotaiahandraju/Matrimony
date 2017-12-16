@@ -87,11 +87,22 @@
 		margin-left: auto;
 	}
 }
+
+.alert-success, .alert-warning, .alert-danger{color: white !important;}
+.alert-success{background-color: #4CAF50 !important;}
+.alert-warning{background-color: #ff6600 !important;}
+.alert-danger{background-color: #d43f3a !important;}
+
 .your-class::-webkit-input-placeholder {color: #e73d4a !important;}
 .your-class::-moz-placeholder {color: #e73d4a !important;}
 
 .default-class::-webkit-input-placeholder {color: #e73d4a !important;}
 .default-class::-moz-placeholder {color: #e73d4a !important;}
+
+.impColor{color:red;}
+
+.edit, .delete, .active, .deactive {cursor: pointer;}
+
 span.has-error,span.hasError
 {
   font-weight: normal;
@@ -110,6 +121,13 @@ span.has-error,span.hasError
 	display: block !important;
 }
 </style>
+<script type="text/javascript">
+window.setTimeout(function() {
+    $(".msgcss").fadeTo(500, 0).slideUp(500, function(){
+        $(this).remove(); 
+    });
+}, 5000);
+</script>
 </head>
 
 <body id="page-top">
@@ -377,11 +395,11 @@ function validate(id, errorMessage)
 						<div class="quote-form row">
 							<!-- contact form -->
 							<form class="" action="loginAction" id="quote" name="quote" method="post">
-							<c:if test="${not empty msg}">
-								<div class="msgcss controls fadeOut animated alert alert-danger" style="animation-delay: 5s;">
-									${msg}
-								</div>
-							</c:if>
+								<c:if test="${not empty msg}">
+									<div class="form-group col-md-12" style="margin-bottom: 0px;">
+										<div class="msgcss fadeIn animated alert alert-danger">${msg}</div>
+									</div>
+								</c:if>
 								<div class="form-group col-md-12">
 									<input type="text" class="form-control" onblur="validate('userName','Username')" onkeydown="removeBorder(this.id)" name="userName" id="userName" placeholder="Username" required>
 								</div>
@@ -697,16 +715,27 @@ function validate(id, errorMessage)
 <script src="js/ajax.js"></script>
 <script src="js/jquery-ui.min.js"></script>
 <script type="text/javascript">
-
+/* $( document ).ready(function() {
+	$("#dob").datepicker({
+	    yearRange:"-100:-18",
+	    //changeDate : true,
+		changeMonth : true,
+		changeYear : true,
+	 	maxDate :new Date(),
+	 	defaultDate: new Date()
+//		yearRange: '1950:' + ss
+	});
+}); */
 var ss =new Date().getFullYear()-16;
-$("#dob").datepicker({
+ $("#dob").datepicker({
     dateFormat: "dd-MM-yy",
     changeDate : true,
 	changeMonth : true,
 	changeYear : true,
 // 	maxDate :0,
 	yearRange: '1950:' + ss
-});
+}); 
+
   
 
 

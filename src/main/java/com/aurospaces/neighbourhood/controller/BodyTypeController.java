@@ -32,7 +32,7 @@ public class BodyTypeController {
 	@RequestMapping(value = "/BodyTypeHome")
 	public String bodyTypeHome(@ModelAttribute("bodyTypeForm") BodyTypeBean objBodyTypeBean, ModelMap model,
 			HttpServletRequest request, HttpSession session) {
-		System.out.println("BodyTypeHome Page");
+//		System.out.println("BodyTypeHome Page");
 		List<BodyTypeBean> listOrderBeans = null;
 		ObjectMapper objectMapper = null;
 		String sJson = null;
@@ -62,7 +62,7 @@ public class BodyTypeController {
 	@RequestMapping(value = "/addBodyType")
 	public  String addBodyType(@Valid @ModelAttribute("bodyTypeForm")BodyTypeBean objBodyTypeBean, BindingResult result,
 			ModelMap model, HttpServletRequest request, HttpSession session, HttpServletResponse responses,RedirectAttributes redir){
-		System.out.println("addBodyType page...");
+//		System.out.println("addBodyType page...");
 		int id = 0;
 //		model.put("userForm", user);
 		try {
@@ -114,7 +114,7 @@ public class BodyTypeController {
 	}
 	@RequestMapping(value = "/deleteBodyType")
 	public @ResponseBody String deleteBodyType( BodyTypeBean objBodyTypeBean,ModelMap model,HttpServletRequest request,HttpSession session,BindingResult objBindingResult) {
-		System.out.println("deleteBodyType page...");
+//		System.out.println("deleteBodyType page...");
 		List<BodyTypeBean> listOrderBeans  = null;
 		JSONObject jsonObj = new JSONObject();
 		ObjectMapper objectMapper = null;

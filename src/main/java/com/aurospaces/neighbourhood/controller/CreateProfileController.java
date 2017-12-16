@@ -113,6 +113,7 @@ public class CreateProfileController {
 			 ipAddress =MiscUtils.getClientIpAddress(request);
 		
 			 request.setAttribute("pageName", pageName);
+			 request.setAttribute("userBean", objUsersBean);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -171,10 +172,11 @@ public class CreateProfileController {
 				if (objuserBean1 != null) {
 					objUsersBean.setRegisterwith(String.valueOf(objuserBean1.getId()));
 				}
-				msg = "inserted";
+				msg = "Inserted";
 			}else{
-				msg = "updated";
+				msg = "Updated";
 			}
+			objUsersBean.setUsername("AM"+MiscUtils.generateRandomNumber(6));
 			objUsersDao.save(objUsersBean);
 			objUsersBean.setUserId(objUsersBean.getId());
 			objUserrequirementDao.save(objUsersBean);

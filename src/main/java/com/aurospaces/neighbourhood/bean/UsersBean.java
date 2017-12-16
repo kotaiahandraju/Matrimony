@@ -78,6 +78,20 @@ protected String casteName;protected String religionName;protected String educat
 protected String occupationName;
 protected String currentCityName;
 protected String packageId;
+protected String redirectPage;
+protected String sentInterestCount;
+protected String receivedInterestCount;
+protected String acceptedInterestCount;
+protected boolean forEmail;
+protected String currentStateName;
+protected String currentCountryName;
+protected String motherTongueName;
+protected String starName;
+protected String heightInches;
+protected String complexionName;
+protected String bodyTypeName;
+protected int page_no;
+protected int total_records;
 
 
 public String getRhaveChildren() {
@@ -679,6 +693,90 @@ public String getPackageId() {
 }
 public void setPackageId(String packageId) {
 	this.packageId = packageId;
+}
+public String getRedirectPage() {
+	return redirectPage;
+}
+public void setRedirectPage(String redirectPage) {
+	this.redirectPage = redirectPage;
+}
+public String getSentInterestCount() {
+	return sentInterestCount;
+}
+public void setSentInterestCount(String sentInterestCount) {
+	this.sentInterestCount = sentInterestCount;
+}
+public String getReceivedInterestCount() {
+	return receivedInterestCount;
+}
+public void setReceivedInterestCount(String receivedInterestCount) {
+	this.receivedInterestCount = receivedInterestCount;
+}
+public String getAcceptedInterestCount() {
+	return acceptedInterestCount;
+}
+public void setAcceptedInterestCount(String acceptedInterestCount) {
+	this.acceptedInterestCount = acceptedInterestCount;
+}
+public boolean isForEmail() {
+	return forEmail;
+}
+public void setForEmail(boolean forEmail) {
+	this.forEmail = forEmail;
+}
+public String getCurrentStateName() {
+	return currentStateName;
+}
+public void setCurrentStateName(String currentStateName) {
+	this.currentStateName = currentStateName;
+}
+public String getCurrentCountryName() {
+	return currentCountryName;
+}
+public void setCurrentCountryName(String currentCountryName) {
+	this.currentCountryName = currentCountryName;
+}
+public String getMotherTongueName() {
+	return motherTongueName;
+}
+public void setMotherTongueName(String motherTongueName) {
+	this.motherTongueName = motherTongueName;
+}
+public String getStarName() {
+	return starName;
+}
+public void setStarName(String starName) {
+	this.starName = starName;
+}
+public String getHeightInches() {
+	return heightInches;
+}
+public void setHeightInches(String heightInches) {
+	this.heightInches = heightInches;
+}
+public String getComplexionName() {
+	return complexionName;
+}
+public void setComplexionName(String complexionName) {
+	this.complexionName = complexionName;
+}
+public String getBodyTypeName() {
+	return bodyTypeName;
+}
+public void setBodyTypeName(String bodyTypeName) {
+	this.bodyTypeName = bodyTypeName;
+}
+public int getPage_no() {
+	return page_no;
+}
+public void setPage_no(int page_no) {
+	this.page_no = page_no;
+}
+public int getTotal_records() {
+	return total_records;
+}
+public void setTotal_records(int total_records) {
+	this.total_records = total_records;
 }
 
 }

@@ -153,10 +153,10 @@ if(session.getAttribute("cacheGuest") != null){
 		<div class="menu_sec">
 		<!-- start header menu -->
 			<ul class="megamenu skyblue">
-				<li class="active" ><a class="color1" href="PreferredProfiles">Dashboard</a></li>
+				<li><a class="color1" href="dashboard">Dashboard</a></li>
 				<li><a class="color1" href="myProfile">My Profile</a></li>
-	            <li><a class="color1" href="#">My Photos</a></li>
-	            <li><a class="color1" href="searchProfiles">Search</a></li>
+	            <li><a class="color1" href="myPhotos">My Photos</a></li>
+	            <li class="active" ><a class="color1" href="searchProfiles">Search</a></li>
 	            <li><a class="color1" href="#">More</a></li>
 			</ul>
 			<div class="clearfix"></div>
@@ -168,6 +168,7 @@ if(session.getAttribute("cacheGuest") != null){
 	<div class="products">
 		<div class="container">
 			<form:form commandName="createProfile" class="form-horizontal" id="searchForm" role="form"   method="post">
+				
 			<div class="mid-grids">
 				<div class="col-md-3 products-grid-right">
 					<div class="w_sidebar">
@@ -259,19 +260,23 @@ if(session.getAttribute("cacheGuest") != null){
 					</div>
 				</div></div>
              </form:form>
-             <form:form commandName="createProfile" action="SearchResults" class="form-horizontal" id="searchForm2" role="form"   method="post">
+             <form:form commandName="createProfile"  class="form-horizontal" id="searchForm2" name="searchForm2" role="form"   method="post">
+             
              
              <div class="col-md-9">
 <div id="searchresultsDiv">
 	<div class="searchresults">
-    <h3>Your Search Results</h3>
-    <p><span id="countId">${count}</span> Profiles found <a href="searchProfiles">Modify Search</a></p>
-	<div id="searchResults">
-		
-	</div>
-</div>           
-   <div class="clearfix"></div>
+	    <h3>Your Search Results</h3>
+	    <p><span id="countId">${count}</span> Profiles found <a href="searchProfiles">Modify Search</a></p>
+		<div id="searchResults">
+			
+		</div>
+	</div>           
+    <div id="table_footer"></div>
+	<div id="altLists"></div>
 </div>
+
+
     <div class="clearfix"></div>
    <div id="search_criteria">
     <div class="form-group">
@@ -580,16 +585,32 @@ $(document).ready(function(){
 	</div>
 <!-- //footer -->
 <script src="js/ajax.js"></script>
+<script src="js/jquery-asPaginator.js"></script>
+<link rel="stylesheet" type="text/css" href="css/asPaginator.css">
 <script type="text/javascript">
+
+var total_items_count = ${total_records};
+var page_size = ${page_size};
  var listOrders1 = ${allOrders1};
-if (listOrders1 != "") {
+ 
+if (listOrders1 != "" && listOrders1 != null) {
 	$('#countId').html('');
-	$('#countId').html(listOrders1.length);
+	$('#countId').html(total_items_count);
+	paginationSetup(total_items_count);
+	$("#altLists").asPaginator('enable');
 	displayMatches(listOrders1);
-}else{
+	displayTableFooter(1);
+}else if (listOrders1 == null) {
 	$('#search_criteria').removeAttr("hidden");
 	$('#searchResults').html('');
 	$("#searchresultsDiv").prop("hidden",true);
+}else{
+	$('#countId').html('0');
+	var str = '<div class="panel panel-default"><h6>No results found.</h6></div>';
+	$('#searchResults').html('');
+	$(str).appendTo("#searchResults");
+	$('#search_criteria').prop("hidden",true);
+	$("#searchresultsDiv").removeAttr("hidden");
 } 
 function displayMatches(listOrders) {
 	$('#searchResults').html('');
@@ -675,7 +696,7 @@ function displayMatches(listOrders) {
             	+ '<c:if test="${(cacheGuest.roleId == 6)}">'
             	+ insert_str
 				+ '</c:if>	 '
-				+ '<button class="btn btn-danger btn-block">View Full Profile</button>'
+				+ '<button class="btn btn-danger btn-block" onclick="fullProfile('+orderObj.id+')">View Full Profile</button>'
             	+ '<div class="clearfix"></div>'
             	+ '</div>'
             	+ '</div>'
@@ -740,18 +761,27 @@ function updateProfilesList(){
     	jQuery.fn.makeMultipartRequest('POST', 'updateProfilesList', false,
     			formData, false, 'text', function(data){
 	    		var jsonobj = $.parseJSON(data);
-	    		var filtered_list = jsonobj.filtered_profiles;
+	    		var filtered_profiles = jsonobj.filtered_profiles;
+	    		var total_count = jsonobj.total_records;
 	    		$('#countId').html('');
 	    		$("#search_criteria").prop("hidden",true);
 	    		$('#searchresultsDiv').removeAttr("hidden");
-	    		if(filtered_list==""){
+	    		if(filtered_profiles==""){
 	    			$('#countId').html('0');
 	    			var str = '<div class="panel panel-default"><h6>No results found.</h6></div>';
 	    			$('#searchResults').html('');
 	    			$(str).appendTo("#searchResults");
+	    			$("#table_footer").prop("hidden",true);
+	    			$("#altLists").prop("hidden",true);
 	    		}else{
-	    			$('#countId').html(filtered_list.length);
-	    			displayMatches(filtered_list);
+	    			$('#countId').html(total_count);
+	    			total_items_count = total_count;
+	    			paginationSetup(total_items_count);
+	    			$("#altLists").asPaginator('enable');
+	    			displayMatches(filtered_profiles);
+	    			displayTableFooter(1);
+	    			$("#table_footer").removeAttr("hidden");
+	    			$("#altLists").removeAttr("hidden");
 	    		}
     			
     		});
@@ -763,9 +793,13 @@ $("#educationdiv input[name='education']").click(updateProfilesList);
 
 
 function submitSearch(){
-	$("#searchForm2").submit();
-	
+	document.searchForm2.action = "SearchResults"
+    document.searchForm2.submit();            
+    return true;
 }
+	//$("#searchForm2").submit();
+	
+//}
 
    
 /* $("#castdiv input[name='caste']").click(function(){
@@ -889,6 +923,135 @@ function displayMobileNum(profileId,listType){
 	});
 	
 }
+function fullProfile(profile_id){
+	$("#id").val(profile_id);
+	//document.searchForm2.id = profile_id;
+	document.searchForm2.action = "fullProfile"
+    document.searchForm2.target = "_blank";    // Open in a new window
+    document.searchForm2.submit();             // Submit the page
+    return true;
+	/* jQuery.fn.makeMultipartRequest('POST', 'fullProfile', false,
+			formData, false, 'text', function(data){
+    		var jsonobj = $.parseJSON(data);
+    		var msg = jsonobj.message;
+    		if(typeof msg != "undefined"){
+    			if(msg=="success"){
+    				;
+    			}else{
+    				alert("Some problem occured. Please try again.");
+    			}
+    		}
+    		
+	}); */
+}
+
+
+function paginationSetup(total_items_count) {
+	  $('#altLists').asPaginator(total_items_count, {
+          currentPage: 1,
+          visibleNum: {
+            0: 10,
+            480: 3,
+            960: 5
+          },
+          tpl: function() {
+            return '<ul>{{first}}{{prev}}{{altLists}}{{next}}{{last}}</ul>';
+          },
+          components: {
+            first: true,
+            prev: true,
+            next: true,
+            last: true,
+            altLists: true
+          },
+          onChange: function(page) {
+             //$("#page_no").val(page);
+             //var search_form = $("#searchForm2");
+        	 //var formData = $("#searchForm2 :input").serialize();
+        	 //var t = $("#rAgeFrom").val();
+        	 //var formData = $("#searchForm2").serialize();
+        	 var castVals = [];
+			var religionVals = [];
+			var educationVals = [];
+		    $("#castdiv :checked").each(function () {
+		    	castVals.push($(this).val());
+		    });
+		    $("#religiondiv :checked").each(function () {
+		    	religionVals.push($(this).val());
+		    });
+		    $("#educationdiv :checked").each(function () {
+		    	educationVals.push($(this).val());
+		    });
+        	 var formData = new FormData();
+        	 formData.append('selected_casts',castVals);
+         	formData.append('selected_religions',religionVals);
+         	formData.append('selected_educations',educationVals);
+        	 formData.append("rAgeFrom",$("#rAgeFrom").val());
+        	 formData.append("rAgeTo",$("#rAgeTo").val());
+        	 formData.append("rHeight",$("#rHeight").val());
+        	 formData.append("rHeightTo",$("#rHeightTo").val());
+        	 formData.append("rMaritalStatus",$("#rMaritalStatus").val());
+        	 formData.append("rReligion",$("#rReligion").val());
+        	 formData.append("rCaste",$("#rCaste").val());
+        	 formData.append("rMotherTongue",$("#rMotherTongue").val());
+        	 /* formData.append("rAgeFrom",$("#rAgeFrom").val());
+        	 formData.append("rAgeFrom",$("#rAgeFrom").val());
+        	 formData.append("rAgeFrom",$("#rAgeFrom").val());
+        	 formData.append("rAgeFrom",$("#rAgeFrom").val());
+        	 formData.append("rAgeFrom",$("#rAgeFrom").val()); */
+        	 formData.append("page_no",page);
+        	 //var tempData = $("#searchForm2").serialize();
+    		$.fn.makeMultipartRequest('POST', 'displayPage', false,
+    				formData, false, 'text', function(data){
+    			var jsonobj = $.parseJSON(data);
+    			var results = jsonobj.results;
+    			//$('#countId').html('');
+	    		$("#search_criteria").prop("hidden",true);
+	    		$('#searchresultsDiv').removeAttr("hidden");
+	    		if(results==""){
+	    			$('#countId').html('');
+	    			$('#countId').html('0');
+	    			var str = '<div class="panel panel-default"><h6>No results found.</h6></div>';
+	    			$('#searchResults').html('');
+	    			$(str).appendTo("#searchResults");
+	    			$("#table_footer").prop("hidden",true);
+	    			$("#altLists").prop("hidden",true);
+	    		}else{
+	    			paginationSetup(total_items_count);
+	    			$("#altLists").asPaginator('enable');
+	    			displayMatches(results);
+	    			$("#table_footer").removeAttr("hidden");
+	    			$("#altLists").removeAttr("hidden");
+	    			displayTableFooter(page);
+	    		}
+    			
+    		});
+            
+          }
+        });
+}
+//displayPagination();
+function displayTableFooter(page){
+	var from_val = ((parseInt(page)-1)*page_size)+1;
+	var to_val = parseInt(page)*page_size;
+	if(to_val > total_items_count){
+		to_val = total_items_count;
+	}
+	if(from_val>to_val){
+		from_val = to_val;
+	}
+	$("#table_footer").html("Showing "+from_val+" to "+to_val+" of "+total_items_count+" records");
+}
+
+function hideChildren() {
+	 var maritalStatus=$("#rMaritalStatus").val();
+	 if(maritalStatus == "Unmarried"){
+		 $("#haveChildrenId").hide();
+		 $("#haveChildren").val();
+	 }else{
+		 $("#haveChildrenId").show();
+	 }
+	}
 
 </script>
 </body>

@@ -153,9 +153,9 @@ if(session.getAttribute("cacheGuest") != null){
 		<div class="menu_sec">
 		<!-- start header menu -->
 			<ul class="megamenu skyblue">
-				<li class="active" ><a class="color1" href="PreferredProfiles">Dashboard</a></li>
+				<li class="active" ><a class="color1" href="dashboard">Dashboard</a></li>
 				<li><a class="color1" href="myProfile">My Profile</a></li>
-	            <li><a class="color1" href="#">My Photos</a></li>
+	            <li><a class="color1" href="myPhotos">My Photos</a></li>
 	            <li><a class="color1" href="searchProfiles">Search</a></li>
 	            <li><a class="color1" href="#">More</a></li>
 			</ul>
@@ -262,13 +262,14 @@ if(session.getAttribute("cacheGuest") != null){
              
              
              <div class="col-md-9">
+<div id="searchresultsDiv">             
 <div class="searchresults">
     <h3>Your Search Results</h3>
     <p><span id="countId">${count}</span> Profiles found <a href="searchProfiles">Modify Search</a></p>
 	<div id="searchResults">
 		
 	</div>
-            
+</div>            
    <div class="clearfix"></div>
 </div>
     <div class="clearfix"></div>

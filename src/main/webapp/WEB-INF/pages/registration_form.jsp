@@ -177,6 +177,7 @@ function validate(id, errorMessage)
    <div class="col-md-8">
    <form:form commandName="createProfile" action="#" class="form-horizontal" id="profileRegistration" method="post">
    <form:hidden path="id"/>
+   <form:hidden path="redirectPage" value="family-details"></form:hidden>
 <%--    <form:hidden path="userdetailsId"/> --%>
    <form:hidden path="email"/>
    <form:hidden path="createProfileFor"/>
@@ -192,7 +193,7 @@ function validate(id, errorMessage)
 <!-- 1st Step starts here-->
 <div id="firstForm" class="dispnone">
     <div class="col-md-12">
-      <h3>Thanks for Registering. Now lets build your profile</h3>
+      <h3>Thanks for Registering. Now let's build your profile</h3>
     </div>
     <!-- Text input-->
     <div class="form-group">
@@ -203,7 +204,7 @@ function validate(id, errorMessage)
 			<form:options items="${states }" ></form:options>
       	</form:select>
        	<br>
-       	<form:select path="currentCity" class="form-control u" onblur="validate(this.id,'');" onfocus="removeBorder(this.id)" disabled="true">
+       	<form:select path="currentCity" class="form-control u" onblur="validate(this.id,'');" onchange="updateUserName(this.value)"  onfocus="removeBorder(this.id)" disabled="true">
       		<form:option value="">-- Choose City --</form:option>
 			<form:options items="${citys }"></form:options>
       	</form:select>
@@ -214,7 +215,7 @@ function validate(id, errorMessage)
       <label class="col-md-4 control-label" for="textinput">Your Marital Status <span class='manditory'>*</span></label>  
       <div class="col-md-6">
       	<form:select path="maritalStatus" class="form-control u" onchange="hideChildren();" onblur="validate(this.id,'');" onfocus="removeBorder(this.id)">
-			<form:option value="">-- Martial Status --</form:option>
+			<form:option value="">-- Marital Status --</form:option>
 			<form:option value="Married">Married</form:option>
 			<form:option value="Unmarried">Unmarried</form:option>
 			<form:option value="Widow/Divorced">Widow/Divorced</form:option>
@@ -459,7 +460,8 @@ function validate(id, errorMessage)
       <label class="col-md-4 control-label" for="textinput"></label>  
       <div class="col-md-6">
       <button type="button" id="fourthButton" onclick="fourthForm(event);" value="Create Profile" class="btn4 btn btn-info">Create Profile</button>
-      <button type="button" id="skipfourthButton" onclick="skipfourthForm(event);" value="Skip" class="btn4 btn btn-info">Skip</button>
+<!--       <button type="button" id="skipfourthButton" onclick="skipfourthForm(event);" value="Skip" class="btn4 btn btn-info">Skip</button> -->
+      <a style="color: blue;text-decoration: none;" href="${baseurl}/family-details">&nbsp;&nbsp;Skip</a>
       </div>
     </div>
 </div>
@@ -553,6 +555,7 @@ function validate(id, errorMessage)
     <script src="user/js/toucheffects.js"></script>
     <script src="js/custemValidation.js"></script>
     <script src="js/ajax.js"></script>
+    <script src="js/common.js"></script>
     <script>
     
 

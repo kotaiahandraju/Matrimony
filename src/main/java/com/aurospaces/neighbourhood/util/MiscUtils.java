@@ -55,6 +55,15 @@ public class MiscUtils
 	}
 
 
+	public static int generateRandomNumber(int len)
+	{
+		Random rnd = new Random();
+		int n = 0;
+		if(len==6){
+			n = 100000 + rnd.nextInt(900000);
+		}
+		return n;
+	}
 
 	public static String getBaseUrl(HttpServletRequest request)
 	{

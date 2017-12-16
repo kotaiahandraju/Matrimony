@@ -87,9 +87,9 @@ if(session.getAttribute("cacheGuest") != null){
 		 <div class="menu_sec">
 		 <!-- start header menu -->
 		<ul class="megamenu skyblue">
-			<li class="active" ><a class="color1" href="PreferredProfiles">Dashboard</a></li>
+			<li class="active" ><a class="color1" href="dashboard">Dashboard</a></li>
 			<li><a class="color1" href="myProfile">My Profile</a></li>
-            <li><a class="color1" href="#">My Photos</a></li>
+            <li><a class="color1" href="myPhotos">My Photos</a></li>
             <li><a class="color1" href="searchProfiles">Search</a></li>
              <li><a class="color1" href="#">More</a></li>
 		</ul> 
@@ -156,7 +156,7 @@ if(session.getAttribute("cacheGuest") != null){
                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td><a href="#">Invitations</a></td>
-    <td><div class="badge pull-right">15</div></td>
+    <td><div class="badge pull-right">${cacheGuest.receivedInterestCount}</div></td>
   </tr>
 </table>
 
@@ -176,7 +176,7 @@ if(session.getAttribute("cacheGuest") != null){
                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td><a href="#">Members</a></td>
-    <td><div class="badge pull-right">5</div></td>
+    <td><div class="badge pull-right">${cacheGuest.acceptedInterestCount}</div></td>
   </tr>
 </table>
 
@@ -196,7 +196,8 @@ if(session.getAttribute("cacheGuest") != null){
                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td><a href="#">Invitations</a></td>
-    <td><div class="badge pull-right">25</div></td>
+    <%-- <td><div class="badge pull-right">${cacheGuest.sentInterestCount}</div></td> --%>
+    <td><div class="badge pull-right">${cacheGuest.sentInterestCount}</div></td>
   </tr>
 </table>
 
@@ -229,9 +230,16 @@ if(session.getAttribute("cacheGuest") != null){
 	            <div class="panel-heading">
 	            	New Matches (150) <span class="pull-right"> <a href="#">View All</a></span>
 	            </div>
-				<div class="panel-body" id="matches">
-					
-				</div>
+	            <form:form commandName="createProfile"  class="form-horizontal" id="searchForm2" name="searchForm2" role="form"   method="post">
+             		<form:hidden path="id" />
+					<div class="panel-body" id="matches">
+						
+					</div>
+					<div id="pagination_div">
+						<div id="table_footer"></div>
+						<div id="altLists"></div>
+					</div>
+				</form:form>
 			</div>
 				</div>
                 
@@ -349,9 +357,11 @@ if(session.getAttribute("cacheGuest") != null){
 <!-- //footer -->
 <input type="hidden" name="loc" id="loc" value="${baseurl }" />
 <script src="js/ajax.js"></script>
+<script src="js/jquery-asPaginator.js"></script>
+<link rel="stylesheet" type="text/css" href="css/asPaginator.css">
 <script type="text/javascript">
 
-$(function(){
+/* $(function(){
     $("#rAgeFrom").append('<option value="">From</option>');
     $("#rAgeTo").append('<option value="">To</option>');
     for (var i=18;i<=55;i++){
@@ -360,11 +370,16 @@ $(function(){
     for (var i=18;i<=55;i++){
         $("#rAgeTo").append('<option value='+i+'>'+i+'</option>');
     }
-});
+}); */
 
+var total_items_count = ${total_records};
+var page_size = ${page_size};
 var listOrders1 = ${allOrders1};
+$("#pagination_div").prop("hidden",true);
 if (listOrders1 != "") {
 	displayMatches(listOrders1);
+	$("#pagination_div").removeAttr("hidden");
+	displayTableFooter(1);
 }
 function displayMatches(listOrders) {
 	$('#matches').html('');
@@ -408,7 +423,7 @@ function displayMatches(listOrders) {
 	            + 			'<tr><td><p>'+orderObj.dobString+', '+orderObj.religionName+', '+orderObj.casteName+',</p></td></tr>'
 	            + 			'<tr><td><p>'+orderObj.age+'&nbsp'+orderObj.occupationName+', '+orderObj.currentCityName+', '+orderObj.currentCountryName+'.</p></td></tr>'
 	            +			mobile_no__str
-	            + 			'<tr><td><span>Full Profile</span> >></td></tr>'
+	            + 			'<tr><td><span><a href="#" onclick="fullProfile('+orderObj.id+')">Full Profile</span> </td></tr>'
 	            + 		'</table>'
 	            + 	'</div>'
 	            + '</div>'
@@ -445,38 +460,77 @@ function displayMobileNum(profileId,listType){
 	
 }
 
-/* function searchProfiles(){
+function fullProfile(profile_id){
+	var roleId = ${cacheGuest.roleId};
+	$("#id").val(profile_id);
+	if(roleId==4){
+		document.searchForm2.action = "paymentDetails"
+	}else{
+		document.searchForm2.action = "fullProfile"
+	}
+	//document.searchForm2.id = profile_id;
 	
-	var ageFrom = $("#ageFrom").val();
-	var ageTo = $("#ageTo").val();
-	var edu = $("#education").val();
-	var loc = $("#currentCity").val();
-	var formData = new FormData();
-
-	formData.append('ageFrom',ageFrom);
-	formData.append('ageTo',ageTo);
-	formData.append('education',edu);
-	formData.append('currentCity',loc);
-	jQuery.fn.makeMultipartRequest('POST', 'searchProfiles', false,
-			formData, false, 'text', function(data){
-    		var jsonobj = $.parseJSON(data);
-    		var filtered_list = jsonobj.filtered_profiles;
-    		$('#countId').html('');
-    		if(filtered_list==""){
-    			$('#countId').html('0');
-    			var str = '<div class="panel panel-default"><h6>No results found.</h6></div>';
-    			$('#searchResults').html('');
-    			$(str).appendTo("#searchResults");
-    		}else{
-    			$('#countId').html(filtered_list.length);
-    			displayMatches(filtered_list);
-    		}
-    		var location = $("#loc").val();
-    		window.location.href =location+"/searchProfiles";
-			
-		});
+    document.searchForm2.target = "_blank";    // Open in a new window
+    document.searchForm2.submit();             // Submit the page
+    return true;
+	
 }
- */
+function displayTableFooter(page){
+	var from_val = ((parseInt(page)-1)*page_size)+1;
+	var to_val = parseInt(page)*page_size;
+	if(to_val > total_items_count){
+		to_val = total_items_count;
+	}
+	if(from_val>to_val){
+		from_val = to_val;
+	}
+	$("#table_footer").html("Showing "+from_val+" to "+to_val+" of "+total_items_count+" records");
+}
+$(document).bind('ready', function(event) {
+	  $('#altLists', event.target).asPaginator(total_items_count, {
+        currentPage: 1,
+        visibleNum: {
+          0: 5,
+          480: 3,
+          960: 5
+        },
+        tpl: function() {
+          return '<ul>{{first}}{{prev}}{{altLists}}{{next}}{{last}}</ul>';
+        },
+        components: {
+          first: true,
+          prev: true,
+          next: true,
+          last: true,
+          altLists: true
+        },
+        onChange: function(page) {
+           
+      	 var formData = new FormData();
+      	formData.append("page_no",page);
+      	formData.append("request_from","dashboard");
+  		$.fn.makeMultipartRequest('POST', 'displayPage', false,
+  				formData, false, 'text', function(data){
+  			var jsonobj = $.parseJSON(data);
+  			var results = jsonobj.results;
+  				if(results==""){
+	    			$('#countId').html('');
+	    			$('#countId').html('0');
+	    			var str = '<div class="panel panel-default"><h6>No results found.</h6></div>';
+	    			$('#searchResults').html('');
+	    			$(str).appendTo("#searchResults");
+	    			$("#table_footer").prop("hidden",true);
+	    			$("#altLists").prop("hidden",true);
+	    		}else{
+	    			displayMatches(results);
+	    			displayTableFooter(page);
+	    		}
+  			
+  		});
+          
+        }
+      });
+});
 </script>
 
 </body>

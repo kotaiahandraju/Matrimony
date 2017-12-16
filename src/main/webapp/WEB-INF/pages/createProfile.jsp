@@ -233,7 +233,7 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label required">You live in <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-									  	<form:select path="currentCity" onfocus="removeBorder(this.id)"  onblur="validate(this.id,'');"   class="form-control" >
+									  	<form:select path="currentCity" onfocus="removeBorder(this.id)"  onblur="validate(this.id,'');"  onchange="updateUserName(this.value)"  class="form-control" >
 											<form:option value="">-- Choose City --</form:option>
 											<form:options items="${citys }"></form:options>
 										</form:select>
@@ -249,7 +249,7 @@
 									<label class="col-sm-4 control-label required">Marital Status <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
 										<form:select path="maritalStatus" class="form-control u"   onblur="validate(this.id,'');"  onfocus="removeBorder(this.id)">
-											<form:option value="">-- Martial Status --</form:option>
+											<form:option value="">-- Marital Status --</form:option>
 											<form:option value="Married">Married</form:option>
 											<form:option value="Unmarried">Unmarried</form:option>
 											<form:option value="Widow/Divorced">Widow/Divorced</form:option>
@@ -605,7 +605,7 @@
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group">
-									<label class="col-sm-4 control-label required">noOfBrothersMarried <span style="color:red;">*</span></label>
+									<label class="col-sm-4 control-label required">No. of Brothers Married <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
 										<form:select path="noOfBrothersMarried" class="form-control u1">
 											<form:option value="">-- Select --</form:option>
@@ -619,7 +619,7 @@
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
-									<label class="col-sm-4 control-label required">noOfSistersMarried</label>
+									<label class="col-sm-4 control-label required">No. of Sisters Married</label>
 									<div class="col-sm-8">
 										<form:select path="noOfSistersMarried" class="form-control u1">
 											<form:option value="">-- Select --</form:option>
@@ -655,7 +655,7 @@
 								<div class="form-group">
 								<div class=" col-md-offset-1 col-md-6">
 									<input class="btn btn btn-primary" type="submit" id="submit11" name="yt0" value="Submit">
-									<input class="btn btn btn-danger" type="reset" id="reset11" name="yt1" value="Cancel">
+									<input class="btn btn btn-danger" type="reset" id="reset11" name="yt1" value="Reset">
 								</div>
 								</div>
 							</div>
@@ -893,7 +893,7 @@ function getCitys(id){
 		var stateId =$("#"+id).val();
 		var formData = new FormData();
 	     formData.append('id', stateId);
-		$.fn.makeMultipartRequest('POST', '../getCitys', false,
+		$.fn.makeMultipartRequest('POST', '../../../getCitys', false,
 				formData, false, 'text', function(data){
 			var jsonobj = $.parseJSON(data);
 			var alldata = jsonobj.citys;
@@ -911,6 +911,23 @@ function getCitys(id){
 }
 $(".profiles").addClass("active");
 $(".createProfile").addClass("active");
+
+function updateUserName(cityId){
+	var user_id = $("#id").val();
+	if(user_id != 0){
+		var cityId=cityId;
+		var constant ='u';
+		var formData = new FormData();
+	    formData.append('id', user_id);
+	    formData.append('value', cityId);
+	    formData.append('constant', constant);
+		$.fn.makeMultipartRequest('POST', '../../../updateUserName', false,
+				formData, false, 'text', function(data){
+			
+		});
+	}
+	
+}
 </script>
 </body>
 

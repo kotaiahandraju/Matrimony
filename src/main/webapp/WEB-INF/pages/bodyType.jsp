@@ -72,7 +72,7 @@
 						<table class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,null">
 							<thead>
 							<tr>
-								<th>BodyType</th>
+								<th>Body Type</th>
 								<th></th>
 							</tr>
 							</thead>
@@ -124,11 +124,11 @@ if (listOrders1 != "") {
 function displayTable(listOrders) {
 	$('#tableId').html('');
 	var tableHead = '<table  class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,null">'
-			+ '<thead><tr><th>BodyType</th><th style="text-align: center;"></th></tr></thead><tbody></tbody></table>';
+			+ '<thead><tr><th>Body Type</th><th style="text-align: center;"></th></tr></thead><tbody></tbody></table>';
 	$('#tableId').html(tableHead);
 	serviceUnitArray = {};
 	$.each(listOrders,function(i, orderObj) {
-		var edit = "<a  class='edit' onclick='editBodyType("+orderObj.id+")'><i style='color: green;' class='fa fa-edit'></i></a>"
+		var edit = "<a class='edit' onclick='editBodyType("+orderObj.id+")'><i style='color: green;' class='fa fa-edit'></i></a>"
 		var deleterow = "<a class='delete' onclick='deleteBodyType("+orderObj.id+")'><i style='color: red;' class='fa fa-trash'></i></a>"
 		serviceUnitArray[orderObj.id] = orderObj;
 		var tblRow = "<tr>"

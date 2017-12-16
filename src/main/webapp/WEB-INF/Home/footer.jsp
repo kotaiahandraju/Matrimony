@@ -4,7 +4,7 @@
 	<!-- Nice Scroll -->
 	<script src="${baseurl }/js/plugins/nicescroll/jquery.nicescroll.min.js"></script>
 	<!-- Bootstrap -->
-	<script src="${baseurl }/js/bootstrap.min.js"></script>
+	<%-- <script src="${baseurl }/js/bootstrap.min.js"></script> --%>
 	<!-- jQuery UI -->
 	<script src="${baseurl }/js/plugins/jquery-ui/jquery-ui.js"></script>
 	<!-- Touch enable for jquery UI -->

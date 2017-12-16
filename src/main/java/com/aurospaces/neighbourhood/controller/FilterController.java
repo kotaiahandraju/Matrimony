@@ -12,6 +12,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,7 +20,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.aurospaces.neighbourhood.bean.CastBean;
 import com.aurospaces.neighbourhood.bean.CityBean;
+import com.aurospaces.neighbourhood.bean.EducationBean;
+import com.aurospaces.neighbourhood.bean.ReligionBean;
 import com.aurospaces.neighbourhood.bean.UsersBean;
 import com.aurospaces.neighbourhood.db.dao.BranchDao;
 import com.aurospaces.neighbourhood.db.dao.CityDao;
@@ -160,6 +164,36 @@ public class FilterController {
 		}
 		return "deleteProfiles";
 	}
+   @RequestMapping(value = "/HiddenProfilesHome")
+	public String HiddenProfilesHome(@ModelAttribute("createProfile") UsersBean objUsersBean, ModelMap model,
+			HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
+		System.out.println("HiddenProfilesHome Page");
+		List<Map<String, String>> listOrderBeans = null;
+		ObjectMapper objectMapper = null;
+		String sJson = null;
+		try {
+			listOrderBeans = objUsersDao.getAllProfiles1(objUsersBean,"hidden");
+			if (listOrderBeans != null && listOrderBeans.size() > 0) {
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(listOrderBeans);
+				request.setAttribute("allOrders1", sJson);
+				// System.out.println(sJson);
+			} else {
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(listOrderBeans);
+				request.setAttribute("allOrders1", "''");
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			logger.error(e);
+			logger.fatal("error in CountriesController class CountriesHome method  ");
+			return "CreateProfile";
+		}
+		return "hiddenProfiles";
+	}
    @RequestMapping(value = "/updateStatus")
 	public @ResponseBody String updateStatus( UsersBean objUsersBean,ModelMap model,HttpServletRequest request,HttpSession session,BindingResult objBindingResult) {
 		System.out.println(" create Profile updateStatus page...");
@@ -207,7 +241,7 @@ public class FilterController {
 		return String.valueOf(jsonObj);
 	}
    
-   @RequestMapping(value = "/moveToHidden")
+   /*@RequestMapping(value = "/moveToHidden")
 	public @ResponseBody String moveToHidden( UsersBean objUsersBean,ModelMap model,HttpServletRequest request,HttpSession session,BindingResult objBindingResult) {
 		System.out.println(" moveToHidden action...");
 		List<Map<String, String>> listOrderBeans = null;
@@ -250,7 +284,7 @@ public class FilterController {
 			
 		}
 		return String.valueOf(jsonObj);
-	}
+	}*/
    
    @RequestMapping(value = "/resetPassword")
 	public @ResponseBody String resetPassword( UsersBean objUsersBean,ModelMap model,HttpServletRequest request,HttpSession session,BindingResult objBindingResult) {
@@ -348,5 +382,92 @@ public class FilterController {
  		return "premiumProfile";
  	}
   
+   @RequestMapping(value = "/interestRequests")
+	public String interestRequests(@ModelAttribute("createProfile") UsersBean objUsersBean, ModelMap model,
+			HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
+		System.out.println("interestRequests Page");
+		List<Map<String, Object>> requestsList = null;
+		ObjectMapper objectMapper = null;
+		String sJson = null;
+		try {
+			requestsList = objUsersDao.getInterestRequests();
+			if (requestsList != null && requestsList.size() > 0) {
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(requestsList);
+				request.setAttribute("requestsList", sJson);
+				// System.out.println(sJson);
+			} else {
+				request.setAttribute("requestsList", "''");
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			logger.error(e);
+			logger.fatal("error in CountriesController class CountriesHome method  ");
+			return "CreateProfile";
+		}
+		return "interestRequests";
+	}
    
+   @RequestMapping(value = "/fullProfile")
+	 public String fullProfile(@ModelAttribute("createProfile") UsersBean objUserssBean, Model objeModel, HttpServletRequest request, HttpSession session) {
+	  System.out.println("fullProfile Page");
+	  List<Map<String, String>> listOrderBeans = null;
+	  UsersBean objUsersBean = null;
+		ObjectMapper objectMapper = null;
+		String sJson = null;
+		  String profileId = request.getParameter("id");
+		try {
+			
+			
+			UsersBean sessionBean = (UsersBean)session.getAttribute("cacheUserBean");
+			if(sessionBean == null){
+				return "redirect:HomePage";
+			}
+			int profile_id = objUserssBean.getId();
+			UsersBean profileBean = objUsersDao.loginChecking(profile_id);
+			request.setAttribute("profileBean", profileBean);
+			List<Map<String,Object>> photosList = objUsersDao.getUserPhotos(profile_id);
+			request.setAttribute("photosList", photosList);
+			
+			
+		} catch (Exception e) {
+	   e.printStackTrace();
+	   System.out.println(e);
+	   logger.error(e);
+	   logger.fatal("error in HomePageController class familyDetails method");
+	  }
+		return "userFullProfile";
+	 }
+   
+   @RequestMapping(value = "/updatedProfiles")
+	public String updatedProfiles(@ModelAttribute("createProfile") UsersBean objUsersBean, ModelMap model,
+			HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
+		System.out.println("interestRequests Page");
+		List<Map<String, Object>> requestsList = null;
+		ObjectMapper objectMapper = null;
+		String sJson = null;
+		try {
+			requestsList = objUsersDao.getInterestRequests();
+			if (requestsList != null && requestsList.size() > 0) {
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(requestsList);
+				request.setAttribute("requestsList", sJson);
+				// System.out.println(sJson);
+			} else {
+				request.setAttribute("requestsList", "''");
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			logger.error(e);
+			logger.fatal("error in CountriesController class CountriesHome method  ");
+			return "CreateProfile";
+		}
+		return "updatedProfiles";
+	}
 }

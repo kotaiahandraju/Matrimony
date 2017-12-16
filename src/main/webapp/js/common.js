@@ -43,8 +43,9 @@ function moveToHidden(id,statusName){
 	if(checkstr == true){
 	var formData = new FormData();
      formData.append('id', id);
+     formData.append('status', 3);
      formData.append('statusName', statusName);
-	$.fn.makeMultipartRequest('POST', 'moveToHidden', false,
+	$.fn.makeMultipartRequest('POST', 'updateStatus', false,
 			formData, false, 'text', function(data){
 		var jsonobj = $.parseJSON(data);
 		alert(jsonobj.message);
@@ -54,4 +55,18 @@ function moveToHidden(id,statusName){
 		displayTable(alldata);
 	});
 	}
+}
+
+function updateUserName(cityId){
+	var id = 'username';
+	var value=cityId;
+	var constant ='u';
+	var formData = new FormData();
+    formData.append('id', id);
+    formData.append('value', value);
+    formData.append('constant', constant);
+	$.fn.makeMultipartRequest('POST', 'updateUserName', false,
+			formData, false, 'text', function(data){
+		
+	});
 }

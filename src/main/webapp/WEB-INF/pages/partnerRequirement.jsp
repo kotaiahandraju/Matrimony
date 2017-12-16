@@ -161,37 +161,24 @@ body {
     <!-- Text input-->
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Age From</label>  
-      <div class="col-md-6">
-      <form:input path="rAgeFrom" class="form-control  numericOnly u1" placeholder="Enter Age From" />
-<!--       	<input type="text" name="age" class="form-control u1" placeholder="Enter Age" maxlength="255"/> -->
+      <div class="col-md-3">
+      	<form:input path="rAgeFrom" class="form-control numericOnly u1" placeholder="Enter Age From" />
+      </div>
+      <label class="col-md-1 control-label" style="text-align: -webkit-center;" for="textinput">To</label>  
+      <div class="col-md-3">
+      	<form:input path="rAgeTo" class="form-control numericOnly u1" placeholder="Enter Age To" />
       </div>
     </div>
-    <div class="form-group">
-      <label class="col-md-4 control-label" for="textinput">Age To</label>  
-      <div class="col-md-6">
-      <form:input path="rAgeTo" class="form-control numericOnly u1" placeholder="Enter Age To" />
-<!--       	<input type="text" name="age" class="form-control u1" placeholder="Enter Age" maxlength="255"/> -->
-      </div>
-    </div>
-    <%-- <div class="form-group">
-      <label class="col-md-4 control-label" for="textinput">Height</label>  
-      <div class="col-md-6">
-       <form:input path="rHeight" placeholder="Enter Height"/>
-       	<input type="text" name="height" class="form-control u1" placeholder="Enter Height" maxlength="255"/> -->
-      </div>
-    </div> --%>
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Height From</label>  
-      <div class="col-md-6">
+      <div class="col-md-3">
       	<form:select path="rHeight" class="form-control u1">
 			<form:option value="">-- Choose Height --</form:option>
 			<form:options items="${height}"></form:options>
 		</form:select>
       </div>
-    </div>
-    <div class="form-group">
-      <label class="col-md-4 control-label" for="textinput">Height To</label>  
-      <div class="col-md-6">
+      <label class="col-md-1 control-label" style="text-align: -webkit-center;" for="textinput">To</label>
+      <div class="col-md-3">
       	<form:select path="rHeightTo" class="form-control u1">
 			<form:option value="">-- Choose Height --</form:option>
 			<form:options items="${height}"></form:options>
@@ -201,7 +188,7 @@ body {
 
     <div class="form-group" >
       <label class="col-md-4 control-label" for="textinput">Marital Status</label>  
-      <div class="col-md-6">
+      <div class="col-md-7">
       	<form:select path="rMaritalStatus" class="form-control u1" onchange="hideChildren();" multiple="true" >
 			<form:option value="">Doesn't Matter</form:option>
 			<form:option value="Married">Married</form:option>
@@ -213,7 +200,7 @@ body {
 
     <div class="form-group" id="haveChildrenId" style="display: none">
       <label class="col-md-4 control-label" for="textinput" >Have Children</label>  
-      <div class="col-md-6">
+      <div class="col-md-7">
       	<form:select path="rhaveChildren" class="form-control u1">
 			<form:option value="">Doesn't Matter</form:option>
 			<form:option value="1">1</form:option>
@@ -225,8 +212,8 @@ body {
 
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Religion</label>  
-      <div class="col-md-6">
-      	<form:select path="rReligion" class="form-control u1">
+      <div class="col-md-7">
+      	<form:select path="rReligion" class="form-control u1" multiple="true">
 			<form:option value="">-- Choose Religion --</form:option>
 			<form:options items="${religion}"></form:options>
 		</form:select>
@@ -235,7 +222,7 @@ body {
 
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Community</label>  
-      <div class="col-md-6">
+      <div class="col-md-7">
       	<form:select path="rCaste" class="form-control u1" multiple="true">
 			<form:option value="">-- Choose Community --</form:option>
 			<form:options items="${cast}"></form:options>
@@ -245,55 +232,17 @@ body {
 
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Mother Tongue</label>  
-      <div class="col-md-6">
-      	<form:select path="rMotherTongue" class="form-control u1">
+      <div class="col-md-7">
+      	<form:select path="rMotherTongue" class="form-control u1" multiple="true">
 			<form:option value="">-- Choose Mother Tongue --</form:option>
 			<form:options items="${language}"></form:options>
 		</form:select>
       </div>
     </div>
- <script>
-$(document).ready(function(){
-	$(".ifMore").hide();
-	$(".incomeBlock").hide();
-	
-    $(".more").click(function(){
-    	$(".hideMe").hide();
-    	$(".ifMore").show();
-    });
-    
-    $(".incomeRange").click(function(){
-    	$(".incomeBlock").show();
-    });
-    $(".incomeMatter").click(function(){
-    	$(".incomeBlock").hide();
-    });
-    /* $(".more").click(function(){
-        $(".ifMore").collapse('toggle');
-    });
-    $(".more").click(function(){
-        $(".ifMore").collapse('hide');
-    }); */
-    var selected_values = "${cacheGuest.rMaritalStatus}";
-    $("#rMaritalStatus").val(selected_values.split(","));
-    
-    selected_values="";
-    selected_values = "${cacheGuest.rCaste}";
-    $("#rCaste").val(selected_values.split(","));
-    
-    selected_values="";
-    selected_values = "${cacheGuest.rState}";
-    $("#rState").val(selected_values.split(","));
-    
-    selected_values="";
-    selected_values = "${cacheGuest.rEducation}";
-    $("#rEducation").val(selected_values.split(","));
-    
-});
-</script>   
+  
     <div class="form-group hideMe">
       <label class="col-md-4 control-label" for="textinput"></label>  
-      <div class="col-md-6 text-center">
+      <div class="col-md-7 text-center">
       	<span class="more" style="color: #0087AF;cursor: pointer;">MORE </span><i style="cursor: pointer;" class="fa fa-angle-down"></i>
       </div>
     </div>
@@ -302,13 +251,13 @@ $(document).ready(function(){
     
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput"></label>
-      <div class="col-md-6">Location Details</div>
+      <div class="col-md-7">Location Details</div>
     </div>
    
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Country living in</label>  
-      <div class="col-md-6">
-      	<form:select path="rCountry" class="form-control u">
+      <div class="col-md-7">
+      	<form:select path="rCountry" class="form-control u" multiple="true">
 			<form:option value="">-- Choose Country --</form:option>
 			<form:options items="${countries}"></form:options>
 			
@@ -318,23 +267,22 @@ $(document).ready(function(){
     
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">State living in</label>  
-      <div class="col-md-6">
+      <div class="col-md-7">
       	<form:select path="rState" class="form-control u" multiple="true">
 			<form:option value="">-- Choose State --</form:option>
-			<form:option value="AP">AP</form:option>
-			<form:option value="Telangana">Telangana</form:option>
+			<form:options items="${states }"></form:options>
 		</form:select>
       </div>
     </div>
     
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput"></label>
-      <div class="col-md-6">Education & Profession Details</div>
+      <div class="col-md-7">Education & Profession Details</div>
     </div>
 <!--      rCountry,rState,rEducation,rWorkingWith,rOccupation,rAnnualIncome,rCreateProfileFor,rDiet -->
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Education</label>  
-      <div class="col-md-6">
+      <div class="col-md-7">
       	<form:select path="rEducation" class="form-control u" multiple="true">
 			<form:option value="">Doesn't Matter</form:option>
 			<form:options items="${education}"></form:options>
@@ -344,8 +292,8 @@ $(document).ready(function(){
     
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Working with</label>  
-      <div class="col-md-6">
-      	<form:select path="rWorkingWith" class="form-control u1">
+      <div class="col-md-7">
+      	<form:select path="rWorkingWith" class="form-control u1" multiple="true">
 			<form:option value="">Doesn't Matter</form:option>
 			<form:option value="Private Company">Private Company</form:option>
 			<form:option value="Government/Public Sector">Government/Public Sector</form:option>
@@ -357,8 +305,8 @@ $(document).ready(function(){
     
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Profession area</label>  
-      <div class="col-md-6">
-      	<form:select path="rOccupation" class="form-control u">
+      <div class="col-md-7">
+      	<form:select path="rOccupation" class="form-control u" multiple="true">
 			<form:option value="">Doesn't Matter</form:option>
 			<form:options items="${occupation}"></form:options>
 		</form:select>
@@ -367,7 +315,7 @@ $(document).ready(function(){
     
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Annual Income</label>  
-      <div class="col-md-6">
+      <div class="col-md-7">
       	<input type="radio" name="annualIncome" class="incomeMatter" id="ai1" value=""> <label for="ai1">Doesn't Matter</label>
       	<input type="radio" name="annualIncome" class="incomeRange" id="ai2" value="Specify an income range"> <label for="ai2">Specify an income range</label>
       	<%-- <form:select path="education" class="form-control u">
@@ -379,7 +327,7 @@ $(document).ready(function(){
     
     <div class="form-group incomeBlock">
       <label class="col-md-4 control-label" for="textinput"></label>  
-      <div class="col-md-6">
+      <div class="col-md-7">
       	<form:select path="rAnnualIncome" class="form-control u1">
 			<form:option value="">-- Annual Income --</form:option>
 			<form:option value="Upto INR 1 Lakh">Upto INR 1 Lakh</form:option>
@@ -392,7 +340,7 @@ $(document).ready(function(){
     
     <div class="form-group incomeBlock">
       <label class="col-md-4 control-label" for="textinput"></label>  
-      <div class="col-md-8">
+      <div class="col-md-7">
       	<!-- <input type="checkbox" name="includeProfiles" id="includeProfiles"> -->
       	<%-- <form:checkbox path="specifiedIncome" value="specifiedIncome" placeholder="Enter Height"/>
       	Include Profiles who have not specified their income --%>
@@ -401,13 +349,13 @@ $(document).ready(function(){
     
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput"></label>
-      <div class="col-md-6">Other Details</div>
+      <div class="col-md-7">Other Details</div>
     </div>
     
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Diet</label>  
-      <div class="col-md-6">
-      	<form:select path="rDiet" class="form-control u" >
+      <div class="col-md-7">
+      	<form:select path="rDiet" class="form-control u"  multiple="true">
 			<form:option value="">-- Select Diet--</form:option>
 			<form:option value="Veg">Veg</form:option>
 			<form:option value="Non-Veg">Non-Veg</form:option>
@@ -423,10 +371,10 @@ $(document).ready(function(){
 
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput"></label>  
-      <div class="col-md-6 text-center">
+      <div class="col-md-7 text-center">
      	<button type="button" id="firstButton" class="btn1 btn btn-info" onclick="submitForm()">Save & Continue</button> 
-     	<button type="button" id="skipfirstButton" class="btn1 btn btn-info" onclick="skip()">Skip</button>
-      <!-- 	<a href="savePartnerProfile" class="btn1 btn btn-info">Save & Continue</a> -->
+<!--      	<button type="button" id="skipfirstButton" class="btn1 btn btn-info" onclick="skip()">Skip</button> -->
+      	<a style="color: blue;text-decoration: none;" href="${baseurl}/thankyou">&nbsp;&nbsp;Skip</a>
       </div>
     </div>
 </div>
@@ -505,6 +453,68 @@ $(document).ready(function(){
     <script src="js/ajax.js"></script>
 
 <script type="text/javascript">
+
+$(document).ready(function(){
+	$(".ifMore").hide();
+	$(".incomeBlock").hide();
+	
+    $(".more").click(function(){
+    	$(".hideMe").hide();
+    	$(".ifMore").show();
+    });
+    
+    $(".incomeRange").click(function(){
+    	$(".incomeBlock").show();
+    });
+    $(".incomeMatter").click(function(){
+    	$(".incomeBlock").hide();
+    });
+    /* $(".more").click(function(){
+        $(".ifMore").collapse('toggle');
+    });
+    $(".more").click(function(){
+        $(".ifMore").collapse('hide');
+    }); */
+    var selected_values = "${partnerProfile.rMaritalStatus}";
+    $("#rMaritalStatus").val(selected_values.split(","));
+    
+    selected_values="";
+    selected_values = "${partnerProfile.rCaste}";
+    $("#rCaste").val(selected_values.split(","));
+    
+    selected_values="";
+    selected_values = "${partnerProfile.rState}";
+    $("#rState").val(selected_values.split(","));
+    
+    selected_values="";
+    selected_values = "${partnerProfile.rEducation}";
+    $("#rEducation").val(selected_values.split(","));
+    
+    selected_values="";
+	selected_values = "${partnerProfile.rReligion}";
+	$("#rReligion").val(selected_values.split(","));
+	
+	selected_values="";
+	selected_values = "${partnerProfile.rMotherTongue}";
+	$("#rMotherTongue").val(selected_values.split(","));
+	
+	selected_values="";
+	selected_values = "${partnerProfile.rCountry}";
+	$("#rCountry").val(selected_values.split(","));
+	
+	selected_values="";
+	selected_values = "${partnerProfile.rWorkingWith}";
+	$("#rWorkingWith").val(selected_values.split(","));
+	
+	selected_values="";
+	selected_values = "${partnerProfile.rOccupation}";
+	$("#rOccupation").val(selected_values.split(","));
+	
+	selected_values="";
+	selected_values = "${partnerProfile.rDiet}";
+	$("#rDiet").val(selected_values.split(","));
+    
+});
 
 function hideChildren() {
 	 var maritalStatus=$("#rMaritalStatus").val();

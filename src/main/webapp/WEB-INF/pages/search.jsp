@@ -153,9 +153,9 @@ if(session.getAttribute("cacheGuest") != null){
 		<div class="menu_sec">
 		<!-- start header menu -->
 			<ul class="megamenu skyblue">
-				<li class="active" ><a class="color1" href="PreferredProfiles">Dashboard</a></li>
+				<li class="active" ><a class="color1" href="dashboard">Dashboard</a></li>
 				<li><a class="color1" href="myProfile">My Profile</a></li>
-	            <li><a class="color1" href="#">My Photos</a></li>
+	            <li><a class="color1" href="myPhotos">My Photos</a></li>
 	            <li><a class="color1" href="searchProfile">Search</a></li>
 	            <li><a class="color1" href="#">More</a></li>
 			</ul>
