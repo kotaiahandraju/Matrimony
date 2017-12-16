@@ -52,58 +52,7 @@ body {
 .default-class::-webkit-input-placeholder {color: #e73d4a !important;}
 .default-class::-moz-placeholder {color: #e73d4a !important;}
 
-
-
-
-
-/* body{margin:40px;} */
-
-.stepwizard-step p {
-    margin-top: 10px;    
-}
-
-.stepwizard-row {
-    display: table-row;
-}
-
-.stepwizard {
-    display: table;     
-    width: 100%;
-    position: relative;
-}
-
-.stepwizard-step button[disabled] {
-    opacity: 1 !important;
-    filter: alpha(opacity=100) !important;
-}
-
-.stepwizard-row:before {
-    top: 14px;
-    bottom: 0;
-    position: absolute;
-    content: " ";
-    width: 100%;
-    height: 1px;
-    background-color: #ccc;
-    z-order: 0;
-    
-}
-
-.stepwizard-step {    
-    display: table-cell;
-    text-align: center;
-    position: relative;
-}
-
-.btn-circle {
-  width: 30px;
-  height: 30px;
-  text-align: center;
-  padding: 6px 0;
-  font-size: 12px;
-  line-height: 1.428571429;
-  border-radius: 15px;
-}
+th,td {text-align: center;}
 </style>
 
   </head>
@@ -120,26 +69,7 @@ body {
               <img src="user/images/logo.jpg" class="img-responsive">
             </div>
             <div class="col-md-5 col-sm-12">
-            	<!-- <div class="stepwizard">
-				    <div class="stepwizard-row">
-				        <div class="stepwizard-step">
-				            <button type="button" id="step1" class="btn btn-default btn-circle">1</button>
-				            <p>Cart</p>
-				        </div>
-				        <div class="stepwizard-step">
-				            <button type="button" id="step2" class="btn btn-default btn-circle">2</button>
-				            <p>Shipping</p>
-				        </div>
-				        <div class="stepwizard-step">
-				            <button type="button" id="step3" class="btn btn-default btn-circle">3</button>
-				            <p>Shipping</p>
-				        </div>
-				        <div class="stepwizard-step">
-				            <button type="button"  id="step4" class="btn btn-default btn-circle" >4</button>
-				            <p>Payment</p>
-				        </div> 
-				    </div>
-				</div> -->
+            	
             </div>
             <div  class="clearfix"></div>    
     		</div>
@@ -148,18 +78,60 @@ body {
    <div class="row">
    <div class="midcontnet">
    
-   <div class="col-md-8">
-   <form:form commandName="thankYou" action="#" class="form-horizontal" id="partnerRequirement" method="post">
-   <form:hidden path="id"/>
-<fieldset>
+   <div class="col-md-9">
 
 <!-- 3rd Step starts here-->
 <div id="thirdForm">
     <div class="col-md-12 text-center">
       <h3>Speed up your Partner Search. Upgrade to Premium!</h3>
     </div>
-    <div class="form-group well" style="margin-left: 0px;">
-    	<div class="col-md-6">
+    
+    <div class="col-md-12 table-responsive">
+    	<div class="well">
+    		<table class="table table-hover">
+    			<thead style="background: #4CAF50;color: white;">
+    				<tr>
+    					<th>Services</th><th>Duration<br>(Months)</th><th>Amount<br>(INR)</th><th>Messages</th><th>Profiles</th>
+    					<th>Highlight<br>Profile</th><th>Chat</th><th>Horoscope<br>View</th><th>Astrology<br>Match</th>
+    				</tr>
+    			</thead>
+    			<tbody>
+    				<tr>
+    					<th>Classic</th><td>3</td><td>1299</td><td><i style="color: red;" class="fa fa-times"></i></td><td>25</td>
+    					<td><i style="color: red;" class="fa fa-times"></i></td><td><i style="color: red;" class="fa fa-times"></i></td>
+    					<td><i style="color: green;" class="fa fa-check"></i></td><td><i style="color: green;" class="fa fa-check"></i></td>
+    				</tr>
+    				<tr>
+    					<th>Classic Plus</th><td>6</td><td>2499</td><td><i style="color: red;" class="fa fa-times"></i></td><td>45</td>
+    					<td><i style="color: green;" class="fa fa-check"></i></td><td><i style="color: green;" class="fa fa-check"></i></td>
+    					<td><i style="color: green;" class="fa fa-check"></i></td><td><i style="color: green;" class="fa fa-check"></i></td>
+    				</tr>
+    				<tr>
+    					<th>Premium</th><td>6</td><td>5299</td><td>Unlimited</td><td>65</td>
+    					<td><i style="color: green;" class="fa fa-check"></i></td><td><i style="color: green;" class="fa fa-check"></i></td>
+    					<td><i style="color: green;" class="fa fa-check"></i></td><td><i style="color: green;" class="fa fa-check"></i></td>
+    				</tr>
+    				<tr>
+    					<th>Premium Plus</th><td>6</td><td>7499</td><td>Unlimited</td><td>85</td>
+    					<td><i style="color: green;" class="fa fa-check"></i></td><td><i style="color: green;" class="fa fa-check"></i></td>
+    					<td><i style="color: green;" class="fa fa-check"></i></td><td><i style="color: green;" class="fa fa-check"></i></td>
+    				</tr>
+    				<tr style="background: #ff8080;color: white;">
+    					<th>Aarna Premium</th><td>Till Marry</td><td>14999</td>
+    					<td>Premium Benefits</td><td>Meet Ups</td><td>High priority</td>
+    					<td colspan="3">Quick Response</td>
+    				</tr>
+    			</tbody>
+    			<tfoot>
+    				<tr>
+    					<th colspan="7" style="text-align: right;"><a href="paymentDetails" class="btn1 btn btn-info">View Membership Plans</a></th>
+    					<th colspan="2"><a href="dashboard" class="btn1 btn btn-info">My Account</a></th>
+    				</tr>
+    			</tfoot>
+    		</table>
+    	</div>
+    
+    	<!-- <div class="col-md-6">
     		<br>
     		<b>Membership Benefits</b>
     		<hr>
@@ -174,27 +146,23 @@ body {
     		<p><i style="color: red;" class="fa fa-2x fa-times"></i></p>
     	</div>
     	<div class="col-md-4 text-center">
-    	<div class="well">
-    		<b>Premium</b>
-    		<hr>
-    		<p><i style="color: green;" class="fa fa-2x fa-check"></i></p>
-    		<p><i style="color: green;" class="fa fa-2x fa-check"></i></p>
-<!--       		<button type="button" id="thirdButton" class="btn3 btn btn-info">View Membership Plans</button> -->
-      		<a href="paymentDetails" class="btn1 btn btn-info">View Membership Plans</a>
-      		<a href="dashboard" class="btn1 btn btn-info">My Account</a>
-    	</div>
-    	</div>
+	    	<div class="well">
+	    		<b>Premium</b>
+	    		<hr>
+	    		<p><i style="color: green;" class="fa fa-2x fa-check"></i></p>
+	    		<p><i style="color: green;" class="fa fa-2x fa-check"></i></p>
+	      		<a href="paymentDetails" class="btn1 btn btn-info">View Membership Plans</a>
+	      		<a href="dashboard" class="btn1 btn btn-info">My Account</a>
+	    	</div>
+    	</div> -->
     </div>
 <!-- <a href="membershipPlans" class=" btn btn-info">View Membership Plans</a> -->
 </div>
 <!-- 3rd Step ends here-->
-
-</fieldset>
-</form:form>
    
    </div>
    
-   <div class="col-md-4">
+   <div class="col-md-3">
      <img src="user/images/pad.jpg" class="img-responsive">
    </div>
     
