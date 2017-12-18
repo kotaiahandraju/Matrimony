@@ -6,6 +6,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 
 <div id="main">
+
 	<div class="container-fluid">
 		<div class="page-header">
 			<div class="pull-left">
@@ -129,18 +130,7 @@ function displayTable(listOrders) {
 			+ "<td style='text-align: center;'>" + edit + "&nbsp;|&nbsp;" + deleterow + "</td>" + "</tr>";
 		$(tblRow).appendTo("#tableId table tbody");
 	});
-		/* $('#DataTables_Table_0').DataTable({
-			dom: 'Bfrtip',
-			buttons: [{extend:"print",className:"btn default"},{extend:"pdf",className:"btn default"},{extend:"csv",className:"btn default"}]
-		}); */
-		
-		 /*$('#datatable-buttons').DataTable({
-		        "dom": 'C<"clear">lfrtip',
-		        	        "colVis": {
-		            "buttonText": "Change columns",
-		        "buttons": [{extend:"copy",className:"btn default"},{extend:"print",className:"btn default"},{extend:"pdf",className:"btn default"},{extend:"csv",className:"btn default"}]
-		        }
-		    });*/
+	if(isCheck=="Yes") $(".dataTable").dataTable();
 }
 
 function editBodyType(id)
@@ -152,7 +142,7 @@ function editBodyType(id)
 }
 function deleteBodyType(id)
 {
-	var checkstr =  confirm('Are you sure you want to delete this?');
+	var checkstr =  confirm('Are you sure you want to Delete?');
 	if(checkstr == true)
 	{
 		var formData = new FormData();
@@ -161,6 +151,12 @@ function deleteBodyType(id)
 		formData, false, 'text', function(data){
 			var jsonobj = $.parseJSON(data);
 // 			alert(jsonobj.message);
+			if(jsonobj.message == "yes"){
+				getDeleteMsg("alert-info","Body Type Deleted Successfully");
+			}
+			else if(jsonobj.message == "no"){
+				getDeleteMsg("alert-danger","Failed to Delete..!");
+			}
 			var alldata = jsonobj.allOrders1;
 			console.log(jsonobj.allOrders1);
 			displayTable(alldata);
@@ -171,9 +167,3 @@ function deleteBodyType(id)
 $(".catalog1").addClass("active");
 $(".bodyType").addClass("active"); 
 </script>
-</body>
-
-
-<!-- Mirrored from www.eakroko.de/flat/forms-basic.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 18 Sep 2017 09:43:06 GMT -->
-</html>
-

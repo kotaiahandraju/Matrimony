@@ -74,11 +74,12 @@ span.has-error,span.hasError
 
 .edit, .delete, .active, .deactive {cursor: pointer;}
 
-.alert-success, .alert-warning, .alert-danger{color: white !important;}
+.alert-success, .alert-info, .alert-warning, .alert-danger{color: white !important;}
 .alert-success{background-color: #4CAF50 !important;}
+.alert-info{background-color: #b33c00 !important;}
 .alert-warning{background-color: #ff6600 !important;}
 .alert-danger{background-color: #d43f3a !important;}
-
+/* #368ee0 */
 .your-class::-webkit-input-placeholder {color: #e73d4a !important;}
 .your-class::-moz-placeholder {color: #e73d4a !important;}
 
@@ -88,7 +89,6 @@ span.has-error,span.hasError
 .form-horizontal .control-label{text-align: right;}
 span.impColor{color: red;}
 
-.breadcrumbs{margin-bottom: 10px;}
 .msgcss
 {	
 	position: fixed;
@@ -97,14 +97,28 @@ span.impColor{color: red;}
     right: 0;
     z-index: 1002;
 }
+.breadcrumbs{margin-bottom: 10px;}
 </style>
 
 <script type="text/javascript">
-window.setTimeout(function() {
-    $(".msgcss").fadeTo(500, 0).slideUp(500, function(){
-        $(this).remove();
-    });
-}, 5000);
+var isCheck = "No";
+function timeOut(){
+	window.setTimeout(function() {
+	    $(".msgcss").fadeTo(500, 0).slideUp(500, function(){
+	        $(".servermsg").remove('');
+	        $(this).hide();
+	        $(this).css('opacity','unset');
+	    });
+	}, 3000);
+}
+timeOut();
+function getDeleteMsg(msgAlert,msg)
+{
+	$(".msgcss").show();
+	$("#deleteMsg").addClass(msgAlert);
+	$("#deleteMsg").text(msg);
+	timeOut();
+}
 $(document).ready(function(){
 	$('.edit').attr('data-toggle','tooltip');
 	$('.edit').attr('data-original-title','Edit');
@@ -123,7 +137,7 @@ $(document).ready(function(){
 
 <body>
 	<c:if test="${not empty msg}">
-		<div class="msgcss">
+		<div class="msgcss servermsg">
 			<div class="col-sm-offset-8 col-sm-4">
 				<div class="form-group w3-animate-right">
 					<div class="alert alert-${cssMsg}">${msg}</div>
@@ -131,6 +145,14 @@ $(document).ready(function(){
 			</div>
 		</div>
 	</c:if>
+	<div class="msgcss" id="hideMeFirst" style="display: none;">
+		<div class="col-sm-offset-8 col-sm-4">
+			<div class="form-group w3-animate-right">
+				<div id="deleteMsg" class="alert"></div>
+			</div>
+		</div>
+	</div>
+	
 	<div id="navigation">
 		<div class="container-fluid">
 			<a href="#" id="brand">&nbsp;AARNA</a>

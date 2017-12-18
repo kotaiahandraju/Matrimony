@@ -124,9 +124,9 @@ public class BodyTypeController {
 			if(objBodyTypeBean.getId() != 0){
  				delete = objBodyTypeDao.delete(objBodyTypeBean.getId());
  				if(delete){
- 					jsonObj.put("message", "Body Type Deleted Successfully");
+ 					jsonObj.put("message", "yes");
  				}else{
- 					jsonObj.put("message", "Failed to Delete..!");
+ 					jsonObj.put("message", "no");
  				}
  			}
  				
