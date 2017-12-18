@@ -28,7 +28,7 @@ $( document ).ready(function() {
 <div class="container-fluid">
 	<div class="page-header">
 		<div class="pull-left">
-			<h1>Active Profiles </h1> 
+			<h1>Interest Requests</h1> 
 		</div>
 	</div>
 	<div class="breadcrumbs">
@@ -179,11 +179,6 @@ s.parentNode.insertBefore(ga, s);
 	    		
 		}); */
 	}
+
+ $(".interestRequests").addClass("active");
 </script>
-
-</body>
-
-
-<!-- Mirrored from www.eakroko.de/flat/forms-basic.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 18 Sep 2017 09:43:06 GMT -->
-</html>
-

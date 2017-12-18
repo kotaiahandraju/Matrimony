@@ -194,7 +194,6 @@ $(document).ready(function(){
 						<li class="Salary"><a href="${baseurl }/admin/SalaryHome">Salary</a></li>
 					</ul>
 				</li>
-
 				<li class="profiles">
 					<a href="#" data-toggle="dropdown" class='dropdown-toggle'>
 						<span>Profiles</span>
@@ -212,12 +211,7 @@ $(document).ready(function(){
 						 
 					</ul>
 				</li>
-				
-				<li class="profiles">
-					<a href="${baseurl }/admin/interestRequests">
-						<span>Interest Requests</span>
-					</a>
-				</li>
+				<li class="interestRequests"><a href="${baseurl }/admin/interestRequests"><span>Interest Requests</span></a></li>
 				
 <!-- 				<li class="profiles"> -->
 <%-- 					<a href="${baseurl }/admin/updatedProfiles"> --%>
