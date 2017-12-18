@@ -7,6 +7,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.json.JSONObject;
@@ -30,6 +31,7 @@ import com.aurospaces.neighbourhood.db.dao.CityDao;
 import com.aurospaces.neighbourhood.db.dao.CountriesDao;
 import com.aurospaces.neighbourhood.db.dao.UsersDao;
 import com.aurospaces.neighbourhood.util.EmailUtil;
+import com.aurospaces.neighbourhood.util.MatrimonyConstants;
 import com.aurospaces.neighbourhood.util.MiscUtils;
 
 @Controller
@@ -390,7 +392,7 @@ public class FilterController {
 		ObjectMapper objectMapper = null;
 		String sJson = null;
 		try {
-			requestsList = objUsersDao.getInterestRequests();
+			requestsList = objUsersDao.getInterestRequests(0);
 			if (requestsList != null && requestsList.size() > 0) {
 				objectMapper = new ObjectMapper();
 				sJson = objectMapper.writeValueAsString(requestsList);
@@ -445,19 +447,21 @@ public class FilterController {
    @RequestMapping(value = "/updatedProfiles")
 	public String updatedProfiles(@ModelAttribute("createProfile") UsersBean objUsersBean, ModelMap model,
 			HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
-		System.out.println("interestRequests Page");
-		List<Map<String, Object>> requestsList = null;
+		System.out.println("updatedProfiles Page");
+		List<Map<String, Object>> profilesList = null;
 		ObjectMapper objectMapper = null;
 		String sJson = null;
 		try {
-			requestsList = objUsersDao.getInterestRequests();
-			if (requestsList != null && requestsList.size() > 0) {
+			profilesList = objUsersDao.getUpdatedProfiles(0);
+			if (profilesList != null && profilesList.size() > 0) {
 				objectMapper = new ObjectMapper();
-				sJson = objectMapper.writeValueAsString(requestsList);
-				request.setAttribute("requestsList", sJson);
+				sJson = objectMapper.writeValueAsString(profilesList);
+				request.setAttribute("updatedProfilesList", sJson);
+				request.setAttribute("total_records", profilesList.get(0).get("total_count"));
+				request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
 				// System.out.println(sJson);
 			} else {
-				request.setAttribute("requestsList", "''");
+				request.setAttribute("updatedProfilesList", "''");
 			}
 			
 			
@@ -465,9 +469,78 @@ public class FilterController {
 			e.printStackTrace();
 			System.out.println(e);
 			logger.error(e);
-			logger.fatal("error in CountriesController class CountriesHome method  ");
-			return "CreateProfile";
+			logger.fatal("error in updatedProfilesPagination method  ");
+			return "updatedProfiles";
 		}
 		return "updatedProfiles";
+	}
+   
+   @RequestMapping(value = "/updatedProfilesPagination")
+	public @ResponseBody String updatedProfilesPagination(@ModelAttribute("createProfile") UsersBean searchCriteriaBean, ModelMap model,
+			HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
+		System.out.println("interestRequests Page");
+		List<Map<String, Object>> profilesList = null;
+		ObjectMapper objectMapper = null;
+		String sJson = null;
+		int page_no = searchCriteriaBean.getPage_no();
+		try {
+			UsersBean userBean = (UsersBean)session.getAttribute("cacheUserBean");
+			if(userBean == null){
+				return "redirect:HomePage";
+			}
+			if(page_no != 0)
+				page_no = page_no-1;
+			profilesList = objUsersDao.getUpdatedProfiles(page_no);
+			if (profilesList != null && profilesList.size() > 0) {
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(profilesList);
+				request.setAttribute("updatedProfilesList", sJson);
+				request.setAttribute("total_records", profilesList.get(0).get("total_count"));
+				request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
+				// System.out.println(sJson);
+			} else {
+				request.setAttribute("updatedProfilesList", "''");
+			}
+			request.setAttribute("total_records", MatrimonyConstants.FREE_USER_PROFILES_LIMIT);
+			request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			logger.error(e);
+			logger.fatal("error in updatedProfilesPagination method  ");
+			return "updatedProfiles";
+		}
+		return "";
+	}
+   
+   @RequestMapping(value = "/approvePhoto")
+	public @ResponseBody String approvePhoto(@ModelAttribute("createProfile") UsersBean searchCriteriaBean, ModelMap model,
+			HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
+		System.out.println("approvePhoto Page");
+		JSONObject objJson =new JSONObject();
+		try {
+			UsersBean userBean = (UsersBean)session.getAttribute("cacheUserBean");
+			if(userBean == null){
+				return "redirect:HomePage";
+			}
+			String photoId = request.getParameter("photoId");
+			String approvedStatus = request.getParameter("approvedStatus");
+			if(StringUtils.isNotBlank(photoId)){
+				boolean success = objUsersDao.approvePhoto(photoId,approvedStatus);
+				if(success){
+					objJson.put("message", "success");
+				}else{
+					objJson.put("message", "failed");
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			logger.error(e);
+			logger.fatal("error in updatedProfilesPagination method  ");
+			return "updatedProfiles";
+		}
+		return objJson.toString();
 	}
 }

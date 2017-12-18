@@ -20,6 +20,7 @@ import com.aurospaces.neighbourhood.bean.CastBean;
 import com.aurospaces.neighbourhood.bean.EducationBean;
 import com.aurospaces.neighbourhood.bean.HeightBean;
 import com.aurospaces.neighbourhood.bean.LoginBean;
+import com.aurospaces.neighbourhood.bean.MemberShipBean;
 import com.aurospaces.neighbourhood.bean.Paymenthistory;
 import com.aurospaces.neighbourhood.bean.ReligionBean;
 import com.aurospaces.neighbourhood.bean.UsersBean;
@@ -43,7 +44,7 @@ public class UsersDao extends BaseUsersDao
 	
 	public UsersBean loginChecking(LoginBean objUsersBean) {
 		 jdbcTemplate = custom.getJdbcTemplate();
-			String sql = "SELECT u.*,ureq.*,ifnull(u.age,'') as age,  GROUP_CONCAT(uimg.image) as image, SUBSTRING_INDEX(GROUP_CONCAT(uimg.image), ',', -1) as profileImage, "
+			String sql = "SELECT u.*,ureq.*,ifnull(u.age,'') as age,  GROUP_CONCAT(uimg.image) as image, (select uimg.image from user_images uimg where uimg.user_id=u.id and uimg.is_profile_picture='1') as profileImage, "
 							+" cst.name as casteName, rel.name as religionName, edu.name as educationName, curcity.name as currentCityName ,"
 							+" occ.name as occupationName,  "
 							+" DATE_FORMAT(u.dob, '%d-%M-%Y') as dob "
@@ -66,7 +67,7 @@ public class UsersDao extends BaseUsersDao
 	 
 	 public UsersBean loginChecking(int id) {
 		 jdbcTemplate = custom.getJdbcTemplate();
-			String sql = "SELECT u.*,ureq.*,ifnull(u.age,'') as age,  GROUP_CONCAT(uimg.image) as image, SUBSTRING_INDEX(GROUP_CONCAT(uimg.image), ',', -1) as profileImage, "
+			String sql = "SELECT u.*,ureq.*,ifnull(u.age,'') as age,  GROUP_CONCAT(uimg.image) as image, (select uimg.image from user_images uimg where uimg.user_id=u.id and uimg.is_profile_picture='1') as profileImage, "
 							+" cst.name as casteName, rel.name as religionName, edu.name as educationName, curcity.name as currentCityName ,"
 							+" (select st.name from state st where st.id = u.currentState) as currentStateName ,"
 							+" (select cntry.name from countries cntry where cntry.id = u.currentCountry) as currentCountryName, "
@@ -1159,7 +1160,7 @@ public class UsersDao extends BaseUsersDao
 		
 	public List<Map<String,Object>> getUserPhotos(int userId){
 		jdbcTemplate = custom.getJdbcTemplate();
-		String qryStr = "select image from user_images where user_id = "+userId+" and status = '1' order by id desc";
+		String qryStr = "select * from user_images where user_id = "+userId+" and status = '1' order by id desc";
 		try{
 			List<Map<String,Object>> list = jdbcTemplate.queryForList(qryStr);
 			if(list!=null)
@@ -1171,7 +1172,21 @@ public class UsersDao extends BaseUsersDao
 		return null;
 	}
 	
-	public List<Map<String,Object>> getInterestRequests(){
+	public List<Map<String,Object>> getApprovedUserPhotos(int userId){
+		jdbcTemplate = custom.getJdbcTemplate();
+		String qryStr = "select id,image,approved_status from user_images where user_id = "+userId+" and status = '1' and approved_status = '1' order by id desc";
+		try{
+			List<Map<String,Object>> list = jdbcTemplate.queryForList(qryStr);
+			if(list!=null)
+				return list;
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+		return null;
+	}
+	
+	public List<Map<String,Object>> getInterestRequests(int page_no){
 		jdbcTemplate = custom.getJdbcTemplate();
 		String qryStr = "select *,(select username from users where id=user_id) as fromName,(select username from users where id=profile_id) as toName,date_format(created_on,'%d-%M-%Y') as sentOn from express_intrest where interested = '1' order by created_on desc  ";
 		try{
@@ -1183,7 +1198,99 @@ public class UsersDao extends BaseUsersDao
 			return null;
 		}
 		return null;
-	} 
+	}
+	
+	public List<Map<String,Object>> getUpdatedProfiles(int page_no){
+		jdbcTemplate = custom.getJdbcTemplate();
+		int page_size = MatrimonyConstants.PAGINATION_SIZE;
+		String qryStr = "select *,(select count(*) from users where status = '1') as total_count,date_format(updated_time,'%d-%M-%Y') as updatedOn from users where status = '1' order by updated_time desc limit "+page_size+" offset "+(page_no*page_size)+" ";
+		try{
+			List<Map<String,Object>> list = jdbcTemplate.queryForList(qryStr);
+			if(list!=null)
+				return list;
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+		return null;
+	}
+	
+	public List<MemberShipBean> getPackagesList(){
+		jdbcTemplate = custom.getJdbcTemplate();
+		String qryStr = "select * from package  where status='1' order by name asc ";
+		try{
+			List<MemberShipBean> list = jdbcTemplate.query(qryStr,
+					ParameterizedBeanPropertyRowMapper.newInstance(MemberShipBean.class));
+			if(list!=null)
+				return list;
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+		return null;
+	}
 
+	public boolean approvePhoto(String photoId,String approvedStatus){
+		
+		jdbcTemplate = custom.getJdbcTemplate();
+		String sSql  = null;
+		
+		try {
+			String status = approvedStatus.equals("1")?"1":"2";
+			sSql = "update user_images set approved_status = '"+status+"' where id =  "+photoId;
+			
+			int updated_count = jdbcTemplate.update(sSql);
+			if (updated_count == 1) {
+				return true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+
+		}
+		return false;
+	}
+	
+	public boolean setAsProfilePicture(String photoId,int userId){
+		
+		jdbcTemplate = custom.getJdbcTemplate();
+		String sSql  = null;
+		
+		try {
+			sSql = "update user_images set is_profile_picture = '0' where user_id = "+userId;
+			jdbcTemplate.update(sSql);
+			sSql = "update user_images set is_profile_picture = '1' where id =  "+photoId;
+			
+			int updated_count = jdbcTemplate.update(sSql);
+			if (updated_count == 1) {
+				return true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+
+		}
+		return false;
+	}
+	
+	public String getProfilePicture(int userId){
+		
+		jdbcTemplate = custom.getJdbcTemplate();
+		String sSql  = null;
+		
+		try {
+			sSql = "select image from user_images where user_id =  "+userId+" and is_profile_picture = '1'";
+			
+			String image = jdbcTemplate.queryForObject(sSql, String.class);
+			return image;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "";
+		} finally {
+
+		}
+	}
 }
 

@@ -26,7 +26,7 @@ public class BaseCityDao{
 	JdbcTemplate jdbcTemplate;
 
 	 
-	public final String INSERT_SQL = "INSERT INTO city ( created_time, updated_time, name,state, status) values (?, ?, ?,?,?)"; 
+	public final String INSERT_SQL = "INSERT INTO city ( created_time, updated_time, name,state, status,city_code) values (?, ?, ?,?,?,?)"; 
 
 
 
@@ -68,6 +68,7 @@ public class BaseCityDao{
 	ps.setString(3, objCityBean.getName());
 	ps.setString(4, objCityBean.getState());
 	ps.setString(5, objCityBean.getStatus());
+	ps.setString(6, objCityBean.getCity_code());
 
 							return ps;
 						}
@@ -82,9 +83,9 @@ public class BaseCityDao{
 		else
 		{
 
-			String sql = "UPDATE city set updated_time = ? ,name = ?,state = ?,status = ? where id = ? ";
+			String sql = "UPDATE city set updated_time = ? ,name = ?,state = ?,status = ?,city_code=?  where id = ? ";
 	
-			jdbcTemplate.update(sql, new Object[]{updatedTime,objCityBean.getName(),objCityBean.getState(),objCityBean.getStatus(),objCityBean.getId()});
+			jdbcTemplate.update(sql, new Object[]{updatedTime,objCityBean.getName(),objCityBean.getState(),objCityBean.getStatus(),objCityBean.getCity_code(),objCityBean.getId()});
 		}
 	}
 		

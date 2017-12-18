@@ -13,6 +13,7 @@ public class CityBean {
 	private String name;
 	private String stateName;
 	private String status;
+	private String city_code;
 	public int getId() {
 		return id;
 	}
@@ -54,6 +55,12 @@ public class CityBean {
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	public String getCity_code() {
+		return city_code;
+	}
+	public void setCity_code(String city_code) {
+		this.city_code = city_code;
 	}
 	
 	
