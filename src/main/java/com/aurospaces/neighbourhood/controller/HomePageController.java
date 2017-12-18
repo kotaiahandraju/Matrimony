@@ -87,7 +87,15 @@ public class HomePageController {
 			HttpServletRequest request, HttpSession session) {
 //		System.out.println("Home Page");
 		try {
-//			
+			UsersBean objuserBean = (UsersBean) session.getAttribute("cacheUserBean");
+			if (objuserBean != null) {
+				int rolId =objuserBean.getRoleId();
+				if(rolId == 1 ){
+					return "redirect:admin/BodyTypeHome";
+				}else{
+					return "redirect:HomePage.htm";
+				}
+			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();

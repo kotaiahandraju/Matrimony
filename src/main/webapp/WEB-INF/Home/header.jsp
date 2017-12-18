@@ -59,7 +59,7 @@
 	
 	<!-- Apple devices Homescreen icon -->
 	<link rel="apple-touch-icon-precomposed" href="img/apple-touch-icon-precomposed.png" />
-<style>
+<style type="text/css">
 span.has-error,span.hasError
 {
   font-weight:normal;

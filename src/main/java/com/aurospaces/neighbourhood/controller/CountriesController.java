@@ -22,18 +22,17 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.aurospaces.neighbourhood.bean.ContriesBean;
 import com.aurospaces.neighbourhood.db.dao.CountriesDao;
 
-
 @Controller
-@RequestMapping(value="/admin")
+@RequestMapping(value = "/admin")
 public class CountriesController {
 	private Logger logger = Logger.getLogger(CountriesController.class);
 	@Autowired
 	CountriesDao objCountriesDao;
 
 	@RequestMapping(value = "/CountriesHome")
-	public String BodyTypeHome(@ModelAttribute("countriesForm") ContriesBean objContriesBean, ModelMap model,
+	public String countriesHome(@ModelAttribute("countriesForm") ContriesBean objContriesBean, ModelMap model,
 			HttpServletRequest request, HttpSession session) {
-		System.out.println("CountriesHome Page");
+//		System.out.println("CountriesHome Page");
 		List<ContriesBean> listOrderBeans = null;
 		ObjectMapper objectMapper = null;
 		String sJson = null;
@@ -50,88 +49,88 @@ public class CountriesController {
 				sJson = objectMapper.writeValueAsString(listOrderBeans);
 				request.setAttribute("allOrders1", "''");
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e);
 			logger.error(e);
-			logger.fatal("error in CountriesController class CountriesHome method  ");
+			logger.fatal("error in CountriesController class countriesHome method");
 			return "countriesHome";
 		}
 		return "countriesHome";
 	}
+
 	@RequestMapping(value = "/addCountries")
-	public  String addCountries(@Valid @ModelAttribute("countriesForm")ContriesBean objContriesBean, BindingResult result,
-			ModelMap model, HttpServletRequest request, HttpSession session, HttpServletResponse responses,RedirectAttributes redir){
+	public String addCountries(@Valid @ModelAttribute("countriesForm") ContriesBean objContriesBean,
+			BindingResult result, ModelMap model, HttpServletRequest request, HttpSession session,
+			HttpServletResponse responses, RedirectAttributes redir) {
 		System.out.println("addCountries page...");
 		int id = 0;
-//		model.put("userForm", user);
 		try {
-		
+
 			if (result.hasErrors()) {
-//				model.addAttribute("newUser", userObj);
 				return "countriesHome";
 			}
 			objContriesBean.setStatus("1");
 			ContriesBean contriesBean = objCountriesDao.getByName(objContriesBean);
-			int dummyId =0;
-			if(contriesBean != null){
+			int dummyId = 0;
+			if (contriesBean != null) {
 				dummyId = contriesBean.getId();
 			}
-			if(objContriesBean.getId() != 0)
-			{
+			if (objContriesBean.getId() != 0) {
 				id = objContriesBean.getId();
-				if(id == dummyId || contriesBean == null )
-				{
+				if (id == dummyId || contriesBean == null) {
 					objCountriesDao.save(objContriesBean);
-					redir.addFlashAttribute("msg", "Updated");
-				}
-				else
-				{
-					redir.addFlashAttribute("msg", "AlreadyExist");
+					redir.addFlashAttribute("msg", "Country Updated Successfully");
+					redir.addFlashAttribute("cssMsg", "warning");
+				} else {
+					redir.addFlashAttribute("msg", "Already Country Exist");
+					redir.addFlashAttribute("cssMsg", "danger");
 				}
 			}
-			if(objContriesBean.getId() == 0 && contriesBean == null)
-			{
+			if (objContriesBean.getId() == 0 && contriesBean == null) {
 				objCountriesDao.save(objContriesBean);
-				redir.addFlashAttribute("msg", "inserted");
+				redir.addFlashAttribute("msg", "Country Added Successfully");
+				redir.addFlashAttribute("cssMsg", "success");
 			}
-			if(objContriesBean.getId() == 0 && contriesBean != null)
-			{
-				redir.addFlashAttribute("msg", "AlreadyExist");
+			if (objContriesBean.getId() == 0 && contriesBean != null) {
+				redir.addFlashAttribute("msg", "Already Country Exist");
+				redir.addFlashAttribute("cssMsg", "danger");
 			}
-			//redir.addFlashAttribute("msg", "success fully created");
+			// redir.addFlashAttribute("msg", "success fully created");
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e);
 			logger.error(e);
-			logger.fatal("error in userLogin method in school DepartmentController class DepartmentHome method  ");
+			logger.fatal("error in CountriesController class addCountries method");
 			redir.addFlashAttribute("msg", e);
 		}
 		return "redirect:CountriesHome";
 	}
+
 	@RequestMapping(value = "/deleteCountries")
-	public @ResponseBody String deleteBodyType( ContriesBean objContriesBean,ModelMap model,HttpServletRequest request,HttpSession session,BindingResult objBindingResult) {
-		System.out.println("deleteBodyType page...");
-		List<ContriesBean> listOrderBeans  = null;
+	public @ResponseBody String deleteBodyType(ContriesBean objContriesBean, ModelMap model, HttpServletRequest request,
+			HttpSession session, BindingResult objBindingResult) {
+//		System.out.println("deleteBodyType page...");
+		List<ContriesBean> listOrderBeans = null;
 		JSONObject jsonObj = new JSONObject();
 		ObjectMapper objectMapper = null;
-		String sJson=null;
+		String sJson = null;
 		boolean delete = false;
-		try{
-			if(objContriesBean.getId() != 0){
- 				delete = objCountriesDao.delete(objContriesBean.getId());
- 				if(delete){
- 					jsonObj.put("message", "deleted");
- 				}else{
- 					jsonObj.put("message", "delete fail");
- 				}
- 			}
- 				
- 			listOrderBeans = objCountriesDao.getAllCountries();
-			 objectMapper = new ObjectMapper();
+		try {
+			if (objContriesBean.getId() != 0) {
+				delete = objCountriesDao.delete(objContriesBean.getId());
+				if (delete) {
+					jsonObj.put("message", "yes");
+				} else {
+					jsonObj.put("message", "no");
+				}
+			}
+
+			listOrderBeans = objCountriesDao.getAllCountries();
+			objectMapper = new ObjectMapper();
 			if (listOrderBeans != null && listOrderBeans.size() > 0) {
-				
+
 				objectMapper = new ObjectMapper();
 				sJson = objectMapper.writeValueAsString(listOrderBeans);
 				request.setAttribute("allOrders1", sJson);
@@ -143,16 +142,15 @@ public class CountriesController {
 				request.setAttribute("allOrders1", "''");
 				jsonObj.put("allOrders1", listOrderBeans);
 			}
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
-	System.out.println(e);
+			System.out.println(e);
 			logger.error(e);
 			logger.fatal("error in CountriesController class deleteBodyType method  ");
-			jsonObj.put("message", "excetption"+e);
+			jsonObj.put("message", "excetption" + e);
 			return String.valueOf(jsonObj);
-			
+
 		}
 		return String.valueOf(jsonObj);
 	}
 }
-

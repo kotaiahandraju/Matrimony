@@ -94,7 +94,7 @@ public class BodyTypeController {
 			if(objBodyTypeBean.getId() == 0 && bodyTypeBean == null)
 			{
 				objBodyTypeDao.save(objBodyTypeBean);
-				redir.addFlashAttribute("msg", "Body Type Inserted Successfully");
+				redir.addFlashAttribute("msg", "Body Type Added Successfully");
 				redir.addFlashAttribute("cssMsg", "success");
 			}
 			if(objBodyTypeBean.getId() == 0 && bodyTypeBean != null)

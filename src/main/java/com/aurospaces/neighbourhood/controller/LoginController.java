@@ -39,7 +39,7 @@ public class LoginController {
 			UsersBean objuserBean = (UsersBean) session.getAttribute("cacheUserBean");
 			if (objuserBean != null) {
 				int rolId =objuserBean.getRoleId();
-				if(rolId == 1 || rolId == 2 || rolId == 3 ){
+				if(rolId == 1 ){
 					return "redirect:admin/BodyTypeHome";
 				}else{
 //					return "redirect:employeeHome1.htm";

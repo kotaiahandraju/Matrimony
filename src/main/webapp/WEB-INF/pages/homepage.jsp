@@ -369,7 +369,7 @@ window.setTimeout(function() {
 							<h1>Login</h1>
 							<img src="user/images/line-01.jpg" alt="" />
 						</div>
-<script>
+<script type="text/javascript">
 
 function validate(id, errorMessage)
 {

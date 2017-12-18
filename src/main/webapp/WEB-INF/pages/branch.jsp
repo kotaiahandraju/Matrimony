@@ -95,9 +95,9 @@
 					  		</div>
 					  	</div>
 					  	<div class="row">
-					  		<div class="col-sm-7 col-offset-sm-5">
+					  		<div class="col-sm-offset-5 col-sm-7">
 						  		<div class="form-group">
-									<div class="col-sm-4 col-sm-offset-8">
+									<div class="col-sm-offset-1 col-sm-4">
 										<input class="btn btn-primary" type="submit" id="submit1" name="yt0" value="Add">
 										<input class="btn btn-danger cancel" type="button" id="reset" name="yt1" value="Reset">
 									</div>
