@@ -72,7 +72,9 @@ span.has-error,span.hasError
 
 .error{color: red; font-weight: bold;}
 
-.edit, .delete, .active, .deactive {cursor: pointer;}
+.edit, .delete, .activate, .deactivate {cursor: pointer;}
+.edit i {color: green;}
+.delete i {color: red;}
 
 .alert-success, .alert-info, .alert-warning, .alert-danger{color: white !important;}
 .alert-success{background-color: #4CAF50 !important;}
