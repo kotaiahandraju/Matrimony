@@ -163,7 +163,7 @@ function deleteBodyType(id)
 		});
 	}	
 }
- 
+
 $(".catalog1").addClass("active");
 $(".bodyType").addClass("active"); 
 </script>

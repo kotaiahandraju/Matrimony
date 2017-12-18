@@ -45,18 +45,6 @@ $( document ).ready(function() {
 		</ul>
 		
 	</div>
-	<div class="col-lg-8">
-		<div>
-			<div class="portlet" id="yw0">
-				<div class="portlet-content w3-animate-zoom">
-					<!-- Body Type Form Starts Here-->
-					
-					<!-- Body Type Form Ends Here-->
-				</div>
-			</div>
-		</div>
-	</div>
-
 
 <div id="dial1"></div>
 
@@ -66,17 +54,13 @@ $( document ).ready(function() {
 	<div class="col-sm-12">
 		<div class="box">
 			<div class="box-title">
-				<h3>
-					<i class="fa fa-table"></i>
-					Interest Requests List
-				</h3>
+				<h3><i class="fa fa-table"></i>Interest Requests List</h3>
 			</div>
 			<div class="box-content nopadding table-responsive w3-animate-zoom" id="tableId">
 				<table class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,text,text,text,text,null">
 					<thead>
 					<tr>
-						<th>Interest From</th><th>Interest To</th><th>Sent on</th>
-						<th></th>
+						<th>Interest From</th><th>Interest To</th><th>Sent on</th><th></th>
 					</tr>
 					</thead>
 					<tbody></tbody>
