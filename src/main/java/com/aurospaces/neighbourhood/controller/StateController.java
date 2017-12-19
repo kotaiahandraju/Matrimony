@@ -23,7 +23,7 @@ import com.aurospaces.neighbourhood.bean.StateBean;
 import com.aurospaces.neighbourhood.db.dao.StateDao;;
 
 @Controller
-@RequestMapping(value="/admin")
+@RequestMapping(value = "/admin")
 public class StateController {
 	private Logger logger = Logger.getLogger(StateController.class);
 	@Autowired
@@ -32,7 +32,7 @@ public class StateController {
 	@RequestMapping(value = "/StateHome")
 	public String stateHome(@ModelAttribute("stateForm") StateBean objStateBean, ModelMap model,
 			HttpServletRequest request, HttpSession session) {
-		System.out.println("StateHome Page");
+//		System.out.println("StateHome Page");
 		List<StateBean> listOrderBeans = null;
 		ObjectMapper objectMapper = null;
 		String sJson = null;
@@ -49,7 +49,7 @@ public class StateController {
 				sJson = objectMapper.writeValueAsString(listOrderBeans);
 				request.setAttribute("allOrders1", "''");
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e);
@@ -60,77 +60,73 @@ public class StateController {
 	}
 
 	@RequestMapping(value = "/addState")
-	public  String addBodyType(@Valid @ModelAttribute("stateForm")StateBean objStateBean, BindingResult result,
-			ModelMap model, HttpServletRequest request, HttpSession session, HttpServletResponse responses,RedirectAttributes redir){
-		System.out.println("addState page...");
+	public String addState(@Valid @ModelAttribute("stateForm") StateBean objStateBean, BindingResult result,
+			ModelMap model, HttpServletRequest request, HttpSession session, HttpServletResponse responses,
+			RedirectAttributes redir) {
+//		System.out.println("addState page...");
 		int id = 0;
-//		model.put("userForm", user);
 		try {
-		
+
 			if (result.hasErrors()) {
-//				model.addAttribute("newUser", userObj);
 				return "StateHome";
 			}
 			objStateBean.setStatus("1");
 			StateBean stateBean = objStateDao.getByName(objStateBean);
-			int dummyId =0;
-			if(stateBean != null){
+			int dummyId = 0;
+			if (stateBean != null) {
 				dummyId = stateBean.getId();
 			}
-			if(objStateBean.getId() != 0)
-			{
+			if (objStateBean.getId() != 0) {
 				id = objStateBean.getId();
-				if(id == dummyId || stateBean == null )
-				{
+				if (id == dummyId || stateBean == null) {
 					objStateDao.save(objStateBean);
-					redir.addFlashAttribute("msg", "Updated");
-				}
-				else
-				{
-					redir.addFlashAttribute("msg", "AlreadyExist");
+					redir.addFlashAttribute("msg", "State Updated Successfully");
+					redir.addFlashAttribute("cssMsg", "warning");
+				} else {
+					redir.addFlashAttribute("msg", "Already State Exist");
+					redir.addFlashAttribute("cssMsg", "danger");
 				}
 			}
-			if(objStateBean.getId() == 0 && stateBean == null)
-			{
+			if (objStateBean.getId() == 0 && stateBean == null) {
 				objStateDao.save(objStateBean);
-				redir.addFlashAttribute("msg", "inserted");
+				redir.addFlashAttribute("msg", "State Added Successfully");
+				redir.addFlashAttribute("cssMsg", "success");
 			}
-			if(objStateBean.getId() == 0 && stateBean != null)
-			{
-				redir.addFlashAttribute("msg", "AlreadyExist");
+			if (objStateBean.getId() == 0 && stateBean != null) {
+				redir.addFlashAttribute("msg", "Already State Exist");
+				redir.addFlashAttribute("cssMsg", "danger");
 			}
-			//redir.addFlashAttribute("msg", "success fully created");
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e);
 			logger.error(e);
-			logger.fatal("error in userLogin method in school DepartmentController class DepartmentHome method  ");
+			logger.fatal("error in StateController class addState method");
 			redir.addFlashAttribute("msg", e);
 		}
 		return "redirect:StateHome";
 	}
+
 	@RequestMapping(value = "/deleteState")
-	public @ResponseBody String deleteBodyType( StateBean objStateBean,ModelMap model,HttpServletRequest request,HttpSession session,BindingResult objBindingResult) {
-		System.out.println("deleteState page...");
-		List<StateBean> listOrderBeans  = null;
+	public @ResponseBody String deleteState(StateBean objStateBean, ModelMap model, HttpServletRequest request,
+			HttpSession session, BindingResult objBindingResult) {
+//		System.out.println("deleteState page...");
+		List<StateBean> listOrderBeans = null;
 		JSONObject jsonObj = new JSONObject();
 		ObjectMapper objectMapper = null;
-		String sJson=null;
+		String sJson = null;
 		boolean delete = false;
-		try{
-			if(objStateBean.getId() != 0){
- 				delete = objStateDao.delete(objStateBean.getId());
- 				if(delete){
- 					jsonObj.put("message", "deleted");
- 				}else{
- 					jsonObj.put("message", "delete fail");
- 				}
- 			}
- 				
- 			listOrderBeans = objStateDao.getAllStates();
-			 objectMapper = new ObjectMapper();
+		try {
+			if (objStateBean.getId() != 0) {
+				delete = objStateDao.delete(objStateBean.getId());
+				if (delete) {
+					jsonObj.put("message", "yes");
+				} else {
+					jsonObj.put("message", "no");
+				}
+			}
+			listOrderBeans = objStateDao.getAllStates();
+			objectMapper = new ObjectMapper();
 			if (listOrderBeans != null && listOrderBeans.size() > 0) {
-				
 				objectMapper = new ObjectMapper();
 				sJson = objectMapper.writeValueAsString(listOrderBeans);
 				request.setAttribute("allOrders1", sJson);
@@ -142,16 +138,14 @@ public class StateController {
 				request.setAttribute("allOrders1", "''");
 				jsonObj.put("allOrders1", listOrderBeans);
 			}
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
-	System.out.println(e);
+			System.out.println(e);
 			logger.error(e);
-			logger.fatal("error in userLogin method in school DepartmentController class DepartmentHome method  ");
-			jsonObj.put("message", "excetption"+e);
+			logger.fatal("error in StateController class deleteState method");
+			jsonObj.put("message", "excetption" + e);
 			return String.valueOf(jsonObj);
-			
 		}
 		return String.valueOf(jsonObj);
 	}
 }
-

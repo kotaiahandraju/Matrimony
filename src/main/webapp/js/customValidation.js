@@ -244,15 +244,27 @@ $(".editIt").click(function()
 //reset-form
 $(".cancel").click(function()
 {
+	$("#id").val(0);
 	$.each(idArray, function(i, val)
 	{
 		var value = $("#" + idArray[i]).val();
+		if ($("#" +idArray[i]+"_chosen").length)
+		{
+			$("#" +idArray[i]).val("");
+			$("#" +idArray[i]).trigger("chosen:updated");
+		}
 //		$("form")[0].reset();
 		$("#"+idArray[i]).val('');
 		$("#"+idArray[i]).css('border-color','');
+		$("#"+idArray[i]).css('color','black');
 		$("#"+idArray[i]).removeClass('placeholder-style your-class default-class');
+		if ($("#" + idArray[i]+"_chosen").length)
+		{
+			$("#" + idArray[i]+"_chosen").children('a').css('border-color','black');
+		}
 	});
 });
+
 
 //
 $('.validate').keydown(function() {
@@ -264,4 +276,8 @@ function removeBorder(el){
 	  $("#"+el).css("border", "");
 	  $("#"+el).css('color','black');
 	  $('#'+el).addClass('default-class');
+	  if ($("#" + el+"_chosen").length)
+		{
+			$("#" +el+"_chosen").children('a').css('border-color','black');
+		}
 }

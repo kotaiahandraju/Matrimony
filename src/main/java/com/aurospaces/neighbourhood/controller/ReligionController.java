@@ -23,20 +23,20 @@ import com.aurospaces.neighbourhood.bean.ReligionBean;
 import com.aurospaces.neighbourhood.db.dao.ReligionDao;
 
 @Controller
-@RequestMapping(value ="/admin")
+@RequestMapping(value = "/admin")
 public class ReligionController {
 	private Logger logger = Logger.getLogger(ReligionController.class);
-	@Autowired ReligionDao objReligionDao;
+	@Autowired
+	ReligionDao objReligionDao;
 
 	@RequestMapping(value = "/ReligionHome")
 	public String religionHome(@ModelAttribute("religionForm") ReligionBean objReligionBean, ModelMap model,
 			HttpServletRequest request, HttpSession session) {
-		System.out.println("ReligionHome Page");
+//		System.out.println("ReligionHome Page");
 		List<ReligionBean> listOrderBeans = null;
 		ObjectMapper objectMapper = null;
 		String sJson = null;
 		try {
-
 			listOrderBeans = objReligionDao.getAllReligions();
 			if (listOrderBeans != null && listOrderBeans.size() > 0) {
 				objectMapper = new ObjectMapper();
@@ -48,58 +48,52 @@ public class ReligionController {
 				sJson = objectMapper.writeValueAsString(listOrderBeans);
 				request.setAttribute("allOrders1", "''");
 			}
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e);
 			logger.error(e);
-			logger.fatal("error in ReligionController class ReligionHome method  ");
-			return "religionHome";
+			logger.fatal("error in ReligionController class ReligionHome method");
 		}
 		return "religionHome";
 	}
-	
+
 	@RequestMapping(value = "/addReligion")
-	public String addReligion(@Valid @ModelAttribute("ReligionForm")ReligionBean objReligionBean, BindingResult result,
-			ModelMap model, HttpServletRequest request, HttpSession session, HttpServletResponse responses,RedirectAttributes redir){
-		System.out.println("addReligion page...");
+	public String addReligion(@Valid @ModelAttribute("ReligionForm") ReligionBean objReligionBean, BindingResult result,
+			ModelMap model, HttpServletRequest request, HttpSession session, HttpServletResponse responses,
+			RedirectAttributes redir) {
+//		System.out.println("addReligion page...");
 		int id = 0;
-//		model.put("userForm", user);
 		try {
-		
+
 			if (result.hasErrors()) {
-//				model.addAttribute("newUser", userObj);
 				return "religionHome";
 			}
 			objReligionBean.setStatus("1");
-			ReligionBean ReligionBean = objReligionDao.getByName(objReligionBean);
-			int dummyId =0;
-			if(ReligionBean != null){
-				dummyId = ReligionBean.getId();
+			ReligionBean religionBean = objReligionDao.getByName(objReligionBean);
+			int dummyId = 0;
+			if (religionBean != null) {
+				dummyId = religionBean.getId();
 			}
-			if(objReligionBean.getId() != 0)
-			{
+			if (objReligionBean.getId() != 0) {
 				id = objReligionBean.getId();
-				if(id == dummyId || ReligionBean == null )
-				{
+				if (id == dummyId || religionBean == null) {
 					objReligionDao.save(objReligionBean);
-					redir.addFlashAttribute("msg", "Successfully Religion Updated");
-				}
-				else
-				{
-					redir.addFlashAttribute("msg", "Already Record Exists");
+					redir.addFlashAttribute("msg", "Religion Updated Successfully");
+					redir.addFlashAttribute("cssMsg", "warning");
+				} else {
+					redir.addFlashAttribute("msg", "Already Religion Exist");
+					redir.addFlashAttribute("cssMsg", "danger");
 				}
 			}
-			if(objReligionBean.getId() == 0 && ReligionBean == null)
-			{
+			if (objReligionBean.getId() == 0 && religionBean == null) {
 				objReligionDao.save(objReligionBean);
-				redir.addFlashAttribute("msg", "Successfully Religion Added");
+				redir.addFlashAttribute("msg", "Religion Added Successfully");
+				redir.addFlashAttribute("cssMsg", "success");
 			}
-			if(objReligionBean.getId() == 0 && ReligionBean != null)
-			{
-				redir.addFlashAttribute("msg", "Already Record Exists");
+			if (objReligionBean.getId() == 0 && religionBean != null) {
+				redir.addFlashAttribute("msg", "Already Religion Exist");
+				redir.addFlashAttribute("cssMsg", "danger");
 			}
-			//redir.addFlashAttribute("msg", "Successfully Religion Added");
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e);
@@ -109,28 +103,30 @@ public class ReligionController {
 		}
 		return "redirect:ReligionHome";
 	}
+
 	@RequestMapping(value = "/deleteReligion")
-	public @ResponseBody String deleteReligion( ReligionBean objReligionBean,ModelMap model,HttpServletRequest request,HttpSession session,BindingResult objBindingResult) {
-		System.out.println("deleteReligion page...");
-		List<ReligionBean> listOrderBeans  = null;
+	public @ResponseBody String deleteReligion(ReligionBean objReligionBean, ModelMap model, HttpServletRequest request,
+			HttpSession session, BindingResult objBindingResult) {
+//		System.out.println("deleteReligion page...");
+		List<ReligionBean> listOrderBeans = null;
 		JSONObject jsonObj = new JSONObject();
 		ObjectMapper objectMapper = null;
-		String sJson=null;
+		String sJson = null;
 		boolean delete = false;
-		try{
-			if(objReligionBean.getId() != 0){
- 				delete = objReligionDao.delete(objReligionBean.getId());
- 				if(delete){
- 					jsonObj.put("message", "Deleted");
- 				}else{
- 					jsonObj.put("message", "Delete Fail");
- 				}
- 			}
- 				
- 			listOrderBeans = objReligionDao.getAllReligions();
-			 objectMapper = new ObjectMapper();
+		try {
+			if (objReligionBean.getId() != 0) {
+				delete = objReligionDao.delete(objReligionBean.getId());
+				if (delete) {
+					jsonObj.put("message", "yes");
+				} else {
+					jsonObj.put("message", "no");
+				}
+			}
+
+			listOrderBeans = objReligionDao.getAllReligions();
+			objectMapper = new ObjectMapper();
 			if (listOrderBeans != null && listOrderBeans.size() > 0) {
-				
+
 				objectMapper = new ObjectMapper();
 				sJson = objectMapper.writeValueAsString(listOrderBeans);
 				request.setAttribute("allOrders1", sJson);
@@ -142,14 +138,13 @@ public class ReligionController {
 				request.setAttribute("allOrders1", "''");
 				jsonObj.put("allOrders1", listOrderBeans);
 			}
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e);
 			logger.error(e);
 			logger.fatal("error in ReligionController class deleteReligion method");
-			jsonObj.put("message", "excetption"+e);
+			jsonObj.put("message", "excetption" + e);
 			return String.valueOf(jsonObj);
-			
 		}
 		return String.valueOf(jsonObj);
 	}

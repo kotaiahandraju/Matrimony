@@ -23,21 +23,20 @@ import com.aurospaces.neighbourhood.bean.DoshamBean;
 import com.aurospaces.neighbourhood.db.dao.DoshamDao;
 
 @Controller
-@RequestMapping(value="/admin")
+@RequestMapping(value = "/admin")
 public class DoshamController {
 	private Logger logger = Logger.getLogger(DoshamController.class);
 	@Autowired
 	DoshamDao objDoshamDao;
 
 	@RequestMapping(value = "/DoshamHome")
-	public String DoshamHome(@ModelAttribute("doshamForm") DoshamBean objDoshamBean, ModelMap model,
+	public String doshamHome(@ModelAttribute("doshamForm") DoshamBean objDoshamBean, ModelMap model,
 			HttpServletRequest request, HttpSession session) {
-		System.out.println("DoshamHome Page");
+//		System.out.println("DoshamHome Page");
 		List<DoshamBean> listOrderBeans = null;
 		ObjectMapper objectMapper = null;
 		String sJson = null;
 		try {
-
 			listOrderBeans = objDoshamDao.getAllDoshams();
 			if (listOrderBeans != null && listOrderBeans.size() > 0) {
 				objectMapper = new ObjectMapper();
@@ -49,89 +48,83 @@ public class DoshamController {
 				sJson = objectMapper.writeValueAsString(listOrderBeans);
 				request.setAttribute("allOrders1", "''");
 			}
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e);
 			logger.error(e);
-			logger.fatal("error in BodyTypeController class DoshamHome method  ");
-			
+			logger.fatal("error in DoshamController class doshamHome method");
 		}
 		return "DoshamHome";
 	}
 
 	@RequestMapping(value = "/addDosham")
-	public  String addBodyType(@Valid @ModelAttribute("doshamForm")DoshamBean objDoshamBean, BindingResult result,
-			ModelMap model, HttpServletRequest request, HttpSession session, HttpServletResponse responses,RedirectAttributes redir){
-		System.out.println("addDosham page...");
+	public String addDosham(@Valid @ModelAttribute("doshamForm") DoshamBean objDoshamBean, BindingResult result,
+			ModelMap model, HttpServletRequest request, HttpSession session, HttpServletResponse responses,
+			RedirectAttributes redir) {
+//		System.out.println("addDosham page...");
 		int id = 0;
-//		model.put("userForm", user);
 		try {
-		
 			if (result.hasErrors()) {
-//				model.addAttribute("newUser", userObj);
 				return "DoshamHome";
 			}
 			objDoshamBean.setStatus("1");
 			DoshamBean doshamBean = objDoshamDao.getByName(objDoshamBean);
-			int dummyId =0;
-			if(objDoshamBean != null){
+			int dummyId = 0;
+			if (objDoshamBean != null) {
 				dummyId = objDoshamBean.getId();
 			}
-			if(objDoshamBean.getId() != 0)
-			{
+			if (objDoshamBean.getId() != 0) {
 				id = objDoshamBean.getId();
-				if(id == dummyId || objDoshamBean == null )
-				{
+				if (id == dummyId || objDoshamBean == null) {
 					objDoshamDao.save(objDoshamBean);
-					redir.addFlashAttribute("msg", "Updated");
-				}
-				else
-				{
-					redir.addFlashAttribute("msg", "AlreadyExist");
+					redir.addFlashAttribute("msg", "Dosham Updated Successfully");
+					redir.addFlashAttribute("cssMsg", "warning");
+				} else {
+					redir.addFlashAttribute("msg", "Already Dosham Exist");
+					redir.addFlashAttribute("cssMsg", "danger");
 				}
 			}
-			if(objDoshamBean.getId() == 0 && doshamBean == null)
-			{
+			if (objDoshamBean.getId() == 0 && doshamBean == null) {
 				objDoshamDao.save(objDoshamBean);
-				redir.addFlashAttribute("msg", "inserted");
+				redir.addFlashAttribute("msg", "Dosham Added Successfully");
+				redir.addFlashAttribute("cssMsg", "success");
 			}
-			if(objDoshamBean.getId() == 0 && objDoshamBean != null)
-			{
-				redir.addFlashAttribute("msg", "AlreadyExist");
+			if (objDoshamBean.getId() == 0 && objDoshamBean != null) {
+				redir.addFlashAttribute("msg", "Already Dosham Exist");
+				redir.addFlashAttribute("cssMsg", "danger");
 			}
-			//redir.addFlashAttribute("msg", "success fully created");
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e);
 			logger.error(e);
-			logger.fatal("error in userLogin method in school DepartmentController class DepartmentHome method  ");
+			logger.fatal("error in DoshamController class addDosham method");
 			redir.addFlashAttribute("msg", e);
 		}
 		return "redirect:DoshamHome";
 	}
+
 	@RequestMapping(value = "/deleteDosham")
-	public @ResponseBody String deleteBodyType( DoshamBean objDoshamBean,ModelMap model,HttpServletRequest request,HttpSession session,BindingResult objBindingResult) {
-		System.out.println("deleteDosham page...");
-		List<DoshamBean> listOrderBeans  = null;
+	public @ResponseBody String deleteDosham(DoshamBean objDoshamBean, ModelMap model, HttpServletRequest request,
+			HttpSession session, BindingResult objBindingResult) {
+//		System.out.println("deleteDosham page...");
+		List<DoshamBean> listOrderBeans = null;
 		JSONObject jsonObj = new JSONObject();
 		ObjectMapper objectMapper = null;
-		String sJson=null;
+		String sJson = null;
 		boolean delete = false;
-		try{
-			if(objDoshamBean.getId() != 0){
- 				delete = objDoshamDao.delete(objDoshamBean.getId());
- 				if(delete){
- 					jsonObj.put("message", "deleted");
- 				}else{
- 					jsonObj.put("message", "delete fail");
- 				}
- 			}
- 				
- 			listOrderBeans = objDoshamDao.getAllDoshams();
-			 objectMapper = new ObjectMapper();
+		try {
+			if (objDoshamBean.getId() != 0) {
+				delete = objDoshamDao.delete(objDoshamBean.getId());
+				if (delete) {
+					jsonObj.put("message", "yes");
+				} else {
+					jsonObj.put("message", "no");
+				}
+			}
+			listOrderBeans = objDoshamDao.getAllDoshams();
+			objectMapper = new ObjectMapper();
 			if (listOrderBeans != null && listOrderBeans.size() > 0) {
-				
+
 				objectMapper = new ObjectMapper();
 				sJson = objectMapper.writeValueAsString(listOrderBeans);
 				request.setAttribute("allOrders1", sJson);
@@ -143,16 +136,14 @@ public class DoshamController {
 				request.setAttribute("allOrders1", "''");
 				jsonObj.put("allOrders1", listOrderBeans);
 			}
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
-	System.out.println(e);
+			System.out.println(e);
 			logger.error(e);
-			logger.fatal("error in userLogin method in school DepartmentController class DepartmentHome method  ");
-			jsonObj.put("message", "excetption"+e);
+			logger.fatal("error in DoshamController class deleteDosham method");
+			jsonObj.put("message", "excetption" + e);
 			return String.valueOf(jsonObj);
-			
 		}
 		return String.valueOf(jsonObj);
 	}
 }
-
