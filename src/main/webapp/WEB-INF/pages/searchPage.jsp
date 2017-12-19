@@ -624,18 +624,18 @@ function displayMatches(listOrders) {
 		var array = null;
 // 		var imageUrl =null;
 		
-		var image = null; image = orderObj.image;
+		var image = null; image = orderObj.profileImage;
 		if(image == "" || image == null || image == "undefined"){
 			image = "img/default.png";
 		}
-		else{
+		/* else{
 		array = image.split(",");
 		
 		$.each(array,function(i){
 			image = array[i];
 // 			   alert(array[i]);
 			});
-		}
+		} */
 		if(orderObj.firstName !=null)
 		{
 			var login_user_role_id = ${cacheGuest.roleId};
