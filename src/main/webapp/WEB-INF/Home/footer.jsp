@@ -1,5 +1,5 @@
 
-	<script src="${baseurl }/js/custemValidation.js"></script>
+	<script src="${baseurl }/js/customValidation.js"></script>
 	
 	<!-- Nice Scroll -->
 	<script src="${baseurl }/js/plugins/nicescroll/jquery.nicescroll.min.js"></script>
@@ -51,6 +51,10 @@
 	<script src="${baseurl }/js/plugins/datatables/extensions/dataTables.scroller.min.js"></script>
 	<script src="${baseurl }/js/ajax.js"></script>
 	<script src="${baseurl }/js/chosen.jquery.js"></script>
-	 <script src="${baseurl }/js/prism.js" type="text/javascript" charset="utf-8"></script>
-  <script src="${baseurl }/js/init.js" type="text/javascript" charset="utf-8"></script>
-	
+	<script src="${baseurl }/js/prism.js" type="text/javascript" charset="utf-8"></script>
+  	<script src="${baseurl }/js/init.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var isCheck = "Yes";
+	</script>
+</body>
+</html>

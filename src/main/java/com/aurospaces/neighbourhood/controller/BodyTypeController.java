@@ -94,7 +94,7 @@ public class BodyTypeController {
 			if(objBodyTypeBean.getId() == 0 && bodyTypeBean == null)
 			{
 				objBodyTypeDao.save(objBodyTypeBean);
-				redir.addFlashAttribute("msg", "Body Type Inserted Successfully");
+				redir.addFlashAttribute("msg", "Body Type Added Successfully");
 				redir.addFlashAttribute("cssMsg", "success");
 			}
 			if(objBodyTypeBean.getId() == 0 && bodyTypeBean != null)
@@ -124,9 +124,9 @@ public class BodyTypeController {
 			if(objBodyTypeBean.getId() != 0){
  				delete = objBodyTypeDao.delete(objBodyTypeBean.getId());
  				if(delete){
- 					jsonObj.put("message", "Body Type Deleted Successfully");
+ 					jsonObj.put("message", "yes");
  				}else{
- 					jsonObj.put("message", "Failed to Delete..!");
+ 					jsonObj.put("message", "no");
  				}
  			}
  				

@@ -59,7 +59,7 @@
 	
 	<!-- Apple devices Homescreen icon -->
 	<link rel="apple-touch-icon-precomposed" href="img/apple-touch-icon-precomposed.png" />
-<style>
+<style type="text/css">
 span.has-error,span.hasError
 {
   font-weight:normal;
@@ -72,13 +72,16 @@ span.has-error,span.hasError
 
 .error{color: red; font-weight: bold;}
 
-.edit, .delete, .active, .deactive {cursor: pointer;}
+.edit, .delete, .activate, .deactivate {cursor: pointer;}
+.edit i {color: green;}
+.delete i {color: red;}
 
-.alert-success, .alert-warning, .alert-danger{color: white !important;}
+.alert-success, .alert-info, .alert-warning, .alert-danger{color: white !important;}
 .alert-success{background-color: #4CAF50 !important;}
+.alert-info{background-color: #b33c00 !important;}
 .alert-warning{background-color: #ff6600 !important;}
 .alert-danger{background-color: #d43f3a !important;}
-
+/* #368ee0 */
 .your-class::-webkit-input-placeholder {color: #e73d4a !important;}
 .your-class::-moz-placeholder {color: #e73d4a !important;}
 
@@ -96,14 +99,28 @@ span.impColor{color: red;}
     right: 0;
     z-index: 1002;
 }
+.breadcrumbs{margin-bottom: 10px;}
 </style>
 
 <script type="text/javascript">
-window.setTimeout(function() {
-    $(".msgcss").fadeTo(500, 0).slideUp(500, function(){
-        $(this).remove();
-    });
-}, 5000);
+var isCheck = "No";
+function timeOut(){
+	window.setTimeout(function() {
+	    $(".msgcss").fadeTo(500, 0).slideUp(500, function(){
+	        $(".servermsg").remove('');
+	        $(this).hide();
+	        $(this).css('opacity','unset');
+	    });
+	}, 3000);
+}
+timeOut();
+function getDeleteMsg(msgAlert,msg)
+{
+	$(".msgcss").show();
+	$("#deleteMsg").addClass(msgAlert);
+	$("#deleteMsg").text(msg);
+	timeOut();
+}
 $(document).ready(function(){
 	$('.edit').attr('data-toggle','tooltip');
 	$('.edit').attr('data-original-title','Edit');
@@ -121,18 +138,8 @@ $(document).ready(function(){
 </head>
 
 <body>
-	<!-- <div class="inform-fixed inform-shadow inform-animate">
-		<div class="inform">
-			<div class="inform-message-wrap w3-animate-right">
-				<div class="inform-message alert alert-success alert-dismissible" role="alert">
-					<button type="button" class="close"><span>×</span></button>
-					<span class="inform-message-content ng-binding">Data received from server</span>
-				</div>
-			</div>
-		</div>
-	</div> -->
 	<c:if test="${not empty msg}">
-		<div class="msgcss">
+		<div class="msgcss servermsg">
 			<div class="col-sm-offset-8 col-sm-4">
 				<div class="form-group w3-animate-right">
 					<div class="alert alert-${cssMsg}">${msg}</div>
@@ -140,6 +147,13 @@ $(document).ready(function(){
 			</div>
 		</div>
 	</c:if>
+	<div class="msgcss" id="hideMeFirst" style="display: none;">
+		<div class="col-sm-offset-8 col-sm-4">
+			<div class="form-group w3-animate-right">
+				<div id="deleteMsg" class="alert"></div>
+			</div>
+		</div>
+	</div>
 	
 	<div id="navigation">
 		<div class="container-fluid">
@@ -182,7 +196,6 @@ $(document).ready(function(){
 						<li class="Salary"><a href="${baseurl }/admin/SalaryHome">Salary</a></li>
 					</ul>
 				</li>
-
 				<li class="profiles">
 					<a href="#" data-toggle="dropdown" class='dropdown-toggle'>
 						<span>Profiles</span>
@@ -200,12 +213,7 @@ $(document).ready(function(){
 						 
 					</ul>
 				</li>
-				
-				<li class="profiles">
-					<a href="${baseurl }/admin/interestRequests">
-						<span>Interest Requests</span>
-					</a>
-				</li>
+				<li class="interestRequests"><a href="${baseurl }/admin/interestRequests"><span>Interest Requests</span></a></li>
 				
  				<li class="profiles"> 
 					<a href="${baseurl }/admin/updatedProfiles">

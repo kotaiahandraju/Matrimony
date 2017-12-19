@@ -226,6 +226,21 @@ $('#submit1').click(function(event) {
 	}
 });
 
+//remove border validation for edit-form
+$(".editIt").click(function()
+{
+	$.each(idArray, function(i, val)
+	{
+		$("#"+idArray[i]).css('border-color','');
+		$("#"+idArray[i]).css('color','black');
+		$("#"+idArray[i]).removeClass('placeholder-style your-class default-class');
+		if ($("#" + idArray[i]+"_chosen").length)
+		{
+			$("#" + idArray[i]+"_chosen").children('a').css('border-color','black');
+		}
+	});
+});
+
 //reset-form
 $(".cancel").click(function()
 {
