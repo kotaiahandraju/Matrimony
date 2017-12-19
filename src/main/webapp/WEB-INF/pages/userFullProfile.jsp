@@ -63,8 +63,10 @@
 										<span>Rejected</span>
 									</c:if>
 									<c:if test="${photo1.approved_status == '0'}">
-											<a id="aprrove${photo1.id}" href="#" onclick="approvePhoto(${photo1.id},1)">Approve</a>
+										<div id="approveDiv${photo1.id}">
+											<a id="approve${photo1.id}" href="#" onclick="approvePhoto(${photo1.id},1)">Approve</a>
 											<a id="reject${photo1.id}" href="#" onclick="approvePhoto(${photo1.id},2)">Reject</a>
+										</div>
 									</c:if>
 					      			
 					      		</div>
@@ -127,7 +129,7 @@
 				<div class="clearfix"></div>
 	</div>
 
-<script src="js/ajax.js"></script>
+<script src="${baseurl }/js/ajax.js"></script>
 <script type="text/javascript">
 
 
@@ -168,9 +170,13 @@ function approvePhoto(photoId,approvedStatus){
 			if(msg=="success"){
 				if(approvedStatus==1){
 					alert("Photo approved successfully");
-					$("#approve"+photoId).removeAttr("href");
-					$("#approve"+photoId).text("Approved");
+					//$("#approve"+photoId).removeAttr("href");
+					//var t = $("#approve"+photoId).text();
+					$("#approveDiv"+photoId).html('');
+					$("#approveDiv"+photoId).html("Approved");
 				}else{
+					$("#approveDiv"+photoId).html('');
+					$("#approveDiv"+photoId).html("Rejected");
 					alert("Photo rejected successfully");
 				}
 				
