@@ -65,11 +65,9 @@ public class CasteController {
 			RedirectAttributes redir) {
 		// System.out.println("addBodyType page...");
 		int id = 0;
-		// model.put("userForm", user);
 		try {
 
 			if (result.hasErrors()) {
-				// model.addAttribute("newUser", userObj);
 				return "casteHome";
 			}
 			objCastBean.setStatus("1");
@@ -98,7 +96,6 @@ public class CasteController {
 				redir.addFlashAttribute("msg", "Already Caste Exist");
 				redir.addFlashAttribute("cssMsg", "danger");
 			}
-			// redir.addFlashAttribute("msg", "success fully created");
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e);
@@ -110,7 +107,7 @@ public class CasteController {
 	}
 
 	@RequestMapping(value = "/deleteCaste")
-	public @ResponseBody String deleteCast(CastBean objCastBean, ModelMap model, HttpServletRequest request,
+	public @ResponseBody String deleteCaste(CastBean objCastBean, ModelMap model, HttpServletRequest request,
 			HttpSession session, BindingResult objBindingResult) {
 		// System.out.println("deleteCast page...");
 		List<CastBean> listOrderBeans = null;
@@ -127,7 +124,6 @@ public class CasteController {
 					jsonObj.put("message", "no");
 				}
 			}
-
 			listOrderBeans = objCastDao.getAllCasts();
 			objectMapper = new ObjectMapper();
 			if (listOrderBeans != null && listOrderBeans.size() > 0) {
@@ -147,7 +143,7 @@ public class CasteController {
 			e.printStackTrace();
 			System.out.println(e);
 			logger.error(e);
-			logger.fatal("error in CasteController class deleteCast method");
+			logger.fatal("error in CasteController class deleteCaste method");
 			jsonObj.put("message", "excetption" + e);
 			return String.valueOf(jsonObj);
 		}

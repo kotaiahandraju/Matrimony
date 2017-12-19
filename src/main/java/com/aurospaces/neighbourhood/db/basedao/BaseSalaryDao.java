@@ -83,7 +83,7 @@ public class BaseSalaryDao{
 		else
 		{
 
-			String sql = "UPDATE salary set updated_time = ? ,salary = ?, status = ? where id = ? ";
+			String sql = "UPDATE salary set updated_time = ? ,name = ?, status = ? where id = ? ";
 	
 			jdbcTemplate.update(sql, new Object[]{updatedTime,objSalaryBean.getName(),objSalaryBean.getStatus(),objSalaryBean.getId()});
 		}

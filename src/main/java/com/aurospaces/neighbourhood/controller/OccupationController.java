@@ -22,18 +22,17 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.aurospaces.neighbourhood.bean.occupationBean;
 import com.aurospaces.neighbourhood.db.dao.OccupationDao;
 
-
 @Controller
-@RequestMapping(value="/admin")
+@RequestMapping(value = "/admin")
 public class OccupationController {
 	private Logger logger = Logger.getLogger(OccupationController.class);
 	@Autowired
 	OccupationDao objOccupationDao;
 
 	@RequestMapping(value = "/OccupationHome")
-	public String OccupationHome(@ModelAttribute("occupationForm") occupationBean objoccupationBean, ModelMap model,
+	public String occupationHome(@ModelAttribute("occupationForm") occupationBean objoccupationBean, ModelMap model,
 			HttpServletRequest request, HttpSession session) {
-		System.out.println("OccupationHome Page");
+//		System.out.println("OccupationHome Page");
 		List<occupationBean> listOrderBeans = null;
 		ObjectMapper objectMapper = null;
 		String sJson = null;
@@ -50,88 +49,86 @@ public class OccupationController {
 				sJson = objectMapper.writeValueAsString(listOrderBeans);
 				request.setAttribute("allOrders1", "''");
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e);
 			logger.error(e);
-			logger.fatal("error in OccupationController class OccupationHome method  ");
-			return "occupationHome";
+			logger.fatal("error in OccupationController class occupationHome method");
 		}
 		return "occupationHome";
 	}
+
 	@RequestMapping(value = "/addOccupation")
-	public  String addOccupation(@Valid @ModelAttribute("occupationForm")occupationBean objoccupationBean, BindingResult result,
-			ModelMap model, HttpServletRequest request, HttpSession session, HttpServletResponse responses,RedirectAttributes redir){
-		System.out.println("addBodyType page...");
+	public String addOccupation(@Valid @ModelAttribute("occupationForm") occupationBean objoccupationBean,
+			BindingResult result, ModelMap model, HttpServletRequest request, HttpSession session,
+			HttpServletResponse responses, RedirectAttributes redir) {
+//		System.out.println("addBodyType page...");
 		int id = 0;
-//		model.put("userForm", user);
 		try {
-		
+
 			if (result.hasErrors()) {
-//				model.addAttribute("newUser", userObj);
 				return "occupationHome";
 			}
 			objoccupationBean.setStatus("1");
 			occupationBean occupationBean = objOccupationDao.getByName(objoccupationBean);
-			int dummyId =0;
-			if(occupationBean != null){
+			int dummyId = 0;
+			if (occupationBean != null) {
 				dummyId = occupationBean.getId();
 			}
-			if(objoccupationBean.getId() != 0)
-			{
+			if (objoccupationBean.getId() != 0) {
 				id = objoccupationBean.getId();
-				if(id == dummyId || occupationBean == null )
-				{
+				if (id == dummyId || occupationBean == null) {
 					objOccupationDao.save(objoccupationBean);
-					redir.addFlashAttribute("msg", "Updated");
-				}
-				else
-				{
-					redir.addFlashAttribute("msg", "AlreadyExist");
+					redir.addFlashAttribute("msg", "Occupation Updated Successfully");
+					redir.addFlashAttribute("cssMsg", "warning");
+				} else {
+					redir.addFlashAttribute("msg", "Already Occupation Exist");
+					redir.addFlashAttribute("cssMsg", "danger");
 				}
 			}
-			if(objoccupationBean.getId() == 0 && occupationBean == null)
-			{
+			if (objoccupationBean.getId() == 0 && occupationBean == null) {
 				objOccupationDao.save(objoccupationBean);
-				redir.addFlashAttribute("msg", "inserted");
+				redir.addFlashAttribute("msg", "Occupation Added Successfully");
+				redir.addFlashAttribute("cssMsg", "success");
 			}
-			if(objoccupationBean.getId() == 0 && occupationBean != null)
-			{
-				redir.addFlashAttribute("msg", "AlreadyExist");
+			if (objoccupationBean.getId() == 0 && occupationBean != null) {
+				redir.addFlashAttribute("msg", "Already Occupation Exist");
+				redir.addFlashAttribute("cssMsg", "danger");
 			}
-			//redir.addFlashAttribute("msg", "success fully created");
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e);
 			logger.error(e);
-			logger.fatal("error in OccupationController class objOccupationDao method  ");
+			logger.fatal("error in OccupationController class addOccupation method");
 			redir.addFlashAttribute("msg", e);
 		}
 		return "redirect:OccupationHome";
 	}
+
 	@RequestMapping(value = "/deleteOccupation")
-	public @ResponseBody String deleteOccupation( occupationBean objoccupationBean,ModelMap model,HttpServletRequest request,HttpSession session,BindingResult objBindingResult) {
-		System.out.println("deleteOccupation page...");
-		List<occupationBean> listOrderBeans  = null;
+	public @ResponseBody String deleteOccupation(occupationBean objoccupationBean, ModelMap model,
+			HttpServletRequest request, HttpSession session, BindingResult objBindingResult) {
+//		System.out.println("deleteOccupation page...");
+		List<occupationBean> listOrderBeans = null;
 		JSONObject jsonObj = new JSONObject();
 		ObjectMapper objectMapper = null;
-		String sJson=null;
+		String sJson = null;
 		boolean delete = false;
-		try{
-			if(objoccupationBean.getId() != 0){
- 				delete = objOccupationDao.delete(objoccupationBean.getId());
- 				if(delete){
- 					jsonObj.put("message", "deleted");
- 				}else{
- 					jsonObj.put("message", "delete fail");
- 				}
- 			}
- 				
- 			listOrderBeans = objOccupationDao.getAllOccupations();
-			 objectMapper = new ObjectMapper();
+		try {
+			if (objoccupationBean.getId() != 0) {
+				delete = objOccupationDao.delete(objoccupationBean.getId());
+				if (delete) {
+					jsonObj.put("message", "yes");
+				} else {
+					jsonObj.put("message", "no");
+				}
+			}
+
+			listOrderBeans = objOccupationDao.getAllOccupations();
+			objectMapper = new ObjectMapper();
 			if (listOrderBeans != null && listOrderBeans.size() > 0) {
-				
+
 				objectMapper = new ObjectMapper();
 				sJson = objectMapper.writeValueAsString(listOrderBeans);
 				request.setAttribute("allOrders1", sJson);
@@ -143,16 +140,14 @@ public class OccupationController {
 				request.setAttribute("allOrders1", "''");
 				jsonObj.put("allOrders1", listOrderBeans);
 			}
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
-	System.out.println(e);
+			System.out.println(e);
 			logger.error(e);
-			logger.fatal("error in OccupationController class deleteOccupation method  ");
-			jsonObj.put("message", "excetption"+e);
+			logger.fatal("error in OccupationController class deleteOccupation method");
+			jsonObj.put("message", "excetption" + e);
 			return String.valueOf(jsonObj);
-			
 		}
 		return String.valueOf(jsonObj);
 	}
 }
-

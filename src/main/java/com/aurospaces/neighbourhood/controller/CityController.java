@@ -26,21 +26,20 @@ import com.aurospaces.neighbourhood.bean.EducationBean;
 import com.aurospaces.neighbourhood.db.dao.CityDao;
 
 @Controller
-@RequestMapping(value="/admin")
+@RequestMapping(value = "/admin")
 public class CityController {
 	private Logger logger = Logger.getLogger(CityController.class);
 	@Autowired
 	CityDao objCityDao;
 
 	@RequestMapping(value = "/CityHome")
-	public String cityHome(@ModelAttribute("cityForm") CityBean objCityBean, ModelMap model,
-			HttpServletRequest request, HttpSession session) {
-		System.out.println("CityHome Page");
+	public String cityHome(@ModelAttribute("cityForm") CityBean objCityBean, ModelMap model, HttpServletRequest request,
+			HttpSession session) {
+//		System.out.println("CityHome Page");
 		List<CityBean> listOrderBeans = null;
 		ObjectMapper objectMapper = null;
 		String sJson = null;
 		try {
-
 			listOrderBeans = objCityDao.getAllCities();
 			if (listOrderBeans != null && listOrderBeans.size() > 0) {
 				objectMapper = new ObjectMapper();
@@ -52,88 +51,82 @@ public class CityController {
 				sJson = objectMapper.writeValueAsString(listOrderBeans);
 				request.setAttribute("allOrders1", "''");
 			}
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e);
 			logger.error(e);
-			logger.fatal("error in CityController class CityHome method  ");
-			
+			logger.fatal("error in CityController class cityHome method");
 		}
 		return "CityHome";
 	}
+
 	@RequestMapping(value = "/addCity")
-	public  String addCity(@Valid @ModelAttribute("cityForm")CityBean objCityBean, BindingResult result,
-			ModelMap model, HttpServletRequest request, HttpSession session, HttpServletResponse responses,RedirectAttributes redir){
-		System.out.println("addCity page...");
+	public String addCity(@Valid @ModelAttribute("cityForm") CityBean objCityBean, BindingResult result, ModelMap model,
+			HttpServletRequest request, HttpSession session, HttpServletResponse responses, RedirectAttributes redir) {
+//		System.out.println("addCity page...");
 		int id = 0;
-//		model.put("userForm", user);
 		try {
-		
 			if (result.hasErrors()) {
-//				model.addAttribute("newUser", userObj);
 				return "CityHome";
 			}
 			objCityBean.setStatus("1");
 			CityBean cityBean = objCityDao.getByName(objCityBean);
-			int dummyId =0;
-			if(cityBean != null){
+			int dummyId = 0;
+			if (cityBean != null) {
 				dummyId = cityBean.getId();
 			}
-			if(objCityBean.getId() != 0)
-			{
+			if (objCityBean.getId() != 0) {
 				id = objCityBean.getId();
-				if(id == dummyId || cityBean == null )
-				{
+				if (id == dummyId || cityBean == null) {
 					objCityDao.save(objCityBean);
-					redir.addFlashAttribute("msg", "Updated");
-				}
-				else
-				{
-					redir.addFlashAttribute("msg", "AlreadyExist");
+					redir.addFlashAttribute("msg", "City Updated Successfully");
+					redir.addFlashAttribute("cssMsg", "warning");
+				} else {
+					redir.addFlashAttribute("msg", "Already City Exist");
+					redir.addFlashAttribute("cssMsg", "danger");
 				}
 			}
-			if(objCityBean.getId() == 0 && cityBean == null)
-			{
+			if (objCityBean.getId() == 0 && cityBean == null) {
 				objCityDao.save(objCityBean);
-				redir.addFlashAttribute("msg", "inserted");
+				redir.addFlashAttribute("msg", "City Added Successfully");
+				redir.addFlashAttribute("cssMsg", "success");
 			}
-			if(objCityBean.getId() == 0 && cityBean != null)
-			{
-				redir.addFlashAttribute("msg", "AlreadyExist");
+			if (objCityBean.getId() == 0 && cityBean != null) {
+				redir.addFlashAttribute("msg", "Already City Exist");
+				redir.addFlashAttribute("cssMsg", "danger");
 			}
-			//redir.addFlashAttribute("msg", "success fully created");
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e);
 			logger.error(e);
-			logger.fatal("error in userLogin method in school DepartmentController class DepartmentHome method  ");
+			logger.fatal("error in CityController class addCity method");
 			redir.addFlashAttribute("msg", e);
 		}
 		return "redirect:CityHome";
 	}
+
 	@RequestMapping(value = "/deleteCity")
-	public @ResponseBody String deleteBodyType( CityBean objCityBean,ModelMap model,HttpServletRequest request,HttpSession session,BindingResult objBindingResult) {
-		System.out.println("deleteCity page...");
-		List<CityBean> listOrderBeans  = null;
+	public @ResponseBody String deleteCity(CityBean objCityBean, ModelMap model, HttpServletRequest request,
+			HttpSession session, BindingResult objBindingResult) {
+//		System.out.println("deleteCity page...");
+		List<CityBean> listOrderBeans = null;
 		JSONObject jsonObj = new JSONObject();
 		ObjectMapper objectMapper = null;
-		String sJson=null;
+		String sJson = null;
 		boolean delete = false;
-		try{
-			if(objCityBean.getId() != 0){
- 				delete = objCityDao.delete(objCityBean.getId());
- 				if(delete){
- 					jsonObj.put("message", "deleted");
- 				}else{
- 					jsonObj.put("message", "delete fail");
- 				}
- 			}
- 				
- 			listOrderBeans = objCityDao.getAllCities();
-			 objectMapper = new ObjectMapper();
+		try {
+			if (objCityBean.getId() != 0) {
+				delete = objCityDao.delete(objCityBean.getId());
+				if (delete) {
+					jsonObj.put("message", "yes");
+				} else {
+					jsonObj.put("message", "no");
+				}
+			}
+			listOrderBeans = objCityDao.getAllCities();
+			objectMapper = new ObjectMapper();
 			if (listOrderBeans != null && listOrderBeans.size() > 0) {
-				
+
 				objectMapper = new ObjectMapper();
 				sJson = objectMapper.writeValueAsString(listOrderBeans);
 				request.setAttribute("allOrders1", sJson);
@@ -145,19 +138,17 @@ public class CityController {
 				request.setAttribute("allOrders1", "''");
 				jsonObj.put("allOrders1", listOrderBeans);
 			}
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
-	System.out.println(e);
+			System.out.println(e);
 			logger.error(e);
-			logger.fatal("error in userLogin method in school DepartmentController class DepartmentHome method  ");
-			jsonObj.put("message", "excetption"+e);
+			logger.fatal("error in CityController class deleteCity method");
+			jsonObj.put("message", "excetption" + e);
 			return String.valueOf(jsonObj);
-			
 		}
 		return String.valueOf(jsonObj);
-	
 	}
-	
+
 	@ModelAttribute("states")
 	public Map<Integer, String> populateCities() {
 		Map<Integer, String> statesMap = new LinkedHashMap<Integer, String>();
@@ -167,7 +158,6 @@ public class CityController {
 			for (CityBean bean : list) {
 				statesMap.put(bean.getId(), bean.getName());
 			}
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -175,4 +165,3 @@ public class CityController {
 		return statesMap;
 	}
 }
-

@@ -6,112 +6,85 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 
 <div id="main">
-<div class="container-fluid">
-	<div class="page-header">
-		<div class="pull-left">
-			<h1>Caste</h1> 
+	<div class="container-fluid">
+		<div class="page-header">
+			<div class="pull-left">
+				<h1>Caste</h1> 
+			</div>
 		</div>
-	</div>
-	<div class="breadcrumbs">
-		<ul>
-			<li>
-				<i class="fa fa-edit"></i>
-				<a href="javascript:void(0)" style="color: blue;text-decoration: none;">Data List 1</a>
-				<i class="fa fa-angle-right"></i>&nbsp;
-			</li>
-			<li>
-				&nbsp;<i class="fa fa-file"></i>
-				<span style="color: #999;cursor: auto;">Caste</span>
-			</li>
-		</ul>
-		
-	</div>
-	<div class="row">
-		<div class="col-lg-8">
-			<div class="portlet" id="yw0">
-				<div class="portlet-content w3-animate-zoom">
-					<!-- Caste Form Starts Here-->
-					<form:form modelAttribute="casteForm" class="form-horizontal" role="form" id="cast-form" action="addCaste" method="post">
-						<div class="row">
-					  		<div class="col-md-12">
-								<div class="form-group">
-									<label class="col-sm-3 control-label required"><spring:message code="label.casteName" text="default text" /> <span class="impColor">*</span></label>
-									<div class="col-sm-6">
-										<form:hidden path="id"/>
-										<form:input path="name" type="text" class="form-control onlyCharacters validate" placeholder="Enter Caste" autocomplete="off" maxlength="255"/>
-										<span class="hasError" id="nameError"></span>
-										<div><form:errors path="name" cssClass="error" /></div>
+		<div class="breadcrumbs">
+			<ul>
+				<li>
+					<i class="fa fa-edit"></i>
+					<a href="javascript:void(0)" style="color: blue;text-decoration: none;">Data List 1</a>
+					<i class="fa fa-angle-right"></i>&nbsp;
+				</li>
+				<li>
+					&nbsp;<i class="fa fa-file"></i>
+					<span style="color: #999;cursor: auto;">Caste</span>
+				</li>
+			</ul>
+			
+		</div>
+		<div class="row">
+			<div class="col-lg-8">
+				<div class="portlet" id="yw0">
+					<div class="portlet-content w3-animate-zoom">
+						<!-- Caste Form Starts Here-->
+						<form:form modelAttribute="casteForm" class="form-horizontal" role="form" id="cast-form" action="addCaste" method="post">
+							<div class="row">
+						  		<div class="col-md-12">
+									<div class="form-group">
+										<label class="col-sm-3 control-label required"><spring:message code="label.casteName" text="default text" /> <span class="impColor">*</span></label>
+										<div class="col-sm-6">
+											<form:hidden path="id"/>
+											<form:input path="name" type="text" class="form-control onlyCharacters validate" placeholder="Enter Caste" autocomplete="off" maxlength="255"/>
+											<span class="hasError" id="nameError"></span>
+											<div><form:errors path="name" cssClass="error" /></div>
+										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-						<div class="row">
-						  	<div class="col-md-offset-3 col-md-6">
-							  	<div class="form-group">
-									<div class="col-md-6">
-										<input class="btn btn-primary" type="submit" id="submit1" name="yt0" value="Add">
-										<input class="btn btn-danger cancel" type="button" id="reset" name="yt1" value="Reset">
+							<div class="row">
+							  	<div class="col-md-offset-3 col-md-6">
+								  	<div class="form-group">
+										<div class="col-md-6">
+											<input class="btn btn-primary" type="submit" id="submit1" name="yt0" value="Add">
+											<input class="btn btn-danger cancel" type="button" id="reset" name="yt1" value="Reset">
+										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-					</form:form>
-					<!-- Caste Form Ends Here-->
+						</form:form>
+						<!-- Caste Form Ends Here-->
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-
-	<div class="row">
-		<div class="col-sm-12">
-			<div class="box">
-				<div class="box-title">
-					<h3><i class="fa fa-table"></i> Caste's List</h3>
-				</div>
-				<div class="box-content nopadding w3-animate-zoom" id="tableId">
-					<table class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,null">
-						<thead>
-						<tr>
-							<th>Name</th><th></th>
-						</tr>
-						</thead>
-						<tbody></tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-</div>
-
-		
-<script type="text/javascript">
-
-function validate(id){
-	if($('#name').val() ==  null || $('#name').val() == ""  || $('#name').val()=="undefined" ) {
-		$('#nameError').css('color','red');
-	    $("#nameError").text("Cast  cannot be blank.");
-	}else{
-		$("#nameError").text("");
-	}
-}
 	
-$("#submit11").click(function()
-{			
-			if($('#name').val() ==  null || $('#name').val() == ""  || $('#name').val()=="undefined")
-			{
-				if($('#name').val() ==  null || $('#name').val() == ""  || $('#name').val()=="undefined" ) 
-				{
-// 				    $("#name").css("border-color","#e73d4a");
-// 				    $("#name").attr("placeholder","Please Enter Body Type");
-// 				    $('#name').addClass('your-class');
-				    $('#nameError').css('color','red');
-				    $("#nameError").text("Cast cannot be blank.");
-			    }
-				return false;
-				 $("#cast-form").submit();
-			}
-});
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="box">
+					<div class="box-title">
+						<h3><i class="fa fa-table"></i> Caste's List</h3>
+					</div>
+					<div class="box-content nopadding w3-animate-zoom" id="tableId">
+						<table class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,null">
+							<thead>
+							<tr>
+								<th>Name</th><th></th>
+							</tr>
+							</thead>
+							<tbody></tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
 
 var listOrders1 = ${allOrders1};
 if (listOrders1 != "") {
@@ -120,7 +93,7 @@ if (listOrders1 != "") {
 
 function displayTable(listOrders) {
 	$('#tableId').html('');
-	var tableHead = '<table  class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,null">'
+	var tableHead = '<table class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,null">'
 		+ '<thead><tr><th>Name</th><th style="text-align: center;"></th></tr></thead><tbody></tbody></table>';
 	$('#tableId').html(tableHead);
 	serviceUnitArray = {};

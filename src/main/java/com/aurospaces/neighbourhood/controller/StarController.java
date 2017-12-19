@@ -23,16 +23,16 @@ import com.aurospaces.neighbourhood.bean.StarBean;
 import com.aurospaces.neighbourhood.db.dao.StarDao;
 
 @Controller
-@RequestMapping(value ="/admin")
+@RequestMapping(value = "/admin")
 public class StarController {
 	private Logger logger = Logger.getLogger(StarController.class);
 	@Autowired
 	StarDao objStarDao;
 
 	@RequestMapping(value = "/StarHome")
-	public String starHome(@ModelAttribute("starForm") StarBean objStarBean, ModelMap model,
-			HttpServletRequest request, HttpSession session) {
-		System.out.println("StarHome Page");
+	public String starHome(@ModelAttribute("starForm") StarBean objStarBean, ModelMap model, HttpServletRequest request,
+			HttpSession session) {
+//		System.out.println("StarHome Page");
 		List<StarBean> listOrderBeans = null;
 		ObjectMapper objectMapper = null;
 		String sJson = null;
@@ -49,58 +49,52 @@ public class StarController {
 				sJson = objectMapper.writeValueAsString(listOrderBeans);
 				request.setAttribute("allOrders1", "''");
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e);
 			logger.error(e);
 			logger.fatal("error in StarController class starHome method  ");
-			return "starHome";
 		}
 		return "starHome";
 	}
-	
+
 	@RequestMapping(value = "/addStar")
-	public String addStar(@Valid @ModelAttribute("starForm")StarBean objStarBean, BindingResult result,
-			ModelMap model, HttpServletRequest request, HttpSession session, HttpServletResponse responses,RedirectAttributes redir){
-		System.out.println("addStar page...");
+	public String addStar(@Valid @ModelAttribute("starForm") StarBean objStarBean, BindingResult result, ModelMap model,
+			HttpServletRequest request, HttpSession session, HttpServletResponse responses, RedirectAttributes redir) {
+//		System.out.println("addStar page...");
 		int id = 0;
-//		model.put("userForm", user);
 		try {
-		
+
 			if (result.hasErrors()) {
-//				model.addAttribute("newUser", userObj);
 				return "starHome";
 			}
 			objStarBean.setStatus("1");
 			StarBean starBean = objStarDao.getByName(objStarBean);
-			int dummyId =0;
-			if(starBean != null){
+			int dummyId = 0;
+			if (starBean != null) {
 				dummyId = starBean.getId();
 			}
-			if(objStarBean.getId() != 0)
-			{
+			if (objStarBean.getId() != 0) {
 				id = objStarBean.getId();
-				if(id == dummyId || starBean == null )
-				{
+				if (id == dummyId || starBean == null) {
 					objStarDao.save(objStarBean);
-					redir.addFlashAttribute("msg", "Successfully Star Updated");
-				}
-				else
-				{
-					redir.addFlashAttribute("msg", "Already Record Exists");
+					redir.addFlashAttribute("msg", "Star Updated Successfully");
+					redir.addFlashAttribute("cssMsg", "warning");
+				} else {
+					redir.addFlashAttribute("msg", "Already Star Exist");
+					redir.addFlashAttribute("cssMsg", "danger");
 				}
 			}
-			if(objStarBean.getId() == 0 && starBean == null)
-			{
+			if (objStarBean.getId() == 0 && starBean == null) {
 				objStarDao.save(objStarBean);
-				redir.addFlashAttribute("msg", "Successfully Star Added");
+				redir.addFlashAttribute("msg", "Star Added Successfully");
+				redir.addFlashAttribute("cssMsg", "success");
 			}
-			if(objStarBean.getId() == 0 && starBean != null)
-			{
-				redir.addFlashAttribute("msg", "Already Record Exists");
+			if (objStarBean.getId() == 0 && starBean != null) {
+				redir.addFlashAttribute("msg", "Already Star Exist");
+				redir.addFlashAttribute("cssMsg", "danger");
 			}
-			//redir.addFlashAttribute("msg", "Successfully Star Added");
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e);
@@ -110,28 +104,29 @@ public class StarController {
 		}
 		return "redirect:StarHome";
 	}
+
 	@RequestMapping(value = "/deleteStar")
-	public @ResponseBody String deleteStar( StarBean objStarBean,ModelMap model,HttpServletRequest request,HttpSession session,BindingResult objBindingResult) {
-		System.out.println("deleteStar page...");
-		List<StarBean> listOrderBeans  = null;
+	public @ResponseBody String deleteStar(StarBean objStarBean, ModelMap model, HttpServletRequest request,
+			HttpSession session, BindingResult objBindingResult) {
+//		System.out.println("deleteStar page...");
+		List<StarBean> listOrderBeans = null;
 		JSONObject jsonObj = new JSONObject();
 		ObjectMapper objectMapper = null;
-		String sJson=null;
+		String sJson = null;
 		boolean delete = false;
-		try{
-			if(objStarBean.getId() != 0){
- 				delete = objStarDao.delete(objStarBean.getId());
- 				if(delete){
- 					jsonObj.put("message", "Deleted");
- 				}else{
- 					jsonObj.put("message", "Delete Fail");
- 				}
- 			}
- 				
- 			listOrderBeans = objStarDao.getAllStars();
-			 objectMapper = new ObjectMapper();
+		try {
+			if (objStarBean.getId() != 0) {
+				delete = objStarDao.delete(objStarBean.getId());
+				if (delete) {
+					jsonObj.put("message", "yes");
+				} else {
+					jsonObj.put("message", "no");
+				}
+			}
+			listOrderBeans = objStarDao.getAllStars();
+			objectMapper = new ObjectMapper();
 			if (listOrderBeans != null && listOrderBeans.size() > 0) {
-				
+
 				objectMapper = new ObjectMapper();
 				sJson = objectMapper.writeValueAsString(listOrderBeans);
 				request.setAttribute("allOrders1", sJson);
@@ -143,14 +138,13 @@ public class StarController {
 				request.setAttribute("allOrders1", "''");
 				jsonObj.put("allOrders1", listOrderBeans);
 			}
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
-	System.out.println(e);
+			System.out.println(e);
 			logger.error(e);
 			logger.fatal("error in StarController class deleteStar method");
-			jsonObj.put("message", "excetption"+e);
+			jsonObj.put("message", "excetption" + e);
 			return String.valueOf(jsonObj);
-			
 		}
 		return String.valueOf(jsonObj);
 	}

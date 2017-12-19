@@ -125,8 +125,9 @@
 					<table class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,text,null">
 						<thead>
 						<tr>
-							<th>Inches</th><th>Cm</th>
-							<th></th>
+							<th>Branch</th><th>Prefix</th><th>Admin Reg No.</th>
+							<th>Premium Reg No.</th><th>Free Reg No.</th><th>Widow/Divorcee Reg No.</th>
+							<th>Sms Sender</th><th></th>
 						</tr>
 						</thead>
 						<tbody></tbody>
@@ -140,111 +141,20 @@
 		
 <script type="text/javascript">
 
-function validate(id){
-	if($('#name').val() ==  null || $('#name').val() == ""  || $('#name').val()=="undefined" ) {
-		$('#nameError').css('color','red');
-	    $("#nameError").text("Name is Required Field.");
-	    return false;
-	}else{
-		$("#nameError").text("");
-	}
-}
-function validate1(id){
-	
-	if($('#prefix').val() ==  null || $('#prefix').val() == ""  || $('#prefix').val()=="undefined" ) {
-		$('#prefixError').css('color','red');
-	    $("#prefixError").text("Prefix Cannot Be Blank.");
-	}else{
-		$("#prefixError").text("");
-	}
-}
-function validate2(id){
-	if($('#admin').val() ==  null || $('#admin').val() == ""  || $('#admin').val()=="undefined" ) {
-		$('#adminError').css('color','red');
-	    $("#adminError").text("Admin Cannot Be Blank.");
-	}else{
-		$("#adminError").text("");
-	}
-}
-function validate3(id){
-	if($('#premium').val() ==  null || $('#premium').val() == ""  || $('#premium').val()=="undefined" ) {
-		$('#premiumError').css('color','red');
-	    $("#premiumError").text(" Premium Cannot Be Blank.");
-	}else{
-		$("#premiumError").text("");
-	}
-}
-function validate4(id){
-	if($('#free').val() ==  null || $('#free').val() == ""  || $('#free').val()=="undefined" ) {
-		$('#freeError').css('color','red');
-	    $("#freeError").text(" Free Cannot Be Blank.");
-	}else{
-		$("#freeError").text("");
-	}
-}
-function validate5(id){
-	if($('#widow').val() ==  null || $('#widow').val() == ""  || $('#widow').val()=="undefined" ) {
-		$('#widowError').css('color','red');
-	    $("#widowError").text(" Widow Cannot Be Blank.");
-	}else{
-		$("#widowError").text("");
-	}
+var listOrders1 = ${allOrders1};
+if (listOrders1 != "") {
+	displayTable(listOrders1);
 }
 
-$("#submit11").click(function()
-{			
-			if($('#name').val() ==  null || $('#name').val() == ""  || $('#name').val()=="undefined" ||$('#prefix').val() ==  null || $('#prefix').val() == ""  || $('#prefix').val()=="undefined")
-			{
-				if($('#name').val() ==  null || $('#name').val() == ""  || $('#name').val()=="undefined" ) 
-				{
-				    $('#nameError').css('color','red');
-				    $("#nameError").text("Name is Required Field.");
-			    }
-				if($('#prefix').val() ==  null || $('#prefix').val() == ""  || $('#prefix').val()=="undefined" ) 
-				{			   
-				    $('#prefixError').css('color','red');
-				    $("#prefixError").text("Prefix Cannot Be Blank.");
-			    }
-				if($('#admin').val() ==  null || $('#admin').val() == ""  || $('#admin').val()=="undefined" ) 
-				{
-				    $('#adminError').css('color','red');
-				    $("#adminError").text("Admin Cannot Be Blank.");
-			    }
-				if($('#premium').val() ==  null || $('#premium').val() == ""  || $('#premium').val()=="undefined" ) 
-				{
-				    $('#premiumError').css('color','red');
-				    $("#premiumError").text("Premium Cannot Be Blank.");
-			    }
-				if($('#free').val() ==  null || $('#free').val() == ""  || $('#free').val()=="undefined" ) 
-				{
-				    $('#freeError').css('color','red');
-				    $("#freeError").text("Free Cannot Be Blank.");
-			    }
-				if($('#widow').val() ==  null || $('#widow').val() == ""  || $('#widow').val()=="undefined" ) 
-				{
-				    $('#widowError').css('color','red');
-				    $("#widowError").text("Widow Cannot Be Blank.");
-			    }
-				
-				return false;
-				 $("#branch-form").submit();
-			}
-});
-
-
- var listOrders1 = ${allOrders1};
-	if (listOrders1 != "") {
-		displayTable(listOrders1);
-	}
 function displayTable(listOrders) {
 	$('#tableId').html('');
 	var tableHead = '<table  class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,text,text,text,text,text,text,null">'
-		+ '<thead><tr><th>Branch</th><th>Prefix</th><th>Admin</th><th>Premium</th><th>Free</th><th>Widow</th><th>Sms Sender</th><th style="text-align: center;"></th></tr></thead><tbody></tbody></table>';
+		+ '<thead><tr><th>Branch</th><th>Prefix</th><th>Admin Reg No.</th><th>Premium Reg No.</th><th>Free Reg No.</th><th>Widow/Divorcee Reg No.</th><th>Sms Sender</th><th style="text-align: center;"></th></tr></thead><tbody></tbody></table>';
 	$('#tableId').html(tableHead);
 	serviceUnitArray = {};  
 	$.each(listOrders,function(i, orderObj) {
-		var edit = "<a class='edit editIt' onclick='editBodyType("+ orderObj.id+ ")'><i class='fa fa-pencil'></i></a>"
-		var deleterow = "<a class='delete' onclick='deleteBodyType("+ orderObj.id+ ")'><i class='fa fa-trash'></i></a>"
+		var edit = "<a class='edit editIt' onclick='editBranch("+ orderObj.id+ ")'><i class='fa fa-pencil'></i></a>"
+		var deleterow = "<a class='delete' onclick='deleteBranch("+ orderObj.id+ ")'><i class='fa fa-trash'></i></a>"
 		serviceUnitArray[orderObj.id] = orderObj;
 		var tblRow = "<tr >"
 			+ "<td title='"+orderObj.name+"'>" + orderObj.name + "</td>"
@@ -254,14 +164,14 @@ function displayTable(listOrders) {
 			+ "<td title='"+orderObj.free+"'>" + orderObj.free + "</td>"
 			+ "<td title='"+orderObj.widow+"'>" + orderObj.widow + "</td>"
 			+ "<td title='"+orderObj.sms_sender+"'>" + orderObj.sms_sender + "</td>"
-			+ "<td style='text-align: center;white-space: nowrap;'>" + edit + "&nbsp;|&nbsp;" + deleterow + "</td>" 
-			+ "</tr >";
-			$(tblRow).appendTo("#tableId table tbody");
+			+ "<td style='text-align: center;white-space: nowrap;'>" + edit + "&nbsp;|&nbsp;" + deleterow + "</td>"
+			+ "</tr>";
+		$(tblRow).appendTo("#tableId table tbody");
 	});
 	if(isCheck=="Yes") $(".dataTable").dataTable();
 }
-	
-function editBodyType(id) {
+
+function editBranch(id) {
 	$("#id").val(serviceUnitArray[id].id);
 	$("#name").val(serviceUnitArray[id].name);
 	$("#prefix").val(serviceUnitArray[id].prefix);
@@ -274,7 +184,7 @@ function editBodyType(id) {
 	$(window).scrollTop($('body').offset().top);
 }
 
-function deleteBodyType(id){
+function deleteBranch(id){
 	var checkstr =  confirm('Are you sure you want to Delete?');
 	if(checkstr == true){
 		var formData = new FormData();
