@@ -52,20 +52,35 @@
 	            <div class="panel panel-default">
 	            
 		            <div class="panel-body">
-		            	<%-- <div class="row" style="margin-bottom: 0.4em;">
-					      	<c:forEach items="${photosList}" var="photo" >
+		            	<div id="imagesDiv" class="row" style="margin-bottom: 0.4em;">
+					      	<c:forEach items="${photosList}" var="photo1" >
 					      		<div class="col-md-2">
-					      			<img src="${photo.image}" class="img-responsive thumbnail" style="margin-bottom:0;">
+					      			<img src="${baseurl }/${photo1.image}" class="img-responsive thumbnail" style="margin-bottom:0;">
+					      			<c:if test="${photo1.approved_status == '1'}">
+										<span>Approved</span>
+									</c:if>
+									<c:if test="${photo1.approved_status == '2'}">
+										<span>Rejected</span>
+									</c:if>
+									<c:if test="${photo1.approved_status == '0'}">
+										<div id="approveDiv${photo1.id}">
+											<a id="approve${photo1.id}" href="#" onclick="approvePhoto(${photo1.id},1)">Approve</a>
+											<a id="reject${photo1.id}" href="#" onclick="approvePhoto(${photo1.id},2)">Reject</a>
+										</div>
+									</c:if>
+					      			
 					      		</div>
+					      		
 							</c:forEach>
+							
 					    	
-					    </div> --%>
+					    </div>
 						<div class="col-md-3">
 							 <c:if test="${not empty profileBean.profileImage}">
 								<img id="profImage" src="${baseurl }/${profileBean.profileImage}" class="img-responsive thumbnail" style="margin-bottom:0;">
 							</c:if>
 							<c:if test="${empty profileBean.profileImage}">
-								<img src="img/default.png" class="img-responsive thumbnail" style="margin-bottom:0;">
+								<img src="${baseurl }/img/default.png" class="img-responsive thumbnail" style="margin-bottom:0;">
 							</c:if> 
 							<c:forEach items="${photosList}" var="photo" >
 					      		
@@ -114,7 +129,7 @@
 				<div class="clearfix"></div>
 	</div>
 
-<script src="js/ajax.js"></script>
+<script src="${baseurl }/js/ajax.js"></script>
 <script type="text/javascript">
 
 
@@ -143,7 +158,35 @@ function displayMobileNum(profileId,listType){
 function displayImage(imageName){
 	$("#profImage").prop("src",imageName);
 }
-
+function approvePhoto(photoId,approvedStatus){
+	var formData = new FormData();
+	formData.append("photoId",photoId);
+	formData.append("approvedStatus",approvedStatus);
+	$.fn.makeMultipartRequest('POST', 'approvePhoto', false,
+			formData, false, 'text', function(data){
+		var jsonobj = $.parseJSON(data);
+		var msg = jsonobj.message;
+		if(typeof msg != "undefined"){
+			if(msg=="success"){
+				if(approvedStatus==1){
+					alert("Photo approved successfully");
+					//$("#approve"+photoId).removeAttr("href");
+					//var t = $("#approve"+photoId).text();
+					$("#approveDiv"+photoId).html('');
+					$("#approveDiv"+photoId).html("Approved");
+				}else{
+					$("#approveDiv"+photoId).html('');
+					$("#approveDiv"+photoId).html("Rejected");
+					alert("Photo rejected successfully");
+				}
+				
+			}else{
+				alert("Some problem occured. Please try again.");
+			}
+		}
+		
+	}); 
+}
 </script>
 
 </body>

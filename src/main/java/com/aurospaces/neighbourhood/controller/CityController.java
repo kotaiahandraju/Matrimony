@@ -108,7 +108,7 @@ public class CityController {
 	@RequestMapping(value = "/deleteCity")
 	public @ResponseBody String deleteCity(CityBean objCityBean, ModelMap model, HttpServletRequest request,
 			HttpSession session, BindingResult objBindingResult) {
-		System.out.println("deleteCity page...");
+//		System.out.println("deleteCity page...");
 		List<CityBean> listOrderBeans = null;
 		JSONObject jsonObj = new JSONObject();
 		ObjectMapper objectMapper = null;

@@ -49,6 +49,7 @@ import com.aurospaces.neighbourhood.bean.CityBean;
 import com.aurospaces.neighbourhood.bean.ContriesBean;
 import com.aurospaces.neighbourhood.bean.EducationBean;
 import com.aurospaces.neighbourhood.bean.HeightBean;
+import com.aurospaces.neighbourhood.bean.MemberShipBean;
 import com.aurospaces.neighbourhood.bean.Members;
 import com.aurospaces.neighbourhood.bean.Paymenthistory;
 import com.aurospaces.neighbourhood.bean.ReligionBean;
@@ -439,12 +440,12 @@ public class HomePageController {
 						    		session.setAttribute("profile_filled_status", (intValOfStatus+15)+"");
 						    	}
 								
-						    	BranchBean imageBean = objUserImageUploadDao.getByUserId(objUerImagesBean.getUserId());
+						    	/*BranchBean imageBean = objUserImageUploadDao.getByUserId(objUerImagesBean.getUserId());
 						    	if(imageBean != null){
 						    		String profileImage = imageBean.getImage();
 						    		sessionBean.setProfileImage(profileImage);
 						    		session.setAttribute("cacheGuest",sessionBean);
-						    	}
+						    	}*/
 						    	List<Map<String,Object>> photosList = objUsersDao.getUserPhotos(Integer.parseInt(objUerImagesBean.getUserId()));
 						    	objJson.put("photosList", photosList);
 						    	objJson.put("message", "success");
@@ -532,7 +533,6 @@ public class HomePageController {
 				 } 
 			 }
 			 
-//			 BeanUtils.copyProperties(objUsersBean1,objUsersBean,getNullPropertyNames(objUsersBean1));
 			}else{
 				return "redirect:HomePage";
 			}
@@ -552,6 +552,8 @@ public class HomePageController {
 //	  System.out.println("thankYou Page");
 	  try {
 	//   
+		  List<MemberShipBean> packagesList = objUsersDao.getPackagesList();
+		  request.setAttribute("packagesList", packagesList);
 	   
 	  } catch (Exception e) {
 	   e.printStackTrace();
@@ -685,7 +687,7 @@ public class HomePageController {
 			int profile_id = objUserssBean.getId();
 			UsersBean profileBean = objUsersDao.loginChecking(profile_id);
 			request.setAttribute("profileBean", profileBean);
-			List<Map<String,Object>> photosList = objUsersDao.getUserPhotos(profile_id);
+			List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos(profile_id);
 			request.setAttribute("photosList", photosList);
 			
 			
@@ -1640,7 +1642,7 @@ public class HomePageController {
 	}
    
    @ModelAttribute("packages")
-	public Map<Integer, String> populatepackages() {
+   public Map<Integer, String> populatepackages() {
 		Map<Integer, String> statesMap = new LinkedHashMap<Integer, String>();
 		try {
 			String sSql = "select id,name from package  where status='1' order by name asc";
@@ -1705,7 +1707,6 @@ public class HomePageController {
 			}
 			//////
 			
-			//total count to set based on free/paid user limit
 			request.setAttribute("total_records", MatrimonyConstants.FREE_USER_PROFILES_LIMIT);
 			request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
 			if (results != null && results.size() > 0) {
@@ -1713,6 +1714,37 @@ public class HomePageController {
 				
 			} else {
 				jsonObj.put("results", "");
+			}
+			
+		}catch(Exception e){
+			logger.fatal("error in displayPage method in EmployController class");
+			logger.error(e);
+			e.printStackTrace();
+		}
+		return jsonObj.toString();
+	}
+   
+   @RequestMapping(value = "/setAsProfilePicture")
+	public @ResponseBody String setAsProfilePicture(@ModelAttribute("createProfile") UsersBean searchCriteriaBean,ModelMap model, HttpServletRequest request, HttpSession session)
+														throws JsonGenerationException, JsonMappingException, IOException {
+		JSONObject jsonObj = new JSONObject();
+		try{
+			String photoId = request.getParameter("photoId");
+			
+			UsersBean userSessionBean = (UsersBean)session.getAttribute("cacheGuest");
+			if(userSessionBean == null){
+				return "redirect:HomePage";
+			}
+			if(StringUtils.isNotBlank(photoId)){
+				boolean success = objUsersDao.setAsProfilePicture(photoId,userSessionBean.getId());
+				if(success){
+					jsonObj.put("message", "success");
+					String profileImage = objUsersDao.getProfilePicture(userSessionBean.getId());
+					userSessionBean.setProfileImage(profileImage);
+		    		session.setAttribute("cacheGuest",userSessionBean);
+				}else{
+					jsonObj.put("message", "Failed");
+				}
 			}
 			
 		}catch(Exception e){

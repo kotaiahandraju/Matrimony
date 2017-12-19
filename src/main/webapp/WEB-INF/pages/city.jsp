@@ -1,6 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://displaytag.sf.net" prefix="display"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
@@ -24,7 +24,6 @@
 					<span style="color: #999;cursor: auto;">City</span>
 				</li>
 			</ul>
-			
 		</div>
 		<div class="row">
 			<div class="col-lg-8">
@@ -60,6 +59,18 @@
 								  	</div>
 						  		</div>
 						  	</div>
+						  	<div class="row">
+					  			<div class="col-md-12">
+									<div class="form-group">
+										<label class="col-sm-3 control-label required"><spring:message code="label.cityCode" text="City Code" /> <span class="impColor">*</span></label>
+										<div class="col-sm-6">
+											<form:input path="city_code" type="text" class="form-control validate" placeholder="Enter City Code" autocomplete="off" maxlength="255"/>						
+											<span class="hasError" id="city_codeError"></span>
+											<div><form:errors path="city_code" cssClass="error" /></div>									
+										</div>
+								  	</div>
+						  		</div>
+						  	</div>
 							<div class="row">
 						  		<div class="col-md-offset-3 col-md-6">
 							  		<div class="form-group">
@@ -84,10 +95,10 @@
 						<h3><i class="fa fa-table"></i> Cities List</h3>
 					</div>
 					<div class="box-content nopadding w3-animate-zoom" id="tableId">
-						<table class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,text,null">
+						<table class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,text,text,null">
 							<thead>
 							<tr>
-								<th>State</th><th>City</th><th></th>
+								<th>State</th><th>City</th><th>City Code</th><th></th>
 							</tr>
 							</thead>
 							<tbody></tbody>
@@ -108,8 +119,8 @@ if (listOrders1 != "") {
 
 function displayTable(listOrders) {
 	$('#tableId').html('');
-	var tableHead = '<table  class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,text,null">'
-			+ '<thead><tr><th>State</th><th>City</th><th style="text-align: center;"></th></tr></thead><tbody></tbody></table>';
+	var tableHead = '<table  class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,text,text,null">'
+			+ '<thead><tr><th>State</th><th>City</th><th>City Code</th><th style="text-align: center;"></th></tr></thead><tbody></tbody></table>';
 	$('#tableId').html(tableHead);
 	serviceUnitArray = {};
 	$.each(listOrders,function(i, orderObj) {
@@ -119,6 +130,7 @@ function displayTable(listOrders) {
 		var tblRow = "<tr >"
 			+ "<td title='"+orderObj.stateName+"'>" + orderObj.stateName + "</td>"
 			+ "<td title='"+orderObj.name+"'>" + orderObj.name + "</td>"
+			+ "<td title='"+orderObj.city_code+"'>" + orderObj.city_code + "</td>"
 			+ "<td style='text-align: center;white-space: nowrap;'>" + edit + "&nbsp;|&nbsp;" + deleterow + "</td>" 
 			+ "</tr >";
 		$(tblRow).appendTo("#tableId table tbody");
@@ -128,8 +140,9 @@ function displayTable(listOrders) {
 
 function editCity(id) {
 	$("#id").val(serviceUnitArray[id].id);
-	$("#name").val(serviceUnitArray[id].name);
 	$("#state").val(serviceUnitArray[id].state);
+	$("#name").val(serviceUnitArray[id].name);
+	$("#city_code").val(serviceUnitArray[id].city_code);
 	$("#submit1").val("Update");
 	$(window).scrollTop($('body').offset().top);
 }

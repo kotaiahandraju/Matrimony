@@ -104,6 +104,9 @@
 	<definition name="interestRequests" extends="base.definition">
 		<put-attribute name="body" value="/WEB-INF/pages/interestRequests.jsp" />
 	</definition>
+	<definition name="updatedProfiles" extends="base.definition">
+		<put-attribute name="body" value="/WEB-INF/pages/updatedProfiles.jsp" />
+	</definition>
 	<definition name="userFullProfile" extends="base.definition">
 		<put-attribute name="body" value="/WEB-INF/pages/userFullProfile.jsp" />
 	</definition>

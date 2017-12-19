@@ -111,10 +111,10 @@ if(session.getAttribute("cacheGuest") != null){
                     <div class="row">
 					<div class="col-md-5 ">
 						<c:if test="${not empty cacheGuest.profileImage}">
-							<img src="${cacheGuest.profileImage}" class="img-responsive thumbnail" style="margin-bottom:0;">
+							<img id="profilepic" src="${cacheGuest.profileImage}" class="img-responsive thumbnail" style="margin-bottom:0;">
 						</c:if>
 						<c:if test="${empty cacheGuest.profileImage}">
-							<img src="img/default.png" class="img-responsive thumbnail" style="margin-bottom:0;">
+							<img id="profilepic" src="img/default.png" class="img-responsive thumbnail" style="margin-bottom:0;">
 						</c:if>
                       
                       </div>	
@@ -215,7 +215,8 @@ if(session.getAttribute("cacheGuest") != null){
 				<div id="imagesDiv" class="row" style="margin-bottom: 0.4em;">
 			      	<c:forEach items="${photosList}" var="photo" >
 			      		<div class="col-md-2">
-			      			<img src="${photo.image}" class="img-responsive thumbnail" style="margin-bottom:0;">
+			      			<img id="photo" src="${photo.image}" class="img-responsive thumbnail" style="margin-bottom:0;">
+			      			<a href="#" onclick="setAsProfilePicture(${photo.id},'${photo.image}')">Set as Profile Picture</a>
 			      		</div>
 					</c:forEach>
 			    	
@@ -346,6 +347,23 @@ function updateImagesList(photosList){
 		
 	});
 	$("#imagesDiv").html(str);
+}
+function setAsProfilePicture(photoId,photoImage){
+	var formData = new FormData();
+	formData.append("photoId", photoId);
+	//formData.append("id", id);
+	  $.fn.makeMultipartRequest('POST', 'setAsProfilePicture', false,
+				formData, false, 'text', function(data){
+		  	var jsonobj = $.parseJSON(data);
+		  	var msg = jsonobj.message;
+		  	if("success" == msg){
+		  		alert("Profile picture updated.");
+		  		$("#profilepic").prop("src",photoImage);
+		  	}else{
+		  		alert("Some problem occured. Please try again.");
+		  	}
+		  	
+		});
 }
 </script>
 

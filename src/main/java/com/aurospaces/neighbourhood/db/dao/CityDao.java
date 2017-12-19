@@ -27,7 +27,7 @@ public class CityDao extends BaseCityDao {
 			return retlist;
 		return null;
 	}
-	public List<CityBean> populate(String sql ){
+	public List<CityBean> populate(String sql ){	
 		jdbcTemplate = custom.getJdbcTemplate();
 		List<CityBean> retlist = jdbcTemplate.query(sql,ParameterizedBeanPropertyRowMapper.newInstance(CityBean.class));
 					return retlist;
