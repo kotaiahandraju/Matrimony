@@ -88,6 +88,18 @@
 	<definition name="premiumProfile" extends="base.definition">
 		<put-attribute name="body" value="/WEB-INF/pages/premiumProfile.jsp" />
 	</definition>
+	<definition name="premiumPlusProfile" extends="base.definition">
+		<put-attribute name="body" value="/WEB-INF/pages/premiumPlusProfile.jsp" />
+	</definition>
+	<definition name="classicProfile" extends="base.definition">
+		<put-attribute name="body" value="/WEB-INF/pages/classicProfile.jsp" />
+	</definition>
+	<definition name="classicPlusProfile" extends="base.definition">
+		<put-attribute name="body" value="/WEB-INF/pages/classicPlusProfile.jsp" />
+	</definition>
+	<definition name="aarnaPremiumProfile" extends="base.definition">
+		<put-attribute name="body" value="/WEB-INF/pages/aarnaPremiumProfile.jsp" />
+	</definition>
 	<definition name="StateHome" extends="base.definition">
 		<put-attribute name="body" value="/WEB-INF/pages/state.jsp" />
 	</definition>

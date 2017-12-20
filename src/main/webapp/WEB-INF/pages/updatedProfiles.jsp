@@ -1,0 +1,249 @@
+<%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://displaytag.sf.net" prefix="display"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
+<style>
+ .error {
+        color: red; font-weight: bold;
+    }
+</style>
+
+<link href="${baseurl }/css/datepicker1.css" rel="stylesheet" type="text/css" />
+<script src="${baseurl }/js/jquery-ui.min.js"></script>
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" />
+
+	
+<!-- 	<script src="http://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script> -->
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.1/themes/black-tie/jquery-ui.css"> -->
+<!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.js"></script> -->
+<input type="hidden" name="loc" id="loc" value="${baseurl }" />
+<div id="main">
+<div class="container-fluid">
+	<div class="page-header">
+		<div class="pull-left">
+			<h1>Updated Profiles </h1> 
+		</div>
+	</div>
+	<div class="breadcrumbs">
+		<ul>
+			<li>
+				<i class="fa fa-edit"></i>
+				<a href="javascript:void(0)" style="color: blue;text-decoration: none;">Admin </a>
+				<i class="fa fa-angle-right"></i>&nbsp;
+			</li>
+			<li>
+				&nbsp;<i class="fa fa-file"></i>
+				<span style="color: #999;cursor: auto;">Updated Profiles</span>
+			</li>
+		</ul>
+		
+	</div>
+	<div class="col-lg-8">
+		<div>
+			<div class="portlet" id="yw0">
+				<div class="portlet-content w3-animate-zoom">
+					<!-- Body Type Form Starts Here-->
+					
+					<!-- Body Type Form Ends Here-->
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+<div id="dial1"></div>
+
+<div class="row" id="allProfilesId">
+	<form:form commandName="createProfile"  class="form-horizontal" id="searchForm2" name="searchForm2" role="form"   method="post">
+	<form:hidden path="id"/>
+	<div class="col-sm-12">
+		<div class="box">
+			<div class="box-title">
+				<h3>
+					<i class="fa fa-table"></i>
+					Updated Profiles List
+				</h3>
+			</div>
+			<div id="tableId">
+			</div>
+			<div id="paginator"></div>
+			<div id="table_footer"></div>
+		</div>
+	</div>
+	</form:form>
+</div>
+</div>
+</div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Image Upload</h4>
+        </div>
+        <div class="modal-body">
+         <input type="hidden" name="profileId" id="profileId">
+        <input id="imageName" type="file" value="" name="imageName" >
+          <button type="button" onclick="imageAjax()" class="btn btn-default" >upload</button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+<script src="${baseurl}/js/common.js"></script>	
+<script src="${baseurl}/js/jquery-asPaginator.js"></script>
+<link rel="stylesheet" type="text/css" href="${baseurl}/css/asPaginator.css">
+<script type="text/javascript">
+/* var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-38620714-4']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script');
+ga.type = 'text/javascript';
+ga.async = true;
+ga.src = ('https:' == document.k.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0];
+s.parentNode.insertBefore(ga, s);
+})();
+ */
+ var total_items_count = ${total_records};
+ var page_size = ${page_size};
+ var listOrders1 = ${updatedProfilesList};
+	if (listOrders1 != "") {
+		paginationSetup(total_items_count);
+		$("#paginator").asPaginator('enable');
+		displayTable(listOrders1);
+		displayTableFooter(1);
+	}
+	
+	function paginationSetup(total_items_count) {
+		  $('#paginator').asPaginator(total_items_count, {
+	          currentPage: 1,
+	          visibleNum: {
+	            0: 10,
+	            480: 3,
+	            960: 5
+	          },
+	          tpl: function() {
+	            return '<ul>{{first}}{{prev}}{{altLists}}{{next}}{{last}}</ul>';
+	          },
+	          components: {
+	            first: true,
+	            prev: true,
+	            next: true,
+	            last: true,
+	            altLists: true
+	          },
+	          onChange: function(page) {
+	             var formData = new FormData();
+	        	 formData.append("page_no",page);
+	        	
+	    		$.fn.makeMultipartRequest('POST', 'updatedProfilesPagination', false,
+	    				formData, false, 'text', function(data){
+	    			var jsonobj = $.parseJSON(data);
+	    			var profiles = jsonobj.updatedProfilesList;
+	    			if(profiles==""){
+		    		/* 	$('#countId').html('');
+		    			$('#countId').html('0');
+		    			var str = '<div class="panel panel-default"><h6>No results found.</h6></div>';
+		    			$('#searchResults').html('');
+		    			$(str).appendTo("#searchResults");
+		    		 */	
+		    		 	var str = '<div class="panel panel-default"><h6>No results found.</h6></div>';
+		    		 	$('#tableId').html('');
+		    		 	$('#tableId').html(str);
+		    		 	$("#table_footer").prop("hidden",true);
+		    			$("#paginator").prop("hidden",true);
+		    		}else{
+		    			paginationSetup(total_items_count);
+		    			$("#paginator").asPaginator('enable');
+		    			displayTable(profiles);
+		    			$("#table_footer").removeAttr("hidden");
+		    			$("#paginator").removeAttr("hidden");
+		    			displayTableFooter(page);
+		    		}
+	    			
+	    		});
+	            
+	          }
+	        });
+	}
+ function displayTable(listOrders) {
+		$('#tableId').html('');
+		var tableHead = '<table class="table table-hover table-nomargin table-bordered" >'
+			+ '<thead><tr><th>UserName</th><th>Updated On</th></tr></thead><tbody></tbody></table>';
+		$('#tableId').html(tableHead);
+		serviceUnitArray = {};
+		$.each(listOrders,function(i, orderObj) {
+							serviceUnitArray[orderObj.id] = orderObj;
+							var tblRow = "<tr>"
+								+ "<td title='"+orderObj.username+"'><a href='#' onclick='fullProfile("+orderObj.id+")'>" + orderObj.username + "</a></td>"
+								+ "<td title='"+orderObj.updatedOn+"'>" + orderObj.updatedOn + "</td>"
+								+ "</tr >";
+							$(tblRow).appendTo("#tableId table tbody"); 
+						});
+		/* $('#DataTables_Table_0').DataTable({
+			dom: 'Bfrtip',
+			buttons: [{extend:"print",className:"btn default"},{extend:"pdf",className:"btn default"},{extend:"csv",className:"btn default"}]
+		}); */
+		
+		 /*$('#datatable-buttons').DataTable({
+		        "dom": 'C<"clear">lfrtip',
+		        "colVis": {
+		            "buttonText": "Change columns",
+		        "buttons": [{extend:"copy",className:"btn default"},{extend:"print",className:"btn default"},{extend:"pdf",className:"btn default"},{extend:"csv",className:"btn default"}]
+		        }
+		    });*/
+	}
+ function displayTableFooter(page){
+		var from_val = ((parseInt(page)-1)*page_size)+1;
+		var to_val = parseInt(page)*page_size;
+		if(to_val > total_items_count){
+			to_val = total_items_count;
+		}
+		if(from_val>to_val){
+			from_val = to_val;
+		}
+		$("#table_footer").html("Showing "+from_val+" to "+to_val+" of "+total_items_count+" records");
+	}
+ function fullProfile(profile_id){
+		$("#id").val(profile_id);
+		//document.searchForm2.id = profile_id;
+		document.searchForm2.action = "fullProfile"
+	    document.searchForm2.target = "_blank";    // Open in a new window
+	    document.searchForm2.submit();             // Submit the page
+	    return true;
+		/* jQuery.fn.makeMultipartRequest('POST', 'fullProfile', false,
+				formData, false, 'text', function(data){
+	    		var jsonobj = $.parseJSON(data);
+	    		var msg = jsonobj.message;
+	    		if(typeof msg != "undefined"){
+	    			if(msg=="success"){
+	    				;
+	    			}else{
+	    				alert("Some problem occured. Please try again.");
+	    			}
+	    		}
+	    		
+		}); */
+	}
+ $(".updatedProfiles").addClass("active");
+</script>
+
+</body>
+
+
+<!-- Mirrored from www.eakroko.de/flat/forms-basic.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 18 Sep 2017 09:43:06 GMT -->
+</html>
+

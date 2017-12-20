@@ -356,7 +356,6 @@ public class FilterController {
    @RequestMapping(value = "/PremiumProfile")
  	public String premiumProfile(@ModelAttribute("createProfile") UsersBean objUsersBean, ModelMap model,
  			HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
- 		System.out.println("getAllProfiles Page");
  		List<Map<String, String>> listOrderBeans = null;
  		ObjectMapper objectMapper = null;
  		String sJson = null;
@@ -383,6 +382,124 @@ public class FilterController {
  		}
  		return "premiumProfile";
  	}
+   
+   @RequestMapping(value = "/ClassicProfile")
+	public String classicProfile(@ModelAttribute("createProfile") UsersBean objUsersBean, ModelMap model,
+			HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
+		List<Map<String, String>> listOrderBeans = null;
+		ObjectMapper objectMapper = null;
+		String sJson = null;
+		try {
+			listOrderBeans = objUsersDao.getAllProfiles1(objUsersBean,"classic");
+			if (listOrderBeans != null && listOrderBeans.size() > 0) {
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(listOrderBeans);
+				request.setAttribute("allOrders1", sJson);
+				// System.out.println(sJson);
+			} else {
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(listOrderBeans);
+				request.setAttribute("allOrders1", "''");
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			logger.error(e);
+			logger.fatal("error in CountriesController class CountriesHome method  ");
+			return "CreateProfile";
+		}
+		return "classicProfile";
+	}
+   
+   @RequestMapping(value = "/ClassicPlusProfile")
+	public String classicPlusProfile(@ModelAttribute("createProfile") UsersBean objUsersBean, ModelMap model,
+			HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
+		List<Map<String, String>> listOrderBeans = null;
+		ObjectMapper objectMapper = null;
+		String sJson = null;
+		try {
+			listOrderBeans = objUsersDao.getAllProfiles1(objUsersBean,"classic_plus");
+			if (listOrderBeans != null && listOrderBeans.size() > 0) {
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(listOrderBeans);
+				request.setAttribute("allOrders1", sJson);
+				// System.out.println(sJson);
+			} else {
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(listOrderBeans);
+				request.setAttribute("allOrders1", "''");
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			logger.error(e);
+			logger.fatal("error in CountriesController class CountriesHome method  ");
+			return "CreateProfile";
+		}
+		return "classicPlusProfile";
+	}
+   @RequestMapping(value = "/AarnaPremiumProfile")
+	public String aarnaPremiumProfile(@ModelAttribute("createProfile") UsersBean objUsersBean, ModelMap model,
+			HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
+		List<Map<String, String>> listOrderBeans = null;
+		ObjectMapper objectMapper = null;
+		String sJson = null;
+		try {
+			listOrderBeans = objUsersDao.getAllProfiles1(objUsersBean,"aarna_premium");
+			if (listOrderBeans != null && listOrderBeans.size() > 0) {
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(listOrderBeans);
+				request.setAttribute("allOrders1", sJson);
+				// System.out.println(sJson);
+			} else {
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(listOrderBeans);
+				request.setAttribute("allOrders1", "''");
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			logger.error(e);
+			logger.fatal("error in CountriesController class CountriesHome method  ");
+			return "CreateProfile";
+		}
+		return "aarnaPremiumProfile";
+	}
+   @RequestMapping(value = "/PremiumPlusProfile")
+	public String premiumPlusProfile(@ModelAttribute("createProfile") UsersBean objUsersBean, ModelMap model,
+			HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
+		List<Map<String, String>> listOrderBeans = null;
+		ObjectMapper objectMapper = null;
+		String sJson = null;
+		try {
+			listOrderBeans = objUsersDao.getAllProfiles1(objUsersBean,"premium_plus");
+			if (listOrderBeans != null && listOrderBeans.size() > 0) {
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(listOrderBeans);
+				request.setAttribute("allOrders1", sJson);
+				// System.out.println(sJson);
+			} else {
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(listOrderBeans);
+				request.setAttribute("allOrders1", "''");
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			logger.error(e);
+			logger.fatal("error in CountriesController class CountriesHome method  ");
+			return "CreateProfile";
+		}
+		return "premiumPlusProfile";
+	}
   
    @RequestMapping(value = "/interestRequests")
 	public String interestRequests(@ModelAttribute("createProfile") UsersBean objUsersBean, ModelMap model,
