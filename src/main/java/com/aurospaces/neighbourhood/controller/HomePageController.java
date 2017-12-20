@@ -839,7 +839,8 @@ public class HomePageController {
 			listOrderBeans = objUsersDao.getSearchResults(searchCriteriaBean,page_no);
 			int role_id = sessionBean.getRoleId();
 			int limit = 0;
-			if((role_id == MatrimonyConstants.FREE_USER_ROLE_ID) || (role_id==MatrimonyConstants.CLASSIC_USER_ROLE_ID))
+			limit = getLimitFor(role_id);
+			/*if((role_id == MatrimonyConstants.FREE_USER_ROLE_ID) || (role_id==MatrimonyConstants.CLASSIC_USER_ROLE_ID))
 				limit = MatrimonyConstants.FREE_USER_PROFILES_LIMIT;
 			else if(role_id == MatrimonyConstants.CLASSIC_PLUS_USER_ROLE_ID)
 				limit = MatrimonyConstants.CLASSIC_PLUS_USER_PROFILES_LIMIT;
@@ -848,8 +849,8 @@ public class HomePageController {
 			else if(role_id == MatrimonyConstants.PREMIUM_PLUS_USER_ROLE_ID)
 				limit = MatrimonyConstants.PREMIUM_PLUS_USER_PROFILES_LIMIT;
 			else if(role_id == MatrimonyConstants.AARNA_PREMIUM_USER_ROLE_ID)
-				limit = MatrimonyConstants.AARNA_PREMIUM_USER_PROFILES_LIMIT;
-			int viewed_count = objUsersDao.getAllowedProfilesCount(sessionBean.getId()+"");
+				limit = MatrimonyConstants.AARNA_PREMIUM_USER_PROFILES_LIMIT;*/
+			int viewed_count = objUsersDao.getMobileNumViewedCount(sessionBean.getId()+"");
 			int total_records = limit - viewed_count;
 			request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
 			if (listOrderBeans != null && listOrderBeans.size() > 0) {
@@ -915,13 +916,18 @@ public class HomePageController {
 				//if(selectedCasts!=null){
 					filteredProfiles = objUsersDao.getProfilesFilteredByCast(selectedCasts,selectedReligions,selectedEducations,0);
 					objJson.put("filtered_profiles", filteredProfiles.size()>0?filteredProfiles:"");
-					int viewed_count = objUsersDao.getAllowedProfilesCount(sessionBean.getId()+"");
-					int total_records = MatrimonyConstants.FREE_USER_PROFILES_LIMIT - viewed_count;
+					int role_id = sessionBean.getRoleId();
+					int limit = 0;
+					limit = getLimitFor(role_id);
+					int viewed_count = objUsersDao.getMobileNumViewedCount(sessionBean.getId()+"");
+					int total_records = limit - viewed_count;
 					if(filteredProfiles.size()>0){
 						int count = Integer.parseInt(((Map<String, String>)filteredProfiles.get(0)).get("total_records"));
 						if(count<total_records){
 							total_records = count;
 						}
+					}else if(filteredProfiles.size()==0){
+						total_records = 0;
 					}
 					objJson.put("total_records", total_records);
 					objJson.put("page_size", MatrimonyConstants.PAGINATION_SIZE);
@@ -1697,8 +1703,8 @@ public class HomePageController {
 			String ageFrom = request.getParameter("rAgeFrom");
 			String page_num = request.getParameter("page_no");
 			
-			UsersBean userBean = (UsersBean)session.getAttribute("cacheGuest");
-			if(userBean == null){
+			UsersBean userSessionBean = (UsersBean)session.getAttribute("cacheGuest");
+			if(userSessionBean == null){
 				return "redirect:HomePage";
 			}
 			if(page_no != 0)
@@ -1715,9 +1721,12 @@ public class HomePageController {
 					results = objUsersDao.getSearchResults(searchCriteriaBean,page_no);
 				}
 			}
-			//////
-			
-			request.setAttribute("total_records", MatrimonyConstants.FREE_USER_PROFILES_LIMIT);
+			int role_id = userSessionBean.getRoleId();
+			int limit = 0;
+			limit = getLimitFor(role_id);
+			int viewed_count = objUsersDao.getMobileNumViewedCount(userSessionBean.getId()+"");
+			int total_records = limit - viewed_count;
+			request.setAttribute("total_records", total_records);
 			request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
 			if (results != null && results.size() > 0) {
 				jsonObj.put("results", results);
@@ -1764,5 +1773,18 @@ public class HomePageController {
 		}
 		return jsonObj.toString();
 	}
-   
+   private int getLimitFor(int role_id){
+	   int limit = 0;
+	    if((role_id == MatrimonyConstants.FREE_USER_ROLE_ID) || (role_id==MatrimonyConstants.CLASSIC_USER_ROLE_ID))
+			limit = MatrimonyConstants.FREE_USER_PROFILES_LIMIT;
+		else if(role_id == MatrimonyConstants.CLASSIC_PLUS_USER_ROLE_ID)
+			limit = MatrimonyConstants.CLASSIC_PLUS_USER_PROFILES_LIMIT;
+		else if(role_id == MatrimonyConstants.PREMIUM_USER_ROLE_ID)
+			limit = MatrimonyConstants.PREMIUM_USER_PROFILES_LIMIT;
+		else if(role_id == MatrimonyConstants.PREMIUM_PLUS_USER_ROLE_ID)
+			limit = MatrimonyConstants.PREMIUM_PLUS_USER_PROFILES_LIMIT;
+		else if(role_id == MatrimonyConstants.AARNA_PREMIUM_USER_ROLE_ID)
+			limit = MatrimonyConstants.AARNA_PREMIUM_USER_PROFILES_LIMIT;
+	    return limit;
+   }
 }

@@ -223,7 +223,7 @@ public class UsersDao extends BaseUsersDao
 									buffer.append( " and u.status in( '2')" );
 								}
 								if(type.equals("inactive")){
-									buffer.append( " and u.status in( '0')" );
+									buffer.append( " and u.status in( '0') and u.role_id not in (1)" );
 								}
 								if(type.equals("admin")){
 									buffer.append( " and u.registerwith is not null " );
@@ -343,7 +343,7 @@ public class UsersDao extends BaseUsersDao
 	 public List<Map<String, String>> getProfilesFilteredByCast(String castValues,String religionValues,String educationValues,int page_no){
 			jdbcTemplate = custom.getJdbcTemplate();
 			StringBuffer buffer = new StringBuffer();
-			StringBuffer where_clause = new StringBuffer(" where u.role_id not in (1) ");
+			StringBuffer where_clause = new StringBuffer(" where u.status in ('1') ");
 			String handlerObj[] = null;
 			UsersBean objUserBean = null;
 			objUserBean = (UsersBean) session.getAttribute("cacheUserBean");
@@ -601,7 +601,7 @@ public class UsersDao extends BaseUsersDao
 			return false;
 	 }
 	 
-	 public int getAllowedProfilesCount(String userId){
+	 public int getMobileNumViewedCount(String userId){
 			jdbcTemplate = custom.getJdbcTemplate();
 			
 				try{

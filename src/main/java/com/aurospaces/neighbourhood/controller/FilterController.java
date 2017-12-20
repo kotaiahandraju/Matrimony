@@ -569,24 +569,26 @@ public class FilterController {
 		ObjectMapper objectMapper = null;
 		String sJson = null;
 		try {
+			
+			long total_records = 0;
 			profilesList = objUsersDao.getUpdatedProfiles(0);
 			if (profilesList != null && profilesList.size() > 0) {
 				objectMapper = new ObjectMapper();
 				sJson = objectMapper.writeValueAsString(profilesList);
 				request.setAttribute("updatedProfilesList", sJson);
-				request.setAttribute("total_records", profilesList.get(0).get("total_count"));
-				request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
+				total_records = (Long)profilesList.get(0).get("total_count");
 				// System.out.println(sJson);
 			} else {
 				request.setAttribute("updatedProfilesList", "''");
 			}
-			
+			request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
+			request.setAttribute("total_records", total_records);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e);
 			logger.error(e);
-			logger.fatal("error in updatedProfilesPagination method  ");
+			logger.fatal("error in updatedProfiles method  ");
 			return "updatedProfiles";
 		}
 		return "updatedProfiles";
@@ -595,7 +597,7 @@ public class FilterController {
    @RequestMapping(value = "/updatedProfilesPagination")
 	public @ResponseBody String updatedProfilesPagination(@ModelAttribute("createProfile") UsersBean searchCriteriaBean, ModelMap model,
 			HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
-		System.out.println("interestRequests Page");
+		System.out.println("updatedProfilesPagination Page");
 		List<Map<String, Object>> profilesList = null;
 		ObjectMapper objectMapper = null;
 		String sJson = null;
@@ -607,18 +609,18 @@ public class FilterController {
 			}
 			if(page_no != 0)
 				page_no = page_no-1;
+			int total_records = 0;
 			profilesList = objUsersDao.getUpdatedProfiles(page_no);
 			if (profilesList != null && profilesList.size() > 0) {
 				objectMapper = new ObjectMapper();
 				sJson = objectMapper.writeValueAsString(profilesList);
 				request.setAttribute("updatedProfilesList", sJson);
-				request.setAttribute("total_records", profilesList.get(0).get("total_count"));
-				request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
+				total_records = Integer.parseInt((String)profilesList.get(0).get("total_count"));
 				// System.out.println(sJson);
 			} else {
 				request.setAttribute("updatedProfilesList", "''");
 			}
-			request.setAttribute("total_records", MatrimonyConstants.FREE_USER_PROFILES_LIMIT);
+			request.setAttribute("total_records", total_records);
 			request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
 			
 		} catch (Exception e) {

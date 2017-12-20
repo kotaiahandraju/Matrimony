@@ -120,12 +120,12 @@ s.parentNode.insertBefore(ga, s);
  var total_items_count = ${total_records};
  var page_size = ${page_size};
  var listOrders1 = ${updatedProfilesList};
-	if (listOrders1 != "") {
+	//if (listOrders1 != "") {
 		paginationSetup(total_items_count);
 		$("#paginator").asPaginator('enable');
 		displayTable(listOrders1);
 		displayTableFooter(1);
-	}
+	//}
 	
 	function paginationSetup(total_items_count) {
 		  $('#paginator').asPaginator(total_items_count, {
@@ -185,6 +185,10 @@ s.parentNode.insertBefore(ga, s);
 			+ '<thead><tr><th>UserName</th><th>Updated On</th></tr></thead><tbody></tbody></table>';
 		$('#tableId').html(tableHead);
 		serviceUnitArray = {};
+		if(listOrders==""){
+			var tblRow = "<tr><td colspan='2' class='dataTables_empty'>No data available</td></tr>";
+			$(tblRow).appendTo("#tableId table tbody");
+		}
 		$.each(listOrders,function(i, orderObj) {
 							serviceUnitArray[orderObj.id] = orderObj;
 							var tblRow = "<tr>"
