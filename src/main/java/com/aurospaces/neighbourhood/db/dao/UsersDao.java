@@ -601,6 +601,44 @@ public class UsersDao extends BaseUsersDao
 			return false;
 	 }
 	 
+	 @SuppressWarnings("deprecation")
+	public boolean forwardInterestRequestss(String requestIds){
+			jdbcTemplate = custom.getJdbcTemplate();
+			StringBuffer buffer = new StringBuffer();
+			
+				try{
+					int updated_count = jdbcTemplate.update("update express_intrest set status = '1' where find_in_set(id,'"+requestIds+"')>0");
+					if(updated_count>0){
+						return true;
+					}
+					return false;
+				}catch(Exception e){
+					e.printStackTrace();
+					return false;
+				}
+	 }
+	 
+	 @SuppressWarnings("deprecation")
+	public boolean acceptInterestRequests(String profileIds){
+			jdbcTemplate = custom.getJdbcTemplate();
+			StringBuffer buffer = new StringBuffer();
+			UsersBean objUserBean = null;
+			objUserBean = (UsersBean) session.getAttribute("cacheGuest");
+			if(objUserBean!=null){
+				try{
+					int updated_count = jdbcTemplate.update("update express_intrest set status = '2' where user_id="+objUserBean.getId()+" and find_in_set(profile_id,'"+profileIds+"')>0");
+					if(updated_count>0){
+						return true;
+					}
+					return false;
+				}catch(Exception e){
+					e.printStackTrace();
+					return false;
+				}
+			}
+			return false;
+	 }
+	 
 	 public int getMobileNumViewedCount(String userId){
 			jdbcTemplate = custom.getJdbcTemplate();
 			
@@ -1100,8 +1138,8 @@ public class UsersDao extends BaseUsersDao
 		public Map<String,Object> getInterestCounts(int userId){
 			jdbcTemplate = custom.getJdbcTemplate();
 			String qryStr = "select (select count(*) from express_intrest where user_id = "+userId+" and interested = '1') as sentInterestCount, "
-						+"(select count(*) from express_intrest where profile_id = "+userId+" and interested = '1') as receivedInterestCount, "
-						+"(select count(*) from express_intrest where user_id = "+userId+" and status = '1') as acceptedInterestCount";
+						+"(select count(*) from express_intrest where profile_id = "+userId+" and interested = '1' and status = '1') as receivedInterestCount, "
+						+"(select count(*) from express_intrest where user_id = "+userId+" and status = '2') as acceptedInterestCount";
 			try{
 				List<Map<String,Object>> list = jdbcTemplate.queryForList(qryStr);
 				if(list!=null)

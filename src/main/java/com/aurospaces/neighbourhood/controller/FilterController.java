@@ -509,6 +509,10 @@ public class FilterController {
 		ObjectMapper objectMapper = null;
 		String sJson = null;
 		try {
+			UsersBean sessionBean = (UsersBean)session.getAttribute("cacheUserBean");
+			if(sessionBean == null){
+				return "redirect:HomePage";
+			}
 			requestsList = objUsersDao.getInterestRequests(0);
 			if (requestsList != null && requestsList.size() > 0) {
 				objectMapper = new ObjectMapper();
@@ -533,24 +537,18 @@ public class FilterController {
    @RequestMapping(value = "/forwardInterestRequests")
 	public  @ResponseBody String forwardInterestRequests(@ModelAttribute("createProfile") UsersBean objUsersBean, ModelMap model,
 			HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
-		System.out.println("forwardInterestRequests Page");
-		List<Map<String, Object>> requestsList = null;
-		ObjectMapper objectMapper = null;
-		String sJson = null;
+	    JSONObject objJson =new JSONObject();
 		try {
 			UsersBean sessionBean = (UsersBean)session.getAttribute("cacheUserBean");
 			if(sessionBean == null){
 				return "redirect:HomePage";
 			}
-			String profileIds = request.getParameter("profile_ids");
-			boolean forwarded = objUsersDao.forwardInterestRequestss(sessionBean.getId()+"", profileIds);
+			String requestId = request.getParameter("requestId");
+			boolean forwarded = objUsersDao.forwardInterestRequestss(requestId);
 			if (forwarded) {
-				objectMapper = new ObjectMapper();
-				sJson = objectMapper.writeValueAsString(requestsList);
-				request.setAttribute("requestsList", sJson);
-				// System.out.println(sJson);
+				objJson.put("message", "success");
 			} else {
-				request.setAttribute("requestsList", "''");
+				objJson.put("message", "failed");
 			}
 			
 			
@@ -558,10 +556,10 @@ public class FilterController {
 			e.printStackTrace();
 			System.out.println(e);
 			logger.error(e);
-			logger.fatal("error in CountriesController class CountriesHome method  ");
-			return "CreateProfile";
+			logger.fatal("error forwardInterestRequests method  ");
+			return objJson.put("message", "error").toString();
 		}
-		return "interestRequests";
+		return objJson.toString();
 	}
    
    @RequestMapping(value = "/fullProfile")
