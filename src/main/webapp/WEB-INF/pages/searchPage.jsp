@@ -137,7 +137,7 @@ if(session.getAttribute("cacheGuest") != null){
       
 		<div class="col-md-5">
 			<div class="cart box_1">
-				<p>Dear, <%= userBean.getFirstName() %> <%= userBean.getLastName() %> | &nbsp;&nbsp;<a href="paymentDetails" >Upgrade</a> &nbsp;&nbsp;|&nbsp;&nbsp; <a href="#" >Help</a> &nbsp;&nbsp;|&nbsp;&nbsp; <a href="logoutHome" >Signout</a></p>
+				<p>Dear, <%= userBean.getFirstName() %> <%= userBean.getLastName() %> | &nbsp;&nbsp;<a href="memberShipPage" >Upgrade</a> &nbsp;&nbsp;|&nbsp;&nbsp; <a href="#" >Help</a> &nbsp;&nbsp;|&nbsp;&nbsp; <a href="logoutHome" >Signout</a></p>
 				<div class="clearfix"> </div>
 			</div>				 
 		</div>
@@ -643,15 +643,16 @@ function displayMatches(listOrders) {
 			var mobile_no__str = '';
 			var more_details_str = '';
 			var expressed = orderObj.expressedInterest;
-			if(expressed==0){
-				insert_str = '<button id="expInterest'+orderObj.id+'" type="button" class="btn btn-primary btn-block" onclick="expressInterest('+orderObj.id+')">Yes I\'m interested</button>';
-			}else if(expressed>0){
-				insert_str = '<button class="btn btn-primary btn-block">Expressed Interest</button>';
-			}
-			if((login_user_role_id == 6) || (login_user_role_id == 11)){ //means premium user
+			
+			if((login_user_role_id == 6) || (login_user_role_id == 11) || (login_user_role_id == 14)){ //means premium user
 				mobile_no__str = '<tr id="row'+orderObj.id+'"><td><button type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button></td></tr>';
 				//more_details_str = '<tr><td><span><a href="#" onclick="showMoreDetails(this)">read more...</a></span></td></tr>';
 				//mobile_no__str = '<tr><td><span><a href="#" onclick="viewMobileNumber('+orderObj.id+')">View Mobile Number</a></span></td></tr>';
+				if(expressed==0){
+					insert_str = '<button id="expInterest'+orderObj.id+'" type="button" class="btn btn-primary btn-block" onclick="expressInterest('+orderObj.id+')">Yes I\'m interested</button>';
+				}else if(expressed>0){
+					insert_str = '<button class="btn btn-primary btn-block">Expressed Interest</button>';
+				}
 			}
 			var tblRow = '<div class="panel panel-default">'
 				+ '<div class="panel-heading">'
@@ -693,9 +694,9 @@ function displayMatches(listOrders) {
             	+ '</div>' */
             	+ '<div class="col-md-3">'
             	+ '<h4 style="margin-bottom:20px;">Like this Profile?</h4>'
-            	+ '<c:if test="${(cacheGuest.roleId == 6)}">'
+            	//+ '<c:if test="${(cacheGuest.roleId == 6)}">'
             	+ insert_str
-				+ '</c:if>	 '
+				//+ '</c:if>	 '
 				+ '<button class="btn btn-danger btn-block" onclick="fullProfile('+orderObj.id+')">View Full Profile</button>'
             	+ '<div class="clearfix"></div>'
             	+ '</div>'
@@ -924,25 +925,18 @@ function displayMobileNum(profileId,listType){
 	
 }
 function fullProfile(profile_id){
+	var roleId = ${cacheGuest.roleId};
 	$("#id").val(profile_id);
+	if(roleId==4){
+		document.searchForm2.action = "memberShipPage"
+	}else{
+		document.searchForm2.action = "fullProfile"
+	}
 	//document.searchForm2.id = profile_id;
-	document.searchForm2.action = "fullProfile"
+	
     document.searchForm2.target = "_blank";    // Open in a new window
     document.searchForm2.submit();             // Submit the page
     return true;
-	/* jQuery.fn.makeMultipartRequest('POST', 'fullProfile', false,
-			formData, false, 'text', function(data){
-    		var jsonobj = $.parseJSON(data);
-    		var msg = jsonobj.message;
-    		if(typeof msg != "undefined"){
-    			if(msg=="success"){
-    				;
-    			}else{
-    				alert("Some problem occured. Please try again.");
-    			}
-    		}
-    		
-	}); */
 }
 
 

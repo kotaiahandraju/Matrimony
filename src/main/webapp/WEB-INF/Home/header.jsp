@@ -208,7 +208,11 @@ $(document).ready(function(){
 						<li class="deleteProfiles"><a href="${baseurl }/admin/DeleteProfilesHome">Delete Profiles</a></li>
 						<li class="adminProfiles"><a href="${baseurl }/admin/AdminRegisterProfiles">Admin Register Profiles</a></li>
 						<li class="freeProfiles"><a href="${baseurl }/admin/FreeRegisterProfile">Free Register Profiles</a></li>
+						<li class="classicProfiles"><a href="${baseurl }/admin/ClassicProfile">Classic Profiles</a></li>
+						<li class="classicPlusProfiles"><a href="${baseurl }/admin/ClassicPlusProfile">Classic Plus Profiles</a></li>
 						<li class="premiumProfiles"><a href="${baseurl }/admin/PremiumProfile">Premium Profiles</a></li>
+						<li class="premiumPlusProfiles"><a href="${baseurl }/admin/PremiumPlusProfile">Premium Plus Profiles</a></li>
+						<li class="aarnaPremiumProfiles"><a href="${baseurl }/admin/AarnaPremiumProfile">Aarna Premium Profiles</a></li>
 						<li class="hiddenProfiles"><a href="${baseurl }/admin/HiddenProfilesHome">Hidden Profiles</a></li>
 						 
 					</ul>

@@ -50,7 +50,7 @@ public class PaymentDao
 			System.out.println(insert_qry);
 			int inserted_count = jdbcTemplate.update(insert_qry);
 			int roleId = 0;
-			if(Integer.parseInt(paymentBean.getPackageId())==MatrimonyConstants.PACKAGE_LIFETIME){
+			if(Integer.parseInt(paymentBean.getPackageId())==MatrimonyConstants.AARNA_PREMIUM_PACKAGE){
 				roleId = 11;
 			}else {
 				roleId = 6;

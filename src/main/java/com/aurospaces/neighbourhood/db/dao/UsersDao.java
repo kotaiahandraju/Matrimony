@@ -223,7 +223,7 @@ public class UsersDao extends BaseUsersDao
 									buffer.append( " and u.status in( '2')" );
 								}
 								if(type.equals("inactive")){
-									buffer.append( " and u.status in( '0')" );
+									buffer.append( " and u.status in( '0') and u.role_id not in (1)" );
 								}
 								if(type.equals("admin")){
 									buffer.append( " and u.registerwith is not null " );
@@ -233,6 +233,18 @@ public class UsersDao extends BaseUsersDao
 								}
 								if(type.equals("premium")){
 									buffer.append( " and u.role_id in ('6') " );
+								}
+								if(type.equals("premium_plus")){
+									buffer.append( " and u.role_id in ('11') " );
+								}
+								if(type.equals("classic")){
+									buffer.append( " and u.role_id in ('12') " );
+								}
+								if(type.equals("classic_plus")){
+									buffer.append( " and u.role_id in ('13') " );
+								}
+								if(type.equals("aarna_premium")){
+									buffer.append( " and u.role_id in ('14') " );
 								}
 								if(type.equals("hidden")){
 									buffer.append( " and u.status in( '3')" );
@@ -331,7 +343,7 @@ public class UsersDao extends BaseUsersDao
 	 public List<Map<String, String>> getProfilesFilteredByCast(String castValues,String religionValues,String educationValues,int page_no){
 			jdbcTemplate = custom.getJdbcTemplate();
 			StringBuffer buffer = new StringBuffer();
-			StringBuffer where_clause = new StringBuffer(" where 1=1 ");
+			StringBuffer where_clause = new StringBuffer(" where u.status in ('1') ");
 			String handlerObj[] = null;
 			UsersBean objUserBean = null;
 			objUserBean = (UsersBean) session.getAttribute("cacheUserBean");
@@ -589,7 +601,7 @@ public class UsersDao extends BaseUsersDao
 			return false;
 	 }
 	 
-	 public int getAllowedProfilesCount(String userId){
+	 public int getMobileNumViewedCount(String userId){
 			jdbcTemplate = custom.getJdbcTemplate();
 			
 				try{
@@ -637,7 +649,7 @@ public class UsersDao extends BaseUsersDao
 	 public List<Map<String, String>> getProfilesFilteredByPreferences(int page_no){
 			jdbcTemplate = custom.getJdbcTemplate();
 			StringBuffer buffer = new StringBuffer();
-			StringBuffer where_clause = new StringBuffer(" where u.status in ('1') ");
+			StringBuffer where_clause = new StringBuffer(" where u.status in ('1') and u.role_id not in (1) ");
 			String handlerObj[] = null;
 			UsersBean objUserBean = null;
 			objUserBean = (UsersBean) session.getAttribute("cacheUserBean");
@@ -778,7 +790,7 @@ public class UsersDao extends BaseUsersDao
 	 public List<Map<String, String>> getSearchResults(UsersBean searchCriteriaBean,int page_no){
 			jdbcTemplate = custom.getJdbcTemplate();
 			StringBuffer buffer = new StringBuffer();
-			StringBuffer where_clause = new StringBuffer(" where 1=1 ");
+			StringBuffer where_clause = new StringBuffer(" where u.role_id not in (1) ");
 			String handlerObj[] = null;
 			UsersBean objUserBean = null;
 			objUserBean = (UsersBean) session.getAttribute("cacheUserBean");
@@ -1103,7 +1115,7 @@ public class UsersDao extends BaseUsersDao
 		
 		public List<Map<String,Object>> getAllActiveUsers(){
 			jdbcTemplate = custom.getJdbcTemplate();
-			String qryStr = "select * from users where status = '1' and role_id not in (1) limit 3";
+			String qryStr = "select * from users where status = '1' and role_id not in (1) ";
 			try{
 				List<Map<String,Object>> list = jdbcTemplate.queryForList(qryStr);
 				if(list!=null)

@@ -68,7 +68,7 @@ if(session.getAttribute("cacheGuest") != null){
       
 		<div class="col-md-5">
 			<div class="cart box_1">
-				<p>Dear, <%= userBean.getFirstName() %> <%= userBean.getLastName() %> | &nbsp;&nbsp;<a href="paymentDetails" >Upgrade</a> &nbsp;&nbsp;|&nbsp;&nbsp; <a href="#" >Help</a> &nbsp;&nbsp;|&nbsp;&nbsp; <a href="logoutHome" >Signout</a></p>
+				<p>Dear, <%= userBean.getFirstName() %> <%= userBean.getLastName() %> | &nbsp;&nbsp;<a href="memberShipPage" >Upgrade</a> &nbsp;&nbsp;|&nbsp;&nbsp; <a href="#" >Help</a> &nbsp;&nbsp;|&nbsp;&nbsp; <a href="logoutHome" >Signout</a></p>
 				<div class="clearfix"> </div>
 			</div>				 
 		</div>
@@ -235,11 +235,13 @@ if(session.getAttribute("cacheGuest") != null){
 					<div class="panel-body" id="matches">
 						
 					</div>
-					<div id="pagination_div">
-						<div id="table_footer"></div>
-						<div id="altLists"></div>
-					</div>
+					
 				</form:form>
+			</div>
+			<div id="pagination_div">
+				<div id="altLists"></div>
+				<div id="table_footer"></div>
+				
 			</div>
 				</div>
                 
@@ -375,17 +377,23 @@ if(session.getAttribute("cacheGuest") != null){
 var total_items_count = ${total_records};
 var page_size = ${page_size};
 var listOrders1 = ${allOrders1};
-$("#pagination_div").prop("hidden",true);
-if (listOrders1 != "") {
+
+//if (listOrders1 != "") {
 	displayMatches(listOrders1);
-	$("#pagination_div").removeAttr("hidden");
-	displayTableFooter(1);
-}
+	
+//}
 function displayMatches(listOrders) {
 	$('#matches').html('');
 	serviceUnitArray = {};
+	if(listOrders==""){
+		var tblRow = '<div>No matches found.</div>';
+		$(tblRow).appendTo("#matches"); 
+		$("#pagination_div").prop("hidden",true);
+	}
 	$.each(listOrders,function(i, orderObj) 
 	{
+		$("#pagination_div").removeAttr("hidden");
+		displayTableFooter(1);
 		serviceUnitArray[orderObj.id] = orderObj;
 		
 		var array = null;
@@ -407,7 +415,7 @@ function displayMatches(listOrders) {
 		{
 			var login_user_role_id = ${cacheGuest.roleId};
 			var mobile_no__str = '';
-			if((login_user_role_id == 6) || (login_user_role_id == 11)){ //means premium user
+			if((login_user_role_id == 6) || (login_user_role_id == 11) || (login_user_role_id == 14)){ //means premium,premium_plus,aarna premium users
 				mobile_no__str = '<tr id="row'+orderObj.id+'"><td><button class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button></td></tr>';
 				//more_details_str = '<tr><td><span><a href="#" onclick="showMoreDetails(this)">read more...</a></span></td></tr>';
 				//mobile_no__str = '<tr><td><span><a href="#" onclick="viewMobileNumber('+orderObj.id+')">View Mobile Number</a></span></td></tr>';
@@ -464,7 +472,7 @@ function fullProfile(profile_id){
 	var roleId = ${cacheGuest.roleId};
 	$("#id").val(profile_id);
 	if(roleId==4){
-		document.searchForm2.action = "paymentDetails"
+		document.searchForm2.action = "memberShipPage"
 	}else{
 		document.searchForm2.action = "fullProfile"
 	}
