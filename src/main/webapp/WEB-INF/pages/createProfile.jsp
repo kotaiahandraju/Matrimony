@@ -2,11 +2,7 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://displaytag.sf.net" prefix="display"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<style>
- .error {
-        color: red; font-weight: bold;
-    }
-</style>
+
 <%-- <% pages1 = "createprofile"; %> --%>
 <link href="${baseurl }/css/datepicker1.css" rel="stylesheet" type="text/css" />
 <link href="${baseurl }/css/mdtimepicker.css" rel="stylesheet" type="text/css" />
@@ -828,7 +824,7 @@ function validate(id, errorMessage)
 								$('#mobile').attr('placeholder','Please Enter Mobile Number');
 								$('#mobile').addClass('placeholder-style');
 							}
-							if($('#mobile').val().length<10) 
+							if($('#mobile').val().length<10)
 							{
 								$('#mobile').css('color','#cc0000');
 								$('#mobile').css('border-color','#cc0000');
@@ -840,7 +836,7 @@ function validate(id, errorMessage)
 								
 								$('#dis').css('color','#cc0000');
 								$('#dis').css('border-color','#cc0000');
-								$('#dis').text('Please Enter Gender');
+								$('#dis').text('Please Choose Gender');
 								$('#dis').addClass('placeholder-style');
 								
 							} 

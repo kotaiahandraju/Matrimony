@@ -157,7 +157,7 @@ if(session.getAttribute("cacheGuest") != null){
 					
                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
-    <td><a href="#">Invitations</a></td>
+    <td><a href="receivedRequests">Invitations</a></td>
     <td><div class="badge pull-right">${cacheGuest.receivedInterestCount}</div></td>
   </tr>
 </table>
@@ -177,7 +177,7 @@ if(session.getAttribute("cacheGuest") != null){
 					
                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
-    <td><a href="#">Members</a></td>
+    <td><a href="acceptedRequests">Members</a></td>
     <td><div class="badge pull-right">${cacheGuest.acceptedInterestCount}</div></td>
   </tr>
 </table>
@@ -197,7 +197,7 @@ if(session.getAttribute("cacheGuest") != null){
 					
                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
-    <td><a href="#">Invitations</a></td>
+    <td><a href="sentRequests">Invitations</a></td>
     <td><div class="badge pull-right">${cacheGuest.sentInterestCount}</div></td>
   </tr>
 </table>
