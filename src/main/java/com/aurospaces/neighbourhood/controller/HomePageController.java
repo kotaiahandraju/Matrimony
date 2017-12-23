@@ -1514,18 +1514,24 @@ public class HomePageController {
 				int userId = userSessionBean.getId();
 				int roleId = 0;
 				String packageId = (String)session.getAttribute("packageId");
-				if(String.valueOf(MatrimonyConstants.CLASSIC_PACKAGE).equals(packageId))
+				if(String.valueOf(MatrimonyConstants.CLASSIC_PACKAGE).equals(packageId)){
 					roleId = MatrimonyConstants.CLASSIC_USER_ROLE_ID;
-				else if(String.valueOf(MatrimonyConstants.CLASSIC_PLUS_PACKAGE).equals(packageId))
+				}
+				else if(String.valueOf(MatrimonyConstants.CLASSIC_PLUS_PACKAGE).equals(packageId)){
 					roleId = MatrimonyConstants.CLASSIC_PLUS_USER_ROLE_ID;
-				else if(String.valueOf(MatrimonyConstants.PREMIUM_PACKAGE).equals(packageId))
+				}
+				else if(String.valueOf(MatrimonyConstants.PREMIUM_PACKAGE).equals(packageId)){
 					roleId = MatrimonyConstants.PREMIUM_USER_ROLE_ID;
-				else if(String.valueOf(MatrimonyConstants.PREMIUM_PLUS_PACKAGE).equals(packageId))
+				}
+				else if(String.valueOf(MatrimonyConstants.PREMIUM_PLUS_PACKAGE).equals(packageId)){
 					roleId = MatrimonyConstants.PREMIUM_PLUS_USER_ROLE_ID;
-				else if(String.valueOf(MatrimonyConstants.AARNA_PREMIUM_PACKAGE).equals(packageId))
+				}
+				else if(String.valueOf(MatrimonyConstants.AARNA_PREMIUM_PACKAGE).equals(packageId)){
 					roleId = MatrimonyConstants.AARNA_PREMIUM_USER_ROLE_ID;
+				}
+					
 				if(roleId!=0){
-					boolean success = objUsersDao.upgradeUser(userId, roleId);
+					boolean success = objUsersDao.upgradeUser(userId, roleId,packageId);
 					if(success)
 						;
 				}

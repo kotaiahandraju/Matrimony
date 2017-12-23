@@ -122,11 +122,17 @@ s.parentNode.insertBefore(ga, s);
 		serviceUnitArray = {};
 		$.each(listOrders,function(i, orderObj) {
 							serviceUnitArray[orderObj.id] = orderObj;
+							var subStr = "";
+							if(orderObj.status >= 1){
+								subStr = "Forwarded";
+							}else{
+								subStr = "<a id='forward"+orderObj.id+"' href='#' onclick='forwardRequest("+orderObj.id+")'>forward</a>";
+							}
 							var tblRow = "<tr >"
 								+ "<td title='"+orderObj.fromName+"'><a href='#' onclick='fullProfile("+orderObj.user_id+")'>" + orderObj.fromName + "</a></td>"
 								+ "<td title='"+orderObj.toName+"'><a href='#' onclick='fullProfile("+orderObj.profile_id+")'>" + orderObj.toName + "</td>"
 								+ "<td title='"+orderObj.sentOn+"'>" + orderObj.sentOn + "</td>"
-								+ "<td title='"+orderObj.id+"'><a id='forward"+orderObj.id+"' href='#' onclick='forwardRequest("+orderObj.id+")'>forward</a></td>"
+								+ "<td title=''>"+subStr+"</td>"
 								+ "</tr >";
 							$(tblRow).appendTo("#tableId table tbody"); 
 						});
