@@ -585,7 +585,6 @@ public class HomePageController {
 	 }*/
 	 @RequestMapping(value = "/myProfile")
 	 public String myProfile(@ModelAttribute("createProfile") UsersBean objUserssBean, Model objeModel, HttpServletRequest request, HttpSession session) {
-//	  System.out.println("myProfile Page");
 	  List<Map<String, String>> listOrderBeans = null;
 	  UsersBean objUsersBean = null;
 		ObjectMapper objectMapper = null;
@@ -594,47 +593,12 @@ public class HomePageController {
 		  List<ReligionBean> religionList = null;
 		  List<EducationBean> educationList = null;
 		try {
-			/*UsersBean sessionBean =  null;
-			  UsersBean objUsersBean1 =new UsersBean();
-			  if(session.getAttribute("cacheGuest") != null){
-					 sessionBean =(UsersBean)session.getAttribute("cacheGuest");
-//				 objUsersBean1 = objUsersDao.getById1(sessionBean.getId());
-				}else{
-					return "redirect:HomePage";
-				}*/
-			
 			UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
 			if(sessionBean == null){
 				return "redirect:HomePage";
 			}
 			UsersBean profileBean = objUsersDao.loginChecking(sessionBean.getId());
 			request.setAttribute("profileBean", profileBean);
-			/*castList = objUsersDao.getCastList();
-			//request.setAttribute("castList", castList!=null?castList:new LinkedList<Map<String, Object>>());
-			session.setAttribute("castList", castList!=null?castList:new LinkedList<Map<String, Object>>());
-			religionList = objUsersDao.getReligionList();
-			//request.setAttribute("religionList", religionList!=null?religionList:new LinkedList<Map<String, Object>>());
-			session.setAttribute("religionList", religionList!=null?religionList:new LinkedList<Map<String, Object>>());
-			educationList = objUsersDao.getEducationList();
-			//request.setAttribute("educationList", educationList!=null?educationList:new LinkedList<Map<String, Object>>());
-			session.setAttribute("educationList", educationList!=null?educationList:new LinkedList<Map<String, Object>>());*/
-			/*int page_no = 0;
-			String clicked_btn = request.getParameter("btn_id");
-			if(StringUtils.isNotBlank(clicked_btn))
-				page_no = (Integer.parseInt(clicked_btn))-1;
-			objUsersBean = new UsersBean();
-			//listOrderBeans = objUsersDao.getAllProfiles1(objUsersBean,"all");
-			listOrderBeans = objUsersDao.getProfilesFilteredByPreferences(page_no);
-			if (listOrderBeans != null && listOrderBeans.size() > 0) {
-				objectMapper = new ObjectMapper();
-				sJson = objectMapper.writeValueAsString(listOrderBeans);
-				request.setAttribute("allOrders1", sJson);
-				// System.out.println(sJson);
-			} else {
-				objectMapper = new ObjectMapper();
-				sJson = objectMapper.writeValueAsString(listOrderBeans);
-				request.setAttribute("allOrders1", "''");
-			}*/
 			
 			
 		} catch (Exception e) {
@@ -643,7 +607,6 @@ public class HomePageController {
 	   logger.error(e);
 	   logger.fatal("error in HomePageController class familyDetails method");
 	  }
-	  //return "profile_page";
 		return "myProfile";
 	 }
 	 
@@ -1772,6 +1735,182 @@ public class HomePageController {
 			e.printStackTrace();
 		}
 		return jsonObj.toString();
+	}
+   
+   @RequestMapping(value = "/receivedRequests")
+	 public String receivedRequests(@ModelAttribute("createProfile") UsersBean objUserssBean, Model objeModel, HttpServletRequest request, HttpSession session) {
+	  List<Map<String, String>> listOrderBeans = null;
+	  UsersBean objUsersBean = null;
+		ObjectMapper objectMapper = null;
+		String sJson = null;
+		List<CastBean> castList = null;
+		  List<ReligionBean> religionList = null;
+		  List<EducationBean> educationList = null;
+		try {
+			UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
+			if(sessionBean == null){
+				return "redirect:HomePage";
+			}
+			long total_records = 0;
+			List<Map<String,Object>> reveivedRequests = objUsersDao.getReceivedInterestRequests(sessionBean.getId()+"",0);
+			if(reveivedRequests!=null && reveivedRequests.size()>0){
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(reveivedRequests);
+				request.setAttribute("reveivedRequests", sJson);
+				total_records = (Long)reveivedRequests.get(0).get("total_records");
+			}else{
+				request.setAttribute("reveivedRequests", "''");
+			}
+			request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
+			request.setAttribute("total_records", total_records);
+			
+		} catch (Exception e) {
+	   e.printStackTrace();
+	   System.out.println(e);
+	   logger.error(e);
+	   logger.fatal("error in receivedRequests method");
+	  }
+		return "receivedInterestRequests";
+	 }
+   
+   @RequestMapping(value = "/acceptRequest")
+	public  @ResponseBody String acceptRequest(@ModelAttribute("createProfile") UsersBean objUsersBean, ModelMap model,
+			HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
+	    JSONObject objJson =new JSONObject();
+		try {
+			UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
+			if(sessionBean == null){
+				return "redirect:HomePage";
+			}
+			String requestId = request.getParameter("requestId");
+			String accept_flag = request.getParameter("accept_flag");
+			boolean forwarded = objUsersDao.acceptInterestRequests(requestId,accept_flag);
+			if (forwarded) {
+				objJson.put("message", "success");
+			} else {
+				objJson.put("message", "failed");
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			logger.error(e);
+			logger.fatal("error forwardInterestRequests method  ");
+			return objJson.put("message", "error").toString();
+		}
+		return objJson.toString();
+	}
+   
+   @RequestMapping(value = "/acceptedRequests")
+	 public String acceptedRequests(@ModelAttribute("createProfile") UsersBean objUserssBean, Model objeModel, HttpServletRequest request, HttpSession session) {
+	  List<Map<String, String>> listOrderBeans = null;
+	  ObjectMapper objectMapper = null;
+		String sJson = null;
+		try {
+			UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
+			if(sessionBean == null){
+				return "redirect:HomePage";
+			}
+			long total_records = 0;
+			List<Map<String,Object>> acceptedRequests = objUsersDao.getacceptedRequests(sessionBean.getId()+"",0);
+			if(acceptedRequests!=null && acceptedRequests.size()>0){
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(acceptedRequests);
+				request.setAttribute("acceptedRequests", sJson);
+				total_records = (Long)acceptedRequests.get(0).get("total_records");
+			}else{
+				request.setAttribute("acceptedRequests", "''");
+			}
+			request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
+			request.setAttribute("total_records", total_records);
+			
+		} catch (Exception e) {
+	   e.printStackTrace();
+	   System.out.println(e);
+	   logger.error(e);
+	   logger.fatal("error in acceptedRequests method");
+	  }
+		return "acceptedInterestRequests";
+	 }
+   
+   @RequestMapping(value = "/sentRequests")
+	 public String sentRequests(@ModelAttribute("createProfile") UsersBean objUserssBean, Model objeModel, HttpServletRequest request, HttpSession session) {
+	  ObjectMapper objectMapper = null;
+		String sJson = null;
+		try {
+			UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
+			if(sessionBean == null){
+				return "redirect:HomePage";
+			}
+			long total_records = 0;
+			List<Map<String,Object>> sentRequests = objUsersDao.getsentRequests(sessionBean.getId()+"",0);
+			if(sentRequests!=null && sentRequests.size()>0){
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(sentRequests);
+				request.setAttribute("sentRequests", sJson);
+				total_records = (Long)sentRequests.get(0).get("total_records");
+			}else{
+				request.setAttribute("sentRequests", "''");
+			}
+			request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
+			request.setAttribute("total_records", total_records);
+			
+		} catch (Exception e) {
+	   e.printStackTrace();
+	   System.out.println(e);
+	   logger.error(e);
+	   logger.fatal("error in sentRequests method");
+	  }
+		return "sentInterestRequests";
+	 }
+   
+   @RequestMapping(value = "/interestRequestsPagination")
+	public @ResponseBody String interestRequestsPagination(@ModelAttribute("createProfile") UsersBean searchCriteriaBean, ModelMap model,
+			HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
+		List<Map<String, Object>> requestsList = null;
+		JSONObject objJson =new JSONObject();
+		int page_no = searchCriteriaBean.getPage_no();
+		try {
+			UsersBean userBean = (UsersBean)session.getAttribute("cacheUserBean");
+			if(userBean == null){
+				return "redirect:HomePage";
+			}
+
+			if(page_no != 0)
+				page_no = page_no-1;
+			int userId = userBean.getId();
+			String request_type = request.getParameter("request_type");
+			if(StringUtils.isNotBlank(request_type)){
+				if(request_type.equalsIgnoreCase("sent")){
+					requestsList = objUsersDao.getsentRequests(userId+"", page_no);
+				}else if(request_type.equalsIgnoreCase("accepted")){
+					requestsList = objUsersDao.getacceptedRequests(userId+"", page_no);
+				}else if(request_type.equalsIgnoreCase("received")){
+					requestsList = objUsersDao.getReceivedInterestRequests(userId+"", page_no);
+				}
+				
+				int total_records = 0;
+				
+				if (requestsList != null && requestsList.size() > 0) {
+					objJson.put("requestsList", requestsList);
+					total_records = Integer.parseInt((String)requestsList.get(0).get("total_count"));
+					// System.out.println(sJson);
+				} else {
+					objJson.put("requestsList", "");
+				}
+				objJson.put("total_records", total_records);
+				objJson.put("page_size", MatrimonyConstants.PAGINATION_SIZE);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			logger.error(e);
+			logger.fatal("error in interestRequestsPagination method  ");
+			return null;
+		}
+		return objJson.toString();
 	}
    private int getLimitFor(int role_id){
 	   int limit = 0;

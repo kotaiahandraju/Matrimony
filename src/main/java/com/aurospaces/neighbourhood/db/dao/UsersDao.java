@@ -583,7 +583,7 @@ public class UsersDao extends BaseUsersDao
 					if(existing_count==0){
 						buffer.append("insert into express_intrest(user_id,profile_id,interested,created_on,intrest_to,allowed_mobile_num_count) values(?,?,?,?,?,?)");
 						int inserted_count = jdbcTemplate.update(buffer.toString(), new Object[]{objUserBean.getId(),profileId,"1",
-												new java.sql.Timestamp(new DateTime().getMillis()),"",MatrimonyConstants.PREMIUM_USER_PROFILES_LIMIT});
+												new java.sql.Timestamp(new DateTime().getMillis()),profileId,MatrimonyConstants.PREMIUM_USER_PROFILES_LIMIT});
 						if(inserted_count==1)
 							return true;
 					}else if(existing_count>0){
@@ -619,14 +619,15 @@ public class UsersDao extends BaseUsersDao
 	 }
 	 
 	 @SuppressWarnings("deprecation")
-	public boolean acceptInterestRequests(String profileIds){
+	public boolean acceptInterestRequests(String requestIds,String acceptFlag){
 			jdbcTemplate = custom.getJdbcTemplate();
 			StringBuffer buffer = new StringBuffer();
 			UsersBean objUserBean = null;
 			objUserBean = (UsersBean) session.getAttribute("cacheGuest");
+			String columnValue = acceptFlag.equals("1")?"2":"3";
 			if(objUserBean!=null){
 				try{
-					int updated_count = jdbcTemplate.update("update express_intrest set status = '2' where user_id="+objUserBean.getId()+" and find_in_set(profile_id,'"+profileIds+"')>0");
+					int updated_count = jdbcTemplate.update("update express_intrest set status = '"+columnValue+"' where find_in_set(id,'"+requestIds+"')>0");
 					if(updated_count>0){
 						return true;
 					}
@@ -660,14 +661,14 @@ public class UsersDao extends BaseUsersDao
 				try{
 					int existing_count = jdbcTemplate.queryForInt("select count(*) from express_intrest ei where ei.user_id="+objUserBean.getId()+" and ei.profile_id="+profileId+"");
 					if(existing_count==0){
-						buffer.append("insert into express_intrest(user_id,profile_id,mobile_no_viewed_status,created_on,allowed_mobile_num_count,intrest_to) values(?,?,?,?,?,?)");
+						buffer.append("insert into express_intrest(user_id,profile_id,mobile_no_viewed_status,allowed_mobile_num_count,intrest_to) values(?,?,?,?,?,?)");
 						int inserted_count = jdbcTemplate.update(buffer.toString(), new Object[]{objUserBean.getId(),profileId,"1",
-												new java.sql.Timestamp(new DateTime().getMillis()),MatrimonyConstants.PREMIUM_USER_PROFILES_LIMIT - 1,""});
+												MatrimonyConstants.PREMIUM_USER_PROFILES_LIMIT - 1,""});
 						if(inserted_count==1)
 							return true;
 					}else if(existing_count>0){
-						buffer.append("update express_intrest set mobile_no_viewed_status = '1',created_on = ?,allowed_mobile_num_count=allowed_mobile_num_count-1  where user_id = ? and profile_id = ?");
-						int updated_count = jdbcTemplate.update(buffer.toString(), new Object[]{new java.sql.Timestamp(new DateTime().getMillis()),objUserBean.getId(),profileId});
+						buffer.append("update express_intrest set mobile_no_viewed_status = '1',allowed_mobile_num_count=allowed_mobile_num_count-1  where user_id = ? and profile_id = ?");
+						int updated_count = jdbcTemplate.update(buffer.toString(), new Object[]{objUserBean.getId(),profileId});
 						if(updated_count==1)
 							return true;
 					}
@@ -1137,7 +1138,7 @@ public class UsersDao extends BaseUsersDao
 		
 		public Map<String,Object> getInterestCounts(int userId){
 			jdbcTemplate = custom.getJdbcTemplate();
-			String qryStr = "select (select count(*) from express_intrest where user_id = "+userId+" and interested = '1') as sentInterestCount, "
+			String qryStr = "select (select count(*) from express_intrest where user_id = "+userId+" and interested = '1' and status in ('0','1')) as sentInterestCount, "
 						+"(select count(*) from express_intrest where profile_id = "+userId+" and interested = '1' and status = '1') as receivedInterestCount, "
 						+"(select count(*) from express_intrest where user_id = "+userId+" and status = '2') as acceptedInterestCount";
 			try{
@@ -1253,6 +1254,60 @@ public class UsersDao extends BaseUsersDao
 		return null;
 	}
 	
+	public List<Map<String,Object>> getReceivedInterestRequests(String userId,int page_no){
+		jdbcTemplate = custom.getJdbcTemplate();
+		StringBuffer qryStrBuffer = new StringBuffer("select *,(select username from users where id=user_id) as fromName,date_format(created_on,'%d-%M-%Y') as receivedOn, "
+				+" (select count(*) from express_intrest ei where ei.profile_id = "+userId+" and ei.interested = '1' and status = '1') as total_records "
+				+" from express_intrest where profile_id = "+userId+" and interested = '1' and status = '1' order by created_on desc  ");
+		int page_size = MatrimonyConstants.PAGINATION_SIZE;
+		qryStrBuffer.append(" limit "+page_size+" offset "+(page_no*page_size)+" ");
+		try{
+			List<Map<String,Object>> list = jdbcTemplate.queryForList(qryStrBuffer.toString());
+			if(list!=null)
+				return list;
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+		return null;
+	}
+	
+	public List<Map<String,Object>> getacceptedRequests(String userId,int page_no){
+		jdbcTemplate = custom.getJdbcTemplate();
+		StringBuffer qryStrBuffer = new StringBuffer("select *,(select username from users where id=user_id) as username,date_format(created_on,'%d-%M-%Y') as receivedOn, "
+				+" (select count(*) from express_intrest ei where ei.user_id = "+userId+" and ei.interested = '1' and status = '2') as total_records "
+				+" from express_intrest where user_id = "+userId+" and interested = '1' and status = '2' order by created_on desc  ");
+		int page_size = MatrimonyConstants.PAGINATION_SIZE;
+		qryStrBuffer.append(" limit "+page_size+" offset "+(page_no*page_size)+" ");
+		try{
+			List<Map<String,Object>> list = jdbcTemplate.queryForList(qryStrBuffer.toString());
+			if(list!=null)
+				return list;
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+		return null;
+	}
+	
+	public List<Map<String,Object>> getsentRequests(String userId,int page_no){
+		jdbcTemplate = custom.getJdbcTemplate();
+		StringBuffer qryStrBuffer = new StringBuffer("select *,(select username from users where id=user_id) as username,date_format(created_on,'%d-%M-%Y') as sentOn, "
+				+" (select count(*) from express_intrest ei where ei.profile_id = "+userId+" and ei.interested = '1' and status in ('0','1')) as total_records "
+				+" from express_intrest where user_id = "+userId+" and interested = '1' and status in ('0','1') order by created_on desc  ");
+		int page_size = MatrimonyConstants.PAGINATION_SIZE;
+		qryStrBuffer.append(" limit "+page_size+" offset "+(page_no*page_size)+" ");
+		try{
+			List<Map<String,Object>> list = jdbcTemplate.queryForList(qryStrBuffer.toString());
+			if(list!=null)
+				return list;
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+		return null;
+	}
+	
 	public List<Map<String,Object>> getUpdatedProfiles(int page_no){
 		jdbcTemplate = custom.getJdbcTemplate();
 		int page_size = MatrimonyConstants.PAGINATION_SIZE;
@@ -1344,6 +1399,20 @@ public class UsersDao extends BaseUsersDao
 		} finally {
 
 		}
+	}
+	
+	public List<Map<String,Object>> getPackageExpiredProfiles(int package_id){
+		jdbcTemplate = custom.getJdbcTemplate();
+		String qryStr = "select u.*,p.* from users u, package p  where u.package_id = p.id and p.id = "+package_id+" and current_date() > (select DATE_ADD((DATE_ADD(u.package_joined_date, INTERVAL p.duration MONTH)), INTERVAL -1 day)) group by u.package_id order by u.package_id desc";
+		try{
+			List<Map<String,Object>> list = jdbcTemplate.queryForList(qryStr);
+			if(list!=null)
+				return list;
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+		return null;
 	}
 }
 

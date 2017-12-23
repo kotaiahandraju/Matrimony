@@ -162,7 +162,7 @@ $(document).ready(function(){
 				<i class="fa fa-bars"></i>
 			</a> -->
 			<ul class='main-nav'>
-				<li><a href=""><span>Dashboard</span></a></li>
+				<li><a href="dashboard"><span>Dashboard</span></a></li>
 				<li class="catalog1">
 					<a href="#" data-toggle="dropdown" class='dropdown-toggle'>
 						<span>Data List 1</span>

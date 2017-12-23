@@ -77,7 +77,7 @@ public class LoginController {
 					session.setAttribute("cacheUserBean", objUserBean);
 					session.setAttribute("rolId", objUserBean.getRoleId());
 					session.setAttribute("userName", objUserBean.getUsername());
-					return "redirect:admin/BodyTypeHome";
+					return "redirect:admin/dashboard";
 				}else if(objUserBean.getRoleId() == 4){
 					session.setAttribute("cacheGuest", objUserBean);
 					session.setAttribute("rolId", objUserBean.getRoleId());

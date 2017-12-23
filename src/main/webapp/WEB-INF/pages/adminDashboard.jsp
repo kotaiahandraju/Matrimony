@@ -24,53 +24,44 @@
 <div class="container-fluid">
 	<div class="page-header">
 		<div class="pull-left">
-			<h1>Updated Profiles </h1> 
+			<h1>Dashboard </h1> 
 		</div>
 	</div>
-	<div class="breadcrumbs">
-		<ul>
-			<li>
-				<i class="fa fa-edit"></i>
-				<a href="javascript:void(0)" style="color: blue;text-decoration: none;">Admin </a>
-				<i class="fa fa-angle-right"></i>&nbsp;
-			</li>
-			<li>
-				&nbsp;<i class="fa fa-file"></i>
-				<span style="color: #999;cursor: auto;">Updated Profiles</span>
-			</li>
-		</ul>
-		
-	</div>
-	<div class="col-lg-8">
-		<div>
-			<div class="portlet" id="yw0">
-				<div class="portlet-content w3-animate-zoom">
-					<!-- Body Type Form Starts Here-->
-					
-					<!-- Body Type Form Ends Here-->
-				</div>
-			</div>
-		</div>
-	</div>
+	
+	
 
 
 <div id="dial1"></div>
 
 <div class="row" id="allProfilesId">
-	<form:form commandName="createProfile"  class="form-horizontal" id="searchForm2" name="searchForm2" role="form"   method="post">
+	<form:form commandName="dashboardForm"  class="form-horizontal" id="searchForm2" name="searchForm2" role="form"   method="post">
 	<form:hidden path="id"/>
-	<div class="col-sm-12">
+	<div class="col-sm-6">
 		<div class="box">
 			<div class="box-title">
 				<h3>
 					<i class="fa fa-table"></i>
-					Updated Profiles List
+					Premium Expired Profiles
 				</h3>
 			</div>
 			<div id="tableId">
 			</div>
 			<div id="paginator"></div>
 			<div id="table_footer"></div>
+		</div>
+	</div>
+	<div class="col-sm-6">
+		<div class="box">
+			<div class="box-title">
+				<h3>
+					<i class="fa fa-table"></i>
+					Classic Plus Expired Profiles
+				</h3>
+			</div>
+			<div id="tableId1">
+			</div>
+			<div id="paginator1"></div>
+			<div id="table_footer1"></div>
 		</div>
 	</div>
 	</form:form>
@@ -119,13 +110,19 @@ s.parentNode.insertBefore(ga, s);
  */
  var total_items_count = ${total_records};
  var page_size = ${page_size};
- var listOrders1 = ${updatedProfilesList};
+ var listOrders1 = ${premiumExpiredProfiles};
 	//if (listOrders1 != "") {
-		paginationSetup(total_items_count);
-		$("#paginator").asPaginator('enable');
-		displayTable(listOrders1);
-		displayTableFooter(1);
+		//paginationSetup(total_items_count);
+		//$("#paginator").asPaginator('enable');
+		displayTable(listOrders1,"tableId");
+		//displayTableFooter(1);
 	//}
+var listOrders2 = ${classicPlusExpiredProfiles};
+//if (listOrders1 != "") {
+	//paginationSetup(total_items_count);
+	//$("#paginator").asPaginator('enable');
+	displayTable(listOrders2,"tableId1");
+	//displayTableFooter(1);	
 	
 	function paginationSetup(total_items_count) {
 		  $('#paginator').asPaginator(total_items_count, {
@@ -179,15 +176,15 @@ s.parentNode.insertBefore(ga, s);
 	          }
 	        });
 	}
- function displayTable(listOrders) {
-		$('#tableId').html('');
+ function displayTable(listOrders,tableId) {
+		$('#'+tableId).html('');
 		var tableHead = '<table class="table table-hover table-nomargin table-bordered" >'
-			+ '<thead><tr><th>UserName</th><th>Updated On</th></tr></thead><tbody></tbody></table>';
-		$('#tableId').html(tableHead);
+			+ '<thead><tr><th>UserName</th><th>Joined On</th><th>Mobile No.</th></tr></thead><tbody></tbody></table>';
+		$('#'+tableId).html(tableHead);
 		serviceUnitArray = {};
 		if(listOrders==""){
-			var tblRow = "<tr><td colspan='2' class='dataTables_empty'>No data available</td></tr>";
-			$(tblRow).appendTo("#tableId table tbody");
+			var tblRow = "<tr><td colspan='3' class='dataTables_empty'>No data available</td></tr>";
+			$(tblRow).appendTo("#"+tableId+" table tbody");
 			$("#table_footer").prop("hidden",true);
 			$("#paginator").prop("hidden",true);
 		}
@@ -195,9 +192,11 @@ s.parentNode.insertBefore(ga, s);
 							serviceUnitArray[orderObj.id] = orderObj;
 							var tblRow = "<tr>"
 								+ "<td title='"+orderObj.username+"'><a href='#' onclick='fullProfile("+orderObj.id+")'>" + orderObj.username + "</a></td>"
-								+ "<td title='"+orderObj.updatedOn+"'>" + orderObj.updatedOn + "</td>"
+								+ "<td title='"+orderObj.package_joined_date+"'>" + orderObj.package_joined_date + "</td>"
+								+ "<td title='"+orderObj.mobile+"'>" + orderObj.mobile + "</td>"
 								+ "</tr >";
-							$(tblRow).appendTo("#tableId table tbody"); 
+							$(tblRow).appendTo("#"+tableId+" table tbody"); 
+							//$(tblRow).appendTo("#tableId1 table tbody");
 						});
 		
 	}
@@ -233,7 +232,7 @@ s.parentNode.insertBefore(ga, s);
 	    		
 		}); */
 	}
- $(".updatedProfiles").addClass("active");
+ $(".dashboard").addClass("active");
 </script>
 
 </body>
