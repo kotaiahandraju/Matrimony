@@ -18,6 +18,7 @@
 <link href="user/css/megamenu.css" rel="stylesheet" type="text/css" media="all" />
 <!-- js -->
 <script src="user/js/jquery-1.11.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
 <!-- //js -->
 <!-- start-smoth-scrolling -->
 <!-- <script type="text/javascript" src="user/js/move-top.js"></script>
@@ -183,6 +184,24 @@ if(session.getAttribute("cacheGuest") != null){
 				</div>
 				
 			</div>
+			
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4 class="panel-title">
+						Accepted
+					</h4>
+				</div>
+				<div class="panel-body">
+					
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+					  <tr>
+					    <td><a href="profileViewedMembers">(${cacheGuest.profileViewedCount})members viewed your profile</a></td>
+					  </tr>
+					</table>
+
+				</div>
+				
+			</div>
                     
                     
              <div class="panel panel-default">
@@ -206,7 +225,66 @@ if(session.getAttribute("cacheGuest") != null){
 			</div>       
 				</div>
              
-                
+                <!-- Modal -->
+				  <div class="modal fade" id="myModal" role="dialog">
+				    <div class="modal-dialog">
+				    
+				      <!-- Modal content-->
+				      <div class="modal-content">
+				        <table class="table table-hover">
+    			<thead style="background: #4CAF50;color: white;">
+    				<tr>
+    					<th>Services</th><th>Duration<br>(Months)</th><th>Amount<br>(INR)</th><th>Messages</th><th>Profiles</th>
+    					<th>Highlight<br>Profile</th><th>Chat</th><th>Horoscope<br>View</th><th>Astrology<br>Match</th>
+    				</tr>
+    			</thead>
+    			<tbody>
+    				<%-- <c:if test="${not empty packagesList}">
+    					<c:forEach items="${packagesList}" var="packagee">
+    						<tr>
+		    					<th><c:out value="${packagee.name}"/></th><td>3</td><td>1299</td><td><i style="color: red;" class="fa fa-times"></i></td><td>25</td>
+		    					<td><i style="color: red;" class="fa fa-times"></i></td><td><i style="color: red;" class="fa fa-times"></i></td>
+		    					<td><i style="color: green;" class="fa fa-check"></i></td><td><i style="color: green;" class="fa fa-check"></i></td>
+		    				</tr>
+    					</c:forEach>
+    				</c:if> --%>
+    				<tr>
+    					<th>Classic</th><td>3</td><td>1299</td><td><i style="color: red;" class="fa fa-times"></i></td><td>25</td>
+    					<td><i style="color: red;" class="fa fa-times"></i></td><td><i style="color: red;" class="fa fa-times"></i></td>
+    					<td><i style="color: green;" class="fa fa-check"></i></td><td><i style="color: green;" class="fa fa-check"></i></td>
+    				</tr>
+    				<tr>
+    					<th>Classic Plus</th><td>6</td><td>2499</td><td><i style="color: red;" class="fa fa-times"></i></td><td>45</td>
+    					<td><i style="color: green;" class="fa fa-check"></i></td><td><i style="color: green;" class="fa fa-check"></i></td>
+    					<td><i style="color: green;" class="fa fa-check"></i></td><td><i style="color: green;" class="fa fa-check"></i></td>
+    				</tr>
+    				<tr>
+    					<th>Premium</th><td>6</td><td>5299</td><td>Unlimited</td><td>65</td>
+    					<td><i style="color: green;" class="fa fa-check"></i></td><td><i style="color: green;" class="fa fa-check"></i></td>
+    					<td><i style="color: green;" class="fa fa-check"></i></td><td><i style="color: green;" class="fa fa-check"></i></td>
+    				</tr>
+    				<tr>
+    					<th>Premium Plus</th><td>6</td><td>7499</td><td>Unlimited</td><td>85</td>
+    					<td><i style="color: green;" class="fa fa-check"></i></td><td><i style="color: green;" class="fa fa-check"></i></td>
+    					<td><i style="color: green;" class="fa fa-check"></i></td><td><i style="color: green;" class="fa fa-check"></i></td>
+    				</tr>
+    				<tr style="background: #ff8080;color: white;">
+    					<th>Aarna Premium</th><td>Till Marry</td><td>14999</td>
+    					<td>Premium Benefits</td><td>Meet Ups</td><td>High priority</td>
+    					<td colspan="3">Quick Response</td>
+    				</tr>
+    			</tbody>
+    			<tfoot>
+    				<tr>
+    					<th colspan="7" style="text-align: right;"><a href="memberShipPage" class="btn1 btn btn-info">Upgrade</a></th>
+    					<th colspan="2"><a href="myProfile" class="btn1 btn btn-info">My Account</a></th>
+    				</tr>
+    			</tfoot>
+    		</table>
+				      </div>
+				      
+				    </div>
+				  </div>
                 
                 <div class="col-md-6 products-grid-left">
 					<div class="panel panel-default">
@@ -228,7 +306,7 @@ if(session.getAttribute("cacheGuest") != null){
             
             <div class="panel panel-default">
 	            <div class="panel-heading">
-	            	New Matches (150) <span class="pull-right"> <a href="#">View All</a></span>
+	            	Preferred Profiles 
 	            </div>
 	            <form:form commandName="createProfile"  class="form-horizontal" id="searchForm2" name="searchForm2" role="form"   method="post">
              		<form:hidden path="id" />
@@ -312,7 +390,7 @@ if(session.getAttribute("cacheGuest") != null){
 			<!-- 	</div>
 			</div>  --> 
             <br>
-            <img src="user/images/ad.jpg"  class="img-responsive"></div>
+            </div>
 				<div class="clearfix"></div>
 			</div>
 		</div>
@@ -362,20 +440,14 @@ if(session.getAttribute("cacheGuest") != null){
 <script src="js/jquery-asPaginator.js"></script>
 <link rel="stylesheet" type="text/css" href="css/asPaginator.css">
 <script type="text/javascript">
-
-/* $(function(){
-    $("#rAgeFrom").append('<option value="">From</option>');
-    $("#rAgeTo").append('<option value="">To</option>');
-    for (var i=18;i<=55;i++){
-        $("#rAgeFrom").append('<option value='+i+'>'+i+'</option>');
-    }
-    for (var i=18;i<=55;i++){
-        $("#rAgeTo").append('<option value='+i+'>'+i+'</option>');
-    }
-}); */
+/* $(window).load(function() {
+	$('#myModal').modal();
+});
+  */
 
 var total_items_count = ${total_records};
 var page_size = ${page_size};
+var allowed_limit = ${allowed_profiles_limit};
 var listOrders1 = ${allOrders1};
 
 //if (listOrders1 != "") {
@@ -392,6 +464,8 @@ function displayMatches(listOrders) {
 	}
 	$.each(listOrders,function(i, orderObj) 
 	{
+		paginationSetup(total_items_count);
+		$("#altLists").asPaginator('enable');
 		$("#pagination_div").removeAttr("hidden");
 		displayTableFooter(1);
 		serviceUnitArray[orderObj.id] = orderObj;
@@ -415,8 +489,9 @@ function displayMatches(listOrders) {
 		{
 			var login_user_role_id = ${cacheGuest.roleId};
 			var mobile_no__str = '';
-			if((login_user_role_id == 6) || (login_user_role_id == 11) || (login_user_role_id == 14)){ //means premium,premium_plus,aarna premium users
-				mobile_no__str = '<tr id="row'+orderObj.id+'"><td><button class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button></td></tr>';
+			if((login_user_role_id == 6) || (login_user_role_id == 11) || (login_user_role_id == 12)
+					|| (login_user_role_id == 13) || (login_user_role_id == 14)){ //means premium,premium_plus,aarna premium users
+				mobile_no__str = '<tr id="row'+orderObj.id+'"><td><button type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button></td></tr>';
 				//more_details_str = '<tr><td><span><a href="#" onclick="showMoreDetails(this)">read more...</a></span></td></tr>';
 				//mobile_no__str = '<tr><td><span><a href="#" onclick="viewMobileNumber('+orderObj.id+')">View Mobile Number</a></span></td></tr>';
 			}
@@ -447,7 +522,7 @@ function displayMatches(listOrders) {
 	});
 }
 
-function displayMobileNum(profileId,listType){
+/* function displayMobileNum(profileId,listType){
 	 var profileObj = serviceUnitArray[profileId];
 	var formData = new FormData();
 	formData.append('profile_id',profileId);
@@ -465,6 +540,33 @@ function displayMobileNum(profileId,listType){
     		}
     		
 	}); 
+	
+} */
+
+function displayMobileNum(profileId,listType){
+	if(allowed_limit<=0){
+		alert("Exceeded allowed profiles limit. Renew your membership plan and get more profiles");
+		return false;
+	}
+	var profileObj = serviceUnitArray[profileId];
+	var formData = new FormData();
+	formData.append('profile_id',profileId);
+	formData.append('list_type',listType);
+	jQuery.fn.makeMultipartRequest('POST', 'viewedMobileNumber', false,
+			formData, false, 'text', function(data){
+    		var jsonobj = $.parseJSON(data);
+    		var limit = jsonobj.allowed_limit;
+    		var msg = jsonobj.message;
+    		if(typeof msg != "undefined"){
+    			if(msg=="success"){
+    				$("#row"+profileId).html('<td>'+profileObj.mobile+'</td>');
+    				allowed_limit = limit;
+    			}else{
+    				alert("Some problem occured. Please try again.");
+    			}
+    		}
+    		
+	});
 	
 }
 
@@ -494,8 +596,8 @@ function displayTableFooter(page){
 	}
 	$("#table_footer").html("Showing "+from_val+" to "+to_val+" of "+total_items_count+" records");
 }
-$(document).bind('ready', function(event) {
-	  $('#altLists', event.target).asPaginator(total_items_count, {
+function paginationSetup(total_items_count) {
+	$('#altLists').asPaginator(total_items_count, {
         currentPage: 1,
         visibleNum: {
           0: 5,
@@ -522,14 +624,14 @@ $(document).bind('ready', function(event) {
   			var jsonobj = $.parseJSON(data);
   			var results = jsonobj.results;
   				if(results==""){
-	    			$('#countId').html('');
-	    			$('#countId').html('0');
 	    			var str = '<div class="panel panel-default"><h6>No results found.</h6></div>';
-	    			$('#searchResults').html('');
-	    			$(str).appendTo("#searchResults");
+	    			$('#matches').html('');
+	    			$(str).appendTo("#matches");
 	    			$("#table_footer").prop("hidden",true);
 	    			$("#altLists").prop("hidden",true);
 	    		}else{
+	    			paginationSetup(total_items_count);
+	    			$("#altLists").asPaginator('enable');
 	    			displayMatches(results);
 	    			displayTableFooter(page);
 	    		}
@@ -538,7 +640,7 @@ $(document).bind('ready', function(event) {
           
         }
       });
-});
+}
 </script>
 
 </body>

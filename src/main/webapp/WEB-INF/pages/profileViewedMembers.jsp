@@ -212,11 +212,11 @@ if(session.getAttribute("cacheGuest") != null){
                 <div class="col-md-9 products-grid-left">
 					<div class="panel panel-default">
 			            <div class="panel-heading">
-			            	Sent Interest Requests
+			            	Received Interest Requests
 			            </div>
 			            <form:form commandName="createProfile"  class="form-horizontal" id="searchForm2" name="searchForm2" role="form"   method="post">
 		             		<form:hidden path="id" />
-							<div class="panel-body" id="sent_requests">
+							<div class="panel-body" id="preferred_profiles">
 								
 							</div>
 							<div id="paginator"></div>
@@ -224,8 +224,7 @@ if(session.getAttribute("cacheGuest") != null){
 							
 						</form:form>
 					</div>
-            
-		
+			
 				</div>
                 
                 
@@ -287,16 +286,16 @@ if(session.getAttribute("cacheGuest") != null){
 <script type="text/javascript">
 var total_items_count = ${total_records};
 var page_size = ${page_size};
-var roleid = ${cacheGuest.roleId};
-var listOrders1 = ${sentRequests};
+var role_id = ${cacheGuest.roleId};
+var listOrders1 = ${profileViewedMembers};
 		paginationSetup(total_items_count);
 		$("#paginator").asPaginator('enable');
-		displayMatches(listOrders1,"sent_requests",roleid);
+		displayMatches(listOrders1,"preferred_profiles",role_id);
 		displayTableFooter(1);
 function displayTable(listOrders) {
 	$('#tableId').html('');
 	var tableHead = '<table class="table table-hover table-nomargin table-bordered" >'
-		+ '<thead><tr><th>UserName</th><th>Sent On</th></tr></thead><tbody></tbody></table>';
+		+ '<thead><tr><th>UserName</th><th>Received On</th><th></th></tr></thead><tbody></tbody></table>';
 	$('#tableId').html(tableHead);
 	serviceUnitArray = {};
 	if(listOrders==""){
@@ -308,8 +307,9 @@ function displayTable(listOrders) {
 	$.each(listOrders,function(i, orderObj) {
 						serviceUnitArray[orderObj.id] = orderObj;
 						var tblRow = "<tr>"
-							+ "<td title='"+orderObj.username+"'><a href='#' onclick='fullProfile("+orderObj.id+")'>" + orderObj.username + "</a></td>"
-							+ "<td title='"+orderObj.sentOn+"'>" + orderObj.sentOn + "</td>"
+							+ "<td title='"+orderObj.fromName+"'><a href='#' onclick='fullProfile("+orderObj.id+")'>" + orderObj.fromName + "</a></td>"
+							+ "<td title='"+orderObj.receivedOn+"'>" + orderObj.receivedOn + "</td>"
+							+ "<td title=''><div id='accept"+orderObj.id+"'><a href='#' onclick='acceptRequest("+orderObj.id+",\"1\")'>Accept</a>&nbsp;|&nbsp;<a id='reject"+orderObj.id+"' href='#' onclick='rejectRequest("+orderObj.id+" \"0\")'>Reject</a></td>"
 							+ "</tr >";
 						$(tblRow).appendTo("#tableId table tbody"); 
 					});
@@ -374,12 +374,18 @@ function paginationSetup(total_items_count) {
         onChange: function(page) {
            var formData = new FormData();
       	 formData.append("page_no",page);
-      	formData.append("request_type","sent");
+      	formData.append("request_type","profile_viewed");
   		$.fn.makeMultipartRequest('POST', 'interestRequestsPagination', false,
   				formData, false, 'text', function(data){
   			var jsonobj = $.parseJSON(data);
   			var requestsList = jsonobj.requestsList;
   			if(requestsList==""){
+	    		/* 	$('#countId').html('');
+	    			$('#countId').html('0');
+	    			var str = '<div class="panel panel-default"><h6>No results found.</h6></div>';
+	    			$('#searchResults').html('');
+	    			$(str).appendTo("#searchResults");
+	    		 */	
 	    		 	var str = '<div class="panel panel-default"><h6>No results found.</h6></div>';
 	    		 	$('#tableId').html('');
 	    		 	$('#tableId').html(str);
@@ -388,7 +394,7 @@ function paginationSetup(total_items_count) {
 	    		}else{
 	    			paginationSetup(total_items_count);
 	    			$("#paginator").asPaginator('enable');
-	    			displayMatches(requestsList,"sent_requests",roleid);
+	    			displayMatches(requestsList,"preferred_profiles",role_id);
 	    			$("#table_footer").removeAttr("hidden");
 	    			$("#paginator").removeAttr("hidden");
 	    			displayTableFooter(page);
@@ -400,34 +406,7 @@ function paginationSetup(total_items_count) {
       });
 }
 
-function acceptRequest(requestId,flag){
-	var formData = new FormData();
-	formData.append("requestId",requestId);
-	formData.append("accept_flag",flag);
-	$.fn.makeMultipartRequest('POST', 'acceptRequest', false,
-			formData, false, 'text', function(data){
-		var jsonobj = $.parseJSON(data);
-		var msg = jsonobj.message;
-		if(typeof msg != "undefined" ){
-			if("success"==msg){
-				if(flag==1){
-					alert("Request accepted successfully");
-					$("#accept"+requestId).html('');
-					$("#accept"+requestId).html("Accepted");
-				}else{
-					alert("Request rejected successfully");
-					$("#accept"+requestId).html('');
-					$("#accept"+requestId).html("Rejected");
-				}
-				
-				
-			}else if("failed"==msg || "exception"==msg){
-				alert("Some problem occured. Please try again.");
-			}
-		}
-				
-	});
-}
+
 
 </script>
 

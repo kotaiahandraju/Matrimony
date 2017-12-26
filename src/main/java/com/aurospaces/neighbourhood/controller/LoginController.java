@@ -69,16 +69,26 @@ public class LoginController {
 			}
 			objUserBean = objUsersDao.loginChecking(userObj);
 			if (objUserBean != null ) {
-				Map<String,Object> interestCounts = objUsersDao.getInterestCounts(objUserBean.getId());
-				objUserBean.setSentInterestCount((String.valueOf(interestCounts.get("sentInterestCount"))));
-				objUserBean.setReceivedInterestCount((String.valueOf(interestCounts.get("receivedInterestCount"))));
-				objUserBean.setAcceptedInterestCount((String.valueOf(interestCounts.get("acceptedInterestCount"))));
+				if(objUserBean.getStatus().equals("1")){
+					Map<String,Object> interestCounts = objUsersDao.getInterestCounts(objUserBean.getId());
+					objUserBean.setSentInterestCount((String.valueOf(interestCounts.get("sentInterestCount"))));
+					objUserBean.setReceivedInterestCount((String.valueOf(interestCounts.get("receivedInterestCount"))));
+					objUserBean.setAcceptedInterestCount((String.valueOf(interestCounts.get("acceptedInterestCount"))));
+					objUserBean.setProfileViewedCount((String.valueOf(interestCounts.get("profileViewedCount"))));
+				}else{
+					objUserBean.setSentInterestCount("0");
+					objUserBean.setReceivedInterestCount("0");
+					objUserBean.setAcceptedInterestCount("0");
+					objUserBean.setProfileViewedCount("0");
+				}
+				
 				if(objUserBean.getRoleId() ==1){
 					session.setAttribute("cacheUserBean", objUserBean);
 					session.setAttribute("rolId", objUserBean.getRoleId());
 					session.setAttribute("userName", objUserBean.getUsername());
 					return "redirect:admin/dashboard";
 				}else if(objUserBean.getRoleId() == 4){
+					session.setAttribute("allowed_profiles_limit", 0);
 					session.setAttribute("cacheGuest", objUserBean);
 					session.setAttribute("rolId", objUserBean.getRoleId());
 					session.setAttribute("userName", objUserBean.getUsername());
@@ -109,7 +119,9 @@ public class LoginController {
 						return "redirect:dashboard";
 					}
 					
-				}else if(objUserBean.getRoleId() == 6){
+				}else if(objUserBean.getRoleId() != 4){
+					int allowed_profiles_limit = objUsersDao.getAllowedProfilesLimit(objUserBean.getId());
+					session.setAttribute("allowed_profiles_limit", allowed_profiles_limit);
 					session.setAttribute("cacheGuest", objUserBean);
 					session.setAttribute("rolId", objUserBean.getRoleId());
 					session.setAttribute("userName", objUserBean.getUsername());

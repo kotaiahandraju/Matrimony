@@ -216,7 +216,7 @@ if(session.getAttribute("cacheGuest") != null){
 			            </div>
 			            <form:form commandName="createProfile"  class="form-horizontal" id="searchForm2" name="searchForm2" role="form"   method="post">
 		             		<form:hidden path="id" />
-							<div class="panel-body" id="tableId">
+							<div class="panel-body" id="received_requests">
 								
 							</div>
 							<div id="paginator"></div>
@@ -280,15 +280,17 @@ if(session.getAttribute("cacheGuest") != null){
 <!-- //footer -->
 <input type="hidden" name="loc" id="loc" value="${baseurl }" />
 <script src="js/ajax.js"></script>
+<script src="js/common.js"></script>
 <script src="js/jquery-asPaginator.js"></script>
 <link rel="stylesheet" type="text/css" href="css/asPaginator.css">
 <script type="text/javascript">
 var total_items_count = ${total_records};
 var page_size = ${page_size};
+var roleid = ${cacheGuest.roleId};
 var listOrders1 = ${reveivedRequests};
 		paginationSetup(total_items_count);
 		$("#paginator").asPaginator('enable');
-		displayTable(listOrders1);
+		displayMatches(listOrders1,"received_requests",roleid);
 		displayTableFooter(1);
 function displayTable(listOrders) {
 	$('#tableId').html('');
@@ -392,7 +394,7 @@ function paginationSetup(total_items_count) {
 	    		}else{
 	    			paginationSetup(total_items_count);
 	    			$("#paginator").asPaginator('enable');
-	    			displayTable(requestsList);
+	    			displayMatches(requestsList,"received_requests",roleid);
 	    			$("#table_footer").removeAttr("hidden");
 	    			$("#paginator").removeAttr("hidden");
 	    			displayTableFooter(page);

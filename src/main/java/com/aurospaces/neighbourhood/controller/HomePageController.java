@@ -229,6 +229,15 @@ public class HomePageController {
 				 }
 				 BeanUtils.copyProperties(objUsersBean1,objUsersBean,getNullPropertyNames(objUsersBean1));
 				 objUsersDao.save(objUsersBean1);
+				 EmailUtil emailUtil = new EmailUtil();
+				 // email to user
+				 if(StringUtils.isNotBlank(objUsersBean.getEmail())){
+					emailUtil.sendWelcomeMail(objUsersBean1, objContext);
+				 }
+				 //email to Admin
+				 emailUtil = new EmailUtil();
+				 emailUtil.sendUserRegisteredNotification(objUsersBean1, objContext);
+				 ///
 				 if(StringUtils.isNotBlank(objUsersBean.getRedirectPage())){
 					if("myProfile".equalsIgnoreCase(objUsersBean.getRedirectPage())){
 						objUserrequirementBean.setUserId(sessionBean.getId());
@@ -749,21 +758,16 @@ public class HomePageController {
 			if(StringUtils.isNotBlank(clicked_btn))
 				page_no = (Integer.parseInt(clicked_btn))-1;*/
 			listOrderBeans = objUsersDao.getProfilesFilteredByPreferences(page_no);
-			int total_records = MatrimonyConstants.FREE_USER_PROFILES_LIMIT;
+			int total_records = 0;//MatrimonyConstants.FREE_USER_PROFILES_LIMIT;
 			request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
 			if (listOrderBeans != null && listOrderBeans.size() > 0) {
 				objectMapper = new ObjectMapper();
 				sJson = objectMapper.writeValueAsString(listOrderBeans);
 				request.setAttribute("allOrders1", sJson);
-				int count = Integer.parseInt(((Map<String, String>)listOrderBeans.get(0)).get("total_records"));
-				if(count<total_records){
-					total_records = count;
-				}
-			
+				total_records = Integer.parseInt(((Map<String, String>)listOrderBeans.get(0)).get("total_records"));
+							
 				request.setAttribute("total_records", total_records);
 			} else {
-				objectMapper = new ObjectMapper();
-				sJson = objectMapper.writeValueAsString(listOrderBeans);
 				request.setAttribute("allOrders1", "''");
 				request.setAttribute("total_records", "0");
 			}
@@ -800,32 +804,15 @@ public class HomePageController {
 			//request.setAttribute("total_records", listOfEmplyees.get(0).getToal_records());
 			
 			listOrderBeans = objUsersDao.getSearchResults(searchCriteriaBean,page_no);
-			int role_id = sessionBean.getRoleId();
-			int limit = 0;
-			limit = getLimitFor(role_id);
-			/*if((role_id == MatrimonyConstants.FREE_USER_ROLE_ID) || (role_id==MatrimonyConstants.CLASSIC_USER_ROLE_ID))
-				limit = MatrimonyConstants.FREE_USER_PROFILES_LIMIT;
-			else if(role_id == MatrimonyConstants.CLASSIC_PLUS_USER_ROLE_ID)
-				limit = MatrimonyConstants.CLASSIC_PLUS_USER_PROFILES_LIMIT;
-			else if(role_id == MatrimonyConstants.PREMIUM_USER_ROLE_ID)
-				limit = MatrimonyConstants.PREMIUM_USER_PROFILES_LIMIT;
-			else if(role_id == MatrimonyConstants.PREMIUM_PLUS_USER_ROLE_ID)
-				limit = MatrimonyConstants.PREMIUM_PLUS_USER_PROFILES_LIMIT;
-			else if(role_id == MatrimonyConstants.AARNA_PREMIUM_USER_ROLE_ID)
-				limit = MatrimonyConstants.AARNA_PREMIUM_USER_PROFILES_LIMIT;*/
-			int viewed_count = objUsersDao.getMobileNumViewedCount(sessionBean.getId()+"");
-			int total_records = limit - viewed_count;
+			int total_records = 0;//limit - viewed_count;
 			request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
 			if (listOrderBeans != null && listOrderBeans.size() > 0) {
 				objectMapper = new ObjectMapper();
 				sJson = objectMapper.writeValueAsString(listOrderBeans);
 				request.setAttribute("allOrders1", sJson);
-					int count = Integer.parseInt(((Map<String, String>)listOrderBeans.get(0)).get("total_records"));
-					if(count<total_records){
-						total_records = count;
-					}
-				
-					request.setAttribute("total_records", total_records);
+				total_records = Integer.parseInt(((Map<String, String>)listOrderBeans.get(0)).get("total_records"));
+					
+				request.setAttribute("total_records", total_records);
 				// System.out.println(sJson);
 			} else {
 				//objectMapper = new ObjectMapper();
@@ -879,16 +866,9 @@ public class HomePageController {
 				//if(selectedCasts!=null){
 					filteredProfiles = objUsersDao.getProfilesFilteredByCast(selectedCasts,selectedReligions,selectedEducations,0);
 					objJson.put("filtered_profiles", filteredProfiles.size()>0?filteredProfiles:"");
-					int role_id = sessionBean.getRoleId();
-					int limit = 0;
-					limit = getLimitFor(role_id);
-					int viewed_count = objUsersDao.getMobileNumViewedCount(sessionBean.getId()+"");
-					int total_records = limit - viewed_count;
+					int total_records = 0;//limit - viewed_count;
 					if(filteredProfiles.size()>0){
-						int count = Integer.parseInt(((Map<String, String>)filteredProfiles.get(0)).get("total_records"));
-						if(count<total_records){
-							total_records = count;
-						}
+						total_records = Integer.parseInt(((Map<String, String>)filteredProfiles.get(0)).get("total_records"));
 					}else if(filteredProfiles.size()==0){
 						total_records = 0;
 					}
@@ -972,11 +952,13 @@ public class HomePageController {
 					boolean success = objUsersDao.viewMobileNumber(profile_id);
 					if(success){
 						objJson.put("message", "success");
+						int allowed_limit = (Integer)session.getAttribute("allowed_profiles_limit");
+						objJson.put("allowed_limit", allowed_limit);
 					}else{
 						objJson.put("message", "failed");
 					}
 				}
-				if(StringUtils.isNotBlank(list_type)){
+				/*if(StringUtils.isNotBlank(list_type)){
 					if("preferences".equalsIgnoreCase(list_type)){
 						//filteredProfiles = objUsersDao.getProfilesFilteredByPreferences();
 					}else if("search".equalsIgnoreCase(list_type)){
@@ -984,7 +966,7 @@ public class HomePageController {
 					}else if("categories".equalsIgnoreCase(list_type)){
 						//filteredProfiles = objUsersDao.getProfilesFilteredByCast(castValues, religionValues, educationValues)
 					}
-				}
+				}*/
 				//if(selectedCasts!=null){
 					//filteredProfiles = objUsersDao.getProfilesFilteredByCast(selectedCasts,selectedReligions,selectedEducations);
 					//objJson.put("filtered_profiles", filteredProfiles.size()>0?filteredProfiles:"");
@@ -1018,6 +1000,8 @@ public class HomePageController {
 					UsersBean userBean = (UsersBean)session.getAttribute("cacheGuest");
 					userBean.setSentInterestCount((Integer.parseInt(userBean.getSentInterestCount())+1)+"");
 					session.setAttribute("cacheGuest",userBean);
+					int allowed_limit = (Integer)session.getAttribute("allowed_profiles_limit");
+					objJson.put("allowed_limit", allowed_limit);
 				}
 				else{
 					objJson.put("message", "failed");
@@ -1690,13 +1674,9 @@ public class HomePageController {
 					results = objUsersDao.getSearchResults(searchCriteriaBean,page_no);
 				}
 			}
-			int role_id = userSessionBean.getRoleId();
-			int limit = 0;
-			limit = getLimitFor(role_id);
-			int viewed_count = objUsersDao.getMobileNumViewedCount(userSessionBean.getId()+"");
-			int total_records = limit - viewed_count;
-			request.setAttribute("total_records", total_records);
-			request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
+			//int total_records = Integer.parseInt(((Map<String, String>)results.get(0)).get("total_records"));
+			//request.setAttribute("total_records", total_records);
+			//request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
 			if (results != null && results.size() > 0) {
 				jsonObj.put("results", results);
 				
@@ -1705,7 +1685,7 @@ public class HomePageController {
 			}
 			
 		}catch(Exception e){
-			logger.fatal("error in displayPage method in EmployController class");
+			logger.fatal("error in displayPage method");
 			logger.error(e);
 			e.printStackTrace();
 		}
@@ -1777,6 +1757,38 @@ public class HomePageController {
 	   logger.fatal("error in receivedRequests method");
 	  }
 		return "receivedInterestRequests";
+	 }
+   
+   @RequestMapping(value = "/profileViewedMembers")
+	 public String profileViewedMembers(@ModelAttribute("createProfile") UsersBean objUserssBean, Model objeModel, HttpServletRequest request, HttpSession session) {
+	  List<Map<String, String>> listOrderBeans = null;
+	  ObjectMapper objectMapper = null;
+		String sJson = null;
+		try {
+			UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
+			if(sessionBean == null){
+				return "redirect:HomePage";
+			}
+			long total_records = 0;
+			List<Map<String,Object>> profileViewedMembers = objUsersDao.getProfileViewedMembers(sessionBean.getId()+"",0);
+			if(profileViewedMembers!=null && profileViewedMembers.size()>0){
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(profileViewedMembers);
+				request.setAttribute("profileViewedMembers", sJson);
+				total_records = (Long)profileViewedMembers.get(0).get("total_records");
+			}else{
+				request.setAttribute("profileViewedMembers", "''");
+			}
+			request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
+			request.setAttribute("total_records", total_records);
+			
+		} catch (Exception e) {
+	   e.printStackTrace();
+	   System.out.println(e);
+	   logger.error(e);
+	   logger.fatal("error in profileViewedMembers method");
+	  }
+		return "profileViewedMembers";
 	 }
    
    @RequestMapping(value = "/acceptRequest")
@@ -1918,18 +1930,5 @@ public class HomePageController {
 		}
 		return objJson.toString();
 	}
-   private int getLimitFor(int role_id){
-	   int limit = 0;
-	    if((role_id == MatrimonyConstants.FREE_USER_ROLE_ID) || (role_id==MatrimonyConstants.CLASSIC_USER_ROLE_ID))
-			limit = MatrimonyConstants.FREE_USER_PROFILES_LIMIT;
-		else if(role_id == MatrimonyConstants.CLASSIC_PLUS_USER_ROLE_ID)
-			limit = MatrimonyConstants.CLASSIC_PLUS_USER_PROFILES_LIMIT;
-		else if(role_id == MatrimonyConstants.PREMIUM_USER_ROLE_ID)
-			limit = MatrimonyConstants.PREMIUM_USER_PROFILES_LIMIT;
-		else if(role_id == MatrimonyConstants.PREMIUM_PLUS_USER_ROLE_ID)
-			limit = MatrimonyConstants.PREMIUM_PLUS_USER_PROFILES_LIMIT;
-		else if(role_id == MatrimonyConstants.AARNA_PREMIUM_USER_ROLE_ID)
-			limit = MatrimonyConstants.AARNA_PREMIUM_USER_PROFILES_LIMIT;
-	    return limit;
-   }
+   
 }

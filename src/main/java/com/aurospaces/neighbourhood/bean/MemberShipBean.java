@@ -16,6 +16,12 @@ public class MemberShipBean {
 	private String description;
 	private String status;
 	private Double price=0.00;
+	private String allowed_messages_limit;
+	private String allowed_profiles_limit;
+	private String highlight_profile;
+	private String chat_allowed;
+	private String horoscope_view;
+	private String Astrology_match;
 	public int getId() {
 		return id;
 	}
@@ -63,6 +69,42 @@ public class MemberShipBean {
 	}
 	public void setPrice(Double price) {
 		this.price = price;
+	}
+	public String getAllowed_messages_limit() {
+		return allowed_messages_limit;
+	}
+	public void setAllowed_messages_limit(String allowed_messages_limit) {
+		this.allowed_messages_limit = allowed_messages_limit;
+	}
+	public String getAllowed_profiles_limit() {
+		return allowed_profiles_limit;
+	}
+	public void setAllowed_profiles_limit(String allowed_profiles_limit) {
+		this.allowed_profiles_limit = allowed_profiles_limit;
+	}
+	public String getHighlight_profile() {
+		return highlight_profile;
+	}
+	public void setHighlight_profile(String highlight_profile) {
+		this.highlight_profile = highlight_profile;
+	}
+	public String getChat_allowed() {
+		return chat_allowed;
+	}
+	public void setChat_allowed(String chat_allowed) {
+		this.chat_allowed = chat_allowed;
+	}
+	public String getHoroscope_view() {
+		return horoscope_view;
+	}
+	public void setHoroscope_view(String horoscope_view) {
+		this.horoscope_view = horoscope_view;
+	}
+	public String getAstrology_match() {
+		return Astrology_match;
+	}
+	public void setAstrology_match(String astrology_match) {
+		Astrology_match = astrology_match;
 	}
 	
 	
