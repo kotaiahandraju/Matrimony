@@ -22,7 +22,7 @@
     <link rel="stylesheet" type="text/css" href="user/css/component.css" />
     <script src="user/vendor/jquery/jquery.min.js"></script>
     <script src="user/js/modernizr.custom.js"></script>
-    <style>
+    <style type="text/css">
 .dispnone
 {
 	display: none !important;
@@ -95,6 +95,8 @@ body {
   line-height: 1.428571429;
   border-radius: 15px;
 }
+
+th,td {text-align: center;}
 </style>
 <script>
 
@@ -125,6 +127,7 @@ function validate(id, errorMessage)
 </script>
 </head>
 <body>
+<input type="hidden" name="loc" id="loc" value="${baseurl }" />
 <div class="container">
 	<div class="row">
 		<div class="ilogo">
