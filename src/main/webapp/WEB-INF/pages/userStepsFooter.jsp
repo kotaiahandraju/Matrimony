@@ -58,7 +58,7 @@
     <script src="user/js/custom.js"></script>
     <script defer src="user/vendor/woocommerce-FlexSlider/jquery.flexslider.js"></script>
     <script src="user/js/toucheffects.js"></script>
-    <script src="${baseurl }/js/customValidation.js"></script>
+    <script src="js/customValidation.js"></script>
     <script src="js/ajax.js"></script>
     <script src="js/common.js"></script>
 </body>
