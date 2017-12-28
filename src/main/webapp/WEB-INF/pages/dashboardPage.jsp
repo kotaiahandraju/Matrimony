@@ -82,7 +82,9 @@
 					<li><a class="color1" href="myProfile">My Profile</a></li>
 					<li><a class="color1" href="myPhotos">My Photos</a></li>
 					<li><a class="color1" href="searchProfiles">Search</a></li>
-					<li><a class="color1" href="#">More</a></li>
+					<li><a class="color1" href="#">Matches</a></li>
+					<li><a class="color1" href="memberShipPage">Upgrade</a></li>
+					<li><a class="color1" href="logoutHome">Logout</a></li>
 				</ul> 
 				<div class="clearfix"></div>
 			</div>

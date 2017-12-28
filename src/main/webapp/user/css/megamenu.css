@@ -1,11 +1,11 @@
 .megamenu{margin-bottom:0px;padding:0;width:100%;list-style:none;display:inline-block;position:relative;font-family: 'Monda', sans-serif;;font-size:15px}
-.megamenu li{margin-bottom:-5px;display:inline}
-.megamenu>li>a{float:left;padding:10px 28px;text-decoration:none;text-transform:capitalize;font-size:14px; -webkit-transition: all 0.3s ease-in-out;text-transform:capitalize;
+.megamenu li{margin-bottom:-5px;display:inline;}
+.megamenu>li>a{float:left;padding:15px 28px;text-decoration:none;text-transform:capitalize;font-size:14px; -webkit-transition: all 0.3s ease-in-out;text-transform:capitalize;
 	-moz-transition: all 0.3s ease-in-out;
 	-o-transition: all 0.3s ease-in-out;
 	transition: all 0.3s ease-in-out;
 }
-.megamenu>li.active>a{background:#204056; color:#fff;}
+.megamenu>li.active>a{background:#204056; color:#fff;border-bottom: 1px solid white;}
 .megamenu>li.right{float:right}
 .megamenu .dropdown,.megamenu .dropdown li .dropdown{list-style:none;margin:0;padding:0;display:none;position:absolute;z-index:999;width:160px;border:solid 1px rgba(0,0,0,0.1);background:#fff}
 .megamenu .dropdown{top:59px}
@@ -39,14 +39,14 @@
 .megamenu>li.showhide span.title{margin:15px 0 0 25px;float:left}.megamenu>li.showhide span.icon1:after{position:absolute;content:"";right:25px;top:15px;height:3px;width:25px;font-size:50px;border-top:3px solid #333;border-bottom:3px solid #333;z-index:1}
 .megamenu>li.showhide span.icon2:after{position:absolute;content:"";right:25px;top:27px;height:3px;width:25px;font-size:50px;border-top:3px solid #333;border-bottom:3px solid #333;z-index:1}
 .skyblue,.skyblue>li.showhide{
-	   width: 72%;
-  float: left;
-  margin-right: 2%;;
+	width: 100%;
+  	float: left;
+/*   	margin-right: 2%;; */
 }
 	
 
 .skyblue li>a,.skyblue>li.showhide span{color:#fff}
-.skyblue>li:hover>a,.skyblue .dropdown li:hover>a{color:#555; background:#ffffff;}.
+.skyblue>li:hover>a,.skyblue .dropdown li:hover>a{color:#555; background:#ffffff;border-bottom: 1px solid white;}.
 skyblue .megapanel img:hover,.skyblue form.contact input[type="text"]:focus,.skyblue form.contact textarea:focus{}
 .skyblue form.contact input[type="submit"]{background:#00405d;text-transform:uppercase;}
 }
@@ -67,9 +67,9 @@ skyblue .megapanel img:hover,.skyblue form.contact input[type="text"]:focus,.sky
 }
 @media(max-width:768px){
 	.megamenu>li{display:block;width:100%;border-bottom:none;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box}
-	.megamenu>li:hover,.megamenu>li.active{border-top:0}
+	.megamenu>li:hover,.megamenu>li.active{border-top:0;border-bottom: 1px solid white;}
 	.megamenu>li>a{padding:8px 12px}
-	.megamenu>li:hover>a,.megamenu>li.active>a{padding:8px 12px}
+	.megamenu>li:hover>a,.megamenu>li.active>a{padding:8px 12px;}
 	.megamenu a{width:100%;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box}
 	.megamenu .dropdown,.megamenu .dropdown li .dropdown{width:100%;display:none;left:0;border-left:0;position:static;border:0;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box}
 	.megamenu .dropdown li{background:#fff!important;border:0}
