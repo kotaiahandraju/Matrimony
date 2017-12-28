@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Profile page</title>
+<!-- for-mobile-apps -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+		function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- //for-mobile-apps -->
+<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+<link href="css/style-profile.css" rel="stylesheet" type="text/css" media="all" />
+<!-- js -->
+<script src="js/jquery-1.11.1.min.js"></script>
+<!-- //js -->
+<!-- start-smoth-scrolling -->
+<script type="text/javascript" src="js/bootstrap.js"></script>
+<script type="text/javascript" src="js/move-top.js"></script>
+<script type="text/javascript" src="js/easing.js"></script>
+<link href="css/megamenu.css" rel="stylesheet" type="text/css" media="all" />
+<script type="text/javascript" src="js/megamenu.js"></script>
+<script>$(document).ready(function(){$(".megamenu").megamenu();});</script>
+<script src="js/menu_jquery.js"></script>
+<link href='http://fonts.googleapis.com/css?family=Monda:400,700' rel='stylesheet' type='text/css'>
+<!-- the jScrollPane script -->
+<script type="text/javascript" src="js/jquery.jscrollpane.min.js"></script>
+		<script type="text/javascript" id="sourcecode">
+			$(function()
+			{
+				$('.scroll-pane').jScrollPane();
+			});
+		</script>
+        <script>
+		    $(function(){
+				$(".dropdown").hover(            
+						function() {
+							$('.dropdown-menu', this).stop( true, true ).fadeIn("fast");
+							$(this).toggleClass('open');
+							               
+						},
+						function() {
+							$('.dropdown-menu', this).stop( true, true ).fadeOut("fast");
+							$(this).toggleClass('open');
+							           
+						});
+				});
+		</script>
+<!-- //the jScrollPane script -->
+</head>
+	
+<body style="background:#F1F1F2;">
+<!-- top-header -->
+
+<!-- top-header -->
+<!-- logo-cart -->
+<div class="header_top">
+	<div class="container" style="background:#FFF">
+    <div class=" col-md-3">
+		<div class="logo">
+		 	<img src="images/logo1.jpg" class="img-responsive" >
+	  </div>
+      <div class="clearfix"></div>
+      </div>
+      
+      <div class="col-md-4 ">
+      <div class=" box_1 midfont">
+		<p> <a href="#">Matches</a>  <span class="badge badge-notify">30</span>&nbsp;&nbsp;&nbsp;
+        <a href="#">Search</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       <a href="#">Inbox</a>  <span class="badge badge-notify">30</span></p>
+        
+        </div>      
+      </div>
+      
+		<div class="col-md-5">
+			<div class="cart box_1">
+				<p>Dear, Ramesh Babu | &nbsp;&nbsp;<a href="#" >Upgrade</a> &nbsp;&nbsp;|&nbsp;&nbsp; <a href="#" >Help</a> &nbsp;&nbsp;|&nbsp;&nbsp; <a href="#" >Signout</a></p>
+				<div class="clearfix"> </div>
+			</div>				 
+		</div>
+        
+        
+        
+	</div>
+</div>
+<!-- //logo-cart -->
+<!------>
+<div class="container">
+<div class="row">
+	<nav class="navbar navbar-inverse" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li class="dropdown active">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Home <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">My profile</a></li>
+                <li><a href="#">who view my profile</a></li>
+                <li><a href="#">who short listed</a></li>
+                <li><a href="#">mobile no view by me</a></li>
+                <li><a href="#">who viewed my mobile number</a></li>
+                <li><a href="#">Ignored profile</a></li>
+              </ul>
+            </li>
+            
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Search <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Regular search</a></li>
+                <li><a href="#">Search by ID </a></li>
+                <li><a href="#">Recently view profiles</a></li>
+              </ul>
+            </li>
+            
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Matches <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">New Matches</a></li>
+                <li><a href="#">Still remaining to view </a></li>
+                <li><a href="#">Short list matches</a></li>
+                 <li><a href="#">Premium members</a></li>
+                  <li><a href="#">Short list matches</a></li>
+                   <li><a href="#">Short list matches</a></li>
+              </ul>
+            </li>
+            
+            
+             <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Matches <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Inbox - pending </a></li>
+                <li><a href="#">Inbox - Accepted </a></li>
+                <li><a href="#">Sent All</a></li>
+                 <li><a href="#">SMS received/sent</a></li>
+              </ul>
+            </li>
+            
+            
+             <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Upgrade <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Payment options </a></li>
+                <li><a href="#">Profile highliter </a></li>
+              </ul>
+            </li>
+            
+           <li><a href="#">Nofifications </a></li>
+            
+            
+            
+            
+          </ul>
+
+          
+        </div>
+        <!-- /.navbar-collapse -->
+      </div>
+      <!-- /.container-fluid -->
+    </nav>
+      </div>
+</div>
+<!---->
+<!-- products -->
+	<div class="products">
+		<div class="container"  style="background:#FFF">
+			<div class="mid-grids">
+            <div class="col-md-12">
+            <h4>Hello Srinivas Rayudu. K <span>(AMV1234500)</span></h4>
+            </div>   
+            
+				<div class="col-md-3 products-grid-right">
+					<div class="well">
+                    <div class="row">
+					<div class="col-md-5 ">
+                      <img src="images/p1.jpg" class="img-responsive thumbnail" style="margin-bottom:0;">
+                      </div>	
+                      
+                      <div class="col-md-7" style="padding-left:0;" >
+                      <div class="profiletable">
+                      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><a href="#">Edit Profile</a></td>
+  </tr>
+   <tr>
+    <td><a href="#">Manage Profile</a></td>
+  </tr>
+  <tr>
+    <td><a href="#">Edit Preferrences</a></td>
+  </tr>
+  <tr>
+    <td><a href="#">Privacy Options</a></td>
+  </tr>
+</table>
+						</div>
+                      </div>
+                      
+                      
+                      
+                    <div class="clearfix"></div>
+                    </div>
+                    </div>
+                    
+                    
+                  <div class="panel panel-success">
+				
+				<div class="panel-body">
+					
+                   <h4><strong>Messages</strong></h4>
+<div class="tabbable" id="tabs-343694">
+				<ul class="nav nav-tabs">
+					<li class="active">
+						<a href="#panel-933301" data-toggle="tab"><strong>INBOX</strong></a>
+					</li>
+					<li>
+						<a href="#panel-730191" data-toggle="tab"><strong>SENT</strong></a>
+					</li>
+				</ul>
+				<div class="tab-content">
+					<div class="tab-pane active" id="panel-933301">
+						
+							<table width="100%">
+  <tr>
+    <td height="30"><a href="#"> Pending</a></td>
+     <td><strong>25</strong></td>
+  </tr>
+   <tr>
+    <td height="30"><a href="#">Accepted</a></td>
+    <td><a href="#"><strong>30</strong></a></td>
+  </tr>
+</table>
+
+					
+				  </div>
+					<div class="tab-pane" id="panel-730191">
+						<table width="100%">
+  <tr>
+    <td height="30"><a href="#"> All</a></td>
+     <td><strong>25</strong></td>
+  </tr>
+   <tr>
+    <td height="30"><a href="#">Awaiting reply</a></td>
+    <td><a href="#"><strong>30</strong></a></td>
+  </tr>
+</table>
+					</div>
+				</div>
+			</div>
+
+				</div>
+				
+			</div>  
+				</div>
+             
+                
+                
+                <div class="col-md-6 products-grid-left">
+					<div class="panel panel-default">
+				<div class="panel-body">
+					Complete the remaining Profile
+               <div class="progress">
+  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
+  aria-valuemin="0" aria-valuemax="100" style="width:40%">
+    40% Complete, 
+  </div>
+</div>
+				<p>
+                <span class="glyphicon glyphicon-envelope"></span> Verify your Email <a href="#"><u>Verify Email Address</u></a>
+                </p>
+				</div>
+				
+			</div>
+            
+            
+            <div class="panel panel-success">
+            <div class="panel-heading">
+            New Matches (150) <span class="pull-right"> <a href="#">View All</a></span>
+            </div>
+				<div class="panel-body">
+                <div >
+				<div class="col-md-2" style="margin-right:0; padding-right:0;">	
+                  <img src="images/p1.jpg" class="img-responsive  thumbnail" style="margin-bottom: 0px;">
+                  </div>   
+                  <div class="col-md-9">
+                  <div class="profilesimilar">
+                  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <td><h4>Srinivasrao Rayudu Kota</h4></td>
+                      </tr>
+                       <tr>
+                        <td><p>40, Hindu, Kapu,</p> </td>
+                      </tr>
+                       <tr>
+                        <td><p>QA Manager, Guntur , India.</p>  </td>
+                      </tr>
+                       <tr>
+                        <td><span>Full Profile</span> >></td>
+                      </tr>
+                    </table>
+                    </div>
+                  </div> 
+                  <div class="clearfix"></div> 
+                  </div>
+                   <hr>
+                   
+                    <div >
+				<div class="col-md-2" style="margin-right:0; padding-right:0;">	
+                  <img src="images/p1.jpg" class="img-responsive  thumbnail" style="margin-bottom: 0;">
+                  </div>   
+                  <div class="col-md-9">
+                  <div class="profilesimilar">
+                  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <td><h4>Srinivasrao Rayudu Kota</h4></td>
+                      </tr>
+                       <tr>
+                        <td><p>40, Hindu, Kapu,</p> </td>
+                      </tr>
+                       <tr>
+                        <td><p>QA Manager, Guntur , India.</p>  </td>
+                      </tr>
+                       <tr>
+                        <td><span>Full Profile</span> >></td>
+                      </tr>
+                    </table>
+                    </div>
+                  </div> 
+                  <div class="clearfix"></div> 
+                  </div>
+                   <hr>
+                   
+                    <div >
+				<div class="col-md-2" style="margin-right:0; padding-right:0;">	
+                  <img src="images/p1.jpg" class="img-responsive  thumbnail" style="margin-bottom: 0;">
+                  </div>   
+                  <div class="col-md-9">
+                  <div class="profilesimilar">
+                  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <td><h4>Srinivasrao Rayudu Kota</h4></td>
+                      </tr>
+                       <tr>
+                        <td><p>40, Hindu, Kapu,</p> </td>
+                      </tr>
+                       <tr>
+                        <td><p>QA Manager, Guntur , India.</p>  </td>
+                      </tr>
+                       <tr>
+                        <td><span>Full Profile</span> >></td>
+                      </tr>
+                    </table>
+                    </div>
+                  </div> 
+                  <div class="clearfix"></div> 
+                  </div>
+                   <hr>
+                   
+                    <div >
+				<div class="col-md-2" style="margin-right:0; padding-right:0;">	
+                  <img src="images/p1.jpg" class="img-responsive  thumbnail" style="margin-bottom: 0;">
+                  </div>   
+                  <div class="col-md-9">
+                  <div class="profilesimilar">
+                  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <td><h4>Srinivasrao Rayudu Kota</h4></td>
+                      </tr>
+                       <tr>
+                        <td><p>40, Hindu, Kapu,</p> </td>
+                      </tr>
+                       <tr>
+                        <td><p>QA Manager, Guntur , India.</p>  </td>
+                      </tr>
+                       <tr>
+                        <td><span>Full Profile</span> >></td>
+                      </tr>
+                    </table>
+                    </div>
+                  </div> 
+                  <div class="clearfix"></div> 
+                  </div>
+                   <hr>
+            
+                   
+                   
+                    
+				</div>
+			</div>
+				</div>
+                
+                
+                
+                
+                
+              <div class="col-md-3 products-grid-right">
+					
+                    
+                    
+                  <div class="panel panel-warning">
+				<div class="panel-heading">
+					<h4 class="panel-title">
+						Partner Search
+					</h4>
+				</div>
+				<div class="panel-body">
+					
+<form class="form-horizontal">
+<fieldset>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="textinput">Age</label>  
+  <div class="col-md-8">
+  <input id="textinput" name="textinput" type="text" placeholder="Age" class="form-control input-md">
+    
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="textinput">Education</label>  
+  <div class="col-md-8">
+  <input id="textinput" name="textinput" type="text" placeholder="Education" class="form-control input-md">
+    
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="textinput">Location</label>  
+  <div class="col-md-8">
+  <input id="textinput" name="textinput" type="text" placeholder="Location" class="form-control input-md">
+    
+  </div>
+</div>
+
+<!-- Button -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="singlebutton"></label>
+  <div class="col-md-8">
+    <button id="singlebutton" name="singlebutton" class="btn btn-primary">Button</button>
+  </div>
+</div>
+
+</fieldset>
+</form>
+				</div>
+			</div>  
+            <br>
+            <img src="images/ad.jpg"  class="img-responsive"></div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
+<!-- //products -->
+<!-- footer -->
+	<div class="container">
+    <DIV class="row">
+		<div class="footer">
+			<div class="col-md-3 footer-grid">
+				<h6>About us</h6>
+				<p>Suspendisse sed accumsan risus. Curabitur rhoncus, elit vel tincidunt elementum, nunc urna tristique nisi, in interdum libero magna .</p>
+			</div>
+			<div class="col-md-3 footer-grid">
+				<h6>Search</h6>
+				<ul>
+					<li><a href="#">About Us</a></li>
+					<li><a href="#">Privacy Policy</a></li>
+					<li><a href="#">Terms &amp; Conditions</a></li>
+				</ul>
+			</div>
+			<div class="col-md-3 footer-grid">
+				<h6>My Account</h6>
+				<ul>
+					<li><a href="#">My Account</a></li>
+					<li><a href="#">My Profile</a></li>
+					<li><a href="#">My Interest</a></li>
+				</ul>
+			</div>
+			<div class="col-md-3 footer-grid">
+				<h6>Extras</h6>
+				<ul>
+					<li><a href="#">Login</a></li>
+					<li><a href="#">Register</a></li>
+					<li><a href="#">Help</a></li>
+				</ul>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+        
+        <div class="footer-copy">
+		<p>a product by Aarna ASSOCIATES. ?? 2017. All rights reserved.</p>
+	</div>
+        </div>
+	</div>
+    
+	
+<!-- //footer -->
+</body>
+</html>

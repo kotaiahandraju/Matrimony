@@ -42,7 +42,7 @@
 	
     <div class="copyright clearfix">
         <div class="">
-            <p class="copy">Copyright 2017  | A Product of Aarna Associates</p>
+            <p class="copy">a product by Aarna ASSOCIATES © 2017. All rights reserved</p>
 		</div>
     </div>
 

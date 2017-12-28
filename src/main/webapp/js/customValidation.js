@@ -156,7 +156,7 @@ $(".onlyCharacters").on("keypress",	function(event) {
 var styleBlock = '.placeholder-style.placeholder-style::-moz-placeholder {color: #cc0000;} .placeholder-style::-webkit-input-placeholder {color: #cc0000;}';
 var emailExist = true;
 var expr = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
-$('.emailOnly').blur(function() {
+$('.emailOnly').blur(function(event) {
 	var email = $('#email').val();
 	/*if(email == "" || email == null || email == "undefined")
 	{

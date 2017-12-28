@@ -4,101 +4,91 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <!DOCTYPE html>
 <%@page import="com.aurospaces.neighbourhood.bean.UsersBean"%>
+<%
+	UsersBean userBean = null;
+	if(session.getAttribute("cacheGuest") != null){
+		userBean= (UsersBean)session.getAttribute("cacheGuest");
+	}
+%>
 <html>
 <head>
-<title>View Profiles</title>
-<!-- for-mobile-apps -->
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<!-- <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
-		function hideURLbar(){ window.scrollTo(0,1); } </script> -->
-<!-- //for-mobile-apps -->
-<link href="user/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-<link href="user/css/style-profile.css" rel="stylesheet" type="text/css" media="all" />
-<link href="user/css/megamenu.css" rel="stylesheet" type="text/css" media="all" />
-<!-- js -->
-<script src="user/js/jquery-1.11.1.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<!-- //js -->
-<!-- start-smoth-scrolling -->
-<!-- <script type="text/javascript" src="user/js/move-top.js"></script>
-<script type="text/javascript" src="user/js/easing.js"></script>
-<script type="text/javascript" src="user/js/megamenu.js"></script>
-<script>$(document).ready(function(){$(".megamenu").megamenu();});</script>
-<script src="user/js/menu_jquery.js"></script>
-<link href='http://fonts.googleapis.com/css?family=Monda:400,700' rel='stylesheet' type='text/css'> -->
-<!-- the jScrollPane script -->
-<!-- <script type="text/javascript" src="js/jquery.jscrollpane.min.js"></script>
-		<script type="text/javascript" id="sourcecode">
-			$(function()
-			{
-				$('.scroll-pane').jScrollPane();
-			});
-		</script> -->
-<!-- //the jScrollPane script -->
-</head>
+	<title>My Home</title>
+	<link rel="shortcut icon" href="img/aarna-fav.png"/>
+	<!-- for-mobile-apps -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script type="application/x-javascript">
+		addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+		function hideURLbar(){ window.scrollTo(0,1); }
+	</script>
+	<!-- //for-mobile-apps -->
+	<link href="user/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="user/css/style-profile.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="user/css/megamenu.css" rel="stylesheet" type="text/css" media="all" />
 	
+	<script src="user/js/jquery-1.11.1.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	
+	<!-- start-smoth-scrolling -->
+	<script type="text/javascript" src="user/js/move-top.js"></script>
+	<script type="text/javascript" src="user/js/easing.js"></script>
+	
+	<script type="text/javascript" src="user/js/megamenu.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){$(".megamenu").megamenu();});
+	</script>
+	
+	<script src="user/js/menu_jquery.js"></script>
+	<link href='http://fonts.googleapis.com/css?family=Monda:400,700' rel='stylesheet' type='text/css'>
+	
+	<script type="text/javascript" src="js/jquery.jscrollpane.min.js"></script>
+	<script type="text/javascript" id="sourcecode">
+		$(function(){$('.scroll-pane').jScrollPane();});
+	</script>
+</head>
 <body>
-<%
-UsersBean userBean = null;
-if(session.getAttribute("cacheGuest") != null){
-	userBean= (UsersBean)session.getAttribute("cacheGuest");
-}
-%>
-<!-- top-header -->
-
-<!-- top-header -->
-<!-- logo-cart -->
 <div class="header_top">
 	<div class="container">
-    <div class=" col-md-3">
-		<div class="logo">
-		 	<img src="user/images/logo1.jpg" class="img-responsive" >
-	  </div>
-      <div class="clearfix"></div>
-      </div>
-      
-      <div class="col-md-4 ">
-      <div class=" box_1 midfont">
-		<p> <a href="#">Matches</a>  <span class="badge badge-notify">30</span>&nbsp;&nbsp;&nbsp;
-        <a href="#">Search</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-       <a href="#">Inbox</a>  <span class="badge badge-notify">30</span></p>
-        
-        </div>      
-      </div>
-      
+    	<div class=" col-md-3">
+			<div class="logo">
+				<img src="user/images/logo1.jpg" class="img img-responsive">
+			</div>
+			<div class="clearfix"></div>
+		</div>
+		<div class="col-md-4">
+			<div class=" box_1 midfont">
+				<p><a href="#">Matches</a>  <span class="badge badge-notify">30</span>&nbsp;&nbsp;&nbsp;
+        		<a href="#">Search</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       			<a href="#">Inbox</a>  <span class="badge badge-notify">30</span></p>
+			</div>      
+		</div>
 		<div class="col-md-5">
 			<div class="cart box_1">
 				<p>Dear, <%= userBean.getFirstName() %> <%= userBean.getLastName() %> | &nbsp;&nbsp;<a href="memberShipPage" >Upgrade</a> &nbsp;&nbsp;|&nbsp;&nbsp; <a href="#" >Help</a> &nbsp;&nbsp;|&nbsp;&nbsp; <a href="logoutHome" >Signout</a></p>
 				<div class="clearfix"> </div>
 			</div>				 
 		</div>
-        
-        
-        
 	</div>
 </div>
-<!-- //logo-cart -->
-<!------>
+
 <div class="top_bg">
-	
+	<div class="mega_nav">
+		<div class="container">
+			<div class="menu_sec">
+				<!-- start header menu -->
+				<ul class="megamenu skyblue">
+					<li><a class="color1" href="" style="padding: 0px 15px;"><img src="img/aarna-fav.png" class="img img-responsive"></a></li>
+					<li class="active" ><a class="color1" href="dashboard">My Home</a></li>
+					<li><a class="color1" href="myProfile">My Profile</a></li>
+					<li><a class="color1" href="myPhotos">My Photos</a></li>
+					<li><a class="color1" href="searchProfiles">Search</a></li>
+					<li><a class="color1" href="#">More</a></li>
+				</ul> 
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
 </div>
-<div class="mega_nav">
-	 <div class="container">
-		 <div class="menu_sec">
-		 <!-- start header menu -->
-		<ul class="megamenu skyblue">
-			<li class="active" ><a class="color1" href="dashboard">Dashboard</a></li>
-			<li><a class="color1" href="myProfile">My Profile</a></li>
-            <li><a class="color1" href="myPhotos">My Photos</a></li>
-            <li><a class="color1" href="searchProfiles">Search</a></li>
-             <li><a class="color1" href="#">More</a></li>
-		</ul> 
-			<div class="clearfix"></div>
-		 </div>
-	  </div>
-</div>
-<!---->
 <!-- products -->
 	<div class="products">
 		<div class="container">
