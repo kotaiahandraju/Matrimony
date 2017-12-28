@@ -320,7 +320,7 @@ if(session.getAttribute("cacheGuest") != null){
     </div>
 
     <div class="form-group" >
-      <label class="col-md-4 control-label" i for="textinput">Marital Status</label>  
+      <label class="col-md-4 control-label" for="textinput">Marital Status</label>  
       <div class="col-md-6">
       	<form:select path="rMaritalStatus" class="form-control u1" onchange="hideChildren();" multiple="true" >
 			<form:option value="">Doesn't Matter</form:option>
@@ -591,6 +591,7 @@ $(document).ready(function(){
 
 var total_items_count = ${total_records};
 var page_size = ${page_size};
+var allowed_limit = ${allowed_profiles_limit};
  var listOrders1 = ${allOrders1};
  
 if (listOrders1 != "" && listOrders1 != null) {
@@ -833,12 +834,17 @@ function submitSearch(){
 }); */
 
 function expressInterest(profile_id){
+	if(allowed_limit<=0){
+		alert("Exceeded allowed profiles limit. Renew your membership plan and get more profiles");
+		return false;
+	}
 	var formData = new FormData();
 
 	formData.append('profile_id',profile_id);
 	jQuery.fn.makeMultipartRequest('POST', 'expressInterestTo', false,
 			formData, false, 'text', function(data){
     		var jsonobj = $.parseJSON(data);
+    		var limit = jsonobj.allowed_limit;
     		var msg = jsonobj.message;
     		var profiles = jsonobj.allProfiles;
     		//if(typeof msg != "undefined" ){
@@ -846,6 +852,7 @@ function expressInterest(profile_id){
     				alert("Interest request has been sent successfully");
     				$("#expInterest"+profile_id).html('Expressed Interest');
     				$("#expInterest"+profile_id).prop("disabled",true);
+    				allowed_limit = limit;
     			}else if("failed"==msg || "exception"==msg){
     				alert("Interest request is not successful. Please try again.");
     			}
@@ -905,6 +912,10 @@ function showMoreDetails(thisObj){
 } */
 
 function displayMobileNum(profileId,listType){
+	if(allowed_limit<=0){
+		alert("Exceeded allowed profiles limit. Renew your membership plan and get more profiles");
+		return false;
+	}
 	var profileObj = serviceUnitArray[profileId];
 	var formData = new FormData();
 	formData.append('profile_id',profileId);
@@ -912,10 +923,12 @@ function displayMobileNum(profileId,listType){
 	jQuery.fn.makeMultipartRequest('POST', 'viewedMobileNumber', false,
 			formData, false, 'text', function(data){
     		var jsonobj = $.parseJSON(data);
+    		var limit = jsonobj.allowed_limit;
     		var msg = jsonobj.message;
     		if(typeof msg != "undefined"){
     			if(msg=="success"){
     				$("#row"+profileId).html('<td>'+profileObj.mobile+'</td>');
+    				allowed_limit = limit;
     			}else{
     				alert("Some problem occured. Please try again.");
     			}
@@ -924,6 +937,7 @@ function displayMobileNum(profileId,listType){
 	});
 	
 }
+
 function fullProfile(profile_id){
 	var roleId = ${cacheGuest.roleId};
 	$("#id").val(profile_id);
@@ -984,6 +998,9 @@ function paginationSetup(total_items_count) {
         	 formData.append("rAgeTo",$("#rAgeTo").val());
         	 formData.append("rHeight",$("#rHeight").val());
         	 formData.append("rHeightTo",$("#rHeightTo").val());
+        	 var t1 = $("#rMaritalStatus").val();
+        	 var t2 = $("#rCaste").val();
+        	 var t3 = $("#rReligion").val();
         	 formData.append("rMaritalStatus",$("#rMaritalStatus").val());
         	 formData.append("rReligion",$("#rReligion").val());
         	 formData.append("rCaste",$("#rCaste").val());
@@ -1046,7 +1063,46 @@ function hideChildren() {
 		 $("#haveChildrenId").show();
 	 }
 	}
-
+$(document).ready(function(){
+	var selected_values = "${createProfile.rMaritalStatus}";
+    $("#rMaritalStatus").val(selected_values.split(","));
+    
+    selected_values="";
+    selected_values = "${createProfile.rCaste}";
+    $("#rCaste").val(selected_values.split(","));
+    
+    selected_values="";
+    selected_values = "${createProfile.rState}";
+    $("#rState").val(selected_values.split(","));
+    
+    selected_values="";
+    selected_values = "${createProfile.rEducation}";
+    $("#rEducation").val(selected_values.split(","));
+    
+    selected_values="";
+	selected_values = "${createProfile.rReligion}";
+	$("#rReligion").val(selected_values.split(","));
+	
+	selected_values="";
+	selected_values = "${createProfile.rMotherTongue}";
+	$("#rMotherTongue").val(selected_values.split(","));
+	
+	selected_values="";
+	selected_values = "${createProfile.rCountry}";
+	$("#rCountry").val(selected_values.split(","));
+	
+	selected_values="";
+	selected_values = "${createProfile.rWorkingWith}";
+	$("#rWorkingWith").val(selected_values.split(","));
+	
+	selected_values="";
+	selected_values = "${createProfile.rOccupation}";
+	$("#rOccupation").val(selected_values.split(","));
+	
+	selected_values="";
+	selected_values = "${createProfile.rDiet}";
+	$("#rDiet").val(selected_values.split(","));
+});
 </script>
 </body>
 </html>

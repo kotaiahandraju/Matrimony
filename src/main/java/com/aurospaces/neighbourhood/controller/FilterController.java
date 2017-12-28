@@ -497,6 +497,10 @@ public class FilterController {
 		ObjectMapper objectMapper = null;
 		String sJson = null;
 		try {
+			UsersBean sessionBean = (UsersBean)session.getAttribute("cacheUserBean");
+			if(sessionBean == null){
+				return "redirect:HomePage";
+			}
 			requestsList = objUsersDao.getInterestRequests(0);
 			if (requestsList != null && requestsList.size() > 0) {
 				objectMapper = new ObjectMapper();
@@ -517,7 +521,35 @@ public class FilterController {
 		return "interestRequests";
 	}
 
-	@RequestMapping(value = "/fullProfile")
+   @RequestMapping(value = "/forwardInterestRequests")
+	public  @ResponseBody String forwardInterestRequests(@ModelAttribute("createProfile") UsersBean objUsersBean, ModelMap model,
+			HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
+	    JSONObject objJson =new JSONObject();
+		try {
+			UsersBean sessionBean = (UsersBean)session.getAttribute("cacheUserBean");
+			if(sessionBean == null){
+				return "redirect:HomePage";
+			}
+			String requestId = request.getParameter("requestId");
+			boolean forwarded = objUsersDao.forwardInterestRequestss(requestId);
+			if (forwarded) {
+				objJson.put("message", "success");
+			} else {
+				objJson.put("message", "failed");
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			logger.error(e);
+			logger.fatal("error forwardInterestRequests method  ");
+			return objJson.put("message", "error").toString();
+		}
+		return objJson.toString();
+	}
+   
+    @RequestMapping(value = "/fullProfile")
 	public String fullProfile(@ModelAttribute("createProfile") UsersBean objUserssBean, Model objeModel,
 			HttpServletRequest request, HttpSession session) {
 		// System.out.println("fullProfile Page");
@@ -584,8 +616,7 @@ public class FilterController {
 			ModelMap model, HttpServletRequest request, HttpSession session, RedirectAttributes redir) {
 		// System.out.println("interestRequests Page");
 		List<Map<String, Object>> profilesList = null;
-		ObjectMapper objectMapper = null;
-		String sJson = null;
+		JSONObject objJson =new JSONObject();
 		int page_no = searchCriteriaBean.getPage_no();
 		try {
 			UsersBean userBean = (UsersBean) session.getAttribute("cacheUserBean");
@@ -597,17 +628,14 @@ public class FilterController {
 			int total_records = 0;
 			profilesList = objUsersDao.getUpdatedProfiles(page_no);
 			if (profilesList != null && profilesList.size() > 0) {
-				objectMapper = new ObjectMapper();
-				sJson = objectMapper.writeValueAsString(profilesList);
-				request.setAttribute("updatedProfilesList", sJson);
-				total_records = Integer.parseInt((String) profilesList.get(0).get("total_count"));
-				// System.out.println(sJson);
+				objJson.put("updatedProfilesList", profilesList);
+				total_records = Integer.parseInt((String)profilesList.get(0).get("total_count"));
 			} else {
-				request.setAttribute("updatedProfilesList", "''");
+				objJson.put("updatedProfilesList", "");
 			}
-			request.setAttribute("total_records", total_records);
-			request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
-
+			objJson.put("total_records", total_records);
+			objJson.put("page_size", MatrimonyConstants.PAGINATION_SIZE);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e);
@@ -615,7 +643,7 @@ public class FilterController {
 			logger.fatal("error in FilterController class updatedProfilesPagination method");
 			return "updatedProfiles";
 		}
-		return "";
+		return objJson.toString();
 	}
 
 	@RequestMapping(value = "/approvePhoto")

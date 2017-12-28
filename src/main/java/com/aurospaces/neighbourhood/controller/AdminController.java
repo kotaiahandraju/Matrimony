@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.aurospaces.neighbourhood.bean.BodyTypeBean;
 import com.aurospaces.neighbourhood.bean.CityBean;
 import com.aurospaces.neighbourhood.bean.ContriesBean;
 import com.aurospaces.neighbourhood.bean.EducationBean;
@@ -44,6 +45,7 @@ import com.aurospaces.neighbourhood.db.dao.PaymenthistoryDao;
 import com.aurospaces.neighbourhood.db.dao.UsersDao;
 import com.aurospaces.neighbourhood.filter.JavaIntegrationKit;
 import com.aurospaces.neighbourhood.util.EmailUtil;
+import com.aurospaces.neighbourhood.util.MatrimonyConstants;
 import com.aurospaces.neighbourhood.util.MiscUtils;
 
 @Controller
@@ -120,6 +122,45 @@ public class AdminController {
 		}
 		return jsonObj.toString();
 	}
+   @RequestMapping(value = "/dashboard")
+	public String bodyTypeHome(@ModelAttribute("dashboardForm") UsersBean userBean, ModelMap model,
+			HttpServletRequest request, HttpSession session) {
+	   List<Map<String,Object>> packExpiredProfiles = null;
+		ObjectMapper objectMapper = null;
+		String sJson = null;
+		try {
+
+			packExpiredProfiles = objUsersDao.getPackageExpiredProfiles(MatrimonyConstants.PREMIUM_PACKAGE);
+			if (packExpiredProfiles != null && packExpiredProfiles.size() > 0) {
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(packExpiredProfiles);
+				request.setAttribute("premiumExpiredProfiles", sJson);
+				// System.out.println(sJson);
+			} else {
+				request.setAttribute("premiumExpiredProfiles", "''");
+			}
+			packExpiredProfiles = null;
+			packExpiredProfiles = objUsersDao.getPackageExpiredProfiles(MatrimonyConstants.CLASSIC_PLUS_PACKAGE);
+			if (packExpiredProfiles != null && packExpiredProfiles.size() > 0) {
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(packExpiredProfiles);
+				request.setAttribute("classicPlusExpiredProfiles", sJson);
+				// System.out.println(sJson);
+			} else {
+				request.setAttribute("classicPlusExpiredProfiles", "''");
+			}
+			request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
+			request.setAttribute("total_records", 2);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			logger.error(e);
+			logger.fatal("error in admin dashboard method");
+			return "bodyTypeHome";
+		}
+		return "adminDashboard";
+	}
+
    
   /* @RequestMapping(value = "/paymentDetails/{id}/{page}")
 	public String paymentDetails(@ModelAttribute("payment") UsersBean objUsersBean, Model objeModel ,

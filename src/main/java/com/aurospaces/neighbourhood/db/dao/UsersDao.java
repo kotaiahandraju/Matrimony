@@ -364,7 +364,7 @@ public class UsersDao extends BaseUsersDao
 				
 				
 				if(objUserBean.getRoleId()==MatrimonyConstants.PREMIUM_USER || objUserBean.getRoleId()==MatrimonyConstants.PREMIUM_PLUS_USER){
-					where_clause.append(" and u.id not in (select ei.profile_id from express_intrest ei where ei.user_id="+objUserBean.getId()+" and ei.mobile_no_viewed_status = '1') ");
+					
 					buffer.append("select u.id,sta.name as currentStateName,cit.name as currentCityName,u.occupation,oc.name as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
 							+"u.firstName, u.lastName, u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName, u.currentCountry,co.name as currentCountryName, " 
 							+"u.currentState, u.currentCity, " 
@@ -382,7 +382,6 @@ public class UsersDao extends BaseUsersDao
 							+"left join complexion com on com.id =u.complexion left join cast c1 on c1.id=rCaste left join language l1 on l1.id=rMotherTongue "
 							+"left join countries con1 on con1.id=rCountry left join education e1 on e1.id=rEducation left join occupation oc1 on oc1.id=rOccupation  left join user_images uimg on uimg.user_id=u.id left join occupation oc on u.occupation=oc.id left join education ed on ed.id=u.education "
 							+ " left join state sta on sta.id=u.currentState left join city cit on cit.id=u.currentCity ");
-							//+" where 1=1  and u.id not in (select ei.profile_id from express_intrest ei where ei.user_id="+objUserBean.getId()+" and ei.mobile_no_viewed_status = '1') ");
 					
 					handlerObj = new String[] {"id","currentStateName","currentCityName","occupation","occupationName","educationName","userrequirementId","image","created_time","updated_time",
 							"role_id","username","password","email","createProfileFor","gender","firstName","lastName","dob","religion","religionName","motherTongue","motherTongueName","currentCountry","currentCountryName",
@@ -579,20 +578,90 @@ public class UsersDao extends BaseUsersDao
 			objUserBean = (UsersBean) session.getAttribute("cacheGuest");
 			if(objUserBean!=null){
 				try{
+					int updated_count = 0;
+					int existing_count = jdbcTemplate.queryForInt("select count(*) from express_intrest ei where ei.user_id="+objUserBean.getId()+" and ei.profile_id="+profileId);
+					if(existing_count==0){
+						buffer.append("insert into express_intrest(user_id,profile_id,interested,created_on,intrest_to,allowed_profiles_limit) values(?,?,?,?,?,?)");
+						updated_count = jdbcTemplate.update(buffer.toString(), new Object[]{objUserBean.getId(),profileId,"1",
+												new java.sql.Timestamp(new DateTime().getMillis()),profileId,MatrimonyConstants.PREMIUM_USER_PROFILES_LIMIT});
+					}else if(existing_count>0){
+						buffer.append("update express_intrest set interested = '1',created_on = ? where user_id = ? and profile_id = ?");
+						updated_count = jdbcTemplate.update(buffer.toString(), new Object[]{new java.sql.Timestamp(new DateTime().getMillis()),objUserBean.getId(),profileId});
+					}
+					if(updated_count == 1){
+						int allowed_profiles_limit = this.getAllowedProfilesLimit(objUserBean.getId());
+						session.setAttribute("allowed_profiles_limit", allowed_profiles_limit);
+						return true;
+					}
+					
+				}catch(Exception e){
+					e.printStackTrace();
+					return false;
+				}
+			}
+			return false;
+	 }
+	 
+	 public boolean viewedProfile(String profileId){
+			jdbcTemplate = custom.getJdbcTemplate();
+			StringBuffer buffer = new StringBuffer();
+			UsersBean objUserBean = null;
+			objUserBean = (UsersBean) session.getAttribute("cacheGuest");
+			if(objUserBean!=null){
+				try{
 					int existing_count = jdbcTemplate.queryForInt("select count(*) from express_intrest ei where ei.user_id="+objUserBean.getId()+" and ei.profile_id="+profileId+"  and interested='1'");
 					if(existing_count==0){
-						buffer.append("insert into express_intrest(user_id,profile_id,interested,created_on,intrest_to,allowed_mobile_num_count) values(?,?,?,?,?,?)");
-						int inserted_count = jdbcTemplate.update(buffer.toString(), new Object[]{objUserBean.getId(),profileId,"1",
-												new java.sql.Timestamp(new DateTime().getMillis()),"",MatrimonyConstants.PREMIUM_USER_PROFILES_LIMIT});
+						buffer.append("insert into express_intrest(user_id,profile_id,created_on,profile_viewed_status) values(?,?,?,?)");
+						int inserted_count = jdbcTemplate.update(buffer.toString(), new Object[]{objUserBean.getId(),profileId,
+												new java.sql.Timestamp(new DateTime().getMillis()),"1"});
 						if(inserted_count==1)
 							return true;
 					}else if(existing_count>0){
-						buffer.append("update express_intrest set interested = '1',created_on = ? where user_id = ? and profile_id = ?");
+						buffer.append("update express_intrest set profile_viewed_status = '1',created_on = ? where user_id = ? and profile_id = ?");
 						int updated_count = jdbcTemplate.update(buffer.toString(), new Object[]{new java.sql.Timestamp(new DateTime().getMillis()),objUserBean.getId(),profileId});
 						if(updated_count==1)
 							return true;
 					}
 					
+				}catch(Exception e){
+					e.printStackTrace();
+					return false;
+				}
+			}
+			return false;
+	 }
+	 
+	 @SuppressWarnings("deprecation")
+	public boolean forwardInterestRequestss(String requestIds){
+			jdbcTemplate = custom.getJdbcTemplate();
+			StringBuffer buffer = new StringBuffer();
+			
+				try{
+					int updated_count = jdbcTemplate.update("update express_intrest set status = '1' where find_in_set(id,'"+requestIds+"')>0");
+					if(updated_count>0){
+						return true;
+					}
+					return false;
+				}catch(Exception e){
+					e.printStackTrace();
+					return false;
+				}
+	 }
+	 
+	 @SuppressWarnings("deprecation")
+	public boolean acceptInterestRequests(String requestIds,String acceptFlag){
+			jdbcTemplate = custom.getJdbcTemplate();
+			StringBuffer buffer = new StringBuffer();
+			UsersBean objUserBean = null;
+			objUserBean = (UsersBean) session.getAttribute("cacheGuest");
+			String columnValue = acceptFlag.equals("1")?"2":"3";
+			if(objUserBean!=null){
+				try{
+					int updated_count = jdbcTemplate.update("update express_intrest set status = '"+columnValue+"' where find_in_set(id,'"+requestIds+"')>0");
+					if(updated_count>0){
+						return true;
+					}
+					return false;
 				}catch(Exception e){
 					e.printStackTrace();
 					return false;
@@ -620,18 +689,23 @@ public class UsersDao extends BaseUsersDao
 			objUserBean = (UsersBean) session.getAttribute("cacheGuest");
 			if(objUserBean!=null){
 				try{
+					int updated_count = 0;
 					int existing_count = jdbcTemplate.queryForInt("select count(*) from express_intrest ei where ei.user_id="+objUserBean.getId()+" and ei.profile_id="+profileId+"");
 					if(existing_count==0){
-						buffer.append("insert into express_intrest(user_id,profile_id,mobile_no_viewed_status,created_on,allowed_mobile_num_count,intrest_to) values(?,?,?,?,?,?)");
-						int inserted_count = jdbcTemplate.update(buffer.toString(), new Object[]{objUserBean.getId(),profileId,"1",
-												new java.sql.Timestamp(new DateTime().getMillis()),MatrimonyConstants.PREMIUM_USER_PROFILES_LIMIT - 1,""});
-						if(inserted_count==1)
-							return true;
+						buffer.append("insert into express_intrest(user_id,profile_id,mobile_no_viewed_status,created_on) values(?,?,?,?)");
+						updated_count = jdbcTemplate.update(buffer.toString(), new Object[]{objUserBean.getId(),profileId,"1",
+								new java.sql.Timestamp(new DateTime().getMillis())});
+						
 					}else if(existing_count>0){
-						buffer.append("update express_intrest set mobile_no_viewed_status = '1',created_on = ?,allowed_mobile_num_count=allowed_mobile_num_count-1  where user_id = ? and profile_id = ?");
-						int updated_count = jdbcTemplate.update(buffer.toString(), new Object[]{new java.sql.Timestamp(new DateTime().getMillis()),objUserBean.getId(),profileId});
-						if(updated_count==1)
-							return true;
+						buffer.append("update express_intrest set mobile_no_viewed_status = '1',created_on = ? where user_id = ? and profile_id = ?");
+						updated_count = jdbcTemplate.update(buffer.toString(), new Object[]{new java.sql.Timestamp(new DateTime().getMillis()),objUserBean.getId(),profileId});
+					}
+					if(updated_count == 1){
+						int allowed_profiles_limit = this.getAllowedProfilesLimit(objUserBean.getId());
+						//int allowed_profiles_limit = (Integer)session.getAttribute("allowed_profiles_limit");
+						//session.removeAttribute("allowed_profiles_limit");
+						session.setAttribute("allowed_profiles_limit", allowed_profiles_limit);
+						return true;
 					}
 					
 				}catch(Exception e){
@@ -676,7 +750,7 @@ public class UsersDao extends BaseUsersDao
 				}
 				
 				if(objUserBean.getRoleId()==MatrimonyConstants.PREMIUM_USER || objUserBean.getRoleId()==MatrimonyConstants.PREMIUM_PLUS_USER){
-					where_clause.append(" and u.id not in (select ei.profile_id from express_intrest ei where ei.user_id="+objUserBean.getId()+" and ei.mobile_no_viewed_status = '1') ");
+					
 					buffer.append("select u.id,sta.name as currentStateName,cit.name as currentCityName,u.occupation,ifnull(oc.name,'') as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
 							+"u.firstName, u.lastName, u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName, u.currentCountry,co.name as currentCountryName, " 
 							+"u.currentState, u.currentCity, " 
@@ -685,7 +759,9 @@ public class UsersDao extends BaseUsersDao
 							+"u.aboutMyself, u.disability, u.status, u.showall,ur.userId, rAgeFrom, rAgeTo, "
 							+"rHeight, rMaritalStatus, rReligion,re1.name as requiredReligionName, rCaste,c1.name as requiredCasteName, rMotherTongue,l1.name as requiredMotherTongue,haveChildren,rCountry , con1.name as requiredCountry,rState,rEducation,e1.name as requiredEducationName, "
 							+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,"
-							+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and interested='1') as expressedInterest, ifnull(u.age,'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
+							+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and interested='1') as expressedInterest, "
+							//+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and interested='1') as expressedInterest, "
+							+" ifnull(u.age,'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 							+" (select count(*) from users u "+where_clause+") as total_records, "
 							+" (select uimg.image from user_images uimg where uimg.user_id=u.id and uimg.is_profile_picture='1') as profileImage "
 							+" from users u left join userrequirement ur on u.id=ur.userId "
@@ -694,7 +770,6 @@ public class UsersDao extends BaseUsersDao
 							+"left join complexion com on com.id =u.complexion left join cast c1 on c1.id=rCaste left join language l1 on l1.id=rMotherTongue "
 							+"left join countries con1 on con1.id=rCountry left join education e1 on e1.id=rEducation left join occupation oc1 on oc1.id=rOccupation  left join user_images uimg on uimg.user_id=u.id left join occupation oc on u.occupation=oc.id left join education ed on ed.id=u.education "
 							+ " left join state sta on sta.id=u.currentState left join city cit on cit.id=u.currentCity ");
-							//+" where 1=1  and u.id not in (select ei.profile_id from express_intrest ei where ei.user_id="+objUserBean.getId()+" and ei.mobile_no_viewed_status = '1')");
 					handlerObj = new String[] {"id","currentStateName","currentCityName","occupation","occupationName","educationName","userrequirementId","image","created_time","updated_time",
 							"role_id","username","password","email","createProfileFor","gender","firstName","lastName","dob","religion","religionName","motherTongue","motherTongueName","currentCountry","currentCountryName",
 							"currentState","currentCity","maritalStatus",
@@ -743,7 +818,7 @@ public class UsersDao extends BaseUsersDao
 					buffer.append(" group by u.id ");
 					
 					int page_size = MatrimonyConstants.PAGINATION_SIZE;
-					buffer.append(" order by u.username limit "+page_size+" offset "+(page_no*page_size)+" ");
+					buffer.append(" order by u.package_id desc limit "+page_size+" offset "+(page_no*page_size)+" ");
 					
 					
 					/*}
@@ -830,7 +905,6 @@ public class UsersDao extends BaseUsersDao
 				}
 				
 				if(objUserBean.getRoleId()==MatrimonyConstants.PREMIUM_USER || objUserBean.getRoleId()==MatrimonyConstants.PREMIUM_PLUS_USER){
-					where_clause.append(" and u.status in ('1')   and u.id not in (select ei.profile_id from express_intrest ei where ei.user_id="+objUserBean.getId()+" and ei.mobile_no_viewed_status = '1') ");
 					buffer.append("select u.id,sta.name as currentStateName,cit.name as currentCityName,u.occupation,oc.name as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
 							+"u.firstName, u.lastName, u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName, u.currentCountry,co.name as currentCountryName, " 
 							+"u.currentState, u.currentCity, " 
@@ -1099,9 +1173,10 @@ public class UsersDao extends BaseUsersDao
 		
 		public Map<String,Object> getInterestCounts(int userId){
 			jdbcTemplate = custom.getJdbcTemplate();
-			String qryStr = "select (select count(*) from express_intrest where user_id = "+userId+" and interested = '1') as sentInterestCount, "
-						+"(select count(*) from express_intrest where profile_id = "+userId+" and interested = '1') as receivedInterestCount, "
-						+"(select count(*) from express_intrest where user_id = "+userId+" and status = '1') as acceptedInterestCount";
+			String qryStr = "select (select count(*) from express_intrest where user_id = "+userId+" and interested = '1' and status in ('0','1')) as sentInterestCount, "
+						+"(select count(*) from express_intrest where profile_id = "+userId+" and interested = '1' and status = '1') as receivedInterestCount, "
+						+"(select count(*) from express_intrest where user_id = "+userId+" and status = '2') as acceptedInterestCount, "
+						+"(select count(*) from express_intrest where profile_id = "+userId+" and profile_viewed_status = '1') as profileViewedCount";
 			try{
 				List<Map<String,Object>> list = jdbcTemplate.queryForList(qryStr);
 				if(list!=null)
@@ -1215,6 +1290,193 @@ public class UsersDao extends BaseUsersDao
 		return null;
 	}
 	
+	public List<Map<String,Object>> getReceivedInterestRequests(String userId,int page_no){
+		jdbcTemplate = custom.getJdbcTemplate();
+		/*StringBuffer qryStrBuffer = new StringBuffer("select *,(select username from users where id=user_id) as fromName,date_format(created_on,'%d-%M-%Y') as receivedOn, "
+				+" (select count(*) from express_intrest ei where ei.profile_id = "+userId+" and ei.interested = '1' and status = '1') as total_records "
+				+" from express_intrest where profile_id = "+userId+" and interested = '1' and status = '1' order by created_on desc  ");
+		int page_size = MatrimonyConstants.PAGINATION_SIZE;
+		qryStrBuffer.append(" limit "+page_size+" offset "+(page_no*page_size)+" ");*/
+		UsersBean objUserBean = (UsersBean) session.getAttribute("cacheGuest");
+		StringBuffer buffer = new StringBuffer();
+		String inner_where_clause = " ei.user_id = u.id and ei.profile_id = "+userId+" and ei.interested = '1' and ei.status = '1'";
+		StringBuffer where_clause = new StringBuffer(" and u.role_id not in (1) and u.status in ('1') ");
+		buffer.append("select u.id,sta.name as currentStateName,cit.name as currentCityName,u.occupation,oc.name as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
+				+"u.firstName, u.lastName, u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName, u.currentCountry,co.name as currentCountryName, " 
+				+"u.currentState, u.currentCity, " 
+				+"u.maritalStatus, u.caste,c.name as casteName, u.gotram, u.star,s.name as starName, u.dosam, u.dosamName, u.education, u.workingWith, u.companyName, " 
+				+"u.annualIncome, u.monthlyIncome, u.diet, u.smoking, u.drinking, u.height ,h.inches,h.cm, u.bodyType,b.name as bodyTypeName, u.complexion,com.name as complexionName, u.mobile, " 
+				+"u.aboutMyself, u.disability, u.status, u.showall,ur.userId, rAgeFrom, rAgeTo, "
+				+"rHeight, rMaritalStatus, rReligion,re1.name as requiredReligionName, rCaste,c1.name as requiredCasteName, rMotherTongue,l1.name as requiredMotherTongue,haveChildren,rCountry , con1.name as requiredCountry,rState,rEducation,e1.name as requiredEducationName, "
+				+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,"
+				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and interested='1') as expressedInterest, ifnull(u.age,'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
+				//+" (select count(*) from users u "+where_clause+") as total_records, "
+				+" (select uimg.image from user_images uimg where uimg.user_id=u.id and uimg.is_profile_picture='1') as profileImage, "
+				+" (select count(*) from users u,express_intrest ei where "+inner_where_clause+") as total_records "
+				+" from users u left join userrequirement ur on u.id=ur.userId "
+				+"left join religion re on re.id=u.religion left join language l on l.id=u.motherTongue left join countries co on co.id=u.currentCountry "
+				+"left join cast c on c.id=u.caste left join star s on s.id =u.star left join height h on h.id=u.height left join body_type b on b.id=u.bodyType left join religion re1  on re1.id=rReligion "
+				+"left join complexion com on com.id =u.complexion left join cast c1 on c1.id=rCaste left join language l1 on l1.id=rMotherTongue "
+				+"left join countries con1 on con1.id=rCountry left join education e1 on e1.id=rEducation left join occupation oc1 on oc1.id=rOccupation  left join user_images uimg on uimg.user_id=u.id left join occupation oc on u.occupation=oc.id left join education ed on ed.id=u.education "
+				+ " left join state sta on sta.id=u.currentState left join city cit on cit.id=u.currentCity,  "
+				+"  express_intrest ei  where "+inner_where_clause+" ");
+		
+		buffer.append(where_clause);
+		buffer.append(" group by u.id ");
+		
+		int page_size = MatrimonyConstants.PAGINATION_SIZE;
+		buffer.append(" order by u.package_id desc limit "+page_size+" offset "+(page_no*page_size)+" ");
+		try{
+			List<Map<String,Object>> list = jdbcTemplate.queryForList(buffer.toString());
+			if(list!=null)
+				return list;
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+		return null;
+	}
+	
+	public List<Map<String,Object>> getProfileViewedMembers(String userId,int page_no){
+		jdbcTemplate = custom.getJdbcTemplate();
+		/*String where_clause = "ei.user_id = u.id and ei.profile_id = "+userId+" and ei.profile_viewed_status = '1'";
+		StringBuffer qryStrBuffer = new StringBuffer("select u.*,ei.*,(select count(*) from users u,express_intrest ei where "+where_clause+") as total_records from users u, express_intrest ei where "+where_clause+" order by ei.created_on desc  ");*/
+		UsersBean objUserBean = (UsersBean) session.getAttribute("cacheGuest");
+		StringBuffer buffer = new StringBuffer();
+		String inner_where_clause = " ei.user_id = u.id and ei.profile_id = "+userId+" and ei.profile_viewed_status = '1' ";
+		StringBuffer where_clause = new StringBuffer(" and u.role_id not in (1) and u.status in ('1') ");
+		buffer.append("select u.id,sta.name as currentStateName,cit.name as currentCityName,u.occupation,oc.name as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
+				+"u.firstName, u.lastName, u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName, u.currentCountry,co.name as currentCountryName, " 
+				+"u.currentState, u.currentCity, " 
+				+"u.maritalStatus, u.caste,c.name as casteName, u.gotram, u.star,s.name as starName, u.dosam, u.dosamName, u.education, u.workingWith, u.companyName, " 
+				+"u.annualIncome, u.monthlyIncome, u.diet, u.smoking, u.drinking, u.height ,h.inches,h.cm, u.bodyType,b.name as bodyTypeName, u.complexion,com.name as complexionName, u.mobile, " 
+				+"u.aboutMyself, u.disability, u.status, u.showall,ur.userId, rAgeFrom, rAgeTo, "
+				+"rHeight, rMaritalStatus, rReligion,re1.name as requiredReligionName, rCaste,c1.name as requiredCasteName, rMotherTongue,l1.name as requiredMotherTongue,haveChildren,rCountry , con1.name as requiredCountry,rState,rEducation,e1.name as requiredEducationName, "
+				+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,"
+				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and interested='1') as expressedInterest, ifnull(u.age,'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
+				//+" (select count(*) from users u "+where_clause+") as total_records, "
+				+" (select uimg.image from user_images uimg where uimg.user_id=u.id and uimg.is_profile_picture='1') as profileImage, "
+				+" (select count(*) from users u,express_intrest ei where "+inner_where_clause+") as total_records "
+				+" from users u left join userrequirement ur on u.id=ur.userId "
+				+"left join religion re on re.id=u.religion left join language l on l.id=u.motherTongue left join countries co on co.id=u.currentCountry "
+				+"left join cast c on c.id=u.caste left join star s on s.id =u.star left join height h on h.id=u.height left join body_type b on b.id=u.bodyType left join religion re1  on re1.id=rReligion "
+				+"left join complexion com on com.id =u.complexion left join cast c1 on c1.id=rCaste left join language l1 on l1.id=rMotherTongue "
+				+"left join countries con1 on con1.id=rCountry left join education e1 on e1.id=rEducation left join occupation oc1 on oc1.id=rOccupation  left join user_images uimg on uimg.user_id=u.id left join occupation oc on u.occupation=oc.id left join education ed on ed.id=u.education "
+				+ " left join state sta on sta.id=u.currentState left join city cit on cit.id=u.currentCity,  "
+				+"  express_intrest ei  where "+inner_where_clause+" ");
+		
+		buffer.append(where_clause);
+		buffer.append(" group by u.id ");
+		
+		int page_size = MatrimonyConstants.PAGINATION_SIZE;
+		buffer.append(" order by u.package_id desc limit "+page_size+" offset "+(page_no*page_size)+" ");
+		
+		try{
+			List<Map<String,Object>> list = jdbcTemplate.queryForList(buffer.toString());
+			if(list!=null)
+				return list;
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+		return null;
+	}
+	
+	public List<Map<String,Object>> getacceptedRequests(String userId,int page_no){
+		jdbcTemplate = custom.getJdbcTemplate();
+		/*StringBuffer qryStrBuffer = new StringBuffer("select *,(select username from users where id=user_id) as username,date_format(created_on,'%d-%M-%Y') as receivedOn, "
+				+" (select count(*) from express_intrest ei where ei.user_id = "+userId+" and ei.interested = '1' and status = '2') as total_records "
+				+" from express_intrest where user_id = "+userId+" and interested = '1' and status = '2' order by created_on desc  ");
+		int page_size = MatrimonyConstants.PAGINATION_SIZE;
+		qryStrBuffer.append(" limit "+page_size+" offset "+(page_no*page_size)+" ");*/
+		UsersBean objUserBean = (UsersBean) session.getAttribute("cacheGuest");
+		StringBuffer buffer = new StringBuffer();
+		String inner_where_clause = " ei.user_id = u.id and ei.user_id = "+userId+" and ei.interested = '1' and ei.status = '2'";
+		StringBuffer where_clause = new StringBuffer(" and u.role_id not in (1) and u.status in ('1') ");
+		buffer.append("select u.id,sta.name as currentStateName,cit.name as currentCityName,u.occupation,oc.name as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
+				+"u.firstName, u.lastName, u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName, u.currentCountry,co.name as currentCountryName, " 
+				+"u.currentState, u.currentCity, " 
+				+"u.maritalStatus, u.caste,c.name as casteName, u.gotram, u.star,s.name as starName, u.dosam, u.dosamName, u.education, u.workingWith, u.companyName, " 
+				+"u.annualIncome, u.monthlyIncome, u.diet, u.smoking, u.drinking, u.height ,h.inches,h.cm, u.bodyType,b.name as bodyTypeName, u.complexion,com.name as complexionName, u.mobile, " 
+				+"u.aboutMyself, u.disability, u.status, u.showall,ur.userId, rAgeFrom, rAgeTo, "
+				+"rHeight, rMaritalStatus, rReligion,re1.name as requiredReligionName, rCaste,c1.name as requiredCasteName, rMotherTongue,l1.name as requiredMotherTongue,haveChildren,rCountry , con1.name as requiredCountry,rState,rEducation,e1.name as requiredEducationName, "
+				+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,"
+				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and interested='1') as expressedInterest, ifnull(u.age,'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
+				//+" (select count(*) from users u "+where_clause+") as total_records, "
+				+" (select uimg.image from user_images uimg where uimg.user_id=u.id and uimg.is_profile_picture='1') as profileImage, "
+				+" (select count(*) from users u,express_intrest ei where "+inner_where_clause+") as total_records "
+				+" from users u left join userrequirement ur on u.id=ur.userId "
+				+"left join religion re on re.id=u.religion left join language l on l.id=u.motherTongue left join countries co on co.id=u.currentCountry "
+				+"left join cast c on c.id=u.caste left join star s on s.id =u.star left join height h on h.id=u.height left join body_type b on b.id=u.bodyType left join religion re1  on re1.id=rReligion "
+				+"left join complexion com on com.id =u.complexion left join cast c1 on c1.id=rCaste left join language l1 on l1.id=rMotherTongue "
+				+"left join countries con1 on con1.id=rCountry left join education e1 on e1.id=rEducation left join occupation oc1 on oc1.id=rOccupation  left join user_images uimg on uimg.user_id=u.id left join occupation oc on u.occupation=oc.id left join education ed on ed.id=u.education "
+				+ " left join state sta on sta.id=u.currentState left join city cit on cit.id=u.currentCity,  "
+				+"  express_intrest ei  where "+inner_where_clause+" ");
+		
+		buffer.append(where_clause);
+		buffer.append(" group by u.id ");
+		
+		int page_size = MatrimonyConstants.PAGINATION_SIZE;
+		buffer.append(" order by u.package_id desc limit "+page_size+" offset "+(page_no*page_size)+" ");
+		try{
+			List<Map<String,Object>> list = jdbcTemplate.queryForList(buffer.toString());
+			if(list!=null)
+				return list;
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+		return null;
+	}
+	
+	public List<Map<String,Object>> getsentRequests(String userId,int page_no){
+		jdbcTemplate = custom.getJdbcTemplate();
+		/*StringBuffer qryStrBuffer = new StringBuffer("select *,(select username from users where id=user_id) as username,date_format(created_on,'%d-%M-%Y') as sentOn, "
+				+" (select count(*) from express_intrest ei where ei.profile_id = "+userId+" and ei.interested = '1' and status in ('0','1')) as total_records "
+				+" from express_intrest where user_id = "+userId+" and interested = '1' and status in ('0','1') order by created_on desc  ");
+		int page_size = MatrimonyConstants.PAGINATION_SIZE;
+		qryStrBuffer.append(" limit "+page_size+" offset "+(page_no*page_size)+" ");
+		StringBuffer qryStrBuffer = new StringBuffer("select u.*,ei.*,(select count(*) from users u,express_intrest ei where "+where_clause+") as total_records from users u, express_intrest ei where "+where_clause+" order by ei.created_on desc  ");*/
+		UsersBean objUserBean = (UsersBean) session.getAttribute("cacheGuest");
+		StringBuffer buffer = new StringBuffer();
+		String inner_where_clause = " ei.user_id = u.id and ei.user_id = "+userId+" and ei.interested = '1' ";
+		StringBuffer where_clause = new StringBuffer(" and u.role_id not in (1) and u.status in ('1') ");
+		buffer.append("select u.id,sta.name as currentStateName,cit.name as currentCityName,u.occupation,oc.name as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
+				+"u.firstName, u.lastName, u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName, u.currentCountry,co.name as currentCountryName, " 
+				+"u.currentState, u.currentCity, " 
+				+"u.maritalStatus, u.caste,c.name as casteName, u.gotram, u.star,s.name as starName, u.dosam, u.dosamName, u.education, u.workingWith, u.companyName, " 
+				+"u.annualIncome, u.monthlyIncome, u.diet, u.smoking, u.drinking, u.height ,h.inches,h.cm, u.bodyType,b.name as bodyTypeName, u.complexion,com.name as complexionName, u.mobile, " 
+				+"u.aboutMyself, u.disability, u.status, u.showall,ur.userId, rAgeFrom, rAgeTo, "
+				+"rHeight, rMaritalStatus, rReligion,re1.name as requiredReligionName, rCaste,c1.name as requiredCasteName, rMotherTongue,l1.name as requiredMotherTongue,haveChildren,rCountry , con1.name as requiredCountry,rState,rEducation,e1.name as requiredEducationName, "
+				+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,"
+				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and interested='1') as expressedInterest, ifnull(u.age,'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
+				//+" (select count(*) from users u "+where_clause+") as total_records, "
+				+" (select uimg.image from user_images uimg where uimg.user_id=u.id and uimg.is_profile_picture='1') as profileImage, "
+				+" (select count(*) from users u,express_intrest ei where "+inner_where_clause+") as total_records "
+				+" from users u left join userrequirement ur on u.id=ur.userId "
+				+"left join religion re on re.id=u.religion left join language l on l.id=u.motherTongue left join countries co on co.id=u.currentCountry "
+				+"left join cast c on c.id=u.caste left join star s on s.id =u.star left join height h on h.id=u.height left join body_type b on b.id=u.bodyType left join religion re1  on re1.id=rReligion "
+				+"left join complexion com on com.id =u.complexion left join cast c1 on c1.id=rCaste left join language l1 on l1.id=rMotherTongue "
+				+"left join countries con1 on con1.id=rCountry left join education e1 on e1.id=rEducation left join occupation oc1 on oc1.id=rOccupation  left join user_images uimg on uimg.user_id=u.id left join occupation oc on u.occupation=oc.id left join education ed on ed.id=u.education "
+				+ " left join state sta on sta.id=u.currentState left join city cit on cit.id=u.currentCity,  "
+				+"  express_intrest ei  where "+inner_where_clause+" ");
+		
+		buffer.append(where_clause);
+		buffer.append(" group by u.id ");
+		
+		int page_size = MatrimonyConstants.PAGINATION_SIZE;
+		buffer.append(" order by u.package_id desc limit "+page_size+" offset "+(page_no*page_size)+" ");
+		try{
+			List<Map<String,Object>> list = jdbcTemplate.queryForList(buffer.toString());
+			if(list!=null)
+				return list;
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+		return null;
+	}
+	
 	public List<Map<String,Object>> getUpdatedProfiles(int page_no){
 		jdbcTemplate = custom.getJdbcTemplate();
 		int page_size = MatrimonyConstants.PAGINATION_SIZE;
@@ -1305,6 +1567,34 @@ public class UsersDao extends BaseUsersDao
 			return "";
 		} finally {
 
+		}
+	}
+	
+	public List<Map<String,Object>> getPackageExpiredProfiles(int package_id){
+		jdbcTemplate = custom.getJdbcTemplate();
+		String qryStr = "select u.*,p.*,date_format(package_joined_date,'%d-%M-%Y') as package_joined_date from users u, package p  where u.package_id = p.id and p.id = "+package_id+" and current_date() > (select DATE_ADD((DATE_ADD(u.package_joined_date, INTERVAL p.duration MONTH)), INTERVAL -1 day)) group by u.package_id order by u.package_id desc";
+		try{
+			List<Map<String,Object>> list = jdbcTemplate.queryForList(qryStr);
+			if(list!=null)
+				return list;
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+		return null;
+	}
+	
+	public int getAllowedProfilesLimit(int userId){
+		jdbcTemplate = custom.getJdbcTemplate();
+		String qryStr = "select allowed_profiles_limit from package where id = (select u.package_id from users u where u.id="+userId+")";
+		try{
+			int allowed_profiles_limit = jdbcTemplate.queryForInt(qryStr);
+			qryStr = "select count(*) from express_intrest where user_id = "+userId+" and (mobile_no_viewed_status = '1' or interested = '1')";
+			int viewed_profiles = jdbcTemplate.queryForInt(qryStr);
+			return (allowed_profiles_limit-viewed_profiles);
+		}catch(Exception e){
+			e.printStackTrace();
+			return 0;
 		}
 	}
 }

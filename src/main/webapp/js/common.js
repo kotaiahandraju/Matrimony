@@ -70,3 +70,97 @@ function updateUserName(cityId){
 		
 	});
 }
+
+function displayMatches(listOrders,divId,roleId) {
+	serviceUnitArray = {};
+	var divElem = "#"+divId;
+	var element = $(divElem);
+	if(listOrders==""){
+		var tblRow = "No data available";
+		$(tblRow).appendTo("#"+divId);
+		$("#table_footer").prop("hidden",true);
+		$("#paginator").prop("hidden",true);
+	}
+	$.each(listOrders,function(i, orderObj) 
+	{
+		serviceUnitArray[orderObj.id] = orderObj;
+		
+		var array = null;
+// 		var imageUrl =null;
+		
+		var image = null; image = orderObj.profileImage;
+		if(image == "" || image == null || image == "undefined"){
+			image = "img/default.png";
+		}
+
+		if(orderObj.firstName !=null)
+		{
+			var login_user_role_id = roleId; 
+			var insert_str = '';
+			var mobile_no__str = '';
+			var more_details_str = '';
+			var expressed = orderObj.expressedInterest;
+			
+			if((login_user_role_id == 6) || (login_user_role_id == 11) || (login_user_role_id == 12)
+					|| (login_user_role_id == 13) || (login_user_role_id == 14)){ //means premium users
+				mobile_no__str = '<tr id="row'+orderObj.id+'"><td><button type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button></td></tr>';
+				//more_details_str = '<tr><td><span><a href="#" onclick="showMoreDetails(this)">read more...</a></span></td></tr>';
+				//mobile_no__str = '<tr><td><span><a href="#" onclick="viewMobileNumber('+orderObj.id+')">View Mobile Number</a></span></td></tr>';
+				if(expressed==0){
+					insert_str = '<button id="expInterest'+orderObj.id+'" type="button" class="btn btn-primary btn-block" onclick="expressInterest('+orderObj.id+')">Yes I\'m interested</button>';
+				}else if(expressed>0){
+					insert_str = '<button class="btn btn-primary btn-block">Expressed Interest</button>';
+				}
+			}
+			var tblRow = '<div class="panel panel-default">'
+				+ '<div class="panel-heading">'
+				+ '<h5 class="panel-title">'
+				+ '<div class="form-check">'
+				+ '	<label class="form-check-label"> <input type="checkbox" class="form-check-input"> '+orderObj.firstName+' '+orderObj.lastName+'</label>'
+				+ '	<span class="pull-right">Created by '+orderObj.createProfileFor+'</span>'
+				+ '</div>'
+				+ '</h5>'
+				+ '</div>'
+				+ '<div class="panel-body">'
+				+ '<div class="col-md-3">'
+				+ '<a href="#"> <img src='+image+' class="img-responsive thumbnail"></a>'
+            	+ '</div>'
+            	+ '<div class="col-md-6">'
+            	+ '<table>'
+            	+ '	<tr><td>Age/Height</td><td><span>: '+orderObj.age+', '+orderObj.inches+'</span></td></tr>'
+            	+ '	<tr><td>Religion</td><td><span>: '+orderObj.religionName+'</span></td></tr>'
+            	+ '	<tr><td>Mother Tongue</td><td><span>: '+orderObj.motherTongueName+'</span></td></tr>'
+            	+ '	<tr><td>Community</td><td><span>: '+orderObj.casteName+'</span></td></tr>'
+            	+ '	<tr><td>Location</td><td><span>: '+orderObj.currentCityName+'</span></td></tr>'
+            	+ '	<tr><td>Education</td><td><span>: '+orderObj.educationName+'</span></td></tr>'
+            	+ '	<tr><td>Profession</td><td><span>: '+orderObj.occupationName+'</span></td></tr>'
+            	+ mobile_no__str
+            	
+            	//+ '	<tr><td>Age</td><td><span>: '+orderObj.age+'</span></td></tr>'
+            	//+ '	<tr><td colspan="2">'+orderObj.aboutMyself+'... <a href="#" onclick="showMore('+orderObj.id+')"> read more..</a> </td></tr>'
+            	//+  more_details_str
+            	//+ '	<tr class="showMore" hidden="true"><td colspan="2">'+orderObj.aboutMyself+'... <a href="#" > read more..</a> </td></tr>'
+            	//+ '	<tr class="showMore" hidden="true"><td colspan="2">'+orderObj.aboutMyself+'... <a href="#" > more detailssss</a> </td></tr>'
+            	//+ '	<tr class="showMore" hidden="true"><td colspan="2">'+orderObj.aboutMyself+'... <a href="#" > more detailssss</a> </td></tr>'
+            	+ '</table>'
+            	+ '</div>'
+            	/* + '<div id="hideMe'+orderObj.id+'" class="form-group hideMe">'
+            	+ '    <label class="col-md-4 control-label" for="textinput"></label>'  
+            	+ '    <div class="col-md-6 text-center">'
+            	+ '    	<span class="more" style="color: #0087AF;cursor: pointer;"><a href="#" >read more </a></span><i style="cursor: pointer;" class="fa fa-angle-down"></i>'
+            	+ '    </div>'
+            	+ '</div>' */
+            	+ '<div class="col-md-3">'
+            	+ '<h4 style="margin-bottom:20px;">Like this Profile?</h4>'
+            	//+ '<c:if test="${(cacheGuest.roleId == 6)}">'
+            	+ insert_str
+				//+ '</c:if>	 '
+				+ '<button class="btn btn-danger btn-block" onclick="fullProfile('+orderObj.id+')">View Full Profile</button>'
+            	+ '<div class="clearfix"></div>'
+            	+ '</div>'
+            	+ '</div>'
+            	+ '</div>';
+			$(tblRow).appendTo("#"+divId);
+		}
+	});
+}

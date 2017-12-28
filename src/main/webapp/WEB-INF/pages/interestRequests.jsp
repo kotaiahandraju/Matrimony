@@ -117,15 +117,22 @@ s.parentNode.insertBefore(ga, s);
  function displayTable(listOrders) {
 		$('#tableId').html('');
 		var tableHead = '<table class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,text,text,text,text,null">'
-			+ '<thead><tr><th>Interest From</th><th>Interest To</th><th>Sent on</th></tr></thead><tbody></tbody></table>';
+			+ '<thead><tr><th>Interest From</th><th>Interest To</th><th>Sent on</th><th></th></tr></thead><tbody></tbody></table>';
 		$('#tableId').html(tableHead);
 		serviceUnitArray = {};
 		$.each(listOrders,function(i, orderObj) {
 							serviceUnitArray[orderObj.id] = orderObj;
+							var subStr = "";
+							if(orderObj.status >= 1){
+								subStr = "Forwarded";
+							}else{
+								subStr = "<a id='forward"+orderObj.id+"' href='#' onclick='forwardRequest("+orderObj.id+")'>forward</a>";
+							}
 							var tblRow = "<tr >"
 								+ "<td title='"+orderObj.fromName+"'><a href='#' onclick='fullProfile("+orderObj.user_id+")'>" + orderObj.fromName + "</a></td>"
 								+ "<td title='"+orderObj.toName+"'><a href='#' onclick='fullProfile("+orderObj.profile_id+")'>" + orderObj.toName + "</td>"
 								+ "<td title='"+orderObj.sentOn+"'>" + orderObj.sentOn + "</td>"
+								+ "<td title=''>"+subStr+"</td>"
 								+ "</tr >";
 							$(tblRow).appendTo("#tableId table tbody"); 
 						});
@@ -163,6 +170,24 @@ s.parentNode.insertBefore(ga, s);
 	    		
 		}); */
 	}
-
+function forwardRequest(requestId){
+	var formData = new FormData();
+	formData.append("requestId",requestId);
+	$.fn.makeMultipartRequest('POST', 'forwardInterestRequests', false,
+			formData, false, 'text', function(data){
+		var jsonobj = $.parseJSON(data);
+		var msg = jsonobj.message;
+		if(typeof msg != "undefined" ){
+			if("success"==msg){
+				alert("Forwarded successfully");
+				$("#forward"+requestId).html('');
+				$("#forward"+requestId).html("Forwarded");
+			}else if("failed"==msg || "exception"==msg){
+				alert("Some problem occured. Please try again.");
+			}
+		}
+				
+	});
+}
  $(".interestRequests").addClass("active");
 </script>

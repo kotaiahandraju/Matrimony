@@ -83,117 +83,130 @@ function searchTable() {
     }
 }
 
-var total_items_count = ${total_records};
-var page_size = ${page_size};
-var listOrders1 = ${updatedProfilesList};
-if (listOrders1 != "") {
-	paginationSetup(total_items_count);
-	$("#paginator").asPaginator('enable');
-	displayTable(listOrders1);
-	displayTableFooter(1);
-}
 
-function paginationSetup(total_items_count) {
-	$('#paginator').asPaginator(total_items_count, {
-		currentPage: 1,
-		visibleNum: {
-			0: 10,
-			480: 3,
-			960: 5
-		},
-		tpl: function() {
-			return '<ul>{{prev}}{{altLists}}{{next}}</ul>';
-// 			return '<ul>{{first}}{{prev}}{{altLists}}{{next}}{{last}}</ul>';
-		},
-		components: {
-			first: true,
-			prev: true,
-			next: true,
-			last: true,
-			altLists: true
-		},
-		onChange: function(page) {
-			var formData = new FormData();
-			formData.append("page_no",page);	        	
+ var total_items_count = ${total_records};
+ var page_size = ${page_size};
+ var listOrders1 = ${updatedProfilesList};
+	//if (listOrders1 != "") {
+		paginationSetup(total_items_count);
+		$("#paginator").asPaginator('enable');
+		displayTable(listOrders1);
+		displayTableFooter(1);
+	//}
+	
+	function paginationSetup(total_items_count) {
+		  $('#paginator').asPaginator(total_items_count, {
+	          currentPage: 1,
+	          visibleNum: {
+	            0: 10,
+	            480: 3,
+	            960: 5
+	          },
+	          tpl: function() {
+	        	  return '<ul>{{prev}}{{altLists}}{{next}}</ul>';
+	            //return '<ul>{{first}}{{prev}}{{altLists}}{{next}}{{last}}</ul>';
+	          },
+	          components: {
+	            first: true,
+	            prev: true,
+	            next: true,
+	            last: true,
+	            altLists: true
+	          },
+	          onChange: function(page) {
+	             var formData = new FormData();
+	        	 formData.append("page_no",page);
+	        	
 			$.fn.makeMultipartRequest('POST', 'updatedProfilesPagination', false, formData, false, 'text', function(data){
-				var jsonobj = $.parseJSON(data);
-	    		var profiles = jsonobj.updatedProfilesList;
-    			if(profiles==""){
-	    		/* 	$('#countId').html('');
-	    			$('#countId').html('0');
-	    			var str = '<div class="panel panel-default"><h6>No results found.</h6></div>';
-	    			$('#searchResults').html('');
-	    			$(str).appendTo("#searchResults");
-	    		 */	
-	    		 	var str = '<div class="panel panel-default"><h6>No results found.</h6></div>';
-	    		 	$('#tableId').html('');
-	    		 	$('#tableId').html(str);
-	    		 	$("#table_footer").prop("hidden",true);
-	    			$("#paginator").prop("hidden",true);
-	    		}else{
-	    			paginationSetup(total_items_count);
-	    			$("#paginator").asPaginator('enable');
-	    			displayTable(profiles);
-	    			$("#table_footer").removeAttr("hidden");
-	    			$("#paginator").removeAttr("hidden");
-	    			displayTableFooter(page);
-	    		}
-	    	});
-		}
-	});
-}
-
-function displayTable(listOrders) {
-	$('#tableId').html('');
+	    			var jsonobj = $.parseJSON(data);
+	    			var profiles = jsonobj.updatedProfilesList;
+	    			if(profiles==""){
+		    		/* 	$('#countId').html('');
+		    			$('#countId').html('0');
+		    			var str = '<div class="panel panel-default"><h6>No results found.</h6></div>';
+		    			$('#searchResults').html('');
+		    			$(str).appendTo("#searchResults");
+		    		 */	
+		    		 	var str = '<div class="panel panel-default"><h6>No results found.</h6></div>';
+		    		 	$('#tableId').html('');
+		    		 	$('#tableId').html(str);
+		    		 	$("#table_footer").prop("hidden",true);
+		    			$("#paginator").prop("hidden",true);
+		    		}else{
+		    			paginationSetup(total_items_count);
+		    			$("#paginator").asPaginator('enable');
+		    			displayTable(profiles);
+		    			$("#table_footer").removeAttr("hidden");
+		    			$("#paginator").removeAttr("hidden");
+		    			displayTableFooter(page);
+		    		}
+	    			
+	    		});
+	            
+	          }
+	        });
+	}
+ function displayTable(listOrders) {
+		$('#tableId').html('');
 	var tableHead = '<table class="table table-hover table-nomargin table-bordered" id="itemContainer">'
 		+ '<thead><tr style="border-top: 1.999px solid lightgray;"><th>Username</th><th>Updated On</th></tr></thead><tbody></tbody>'
 // 		+ '<tfoot><tr><td id="table_footer"></td><td id="paginator"></td></tr></tfoot>'
 		+ '</table>';
-	$('#tableId').html(tableHead);
-	serviceUnitArray = {};
-	$.each(listOrders,function(i, orderObj) {
-		serviceUnitArray[orderObj.id] = orderObj;
-		var tblRow = "<tr>"
-			+ "<td title='"+orderObj.username+"'><a href='#' onclick='fullProfile("+orderObj.id+")'>" + orderObj.username + "</a></td>"
-			+ "<td title='"+orderObj.updatedOn+"'>" + orderObj.updatedOn + "</td>"
-			+ "</tr>";
-		$(tblRow).appendTo("#tableId table tbody"); 
-	});
-}
-
-function displayTableFooter(page){
-	var from_val = ((parseInt(page)-1)*page_size)+1;
-	var to_val = parseInt(page)*page_size;
-	if(to_val > total_items_count){
-		to_val = total_items_count;
+		$('#tableId').html(tableHead);
+		serviceUnitArray = {};
+		if(listOrders==""){
+			var tblRow = "<tr><td colspan='2' class='dataTables_empty'>No data available</td></tr>";
+			$(tblRow).appendTo("#tableId table tbody");
+			$("#table_footer").prop("hidden",true);
+			$("#paginator").prop("hidden",true);
+		}
+		$.each(listOrders,function(i, orderObj) {
+							serviceUnitArray[orderObj.id] = orderObj;
+							var tblRow = "<tr>"
+								+ "<td title='"+orderObj.username+"'><a href='#' onclick='fullProfile("+orderObj.id+")'>" + orderObj.username + "</a></td>"
+								+ "<td title='"+orderObj.updatedOn+"'>" + orderObj.updatedOn + "</td>"
+								+ "</tr >";
+							$(tblRow).appendTo("#tableId table tbody"); 
+						});
+		
 	}
-	if(from_val>to_val){
-		from_val = to_val;
+ function displayTableFooter(page){
+		var from_val = ((parseInt(page)-1)*page_size)+1;
+		var to_val = parseInt(page)*page_size;
+		if(to_val > total_items_count){
+			to_val = total_items_count;
+		}
+		if(from_val>to_val){
+			from_val = to_val;
+		}
+		$("#table_footer").html("Showing "+from_val+" to "+to_val+" of "+total_items_count+" records");
 	}
-	$("#table_footer").html("Showing "+from_val+" to "+to_val+" of "+total_items_count+" records");
-}
+ function fullProfile(profile_id){
+		$("#id").val(profile_id);
+		//document.searchForm2.id = profile_id;
+		document.searchForm2.action = "fullProfile"
+	    document.searchForm2.target = "_blank";	// Open in a new window
+	    document.searchForm2.submit();	// Submit the page
+	    return true;
+		/* jQuery.fn.makeMultipartRequest('POST', 'fullProfile', false,
+				formData, false, 'text', function(data){
+	    		var jsonobj = $.parseJSON(data);
+	    		var msg = jsonobj.message;
+	    		if(typeof msg != "undefined"){
+	    			if(msg=="success"){
+	    				;
+	    			}else{
+	    				alert("Some problem occured. Please try again.");
+	    			}
+	    		}
+	    		
+		}); */
+	}
 
-function fullProfile(profile_id){
-	$("#id").val(profile_id);
-	//document.searchForm2.id = profile_id;
-	document.searchForm2.action = "fullProfile"
-    document.searchForm2.target = "_blank";	// Open in a new window
-    document.searchForm2.submit();	// Submit the page
-    return true;
-	/* jQuery.fn.makeMultipartRequest('POST', 'fullProfile', false,
-			formData, false, 'text', function(data){
-    		var jsonobj = $.parseJSON(data);
-    		var msg = jsonobj.message;
-    		if(typeof msg != "undefined"){
-    			if(msg=="success"){
-    				;
-    			}else{
-    				alert("Some problem occured. Please try again.");
-    			}
-    		}
-    		
-	}); */
-}
+
+
+
+
 
 $(".updatedProfiles").addClass("active");
 </script>

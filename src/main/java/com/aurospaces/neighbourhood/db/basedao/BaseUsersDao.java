@@ -195,10 +195,10 @@ ps.setString(50, age+"");
 		}
 	 
 	 @Transactional
-		public boolean upgradeUser(int userId,int roleId) {
+		public boolean upgradeUser(int userId,int roleId,String package_id) {
 			jdbcTemplate = custom.getJdbcTemplate();
-			String sql = "update users set role_id = ? where id = ?";
-			int updatedCount = jdbcTemplate.update(sql, new Object[]{roleId,userId});
+			String sql = "update users set package_id = ?, package_joined_date = ?, role_id = ? where id = ?";
+			int updatedCount = jdbcTemplate.update(sql, new Object[]{package_id,new java.sql.Timestamp(new Date().getTime()),roleId,userId});
 			if(updatedCount==1)
 				return true;
 			return false;
