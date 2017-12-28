@@ -3,13 +3,13 @@
 <%@ taglib uri="http://displaytag.sf.net" prefix="display"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <div class="row">
-							<div class="col-md-12">
+						<div class="col-md-12">
 								<legend>Life Partner Requirements</legend>
 							</div>
 						</div>
 						
 						<div class="row">
-							<div class="col-md-4">
+							<div class="col-md-3">
 								<div class="form-group">
 									<label class="col-sm-4 control-label required">Age From </label>
 									<div class="col-sm-8">
@@ -18,7 +18,7 @@
 									</div>
 							  	</div>
 							</div>
-							<div class="col-md-4">
+							<div class="col-md-3">
 								<div class="form-group">
 									<label class="col-sm-4 control-label required">Age To </label>
 									<div class="col-sm-8">
@@ -27,7 +27,7 @@
 									</div>
 							  	</div>
 							</div>
-							<div class="col-md-4">
+							<div class="col-md-3">
 								<div class="form-group">
 									<label class="col-sm-4 control-label required">Height From</label>
 									<div class="col-sm-8">
@@ -38,9 +38,11 @@
 										<div><form:errors path="rHeight" cssClass="error" /></div>
 									</div>
 							  	</div>
+							</div>
+							<div class="col-md-3">
 							  	<div class="form-group">
 							      <label class="col-md-4 control-label" for="textinput">Height To</label>  
-							      <div class="col-md-6">
+							      <div class="col-md-8">
 							      	<form:select path="rHeightTo" class="form-control u1">
 										<form:option value="">-- Choose Height --</form:option>
 										<form:options items="${height}"></form:options>
