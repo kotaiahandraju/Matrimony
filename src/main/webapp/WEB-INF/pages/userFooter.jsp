@@ -1,7 +1,12 @@
+			<div class="clearfix"></div>
+		</div>
+	</div>
+</div>
+<!-- body ends here-->
 <!-- footer -->
 <div class="container">
 	<div class="row">
-		<div class="footer">
+		<div class="footer" style="font-size: 10px;">
 			<div class="col-md-3 footer-grid">
 				<h6>About us</h6>
 				<p>Suspendisse sed accumsan risus. Curabitur rhoncus, elit vel tincidunt elementum, nunc urna tristique nisi, in interdum libero magna .</p>

@@ -1,79 +1,10 @@
 <%@ include file="userHeader.jsp"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%-- <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://displaytag.sf.net" prefix="display"%>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%> --%>
 
-<!-- products -->
-<div class="products">
-	<div class="container" style="background: #FFF;">
-		<div class="mid-grids">
-			<div class="col-md-12">
-				<h4>Hello <%= userBean.getFirstName() %>. <%= userBean.getLastName() %><span>(<%= userBean.getUsername() %>)</span></h4>
-			</div>   
-			<div class="col-md-3 products-grid-right">
-				<div class="well">
-					<div class="row">
-						<div class="col-md-5">
-							<c:if test="${not empty cacheGuest.profileImage}">
-								<img src="${cacheGuest.profileImage}" class="img-responsive thumbnail" style="margin-bottom:0;height: 85px;">
-							</c:if>
-							<c:if test="${empty cacheGuest.profileImage}">
-								<img src="img/default.png" class="img-responsive thumbnail" style="margin-bottom:0;">
-							</c:if>
-						</div>	
-						<div class="col-md-7" style="padding-left:0;" >
-							<div class="profiletable">
-								<table width="100%" border="0" cellspacing="0" cellpadding="0">
-									<tr><td><a href="EditUserProfile">Edit Profile</a></td></tr>
-									<tr><td><a href="#">Manage Profile</a></td></tr>
-									<tr><td><a href="#">Edit Preferences</a></td></tr>
-									<tr><td><a href="#">Privacy Options</a></td></tr>
-								</table>
-							</div>
-						</div>
-						<div class="clearfix"></div>
-					</div>
-				</div>
-				
-				<div class="panel panel-success">
-					<div class="panel-body">
-						<h4><strong>Messages</strong></h4>
-						<div class="tabbable" id="tabs-343694">
-							<ul class="nav nav-tabs">
-								<li class="active"><a href="#inbox" data-toggle="tab"><strong>INBOX</strong></a></li>
-								<li><a href="#sent" data-toggle="tab"><strong>SENT</strong></a></li>
-							</ul>
-							<div class="tab-content">
-								<div class="tab-pane active" id="inbox">
-									<table width="100%">
-										<tr>
-											<td height="30"><a href="receivedRequests">Invitations</a></td>
-											<td><span class="badge pull-right">${cacheGuest.receivedInterestCount}</span></td>
-										</tr>
-										<tr>
-											<td height="30"><a href="#">Members</a></td>
-											<td><span class="badge pull-right">${cacheGuest.acceptedInterestCount}</span></td>
-										</tr>
-										<tr>
-											<td height="30"><a href="profileViewedMembers">Profile Viewed</a></td>
-											<td><span class="badge pull-right">${cacheGuest.profileViewedCount}</span></td>
-										</tr>
-									</table>
-								</div>
-								<div class="tab-pane" id="sent">
-									<table width="100%">
-										<tr>
-											<td height="30"><a href="sentRequests">Invitations</a></td>
-											<td><span class="badge pull-right">${cacheGuest.sentInterestCount}</span></td>
-										</tr>
-									</table>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+
 			
 			<div class="col-md-6 products-grid-left">
 				<div class="panel panel-default">
@@ -147,11 +78,6 @@
 					</div>
 				</div> --%>
             </div>
-			<div class="clearfix"></div>
-		</div>
-	</div>
-</div>
-<!-- //products -->
 
 	<!-- Modal Starts here-->
 	<div class="modal" id="myModal" role="dialog">
@@ -205,9 +131,8 @@
 	<!-- Modal Ends here-->
 
 
-<input type="hidden" name="loc" id="loc" value="${baseurl }" />
-
 <script type="text/javascript">
+
 /* $(window).load(function() {
 	$('#myModal').modal();
 }); */
@@ -403,6 +328,7 @@ function paginationSetup(total_items_count) {
         }
 	});
 }
+$(".dashboard").addClass("active");
 </script>
 
 <%@ include file="userFooter.jsp"%>

@@ -1368,7 +1368,7 @@ span.valsa{
 }
 .row1{
 	outline:none;
-	padding: 20px;
+	padding: 10px 20px;
 	overflow: auto;
 	height: 200px;
 }
@@ -1443,7 +1443,7 @@ span.valsa{
 	margin-bottom: 4px;
 	padding-left: 27px;
 	font-size: 13px;
-	line-height: 27px;
+/* 	line-height: 27px; */
 	color: #555555;
 	cursor: pointer;
 	text-transform: capitalize;

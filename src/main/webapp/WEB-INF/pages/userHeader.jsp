@@ -1,9 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://displaytag.sf.net" prefix="display"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <!DOCTYPE html>
 
 <html>
 <head>
-	<title>My Home</title>
+	<title>Aarna Matrimony</title>
 	<link rel="shortcut icon" href="img/aarna-fav.png"/>
 	<!-- for-mobile-apps -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -42,7 +46,7 @@
 	
 <style type="text/css">
 .animated.infinite{animation-iteration-count:infinite}
-.upgrade {
+.upgradeOption {
     color: #f35626;
     background-image: -webkit-linear-gradient(2deg, #f35626, red);
     -webkit-background-clip: text;
@@ -59,6 +63,7 @@
   }
 }
 @keyframes flash{0%,50%,to{opacity:1}25%,75%{opacity:0}}.flash{animation-name:flash}
+
 </style>
 </head>
 <body style="background: #F1F1F2;">
@@ -69,9 +74,10 @@
 		userBean= (UsersBean)session.getAttribute("cacheGuest");
 	}
 %>
+<input type="hidden" name="loc" id="loc" value="${baseurl }" />
 <div class="header_top">
 	<div class="container" style="background: #FFF;">
-    	<div class=" col-md-3">
+    	<div class="col-md-3">
 			<div class="logo">
 				<img src="user/images/logo1.jpg" class="img img-responsive">
 			</div>
@@ -91,81 +97,82 @@
 		</div>
 		<div class="col-md-5">
 			<div class="cart box_1">
-				<p>Dear, <%= userBean.getFirstName() %> <%= userBean.getLastName() %> | &nbsp;&nbsp;<a class="upgrade animated flash infinite" href="memberShipPage" style="color: red;">Upgrade</a> &nbsp;&nbsp;|&nbsp;&nbsp; <a href="#" >Help</a> &nbsp;&nbsp;|&nbsp;&nbsp; <a href="logoutHome" >Signout</a></p>
+				<p>Dear, <%= userBean.getFirstName() %> <%= userBean.getLastName() %> | &nbsp;&nbsp;<a class="upgradeOption animated flash infinite" href="memberShipPage" style="color: red;">Upgrade</a> &nbsp;&nbsp;|&nbsp;&nbsp; <a href="#" >Help</a> &nbsp;&nbsp;|&nbsp;&nbsp; <a href="logoutHome" >Signout</a></p>
 				<div class="clearfix"> </div>
 			</div>				 
 		</div>
 	</div>
-</div>
 
-<div class="container">
-	<div class="row">
-		<nav class="navbar navbar-inverse" role="navigation">
-			<div class="container-fluid">
-        		<div class="navbar-header">
-					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-				</div>
-				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-					<ul class="nav navbar-nav">
-						<li class="dropdown active">
-							<a href="dashboard" class="dropdown-toggle" data-toggle="dropdown">My Home</a>
-							<ul class="dropdown-menu">
-								<li><a href="myProfile">My Profile</a></li>
-								<li><a href="myPhotos">My Photos</a></li>
-								<li><a href="#">who view my profile</a></li>
-								<li><a href="#">who short listed</a></li>
-								<li><a href="#">mobile no view by me</a></li>
-								<li><a href="#">who viewed my mobile number</a></li>
-								<li><a href="#">Ignored profile</a></li>
-							</ul>
-						</li>
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Search</a>
-							<ul class="dropdown-menu">
-								<li><a href="searchProfiles">Regular search</a></li>
-								<li><a href="#">Search by ID </a></li>
-								<li><a href="#">Recently view profiles</a></li>
-							</ul>
-						</li>
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Matches <b class="caret"></b></a>
-							<ul class="dropdown-menu">
-								<li><a href="#">New Matches</a></li>
-								<li><a href="#">Still remaining to view </a></li>
-								<li><a href="#">Short list matches</a></li>
-								<li><a href="#">Premium members</a></li>
-								<li><a href="#">Short list matches</a></li>
-								<li><a href="#">Short list matches</a></li>
-							</ul>
-						</li>
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Matches <b class="caret"></b></a>
-							<ul class="dropdown-menu">
-								<li><a href="#">Inbox - pending </a></li>
-								<li><a href="#">Inbox - Accepted </a></li>
-								<li><a href="#">Sent All</a></li>
-								<li><a href="#">SMS received/sent</a></li>
-							</ul>
-						</li>
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Upgrade <b class="caret"></b></a>
-							<ul class="dropdown-menu">
-								<li><a href="memberShipPage">Payment Options</a></li>
-								<li><a href="#">Profile Highliter </a></li>
-							</ul>
-						</li>
-						<li><a href="#">Notifications</a></li>
-					</ul>
-        		</div>
-        		<!-- /.navbar-collapse -->
-      		</div>
-      		<!-- /.container-fluid -->
-    	</nav>
+	<div class="container">
+		<div class="row">
+			<nav class="navbar navbar-inverse" role="navigation">
+				<div class="container-fluid">
+	        		<div class="navbar-header">
+						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+					</div>
+					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+						<ul class="nav navbar-nav">
+							<li class="dropdown dashboard">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Home</a>
+								<ul class="dropdown-menu">
+									<li><a href="dashboard">My Home</a></li>
+									<li><a href="myProfile">My Profile</a></li>
+									<li><a href="myPhotos">My Photos</a></li>
+									<li><a href="#">who view my profile</a></li>
+									<li><a href="#">who short listed</a></li>
+									<li><a href="#">mobile no view by me</a></li>
+									<li><a href="#">who viewed my mobile number</a></li>
+									<li><a href="#">Ignored profile</a></li>
+								</ul>
+							</li>
+							<li class="dropdown searchPage">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Search</a>
+								<ul class="dropdown-menu">
+									<li><a href="searchProfiles">Regular search</a></li>
+									<li><a href="#">Search by ID </a></li>
+									<li><a href="#">Recently view profiles</a></li>
+								</ul>
+							</li>
+							<li class="dropdown matches">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Matches</a>
+								<ul class="dropdown-menu">
+									<li><a href="#">New Matches</a></li>
+									<li><a href="#">Still remaining to view </a></li>
+									<li><a href="#">Short list matches</a></li>
+									<li><a href="#">Premium members</a></li>
+									<li><a href="#">Short list matches</a></li>
+									<li><a href="#">Short list matches</a></li>
+								</ul>
+							</li>
+							<li class="dropdown messages">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Messages</a>
+								<ul class="dropdown-menu">
+									<li><a href="#">Inbox - pending </a></li>
+									<li><a href="#">Inbox - Accepted </a></li>
+									<li><a href="#">Sent All</a></li>
+									<li><a href="#">SMS received/sent</a></li>
+								</ul>
+							</li>
+							<li class="dropdown upgrade">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Upgrade</a>
+								<ul class="dropdown-menu">
+									<li><a href="memberShipPage">Payment Options</a></li>
+									<li><a href="#">Profile Highliter </a></li>
+								</ul>
+							</li>
+							<li class="notifications"><a href="#">Notifications</a></li>
+						</ul>
+	        		</div>
+	        		<!-- /.navbar-collapse -->
+	      		</div>
+	      		<!-- /.container-fluid -->
+	    	</nav>
+		</div>
 	</div>
 </div>
 
@@ -189,3 +196,74 @@
 			</div>
 		</div>
 	</div> --%>
+
+<!-- body starts here-->
+<div class="products">
+	<div class="container" style="background: #FFF;">
+		<div class="mid-grids">
+			<div class="col-md-12">
+				<h4>Hello <%= userBean.getFirstName() %>. <%= userBean.getLastName() %><span>(<%= userBean.getUsername() %>)</span></h4>
+			</div>   
+			<div class="col-md-3 products-grid-right">
+				<div class="well">
+					<div class="row">
+						<div class="col-md-5">
+							<c:if test="${not empty cacheGuest.profileImage}">
+								<img src="${cacheGuest.profileImage}" class="img img-responsive thumbnail" style="margin-bottom:0;height: 60px;width: 60px;">
+							</c:if>
+							<c:if test="${empty cacheGuest.profileImage}">
+								<img src="img/default.png" class="img-responsive thumbnail" style="margin-bottom:0;">
+							</c:if>
+						</div>	
+						<div class="col-md-7" style="padding-left:0;" >
+							<div class="profiletable">
+								<table width="100%" border="0" cellspacing="0" cellpadding="0">
+									<tr><td><a href="EditUserProfile">Edit Profile</a></td></tr>
+									<tr><td><a href="#">Manage Profile</a></td></tr>
+									<tr><td><a href="#">Edit Preferences</a></td></tr>
+									<tr><td><a href="#">Privacy Options</a></td></tr>
+								</table>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+				</div>
+				
+				<div class="panel panel-success">
+					<div class="panel-body">
+						<h4><strong>Messages</strong></h4>
+						<div class="tabbable" id="tabs-343694">
+							<ul class="nav nav-tabs">
+								<li class="active"><a href="#inbox" data-toggle="tab"><strong>INBOX</strong></a></li>
+								<li><a href="#sent" data-toggle="tab"><strong>SENT</strong></a></li>
+							</ul>
+							<div class="tab-content">
+								<div class="tab-pane active" id="inbox">
+									<table width="100%">
+										<tr>
+											<td height="30"><a href="receivedRequests">Invitations</a></td>
+											<td><span class="badge pull-right">${cacheGuest.receivedInterestCount}</span></td>
+										</tr>
+										<tr>
+											<td height="30"><a href="#">Members</a></td>
+											<td><span class="badge pull-right">${cacheGuest.acceptedInterestCount}</span></td>
+										</tr>
+										<tr>
+											<td height="30"><a href="profileViewedMembers">Profile Viewed</a></td>
+											<td><span class="badge pull-right">${cacheGuest.profileViewedCount}</span></td>
+										</tr>
+									</table>
+								</div>
+								<div class="tab-pane" id="sent">
+									<table width="100%">
+										<tr>
+											<td height="30"><a href="sentRequests">Invitations</a></td>
+											<td><span class="badge pull-right">${cacheGuest.sentInterestCount}</span></td>
+										</tr>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
