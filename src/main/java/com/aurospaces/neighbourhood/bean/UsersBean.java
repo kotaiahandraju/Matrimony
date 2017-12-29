@@ -82,7 +82,7 @@ protected String redirectPage;
 protected String sentInterestCount;
 protected String receivedInterestCount;
 protected String acceptedInterestCount;
-protected String profileVoewedCount;
+protected String profileViewedCount;
 protected boolean forEmail;
 protected String currentStateName;
 protected String currentCountryName;
@@ -779,11 +779,12 @@ public int getTotal_records() {
 public void setTotal_records(int total_records) {
 	this.total_records = total_records;
 }
-public String getProfileVoewedCount() {
-	return profileVoewedCount;
+public String getProfileViewedCount() {
+	return profileViewedCount;
 }
-public void setProfileVoewedCount(String profileVoewedCount) {
-	this.profileVoewedCount = profileVoewedCount;
+public void setProfileViewedCount(String profileViewedCount) {
+	this.profileViewedCount = profileViewedCount;
 }
+
 
 }
