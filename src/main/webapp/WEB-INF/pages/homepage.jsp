@@ -844,7 +844,7 @@ $("#submit11").click(function(event){
 		return false;
 	}
 	if(emailExist){
-		alert("Email already in Use. Please Try Another");
+		alert("exist");
 		return false;
 	}
  	$("#firstForm").hide();

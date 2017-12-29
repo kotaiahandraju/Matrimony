@@ -290,7 +290,7 @@ var roleid = ${cacheGuest.roleId};
 var listOrders1 = ${reveivedRequests};
 		paginationSetup(total_items_count);
 		$("#paginator").asPaginator('enable');
-		displayMatches(listOrders1,"received_requests",roleid);
+		displayMatches(listOrders1,"received_requests",roleid,"receivedRequests");
 		displayTableFooter(1);
 function displayTable(listOrders) {
 	$('#tableId').html('');
@@ -394,7 +394,7 @@ function paginationSetup(total_items_count) {
 	    		}else{
 	    			paginationSetup(total_items_count);
 	    			$("#paginator").asPaginator('enable');
-	    			displayMatches(requestsList,"received_requests",roleid);
+	    			displayMatches(requestsList,"received_requests",roleid,"receivedRequests");
 	    			$("#table_footer").removeAttr("hidden");
 	    			$("#paginator").removeAttr("hidden");
 	    			displayTableFooter(page);

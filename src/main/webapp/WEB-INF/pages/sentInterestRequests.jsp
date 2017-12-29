@@ -291,7 +291,7 @@ var roleid = ${cacheGuest.roleId};
 var listOrders1 = ${sentRequests};
 		paginationSetup(total_items_count);
 		$("#paginator").asPaginator('enable');
-		displayMatches(listOrders1,"sent_requests",roleid);
+		displayMatches(listOrders1,"sent_requests",roleid,"sentRequests");
 		displayTableFooter(1);
 function displayTable(listOrders) {
 	$('#tableId').html('');
@@ -388,7 +388,7 @@ function paginationSetup(total_items_count) {
 	    		}else{
 	    			paginationSetup(total_items_count);
 	    			$("#paginator").asPaginator('enable');
-	    			displayMatches(requestsList,"sent_requests",roleid);
+	    			displayMatches(requestsList,"sent_requests",roleid,"sentRequests");
 	    			$("#table_footer").removeAttr("hidden");
 	    			$("#paginator").removeAttr("hidden");
 	    			displayTableFooter(page);

@@ -67,6 +67,7 @@ import com.aurospaces.neighbourhood.util.EmailUtil;
 import com.aurospaces.neighbourhood.util.HRMSUtil;
 import com.aurospaces.neighbourhood.util.MatrimonyConstants;
 import com.aurospaces.neighbourhood.util.MiscUtils;
+import com.aurospaces.neighbourhood.util.SendSMS;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
@@ -208,6 +209,9 @@ public class HomePageController {
 		String redirectPage = "dashboard";
 		String ipAddress = null;
 		try {
+			if(StringUtils.isBlank(objUsersBean.getEmail())){
+				objUsersBean = (UsersBean)session.getAttribute("profileToBeCreated");
+			}
 			ipAddress =MiscUtils.getClientIpAddress(request);
 			if(StringUtils.isNotBlank(ipAddress)){
 				objUsersBean.setLast_ip(ipAddress);
@@ -232,11 +236,11 @@ public class HomePageController {
 				 EmailUtil emailUtil = new EmailUtil();
 				 // email to user
 				 if(StringUtils.isNotBlank(objUsersBean.getEmail())){
-					emailUtil.sendWelcomeMail(objUsersBean1, objContext);
+					//emailUtil.sendWelcomeMail(objUsersBean1, objContext);
 				 }
 				 //email to Admin
 				 emailUtil = new EmailUtil();
-				 emailUtil.sendUserRegisteredNotification(objUsersBean1, objContext);
+				 //emailUtil.sendUserRegisteredNotification(objUsersBean1, objContext);
 				 ///
 				 if(StringUtils.isNotBlank(objUsersBean.getRedirectPage())){
 					if("myProfile".equalsIgnoreCase(objUsersBean.getRedirectPage())){
@@ -1931,4 +1935,167 @@ public class HomePageController {
 		return objJson.toString();
 	}
    
+   @RequestMapping(value = "/newMatches")
+	 public String getNewMatches(@ModelAttribute("createProfile") UsersBean searchCriteriaBean, Model objeModel, HttpServletRequest request, HttpSession session) {
+	   List<Map<String, String>> listOrderBeans = null;
+	   ObjectMapper objectMapper = null;
+		String sJson = null;
+	   try{
+
+			listOrderBeans = objUsersDao.getSearchResults(searchCriteriaBean,0);
+			int total_records = 0;//limit - viewed_count;
+			request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
+			if (listOrderBeans != null && listOrderBeans.size() > 0) {
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(listOrderBeans);
+				request.setAttribute("allOrders1", sJson);
+				total_records = Integer.parseInt(((Map<String, String>)listOrderBeans.get(0)).get("total_records"));
+					
+				request.setAttribute("total_records", total_records);
+				// System.out.println(sJson);
+			} else {
+				//objectMapper = new ObjectMapper();
+				//sJson = objectMapper.writeValueAsString(listOrderBeans);
+				request.setAttribute("allOrders1", "''");
+				request.setAttribute("total_records", "0");
+			}
+			
+		   
+	   } catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			logger.error(e);
+			logger.fatal("error in interestRequestsPagination method  ");
+			return null;
+		}
+	   
+	  return "newMatches"; 
+   
+   }
+   
+   /*@RequestMapping(value = "/createOtp")
+   public @ResponseBody String createOtp(
+						   @RequestParam("mobileNo") String mobileNo,
+						   HttpServletResponse response, HttpServletRequest request,
+						   HttpSession objSession,
+						   Model mod)
+   {
+	   System.out.println("mobileNo..."+mobileNo);
+	   JSONObject objJson =new JSONObject();
+	   String otp = genOtp();
+	   //insert into table; userId
+	   boolean success = objUsersDao.saveOtp(mobileNo,otp);
+	   if(success){
+		   objJson.put("message", "success") ;
+		   objJson.put("otp", otp) ;
+	   }else{
+		   objJson.put("message", "failed") ; 
+	   }
+	   
+	
+	   
+	   return otp;
+
+   }*/
+
+   public String genOtp()
+   {
+   String tempStr = System.currentTimeMillis() + "";
+   String otp = tempStr.substring(7);
+   return otp;
+   }
+
+   @RequestMapping(value = "/checkOtp")
+   public String   checkOtp(Model objeModel,
+   //@RequestParam("phoneNo") String phoneNo,
+   //@RequestParam("otp1") String otp1,
+   HttpServletResponse response, HttpServletRequest request,
+   HttpSession session,
+   Model mod)
+   {
+	   UsersBean profile = (UsersBean)session.getAttribute("profileToBeCreated");
+	   objeModel.addAttribute("createProfile", profile);
+	   String mobileNum = profile.getMobile();
+	   String otp1 = request.getParameter("otp1");
+	   
+	   String otp = objUsersDao.getOtpOf(mobileNum)+"";
+	   if(otp.equals(otp1)){
+		   objUsersDao.updateOtpStatus(mobileNum,otp);
+		   
+		   return "redirect:saveUserProfile";
+	   }else{
+		   return "otpFailurePage";
+	   }
+	   
+	   
+
+   }
+   
+   
+   @RequestMapping(value = "/verifyMobileNumber")
+	 public String verifyMobileNumber(@ModelAttribute("createProfile") UsersBean objUserssBean, Model objeModel, HttpServletRequest request, HttpSession session) {
+	  ObjectMapper objectMapper = null;
+		String sJson = null;
+		try {
+				UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
+				if(sessionBean == null){
+					return "redirect:HomePage";
+				}
+				objeModel.addAttribute("createProfile", objUserssBean);
+				session.setAttribute("profileToBeCreated", objUserssBean);
+				String mobileNum = objUserssBean.getMobile();
+				String otp = genOtp();
+			   //insert into table; userId
+			   boolean success = objUsersDao.saveOtp(mobileNum,otp);
+			   if(success){
+				   String response = SendSMS.sendSMS(otp, mobileNum);
+				   
+				   if("OK".equalsIgnoreCase(response)){
+					   
+					   request.setAttribute("message", "success");
+				   }else{
+					   request.setAttribute("message", "failed"); 
+				   }
+				   return "verifyMobileNumber";
+				   /*objeModel.addAttribute("createProfile", objUserssBean);ff
+				   return "redirect:saveUserProfile";*/
+			   }
+			   
+			
+		} catch (Exception e) {
+		   e.printStackTrace();
+		   System.out.println(e);
+		   logger.error(e);
+		   logger.fatal("error in verifyMobileNumber method");
+		 }
+		return "redirect:dashboard";
+	 }
+   
+   @RequestMapping(value = "/deletePhoto")
+	public @ResponseBody String deletePhoto(@ModelAttribute("createProfile") UsersBean searchCriteriaBean,
+			ModelMap model, HttpServletRequest request, HttpSession session, RedirectAttributes redir) {
+		JSONObject objJson = new JSONObject();
+		try {
+			UsersBean userBean = (UsersBean) session.getAttribute("cacheGuest");
+			if (userBean == null) {
+				return "redirect:HomePage";
+			}
+			String photoId = request.getParameter("photoId");
+			if (StringUtils.isNotBlank(photoId)) {
+				boolean success = objUsersDao.deletePhoto(photoId);
+				if (success) {
+					objJson.put("message", "success");
+				} else {
+					objJson.put("message", "failed");
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			logger.error(e);
+			logger.fatal("error in deletePhoto method");
+			return "exception";
+		}
+		return objJson.toString();
+	}
 }

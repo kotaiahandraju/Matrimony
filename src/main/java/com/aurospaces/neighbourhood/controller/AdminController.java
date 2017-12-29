@@ -123,7 +123,7 @@ public class AdminController {
 		return jsonObj.toString();
 	}
    @RequestMapping(value = "/dashboard")
-	public String bodyTypeHome(@ModelAttribute("dashboardForm") UsersBean userBean, ModelMap model,
+	public String dashboard(@ModelAttribute("dashboardForm") UsersBean userBean, ModelMap model,
 			HttpServletRequest request, HttpSession session) {
 	   List<Map<String,Object>> packExpiredProfiles = null;
 		ObjectMapper objectMapper = null;

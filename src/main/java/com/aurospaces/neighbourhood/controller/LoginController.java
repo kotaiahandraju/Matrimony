@@ -75,11 +75,20 @@ public class LoginController {
 					objUserBean.setReceivedInterestCount((String.valueOf(interestCounts.get("receivedInterestCount"))));
 					objUserBean.setAcceptedInterestCount((String.valueOf(interestCounts.get("acceptedInterestCount"))));
 					objUserBean.setProfileViewedCount((String.valueOf(interestCounts.get("profileViewedCount"))));
+					
+					objUserBean.setRejectedInterestCount((String.valueOf(interestCounts.get("rejectedInterestCount"))));
+					objUserBean.setProfilesViewedByMeCount((String.valueOf(interestCounts.get("profilesViewedByMeCount"))));
+					objUserBean.setMobileNumViewedCount((String.valueOf(interestCounts.get("mobileNumViewedCount"))));
+					objUserBean.setMobileNumViewedByMeCount((String.valueOf(interestCounts.get("mobileNumViewedByMeCount"))));
 				}else{
 					objUserBean.setSentInterestCount("0");
 					objUserBean.setReceivedInterestCount("0");
 					objUserBean.setAcceptedInterestCount("0");
 					objUserBean.setProfileViewedCount("0");
+					objUserBean.setRejectedInterestCount("0");
+					objUserBean.setProfilesViewedByMeCount("0");
+					objUserBean.setMobileNumViewedCount("0");
+					objUserBean.setMobileNumViewedByMeCount("0");
 				}
 				
 				if(objUserBean.getRoleId() ==1){

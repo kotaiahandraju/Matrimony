@@ -168,7 +168,8 @@ if(session.getAttribute("cacheGuest") != null){
 	<div class="products">
 		<div class="container">
 			<form:form commandName="createProfile" class="form-horizontal" id="searchForm" role="form"   method="post">
-				
+				<%-- <form:hidden path="id" /> --%>
+				<input type="hidden" id="id"/>
 			<div class="mid-grids">
 				<div class="col-md-3 products-grid-right">
 					<div class="w_sidebar">
@@ -261,38 +262,38 @@ if(session.getAttribute("cacheGuest") != null){
 				</div></div>
              </form:form>
              <form:form commandName="createProfile"  class="form-horizontal" id="searchForm2" name="searchForm2" role="form"   method="post">
-             
-             
+             <%-- <form:hidden path="id" /> --%>
+             <input type="hidden" id="id"/>
              <div class="col-md-9">
-<div id="searchresultsDiv">
-	<div class="searchresults">
-	    <h3>Your Search Results</h3>
-	    <p><span id="countId">${count}</span> Profiles found <a href="searchProfiles">Modify Search</a></p>
-		<div id="searchResults">
-			
-		</div>
-	</div>           
-    <div id="table_footer"></div>
-	<div id="altLists"></div>
-</div>
+				<div id="searchresultsDiv">
+					<div class="searchresults">
+					    <h3>Your Search Results</h3>
+					    <p><span id="countId">${count}</span> Profiles found <a href="searchProfiles">Modify Search</a></p>
+						<div id="searchResults">
+							
+						</div>
+					</div>           
+				    <div id="table_footer"></div>
+					<div id="altLists"></div>
+				</div>
 
 
-    <div class="clearfix"></div>
-   <div id="search_criteria">
-    <div class="form-group">
-      <label class="col-md-4 control-label" for="textinput">Age From</label>  
-      <div class="col-md-6">
-      <form:input path="rAgeFrom" class="form-control  numericOnly u1" placeholder="Enter Age From" />
-<!--       	<input type="text" name="age" class="form-control u1" placeholder="Enter Age" maxlength="255"/> -->
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="col-md-4 control-label" for="textinput">Age To</label>  
-      <div class="col-md-6">
-      <form:input path="rAgeTo" class="form-control numericOnly u1" placeholder="Enter Age To" />
-<!--       	<input type="text" name="age" class="form-control u1" placeholder="Enter Age" maxlength="255"/> -->
-      </div>
-    </div>
+			    <div class="clearfix"></div>
+			   <div id="search_criteria">
+			    <div class="form-group">
+			      <label class="col-md-4 control-label" for="textinput">Age From</label>  
+			      <div class="col-md-6">
+			      <form:input path="rAgeFrom" class="form-control  numericOnly u1" placeholder="Enter Age From" />
+			<!--       	<input type="text" name="age" class="form-control u1" placeholder="Enter Age" maxlength="255"/> -->
+			      </div>
+			    </div>
+			    <div class="form-group">
+			      <label class="col-md-4 control-label" for="textinput">Age To</label>  
+			      <div class="col-md-6">
+			      <form:input path="rAgeTo" class="form-control numericOnly u1" placeholder="Enter Age To" />
+			<!--       	<input type="text" name="age" class="form-control u1" placeholder="Enter Age" maxlength="255"/> -->
+			      </div>
+			    </div>
     <%-- <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Height</label>  
       <div class="col-md-6">
@@ -397,12 +398,12 @@ $(document).ready(function(){
     
 });
 </script>   
-    <div class="form-group hideMe">
+    <!-- <div class="form-group hideMe">
       <label class="col-md-4 control-label" for="textinput"></label>  
       <div class="col-md-6 text-center">
       	<span class="more" style="color: #0087AF;cursor: pointer;">MORE </span><i style="cursor: pointer;" class="fa fa-angle-down"></i>
       </div>
-    </div>
+    </div> -->
     
 <div class="ifMore" id="ifMore">
     
@@ -637,15 +638,14 @@ function displayMatches(listOrders) {
 // 			   alert(array[i]);
 			});
 		} */
-		if(orderObj.firstName !=null)
-		{
+		
 			var login_user_role_id = ${cacheGuest.roleId};
 			var insert_str = '';
 			var mobile_no__str = '';
 			var more_details_str = '';
 			var expressed = orderObj.expressedInterest;
-			
-			if((login_user_role_id == 6) || (login_user_role_id == 11) || (login_user_role_id == 14)){ //means premium user
+			var firstname = 'xxxxxx',lastname='xxxxxx';
+			/* if((login_user_role_id == 6) || (login_user_role_id == 11) || (login_user_role_id == 14)){ //means premium user
 				mobile_no__str = '<tr id="row'+orderObj.id+'"><td><button type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button></td></tr>';
 				//more_details_str = '<tr><td><span><a href="#" onclick="showMoreDetails(this)">read more...</a></span></td></tr>';
 				//mobile_no__str = '<tr><td><span><a href="#" onclick="viewMobileNumber('+orderObj.id+')">View Mobile Number</a></span></td></tr>';
@@ -654,12 +654,18 @@ function displayMatches(listOrders) {
 				}else if(expressed>0){
 					insert_str = '<button class="btn btn-primary btn-block">Expressed Interest</button>';
 				}
+			} */
+			if((login_user_role_id == 6) || (login_user_role_id == 11) || (login_user_role_id == 12)
+					|| (login_user_role_id == 13) || (login_user_role_id == 14)){ //means premium,premium_plus,aarna premium users
+			
+				firstname = orderObj.firstName;
+				lastname = orderObj.lastName;
 			}
 			var tblRow = '<div class="panel panel-default">'
 				+ '<div class="panel-heading">'
 				+ '<h5 class="panel-title">'
 				+ '<div class="form-check">'
-				+ '	<label class="form-check-label"> <input type="checkbox" class="form-check-input"> '+orderObj.firstName+' '+orderObj.lastName+'</label>'
+				+ '	<label class="form-check-label"> <input type="checkbox" class="form-check-input"> '+firstname+' '+lastname+'&nbsp;('+orderObj.username+')</label>'
 				+ '	<span class="pull-right">Created by '+orderObj.createProfileFor+'</span>'
 				+ '</div>'
 				+ '</h5>'
@@ -704,7 +710,7 @@ function displayMatches(listOrders) {
             	+ '</div>'
             	+ '</div>';
 			$(tblRow).appendTo("#searchResults");
-		}
+		
 	});
 }
 /* function updateList(){
@@ -944,7 +950,8 @@ function fullProfile(profile_id){
 	if(roleId==4){
 		document.searchForm2.action = "memberShipPage"
 	}else{
-		document.searchForm2.action = "fullProfile"
+		document.searchForm2.id = profile_id;
+		document.searchForm2.action = "fullProfile";
 	}
 	//document.searchForm2.id = profile_id;
 	

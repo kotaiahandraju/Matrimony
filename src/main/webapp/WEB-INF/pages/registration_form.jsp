@@ -421,7 +421,7 @@ function validate(id, errorMessage)
     <div class="form-group">
       <label class="col-md-4 control-label" for="textinput">Your Mobile number <span class='manditory'>*</span></label>  
       <div class="col-md-6">
-      <form:input path="mobile" class="form-control numericOnly u"  onblur="validate(this.id,'Enter Mobile');" onkeydown="removeBorder(this.id)" maxlength="13" placeholder="Mobile Number"/>
+      <form:input path="mobile" class="form-control numericOnly u"  onblur="validate(this.id,'Enter Mobile');" onkeydown="removeBorder(this.id)" maxlength="10" placeholder="Mobile Number"/>
       </div>
     </div>
 
@@ -789,9 +789,21 @@ function fourthForm(event){
 	else
 	{
 	}
-		$("#fourthButton").attr("disabled",true);
+		/* $("#fourthButton").attr("disabled",true);
 	    $("#fourthButton").val("Please wait...");
-		$('#profileRegistration').attr('action',"saveUserProfile");
+	    // send otp to verify mobile number
+	    	var formData = new FormData();
+	    	var mobileNum = $("#mobile").val();
+	    	formData.append('mobileNo', mobileNum);
+			$.fn.makeMultipartRequest('POST', 'createOtp', false,
+					formData, false, 'text', function(data){
+				var jsonobj = $.parseJSON(data);
+				
+			
+		}); */
+	    //
+		//$('#profileRegistration').attr('action',"saveUserProfile");
+	    $('#profileRegistration').attr('action',"verifyMobileNumber");
 		$("#profileRegistration").submit();
 		event.preventDefault();
 }

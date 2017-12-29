@@ -214,9 +214,23 @@ if(session.getAttribute("cacheGuest") != null){
             <div class="panel-body">
 				<div id="imagesDiv" class="row" style="margin-bottom: 0.4em;">
 			      	<c:forEach items="${photosList}" var="photo" >
-			      		<div class="col-md-2">
-			      			<img id="photo" src="${photo.image}" class="img-responsive thumbnail" style="margin-bottom:0;">
-			      			<a href="#" onclick="setAsProfilePicture(${photo.id},'${photo.image}')">Set as Profile Picture</a>
+			      		<div id="div${photo.id}" class="col-md-2">
+			      			<img id="photo${photo.id}" src="${photo.image}" class="img-responsive thumbnail" style="margin-bottom:0;">
+			      			<c:if test="${photo.approved_status == '0' }">
+			      				<span>Approval Pending</span>
+			      			</c:if>
+			      			<c:if test="${photo.approved_status == '1' }">
+			      				<c:if test="${photo.is_profile_picture == '1' }">
+				      				<span>Profile Picture</span>
+				      			</c:if>
+				      			<c:if test="${photo.is_profile_picture == '0' }">
+				      				<a id="profilepic${photo.id}" href="#" onclick="setAsProfilePicture(${photo.id},'${photo.image}')">Set as Profile Picture</a>
+				      			</c:if>
+			      			</c:if>
+			      			<c:if test="${photo.approved_status == '2' }">
+			      				<span>Rejected by Admin</span>
+			      			</c:if>
+			      			<a href="#" onclick="deletePhoto(${photo.id},'div${photo.id}')">Delete</a>
 			      		</div>
 					</c:forEach>
 			    	
@@ -341,8 +355,13 @@ function checkImg(objImg)
 function updateImagesList(photosList){
 	var str = "";
 	$.each(photosList,function(i,photoObj){
+		//var photoId = ${photoObj.id};
+		//var photoImage = ${photoObj.image};
 		 str += '<div class="col-md-2">'
   			+'<img src="'+photoObj.image+'" class="img-responsive thumbnail" style="margin-bottom:0;">'
+  			+' <span>Sent for approval</span> '
+  			//+' <a href="#" onclick="sendForApproval('+photoId+')">Send for approval</a> '
+  			//+' <a href="#" onclick="setAsProfilePicture('+photoImage+')">Set as Profile Picture</a> '
   			+'</div>';
 		
 	});
@@ -359,11 +378,33 @@ function setAsProfilePicture(photoId,photoImage){
 		  	if("success" == msg){
 		  		alert("Profile picture updated.");
 		  		$("#profilepic").prop("src",photoImage);
+		  		$("#profilepic"+photoId).html('Profile Picture');
 		  	}else{
 		  		alert("Some problem occured. Please try again.");
 		  	}
 		  	
 		});
+}
+
+function deletePhoto(photoId,divId){
+	var checkstr =  confirm('Are you sure you want to delete this photo?');
+	if(checkstr == true){
+		var formData = new FormData();
+		formData.append("photoId", photoId);
+		//formData.append("id", id);
+		  $.fn.makeMultipartRequest('POST', 'deletePhoto', false,
+					formData, false, 'text', function(data){
+			  	var jsonobj = $.parseJSON(data);
+			  	var msg = jsonobj.message;
+			  	if("success" == msg){
+			  		alert("Photo Deleted.");
+			  		$("#"+divId).prop("hidden",true);
+			  	}else{
+			  		alert("Some problem occured. Please try again.");
+			  	}
+			  	
+			});
+	}
 }
 </script>
 

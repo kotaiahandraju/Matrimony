@@ -42,7 +42,7 @@
 						</div>
 					<div class="box-content nopadding" id="tableId">
 						<table class="table table-hover table-nomargin table-bordered">
-							<thead><tr style="border-top: 1.999px solid lightgray;"><th>Username</th><th>Updated On</th></tr></thead>
+							<thead><tr style="border-top: 1.999px solid lightgray;"><th>User ID</th><th>Updated On</th></tr></thead>
 							<tbody></tbody>
 						</table>
 					</div>
@@ -163,7 +163,7 @@ function searchTable() {
 		$.each(listOrders,function(i, orderObj) {
 							serviceUnitArray[orderObj.id] = orderObj;
 							var tblRow = "<tr>"
-								+ "<td title='"+orderObj.username+"'><a href='#' onclick='fullProfile("+orderObj.id+")'>" + orderObj.username + "</a></td>"
+								+ "<td title='"+orderObj.username+"'><a href='#' onclick='fullProfile("+orderObj.user_id+")'>" + orderObj.username + "</a></td>"
 								+ "<td title='"+orderObj.updatedOn+"'>" + orderObj.updatedOn + "</td>"
 								+ "</tr >";
 							$(tblRow).appendTo("#tableId table tbody"); 

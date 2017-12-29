@@ -184,66 +184,18 @@ if(session.getAttribute("cacheGuest") != null){
 				</div>
 				
 			</div>
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h4 class="panel-title">
-						Rejected
-					</h4>
-				</div>
-				<div class="panel-body">
-					
-                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td><a href="acceptedRequests">Members</a></td>
-    <td><div class="badge pull-right">${cacheGuest.rejectedInterestCount}</div></td>
-  </tr>
-</table>
-
-				</div>
-				
-			</div>
 			
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h4 class="panel-title">
-						Profile Views
+						Accepted
 					</h4>
 				</div>
 				<div class="panel-body">
 					
                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
 					  <tr>
-					    <td><a href="profileViewedMembers">(${cacheGuest.profileViewedCount})members viewed my profile</a></td>
-					  </tr>
-					</table>
-					
-					<table width="100%" border="0" cellspacing="0" cellpadding="0">
-					  <tr>
-					    <td><a href="profileViewedMembers">(${cacheGuest.profilesViewedByMeCount})profiles viewed by me</a></td>
-					  </tr>
-					</table>
-
-				</div>
-				
-			</div>
-			
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h4 class="panel-title">
-						Mobile No. Views
-					</h4>
-				</div>
-				<div class="panel-body">
-					
-                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-					  <tr>
-					    <td><a href="profileViewedMembers">(${cacheGuest.mobileNumViewedCount})members viewed my mobile No.</a></td>
-					  </tr>
-					</table>
-					
-					<table width="100%" border="0" cellspacing="0" cellpadding="0">
-					  <tr>
-					    <td><a href="profileViewedMembers">(${cacheGuest.mobileNumViewedByMeCount})mobile no.s viewed by me</a></td>
+					    <td><a href="profileViewedMembers">(${cacheGuest.profileViewedCount})members viewed your profile</a></td>
 					  </tr>
 					</table>
 
@@ -262,7 +214,7 @@ if(session.getAttribute("cacheGuest") != null){
 					
                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
-    <td><a href="sentRequests">Requests</a></td>
+    <td><a href="sentRequests">Invitations</a></td>
     <%-- <td><div class="badge pull-right">${cacheGuest.sentInterestCount}</div></td> --%>
     <td><div class="badge pull-right">${cacheGuest.sentInterestCount}</div></td>
   </tr>
@@ -335,26 +287,10 @@ if(session.getAttribute("cacheGuest") != null){
 				  </div>
                 
                 <div class="col-md-6 products-grid-left">
-					<div class="panel panel-default">
-						<div class="panel-body">
-							Complete the remaining Profile
-		               <div class="progress">
-						  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
-						  aria-valuemin="0" aria-valuemax="100" style="width:${profile_filled_status}%">
-						    <%= session.getAttribute("profile_filled_status") %>% Complete 
-						  </div>
-						</div>
-						<p>
-		                <span class="glyphicon glyphicon-envelope"></span> Verify your Email <a href="#"><u>Verify Email Address</u></a>
-		                </p>
-						</div>
-						
-					</div>
-            </div>
-            <div class="col-md-7 products-grid-left">
+					            
             <div class="panel panel-default">
 	            <div class="panel-heading">
-	            	Suggested Matches. 
+	            	New Matches 
 	            </div>
 	            <form:form commandName="createProfile"  class="form-horizontal" id="searchForm2" name="searchForm2" role="form"   method="post">
              		<form:hidden path="id" />
@@ -521,28 +457,25 @@ function displayMatches(listOrders) {
 		var array = null;
 // 		var imageUrl =null;
 		
-		var image = null; image = orderObj.profileImage;
+		var image = null; image = orderObj.image;
 		if(image == "" || image == null || image == "undefined"){
 			image = "img/default.png";
 		}
-		/* else{
+		else{
 		array = image.split(",");
 		
 		$.each(array,function(i){
 			image = array[i];
 // 			   alert(array[i]);
 			});
-		} */
-		
+		}
+		if(orderObj.firstName !=null)
+		{
 			var login_user_role_id = ${cacheGuest.roleId};
-			var firstname = 'xxxxxx',lastname='xxxxxx';
-			
+			var mobile_no__str = '';
 			if((login_user_role_id == 6) || (login_user_role_id == 11) || (login_user_role_id == 12)
 					|| (login_user_role_id == 13) || (login_user_role_id == 14)){ //means premium,premium_plus,aarna premium users
-			
-				firstname = orderObj.firstName;
-				lastname = orderObj.lastName;
-				//mobile_no__str = '<tr id="row'+orderObj.id+'"><td><button type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button></td></tr>';
+				mobile_no__str = '<tr id="row'+orderObj.id+'"><td><button type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button></td></tr>';
 				//more_details_str = '<tr><td><span><a href="#" onclick="showMoreDetails(this)">read more...</a></span></td></tr>';
 				//mobile_no__str = '<tr><td><span><a href="#" onclick="viewMobileNumber('+orderObj.id+')">View Mobile Number</a></span></td></tr>';
 			}
@@ -550,34 +483,15 @@ function displayMatches(listOrders) {
 				+ '<div class="col-md-2" style="margin-right:0; padding-right:0;">'
 	            + 	"<img src="+image+" class='img-responsive thumbnail' style='margin-bottom: 0px;'>"
 	            + '</div>'
-	            + '<div class="col-md-6">'
+	            + '<div class="col-md-9">'
 	            + 	'<div class="profilesimilar">'
 	            + 		'<table width="100%" border="0" cellspacing="0" cellpadding="0">'
-	            + 			'<tr><td><h4>'+firstname+'&nbsp;'+lastname+'</h4>&nbsp;('+orderObj.username+')</td></tr>'
-	            + 			'<tr><td><p>'+orderObj.dobString+'yrs, '+orderObj.religionName+', '+orderObj.casteName+',</p></td></tr>'
+	            + 			'<tr><td><h4>'+orderObj.firstName+'&nbsp;'+orderObj.lastName+'</h4></td></tr>'
+	            + 			'<tr><td><p>'+orderObj.dobString+', '+orderObj.religionName+', '+orderObj.casteName+',</p></td></tr>'
 	            + 			'<tr><td><p>'+orderObj.age+'&nbsp'+orderObj.occupationName+', '+orderObj.currentCityName+', '+orderObj.currentCountryName+'.</p></td></tr>'
-	            //+			mobile_no__str
-	            //+ 			'<tr><td><span><a href="#" onclick="fullProfile('+orderObj.id+')">Full Profile</span> </td></tr>'
+	            +			mobile_no__str
+	            + 			'<tr><td><span><a href="#" onclick="fullProfile('+orderObj.id+')">Full Profile</span> </td></tr>'
 	            + 		'</table>'
-	            + 	'</div>'
-	            + '</div>'
-	            + '<div class="col-md-3" style="margin-right:0; padding-right:0;">'
-	            +  '<h4 style="margin-bottom:20px;">Like this Profile?</h4>'
-	            + 	'<button id="expInterest'+orderObj.id+'" type="button" class="btn btn-primary" onclick="expressInterest('+orderObj.id+')">Yes I\'m interested</button><br>'
-	            //+ 	'<button  type="button" class="btn btn-primary btn-block" onclick="fullProfile('+orderObj.id+')">View Full Profile</button><br>'
-	            //+   '<button id="mobileBtn'+orderObj.id+'" type="button" class="btn btn-info" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button>'
-	            + '</div>'
-	            + '<div class="row container-fluid">'
-	            + 	'<div class="col-md-7" style="margin-right:0; padding-right:0;">'
-	            +		'<table width="100%" border="0" cellspacing="0" cellpadding="0">'
-	            + 			'<tr>'
-	            //+				'<td><button  type="button" class="btn btn-primary btn-block" onclick="fullProfile('+orderObj.id+')">View Full Profile</button></td>'
-	            //+ 				'<td>&nbsp;</td><td><button id="mobileBtn'+orderObj.id+'" type="button" class="btn btn-info" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button></td></tr>'
-	            +				'<td><a href="#" onclick="fullProfile('+orderObj.id+')">View Full Profile</a></td>'
-	            + 				'<td><a href="#"  id="mobileBtn'+orderObj.id+'" type="button" class="btn" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</a></td></tr>'
-	            + 		'</table>'
-	            //+ 		'<button  type="button" class="btn btn-primary btn-block" onclick="fullProfile('+orderObj.id+')">View Full Profile</button>'
-	            //+   	'<button id="mobileBtn'+orderObj.id+'" type="button" class="btn btn-info" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button>'
 	            + 	'</div>'
 	            + '</div>'
 	            + '<div class="clearfix"></div>'
@@ -588,7 +502,7 @@ function displayMatches(listOrders) {
 	        	$("#mobileBtn"+orderObj.id).prop("disabled",true);
 	        } */
 			$(tblRow).appendTo("#matches"); 
-		
+		}
 	});
 }
 
@@ -614,38 +528,29 @@ function displayMatches(listOrders) {
 } */
 
 function displayMobileNum(profileId,listType){
-	var roleId = ${cacheGuest.roleId};
-	$("#id").val(profileId);
-	if(roleId==4){
-		document.searchForm2.action = "memberShipPage"
-		document.searchForm2.submit();
-		return true;
-	}else{
-		if(allowed_limit<=0){
-			alert("Exceeded allowed profiles limit. Renew your membership plan and get more profiles");
-			return false;
-		}
-		var profileObj = serviceUnitArray[profileId];
-		var formData = new FormData();
-		formData.append('profile_id',profileId);
-		formData.append('list_type',listType);
-		jQuery.fn.makeMultipartRequest('POST', 'viewedMobileNumber', false,
-				formData, false, 'text', function(data){
-	    		var jsonobj = $.parseJSON(data);
-	    		var limit = jsonobj.allowed_limit;
-	    		var msg = jsonobj.message;
-	    		if(typeof msg != "undefined"){
-	    			if(msg=="success"){
-	    				$("#row"+profileId).html('<td>'+profileObj.mobile+'</td>');
-	    				allowed_limit = limit;
-	    			}else{
-	    				alert("Some problem occured. Please try again.");
-	    			}
-	    		}
-	    		
-		});
+	if(allowed_limit<=0){
+		alert("Exceeded allowed profiles limit. Renew your membership plan and get more profiles");
+		return false;
 	}
-	
+	var profileObj = serviceUnitArray[profileId];
+	var formData = new FormData();
+	formData.append('profile_id',profileId);
+	formData.append('list_type',listType);
+	jQuery.fn.makeMultipartRequest('POST', 'viewedMobileNumber', false,
+			formData, false, 'text', function(data){
+    		var jsonobj = $.parseJSON(data);
+    		var limit = jsonobj.allowed_limit;
+    		var msg = jsonobj.message;
+    		if(typeof msg != "undefined"){
+    			if(msg=="success"){
+    				$("#row"+profileId).html('<td>'+profileObj.mobile+'</td>');
+    				allowed_limit = limit;
+    			}else{
+    				alert("Some problem occured. Please try again.");
+    			}
+    		}
+    		
+	});
 	
 }
 
@@ -724,62 +629,6 @@ function getNewMatches(){
 	document.searchForm2.action = "newMatches";
     document.searchForm2.submit();            
     return true;
-}
-
-function expressInterest(profile_id){
-	var roleId = ${cacheGuest.roleId};
-	$("#id").val(profile_id);
-	if(roleId==4){
-		document.searchForm2.action = "memberShipPage"
-		document.searchForm2.submit();
-		return true;
-	}else{
-		if(allowed_limit<=0){
-			alert("Exceeded allowed profiles limit. Renew your membership plan and get more profiles");
-			return false;
-		}
-		var formData = new FormData();
-	
-		formData.append('profile_id',profile_id);
-		jQuery.fn.makeMultipartRequest('POST', 'expressInterestTo', false,
-				formData, false, 'text', function(data){
-	    		var jsonobj = $.parseJSON(data);
-	    		var limit = jsonobj.allowed_limit;
-	    		var msg = jsonobj.message;
-	    		var profiles = jsonobj.allProfiles;
-	    		//if(typeof msg != "undefined" ){
-	    			if("success"==msg){
-	    				alert("Interest request has been sent successfully");
-	    				$("#expInterest"+profile_id).html('Expressed Interest');
-	    				$("#expInterest"+profile_id).prop("disabled",true);
-	    				allowed_limit = limit;
-	    			}else if("failed"==msg || "exception"==msg){
-	    				alert("Interest request is not successful. Please try again.");
-	    			}
-	    		//}
-	    		/* if(profiles==""){
-	    			$('#countId').html('0');
-	    			var str = '<div class="panel panel-default"><h6>No results found.</h6></div>';
-	    			$('#searchResults').html('');
-	    			$(str).appendTo("#searchResults");
-	    		}else{
-	    			$('#countId').html(profiles.length);
-	    			displayMatches(profiles);
-	    		} */
-	    		/* var filtered_list = jsonobj.filtered_profiles;
-	    		$('#countId').html('');
-	    		if(filtered_list==""){
-	    			$('#countId').html('0');
-	    			var str = '<div class="panel panel-default"><h6>No results found.</h6></div>';
-	    			$('#searchResults').html('');
-	    			$(str).appendTo("#searchResults");
-	    		}else{
-	    			$('#countId').html(filtered_list.length);
-	    			displayMatches(filtered_list);
-	    		} */
-				
-			});
-	}
 }
 </script>
 

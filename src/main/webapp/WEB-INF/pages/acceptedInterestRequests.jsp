@@ -212,7 +212,7 @@ if(session.getAttribute("cacheGuest") != null){
                 <div class="col-md-9 products-grid-left">
                 	<div class="panel panel-default">
 			            <div class="panel-heading">
-			            	Accepted Interest Requests
+			            	Following members accepted your Interest Request.
 			            </div>
 			            <form:form commandName="createProfile"  class="form-horizontal" id="searchForm2" name="searchForm2" role="form"   method="post">
 		             		<form:hidden path="id" />
@@ -312,7 +312,7 @@ var roleid = ${cacheGuest.roleId};
 var listOrders1 = ${acceptedRequests};
 		paginationSetup(total_items_count);
 		$("#paginator").asPaginator('enable');
-		displayMatches(listOrders1,"accepted_requests",roleid);
+		displayMatches(listOrders1,"accepted_requests",roleid,"acceptedRequests");
 		displayTableFooter(1);
 function displayTable(listOrders) {
 	$('#tableId').html('');
@@ -416,7 +416,7 @@ function paginationSetup(total_items_count) {
 	    		}else{
 	    			paginationSetup(total_items_count);
 	    			$("#paginator").asPaginator('enable');
-	    			displayMatches(requestsList,"accepted_requests",roleid);
+	    			displayMatches(requestsList,"accepted_requests",roleid,"acceptedRequests");
 	    			$("#table_footer").removeAttr("hidden");
 	    			$("#paginator").removeAttr("hidden");
 	    			displayTableFooter(page);
