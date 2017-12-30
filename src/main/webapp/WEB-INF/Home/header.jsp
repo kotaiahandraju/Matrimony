@@ -17,7 +17,7 @@
 	<!-- Apple devices fullscreen -->
 	<meta names="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
-	<title>Matrimony</title>
+	<title>Aarna Matrimony</title>
 	<link rel="shortcut icon" href="${baseurl }/img/aarna-fav.png"/>
 	
 	<!-- 	animate zoom -->

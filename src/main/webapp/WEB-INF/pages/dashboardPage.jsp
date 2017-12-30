@@ -1,4 +1,5 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ include file="userHeader.jsp"%>
+<%-- <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://displaytag.sf.net" prefix="display"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
@@ -283,25 +284,117 @@
   </tr>
 </table>
 
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%> --%>
+
+
+			
+			<div class="col-md-6 products-grid-left">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						Complete the remaining Profile
+						<div class="progress">
+							<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: ${profile_filled_status}%;">
+								<%= session.getAttribute("profile_filled_status") %>% Complete 
+							</div>
+						</div>
+						<p><span class="glyphicon glyphicon-envelope"></span> Verify your Email <a href="#"><u>Verify Email Address</u></a></p>
+					</div>
+
 				</div>
+				<div class="panel panel-success">
+					<div class="panel-heading">Preferred Profiles </div>
+		            <form:form commandName="createProfile"  class="form-horizontal" id="searchForm2" name="searchForm2" role="form"   method="post">
+	             		<form:hidden path="id" />
+						<div class="panel-body" id="matches">
+							
+						</div>
+					</form:form>
+				</div>
+				<div id="pagination_div" style="font-size: 12px;">
+					<div id="altLists"></div>
+					<div id="table_footer"></div>
+				</div>
+
 				
-			</div>       
-				</div>
-             
-                <!-- Modal -->
-				  <div class="modal fade" id="myModal" role="dialog">
-				    <div class="modal-dialog">
-				    
-				      <!-- Modal content-->
-				      <div class="modal-content">
-				        <table class="table table-hover">
-    			<thead style="background: #4CAF50;color: white;">
-    				<tr>
-    					<th>Services</th><th>Duration<br>(Months)</th><th>Amount<br>(INR)</th><th>Messages</th><th>Profiles</th>
-    					<th>Highlight<br>Profile</th><th>Chat</th><th>Horoscope<br>View</th><th>Astrology<br>Match</th>
-    				</tr>
-    			</thead>
-    			<tbody>
+			</div>
+            
+            
+            <div class="panel panel-success">
+	            <div class="panel-heading">
+	            	Suggested Matches. 
+	            </div>
+	            <form:form commandName="createProfile"  class="form-horizontal" id="searchForm2" name="searchForm2" role="form"   method="post">
+             		<form:hidden path="id" />
+					<div class="panel-body" id="matches">
+						
+					</div>
+				</form:form>
+			</div>
+			<div id="pagination_div">
+				<div id="altLists"></div>
+				<div id="table_footer"></div>
+				
+
+			</div>
+
+			<div class="col-md-3 products-grid-right">
+				<%-- <div class="panel panel-warning">
+					<div class="panel-heading">
+						<h4 class="panel-title">Partner Search</h4>
+					</div>
+					<div class="panel-body">
+						<form:form commandName="createProfile" action="searchProfiles" method="post" class="form-horizontal">
+							<div class="form-group">
+								<label class="col-md-3 control-label" for="textinput">Age</label>  
+								<div class="col-md-5">
+									<input type="number" min="20" max="55" name="ageFrom" placeholder="from" class="form-control"/>
+								</div>
+								<div class="col-md-4">
+									<input type="number" min="20" max="55" name="ageTo" placeholder="to" class="form-control"/>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label" for="textinput">Education</label>  
+								<div class="col-md-9">
+									<form:select path="rEducation" class="form-control">
+										<form:option value="">-- Education --</form:option>
+										<form:options items="${education}"></form:options>
+									</form:select>
+								</div>
+							</div>
+							<div class="form-group">
+							  <label class="col-md-3 control-label" for="textinput">Location</label>  
+							  <div class="col-md-9">
+							  	<form:select path="currentCity" class="form-control">
+									<form:option value="">-- Location --</form:option>
+									<form:options items="${citys}"></form:options>
+								</form:select>
+							    
+							  </div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label" for="singlebutton"></label>
+								<div class="col-md-9">
+									<button id="singlebutton" name="singlebutton" class="btn btn-primary" type="submit">Search</button>
+								</div>
+							</div>
+						</form:form>
+					</div>
+				</div> --%>
+            </div>
+	<!-- Modal Starts here-->
+	<div class="modal" id="myModal" role="dialog">
+		<div class="modal-dialog modal-lg">
+			<!-- Modal content-->
+			<div class="modal-content table-responsive">
+				<table class="table table-responsive">
+	    			<thead style="background: #4CAF50;color: white;">
+	    				<tr>
+	    					<th>Services</th><th>Duration<br>(Months)</th><th>Amount<br>(INR)</th><th>Messages</th><th>Profiles</th>
+	    					<th>Highlight<br>Profile</th><th>Chat</th><th>Horoscope<br>View</th><th>Astrology<br>Match</th>
+	    				</tr>
+	    			</thead>
+	    			<tbody>
     				<%-- <c:if test="${not empty packagesList}">
     					<c:forEach items="${packagesList}" var="packagee">
     						<tr>
@@ -345,151 +438,6 @@
     			</tfoot>
     		</table>
 				      </div>
-				      
-				    </div>
-				  </div>
-                
-                <div class="col-md-6 products-grid-left">
-					<div class="panel panel-default">
-				<div class="panel-body">
-					Complete the remaining Profile
-               <div class="progress">
-  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
-  aria-valuemin="0" aria-valuemax="100" style="width:${profile_filled_status}%">
-    <%= session.getAttribute("profile_filled_status") %>% Complete 
-  </div>
-</div>
-				<p>
-                <span class="glyphicon glyphicon-envelope"></span> Verify your Email <a href="#"><u>Verify Email Address</u></a>
-                </p>
-				</div>
-				
-			</div>
-            
-            
-            <div class="panel panel-success">
-	            <div class="panel-heading">
-	            	Suggested Matches. 
-	            </div>
-	            <form:form commandName="createProfile"  class="form-horizontal" id="searchForm2" name="searchForm2" role="form"   method="post">
-             		<form:hidden path="id" />
-					<div class="panel-body" id="matches">
-						
-					</div>
-				</form:form>
-			</div>
-			<div id="pagination_div">
-				<div id="altLists"></div>
-				<div id="table_footer"></div>
-				
-			</div>
-				</div>
-                
-                
-                
-                
-                
-              <div class="col-md-3 products-grid-right">
-					
-                    
-                    
-                  <!-- <div class="panel panel-default">
-				
-				<div class="panel-body"> -->
-					
-<%-- <form:form commandName="createProfile"  action="searchProfile" method="post" class="form-horizontal">
-<fieldset>
-
-<!-- Text input-->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="textinput">Age</label>  
-  <div class="col-md-4">
-  	<select  id="rAgeFrom" class="form-control" style="padding: 0px;"></select>
-<!--   	<input type="number" min="20" max="55" name="ageFrom" placeholder="from" class="form-control"/> -->
-<!--    <input id="textinput" name="textinput" type="text" placeholder="Age" class="form-control input-md"> -->
-  </div>
-  <div class="col-md-4">
-  	<select  id="rAgeTo" class="form-control" style="padding: 0px;"></select>
-<!--   	<input type="number" min="20" max="55" name="ageTo" placeholder="to" class="form-control"/> -->
-  </div>
-</div>
-
-<!-- Text input-->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="textinput">Education</label>  
-  <div class="col-md-8">
-  	<form:select path="rEducation" class="form-control">
-		<form:option value="">-- Education --</form:option>
-		<form:options items="${education}"></form:options>
-	</form:select>
-<!--   <input id="textinput" name="textinput" type="text" placeholder="Education" class="form-control input-md"> -->
-  </div>
-</div>
-
-<!-- Text input-->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="textinput">Location</label>  
-  <div class="col-md-8">
-  	<form:select path="currentCity" class="form-control">
-		<form:option value="">-- Location --</form:option>
-		<form:options items="${citys}"></form:options>
-	</form:select>
-<!--   <input id="textinput" name="textinput" type="text" placeholder="Location" class="form-control input-md"> -->
-    
-  </div>
-</div>
-
-<!-- Button -->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="singlebutton"></label>
-  <div class="col-md-8">
-    <button id="singlebutton" name="singlebutton" class="btn btn-primary" type="submit">Search</button>
-  </div>
-</div>
-
-</fieldset>
-</form:form> --%>
-			<!-- 	</div>
-			</div>  --> 
-            <br>
-            </div>
-				<div class="clearfix"></div>
-			</div>
-		</div>
-	</div>
-<!-- //products -->
-<!-- footer -->
-	<div class="footer">
-		<div class="container">
-			<div class="col-md-3 footer-grid">
-				<h6>About us</h6>
-				<p>Suspendisse sed accumsan risus. Curabitur rhoncus, elit vel tincidunt elementum, nunc urna tristique nisi, in interdum libero magna .</p>
-			</div>
-			<div class="col-md-3 footer-grid">
-				<h6>Search</h6>
-				<ul>
-					<li><a href="#">About Us</a></li>
-					<li><a href="#">Privacy Policy</a></li>
-					<li><a href="#">Terms &amp; Conditions</a></li>
-				</ul>
-			</div>
-			<div class="col-md-3 footer-grid">
-				<h6>My Account</h6>
-				<ul>
-					<li><a href="#">My Account</a></li>
-					<li><a href="#">My Profile</a></li>
-					<li><a href="#">My Interest</a></li>
-				</ul>
-			</div>
-			<div class="col-md-3 footer-grid">
-				<h6>Extras</h6>
-				<ul>
-					<li><a href="#">Login</a></li>
-					<li><a href="#">Register</a></li>
-					<li><a href="#">Help</a></li>
-				</ul>
-			</div>
-			<div class="clearfix"></div>
 		</div>
 	</div>
 	<div class="footer-copy">
@@ -795,7 +743,8 @@ function expressInterest(profile_id){
 			});
 	}
 }
+$(".dashboard").addClass("active");
 </script>
 
-</body>
+<%@ include file="userFooter.jsp"%>
 </html>
