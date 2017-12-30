@@ -4,101 +4,116 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <!DOCTYPE html>
 <%@page import="com.aurospaces.neighbourhood.bean.UsersBean"%>
+<%
+	UsersBean userBean = null;
+	if(session.getAttribute("cacheGuest") != null){
+		userBean= (UsersBean)session.getAttribute("cacheGuest");
+	}
+%>
 <html>
 <head>
-<title>View Profiles</title>
-<!-- for-mobile-apps -->
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<!-- <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
-		function hideURLbar(){ window.scrollTo(0,1); } </script> -->
-<!-- //for-mobile-apps -->
-<link href="user/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-<link href="user/css/style-profile.css" rel="stylesheet" type="text/css" media="all" />
-<link href="user/css/megamenu.css" rel="stylesheet" type="text/css" media="all" />
-<!-- js -->
-<script src="user/js/jquery-1.11.1.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<!-- //js -->
-<!-- start-smoth-scrolling -->
-<!-- <script type="text/javascript" src="user/js/move-top.js"></script>
-<script type="text/javascript" src="user/js/easing.js"></script>
-<script type="text/javascript" src="user/js/megamenu.js"></script>
-<script>$(document).ready(function(){$(".megamenu").megamenu();});</script>
-<script src="user/js/menu_jquery.js"></script>
-<link href='http://fonts.googleapis.com/css?family=Monda:400,700' rel='stylesheet' type='text/css'> -->
-<!-- the jScrollPane script -->
-<!-- <script type="text/javascript" src="js/jquery.jscrollpane.min.js"></script>
-		<script type="text/javascript" id="sourcecode">
-			$(function()
-			{
-				$('.scroll-pane').jScrollPane();
-			});
-		</script> -->
-<!-- //the jScrollPane script -->
-</head>
+	<title>My Home</title>
+	<link rel="shortcut icon" href="img/aarna-fav.png"/>
+	<!-- for-mobile-apps -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script type="application/x-javascript">
+		addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+		function hideURLbar(){ window.scrollTo(0,1); }
+	</script>
+	<!-- //for-mobile-apps -->
+	<link href="user/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="user/css/style-profile.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="user/css/megamenu.css" rel="stylesheet" type="text/css" media="all" />
+	<link rel="stylesheet" type="text/css" href="css/asPaginator.css">
+	<link rel="stylesheet" href="css/animate.min.css" />
 	
-<body>
-<%
-UsersBean userBean = null;
-if(session.getAttribute("cacheGuest") != null){
-	userBean= (UsersBean)session.getAttribute("cacheGuest");
+	<script src="user/js/jquery-1.11.1.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	
+	<!-- start-smoth-scrolling -->
+	<script type="text/javascript" src="user/js/move-top.js"></script>
+	<script type="text/javascript" src="user/js/easing.js"></script>
+	
+	<!-- <script type="text/javascript" src="user/js/megamenu.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){$(".megamenu").megamenu();});
+	</script>
+	
+	<script src="user/js/menu_jquery.js"></script>
+	<link href='http://fonts.googleapis.com/css?family=Monda:400,700' rel='stylesheet' type='text/css'>
+	
+	<script type="text/javascript" src="js/jquery.jscrollpane.min.js"></script>
+	<script type="text/javascript" id="sourcecode">
+		$(function(){$('.scroll-pane').jScrollPane();});
+	</script> -->
+<style type="text/css">
+.fixed-topnavbg-green{ background:#1ba261;height: 58px;width:100%;box-shadow: 1px 4px 5px #ccc;font-family:robotoregular, arial;margin-bottom: 30px;z-index:9999;}
+.animated.infinite{animation-iteration-count:infinite}
+.upgrade {
+    color: #f35626;
+    background-image: -webkit-linear-gradient(2deg, #f35626, red);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-animation: hue 2s infinite linear;
 }
-%>
-<!-- top-header -->
+@-webkit-keyframes hue {
+  from {
+    -webkit-filter: hue-rotate(0deg);
+  }
 
-<!-- top-header -->
-<!-- logo-cart -->
+  to {
+    -webkit-filter: hue-rotate(-360deg);
+  }
+}
+@keyframes flash{0%,50%,to{opacity:1}25%,75%{opacity:0}}.flash{animation-name:flash}
+</style>
+</head>
+<body>
 <div class="header_top">
 	<div class="container">
-    <div class=" col-md-3">
-		<div class="logo">
-		 	<img src="user/images/logo1.jpg" class="img-responsive" >
-	  </div>
-      <div class="clearfix"></div>
-      </div>
-      
-      <div class="col-md-4 ">
-      <div class=" box_1 midfont">
-		<p> <a href="#" onclick="getNewMatches();">New Matches</a>  <span class="badge badge-notify">30</span>&nbsp;&nbsp;&nbsp;
-        <a href="#">Search</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-       <a href="#">Inbox</a>  <span class="badge badge-notify">30</span></p>
-        
-        </div>      
-      </div>
-      
+    	<div class=" col-md-3">
+			<div class="logo">
+				<img src="user/images/logo1.jpg" class="img img-responsive">
+			</div>
+			<div class="clearfix"></div>
+		</div>
+		<div class="col-md-4">
+			<div class=" box_1 midfont">
+				<p><a href="#">Matches</a>  <span class="badge badge-notify">30</span>&nbsp;&nbsp;&nbsp;
+        		<a href="#">Search</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       			<a href="#">Inbox</a>  <span class="badge badge-notify">30</span></p>
+			</div>      
+		</div>
 		<div class="col-md-5">
 			<div class="cart box_1">
-				<p>Dear, <%= userBean.getFirstName() %> <%= userBean.getLastName() %> | &nbsp;&nbsp;<a href="memberShipPage" >Upgrade</a> &nbsp;&nbsp;|&nbsp;&nbsp; <a href="#" >Help</a> &nbsp;&nbsp;|&nbsp;&nbsp; <a href="logoutHome" >Signout</a></p>
+				<p>Dear, <%= userBean.getFirstName() %> <%= userBean.getLastName() %> | &nbsp;&nbsp;<a class="upgrade animated flash infinite" href="memberShipPage" style="color: red;">Upgrade</a> &nbsp;&nbsp;|&nbsp;&nbsp; <a href="#" >Help</a> &nbsp;&nbsp;|&nbsp;&nbsp; <a href="logoutHome" >Signout</a></p>
 				<div class="clearfix"> </div>
 			</div>				 
 		</div>
-        
-        
-        
 	</div>
 </div>
-<!-- //logo-cart -->
-<!------>
-<div class="top_bg">
-	
-</div>
-<div class="mega_nav">
-	 <div class="container">
-		 <div class="menu_sec">
-		 <!-- start header menu -->
-		<ul class="megamenu skyblue">
-			<li class="active" ><a class="color1" href="dashboard">Dashboard</a></li>
-			<li><a class="color1" href="myProfile">My Profile</a></li>
-            <li><a class="color1" href="myPhotos">My Photos</a></li>
-            <li><a class="color1" href="searchProfiles">Search</a></li>
-             <li><a class="color1" href="#">More</a></li>
-		</ul> 
-			<div class="clearfix"></div>
-		 </div>
-	  </div>
-</div>
-<!---->
+
+	<div class="mega_nav">
+		<div class="container">
+			<div class="menu_sec">
+				<!-- start header menu -->
+				<ul class="megamenu skyblue">
+					<!-- <li><a class="color1" href="" style="padding: 0px 15px;"><img src="img/aarna-fav.png" class="img img-responsive"></a></li> -->
+					<li class="active" ><a class="color1" href="dashboard">My Home</a></li>
+					<li><a class="color1" href="myProfile">My Profile</a></li>
+					<li><a class="color1" href="myPhotos">My Photos</a></li>
+					<li><a class="color1" href="searchProfiles">Search</a></li>
+					<li><a class="color1" href="#">Matches</a></li>
+					<li><a class="color1" href="memberShipPage">Upgrade</a></li>
+					<%-- <li><a class="color1" href="#">Help</a></li>
+					<li><a class="color1" href="#">Dear, <%= userBean.getFirstName() %> <%= userBean.getLastName() %></a></li>
+					<li><a class="color1" href="logoutHome">Logout</a></li> --%>
+				</ul> 
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
 <!-- products -->
 	<div class="products">
 		<div class="container">
@@ -112,7 +127,7 @@ if(session.getAttribute("cacheGuest") != null){
                     <div class="row">
 					<div class="col-md-5 ">
 						<c:if test="${not empty cacheGuest.profileImage}">
-							<img src="${cacheGuest.profileImage}" class="img-responsive thumbnail" style="margin-bottom:0;">
+							<img src="${cacheGuest.profileImage}" class="img-responsive thumbnail" style="margin-bottom:0;height: 85px;">
 						</c:if>
 						<c:if test="${empty cacheGuest.profileImage}">
 							<img src="img/default.png" class="img-responsive thumbnail" style="margin-bottom:0;">
@@ -336,23 +351,23 @@ if(session.getAttribute("cacheGuest") != null){
                 
                 <div class="col-md-6 products-grid-left">
 					<div class="panel panel-default">
-						<div class="panel-body">
-							Complete the remaining Profile
-		               <div class="progress">
-						  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
-						  aria-valuemin="0" aria-valuemax="100" style="width:${profile_filled_status}%">
-						    <%= session.getAttribute("profile_filled_status") %>% Complete 
-						  </div>
-						</div>
-						<p>
-		                <span class="glyphicon glyphicon-envelope"></span> Verify your Email <a href="#"><u>Verify Email Address</u></a>
-		                </p>
-						</div>
-						
-					</div>
-            </div>
-            <div class="col-md-7 products-grid-left">
-            <div class="panel panel-default">
+				<div class="panel-body">
+					Complete the remaining Profile
+               <div class="progress">
+  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
+  aria-valuemin="0" aria-valuemax="100" style="width:${profile_filled_status}%">
+    <%= session.getAttribute("profile_filled_status") %>% Complete 
+  </div>
+</div>
+				<p>
+                <span class="glyphicon glyphicon-envelope"></span> Verify your Email <a href="#"><u>Verify Email Address</u></a>
+                </p>
+				</div>
+				
+			</div>
+            
+            
+            <div class="panel panel-success">
 	            <div class="panel-heading">
 	            	Suggested Matches. 
 	            </div>
@@ -361,7 +376,6 @@ if(session.getAttribute("cacheGuest") != null){
 					<div class="panel-body" id="matches">
 						
 					</div>
-					
 				</form:form>
 			</div>
 			<div id="pagination_div">
@@ -479,14 +493,14 @@ if(session.getAttribute("cacheGuest") != null){
 		</div>
 	</div>
 	<div class="footer-copy">
-		<p>© 2017. All rights reserved.</p>
+		<p>a product by Aarna ASSOCIATES © 2017. All rights reserved.</p>
 	</div>
 
 <!-- //footer -->
 <input type="hidden" name="loc" id="loc" value="${baseurl }" />
 <script src="js/ajax.js"></script>
 <script src="js/jquery-asPaginator.js"></script>
-<link rel="stylesheet" type="text/css" href="css/asPaginator.css">
+
 <script type="text/javascript">
 /* $(window).load(function() {
 	$('#myModal').modal();

@@ -284,8 +284,11 @@ window.setTimeout(function() {
 				<!-- Place somewhere in the <body> of your page -->
 				<div class="flexslider">
 					<ul class="slides">
-						<li><img src="user/images/banner1.jpg" alt="Slider" /></li>
-						<li><img src="user/images/banner2.jpg" alt="Slider" /></li>
+						<li><img src="user/images/banner1.jpg" alt="Slider Picture 1" /></li>
+						<li><img src="user/images/banner2.jpg" alt="Slider Picture 2" /></li>
+						<!-- <li><img src="user/images/banner3.jpg" alt="Slider Picture 3" /></li> -->
+						<li><img src="user/images/banner4.jpg" alt="Slider Picture 4" /></li>
+						<li><img src="user/images/banner5.jpg" alt="Slider Picture 5" /></li>
 					</ul>
 				</div>
 			</div>

@@ -1,14 +1,9 @@
 <%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://displaytag.sf.net" prefix="display"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
-<style>
- .error {
-        color: red; font-weight: bold;
-    }
-</style>
 
 <link href="${baseurl }/css/datepicker1.css" rel="stylesheet" type="text/css" />
 <script src="${baseurl }/js/jquery-ui.min.js"></script>
@@ -95,19 +90,7 @@
 <script src="${baseurl}/js/jquery-asPaginator.js"></script>
 <link rel="stylesheet" type="text/css" href="${baseurl}/css/asPaginator.css">
 <script type="text/javascript">
-/* var _gaq = _gaq || [];
-_gaq.push(['_setAccount', 'UA-38620714-4']);
-_gaq.push(['_trackPageview']);
 
-(function() {
-var ga = document.createElement('script');
-ga.type = 'text/javascript';
-ga.async = true;
-ga.src = ('https:' == document.k.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-var s = document.getElementsByTagName('script')[0];
-s.parentNode.insertBefore(ga, s);
-})();
- */
  var total_items_count = ${total_records};
  var page_size = ${page_size};
  var listOrders1 = ${premiumExpiredProfiles};
@@ -234,10 +217,3 @@ var listOrders2 = ${classicPlusExpiredProfiles};
 	}
  $(".dashboard").addClass("active");
 </script>
-
-</body>
-
-
-<!-- Mirrored from www.eakroko.de/flat/forms-basic.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 18 Sep 2017 09:43:06 GMT -->
-</html>
-

@@ -1,7 +1,7 @@
 html, body{
     font-size: 100%;
 	background:	#fff;
-	font-family: 'Monda', sans-serif !important;
+	font-family: 12px Arial,Verdana,Geneva,Helvetica,sans-serif !important;
 }
 p{
 	margin:0;
@@ -15,11 +15,11 @@ body a:hover{
 }
 /*-- header_top --*/
 .top_bg{
-	background:#B33800;
+	background:#0A223B;
     padding: 2px 0;
 }
 .header_top{
-	padding:0.5em 0;
+	padding:0;
 }
 .logo a{
 	font-size: 2em;
@@ -187,8 +187,7 @@ select.item_Size {
 	text-decoration:underline;
 }
 .mega_nav {
-  background-color: #F06526;
-  box-shadow: 0px 6px 5px #CCCBCB;
+  background-color: #1F5647;
 }
 .search {
   position: relative;
@@ -1183,7 +1182,7 @@ li.last_price span {
 	padding:2em 0 0;
 }
 .mid-grids h3 { color:#C00; margin-bottom:5px; font-size:22px; margin-top:0;}
-.mid-grids h4 { color:#C00; marginpbottom:20px; font-size:16px;}
+.mid-grids h4 { color:#C00; marginpbottom:20px; font-size:15px;}
 .mid-grids h4 span{ color:#333;}
 .mid-grids h5 { color:#C00; margin:0; font-size:16px;}
 .mid-grids h5 span{ color:#000; font-size:13px;}
@@ -1854,7 +1853,7 @@ h4.panel-title a {
 }
 .panel-body {
   padding:10px 15px;
-  color: #999;
+  color: #212121;
   line-height: 1.8em;
   font-size: 14px;
 }
@@ -3280,7 +3279,7 @@ label.radio {
 .glyphicon.glyphicon-envelope {
     font-size: 22px;
 }
-.profilesimilar h4{ color:#C00; font-weight:600; padding:0; margin:0;}
+.profilesimilar h4{ color:#C00; font-weight:500; padding:0; margin:0;}
 .profilesimilar p{ font-size:13px;padding:0; margin:0; }
 .profilesimilar span{ color:#00BCD5; text-decoration:underline; font-size:13px;}	
  hr {
@@ -3296,9 +3295,13 @@ label {
     min-height: 20px;
     padding: 19px;
     margin-bottom: 20px;
-    background-color: #ffebc8;
-    border: 1px solid #e3e3e3;
+    background-color: #1F5647;
+    border: 1px solid #1F5647;
     border-radius: 4px;
     -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+}
+
+.well a{
+	color:#FFF;
 }

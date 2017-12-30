@@ -133,6 +133,29 @@ public class HomePageController {
 		return String.valueOf(objJson);
 	}
 	
+	@RequestMapping(value = "/mobileNumChecking")
+	public @ResponseBody String mobileNumChecking(@ModelAttribute("createProfile") UsersBean objUsersBean, Model objeModel ,
+			HttpServletRequest request,HttpServletResponse response, HttpSession session) {
+		JSONObject objJson = new JSONObject();
+		
+		try {
+			boolean exists = objUsersDao.mobileNumExistOrNot(objUsersBean);
+			if(!exists){
+				objJson.put("msg", "notexist");
+			}else{
+				objJson.put("msg", "exist");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			logger.error(e);
+			logger.fatal("error in mobileNumChecking method  ");
+			objJson.put("msg", e);
+		}
+		return String.valueOf(objJson);
+	}
+	
 	@RequestMapping(value = "/userRegistration")
 	public String userRegistration(@ModelAttribute("createProfile") UsersBean objUsersBean, Model objeModel ,
 			HttpServletRequest request,HttpServletResponse response, HttpSession session) {
@@ -242,6 +265,13 @@ public class HomePageController {
 				 emailUtil = new EmailUtil();
 				 //emailUtil.sendUserRegisteredNotification(objUsersBean1, objContext);
 				 ///
+				 if(objUsersBean.getRoleId() == 4){
+					 session.setAttribute("allowed_profiles_limit", 0); 
+				 }else{
+					 int allowed_profiles_limit = objUsersDao.getAllowedProfilesLimit(objUsersBean.getId());
+					 session.setAttribute("allowed_profiles_limit", allowed_profiles_limit);
+				 }
+				 
 				 if(StringUtils.isNotBlank(objUsersBean.getRedirectPage())){
 					if("myProfile".equalsIgnoreCase(objUsersBean.getRedirectPage())){
 						objUserrequirementBean.setUserId(sessionBean.getId());
@@ -256,7 +286,7 @@ public class HomePageController {
 				 session.setAttribute("cacheGuest",newSessionBean);
 				 /////
 				 Object filled_status = session.getAttribute("profile_filled_status");
-				 int intValOfStatus = 0;
+				 int intValOfStatus = 100;
 				 if(filled_status != null){
 					 intValOfStatus = Integer.parseInt((String)filled_status);
 				 }
@@ -335,7 +365,7 @@ public class HomePageController {
 			 }
 			 if(StringUtils.isBlank(sessionBean.getFatherName()) && StringUtils.isBlank(sessionBean.getMotherName())){
 				 if(StringUtils.isNotBlank(objUsersBean1.getFatherName()) || StringUtils.isNotBlank(objUsersBean1.getMotherName())){
-					 session.setAttribute("profile_filled_status", (intValOfStatus+15)+"");
+					 session.setAttribute("profile_filled_status", (intValOfStatus+10)+"");
 				 } 
 			 }
 			 
@@ -450,7 +480,7 @@ public class HomePageController {
 									 intValOfStatus = Integer.parseInt((String)filled_status);
 								 }
 						    	if(StringUtils.isBlank(sessionBean.getImage())){
-						    		session.setAttribute("profile_filled_status", (intValOfStatus+15)+"");
+						    		session.setAttribute("profile_filled_status", (intValOfStatus+25)+"");
 						    	}
 								
 						    	/*BranchBean imageBean = objUserImageUploadDao.getByUserId(objUerImagesBean.getUserId());
@@ -545,7 +575,7 @@ public class HomePageController {
 			 }
 			 if(StringUtils.isBlank(objUserrequirementBean.getrAgeFrom()) && StringUtils.isBlank(objUserrequirementBean.getrAgeTo()) && StringUtils.isBlank(objUserrequirementBean.getrMaritalStatus())){
 				 if(StringUtils.isNotBlank(objUserrequirementBean.getrAgeFrom()) || StringUtils.isNotBlank(objUserrequirementBean.getrAgeTo()) || StringUtils.isNotBlank(objUserrequirementBean.getrMaritalStatus())){
-					 session.setAttribute("profile_filled_status", (intValOfStatus+15)+"");
+					 session.setAttribute("profile_filled_status", (intValOfStatus+10)+"");
 				 } 
 			 }
 			 
@@ -643,6 +673,69 @@ public class HomePageController {
 	   logger.fatal("error in HomePageController class familyDetails method");
 	  }
 	  return "myPhotos";
+	 }
+	 
+	 @RequestMapping(value = "/searchById")
+	 public String searchById(@ModelAttribute("createProfile") UsersBean objUserssBean, Model objeModel, HttpServletRequest request, HttpSession session) {
+	  
+		try {
+			UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
+			if(sessionBean == null){
+				return "redirect:HomePage";
+			}
+			
+
+			
+		} catch (Exception e) {
+	   e.printStackTrace();
+	   System.out.println(e);
+	   logger.error(e);
+	   logger.fatal("error in searchById method");
+	  }
+	  return "searchById";
+	 }
+	 
+	 @RequestMapping(value = "/searchByIdAction")
+	 public @ResponseBody String searchByIdAction(@ModelAttribute("createProfile") UsersBean objUserssBean, Model objeModel, HttpServletRequest request, HttpSession session) {
+		 List<Map<String, String>> listOrderBeans = null;
+		 JSONObject objJson =new JSONObject(); 
+		try {
+			UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
+			if(sessionBean == null){
+				return "redirect:HomePage";
+			}
+			//make sure all other search criteria options are empty;
+			String userName = objUserssBean.getUsername();
+			objUserssBean = new UsersBean();
+			objUserssBean.setUsername(userName);
+			
+			int page_no = 0;
+			String clicked_btn = request.getParameter("btn_id");
+			if(StringUtils.isNotBlank(clicked_btn))
+				page_no = (Integer.parseInt(clicked_btn))-1;
+			//request.setAttribute("total_records", listOfEmplyees.get(0).getToal_records());
+			
+			listOrderBeans = objUsersDao.getSearchResults(objUserssBean,page_no);
+			int total_records = 0;//limit - viewed_count;
+			request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
+			if (listOrderBeans != null && listOrderBeans.size() > 0) {
+				objJson.put("results", listOrderBeans);
+				total_records = Integer.parseInt(((Map<String, String>)listOrderBeans.get(0)).get("total_records"));
+				objJson.put("total_records", total_records)	;
+				//request.setAttribute("total_records", total_records);
+				// System.out.println(sJson);
+			} else {
+				objJson.put("results", "");
+				objJson.put("total_records", 0);
+			}
+			
+		} catch (Exception e) {
+	   e.printStackTrace();
+	   System.out.println(e);
+	   logger.error(e);
+	   logger.fatal("error in searchByIdAction method");
+	  }
+	  return objJson.toString();
 	 }
 	 
 	 @RequestMapping(value = "/fullProfile")
@@ -2044,6 +2137,10 @@ public class HomePageController {
 				objeModel.addAttribute("createProfile", objUserssBean);
 				session.setAttribute("profileToBeCreated", objUserssBean);
 				String mobileNum = objUserssBean.getMobile();
+				/*************
+				check OTP limit for the day
+				int count = objUsersDao.getOTPCount(mobileNum);
+				*************/
 				String otp = genOtp();
 			   //insert into table; userId
 			   boolean success = objUsersDao.saveOtp(mobileNum,otp);

@@ -102,28 +102,30 @@ public class LoginController {
 					session.setAttribute("rolId", objUserBean.getRoleId());
 					session.setAttribute("userName", objUserBean.getUsername());
 					if(StringUtils.isBlank(objUserBean.getMaritalStatus())){
-						session.setAttribute("profile_filled_status", "0");
+						session.setAttribute("profile_filled_status", "10");
 						return "redirect:profile.htm?page=1";
 					}else if(StringUtils.isBlank(objUserBean.getEducation())){
-						session.setAttribute("profile_filled_status", "15");
+						session.setAttribute("profile_filled_status", "25");
 						return "redirect:profile.htm?page=2";
 					}else if(StringUtils.isBlank(objUserBean.getHeight())){
-						session.setAttribute("profile_filled_status", "30");
+						session.setAttribute("profile_filled_status", "35");
 						return "redirect:profile.htm?page=3";
 					}else if(StringUtils.isBlank(objUserBean.getAboutMyself()) && StringUtils.isBlank(objUserBean.getDisability())){
 						session.setAttribute("profile_filled_status", "45");
 						return "redirect:profile.htm?page=4";
-					}else if(StringUtils.isBlank(objUserBean.getFatherName())){
+					}
+					else if(StringUtils.isBlank(objUserBean.getFatherName())){
 						session.setAttribute("profile_filled_status", "55");
 						return "redirect:family-details";
 					}else if(StringUtils.isBlank(objUserBean.getImage())){
-						session.setAttribute("profile_filled_status", "70");
+						session.setAttribute("profile_filled_status", "65");
 						return "redirect:uploadPhotos";
 					}else if(StringUtils.isBlank(objUserBean.getrAgeFrom()) && StringUtils.isBlank(objUserBean.getrAgeTo()) &&
 							StringUtils.isBlank(objUserBean.getrMaritalStatus()) ){
-						session.setAttribute("profile_filled_status", "85");
+						session.setAttribute("profile_filled_status", "90");
 						return "redirect:partner-profile";
-					}else{
+					}
+					else{
 						session.setAttribute("profile_filled_status", "100");
 						return "redirect:dashboard";
 					}

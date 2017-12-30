@@ -92,16 +92,16 @@ function checkEmail(str) {
 	}
 }
 
-$(".emailOnly").on(	"keypress",	function(e) {
+/*$(".emailOnly").on(	"keypress",	function(e) {
 
 					// console.log(event.which);
 					var expr = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
 					// var expr =/[A-Z0-9a-z@]/;
 					var key = String.fromCharCode(event.which);
-					/*
+					
 					 * if($(".emailOnly").match(expr)) { console.log("Email");
 					 * return true; }
-					 */
+					 
 					if (e.test(expr)) {
 						console.log("Email");
 						return true;
@@ -110,7 +110,7 @@ $(".emailOnly").on(	"keypress",	function(e) {
 					// regEx = /[A-Z0-9a-z@]/;
 					// return regEx.test(keychar);
 					return false;
-				});
+				});*/
 
 $('.nospecialCharacter').bind('keypress', function validate(e) {
 	var regex = new RegExp("[a-zA-Z0-9]");
@@ -153,6 +153,35 @@ $(".onlyCharacters").on("keypress",	function(event) {
 
 // ---------------------------------------------------
 
+var styleBlock = '.placeholder-style.placeholder-style::-moz-placeholder {color: #cc0000;} .placeholder-style::-webkit-input-placeholder {color: #cc0000;}';
+var emailExist = true;
+var expr = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+$('.emailOnly').blur(function(event) {
+	var email = $('#email').val();
+	/*if(email == "" || email == null || email == "undefined")
+	{
+		$("#email").css("border-color","#e73d4a");
+		$("#email").attr("placeholder","Enter Email");
+		$('#email').css('color','#e73d4a');
+		emailExist = false;
+	}*/
+	if(email != "" && !email.match(expr))
+	{
+		$('style').append(styleBlock);
+	 	$("#email").css("border-color","#e73d4a");
+	 	$('#email').css('color','#e73d4a');
+//	 	$("#email").addClass('placeholder-style your-class');
+	 	$('#emailError111').text("Please Enter Valid Email-ID");
+ 		emailExist = false;
+		return false;
+	}
+	else{
+//		$('#emailError').text("");
+		emailExist = true;
+		event.preventDefault();
+	}
+});
+
 // input placeholders
 $("input").each(function() {
 	$(this).data('holder', $(this).attr('placeholder'));
@@ -176,7 +205,7 @@ $("input").each(function() {
 			}
 		});*/
 // onblur validation
-var styleBlock = '.placeholder-style.placeholder-style::-moz-placeholder {color: #cc0000;} .placeholder-style::-webkit-input-placeholder {color: #cc0000;}';
+
 $('.validate').blur(function() {
 	var id = $(this).attr('id');
 	var placeholder = $(this).attr('placeholder');
@@ -196,8 +225,8 @@ $('.validate').blur(function() {
 var idArray = $.makeArray($('.validate').map(function() {
 	return this.id;
 }));
-//console.log(idArray);
-// submit validation
+//	console.log(idArray);
+//	submit validation
 var validation = true;
 
 $('#submit1').click(function(event) {
@@ -215,7 +244,7 @@ $('#submit1').click(function(event) {
 			validation = false;
 		} 
 	});
-	if(validation) {
+	if(validation && emailExist) {
 		$("#submit1").attr("disabled",true);
 		$("#submit1").val("Please wait...");
 		$("form").submit();											
@@ -264,7 +293,6 @@ $(".cancel").click(function()
 		}
 	});
 });
-
 
 //
 $('.validate').keydown(function() {
