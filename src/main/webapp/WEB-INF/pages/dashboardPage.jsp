@@ -568,8 +568,8 @@ function displayMatches(listOrders) {
 	            + 	'<div class="profilesimilar">'
 	            + 		'<table width="100%" border="0" cellspacing="0" cellpadding="0">'
 	            + 			'<tr><td><h4>'+firstname+'&nbsp;'+lastname+'</h4>&nbsp;('+orderObj.username+')</td></tr>'
-	            + 			'<tr><td><p>'+orderObj.dobString+'yrs, '+orderObj.religionName+', '+orderObj.casteName+',</p></td></tr>'
-	            + 			'<tr><td><p>'+orderObj.age+'&nbsp'+orderObj.occupationName+', '+orderObj.currentCityName+', '+orderObj.currentCountryName+'.</p></td></tr>'
+	            + 			'<tr><td><p>'+orderObj.dobString+', '+orderObj.religionName+', '+orderObj.casteName+',</p></td></tr>'
+	            + 			'<tr><td><p>'+orderObj.age+'yrs&nbsp'+orderObj.occupationName+', '+orderObj.currentCityName+', '+orderObj.currentCountryName+'.</p></td></tr>'
 	            //+			mobile_no__str
 	            //+ 			'<tr><td><span><a href="#" onclick="fullProfile('+orderObj.id+')">Full Profile</span> </td></tr>'
 	            + 		'</table>'
