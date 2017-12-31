@@ -847,7 +847,7 @@ $("#submit11").click(function(event){
 		return false;
 	}
 	if(emailExist){
-		alert("exist");
+		//alert("exist");
 		return false;
 	}
  	$("#firstForm").hide();

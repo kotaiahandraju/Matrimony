@@ -251,6 +251,7 @@ public class HomePageController {
 					UsersBean sessionBean =(UsersBean)session.getAttribute("cacheGuest");
 				//get session bean values 
 				UsersBean  objUsersBean1 = objUsersDao.getById(sessionBean.getId());
+				objUsersBean1.setMobile(objUsersBean.getMobile());
 				 if(objUsersBean != null){
 				 objeModel.addAttribute("createProfile", objUsersBean);
 				 }
@@ -259,11 +260,11 @@ public class HomePageController {
 				 EmailUtil emailUtil = new EmailUtil();
 				 // email to user
 				 if(StringUtils.isNotBlank(objUsersBean.getEmail())){
-					//emailUtil.sendWelcomeMail(objUsersBean1, objContext);
+					emailUtil.sendWelcomeMail(objUsersBean1, objContext);
 				 }
 				 //email to Admin
 				 emailUtil = new EmailUtil();
-				 //emailUtil.sendUserRegisteredNotification(objUsersBean1, objContext);
+				 emailUtil.sendUserRegisteredNotification(objUsersBean1, objContext);
 				 ///
 				 if(objUsersBean.getRoleId() == 4){
 					 session.setAttribute("allowed_profiles_limit", 0); 
@@ -683,7 +684,9 @@ public class HomePageController {
 			if(sessionBean == null){
 				return "redirect:HomePage";
 			}
-			
+			request.setAttribute("allOrders1", "null");
+			request.setAttribute("total_records", MatrimonyConstants.FREE_USER_PROFILES_LIMIT);
+			request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
 
 			
 		} catch (Exception e) {
@@ -2106,19 +2109,36 @@ public class HomePageController {
    HttpSession session,
    Model mod)
    {
+	   UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
+		if(sessionBean == null){
+			return "redirect:HomePage";
+		}
 	   UsersBean profile = (UsersBean)session.getAttribute("profileToBeCreated");
 	   objeModel.addAttribute("createProfile", profile);
 	   String mobileNum = profile.getMobile();
 	   String otp1 = request.getParameter("otp1");
-	   
-	   String otp = objUsersDao.getOtpOf(mobileNum)+"";
-	   if(otp.equals(otp1)){
-		   objUsersDao.updateOtpStatus(mobileNum,otp);
-		   
-		   return "redirect:saveUserProfile";
+	   /*************
+		check OTP limit for the day
+		
+		*************/
+	   int count = objUsersDao.getOTPCount(mobileNum);
+	   if(count<=MatrimonyConstants.OTP_LIMIT){
+		   String otp = objUsersDao.getOtpOf(mobileNum)+"";
+		   if(otp.equals(otp1)){
+			   objUsersDao.updateOtpStatus(mobileNum,otp);
+			   
+			   return "redirect:saveUserProfile";
+		   }else{
+			   objUsersDao.delete(profile.getId());
+			   request.setAttribute("message", "OTP mismatched.Please try again.");
+			   return "otpFailurePage";
+		   }
 	   }else{
-		   return "otpFailurePage";
+		   objUsersDao.delete(profile.getId());
+		   request.setAttribute("message", "OTP limit for the day has been exceeded. Please try again later.");
+		   return "redirect:HomePage";
 	   }
+	   
 	   
 	   
 
@@ -2137,10 +2157,6 @@ public class HomePageController {
 				objeModel.addAttribute("createProfile", objUserssBean);
 				session.setAttribute("profileToBeCreated", objUserssBean);
 				String mobileNum = objUserssBean.getMobile();
-				/*************
-				check OTP limit for the day
-				int count = objUsersDao.getOTPCount(mobileNum);
-				*************/
 				String otp = genOtp();
 			   //insert into table; userId
 			   boolean success = objUsersDao.saveOtp(mobileNum,otp);

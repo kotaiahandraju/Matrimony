@@ -46,7 +46,8 @@ public class EmailUtil {
 	        
 			body = prop.getProperty("admin_send_password");
 			body = body.replace("_name_",objUsersBean.getFirstName());
-			body = body.replace("_username_", objUsersBean.getUsername());
+			//body = body.replace("_username_", objUsersBean.getUsername());
+			body = body.replace("_username_", objUsersBean.getEmail());
 			body = body.replace("_password_", objUsersBean.getPassword());
 			body = body.replace("_img_", "cid:image2");
 	        
@@ -194,5 +195,106 @@ public class EmailUtil {
 	        }
 			return subject;
 	}
+	
+	public String sendUserRegisteredNotification(UsersBean objUsersBean,
+			ServletContext objContext) throws AddressException,
+			MessagingException, IOException {
+		String subject = null;
+		Properties prop = new Properties();
+		InputStream input = null;
+		String body = null;
+		try{
+	 
+	        
+	        
+//	        -------------------------------------------------------------------------------------------
+			
+			
+	        String propertiespath = objContext.getRealPath("Resources" +File.separator+"DataBase.properties");
+			//String propertiespath = "C:\\PRO\\Database.properties";
+			input = new FileInputStream(propertiespath);
+			// load a properties file
+			prop.load(input);
+			String mailTo = prop.getProperty("adminemail");
+			String host = prop.getProperty("host");
+			String port = prop.getProperty("port");
+			String mailFrom = prop.getProperty("usermail");
+			String password = prop.getProperty("mailpassword");
+	        	subject = prop.getProperty("user_registered_email_subject");
+	        	subject = subject.replace("_username_",objUsersBean.getUsername());
+	        	
+				body = prop.getProperty("user_registered_email_body");
+				body = body.replace("_username_",objUsersBean.getUsername());
+				body = body.replace("_dateandtime_", objUsersBean.getCreatedTimeAsString());
+			
+			body = body.replace("_img_", "cid:image2");
+	        
+			// inline images
+	        Map<String, String> inlineImages = new HashMap<String, String>();
+//	        inlineImages.put("image1", objContext.getRealPath("images" +File.separator+"telugu.png"));
+	        inlineImages.put("image2", objContext.getRealPath("images" +File.separator+"logo.jpg"));
+	 
+	       
+	            EmbeddedImageEmailUtil.send(host, port, mailFrom, password, mailTo,
+	                subject, body.toString(), inlineImages);
+	            System.out.println("Email sent.");
+	        } catch (Exception ex) {
+	            System.out.println("Could not send email.");
+	            ex.printStackTrace();
+	        }
+			return subject;
+	}
+	
+	public String sendWelcomeMail(UsersBean objUsersBean,
+			ServletContext objContext) throws AddressException,
+			MessagingException, IOException {
+		String subject = null;
+		Properties prop = new Properties();
+		InputStream input = null;
+		String body = null;
+		try{
+	 
+	        String mailTo = objUsersBean.getEmail();
+	        
+//	        -------------------------------------------------------------------------------------------
+			
+			
+	        String propertiespath = objContext.getRealPath("Resources" +File.separator+"DataBase.properties");
+			input = new FileInputStream(propertiespath);
+			prop.load(input);
+			String host = prop.getProperty("host");
+			String port = prop.getProperty("port");
+			String mailFrom = prop.getProperty("usermail");
+			String password = prop.getProperty("mailpassword");
+	        
+			subject = prop.getProperty("welcome_mail_subject");
+			
+			body = prop.getProperty("welcome_mail_body");
+			/*body = body.replace("_name_",objUsersBean.getFirstName());
+			//body = body.replace("_username_", objUsersBean.getUsername());
+			body = body.replace("_username_", objUsersBean.getEmail());
+			body = body.replace("_password_", objUsersBean.getPassword());*/
+			body = body.replace("_img_", "cid:image2");
+	        
+			
+	        
+	       
+	 
+	        // inline images
+	        Map<String, String> inlineImages = new HashMap<String, String>();
+//	        inlineImages.put("image1", objContext.getRealPath("images" +File.separator+"telugu.png"));
+	        inlineImages.put("image2", objContext.getRealPath("images" +File.separator+"logo.jpg"));
+	 
+	       
+	            EmbeddedImageEmailUtil.send(host, port, mailFrom, password, mailTo,
+	                subject, body.toString(), inlineImages);
+	            System.out.println("Email sent.");
+	        } catch (Exception ex) {
+	            System.out.println("Could not send email.");
+	            ex.printStackTrace();
+	        }
+			return subject;
+	}
+	
 }
 			

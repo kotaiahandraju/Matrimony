@@ -47,7 +47,7 @@ public class UsersDao extends BaseUsersDao
 			String sql = "SELECT u.*,ureq.*,ifnull(u.age,'') as age,  GROUP_CONCAT(uimg.image) as image, (select uimg.image from user_images uimg where uimg.user_id=u.id and uimg.is_profile_picture='1') as profileImage, "
 							+" cst.name as casteName, rel.name as religionName, edu.name as educationName, curcity.name as currentCityName ,"
 							+" occ.name as occupationName,  "
-							+" DATE_FORMAT(u.dob, '%d-%m-%Y') as dob "
+							+" DATE_FORMAT(u.dob, '%d-%m-%Y') as dob, DATE_FORMAT(u.created_time, '%d-%M-%Y') as createdTimeAsString "
 							+" FROM users u left join user_images uimg on uimg.user_id=u.id left join userrequirement ureq on ureq.userId=u.id  "
 							+" left join cast cst on cst.id=u.caste left join religion rel on rel.id=u.religion "
 							+" left join education edu on edu.id=u.education left join occupation occ on occ.id=u.occupation left join city curcity on curcity.id=u.currentCity "
@@ -1123,12 +1123,11 @@ public class UsersDao extends BaseUsersDao
 			 jdbcTemplate = custom.getJdbcTemplate();
 				String sql = "SELECT count(*) FROM users where mobile = ? ";
 				int count = jdbcTemplate.queryForInt(sql,
-				new Object[]{objUsersBean.getMobile()},
-				ParameterizedBeanPropertyRowMapper.newInstance(UsersBean.class));
-				if(count==1){
-					return true;
+						new Object[]{objUsersBean.getMobile()});
+				if(count==0){
+					return false;
 				}
-				return false;
+				return true;
 			}
 		
 		public boolean autoCompleteSave(AutoCompleteBean objAutoCompleteBean){
@@ -1704,7 +1703,7 @@ public boolean deletePhoto(String photoId){
 	
 	public int getOTPCount(String mobileNum){
 		jdbcTemplate = custom.getJdbcTemplate();
-		String qryStr = "select count(*) from user_otps where mobile_no = 8885006665 and date(updated_time) = current_date()";
+		String qryStr = "select count(*) from user_otps where mobile_no = "+mobileNum+" and date(updated_time) = current_date()";
 		try{
 			int count = jdbcTemplate.queryForInt(qryStr);
 			return count;

@@ -262,7 +262,7 @@
 					    <div class="form-group">
 					      <label class="col-md-4 control-label" for="textinput">Your Mobile number <span class='manditory'>*</span></label>  
 					      <div class="col-md-6">
-					      <form:input path="mobile" class="form-control numericOnly u"  onblur="validate(this.id,'Enter Mobile');" onkeydown="removeBorder(this.id)" maxlength="13" placeholder="Mobile Number"/>
+					      <form:input path="mobile" class="form-control numericOnly"  onblur="validate(this.id,'Enter Mobile');" onkeydown="removeBorder(this.id)" maxlength="13" placeholder="Mobile Number"/>
 					      <span class="hasError" id="mobileError" style="font-size: 13px;"></span>
 					      </div>
 					    </div>
@@ -324,6 +324,7 @@
     
 
 <script>
+var mobileExists = false;
 $( document ).ready(function() {
 	if($("#currentState").val()== null   || $("#currentState").val() == "" || $("#currentState").val()=="undefined"){
 		$("#currentCity").attr("readonly", true);
@@ -473,6 +474,11 @@ function secondForm(event)
 
 function thirdForm(event)
 {
+	mobileExists = false;
+	/* if($('#mobile').val() !=  null && $('#mobile').val() != ""  && $('#mobile').val()!="undefined"){
+		isMobileNumDuplicate();
+		event.preventDefault();
+	} */
 	if($('#smoking').val() ==  null || $('#smoking').val() == "" || $('#smoking').val()=="undefined" || 
 		$('#drinking').val() ==  null || $('#drinking').val() == ""  || $('#drinking').val()=="undefined" || 
 		$('#height').val() ==  null || $('#height').val() == ""  || $('#height').val()=="undefined" || 
@@ -507,18 +513,37 @@ function thirdForm(event)
 	}
 	else
 	{
-		$("#firstForm").hide();
-		$('#secondForm').hide();
-		$("#thirdForm").hide();
-		$('#fourthForm').show();
-		ChangeUrl('page1', 'profile.htm?page=4');
-		event.preventDefault();
-		
-		$("#step1").removeClass("btn-primary");
-		 $("#step2").removeClass("btn-primary");
-		 $("#step3").removeClass("btn-primary");
-		 $("#step4").addClass("btn-primary");
+		isMobileNumDuplicate();
+		/* if(mobileExists){
+			 $("#firstForm").hide();
+			$('#secondForm').hide();
+			$("#thirdForm").show();
+			$('#fourthForm').hide();
+			ChangeUrl('page1', 'profile.htm?page=4');
+			event.preventDefault();
+			
+			$("#step1").removeClass("btn-primary");
+			 $("#step2").removeClass("btn-primary");
+			 $("#step3").removeClass("btn-primary");
+			 $("#step4").addClass("btn-primary"); 
+			 event.preventDefault();
+			return false;
+		}else{
+			$("#firstForm").hide();
+			$('#secondForm').hide();
+			$("#thirdForm").hide();
+			$('#fourthForm').show();
+			ChangeUrl('page1', 'profile.htm?page=4');
+			event.preventDefault();
+			
+			$("#step1").removeClass("btn-primary");
+			 $("#step2").removeClass("btn-primary");
+			 $("#step3").removeClass("btn-primary");
+			 $("#step4").addClass("btn-primary");
+			return true;
+		} */
 		return true;
+		
 	}
 }
 function fourthForm(event){
@@ -709,7 +734,15 @@ function getCitys(id){
 			 $("#haveChildrenId").show();
 		 }
 		}
-	$('#mobile').blur(function() {
+	
+	/* function isMobileNumDuplicate(){
+		var retVal = "";
+		var res = mobileNumChecking();
+		alert("retVal:"+retVal);
+		return retVal;
+	}  */
+	
+	function isMobileNumDuplicate(){
 		var formData = new FormData();
 	    formData.append('mobile', $("#mobile").val());
 		$.fn.makeMultipartRequest('POST', 'mobileNumChecking', false,
@@ -718,12 +751,39 @@ function getCitys(id){
 			if(jsonobj.msg =="exist"){
 				//error message write
 				$('#mobileError').text("Mobile number already in Use. Please Try Another.");
-				emailExist = true;
+				mobileExists = true;
+				$("#firstForm").hide();
+				$('#secondForm').hide();
+				$("#thirdForm").show();
+				$('#fourthForm').hide();
+				event.preventDefault();
+				
+				$("#step1").removeClass("btn-primary");
+				 $("#step2").removeClass("btn-primary");
+				 $("#step3").addClass("btn-primary");
+				 $("#step4").removeClass("btn-primary");
+				return true;
+				
 			}else{
 				$('#mobileError').text("");
+				mobileExists = false;
+				$("#firstForm").hide();
+				$('#secondForm').hide();
+				$("#thirdForm").hide();
+				$('#fourthForm').show();
+				ChangeUrl('page1', 'profile.htm?page=4');
+				event.preventDefault();
+				
+				$("#step1").removeClass("btn-primary");
+				 $("#step2").removeClass("btn-primary");
+				 $("#step3").removeClass("btn-primary");
+				 $("#step4").addClass("btn-primary");
+				return true;
 				
 			}
 		});
-	});
+	};
+		
+
 </script>
 <%@ include file="userStepsFooter.jsp"  %>

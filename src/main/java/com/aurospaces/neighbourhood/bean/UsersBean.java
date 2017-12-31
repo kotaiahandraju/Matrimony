@@ -9,6 +9,7 @@ public class UsersBean
 protected int id   = 0;
 
 protected Date createdTime ;
+protected String createdTimeAsString ;
 protected Date updatedTime ;
 protected String last_ip;
 protected int roleId ;
@@ -94,6 +95,7 @@ protected String complexionName;
 protected String bodyTypeName;
 protected int page_no;
 protected int total_records;
+protected int OtpLimit;
 
 
 public String getRhaveChildren() {
@@ -809,6 +811,18 @@ public String getMobileNumViewedByMeCount() {
 }
 public void setMobileNumViewedByMeCount(String mobileNumViewedByMeCount) {
 	this.mobileNumViewedByMeCount = mobileNumViewedByMeCount;
+}
+public String getCreatedTimeAsString() {
+	return createdTimeAsString;
+}
+public void setCreatedTimeAsString(String createdTimeAsString) {
+	this.createdTimeAsString = createdTimeAsString;
+}
+public int getOtpLimit() {
+	return OtpLimit;
+}
+public void setOtpLimit(int otpLimit) {
+	OtpLimit = otpLimit;
 }
 
 

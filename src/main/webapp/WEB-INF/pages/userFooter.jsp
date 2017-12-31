@@ -38,7 +38,7 @@
 			<div class="clearfix"></div>
 		</div>
 		<div class="footer-copy">
-			<p>a product by Aarna ASSOCIATES © 2017. All rights reserved.</p>
+			<p>A product of Aarna Associates © 2017. All rights reserved.</p>
 		</div>
 	</div>
 </div>

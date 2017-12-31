@@ -134,7 +134,7 @@
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Search</a>
 								<ul class="dropdown-menu">
 									<li><a href="searchProfiles">Regular search</a></li>
-									<li><a href="#">Search by ID </a></li>
+									<li><a href="searchById">Search by ID </a></li>
 									<li><a href="#">Recently view profiles</a></li>
 								</ul>
 							</li>

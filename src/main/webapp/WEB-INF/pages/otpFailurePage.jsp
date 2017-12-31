@@ -147,11 +147,17 @@ body {
      
    <div class="row">
    <div class="midcontnet">
+   <div class="col-sm-12">
+		<div class="errorMessage" id="Create Profile_invalid_em_" >
+		
+			<c:if test="${not empty message}">
+				<div class="alert alert-success fadeIn animated">${message}</div>
+				<a href="HomePage" class="btn4 btn btn-info">Go to Homepage</a>
+			</c:if>
+		</div>
+		
+	</div>
    
-   <div class="col-md-8">
-   		Sorry. OTP mismatched!! Try again.<br>
-   		<a href="HomePage" class="btn4 btn btn-info">Go to Homepage</a>
-   </div>
    
    <div class="col-md-4">
      <img src="user/images/pad.jpg" class="img-responsive">
