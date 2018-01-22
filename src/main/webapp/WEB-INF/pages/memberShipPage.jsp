@@ -4,7 +4,21 @@
 <%@ taglib uri="http://displaytag.sf.net" prefix="display"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
-
+<style>
+.table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+    min-height: 20px;
+    padding: 19px;
+    margin-bottom: 20px;
+    background-color: #f5f5f5;
+    border: 1px solid #e3e3e3;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+</style>
 				<div class="col-md-5 col-sm-12"></div>
 	            <div  class="clearfix"></div>    
 			</div>
@@ -12,13 +26,13 @@
 
 		<div class="row">
 			<div class="midcontnet">
-				<div class="col-md-8">
+				<div class="col-md-12">
 					<!-- 3rd Step starts here-->
 					<div id="thirdForm">
 						<div class="col-md-12 text-center">
 							<h3>Upgrade Membership</h3>
-					    </div>
-					    <div class="col-md-12 table-responsive">
+					    </div>			
+					    <div class="col-md-9"  style="margin-top:20px;">
 					    <form:form commandName="payment" action="savePayment" class="form-horizontal" id="payment-form" role="form" method="post">
 					    	<div class="well">
 					    		<table class="table table-hover">

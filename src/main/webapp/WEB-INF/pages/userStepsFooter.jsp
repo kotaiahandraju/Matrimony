@@ -1,4 +1,4 @@
-			<div class="col-md-4">
+			<div class="col-md-3">
 				<img src="user/images/pad.jpg" class="img-responsive">
 			</div>
 			<div class="clearfix"></div>

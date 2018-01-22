@@ -1,9 +1,18 @@
 <%@ include file="userHeader.jsp"%>
-
+<style>
+.ui-dialog-titlebar-close
+{
+ width: 25px;
+    height: 25px;
+    background-image: url(img/close.png);
+    background-repeat: no-repeat;
+}
+</style>
 			<div class="col-md-8 products-grid-left">
 				<div class="panel panel-success">
 					<div class="panel-heading">My Photos</div>
 					<div class="panel-body">
+					
 				<div id="imagesDiv" class="row" style="margin-bottom: 0.4em;">
 			      	<c:forEach items="${photosList}" var="photo" >
 			      		<div id="div${photo.id}" class="col-md-3">

@@ -43,7 +43,14 @@
 	</div>
 </div>
 <!-- //footer -->
-
+<script>
+var selectIds = $('#panel1,#panel2,#panel3');
+$(function ($) {
+    selectIds.on('show.bs.collapse hidden.bs.collapse', function () {
+        $(this).prev().find('.glyphicon').toggleClass('glyphicon-plus glyphicon-minus');
+    })
+});
+</script>
 	<script src="js/bootstrap.min.js"></script>
 	
 	<!-- start-smoth-scrolling -->

@@ -837,6 +837,7 @@ article.blog-post .img-left {
 .contact-info {
     color: #000;
     text-align: right;
+    margin-right:10px;
 }
 .contact-info h5, .contact-info p i, .contact-info span {
     color: #E6AD38;

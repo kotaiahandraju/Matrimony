@@ -98,6 +98,38 @@
 .multiSelect{
 	width: 187px;
 }
+.dropdown-menu {
+box-shadow: 0px 0px 2px 0px #363636;
+border-radius: 6px;
+}
+.dropdown-menu:after {
+       content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 40px;
+    margin-left: 0;
+    width: 0;
+    height: 0;
+    border-bottom: 8px solid #ffffff;
+    border-right: 8px solid transparent;
+    border-left: 8px solid transparent;
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0px, 0);
+    transform: translate3d(0, 0px, 0);
+    -webkit-transition: all .1s ease-in-out;
+    transition: all .1s ease-in-out;
+}
+#matchcount {
+background-color: red;
+color: #ffffff;
+padding: 2px 4px;
+font-size: 11px;
+border: none;
+cursor: pointer;
+border-radius: 5px;
+vertical-align: top;
+margin:2px 2px;
+}
 @-webkit-keyframes hue {
   from {
     -webkit-filter: hue-rotate(0deg);
@@ -185,7 +217,7 @@
 								</ul>
 							</li>
 							<li class="dropdown matches">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Matches</a>
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Matches<span id="matchcount">1000</span></a>
 								<ul class="dropdown-menu">
 									<li><a href="newMatches">New Matches</a></li>
 									<li><a href="#">Still remaining to view </a></li>
@@ -194,7 +226,7 @@
 								</ul>
 							</li>
 							<li class="dropdown messages">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Messages</a>
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Messages<span id="matchcount">2000</span></a>
 								<ul class="dropdown-menu">
 									<li><a href="pendingRequests">Inbox - pending </a></li>
 									<li><a href="#">Inbox - Accepted ${pendingRequestsCount}</a></li>
@@ -285,16 +317,14 @@
 									<table width="100%">
 										<tr>
 											<td height="30"><a href="receivedRequests">Invitations</a></td>
-											<td><span class="badge pull-right">${cacheGuest.receivedInterestCount}</span></td>
+											<td><div id="" style="color:#fff;border-radius:4px; float:right; background:#5c9cdd;padding:1px 5px;" class=""><span>34 New<span><img src="img/msg-star-icon.png" style="vertical-align:top;"></span></span> / 54</div>
+										</td>
 										</tr>
 										<tr>
-											<td height="30"><a href="#">Members</a></td>
+											<td height="30"><a href="#">Accepted</a></td>
 											<td><span class="badge pull-right">${cacheGuest.acceptedInterestCount}</span></td>
 										</tr>
-										<tr>
-											<td height="30"><a href="profileViewedMembers">Profile Viewed</a></td>
-											<td><span class="badge pull-right">${cacheGuest.profileViewedCount}</span></td>
-										</tr>
+										
 									</table>
 								</div>
 								<div class="tab-pane" id="sent">
@@ -308,6 +338,40 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</div><div class="panel-group" id="accordion">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+             <h4 class="panel-title">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#panel1"><i class="glyphicon glyphicon-minus"></i>Panel 1</a>
+            </h4>
+
+        </div>
+        <div id="panel1" class="panel-collapse collapse in">
+            <div class="panel-body">Contents panel 1</div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+             <h4 class="panel-title">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#panel2"><i class="glyphicon glyphicon-plus"></i>Panel 2</a>
+            </h4>
+
+        </div>
+        <div id="panel2" class="panel-collapse collapse">
+            <div class="panel-body">Contents panel 2</div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+             <h4 class="panel-title">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#panel3"><i class="glyphicon glyphicon-plus"></i>Panel 3</a>
+            </h4>
+
+        </div>
+        <div id="panel3" class="panel-collapse collapse">
+            <div class="panel-body">Contents panel 3</div>
+        </div>
+    </div>
+</div>
 			</div>
 			<div id="dial1"></div>
