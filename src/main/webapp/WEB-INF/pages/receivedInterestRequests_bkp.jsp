@@ -16,8 +16,10 @@
 <link href="user/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 <link href="user/css/style-profile.css" rel="stylesheet" type="text/css" media="all" />
 <link href="user/css/megamenu.css" rel="stylesheet" type="text/css" media="all" />
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" />
 <!-- js -->
 <script src="user/js/jquery-1.11.1.min.js"></script>
+<script src="js/jquery-ui.min.js"></script>
 <!-- //js -->
 <!-- start-smoth-scrolling -->
 <!-- <script type="text/javascript" src="user/js/move-top.js"></script>
@@ -87,10 +89,10 @@ if(session.getAttribute("cacheGuest") != null){
 		 <div class="menu_sec">
 		 <!-- start header menu -->
 		<ul class="megamenu skyblue">
-			<li class="active" ><a class="color1" href="dashboard">Dashboard</a></li>
+			<li class="active"><a class="color1" href="dashboard">Dashboard</a></li>
 			<li><a class="color1" href="myProfile">My Profile</a></li>
             <li><a class="color1" href="myPhotos">My Photos</a></li>
-            <li><a class="color1" href="searchPage">Search</a></li>
+            <li><a class="color1" href="searchProfiles">Search</a></li>
              <li><a class="color1" href="#">More</a></li>
 		</ul> 
 			<div class="clearfix"></div>
@@ -207,102 +209,67 @@ if(session.getAttribute("cacheGuest") != null){
              
                 
                 
-                <div class="col-md-6 products-grid-left">
-					<div class="panel panel-default">
-				<div class="panel-body">
-					Complete the remaining Profile
-               <div class="progress">
-  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
-  aria-valuemin="0" aria-valuemax="100" style="width:${profile_filled_status}%">
-    <%= session.getAttribute("profile_filled_status") %>% Complete 
-  </div>
-</div>
-				<p>
-                <span class="glyphicon glyphicon-envelope"></span> Verify your Email <a href="#"><u>Verify Email Address</u></a>
-                </p>
+                <div class="col-md-9 products-grid-left">
+					
+            <!-- <div class="panel panel-default">
+            
+            <div class="panel-body">
+				<div class="col-md-9">
+            	<div id="tableId">
+            		<table class="table table-hover table-nomargin table-bordered" >
+            			<thead>
+            				<tr>
+            					<th>UserName</th>
+            					<th>Received On</th>
+            					<th></th></tr>
+            			</thead>
+            			<tbody>
+            			</tbody>
+            		</table>
 				</div>
-				
-			</div>
-            
-            
-            <div class="panel panel-default">
+				<div id="paginator"></div>
+				<div id="table_footer"></div>
+            	</div>
+         </div></div> -->
+         
+			<form:form commandName="createProfile"  class="form-horizontal" id="searchForm2" name="searchForm2" role="form"   method="post">
+			<form:hidden path="id"/>
+			<!-- <div class="col-sm-12">
+				<div class="box">
+					<div class="box-title">
+						<h3>
+							<i class="fa fa-table"></i>
+							Received Interest Requests
+						</h3>
+					</div>
+					<div id="tableId">
+					</div>
+					<div id="paginator"></div>
+					<div id="table_footer"></div>
+				</div>
+			</div> -->
+			<div class="panel panel-default">
 	            <div class="panel-heading">
 	            	New Matches (150) <span class="pull-right"> <a href="#">View All</a></span>
 	            </div>
-				<div class="panel-body" id="matches">
+	            
+					<div class="panel-body" id="tableId">
+						
+					</div>
 					
-				</div>
-			</div>
-				</div>
-                
-                
-                
-                
-                
-              <div class="col-md-3 products-grid-right">
-					
-                    
-                    
-                  <!-- <div class="panel panel-default">
 				
-				<div class="panel-body"> -->
-					
-<%-- <form:form commandName="createProfile"  action="searchProfile" method="post" class="form-horizontal">
-<fieldset>
-
-<!-- Text input-->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="textinput">Age</label>  
-  <div class="col-md-4">
-  	<select  id="rAgeFrom" class="form-control" style="padding: 0px;"></select>
-<!--   	<input type="number" min="20" max="55" name="ageFrom" placeholder="from" class="form-control"/> -->
-<!--    <input id="textinput" name="textinput" type="text" placeholder="Age" class="form-control input-md"> -->
-  </div>
-  <div class="col-md-4">
-  	<select  id="rAgeTo" class="form-control" style="padding: 0px;"></select>
-<!--   	<input type="number" min="20" max="55" name="ageTo" placeholder="to" class="form-control"/> -->
-  </div>
-</div>
-
-<!-- Text input-->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="textinput">Education</label>  
-  <div class="col-md-8">
-  	<form:select path="rEducation" class="form-control">
-		<form:option value="">-- Education --</form:option>
-		<form:options items="${education}"></form:options>
-	</form:select>
-<!--   <input id="textinput" name="textinput" type="text" placeholder="Education" class="form-control input-md"> -->
-  </div>
-</div>
-
-<!-- Text input-->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="textinput">Location</label>  
-  <div class="col-md-8">
-  	<form:select path="currentCity" class="form-control">
-		<form:option value="">-- Location --</form:option>
-		<form:options items="${citys}"></form:options>
-	</form:select>
-<!--   <input id="textinput" name="textinput" type="text" placeholder="Location" class="form-control input-md"> -->
-    
-  </div>
-</div>
-
-<!-- Button -->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="singlebutton"></label>
-  <div class="col-md-8">
-    <button id="singlebutton" name="singlebutton" class="btn btn-primary" type="submit">Search</button>
-  </div>
-</div>
-
-</fieldset>
-</form:form> --%>
-			<!-- 	</div>
-			</div>  --> 
-            <br>
-            <img src="user/images/ad.jpg"  class="img-responsive"></div>
+			</div>
+			</form:form>
+		
+				</div>
+                
+                
+                
+                
+                
+              
+			</div>  
+            
 				<div class="clearfix"></div>
 			</div>
 		</div>
@@ -349,134 +316,159 @@ if(session.getAttribute("cacheGuest") != null){
 <!-- //footer -->
 <input type="hidden" name="loc" id="loc" value="${baseurl }" />
 <script src="js/ajax.js"></script>
+<script src="js/jquery-asPaginator.js"></script>
+<link rel="stylesheet" type="text/css" href="css/asPaginator.css">
 <script type="text/javascript">
-
-$(function(){
-    $("#rAgeFrom").append('<option value="">From</option>');
-    $("#rAgeTo").append('<option value="">To</option>');
-    for (var i=18;i<=55;i++){
-        $("#rAgeFrom").append('<option value='+i+'>'+i+'</option>');
-    }
-    for (var i=18;i<=55;i++){
-        $("#rAgeTo").append('<option value='+i+'>'+i+'</option>');
-    }
-});
-
-var listOrders1 = ${allOrders1};
-if (listOrders1 != "") {
-	displayMatches(listOrders1);
-}
-function displayMatches(listOrders) {
-	$('#matches').html('');
+var total_items_count = ${total_records};
+var page_size = ${page_size};
+var listOrders1 = ${reveivedRequests};
+		paginationSetup(total_items_count);
+		$("#paginator").asPaginator('enable');
+		displayTable(listOrders1);
+		displayTableFooter(1);
+function displayTable(listOrders) {
+	$('#tableId').html('');
+	var tableHead = '<table class="table table-hover table-nomargin table-bordered" >'
+		+ '<thead><tr><th>UserName</th><th>Received On</th><th></th></tr></thead><tbody></tbody></table>';
+	$('#tableId').html(tableHead);
 	serviceUnitArray = {};
-	$.each(listOrders,function(i, orderObj) 
-	{
-		serviceUnitArray[orderObj.id] = orderObj;
-		
-		var array = null;
-// 		var imageUrl =null;
-		
-		var image = null; image = orderObj.image;
-		if(image == "" || image == null || image == "undefined"){
-			image = "img/default.png";
-		}
-		else{
-		array = image.split(",");
-		
-		$.each(array,function(i){
-			image = array[i];
-// 			   alert(array[i]);
-			});
-		}
-		if(orderObj.firstName !=null)
-		{
-			var login_user_role_id = ${cacheGuest.roleId};
-			var mobile_no__str = '';
-			if((login_user_role_id == 6) || (login_user_role_id == 11)){ //means premium user
-				mobile_no__str = '<tr id="row'+orderObj.id+'"><td><button class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button></td></tr>';
-				//more_details_str = '<tr><td><span><a href="#" onclick="showMoreDetails(this)">read more...</a></span></td></tr>';
-				//mobile_no__str = '<tr><td><span><a href="#" onclick="viewMobileNumber('+orderObj.id+')">View Mobile Number</a></span></td></tr>';
+	if(listOrders==""){
+		var tblRow = "<tr><td colspan='3' class='dataTables_empty'>No data available</td></tr>";
+		$(tblRow).appendTo("#tableId table tbody");
+		$("#table_footer").prop("hidden",true);
+		$("#paginator").prop("hidden",true);
+	}
+	$.each(listOrders,function(i, orderObj) {
+						serviceUnitArray[orderObj.id] = orderObj;
+						var tblRow = "<tr>"
+							+ "<td title='"+orderObj.fromName+"'><a href='#' onclick='fullProfile("+orderObj.id+")'>" + orderObj.fromName + "</a></td>"
+							+ "<td title='"+orderObj.receivedOn+"'>" + orderObj.receivedOn + "</td>"
+							+ "<td title=''><div id='accept"+orderObj.id+"'><a href='#' onclick='acceptRequest("+orderObj.id+",\"1\")'>Accept</a>&nbsp;|&nbsp;<a id='reject"+orderObj.id+"' href='#' onclick='rejectRequest("+orderObj.id+" \"0\")'>Reject</a></td>"
+							+ "</tr >";
+						$(tblRow).appendTo("#tableId table tbody"); 
+					});
+	/* $('#DataTables_Table_0').DataTable({
+		dom: 'Bfrtip',
+		buttons: [{extend:"print",className:"btn default"},{extend:"pdf",className:"btn default"},{extend:"csv",className:"btn default"}]
+	}); */
+	
+	 /*$('#datatable-buttons').DataTable({
+	        "dom": 'C<"clear">lfrtip',
+	        "colVis": {
+	            "buttonText": "Change columns",
+	        "buttons": [{extend:"copy",className:"btn default"},{extend:"print",className:"btn default"},{extend:"pdf",className:"btn default"},{extend:"csv",className:"btn default"}]
+	        }
+	    });*/
+}
+function fullProfile(profile_id){
+	var roleId = ${cacheGuest.roleId};
+	$("#id").val(profile_id);
+	if(roleId==4){
+		document.searchForm2.action = "memberShipPage"
+	}else{
+		document.searchForm2.action = "fullProfile"
+	}
+	//document.searchForm2.id = profile_id;
+	
+    document.searchForm2.target = "_blank";    // Open in a new window
+    document.searchForm2.submit();             // Submit the page
+    return true;
+	
+}
+function displayTableFooter(page){
+	var from_val = ((parseInt(page)-1)*page_size)+1;
+	var to_val = parseInt(page)*page_size;
+	if(to_val > total_items_count){
+		to_val = total_items_count;
+	}
+	if(from_val>to_val){
+		from_val = to_val;
+	}
+	$("#table_footer").html("Showing "+from_val+" to "+to_val+" of "+total_items_count+" records");
+}
+	
+function paginationSetup(total_items_count) {
+	  $('#paginator').asPaginator(total_items_count, {
+        currentPage: 1,
+        visibleNum: {
+          0: 10,
+          480: 3,
+          960: 5
+        },
+        tpl: function() {
+          return '<ul>{{first}}{{prev}}{{altLists}}{{next}}{{last}}</ul>';
+        },
+        components: {
+          first: true,
+          prev: true,
+          next: true,
+          last: true,
+          altLists: true
+        },
+        onChange: function(page) {
+           var formData = new FormData();
+      	 formData.append("page_no",page);
+      	
+  		$.fn.makeMultipartRequest('POST', 'receivedRequestsPagination', false,
+  				formData, false, 'text', function(data){
+  			var jsonobj = $.parseJSON(data);
+  			var profiles = jsonobj.updatedProfilesList;
+  			if(profiles==""){
+	    		/* 	$('#countId').html('');
+	    			$('#countId').html('0');
+	    			var str = '<div class="panel panel-default"><h6>No results found.</h6></div>';
+	    			$('#searchResults').html('');
+	    			$(str).appendTo("#searchResults");
+	    		 */	
+	    		 	var str = '<div class="panel panel-default"><h6>No results found.</h6></div>';
+	    		 	$('#tableId').html('');
+	    		 	$('#tableId').html(str);
+	    		 	$("#table_footer").prop("hidden",true);
+	    			$("#paginator").prop("hidden",true);
+	    		}else{
+	    			paginationSetup(total_items_count);
+	    			$("#paginator").asPaginator('enable');
+	    			displayTable(profiles);
+	    			$("#table_footer").removeAttr("hidden");
+	    			$("#paginator").removeAttr("hidden");
+	    			displayTableFooter(page);
+	    		}
+  			
+  		});
+          
+        }
+      });
+}
+
+function acceptRequest(requestId,flag){
+	var formData = new FormData();
+	formData.append("requestId",requestId);
+	formData.append("accept_flag",flag);
+	$.fn.makeMultipartRequest('POST', 'acceptRequest', false,
+			formData, false, 'text', function(data){
+		var jsonobj = $.parseJSON(data);
+		var msg = jsonobj.message;
+		if(typeof msg != "undefined" ){
+			if("success"==msg){
+				if(flag==1){
+					alert("Request accepted successfully");
+					$("#accept"+requestId).html('');
+					$("#accept"+requestId).html("Accepted");
+				}else{
+					alert("Request rejected successfully");
+					$("#accept"+requestId).html('');
+					$("#accept"+requestId).html("Rejected");
+				}
+				
+				
+			}else if("failed"==msg || "exception"==msg){
+				alert("Some problem occured. Please try again.");
 			}
-			var tblRow = '<div class="row container-fluid">'
-				+ '<div class="col-md-2" style="margin-right:0; padding-right:0;">'
-	            + 	"<img src="+image+" class='img-responsive thumbnail' style='margin-bottom: 0px;'>"
-	            + '</div>'
-	            + '<div class="col-md-9">'
-	            + 	'<div class="profilesimilar">'
-	            + 		'<table width="100%" border="0" cellspacing="0" cellpadding="0">'
-	            + 			'<tr><td><h4>'+orderObj.firstName+'&nbsp;'+orderObj.lastName+'</h4></td></tr>'
-	            + 			'<tr><td><p>'+orderObj.dob+', '+orderObj.religionName+', '+orderObj.casteName+',</p></td></tr>'
-	            + 			'<tr><td><p>'+orderObj.age+'&nbsp'+orderObj.occupationName+', '+orderObj.currentCityName+', '+orderObj.currentCountryName+'.</p></td></tr>'
-	            +			mobile_no__str
-	            + 			'<tr><td><span>Full Profile</span> >></td></tr>'
-	            + 		'</table>'
-	            + 	'</div>'
-	            + '</div>'
-	            + '<div class="clearfix"></div>'
-	            + '<hr>'
-	            + '</div>';
-	        /* var login_user_role_id = ${cacheGuest.roleId};
-	        if(login_user_role_id==4){ // means free user
-	        	$("#mobileBtn"+orderObj.id).prop("disabled",true);
-	        } */
-			$(tblRow).appendTo("#matches"); 
 		}
+				
 	});
 }
 
-function displayMobileNum(profileId,listType){
-	 var profileObj = serviceUnitArray[profileId];
-	var formData = new FormData();
-	formData.append('profile_id',profileId);
-	formData.append('list_type',listType);
-	jQuery.fn.makeMultipartRequest('POST', 'viewedMobileNumber', false,
-			formData, false, 'text', function(data){
-    		var jsonobj = $.parseJSON(data);
-    		var msg = jsonobj.message;
-    		if(typeof msg != "undefined"){
-    			if(msg=="success"){
-    				$("#row"+profileId).html('<td>'+profileObj.mobile+'</td>');
-    			}else{
-    				alert("Some problem occured. Please try again.");
-    			}
-    		}
-    		
-	}); 
-	
-}
-
-/* function searchProfiles(){
-	
-	var ageFrom = $("#ageFrom").val();
-	var ageTo = $("#ageTo").val();
-	var edu = $("#education").val();
-	var loc = $("#currentCity").val();
-	var formData = new FormData();
-
-	formData.append('ageFrom',ageFrom);
-	formData.append('ageTo',ageTo);
-	formData.append('education',edu);
-	formData.append('currentCity',loc);
-	jQuery.fn.makeMultipartRequest('POST', 'searchProfiles', false,
-			formData, false, 'text', function(data){
-    		var jsonobj = $.parseJSON(data);
-    		var filtered_list = jsonobj.filtered_profiles;
-    		$('#countId').html('');
-    		if(filtered_list==""){
-    			$('#countId').html('0');
-    			var str = '<div class="panel panel-default"><h6>No results found.</h6></div>';
-    			$('#searchResults').html('');
-    			$(str).appendTo("#searchResults");
-    		}else{
-    			$('#countId').html(filtered_list.length);
-    			displayMatches(filtered_list);
-    		}
-    		var location = $("#loc").val();
-    		window.location.href =location+"/searchProfile";
-			
-		});
-}
- */
 </script>
 
 </body>

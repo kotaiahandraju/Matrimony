@@ -72,7 +72,7 @@
 				    <div class="form-group" >
 				      <label class="col-md-4 control-label" for="textinput">Marital Status</label>  
 				      <div class="col-md-7">
-				      	<form:select path="rMaritalStatus" class="form-control u1" onchange="hideChildren();" multiple="true" >
+				      	<form:select path="rMaritalStatus" class="multiSelect" onchange="hideChildren();" multiple="true" >
 							<form:option value="">Doesn't Matter</form:option>
 							<form:option value="Married">Married</form:option>
 							<form:option value="Unmarried">Unmarried</form:option>
@@ -96,7 +96,7 @@
 				    <div class="form-group">
 				      <label class="col-md-4 control-label" for="textinput">Religion</label>  
 				      <div class="col-md-7">
-				      	<form:select path="rReligion" class="form-control u1" multiple="true">
+				      	<form:select path="rReligion" class="multiSelect" multiple="true">
 							<form:option value="">-- Choose Religion --</form:option>
 							<form:options items="${religion}"></form:options>
 						</form:select>
@@ -106,7 +106,7 @@
 				    <div class="form-group">
 				      <label class="col-md-4 control-label" for="textinput">Community</label>  
 				      <div class="col-md-7">
-				      	<form:select path="rCaste" class="form-control u1" multiple="true">
+				      	<form:select path="rCaste" class="multiSelect" multiple="true">
 							<form:option value="">-- Choose Community --</form:option>
 							<form:options items="${cast}"></form:options>
 						</form:select>
@@ -116,7 +116,7 @@
 				    <div class="form-group">
 				      <label class="col-md-4 control-label" for="textinput">Mother Tongue</label>  
 				      <div class="col-md-7">
-				      	<form:select path="rMotherTongue" class="form-control u1" multiple="true">
+				      	<form:select path="rMotherTongue" class="multiSelect"  multiple="true">
 							<form:option value="">-- Choose Mother Tongue --</form:option>
 							<form:options items="${language}"></form:options>
 						</form:select>
@@ -140,7 +140,7 @@
 				    <div class="form-group">
 				      <label class="col-md-4 control-label" for="textinput">Country living in</label>  
 				      <div class="col-md-7">
-				      	<form:select path="rCountry" class="form-control u" multiple="true">
+				      	<form:select path="rCountry" class="multiSelect" multiple="true">
 							<form:option value="">-- Choose Country --</form:option>
 							<form:options items="${countries}"></form:options>
 							
@@ -151,7 +151,7 @@
 				    <div class="form-group">
 				      <label class="col-md-4 control-label" for="textinput">State living in</label>  
 				      <div class="col-md-7">
-				      	<form:select path="rState" class="form-control u" multiple="true">
+				      	<form:select path="rState" class="multiSelect" multiple="true">
 							<form:option value="">-- Choose State --</form:option>
 							<form:options items="${states }"></form:options>
 						</form:select>
@@ -166,7 +166,7 @@
 				    <div class="form-group">
 				      <label class="col-md-4 control-label" for="textinput">Education</label>  
 				      <div class="col-md-7">
-				      	<form:select path="rEducation" class="form-control u" multiple="true">
+				      	<form:select path="rEducation" class="multiSelect" multiple="true">
 							<form:option value="">Doesn't Matter</form:option>
 							<form:options items="${education}"></form:options>
 						</form:select>
@@ -176,7 +176,7 @@
 				    <div class="form-group">
 				      <label class="col-md-4 control-label" for="textinput">Working with</label>  
 				      <div class="col-md-7">
-				      	<form:select path="rWorkingWith" class="form-control u1" multiple="true">
+				      	<form:select path="rWorkingWith" class="multiSelect" multiple="true">
 							<form:option value="">Doesn't Matter</form:option>
 							<form:option value="Private Company">Private Company</form:option>
 							<form:option value="Government/Public Sector">Government/Public Sector</form:option>
@@ -189,7 +189,7 @@
 				    <div class="form-group">
 				      <label class="col-md-4 control-label" for="textinput">Profession area</label>  
 				      <div class="col-md-7">
-				      	<form:select path="rOccupation" class="form-control u" multiple="true">
+				      	<form:select path="rOccupation" class="multiSelect" multiple="true">
 							<form:option value="">Doesn't Matter</form:option>
 							<form:options items="${occupation}"></form:options>
 						</form:select>
@@ -238,7 +238,7 @@
 				    <div class="form-group">
 				      <label class="col-md-4 control-label" for="textinput">Diet</label>  
 				      <div class="col-md-7">
-				      	<form:select path="rDiet" class="form-control u"  multiple="true">
+				      	<form:select path="rDiet" class="multiSelect"  multiple="true">
 							<form:option value="">-- Select Diet--</form:option>
 							<form:option value="Veg">Veg</form:option>
 							<form:option value="Non-Veg">Non-Veg</form:option>
@@ -288,6 +288,41 @@ $(document).ready(function(){
     $(".more").click(function(){
         $(".ifMore").collapse('hide');
     }); */
+    
+    $("#rMaritalStatus").select2({
+	    placeholder: "-- Choose MaritalStatus --"
+	});
+    $("#rReligion").select2({
+	    placeholder: "-- Choose Religion --"
+	});
+    $("#rCaste").select2({
+	    placeholder: "-- Choose Community --"
+	});
+	$("#rMotherTongue").select2({
+	    placeholder: "-- Choose Mother Tongue --"
+	});
+	$("#rCountry").select2({
+	    placeholder: "-- Choose Country --",
+	    allowClear: true
+	});
+	$("#rState").select2({
+	    placeholder: "-- Choose State --",
+	    allowClear: true
+	});
+	$("#rEducation").select2({
+	    placeholder: "-- Choose Education --"
+	});
+	$("#rWorkingWith").select2({
+	    placeholder: "-- Choose Working With --"
+	});
+	$("#rOccupation").select2({
+	    placeholder: "-- Choose Profession Area --"
+	});
+	$("#rDiet").select2({
+	    placeholder: "-- Choose Diet --"
+	});
+	
+    
     var selected_values = "${partnerProfile.rMaritalStatus}";
     $("#rMaritalStatus").val(selected_values.split(","));
     
@@ -326,17 +361,32 @@ $(document).ready(function(){
 	selected_values="";
 	selected_values = "${partnerProfile.rDiet}";
 	$("#rDiet").val(selected_values.split(","));
+	
     
 });
 
 function hideChildren() {
 	var maritalStatus=$("#rMaritalStatus").val();
-	if(maritalStatus == "Unmarried"){
+	var married_selected = "";
+	if(maritalStatus!=null){
+		$.each(maritalStatus,function(i){
+			if(maritalStatus[i]=="Married"){
+				married_selected = "true";
+			}
+		});
+	}
+	if(married_selected == "true"){
+		$("#haveChildrenId").show();
+	}else{
+		$("#haveChildrenId").hide();
+		$("#haveChildren").val();
+	}
+	/* if(maritalStatus == "Unmarried"){
 		$("#haveChildrenId").hide();
 		$("#haveChildren").val();
 	}else{
 		$("#haveChildrenId").show();
-	}
+	} */
 }
 	
 function submitForm(){

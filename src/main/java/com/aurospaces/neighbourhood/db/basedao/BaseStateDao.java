@@ -27,7 +27,7 @@ public class BaseStateDao{
 	JdbcTemplate jdbcTemplate;
 
 	 
-	public final String INSERT_SQL = "INSERT INTO state ( created_time, updated_time, name,status) values (?, ?, ?,?)"; 
+	public final String INSERT_SQL = "INSERT INTO state ( created_time, updated_time, name,status,country_id) values (?, ?, ?,?,?)"; 
 
 
 
@@ -68,7 +68,7 @@ public class BaseStateDao{
 	ps.setTimestamp(2, updatedTime);
 	ps.setString(3, objStateBean.getName());
 	ps.setString(4, objStateBean.getStatus());
-	
+	ps.setString(5, objStateBean.getCountry_id());
 
 							return ps;
 						}
@@ -83,9 +83,9 @@ public class BaseStateDao{
 		else
 		{
 
-			String sql = "UPDATE state set updated_time = ? ,name = ?, status = ? where id = ? ";
+			String sql = "UPDATE state set updated_time = ? ,name = ?, status = ?,country_id = ?  where id = ? ";
 	
-			jdbcTemplate.update(sql, new Object[]{updatedTime,objStateBean.getName(),objStateBean.getStatus(),objStateBean.getId()});
+			jdbcTemplate.update(sql, new Object[]{updatedTime,objStateBean.getName(),objStateBean.getStatus(),objStateBean.getCountry_id(),objStateBean.getId()});
 		}
 	}
 		

@@ -1,6 +1,7 @@
 package com.aurospaces.neighbourhood.db.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -15,14 +16,11 @@ public class StateDao extends BaseStateDao {
 	@Autowired
 	CustomConnection custom;
 	JdbcTemplate jdbcTemplate ; 
-	public List<StateBean> getAllStates() {
+	public List<Map<String,Object>> getAllStates() {
 		jdbcTemplate = custom.getJdbcTemplate();
-		String sql = "SELECT * from state where status= '1'  ";
-		List<StateBean> retlist = jdbcTemplate.query(sql, new Object[] {},
-				ParameterizedBeanPropertyRowMapper.newInstance(StateBean.class));
-		if (retlist.size() > 0)
+		String sql = "SELECT *,(select c.name from countries c where c.id=state.country_id) as country_name from state where status= '1'  ";
+		List<Map<String,Object>> retlist = jdbcTemplate.queryForList(sql, new Object[] {});
 			return retlist;
-		return null;
 	}
 	 public StateBean getByName(StateBean stateBean) {
 		 jdbcTemplate = custom.getJdbcTemplate();
@@ -33,5 +31,24 @@ public class StateDao extends BaseStateDao {
 			if(retlist.size() > 0)
 				return retlist.get(0);
 			return null;
+	}
+	 
+	 public List<Map<String,Object>> getFilteredStates(String countryIds){
+			jdbcTemplate = custom.getJdbcTemplate();
+			String qryStr = "select * from state  where find_in_set(country_id,'"+countryIds+"')>0 and status='1' order by name asc";
+			try{
+				List<Map<String,Object>> list = jdbcTemplate.queryForList(qryStr);
+				if(list!=null)
+					return list;
+			}catch(Exception e){
+				e.printStackTrace();
+				return null;
+			}
+			return null;
+		}
+	 public List<StateBean> populate(String sql ){	
+			jdbcTemplate = custom.getJdbcTemplate();
+			List<StateBean> retlist = jdbcTemplate.query(sql,ParameterizedBeanPropertyRowMapper.newInstance(StateBean.class));
+						return retlist;
 		}
 }

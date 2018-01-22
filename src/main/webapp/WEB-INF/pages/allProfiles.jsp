@@ -11,6 +11,23 @@
 </style>
 <script type="text/javascript">
 $( document ).ready(function() {
+	$(function(){
+		 //add text water mark;	
+	 addWaterMark();
+	});
+	function addWaterMark(){
+	 $('.watermark_text').watermark({
+		  text: 'aarnamatrimony.com',
+		  textWidth: 600,
+		  textSize: 70,
+		  textColor: 'white',
+		  gravity: 'w',
+		   opacity: 0.7,
+		   margin: 10,
+		   outputWidth: 'auto',
+		   outputHeight: 'auto'
+		 });
+	}
     $("#editProfile").hide();
 });
 </script>
@@ -440,7 +457,7 @@ s.parentNode.insertBefore(ga, s);
 		
 		 var tblRow = "<div class='container table-responsive'><div class='row'>"
 		 		+ 	"<div class='col-sm-2'>"
-		 		+		"<img src=${baseurl }/"+image+" width='150px'/>"
+		 		+		"<img src=${baseurl }/"+image+" class='watermark_text' width='150px'/>"
 // 				+		"<i class='fa fa-user' style='font-size: 10em;'></i>"
 //	 	 		+		"<img class='img-responsive' src='../img/default.png' style='width: auto !important;height: 120px !important;'>"
 		 		+ 	"</div>"

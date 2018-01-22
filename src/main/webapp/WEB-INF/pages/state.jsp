@@ -35,6 +35,22 @@
 							<div class="row">
 					  			<div class="col-md-12">
 									<div class="form-group">
+										<label class="col-sm-3 control-label required">Country <span class="impColor">*</span></label>
+										<div class="col-sm-6">
+											<form:hidden path="id"/>
+											<form:select path="country_id" class="form-control validate" onfocus="removeBorder(this.id)"  >
+											    <form:option value="">-- Choose Country --</form:option>
+												<form:options items="${countries}"></form:options>
+											</form:select>
+											<span class="hasError" id="stateError"></span>
+									  		<div><form:errors path="country_id" cssClass="error"/></div>										
+										</div>
+								  	</div>
+						  		</div>
+						  	</div>
+							<div class="row">
+					  			<div class="col-md-12">
+									<div class="form-group">
 										<label class="col-sm-3 control-label required"><spring:message code="label.state" text="State" /> <span class="impColor">*</span></label>
 										<div class="col-sm-6">
 											<form:hidden path="id"/>
@@ -71,7 +87,7 @@
 					<div class="box-content nopadding w3-animate-zoom" id="tableId">
 						<table class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,null">
 							<thead>
-							<tr>
+							<tr><th>Country</th>
 								<th>State</th><th></th>
 							</tr>
 							</thead>
@@ -94,7 +110,7 @@ if (listOrders1 != "") {
 function displayTable(listOrders) {
 	$('#tableId').html('');
 	var tableHead = '<table  class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,null">'
-		+ '<thead><tr><th>State</th><th style="text-align: center;"></th></tr></thead><tbody></tbody></table>';
+		+ '<thead><tr><th>Country</th><th>State</th><th style="text-align: center;"></th></tr></thead><tbody></tbody></table>';
 	$('#tableId').html(tableHead);
 	serviceUnitArray = {};
 	$.each(listOrders,function(i, orderObj) {
@@ -102,6 +118,7 @@ function displayTable(listOrders) {
 		var deleterow = "<a class='delete' onclick='deleteState("+ orderObj.id+ ")'><i class='fa fa-trash'></i></a>"
 		serviceUnitArray[orderObj.id] = orderObj;
 		var tblRow = "<tr >"
+			+ "<td title='"+orderObj.country_name+"'>" + orderObj.country_name + "</td>"
 			+ "<td title='"+orderObj.name+"'>" + orderObj.name + "</td>"
 			+ "<td style='text-align: center;white-space: nowrap;'>" + edit + "&nbsp;|&nbsp;" + deleterow + "</td>" 
 			+ "</tr >";
@@ -113,6 +130,8 @@ function displayTable(listOrders) {
 function editState(id) {
 	$("#id").val(serviceUnitArray[id].id);
 	$("#name").val(serviceUnitArray[id].name);
+	$("#country_id").val(serviceUnitArray[id].country_id);
+	$("#country_id").trigger("chosen:updated");
 	$("#submit1").val("Update");
 	$(window).scrollTop($('body').offset().top);
 }
@@ -131,11 +150,23 @@ function editState(id) {
 				getDeleteMsg("alert-danger","Failed to Delete..!");
 			}
 			var alldata = jsonobj.allOrders1;
-			console.log(jsonobj.allOrders1);
+			//console.log(jsonobj.allOrders1);
 			displayTable(alldata);
 		});
 	}
 }
+ function getFilteredStates(){
+	 var formData = new FormData();
+	    formData.append('countryId', $("#country_id").val());
+		$.fn.makeMultipartRequest('POST', 'getFilteredStates', false, formData, false, 'text', function(data){
+			var jsonobj = $.parseJSON(data);
+			var countriesList = jsonobj.countries_list;
+			if(countriesList!="undefined"){
+				displayTable(alldata);
+			}
+			
+		}); 
+ }
 
 $(".catalog2").addClass("active");
 $(".state").addClass("active");

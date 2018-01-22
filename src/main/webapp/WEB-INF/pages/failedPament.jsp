@@ -12,7 +12,7 @@
 </head>
 <body>
 <%-- <%= request.getAttribute("params")%> --%>
-Name : <c:out value="${params.firstname}"></c:out><br>
+Name : <c:out value="${params.firstname} ${params.lastname}"></c:out><br>
 Total Fee : <c:out value="${params.amount}"></c:out><br>
   Payment Status:  <c:out value="${params.status}"></c:out><br>
   Transaction Id :  <c:out value="${params.txnid}"></c:out><br>

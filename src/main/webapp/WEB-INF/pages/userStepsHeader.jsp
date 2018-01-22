@@ -21,8 +21,10 @@
     <link href="user/css/style.css" rel="stylesheet">
     <link href="user/css/custom.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="user/css/component.css" />
+    <link rel="stylesheet" href="css/plugins/select2/select2.css">
     <script src="user/vendor/jquery/jquery.min.js"></script>
     <script src="user/js/modernizr.custom.js"></script>
+    <script src="js/plugins/select2/select2.min.js"></script>
     <style type="text/css">
 .dispnone
 {
@@ -98,6 +100,10 @@ body {
 }
 
 th,td {text-align: center;}
+
+.multiSelect{
+	width: 187px;
+}
 </style>
 <script>
 

@@ -47,7 +47,7 @@
 	
 	<!-- jQuery -->
 	<script src="${baseurl }/js/jquery.min.js"></script>
-
+	
 	<!--[if lte IE 9]>
 		<script src="${baseurl }/js/plugins/placeholder/jquery.placeholder.min.js"></script>
 		<script>
@@ -100,6 +100,9 @@ span.impColor{color: red;}
     z-index: 1002;
 }
 .breadcrumbs{margin-bottom: 10px;}
+.multiSelect{
+	width: 187px;
+}
 </style>
 
 <script type="text/javascript">

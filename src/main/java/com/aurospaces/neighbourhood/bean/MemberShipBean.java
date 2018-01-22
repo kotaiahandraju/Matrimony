@@ -15,7 +15,7 @@ public class MemberShipBean {
 	@NotEmpty
 	private String description;
 	private String status;
-	private Double price=0.00;
+	private long price=0;
 	private String allowed_messages_limit;
 	private String allowed_profiles_limit;
 	private String highlight_profile;
@@ -64,10 +64,10 @@ public class MemberShipBean {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public Double getPrice() {
+	public long getPrice() {
 		return price;
 	}
-	public void setPrice(Double price) {
+	public void setPrice(long price) {
 		this.price = price;
 	}
 	public String getAllowed_messages_limit() {

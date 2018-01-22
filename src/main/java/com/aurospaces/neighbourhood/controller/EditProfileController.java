@@ -76,13 +76,18 @@ public class EditProfileController {
 		return statesMap;
 	}
 	@ModelAttribute("states")
-	public Map<Integer, String> populateState() {
+	public Map<Integer, String> populateState(HttpSession session) {
 		Map<Integer, String> statesMap = new LinkedHashMap<Integer, String>();
 		try {
-			String sSql = "select id,name from state  where status='1' order by name asc";
-			List<EducationBean> list = objUsersDao.populate(sSql);
-			for (EducationBean bean : list) {
-				statesMap.put(bean.getId(), bean.getName());
+			UsersBean userSessionBean = (UsersBean) session.getAttribute("cacheGuest");
+			if(userSessionBean!=null)
+			{
+				String countryId = userSessionBean.getCurrentCountry();
+				String sSql = "select id,name from state  where  status='1' order by name asc";
+				List<EducationBean> list = objUsersDao.populate(sSql);
+				for (EducationBean bean : list) {
+					statesMap.put(bean.getId(), bean.getName());
+				}
 			}
 
 		} catch (Exception e) {

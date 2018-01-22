@@ -667,10 +667,12 @@ function validate(id, errorMessage)
 					<div class="contact-info">
 						<h5>Our Office</h5>
 						<p class="fs-12 address">
-							<i class="fa fa-map-marker"></i>#### ###### ######,
+							<i class="fa fa-map-marker"></i>D.No.35, Church Complex,<br>
+							                                Nirmala Convent Road,
+							                                Benz Circle, VIJAYAWADA.
 						</p>
 						<p class="fs-12">
-							<i class="fa fa-phone"></i>+91 ##########
+							<i class="fa fa-phone"></i>+91 9440585588
 						</p>
 					</div>
 				</div>
@@ -689,7 +691,7 @@ function validate(id, errorMessage)
 				<div class="col-md-6 col-sm-6">
 					<div class="contact-info">
 						<p class="email-add">
-							<span>Email:</span> info@############.com
+							<span>Email:</span> info@aarnamatrimony.com
 						</p>
 					</div>
 				</div>

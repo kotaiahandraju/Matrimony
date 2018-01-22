@@ -1,6 +1,8 @@
 package com.aurospaces.neighbourhood.controller;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.aurospaces.neighbourhood.bean.CityBean;
 import com.aurospaces.neighbourhood.bean.StateBean;
 import com.aurospaces.neighbourhood.db.dao.StateDao;;
 
@@ -33,7 +36,7 @@ public class StateController {
 	public String stateHome(@ModelAttribute("stateForm") StateBean objStateBean, ModelMap model,
 			HttpServletRequest request, HttpSession session) {
 //		System.out.println("StateHome Page");
-		List<StateBean> listOrderBeans = null;
+		List<Map<String,Object>> listOrderBeans = null;
 		ObjectMapper objectMapper = null;
 		String sJson = null;
 		try {
@@ -83,7 +86,7 @@ public class StateController {
 					redir.addFlashAttribute("msg", "State Updated Successfully");
 					redir.addFlashAttribute("cssMsg", "warning");
 				} else {
-					redir.addFlashAttribute("msg", "Already State Exist");
+					redir.addFlashAttribute("msg", "State Already Exist");
 					redir.addFlashAttribute("cssMsg", "danger");
 				}
 			}
@@ -93,7 +96,7 @@ public class StateController {
 				redir.addFlashAttribute("cssMsg", "success");
 			}
 			if (objStateBean.getId() == 0 && stateBean != null) {
-				redir.addFlashAttribute("msg", "Already State Exist");
+				redir.addFlashAttribute("msg", "State Already Exist");
 				redir.addFlashAttribute("cssMsg", "danger");
 			}
 		} catch (Exception e) {
@@ -110,7 +113,7 @@ public class StateController {
 	public @ResponseBody String deleteState(StateBean objStateBean, ModelMap model, HttpServletRequest request,
 			HttpSession session, BindingResult objBindingResult) {
 //		System.out.println("deleteState page...");
-		List<StateBean> listOrderBeans = null;
+		List<Map<String,Object>> listOrderBeans = null;
 		JSONObject jsonObj = new JSONObject();
 		ObjectMapper objectMapper = null;
 		String sJson = null;
@@ -148,4 +151,21 @@ public class StateController {
 		}
 		return String.valueOf(jsonObj);
 	}
+	
+	@ModelAttribute("countries")
+	public Map<Integer, String> populateCountries() {
+		Map<Integer, String> countriesMap = new LinkedHashMap<Integer, String>();
+		try {
+			String sSql = "select id,name from countries where status='1' order by name asc";
+			List<StateBean> list = objStateDao.populate(sSql);
+			for (StateBean bean : list) {
+				countriesMap.put(bean.getId(), bean.getName());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+		}
+		return countriesMap;
+	}
+	
 }

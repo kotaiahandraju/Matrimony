@@ -88,42 +88,61 @@ th,td {text-align: center;}
     
     <div class="col-md-12 table-responsive">
     	<div class="well">
-    		<form:form commandName="payment" action="savePayment" class="form-horizontal" id="creteProfile-form" role="form"   method="post">
-    		<div class="row">
-				<div class="col-md-offset-3 col-md-8">
-					<div class="form-group">
-						<label class="col-sm-4 control-label required">Membership Package<span style="color:red;">*</span></label>
-						<div class=" col-md-offset-0 col-md-5">
-					  		 <form:select path="packageId" onfocus="removeBorder(this.id)" onblur="validate(this.id,'');"  class="form-control">
-								<form:option value="">-- Select Package--</form:option>
-								<form:options items="${packages}"/>
-							</form:select>
-					  		<div><form:errors path="packageId" cssClass="error" /></div> 
+					<!-- Create Profile Form Starts Here -->
+					<form:form commandName="partnerProfile" action="savePayment" class="form-horizontal" id="creteProfile-form" role="form"   method="post">
+					<form:hidden path="id"/>
+					<form:hidden path="userrequirementId"/>
+						<div class="form-group">
+							<div class="col-sm-12">
+								<div class="errorMessage" id="Create Profile_invalid_em_" >
+								
+									<c:if test="${not empty msg}">
+										<div class="alert alert-success fadeIn animated">${msg}</div>
+									</c:if>
+								</div>
+								<form:hidden path="id"/>
+								<c:if test="${not empty pageName}">
+										<form:hidden path="pageName"/>
+									</c:if>
+							</div>
+					  	</div>
+						
+						
+						
+						<div class="row">
+							<div class="col-md-12">
+								<legend>Membership Packages: </legend>
+							</div>
 						</div>
-				  	</div>
-				</div>
-				
-			</div>
-			<div class="row">
-				<div class="col-md-offset-3 col-md-8">
-					<div class="form-group">
-					<div class=" col-md-offset-2 col-md-6">
-						<input class="btn btn btn-primary" type="submit" id="submit11" name="yt0" value="Make Payment">
-						<input class="btn btn btn-danger" type="reset" id="reset11" name="yt1" value="Reset">
-					</div>
-					</div>
-				</div>
-			</div>
-			</form:form>
-    	</div>
-    
-    	
-    </div>
-<!-- <a href="membershipPlans" class=" btn btn-info">View Membership Plans</a> -->
-</div>
-<!-- 3rd Step ends here-->
-   
-   </div>
+						
+						<div class="row">
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="col-sm-4 control-label required">Package<span style="color:red;">*</span></label>
+									<div class="col-sm-8">
+								  		 <form:select path="packageId" onfocus="removeBorder(this.id)" onblur="validate(this.id,'');"  class="form-control">
+											<form:option value="">-- Select --</form:option>
+											<form:options items="${packages}"/>
+										</form:select>
+								  		<div><form:errors path="packageId" cssClass="error" /></div> 
+									</div>
+							  	</div>
+							</div>
+							
+						</div>
+						<div class="row">
+							<div class="col-md-offset-5 col-md-4">
+								<div class="form-group">
+								<div class=" col-md-offset-1 col-md-6">
+									<input class="btn btn btn-primary" type="submit" id="submit11" name="yt0" value="Make Payment">
+									<input class="btn btn btn-danger" type="reset" id="reset11" name="yt1" value="Reset">
+								</div>
+								</div>
+							</div>
+						</div>	
+					</form:form>					
+					<!-- Create Profile Form Ends Here-->
+				  </div>
    
    <div class="col-md-3">
      <img src="user/images/pad.jpg" class="img-responsive">
@@ -192,7 +211,7 @@ th,td {text-align: center;}
     <script src="user/js/toucheffects.js"></script>
     <script src="js/custemValidation.js"></script>
     <script src="js/ajax.js"></script>
-
 </body>
 
 </html>
+

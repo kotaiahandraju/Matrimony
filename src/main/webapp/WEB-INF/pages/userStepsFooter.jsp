@@ -15,8 +15,10 @@
 			<div class="col-md-6 col-sm-6">
 				<div class="contact-info">
 					<h5>Our Office</h5>
-					<p class="fs-12 address"><i class="fa fa-map-marker"></i>#### ###### ######,</p>
-					<p class="fs-12"><i class="fa fa-phone"></i>+91 ##########</p>
+					<p class="fs-12 address"><i class="fa fa-map-marker"></i>D.No.35, Church Complex,<br>
+							                                Nirmala Convent Road,<br>
+							                                Benz Circle, VIJAYAWADA.</p>
+					<p class="fs-12"><i class="fa fa-phone"></i>+91 9440585588<br>9032456222</p>
 				</div>
 			</div>
 		</div>
@@ -33,7 +35,7 @@
 		    </div>
 		    <div class="col-md-6 col-sm-6">
 		    	<div class="contact-info">
-		            <p class="email-add"><span>Email:</span> info@############.com</p>
+		            <p class="email-add"><span>Email:</span> info@aarnamatrimony.com</p>
 		        </div>
 		    </div>                
 		</div>
@@ -42,7 +44,7 @@
 	
     <div class="copyright clearfix">
         <div class="">
-            <p class="copy">a product by Aarna ASSOCIATES © 2017. All rights reserved</p>
+            <p class="copy">A product of Aarna Associates © 2017. All rights reserved</p>
 		</div>
     </div>
 

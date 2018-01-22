@@ -164,10 +164,16 @@ public class CreateProfileController {
 				prefix = prefix.concat(ss);
 				objUsersBean.setUsername(prefix);
 				}
-				objUsersBean.setStatus("0");
-				EmailUtil emailUtil = new EmailUtil();
-				if(StringUtils.isNotBlank(objUsersBean.getEmail())){
-					emailUtil.sendEmail(objUsersBean, objContext, "admin_send_password");
+				objUsersBean.setStatus("1");
+				objUsersBean.setUsername("AM"+MiscUtils.generateRandomNumber(6));
+				objUsersDao.save(objUsersBean);
+				try {
+					EmailUtil emailUtil = new EmailUtil();
+					if(StringUtils.isNotBlank(objUsersBean.getEmail())){
+						emailUtil.sendEmail(objUsersBean, objContext, "admin_send_password");
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
 				if (objuserBean1 != null) {
 					objUsersBean.setRegisterwith(String.valueOf(objuserBean1.getId()));
@@ -176,8 +182,7 @@ public class CreateProfileController {
 			}else{
 				msg = "Updated";
 			}
-			objUsersBean.setUsername("AM"+MiscUtils.generateRandomNumber(6));
-			objUsersDao.save(objUsersBean);
+			
 			objUsersBean.setUserId(objUsersBean.getId());
 			objUserrequirementDao.save(objUsersBean);
 //			objUserDetailsDao.save(objUsersBean);

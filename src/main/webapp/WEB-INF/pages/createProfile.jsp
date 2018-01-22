@@ -6,9 +6,15 @@
 <%-- <% pages1 = "createprofile"; %> --%>
 <link href="${baseurl }/css/datepicker1.css" rel="stylesheet" type="text/css" />
 <link href="${baseurl }/css/mdtimepicker.css" rel="stylesheet" type="text/css" />
-
+<link rel="stylesheet" href="${baseurl }/css/plugins/select2/select2.css">
+<style type="text/css">
+.multiSelect{
+	width: 187px;
+}
+</style>
 <script src="${baseurl }/js/jquery-ui.min.js"></script>
 <script src="${baseurl }/js/mdtimepicker.js"></script>
+<script src="js/plugins/select2/select2.min.js"></script>
 <div id="main">
 <div class="container-fluid">
 	<div class="page-header">
@@ -203,7 +209,7 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label required">Where you live? <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-									  	<form:select path="currentCountry" onfocus="removeBorder(this.id)" class="form-control validate" >
+									  	<form:select path="currentCountry" onfocus="removeBorder(this.id)" onchange="getFilteredStates(this.id)" class="form-control validate" >
 											<form:option value="">-- Choose Country --</form:option>
 											<form:options items="${countries}"></form:options>
 										</form:select>
@@ -377,6 +383,7 @@
 									<div class="col-sm-8">
 										<form:select path="annualIncome" class="form-control u validate" onfocus="removeBorder(this.id)">
 											<form:option value="">-- Annual Income --</form:option>
+											<form:option value="Not Working">Not Working</form:option>
 											<form:option value="Upto INR 1 Lakh">Upto INR 1 Lakh</form:option>
 											<form:option value="INR 2 Lakh to 4 Lakh">INR 2 Lakh to 4 Lakh</form:option>
 											<form:option value="INR 5 Lakh to 7 Lakh">INR 5 Lakh to 7 Lakh</form:option>
@@ -534,18 +541,18 @@
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
-									<label class="col-sm-4 control-label required">Mother Name <span style="color:red;">*</span></label>
+									<label class="col-sm-4 control-label">Mother Name </label>
 									<div class="col-sm-8">
-											<form:input path="motherName" class="form-control validate" placeholder="Enter Mother Name"/>
+											<form:input path="motherName" class="form-control" placeholder="Enter Mother Name"/>
 								  		<div><form:errors path="smoking" cssClass="error" /></div>
 									</div>
 							  	</div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
-									<label class="col-sm-4 control-label required">Father's Occupation <span style="color:red;">*</span></label>
+									<label class="col-sm-4 control-label">Father's Occupation </label>
 									<div class="col-sm-8">
-										<form:select path="fOccupation" class="form-control u1 validate">
+										<form:select path="fOccupation" class="form-control u1">
 											<form:options items="${maleOccupation}"></form:options>
 										</form:select>
 										<div><form:errors path="drinking" cssClass="error" /></div>
@@ -557,9 +564,9 @@
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group">
-									<label class="col-sm-4 control-label required">Mother's Occupation <span style="color:red;">*</span></label>
+									<label class="col-sm-4 control-label ">Mother's Occupation </label>
 									<div class="col-sm-8">
-										<form:select path="mOccupation" class="form-control u1 validate" >
+										<form:select path="mOccupation" class="form-control u1 " >
 								      		<form:options items="${occupation}"></form:options>
 										</form:select>
 								  		<div><form:errors path="height" cssClass="error" /></div>
@@ -692,7 +699,15 @@ function validate(id, errorMessage)
 //			$('#'+id+'Error').text("");
 	}
 }
-
+$("#reset11").click(function(){
+	//$("#rCaste")
+	$("#rCaste").select2('val',{});
+	$("#rCaste").select2({
+	    placeholder: "-- Choose Community --"
+	});
+	$("select.select2").select2('data', {}); // clear out values selected
+	$("select.select2").select2({ allowClear: true });
+});
 $("#submit11").click(function()
 {
 						if($('#email').val() ==  null || $('#email').val() == "" || $('#email').val()=="undefined"||$('#createProfileFor').val() ==  null || $('#createProfileFor').val() == ""  || $('#createProfileFor').val()=="undefined"||$('#lastName').val() ==  null || $('#lastName').val() == ""  || $('#lastName').val()=="undefined"||$('#dob').val() ==  null || $('#dob').val() == ""  || $('#dob').val()=="undefined"||$('#religion').val() ==  null || $('#religion').val() == ""  || $('#religion').val()=="undefined"||$('#motherTongue').val() ==  null || $('#motherTongue').val() == ""  || $('#motherTongue').val()=="undefined"||$('#currentCountry').val() ==  null || $('#currentCountry').val() == ""  || $('#currentCountry').val()=="undefined"||$('#currentState').val() ==  null || $('#currentState').val() == ""  || $('#currentState').val()=="undefined"||$('#currentCity').val() ==  null || $('#currentCity').val() == ""  || $('#currentCity').val()=="undefined"||$('#maritalStatus').val() ==  null || $('#maritalStatus').val() == ""  || $('#maritalStatus').val()=="undefined"||$('#caste').val() ==  null || $('#caste').val() == ""  || $('#caste').val()=="undefined"||$('#education').val() ==  null || $('#education').val() == ""  || $('#education').val()=="undefined"||$('#smoking').val() ==  null || $('#smoking').val() == ""  || $('#smoking').val()=="undefined"||$('#drinking').val() ==  null || $('#drinking').val() == ""  || $('#drinking').val()=="undefined"||$('#height').val() ==  null || $('#height').val() == ""  || $('#height').val()=="undefined"||$('#mobile').val() ==  null || $('#mobile').val() == ""  || $('#mobile').val()=="undefined"||$("input[name='gender']").is(':checked') != true||$("#mobile").val().length<10)
@@ -872,16 +887,84 @@ function getCitys(id){
 		var stateId =$("#"+id).val();
 		var formData = new FormData();
 	     formData.append('id', stateId);
-		$.fn.makeMultipartRequest('POST', '../../../getCitys', false,
+	     var actionStr = "../getCitys";
+	     var nextPage = "${pageName}";
+	     if(nextPage!=null && nextPage!="" && nextPage!="undefined"){
+	    	 actionStr = "../../../getCitys";
+	     }
+		$.fn.makeMultipartRequest('POST', actionStr, false,
 				formData, false, 'text', function(data){
 			var jsonobj = $.parseJSON(data);
 			var alldata = jsonobj.citys;
 // 			alert(alldata);
          $("#currentCity").empty();
-			$("#currentCity").append("<option value='' >Choose City</option>");
+			$("#currentCity").append("<option value='' >-- Choose City --</option>");
 			
 			$.each(alldata, function(i, tests) {
 				$("#currentCity").append("<option value="+tests.id+" >"+ tests.name+"</option>");
+			});
+			
+		});
+		
+	}
+}
+
+function getFilteredStates(id){
+	
+	if($("#"+id).val()== null   || $('#'+id).val() == "" || $('#'+id).val()=="undefined"){
+		$("#currentState").attr("readonly", true);
+		$("#currentState").attr("disabled" ,"disabled");
+		$("#currentState").val("");
+	}else{
+		$("#currentState").removeAttr("disabled");
+		$("#currentState").removeAttr("readonly");
+		var countryId =$("#"+id).val();
+		var formData = new FormData();
+	     formData.append('id', countryId);
+	     var actionStr = "../getFilteredStates";
+	     var nextPage = "${pageName}";
+	     if(nextPage!=null && nextPage!="" && nextPage!="undefined"){
+	    	 actionStr = "../../../getFilteredStates";
+	     }
+		$.fn.makeMultipartRequest('POST', actionStr, false,
+				formData, false, 'text', function(data){
+			var jsonobj = $.parseJSON(data);
+			var statesList = jsonobj.states_list;
+         $("#currentState").empty();
+			$("#currentState").append("<option value='' >-- Choose State --</option>");
+			
+			$.each(statesList, function(i, state) {
+				$("#currentState").append("<option value="+state.id+" >"+ state.name+"</option>");
+			});
+			
+		});
+		
+	}
+}
+function getFilteredStatesMultiSelect(id){
+	if($("#"+id).val()== null   || $('#'+id).val() == "" || $('#'+id).val()=="undefined"){
+		$("#"+id).select2({
+		    placeholder: "-- Choose Country --"
+		});
+		
+	}else{
+		var countryIds =$("#"+id).val();
+		var formData = new FormData();
+	     formData.append('country_ids', countryIds);
+	     var actionStr = "../getFilteredStates";
+	     var nextPage = "${pageName}";
+	     if(nextPage!=null && nextPage!="" && nextPage!="undefined"){
+	    	 actionStr = "../../../getFilteredStates";
+	     }
+	    $.fn.makeMultipartRequest('POST', actionStr, false,
+				formData, false, 'text', function(data){
+			var jsonobj = $.parseJSON(data);
+			var statesList = jsonobj.states_list;
+         $("#rState").empty();
+			$("#rState").append("<option value='' >-- Choose State --</option>");
+			
+			$.each(statesList, function(i, state) {
+				$("#rState").append("<option value="+state.id+" >"+ state.name+"</option>");
 			});
 			
 		});
@@ -900,7 +983,12 @@ function updateUserName(cityId){
 	    formData.append('id', user_id);
 	    formData.append('value', cityId);
 	    formData.append('constant', constant);
-		$.fn.makeMultipartRequest('POST', '../../../updateUserName', false,
+	    var actionStr = "../updateUserName";
+	     var nextPage = "${pageName}";
+	     if(nextPage!=null && nextPage!="" && nextPage!="undefined"){
+	    	 actionStr = "../../../updateUserName";
+	     }
+		$.fn.makeMultipartRequest('POST', actionStr, false,
 				formData, false, 'text', function(data){
 			
 		});

@@ -42,11 +42,11 @@ public class CityDao extends BaseCityDao {
 				return retlist.get(0);
 			return null;
 		}
-	 public List<CityBean> filterByState(String  id) {
+	 public List<CityBean> filterByState(String  ids) {
 			jdbcTemplate = custom.getJdbcTemplate();
 //			String sql = "SELECT * from city where status= '1'  ";
-			String sql = "select id,name from city where state= ?";
-			List<CityBean> retlist = jdbcTemplate.query(sql, new Object[] { id },
+			String sql = "select id,name from city where find_in_set(state,'"+ids+"')>0  and status='1' order by name asc";
+			List<CityBean> retlist = jdbcTemplate.query(sql,
 					ParameterizedBeanPropertyRowMapper.newInstance(CityBean.class));
 			if (retlist.size() > 0)
 				return retlist;

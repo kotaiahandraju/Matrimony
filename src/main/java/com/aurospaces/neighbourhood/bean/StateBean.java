@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 public class StateBean {
 	private int id=0;
+	private String country_id;
 	protected Date createdTime ;
 	protected Date updatedTime ;
 	@NotEmpty
@@ -40,6 +41,12 @@ public class StateBean {
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	public String getCountry_id() {
+		return country_id;
+	}
+	public void setCountry_id(String country_id) {
+		this.country_id = country_id;
 	}
 				
 }

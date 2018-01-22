@@ -48,7 +48,7 @@
 	
 	<!-- start-smoth-scrolling -->
 	<script type="text/javascript" src="user/js/move-top.js"></script>
-	<script type="text/javascript" src="user/js/easing.js"></script>
+	<!-- <script type="text/javascript" src="user/js/easing.js"></script> -->
 	
 	<!-- <script type="text/javascript" src="user/js/megamenu.js"></script>
 	<script type="text/javascript">

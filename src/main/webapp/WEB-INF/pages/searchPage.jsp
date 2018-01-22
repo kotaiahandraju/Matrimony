@@ -5,6 +5,7 @@
 					<div class="panel-heading">Search Profiles</div>
 					<div class="panel-body table-responsive">
 						<form:form commandName="createProfile"  class="form-horizontal" id="searchForm2" name="searchForm2" role="form" method="post">
+						<form:hidden path="id" />
              			<div class="col-md-12">
 							<div id="searchresultsDiv" style="font-size: 12px;">
 								<div class="searchresults">
@@ -31,7 +32,7 @@
 									</div>
 								</div>
 								<div class="form-group">
-									<label class="col-md-4 control-label" for="textinput">Height From</label>
+									<label class="col-md-4 control-label" for="textinput">Height </label>
 									<div class="col-md-3">
 										<form:select path="rHeight" class="form-control u1">
 											<form:option value="">From</form:option>
@@ -47,7 +48,7 @@
 									<div class="form-group" >
 									      <label class="col-md-4 control-label" for="textinput">Marital Status</label>  
 									      <div class="col-md-6">
-									      	<form:select path="rMaritalStatus" class="form-control u1" onchange="hideChildren();" multiple="true" >
+									      	<form:select path="rMaritalStatus" class="multiSelect" onchange="hideChildren();" multiple="true" >
 												<form:option value="">Doesn't Matter</form:option>
 												<form:option value="Married">Married</form:option>
 												<form:option value="Unmarried">Unmarried</form:option>
@@ -71,7 +72,7 @@
 									    <div class="form-group">
 									      <label class="col-md-4 control-label" for="textinput">Religion</label>  
 									      <div class="col-md-6">
-									      	<form:select path="rReligion" class="form-control u1">
+									      	<form:select path="rReligion" class="multiSelect" multiple="true">
 												<form:option value="">-- Choose Religion --</form:option>
 												<form:options items="${religion}"></form:options>
 											</form:select>
@@ -81,7 +82,7 @@
 									    <div class="form-group">
 									      <label class="col-md-4 control-label" for="textinput">Community</label>  
 									      <div class="col-md-6">
-									      	<form:select path="rCaste" class="form-control u1" multiple="true">
+									      	<form:select path="rCaste" class="multiSelect" multiple="true">
 												<form:option value="">-- Choose Community --</form:option>
 												<form:options items="${cast}"></form:options>
 											</form:select>
@@ -91,13 +92,33 @@
 									    <div class="form-group">
 									      <label class="col-md-4 control-label" for="textinput">Mother Tongue</label>  
 									      <div class="col-md-6">
-									      	<form:select path="rMotherTongue" class="form-control u1">
+									      	<form:select path="rMotherTongue" class="multiSelect" multiple="true">
 												<form:option value="">-- Choose Mother Tongue --</form:option>
 												<form:options items="${language}"></form:options>
 											</form:select>
 									      </div>
 									    </div>
 									    
+									    <div class="form-group">
+											<label class="col-md-4 control-label required">Country living in </label>
+											<div class="col-md-6">
+												<form:select path="rCountry" class="multiSelect"  multiple="true" onchange="getFilteredStatesMultiSelect(this.id)">
+													<form:option value="">-- Choose Country --</form:option>
+													<form:options items="${countries}"></form:options>
+												</form:select>
+										  		<div><form:errors path="rCountry" cssClass="error" /></div>
+											</div>
+									  	</div>
+									    <div class="form-group">
+											<label class="col-md-4 control-label required">State living in</label>
+											<div class="col-md-6">
+												<form:select path="rState"  class="multiSelect" multiple="true">
+													<form:option value="">-- Choose State --</form:option>
+													<form:options items="${states }"></form:options>
+												</form:select>
+												<div><form:errors path="rState" cssClass="error" /></div>
+											</div>
+									  	</div>
 									    <div class="form-group">
 									      <label class="col-md-4 control-label" for="textinput"></label>  
 									      <div class="col-md-6">
@@ -120,7 +141,23 @@
 			
 
 <script type="text/javascript">
-
+$(function(){
+	 //add text water mark;	
+	  addWaterMark();
+  });
+  function addWaterMark(){
+	  $('.watermark_text').watermark({
+		  text: 'aarnamatrimony.com',
+		  textWidth: 500,
+		  textSize: 50,
+		  textColor: 'white',
+		  gravity: 'w',
+		   opacity: 0.7,
+		   margin: 5,
+		   outputWidth: 'auto',
+		   outputHeight: 'auto'
+		 });
+  }
 var total_items_count = ${total_records};
 var page_size = ${page_size};
 var allowed_limit = ${allowed_profiles_limit};
@@ -200,6 +237,11 @@ function displayMatches(listOrders) {
 				firstname = orderObj.firstName;
 				lastname = orderObj.lastName;
 			}
+			var occName = orderObj.occupationName;
+			if(occName==null)
+				occName = "";
+			var ageStr = orderObj.age;
+			var age = ageStr.split(".")[0];
 			var tblRow = '<div class="panel panel-default">'
 				+ '<div class="panel-heading">'
 				+ '<h5 class="panel-title">'
@@ -215,19 +257,19 @@ function displayMatches(listOrders) {
 				+ '</div>'
 				+ '<div class="panel-body">'
 				+ '<div class="col-md-2">'
-				+ '<a href="#"> <img src='+image+' class="img img-responsive thumbnail" style="margin-bottom:0;height: 60px;width: 60px;"></a>'
+				+ '<a href="#"> <img src='+image+' class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: 60px;width: 60px;"></a>'
             	+ '</div>'
             	+ '<div class="col-md-6">'
             	+ '<table>'
-            	+ '	<tr><td>Age/Height</td><td><span>: '+orderObj.age+', '+orderObj.inches+'</span></td></tr>'
+            	+ '	<tr><td>Age/Height</td><td><span>: '+age+', '+orderObj.inches+'</span></td></tr>'
             	+ '	<tr><td>Religion</td><td><span>: '+orderObj.religionName+'</span></td></tr>'
             	+ '	<tr><td>Mother Tongue</td><td><span>: '+orderObj.motherTongueName+'</span></td></tr>'
             	+ '	<tr><td>Community</td><td><span>: '+orderObj.casteName+'</span></td></tr>'
             	+ '	<tr><td>Location</td><td><span>: '+orderObj.currentCityName+'</span></td></tr>'
             	+ '	<tr><td>Education</td><td><span>: '+orderObj.educationName+'</span></td></tr>'
-            	+ '	<tr><td>Profession</td><td><span>: '+orderObj.occupationName+'</span></td></tr>'
-            	+ mobile_no__str
-            	
+            	+ '	<tr><td>Profession</td><td><span>: '+occName+'</span></td></tr>'
+            	+ '<tr><td id="mobiletd'+orderObj.id+'"><button type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button></td><td></td></tr>'
+            	//+ '<td id="shortlisttd'+orderObj.id+'"><button type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">Shortlist</button></td></tr>'
             	//+ '	<tr><td>Age</td><td><span>: '+orderObj.age+'</span></td></tr>'
             	//+ '	<tr><td colspan="2">'+orderObj.aboutMyself+'... <a href="#" onclick="showMore('+orderObj.id+')"> read more..</a> </td></tr>'
             	//+  more_details_str
@@ -244,11 +286,11 @@ function displayMatches(listOrders) {
             	+ '</div>' */
             	+ '<div class="col-md-4">'
             	+ '<h4 style="margin-bottom:20px;">Like this Profile?</h4>'
-            	//+ '<c:if test="${(cacheGuest.roleId == 6)}">'
             	+ insert_str
-				//+ '</c:if>	 '
-				+ '<button class="btn btn-danger btn-block btn-md" onclick="fullProfile('+orderObj.id+')">View Full Profile</button>'
-            	+ '<div class="clearfix"></div>'
+				//+ '<button class="btn btn-danger btn-block btn-md" onclick="fullProfile('+orderObj.id+')">View Full Profile</button><br><br><br><br><br>'
+				+ '<button class="btn btn-danger btn-block btn-md" onclick="fullProfile('+orderObj.id+')">View Full Profile</button><br>'
+				+ '<button type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="shortList('+orderObj.id+')">Shortlist</button> '
+				+ '<div class="clearfix"></div>'
             	+ '</div>'
             	+ '</div>'
             	+ '</div>';
@@ -384,9 +426,10 @@ function submitSearch(){
 
 function expressInterest(profile_id){
 	var roleId = ${cacheGuest.roleId};
-	$("#id").val(profileId);
+	$("#id").val(profile_id);
 	if(roleId==4){
 		document.searchForm2.action = "memberShipPage"
+		document.searchForm2.target = "_blank";    // Open in a new window
 		document.searchForm2.submit();
 		return true;
 	}else{
@@ -473,6 +516,7 @@ function displayMobileNum(profileId,listType){
 	$("#id").val(profileId);
 	if(roleId==4){
 		document.searchForm2.action = "memberShipPage"
+		document.searchForm2.target = "_blank";    // Open in a new window
 		document.searchForm2.submit();
 		return true;
 	}else{
@@ -504,17 +548,18 @@ function displayMobileNum(profileId,listType){
 }
 
 function fullProfile(profile_id){
-	var roleId = ${cacheGuest.roleId};
+	/* var roleId = ${cacheGuest.roleId};
 	$("#id").val(profile_id);
 	if(roleId==4){
 		document.searchForm2.action = "memberShipPage"
 	}else{
 		document.searchForm2.id = profile_id;
 		document.searchForm2.action = "fullProfile";
-	}
-	//document.searchForm2.id = profile_id;
+	} */
 	
-    document.searchForm2.target = "_blank";    // Open in a new window
+	$("#id").val(profile_id);
+	document.searchForm2.action = "fullProfile"
+    document.searchForm2.target = "_blank";   // Open in a new window
     document.searchForm2.submit();             // Submit the page
     return true;
 }
@@ -600,6 +645,7 @@ function paginationSetup(total_items_count) {
 	    			$("#table_footer").removeAttr("hidden");
 	    			$("#altLists").removeAttr("hidden");
 	    			displayTableFooter(page);
+	    			addWaterMark();
 	    		}
     			
     		});
@@ -621,16 +667,75 @@ function displayTableFooter(page){
 }
 
 function hideChildren() {
-	 var maritalStatus=$("#rMaritalStatus").val();
-	 if(maritalStatus == "Unmarried"){
-		 $("#haveChildrenId").hide();
-		 $("#haveChildren").val();
-	 }else{
-		 $("#haveChildrenId").show();
-	 }
+	var maritalStatus=$("#rMaritalStatus").val();
+	var married_selected = "";
+	if(maritalStatus!=null){
+		$.each(maritalStatus,function(i){
+			if(maritalStatus[i]=="Married"){
+				married_selected = "true";
+			}
+		});
 	}
+	if(married_selected == "true"){
+		$("#haveChildrenId").show();
+	}else{
+		$("#haveChildrenId").hide();
+		$("#haveChildren").val();
+	}
+}
+	
+function getFilteredStatesMultiSelect(id){
+	if($("#"+id).val()== null   || $('#'+id).val() == "" || $('#'+id).val()=="undefined"){
+		$("#"+id).select2({
+		    placeholder: "-- Choose Country --"
+		});
+		
+	}else{
+		var countryIds =$("#"+id).val();
+		var formData = new FormData();
+	     formData.append('country_ids', countryIds);
+	    $.fn.makeMultipartRequest('POST', 'getFilteredStates', false,
+				formData, false, 'text', function(data){
+			var jsonobj = $.parseJSON(data);
+			var statesList = jsonobj.states_list;
+         $("#rState").empty();
+			$("#rState").append("<option value='' >-- Choose State --</option>");
+			
+			$.each(statesList, function(i, state) {
+				$("#rState").append("<option value="+state.id+" >"+ state.name+"</option>");
+			});
+			
+		});
+		
+	}
+}
+
 $(document).ready(function(){
-	var selected_values = "${createProfile.rMaritalStatus}";
+	
+	$("#rReligion").select2({
+	    placeholder: "-- Choose Religion --"
+	});
+	$("#rMaritalStatus").select2({
+	    placeholder: "-- Choose MaritalStatus --"
+	});
+	$("#rCaste").select2({
+	    placeholder: "-- Choose Community --"
+	});
+	$("#rMotherTongue").select2({
+	    placeholder: "-- Choose Mother Tongue --"
+	});
+	$("#rCountry").select2({
+	    placeholder: "-- Choose Country --",
+	    allowClear: true
+	});
+	$("#rState").select2({
+	    placeholder: "-- Choose State --",
+	    allowClear: true
+	});
+	$("#rEducation").select2({
+	    placeholder: "-- Choose Education --"
+	});
+	/* var selected_values = "${createProfile.rMaritalStatus}";
     $("#rMaritalStatus").val(selected_values.split(","));
     
     selected_values="";
@@ -667,7 +772,7 @@ $(document).ready(function(){
 	
 	selected_values="";
 	selected_values = "${createProfile.rDiet}";
-	$("#rDiet").val(selected_values.split(","));
+	$("#rDiet").val(selected_values.split(",")); */
 });
 
 $(".searchPage").addClass("active");

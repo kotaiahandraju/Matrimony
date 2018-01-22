@@ -24,9 +24,12 @@
 	<link href="user/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="css/animate.min.css" />
 	<link href='http://fonts.googleapis.com/css?family=Monda:400,700' rel='stylesheet' type='text/css'>
-	
+	<link href="css/thickbox.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="css/plugins/select2/select2.css">
+	<link href="user/css/style.css" rel="stylesheet" type="text/css">
+	<link href="user/css/style-profile.css" rel="stylesheet" type="text/css">
 	<script src="user/js/jquery-1.11.1.min.js"></script>
-	
+	<script src="js/plugins/select2/select2.min.js"></script>
 	<script type="text/javascript">
 		$(function(){
 			$(".dropdown").hover(            
@@ -39,10 +42,49 @@
 					$(this).toggleClass('open');
 			});
 		});
+		function zoomImage(image){
+			$('#dial1').html('');
+			if(image == "" || image == null || image == "undefined"){
+				image = "img/default.png";
+			}
+			var tblRow = "<div>"
+		 		+ 	"<div >"
+		 		+		"<img src="+image+" width='600px' class='watermark_text1'/>"
+		 		+ 	"</div></div>";
+			$(tblRow).appendTo('#dial1');
+			
+			$('.watermark_text1').watermark({
+				  text: 'aarnamatrimony.com',
+				  textWidth: 700,
+				  textSize:50,
+				  textColor: 'white',
+				  gravity: 'w',
+				   opacity: 0.7,
+				   margin: 10,
+				   outputWidth: 'auto',
+				   outputHeight: 'auto'
+				 });
+			$('#dial1').dialog({
+				width: 700, height: 2000, modal: true,
+				buttons: {
+		            "Enrol": function()
+		            {
+		                $(this).dialog('close');
+		                choice(true);
+		            },
+		            "Cancel Enrol": function()
+		            {
+		                $(this).dialog('close');
+		                choice(false);
+		            }
+		        }
+				}).dialog('open');
+		}
 	</script>
 	
 	<script type="text/javascript" src="js/ajax.js"></script>
 	<script type="text/javascript" src="js/jquery-asPaginator.js"></script>
+	<script src="js/jquery.watermark.js"></script>
 	
 <style type="text/css">
 .animated.infinite{animation-iteration-count:infinite}
@@ -52,6 +94,9 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     -webkit-animation: hue 2s infinite linear;
+}
+.multiSelect{
+	width: 187px;
 }
 @-webkit-keyframes hue {
   from {
@@ -118,16 +163,17 @@
 					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 						<ul class="nav navbar-nav">
 							<li class="dropdown dashboard">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Home</a>
+								<a href="dashboard">My Home</a>
 								<ul class="dropdown-menu">
-									<li><a href="dashboard">My Home</a></li>
+									<!-- <li><a href="dashboard">My Home</a></li> -->
 									<li><a href="myProfile">My Profile</a></li>
-									<li><a href="myPhotos">My Photos</a></li>
-									<li><a href="#">who view my profile</a></li>
-									<li><a href="#">who short listed</a></li>
-									<li><a href="#">mobile no view by me</a></li>
-									<li><a href="#">who viewed my mobile number</a></li>
-									<li><a href="#">Ignored profile</a></li>
+									<!-- <li><a href="myPhotos">My Photos</a></li> -->
+									<li><a href="#">Who viewed my profile</a></li>
+									<li><a href="shortListedMe">Who short listed me</a></li>
+									<li><a href="shortListedByMe">Who short listed by me</a></li>
+									<li><a href="#">Mobile no viewed by me</a></li>
+									<li><a href="#">Who viewed my mobile number</a></li>
+									<li><a href="#">Ignored profiles</a></li>
 								</ul>
 							</li>
 							<li class="dropdown searchPage">
@@ -135,25 +181,23 @@
 								<ul class="dropdown-menu">
 									<li><a href="searchProfiles">Regular search</a></li>
 									<li><a href="searchById">Search by ID </a></li>
-									<li><a href="#">Recently view profiles</a></li>
+									<li><a href="#">Recently viewed profiles</a></li>
 								</ul>
 							</li>
 							<li class="dropdown matches">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Matches</a>
 								<ul class="dropdown-menu">
-									<li><a href="#">New Matches</a></li>
+									<li><a href="newMatches">New Matches</a></li>
 									<li><a href="#">Still remaining to view </a></li>
-									<li><a href="#">Short list matches</a></li>
-									<li><a href="#">Premium members</a></li>
-									<li><a href="#">Short list matches</a></li>
-									<li><a href="#">Short list matches</a></li>
+									<li><a href="#">Shortlisted Matches</a></li>
+									<li><a href="premiumProfiles">Premium Members</a></li>
 								</ul>
 							</li>
 							<li class="dropdown messages">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Messages</a>
 								<ul class="dropdown-menu">
-									<li><a href="#">Inbox - pending </a></li>
-									<li><a href="#">Inbox - Accepted </a></li>
+									<li><a href="pendingRequests">Inbox - pending </a></li>
+									<li><a href="#">Inbox - Accepted ${pendingRequestsCount}</a></li>
 									<li><a href="#">Sent All</a></li>
 									<li><a href="#">SMS received/sent</a></li>
 								</ul>
@@ -209,19 +253,18 @@
 					<div class="row">
 						<div class="col-md-5">
 							<c:if test="${not empty cacheGuest.profileImage}">
-								<img src="${cacheGuest.profileImage}" class="img img-responsive thumbnail" style="margin-bottom:0;height: 60px;width: 60px;">
+								<a href="#" onclick="zoomImage('${cacheGuest.profileImage}');"><img id="profilepic" src="${cacheGuest.profileImage}" class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: 60px;width: 60px;"></a>
 							</c:if>
 							<c:if test="${empty cacheGuest.profileImage}">
-								<img src="img/default.png" class="img-responsive thumbnail" style="margin-bottom:0;">
+								<img id="profilepic" src="img/default.png" class="img-responsive thumbnail " style="margin-bottom:0;">
 							</c:if>
 						</div>	
 						<div class="col-md-7" style="padding-left:0;" >
 							<div class="profiletable">
 								<table width="100%" border="0" cellspacing="0" cellpadding="0">
+									<tr><td><a href="myPhotos">My Photos</a></td></tr>
 									<tr><td><a href="EditUserProfile">Edit Profile</a></td></tr>
-									<tr><td><a href="#">Manage Profile</a></td></tr>
-									<tr><td><a href="#">Edit Preferences</a></td></tr>
-									<tr><td><a href="#">Privacy Options</a></td></tr>
+									<tr><td><a href="#">Edit Partner Preferences</a></td></tr>
 								</table>
 							</div>
 						</div>
@@ -267,3 +310,4 @@
 					</div>
 				</div>
 			</div>
+			<div id="dial1"></div>

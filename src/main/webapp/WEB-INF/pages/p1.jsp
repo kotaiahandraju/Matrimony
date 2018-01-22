@@ -57,8 +57,8 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label required">Marital Status </label>
 									<div class="col-sm-8">
-										<form:select path="rMaritalStatus" class="form-control u1" onchange="hideChildren();" multiple="true" >
-											<form:option value="">Doesn't Matter</form:option>
+										<form:select path="rMaritalStatus" class="multiSelect" onchange="hideChildren();" multiple="true" >
+											<form:option value="any">Doesn't Matter</form:option>
 											<form:option value="Married">Married</form:option>
 											<form:option value="Unmarried">Unmarried</form:option>
 											<form:option value="Widow/Divorced">Widow/Divorced</form:option>
@@ -71,7 +71,7 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label required">Religion </label>
 									<div class="col-sm-8">
-										<form:select path="rReligion" class="form-control u1">
+										<form:select path="rReligion" class="multiSelect" multiple="true">
 											<form:option value="">-- Choose Religion --</form:option>
 											<form:options items="${religion}"></form:options>
 										</form:select>
@@ -83,7 +83,7 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label required">Community</label>
 									<div class="col-sm-8">
-										<form:select path="rCaste" class="form-control u1" multiple="true" >
+										<form:select path="rCaste" class="multiSelect" multiple="true" >
 											<form:option value="">-- Choose Community --</form:option>
 											<form:options items="${cast}"></form:options>
 										</form:select>
@@ -98,7 +98,7 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label required">Mother Tongue </label>
 									<div class="col-sm-8">
-										<form:select path="rMotherTongue" onfocus="removeBorder(this.id)" class="form-control" >
+										<form:select path="rMotherTongue" onfocus="removeBorder(this.id)" class="multiSelect" multiple="true">
 											<form:option value="">-- Choose Mother Tongue --</form:option>
 											<form:options items="${language}"></form:options>
 										</form:select>
@@ -110,7 +110,7 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label required">Country living in </label>
 									<div class="col-sm-8">
-										<form:select path="rCountry" class="form-control u" multiple="true">
+										<form:select path="rCountry" class="multiSelect" multiple="true" onchange="getFilteredStatesMultiSelect(this.id)">
 											<form:option value="">-- Choose Country --</form:option>
 											<form:options items="${countries}"></form:options>
 										</form:select>
@@ -122,7 +122,7 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label required">State living in</label>
 									<div class="col-sm-8">
-										<form:select path="rState" class="form-control u" multiple="true" >
+										<form:select path="rState" class="multiSelect" multiple="true" >
 											<form:option value="">-- Choose State --</form:option>
 											<form:options items="${states }"></form:options>
 										</form:select>
@@ -137,7 +137,7 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label required">Education </label>
 									<div class="col-sm-8">
-										<form:select path="rEducation" class="form-control u" multiple="true" >
+										<form:select path="rEducation" class="multiSelect" multiple="true" >
 											<form:option value="">Doesn't Matter</form:option>
 											<form:options items="${education}"></form:options>
 										</form:select>
@@ -190,20 +190,91 @@ $(document).ready(function(){
         $(".ifMore").collapse('hide');
     }); */
     
-    var selected_values = "${userBean.rMaritalStatus}";
-	$("#rMaritalStatus").val(selected_values.split(","));
+    $("#rReligion").select2({
+	    placeholder: "-- Choose Religion --"
+	});
+	$("#rMaritalStatus").select2({
+	    placeholder: "-- Choose MaritalStatus --"
+	});
+	$("#rCaste").select2({
+	    placeholder: "-- Choose Community --"
+	});
+	$("#rMotherTongue").select2({
+	    placeholder: "-- Choose Mother Tongue --"
+	});
+	$("#rCountry").select2({
+	    placeholder: "-- Choose Country --",
+	    allowClear: true
+	});
+	$("#rState").select2({
+	    placeholder: "-- Choose State --",
+	    allowClear: true
+	});
+	$("#rEducation").select2({
+	    placeholder: "-- Choose Education --"
+	});
+	$("#rWorkingWith").select2({
+	    placeholder: "-- Choose Working With --"
+	});
+	$("#rOccupation").select2({
+	    placeholder: "-- Choose Profession Area --"
+	});
+	$("#rDiet").select2({
+	    placeholder: "-- Choose Diet --"
+	});
+	//selected_values="";
+	
+	  var selected_values = "${createProfile.rMaritalStatus}";
+	 if(selected_values!="")
+	$("#rMaritalStatus").select2('val',selected_values.split(","));
+	
+	selected_values = "${createProfile.rReligion}";
+	if(selected_values!="")
+	$("#rReligion").select2('val',selected_values.split(","));
+	
+	selected_values = "${createProfile.rCaste}";
+	if(selected_values!="")
+	$("#rCaste").select2('val',selected_values.split(","));
 	
 	selected_values="";
-	selected_values = "${userBean.rCaste}";
-	$("#rCaste").val(selected_values.split(","));
+	selected_values = "${createProfile.rState}";
+	if(selected_values!="")
+	$("#rState").select2('val',selected_values.split(","));
 	
 	selected_values="";
-	selected_values = "${userBean.rState}";
-	$("#rState").val(selected_values.split(","));
+	selected_values = "${createProfile.rEducation}";
+	if(selected_values!="")
+	$("#rEducation").select2('val',selected_values.split(","));
 	
 	selected_values="";
-	selected_values = "${userBean.rEducation}";
-	$("#rEducation").val(selected_values.split(",")); 
+	selected_values = "${createProfile.rReligion}";
+	if(selected_values!="")
+	$("#rReligion").select2('val',selected_values.split(","));
+	
+	selected_values="";
+	selected_values = "${createProfile.rMotherTongue}";
+	if(selected_values!="")
+	$("#rMotherTongue").select2('val',selected_values.split(","));
+	
+	selected_values="";
+	selected_values = "${createProfile.rCountry}";
+	if(selected_values!="")
+	$("#rCountry").select2('val',selected_values.split(","));
+	
+	selected_values="";
+	selected_values = "${createProfile.rWorkingWith}";
+	if(selected_values!="")
+	$("#rWorkingWith").select2('val',selected_values.split(","));
+	
+	selected_values="";
+	selected_values = "${createProfile.rOccupation}";
+	if(selected_values!="")
+	$("#rOccupation").select2('val',selected_values.split(","));
+	
+	selected_values="";
+	selected_values = "${createProfile.rDiet}";
+	if(selected_values!="")
+	$("#rDiet").select2('val',selected_values.split(","));  
     
 });
 </script>   						

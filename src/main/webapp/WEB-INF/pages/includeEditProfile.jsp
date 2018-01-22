@@ -18,7 +18,7 @@
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
-										<label class="col-md-5 control-label required">Age To </label>
+										<label class="col-md-5 control-label required"> To </label>
 										<div class="col-md-7">
 											<form:input path="rAgeTo" class="form-control " placeholder="Enter Age To" />
 									  		<div><form:errors path="rAgeTo" cssClass="error" /></div>
@@ -29,7 +29,7 @@
 							<div class="row" style="margin-bottom: 0.4em;">
 								<div class="col-md-6">
 									<div class="form-group">
-										<label class="col-md-5 control-label required">Height</label>
+										<label class="col-md-5 control-label required">Height From</label>
 										<div class="col-md-7">
 											<form:select path="rHeight" class="form-control " >
 												<form:option value="">-- Choose Height --</form:option>
@@ -41,9 +41,21 @@
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
+										<label class="col-md-5 control-label required">To</label>
+										<div class="col-md-7">
+											<form:select path="rHeightTo" class="form-control " >
+												<form:option value="">-- Choose Height --</form:option>
+												<form:options items="${height}"></form:options>
+											</form:select>
+											<div><form:errors path="rHeightTo" cssClass="error" /></div>
+										</div>
+								  	</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
 										<label class="col-md-5 control-label required">Marital Status </label>
 										<div class="col-md-7">
-											<form:select path="rMaritalStatus" class="form-control " onchange="hideChildren();" multiple="true">
+											<form:select path="rMaritalStatus" class="multiSelect" onchange="hideChildren();" multiple="true">
 												<form:option value="all">Doesn't Matter</form:option>
 												<form:option value="Married">Married</form:option>
 												<form:option value="Unmarried">Unmarried</form:option>
@@ -59,7 +71,7 @@
 									<div class="form-group">
 										<label class="col-md-5 control-label required">Religion </label>
 										<div class="col-md-7">
-											<form:select path="rReligion" class="form-control " multiple="true">
+											<form:select path="rReligion" class="multiSelect" multiple="true">
 												<form:option value="">-- Choose Religion --</form:option>
 												<form:options items="${religion}"></form:options>
 											</form:select>
@@ -71,7 +83,7 @@
 									<div class="form-group">
 										<label class="col-md-5 control-label required">Community</label>
 										<div class="col-md-7">
-											<form:select path="rCaste" class="form-control " multiple="true">
+											<form:select path="rCaste" class="multiSelect" multiple="true">
 												<form:option value="">-- Choose Community --</form:option>
 												<form:options items="${cast}"></form:options>
 											</form:select>
@@ -85,7 +97,7 @@
 									<div class="form-group">
 										<label class="col-md-5 control-label required">Mother Tongue </label>
 										<div class="col-md-7">
-											<form:select path="rMotherTongue" onfocus="removeBorder(this.id)" class="form-control "  multiple="true">
+											<form:select path="rMotherTongue" class="multiSelect" onfocus="removeBorder(this.id)"   multiple="true">
 												<form:option value="">-- Choose Mother Tongue --</form:option>
 												<form:options items="${language}"></form:options>
 											</form:select>
@@ -97,7 +109,7 @@
 									<div class="form-group">
 										<label class="col-md-5 control-label required">Country living in </label>
 										<div class="col-md-7">
-											<form:select path="rCountry" class="form-control " multiple="true">
+											<form:select path="rCountry" class="multiSelect"  multiple="true" onchange="getFilteredStatesMultiSelect(this.id)">
 												<form:option value="">-- Choose Country --</form:option>
 												<form:options items="${countries}"></form:options>
 											</form:select>
@@ -111,7 +123,7 @@
 									<div class="form-group">
 										<label class="col-md-5 control-label required">State living in</label>
 										<div class="col-md-7">
-											<form:select path="rState" class="form-control " multiple="true">
+											<form:select path="rState"  class="multiSelect" multiple="true">
 												<form:option value="">-- Choose State --</form:option>
 												<form:options items="${states }"></form:options>
 											</form:select>
@@ -123,7 +135,7 @@
 									<div class="form-group">
 										<label class="col-md-5 control-label required">Education </label>
 										<div class="col-md-7">
-											<form:select path="rEducation" class="form-control " multiple="true">
+											<form:select path="rEducation" class="multiSelect" multiple="true">
 												<form:option value="all">Doesn't Matter</form:option>
 												<form:options items="${education}"></form:options>
 											</form:select>
@@ -137,7 +149,7 @@
 									<div class="form-group">
 										<label class="col-md-5 control-label required">Working With </label>
 										<div class="col-md-7">
-											<form:select path="rWorkingWith" class="form-control " multiple="true">
+											<form:select path="rWorkingWith" class="multiSelect" multiple="true">
 												<form:option value="all">Doesn't Matter</form:option>
 												<form:option value="Private Company">Private Company</form:option>
 												<form:option value="Government/Public Sector">Government/Public Sector</form:option>
@@ -152,7 +164,7 @@
 									<div class="form-group">
 										<label class="col-md-5 control-label required">Profession area</label>
 										<div class="col-md-7">
-											<form:select path="rOccupation" class="form-control " multiple="true">
+											<form:select path="rOccupation" class="multiSelect"  multiple="true">
 												<form:option value="all">Doesn't Matter</form:option>
 												<form:options items="${occupation}"></form:options>
 											</form:select>
@@ -167,8 +179,9 @@
 										<label class="col-md-5 control-label required">Annual Income </label>
 										<div class="col-md-7">
 											<%-- <form:input path="annualIncome" class="form-control "/> --%>
-											<form:select path="rAnnualIncome" class="form-control u1">
+											<form:select path="rAnnualIncome" class="form-control ">
 												<form:option value="">-- Annual Income --</form:option>
+												<form:option value="Not Working">Not Working</form:option>
 												<form:option value="Upto INR 1 Lakh">Upto INR 1 Lakh</form:option>
 												<form:option value="INR 2 Lakh to 4 Lakh">INR 2 Lakh to 4 Lakh</form:option>
 												<form:option value="INR 5 Lakh to 7 Lakh">INR 5 Lakh to 7 Lakh</form:option>
@@ -202,7 +215,7 @@
 									<div class="form-group">
 										<label class="col-md-5 control-label required">Diet</label>
 										<div class="col-md-7">
-											<form:select path="rDiet" class="form-control " multiple="true">
+											<form:select path="rDiet" class="multiSelect" multiple="true">
 												<form:option value="">-- Select Diet--</form:option>
 												<form:option value="Veg">Veg</form:option>
 												<form:option value="Non-Veg">Non-Veg</form:option>

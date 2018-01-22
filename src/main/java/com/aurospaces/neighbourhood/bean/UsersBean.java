@@ -96,6 +96,7 @@ protected String bodyTypeName;
 protected int page_no;
 protected int total_records;
 protected int OtpLimit;
+private String country_ids,state_ids,last_login_time;
 
 
 public String getRhaveChildren() {
@@ -823,6 +824,24 @@ public int getOtpLimit() {
 }
 public void setOtpLimit(int otpLimit) {
 	OtpLimit = otpLimit;
+}
+public String getCountry_ids() {
+	return country_ids;
+}
+public void setCountry_ids(String country_ids) {
+	this.country_ids = country_ids;
+}
+public String getState_ids() {
+	return state_ids;
+}
+public void setState_ids(String state_ids) {
+	this.state_ids = state_ids;
+}
+public String getLast_login_time() {
+	return last_login_time;
+}
+public void setLast_login_time(String last_login_time) {
+	this.last_login_time = last_login_time;
 }
 
 

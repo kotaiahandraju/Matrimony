@@ -2,7 +2,7 @@
 			
 			<div class="col-md-9 products-grid-left">
 				<form:form commandName="createProfile" id="userProfile" method="post" action="saveUserProfile">
-					<form:hidden path="redirectPage" value="dashboard"></form:hidden>
+					<form:hidden path="redirectPage" value="myProfile"></form:hidden>
 					<div class="panel panel-default">
 						<div class="panel-heading">Edit Profile</div>
 					</div>
@@ -87,7 +87,7 @@
 									<div class="form-group">
 										<label class="col-md-5 control-label required">Country <span style="color:red;">*</span></label>
 										<div class="col-md-7">
-										  	<form:select path="currentCountry" onfocus="removeBorder(this.id)" onblur="validate(this.id,'');"  onchange="getFilteredStates(this.id)"  class="form-control u" >
+										  	<form:select path="currentCountry" onfocus="removeBorder(this.id)" onblur="validate(this.id,'');" class="form-control u" >
 												<form:option value="">-- Choose Country --</form:option>
 												<form:options items="${countries}"></form:options>
 											</form:select>
@@ -113,7 +113,7 @@
 									<div class="form-group">
 										<label class="col-md-5 control-label required">City <span style="color:red;">*</span></label>
 										<div class="col-md-7">
-										  	<form:select path="currentCity" onfocus="removeBorder(this.id)" onblur="validate(this.id,'');" onchange="updateUserName(this.value);getCitys(this.id);"   class="form-control u" >
+										  	<form:select path="currentCity" onfocus="removeBorder(this.id)" onblur="validate(this.id,'');" onchange="updateUserName(this.value)" class="form-control u" >
 												<form:option value="">-- Choose City --</form:option>
 												<form:options items="${citys }"></form:options>
 											</form:select>
@@ -260,7 +260,6 @@
 										<div class="col-md-7">
 											<form:select path="annualIncome" class="form-control u" onblur="validate('salaryperyear','');" onfocus="removeBorder(this.id)">
 												<form:option value="">-- Annual Income --</form:option>
-												<form:option value="Not Working">Not Working</form:option>
 												<form:option value="Upto INR 1 Lakh">Upto INR 1 Lakh</form:option>
 												<form:option value="INR 2 Lakh to 4 Lakh">INR 2 Lakh to 4 Lakh</form:option>
 												<form:option value="INR 5 Lakh to 7 Lakh">INR 5 Lakh to 7 Lakh</form:option>
@@ -503,8 +502,29 @@
 								  	</div>
 								</div>
 							</div>
-							
-							
+							<div class="row" style="margin-bottom: 0.4em;">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label class="col-md-5 control-label required">Any Disability?</label>
+										<div class="col-md-7">
+											<form:select path="disability" class="form-control u">
+												<form:option value="">-- Choose Disability --</form:option>
+												<form:option value="None">None</form:option>
+												<form:option value="Physical Disability">Physical Disability</form:option>
+											</form:select>
+										</div>
+								  	</div>
+								</div>
+							</div>
+							<div class="row" style="margin-bottom: 0.4em;">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label class="col-md-5 control-label required">Any Disability?</label>
+										<div class="col-md-7">
+										</div>
+								  	</div>
+								</div>
+							</div>
 						</div>
 					</div>
 					
@@ -529,87 +549,44 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
+	var selected_values = "${createProfile.rMaritalStatus}";
+	$("#rMaritalStatus").val(selected_values.split(","));
 	
-	$("#rReligion").select2({
-	    placeholder: "-- Choose Religion --"
-	});
-	$("#rMaritalStatus").select2({
-	    placeholder: "-- Choose MaritalStatus --"
-	});
-	$("#rCaste").select2({
-	    placeholder: "-- Choose Community --"
-	});
-	$("#rMotherTongue").select2({
-	    placeholder: "-- Choose Mother Tongue --"
-	});
-	$("#rCountry").select2({
-	    placeholder: "-- Choose Country --",
-	    allowClear: true
-	});
-	$("#rState").select2({
-	    placeholder: "-- Choose State --",
-	    allowClear: true
-	});
-	$("#rEducation").select2({
-	    placeholder: "-- Choose Education --"
-	});
-	$("#rWorkingWith").select2({
-	    placeholder: "-- Choose Working With --"
-	});
-	$("#rOccupation").select2({
-	    placeholder: "-- Choose Profession Area --"
-	});
-	$("#rDiet").select2({
-	    placeholder: "-- Choose Diet --"
-	});
-	//selected_values="";
-	
-	 var selected_values = "${createProfile.rMaritalStatus}";
-	 if(selected_values!="")
-	$("#rMaritalStatus").select2('val',selected_values.split(","));
-	
-	selected_values = "${createProfile.rReligion}";
-	if(selected_values!="")
-	$("#rReligion").select2('val',selected_values.split(","));
-	
+	selected_values="";
 	selected_values = "${createProfile.rCaste}";
-	if(selected_values!="")
-	$("#rCaste").select2('val',selected_values.split(","));
+	$("#rCaste").val(selected_values.split(","));
 	
 	selected_values="";
 	selected_values = "${createProfile.rState}";
-	if(selected_values!="")
-	$("#rState").select2('val',selected_values.split(","));
+	$("#rState").val(selected_values.split(","));
 	
 	selected_values="";
 	selected_values = "${createProfile.rEducation}";
-	if(selected_values!="")
-	$("#rEducation").select2('val',selected_values.split(","));
+	$("#rEducation").val(selected_values.split(","));
+	
+	selected_values="";
+	selected_values = "${createProfile.rReligion}";
+	$("#rReligion").val(selected_values.split(","));
 	
 	selected_values="";
 	selected_values = "${createProfile.rMotherTongue}";
-	if(selected_values!="")
-		$("#rMotherTongue").select2('val',selected_values.split(","));
+	$("#rMotherTongue").val(selected_values.split(","));
 	
 	selected_values="";
 	selected_values = "${createProfile.rCountry}";
-	if(selected_values!="")
-	$("#rCountry").select2('val',selected_values.split(","));
+	$("#rCountry").val(selected_values.split(","));
 	
 	selected_values="";
 	selected_values = "${createProfile.rWorkingWith}";
-	if(selected_values!="")
-	$("#rWorkingWith").select2('val',selected_values.split(","));
+	$("#rWorkingWith").val(selected_values.split(","));
 	
 	selected_values="";
 	selected_values = "${createProfile.rOccupation}";
-	if(selected_values!="")
-	$("#rOccupation").select2('val',selected_values.split(","));
+	$("#rOccupation").val(selected_values.split(","));
 	
 	selected_values="";
 	selected_values = "${createProfile.rDiet}";
-	if(selected_values!="")
-	$("#rDiet").select2('val',selected_values.split(",")); 
+	$("#rDiet").val(selected_values.split(","));
 });
 $(function(){
     $("#ageFrom").append('<option value="">From</option>');
@@ -620,6 +597,55 @@ $(function(){
 });
 
 
+//var listOrders1 = ${allOrders1};
+/* if (listOrders1 != "") {
+	displayMatches(listOrders1);
+}
+ */function displayMatches(listOrders) {
+	$('#matches').html('');
+	serviceUnitArray = {};
+	$.each(listOrders,function(i, orderObj) 
+	{
+		serviceUnitArray[orderObj.id] = orderObj;
+		
+		var array = null;
+// 		var imageUrl =null;
+		
+		var image = null; image = orderObj.image;
+		if(image == "" || image == null || image == "undefined"){
+			image = "img/default.png";
+		}
+		else{
+		array = image.split(",");
+		
+		$.each(array,function(i){
+			image = array[i];
+// 			   alert(array[i]);
+			});
+		}
+		if(orderObj.firstName !=null)
+		{
+			var tblRow = '<div class="row container-fluid">'
+				+ '<div class="col-md-2" style="margin-right:0; padding-right:0;">'
+	            + 	"<img src="+image+" class='img-responsive thumbnail' style='margin-bottom: 0px;'>"
+	            + '</div>'
+	            + '<div class="col-md-9">'
+	            + 	'<div class="profilesimilar">'
+	            + 		'<table width="100%" border="0" cellspacing="0" cellpadding="0">'
+	            + 			'<tr><td><h4>'+orderObj.firstName+'&nbsp;'+orderObj.lastName+'</h4></td></tr>'
+	            + 			'<tr><td><p>'+orderObj.dob+', '+orderObj.religionName+', '+orderObj.casteName+',</p></td></tr>'
+	            + 			'<tr><td><p>'+orderObj.occupationName+', '+orderObj.currentCityName+', '+orderObj.currentCountryName+'.</p></td></tr>'
+	            + 			'<tr><td><span>Full Profile</span> >></td></tr>'
+	            + 		'</table>'
+	            + 	'</div>'
+	            + '</div>'
+	            + '<div class="clearfix"></div>'
+	            + '<hr>'
+	            + '</div>';
+			$(tblRow).appendTo("#matches"); 
+		}
+	});
+}
  function validate(id, errorMessage)
  {
  	var styleBlock = '.placeholder-style.placeholder-style::-moz-placeholder {color: #cc0000;} .placeholder-style::-webkit-input-placeholder {color: #cc0000;}';
@@ -653,130 +679,5 @@ $(function(){
 		});
 		
 	});
- $('.multiSelect').blur(function() {
-		var id = $(this).attr('id');
-		var value=$("#"+id).val();
-		if($("#"+id).val()== null   || $('#'+id).val() == "" || $('#'+id).val()=="undefined"){
-			$("#"+id).select2({
-			    placeholder: "-- Choose Country --"
-			});
-		}
-		
-	});
- $('.multiSelect').on('select2:closing', function (e) {
-	 var data = e.params.data;
-	    console.log(data);
-	});
- function getFilteredStates(id){
-		if($("#"+id).val()== null   || $('#'+id).val() == "" || $('#'+id).val()=="undefined"){
-			 $("#currentState").attr("readonly", true);
-			$("#currentState").attr("disabled" ,"disabled");
-			$("#currentState").val(""); 
-		}else{
-			$("#currentState").removeAttr("disabled");
-			$("#currentState").removeAttr("readonly");
-			var countryIds =$("#"+id).val();
-			var formData = new FormData();
-		     formData.append('country_ids', countryIds);
-		     //return false;
-			$.fn.makeMultipartRequest('POST', 'getFilteredStates', false,
-					formData, false, 'text', function(data){
-				var jsonobj = $.parseJSON(data);
-				var statesList = jsonobj.states_list;
-	         $("#currentState").empty();
-				$("#currentState").append("<option value='' >-- Choose State --</option>");
-				
-				$.each(statesList, function(i, state) {
-					$("#currentState").append("<option value="+state.id+" >"+ state.name+"</option>");
-				});
-				
-			});
-			
-		}
-	}
- 
- function getFilteredStatesMultiSelect(id){
-		if($("#"+id).val()== null   || $('#'+id).val() == "" || $('#'+id).val()=="undefined"){
-			$("#"+id).select2({
-			    placeholder: "-- Choose Country --"
-			});
-			
-		}else{
-			var countryIds =$("#"+id).val();
-			var formData = new FormData();
-		     formData.append('country_ids', countryIds);
-		    $.fn.makeMultipartRequest('POST', 'getFilteredStates', false,
-					formData, false, 'text', function(data){
-				var jsonobj = $.parseJSON(data);
-				var statesList = jsonobj.states_list;
-	         $("#rState").empty();
-				$("#rState").append("<option value='' >-- Choose State --</option>");
-				
-				$.each(statesList, function(i, state) {
-					$("#rState").append("<option value="+state.id+" >"+ state.name+"</option>");
-				});
-				
-			});
-			
-		}
-	}
- 
- 
- function getCitys(id){
-		
-		if($("#"+id).val()== null   || $('#'+id).val() == "" || $('#'+id).val()=="undefined"){
-			$("#currentCity").attr("readonly", true);
-			$("#currentCity").attr("disabled" ,"disabled");
-			$("#currentCity").val("");
-		}else{
-			$("#currentCity").removeAttr("disabled");
-			$("#currentCity").removeAttr("readonly");
-			var stateIds =$("#"+id).val();
-			var formData = new FormData();
-		     formData.append('state_ids', stateIds);
-			$.fn.makeMultipartRequest('POST', 'getCitys', false,
-					formData, false, 'text', function(data){
-				var jsonobj = $.parseJSON(data);
-				var alldata = jsonobj.citys;
-//	 			alert(alldata);
-	         $("#currentCity").empty();
-				$("#currentCity").append("<option value='' >-- Choose City --</option>");
-				
-				$.each(alldata, function(i, tests) {
-					$("#currentCity").append("<option value="+tests.id+" >"+ tests.name+"</option>");
-				});
-				
-			});
-			
-		}
-	}
- 
- function getCitysMultiSelect(id){
-		
-		if($("#"+id).val()== null   || $('#'+id).val() == "" || $('#'+id).val()=="undefined"){
-			$("#"+id).select2({
-			    placeholder: "-- Choose State --"
-			});
-		}else{
-			var stateIds =$("#"+id).val();
-			var formData = new FormData();
-		     formData.append('state_ids', stateIds);
-			$.fn.makeMultipartRequest('POST', 'getCitys', false,
-					formData, false, 'text', function(data){
-				var jsonobj = $.parseJSON(data);
-				var alldata = jsonobj.citys;
-//	 			alert(alldata);
-	         $("#rCity").empty();
-				$("#rCity").append("<option value='' >-- Choose City --</option>");
-				
-				$.each(alldata, function(i, tests) {
-					$("#rCity").append("<option value="+tests.id+" >"+ tests.name+"</option>");
-				});
-				
-			});
-			
-		}
-	}
- 
 </script>
 <%@ include file="userFooter.jsp"%>

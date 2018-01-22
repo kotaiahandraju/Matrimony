@@ -69,6 +69,8 @@ public class LoginController {
 			}
 			objUserBean = objUsersDao.loginChecking(userObj);
 			if (objUserBean != null ) {
+				//update login time
+				objUsersDao.updateLoginTime(objUserBean);
 				if(objUserBean.getStatus().equals("1")){
 					Map<String,Object> interestCounts = objUsersDao.getInterestCounts(objUserBean.getId());
 					objUserBean.setSentInterestCount((String.valueOf(interestCounts.get("sentInterestCount"))));
@@ -101,7 +103,7 @@ public class LoginController {
 					session.setAttribute("cacheGuest", objUserBean);
 					session.setAttribute("rolId", objUserBean.getRoleId());
 					session.setAttribute("userName", objUserBean.getUsername());
-					if(StringUtils.isBlank(objUserBean.getMaritalStatus())){
+					/*if(StringUtils.isBlank(objUserBean.getMaritalStatus())){
 						session.setAttribute("profile_filled_status", "10");
 						return "redirect:profile.htm?page=1";
 					}else if(StringUtils.isBlank(objUserBean.getEducation())){
@@ -110,23 +112,22 @@ public class LoginController {
 					}else if(StringUtils.isBlank(objUserBean.getHeight())){
 						session.setAttribute("profile_filled_status", "35");
 						return "redirect:profile.htm?page=3";
-					}else if(StringUtils.isBlank(objUserBean.getAboutMyself()) && StringUtils.isBlank(objUserBean.getDisability())){
+					} 
+						if(StringUtils.isBlank(objUserBean.getAboutMyself()) && StringUtils.isBlank(objUserBean.getDisability())){
 						session.setAttribute("profile_filled_status", "45");
 						return "redirect:profile.htm?page=4";
-					}
-					else if(StringUtils.isBlank(objUserBean.getFatherName())){
-						session.setAttribute("profile_filled_status", "55");
+					}*/
+					int filled_status = objUsersDao.getProfileFilledStatus(objUserBean);
+					session.setAttribute("profile_filled_status", 45+filled_status);
+					 if(StringUtils.isBlank(objUserBean.getFatherName())){
 						return "redirect:family-details";
 					}else if(StringUtils.isBlank(objUserBean.getImage())){
-						session.setAttribute("profile_filled_status", "65");
 						return "redirect:uploadPhotos";
 					}else if(StringUtils.isBlank(objUserBean.getrAgeFrom()) && StringUtils.isBlank(objUserBean.getrAgeTo()) &&
 							StringUtils.isBlank(objUserBean.getrMaritalStatus()) ){
-						session.setAttribute("profile_filled_status", "90");
 						return "redirect:partner-profile";
 					}
 					else{
-						session.setAttribute("profile_filled_status", "100");
 						return "redirect:dashboard";
 					}
 					
@@ -137,22 +138,8 @@ public class LoginController {
 					session.setAttribute("rolId", objUserBean.getRoleId());
 					session.setAttribute("userName", objUserBean.getUsername());
 					//session.setAttribute("profile_filled_status", "100");
-					if(StringUtils.isNotBlank(objUserBean.getMaritalStatus())){
-						session.setAttribute("profile_filled_status", "15");
-					}else if(StringUtils.isNotBlank(objUserBean.getEducation())){
-						session.setAttribute("profile_filled_status", "30");
-					}else if(StringUtils.isNotBlank(objUserBean.getHeight())){
-						session.setAttribute("profile_filled_status", "45");
-					}else if(StringUtils.isNotBlank(objUserBean.getAboutMyself()) || StringUtils.isNotBlank(objUserBean.getDisability())){
-						session.setAttribute("profile_filled_status", "55");
-					}else if(StringUtils.isNotBlank(objUserBean.getFatherName()) || StringUtils.isNotBlank(objUserBean.getMotherName())){
-						session.setAttribute("profile_filled_status", "70");
-					}else if(StringUtils.isNotBlank(objUserBean.getImage())){
-						session.setAttribute("profile_filled_status", "85");
-					}else if(StringUtils.isNotBlank(objUserBean.getrAgeFrom()) || StringUtils.isNotBlank(objUserBean.getrAgeTo()) ||
-							StringUtils.isNotBlank(objUserBean.getMaritalStatus()) ){
-						session.setAttribute("profile_filled_status", "100");
-					}
+					int filled_status = objUsersDao.getProfileFilledStatus(objUserBean);
+					session.setAttribute("profile_filled_status", 45+filled_status);
 					return "redirect:dashboard";
 				}else{
 					session.setAttribute("cacheGuest", objUserBean);

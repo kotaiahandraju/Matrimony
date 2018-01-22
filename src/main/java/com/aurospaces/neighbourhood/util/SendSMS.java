@@ -10,7 +10,8 @@ public class SendSMS {
    //public  String  mobileNumber =null;
 	static String username = "RKKIDS";
 	static String password = "RK@kids987";
-	static String from = "RKKIDS";
+	//static String from = "RKKIDS";
+	static String from = "AARNA-MATRIMONY";
     static String requestUrl = null;
     static String toAddress = null;
     

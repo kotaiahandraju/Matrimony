@@ -2,7 +2,7 @@
 
 			<div class="col-md-8 products-grid-left">
             	<div class="panel panel-success">
-					<div class="panel-heading">New Matches</div>
+					<div class="panel-heading">Premium Profiles</div>
 					<div class="panel-body table-responsive">
 						<form:form commandName="createProfile"  class="form-horizontal" id="searchForm2" name="searchForm2" role="form" method="post">
 							<div class="col-md-12">
@@ -159,39 +159,7 @@ function displayMatches(listOrders) {
 		
 	});
 }
-/* function updateList(){
-	var allVals = [];
-    $("#castdiv :checked").each(function () {
-        allVals.push($(this).val());
-    });
-    if(allVals!=""){
-    	//alert(allVals);
-    	var formData = new FormData();
 
-    	formData.append('selected_casts',allVals);
-    	jQuery.fn.makeMultipartRequest('POST', 'updateProfilesList', false,
-    			formData, false, 'text', function(data){
-	    		var jsonobj = $.parseJSON(data);
-	    		var filtered_list = jsonobj.filtered_profiles;
-	    		$('#countId').html('');
-	    		if(filtered_list==""){
-	    			$('#countId').html('0');
-	    			var str = '<div class="panel panel-default"><h6>No results found..!</h6></div>';
-	    			$('#searchResults').html('');
-	    			$(str).appendTo("#searchResults");
-	    		}else{
-	    			$('#countId').html(filtered_list.length);
-	    			displayMatches(filtered_list);
-	    		}
-    			
-    		});
-    }
-	
-}
-$(function () {
-    $("#castdiv input[name='caste']").click(updateList);
-    updateList();
-}); */
 function updateProfilesList(){
 	var castVals = [];
 	var religionVals = [];
@@ -241,10 +209,6 @@ function updateProfilesList(){
     		});
 }
    
-$("#castdiv input[name='caste']").click(updateProfilesList);   
-$("#religiondiv input[name='religion']").click(updateProfilesList);
-$("#educationdiv input[name='education']").click(updateProfilesList);
-
 
 function submitSearch(){
 	var formData = new FormData();
@@ -281,34 +245,7 @@ function submitSearch(){
 //}
 
    
-/* $("#castdiv input[name='caste']").click(function(){
-	var allVals = [];
-    $("#castdiv :checked").each(function () {
-        allVals.push($(this).val());
-    });
-   // if(allVals!=""){
-    	//alert(allVals);
-    	var formData = new FormData();
 
-    	formData.append('selected_casts',allVals);
-    	jQuery.fn.makeMultipartRequest('POST', 'updateProfilesList', false,
-    			formData, false, 'text', function(data){
-	    		var jsonobj = $.parseJSON(data);
-	    		var filtered_list = jsonobj.filtered_profiles;
-	    		$('#countId').html('');
-	    		if(filtered_list==""){
-	    			$('#countId').html('0');
-	    			var str = '<div class="panel panel-default"><h6>No results found..!</h6></div>';
-	    			$('#searchResults').html('');
-	    			$(str).appendTo("#searchResults");
-	    		}else{
-	    			$('#countId').html(filtered_list.length);
-	    			displayMatches(filtered_list);
-	    		}
-    			
-    		});
-   // }
-}); */
 
 function expressInterest(profile_id){
 	var roleId = ${cacheGuest.roleId};
@@ -341,60 +278,11 @@ function expressInterest(profile_id){
 	    				alert("Interest request is not successful. Please try again.");
 	    			}
 	    		//}
-	    		/* if(profiles==""){
-	    			$('#countId').html('0');
-	    			var str = '<div class="panel panel-default"><h6>No results found..!</h6></div>';
-	    			$('#searchResults').html('');
-	    			$(str).appendTo("#searchResults");
-	    		}else{
-	    			$('#countId').html(profiles.length);
-	    			displayMatches(profiles);
-	    		} */
-	    		/* var filtered_list = jsonobj.filtered_profiles;
-	    		$('#countId').html('');
-	    		if(filtered_list==""){
-	    			$('#countId').html('0');
-	    			var str = '<div class="panel panel-default"><h6>No results found..!</h6></div>';
-	    			$('#searchResults').html('');
-	    			$(str).appendTo("#searchResults");
-	    		}else{
-	    			$('#countId').html(filtered_list.length);
-	    			displayMatches(filtered_list);
-	    		} */
+	    		
 				
 			});
 	}
 }
-
-/* $(".more").click(function(){
-	$(".hideMe").hide();
-	$(".ifMore").show();
-}); */
-
-function showMoreDetails(thisObj){
-	//$("#hideMe"+id).prop("hidden",true);
-	var isHidden = $(".showMore").prop("hidden");
-	if(isHidden){
-		$(".showMore").removeAttr("hidden");
-		thisObj.innerHTML="hide...";
-	}else{
-		$(".showMore").prop("hidden",true);
-		thisObj.innerHTML="read more...";
-	}
-	
-	
-}
-
-/* function viewMobileNumber(profile_id){
-	var formData = new FormData();
-	formData.append('profile_id',profile_id);
-	jQuery.fn.makeMultipartRequest('POST', 'viewMobileNumber', false,
-			formData, false, 'text', function(data){
-    		var jsonobj = $.parseJSON(data);
-    		
-    		
-	});
-} */
 
 function displayMobileNum(profileId,listType){
 	var roleId = ${cacheGuest.roleId};

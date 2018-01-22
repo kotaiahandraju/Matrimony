@@ -42,7 +42,7 @@
 	<script src="${baseurl }/js/application.min.js"></script>
 	<!-- Just for demonstration -->
 	<script src="${baseurl }/js/demonstration.min.js"></script>
-	
+	<link rel="stylesheet" href="${baseurl }/css/plugins/select2/select2.css">
 	<!-- Datatables -->
 	<script src="${baseurl }/js/plugins/datatables/jquery.dataTables.min.js"></script>
 	<script src="${baseurl }/js/plugins/datatables/extensions/dataTables.tableTools.min.js"></script>
@@ -53,6 +53,7 @@
 	<script src="${baseurl }/js/chosen.jquery.js"></script>
 	<script src="${baseurl }/js/prism.js" type="text/javascript" charset="utf-8"></script>
   	<script src="${baseurl }/js/init.js" type="text/javascript" charset="utf-8"></script>
+  	<script src="${baseurl }/js/plugins/select2/select2.min.js"></script>
 	<script type="text/javascript">
 		var isCheck = "Yes";
 	</script>

@@ -1,35 +1,13 @@
 <%@ include file="userHeader.jsp"%>
 
-			<div class="col-md-6 products-grid-left">
+			<div class="col-md-8 products-grid-left">
 				<div class="panel panel-success">
 					<div class="panel-heading">My Photos</div>
 					<div class="panel-body">
-						<div id="imagesDiv" class="row" style="margin-bottom: 0.4em;">
-					      	<c:forEach items="${photosList}" var="photo" >
-				      		<div class="col-md-3">
-				      			<img id="photo" src="${photo.image}" class="img-responsive thumbnail" style="margin-bottom: 0;height: 60px;width: 60px;">
-				      			<a href="#" onclick="setAsProfilePicture(${photo.id},'${photo.image}')">Set as Profile Picture</a>
-				      		</div>
-							</c:forEach>
-						</div>
-					</div>
-				</div>
-
-				
-			</div>       
-				</div>
-             
-                
-                
-                <div class="col-md-9 products-grid-left">
-					
-            <div class="panel panel-default">
-            
-            <div class="panel-body">
 				<div id="imagesDiv" class="row" style="margin-bottom: 0.4em;">
 			      	<c:forEach items="${photosList}" var="photo" >
-			      		<div id="div${photo.id}" class="col-md-2">
-			      			<img id="photo${photo.id}" src="${photo.image}" class="img-responsive thumbnail" style="margin-bottom:0;">
+			      		<div id="div${photo.id}" class="col-md-3">
+ 			      			<a href="#" onclick="zoomImage('${photo.image}');"><img id="photo${photo.id}" src="${photo.image}" class="img-responsive thumbnail watermark_text" style="margin-bottom:0;"></a>
 			      			<c:if test="${photo.approved_status == '0' }">
 			      				<span>Approval Pending</span>
 			      			</c:if>
@@ -44,7 +22,7 @@
 			      			<c:if test="${photo.approved_status == '2' }">
 			      				<span>Rejected by Admin</span>
 			      			</c:if>
-			      			<a href="#" onclick="deletePhoto(${photo.id},'div${photo.id}')">Delete</a>
+			      			&nbsp;<a href="#" onclick="deletePhoto(${photo.id},'div${photo.id}')">Delete</a>
 			      		</div>
 					</c:forEach>
 			    	
@@ -84,39 +62,45 @@
    <div class="clearfix"></div>
    
    </div>
+				</div>
+
+				
+			</div>       
+				
+             
+                
+                
+                <div class="col-md-9 products-grid-left">
+					
+            <div class="panel panel-default">
+            
+            
    
    </div> 
-         </div></div>
-
-				<div class="panel panel-info">
-					<div class="panel-heading">Upload Photos</div>
-					<div class="panel-body">
-						<div class="row">
-							<div class="col-md-12">
-							    <div class="form-group">
-									<div class="col-md-4">
-										<img src="images/default.png" alt="Preview" id="previewImg" align="middle" class="img img-responsive thumbnail" style="height: 80px;width: 80px;">
-									</div>
-									<div class="col-md-8">
-										<input type="file" id='imageName' onchange="checkImg(this)"><br>
-									</div>
-								</div>
-								<div class="form-group">
-									<div class="col-md-8">
-										<input type="button" class="btn btn-primary btn-sm" id="uploadBtn" value="Upload Photo" onclick="imageAjax()">
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-
-				</div>
-			</div>
+         </div>
 			
 			<div class="col-md-3 products-grid-right">
 			</div>
-         
+			<div id="dial1"></div>
+ <script src="${baseurl }/js/jquery-ui.min.js"></script>        
 <script type="text/javascript">
+$(function(){
+	 //add text water mark;	
+ addWaterMark();
+});
+function addWaterMark(){
+ $('.watermark_text').watermark({
+	  text: 'aarnamatrimony.com',
+	  textWidth: 600,
+	  textSize: 70,
+	  textColor: 'white',
+	  gravity: 'w',
+	   opacity: 0.7,
+	   margin: 10,
+	   outputWidth: 'auto',
+	   outputHeight: 'auto'
+	 });
+}
 function checkImg(objImg)
 {
 	$("#previewImg").prop("src",window.URL.createObjectURL(objImg.files[0]));
@@ -140,6 +124,7 @@ function imageAjax(){
 		  	if("success" == msg){
 		  		alert("Photo Uploaded Successfully.");
 		  		updateImagesList(photosList);
+		  		addWaterMark();
 		  	}else{
 		  		alert("Photo upload failed. Please try again..!");
 		  	}
@@ -156,11 +141,11 @@ function updateImagesList(photosList){
 		//var photoImage = ${photoObj.image};
 		 str += '<div class="col-md-2">'
 
-  			+'<img src="'+photoObj.image+'" class="img-responsive thumbnail" style="margin-bottom:0;">'
+  			+'<a href=""><img src="'+photoObj.image+'" class="img-responsive thumbnail watermark_text" style="margin-bottom:0;"></a>'
   			+' <span>Sent for approval</span> '
   			//+' <a href="#" onclick="sendForApproval('+photoId+')">Send for approval</a> '
   			//+' <a href="#" onclick="setAsProfilePicture('+photoImage+')">Set as Profile Picture</a> '
-  			+'<img src="'+photoObj.image+'" class="img-responsive thumbnail" style="margin-bottom:0;height: 60px;width: 60px;">'
+  			//+'<img src="'+photoObj.image+'" class="img-responsive thumbnail watermark_text" style="margin-bottom:0;height: 60px;width: 60px;">'
   			+'</div>';
 		
 	});
@@ -175,8 +160,10 @@ function setAsProfilePicture(photoId,photoImage){
 		  	var jsonobj = $.parseJSON(data);
 		  	var msg = jsonobj.message;
 		  	if("success" == msg){
-		  		alert("Profile picture updated.");
 		  		$("#profilepic").prop("src",photoImage);
+		  		alert("Profile picture updated.");
+		  		$("#profilepic"+photoId).removeAttr("href");
+		  		$("#profilepic"+photoId).removeAttr("onclick");
 		  		$("#profilepic"+photoId).html('Profile Picture');
 		  	}else{
 		  		alert("Some problem occured. Please try again.");
@@ -206,6 +193,7 @@ function deletePhoto(photoId,divId){
 			});
 	}
 }
+
 $(".dashboard").addClass("active");
 
 </script>

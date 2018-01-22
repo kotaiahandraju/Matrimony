@@ -101,7 +101,7 @@ public class JavaIntegrationKit {
         params.put("furl", baseUrl+"/failed.htm");
         params.put("key", "m7fkbzwB");
         params.put("service_provider", "payu_paisa");
-        params.put("firstname", userSessionBean.getFirstName());
+        params.put("firstname", userSessionBean.getFirstName()+" "+userSessionBean.getLastName());
         params.put("email", email);
         params.put("phone", userSessionBean.getMobile());
         params.put("productinfo", "productinfo");
