@@ -1,4 +1,4 @@
-			<div class="col-md-4">
+			<div class="col-md-3">
 				<img src="user/images/pad.jpg" class="img-responsive">
 			</div>
 			<div class="clearfix"></div>
@@ -53,8 +53,8 @@
     
     <script src="user/js/ie10-viewport-bug-workaround.js"></script>
 <!--     <script src="user/vendor/jquery/jquery.min.js"></script> -->
-    <script src="user/vendor/bootstrap/js/bootstrap.min.js"></script>
     <script src="user/vendor/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+    <script src="user/vendor/bootstrap/js/bootstrap.min.js"></script>
     <script src="user/vendor/scrollreveal/scrollreveal.min.js"></script>
     <script src="user/js/theme.js"></script>
     <script src="user/js/custom.js"></script>
@@ -63,5 +63,6 @@
     <script src="js/customValidation.js"></script>
     <script src="js/ajax.js"></script>
     <script src="js/common.js"></script>
+    
 </body>
 </html>

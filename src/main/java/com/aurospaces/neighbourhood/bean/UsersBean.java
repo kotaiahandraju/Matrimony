@@ -84,7 +84,8 @@ protected String sentInterestCount;
 protected String receivedInterestCount;
 protected String acceptedInterestCount;
 protected String profileViewedCount;
-protected String rejectedInterestCount,profilesViewedByMeCount,mobileNumViewedCount,mobileNumViewedByMeCount;
+protected String pendingRequestsCount,yetToBeViewedCount,viewedNotContactedCount;
+protected String rejectedInterestCount,profilesViewedByMeCount,mobileNumViewedCount,mobileNumViewedByMeCount,shortListedCount;
 protected boolean forEmail;
 protected String currentStateName;
 protected String currentCountryName;
@@ -96,8 +97,12 @@ protected String bodyTypeName;
 protected int page_no;
 protected int total_records;
 protected int OtpLimit;
+protected String OtpStatus;
 private String country_ids,state_ids,last_login_time;
-
+protected String weight;
+protected String fOccupationName;
+protected String mOccupationName;
+protected String mail_content,rReligionName,rCasteName,rDietName,rMotherTongueName,rMaritalStatusName;
 
 public String getRhaveChildren() {
 	return rhaveChildren;
@@ -842,6 +847,90 @@ public String getLast_login_time() {
 }
 public void setLast_login_time(String last_login_time) {
 	this.last_login_time = last_login_time;
+}
+public String getPendingRequestsCount() {
+	return pendingRequestsCount;
+}
+public void setPendingRequestsCount(String pendingRequestsCount) {
+	this.pendingRequestsCount = pendingRequestsCount;
+}
+public String getYetToBeViewedCount() {
+	return yetToBeViewedCount;
+}
+public void setYetToBeViewedCount(String yetToBeViewedCount) {
+	this.yetToBeViewedCount = yetToBeViewedCount;
+}
+public String getViewedNotContactedCount() {
+	return viewedNotContactedCount;
+}
+public void setViewedNotContactedCount(String viewedNotContactedCount) {
+	this.viewedNotContactedCount = viewedNotContactedCount;
+}
+public String getWeight() {
+	return weight;
+}
+public void setWeight(String weight) {
+	this.weight = weight;
+}
+public String getfOccupationName() {
+	return fOccupationName;
+}
+public void setfOccupationName(String fOccupationName) {
+	this.fOccupationName = fOccupationName;
+}
+public String getmOccupationName() {
+	return mOccupationName;
+}
+public void setmOccupationName(String mOccupationName) {
+	this.mOccupationName = mOccupationName;
+}
+public String getOtpStatus() {
+	return OtpStatus;
+}
+public void setOtpStatus(String otpStatus) {
+	OtpStatus = otpStatus;
+}
+public String getShortListedCount() {
+	return shortListedCount;
+}
+public void setShortListedCount(String shortListedCount) {
+	this.shortListedCount = shortListedCount;
+}
+public String getMail_content() {
+	return mail_content;
+}
+public void setMail_content(String mail_content) {
+	this.mail_content = mail_content;
+}
+public String getrReligionName() {
+	return rReligionName;
+}
+public void setrReligionName(String rReligionName) {
+	this.rReligionName = rReligionName;
+}
+public String getrCasteName() {
+	return rCasteName;
+}
+public void setrCasteName(String rCasteName) {
+	this.rCasteName = rCasteName;
+}
+public String getrDietName() {
+	return rDietName;
+}
+public void setrDietName(String rDietName) {
+	this.rDietName = rDietName;
+}
+public String getrMotherTongueName() {
+	return rMotherTongueName;
+}
+public void setrMotherTongueName(String rMotherTongueName) {
+	this.rMotherTongueName = rMotherTongueName;
+}
+public String getrMaritalStatusName() {
+	return rMaritalStatusName;
+}
+public void setrMaritalStatusName(String rMaritalStatusName) {
+	this.rMaritalStatusName = rMaritalStatusName;
 }
 
 

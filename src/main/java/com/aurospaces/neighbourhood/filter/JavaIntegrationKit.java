@@ -18,9 +18,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.lang.StringUtils;
-
-import com.aurospaces.neighbourhood.bean.Members;
 import com.aurospaces.neighbourhood.bean.UsersBean;
 import com.aurospaces.neighbourhood.util.MiscUtils;
 
@@ -68,44 +65,35 @@ public class JavaIntegrationKit {
         return hexString.toString();
     }
 
-    public Map<String, String> hashCalMethod(HttpServletRequest request, HttpServletResponse response,int price)
+    public Map<String, String> hashCalMethod(HttpServletRequest request, HttpServletResponse response,int packPrice)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String salt = "qmuSXtqFLB";
-        //String salt = "BWs45vdYb8";
+        String salt = "BWs45vdYb8";
         String action1 = "";
         String base_url = "https://secure.payu.in";
         error = 0;
         String hashString = "";
+        HttpSession session=request.getSession(); 
+        UsersBean userSessionBean = (UsersBean)  session.getAttribute("cacheGuest");
         Enumeration paramNames = request.getParameterNames();
         Map<String, String> params = new HashMap<String, String>();
         Map<String, String> urlParams = new HashMap<String, String>();
-       // UsersBean userSessionBean = (UsersBean) request.getSession().getAttribute("cacheGuest");
-      /*  while (paramNames.hasMoreElements()) {
+       /* while (paramNames.hasMoreElements()) {
             String paramName = (String) paramNames.nextElement();
             String paramValue = request.getParameter(paramName);
             params.put(paramName, paramValue);
         }*/
-        HttpSession session=request.getSession(); 
-        UsersBean userSessionBean = (UsersBean)  session.getAttribute("cacheGuest");
-        /*Members objMembersBean = (Members)session.getAttribute("payuMoney");
-        String email = null;
-        if(StringUtils.isNotBlank(objMembersBean.getEmailID())){
-        	email = objMembersBean.getEmailID();
-        }else{*/
-        	String 
-        	email = userSessionBean.getEmail();
-        //}
+        String email = userSessionBean.getEmail();
         String baseUrl = MiscUtils.getBaseUrl(request);
         params.put("surl", baseUrl+"/success.htm");
         params.put("furl", baseUrl+"/failed.htm");
-        params.put("key", "m7fkbzwB");
+        params.put("key", "rk9oLSp9");
         params.put("service_provider", "payu_paisa");
-        params.put("firstname", userSessionBean.getFirstName()+" "+userSessionBean.getLastName());
+        params.put("firstname", userSessionBean.getFirstName().replaceAll(" ", "#"+"#"+userSessionBean.getLastName().replaceAll(" ", "#")));//+userSessionBean.getLastName());
         params.put("email", email);
         params.put("phone", userSessionBean.getMobile());
         params.put("productinfo", "productinfo");
-        params.put("amount", String.valueOf(price));
+        params.put("amount",String.valueOf(packPrice));
         String txnid = "";
         if (empty(params.get("txnid"))) {
             Random rand = new Random();

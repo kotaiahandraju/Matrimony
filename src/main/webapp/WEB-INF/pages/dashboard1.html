@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<title>Aarna Matrimony</title>
+	<link rel="shortcut icon" href="img/aarna-fav.png"/>
+	<!-- for-mobile-apps -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script type="application/x-javascript">
+		addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+		function hideURLbar(){ window.scrollTo(0,1); }
+	</script>
+	<!-- //for-mobile-apps -->
+	<link href="user/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="user/css/style-profile.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="user/css/megamenu.css" rel="stylesheet" type="text/css" media="all" />
+	<link rel="stylesheet" type="text/css" href="css/asPaginator.css">
+	<link href="user/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="css/animate.min.css" />
+	<link href='http://fonts.googleapis.com/css?family=Monda:400,700' rel='stylesheet' type='text/css'>
+	<link href="css/thickbox.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="css/plugins/select2/select2.css">
+	<script src="user/js/jquery-1.11.1.min.js"></script>
+	<script src="js/plugins/select2/select2.min.js"></script>
+    <style>
+	/* carousel */
+.media-carousel 
+{
+  margin-bottom: 0;
+  padding: 0 40px 30px 40px;
+  margin-top: 30px;
+}
+/* Previous button  */
+.media-carousel .carousel-control.left 
+{
+  left: -12px;
+  background-image: none;
+  background: none repeat scroll 0 0 #222222;
+  border: 4px solid #FFFFFF;
+  border-radius: 23px 23px 23px 23px;
+  height: 40px;
+  width : 40px;
+  margin-top: 30px
+}
+/* Next button  */
+.media-carousel .carousel-control.right 
+{
+  right: -12px !important;
+  background-image: none;
+  background: none repeat scroll 0 0 #222222;
+  border: 4px solid #FFFFFF;
+  border-radius: 23px 23px 23px 23px;
+  height: 40px;
+  width : 40px;
+  margin-top: 30px
+}
+p{letter-spacing:1px;}
+.thumbnail {
+    display: block;
+    padding: 4px;
+    margin-bottom: 5px;
+    line-height: 1.42857143;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    -webkit-transition: border .2s ease-in-out;
+    -o-transition: border .2s ease-in-out;
+    transition: border .2s ease-in-out;
+}
+/* Changes the position of the indicators */
+.media-carousel .carousel-indicators 
+{
+  right: 50%;
+  top: auto;
+  bottom: 0px;
+  margin-right: -19px;
+}
+/* Changes the colour of the indicators */
+.media-carousel .carousel-indicators li 
+{
+  background: #c0c0c0;
+}
+.media-carousel .carousel-indicators .active 
+{
+  background: #333333;
+}
+.media-carousel img
+{
+  width: 250px;
+  height: 100px
+}
+.img-replace {
+  /* replace text with an image */
+  display: inline-block;
+  overflow: hidden;
+  text-indent: 100%; 
+  color: transparent;
+  white-space: nowrap;
+}
+.bts-popup {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: opacity 0.3s 0s, visibility 0s 0.3s;
+  -moz-transition: opacity 0.3s 0s, visibility 0s 0.3s;
+  transition: opacity 0.3s 0s, visibility 0s 0.3s;
+}
+.bts-popup.is-visible {
+  opacity: 1;
+  visibility: visible;
+  -webkit-transition: opacity 0.3s 0s, visibility 0s 0s;
+  -moz-transition: opacity 0.3s 0s, visibility 0s 0s;
+  transition: opacity 0.3s 0s, visibility 0s 0s;
+}
+
+.bts-popup-container {
+  position: relative;
+  width: 90%;
+  max-width: 400px;
+  margin: 4em auto;
+  background: #006699;
+  border-radius: none; 
+  text-align: center;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+  -webkit-transform: translateY(-40px);
+  -moz-transform: translateY(-40px);
+  -ms-transform: translateY(-40px);
+  -o-transform: translateY(-40px);
+  transform: translateY(-40px);
+  /* Force Hardware Acceleration in WebKit */
+  -webkit-backface-visibility: hidden;
+  -webkit-transition-property: -webkit-transform;
+  -moz-transition-property: -moz-transform;
+  transition-property: transform;
+  -webkit-transition-duration: 0.3s;
+  -moz-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  border-radius:16px;
+}
+.bts-popup-container img {
+  padding: 20px 0 0 0;
+}
+.bts-popup-container p {
+	color: white;
+  padding: 10px 40px;
+}
+.bts-popup-container .bts-popup-button {
+  padding: 5px 25px;
+  border: 2px solid white;
+	display: inline-block;
+  margin-bottom: 10px;
+}
+
+.bts-popup-container a {
+  color: white;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+
+
+
+
+
+.bts-popup-container .bts-popup-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 30px;
+  height: 30px;
+}
+.bts-popup-container .bts-popup-close::before, .bts-popup-container .bts-popup-close::after {
+  content: '';
+  position: absolute;
+  top: 12px;
+  width: 16px;
+  height: 3px;
+  background-color: white;
+}
+.bts-popup-container .bts-popup-close::before {
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+  left: 8px;
+}
+.bts-popup-container .bts-popup-close::after {
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  right: 6px;
+  top: 12px;
+}
+.is-visible .bts-popup-container {
+  -webkit-transform: translateY(0);
+  -moz-transform: translateY(0);
+  -ms-transform: translateY(0);
+  -o-transform: translateY(0);
+  transform: translateY(0);
+}
+@media only screen and (min-width: 1170px) {
+  .bts-popup-container {
+    margin: 8em auto;
+  }
+}
+/* End carousel */
+	</style>
+    
+	<script type="text/javascript">
+		$(function(){
+			$(".dropdown").hover(            
+				function() {
+					$('.dropdown-menu', this).stop( true, true ).fadeIn("fast");
+					$(this).toggleClass('open');
+				},
+				function() {
+					$('.dropdown-menu', this).stop( true, true ).fadeOut("fast");
+					$(this).toggleClass('open');
+			});
+		});
+		function zoomImage(image){
+			$('#dial1').html('');
+			if(image == "" || image == null || image == "undefined"){
+				image = "img/default.png";
+			}
+			var tblRow = "<div>"
+		 		+ 	"<div >"
+		 		+		"<img src="+image+" width='600px' class='watermark_text1'/>"
+		 		+ 	"</div></div>";
+			$(tblRow).appendTo('#dial1');
+			
+			$('.watermark_text1').watermark({
+				  text: 'aarnamatrimony.com',
+				  textWidth: 700,
+				  textSize:50,
+				  textColor: 'white',
+				  gravity: 'w',
+				   opacity: 0.7,
+				   margin: 10,
+				   outputWidth: 'auto',
+				   outputHeight: 'auto'
+				 });
+			$('#dial1').dialog({
+				width: 700, height: 2000, modal: true,
+				buttons: {
+		            "Enrol": function()
+		            {
+		                $(this).dialog('close');
+		                choice(true);
+		            },
+		            "Cancel Enrol": function()
+		            {
+		                $(this).dialog('close');
+		                choice(false);
+		            }
+		        }
+				}).dialog('open');
+		}
+	</script>
+	
+	<script type="text/javascript" src="js/ajax.js"></script>
+	<script type="text/javascript" src="js/jquery-asPaginator.js"></script>
+	<script src="js/jquery.watermark.js"></script>
+	
+<style type="text/css">
+.animated.infinite{animation-iteration-count:infinite}
+.upgradeOption {
+    color: #f35626;
+    background-image: -webkit-linear-gradient(2deg, #f35626, red);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-animation: hue 2s infinite linear;
+}
+.multiSelect{
+	width: 187px;
+}
+@-webkit-keyframes hue {
+  from {
+    -webkit-filter: hue-rotate(0deg);
+  }
+
+  to {
+    -webkit-filter: hue-rotate(-360deg);
+  }
+}
+@keyframes flash{0%,50%,to{opacity:1}25%,75%{opacity:0}}.flash{animation-name:flash}
+
+</style>
+</head>
+
+<body style="background: #F1F1F2;">
+<input type="hidden" name="loc" id="loc" value="http://localhost:8080/NBD">
+<div class="header_top">
+  <div class="container" style="background: #FFF;">
+    <div class="col-md-3">
+      <div class="logo"> <img src="user/images/logo1.jpg" class="img img-responsive"> </div>
+      <div class="clearfix"></div>
+    </div>
+    <div class="col-md-4">
+      <!-- <ul class="nav navbar-nav">
+				<li><a href="#">Matches<span class="badge badge-notify">30</span></a></li>
+				<li><a href="#">Search</a></li>
+				<li><a href="#">Inbox<span class="badge badge-notify">30</span></a></li>
+			</ul> -->
+      <div class="box_1 midfont">
+        <p><a href="#">Matches</a><span class="badge badge-notify">0</span>&nbsp;&nbsp;&nbsp; <a href="searchProfiles">Search</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#">Inbox</a><span class="badge badge-notify">0</span></p>
+      </div>
+    </div>
+    <div class="col-md-5">
+      <div class="cart box_1">
+        <p>Dear, test15 test15 | &nbsp;&nbsp;<a class="upgradeOption animated flash infinite" href="memberShipPage" style="color: red;">Upgrade</a> &nbsp;&nbsp;|&nbsp;&nbsp; <a href="#">Help</a> &nbsp;&nbsp;|&nbsp;&nbsp; <a href="logoutHome">Signout</a></p>
+        <div class="clearfix"> </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <nav class="navbar navbar-inverse" role="navigation">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+          </div>
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+              <li class="dropdown dashboard active"> <a href="dashboard">My Home</a>
+                <ul class="dropdown-menu" style="display: none;">
+                  <!-- <li><a href="dashboard">My Home</a></li> -->
+                  <li><a href="myProfile">My Profile</a></li>
+                  <!-- <li><a href="myPhotos">My Photos</a></li> -->
+                  <li><a href="#">Who viewed my profile</a></li>
+                  <li><a href="shortListedMe">Who short listed me</a></li>
+                  <li><a href="shortListedByMe">Who short listed by me</a></li>
+                  <li><a href="#">Mobile no viewed by me</a></li>
+                  <li><a href="#">Who viewed my mobile number</a></li>
+                  <li><a href="#">Ignored profiles</a></li>
+                </ul>
+              </li>
+              <li class="dropdown searchPage"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Search</a>
+                <ul class="dropdown-menu" style="display: none;">
+                  <li><a href="searchProfiles">Regular search</a></li>
+                  <li><a href="searchById">Search by ID </a></li>
+                  <li><a href="#">Recently viewed profiles</a></li>
+                </ul>
+              </li>
+              <li class="dropdown matches"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Matches</a>
+                <ul class="dropdown-menu" style="display: none;">
+                  <li><a href="newMatches">New Matches</a></li>
+                  <li><a href="#">Still remaining to view </a></li>
+                  <li><a href="#">Short list matches</a></li>
+                  <li><a href="#">Premium members</a></li>
+                  <li><a href="#">Short list matches</a></li>
+                  <li><a href="#">Short list matches</a></li>
+                </ul>
+              </li>
+              <li class="dropdown messages"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Messages</a>
+                <ul class="dropdown-menu" style="display: none;">
+                  <li><a href="#">Inbox - pending </a></li>
+                  <li><a href="#">Inbox - Accepted </a></li>
+                  <li><a href="#">Sent All</a></li>
+                  <li><a href="#">SMS received/sent</a></li>
+                </ul>
+              </li>
+              <li class="dropdown upgrade"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Upgrade</a>
+                <ul class="dropdown-menu" style="display: none;">
+                  <li><a href="memberShipPage">Payment Options</a></li>
+                  <li><a href="#">Profile Highliter </a></li>
+                </ul>
+              </li>
+              <li class="notifications"><a href="#">Notifications</a></li>
+            </ul>
+          </div>
+          <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+      </nav>
+    </div>
+  </div>
+</div>
+<!-- body starts here-->
+<div class="products">
+  <div class="container" style="background: #FFF;">
+    <div class="mid-grids">
+      <div class="col-md-12">
+        <h4>Hello test15. test15<span>(AMGNT784916)</span></h4>
+      </div>
+      <div class="col-md-3 products-grid-right">
+        <div class="well">
+          <div class="row">
+            <div class="col-md-5"> <img id="profilepic" src="img/default.png" class="img-responsive thumbnail " style="margin-bottom:0; height:85px;"> </div>
+            <div class="col-md-7" style="padding-left:0;">
+              <div class="profiletable">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                  <tbody>
+                    <tr>
+                      <td><a href="myPhotos">My Photos</a></td>
+                    </tr>
+                    <tr>
+                      <td><a href="EditUserProfile">Edit Profile</a></td>
+                    </tr>
+                    <tr>
+                      <td><a href="#">Edit Preferences</a></td>
+                    </tr>
+                    <tr>
+                      <td><a href="#">Privacy Options</a></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+        <div class="panel panel-success">
+          <div class="panel-body">
+            <h4><strong>Messages</strong></h4>
+            <div class="tabbable" id="tabs-343694">
+              <ul class="nav nav-tabs">
+                <li class="active"><a href="#inbox" data-toggle="tab"><strong>INBOX</strong></a></li>
+                <li><a href="#sent" data-toggle="tab"><strong>SENT</strong></a></li>
+              </ul>
+              <div class="tab-content">
+                <div class="tab-pane active" id="inbox">
+                  <table width="100%">
+                    <tbody>
+                      <tr>
+                        <td height="30"><a href="receivedRequests">Invitations</a></td>
+                        <td><span class="badge pull-right">0</span></td>
+                      </tr>
+                      <tr>
+                        <td height="30"><a href="#">Members</a></td>
+                        <td><span class="badge pull-right">0</span></td>
+                      </tr>
+                      <tr>
+                        <td height="30"><a href="profileViewedMembers">Profile Viewed</a></td>
+                        <td><span class="badge pull-right">0</span></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="tab-pane" id="sent">
+                  <table width="100%">
+                    <tbody>
+                      <tr>
+                        <td height="30"><a href="sentRequests">Invitations</a></td>
+                        <td><span class="badge pull-right">0</span></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="dial1"></div>
+      <div class="col-md-8 products-grid-left">
+        <div class="panel panel-default">
+          <div class="panel-body"> Complete the remaining Profile
+            <div class="progress">
+              <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 45%;"> 45% Complete </div>
+            </div>
+            <p><span class="glyphicon glyphicon-envelope"></span> Verify your Email <a href="#"><u>Verify Email Address</u></a></p>
+          </div>
+        </div>
+        <div class="panel panel-success">
+          <div class="panel-heading">Preferred Profiles </div>
+          <div class="panel-body" style="overflow-y:scroll; height:350px;">
+          <div class="row">
+          <div class="col-md-2">
+          <img src="images/default.png" class="thumbnail" style="max-height:70px;"/>
+          
+          </div><div class="col-md-10">
+         <p> xxxxxx xxxxxx
+ (AMVJY194296)
+24 yrs, Hindu, Kamma,
+
+5'8 , Vijayawada, India. </p><p><a href="" class="bg-primary" style="padding:5px; color:#fff; border-radius:5px;">  Yes I'M Interest  </a> | <a href="" class="bg-primary" style="padding:5px; color:#fff; border-radius:5px;"> View Profile</a></p>
+          </div></div><div class="clearfix" style="border-bottom:1px solid #f1f1f1; margin-bottom:5px;"></div>
+        <div class="row">
+          <div class="col-md-2">
+          <img src="images/default.png" class="thumbnail" style="max-height:70px;"/>
+          
+          </div><div class="col-md-10">
+         <p> xxxxxx xxxxxx
+ (AMVJY194296)
+24 yrs, Hindu, Kamma,
+
+5'8 , Vijayawada, India. </p><p><a href="" class="bg-primary" style="padding:5px; color:#fff; border-radius:5px;">  Yes I'M Interest  </a> | <a href="" class="bg-primary" style="padding:5px; color:#fff; border-radius:5px;"> View Profile</a></p>
+          </div></div><div class="clearfix" style="border-bottom:1px solid #f1f1f1; margin-bottom:5px;"></div>
+         <div class="row">
+          <div class="col-md-2">
+          <img src="images/default.png" class="thumbnail" style="max-height:70px;"/>
+          
+          </div><div class="col-md-10">
+         <p> xxxxxx xxxxxx
+ (AMVJY194296)
+24 yrs, Hindu, Kamma,
+
+5'8 , Vijayawada, India. </p><p><a href="" class="bg-primary" style="padding:5px; color:#fff; border-radius:5px;">  Yes I'M Interest  </a> | <a href="" class="bg-primary" style="padding:5px; color:#fff; border-radius:5px;"> View Profile</a></p>
+          </div></div><div class="clearfix" style="border-bottom:1px solid #f1f11;margin-bottom:5px;"></div>
+            <div class="row">
+          <div class="col-md-2">
+          <img src="images/default.png" class="thumbnail" style="max-height:70px;"/>
+          
+          </div><div class="col-md-10">
+         <p> xxxxxx xxxxxx
+ (AMVJY194296)
+24 yrs, Hindu, Kamma,
+
+5'8 , Vijayawada, India. </p><p><a href="" class="bg-primary" style="padding:5px; color:#fff; border-radius:5px;">  Yes I'M Interest  </a> | <a href="" class="bg-primary" style="padding:5px; color:#fff; border-radius:5px;"> View Profile</a></p>
+          </div></div><div class="clearfix" style="border-bottom:1px solid #f1f1f1; margin-bottom:5px;"></div>
+        <div class="row">
+          <div class="col-md-2">
+          <img src="images/default.png" class="thumbnail" style="max-height:70px;"/>
+          
+          </div><div class="col-md-10">
+         <p> xxxxxx xxxxxx
+ (AMVJY194296)
+24 yrs, Hindu, Kamma,
+
+5'8 , Vijayawada, India. </p><p><a href="" class="bg-primary" style="padding:5px; color:#fff; border-radius:5px;">  Yes I'M Interest  </a> | <a href="" class="bg-primary" style="padding:5px; color:#fff; border-radius:5px;"> View Profile</a></p>
+          </div></div><div class="clearfix" style="border-bottom:1px solid #f1f1f1; margin-bottom:5px;"></div>
+         <div class="row">
+          <div class="col-md-2">
+          <img src="images/default.png" class="thumbnail" style="max-height:70px;"/>
+          
+          </div><div class="col-md-10">
+         <p> xxxxxx xxxxxx
+ (AMVJY194296)
+24 yrs, Hindu, Kamma,
+
+5'8 , Vijayawada, India. </p><p><a href="" class="bg-primary" style="padding:5px; color:#fff; border-radius:5px;">  Yes I'M Interest  </a> | <a href="" class="bg-primary" style="padding:5px; color:#fff; border-radius:5px;"> View Profile</a></p>
+          </div></div><div class="clearfix" style="border-bottom:1px solid #f1f11;margin-bottom:5px;"></div>
+          </div>
+          
+        </div>
+        <div id="pagination_div" style="font-size: 12px;">
+          <div id="altLists" class="asPaginator">
+            <ul>
+              <li class="asPaginator-first asPaginator_disable"><a>First</a></li>
+              <li class="asPaginator-prev asPaginator_disable"><a>Prev</a></li>
+              <li class="asPaginator-items asPaginator_active" data-value="1"><a href="#">1</a></li>
+              <li class="asPaginator-next asPaginator_disable"><a>Next</a></li>
+              <li class="asPaginator-last asPaginator_disable"><a>Last</a></li>
+            </ul>
+          </div>
+          <div id="table_footer">Showing 1 to 4 of 4 records</div>
+        </div>
+     <br>
+ <div class="panel panel-success">
+          <div class="panel-heading">New Matches </div>
+        <div class="panel-body">  <div class="panel-body"
+  <div class='row'>
+    <div class='col-md-12'>
+      <div class="carousel slide media-carousel" id="media">
+        <div class="carousel-inner">
+          <div class="item  active">
+            <div class="row">
+              <div class="col-md-4">
+                <a class="thumbnail" href="#"><img alt="" src="http://placehold.it/150x150"></a>
+              </div>          
+              <div class="col-md-4">
+                <a class="thumbnail" href="#"><img alt="" src="http://placehold.it/150x150"></a>
+              </div>
+              <div class="col-md-4">
+                <a class="thumbnail" href="#"><img alt="" src="http://placehold.it/150x150"></a>
+              </div>        
+            </div>
+          </div>
+          <div class="item">
+            <div class="row">
+              <div class="col-md-4">
+                <a class="thumbnail" href="#"><img alt="" src="http://placehold.it/150x150"></a>
+              </div>          
+              <div class="col-md-4">
+                <a class="thumbnail" href="#"><img alt="" src="http://placehold.it/150x150"></a>
+              </div>
+              <div class="col-md-4">
+                <a class="thumbnail" href="#"><img alt="" src="http://placehold.it/150x150"></a>
+              </div>        
+            </div>
+          </div>
+          <div class="item">
+            <div class="row">
+              <div class="col-md-4">
+                <a class="thumbnail" href="#"><img alt="" src="http://placehold.it/150x150"></a>
+              </div>          
+              <div class="col-md-4">
+                <a class="thumbnail" href="#"><img alt="" src="http://placehold.it/150x150"></a>
+              </div>
+              <div class="col-md-4">
+                <a class="thumbnail" href="#"><img alt="" src="http://placehold.it/150x150"></a>
+              </div>      
+            </div>
+          </div>
+        </div>
+        <a data-slide="prev" href="#media" class="left carousel-control">‹</a>
+        <a data-slide="next" href="#media" class="right carousel-control">›</a>
+      </div>                          
+    </div>
+  </div>
+</div></div><div class="bts-popup" role="alert">
+    <div class="bts-popup-container">
+    <img src="user/images/upgrade.jpg" class="img-responsive"/>
+      	<p style="padding:50px;">Coming Offes</p>
+				<div class="bts-popup-button">
+		       <a href="#0">View Plans</a>
+         </div>
+        <a href="#0" class="bts-popup-close img-replace">Close</a>
+    </div>
+</div>
+      <!-- Modal Starts here-->
+      <!-- //footer -->
+      <input type="hidden" name="loc" id="loc" value="http://localhost:8080/NBD">
+      <script src="js/ajax.js"></script>
+      <script src="js/jquery-asPaginator.js"></script>
+      <script src="js/jquery.watermark.js"></script>
+      <script type="text/javascript">
+/* $(window).load(function() {
+	$('#myModal').modal();
+});
+  */
+  $(function(){
+		 //add text water mark;	
+	  addWaterMark();
+  });
+  function addWaterMark(){
+	  $('.watermark_text').watermark({
+		  text: 'aarnamatrimony.com',
+		  textWidth: 500,
+		  textSize: 50,
+		  textColor: 'white',
+		  gravity: 'w',
+		   opacity: 0.7,
+		   margin: 5,
+		   outputWidth: 'auto',
+		   outputHeight: 'auto'
+		 });
+  }
+var total_items_count = 4;
+var page_size = 10;
+var allowed_limit = 0;
+var listOrders1 = [{"updated_time":"2018-01-03 07:04:57.0","motherTongue":"1","occupation":null,"education":"1","gender":"Female","occupationName":"","profileImage":null,"inches":"5'8","password":"ÔÕØh?¡¯±vkO?«f|?","dobString":"28-12-1992","role_id":"4","educationName":"B.Tech","total_records":"4","id":"19","religionName":"Hindu","email":"test2@gmail.com","height":"17","created_time":"2017-12-20 12:14:26.0","caste":"4","casteName":"Kamma","cm":"172","createProfileFor":"Self","currentCountryName":"India","religion":"1","dob":"1992-12-28","currentCityName":"Vijayawada","motherTongueName":"Telugu","maritalStatus":"Unmarried","age":"24.11","username":"AMVJY194296"},{"updated_time":"2017-12-25 18:17:05.0","motherTongue":"1","occupation":null,"education":"4","gender":"Female","occupationName":"","profileImage":null,"inches":"5'3","password":"\u0011Bå\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000","dobString":"21-12-1993","role_id":"4","educationName":"B.Com","total_records":"4","id":"24","religionName":"Hindu","email":"test7@gmail.com","height":"12","created_time":"2017-12-25 18:17:05.0","caste":"4","casteName":"Kamma","cm":"160","createProfileFor":"Self","currentCountryName":"India","religion":"1","dob":"1993-12-21","currentCityName":"Visakhapatnam","motherTongueName":"Telugu","maritalStatus":"Married","age":"24.0","username":"AMVZG726362"},{"updated_time":"2018-01-04 14:39:25.0","motherTongue":"1","occupation":null,"education":"4","gender":"Female","occupationName":"","profileImage":"img/25309.png","inches":"5 ft 2 in","password":"Öd?Í7¦?Ð\u000E¬\bå?õ?Ó","dobString":"16-12-1992","role_id":"4","educationName":"B.Com","total_records":"4","id":"25","religionName":"Hindu","email":"test8@gmail.com","height":"10","created_time":"2017-12-25 18:19:53.0","caste":"4","casteName":"Kamma","cm":"157","createProfileFor":"Self","currentCountryName":"India","religion":"1","dob":"1992-12-16","currentCityName":"Visakhapatnam","motherTongueName":"Telugu","maritalStatus":"Unmarried","age":"25.0","username":"AMVZG487786"},{"updated_time":"2018-01-09 09:03:53.0","motherTongue":"1","occupation":null,"education":"1","gender":"Female","occupationName":"","profileImage":null,"inches":"5 ft 10 in","password":",?è\u0017\u0004øÝR?Ïu§X)ÖH","dobString":"11-12-1989","role_id":"4","educationName":"B.Tech","total_records":"4","id":"20","religionName":"Hindu","email":"test3@gmail.com","height":"19","created_time":"2017-12-25 15:44:20.0","caste":"4","casteName":"Kamma","cm":"177","createProfileFor":"Self","currentCountryName":"India","religion":"1","dob":"1989-12-11","currentCityName":"Vijayawada","motherTongueName":"Telugu","maritalStatus":"Unmarried","age":"28.0","username":"AM982320"}];
+
+//if (listOrders1 != "") {
+	displayMatches(listOrders1);
+	
+//}
+function displayMatches(listOrders) {
+	$('#matches').html('');
+	serviceUnitArray = {};
+	if(listOrders==""){
+		var tblRow = '<div>No matches found.</div>';
+		$(tblRow).appendTo("#matches"); 
+		$("#pagination_div").prop("hidden",true);
+	}
+	$.each(listOrders,function(i, orderObj) 
+	{
+		paginationSetup(total_items_count);
+		$("#altLists").asPaginator('enable');
+		$("#pagination_div").removeAttr("hidden");
+		displayTableFooter(1);
+		serviceUnitArray[orderObj.id] = orderObj;
+		
+		var array = null;
+// 		var imageUrl =null;
+		
+		var image = null; image = orderObj.profileImage;
+		if(image == "" || image == null || image == "undefined"){
+			image = "img/default.png";
+		}
+		/* else{
+		array = image.split(",");
+		
+		$.each(array,function(i){
+			image = array[i];
+// 			   alert(array[i]);
+			});
+		} */
+		
+			var login_user_role_id = 4;
+			var firstname = 'xxxxxx',lastname='xxxxxx';
+			var ageStr = orderObj.age;
+			var age = ageStr.split(".")[0];
+			if((login_user_role_id == 6) || (login_user_role_id == 11) || (login_user_role_id == 12)
+					|| (login_user_role_id == 13) || (login_user_role_id == 14)){ //means premium,premium_plus,aarna premium users
+			
+				firstname = orderObj.firstName;
+				lastname = orderObj.lastName;
+				//mobile_no__str = '<tr id="row'+orderObj.id+'"><td><button type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button></td></tr>';
+				//more_details_str = '<tr><td><span><a href="#" onclick="showMoreDetails(this)">read more...</a></span></td></tr>';
+				//mobile_no__str = '<tr><td><span><a href="#" onclick="viewMobileNumber('+orderObj.id+')">View Mobile Number</a></span></td></tr>';
+			}
+			var tblRow = '<div class="row container-fluid">'
+				+ '<div class="col-md-2" style="margin-right:0; padding-right:0;">'
+	            + 	"<img src="+image+" class='watermark_text img-responsive thumbnail ' style='margin-bottom: 0px;'>"
+	            + '</div>'
+	            + '<div class="col-md-6">'
+	            + 	'<div class="profilesimilar">'
+	            + 		'<table width="100%" border="0" cellspacing="0" cellpadding="0">'
+	            + 			'<tr><td><h4>'+firstname+'&nbsp;'+lastname+'</h4>&nbsp;('+orderObj.username+')</td></tr>'
+	            + 			'<tr><td><p>'+age+' yrs, '+orderObj.religionName+', '+orderObj.casteName+',</p></td></tr>'
+	            + 			'<tr><td><p>'+orderObj.inches+'&nbsp'+orderObj.occupationName+', '+orderObj.currentCityName+', '+orderObj.currentCountryName+'.</p></td></tr>'
+	            //+			mobile_no__str
+	            //+ 			'<tr><td><span><a href="#" onclick="fullProfile('+orderObj.id+')">Full Profile</span> </td></tr>'
+	            + 		'</table>'
+	            + 	'</div>'
+	            + '</div>'
+	            + '<div class="col-md-3" style="margin-right:0; padding-right:0;">'
+	            +  '<h4 style="margin-bottom:20px;">Like this Profile?</h4>'
+	            + 	'<button id="expInterest'+orderObj.id+'" type="button" class="btn btn-primary" onclick="expressInterest('+orderObj.id+')">Yes I\'m interested</button><br><br>'
+	            + 	'<button  type="button" class="btn btn-primary btn-block" onclick="fullProfile('+orderObj.id+')">View Full Profile</button>'
+	            //+   '<button id="mobileBtn'+orderObj.id+'" type="button" class="btn btn-info" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button>'
+	            + '</div>'
+	            + '<div class="row container-fluid">'
+	            + 	'<div class="col-md-7" style="margin-right:0; padding-right:0;">'
+	            +		'<table width="100%" border="0" cellspacing="0" cellpadding="0">'
+	            + 			'<tr>'
+	            //+				'<td><button  type="button" class="btn btn-primary btn-block" onclick="fullProfile('+orderObj.id+')">View Full Profile</button></td>'
+	            //+ 				'<td>&nbsp;</td><td><button id="mobileBtn'+orderObj.id+'" type="button" class="btn btn-info" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button></td></tr>'
+	            //+				'<td><a href="#" onclick="fullProfile('+orderObj.id+')">View Full Profile</a></td>'
+	            + 				'<td id="mobileTD'+orderObj.id+'"><a href="#"   type="button" class="btn" onclick="displayMobileNum('+orderObj.id+')">View Mobile Number</a></td>'
+	            + 				'<td id="shortlistTD'+orderObj.id+'"><a href="#"   type="button" class="btn" onclick="shortList('+orderObj.id+')">Shortlist</a></td></tr>'
+	            + 		'</table>'
+	            //+ 		'<button  type="button" class="btn btn-primary btn-block" onclick="fullProfile('+orderObj.id+')">View Full Profile</button>'
+	            //+   	'<button id="mobileBtn'+orderObj.id+'" type="button" class="btn btn-info" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button>'
+	            + 	'</div>'
+	            + '</div>'
+	            + '<div class="clearfix"></div>'
+	            + '<hr>'
+	            + '</div>';
+	        /* var login_user_role_id = 4;
+	        if(login_user_role_id==4){ // means free user
+	        	$("#mobileBtn"+orderObj.id).prop("disabled",true);
+	        } */
+			$(tblRow).appendTo("#matches"); 
+		
+	});
+}
+
+/* function displayMobileNum(profileId,listType){
+	 var profileObj = serviceUnitArray[profileId];
+	var formData = new FormData();
+	formData.append('profile_id',profileId);
+	formData.append('list_type',listType);
+	jQuery.fn.makeMultipartRequest('POST', 'viewedMobileNumber', false,
+			formData, false, 'text', function(data){
+    		var jsonobj = $.parseJSON(data);
+    		var msg = jsonobj.message;
+    		if(typeof msg != "undefined"){
+    			if(msg=="success"){
+    				$("#row"+profileId).html('<td>'+profileObj.mobile+'</td>');
+    			}else{
+    				alert("Some problem occured. Please try again.");
+    			}
+    		}
+    		
+	}); 
+	
+} */
+
+function displayMobileNum(profileId){
+	var roleId = 4;
+	$("#id").val(profileId);
+	if(roleId==4){
+		document.searchForm2.action = "memberShipPage"
+		document.searchForm2.submit();
+		return true;
+	}else{
+		if(allowed_limit<=0){
+			alert("Exceeded allowed profiles limit. Renew your membership plan and get more profiles");
+			return false;
+		}
+		var profileObj = serviceUnitArray[profileId];
+		var formData = new FormData();
+		formData.append('profile_id',profileId);
+		jQuery.fn.makeMultipartRequest('POST', 'viewedMobileNumber', false,
+				formData, false, 'text', function(data){
+	    		var jsonobj = $.parseJSON(data);
+	    		var limit = jsonobj.allowed_limit;
+	    		var msg = jsonobj.message;
+	    		if(typeof msg != "undefined"){
+	    			if(msg=="success"){
+	    				$("#mobileTD"+profileId).html(profileObj.mobile);
+	    				allowed_limit = limit;
+	    			}else{
+	    				alert("Some problem occured. Please try again.");
+	    			}
+	    		}
+	    		
+		});
+	}
+	
+	
+}
+
+function shortList(profileId){
+		$("#id").val(profileId);
+		var profileObj = serviceUnitArray[profileId];
+		var formData = new FormData();
+		formData.append('profile_id',profileId);
+		jQuery.fn.makeMultipartRequest('POST', 'shortList', false,
+				formData, false, 'text', function(data){
+	    		var jsonobj = $.parseJSON(data);
+	    		var msg = jsonobj.message;
+	    		if(typeof msg != "undefined"){
+	    			if(msg=="success"){
+	    				$("#shortlistTD"+profileId).html("Shortlisted");
+	    			}else{
+	    				alert("Some problem occured. Please try again.");
+	    			}
+	    		}
+	    		
+		});
+}
+	
+	
+
+
+function fullProfile(profile_id){
+	/* var roleId = 4;
+	$("#id").val(profile_id);
+	if(roleId==4){
+		document.searchForm2.action = "memberShipPage"
+	}else{
+		document.searchForm2.action = "fullProfile"
+	} */
+	$("#id").val(profile_id);
+	document.searchForm2.action = "fullProfile"
+    document.searchForm2.target = "_blank";    // Open in a new window
+    document.searchForm2.submit();             // Submit the page
+    return true;
+	
+}
+function displayTableFooter(page){
+	var from_val = ((parseInt(page)-1)*page_size)+1;
+	var to_val = parseInt(page)*page_size;
+	if(to_val > total_items_count){
+		to_val = total_items_count;
+	}
+	if(from_val>to_val){
+		from_val = to_val;
+	}
+	$("#table_footer").html("Showing "+from_val+" to "+to_val+" of "+total_items_count+" records");
+}
+function paginationSetup(total_items_count) {
+	$('#altLists').asPaginator(total_items_count, {
+        currentPage: 1,
+        visibleNum: {
+          0: 5,
+          480: 3,
+          960: 5
+        },
+        tpl: function() {
+          return '<ul>{{first}}{{prev}}{{altLists}}{{next}}{{last}}</ul>';
+        },
+        components: {
+          first: true,
+          prev: true,
+          next: true,
+          last: true,
+          altLists: true
+        },
+        onChange: function(page) {
+           
+      	 var formData = new FormData();
+      	formData.append("page_no",page);
+      	formData.append("request_from","dashboard");
+  		$.fn.makeMultipartRequest('POST', 'displayPage', false,
+  				formData, false, 'text', function(data){
+  			var jsonobj = $.parseJSON(data);
+  			var results = jsonobj.results;
+  				if(results==""){
+	    			var str = '<div class="panel panel-default"><h6>No results found.</h6></div>';
+	    			$('#matches').html('');
+	    			$(str).appendTo("#matches");
+	    			$("#table_footer").prop("hidden",true);
+	    			$("#altLists").prop("hidden",true);
+	    		}else{
+	    			paginationSetup(total_items_count);
+	    			$("#altLists").asPaginator('enable');
+	    			displayMatches(results);
+	    			displayTableFooter(page);
+	    			addWaterMark();
+	    		}
+  			
+  		});
+          
+        }
+      });
+}
+function getNewMatches(){
+	document.searchForm2.action = "newMatches";
+    document.searchForm2.submit();            
+    return true;
+}
+
+function expressInterest(profile_id){
+	var roleId = 4;
+	$("#id").val(profile_id);
+	if(roleId==4){
+		document.searchForm2.action = "memberShipPage"
+		document.searchForm2.submit();
+		return true;
+	}else{
+		if(allowed_limit<=0){
+			alert("Exceeded allowed profiles limit. Renew your membership plan and get more profiles");
+			return false;
+		}
+		var formData = new FormData();
+	
+		formData.append('profile_id',profile_id);
+		jQuery.fn.makeMultipartRequest('POST', 'expressInterestTo', false,
+				formData, false, 'text', function(data){
+	    		var jsonobj = $.parseJSON(data);
+	    		var limit = jsonobj.allowed_limit;
+	    		var msg = jsonobj.message;
+	    		var profiles = jsonobj.allProfiles;
+	    		//if(typeof msg != "undefined" ){
+	    			if("success"==msg){
+	    				alert("Interest request has been sent successfully");
+	    				$("#expInterest"+profile_id).html('Expressed Interest');
+	    				$("#expInterest"+profile_id).prop("disabled",true);
+	    				allowed_limit = limit;
+	    			}else if("failed"==msg || "exception"==msg){
+	    				alert("Interest request is not successful. Please try again.");
+	    			}
+	    		//}
+	    		/* if(profiles==""){
+	    			$('#countId').html('0');
+	    			var str = '<div class="panel panel-default"><h6>No results found.</h6></div>';
+	    			$('#searchResults').html('');
+	    			$(str).appendTo("#searchResults");
+	    		}else{
+	    			$('#countId').html(profiles.length);
+	    			displayMatches(profiles);
+	    		} */
+	    		/* var filtered_list = jsonobj.filtered_profiles;
+	    		$('#countId').html('');
+	    		if(filtered_list==""){
+	    			$('#countId').html('0');
+	    			var str = '<div class="panel panel-default"><h6>No results found.</h6></div>';
+	    			$('#searchResults').html('');
+	    			$(str).appendTo("#searchResults");
+	    		}else{
+	    			$('#countId').html(filtered_list.length);
+	    			displayMatches(filtered_list);
+	    		} */
+				
+			});
+	}
+}
+
+
+	 
+$(".dashboard").addClass("active");
+</script>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>
+<iframe src="about:blank" frameborder="0" id="FirebugUI" style="border: 0px; visibility: hidden; z-index: 2147483647; position: fixed; width: 100%; left: 0px; bottom: 0px; height: 300px;"></iframe>
+<!-- body ends here-->
+<!-- footer -->
+<div class="container">
+  <div class="row">
+    <div class="footer" style="font-size: 10px;">
+      <div class="col-md-3 footer-grid">
+        <h6>About us</h6>
+        <p>Suspendisse sed accumsan risus. Curabitur rhoncus, elit vel tincidunt elementum, nunc urna tristique nisi, in interdum libero magna .</p>
+      </div>
+      <div class="col-md-3 footer-grid">
+        <h6>Search</h6>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms &amp; Conditions</a></li>
+        </ul>
+      </div>
+      <div class="col-md-3 footer-grid">
+        <h6>My Account</h6>
+        <ul>
+          <li><a href="dashboard">My Account</a></li>
+          <li><a href="myProfile">My Profile</a></li>
+          <li><a href="#">My Interest</a></li>
+        </ul>
+      </div>
+      <div class="col-md-3 footer-grid">
+        <h6>Extras</h6>
+        <ul>
+          <li><a href="#">Login</a></li>
+          <li><a href="#">Register</a></li>
+          <li><a href="#">Help</a></li>
+        </ul>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+    <div class="footer-copy">
+      <p>A product of Aarna Associates © 2017. All rights reserved.</p>
+    </div>
+  </div>
+</div>
+<script>
+$(document).ready(function() {
+  $('#media').carousel({
+    pause: true,
+    interval: false,
+  });
+});
+</script><script>
+jQuery(document).ready(function($){
+  
+  window.onload = function (){
+    $(".bts-popup").delay(1000).addClass('is-visible');
+	}
+  
+	//open popup
+	$('.bts-popup-trigger').on('click', function(event){
+		event.preventDefault();
+		$('.bts-popup').addClass('is-visible');
+	});
+	
+	//close popup
+	$('.bts-popup').on('click', function(event){
+		if( $(event.target).is('.bts-popup-close') || $(event.target).is('.bts-popup') ) {
+			event.preventDefault();
+			$(this).removeClass('is-visible');
+		}
+	});
+	//close popup when clicking the esc keyboard button
+	$(document).keyup(function(event){
+    	if(event.which=='27'){
+    		$('.bts-popup').removeClass('is-visible');
+	    }
+    });
+});
+</script>
+<!-- //footer -->
+<script src="js/bootstrap.min.js"></script>
+<!-- start-smoth-scrolling -->
+<script type="text/javascript" src="user/js/move-top.js"></script>
+<!-- <script type="text/javascript" src="user/js/easing.js"></script> -->
+<!-- <script type="text/javascript" src="user/js/megamenu.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){$(".megamenu").megamenu();});
+	</script>
+	
+	<script src="user/js/menu_jquery.js"></script>
+
+	<script type="text/javascript" src="js/jquery.jscrollpane.min.js"></script>
+	<script type="text/javascript" id="sourcecode">
+		$(function(){$('.scroll-pane').jScrollPane();});
+	</script> -->
+</body>
+</html>

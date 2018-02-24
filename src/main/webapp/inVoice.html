@@ -1,0 +1,1223 @@
+
+
+
+
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+	<title>Aarna Matrimony</title>
+	<link rel="shortcut icon" href="img/aarna-fav.png"/>
+	<!-- for-mobile-apps -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script type="application/x-javascript">
+		addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+		function hideURLbar(){ window.scrollTo(0,1); }
+	</script>
+	<!-- //for-mobile-apps -->
+	<link href="user/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="user/css/style-profile.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="user/css/megamenu.css" rel="stylesheet" type="text/css" media="all" />
+	<link rel="stylesheet" type="text/css" href="css/asPaginator.css">
+	<link href="user/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="css/animate.min.css" />
+	<link href='http://fonts.googleapis.com/css?family=Monda:400,700' rel='stylesheet' type='text/css'>
+	<link href="css/thickbox.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="css/plugins/select2/select2.css">
+	<link href="user/css/style.css" rel="stylesheet" type="text/css">
+	<link href="user/css/style-profile.css" rel="stylesheet" type="text/css">
+	<script src="user/js/jquery-1.11.1.min.js"></script>
+	<script src="js/plugins/select2/select2.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$(".dropdown").hover(            
+				function() {
+					$('.dropdown-menu', this).stop( true, true ).fadeIn("fast");
+					$(this).toggleClass('open');
+				},
+				function() {
+					$('.dropdown-menu', this).stop( true, true ).fadeOut("fast");
+					$(this).toggleClass('open');
+			});
+		});
+		function zoomImage(image){
+			$('#dial1').html('');
+			if(image == "" || image == null || image == "undefined"){
+				image = "img/default.png";
+			}
+			var tblRow = "<div>"
+		 		+ 	"<div >"
+		 		+		"<img src="+image+" width='600px' class='watermark_text1'/>"
+		 		+ 	"</div></div>";
+			$(tblRow).appendTo('#dial1');
+			
+			$('.watermark_text1').watermark({
+				  text: 'aarnamatrimony.com',
+				  textWidth: 700,
+				  textSize:76,
+				  textColor: 'white',
+				  gravity: 'w',
+				  opacity: 0.3,
+				  //margin: 10,
+				  outputWidth: 'auto',
+				  outputHeight: 'auto'
+				 });
+			$('#dial1').dialog({
+				width: 700, height: 2000, modal: true,
+				buttons: {
+		            "Enrol": function()
+		            {
+		                $(this).dialog('close');
+		                choice(true);
+		            },
+		            "Cancel Enrol": function()
+		            {
+		                $(this).dialog('close');
+		                choice(false);
+		            }
+		        }
+				}).dialog('open');
+		}
+		
+		function shortList(profileId){
+			$("#id").val(profileId);
+			var profileObj = serviceUnitArray[profileId];
+			var formData = new FormData();
+			formData.append('profile_id',profileId);
+			jQuery.fn.makeMultipartRequest('POST', 'shortList', false,
+					formData, false, 'text', function(data){
+		    		var jsonobj = $.parseJSON(data);
+		    		var msg = jsonobj.message;
+		    		if(typeof msg != "undefined"){
+		    			if(msg=="success"){
+		    				$("#shortlistTD"+profileId).html("Shortlisted");
+		    			}else{
+		    				alert("Some problem occured. Please try again.");
+		    			}
+		    		}
+		    		
+			});
+	}
+		
+		function expressInterest(profile_id){
+			var roleId = 4;
+			$("#id").val(profile_id);
+			if(roleId==4){
+				document.searchForm2.action = "memberShipPage"
+				document.searchForm2.submit();
+				return true;
+			}else{
+				if(allowed_limit<=0){
+					alert("Exceeded allowed profiles limit. Renew your membership plan and get more profiles");
+					return false;
+				}
+				var formData = new FormData();
+			
+				formData.append('profile_id',profile_id);
+				jQuery.fn.makeMultipartRequest('POST', 'expressInterestTo', false,
+						formData, false, 'text', function(data){
+			    		var jsonobj = $.parseJSON(data);
+			    		var limit = jsonobj.allowed_limit;
+			    		var msg = jsonobj.message;
+			    		var profiles = jsonobj.allProfiles;
+			    		//if(typeof msg != "undefined" ){
+			    			if("success"==msg){
+			    				alert("Interest request has been sent successfully");
+			    				$("#expInterest"+profile_id).html('Expressed Interest');
+			    				$("#expInterest"+profile_id).prop("disabled",true);
+			    				allowed_limit = limit;
+			    			}else if("failed"==msg || "exception"==msg){
+			    				alert("Interest request is not successful. Please try again.");
+			    			}
+			    		//}
+			    		/* if(profiles==""){
+			    			$('#countId').html('0');
+			    			var str = '<div class="panel panel-default"><h6>No results found.</h6></div>';
+			    			$('#searchResults').html('');
+			    			$(str).appendTo("#searchResults");
+			    		}else{
+			    			$('#countId').html(profiles.length);
+			    			displayMatches(profiles);
+			    		} */
+			    		/* var filtered_list = jsonobj.filtered_profiles;
+			    		$('#countId').html('');
+			    		if(filtered_list==""){
+			    			$('#countId').html('0');
+			    			var str = '<div class="panel panel-default"><h6>No results found.</h6></div>';
+			    			$('#searchResults').html('');
+			    			$(str).appendTo("#searchResults");
+			    		}else{
+			    			$('#countId').html(filtered_list.length);
+			    			displayMatches(filtered_list);
+			    		} */
+						
+					});
+			}
+		}
+		
+		function displayMobileNum(profileId){
+			var roleId = 4;
+			$("#id").val(profileId);
+			if(roleId==4){
+				document.searchForm2.action = "memberShipPage"
+				document.searchForm2.submit();
+				return true;
+			}else{
+				if(allowed_limit<=0){
+					alert("Exceeded allowed profiles limit. Renew your membership plan and get more profiles");
+					return false;
+				}
+				var profileObj = serviceUnitArray[profileId];
+				var formData = new FormData();
+				formData.append('profile_id',profileId);
+				jQuery.fn.makeMultipartRequest('POST', 'viewedMobileNumber', false,
+						formData, false, 'text', function(data){
+			    		var jsonobj = $.parseJSON(data);
+			    		var limit = jsonobj.allowed_limit;
+			    		var msg = jsonobj.message;
+			    		if(typeof msg != "undefined"){
+			    			if(msg=="success"){
+			    				$("#mobileTD"+profileId).html(profileObj.mobile);
+			    				allowed_limit = limit;
+			    			}else{
+			    				alert("Some problem occured. Please try again.");
+			    			}
+			    		}
+			    		
+				});
+			}
+			
+			
+		}
+	</script>
+	
+	<script type="text/javascript" src="js/ajax.js"></script>
+	<script type="text/javascript" src="js/jquery-asPaginator.js"></script>
+	<script src="js/jquery.watermark.js"></script>
+	
+<style type="text/css">
+.animated.infinite{animation-iteration-count:infinite}
+.upgradeOption {
+    color: #f35626;
+    background-image: -webkit-linear-gradient(2deg, #f35626, red);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-animation: hue 2s infinite linear;
+}
+@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css");
+.panel-title > a:before {
+    float: right !important;
+    font-family: FontAwesome;
+    content:"\f068";
+    padding-right: 5px;
+}
+.lSSlideOuter {
+    overflow: hidden;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none
+}
+.lightSlider:before, .lightSlider:after {
+    content: " ";
+    display: table;
+}
+.lightSlider {
+    overflow: hidden;
+    margin: 0;
+}
+.lSSlideWrapper {
+    max-width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+.lSSlideWrapper > .lightSlider:after {
+    clear: both;
+}
+.lSSlideWrapper .lSSlide {
+    -webkit-transform: translate(0px, 0px);
+    -ms-transform: translate(0px, 0px);
+    transform: translate(0px, 0px);
+    -webkit-transition: all 1s;
+    -webkit-transition-property: -webkit-transform,height;
+    -moz-transition-property: -moz-transform,height;
+    transition-property: transform,height;
+    -webkit-transition-duration: inherit !important;
+    transition-duration: inherit !important;
+    -webkit-transition-timing-function: inherit !important;
+    transition-timing-function: inherit !important;
+}
+.lSSlideWrapper .lSFade {
+    position: relative;
+}
+.lSSlideWrapper .lSFade > * {
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    z-index: 9;
+    margin-right: 0;
+    width: 100%;
+}
+.lSSlideWrapper.usingCss .lSFade > * {
+    opacity: 0;
+    -webkit-transition-delay: 0s;
+    transition-delay: 0s;
+    -webkit-transition-duration: inherit !important;
+    transition-duration: inherit !important;
+    -webkit-transition-property: opacity;
+    transition-property: opacity;
+    -webkit-transition-timing-function: inherit !important;
+    transition-timing-function: inherit !important;
+}
+.lSSlideWrapper .lSFade > *.active {
+    z-index: 10;
+}
+.lSSlideWrapper.usingCss .lSFade > *.active {
+    opacity: 1;
+}
+/** /!!! End of core css Should not edit !!!/**/
+
+/* Pager */
+.lSSlideOuter .lSPager.lSpg {
+    margin: 10px 0 0;
+    padding: 0;
+    text-align: center;
+}
+.lSSlideOuter .lSPager.lSpg > li {
+    cursor: pointer;
+    display: inline-block;
+    padding: 0 5px;
+}
+.lSSlideOuter .lSPager.lSpg > li a {
+    background-color: #222222;
+    border-radius: 30px;
+    display: inline-block;
+    height: 8px;
+    overflow: hidden;
+    text-indent: -999em;
+    width: 8px;
+    position: relative;
+    z-index: 99;
+    -webkit-transition: all 0.5s linear 0s;
+    transition: all 0.5s linear 0s;
+}
+.lSSlideOuter .lSPager.lSpg > li:hover a, .lSSlideOuter .lSPager.lSpg > li.active a {
+    background-color: #428bca;
+}
+.lSSlideOuter .media {
+    opacity: 0.8;
+}
+.lSSlideOuter .media.active {
+    opacity: 1;
+}
+/* End of pager */
+
+/** Gallery */
+.lSSlideOuter .lSPager.lSGallery {
+    list-style: none outside none;
+    padding-left: 0;
+    margin: 0;
+    overflow: hidden;
+    transform: translate3d(0px, 0px, 0px);
+    -moz-transform: translate3d(0px, 0px, 0px);
+    -ms-transform: translate3d(0px, 0px, 0px);
+    -webkit-transform: translate3d(0px, 0px, 0px);
+    -o-transform: translate3d(0px, 0px, 0px);
+    -webkit-transition-property: -webkit-transform;
+    -moz-transition-property: -moz-transform;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.lSSlideOuter .lSPager.lSGallery li {
+    overflow: hidden;
+    -webkit-transition: border-radius 0.12s linear 0s 0.35s linear 0s;
+    transition: border-radius 0.12s linear 0s 0.35s linear 0s;
+}
+.lSSlideOuter .lSPager.lSGallery li.active, .lSSlideOuter .lSPager.lSGallery li:hover {
+    border-radius: 5px;
+}
+.lSSlideOuter .lSPager.lSGallery img {
+    display: block;
+    height: auto;
+    max-width: 100%;
+}
+.lSSlideOuter .lSPager.lSGallery:before, .lSSlideOuter .lSPager.lSGallery:after {
+    content: " ";
+    display: table;
+}
+.lSSlideOuter .lSPager.lSGallery:after {
+    clear: both;
+}
+/* End of Gallery*/
+
+/* slider actions */
+.lSAction > a {
+    width: 32px;
+    display: block;
+    top: 50%;
+    height: 32px;
+    background-image: url('../img/controls.png');
+    cursor: pointer;
+    position: absolute;
+    z-index: 99;
+    margin-top: -16px;
+    opacity: 0.5;
+    -webkit-transition: opacity 0.35s linear 0s;
+    transition: opacity 0.35s linear 0s;
+}
+.lSAction > a:hover {
+    opacity: 1;
+}
+.lSAction > .lSPrev {
+    background-position: 0 0;
+    left: 10px;
+}
+.lSAction > .lSNext {
+    background-position: -32px 0;
+    right: 10px;
+}
+.lSAction > a.disabled {
+    pointer-events: none;
+}
+.cS-hidden {
+    height: 1px;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    overflow: hidden;
+}
+
+
+/* vertical */
+.lSSlideOuter.vertical {
+    position: relative;
+}
+.lSSlideOuter.vertical.noPager {
+    padding-right: 0px !important;
+}
+.lSSlideOuter.vertical .lSGallery {
+    position: absolute !important;
+    right: 0;
+    top: 0;
+}
+.lSSlideOuter.vertical .lightSlider > * {
+    width: 100% !important;
+    max-width: none !important;
+}
+
+/* vertical controlls */
+.lSSlideOuter.vertical .lSAction > a {
+    left: 50%;
+    margin-left: -14px;
+    margin-top: 0;
+}
+.lSSlideOuter.vertical .lSAction > .lSNext {
+    background-position: 31px -31px;
+    bottom: 10px;
+    top: auto;
+}
+.lSSlideOuter.vertical .lSAction > .lSPrev {
+    background-position: 0 -31px;
+    bottom: auto;
+    top: 10px;
+}
+/* vertical */
+
+
+/* Rtl */
+.lSSlideOuter.lSrtl {
+    direction: rtl;
+}
+.lSSlideOuter .lightSlider, .lSSlideOuter .lSPager {
+    padding-left: 0;
+    list-style: none outside none;
+}
+.lSSlideOuter.lSrtl .lightSlider, .lSSlideOuter.lSrtl .lSPager {
+    padding-right: 0;
+}
+.lSSlideOuter .lightSlider > *,  .lSSlideOuter .lSGallery li {
+    float: left;
+}
+.lSSlideOuter.lSrtl .lightSlider > *,  .lSSlideOuter.lSrtl .lSGallery li {
+    float: right !important;
+}
+/* Rtl */
+
+@-webkit-keyframes rightEnd {
+    0% {
+        left: 0;
+    }
+
+    50% {
+        left: -15px;
+    }
+
+    100% {
+        left: 0;
+    }
+}
+@keyframes rightEnd {
+    0% {
+        left: 0;
+    }
+
+    50% {
+        left: -15px;
+    }
+
+    100% {
+        left: 0;
+    }
+}
+@-webkit-keyframes topEnd {
+    0% {
+        top: 0;
+    }
+
+    50% {
+        top: -15px;
+    }
+
+    100% {
+        top: 0;
+    }
+}
+@keyframes topEnd {
+    0% {
+        top: 0;
+    }
+
+    50% {
+        top: -15px;
+    }
+
+    100% {
+        top: 0;
+    }
+}
+@-webkit-keyframes leftEnd {
+    0% {
+        left: 0;
+    }
+
+    50% {
+        left: 15px;
+    }
+
+    100% {
+        left: 0;
+    }
+}
+@keyframes leftEnd {
+    0% {
+        left: 0;
+    }
+
+    50% {
+        left: 15px;
+    }
+
+    100% {
+        left: 0;
+    }
+}
+@-webkit-keyframes bottomEnd {
+    0% {
+        bottom: 0;
+    }
+
+    50% {
+        bottom: -15px;
+    }
+
+    100% {
+        bottom: 0;
+    }
+}
+@keyframes bottomEnd {
+    0% {
+        bottom: 0;
+    }
+
+    50% {
+        bottom: -15px;
+    }
+
+    100% {
+        bottom: 0;
+    }
+}
+.lSSlideOuter .rightEnd {
+    -webkit-animation: rightEnd 0.3s;
+    animation: rightEnd 0.3s;
+    position: relative;
+}
+.lSSlideOuter .leftEnd {
+    -webkit-animation: leftEnd 0.3s;
+    animation: leftEnd 0.3s;
+    position: relative;
+}
+.lSSlideOuter.vertical .rightEnd {
+    -webkit-animation: topEnd 0.3s;
+    animation: topEnd 0.3s;
+    position: relative;
+}
+.lSSlideOuter.vertical .leftEnd {
+    -webkit-animation: bottomEnd 0.3s;
+    animation: bottomEnd 0.3s;
+    position: relative;
+}
+.lSSlideOuter.lSrtl .rightEnd {
+    -webkit-animation: leftEnd 0.3s;
+    animation: leftEnd 0.3s;
+    position: relative;
+}
+.lSSlideOuter.lSrtl .leftEnd {
+    -webkit-animation: rightEnd 0.3s;
+    animation: rightEnd 0.3s;
+    position: relative;
+}
+/*/  GRab cursor */
+.lightSlider.lsGrab > * {
+  cursor: -webkit-grab;
+  cursor: -moz-grab;
+  cursor: -o-grab;
+  cursor: -ms-grab;
+  cursor: grab;
+}
+.lightSlider.lsGrabbing > * {
+  cursor: move;
+  cursor: -webkit-grabbing;
+  cursor: -moz-grabbing;
+  cursor: -o-grabbing;
+  cursor: -ms-grabbing;
+  cursor: grabbing;
+}
+.panel-title > a.collapsed:before {
+    float: right !important;
+    content:"\f067";
+}
+.panel-title > a:hover, 
+.panel-title > a:active, 
+.panel-title > a:focus  {
+    text-decoration:none;
+}
+.multiSelect{
+	width: 187px;
+}
+.demo {
+    width:450px;
+}
+ul {
+    list-style: none outside none;
+    padding-left: 0;
+    margin-bottom:0;
+}
+li {
+    display: block;
+    float: left;
+    margin-right: 6px;
+    cursor:pointer;
+}
+img {
+    display: block;
+    height: auto;
+    max-width: 100%;
+}
+.dropdown-menu {
+box-shadow: 0px 0px 2px 0px #363636;
+border-radius: 6px;
+}
+.dropdown-menu:after {
+       content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 40px;
+    margin-left: 0;
+    width: 0;
+    height: 0;
+    border-bottom: 8px solid #ffffff;
+    border-right: 8px solid transparent;
+    border-left: 8px solid transparent;
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0px, 0);
+    transform: translate3d(0, 0px, 0);
+    -webkit-transition: all .1s ease-in-out;
+    transition: all .1s ease-in-out;
+}
+.panel-title {
+    font-size: 16px;
+    color: #000;
+    text-align: right;
+    
+}
+.panel-default > .panel-heading {
+    color: #000;
+    background-color: #1F5647;
+    border-color: #F1F1F2;
+}
+h4.panel-title a {
+    font-size: 14px;
+    text-transform: capitalize;
+    color: #fff;
+    ont-weight: 400;
+    font-family: arial;
+    letter-spacing: 1px;
+}
+#matchcount {
+background-color: red;
+color: #ffffff;
+padding: 2px 4px;
+font-size: 11px;
+border: none;
+cursor: pointer;
+border-radius: 5px;
+vertical-align: top;
+margin:2px 2px;
+}
+@-webkit-keyframes hue {
+  from {
+    -webkit-filter: hue-rotate(0deg);
+  }
+
+  to {
+    -webkit-filter: hue-rotate(-360deg);
+  }
+}
+@keyframes flash{0%,50%,to{opacity:1}25%,75%{opacity:0}}.flash{animation-name:flash}
+	/* carousel */
+.media-carousel 
+{
+  margin-bottom: 0;
+  padding: 0 40px 30px 40px;
+  margin-top: 30px;
+}
+/* Previous button  */
+.media-carousel .carousel-control.left 
+{
+  left: -12px;
+  background-image: none;
+  background: none repeat scroll 0 0 #222222;
+  border: 4px solid #FFFFFF;
+  border-radius: 23px 23px 23px 23px;
+  height: 40px;
+  width : 40px;
+  margin-top: 30px
+}
+/* Next button  */
+.media-carousel .carousel-control.right 
+{
+  right: -12px !important;
+  background-image: none;
+  background: none repeat scroll 0 0 #222222;
+  border: 4px solid #FFFFFF;
+  border-radius: 23px 23px 23px 23px;
+  height: 40px;
+  width : 40px;
+  margin-top: 30px
+}
+p{letter-spacing:1px;}
+.thumbnail {
+    display: block;
+    padding: 4px;
+    margin-bottom: 5px;
+    line-height: 1.42857143;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    -webkit-transition: border .2s ease-in-out;
+    -o-transition: border .2s ease-in-out;
+    transition: border .2s ease-in-out;
+}
+/* Changes the position of the indicators */
+.media-carousel .carousel-indicators 
+{
+  right: 50%;
+  top: auto;
+  bottom: 0px;
+  margin-right: -19px;
+}
+/* Changes the colour of the indicators */
+.media-carousel .carousel-indicators li 
+{
+  background: #c0c0c0;
+}
+.media-carousel .carousel-indicators .active 
+{
+  background: #333333;
+}
+.media-carousel img
+{
+  width: 250px;
+  height: 100px
+}
+.img-replace {
+  /* replace text with an image */
+  display: inline-block;
+  overflow: hidden;
+  text-indent: 100%; 
+  color: transparent;
+  white-space: nowrap;
+}
+</style>
+<style>
+* {
+    box-sizing: border-box;
+}
+
+input[type=text],  select, textarea{
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    resize: vertical;
+    margin-bottom:10px;
+}
+input[type=date] {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    
+    margin-bottom:10px;
+}
+
+.table-bordered {
+    border: 1px solid #0099CC !important;
+}
+label {
+    padding: 12px 12px 12px 0;
+    display: inline-block;
+}
+
+input[type=submit] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+}
+
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+
+
+
+.col-25 {
+    float: left;
+    width: 25%;
+    margin-top: 6px;
+}
+
+.col-75 {
+    float: left;
+    width: 75%;
+    margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media (max-width: 600px) {
+    .col-25, .col-75, input[type=submit] {
+        width: 100%;
+        margin-top: 0;
+    }
+}
+</style>
+</head>
+<body style="background: #F1F1F2;">
+
+
+<input type="hidden" name="loc" id="loc" value="http://aarnamatrimony.com:80" />
+<div class="header_top">
+	<div class="container" style="background: #FFF;">
+    	<div class="col-md-3">
+			<div class="logo">
+				<img src="user/images/logo1.jpg" class="img img-responsive">
+			</div>
+			<div class="clearfix"></div>
+		</div>
+		<div class="col-md-4">
+			<!-- <ul class="nav navbar-nav">
+				<li><a href="#">Matches<span class="badge badge-notify">30</span></a></li>
+				<li><a href="#">Search</a></li>
+				<li><a href="#">Inbox<span class="badge badge-notify">30</span></a></li>
+			</ul> -->
+			<div class="box_1 midfont">
+				<p><a href="#">Matches</a><span class="badge badge-notify">0</span>&nbsp;&nbsp;&nbsp;
+        		<a href="searchProfiles">Search</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       			<a href="#">Inbox</a><span class="badge badge-notify">0</span></p>
+			</div>
+		</div>
+		<div class="col-md-5">
+			<div class="cart box_1">
+				<p>Dear, test15 test15 | &nbsp;&nbsp;<a class="upgradeOption animated flash infinite" href="memberShipPage" style="color: red;">Upgrade</a> &nbsp;&nbsp;|&nbsp;&nbsp; <a href="#" >Help</a> &nbsp;&nbsp;|&nbsp;&nbsp; <a href="logoutHome" >Signout</a></p>
+				<div class="clearfix"> </div>
+			</div>				 
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="row">
+			<nav class="navbar navbar-inverse" role="navigation">
+				<div class="container-fluid">
+	        		<div class="navbar-header">
+						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+					</div>
+					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+						<ul class="nav navbar-nav">
+							<li class="dropdown dashboard">
+								<a href="dashboard">My Home</a>
+								<ul class="dropdown-menu">
+									<!-- <li><a href="dashboard">My Home</a></li> -->
+									<li><a href="myProfile">My Profile</a></li>
+									<!-- <li><a href="myPhotos">My Photos</a></li> -->
+									<li><a href="myProfileViewsList">Who viewed my profile</a></li>
+									<li><a href="shortListedMe">Who short listed me</a></li>
+									
+									<li><a href="mobileNumViewedByMeList">Mobile no viewed by me</a></li>
+									<li><a href="myMobileNoViewsList">Who viewed my mobile number</a></li>
+									<li><a href="#">Ignored profiles</a></li>
+								</ul>
+							</li>
+							<li class="dropdown searchPage">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Search</a>
+								<ul class="dropdown-menu">
+									<li><a href="searchProfiles">Regular search</a></li>
+									<li><a href="searchById">Search by ID </a></li>
+									<li><a href="#">Recently viewed profiles</a></li>
+								</ul>
+							</li>
+							<li class="dropdown matches">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Matches <span id="matchcount">31</span></a>
+								<ul class="dropdown-menu">
+									<li><a href="newMatches">New Matches</a></li>
+									<li><a href="yetToBeViewed">Yet to be viewed(31) </a></li>
+									<li><a href="viewedNotContacted">Viewed & not contacted(2)</a></li>
+									<li><a href="shortListedByMe">Shortlisted Matches</a></li>
+									<li><a href="#">Premium Members</a></li>
+								</ul>
+							</li>
+							<li class="dropdown messages">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Messages <span id="matchcount">0</span></a>
+								<ul class="dropdown-menu">
+									<li><a href="pendingRequests">Inbox - pending 0</a></li>
+									<li><a href="#">Inbox - Accepted </a></li>
+									<li><a href="#">Sent All</a></li>
+									<li><a href="#">SMS received/sent</a></li>
+								</ul>
+							</li>
+							<li class="dropdown upgrade">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Upgrade</a>
+								<ul class="dropdown-menu">
+									<li><a href="memberShipPage">Payment Options</a></li>
+									<li><a href="#">Profile Highliter </a></li>
+								</ul>
+							</li>
+							<li class="notifications"><a href="#">Notifications</a></li>
+						</ul>
+	        		</div>
+	        		<!-- /.navbar-collapse -->
+	      		</div>
+	      		<!-- /.container-fluid -->
+	    	</nav>
+		</div>
+	</div>
+</div>
+
+	
+
+<!-- body starts here-->
+
+
+<!-- body starts here-->
+<div class="products">
+	<div class="container" style="background: #FFF;">
+		<div class="mid-grids">	           	
+			<div class="col-md-12 products-grid-left">
+            	<div class="panel panel-success">
+					<div class="panel-heading">In Voice</div>
+					<div class="panel-body table-responsive">
+					<div class="col-md-9">
+    <div class="col-md-12">
+      <div class="col-md-4">
+        <label for="fname">First Name</label>
+      </div>
+      <div class="col-md-8">
+        <input type="text" id="fname" name="firstname" placeholder="Your name..">
+      </div>
+      
+    </div><br>
+    <div class="col-md-12">
+      <div class="col-md-4">
+        <label for="lname">Last Name</label>
+      </div>
+      <div class="col-md-8">
+        <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="col-md-4">
+        <label for="dob">Date of Birth</label>
+      </div>
+      <div class="col-md-8">
+        <input type="date" id="dob" name="dob" placeholder="D.O.B.">
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="col-md-4">
+        <label for="country">State</label>
+      </div>
+      <div class="col-md-8">
+        <select id="State" name="State">
+          <option value="Andhra Pradesh">Andhra Pradesh</option>
+          <option value="Telangana">Telangana</option>
+          <option value="usa">USA</option>
+        </select>
+      </div>
+    </div>
+     <div class="col-md-12">
+      <div class="col-md-4">
+        <label for="lname">Phone No</label>
+      </div>
+      <div class="col-md-8">
+        <input type="text" id="" name="" placeholder="Your Phone No..">
+      </div>
+    </div>
+     <div class="col-md-12">
+      <div class="col-md-4">
+        <label for="lname">Email</label>
+      </div>
+      <div class="col-md-8">
+        <input type="text" id="email" name="email" placeholder="Your email..">
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="col-md-4">
+        <label for="subject">Subject</label>
+      </div>
+      <div class="col-md-8">
+        <textarea id="subject" name="subject" placeholder="Write something.." style="height:100px"></textarea>
+      </div>
+    </div>
+ 
+  </form></div>  
+  
+  <div class="col-md-3" style="float:right;">
+      <img src="images/profile1.png" style="padding:0px; border-radius:40px; border:2px solid #006699; width:200px; height:200px; "/>
+      </div>
+      
+      
+      
+      <div class="col-xs-12">
+      <div class="table-responsive">
+        <table  class="table table-bordered table-hover">
+          <thead>
+            <tr style="background:#0099CC; color:#fff;">
+              <th>S No</th>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Paid</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Ravi</td>
+              <td>Package</td>
+              <td>1000</td>
+              <td>1000</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Naresh</td>
+              <td>Package</td>
+              <td>1000</td>
+              <td>1000</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Syam</td>
+              <td>Package</td>
+              <td>1000</td>
+              <td>1000</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>Laxman</td>
+              <td>Package1</td>
+              <td>1000</td>
+              <td>1000</td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td> others</td>
+              <td>Package</td>
+              <td>3000</td>
+              <td>3000</td>
+            </tr>
+            <tr>
+              <td>6</td>
+              <td>Swami</td>
+              <td>Package</td>
+              <td>1000</td>
+              <td>1000</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="4" class="" align="right"> Grand Total     </td>
+              <td>8000</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div><!--end of .table-responsive-->
+    </div>
+  	            	</div>
+                     <!--  <div class="row">
+      <input type="submit" value="Submit">
+    </div>
+    -->
+    
+    
+ 
+
+	            </div>
+                
+                
+			</div>
+			
+
+
+
+
+
+<script type="text/javascript">
+
+function displayMobileNum(profileId,listType){
+	 var profileObj = serviceUnitArray[profileId];
+	var formData = new FormData();
+	formData.append('profile_id',profileId);
+	formData.append('list_type',listType);
+	jQuery.fn.makeMultipartRequest('POST', 'viewedMobileNumber', false,
+			formData, false, 'text', function(data){
+    		var jsonobj = $.parseJSON(data);
+    		var msg = jsonobj.message;
+    		if(typeof msg != "undefined"){
+    			if(msg=="success"){
+    				$("#row"+profileId).html('<td>'+profileObj.mobile+'</td>');
+    			}else{
+    				alert("Some problem occured. Please try again.");
+    			}
+    		}
+    		
+	}); 
+	
+}
+
+$(".dashboard").addClass("active");
+</script>
+
+  
+			<div class="clearfix"></div>
+		</div>
+	</div>
+</div>
+<!-- body ends here-->
+<!-- footer -->
+<div class="container">
+	<div class="row">
+		<div class="footer" style="font-size: 10px;">
+			<div class="col-md-3 footer-grid">
+				<h6>About us</h6>
+				<p>Suspendisse sed accumsan risus. Curabitur rhoncus, elit vel tincidunt elementum, nunc urna tristique nisi, in interdum libero magna .</p>
+			</div>
+			<div class="col-md-3 footer-grid">
+			
+				<h6>Search</h6>
+				<ul>
+					<li><a href="#">About Us</a></li>
+					<li><a href="#">Privacy Policy</a></li>
+					<li><a href="#">Terms &amp; Conditions</a></li>
+				</ul>
+			</div>
+			<div class="col-md-3 footer-grid">
+				<h6>My Account</h6>
+				<ul>
+					<li><a href="dashboard">My Account</a></li>
+					<li><a href="myProfile">My Profile</a></li>
+					<li><a href="#">My Interest</a></li>
+				</ul>
+			</div>
+			<div class="col-md-3 footer-grid">
+				<h6>Extras</h6>
+				<ul>
+					<li><a href="#">Login</a></li>
+					<li><a href="#">Register</a></li>
+					<li><a href="#">Help</a></li>
+				</ul>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+		<div class="footer-copy">
+			<p>A product of Aarna Associates © 2017. All rights reserved.</p>
+		</div>
+	</div>
+</div>
+<!-- //footer -->
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="user/js/jquery.littlelightbox.js"></script>
+ <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js'></script>
+<script src='http://sachinchoolur.github.io/lightslider/dist/js/lightslider.js'></script> 
+
+  
+
+    <script  src="user/js/index.js"></script>
+<script>
+$('.lightbox').littleLightBox();
+</script>
+	<script src="js/bootstrap.min.js"></script>
+	
+	<!-- start-smoth-scrolling -->
+	<script type="text/javascript" src="user/js/move-top.js"></script>
+	<!-- <script type="text/javascript" src="user/js/easing.js"></script> -->
+	
+	<!-- <script type="text/javascript" src="user/js/megamenu.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){$(".megamenu").megamenu();});
+	</script>
+	
+	<script src="user/js/menu_jquery.js"></script>
+
+	<script type="text/javascript" src="js/jquery.jscrollpane.min.js"></script>
+	<script type="text/javascript" id="sourcecode">
+		$(function(){$('.scroll-pane').jScrollPane();});
+	</script> -->
+
+</body>
+</html>

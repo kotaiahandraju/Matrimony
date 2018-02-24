@@ -30,7 +30,7 @@
 							    <div class="form-group">
 							      <label class="col-md-4 control-label" for="textinput"></label>  
 							      <div class="col-md-6 text-center">
-							     	<button type="button" id="searchBtn" class="btn1 btn btn-info" onclick="submitSearch()">Search</button> 
+							     	<a href="#" type="button" id="searchBtn" class="btn1 btn btn-info" onclick="submitSearch()">Search</a> 
 							      </div>
 							    </div>
 							  </div></div>
@@ -115,8 +115,8 @@ function displayMatches(listOrders) {
 			var more_details_str = '';
 			var expressed = orderObj.expressedInterest;
 			var firstname = 'xxxxxx',lastname='xxxxxx';
-			mobile_no__str = '<tr id="row'+orderObj.id+'"><td><button type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button></td></tr>';
-			insert_str = '<button id="expInterest'+orderObj.id+'" type="button" class="btn btn-primary btn-block" onclick="expressInterest('+orderObj.id+')">Yes I\'m interested</button>';
+			mobile_no__str = '<tr id="row'+orderObj.id+'"><td><a href="#" type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</a></td></tr>';
+			insert_str = '<a href="#" id="expInterest'+orderObj.id+'" type="button" class="btn btn-primary btn-block" onclick="expressInterest('+orderObj.id+')">Yes I\'m interested</a>';
 			/* if(expressed==0){
 				insert_str = '<button id="expInterest'+orderObj.id+'" type="button" class="btn btn-primary btn-block" onclick="expressInterest('+orderObj.id+')">Yes I\'m interested</button>';
 			}else if(expressed>0){
@@ -188,8 +188,8 @@ function displayMatches(listOrders) {
             	+ '<div class="col-md-4">'
             	+ '<h4 style="margin-bottom:20px;">Like this Profile?</h4>'
             	+ insert_str
-				+ '<button class="btn btn-danger btn-block btn-md" onclick="fullProfile('+orderObj.id+')">View Full Profile</button><br>'
-				+ '<button type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="shortList('+orderObj.id+')">Shortlist</button> '
+				+ '<a href="#" class="btn btn-danger btn-block btn-md" onclick="fullProfile('+orderObj.id+')">View Full Profile</a><br>'
+				+ '<a href="#" type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="shortList('+orderObj.id+')">Shortlist</a> '
             	+ '<div class="clearfix"></div>'
             	+ '</div>'
             	+ '</div>'
@@ -535,6 +535,7 @@ function paginationSetup(total_items_count) {
         	 formData.append("rAgeFrom",$("#rAgeFrom").val());
         	 formData.append("rAgeFrom",$("#rAgeFrom").val()); */
         	 formData.append("page_no",page);
+        	 formData.append("request_from","search");
         	 //var tempData = $("#searchForm2").serialize();
     		$.fn.makeMultipartRequest('POST', 'displayPage', false,
     				formData, false, 'text', function(data){

@@ -152,7 +152,11 @@ body {
 		
 			<c:if test="${not empty message}">
 				<div class="alert alert-success fadeIn animated">${message}</div>
-				<a href="HomePage" class="btn4 btn btn-info">Go to Homepage</a>
+				<a href="profile.htm?page=3" class="btn4 btn btn-info">Edit Mobile No.</a>
+			</c:if>
+			<c:if test="${not empty msg}">
+				<div class="alert alert-success fadeIn animated">${msg}</div>
+				<a href="HomePage" class="btn4 btn btn-info">Go To HomePage</a>
 			</c:if>
 		</div>
 		

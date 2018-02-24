@@ -44,12 +44,12 @@
 					    					<td><i style="color: green;" class="fa fa-check"></i></td><td><i style="color: green;" class="fa fa-check"></i></td>
 					    				</tr>
 					    				<tr>
-					    					<th>Premium</th><td>6</td><td>5299</td><td>Unlimited</td><td>65</td>
+					    					<th>Premium</th><td>9</td><td>5299</td><td>Unlimited</td><td>65</td>
 					    					<td><i style="color: green;" class="fa fa-check"></i></td><td><i style="color: green;" class="fa fa-check"></i></td>
 					    					<td><i style="color: green;" class="fa fa-check"></i></td><td><i style="color: green;" class="fa fa-check"></i></td>
 					    				</tr>
 					    				<tr>
-					    					<th>Premium Plus</th><td>6</td><td>7499</td><td>Unlimited</td><td>85</td>
+					    					<th>Premium Plus</th><td>12</td><td>7499</td><td>Unlimited</td><td>85</td>
 					    					<td><i style="color: green;" class="fa fa-check"></i></td><td><i style="color: green;" class="fa fa-check"></i></td>
 					    					<td><i style="color: green;" class="fa fa-check"></i></td><td><i style="color: green;" class="fa fa-check"></i></td>
 					    				</tr>

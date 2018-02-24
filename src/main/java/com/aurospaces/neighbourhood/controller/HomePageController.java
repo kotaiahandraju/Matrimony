@@ -106,7 +106,7 @@ public class HomePageController {
 			System.out.println(e);
 			logger.error(e);
 			logger.fatal("error in CreateProfile class createProfile method  ");
-			return "countriesHome";
+			return "redirect:HomePage.htm";
 		}
 		return "homepage";
 	}
@@ -268,6 +268,24 @@ public class HomePageController {
 				 if(StringUtils.isNotBlank(objUsersBean.getRedirectPage())){
 					if(!("dashboard".equalsIgnoreCase(objUsersBean.getRedirectPage()))){ // send email only on create.
 						session.setAttribute("profile_filled_status", 45);
+						Map<String,Object> interestCounts = objUsersDao.getInterestCounts(objUsersBean);
+						long notificationsCount = (Long)interestCounts.get("receivedInterestCount")
+								+ (Long)interestCounts.get("mobileNumViewedCount")
+								+ (Long)interestCounts.get("profileViewedCount")
+								+ (Long)interestCounts.get("shortListedCount");
+						session.setAttribute("notificationsCount", notificationsCount);
+						sessionBean.setYetToBeViewedCount((String.valueOf(interestCounts.get("yetToBeViewedCount"))));
+						sessionBean.setSentInterestCount("0");
+						sessionBean.setReceivedInterestCount("0");
+						sessionBean.setAcceptedInterestCount("0");
+						sessionBean.setRejectedInterestCount("0");
+						sessionBean.setProfileViewedCount("0");
+						sessionBean.setProfilesViewedByMeCount("0");
+						sessionBean.setMobileNumViewedCount("0");
+						sessionBean.setMobileNumViewedByMeCount("0");
+						sessionBean.setPendingRequestsCount("0");
+						sessionBean.setViewedNotContactedCount("0");
+						sessionBean.setShortListedCount("0");
 						try{
 							 EmailUtil emailUtil = new EmailUtil();
 							 // email to user
@@ -303,6 +321,19 @@ public class HomePageController {
 				 
 				 
 				 UsersBean newSessionBean = objUsersDao.loginChecking(objUsersBean1.getId());
+				 
+							newSessionBean.setSentInterestCount(sessionBean.getSentInterestCount());
+							newSessionBean.setReceivedInterestCount(sessionBean.getReceivedInterestCount());
+							newSessionBean.setAcceptedInterestCount(sessionBean.getAcceptedInterestCount());
+							newSessionBean.setProfileViewedCount(sessionBean.getProfileViewedCount());
+							newSessionBean.setRejectedInterestCount(sessionBean.getRejectedInterestCount());
+							newSessionBean.setProfilesViewedByMeCount(sessionBean.getProfilesViewedByMeCount());
+							newSessionBean.setMobileNumViewedCount(sessionBean.getMobileNumViewedCount());
+							newSessionBean.setMobileNumViewedByMeCount(sessionBean.getMobileNumViewedByMeCount());
+							newSessionBean.setPendingRequestsCount(sessionBean.getPendingRequestsCount());
+							newSessionBean.setYetToBeViewedCount(sessionBean.getYetToBeViewedCount());
+							newSessionBean.setViewedNotContactedCount(sessionBean.getViewedNotContactedCount());
+			
 				 int filled_status = objUsersDao.getProfileFilledStatus(newSessionBean);
 				 //int filled_status = (Integer)session.getAttribute("profile_filled_status");
 				 /*if(StringUtils.isBlank(sessionBean.getAboutMyself()) && StringUtils.isNotBlank(newSessionBean.getAboutMyself())){
@@ -376,7 +407,7 @@ public class HomePageController {
 			 objUsersBean1.setNoOfBrothers(objUsersBean.getNoOfBrothers());
 			 objUsersBean1.setNoOfSisters(objUsersBean.getNoOfSisters());
 			 objUsersBean1.setNoOfBrothersMarried(objUsersBean.getNoOfBrothersMarried());
-			 objUsersBean1.setNoOfSisters(objUsersBean.getNoOfSistersMarried());
+			 objUsersBean1.setNoOfSistersMarried(objUsersBean.getNoOfSistersMarried());
 			 objUsersDao.save(objUsersBean1);
 			 UsersBean newBean = objUsersDao.loginChecking(objUsersBean1.getId());
 			 int filled_status = objUsersDao.getProfileFilledStatus(newBean);
@@ -634,29 +665,12 @@ public class HomePageController {
 			 UsersBean newBean = objUsersDao.loginChecking(sessionBean.getId());
 			 int filled_status = objUsersDao.getProfileFilledStatus(newBean);
 			 session.setAttribute("profile_filled_status", 45+filled_status);
-			 /*int filled_status = (Integer)session.getAttribute("profile_filled_status");
-			 int new_filled_status = getPartnerReqFilledStatus(filled_status,sessionBean,newBean);
-			 session.setAttribute("profile_filled_status",new_filled_status);*/
-			 /*if(StringUtils.isBlank(newBean.getFatherName())){
-					session.setAttribute("profile_filled_status", "55");
-				}else if(StringUtils.isBlank(newBean.getImage())){
-					session.setAttribute("profile_filled_status", "65");
-				}else if(StringUtils.isBlank(newBean.getrAgeFrom()) && StringUtils.isBlank(newBean.getrAgeTo()) &&
-						StringUtils.isBlank(newBean.getrMaritalStatus()) ){
-					session.setAttribute("profile_filled_status", "90");
-				}
-				else{
-					session.setAttribute("profile_filled_status", "100");
-				}*/
-			 /*int intValOfStatus = 0;
-			 if(StringUtils.isNotBlank(filled_status)){
-				 intValOfStatus = Integer.parseInt(filled_status);
-			 }
-			 if(StringUtils.isBlank(objUserrequirementBean.getrAgeFrom()) && StringUtils.isBlank(objUserrequirementBean.getrAgeTo()) && StringUtils.isBlank(objUserrequirementBean.getrMaritalStatus())){
-				 if(StringUtils.isNotBlank(objUserrequirementBean.getrAgeFrom()) || StringUtils.isNotBlank(objUserrequirementBean.getrAgeTo()) || StringUtils.isNotBlank(objUserrequirementBean.getrMaritalStatus())){
-					 session.setAttribute("profile_filled_status", (intValOfStatus+10)+"");
-				 } 
-			 }*/
+			 /*String otpStatus = objUsersDao.getOtpStatus(newBean);
+			  if(StringUtils.isNotBlank(otpStatus) && "1".equals(otpStatus)){
+					
+					return "redirect:dashboard";
+			  }
+			  return "redirect:sendOtp";*/
 			 
 			}else{
 				return "redirect:HomePage";
@@ -668,7 +682,7 @@ public class HomePageController {
 	   logger.error(e);
 	   logger.fatal("error in HomePageController class partnerProfile method");
 	  }
-	  return "redirect:thankyou";
+	  return "redirect:sendOtp";
 	 }
 
 	 @RequestMapping(value = "/thankyou")
@@ -706,7 +720,7 @@ public class HomePageController {
 	  return "membership1";
 	 }*/
 	 @RequestMapping(value = "/myProfile")
-	 public String myProfile(@ModelAttribute("createProfile") UsersBean objUserssBean, Model objeModel, HttpServletRequest request, HttpSession session) {
+	 public String myProfile(@ModelAttribute("editProfileForm") UsersBean objUserssBean, Model objeModel, HttpServletRequest request, HttpSession session) {
 	  List<Map<String, String>> listOrderBeans = null;
 	  UsersBean objUsersBean = null;
 		ObjectMapper objectMapper = null;
@@ -721,13 +735,14 @@ public class HomePageController {
 			}
 			UsersBean profileBean = objUsersDao.loginChecking(sessionBean.getId());
 			request.setAttribute("profileBean", profileBean);
-			
-			
+			BeanUtils.copyProperties(profileBean,objUserssBean,getNullPropertyNames(profileBean));
+			//List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos(sessionBean.getId());
+			//request.setAttribute("photosList", photosList);
 		} catch (Exception e) {
 	   e.printStackTrace();
 	   System.out.println(e);
 	   logger.error(e);
-	   logger.fatal("error in HomePageController class familyDetails method");
+	   logger.fatal("error in HomePageController class myProfile method");
 	  }
 		return "myProfile";
 	 }
@@ -904,6 +919,16 @@ public class HomePageController {
 				return "redirect:HomePage";
 			}
 			int profile_id = objUserssBean.getId();
+			if((profile_id != 0) && (sessionBean.getId()!=profile_id)){
+				boolean success = objUsersDao.viewedProfile(profile_id+"");
+				if(!success){
+					logger.fatal("error while updating profile viewed status in fullProfile method");
+				}else{
+					
+				}
+			}else if(StringUtils.isNotBlank(request.getParameter("profileId"))){
+				profile_id = Integer.parseInt(request.getParameter("profileId"));
+			}
 			UsersBean profileBean = objUsersDao.loginChecking(profile_id);
 			request.setAttribute("profileBean", profileBean);
 			List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos(profile_id);
@@ -997,6 +1022,10 @@ public class HomePageController {
 			if(sessionBean == null){
 				return "redirect:HomePage";
 			}
+			String otpStatus = objUsersDao.getOtpStatus(sessionBean);
+			if(StringUtils.isBlank(otpStatus) || "0".equals(otpStatus)){
+				return "redirect:redirect:sendOtp";
+			}
 			int page_no = 0;
 			/*String clicked_btn = request.getParameter("btn_id");
 			if(StringUtils.isNotBlank(clicked_btn))
@@ -1015,7 +1044,14 @@ public class HomePageController {
 				request.setAttribute("allOrders1", "''");
 				request.setAttribute("total_records", "0");
 			}
-			
+			listOrderBeans = objUsersDao.getSearchResults(objUsersBean,0,"newmatches");
+			if (listOrderBeans != null && listOrderBeans.size() > 0) {
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(listOrderBeans);
+				request.setAttribute("new_matches", sJson);
+			} else {
+				request.setAttribute("new_matches", "''");
+			}
 			
 		} catch (Exception e) {
 	   e.printStackTrace();
@@ -1635,9 +1671,9 @@ public class HomePageController {
 			int userId = userSessionBean.getId();
 			String packId = request.getParameter("package_id");
 			int price = objUsersDao.getPackagePriceById(Integer.parseInt(packId));
-			session.setAttribute("packageId", objUsersBean.getPackageId());
+			session.setAttribute("packageId", packId);
 			JavaIntegrationKit integrationKit = new JavaIntegrationKit();
-	        Map<String, String> values = integrationKit.hashCalMethod(request, response,price);
+	        Map<String, String> values = integrationKit.hashCalMethod(request, response, price);
 			
 	        Paymenthistory objPaymenthistoryBean =new Paymenthistory();
 	         objPaymenthistoryBean.setTxid(values.get("txnid").trim());
@@ -1648,13 +1684,14 @@ public class HomePageController {
 	         paymenthistoryDao.save(objPaymenthistoryBean);
 	         
 	         PrintWriter writer = response.getWriter();
+	         
 	         String htmlResponse = "<html> <body> \n"
 	                 + "      \n"
 	                 + "  \n"
 	                 + "  <h1>PayUForm </h1>\n"
 	                 + "  \n" + "<div>"
 	                 + "        <form id=\"payuform\" action=\"" + values.get("action") + "\"  name=\"payuform\" method=POST >\n"
-	                 + "      <input type=\"hidden\" name=\"key\" value='m7fkbzwB'>"
+	                 + "      <input type=\"hidden\" name=\"key\" value='rk9oLSp9'>"
 	                 + "      <input type=\"hidden\" name=\"hash\" value=" + values.get("hash").trim() + ">"
 	                 + "      <input type=\"hidden\" name=\"txnid\" value=" + values.get("txnid").trim() + ">"
 	                 + "      <table>\n"
@@ -1663,26 +1700,26 @@ public class HomePageController {
 	                 + "        </tr>\n"
 	                 + "        <tr>\n"
 	                 + "         <td>Amount: </td>\n"
-	                 + "          <td><input type=\"hidden\" name=\"amount\" value=" + values.get("amount").trim() + " /></td>\n"
+	                 + "          <td><input name=\"amount\" value=" + values.get("amount").trim() + " /></td>\n"
 	                 + "          <td>First Name: </td>\n"
-	                 + "          <td><input type=\"hidden\" name=\"firstname\" id=\"firstname\" value=" + values.get("firstname").trim() + " /></td>\n"
+	                 + "          <td><input name=\"firstname\" id=\"firstname\" value=" + values.get("firstname").trim() + " /></td>\n"
 	                 + "        <tr>\n"
 	                 + "          <td>Email: </td>\n"
-	                 + "          <td><input type=\"hidden\" name=\"email\" id=\"email\" value=" + values.get("email").trim() + " /></td>\n"
+	                 + "          <td><input name=\"email\" id=\"email\" value=" + values.get("email").trim() + " /></td>\n"
 	                 + "          <td>Phone: </td>\n"
-	                 + "          <td><input type=\"hidden\" name=\"phone\" value=" + values.get("phone") + " ></td>\n"
+	                 + "          <td><input name=\"phone\" value=" + values.get("phone") + " ></td>\n"
 	                 + "        </tr>\n"
 	                 + "        <tr>\n"
 	                 + "          <td>Product Info: </td>\n"
-	                 + "<td><input type=\"hidden\" name=\"productinfo\" value=" + values.get("productinfo").trim() + " ></td>\n"
+	                 + "<td><input name=\"productinfo\" value=" + values.get("productinfo").trim() + " ></td>\n"
 	                 + "        </tr>\n"
 	                 + "        <tr>\n"
 	                 + "          <td>Success URI: </td>\n"
-	                 + "          <td colspan=\"3\"><input type=\"hidden\" name=\"surl\"  size=\"64\" value=" + values.get("surl") + "></td>\n"
+	                 + "          <td colspan=\"3\"><input name=\"surl\"  size=\"64\" value=" + values.get("surl") + "></td>\n"
 	                 + "        </tr>\n"
 	                 + "        <tr>\n"
 	                 + "          <td>Failure URI: </td>\n"
-	                 + "          <td colspan=\"3\"><input type=\"hidden\" name=\"furl\" value=" + values.get("furl") + " size=\"64\" ></td>\n"
+	                 + "          <td colspan=\"3\"><input name=\"furl\" value=" + values.get("furl") + " size=\"64\" ></td>\n"
 	                 + "        </tr>\n"
 	                 + "\n"
 	                 + "        <tr>\n"
@@ -1693,41 +1730,41 @@ public class HomePageController {
 	                 + "        </tr>\n"
 	                 + "        <tr>\n"
 	                 + "          <td>Last Name: </td>\n"
-	                 + "          <td><input type=\"hidden\" name=\"lastname\" id=\"lastname\" value=" + values.get("lastname") + " ></td>\n"
+	                 + "          <td><input name=\"lastname\" id=\"lastname\" value=" + values.get("lastname") + " ></td>\n"
 	                 + "          <td>Cancel URI: </td>\n"
-	                 + "          <td><input type=\"hidden\" name=\"curl\" value=" + values.get("curl") + " ></td>\n"
+	                 + "          <td><input name=\"curl\" value=" + values.get("curl") + " ></td>\n"
 	                 + "        </tr>\n"
 	                 + "        <tr>\n"
 	                 + "          <td>Address1: </td>\n"
-	                 + "          <td><input type=\"hidden\" name=\"address1\" value=" + values.get("address1") + " ></td>\n"
+	                 + "          <td><input name=\"address1\" value=" + values.get("address1") + " ></td>\n"
 	                 + "          <td>Address2: </td>\n"
-	                 + "          <td><input type=\"hidden\" name=\"address2\" value=" + values.get("address2") + " ></td>\n"
+	                 + "          <td><input name=\"address2\" value=" + values.get("address2") + " ></td>\n"
 	                 + "        </tr>\n"
 	                 + "        <tr>\n"
 	                 + "          <td>City: </td>\n"
-	                 + "          <td><input type=\"hidden\" name=\"city\" value=" + values.get("city") + "></td>\n"
+	                 + "          <td><input name=\"city\" value=" + values.get("city") + "></td>\n"
 	                 + "          <td>State: </td>\n"
-	                 + "          <td><input type=\"hidden\" name=\"state\" value=" + values.get("state") + "></td>\n"
+	                 + "          <td><input name=\"state\" value=" + values.get("state") + "></td>\n"
 	                 + "        </tr>\n"
 	                 + "        <tr>\n"
 	                 + "          <td>Country: </td>\n"
-	                 + "          <td><input type=\"hidden\" name=\"country\" value=" + values.get("country") + " ></td>\n"
+	                 + "          <td><input name=\"country\" value=" + values.get("country") + " ></td>\n"
 	                 + "          <td>Zipcode: </td>\n"
-	                 + "          <td><input type=\"hidden\" name=\"zipcode\" value=" + values.get("zipcode") + " ></td>\n"
+	                 + "          <td><input name=\"zipcode\" value=" + values.get("zipcode") + " ></td>\n"
 	                 + "        </tr>\n"
 	                 + "          <td>UDF1: </td>\n"
-	                 + "          <td><input type=\"hidden\" name=\"udf1\" value=" + values.get("udf1") + "></td>\n"
+	                 + "          <td><input name=\"udf1\" value=" + values.get("udf1") + "></td>\n"
 	                 + "          <td>UDF2: </td>\n"
-	                 + "          <td><input  type=\"hidden\" name=\"udf2\" value=" + values.get("udf2") + "></td>\n"
-	                 + " <td><input type=\"hidden\" name=\"hashString\" value=" + values.get("hashString") + "></td>\n"
+	                 + "          <td><input name=\"udf2\" value=" + values.get("udf2") + "></td>\n"
+	                 + " <td><input name=\"hashString\" value=" + values.get("hashString") + "></td>\n"
 	                 + "          <td>UDF3: </td>\n"
-	                 + "          <td><input type=\"hidden\" name=\"udf3\" value=" + values.get("udf3") + " ></td>\n"
+	                 + "          <td><input name=\"udf3\" value=" + values.get("udf3") + " ></td>\n"
 	                 + "          <td>UDF4: </td>\n"
-	                 + "          <td><input type=\"hidden\" name=\"udf4\" value=" + values.get("udf4") + " ></td>\n"
+	                 + "          <td><input name=\"udf4\" value=" + values.get("udf4") + " ></td>\n"
 	                 + "          <td>UDF5: </td>\n"
-	                + "          <td><input type=\"hidden\" name=\"udf5\" value=" + values.get("udf5") + " ></td>\n"
+	                + "          <td><input name=\"udf5\" value=" + values.get("udf5") + " ></td>\n"
 	                  + "          <td>PG: </td>\n"
-	                + "          <td><input type=\"hidden\" name=\"pg\" value=" + values.get("pg") + " ></td>\n"
+	                + "          <td><input name=\"pg\" value=" + values.get("pg") + " ></td>\n"
 	                 + "        <td colspan=\"4\"><input type=\"submit\" value=\"Submit\"  /></td>\n"
 	                 + "      \n"
 	                 + "    \n"
@@ -1953,9 +1990,11 @@ public class HomePageController {
 														throws JsonGenerationException, JsonMappingException, IOException {
 		JSONObject jsonObj = new JSONObject();
 		List<Map<String, String>> results = null;
+		List<Map<String, Object>> Objresults = null;
 		try{
 			int page_no = searchCriteriaBean.getPage_no();
 			String request_coming_from = request.getParameter("request_from");
+			String list_type = request.getParameter("list_type");
 			String ageFrom = request.getParameter("rAgeFrom");
 			String page_num = request.getParameter("page_no");
 			
@@ -1965,18 +2004,40 @@ public class HomePageController {
 			}
 			if(page_no != 0)
 				page_no = page_no-1;
-			if(StringUtils.isNotBlank(request_coming_from) && "dashboard".equalsIgnoreCase(request_coming_from)){
-				results = objUsersDao.getProfilesFilteredByPreferences(page_no);
-			}else{
-				String selectedCasts = request.getParameter("selected_casts");
-				String selectedReligions = request.getParameter("selected_religions");
-				String selectedEducations = request.getParameter("selected_educations");
-				if(StringUtils.isNotBlank(selectedCasts) || StringUtils.isNotBlank(selectedReligions) || StringUtils.isNotBlank(selectedEducations)){
-					results = objUsersDao.getProfilesFilteredByCast(selectedCasts,selectedReligions,selectedEducations,page_no);
-				}else{
+			if(StringUtils.isNotBlank(request_coming_from)){
+				if("dashboard".equalsIgnoreCase(request_coming_from)){
+					results = objUsersDao.getProfilesFilteredByPreferences(page_no);
+				}else if("myprofileviews".equalsIgnoreCase(request_coming_from)){
+					Objresults = objUsersDao.getProfileViewedMembers(userSessionBean.getId()+"",page_no);
+				}else if("newmatches".equalsIgnoreCase(request_coming_from)){
+					results = objUsersDao.getSearchResults(searchCriteriaBean,page_no,"newmatches");
+					
+				}else if("search".equalsIgnoreCase(request_coming_from)){
 					results = objUsersDao.getSearchResults(searchCriteriaBean,page_no,"");
+				}else if("shortlisted".equalsIgnoreCase(request_coming_from)){
+					if("shortListedMe".equalsIgnoreCase(list_type)){
+						Objresults = objUsersDao.getShortlistedMeMembers(userSessionBean.getId()+"",page_no);
+					}else{
+						Objresults = objUsersDao.getShortlistedByMeMembers(userSessionBean.getId()+"",page_no);
+					}
+					
+				}else if("viewednotcontacted".equalsIgnoreCase(request_coming_from)){
+					Objresults = objUsersDao.getViewedNotContactedList(userSessionBean.getId()+"",page_no);
+				}else if("yettobeviewed".equalsIgnoreCase(request_coming_from)){
+					Objresults = objUsersDao.getyetToBeViewedList(userSessionBean.getId()+"",page_no);
+				}else{
+					String selectedCasts = request.getParameter("selected_casts");
+					String selectedReligions = request.getParameter("selected_religions");
+					String selectedEducations = request.getParameter("selected_educations");
+					if(StringUtils.isNotBlank(selectedCasts) || StringUtils.isNotBlank(selectedReligions) || StringUtils.isNotBlank(selectedEducations)){
+						results = objUsersDao.getProfilesFilteredByCast(selectedCasts,selectedReligions,selectedEducations,page_no);
+					}else{
+						results = objUsersDao.getSearchResults(searchCriteriaBean,page_no,"");
+					}
 				}
 			}
+				
+			
 			//int total_records = Integer.parseInt(((Map<String, String>)results.get(0)).get("total_records"));
 			//request.setAttribute("total_records", total_records);
 			//request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
@@ -1984,8 +2045,15 @@ public class HomePageController {
 				jsonObj.put("results", results);
 				
 			} else {
-				jsonObj.put("results", "");
+				if (Objresults != null && Objresults.size() > 0) {
+					jsonObj.put("results", Objresults);
+					
+				} else {
+					jsonObj.put("results", "");
+				}
+				
 			}
+			
 			
 		}catch(Exception e){
 			logger.fatal("error in displayPage method");
@@ -2108,6 +2176,10 @@ public class HomePageController {
 			boolean forwarded = objUsersDao.acceptInterestRequests(requestId,accept_flag);
 			if (forwarded) {
 				objJson.put("message", "success");
+				// update pending req count
+				int pending = Integer.parseInt(sessionBean.getPendingRequestsCount());
+				sessionBean.setPendingRequestsCount(pending>0?(pending-1)+"":"0");
+				session.setAttribute("cacheGuest",sessionBean);
 			} else {
 				objJson.put("message", "failed");
 			}
@@ -2134,12 +2206,16 @@ public class HomePageController {
 				return "redirect:HomePage";
 			}
 			long total_records = 0;
-			List<Map<String,Object>> acceptedRequests = objUsersDao.getacceptedRequests(sessionBean.getId()+"",0);
-			if(acceptedRequests!=null && acceptedRequests.size()>0){
-				objectMapper = new ObjectMapper();
-				sJson = objectMapper.writeValueAsString(acceptedRequests);
-				request.setAttribute("acceptedRequests", sJson);
-				total_records = (Long)acceptedRequests.get(0).get("total_records");
+			if("1".equals(sessionBean.getStatus())){
+				List<Map<String,Object>> acceptedRequests = objUsersDao.getacceptedRequests(sessionBean.getId()+"",0);
+				if(acceptedRequests!=null && acceptedRequests.size()>0){
+					objectMapper = new ObjectMapper();
+					sJson = objectMapper.writeValueAsString(acceptedRequests);
+					request.setAttribute("acceptedRequests", sJson);
+					total_records = (Long)acceptedRequests.get(0).get("total_records");
+				}else{
+					request.setAttribute("acceptedRequests", "''");
+				}
 			}else{
 				request.setAttribute("acceptedRequests", "''");
 			}
@@ -2165,12 +2241,16 @@ public class HomePageController {
 				return "redirect:HomePage";
 			}
 			long total_records = 0;
-			List<Map<String,Object>> sentRequests = objUsersDao.getsentRequests(sessionBean.getId()+"",0);
-			if(sentRequests!=null && sentRequests.size()>0){
-				objectMapper = new ObjectMapper();
-				sJson = objectMapper.writeValueAsString(sentRequests);
-				request.setAttribute("sentRequests", sJson);
-				total_records = (Long)sentRequests.get(0).get("total_records");
+			if("1".equals(sessionBean.getStatus())){
+				List<Map<String,Object>> sentRequests = objUsersDao.getsentRequests(sessionBean.getId()+"",0);
+				if(sentRequests!=null && sentRequests.size()>0){
+					objectMapper = new ObjectMapper();
+					sJson = objectMapper.writeValueAsString(sentRequests);
+					request.setAttribute("sentRequests", sJson);
+					total_records = (Long)sentRequests.get(0).get("total_records");
+				}else{
+					request.setAttribute("sentRequests", "''");
+				}
 			}else{
 				request.setAttribute("sentRequests", "''");
 			}
@@ -2196,15 +2276,20 @@ public class HomePageController {
 				return "redirect:HomePage";
 			}
 			long total_records = 0;
-			List<Map<String,Object>> shortlistedMeList = objUsersDao.getShortlistedMeMembers(sessionBean.getId()+"",0);
-			if(shortlistedMeList!=null && shortlistedMeList.size()>0){
-				objectMapper = new ObjectMapper();
-				sJson = objectMapper.writeValueAsString(shortlistedMeList);
-				request.setAttribute("shortlistedList", sJson);
-				total_records = (Long)shortlistedMeList.get(0).get("total_records");
+			if("1".equals(sessionBean.getStatus())){
+				List<Map<String,Object>> shortlistedMeList = objUsersDao.getShortlistedMeMembers(sessionBean.getId()+"",0);
+				if(shortlistedMeList!=null && shortlistedMeList.size()>0){
+					objectMapper = new ObjectMapper();
+					sJson = objectMapper.writeValueAsString(shortlistedMeList);
+					request.setAttribute("shortlistedList", sJson);
+					total_records = (Long)shortlistedMeList.get(0).get("total_records");
+				}else{
+					request.setAttribute("shortlistedList", "''");
+				}
 			}else{
 				request.setAttribute("shortlistedList", "''");
 			}
+			
 			request.setAttribute("list_type", "shortListedMe");
 			request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
 			request.setAttribute("total_records", total_records);
@@ -2309,6 +2394,9 @@ public class HomePageController {
 				return "redirect:HomePage";
 			}
 
+			String withPhoto = request.getParameter("withPhoto");
+			String alreadyViewed = request.getParameter("alreadyViewed");
+			String alreadyContacted = request.getParameter("alreadyContacted");
 			listOrderBeans = objUsersDao.getSearchResults(searchCriteriaBean,0,"newmatches");
 			int total_records = 0;//limit - viewed_count;
 			request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
@@ -2333,6 +2421,48 @@ public class HomePageController {
 	  return "newMatches"; 
    
    }
+   
+   @RequestMapping(value = "/newMatchesAjaxAction")
+	 public @ResponseBody String newMatchesAction(@ModelAttribute("createProfile") UsersBean searchCriteriaBean, Model objeModel, HttpServletRequest request, HttpSession session) {
+	   List<Map<String, String>> listOrderBeans = null;
+	   JSONObject jsOnObj = new JSONObject();
+	   try{
+		   UsersBean userBean = (UsersBean)session.getAttribute("cacheGuest");
+			if(userBean == null){
+				return "redirect:HomePage";
+			}
+
+			String withPhoto = request.getParameter("withPhoto");
+			String alreadyViewed = request.getParameter("alreadyViewed");
+			String alreadyContacted = request.getParameter("alreadyContacted");
+			listOrderBeans = objUsersDao.getSearchResults(searchCriteriaBean,0,"newmatches",withPhoto,alreadyViewed,alreadyContacted);
+			int total_records = 0;//limit - viewed_count;
+			request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
+			if (listOrderBeans != null && listOrderBeans.size() > 0) {
+				/*objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(listOrderBeans);
+				request.setAttribute("allOrders1", sJson);*/
+				jsOnObj.put("new_matches", listOrderBeans);
+				total_records = Integer.parseInt(((Map<String, String>)listOrderBeans.get(0)).get("total_records"));
+				jsOnObj.put("total_records", total_records);
+				//request.setAttribute("total_records", total_records);
+			} else {
+				/*request.setAttribute("allOrders1", "''");
+				request.setAttribute("total_records", "0");*/
+				jsOnObj.put("new_matches", "");
+				jsOnObj.put("total_records", "0");
+			}
+	   } catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			logger.error(e);
+			logger.fatal("error in newMatchesAction method  ");
+			return null;
+		}
+	   
+	  return jsOnObj.toString(); 
+ 
+ }
    
    /*@RequestMapping(value = "/createOtp")
    public @ResponseBody String createOtp(
@@ -2359,17 +2489,10 @@ public class HomePageController {
 
    }*/
 
-   public String genOtp()
-   {
-   String tempStr = System.currentTimeMillis() + "";
-   String otp = tempStr.substring(7);
-   return otp;
-   }
+   
 
    @RequestMapping(value = "/checkOtp")
    public String   checkOtp(Model objeModel,
-   //@RequestParam("phoneNo") String phoneNo,
-   //@RequestParam("otp1") String otp1,
    HttpServletResponse response, HttpServletRequest request,
    HttpSession session,
    Model mod)
@@ -2379,7 +2502,7 @@ public class HomePageController {
 			return "redirect:HomePage";
 		}
 	   UsersBean profile = (UsersBean)session.getAttribute("profileToBeCreated");
-	   objeModel.addAttribute("createProfile", profile);
+	   objeModel.addAttribute("partnerProfile", profile);
 	   String mobileNum = profile.getMobile();
 	   String otp1 = request.getParameter("otp1");
 	   /*************
@@ -2388,20 +2511,19 @@ public class HomePageController {
 		*************/
 	   int count = objUsersDao.getOTPCount(mobileNum);
 	   if(count<=MatrimonyConstants.OTP_LIMIT){
-		   String otp = objUsersDao.getOtpOf(mobileNum)+"";
-		   if(otp.equals(otp1)){
+		   String otp = objUsersDao.getOtpOf(sessionBean.getId()+"",mobileNum)+"";
+		   if(StringUtils.isNotBlank(otp1)  &&  otp.equals(otp1)){
 			   objUsersDao.updateOtpStatus(mobileNum,otp);
 			   
-			   return "redirect:saveUserProfile";
+			   //return "redirect:saveUserProfile";
+			   return "redirect:dashboard";
 		   }else{
-			   objUsersDao.delete(profile.getId());
-			   request.setAttribute("message", "OTP mismatched.Please try again.");
-			   return "otpFailurePage";
+			   request.setAttribute("message", "mismatched");//"OTP mismatched.Please try again.");
+			   return "otpPage";
 		   }
 	   }else{
-		   objUsersDao.delete(profile.getId());
-		   request.setAttribute("message", "OTP limit for the day has been exceeded. Please try again later.");
-		   return "redirect:HomePage";
+		   request.setAttribute("msg", "OTP limit for the day has been exceeded. Please try again later.");
+		   return "otpFailurePage";
 	   }
 	   
 	   
@@ -2410,8 +2532,8 @@ public class HomePageController {
    }
    
    
-   @RequestMapping(value = "/verifyMobileNumber")
-	 public String verifyMobileNumber(@ModelAttribute("createProfile") UsersBean objUserssBean, Model objeModel, HttpServletRequest request, HttpSession session) {
+   @RequestMapping(value = "/sendOtp")
+	 public String sendOtp(@ModelAttribute("createProfile") UsersBean objUserssBean, Model objeModel, HttpServletRequest request, HttpSession session) {
 	  ObjectMapper objectMapper = null;
 		String sJson = null;
 		try {
@@ -2419,24 +2541,44 @@ public class HomePageController {
 				if(sessionBean == null){
 					return "redirect:HomePage";
 				}
-				objeModel.addAttribute("createProfile", objUserssBean);
-				session.setAttribute("profileToBeCreated", objUserssBean);
-				String mobileNum = objUserssBean.getMobile();
-				String otp = genOtp();
-			   //insert into table; userId
-			   boolean success = objUsersDao.saveOtp(mobileNum,otp);
+				UsersBean savedUserData = objUsersDao.getById(sessionBean.getId());
+				String otpStatus = objUsersDao.getOtpStatus(savedUserData);
+				  if(StringUtils.isNotBlank(otpStatus) && "1".equals(otpStatus)){
+						
+						return "redirect:dashboard";
+				  }
+				String mobileNum = savedUserData.getMobile();
+				objeModel.addAttribute("createProfile", savedUserData);
+				session.setAttribute("profileToBeCreated", savedUserData);
+				//String mobileNum = objUserssBean.getMobile();
+				
+				String otp = objUsersDao.genOtp();
+			   //insert into otp table
+				request.setAttribute("mobileStr", mobileNum.substring(mobileNum.length()-3));	
+			   boolean success = objUsersDao.saveOtp(sessionBean.getId()+"",mobileNum,otp);
 			   if(success){
-				   String response = SendSMS.sendSMS("Thanks for registering with Aarna Matrimony. OTP for your registration is: "+otp, mobileNum);
-				   
-				   if("OK".equalsIgnoreCase(response)){
+				   try{
+					   String response = SendSMS.sendSMS("Thanks for registering with Aarna Matrimony. OTP for your registration is: "+otp, mobileNum);
 					   
-					   request.setAttribute("message", "success");
-				   }else{
-					   request.setAttribute("message", "failed"); 
+					   if("OK".equalsIgnoreCase(response)){
+						   
+						   request.setAttribute("message", "success");
+					   }else{
+						   request.setAttribute("message", "failed"); 
+					   }
+					   //throw new Exception();
+				   }catch(Exception e){
+					   e.printStackTrace();
+					   request.setAttribute("message", "failed");
+					   //objUsersDao.delete(sessionBean.getId());
 				   }
-				   return "verifyMobileNumber";
+				   
+				   return "otpPage";
 				   /*objeModel.addAttribute("createProfile", objUserssBean);ff
 				   return "redirect:saveUserProfile";*/
+			   }else{
+				   request.setAttribute("message", "failed");
+				   return "otpPage";
 			   }
 			   
 			
@@ -2444,9 +2586,52 @@ public class HomePageController {
 		   e.printStackTrace();
 		   System.out.println(e);
 		   logger.error(e);
-		   logger.fatal("error in verifyMobileNumber method");
+		   logger.fatal("error in sendOtp method");
 		 }
-		return "redirect:dashboard";
+		return "redirect:HomePage";
+	 }
+   
+   @RequestMapping(value = "/resendOtp")
+	 public @ResponseBody String resendOtp(@ModelAttribute("createProfile") UsersBean objUserssBean, Model objeModel, HttpServletRequest request, HttpSession session) {
+	   JSONObject objJson = new JSONObject();
+		try {
+				UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
+				if(sessionBean == null){
+					return "redirect:HomePage";
+				}
+				UsersBean savedUserData = objUsersDao.getById(sessionBean.getId());
+				String mobileNum = savedUserData.getMobile();
+				objJson.put("mobileStr", mobileNum.substring(mobileNum.length()-3));
+				String otp = objUsersDao.getOtpOf(savedUserData.getId()+"",mobileNum);
+				//String otp = objUsersDao.genOtp();
+			   //insert into otp table
+			   //boolean success = objUsersDao.saveOtp(sessionBean.getId()+"",mobileNum,otp);
+			   if(StringUtils.isNotBlank(otp)){
+				   try{
+					   String response = SendSMS.sendSMS("Thanks for registering with Aarna Matrimony. OTP for your registration is: "+otp, mobileNum);
+					   
+					   if("OK".equalsIgnoreCase(response)){
+						   objJson.put("message", "success");
+					   }else{
+						   objJson.put("message", "failed");
+					   }
+					   //throw new Exception();
+				   }catch(Exception e){
+					   e.printStackTrace();
+					   objJson.put("message", "failed");
+				   }
+				   
+				   
+			   }else{
+				   objJson.put("message", "failed");
+			   }
+			   
+			
+		} catch (Exception e) {
+		   e.printStackTrace();
+		   objJson.put("message", "failed");
+		 }
+		return objJson.toString();
 	 }
    
    @RequestMapping(value = "/deletePhoto")
@@ -2550,12 +2735,16 @@ public class HomePageController {
 				return "redirect:HomePage";
 			}
 			long total_records = 0;
-			List<Map<String,Object>> pendingRequests = objUsersDao.getPendingInterestRequests(sessionBean.getId()+"",0);
-			if(pendingRequests!=null && pendingRequests.size()>0){
-				objectMapper = new ObjectMapper();
-				sJson = objectMapper.writeValueAsString(pendingRequests);
-				request.setAttribute("pendingRequests", sJson);
-				total_records = (Long)pendingRequests.get(0).get("total_records");
+			if("1".equals(sessionBean.getStatus())){
+				List<Map<String,Object>> pendingRequests = objUsersDao.getPendingInterestRequests(sessionBean.getId()+"",0);
+				if(pendingRequests!=null && pendingRequests.size()>0){
+					objectMapper = new ObjectMapper();
+					sJson = objectMapper.writeValueAsString(pendingRequests);
+					request.setAttribute("pendingRequests", sJson);
+					total_records = (Long)pendingRequests.get(0).get("total_records");
+				}else{
+					request.setAttribute("pendingRequests", "''");
+				}
 			}else{
 				request.setAttribute("pendingRequests", "''");
 			}
@@ -2570,5 +2759,376 @@ public class HomePageController {
 	  }
 		return "pendingRequests";
 	 }
+   
+   @RequestMapping(value = "/mobileNumViewedByMeList")
+	 public String mobileNosList(@ModelAttribute("createProfile") UsersBean objUserssBean, Model objeModel, HttpServletRequest request, HttpSession session) {
+	  ObjectMapper objectMapper = null;
+		String sJson = null;
+		try {
+			UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
+			if(sessionBean == null){
+				return "redirect:HomePage";
+			}
+			long total_records = 0;
+			if("1".equals(sessionBean.getStatus())){
+
+				List<Map<String,Object>> pendingRequests = objUsersDao.getMobileNumViewedByMeList(sessionBean.getId()+"",0);
+				if(pendingRequests!=null && pendingRequests.size()>0){
+					objectMapper = new ObjectMapper();
+					sJson = objectMapper.writeValueAsString(pendingRequests);
+					request.setAttribute("pendingRequests", sJson);
+					total_records = (Long)pendingRequests.get(0).get("total_records");
+				}else{
+					request.setAttribute("pendingRequests", "''");
+				}
+			}else{
+				request.setAttribute("pendingRequests", "''");
+			}
+			request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
+			request.setAttribute("total_records", total_records);
+			
+		} catch (Exception e) {
+	   e.printStackTrace();
+	   System.out.println(e);
+	   logger.error(e);
+	   logger.fatal("error in pendingRequests method");
+	  }
+		return "mobileNumViewedByMeList";
+	 }
+   @RequestMapping(value = "/myProfileViewsList")
+	 public String myProfileViewsList(@ModelAttribute("createProfile") UsersBean objUserssBean, Model objeModel, HttpServletRequest request, HttpSession session) {
+	  ObjectMapper objectMapper = null;
+		String sJson = null;
+		try {
+			UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
+			if(sessionBean == null){
+				return "redirect:HomePage";
+			}
+			long total_records = 0;
+			if("1".equals(sessionBean.getStatus())){
+				List<Map<String,Object>> pendingRequests = objUsersDao.getProfileViewedMembers(sessionBean.getId()+"",0);
+				if(pendingRequests!=null && pendingRequests.size()>0){
+					objectMapper = new ObjectMapper();
+					sJson = objectMapper.writeValueAsString(pendingRequests);
+					request.setAttribute("pendingRequests", sJson);
+					total_records = (Long)pendingRequests.get(0).get("total_records");
+				}else{
+					request.setAttribute("pendingRequests", "''");
+				}
+			}else{
+				request.setAttribute("pendingRequests", "''");
+			}
+			
+			request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
+			request.setAttribute("total_records", total_records);
+			
+		} catch (Exception e) {
+	   e.printStackTrace();
+	   System.out.println(e);
+	   logger.error(e);
+	   logger.fatal("error in pendingRequests method");
+	  }
+		return "myProfileViewsList";
+	 }
+   
+   @RequestMapping(value = "/myMobileNoViewsList")
+	 public String myMobileNoViewsList(@ModelAttribute("createProfile") UsersBean objUserssBean, Model objeModel, HttpServletRequest request, HttpSession session) {
+	  ObjectMapper objectMapper = null;
+		String sJson = null;
+		try {
+			UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
+			if(sessionBean == null){
+				return "redirect:HomePage";
+			}
+			long total_records = 0;
+			if("1".equals(sessionBean.getStatus())){
+				List<Map<String,Object>> pendingRequests = objUsersDao.getMyMobileNoViewedByMembers(sessionBean.getId()+"",0);
+				if(pendingRequests!=null && pendingRequests.size()>0){
+					objectMapper = new ObjectMapper();
+					sJson = objectMapper.writeValueAsString(pendingRequests);
+					request.setAttribute("pendingRequests", sJson);
+					total_records = (Long)pendingRequests.get(0).get("total_records");
+				}else{
+					request.setAttribute("pendingRequests", "''");
+				}
+			}else{
+				request.setAttribute("pendingRequests", "''");
+			}
+			request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
+			request.setAttribute("total_records", total_records);
+			
+		} catch (Exception e) {
+	   e.printStackTrace();
+	   System.out.println(e);
+	   logger.error(e);
+	   logger.fatal("error in pendingRequests method");
+	  }
+		return "myMobileNoViewsList";
+	 }
+   
+   @RequestMapping(value = "/yetToBeViewed")
+	 public String yetToBeViewed(@ModelAttribute("createProfile") UsersBean objUserssBean, Model objeModel, HttpServletRequest request, HttpSession session) {
+	  ObjectMapper objectMapper = null;
+		String sJson = null;
+		try {
+			UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
+			if(sessionBean == null){
+				return "redirect:HomePage";
+			}
+			long total_records = 0;
+			List<Map<String,Object>> pendingRequests = objUsersDao.getyetToBeViewedList(sessionBean.getId()+"",0);
+			if(pendingRequests!=null && pendingRequests.size()>0){
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(pendingRequests);
+				request.setAttribute("yetToBeViewedList", sJson);
+				total_records = (Long)pendingRequests.get(0).get("total_records");
+			}else{
+				request.setAttribute("yetToBeViewedList", "''");
+			}
+			request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
+			request.setAttribute("total_records", total_records);
+			
+		} catch (Exception e) {
+	   e.printStackTrace();
+	   System.out.println(e);
+	   logger.error(e);
+	   logger.fatal("error in yetToBeViewed method");
+	  }
+		return "yetToBeViewedList";
+	 }
+   
+   @RequestMapping(value = "/viewedNotContacted")
+	 public String viewedNotContacted(@ModelAttribute("createProfile") UsersBean objUserssBean, Model objeModel, HttpServletRequest request, HttpSession session) {
+	  ObjectMapper objectMapper = null;
+		String sJson = null;
+		try {
+			UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
+			if(sessionBean == null){
+				return "redirect:HomePage";
+			}
+			long total_records = 0;
+			List<Map<String,Object>> pendingRequests = objUsersDao.getViewedNotContactedList(sessionBean.getId()+"",0);
+			if(pendingRequests!=null && pendingRequests.size()>0){
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(pendingRequests);
+				request.setAttribute("viewedNotContactedList", sJson);
+				total_records = (Long)pendingRequests.get(0).get("total_records");
+			}else{
+				request.setAttribute("viewedNotContactedList", "''");
+			}
+			request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
+			request.setAttribute("total_records", total_records);
+			
+		} catch (Exception e) {
+	   e.printStackTrace();
+	   System.out.println(e);
+	   logger.error(e);
+	   logger.fatal("error in yetToBeViewed method");
+	  }
+		return "viewedNotContactedList";
+	 }
+   
+   @RequestMapping(value = "/editProfile")
+	public @ResponseBody String editProfile(@ModelAttribute("editProfileForm") UsersBean modifiedUserBean,ModelMap model, HttpServletRequest request, HttpSession session)
+														throws JsonGenerationException, JsonMappingException, IOException {
+		JSONObject jsonObj = new JSONObject();
+		List<Map<String, Object>> results = null;
+		try{
+			UsersBean userSessionBean =  (UsersBean)session.getAttribute("cacheGuest");
+				if(userSessionBean == null)
+					return "redirect:HomePage";
+			
+			String dataToBeSaved = modifiedUserBean.getPageName();
+			if(StringUtils.isNotBlank(dataToBeSaved)){
+				UsersBean  newSessionBean = objUsersDao.loginChecking(userSessionBean.getId());
+				Date dob1 = HRMSUtil.dateFormate(modifiedUserBean.getDob());
+				if(dob1 !=null){
+					modifiedUserBean.setDob1(dob1);
+				}
+				newSessionBean.setDob(modifiedUserBean.getDob());
+				newSessionBean.setDob1(modifiedUserBean.getDob1());
+				if("basic_details".equalsIgnoreCase(dataToBeSaved)){
+					
+					this.copyBasicDetails(modifiedUserBean, newSessionBean);
+				}else if("religion_info".equalsIgnoreCase(dataToBeSaved)){
+					this.copyReligionInfo(modifiedUserBean, newSessionBean);
+				}else if("location".equalsIgnoreCase(dataToBeSaved)){
+					this.copyLocation(modifiedUserBean, newSessionBean);
+				}else if("professional_info".equalsIgnoreCase(dataToBeSaved)){
+					this.copyProfessionalInfo(modifiedUserBean, newSessionBean);
+				}else if("family_details".equalsIgnoreCase(dataToBeSaved)){
+					this.copyFamilyDetails(modifiedUserBean, newSessionBean);
+				}else if("partner_basic".equalsIgnoreCase(dataToBeSaved)){
+					this.copyPartnerBasicReligionPreferences(modifiedUserBean, newSessionBean);
+				}else if("partner_professional".equalsIgnoreCase(dataToBeSaved)){
+					this.copyPartnerProfessionalPreferences(modifiedUserBean, newSessionBean);
+				}else if("partner_location".equalsIgnoreCase(dataToBeSaved)){
+					this.copyPartnerLocationPreferences(modifiedUserBean, newSessionBean);
+				}else if("about".equalsIgnoreCase(dataToBeSaved)){
+					this.copyAboutMySelf(modifiedUserBean, newSessionBean);
+				}
+				try{
+					objUsersDao.save(newSessionBean);
+					jsonObj.put("message", "success");
+				}catch(Exception exp){
+					exp.printStackTrace();
+					jsonObj.put("message", "failed");
+				}
+				
+				if(userSessionBean.getRoleId() == 4){
+					 session.setAttribute("allowed_profiles_limit", 0); 
+				 }else{
+					 int allowed_profiles_limit = objUsersDao.getAllowedProfilesLimit(userSessionBean.getId());
+					 session.setAttribute("allowed_profiles_limit", allowed_profiles_limit);
+				 }
+				/*UsersBean objUserrequirementBean =  new UsersBean();
+				objUserrequirementBean.setUserId(userSessionBean.getId());
+				objUserrequirementBean.setUserrequirementId(newSessionBean.getUserrequirementId());
+				objUserrequirementDao.save(objUserrequirementBean);*/
+				newSessionBean.setSentInterestCount(userSessionBean.getSentInterestCount());
+				newSessionBean.setReceivedInterestCount(userSessionBean.getReceivedInterestCount());
+				newSessionBean.setAcceptedInterestCount(userSessionBean.getAcceptedInterestCount());
+				newSessionBean.setProfileViewedCount(userSessionBean.getProfileViewedCount());
+				newSessionBean.setRejectedInterestCount(userSessionBean.getRejectedInterestCount());
+				newSessionBean.setProfilesViewedByMeCount(userSessionBean.getProfilesViewedByMeCount());
+				newSessionBean.setMobileNumViewedCount(userSessionBean.getMobileNumViewedCount());
+				newSessionBean.setMobileNumViewedByMeCount(userSessionBean.getMobileNumViewedByMeCount());
+				newSessionBean.setPendingRequestsCount(userSessionBean.getPendingRequestsCount());
+				newSessionBean.setYetToBeViewedCount(userSessionBean.getYetToBeViewedCount());
+				newSessionBean.setViewedNotContactedCount(userSessionBean.getViewedNotContactedCount());
+				
+				int filled_status = objUsersDao.getProfileFilledStatus(newSessionBean);
+				 session.setAttribute("profile_filled_status", 45+filled_status);
+				 session.setAttribute("cacheGuest",newSessionBean);//newSessionBean now holds the modified data also
+			}
+			
+			
+		}catch(Exception e){
+			logger.fatal("error in editProfile method");
+			logger.error(e);
+			e.printStackTrace();
+		}
+		return jsonObj.toString();
+	}
+   
+   @RequestMapping(value = "/sendMail")
+	public  @ResponseBody String sendMail(ModelMap model,
+			HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
+		JSONObject objJson =new JSONObject();
+		List<Map<String, String>> filteredProfiles = null;
+		try {
+			UsersBean userBean = (UsersBean)session.getAttribute("cacheGuest");
+			if(userBean == null){
+				return "redirect:HomePage";
+			}
+			String profile_id = request.getParameter("profile_id");
+			
+			String mailContent = request.getParameter("mail_content");
+			if(StringUtils.isNotBlank(profile_id)){
+				UsersBean receipientUser = objUsersDao.loginChecking(Integer.parseInt(profile_id));
+				receipientUser.setMail_content(mailContent);
+				try{
+					 // send personal message from user to user
+					 if(StringUtils.isNotBlank(receipientUser.getEmail())){
+						 EmailUtil.sendInterestMail(userBean, receipientUser, request, objContext);
+					 }
+					 objJson.put("message", "success");
+				 }catch(Exception e){
+					 objJson.put("message", "failed");
+				 }
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			logger.error(e);
+			logger.fatal("error in user's sendMail method  ");
+		}
+		return String.valueOf(objJson);
+	}
+   private UsersBean copyAboutMySelf(UsersBean source,UsersBean target){
+	   target.setAboutMyself(source.getAboutMyself());
+	   
+	   return target;
+   }
+   private UsersBean copyBasicDetails(UsersBean source,UsersBean target){
+	   target.setCreateProfileFor(source.getCreateProfileFor());
+	   target.setFirstName(source.getFirstName());
+	   target.setLastName(source.getLastName());
+	   target.setBodyType(source.getBodyType());
+	   target.setComplexion(source.getComplexion());
+	   target.setAge(source.getAge());
+	   target.setHeight(source.getHeight());
+	   target.setDisability(source.getDisability());
+	   target.setWeight(source.getWeight());
+	   target.setDiet(source.getDiet());
+	   target.setMotherTongue(source.getMotherTongue());
+	   target.setDrinking(source.getDrinking());
+	   target.setSmoking(source.getSmoking());
+	   target.setMaritalStatus(source.getMaritalStatus());
+	   return target;
+   }
+   private UsersBean copyReligionInfo(UsersBean source,UsersBean target){
+	   target.setReligion(source.getReligion());
+	   target.setCaste(source.getCaste());
+	   target.setGotram(source.getGotram());
+	   target.setStar(source.getStar());
+	   target.setDosam(source.getDosam());
+	   
+	   return target;
+   }
+   private UsersBean copyLocation(UsersBean source,UsersBean target){
+	   target.setCurrentCountry(source.getCurrentCountry());
+	   target.setCurrentCity(source.getCurrentCity());
+	   target.setCurrentState(source.getCurrentState());
+	   
+	   return target;
+   }
+   private UsersBean copyProfessionalInfo(UsersBean source,UsersBean target){
+	   target.setEducation(source.getEducation());
+	   target.setWorkingWith(source.getWorkingWith());
+	   target.setOccupation(source.getOccupation());
+	   
+	   return target;
+   }
+   private UsersBean copyFamilyDetails(UsersBean source,UsersBean target){
+	   target.setFatherName(source.getFatherName());
+	   target.setMotherName(source.getMotherName());
+	   target.setfOccupation(source.getfOccupation());
+	   target.setmOccupation(source.getmOccupation());
+	   target.setNoOfBrothers(source.getNoOfBrothers());
+	   target.setNoOfSisters(source.getNoOfSisters());
+	   target.setNoOfBrothersMarried(source.getNoOfBrothersMarried());
+	   target.setNoOfSistersMarried(source.getNoOfSistersMarried());
+	   
+	   return target;
+   }
+   private UsersBean copyPartnerBasicReligionPreferences(UsersBean source,UsersBean target){
+	   target.setrAgeFrom(source.getrAgeFrom());
+	   target.setrAgeTo(source.getrAgeTo());
+	   target.setrHeight(source.getrHeight());
+	   target.setrHeightTo(source.getrHeightTo());
+	   target.setrMaritalStatus(source.getrMaritalStatus());
+	   target.setrDiet(source.getrDiet());
+	   target.setrReligion(source.getrReligion());
+	   target.setrMotherTongue(source.getrMotherTongue());
+	   target.setrCaste(source.getrCaste());
+	   
+	   return target;
+   }
+   private UsersBean copyPartnerProfessionalPreferences(UsersBean source,UsersBean target){
+	   target.setrEducation(source.getrEducation());
+	   target.setrOccupation(source.getrOccupation());
+	   target.setrAnnualIncome(source.getrAnnualIncome());
+	   
+	   return target;
+   }
+   private UsersBean copyPartnerLocationPreferences(UsersBean source,UsersBean target){
+	   target.setrCountry(source.getrCountry());
+	   target.setrState(source.getrState());
+	   //target.setrCity(source.getrCity());
+	   
+	   return target;
+   }
    
 }

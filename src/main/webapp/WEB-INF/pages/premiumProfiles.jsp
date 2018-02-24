@@ -473,7 +473,7 @@ $(document).ready(function(){
 	$("#rDiet").val(selected_values.split(","));
 });
 
-$(".searchPage").addClass("active");
+$(".matches").addClass("active");
 </script>
 
 <%@ include file="userFooter.jsp"%>

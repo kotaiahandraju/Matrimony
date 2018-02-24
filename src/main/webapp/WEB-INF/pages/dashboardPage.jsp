@@ -20,7 +20,7 @@
 					<div class="panel-heading">Preferred Profiles </div>
 		            <form:form commandName="createProfile"  class="form-horizontal" id="searchForm2" name="searchForm2" role="form"   method="post">
 	             		<form:hidden path="id" />
-	             			<div class="panel-body" id="matches" style="overflow-y:scroll; height:350px;">
+	             			<div class="panel-body" id="matches" style="overflow-y:scroll; max-height: 350px">
 	             		
 							
 							</div>
@@ -32,20 +32,22 @@
 				</div>
 				<div class="panel panel-success">
 					<div class="panel-heading">New Matches</div>
-		            <div class="panel-body">
-				      <div class="carousel slide media-carousel" id="media">
-				        <div class="carousel-inner" id="new_matches">
-				          
+		            <div class="panel-body"> <div class="panel-body"> 
+					  <div class='row'>
+					    <div class='col-md-12'>
+					      <div class="carousel slide media-carousel" id="media">
+					        <div class="carousel-inner" id="new_matches">
+						    	
+					    	</div>
+					    	<a data-slide="prev" href="#media" class="left carousel-control">(</a>
+        					<a data-slide="next" href="#media" class="right carousel-control">)</a>
 					    </div>
-					  </div>
-					</div>
-					
+					</div></div></div></div></div>
 				</div>
             
             
             
 			
-
 			
 	<!-- Modal Starts here-->
 	
@@ -62,6 +64,12 @@
 	$('#myModal').modal();
 });
   */
+  $(document).ready(function() {
+	  $('#media').carousel({
+	    pause: true,
+	    interval: false,
+	  });
+ });
   $(function(){
 		 //add text water mark;	
 	  addWaterMark();
@@ -69,12 +77,12 @@
   function addWaterMark(){
 	  $('.watermark_text').watermark({
 		  text: 'aarnamatrimony.com',
-		  textWidth: 500,
-		  textSize: 50,
+		  textWidth: 700,
+		  textSize: 76,
 		  textColor: 'white',
 		  gravity: 'w',
-		   opacity: 0.7,
-		   margin: 5,
+		   opacity: 0.8,
+		   //margin: 0,
 		   outputWidth: 'auto',
 		   outputHeight: 'auto'
 		 });
@@ -83,10 +91,11 @@ var total_items_count = ${total_records};
 var page_size = ${page_size};
 var allowed_limit = ${allowed_profiles_limit};
 var listOrders1 = ${allOrders1};
+var newMatches = ${new_matches};
 
 //if (listOrders1 != "") {
 	displayMatches(listOrders1);
-	//displayNewMatches(listOrders1);
+	displayNewMatches(newMatches);
 //}
 function displayMatches(listOrders) {
 	$('#matches').html('');
@@ -133,42 +142,34 @@ function displayMatches(listOrders) {
 				//more_details_str = '<tr><td><span><a href="#" onclick="showMoreDetails(this)">read more...</a></span></td></tr>';
 				//mobile_no__str = '<tr><td><span><a href="#" onclick="viewMobileNumber('+orderObj.id+')">View Mobile Number</a></span></td></tr>';
 			}
+			var premiumMember = "";
+			var memberRoleId = orderObj.role_id;
+			if(memberRoleId!=null && memberRoleId!="" && (memberRoleId==6 || memberRoleId==11 ||
+					memberRoleId==12 || memberRoleId==13 || memberRoleId==14)){
+				premiumMember = "<span class='premium-member'>Premium Member</span>";
+			}
+			var shortListedStr = '<span id="shortlistTD'+orderObj.id+'"><a href="#" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="shortList('+orderObj.id+')"> Shortlist</a></span>';
+			if(orderObj.short_listed == "1"){
+				shortListedStr = "<span>Shortlisted</span>";
+			}
+			var expressed = orderObj.expressedInterest;
+			var interestStr = "";
+			if(expressed==0){
+				interestStr = '<span id="expInterest'+orderObj.id+'"><a   href="#" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="expressInterest('+orderObj.id+')">  Express Interest  </a></span>';
+			}else if(expressed>0){
+				interestStr = '<span>Expressed Interest</span>';
+			}
 			var tblRow = '<div class="row">'
 				+ '<div class="col-md-2" >'
 	            + 	"<img src="+image+" class='watermark_text img-responsive thumbnail ' style='max-height:70px;'>"
 	            + '</div>'
 	            + '<div class="col-md-10">'
-	            + 	'<div class="profilesimilar">'
-	            + 		'<table width="100%" border="0" cellspacing="0" cellpadding="0">'
-	            + 			'<tr><td><h4>'+firstname+'&nbsp;'+lastname+'</h4>&nbsp;('+orderObj.username+')</td></tr>'
-	            + 			'<tr><td><p>'+age+' yrs, '+orderObj.religionName+', '+orderObj.casteName+',</p></td></tr>'
-	            + 			'<tr><td><p>'+orderObj.inches+'&nbsp'+orderObj.occupationName+', '+orderObj.currentCityName+', '+orderObj.currentCountryName+'.</p></td></tr>'
-	            //+			mobile_no__str
-	            //+ 			'<tr><td><span><a href="#" onclick="fullProfile('+orderObj.id+')">Full Profile</span> </td></tr>'
-	            + 		'</table>'
-	            + 	'</div>'
+	            + ' <p>'+firstname+'&nbsp;'+lastname+'|'+orderObj.username+'&nbsp;'+premiumMember+'&nbsp; '+age+' yrs,&nbsp; '+orderObj.religionName+', '+orderObj.casteName+','+orderObj.inches+' , '+orderObj.occupationName+', '+orderObj.currentCityName+', '+orderObj.currentCountryName+'. </p> '
+	            + ' <p> '+interestStr+'| <a href="#" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="fullProfile('+orderObj.id+')"> Full Profile</a> '
+	            + ' | <span id="mobileTD'+orderObj.id+'"><a href="#" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="displayMobileNum('+orderObj.id+')"> View mobile no.</a></span> | '+shortListedStr+'</p> '
+	            
 	            + '</div>'
-	            + '<div class="col-md-3" style="margin-right:0; padding-right:0;">'
-	            +  '<h4 style="margin-bottom:20px;">Like this Profile?</h4>'
-	            + 	'<button id="expInterest'+orderObj.id+'" type="button" class="btn btn-primary" onclick="expressInterest('+orderObj.id+')">Yes I\'m interested</button><br><br>'
-	            + 	'<button  type="button" class="btn btn-primary btn-block" onclick="fullProfile('+orderObj.id+')">View Full Profile</button>'
-	            //+   '<button id="mobileBtn'+orderObj.id+'" type="button" class="btn btn-info" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button>'
-	            + '</div>'
-	            + '<div class="row container-fluid">'
-	            + 	'<div class="col-md-7" style="margin-right:0; padding-right:0;">'
-	            +		'<table width="100%" border="0" cellspacing="0" cellpadding="0">'
-	            + 			'<tr>'
-	            //+				'<td><button  type="button" class="btn btn-primary btn-block" onclick="fullProfile('+orderObj.id+')">View Full Profile</button></td>'
-	            //+ 				'<td>&nbsp;</td><td><button id="mobileBtn'+orderObj.id+'" type="button" class="btn btn-info" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button></td></tr>'
-	            //+				'<td><a href="#" onclick="fullProfile('+orderObj.id+')">View Full Profile</a></td>'
-	            + 				'<td id="mobileTD'+orderObj.id+'"><a href="#"   type="button" class="btn" onclick="displayMobileNum('+orderObj.id+')">View Mobile Number</a></td>'
-	            + 				'<td id="shortlistTD'+orderObj.id+'"><a href="#"   type="button" class="btn" onclick="shortList('+orderObj.id+')">Shortlist</a></td></tr>'
-	            + 		'</table>'
-	            //+ 		'<button  type="button" class="btn btn-primary btn-block" onclick="fullProfile('+orderObj.id+')">View Full Profile</button>'
-	            //+   	'<button id="mobileBtn'+orderObj.id+'" type="button" class="btn btn-info" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button>'
-	            + 	'</div>'
-	            + '</div>'
-	            + '<div class="clearfix"></div>'
+	            + '<div class="clearfix" style="border-bottom:1px solid #f1f11;margin-bottom:5px;"></div>'
 	            + '<hr>'
 	            + '</div>';
 	        /* var login_user_role_id = ${cacheGuest.roleId};
@@ -182,19 +183,28 @@ function displayMatches(listOrders) {
 
 function displayNewMatches(listOrders) {
 	$('#new_matches').html('');
-	serviceUnitArray = {};
+	serviceUnitArray2 = {};
 	if(listOrders==""){
 		var tblRow = '<div>No matches found.</div>';
-		$(tblRow).appendTo("#matches"); 
+		$(tblRow).appendTo("#new_matches"); 
 		$("#pagination_div").prop("hidden",true);
 	}
+	var count = 1;
+	var rowStr = '';
+	var	itemStart = '<div class="item"><div class="row"> ';
+	var	activeItem = '<div class="item active"><div class="row"> ';
+	var	itemEnd = '</div></div>';
+	var len = listOrders.length;
+	if(9<len){
+		len = 9;
+	}
 	$.each(listOrders,function(i, orderObj) 
-	{
-		paginationSetup(total_items_count);
-		$("#altLists").asPaginator('enable');
-		$("#pagination_div").removeAttr("hidden");
-		displayTableFooter(1);
-		serviceUnitArray[orderObj.id] = orderObj;
+			{
+				/* paginationSetup(total_items_count);
+				$("#altLists").asPaginator('enable');
+				$("#pagination_div").removeAttr("hidden");
+				displayTableFooter(1); */
+		serviceUnitArray2[orderObj.id] = orderObj;
 		
 		var array = null;
 // 		var imageUrl =null;
@@ -203,6 +213,7 @@ function displayNewMatches(listOrders) {
 		if(image == "" || image == null || image == "undefined"){
 			image = "img/default.png";
 		}
+		console.log(image);
 		/* else{
 		array = image.split(",");
 		
@@ -225,55 +236,56 @@ function displayNewMatches(listOrders) {
 				//more_details_str = '<tr><td><span><a href="#" onclick="showMoreDetails(this)">read more...</a></span></td></tr>';
 				//mobile_no__str = '<tr><td><span><a href="#" onclick="viewMobileNumber('+orderObj.id+')">View Mobile Number</a></span></td></tr>';
 			}
-			var tblRow = '<div class="item "><div class="row">'
-				+ '<div class="col-md-4" >'
-	            + 	"<img src="+image+" class='watermark_text img-responsive thumbnail ' style='max-height:70px;'>"
-	            + '</div>'
-	            + '<div class="col-md-10">'
-	            + 	'<div class="profilesimilar">'
-	            + 		'<table width="100%" border="0" cellspacing="0" cellpadding="0">'
-	            + 			'<tr><td><h4>'+firstname+'&nbsp;'+lastname+'</h4>&nbsp;('+orderObj.username+')</td></tr>'
-	            + 			'<tr><td><p>'+age+' yrs, '+orderObj.religionName+', '+orderObj.casteName+',</p></td></tr>'
-	            + 			'<tr><td><p>'+orderObj.inches+'&nbsp'+orderObj.occupationName+', '+orderObj.currentCityName+', '+orderObj.currentCountryName+'.</p></td></tr>'
-	            //+			mobile_no__str
-	            //+ 			'<tr><td><span><a href="#" onclick="fullProfile('+orderObj.id+')">Full Profile</span> </td></tr>'
-	            + 		'</table>'
-	            + 	'</div>'
-	            + '</div>'
-	            + '<div class="col-md-3" style="margin-right:0; padding-right:0;">'
-	            +  '<h4 style="margin-bottom:20px;">Like this Profile?</h4>'
-	            + 	'<button id="expInterest'+orderObj.id+'" type="button" class="btn btn-primary" onclick="expressInterest('+orderObj.id+')">Yes I\'m interested</button><br><br>'
-	            + 	'<button  type="button" class="btn btn-primary btn-block" onclick="fullProfile('+orderObj.id+')">View Full Profile</button>'
-	            //+   '<button id="mobileBtn'+orderObj.id+'" type="button" class="btn btn-info" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button>'
-	            + '</div>'
-	            + '<div class="row container-fluid">'
-	            + 	'<div class="col-md-7" style="margin-right:0; padding-right:0;">'
-	            +		'<table width="100%" border="0" cellspacing="0" cellpadding="0">'
-	            + 			'<tr>'
-	            //+				'<td><button  type="button" class="btn btn-primary btn-block" onclick="fullProfile('+orderObj.id+')">View Full Profile</button></td>'
-	            //+ 				'<td>&nbsp;</td><td><button id="mobileBtn'+orderObj.id+'" type="button" class="btn btn-info" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button></td></tr>'
-	            //+				'<td><a href="#" onclick="fullProfile('+orderObj.id+')">View Full Profile</a></td>'
-	            + 				'<td id="mobileTD'+orderObj.id+'"><a href="#"   type="button" class="btn" onclick="displayMobileNum('+orderObj.id+')">View Mobile Number</a></td>'
-	            + 				'<td id="shortlistTD'+orderObj.id+'"><a href="#"   type="button" class="btn" onclick="shortList('+orderObj.id+')">Shortlist</a></td></tr>'
-	            + 		'</table>'
-	            //+ 		'<button  type="button" class="btn btn-primary btn-block" onclick="fullProfile('+orderObj.id+')">View Full Profile</button>'
-	            //+   	'<button id="mobileBtn'+orderObj.id+'" type="button" class="btn btn-info" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button>'
-	            + 	'</div>'
-	            + '</div>'
-	            + '</div>'
-	            + '<hr>'
-	            + '</div>';
-	        /* var login_user_role_id = ${cacheGuest.roleId};
-	        if(login_user_role_id==4){ // means free user
-	        	$("#mobileBtn"+orderObj.id).prop("disabled",true);
-	        } */
-	        $(tblRow).appendTo("#new_matches");
-	        var str = '<a data-slide="prev" href="#media" class="left carousel-control">\<</a>'
-	        		+'<a data-slide="next" href="#media" class="right carousel-control">\></a>';
-	        $(str).appendTo("#new_matches");
-	        $('aaassss').appendTo("#new_matches");
+			
+			var item = '';
+			 if(count==1){
+				if(i==0){
+					item = activeItem;
+				}else{
+					item = itemStart ;
+				} 
+			} 
+			 var expressed = orderObj.expressedInterest;
+			var interestStr = "";
+			if(expressed==0){
+				interestStr = '<p  align="center"><a  id="expInterest'+orderObj.id+'" href="#" type="button" class="btn btn-primary btn-block btn-md"  onclick="expressInterest('+orderObj.id+')">Send Interest</a></p>';
+			}else if(expressed>0){
+				interestStr = '<p align="center"><a   type="button" disabled="true"  class="btn btn-primary btn-block btn-md"  >You Expressed Interest</a></p>';
+			}
+			 item =     item + ' 	<div class="col-md-4">'
+				         +' 			<a class="thumbnail" href="#"><img alt="" src="'+image+'"></a>'
+				         +' 			<p align="center"><a href="#" onclick="fullProfile('+orderObj.id+')" style="padding:5px; color:blue; border-radius:5px;">'+orderObj.username+'</a></p>'
+				         +' 			<p align="center">'+age+' yrs, '+orderObj.inches+'</p>'
+				         + 			    interestStr
+				         +'			</div>';
+	
+	
+			        
+		    if(count==3){
+			 count = 1;
+			 //item = item + itemEnd;
+			 //rowStr = rowStr + item;
+			 rowStr = rowStr + item + itemEnd ;
+			$(rowStr).appendTo("#new_matches");
+			rowStr = '';
+		 }else{
+			 count++;
+			 rowStr = rowStr + item; 
+		 }  
+		 if(i==(len-1)){
+			 return;
+		 }
 	});
+	
+	 /* if(count<=3){
+		rowStr = rowStr + itemEnd ;
+		$(rowStr).appendTo("#new_matches");
+	}  */ 
+	
 }
+	
+	
+
 
 /* function displayMobileNum(profileId,listType){
 	 var profileObj = serviceUnitArray[profileId];
@@ -296,60 +308,9 @@ function displayNewMatches(listOrders) {
 	
 } */
 
-function displayMobileNum(profileId){
-	var roleId = ${cacheGuest.roleId};
-	$("#id").val(profileId);
-	if(roleId==4){
-		document.searchForm2.action = "memberShipPage"
-		document.searchForm2.submit();
-		return true;
-	}else{
-		if(allowed_limit<=0){
-			alert("Exceeded allowed profiles limit. Renew your membership plan and get more profiles");
-			return false;
-		}
-		var profileObj = serviceUnitArray[profileId];
-		var formData = new FormData();
-		formData.append('profile_id',profileId);
-		jQuery.fn.makeMultipartRequest('POST', 'viewedMobileNumber', false,
-				formData, false, 'text', function(data){
-	    		var jsonobj = $.parseJSON(data);
-	    		var limit = jsonobj.allowed_limit;
-	    		var msg = jsonobj.message;
-	    		if(typeof msg != "undefined"){
-	    			if(msg=="success"){
-	    				$("#mobileTD"+profileId).html(profileObj.mobile);
-	    				allowed_limit = limit;
-	    			}else{
-	    				alert("Some problem occured. Please try again.");
-	    			}
-	    		}
-	    		
-		});
-	}
-	
-	
-}
 
-function shortList(profileId){
-		$("#id").val(profileId);
-		var profileObj = serviceUnitArray[profileId];
-		var formData = new FormData();
-		formData.append('profile_id',profileId);
-		jQuery.fn.makeMultipartRequest('POST', 'shortList', false,
-				formData, false, 'text', function(data){
-	    		var jsonobj = $.parseJSON(data);
-	    		var msg = jsonobj.message;
-	    		if(typeof msg != "undefined"){
-	    			if(msg=="success"){
-	    				$("#shortlistTD"+profileId).html("Shortlisted");
-	    			}else{
-	    				alert("Some problem occured. Please try again.");
-	    			}
-	    		}
-	    		
-		});
-}
+
+
 	
 	
 
@@ -426,67 +387,13 @@ function paginationSetup(total_items_count) {
         }
       });
 }
-function getNewMatches(){
+/* function getNewMatches(){
 	document.searchForm2.action = "newMatches";
     document.searchForm2.submit();            
     return true;
-}
+} */
 
-function expressInterest(profile_id){
-	var roleId = ${cacheGuest.roleId};
-	$("#id").val(profile_id);
-	if(roleId==4){
-		document.searchForm2.action = "memberShipPage"
-		document.searchForm2.submit();
-		return true;
-	}else{
-		if(allowed_limit<=0){
-			alert("Exceeded allowed profiles limit. Renew your membership plan and get more profiles");
-			return false;
-		}
-		var formData = new FormData();
-	
-		formData.append('profile_id',profile_id);
-		jQuery.fn.makeMultipartRequest('POST', 'expressInterestTo', false,
-				formData, false, 'text', function(data){
-	    		var jsonobj = $.parseJSON(data);
-	    		var limit = jsonobj.allowed_limit;
-	    		var msg = jsonobj.message;
-	    		var profiles = jsonobj.allProfiles;
-	    		//if(typeof msg != "undefined" ){
-	    			if("success"==msg){
-	    				alert("Interest request has been sent successfully");
-	    				$("#expInterest"+profile_id).html('Expressed Interest');
-	    				$("#expInterest"+profile_id).prop("disabled",true);
-	    				allowed_limit = limit;
-	    			}else if("failed"==msg || "exception"==msg){
-	    				alert("Interest request is not successful. Please try again.");
-	    			}
-	    		//}
-	    		/* if(profiles==""){
-	    			$('#countId').html('0');
-	    			var str = '<div class="panel panel-default"><h6>No results found.</h6></div>';
-	    			$('#searchResults').html('');
-	    			$(str).appendTo("#searchResults");
-	    		}else{
-	    			$('#countId').html(profiles.length);
-	    			displayMatches(profiles);
-	    		} */
-	    		/* var filtered_list = jsonobj.filtered_profiles;
-	    		$('#countId').html('');
-	    		if(filtered_list==""){
-	    			$('#countId').html('0');
-	    			var str = '<div class="panel panel-default"><h6>No results found.</h6></div>';
-	    			$('#searchResults').html('');
-	    			$(str).appendTo("#searchResults");
-	    		}else{
-	    			$('#countId').html(filtered_list.length);
-	    			displayMatches(filtered_list);
-	    		} */
-				
-			});
-	}
-}
+
 
 
 	 

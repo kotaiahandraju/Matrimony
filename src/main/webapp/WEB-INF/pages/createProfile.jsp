@@ -223,7 +223,7 @@
 									<div class="col-sm-8">
 									  	<form:select path="currentState" onfocus="removeBorder(this.id)" onchange="getCitys(this.id)" onblur="validate(this.id,'');"    class="form-control" >
 											<form:option value="">-- Choose State --</form:option>
-												<form:options items="${states }" ></form:options>
+												<form:options items="${states}" ></form:options>
 										</form:select>
 								  		<div><form:errors path="currentState" cssClass="error" /></div>
 									</div>
@@ -632,19 +632,7 @@
 									</div>
 							  	</div>
 							</div>
-							<div class="col-md-4">
-								<div class="form-group">
-									<label class="col-sm-4 control-label required">Any Disability?</label>
-									<div class="col-sm-8">
-										<form:select path="disability" class="form-control u">
-											<form:option value="">-- Choose Disability --</form:option>
-											<form:option value="None">None</form:option>
-											<form:option value="Physical Disability">Physical Disability</form:option>
-										</form:select>
-										<div><form:errors path="disability" cssClass="error" /></div>
-									</div>
-							  	</div>
-							</div>
+							
 						</div>
 							
 						</div>
@@ -887,6 +875,7 @@ function getCitys(id){
 		var stateId =$("#"+id).val();
 		var formData = new FormData();
 	     formData.append('id', stateId);
+	     formData.append('state_ids', stateId);
 	     var actionStr = "../getCitys";
 	     var nextPage = "${pageName}";
 	     if(nextPage!=null && nextPage!="" && nextPage!="undefined"){
@@ -920,7 +909,7 @@ function getFilteredStates(id){
 		$("#currentState").removeAttr("readonly");
 		var countryId =$("#"+id).val();
 		var formData = new FormData();
-	     formData.append('id', countryId);
+	     formData.append('country_ids', countryId);
 	     var actionStr = "../getFilteredStates";
 	     var nextPage = "${pageName}";
 	     if(nextPage!=null && nextPage!="" && nextPage!="undefined"){

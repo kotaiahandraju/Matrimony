@@ -72,7 +72,6 @@
 									<label class="col-sm-4 control-label required">Religion </label>
 									<div class="col-sm-8">
 										<form:select path="rReligion" class="multiSelect" multiple="true">
-											<form:option value="">-- Choose Religion --</form:option>
 											<form:options items="${religion}"></form:options>
 										</form:select>
 								  		<div><form:errors path="rReligion" cssClass="error" /></div>
@@ -84,7 +83,6 @@
 									<label class="col-sm-4 control-label required">Community</label>
 									<div class="col-sm-8">
 										<form:select path="rCaste" class="multiSelect" multiple="true" >
-											<form:option value="">-- Choose Community --</form:option>
 											<form:options items="${cast}"></form:options>
 										</form:select>
 										<div><form:errors path="rCaste" cssClass="error" /></div>
@@ -99,7 +97,6 @@
 									<label class="col-sm-4 control-label required">Mother Tongue </label>
 									<div class="col-sm-8">
 										<form:select path="rMotherTongue" onfocus="removeBorder(this.id)" class="multiSelect" multiple="true">
-											<form:option value="">-- Choose Mother Tongue --</form:option>
 											<form:options items="${language}"></form:options>
 										</form:select>
 								  		<div><form:errors path="rMotherTongue" cssClass="error" /></div>
@@ -111,7 +108,6 @@
 									<label class="col-sm-4 control-label required">Country living in </label>
 									<div class="col-sm-8">
 										<form:select path="rCountry" class="multiSelect" multiple="true" onchange="getFilteredStatesMultiSelect(this.id)">
-											<form:option value="">-- Choose Country --</form:option>
 											<form:options items="${countries}"></form:options>
 										</form:select>
 								  		<div><form:errors path="rCountry" cssClass="error" /></div>
@@ -123,7 +119,6 @@
 									<label class="col-sm-4 control-label required">State living in</label>
 									<div class="col-sm-8">
 										<form:select path="rState" class="multiSelect" multiple="true" >
-											<form:option value="">-- Choose State --</form:option>
 											<form:options items="${states }"></form:options>
 										</form:select>
 										<div><form:errors path="rState" cssClass="error" /></div>

@@ -126,7 +126,7 @@ s.parentNode.insertBefore(ga, s);
 							if(orderObj.status >= 1){
 								subStr = "Forwarded";
 							}else{
-								subStr = "<a id='forward"+orderObj.id+"' href='#' onclick='forwardRequest("+orderObj.id+")'>forward</a>";
+								subStr = "<span id='forward"+orderObj.id+"'><a href='#' onclick='forwardRequest("+orderObj.id+")'>forward</a></span>";
 							}
 							var tblRow = "<tr >"
 								+ "<td title='"+orderObj.fromName+"'><a href='#' onclick='fullProfile("+orderObj.user_id+")'>" + orderObj.fromName + "</a></td>"
@@ -182,6 +182,7 @@ function forwardRequest(requestId){
 				alert("Forwarded successfully");
 				$("#forward"+requestId).html('');
 				$("#forward"+requestId).html("Forwarded");
+				
 			}else if("failed"==msg || "exception"==msg){
 				alert("Some problem occured. Please try again.");
 			}

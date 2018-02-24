@@ -4,11 +4,18 @@
 <%@ taglib uri="http://displaytag.sf.net" prefix="display"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
+    <%
+String baseurl =  request.getScheme() + "://" + request.getServerName() +      ":" +   request.getServerPort() +  request.getContextPath();
+session.setAttribute("baseurl", baseurl);
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+<link href="${baseurl}/css/bootstrap.min.css" rel="stylesheet">
+<script src="${baseurl }/js/jquery.min.js"></script>
+<script src="${baseurl }/js/jquery-ui.min.js"></script>
 </head>
 <body>
 <%-- <%= request.getAttribute("params")%> --%>
@@ -16,6 +23,14 @@ Name : <c:out value="${params.firstname} ${params.lastname}"></c:out><br>
 Total Fee : <c:out value="${params.amount}"></c:out><br>
   Payment Status:  <c:out value="${params.status}"></c:out><br>
   Transaction Id :  <c:out value="${params.txnid}"></c:out><br>
+  
+  <div style="text-align: center;">
+   		<a href="memberShipPage" type="button" class="btn btn-primary" id="paymentBtn" >Goto Payment Page</a>
+   </div><br>
+   <div style="text-align: center;">
+   		<p><a href="dashboard" type="button" class="btn btn-primary" id="homepagBtn" >Goto MyAccount</a></p>
+   
+   </div>
 <script type="text/javascript">
 // var params = ${params };
 </script>

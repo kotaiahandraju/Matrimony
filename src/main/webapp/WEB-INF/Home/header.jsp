@@ -47,7 +47,7 @@
 	
 	<!-- jQuery -->
 	<script src="${baseurl }/js/jquery.min.js"></script>
-	
+	<script src="${baseurl }/js/jquery.watermark.js"></script>
 	<!--[if lte IE 9]>
 		<script src="${baseurl }/js/plugins/placeholder/jquery.placeholder.min.js"></script>
 		<script>

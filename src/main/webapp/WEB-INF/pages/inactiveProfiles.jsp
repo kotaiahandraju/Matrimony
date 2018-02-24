@@ -50,16 +50,14 @@
 					Inactive Profiles List
 				</h3>
 			</div>
-			<div class="box-content nopadding w3-animate-zoom" id="tableId">
+			<div id="tableId">
+			<div class="box-content nopadding w3-animate-zoom" id="tableIdd">
+				
 				<table class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,null">
-					<thead>
-					<tr>
-						<th>Name</th>
-						<th></th>
-					</tr>
-					</thead>
-					<tbody></tbody>
+					<thead><tr><th>UserName</th><th>Name</th><th>Sur Name</th><th></th></tr></thead>
+					<tbody id="tblbody"></tbody>
 				</table>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -76,8 +74,8 @@
 	}
  function displayTable(listOrders) {
 		$('#tableId').html('');
-		var tableHead = '<table  class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,text,text,null">'
-				+ '<thead><tr><th>UserName</th><th>Name</th><th>Sur Name</th><th></th></tr></thead><tbody></tbody></table>';
+		var tableHead = '<div class="box-content nopadding w3-animate-zoom" id="tableIdd"><table  class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,text,text,null">'
+				+ '<thead><tr><th>UserName</th><th>Name</th><th>Sur Name</th><th></th></tr></thead><tbody id="tblbody"></tbody></table></div>';
 		$('#tableId').html(tableHead);
 		serviceUnitArray = {};
 		$.each(listOrders,function(i, orderObj) {
@@ -92,14 +90,15 @@
 									+ "<td title='"+orderObj.lastName+"'>" + orderObj.lastName + "</td>"
 									+ "<td style='text-align: center;'>" + viewProfile + "&nbsp;|&nbsp;" + active + "&nbsp;|&nbsp;" + deleteProfile + "</td>" 
 									+ "</tr >";
-							$(tblRow).appendTo("#tableId table tbody");
+							$(tblRow).appendTo("#tblbody");
 							}
 						});
+		
 		
 	}
  
  function profileAction(id,statusId){
-		var checkstr =  confirm('Are you sure you want do  this?');
+		var checkstr =  confirm('Are you sure you want to do  this?');
 		if(checkstr == true){
 		var formData = new FormData();
 	     formData.append('status', statusId);

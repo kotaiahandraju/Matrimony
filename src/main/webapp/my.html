@@ -1,0 +1,1236 @@
+
+
+
+
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+	<title>Aarna Matrimony</title>
+	<link rel="shortcut icon" href="img/aarna-fav.png"/>
+	<!-- for-mobile-apps -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script type="application/x-javascript">
+		addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+		function hideURLbar(){ window.scrollTo(0,1); }
+	</script>
+	<!-- //for-mobile-apps -->
+	<link href="user/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="user/css/style-profile.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="user/css/megamenu.css" rel="stylesheet" type="text/css" media="all" />
+	<link rel="stylesheet" type="text/css" href="css/asPaginator.css">
+	<link href="user/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="css/animate.min.css" />
+	<link href='http://fonts.googleapis.com/css?family=Monda:400,700' rel='stylesheet' type='text/css'>
+	<link href="css/thickbox.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="css/plugins/select2/select2.css">
+	<link href="user/css/style.css" rel="stylesheet" type="text/css">
+	<link href="user/css/style-profile.css" rel="stylesheet" type="text/css">
+	<script src="user/js/jquery-1.11.1.min.js"></script>
+	<script src="js/plugins/select2/select2.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$(".dropdown").hover(            
+				function() {
+					$('.dropdown-menu', this).stop( true, true ).fadeIn("fast");
+					$(this).toggleClass('open');
+				},
+				function() {
+					$('.dropdown-menu', this).stop( true, true ).fadeOut("fast");
+					$(this).toggleClass('open');
+			});
+		});
+		function zoomImage(image){
+			$('#dial1').html('');
+			if(image == "" || image == null || image == "undefined"){
+				image = "img/default.png";
+			}
+			var tblRow = "<div>"
+		 		+ 	"<div >"
+		 		+		"<img src="+image+" width='600px' class='watermark_text1'/>"
+		 		+ 	"</div></div>";
+			$(tblRow).appendTo('#dial1');
+			
+			$('.watermark_text1').watermark({
+				  text: 'aarnamatrimony.com',
+				  textWidth: 700,
+				  textSize:76,
+				  textColor: 'white',
+				  gravity: 'w',
+				  opacity: 0.3,
+				  //margin: 10,
+				  outputWidth: 'auto',
+				  outputHeight: 'auto'
+				 });
+			$('#dial1').dialog({
+				width: 700, height: 2000, modal: true,
+				buttons: {
+		            "Enrol": function()
+		            {
+		                $(this).dialog('close');
+		                choice(true);
+		            },
+		            "Cancel Enrol": function()
+		            {
+		                $(this).dialog('close');
+		                choice(false);
+		            }
+		        }
+				}).dialog('open');
+		}
+		
+		function shortList(profileId){
+			$("#id").val(profileId);
+			var profileObj = serviceUnitArray[profileId];
+			var formData = new FormData();
+			formData.append('profile_id',profileId);
+			jQuery.fn.makeMultipartRequest('POST', 'shortList', false,
+					formData, false, 'text', function(data){
+		    		var jsonobj = $.parseJSON(data);
+		    		var msg = jsonobj.message;
+		    		if(typeof msg != "undefined"){
+		    			if(msg=="success"){
+		    				$("#shortlistTD"+profileId).html("Shortlisted");
+		    			}else{
+		    				alert("Some problem occured. Please try again.");
+		    			}
+		    		}
+		    		
+			});
+	}
+		
+		function expressInterest(profile_id){
+			var roleId = 4;
+			$("#id").val(profile_id);
+			if(roleId==4){
+				document.searchForm2.action = "memberShipPage"
+				document.searchForm2.submit();
+				return true;
+			}else{
+				if(allowed_limit<=0){
+					alert("Exceeded allowed profiles limit. Renew your membership plan and get more profiles");
+					return false;
+				}
+				var formData = new FormData();
+			
+				formData.append('profile_id',profile_id);
+				jQuery.fn.makeMultipartRequest('POST', 'expressInterestTo', false,
+						formData, false, 'text', function(data){
+			    		var jsonobj = $.parseJSON(data);
+			    		var limit = jsonobj.allowed_limit;
+			    		var msg = jsonobj.message;
+			    		var profiles = jsonobj.allProfiles;
+			    		//if(typeof msg != "undefined" ){
+			    			if("success"==msg){
+			    				alert("Interest request has been sent successfully");
+			    				$("#expInterest"+profile_id).html('Expressed Interest');
+			    				$("#expInterest"+profile_id).prop("disabled",true);
+			    				allowed_limit = limit;
+			    			}else if("failed"==msg || "exception"==msg){
+			    				alert("Interest request is not successful. Please try again.");
+			    			}
+			    		//}
+			    		/* if(profiles==""){
+			    			$('#countId').html('0');
+			    			var str = '<div class="panel panel-default"><h6>No results found.</h6></div>';
+			    			$('#searchResults').html('');
+			    			$(str).appendTo("#searchResults");
+			    		}else{
+			    			$('#countId').html(profiles.length);
+			    			displayMatches(profiles);
+			    		} */
+			    		/* var filtered_list = jsonobj.filtered_profiles;
+			    		$('#countId').html('');
+			    		if(filtered_list==""){
+			    			$('#countId').html('0');
+			    			var str = '<div class="panel panel-default"><h6>No results found.</h6></div>';
+			    			$('#searchResults').html('');
+			    			$(str).appendTo("#searchResults");
+			    		}else{
+			    			$('#countId').html(filtered_list.length);
+			    			displayMatches(filtered_list);
+			    		} */
+						
+					});
+			}
+		}
+		
+		function displayMobileNum(profileId){
+			var roleId = 4;
+			$("#id").val(profileId);
+			if(roleId==4){
+				document.searchForm2.action = "memberShipPage"
+				document.searchForm2.submit();
+				return true;
+			}else{
+				if(allowed_limit<=0){
+					alert("Exceeded allowed profiles limit. Renew your membership plan and get more profiles");
+					return false;
+				}
+				var profileObj = serviceUnitArray[profileId];
+				var formData = new FormData();
+				formData.append('profile_id',profileId);
+				jQuery.fn.makeMultipartRequest('POST', 'viewedMobileNumber', false,
+						formData, false, 'text', function(data){
+			    		var jsonobj = $.parseJSON(data);
+			    		var limit = jsonobj.allowed_limit;
+			    		var msg = jsonobj.message;
+			    		if(typeof msg != "undefined"){
+			    			if(msg=="success"){
+			    				$("#mobileTD"+profileId).html(profileObj.mobile);
+			    				allowed_limit = limit;
+			    			}else{
+			    				alert("Some problem occured. Please try again.");
+			    			}
+			    		}
+			    		
+				});
+			}
+			
+			
+		}
+	</script>
+	
+	<script type="text/javascript" src="js/ajax.js"></script>
+	<script type="text/javascript" src="js/jquery-asPaginator.js"></script>
+	<script src="js/jquery.watermark.js"></script>
+	
+<style type="text/css">
+.animated.infinite{animation-iteration-count:infinite}
+.upgradeOption {
+    color: #f35626;
+    background-image: -webkit-linear-gradient(2deg, #f35626, red);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-animation: hue 2s infinite linear;
+}
+@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css");
+.panel-title > a:before {
+    float: right !important;
+    font-family: FontAwesome;
+    content:"\f068";
+    padding-right: 5px;
+}
+.lSSlideOuter {
+    overflow: hidden;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none
+}
+.lightSlider:before, .lightSlider:after {
+    content: " ";
+    display: table;
+}
+.lightSlider {
+    overflow: hidden;
+    margin: 0;
+}
+.lSSlideWrapper {
+    max-width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+.lSSlideWrapper > .lightSlider:after {
+    clear: both;
+}
+.lSSlideWrapper .lSSlide {
+    -webkit-transform: translate(0px, 0px);
+    -ms-transform: translate(0px, 0px);
+    transform: translate(0px, 0px);
+    -webkit-transition: all 1s;
+    -webkit-transition-property: -webkit-transform,height;
+    -moz-transition-property: -moz-transform,height;
+    transition-property: transform,height;
+    -webkit-transition-duration: inherit !important;
+    transition-duration: inherit !important;
+    -webkit-transition-timing-function: inherit !important;
+    transition-timing-function: inherit !important;
+}
+.lSSlideWrapper .lSFade {
+    position: relative;
+}
+.lSSlideWrapper .lSFade > * {
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    z-index: 9;
+    margin-right: 0;
+    width: 100%;
+}
+.lSSlideWrapper.usingCss .lSFade > * {
+    opacity: 0;
+    -webkit-transition-delay: 0s;
+    transition-delay: 0s;
+    -webkit-transition-duration: inherit !important;
+    transition-duration: inherit !important;
+    -webkit-transition-property: opacity;
+    transition-property: opacity;
+    -webkit-transition-timing-function: inherit !important;
+    transition-timing-function: inherit !important;
+}
+.lSSlideWrapper .lSFade > *.active {
+    z-index: 10;
+}
+.lSSlideWrapper.usingCss .lSFade > *.active {
+    opacity: 1;
+}
+/** /!!! End of core css Should not edit !!!/**/
+
+/* Pager */
+.lSSlideOuter .lSPager.lSpg {
+    margin: 10px 0 0;
+    padding: 0;
+    text-align: center;
+}
+.lSSlideOuter .lSPager.lSpg > li {
+    cursor: pointer;
+    display: inline-block;
+    padding: 0 5px;
+}
+.lSSlideOuter .lSPager.lSpg > li a {
+    background-color: #222222;
+    border-radius: 30px;
+    display: inline-block;
+    height: 8px;
+    overflow: hidden;
+    text-indent: -999em;
+    width: 8px;
+    position: relative;
+    z-index: 99;
+    -webkit-transition: all 0.5s linear 0s;
+    transition: all 0.5s linear 0s;
+}
+.lSSlideOuter .lSPager.lSpg > li:hover a, .lSSlideOuter .lSPager.lSpg > li.active a {
+    background-color: #428bca;
+}
+.lSSlideOuter .media {
+    opacity: 0.8;
+}
+.lSSlideOuter .media.active {
+    opacity: 1;
+}
+/* End of pager */
+
+/** Gallery */
+.lSSlideOuter .lSPager.lSGallery {
+    list-style: none outside none;
+    padding-left: 0;
+    margin: 0;
+    overflow: hidden;
+    transform: translate3d(0px, 0px, 0px);
+    -moz-transform: translate3d(0px, 0px, 0px);
+    -ms-transform: translate3d(0px, 0px, 0px);
+    -webkit-transform: translate3d(0px, 0px, 0px);
+    -o-transform: translate3d(0px, 0px, 0px);
+    -webkit-transition-property: -webkit-transform;
+    -moz-transition-property: -moz-transform;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.lSSlideOuter .lSPager.lSGallery li {
+    overflow: hidden;
+    -webkit-transition: border-radius 0.12s linear 0s 0.35s linear 0s;
+    transition: border-radius 0.12s linear 0s 0.35s linear 0s;
+}
+.lSSlideOuter .lSPager.lSGallery li.active, .lSSlideOuter .lSPager.lSGallery li:hover {
+    border-radius: 5px;
+}
+.lSSlideOuter .lSPager.lSGallery img {
+    display: block;
+    height: auto;
+    max-width: 100%;
+}
+.lSSlideOuter .lSPager.lSGallery:before, .lSSlideOuter .lSPager.lSGallery:after {
+    content: " ";
+    display: table;
+}
+.lSSlideOuter .lSPager.lSGallery:after {
+    clear: both;
+}
+/* End of Gallery*/
+
+/* slider actions */
+.lSAction > a {
+    width: 32px;
+    display: block;
+    top: 50%;
+    height: 32px;
+    background-image: url('../img/controls.png');
+    cursor: pointer;
+    position: absolute;
+    z-index: 99;
+    margin-top: -16px;
+    opacity: 0.5;
+    -webkit-transition: opacity 0.35s linear 0s;
+    transition: opacity 0.35s linear 0s;
+}
+.lSAction > a:hover {
+    opacity: 1;
+}
+.lSAction > .lSPrev {
+    background-position: 0 0;
+    left: 10px;
+}
+.lSAction > .lSNext {
+    background-position: -32px 0;
+    right: 10px;
+}
+.lSAction > a.disabled {
+    pointer-events: none;
+}
+.cS-hidden {
+    height: 1px;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    overflow: hidden;
+}
+
+
+/* vertical */
+.lSSlideOuter.vertical {
+    position: relative;
+}
+.lSSlideOuter.vertical.noPager {
+    padding-right: 0px !important;
+}
+.lSSlideOuter.vertical .lSGallery {
+    position: absolute !important;
+    right: 0;
+    top: 0;
+}
+.lSSlideOuter.vertical .lightSlider > * {
+    width: 100% !important;
+    max-width: none !important;
+}
+
+/* vertical controlls */
+.lSSlideOuter.vertical .lSAction > a {
+    left: 50%;
+    margin-left: -14px;
+    margin-top: 0;
+}
+.lSSlideOuter.vertical .lSAction > .lSNext {
+    background-position: 31px -31px;
+    bottom: 10px;
+    top: auto;
+}
+.lSSlideOuter.vertical .lSAction > .lSPrev {
+    background-position: 0 -31px;
+    bottom: auto;
+    top: 10px;
+}
+/* vertical */
+
+
+/* Rtl */
+.lSSlideOuter.lSrtl {
+    direction: rtl;
+}
+.lSSlideOuter .lightSlider, .lSSlideOuter .lSPager {
+    padding-left: 0;
+    list-style: none outside none;
+}
+.lSSlideOuter.lSrtl .lightSlider, .lSSlideOuter.lSrtl .lSPager {
+    padding-right: 0;
+}
+.lSSlideOuter .lightSlider > *,  .lSSlideOuter .lSGallery li {
+    float: left;
+}
+.lSSlideOuter.lSrtl .lightSlider > *,  .lSSlideOuter.lSrtl .lSGallery li {
+    float: right !important;
+}
+/* Rtl */
+
+@-webkit-keyframes rightEnd {
+    0% {
+        left: 0;
+    }
+
+    50% {
+        left: -15px;
+    }
+
+    100% {
+        left: 0;
+    }
+}
+@keyframes rightEnd {
+    0% {
+        left: 0;
+    }
+
+    50% {
+        left: -15px;
+    }
+
+    100% {
+        left: 0;
+    }
+}
+@-webkit-keyframes topEnd {
+    0% {
+        top: 0;
+    }
+
+    50% {
+        top: -15px;
+    }
+
+    100% {
+        top: 0;
+    }
+}
+@keyframes topEnd {
+    0% {
+        top: 0;
+    }
+
+    50% {
+        top: -15px;
+    }
+
+    100% {
+        top: 0;
+    }
+}
+@-webkit-keyframes leftEnd {
+    0% {
+        left: 0;
+    }
+
+    50% {
+        left: 15px;
+    }
+
+    100% {
+        left: 0;
+    }
+}
+@keyframes leftEnd {
+    0% {
+        left: 0;
+    }
+
+    50% {
+        left: 15px;
+    }
+
+    100% {
+        left: 0;
+    }
+}
+@-webkit-keyframes bottomEnd {
+    0% {
+        bottom: 0;
+    }
+
+    50% {
+        bottom: -15px;
+    }
+
+    100% {
+        bottom: 0;
+    }
+}
+@keyframes bottomEnd {
+    0% {
+        bottom: 0;
+    }
+
+    50% {
+        bottom: -15px;
+    }
+
+    100% {
+        bottom: 0;
+    }
+}
+.lSSlideOuter .rightEnd {
+    -webkit-animation: rightEnd 0.3s;
+    animation: rightEnd 0.3s;
+    position: relative;
+}
+.lSSlideOuter .leftEnd {
+    -webkit-animation: leftEnd 0.3s;
+    animation: leftEnd 0.3s;
+    position: relative;
+}
+.lSSlideOuter.vertical .rightEnd {
+    -webkit-animation: topEnd 0.3s;
+    animation: topEnd 0.3s;
+    position: relative;
+}
+.lSSlideOuter.vertical .leftEnd {
+    -webkit-animation: bottomEnd 0.3s;
+    animation: bottomEnd 0.3s;
+    position: relative;
+}
+.lSSlideOuter.lSrtl .rightEnd {
+    -webkit-animation: leftEnd 0.3s;
+    animation: leftEnd 0.3s;
+    position: relative;
+}
+.lSSlideOuter.lSrtl .leftEnd {
+    -webkit-animation: rightEnd 0.3s;
+    animation: rightEnd 0.3s;
+    position: relative;
+}
+/*/  GRab cursor */
+.lightSlider.lsGrab > * {
+  cursor: -webkit-grab;
+  cursor: -moz-grab;
+  cursor: -o-grab;
+  cursor: -ms-grab;
+  cursor: grab;
+}
+.lightSlider.lsGrabbing > * {
+  cursor: move;
+  cursor: -webkit-grabbing;
+  cursor: -moz-grabbing;
+  cursor: -o-grabbing;
+  cursor: -ms-grabbing;
+  cursor: grabbing;
+}
+.panel-title > a.collapsed:before {
+    float: right !important;
+    content:"\f067";
+}
+.panel-title > a:hover, 
+.panel-title > a:active, 
+.panel-title > a:focus  {
+    text-decoration:none;
+}
+.multiSelect{
+	width: 187px;
+}
+.demo {
+    width:450px;
+}
+ul {
+    list-style: none outside none;
+    padding-left: 0;
+    margin-bottom:0;
+}
+li {
+    display: block;
+    float: left;
+    margin-right: 6px;
+    cursor:pointer;
+}
+img {
+    display: block;
+    height: auto;
+    max-width: 100%;
+}
+.dropdown-menu {
+box-shadow: 0px 0px 2px 0px #363636;
+border-radius: 6px;
+}
+.dropdown-menu:after {
+       content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 40px;
+    margin-left: 0;
+    width: 0;
+    height: 0;
+    border-bottom: 8px solid #ffffff;
+    border-right: 8px solid transparent;
+    border-left: 8px solid transparent;
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0px, 0);
+    transform: translate3d(0, 0px, 0);
+    -webkit-transition: all .1s ease-in-out;
+    transition: all .1s ease-in-out;
+}
+.panel-title {
+    font-size: 16px;
+    color: #000;
+    text-align: right;
+    
+}
+.panel-default > .panel-heading {
+    color: #000;
+    background-color: #1F5647;
+    border-color: #F1F1F2;
+}
+h4.panel-title a {
+    font-size: 14px;
+    text-transform: capitalize;
+    color: #fff;
+    ont-weight: 400;
+    font-family: arial;
+    letter-spacing: 1px;
+}
+#matchcount {
+background-color: red;
+color: #ffffff;
+padding: 2px 4px;
+font-size: 11px;
+border: none;
+cursor: pointer;
+border-radius: 5px;
+vertical-align: top;
+margin:2px 2px;
+}
+@-webkit-keyframes hue {
+  from {
+    -webkit-filter: hue-rotate(0deg);
+  }
+
+  to {
+    -webkit-filter: hue-rotate(-360deg);
+  }
+}
+@keyframes flash{0%,50%,to{opacity:1}25%,75%{opacity:0}}.flash{animation-name:flash}
+	/* carousel */
+.media-carousel 
+{
+  margin-bottom: 0;
+  padding: 0 40px 30px 40px;
+  margin-top: 30px;
+}
+/* Previous button  */
+.media-carousel .carousel-control.left 
+{
+  left: -12px;
+  background-image: none;
+  background: none repeat scroll 0 0 #222222;
+  border: 4px solid #FFFFFF;
+  border-radius: 23px 23px 23px 23px;
+  height: 40px;
+  width : 40px;
+  margin-top: 30px
+}
+/* Next button  */
+.media-carousel .carousel-control.right 
+{
+  right: -12px !important;
+  background-image: none;
+  background: none repeat scroll 0 0 #222222;
+  border: 4px solid #FFFFFF;
+  border-radius: 23px 23px 23px 23px;
+  height: 40px;
+  width : 40px;
+  margin-top: 30px
+}
+p{letter-spacing:1px;}
+.thumbnail {
+    display: block;
+    padding: 4px;
+    margin-bottom: 5px;
+    line-height: 1.42857143;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    -webkit-transition: border .2s ease-in-out;
+    -o-transition: border .2s ease-in-out;
+    transition: border .2s ease-in-out;
+}
+/* Changes the position of the indicators */
+.media-carousel .carousel-indicators 
+{
+  right: 50%;
+  top: auto;
+  bottom: 0px;
+  margin-right: -19px;
+}
+/* Changes the colour of the indicators */
+.media-carousel .carousel-indicators li 
+{
+  background: #c0c0c0;
+}
+.media-carousel .carousel-indicators .active 
+{
+  background: #333333;
+}
+.media-carousel img
+{
+  width: 250px;
+  height: 100px
+}
+.img-replace {
+  /* replace text with an image */
+  display: inline-block;
+  overflow: hidden;
+  text-indent: 100%; 
+  color: transparent;
+  white-space: nowrap;
+}
+</style>
+
+<link href="user/js/jquery.littlelightbox.css" rel="stylesheet" type="text/css">
+<style>
+.lightbox {}
+</style>
+</head>
+<body style="background: #F1F1F2;">
+
+
+<input type="hidden" name="loc" id="loc" value="http://aarnamatrimony.com:80" />
+<div class="header_top">
+	<div class="container" style="background: #FFF;">
+    	<div class="col-md-3">
+			<div class="logo">
+				<img src="user/images/logo1.jpg" class="img img-responsive">
+			</div>
+			<div class="clearfix"></div>
+		</div>
+		<div class="col-md-4">
+			<!-- <ul class="nav navbar-nav">
+				<li><a href="#">Matches<span class="badge badge-notify">30</span></a></li>
+				<li><a href="#">Search</a></li>
+				<li><a href="#">Inbox<span class="badge badge-notify">30</span></a></li>
+			</ul> -->
+			<div class="box_1 midfont">
+				<p><a href="#">Matches</a><span class="badge badge-notify">0</span>&nbsp;&nbsp;&nbsp;
+        		<a href="searchProfiles">Search</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       			<a href="#">Inbox</a><span class="badge badge-notify">0</span></p>
+			</div>
+		</div>
+		<div class="col-md-5">
+			<div class="cart box_1">
+				<p>Dear, test15 test15 | &nbsp;&nbsp;<a class="upgradeOption animated flash infinite" href="memberShipPage" style="color: red;">Upgrade</a> &nbsp;&nbsp;|&nbsp;&nbsp; <a href="#" >Help</a> &nbsp;&nbsp;|&nbsp;&nbsp; <a href="logoutHome" >Signout</a></p>
+				<div class="clearfix"> </div>
+			</div>				 
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="row">
+			<nav class="navbar navbar-inverse" role="navigation">
+				<div class="container-fluid">
+	        		<div class="navbar-header">
+						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+					</div>
+					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+						<ul class="nav navbar-nav">
+							<li class="dropdown dashboard">
+								<a href="dashboard">My Home</a>
+								<ul class="dropdown-menu">
+									<!-- <li><a href="dashboard">My Home</a></li> -->
+									<li><a href="myProfile">My Profile</a></li>
+									<!-- <li><a href="myPhotos">My Photos</a></li> -->
+									<li><a href="myProfileViewsList">Who viewed my profile</a></li>
+									<li><a href="shortListedMe">Who short listed me</a></li>
+									
+									<li><a href="mobileNumViewedByMeList">Mobile no viewed by me</a></li>
+									<li><a href="myMobileNoViewsList">Who viewed my mobile number</a></li>
+									<li><a href="#">Ignored profiles</a></li>
+								</ul>
+							</li>
+							<li class="dropdown searchPage">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Search</a>
+								<ul class="dropdown-menu">
+									<li><a href="searchProfiles">Regular search</a></li>
+									<li><a href="searchById">Search by ID </a></li>
+									<li><a href="#">Recently viewed profiles</a></li>
+								</ul>
+							</li>
+							<li class="dropdown matches">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Matches <span id="matchcount">31</span></a>
+								<ul class="dropdown-menu">
+									<li><a href="newMatches">New Matches</a></li>
+									<li><a href="yetToBeViewed">Yet to be viewed(31) </a></li>
+									<li><a href="viewedNotContacted">Viewed & not contacted(2)</a></li>
+									<li><a href="shortListedByMe">Shortlisted Matches</a></li>
+									<li><a href="#">Premium Members</a></li>
+								</ul>
+							</li>
+							<li class="dropdown messages">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Messages <span id="matchcount">0</span></a>
+								<ul class="dropdown-menu">
+									<li><a href="pendingRequests">Inbox - pending 0</a></li>
+									<li><a href="#">Inbox - Accepted </a></li>
+									<li><a href="#">Sent All</a></li>
+									<li><a href="#">SMS received/sent</a></li>
+								</ul>
+							</li>
+							<li class="dropdown upgrade">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Upgrade</a>
+								<ul class="dropdown-menu">
+									<li><a href="memberShipPage">Payment Options</a></li>
+									<li><a href="#">Profile Highliter </a></li>
+								</ul>
+							</li>
+							<li class="notifications"><a href="#">Notifications</a></li>
+						</ul>
+	        		</div>
+	        		<!-- /.navbar-collapse -->
+	      		</div>
+	      		<!-- /.container-fluid -->
+	    	</nav>
+		</div>
+	</div>
+</div>
+
+	
+
+<!-- body starts here-->
+
+
+<!-- body starts here-->
+<div class="products">
+	<div class="container" style="background: #FFF;">
+	<!-- <div class="demo col-md-5" style="width:450px;">
+    <ul id="lightSlider">
+        <li data-thumb="https://sachinchoolur.github.io/lightslider/img/thumb/cS-1.jpg">
+            <img src="https://sachinchoolur.github.io/lightslider/img/cS-1.jpg" />
+        </li>
+        <li data-thumb="https://sachinchoolur.github.io/lightslider/img/thumb/cS-2.jpg">
+            <img src="https://sachinchoolur.github.io/lightslider/img/cS-2.jpg" />
+        </li>
+        <li data-thumb="https://sachinchoolur.github.io/lightslider/img/thumb/cS-3.jpg">
+            <img src="https://sachinchoolur.github.io/lightslider/img/cS-3.jpg" />
+        </li>
+        <li data-thumb="https://sachinchoolur.github.io/lightslider/img/thumb/cS-4.jpg">
+            <img src="https://sachinchoolur.github.io/lightslider/img/cS-4.jpg" />
+        </li>
+        <li data-thumb="https://sachinchoolur.github.io/lightslider/img/thumb/cS-5.jpg">
+            <img src="https://sachinchoolur.github.io/lightslider/img/cS-5.jpg" />
+        </li>
+        <li data-thumb="https://sachinchoolur.github.io/lightslider/img/thumb/cS-6.jpg">
+            <img src="https://sachinchoolur.github.io/lightslider/img/cS-6.jpg" />
+        </li>
+        <li data-thumb="https://sachinchoolur.github.io/lightslider/img/thumb/cS-7.jpg">
+            <img src="https://sachinchoolur.github.io/lightslider/img/cS-7.jpg" />
+        </li>
+        <li data-thumb="https://sachinchoolur.github.io/lightslider/img/thumb/cS-8.jpg">
+            <img src="https://sachinchoolur.github.io/lightslider/img/cS-8.jpg" />
+        </li>
+        <li data-thumb="https://sachinchoolur.github.io/lightslider/img/thumb/cS-9.jpg">
+            <img src="https://sachinchoolur.github.io/lightslider/img/cS-9.jpg" />
+        </li>
+        <li data-thumb="https://sachinchoolur.github.io/lightslider/img/thumb/cS-10.jpg">
+            <img src="https://sachinchoolur.github.io/lightslider/img/cS-10.jpg" />
+        </li>
+        <li data-thumb="https://sachinchoolur.github.io/lightslider/img/thumb/cS-11.jpg">
+            <img src="https://sachinchoolur.github.io/lightslider/img/cS-12.jpg" />
+        </li>
+        <li data-thumb="https://sachinchoolur.github.io/lightslider/img/thumb/cS-13.jpg">
+            <img src="https://sachinchoolur.github.io/lightslider/img/cS-13.jpg" />
+        </li>
+    </ul>
+</div> --><div clas=="col-md-7"></div>
+		<div class="mid-grids">
+			<div class="col-md-12">
+				<h4>Hello test15. test15<span>(AMGNT784916)</span></h4>
+			</div>   
+			<div class="col-md-3 products-grid-right">
+				<div class="well">
+					<div class="row">
+						<div class="col-md-11">
+							
+									<a class="lightbox thumbnail" href="img/40303.png" class="img img-responsive thumbnail watermark_text" data-littlelightbox-group="gallery" title="image1"><img src="img/40303.png" alt="image1" /></a>
+							
+						</div>	
+						<div class="col-md-12" style="padding-left:0;" >
+							<div class="profiletable">
+								<table  style="margin-left: 20px;" width="100%" border="0" cellspacing="0" cellpadding="0">
+									<tr><td><a href="myPhotos">My Photos</a></td></tr>
+									<tr><td><a href="EditUserProfile">Edit Profile</a></td></tr>
+									<tr><td><a href="#">Edit Partner Preferences</a></td></tr>
+								</table>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+				</div>
+				
+				<div class="panel panel-success">
+					<div class="panel-body">
+						<h4><strong>Messages</strong></h4>
+						<div class="tabbable" id="tabs-343694">
+							<ul class="nav nav-tabs">
+								<li class="active"><a href="#inbox" data-toggle="tab"><strong>INBOX</strong></a></li>
+								<li><a href="#sent" data-toggle="tab"><strong>SENT</strong></a></li>
+							</ul>
+							<div class="tab-content">
+								<div class="tab-pane active" id="inbox">
+									<table width="100%" class="dotted-seperator">
+										<tr>
+											<td height="30"><a href="receivedRequests">Pending</a></td>
+											<td><span class="badge pull-right">0</span></td>
+										</tr>
+										<tr>
+											<td height="30"><a href="#">Accepted</a></td>
+											<td><span class="badge pull-right">0</span></td>
+										</tr>
+										
+									</table>
+								</div>
+								<div class="tab-pane" id="sent">
+									<table width="100%" class="dotted-seperator">
+										<tr>
+											<td height="30"><a href="sentRequests">All</a></td>
+											<td><span class="badge pull-right">0</span></td>
+										</tr>
+										<tr>
+											<td height="30"><a href="sentRequests">Awaiting Reply</a></td>
+											<td><span class="badge pull-right">0</span></td>
+										</tr>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="dial1"></div>
+            	
+			<div class="col-md-6 products-grid-left">
+            	<div class="panel panel-success">
+					<div class="panel-heading">My Profile</div>
+					<div class="panel-body table-responsive">
+		            	<table class="no-margin">
+		            		<tr><th>Name</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>test15</span></td></tr>
+		            		<tr><th>Surname</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>test15 </span></td></tr>
+		            		<tr><th>Gender</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>Male </span></td></tr>
+		            		<tr><th>Date of Birth</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>11-12-1990 </span></td></tr>
+		            		<tr><th>Caste</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>Kapu </span></td></tr>
+		            		<tr><th>Religion</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>Hindu</span></td></tr>
+		            		<tr><th>Marital Status</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>Unmarried</span></td></tr>
+		            		<tr><th>Education</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>B.A </span></td></tr>
+		            		<tr><th>Profession</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span></span></td></tr>
+		            		<tr><th>Working with</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span></span></td></tr>
+		            		<tr><th>Annual Income</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span></span></td></tr>
+		            		<tr><th>City</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span> </span></td></tr>
+		            		<tr><th>State</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span> </span></td></tr>
+		            		<tr><th>Country</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>India </span></td></tr>
+		            		<tr><th>Mothertongue</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>Telugu </span></td></tr>
+		            		<tr><th>E-mail</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>test15@gmail.com </span></td></tr>
+		            		<tr><th>Gotram</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span> </span></td></tr>
+		            		<tr><th>Nakshatram</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span> </span></td></tr>
+		            		<tr><th>Dosham</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span> </span></td></tr>
+		            		<tr><th>Dosham Name</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span> </span></td></tr>
+		            		<tr><th>Diet</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span> </span></td></tr>
+		            		<tr><th>Smoking</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>No </span></td></tr>
+		            		<tr><th>Drinking</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>No </span></td></tr>
+		            		<tr><th>Height</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span>5'2 </span></td></tr>
+		            		<tr><th>Body Type</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span> </span></td></tr>
+		            		<tr><th>Complexion</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span> </span></td></tr>
+		            		<tr><th>Disability</th><th>:</th><td style="text-align: left;padding-left: 10px;"><span> </span></td></tr>
+		            	</table>
+	            	</div>
+	            </div>
+			</div>
+			
+			<div class="col-md-3 products-grid-right">
+			
+<div class="panel panel-success">
+<div class="panel-body" style="padding:10px 5px;">
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingOne">
+             <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Preferred Location
+        </a>
+      </h4>
+
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+            <div class="panel-body" style="padding:10px 0px;">
+            <div class="col-md-3" style="padding-right:0px; padding-left:0px;">
+            <img src="https://t-imgs.matrimonycdn.com/photos/2017/08/26/13/T4135943_YcKEa_46923_TS.webp" style="cursor: pointer;border-radius: 50%;no-repeat;width: 45px;height: 45px;display: block;border: 1px solid #e1e1e1;border-radius: 50%;background-size: 75px 75px;" >
+   </div><div class="col-md-8" style="padding-right:0px; padding-left:0px;">   <p><a href="#">T4135943 </a><br>
+<a href="#">27 Yrs, 5 Ft 6 In</a><br>
+<a href="#">Hyderabad</a><br>
+<a href="#"><img src="img/heart-icon.png"/>Send Interest</a></p></div>
+        </div></div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingTwo">
+             <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+       Preferred Profession
+        </a>
+      </h4>
+
+        </div>
+        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+<div class="panel-body" style="padding:10px 0px;">
+            <div class="col-md-3" style="padding-right:0px; padding-left:0px;">
+            <img src="https://t-imgs.matrimonycdn.com/photos/2017/08/26/13/T4135943_YcKEa_46923_TS.webp" style="cursor: pointer;border-radius: 50%;no-repeat;width: 45px;height: 45px;display: block;border: 1px solid #e1e1e1;border-radius: 50%;background-size: 75px 75px;" >
+   </div><div class="col-md-8" style="padding-right:0px; padding-left:0px;">   <p><a href="#">T4135943 </a><br>
+<a href="#">27 Yrs, 5 Ft 6 In</a><br>
+<a href="#">Hyderabad</a><br>
+<a href="#"><img src="img/heart-icon.png"/>Send Interest</a></p></div>
+        </div>        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingThree">
+             <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+      Preferred Education        </a>
+      </h4>
+
+        </div>
+        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+<div class="panel-body" style="padding:10px 0px;">
+            <div class="col-md-3" style="padding-right:0px; padding-left:0px;">
+            <img src="https://t-imgs.matrimonycdn.com/photos/2017/08/26/13/T4135943_YcKEa_46923_TS.webp" style="cursor: pointer;border-radius: 50%;no-repeat;width: 45px;height: 45px;display: block;border: 1px solid #e1e1e1;border-radius: 50%;background-size: 75px 75px;" >
+   </div><div class="col-md-8" style="padding-right:0px; padding-left:0px;">   <p><a href="#">T4135943 </a><br>
+<a href="#">27 Yrs, 5 Ft 6 In</a><br>
+<a href="#">Hyderabad</a><br>
+<a href="#"><img src="img/heart-icon.png"/>Send Interest</a></p></div>
+        </div>        </div>
+        
+       
+    </div>
+    
+     <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingThree">
+             <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+      Compatible Stars     </a>
+      </h4>
+
+        </div>
+        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+<div class="panel-body" style="padding:10px 0px;">
+            <div class="col-md-3" style="padding-right:0px; padding-left:0px;">
+            <img src="https://t-imgs.matrimonycdn.com/photos/2017/08/26/13/T4135943_YcKEa_46923_TS.webp" style="cursor: pointer;border-radius: 50%;no-repeat;width: 45px;height: 45px;display: block;border: 1px solid #e1e1e1;border-radius: 50%;background-size: 75px 75px;" >
+   </div><div class="col-md-8" style="padding-right:0px; padding-left:0px;">   <p><a href="#">T4135943 </a><br>
+<a href="#">27 Yrs, 5 Ft 6 In</a><br>
+<a href="#">Hyderabad</a><br>
+<a href="#"><img src="img/heart-icon.png"/>Send Interest</a></p></div>
+        </div>        </div>
+        
+       
+    </div>
+     <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingThree">
+             <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+     Family Values      </a>
+      </h4>
+
+        </div>
+       
+        
+       
+    </div>
+</div>
+</div></div>
+			</div>
+
+<script type="text/javascript">
+
+function displayMobileNum(profileId,listType){
+	 var profileObj = serviceUnitArray[profileId];
+	var formData = new FormData();
+	formData.append('profile_id',profileId);
+	formData.append('list_type',listType);
+	jQuery.fn.makeMultipartRequest('POST', 'viewedMobileNumber', false,
+			formData, false, 'text', function(data){
+    		var jsonobj = $.parseJSON(data);
+    		var msg = jsonobj.message;
+    		if(typeof msg != "undefined"){
+    			if(msg=="success"){
+    				$("#row"+profileId).html('<td>'+profileObj.mobile+'</td>');
+    			}else{
+    				alert("Some problem occured. Please try again.");
+    			}
+    		}
+    		
+	}); 
+	
+}
+
+$(".dashboard").addClass("active");
+</script>
+
+  
+			<div class="clearfix"></div>
+		</div>
+	</div>
+</div>
+<!-- body ends here-->
+<!-- footer -->
+<div class="container">
+	<div class="row">
+		<div class="footer" style="font-size: 10px;">
+			<div class="col-md-3 footer-grid">
+				<h6>About us</h6>
+				<p>Suspendisse sed accumsan risus. Curabitur rhoncus, elit vel tincidunt elementum, nunc urna tristique nisi, in interdum libero magna .</p>
+			</div>
+			<div class="col-md-3 footer-grid">
+			
+				<h6>Search</h6>
+				<ul>
+					<li><a href="#">About Us</a></li>
+					<li><a href="#">Privacy Policy</a></li>
+					<li><a href="#">Terms &amp; Conditions</a></li>
+				</ul>
+			</div>
+			<div class="col-md-3 footer-grid">
+				<h6>My Account</h6>
+				<ul>
+					<li><a href="dashboard">My Account</a></li>
+					<li><a href="myProfile">My Profile</a></li>
+					<li><a href="#">My Interest</a></li>
+				</ul>
+			</div>
+			<div class="col-md-3 footer-grid">
+				<h6>Extras</h6>
+				<ul>
+					<li><a href="#">Login</a></li>
+					<li><a href="#">Register</a></li>
+					<li><a href="#">Help</a></li>
+				</ul>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+		<div class="footer-copy">
+			<p>A product of Aarna Associates © 2017. All rights reserved.</p>
+		</div>
+	</div>
+</div>
+<!-- //footer -->
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="user/js/jquery.littlelightbox.js"></script>
+<!-- <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js'></script>
+<script src='http://sachinchoolur.github.io/lightslider/dist/js/lightslider.js'></script> -->
+
+  
+
+    <script  src="user/js/index.js"></script>
+<script>
+$('.lightbox').littleLightBox();
+</script>
+	<script src="js/bootstrap.min.js"></script>
+	
+	<!-- start-smoth-scrolling -->
+	<script type="text/javascript" src="user/js/move-top.js"></script>
+	<!-- <script type="text/javascript" src="user/js/easing.js"></script> -->
+	
+	<!-- <script type="text/javascript" src="user/js/megamenu.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){$(".megamenu").megamenu();});
+	</script>
+	
+	<script src="user/js/menu_jquery.js"></script>
+
+	<script type="text/javascript" src="js/jquery.jscrollpane.min.js"></script>
+	<script type="text/javascript" id="sourcecode">
+		$(function(){$('.scroll-pane').jScrollPane();});
+	</script> -->
+
+</body>
+</html>

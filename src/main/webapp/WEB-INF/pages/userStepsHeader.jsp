@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="css/plugins/select2/select2.css">
     <script src="user/vendor/jquery/jquery.min.js"></script>
     <script src="user/js/modernizr.custom.js"></script>
-    <script src="js/plugins/select2/select2.min.js"></script>
+    
     <style type="text/css">
 .dispnone
 {

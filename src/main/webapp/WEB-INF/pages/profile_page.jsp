@@ -354,10 +354,10 @@ if(session.getAttribute("cacheGuest") != null){
 $(function(){
     $("#rAgeFrom").append('<option value="">From</option>');
     $("#rAgeTo").append('<option value="">To</option>');
-    for (var i=18;i<=55;i++){
+    for (var i=21;i<=40;i++){
         $("#rAgeFrom").append('<option value='+i+'>'+i+'</option>');
     }
-    for (var i=18;i<=55;i++){
+    for (var i=21;i<=40;i++){
         $("#rAgeTo").append('<option value='+i+'>'+i+'</option>');
     }
 });

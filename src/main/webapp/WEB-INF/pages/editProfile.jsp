@@ -614,7 +614,7 @@ $(document).ready(function(){
 $(function(){
     $("#ageFrom").append('<option value="">From</option>');
     $("#ageTo").append('<option value="">To</option>');
-    for (var i=18;i<=55;i++){
+    for (var i=21;i<=40;i++){
         $("#ageFrom,#ageTo").append('<option value='+i+'>'+i+'</option>');
     }
 });

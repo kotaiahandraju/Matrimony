@@ -53,7 +53,7 @@ public class FilterController {
 	@RequestMapping(value = "/AllProfilesHome")
 	public String getAllProfiles(@ModelAttribute("createProfile") UsersBean objUsersBean, ModelMap model,
 			HttpServletRequest request, HttpSession session, RedirectAttributes redir) {
-		System.out.println("getAllProfiles Page");
+		//System.out.println("getAllProfiles Page");
 		List<Map<String, String>> listOrderBeans = null;
 		ObjectMapper objectMapper = null;
 		String sJson = null;
@@ -239,6 +239,53 @@ public class FilterController {
 			System.out.println(e);
 			logger.error(e);
 			logger.fatal("FilterController class updateStatus method");
+			jsonObj.put("message", "excetption" + e);
+			return String.valueOf(jsonObj);
+
+		}
+		return String.valueOf(jsonObj);
+	}
+	
+	@RequestMapping(value = "/permanentDeleteProfile")
+	public @ResponseBody String permanentDeleteProfile(UsersBean objUsersBean, ModelMap model, HttpServletRequest request,
+			HttpSession session, BindingResult objBindingResult) {
+		// System.out.println("updateStatus page...");
+		List<Map<String, String>> listOrderBeans = null;
+		JSONObject jsonObj = new JSONObject();
+		ObjectMapper objectMapper = null;
+		String sJson = null;
+		boolean delete = false;
+		String statusName = null;
+		try {
+			
+				delete = objUsersDao.delete(objUsersBean.getId());
+				statusName = objUsersBean.getStatusName();
+				if (delete) {
+					jsonObj.put("message", "success");
+				} else {
+					jsonObj.put("message", "failed");
+				}
+			
+			listOrderBeans = objUsersDao.getAllProfiles1(objUsersBean, statusName);
+			objectMapper = new ObjectMapper();
+			if (listOrderBeans != null && listOrderBeans.size() > 0) {
+
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(listOrderBeans);
+				request.setAttribute("allOrders1", sJson);
+				jsonObj.put("allOrders1", listOrderBeans);
+				// System.out.println(sJson);
+			} else {
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(listOrderBeans);
+				request.setAttribute("allOrders1", "''");
+				jsonObj.put("allOrders1", listOrderBeans);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			logger.error(e);
+			logger.fatal("FilterController class updateStatuspermanentDeleteProfile method");
 			jsonObj.put("message", "excetption" + e);
 			return String.valueOf(jsonObj);
 

@@ -257,7 +257,7 @@
 				      <div class="col-md-7 text-center">
 				     	<button type="button" id="firstButton" class="btn1 btn btn-info" onclick="submitForm()">Save & Continue</button> 
 				<!--      	<button type="button" id="skipfirstButton" class="btn1 btn btn-info" onclick="skip()">Skip</button> -->
-				      	<a style="color: blue;text-decoration: none;" href="${baseurl}/thankyou">&nbsp;&nbsp;Skip</a>
+				      	<a style="color: blue;text-decoration: none;" href="${baseurl}/sendOtp">&nbsp;&nbsp;Skip</a>
 				      </div>
 				    </div>
 				</div>
@@ -265,9 +265,14 @@
 				</form:form>
 			</div>
 
+
+<script src="js/plugins/select2/select2.min.js"></script>
+
 <script type="text/javascript">
 
 $(document).ready(function(){
+	$('.multiSelect').select2();
+	
 	$(".ifMore").hide();
 	$(".incomeBlock").hide();
 	
@@ -289,7 +294,7 @@ $(document).ready(function(){
         $(".ifMore").collapse('hide');
     }); */
     
-    $("#rMaritalStatus").select2({
+    /* $("#rMaritalStatus").select2({
 	    placeholder: "-- Choose MaritalStatus --"
 	});
     $("#rReligion").select2({
@@ -320,15 +325,33 @@ $(document).ready(function(){
 	});
 	$("#rDiet").select2({
 	    placeholder: "-- Choose Diet --"
-	});
+	}); */
 	
     
-    var selected_values = "${partnerProfile.rMaritalStatus}";
-    $("#rMaritalStatus").val(selected_values.split(","));
+     var selected_values = "";
+	selected_values = "${partnerProfile.rMaritalStatus}";
+    if(selected_values == "" || selected_values==null){
+    	$("#rMaritalStatus").select2({
+    	    placeholder: "-- Choose MaritalStatus --"
+    	});
+    }else{
+    	var tt = selected_values.split(",");
+        $("#rMaritalStatus").val(selected_values.split(","));
+    } 
     
     selected_values="";
     selected_values = "${partnerProfile.rCaste}";
-    $("#rCaste").val(selected_values.split(","));
+    if(selected_values == "" || selected_values==null){
+    	$("#rCaste").select2({
+    	    placeholder: "-- Choose Community --"
+    	});
+    }else{
+    	var tt = selected_values.split(",");
+        $("#rCaste").val(selected_values.split(","));
+    }
+    /* selected_values="";
+    selected_values = "${partnerProfile.rCaste}";
+    $("#rCaste").val(selected_values.split(",")); */
     
     selected_values="";
     selected_values = "${partnerProfile.rState}";
@@ -340,11 +363,29 @@ $(document).ready(function(){
     
     selected_values="";
 	selected_values = "${partnerProfile.rReligion}";
-	$("#rReligion").val(selected_values.split(","));
+    if(selected_values == "" || selected_values==null){
+    	$("#rReligion").select2({
+    	    placeholder: "-- Choose Religion --"
+    	});
+    }else{
+    	var tt = selected_values.split(",");
+        $("#rReligion").val(selected_values.split(","));
+    }
+    /* selected_values="";
+	selected_values = "${partnerProfile.rReligion}";
+	$("#rReligion").val(selected_values.split(",")); */
 	
 	selected_values="";
 	selected_values = "${partnerProfile.rMotherTongue}";
-	$("#rMotherTongue").val(selected_values.split(","));
+	if(selected_values == "" || selected_values==null){
+    	$("#rMotherTongue").select2({
+    	    placeholder: "-- Choose Mother Tongue --"
+    	});
+    }else{
+    	var tt = selected_values.split(",");
+        $("#rMotherTongue").val(selected_values.split(","));
+    }
+	//$("#rMotherTongue").val(selected_values.split(","));
 	
 	selected_values="";
 	selected_values = "${partnerProfile.rCountry}";
@@ -362,11 +403,11 @@ $(document).ready(function(){
 	selected_values = "${partnerProfile.rDiet}";
 	$("#rDiet").val(selected_values.split(","));
 	
-    
+	$('.multiSelect').trigger('change.select2'); 
 });
 
 function hideChildren() {
-	var maritalStatus=$("#rMaritalStatus").val();
+	 var maritalStatus=$("#rMaritalStatus").val();
 	var married_selected = "";
 	if(maritalStatus!=null){
 		$.each(maritalStatus,function(i){
@@ -380,7 +421,7 @@ function hideChildren() {
 	}else{
 		$("#haveChildrenId").hide();
 		$("#haveChildren").val();
-	}
+	} 
 	/* if(maritalStatus == "Unmarried"){
 		$("#haveChildrenId").hide();
 		$("#haveChildren").val();
@@ -391,11 +432,12 @@ function hideChildren() {
 	
 function submitForm(){
 	$("#savePartnerProfile").submit();
+	
 }
 
 function skip(){
 	var location = "${baseurl}";
-	window.location.href =location+"/thankyou";
+	window.location.href =location+"/sendOtp";
 }	
 </script>
 

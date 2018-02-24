@@ -264,7 +264,7 @@
 					      <label class="col-md-4 control-label" for="textinput">Your Mobile number <span class='manditory'>*</span></label>  
 					      <div class="col-md-6">
 					      <form:input path="mobile" class="form-control numericOnly"  onblur="validate(this.id,'Enter Mobile');" onkeydown="removeBorder(this.id)" maxlength="13" placeholder="Mobile Number"/>
-					      <span class="hasError" id="mobileError" style="font-size: 13px;"></span>
+					      <span class="hasError" id="mobileError" style="font-size: 13px;color:red"></span>
 					      </div>
 					    </div>
 					
@@ -591,9 +591,8 @@ function fourthForm(event){
 			
 		}); */
 	    //
-		//$('#profileRegistration').attr('action',"saveUserProfile");
-	    $('#profileRegistration').attr('action',"verifyMobileNumber");
-		$("#profileRegistration").submit();
+		$('#profileRegistration').attr('action',"saveUserProfile");
+	    $("#profileRegistration").submit();
 		event.preventDefault();
 }
 

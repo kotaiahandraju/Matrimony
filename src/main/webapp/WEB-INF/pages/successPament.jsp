@@ -18,8 +18,8 @@ session.setAttribute("baseurl", baseurl);
   <title>Aarna Matrimony</title>
   <!-- PLUGINS CSS STYLE -->
 
-  <link href="${baseurl}/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="${baseurl }/plugins/animate.css">
+  <link href="${baseurl}/css/bootstrap.min.css" rel="stylesheet">
+  
 
 <!--   <link rel="stylesheet" href="plugins/selectbox/select_option1.css"> -->
 
@@ -28,10 +28,9 @@ session.setAttribute("baseurl", baseurl);
 
 <!--   <link rel="stylesheet" type="text/css" href="plugins/rs-plugin/css/settings.css" media="screen"> -->
 
-  <link rel="stylesheet" type="text/css" href="${baseurl }/css/chosen.css" media="screen">
-  <link rel="stylesheet" type="text/css" href="${baseurl }/css/brdr.css" media="screen">
-
+  
 	<script src="${baseurl }/js/jquery.min.js"></script>
+	<script src="${baseurl }/js/jquery-ui.min.js"></script>
 
   <!-- CUSTOM CSS -->
 
@@ -52,7 +51,17 @@ session.setAttribute("baseurl", baseurl);
 
 	<table align="center" style="min-width: 680px;min-height:0px">
     <tr>
-        <th rowspan="3"><img src="" alt="passport pic" id="imageID1" style="width: 50px;height: 50px;"></th>
+        <th rowspan="3">
+        	
+        	<c:if test="${not empty cacheGuest.profileImage}">
+        		<img src="${cacheGuest.profileImage}" alt="passport pic" id="imageID1" style="width: 50px;height: 50px;">
+				
+			</c:if>
+			<c:if test="${empty cacheGuest.profileImage}">
+				<img src="img/default.png" alt="passport pic" id="imageID1" style="width: 50px;height: 50px;">
+				
+			</c:if>
+        </th>
       <tr> 
 <!--       <td>Date:xx/xx/xxxx</td> -->
 <!--       <td>Time:xx:xx</td> -->
@@ -84,12 +93,25 @@ session.setAttribute("baseurl", baseurl);
        <div style="text-align: center;">
        <button onclick="printpage()" id="printpagebutton">Print</button>
        </div>
+       <div style="text-align: center;">
+       		<a href="dashboard" type="button" class="btn btn-primary" id="myaccountBtn" >Goto My Account</a>
+       </div><br>
+       <div style="text-align: center;">
+       		<p><a href="HomePage" type="button" class="btn btn-primary" id="homepagBtn" >Goto HomePage</a></p>
+       
+       </div>
        <script>
        function printpage() {
            var printButton = document.getElementById("printpagebutton");
            printButton.style.visibility = 'hidden';
+           $("#printButton").attr("hidden",true);
+           $("#myaccountBtn").attr("hidden",true);
+           $("#homepagBtn").attr("hidden",true);
            window.print()
            printButton.style.visibility = 'visible';
+           $("#printButton").removeAttr("hidden");
+           $("#myaccountBtn").removeAttr("hidden");
+           $("#homepagBtn").removeAttr("hidden");
        }
       var listOrders1 = ${payment_details};
   	if (listOrders1 != "") {

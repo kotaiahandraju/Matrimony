@@ -1,10 +1,217 @@
-<%@ include file="userHeader.jsp"%>
+<%@ include file="userCommonHeader.jsp"%>
 
-			<div class="col-md-8 products-grid-left">
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+<script src="js/jquery-ui.min.js"></script>
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" />
+<style>
+blockquote {
+  background: #f9f9f9;
+  border-left: 10px solid #ccc;
+  margin: 1.5em 10px;
+  padding: 0.5em 10px;
+  quotes: "\201C""\201D""\2018""\2019";
+}
+blockquote:before {
+  color: #ccc;
+  content: open-quote;
+  font-size: 4em;
+  line-height: 0.1em;
+  margin-right: 0.25em;
+  vertical-align: -0.4em;
+}
+blockquote p {
+  display: inline;
+}
+p {
+font-size:13px;
+letter-spacing:1px;
+}
+.matches1 {
+border: 1px solid #d6d6d6;
+background: #f1f1f1;
+}
+ .matches1 h4 {
+background: #f1f1f1;
+margin-left:15px;
+font: bold 15px arial;
+}
+.Subl {
+background-color: #FFF;
+padding: 1px;
+}
+.on {
+background-color: #F1F1F1;
+margin: 3px;
+padding: 6px 4px;
+font-weight: bold;
+
+
+}
+.controls {
+  margin-bottom: 10px;
+}
+.panel-title {
+text-align:left;
+}
+.collapse-group {
+  padding: 10px;
+  border: 1px solid darkgrey;
+  margin-bottom: 10px;
+}
+
+.panel-title .trigger:before {
+  content: '\e082';
+  font-family: 'Glyphicons Halflings';
+  vertical-align: text-bottom;
+  margin-left:2px;
+  float:right;
+}
+
+.panel-title .trigger.collapsed:before {
+  content: '\e081';
+}
+.new {
+margin-left:10px;
+}</style>
+<div class="products">
+	<div class="container" style="background: #FFF;">
+	<div class="col-md-12">
+<h4>New Matches</h4>
+<p>Listed below are the new matches.</p><p> <input type="checkbox" id="withPhoto" onchange="getMatchesBasedOnCheckboxes()"/>  Show profiles with photo  <input type="checkbox" id="alreadyViewed"/> Don't show already viewed <input type="checkbox"/> Don't show already contacted
+</p>
+</div><br><br><br>
+		<div class="mid-grids">
+		
+			  
+			<div class="col-md-3 products-grid-right">
+			<div class="matches1"><h4>Matches</h4><div class="Subl">
+			<p class="on">New Matches</p>
+			<p class="new"><a href="" >Profiles yet to be viewed (7,215)</a><br>
+
+<a href="">Extended Matches</a><br>
+
+<a href="">Profiles viewed & not</a><br>
+<a href="">contacted (58)</a><br>
+
+<a href="">Members looking for me</a><br>
+
+<a href="">Mutual Matches</a><br>
+
+<a href="">Premium Members</a></p><br>
+			</div></div>
+			<div class="matches1"><h4>Filter Results</h4>
+			</div>
+				
+				
+				
+<div class="collapse-group">
+  
+
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" class="trigger collapsed">
+        Show Profiles Created</a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+         <p> <a href=""> Within a day (27)</a><br>
+    <a href=""> Within a week (181)</a><br>
+    <a href=""> Within a month (582)</a></p>   </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingTwo">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo" class="trigger">
+          Active
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="panel-body">
+        Active Tab
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="collapse-group">
+  
+
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingThree">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree" class="trigger">
+          Profile Type
+        </a>
+      </h4>
+    </div>
+    <div id="collapseThree" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree">
+      <div class="panel-body">
+        <p> <a href="">  With Photo (323)
+    </a><br>
+    <a href=""> With Horoscope (225)</a><br>
+    </p> 
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingFour">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" href="#collapseFour" aria-expanded="true" aria-controls="collapseFour" class="trigger">
+          Age
+        </a>
+      </h4>
+    </div>
+    <div id="collapseFour" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFour">
+      <div class="panel-body">
+      <div class="">
+      <select name="" id="" style="width:;height:30px;" class="optiondiv" size="1">
+      <option value="21">21</option><option value="22">22</option><option value="23" selected="selected">23</option>
+      <option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option>
+      <option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option>
+      <option value="32">32</option><option value="33">33</option><option value="34">34</option><option value="35">35</option>
+      <option value="36">36</option><option value="37">37</option><option value="38">38</option><option value="39">39</option>
+      <option value="40">40</option><option value="41">41</option><option value="42">42</option><option value="43">43</option>
+      <option value="44">44</option><option value="45">45</option><option value="46">46</option><option value="47">47</option>
+      <option value="48">48</option><option value="49">49</option><option value="50">50</option><option value="51">51</option>
+      <option value="52">52</option><option value="53">53</option><option value="54">54</option><option value="55">55</option>
+      <option value="56">56</option><option value="57">57</option><option value="58">58</option><option value="59">59</option>
+      <option value="60">60</option><option value="61">61</option><option value="62">62</option><option value="63">63</option>
+      <option value="64">64</option><option value="65">65</option><option value="66">66</option><option value="67">67</option>
+      <option value="68">68</option><option value="69">69</option><option value="70">70</option></select>&nbsp;&nbsp;to&nbsp;&nbsp;
+      <select name="" id="" style="width:;height:30px;" class="optiondiv" size="1"><option value="18">18</option><option value="19">19</option>
+      <option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option>
+      <option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option>
+      <option value="28">28</option><option value="29">29</option><option value="30" selected="selected">30</option>
+      <option value="31">31</option><option value="32">32</option><option value="33">33</option><option value="34">34</option>
+      <option value="35">35</option><option value="36">36</option><option value="37">37</option><option value="38">38</option>
+      <option value="39">39</option><option value="40">40</option><option value="41">41</option><option value="42">42</option>
+      <option value="43">43</option><option value="44">44</option><option value="45">45</option><option value="46">46</option>
+      <option value="47">47</option><option value="48">48</option><option value="49">49</option><option value="50">50</option>
+      <option value="51">51</option><option value="52">52</option><option value="53">53</option><option value="54">54</option>
+      <option value="55">55</option><option value="56">56</option><option value="57">57</option><option value="58">58</option>
+      <option value="59">59</option><option value="60">60</option><option value="61">61</option><option value="62">62</option>
+      <option value="63">63</option><option value="64">64</option><option value="65">65</option><option value="66">66</option>
+      <option value="67">67</option><option value="68">68</option><option value="69">69</option><option value="70">70</option>
+      </select>&nbsp;&nbsp;Yrs<span class="errortext" id="ageerr"></span>&nbsp;&nbsp;<input class="" style="background: rgb(255, 255, 255) none repeat scroll 0% 0%; border-radius: 3px; color: rgb(2, 116, 203); font-weight: normal; font-size: 12px; margin-left: 0px; padding: 5px; margin-top: -2px; border: 1px solid rgb(214, 214, 214); line-height: 16px;cursor:pointer !important;" value="Submit" onclick="submitMore('age','')" type="button"></div>
+        </div>
+    </div>
+  </div>
+</div>
+			</div>
+			<div id="dial1"></div>
+			<div class="col-md-9 products-grid-left">
             	<div class="panel panel-success">
 					<div class="panel-heading">New Matches</div>
 					<div class="panel-body table-responsive">
 						<form:form commandName="createProfile"  class="form-horizontal" id="searchForm2" name="searchForm2" role="form" method="post">
+						<form:hidden path="id" />
 							<div class="col-md-12">
 							<div id="searchresultsDiv" style="font-size: 12px;">
 								   <div id="searchResults">
@@ -22,7 +229,27 @@
                          
 					</div>
 			
-			
+		<div class="modal fade" id="myModal" role="dialog">
+		    <div class="modal-dialog">
+		    
+		      <!-- Modal content-->
+		      <div class="modal-content">
+		        <div class="modal-header">
+		          <button type="button" class="close" data-dismiss="modal">&times;</button>
+		          <h4 class="modal-title">Mail Content</h4>
+		        </div>
+		        <div class="modal-body">
+		        	<input type="hidden" name="profile_id" id="profile_id">
+		         	<textarea id="mail_content" name="mail_content" cols="70" rows="10" ></textarea><br><div class="clearfix"></div>
+		          	
+		        </div>
+		        <div class="modal-footer">
+		          <button type="button" id="sendMailBtn" onclick="sendMail()" class="btn btn-primary" >Send Mail</button>
+		        </div>
+		      </div>
+		      
+		    </div>
+		  </div>	
 
 <script type="text/javascript">
 
@@ -80,8 +307,8 @@ function displayMatches(listOrders) {
 			var more_details_str = '';
 			var expressed = orderObj.expressedInterest;
 			var firstname = 'xxxxxx',lastname='xxxxxx';
-			mobile_no__str = '<tr id="row'+orderObj.id+'"><td><button type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button></td></tr>';
-			insert_str = '<button id="expInterest'+orderObj.id+'" type="button" class="btn btn-primary btn-block" onclick="expressInterest('+orderObj.id+')">Yes I\'m interested</button>';
+			//mobile_no__str = '<tr id="row'+orderObj.id+'"><td><a href="#" type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</a></td></tr>';
+			//insert_str = '<a href="#" id="expInterest'+orderObj.id+'" type="button" class="btn btn-primary btn-block" onclick="expressInterest('+orderObj.id+')">Yes I\'m interested</a>';
 			/* if(expressed==0){
 				insert_str = '<button id="expInterest'+orderObj.id+'" type="button" class="btn btn-primary btn-block" onclick="expressInterest('+orderObj.id+')">Yes I\'m interested</button>';
 			}else if(expressed>0){
@@ -103,12 +330,37 @@ function displayMatches(listOrders) {
 				firstname = orderObj.firstName;
 				lastname = orderObj.lastName;
 			}
+			var abtMySelf = orderObj.aboutMyself;
+			if(abtMySelf=="undefined" || abtMySelf==null){
+				abtMySelf = "";
+			}
+			var premiumMember = "";
+			var memberRoleId = orderObj.role_id;
+			if(memberRoleId!=null && memberRoleId!="" && (memberRoleId==6 || memberRoleId==11 ||
+					memberRoleId==12 || memberRoleId==13 || memberRoleId==14)){
+				premiumMember = "<span class='premium-member'>Premium Member</span>";
+			}
+			var shortListedStr = '<span id="shortlistTD'+orderObj.id+'"><a href="#" type="button" class="btn btn-primary btn-block" onclick="shortList('+orderObj.id+')"> Shortlist</a></span>';
+			if(orderObj.short_listed == "1"){
+				shortListedStr = '<span><a type="button" class="btn btn-primary btn-block" disabled="true"> Shortlisted</a></span>';
+			}
+			var expressed = orderObj.expressedInterest;
+			var interestStr = "";
+			if(expressed==0){
+				interestStr = '<span id="expInterest'+orderObj.id+'"><a   href="#" type="button" class="btn btn-success btn-block btn-md"  onclick="expressInterest('+orderObj.id+')">  Express Interest  </a></span>';
+			}else if(expressed>0){
+				interestStr = '<span><a type="button" class="btn btn-success btn-block" disabled="true" style="text-size-adjust:auto">Expressed Interest</a></span>';
+			}
+			var profession = orderObj.occupationName;
+			if((profession == null) || profession == ""){
+				profession = "Not Specified";
+			}
 			var tblRow = '<div class="panel panel-default">'
 				+ '<div class="panel-heading">'
 				+ '<h5 class="panel-title">'
 				+ '<div class="form-check">'
 
-				+ '	<label class="form-check-label"> <input type="checkbox" class="form-check-input"> '+firstname+' '+lastname+'&nbsp;('+orderObj.username+')</label>'
+				+ '	<label class="form-check-label"> <input type="checkbox" class="form-check-input"> '+firstname+' '+lastname+'&nbsp;('+orderObj.username+')&nbsp;'+premiumMember+'</label>'
 				+ '	<span class="pull-right">Created by '+orderObj.createProfileFor+'</span>'
 				//+ '	<label class="form-check-label"> <input type="checkbox" class="form-check-input"> '+orderObj.firstName+' '+orderObj.lastName+'</label>'
 // 				+ '	<span class="pull-right">Created by '+orderObj.createProfileFor+'</span>'
@@ -117,20 +369,22 @@ function displayMatches(listOrders) {
 				+ '</h5>'
 				+ '</div>'
 				+ '<div class="panel-body">'
-				+ '<div class="col-md-2">'
-				+ '<a href="#"> <img src='+image+' class="img img-responsive thumbnail" style="margin-bottom:0;height: 60px;width: 60px;"></a>'
+				+ '<div class="col-md-3">'
+				+ '<a href="#"> <img src='+image+' class="img img-responsive thumbnail" style="margin-bottom:0;"></a>'
             	+ '</div>'
-            	+ '<div class="col-md-6">'
+            	+ '<div class="col-md-4"  style="overflow-y:scroll;max-height: 300px">'
+                + '<blockquote><p>'+abtMySelf+'</p></blockquote>'
+                + '</div>'
+            	+ '<div class="col-md-5">'
             	+ '<table>'
-            	+ '	<tr><td>Age/Height</td><td><span>: '+orderObj.age+', '+orderObj.inches+'</span></td></tr>'
+            	+ '	<tr><td>Age/Height</td><td><span>: '+orderObj.age+' yrs, '+orderObj.inches+'</span></td></tr>'
             	+ '	<tr><td>Religion</td><td><span>: '+orderObj.religionName+'</span></td></tr>'
             	+ '	<tr><td>Mother Tongue</td><td><span>: '+orderObj.motherTongueName+'</span></td></tr>'
             	+ '	<tr><td>Community</td><td><span>: '+orderObj.casteName+'</span></td></tr>'
             	+ '	<tr><td>Location</td><td><span>: '+orderObj.currentCityName+'</span></td></tr>'
             	+ '	<tr><td>Education</td><td><span>: '+orderObj.educationName+'</span></td></tr>'
-            	+ '	<tr><td>Profession</td><td><span>: '+orderObj.occupationName+'</span></td></tr>'
-            	+ mobile_no__str
-            	
+            	+ '	<tr><td>Profession</td><td><span>: '+profession+'</span></td></tr>'
+            	+ '<tr><td><span id="mobileTD'+orderObj.id+'"><a href="#" onclick="displayMobileNum('+orderObj.id+')">View Mobile Number</a></span></td></tr>'
             	//+ '	<tr><td>Age</td><td><span>: '+orderObj.age+'</span></td></tr>'
             	//+ '	<tr><td colspan="2">'+orderObj.aboutMyself+'... <a href="#" onclick="showMore('+orderObj.id+')"> read more..</a> </td></tr>'
             	//+  more_details_str
@@ -145,12 +399,22 @@ function displayMatches(listOrders) {
             	+ '    	<span class="more" style="color: #0087AF;cursor: pointer;"><a href="#" >read more </a></span><i style="cursor: pointer;" class="fa fa-angle-down"></i>'
             	+ '    </div>'
             	+ '</div>' */
-            	+ '<div class="col-md-4">'
-            	+ '<h4 style="margin-bottom:20px;">Like this Profile?</h4>'
-            	//+ '<c:if test="${(cacheGuest.roleId == 6)}">'
-            	+ insert_str
+            	+ '<div class="col-md-3">'
+            	+ '<a href="#" type="button" class="btn btn-success btn-block btn-md" onclick="fullProfile('+orderObj.id+')">View Full Profile</a>'
+            	+ '</div>'
+            	+ '<div class="col-md-3">'
+            	+ '<a href="#" type="button" class="btn btn-primary btn-block btn-md" id="sendMail'+orderObj.id+'" onclick="displayMailPopup('+orderObj.id+')">Send Mail</a>'
+            	+ '</div>'
+            	+ '<div class="col-md-3">'
+            	+ interestStr
+            	+ '</div>'
+            	//+ '<span id="expInterest'+orderObj.id+'"><a href="#" type="button" class="btn btn-primary btn-block btn-md"  onclick="expressInterest('+orderObj.id+')">Send Interest</a></span>'
+            	+ '<div class="col-md-3">'
+               //+ '<c:if test="${(cacheGuest.roleId == 6)}">'
+            	//+ insert_str
 				//+ '</c:if>	 '
-				+ '<button class="btn btn-danger btn-block btn-md" onclick="fullProfile('+orderObj.id+')">View Full Profile</button>'
+				//+ '<span id="shortlistTD'+orderObj.id+'"><a href="#" class="btn btn-danger btn-block btn-md" onclick="shortList('+orderObj.id+')">Short List</span></a>'
+				+shortListedStr
             	+ '<div class="clearfix"></div>'
             	+ '</div>'
             	+ '</div>'
@@ -310,61 +574,7 @@ function submitSearch(){
    // }
 }); */
 
-function expressInterest(profile_id){
-	var roleId = ${cacheGuest.roleId};
-	$("#id").val(profileId);
-	if(roleId==4){
-		document.searchForm2.action = "memberShipPage"
-		document.searchForm2.submit();
-		return true;
-	}else{
-		if(allowed_limit<=0){
-			alert("Exceeded allowed profiles limit. Renew your membership plan and get more profiles");
-			return false;
-		}
-		var formData = new FormData();
-	
-		formData.append('profile_id',profile_id);
-		jQuery.fn.makeMultipartRequest('POST', 'expressInterestTo', false,
-				formData, false, 'text', function(data){
-	    		var jsonobj = $.parseJSON(data);
-	    		var limit = jsonobj.allowed_limit;
-	    		var msg = jsonobj.message;
-	    		var profiles = jsonobj.allProfiles;
-	    		//if(typeof msg != "undefined" ){
-	    			if("success"==msg){
-	    				alert("Interest request has been sent successfully");
-	    				$("#expInterest"+profile_id).html('Expressed Interest');
-	    				$("#expInterest"+profile_id).prop("disabled",true);
-	    				allowed_limit = limit;
-	    			}else if("failed"==msg || "exception"==msg){
-	    				alert("Interest request is not successful. Please try again.");
-	    			}
-	    		//}
-	    		/* if(profiles==""){
-	    			$('#countId').html('0');
-	    			var str = '<div class="panel panel-default"><h6>No results found..!</h6></div>';
-	    			$('#searchResults').html('');
-	    			$(str).appendTo("#searchResults");
-	    		}else{
-	    			$('#countId').html(profiles.length);
-	    			displayMatches(profiles);
-	    		} */
-	    		/* var filtered_list = jsonobj.filtered_profiles;
-	    		$('#countId').html('');
-	    		if(filtered_list==""){
-	    			$('#countId').html('0');
-	    			var str = '<div class="panel panel-default"><h6>No results found..!</h6></div>';
-	    			$('#searchResults').html('');
-	    			$(str).appendTo("#searchResults");
-	    		}else{
-	    			$('#countId').html(filtered_list.length);
-	    			displayMatches(filtered_list);
-	    		} */
-				
-			});
-	}
-}
+
 
 /* $(".more").click(function(){
 	$(".hideMe").hide();
@@ -405,7 +615,7 @@ function displayMobileNum(profileId,listType){
 		return true;
 	}else{
 		if(allowed_limit<=0){
-			alert("Exceeded allowed profiles limit. Renew your membership plan and get more profiles");
+			alert("Exceeded allowed profiles limit. Renew/Upgrade your membership and get more profiles");
 			return false;
 		}
 		var profileObj = serviceUnitArray[profileId];
@@ -419,7 +629,7 @@ function displayMobileNum(profileId,listType){
 	    		var msg = jsonobj.message;
 	    		if(typeof msg != "undefined"){
 	    			if(msg=="success"){
-	    				$("#row"+profileId).html('<td>'+profileObj.mobile+'</td>');
+	    				$("#mobileTD"+profileId).html('<td>'+profileObj.mobile+'</td>');
 	    				allowed_limit = limit;
 	    			}else{
 	    				alert("Some problem occured. Please try again.");
@@ -432,16 +642,8 @@ function displayMobileNum(profileId,listType){
 }
 
 function fullProfile(profile_id){
-	var roleId = ${cacheGuest.roleId};
 	$("#id").val(profile_id);
-	if(roleId==4){
-		document.searchForm2.action = "memberShipPage"
-	}else{
-		document.searchForm2.id = profile_id;
-		document.searchForm2.action = "fullProfile";
-	}
-	//document.searchForm2.id = profile_id;
-	
+    document.searchForm2.action = "fullProfile"
     document.searchForm2.target = "_blank";    // Open in a new window
     document.searchForm2.submit();             // Submit the page
     return true;
@@ -492,6 +694,7 @@ function paginationSetup(total_items_count) {
         	 formData.append("rAgeFrom",$("#rAgeFrom").val());
         	 formData.append("rAgeFrom",$("#rAgeFrom").val()); */
         	 formData.append("page_no",page);
+        	 formData.append("request_from","newmatches");
         	 //var tempData = $("#searchForm2").serialize();
     		$.fn.makeMultipartRequest('POST', 'displayPage', false,
     				formData, false, 'text', function(data){
@@ -534,6 +737,44 @@ function displayTableFooter(page){
 	}
 	$("#table_footer").html("Showing "+from_val+" to "+to_val+" of "+total_items_count+" records");
 }
+function displayMailPopup(profile_id){
+	var roleId = ${cacheGuest.roleId};
+	$("#profile_id").val(profile_id);
+	if(roleId==4 || roleId==12 || roleId==13){
+		document.searchForm2.action = "memberShipPage"
+		document.searchForm2.submit();
+		return true;
+	}else{
+		$('#myModal').modal();
+		
+	}
+}
+
+function sendMail(){
+	$("#sendMailBtn").prop("disabled",true);
+	$("#sendMailBtn").val("Please wait...");
+	var content = $("#mail_content").val();
+	if(content.trim() == ""){
+		alert("Please enter some content");
+		return false;
+	}
+	 var formData = new FormData();
+	 formData.append("profile_id",$("#profile_id").val());
+	 formData.append("mail_content",content);
+	 
+	 $.fn.makeMultipartRequest('POST', 'sendMail', false,
+				formData, false, 'text', function(data){
+			var jsonobj = $.parseJSON(data);
+			var msg = jsonobj.message;
+			if(msg != null){
+				
+			}
+			$("#myModal").dialog("close");
+	 });
+	//$("#sendMailBtn").removeAttr("disabled");
+	//$("#sendMailBtn").val("Send Mail");
+	
+}
 
 function hideChildren() {
 	 var maritalStatus=$("#rMaritalStatus").val();
@@ -543,7 +784,26 @@ function hideChildren() {
 	 }else{
 		 $("#haveChildrenId").show();
 	 }
-	}
+}
+
+function getMatchesBasedOnCheckboxes(){
+	var with_photo = $("#withPhoto").prop("checked");
+	var already_viewed = $("#alreadyViewed").prop("checked");
+	var already_contacted = $("#alreadyContacted").prop("checked");
+	
+	var formData = new FormData();
+	formData.append('withPhoto',with_photo);
+	formData.append('alreadyViewed',already_viewed);
+	formData.append('alreadyContacted',already_contacted);
+	$.fn.makeMultipartRequest('POST', 'newMatchesAjaxAction', false,
+			formData, false, 'text', function(data){
+    		var jsonobj = $.parseJSON(data);
+    		var list = jsonobj.new_matches;
+    		var len = list.length;
+	});
+	
+}
+
 $(document).ready(function(){
 	var selected_values = "${createProfile.rMaritalStatus}";
     $("#rMaritalStatus").val(selected_values.split(","));
@@ -585,7 +845,15 @@ $(document).ready(function(){
 	$("#rDiet").val(selected_values.split(","));
 });
 
-$(".searchPage").addClass("active");
+$(".newMatches").addClass("active");
 </script>
+<script>
+$(".open-button").on("click", function() {
+	  $(this).closest('.collapse-group').find('.collapse').collapse('show');
+	});
 
+	$(".close-button").on("click", function() {
+	  $(this).closest('.collapse-group').find('.collapse').collapse('hide');
+	});
+</script>
 <%@ include file="userFooter.jsp"%>

@@ -62,6 +62,11 @@ $( document ).ready(function() {
 		</ul>
 		
 	</div>
+								<c:if test="${not empty msg}">
+									<div class="form-group col-md-8" style="margin-bottom: 0px;" align="right">
+										<div class="msgcss fadeIn animated alert alert-danger">${msg}</div>
+									</div>
+								</c:if>
 	<div class="col-lg-8">
 		<div>
 			<div class="portlet" id="yw0">
@@ -137,7 +142,7 @@ $( document ).ready(function() {
         <div class="modal-body">
          <input type="hidden" name="profileId" id="profileId">
         <input id="imageName" type="file" value="" name="imageName" >
-          <button type="button" onclick="imageAjax()" class="btn btn-default" >upload</button>
+          <button type="button" id="uploadBtn" onclick="imageAjax()" class="btn btn-default" >Upload</button>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -221,13 +226,23 @@ s.parentNode.insertBefore(ga, s);
 	    $('#myModal').modal();
 	} 
  function imageAjax(){
+	 $("#uploadBtn").prop("disabled",true);
+		$("#uploadBtn").val("Please wait...");
 	var id= $("#profileId").val();
 	var formData = new FormData();
 	formData.append("imageName", imageName.files[0]);
 	formData.append("id", id);
 	  $.fn.makeMultipartRequest('POST', 'imageUpload', false,
 				formData, false, 'text', function(data){
-			
+		  	var jsonobj = $.parseJSON(data);
+		  	var msg = jsonobj.message;
+		  	if("success" == msg){
+		  		alert("Photo uploaded Successfully");
+		  	}else{
+		  		alert("Photo upload failed, Please try again..!");
+		  	}
+		  	$("#uploadBtn").removeAttr("disabled");
+	   		$("#uploadBtn").val("Upload Photo");
 		});
  }
  function editProfile(id) {

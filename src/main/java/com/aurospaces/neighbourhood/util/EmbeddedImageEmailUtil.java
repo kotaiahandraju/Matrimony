@@ -79,7 +79,7 @@ public class EmbeddedImageEmailUtil {
 	 
 	        // creates message part
 	        MimeBodyPart messageBodyPart = new MimeBodyPart();
-	        messageBodyPart.setContent(htmlBody, "text/html");
+	        messageBodyPart.setContent(htmlBody, "text/html;charset=UTF-8");
 	 
 	        // creates multi-part
 	        Multipart multipart = new MimeMultipart();

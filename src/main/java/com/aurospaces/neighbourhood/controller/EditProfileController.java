@@ -27,7 +27,7 @@ public class EditProfileController {
 	@Autowired
 	UsersDao objUsersDao;
 
-	@RequestMapping(value = "/EditUserProfile")
+	/*@RequestMapping(value = "/EditUserProfile")
 	public String editUserProfile(UsersBean objUsersBean, ModelMap model, Model objeModel, HttpServletRequest request, HttpSession session) 
 	{
 		System.out.println("EditUserProfile Page");
@@ -273,6 +273,6 @@ public class EditProfileController {
 		} finally {
 		}
 		return statesMap;
-	}
+	}*/
 }
 

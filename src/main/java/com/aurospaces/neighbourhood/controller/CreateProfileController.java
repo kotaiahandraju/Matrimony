@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -127,7 +128,7 @@ public class CreateProfileController {
 	@RequestMapping(value = "/addProfile")
 	public String addProfile(@ModelAttribute("createProfile") UsersBean objUsersBean, ModelMap model,
 			HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
-		System.out.println("addProfile Page");
+		//System.out.println("addProfile Page");
 		List<ContriesBean> listOrderBeans = null;
 		ObjectMapper objectMapper = null;
 		String sJson = null;
@@ -154,7 +155,7 @@ public class CreateProfileController {
 			if(objUsersBean.getId() ==0){
 				objUsersBean.setRoleId(4);
 				int userId = objUsersDao.getNewUserId();
-				if(StringUtils.isNotBlank(objUsersBean.getBranch())){
+				/*if(StringUtils.isNotBlank(objUsersBean.getBranch())){
 				objUsersBean.setPassword(MiscUtils.generateRandomString(6));
 				int branchid = Integer.parseInt(objUsersBean.getBranch());
 				objBranch = objBranchDao.getById(branchid);
@@ -163,10 +164,22 @@ public class CreateProfileController {
 				String ss=	StringUtils.leftPad(String.valueOf(userId), 6, "0");
 				prefix = prefix.concat(ss);
 				objUsersBean.setUsername(prefix);
-				}
+				}*/
 				objUsersBean.setStatus("1");
 				objUsersBean.setUsername("AM"+MiscUtils.generateRandomNumber(6));
 				objUsersDao.save(objUsersBean);
+				// make an entry for otp also
+				String otp = objUsersDao.genOtp();
+				try{
+					boolean success = objUsersDao.saveOtp(objUsersBean.getId()+"",objUsersBean.getMobile(),otp,"1");
+				    if(success){
+				    	//objUsersDao.updateOtpStatus(objUsersBean.getMobile(),otp);
+				    }
+				}catch(Exception e){
+					e.printStackTrace();
+				}
+			    
+				//
 				try {
 					EmailUtil emailUtil = new EmailUtil();
 					if(StringUtils.isNotBlank(objUsersBean.getEmail())){
@@ -180,6 +193,7 @@ public class CreateProfileController {
 				}
 				msg = "Inserted";
 			}else{
+				objUsersDao.save(objUsersBean);
 				msg = "Updated";
 			}
 			
@@ -209,7 +223,7 @@ public class CreateProfileController {
 			logger.fatal("error in CreateProfile class addProfile method  ");
 			return "CreateProfile";
 		}
-		return "redirect:CreateProfile";
+		return "redirect:AllProfilesHome";
 	}
 	@RequestMapping(value = "/imageUpload")
 	public @ResponseBody String imageUpload(@RequestParam("imageName") MultipartFile file, ModelMap model,
@@ -221,6 +235,7 @@ public class CreateProfileController {
 		String sDirPath = null;
 		String filepath = null;
 		UserImagesBean objUerImagesBean = null;
+		JSONObject objJson =new JSONObject();
 		try {
 			objUerImagesBean = new UserImagesBean();
 			id=request.getParameter("id");
@@ -273,7 +288,14 @@ public class CreateProfileController {
 					System.out.println(sDirPath);
 					File file1 = new File(sDirPath);
 				    file.transferTo(file1);
-				    objUserImageUploadDao.save(objUerImagesBean);
+				    try{
+				    	objUserImageUploadDao.save(objUerImagesBean);
+					    objJson.put("message", "success");
+				    }catch(Exception e){
+				    	e.printStackTrace();
+				    	objJson.put("message", "failed");
+				    }
+				    
 			}
 			
 		} catch (Exception e) {
@@ -282,7 +304,7 @@ public class CreateProfileController {
 			logger.error(e);
 			logger.fatal("error in CreateProfile class addProfile method  ");
 		}
-		return "redirect:CreateProfile";
+		return objJson.toString();
 	}
 	
 	

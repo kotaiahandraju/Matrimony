@@ -12,6 +12,7 @@ import java.util.Properties;
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -51,7 +52,7 @@ public class EmailUtil {
 			body = body.replace("_password_", objUsersBean.getPassword());
 			body = body.replace("_img_", "cid:image2");
 	        
-			subject = "Employee login details";
+			subject = "Aarna Matrimony login details";
 	        
 	       
 	 
@@ -283,6 +284,57 @@ public class EmailUtil {
 	        // inline images
 	        Map<String, String> inlineImages = new HashMap<String, String>();
 //	        inlineImages.put("image1", objContext.getRealPath("images" +File.separator+"telugu.png"));
+	        inlineImages.put("image2", objContext.getRealPath("images" +File.separator+"logo.jpg"));
+	 
+	       
+	            EmbeddedImageEmailUtil.send(host, port, mailFrom, password, mailTo,
+	                subject, body.toString(), inlineImages);
+	            System.out.println("Email sent.");
+	        } catch (Exception ex) {
+	            System.out.println("Could not send email.");
+	            ex.printStackTrace();
+	        }
+			return subject;
+	}
+	
+	public static String sendInterestMail(UsersBean senderBean,UsersBean receipientBean,HttpServletRequest request,
+			ServletContext objContext) throws AddressException,
+			MessagingException, IOException {
+		String subject = null;
+		Properties prop = new Properties();
+		InputStream input = null;
+		String body = null;
+		try{
+	 
+	        String mailTo = receipientBean.getEmail();
+	        
+//	        -------------------------------------------------------------------------------------------
+			
+			
+	        String propertiespath = objContext.getRealPath("Resources" +File.separator+"DataBase.properties");
+			input = new FileInputStream(propertiespath);
+			prop.load(input);
+			String host = prop.getProperty("host");
+			String port = prop.getProperty("port");
+			String mailFrom = prop.getProperty("usermail");
+			String password = prop.getProperty("mailpassword");
+	        
+			subject = prop.getProperty("interest_mail_subject");
+			subject = subject.replace("_username_", senderBean.getUsername());
+			
+			body = prop.getProperty("interest_mail_body");
+			body = body.replace("_senderphoto_", "cid:senderimage");
+			body = body.replace("_senderusername_", senderBean.getUsername());
+			String baseurl =  request.getScheme() + "://" + request.getServerName() +      ":" +   request.getServerPort() +  request.getContextPath();
+			body = body.replace("_fullprofileaction_", baseurl+"/fullProfile?profileId="+senderBean.getId());
+			body = body.replace("_content_", receipientBean.getMail_content());
+			body = body.replace("_img_", "cid:image2");
+	        String str = body.toString();
+	 
+	        // inline images
+	        Map<String, String> inlineImages = new HashMap<String, String>();
+//	        inlineImages.put("image1", objContext.getRealPath("images" +File.separator+"telugu.png"));
+	        inlineImages.put("senderimage", objContext.getRealPath(senderBean.getProfileImage()));
 	        inlineImages.put("image2", objContext.getRealPath("images" +File.separator+"logo.jpg"));
 	 
 	       

@@ -2,9 +2,10 @@
 
 			<div class="col-md-8 products-grid-left">
             	<div class="panel panel-success">
-					<div class="panel-heading">Premium Profiles</div>
+					<div class="panel-heading">Pending Requests</div>
 					<div class="panel-body table-responsive">
 						<form:form commandName="createProfile"  class="form-horizontal" id="searchForm2" name="searchForm2" role="form" method="post">
+						<form:hidden path="id" />
 							<div class="col-md-12">
 							<div id="searchresultsDiv" style="font-size: 12px;">
 								   <div id="searchResults">
@@ -56,7 +57,7 @@ function displayMatches(listOrders) {
 	serviceUnitArray = {};
 	$.each(listOrders,function(i, orderObj) 
 	{
-		serviceUnitArray[orderObj.id] = orderObj;
+		serviceUnitArray[orderObj.requestId] = orderObj;
 		
 		var array = null;
 // 		var imageUrl =null;
@@ -80,19 +81,20 @@ function displayMatches(listOrders) {
 			var more_details_str = '';
 			var expressed = orderObj.expressedInterest;
 			var firstname = 'xxxxxx',lastname='xxxxxx';
-			mobile_no__str = '<tr id="row'+orderObj.id+'"><td><button type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button></td></tr>';
-			insert_str = '<button id="expInterest'+orderObj.id+'" type="button" class="btn btn-primary btn-block" onclick="expressInterest('+orderObj.id+')">Yes I\'m interested</button>';
+			mobile_no__str = '<tr id="row'+orderObj.requestId+'"><td><a href="#" type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.requestId+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\','+orderObj.requestId+')">View Mobile Number</a></td></tr>';
+			insert_str = '<span id="accSpan'+orderObj.requestId+'"><a href="#" id="expInterest'+orderObj.requestId+'" type="button" class="btn btn-primary btn-block" onclick="acceptRequest('+orderObj.requestId+')">Accept Request</a></span>'
+						+'<span id="rejSpan'+orderObj.requestId+'"><a href="#" id="rejInterest'+orderObj.requestId+'" type="button" class="btn btn-danger btn-block" onclick="rejectRequest('+orderObj.requestId+')">Reject Request</a></span>';
 			/* if(expressed==0){
-				insert_str = '<button id="expInterest'+orderObj.id+'" type="button" class="btn btn-primary btn-block" onclick="expressInterest('+orderObj.id+')">Yes I\'m interested</button>';
+				insert_str = '<button id="expInterest'+orderObj.requestId+'" type="button" class="btn btn-primary btn-block" onclick="expressInterest('+orderObj.requestId+')">Yes I\'m interested</button>';
 			}else if(expressed>0){
 				insert_str = '<button class="btn btn-primary btn-block">Expressed Interest</button>';
 			} */
 			/* if((login_user_role_id == 6) || (login_user_role_id == 11) || (login_user_role_id == 14)){ //means premium user
-				mobile_no__str = '<tr id="row'+orderObj.id+'"><td><button type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button></td></tr>';
+				mobile_no__str = '<tr id="row'+orderObj.requestId+'"><td><button type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.requestId+'" onclick="displayMobileNum('+orderObj.requestId+',\'preferences\')">View Mobile Number</button></td></tr>';
 				//more_details_str = '<tr><td><span><a href="#" onclick="showMoreDetails(this)">read more...</a></span></td></tr>';
-				//mobile_no__str = '<tr><td><span><a href="#" onclick="viewMobileNumber('+orderObj.id+')">View Mobile Number</a></span></td></tr>';
+				//mobile_no__str = '<tr><td><span><a href="#" onclick="viewMobileNumber('+orderObj.requestId+')">View Mobile Number</a></span></td></tr>';
 				if(expressed==0){
-					insert_str = '<button id="expInterest'+orderObj.id+'" type="button" class="btn btn-primary btn-block" onclick="expressInterest('+orderObj.id+')">Yes I\'m interested</button>';
+					insert_str = '<button id="expInterest'+orderObj.requestId+'" type="button" class="btn btn-primary btn-block" onclick="expressInterest('+orderObj.requestId+')">Yes I\'m interested</button>';
 				}else if(expressed>0){
 					insert_str = '<button class="btn btn-primary btn-block">Expressed Interest</button>';
 				}
@@ -102,6 +104,10 @@ function displayMatches(listOrders) {
 			
 				firstname = orderObj.firstName;
 				lastname = orderObj.lastName;
+			}
+			var profession = orderObj.occupationName;
+			if((profession == null) || profession == ""){
+				profession = "Not Specified";
 			}
 			var tblRow = '<div class="panel panel-default">'
 				+ '<div class="panel-heading">'
@@ -128,29 +134,14 @@ function displayMatches(listOrders) {
             	+ '	<tr><td>Community</td><td><span>: '+orderObj.casteName+'</span></td></tr>'
             	+ '	<tr><td>Location</td><td><span>: '+orderObj.currentCityName+'</span></td></tr>'
             	+ '	<tr><td>Education</td><td><span>: '+orderObj.educationName+'</span></td></tr>'
-            	+ '	<tr><td>Profession</td><td><span>: '+orderObj.occupationName+'</span></td></tr>'
+            	+ '	<tr><td>Profession</td><td><span>: '+profession+'</span></td></tr>'
             	+ mobile_no__str
-            	
-            	//+ '	<tr><td>Age</td><td><span>: '+orderObj.age+'</span></td></tr>'
-            	//+ '	<tr><td colspan="2">'+orderObj.aboutMyself+'... <a href="#" onclick="showMore('+orderObj.id+')"> read more..</a> </td></tr>'
-            	//+  more_details_str
-            	//+ '	<tr class="showMore" hidden="true"><td colspan="2">'+orderObj.aboutMyself+'... <a href="#" > read more..</a> </td></tr>'
-            	//+ '	<tr class="showMore" hidden="true"><td colspan="2">'+orderObj.aboutMyself+'... <a href="#" > more detailssss</a> </td></tr>'
-            	//+ '	<tr class="showMore" hidden="true"><td colspan="2">'+orderObj.aboutMyself+'... <a href="#" > more detailssss</a> </td></tr>'
             	+ '</table>'
             	+ '</div>'
-            	/* + '<div id="hideMe'+orderObj.id+'" class="form-group hideMe">'
-            	+ '    <label class="col-md-4 control-label" for="textinput"></label>'  
-            	+ '    <div class="col-md-6 text-center">'
-            	+ '    	<span class="more" style="color: #0087AF;cursor: pointer;"><a href="#" >read more </a></span><i style="cursor: pointer;" class="fa fa-angle-down"></i>'
-            	+ '    </div>'
-            	+ '</div>' */
             	+ '<div class="col-md-4">'
             	+ '<h4 style="margin-bottom:20px;">Like this Profile?</h4>'
-            	//+ '<c:if test="${(cacheGuest.roleId == 6)}">'
             	+ insert_str
-				//+ '</c:if>	 '
-				+ '<button class="btn btn-danger btn-block btn-md" onclick="fullProfile('+orderObj.id+')">View Full Profile</button>'
+				+ '<a href="#" class="btn btn-primary btn-block btn-md" onclick="fullProfile('+orderObj.id+')">View Full Profile</a>'
             	+ '<div class="clearfix"></div>'
             	+ '</div>'
             	+ '</div>'
@@ -247,22 +238,24 @@ function submitSearch(){
    
 
 
-function expressInterest(profile_id){
+function acceptRequest(requestId){
 	var roleId = ${cacheGuest.roleId};
-	$("#id").val(profileId);
-	if(roleId==4){
+	$("#id").val(requestId);
+	 if(roleId==4){
 		document.searchForm2.action = "memberShipPage"
 		document.searchForm2.submit();
 		return true;
 	}else{
-		if(allowed_limit<=0){
+		 /* if(allowed_limit<=0){
 			alert("Exceeded allowed profiles limit. Renew your membership plan and get more profiles");
 			return false;
-		}
+		}  */ 
 		var formData = new FormData();
 	
-		formData.append('profile_id',profile_id);
-		jQuery.fn.makeMultipartRequest('POST', 'expressInterestTo', false,
+		formData.append('requestId',requestId);
+		formData.append('accept_flag','1');
+		
+		jQuery.fn.makeMultipartRequest('POST', 'acceptRequest', false,
 				formData, false, 'text', function(data){
 	    		var jsonobj = $.parseJSON(data);
 	    		var limit = jsonobj.allowed_limit;
@@ -270,12 +263,16 @@ function expressInterest(profile_id){
 	    		var profiles = jsonobj.allProfiles;
 	    		//if(typeof msg != "undefined" ){
 	    			if("success"==msg){
-	    				alert("Interest request has been sent successfully");
-	    				$("#expInterest"+profile_id).html('Expressed Interest');
-	    				$("#expInterest"+profile_id).prop("disabled",true);
+	    				alert("Accepted successfully");
+	    				$("#expInterest"+requestId).html('Accepted');
+	    				$("#expInterest"+requestId).removeAttr("href");
+	    				$("#expInterest"+requestId).removeAttr("onclick");
+	    				$("#expInterest"+requestId).attr("disabled",true);
+	    				$("#rejSpan"+requestId).html('');
+	    				
 	    				allowed_limit = limit;
 	    			}else if("failed"==msg || "exception"==msg){
-	    				alert("Interest request is not successful. Please try again.");
+	    				alert("Some problem occured. Please try again.");
 	    			}
 	    		//}
 	    		
@@ -284,7 +281,49 @@ function expressInterest(profile_id){
 	}
 }
 
-function displayMobileNum(profileId,listType){
+function rejectRequest(requestId){
+	var roleId = ${cacheGuest.roleId};
+	$("#id").val(requestId);
+	 if(roleId==4){
+		document.searchForm2.action = "memberShipPage"
+		document.searchForm2.submit();
+		return true;
+	}else{
+		if(allowed_limit<=0){
+			alert("Exceeded allowed profiles limit. Renew your membership plan and get more profiles");
+			return false;
+		} 
+		var formData = new FormData();
+	
+		formData.append('requestId',requestId);
+		formData.append('accept_flag','0');
+		
+		jQuery.fn.makeMultipartRequest('POST', 'acceptRequest', false,
+				formData, false, 'text', function(data){
+	    		var jsonobj = $.parseJSON(data);
+	    		var limit = jsonobj.allowed_limit;
+	    		var msg = jsonobj.message;
+	    		var profiles = jsonobj.allProfiles;
+	    		//if(typeof msg != "undefined" ){
+	    			if("success"==msg){
+	    				alert("Rejected successfully");
+	    				$("#rejInterest"+requestId).html('Rejected');
+	    				$("#rejInterest"+requestId).removeAttr("href");
+	    				$("#rejInterest"+requestId).removeAttr("onclick");
+	    				$("#rejInterest"+requestId).attr("disabled",true);
+	    				$("#accSpan"+requestId).html('');
+	    				allowed_limit = limit;
+	    			}else if("failed"==msg || "exception"==msg){
+	    				alert("Some problem occured. Please try again.");
+	    			}
+	    		//}
+	    		
+				
+			});
+	}
+}
+
+function displayMobileNum(profileId,listType,requestId){
 	var roleId = ${cacheGuest.roleId};
 	$("#id").val(profileId);
 	if(roleId==4){
@@ -293,10 +332,10 @@ function displayMobileNum(profileId,listType){
 		return true;
 	}else{
 		if(allowed_limit<=0){
-			alert("Exceeded allowed profiles limit. Renew your membership plan and get more profiles");
+			alert("Exceeded allowed profiles limit. Renew/Upgrade your membership and get more profiles");
 			return false;
 		}
-		var profileObj = serviceUnitArray[profileId];
+		var profileObj = serviceUnitArray[requestId];
 		var formData = new FormData();
 		formData.append('profile_id',profileId);
 		formData.append('list_type',listType);
@@ -307,7 +346,7 @@ function displayMobileNum(profileId,listType){
 	    		var msg = jsonobj.message;
 	    		if(typeof msg != "undefined"){
 	    			if(msg=="success"){
-	    				$("#row"+profileId).html('<td>'+profileObj.mobile+'</td>');
+	    				$("#row"+requestId).html('<td>'+profileObj.mobile+'</td>');
 	    				allowed_limit = limit;
 	    			}else{
 	    				alert("Some problem occured. Please try again.");
@@ -320,16 +359,8 @@ function displayMobileNum(profileId,listType){
 }
 
 function fullProfile(profile_id){
-	var roleId = ${cacheGuest.roleId};
 	$("#id").val(profile_id);
-	if(roleId==4){
-		document.searchForm2.action = "memberShipPage"
-	}else{
-		document.searchForm2.id = profile_id;
-		document.searchForm2.action = "fullProfile";
-	}
-	//document.searchForm2.id = profile_id;
-	
+	document.searchForm2.action = "fullProfile"
     document.searchForm2.target = "_blank";    // Open in a new window
     document.searchForm2.submit();             // Submit the page
     return true;
@@ -473,7 +504,7 @@ $(document).ready(function(){
 	$("#rDiet").val(selected_values.split(","));
 });
 
-$(".searchPage").addClass("active");
+$(".messages").addClass("active");
 </script>
 
 <%@ include file="userFooter.jsp"%>

@@ -3305,3 +3305,7 @@ label {
 .well a{
 	color:#FFF;
 }
+
+.dotted-seperator tr{
+	border-bottom:1px dotted lightgray;
+}

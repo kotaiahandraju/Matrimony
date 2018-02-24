@@ -1,4 +1,14 @@
 <%@ include file="userHeader.jsp"%>
+<style>
+.ui-dialog-titlebar-close
+{
+ width: 25px;
+    height: 25px;
+    left-padding: 100px;
+    background-image: url(img/close.png);
+    background-repeat: no-repeat;
+}
+</style>
 
 			<div class="col-md-8 products-grid-left">
 				<div class="panel panel-success">
@@ -7,16 +17,26 @@
 				<div id="imagesDiv" class="row" style="margin-bottom: 0.4em;">
 			      	<c:forEach items="${photosList}" var="photo" >
 			      		<div id="div${photo.id}" class="col-md-3">
- 			      			<a href="#" onclick="zoomImage('${photo.image}');"><img id="photo${photo.id}" src="${photo.image}" class="img-responsive thumbnail watermark_text" style="margin-bottom:0;"></a>
+ 			      			<a href="${photo.image}" data-littlelightbox-group="gallery" class="lightbox thumbnail watermark_text1"><img id="photo${photo.id}" src="${photo.image}" class="img-responsive thumbnail watermark_text" style="margin-bottom:0;"></a>
 			      			<c:if test="${photo.approved_status == '0' }">
-			      				<span>Approval Pending</span>
+			      					<span>Approval Pending</span>
 			      			</c:if>
 			      			<c:if test="${photo.approved_status == '1' }">
 			      				<c:if test="${photo.is_profile_picture == '1' }">
-				      				<span>Profile Picture</span>
+			      					<div class="all_pics_normal">
+				      					<span>Profile Picture</span>
+				      				</div>
+				      				<div class="all_pics_a" hidden="true">
+				      					<a id="profilepic${photo.id}" href="#" class="all_pics" data-littlelightbox-group="gallery" onclick="setAsProfilePicture(${photo.id},'${photo.image}')">Set as Profile Picture</a>
+				      				</div>
 				      			</c:if>
 				      			<c:if test="${photo.is_profile_picture == '0' }">
-				      				<a id="profilepic${photo.id}" href="#" onclick="setAsProfilePicture(${photo.id},'${photo.image}')">Set as Profile Picture</a>
+				      				<div class="all_pics_normal" hidden="true">
+				      					<span>Profile Picture</span>
+				      				</div>
+				      				<div class="all_pics_a">
+				      					<a id="profilepic${photo.id}" href="#" class="all_pics" data-littlelightbox-group="gallery" onclick="setAsProfilePicture(${photo.id},'${photo.image}')">Set as Profile Picture</a>
+				      				</div>
 				      			</c:if>
 			      			</c:if>
 			      			<c:if test="${photo.approved_status == '2' }">
@@ -82,21 +102,26 @@
 			<div class="col-md-3 products-grid-right">
 			</div>
 			<div id="dial1"></div>
- <script src="${baseurl }/js/jquery-ui.min.js"></script>        
+ <script src="${baseurl }/js/jquery-ui.min.js"></script> 
+<script>
+	$('.lightbox').littleLightBox();
+</script>       
 <script type="text/javascript">
+
 $(function(){
 	 //add text water mark;	
  addWaterMark();
+ 
 });
 function addWaterMark(){
  $('.watermark_text').watermark({
 	  text: 'aarnamatrimony.com',
-	  textWidth: 600,
-	  textSize: 70,
+	  textWidth: 700,
+	  textSize: 76,
 	  textColor: 'white',
 	  gravity: 'w',
-	   opacity: 0.7,
-	   margin: 10,
+	   opacity: 0.8,
+	   //margin: 10,
 	   outputWidth: 'auto',
 	   outputHeight: 'auto'
 	 });
@@ -160,11 +185,20 @@ function setAsProfilePicture(photoId,photoImage){
 		  	var jsonobj = $.parseJSON(data);
 		  	var msg = jsonobj.message;
 		  	if("success" == msg){
-		  		$("#profilepic").prop("src",photoImage);
-		  		alert("Profile picture updated.");
-		  		$("#profilepic"+photoId).removeAttr("href");
+		  		var str = '<img id="profilepic" src="'+photoImage+'" class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: 120px;width: 150px;">';
+		  		//$("#profilepic").prop("src",photoImage);
+		  		$("#profilePicOuterTag").html('');
+		  		$("#profilePicOuterTag").html(str);
+		  		addWaterMark();
+		  		$('.all_pics_normal').attr("hidden",true);
+		  		$('.all_pics_a').removeAttr("hidden");
+		  		$('#div'+photoId+' .all_pics_normal').removeAttr("hidden");
+		  		$('#div'+photoId+' .all_pics_a').attr("hidden",true);
+		  		/* $("#profilepic"+photoId).removeAttr("href");
 		  		$("#profilepic"+photoId).removeAttr("onclick");
-		  		$("#profilepic"+photoId).html('Profile Picture');
+		  		$("#profilepic"+photoId).html('Profile Picture'); */
+		  		
+		  		alert("Profile picture updated.");
 		  	}else{
 		  		alert("Some problem occured. Please try again.");
 		  	}

@@ -1,9 +1,21 @@
-<%@ include file="userHeader.jsp"%>
-
+<%@ include file="userCommonHeader.jsp"%>
+<div class="products">
+	<div class="container" style="background: #FFF;">
+		<div class="mid-grids">
+			
+			<jsp:include page="sideGrid1.jsp" />
+			<div id="dial1"></div>
 			<div class="col-md-8 products-grid-left">
 				
 				<div class="panel panel-success">
-					<div class="panel-heading">Shortlisted Profiles </div>
+					<div class="panel-heading"> 
+						<c:if test="${list_type == 'shortListedMe'}">
+							Members who shortlisted my profile
+						</c:if>
+						<c:if test="${list_type == 'shortListedByMe'}">
+							Profiles shortlisted by me
+						</c:if>
+					</div>
 		            <form:form commandName="createProfile"  class="form-horizontal" id="searchForm2" name="searchForm2" role="form"   method="post">
 	             		<form:hidden path="id" />
 						<div class="panel-body" id="matches">
@@ -30,10 +42,11 @@ function displayMatches(listOrders) {
 	$('#matches').html('');
 	serviceUnitArray = {};
 	if(listOrders==""){
-		var tblRow = '<div>No matches found.</div>';
+		var tblRow = '<div class="alert alert-danger" style="margin-bottom: 0px;padding: 5px;"><h6>No profiles found..!</h6></div>';
 		$(tblRow).appendTo("#matches"); 
 		$("#pagination_div").prop("hidden",true);
 	}
+	
 	$.each(listOrders,function(i, orderObj) 
 	{
 		paginationSetup(total_items_count);
@@ -74,6 +87,24 @@ function displayMatches(listOrders) {
 				//more_details_str = '<tr><td><span><a href="#" onclick="showMoreDetails(this)">read more...</a></span></td></tr>';
 				//mobile_no__str = '<tr><td><span><a href="#" onclick="viewMobileNumber('+orderObj.id+')">View Mobile Number</a></span></td></tr>';
 			}
+			var premiumMember = "";
+			var memberRoleId = orderObj.role_id;
+			if(memberRoleId!=null && memberRoleId!="" && (memberRoleId==6 || memberRoleId==11 ||
+					memberRoleId==12 || memberRoleId==13 || memberRoleId==14)){
+				premiumMember = "<span class='premium-member'>Premium Member</span>";
+			}
+			var shortListedStr = "";
+			var listType = "${list_type}";
+		    if(listType=="shortListedMe"){
+		    	if(orderObj.short_listed == "1"){
+					shortListedStr = "<td>Shortlisted</td>";
+				}else{
+					shortListedStr = '<td id="shortlistTD'+orderObj.id+'"><a href="#"   type="button" class="btn" onclick="shortList('+orderObj.id+')">Shortlist</a></td>';
+				}
+		    	
+		    }
+		    //var shortListedStr = '<span id="shortlistTD'+orderObj.id+'"><a href="#" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="shortList('+orderObj.id+')"> Shortlist</a></span>';
+			
 			var tblRow = '<div class="row container-fluid">'
 				+ '<div class="col-md-2" style="margin-right:0; padding-right:0;">'
 	            + 	"<img src="+image+" class='img-responsive thumbnail' style='margin-bottom: 0px;'>"
@@ -81,7 +112,7 @@ function displayMatches(listOrders) {
 	            + '<div class="col-md-6">'
 	            + 	'<div class="profilesimilar">'
 	            + 		'<table width="100%" border="0" cellspacing="0" cellpadding="0">'
-	            + 			'<tr><td><h4>'+firstname+'&nbsp;'+lastname+'</h4>&nbsp;('+orderObj.username+')</td></tr>'
+	            + 			'<tr><td><h4>'+firstname+'&nbsp;'+lastname+'</h4>&nbsp;('+orderObj.username+')&nbsp;'+premiumMember+'</td></tr>'
 	            + 			'<tr><td><p>'+age+' yrs, '+orderObj.religionName+', '+orderObj.casteName+',</p></td></tr>'
 	            + 			'<tr><td><p>'+orderObj.inches+'&nbsp'+occName+', '+orderObj.currentCityName+', '+orderObj.currentCountryName+'.</p></td></tr>'
 	            //+			mobile_no__str
@@ -91,8 +122,8 @@ function displayMatches(listOrders) {
 	            + '</div>'
 	            + '<div class="col-md-3" style="margin-right:0; padding-right:0;">'
 	            +  '<h4 style="margin-bottom:20px;">Like this Profile?</h4>'
-	            + 	'<button id="expInterest'+orderObj.id+'" type="button" class="btn btn-primary" onclick="expressInterest('+orderObj.id+')">Yes I\'m interested</button><br><br>'
-	            + 	'<button  type="button" class="btn btn-primary btn-block" onclick="fullProfile('+orderObj.id+')">View Full Profile</button>'
+	            + 	'<a href="#" id="expInterest'+orderObj.id+'" type="button" class="btn btn-primary" onclick="expressInterest('+orderObj.id+')">Yes I\'m interested</a><br><br>'
+	            + 	'<a href="#"  type="button" class="btn btn-primary btn-block" onclick="fullProfile('+orderObj.id+')">View Full Profile</a>'
 	            //+   '<button id="mobileBtn'+orderObj.id+'" type="button" class="btn btn-info" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button>'
 	            + '</div>'
 	            + '<div class="row container-fluid">'
@@ -103,7 +134,7 @@ function displayMatches(listOrders) {
 	            //+ 				'<td>&nbsp;</td><td><button id="mobileBtn'+orderObj.id+'" type="button" class="btn btn-info" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button></td></tr>'
 	            //+				'<td><a href="#" onclick="fullProfile('+orderObj.id+')">View Full Profile</a></td>'
 	            + 				'<td id="mobileTD'+orderObj.id+'"><a href="#"   type="button" class="btn" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</a></td>'
-	            + 				'<td id="shortlistTD'+orderObj.id+'"><a href="#"   type="button" class="btn" onclick="shortList('+orderObj.id+')">Shortlist</a></td></tr>'
+	            + 				shortListedStr+'</tr>'
 	            + 		'</table>'
 	            //+ 		'<button  type="button" class="btn btn-primary btn-block" onclick="fullProfile('+orderObj.id+')">View Full Profile</button>'
 	            //+   	'<button id="mobileBtn'+orderObj.id+'" type="button" class="btn btn-info" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button>'
@@ -202,7 +233,10 @@ function paginationSetup(total_items_count) {
            
       	 var formData = new FormData();
       	formData.append("page_no",page);
-      	formData.append("request_from","dashboard");
+      	formData.append("request_from","shortlisted");
+      	var listType = "${list_type}";
+      	formData.append("list_type",listType);
+      	
   		$.fn.makeMultipartRequest('POST', 'displayPage', false,
   				formData, false, 'text', function(data){
   			var jsonobj = $.parseJSON(data);

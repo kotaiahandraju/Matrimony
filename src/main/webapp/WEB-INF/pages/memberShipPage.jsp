@@ -4,7 +4,21 @@
 <%@ taglib uri="http://displaytag.sf.net" prefix="display"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
-
+<style>
+.table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+    min-height: 20px;
+    padding: 19px;
+    margin-bottom: 20px;
+    background-color: #f5f5f5;
+    border: 1px solid #e3e3e3;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+</style>
 				<div class="col-md-5 col-sm-12"></div>
 	            <div  class="clearfix"></div>    
 			</div>
@@ -12,14 +26,14 @@
 
 		<div class="row">
 			<div class="midcontnet">
-				<div class="col-md-8">
+				<div class="col-md-12">
 					<!-- 3rd Step starts here-->
 					<div id="thirdForm">
 						<div class="col-md-12 text-center">
 							<h3>Upgrade Membership</h3>
-					    </div>
-					    <div class="col-md-12 table-responsive">
-					    <form:form commandName="payment" action="savePayment" class="form-horizontal" id="payment-form" role="form" method="post">
+					    </div>			
+					    <div class="col-md-9"  style="margin-top:20px;">
+					    <form:form commandName="payment"  class="form-horizontal" id="payment-form" role="form" method="post">
 					    	<div class="well">
 					    		<table class="table table-hover">
 					    			<thead style="background: #4CAF50;color: white;">
@@ -39,41 +53,49 @@
 								    						<td><c:out value="${pack.price}"/></td>
 								    						<td>
 								    							<c:set var="packMsg" value="${pack.allowed_messages_limit}"/>
-								    							<c:if test="${packMsg == null }">
-								    								<i style="color: red;" class="fa fa-times"></i>
-								    							</c:if>
-								    							<c:if test="${packMsg != null }">
-								    								<c:out value="${packMsg}"/>
-								    							</c:if>
+								    							<c:choose>
+																    <c:when test="${packMsg == null || packMsg=='NO'}">
+																        <i style="color: red;" class="fa fa-times"></i>
+																    </c:when>    
+																    <c:otherwise>
+																        <c:out value="${packMsg}"/>
+																    </c:otherwise>
+																</c:choose>
 								    							
 								    						</td>
 								    						<td><c:out value="${pack.allowed_profiles_limit}"/></td>
 								    						<td>
 								    							<c:set var="packHighlight" value="${pack.highlight_profile}"/>
-								    							<c:if test="${packHighlight == null }">
-								    								<i style="color: red;" class="fa fa-times"></i>
-								    							</c:if>
-								    							<c:if test="${packHighlight != null }">
-								    								<i style="color: green;" class="fa fa-check"></i>
-								    							</c:if>
+								    							<c:choose>
+																    <c:when test="${packHighlight == '1'}">
+																    	<i style="color: green;" class="fa fa-check"></i>
+																    </c:when>    
+																    <c:otherwise>
+																        <i style="color: red;" class="fa fa-times"></i>
+																    </c:otherwise>
+																</c:choose>
 								    						</td>
 								    						<td>
 								    							<c:set var="packChat" value="${pack.chat_allowed}"/>
-								    							<c:if test="${packChat == null }">
-								    								<i style="color: red;" class="fa fa-times"></i>
-								    							</c:if>
-								    							<c:if test="${packChat != null }">
-								    								<i style="color: green;" class="fa fa-check"></i>
-								    							</c:if>
+								    							<c:choose>
+																    <c:when test="${packChat == '1'}">
+																    	<i style="color: green;" class="fa fa-check"></i>
+																    </c:when>    
+																    <c:otherwise>
+																        <i style="color: red;" class="fa fa-times"></i>
+																    </c:otherwise>
+																</c:choose>
 								    						</td>
 								    						<td>
 								    							<c:set var="packHoroscope" value="${pack.horoscope_view}"/>
-								    							<c:if test="${packHoroscope == null }">
-								    								<i style="color: red;" class="fa fa-times"></i>
-								    							</c:if>
-								    							<c:if test="${packHoroscope != null }">
-								    								<i style="color: green;" class="fa fa-check"></i>
-								    							</c:if>
+								    							<c:choose>
+																    <c:when test="${packHoroscope == '1'}">
+																    	<i style="color: green;" class="fa fa-check"></i>
+																    </c:when>    
+																    <c:otherwise>
+																        <i style="color: red;" class="fa fa-times"></i>
+																    </c:otherwise>
+																</c:choose>
 								    						</td>
 								    					<td>
 								    						<%-- <c:set var="packAstroMatch" value="${pack.Astrology_match}"/>
@@ -126,7 +148,7 @@
 					    				<tr>
 <!-- 					    					<th colspan="7" style="text-align: right;"><a href="memberShipPage" class="btn1 btn btn-info">Upgrade</a></th> -->
 					    					<th colspan="2"><a href="dashboard" class="btn1 btn btn-info">My Account</a></th>
-					    					<th colspan="2"><input class="btn btn-primary" type="submit" id="submit1" value="Make Payment"></th>
+					    					<th colspan="2"><input class="btn btn-primary" type="button" id="makePaymentBtn" value="Make Payment" onclick="makePayment(event)"></th>
 					    				</tr>
 					    			</tfoot>
 					    		</table>
@@ -135,5 +157,21 @@
 					</div>
 					<!-- 3rd Step ends here-->
 				</div>
-
+<script>
+	function makePayment(event){
+		var selected_pack = $("input[name=package_id]:checked").val();
+		if((typeof(selected_pack) == "undefined") || (selected_pack=="")){
+			alert("Select any package");
+			return false;
+		}else{
+			$("#makePaymentBtn").attr("disabled",true);
+			$("#makePaymentBtn").val("Please wait...");
+			$("#payment-form").attr('action',"savePayment");
+			$("#payment-form").submit();
+			event.preventDefault(); 
+		}
+		
+		
+	}
+</script>
  <%@ include file="userStepsFooter.jsp"%>
