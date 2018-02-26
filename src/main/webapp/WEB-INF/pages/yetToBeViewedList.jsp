@@ -239,7 +239,7 @@ var allowed_limit = ${allowed_profiles_limit};
 if (listOrders1 != "" && listOrders1 != null) {
 	paginationSetup(total_items_count);
 	$("#altLists").asPaginator('enable');
-	displayMatches(listOrders1);
+	displayMatches_matches(listOrders1);
 	displayTableFooter(1);
 }else if (listOrders1 == null) {
 	$('#search_criteria').removeAttr("hidden");
@@ -254,137 +254,7 @@ if (listOrders1 != "" && listOrders1 != null) {
 	$("#searchresultsDiv").removeAttr("hidden");
 }
 
-function displayMatches(listOrders) {
-	$('#searchResults').html('');
-	$("#search_criteria").prop("hidden",true);
-	$('#searchresultsDiv').removeAttr("hidden");
-	serviceUnitArray = {};
-	$.each(listOrders,function(i, orderObj) 
-	{
-		serviceUnitArray[orderObj.id] = orderObj;
-		
-		var array = null;
-// 		var imageUrl =null;
-		
-		var image = null; image = orderObj.profileImage;
-		if(image == "" || image == null || image == "undefined"){
-			image = "img/default.png";
-		}
-		/* else{
-		array = image.split(",");
-		
-		$.each(array,function(i){
-			image = array[i];
-// 			   alert(array[i]);
-			});
-		} */
-		
-			var login_user_role_id = ${cacheGuest.roleId};
-			var insert_str = '';
-			var mobile_no__str = '';
-			var more_details_str = '';
-			var expressed = orderObj.expressedInterest;
-			var firstname = 'xxxxxx',lastname='xxxxxx';
-			mobile_no__str = '<tr id="row'+orderObj.id+'"><td><a href="#" type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</a></td></tr>';
-			insert_str = '<a href="#" id="expInterest'+orderObj.id+'" type="button" class="btn btn-primary btn-block" onclick="expressInterest('+orderObj.id+')">Yes I\'m interested</a>';
-			/* if(expressed==0){
-				insert_str = '<button id="expInterest'+orderObj.id+'" type="button" class="btn btn-primary btn-block" onclick="expressInterest('+orderObj.id+')">Yes I\'m interested</button>';
-			}else if(expressed>0){
-				insert_str = '<button class="btn btn-primary btn-block">Expressed Interest</button>';
-			} */
-			/* if((login_user_role_id == 6) || (login_user_role_id == 11) || (login_user_role_id == 14)){ //means premium user
-				mobile_no__str = '<tr id="row'+orderObj.id+'"><td><button type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button></td></tr>';
-				//more_details_str = '<tr><td><span><a href="#" onclick="showMoreDetails(this)">read more...</a></span></td></tr>';
-				//mobile_no__str = '<tr><td><span><a href="#" onclick="viewMobileNumber('+orderObj.id+')">View Mobile Number</a></span></td></tr>';
-				if(expressed==0){
-					insert_str = '<button id="expInterest'+orderObj.id+'" type="button" class="btn btn-primary btn-block" onclick="expressInterest('+orderObj.id+')">Yes I\'m interested</button>';
-				}else if(expressed>0){
-					insert_str = '<button class="btn btn-primary btn-block">Expressed Interest</button>';
-				}
-			} */
-			if((login_user_role_id == 6) || (login_user_role_id == 11) || (login_user_role_id == 12)
-					|| (login_user_role_id == 13) || (login_user_role_id == 14)){ //means premium,premium_plus,aarna premium users
-			
-				firstname = orderObj.firstName;
-				lastname = orderObj.lastName;
-			}
-			var abtMySelf = orderObj.aboutMyself;
-			if(abtMySelf=="undefined" || abtMySelf==null){
-				abtMySelf = "";
-			}
-			var premiumMember = "";
-			var memberRoleId = orderObj.role_id;
-			if(memberRoleId!=null && memberRoleId!="" && (memberRoleId==6 || memberRoleId==11 ||
-					memberRoleId==12 || memberRoleId==13 || memberRoleId==14)){
-				premiumMember = "<span class='premium-member'>Premium Member</span>";
-			}
-			var tblRow = '<div class="panel panel-default">'
-				+ '<div class="panel-heading">'
-				+ '<h5 class="panel-title">'
-				+ '<div class="form-check">'
 
-				+ '	<label class="form-check-label"> <input type="checkbox" class="form-check-input"> '+firstname+' '+lastname+'&nbsp;('+orderObj.username+')&nbsp;'+premiumMember+'</label>'
-				+ '	<span class="pull-right">Created by '+orderObj.createProfileFor+'</span>'
-				//+ '	<label class="form-check-label"> <input type="checkbox" class="form-check-input"> '+orderObj.firstName+' '+orderObj.lastName+'</label>'
-// 				+ '	<span class="pull-right">Created by '+orderObj.createProfileFor+'</span>'
-
-				+ '</div>'
-				+ '</h5>'
-				+ '</div>'
-				+ '<div class="panel-body">'
-				+ '<div class="col-md-3">'
-				+ '<a href="#"> <img src='+image+' class="img img-responsive thumbnail" style="margin-bottom:0;"></a>'
-            	+ '</div>'
-            	+ '<div class="col-md-4">'
-                + '<blockquote><p>'+abtMySelf+'</p></blockquote>'
-                + '</div>'
-            	+ '<div class="col-md-5">'
-            	+ '<table>'
-            	+ '	<tr><td>Age/Height</td><td><span>: '+orderObj.age+', '+orderObj.inches+'</span></td></tr>'
-            	+ '	<tr><td>Religion</td><td><span>: '+orderObj.religionName+'</span></td></tr>'
-            	+ '	<tr><td>Mother Tongue</td><td><span>: '+orderObj.motherTongueName+'</span></td></tr>'
-            	+ '	<tr><td>Community</td><td><span>: '+orderObj.casteName+'</span></td></tr>'
-            	+ '	<tr><td>Location</td><td><span>: '+orderObj.currentCityName+'</span></td></tr>'
-            	+ '	<tr><td>Education</td><td><span>: '+orderObj.educationName+'</span></td></tr>'
-            	+ '	<tr><td>Profession</td><td><span>: '+orderObj.occupationName+'</span></td></tr>'
-            	+ '<tr><td><span id="mobileTD'+orderObj.id+'"><a href="#" onclick="displayMobileNum('+orderObj.id+')">View Mobile Number</a></span></td></tr>'
-            	
-            	
-            	//+ '	<tr><td>Age</td><td><span>: '+orderObj.age+'</span></td></tr>'
-            	//+ '	<tr><td colspan="2">'+orderObj.aboutMyself+'... <a href="#" onclick="showMore('+orderObj.id+')"> read more..</a> </td></tr>'
-            	//+  more_details_str
-            	//+ '	<tr class="showMore" hidden="true"><td colspan="2">'+orderObj.aboutMyself+'... <a href="#" > read more..</a> </td></tr>'
-            	//+ '	<tr class="showMore" hidden="true"><td colspan="2">'+orderObj.aboutMyself+'... <a href="#" > more detailssss</a> </td></tr>'
-            	//+ '	<tr class="showMore" hidden="true"><td colspan="2">'+orderObj.aboutMyself+'... <a href="#" > more detailssss</a> </td></tr>'
-            	+ '</table>'
-            	+ '</div>'
-            	/* + '<div id="hideMe'+orderObj.id+'" class="form-group hideMe">'
-            	+ '    <label class="col-md-4 control-label" for="textinput"></label>'  
-            	+ '    <div class="col-md-6 text-center">'
-            	+ '    	<span class="more" style="color: #0087AF;cursor: pointer;"><a href="#" >read more </a></span><i style="cursor: pointer;" class="fa fa-angle-down"></i>'
-            	+ '    </div>'
-            	+ '</div>' */
-            	+ '<div class="col-md-4">'
-            	+ '<a href="#" type="button" class="btn btn-success btn-block btn-md" onclick="fullProfile('+orderObj.id+')">View Full Profile</a>'
-            	+ '</div>'
-            	+ '<div class="col-md-4">'
-            	+ '<a href="#" type="button" class="btn btn-primary btn-block btn-md" id="expInterest'+orderObj.id+'" onclick="expressInterest('+orderObj.id+')">Send Interest</a>'
-            	+ '</div>'
-            	+ '<div class="col-md-4">'
-               
-            	
-            	//+ '<c:if test="${(cacheGuest.roleId == 6)}">'
-            	+ insert_str
-				//+ '</c:if>	 '
-				+ '<span id="shortlistTD'+orderObj.id+'"><a href="#" class="btn btn-danger btn-block btn-md" onclick="shortList('+orderObj.id+')">Short List</span></a>'
-            	+ '<div class="clearfix"></div>'
-            	+ '</div>'
-            	+ '</div>'
-            	+ '</div>';
-			$(tblRow).appendTo("#searchResults");
-		
-	});
-}
 /* function updateList(){
 	var allVals = [];
     $("#castdiv :checked").each(function () {
@@ -458,7 +328,7 @@ function updateProfilesList(){
 	    			total_items_count = total_count;
 	    			paginationSetup(total_items_count);
 	    			$("#altLists").asPaginator('enable');
-	    			displayMatches(filtered_profiles);
+	    			displayMatches_matches(filtered_profiles);
 	    			displayTableFooter(1);
 	    			$("#table_footer").removeAttr("hidden");
 	    			$("#altLists").removeAttr("hidden");
@@ -494,7 +364,7 @@ function submitSearch(){
 			$('#countId').html(total_items_count);
 			paginationSetup(total_items_count);
 			$("#altLists").asPaginator('enable');
-			displayMatches(results);
+			displayMatches_matches(results);
 			$("#table_footer").removeAttr("hidden");
 			$("#altLists").removeAttr("hidden");
 			displayTableFooter(1);
@@ -568,40 +438,7 @@ function showMoreDetails(thisObj){
 	});
 } */
 
-function displayMobileNum(profileId,listType){
-	var roleId = ${cacheGuest.roleId};
-	$("#id").val(profileId);
-	if(roleId==4){
-		document.searchForm2.action = "memberShipPage"
-		document.searchForm2.submit();
-		return true;
-	}else{
-		if(allowed_limit<=0){
-			alert("Exceeded allowed profiles limit. Renew your membership plan and get more profiles");
-			return false;
-		}
-		var profileObj = serviceUnitArray[profileId];
-		var formData = new FormData();
-		formData.append('profile_id',profileId);
-		formData.append('list_type',listType);
-		jQuery.fn.makeMultipartRequest('POST', 'viewedMobileNumber', false,
-				formData, false, 'text', function(data){
-	    		var jsonobj = $.parseJSON(data);
-	    		var limit = jsonobj.allowed_limit;
-	    		var msg = jsonobj.message;
-	    		if(typeof msg != "undefined"){
-	    			if(msg=="success"){
-	    				$("#row"+profileId).html('<td>'+profileObj.mobile+'</td>');
-	    				allowed_limit = limit;
-	    			}else{
-	    				alert("Some problem occured. Please try again.");
-	    			}
-	    		}
-	    		
-		});
-	}
-	
-}
+
 
 function fullProfile(profile_id){
 	$("#id").val(profile_id);
@@ -676,7 +513,7 @@ function paginationSetup(total_items_count) {
 	    		}else{
 	    			paginationSetup(total_items_count);
 	    			$("#altLists").asPaginator('enable');
-	    			displayMatches(results);
+	    			displayMatches_matches(results);
 	    			$("#table_footer").removeAttr("hidden");
 	    			$("#altLists").removeAttr("hidden");
 	    			displayTableFooter(page);

@@ -71,7 +71,7 @@ function updateUserName(cityId){
 	});
 }
 
-function displayMatches(listOrders,divId,roleId,listType) {
+function displayMatches_messages(listOrders,divId,roleId,listType) {
 	serviceUnitArray = {};
 	var divElem = "#"+divId;
 	var element = $(divElem);
@@ -100,26 +100,44 @@ function displayMatches(listOrders,divId,roleId,listType) {
 			var mobile_no__str = '';
 			var more_details_str = '';
 			var expressed = orderObj.expressedInterest;
-			var occupationStr = orderObj.occupationName;
-			if(occupationStr==null){
-				occupationStr = "";
+			var firstname = 'xxxxxx',lastname='xxxxxx';
+			if((login_user_role_id == 6) || (login_user_role_id == 11) || (login_user_role_id == 12)
+					|| (login_user_role_id == 13) || (login_user_role_id == 14)){ //means premium,premium_plus,aarna premium users
+			
+				firstname = orderObj.firstName;
+				lastname = orderObj.lastName;
 			}
+			var occName = orderObj.occupationName;
+			if(occName==null)
+				occName = "";
+			var ageStr = orderObj.age;
+			var age = ageStr.split(".")[0];
 			var options = "";
 			var acceptOptions = "";
-			if((login_user_role_id == 6) || (login_user_role_id == 11) || (login_user_role_id == 12)
-					|| (login_user_role_id == 13) || (login_user_role_id == 14)){ //means premium users
 				//mobile_no__str = '<tr id="row'+orderObj.id+'"><td><button type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button></td></tr>';
 				if(expressed==0){
 					insert_str = '<button id="expInterest'+orderObj.id+'" type="button" class="btn btn-primary btn-block" onclick="expressInterest('+orderObj.id+')">Yes I\'m interested</button>';
 				}else if(expressed>0){
 					insert_str = '<button class="btn btn-primary btn-block">Expressed Interest</button>';
 				}
-				
+				var mobNumViewed = orderObj.mobileNumViewed;
+				var mobile_num_Str = "";
+				if(mobNumViewed==0){
+					mobile_num_Str = '<span ><a href="#" type="button" class="btn btn-primary btn-block" onclick="displayMobileNum_messages('+orderObj.id+',\'preferences\','+orderObj.requestId+')">View Mobile Number</a></span>';
+				}else if(mobNumViewed>0){
+					mobile_num_Str = '<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+orderObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>';
+				}
 				//////////
-				if(listType == "sentRequests"){
+				if(listType == "pendingRequests"){
 					options =  '<div class="col-md-3">'
 		            	+ '<button class="btn btn-danger btn-block" onclick="fullProfile('+orderObj.id+')">View Full Profile</button>'
-		            	+ '<button class="btn btn-danger btn-block" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button>'
+		            	+ '<button class="btn btn-danger btn-block" onclick="displayMobileNum_messages('+orderObj.id+',\'preferences\,'+orderObj.requestId+')">View Mobile Number</button>'
+		            	+ '<div class="clearfix"></div>'
+		            	+ '</div>'
+				}else if(listType == "sentRequests"){
+					options =  '<div class="col-md-3">'
+		            	+ '<button class="btn btn-danger btn-block" onclick="fullProfile('+orderObj.id+')">View Full Profile</button>'
+		            	+ '<button class="btn btn-danger btn-block" onclick="displayMobileNum_messages('+orderObj.id+',\'preferences\,'+orderObj.requestId+')">View Mobile Number</button>'
 		            	+ '<div class="clearfix"></div>'
 		            	+ '</div>'
 				}else if(listType == "receivedRequests"){
@@ -142,50 +160,61 @@ function displayMatches(listOrders,divId,roleId,listType) {
 		            	+ '<div class="clearfix"></div>'
 		            	+ '</div>'
 				} 
-			}
+			//}
 			
 			
-			var tblRow = '<div class="panel panel-default">'
-				+ '<div class="panel-heading">'
-				+ '<h5 class="panel-title">'
-				+ '<div class="form-check">'
-				+ '	<label class="form-check-label"> <input type="checkbox" class="form-check-input"> '+orderObj.firstName+' '+orderObj.lastName+'</label>'
-				+ '	<span class="pull-right">Created by '+orderObj.createProfileFor+'</span>'
-				+ '</div>'
-				+ '</h5>'
-				+ '</div>'
-				+ '<div class="panel-body">'
-				+ '<div class="col-md-3">'
-				+ '<a href="#"> <img src='+image+' class="img-responsive thumbnail"></a>'
-            	+ '</div>'
-            	+ '<div class="col-md-6">'
-            	+ '<table>'
-            	+ '	<tr><td>Age/Height</td><td><span>: '+orderObj.age+', '+orderObj.inches+'</span></td></tr>'
-            	+ '	<tr><td>Religion</td><td><span>: '+orderObj.religionName+'</span></td></tr>'
-            	+ '	<tr><td>Mother Tongue</td><td><span>: '+orderObj.motherTongueName+'</span></td></tr>'
-            	+ '	<tr><td>Community</td><td><span>: '+orderObj.casteName+'</span></td></tr>'
-            	+ '	<tr><td>Location</td><td><span>: '+orderObj.currentCityName+'</span></td></tr>'
-            	+ '	<tr><td>Education</td><td><span>: '+orderObj.educationName+'</span></td></tr>'
-            	//+ '	<tr><td>Profession</td><td><span>: '+orderObj.occupationName+'</span></td></tr>'
-            	+ '	<tr><td>Profession</td><td><span>: '+occupationStr+'</span></td></tr>'
-            	+ acceptOptions
-            	//+ '	<tr><td>Age</td><td><span>: '+orderObj.age+'</span></td></tr>'
-            	//+ '	<tr><td colspan="2">'+orderObj.aboutMyself+'... <a href="#" onclick="showMore('+orderObj.id+')"> read more..</a> </td></tr>'
-            	//+  more_details_str
-            	//+ '	<tr class="showMore" hidden="true"><td colspan="2">'+orderObj.aboutMyself+'... <a href="#" > read more..</a> </td></tr>'
-            	//+ '	<tr class="showMore" hidden="true"><td colspan="2">'+orderObj.aboutMyself+'... <a href="#" > more detailssss</a> </td></tr>'
-            	//+ '	<tr class="showMore" hidden="true"><td colspan="2">'+orderObj.aboutMyself+'... <a href="#" > more detailssss</a> </td></tr>'
-            	+ '</table>'
-            	+ '</div>'
-            	/* + '<div id="hideMe'+orderObj.id+'" class="form-group hideMe">'
-            	+ '    <label class="col-md-4 control-label" for="textinput"></label>'  
-            	+ '    <div class="col-md-6 text-center">'
-            	+ '    	<span class="more" style="color: #0087AF;cursor: pointer;"><a href="#" >read more </a></span><i style="cursor: pointer;" class="fa fa-angle-down"></i>'
-            	+ '    </div>'
-            	+ '</div>' */
-            	+ options
-            	+ '</div>'
-            	+ '</div>';
+				var tblRow = '<div class="panel panel-default">'
+					+ '<div class="panel-heading">'
+					+ '<h5 class="panel-title">'
+					+ '<div class="form-check">'
+
+					+ '	<label class="form-check-label"> <input type="checkbox" class="form-check-input"> '+firstname+' '+lastname+'&nbsp;('+orderObj.username+')</label>'
+					+ '	<span class="pull-right">Created by '+orderObj.createProfileFor+'</span>'
+					//+ '	<label class="form-check-label"> <input type="checkbox" class="form-check-input"> '+orderObj.firstName+' '+orderObj.lastName+'</label>'
+//	 				+ '	<span class="pull-right">Created by '+orderObj.createProfileFor+'</span>'
+
+					+ '</div>'
+					+ '</h5>'
+					+ '</div>'
+					+ '<div class="panel-body">'
+					+ '<div class="col-md-2">'
+					+ '<a href="#"> <img src='+image+' class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: 60px;width: 60px;"></a>'
+	            	+ '</div>'
+	            	+ '<div class="col-md-6">'
+	            	+ '<table>'
+	            	+ '	<tr><td>Age/Height</td><td><span>: '+age+', '+orderObj.inches+'</span></td></tr>'
+	            	+ '	<tr><td>Religion</td><td><span>: '+orderObj.religionName+'</span></td></tr>'
+	            	+ '	<tr><td>Mother Tongue</td><td><span>: '+orderObj.motherTongueName+'</span></td></tr>'
+	            	+ '	<tr><td>Community</td><td><span>: '+orderObj.casteName+'</span></td></tr>'
+	            	+ '	<tr><td>Location</td><td><span>: '+orderObj.currentCityName+'</span></td></tr>'
+	            	+ '	<tr><td>Education</td><td><span>: '+orderObj.educationName+'</span></td></tr>'
+	            	+ '	<tr><td>Profession</td><td><span>: '+occName+'</span></td></tr>'
+	            	+ '<tr><td id="mobileTD'+orderObj.requestId+'">'+mobile_num_Str+'</td><td></td></tr>'
+	            	//+ '<td id="shortlisttd'+orderObj.id+'"><button type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">Shortlist</button></td></tr>'
+	            	//+ '	<tr><td>Age</td><td><span>: '+orderObj.age+'</span></td></tr>'
+	            	//+ '	<tr><td colspan="2">'+orderObj.aboutMyself+'... <a href="#" onclick="showMore('+orderObj.id+')"> read more..</a> </td></tr>'
+	            	//+  more_details_str
+	            	//+ '	<tr class="showMore" hidden="true"><td colspan="2">'+orderObj.aboutMyself+'... <a href="#" > read more..</a> </td></tr>'
+	            	//+ '	<tr class="showMore" hidden="true"><td colspan="2">'+orderObj.aboutMyself+'... <a href="#" > more detailssss</a> </td></tr>'
+	            	//+ '	<tr class="showMore" hidden="true"><td colspan="2">'+orderObj.aboutMyself+'... <a href="#" > more detailssss</a> </td></tr>'
+	            	+ '</table>'
+	            	+ '</div>'
+	            	/* + '<div id="hideMe'+orderObj.id+'" class="form-group hideMe">'
+	            	+ '    <label class="col-md-4 control-label" for="textinput"></label>'  
+	            	+ '    <div class="col-md-6 text-center">'
+	            	+ '    	<span class="more" style="color: #0087AF;cursor: pointer;"><a href="#" >read more </a></span><i style="cursor: pointer;" class="fa fa-angle-down"></i>'
+	            	+ '    </div>'
+	            	+ '</div>' */
+	            	+ '<div class="col-md-4">'
+	            	+ '<h4 style="margin-bottom:20px;">Like this Profile?</h4>'
+	            	+ insert_str
+					//+ '<button class="btn btn-danger btn-block btn-md" onclick="fullProfile('+orderObj.id+')">View Full Profile</button><br><br><br><br><br>'
+					+ '<a href="#" class="btn btn-danger btn-block btn-md" onclick="fullProfile('+orderObj.id+')">View Full Profile</a><br>'
+					+ '<a href="#" type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="shortList('+orderObj.id+')">Shortlist</a> '
+					+ '<div class="clearfix"></div>'
+	            	+ '</div>'
+	            	+ '</div>'
+	            	+ '</div>';
 			$(tblRow).appendTo("#"+divId);
 		}
 	});

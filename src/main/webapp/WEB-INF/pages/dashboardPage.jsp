@@ -159,6 +159,13 @@ function displayMatches(listOrders) {
 			}else if(expressed>0){
 				interestStr = '<span>Expressed Interest</span>';
 			}
+			var mobNumViewed = orderObj.mobileNumViewed;
+			var mobile_num_Str = "";
+			if(mobNumViewed==0){
+				mobile_num_Str = '<span ><a href="#" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="displayMobileNum('+orderObj.id+')"> View mobile no.</a></span>';
+			}else if(mobNumViewed>0){
+				mobile_num_Str = '<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+orderObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>';
+			}
 			var tblRow = '<div class="row">'
 				+ '<div class="col-md-2" >'
 	            + 	"<img src="+image+" class='watermark_text img-responsive thumbnail ' style='max-height:70px;'>"
@@ -166,7 +173,7 @@ function displayMatches(listOrders) {
 	            + '<div class="col-md-10">'
 	            + ' <p>'+firstname+'&nbsp;'+lastname+'|'+orderObj.username+'&nbsp;'+premiumMember+'&nbsp; '+age+' yrs,&nbsp; '+orderObj.religionName+', '+orderObj.casteName+','+orderObj.inches+' , '+orderObj.occupationName+', '+orderObj.currentCityName+', '+orderObj.currentCountryName+'. </p> '
 	            + ' <p> '+interestStr+'| <a href="#" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="fullProfile('+orderObj.id+')"> Full Profile</a> '
-	            + ' | <span id="mobileTD'+orderObj.id+'"><a href="#" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="displayMobileNum('+orderObj.id+')"> View mobile no.</a></span> | '+shortListedStr+'</p> '
+	            + ' | <span id="mobileTD'+orderObj.id+'">'+mobile_num_Str+'</span> | '+shortListedStr+'</p> '
 	            
 	            + '</div>'
 	            + '<div class="clearfix" style="border-bottom:1px solid #f1f11;margin-bottom:5px;"></div>'

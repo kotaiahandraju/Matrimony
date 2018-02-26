@@ -70,7 +70,7 @@ protected int userrequirementId;
 protected String  reTypedPassword;
 protected String fatherName, motherName, fOccupation, mOccupation, noOfBrothers, noOfSisters, noOfBrothersMarried, noOfSistersMarried;
 protected String rhaveChildren;
-protected int expressedInterest;
+protected int expressedInterest,mobileNumViewed;
 protected String image;
 protected String profileImage;
 protected String age;
@@ -931,6 +931,12 @@ public String getrMaritalStatusName() {
 }
 public void setrMaritalStatusName(String rMaritalStatusName) {
 	this.rMaritalStatusName = rMaritalStatusName;
+}
+public int getMobileNumViewed() {
+	return mobileNumViewed;
+}
+public void setMobileNumViewed(int mobileNumViewed) {
+	this.mobileNumViewed = mobileNumViewed;
 }
 
 

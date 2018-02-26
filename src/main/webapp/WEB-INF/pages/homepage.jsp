@@ -120,6 +120,12 @@ span.has-error,span.hasError
 {
 	display: block !important;
 }
+
+video {
+    width: 100%;
+    height: auto;
+}
+
 </style>
 <script type="text/javascript">
 window.setTimeout(function() {
@@ -652,7 +658,12 @@ function validate(id, errorMessage)
 		</div>
 	</section>
 
-
+	<video width="400" controls>
+	  <source src="images/Wildlife.wmv" type="video/wmv">
+	  
+	  Your browser does not support HTML5 video.
+	</video>
+<p><a href="images/Wildlife.wmv">dddddd</a></p>
 
 	<footer class="footer" id="footer">
 		<!-- Section id-->

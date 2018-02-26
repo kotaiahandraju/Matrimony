@@ -80,10 +80,11 @@
 var total_items_count = ${total_records};
 var page_size = ${page_size};
 var roleid = ${cacheGuest.roleId};
+var allowed_limit = ${allowed_profiles_limit};
 var listOrders1 = ${sentRequests};
 		paginationSetup(total_items_count);
 		$("#paginator").asPaginator('enable');
-		displayMatches(listOrders1,"sent_requests",roleid,"sentRequests");
+		displayMatches_messages(listOrders1,"sent_requests",roleid,"sentRequests");
 		displayTableFooter(1);
 function displayTable(listOrders) {
 	$('#tableId').html('');
@@ -180,7 +181,7 @@ function paginationSetup(total_items_count) {
 	    		}else{
 	    			paginationSetup(total_items_count);
 	    			$("#paginator").asPaginator('enable');
-	    			displayMatches(requestsList,"sent_requests",roleid,"sentRequests");
+	    			displayMatches_messages(requestsList,"sent_requests",roleid,"sentRequests");
 	    			$("#table_footer").removeAttr("hidden");
 	    			$("#paginator").removeAttr("hidden");
 	    			displayTableFooter(page);
