@@ -4,23 +4,48 @@
 				<div class="panel panel-success">
 					<div class="panel-body">
 						<h4><strong>Activity</strong></h4>
+								<table width="100%" class="dotted-seperator">
+										<tr>
+											<td height="30"><a href="shortListedByMe" class="tablinks" >Profiles shortlisted by me</a></td>
+											
+										</tr>
+										<tr>
+											<td height="30"><a href="rejectedByMeList" class="tablinks" >Profiles I have ignored</a></td>
+											
+										</tr>
+										<%-- <tr>
+											<td height="30"><a href="#">Profiles I have blocked</a></td>
+											<td><span class="badge pull-right">${cacheGuest.acceptedInterestCount}</span></td>
+										</tr> --%>
+									</table>
 						<div class="tabbable" id="tabs-343694">
 							
 							<div class="tab-content">
 								<div class="tab" id="inbox">
+									
+									<h4><strong>Profile Views</strong></h4>
+									
 									<table width="100%" class="dotted-seperator">
 										<tr>
-											<td height="30"><a href="#" onclick="displayBlock('inbox','pending_requests');" class="tablinks" id="defaultOpen">Inbox</a></td>
+											<td height="30"><a href="myProfileViewsList">Members viewed my profile</a></td>
 											
 										</tr>
 										<tr>
-											<td height="30"><a href="#" onclick="displayBlock('sent','sent_requests');" class="tablinks" >Sent</a></td>
+											<td height="30"><a href="shortListedMe">Members shortlisted my profile</a></td>
 											
 										</tr>
-										
 									</table>
-									
-									
+									<!-- <h4><strong>SMS</strong></h4>
+									<table width="100%" class="dotted-seperator">
+										<tr>
+											<td height="30"><a href="#">SMS Received</a></td>
+											
+										</tr>
+										<tr>
+											<td height="30"><a href="#">SMS Sent</a></td>
+											
+										</tr>
+									</table> -->
 								</div>
 								
 							</div>

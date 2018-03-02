@@ -276,6 +276,7 @@ public class HomePageController {
 						session.setAttribute("notificationsCount", notificationsCount);
 						sessionBean.setYetToBeViewedCount((String.valueOf(interestCounts.get("yetToBeViewedCount"))));
 						sessionBean.setSentInterestCount("0");
+						sessionBean.setAwaitingInterestCount("0");
 						sessionBean.setReceivedInterestCount("0");
 						sessionBean.setAcceptedInterestCount("0");
 						sessionBean.setRejectedInterestCount("0");
@@ -323,6 +324,7 @@ public class HomePageController {
 				 UsersBean newSessionBean = objUsersDao.loginChecking(objUsersBean1.getId());
 				 
 							newSessionBean.setSentInterestCount(sessionBean.getSentInterestCount());
+							newSessionBean.setAwaitingInterestCount(sessionBean.getAwaitingInterestCount());
 							newSessionBean.setReceivedInterestCount(sessionBean.getReceivedInterestCount());
 							newSessionBean.setAcceptedInterestCount(sessionBean.getAcceptedInterestCount());
 							newSessionBean.setProfileViewedCount(sessionBean.getProfileViewedCount());
@@ -2010,7 +2012,10 @@ public class HomePageController {
 				}else if("myprofileviews".equalsIgnoreCase(request_coming_from)){
 					Objresults = objUsersDao.getProfileViewedMembers(userSessionBean.getId()+"",page_no);
 				}else if("newmatches".equalsIgnoreCase(request_coming_from)){
-					results = objUsersDao.getSearchResults(searchCriteriaBean,page_no,"newmatches");
+					String withPhoto = request.getParameter("withPhoto");
+					String alreadyViewed = request.getParameter("alreadyViewed");
+					String alreadyContacted = request.getParameter("alreadyContacted");
+					results = objUsersDao.getSearchResults(searchCriteriaBean,page_no,"newmatches",withPhoto,alreadyViewed,alreadyContacted);
 					
 				}else if("search".equalsIgnoreCase(request_coming_from)){
 					results = objUsersDao.getSearchResults(searchCriteriaBean,page_no,"");
@@ -2025,6 +2030,38 @@ public class HomePageController {
 					Objresults = objUsersDao.getViewedNotContactedList(userSessionBean.getId()+"",page_no);
 				}else if("yettobeviewed".equalsIgnoreCase(request_coming_from)){
 					Objresults = objUsersDao.getyetToBeViewedList(userSessionBean.getId()+"",page_no);
+				}else if("mobilenumviewedbyme".equalsIgnoreCase(request_coming_from)){
+					Objresults = objUsersDao.getMobileNumViewedByMeList(userSessionBean.getId()+"",page_no);
+				}else if("mymobilenumviews".equalsIgnoreCase(request_coming_from)){
+					Objresults = objUsersDao.getMyMobileNoViewedByMembers(userSessionBean.getId()+"",page_no);
+				}else if("pendingrequests".equalsIgnoreCase(request_coming_from)){
+					Objresults = objUsersDao.getPendingInterestRequests(userSessionBean.getId()+"",page_no);
+				}else if("acceptedrequests".equalsIgnoreCase(request_coming_from)){
+					Objresults = objUsersDao.getacceptedRequests(userSessionBean.getId()+"",page_no);
+				}else if("rejectedgrequests".equalsIgnoreCase(request_coming_from)){
+					//Objresults = objUsersDao.getre(userSessionBean.getId()+"",page_no);
+				}else if("sentrequests".equalsIgnoreCase(request_coming_from)){
+					Objresults = objUsersDao.getsentRequests(userSessionBean.getId()+"",page_no);
+				}else if("awaitingrequests".equalsIgnoreCase(request_coming_from)){
+					Objresults = objUsersDao.getAwaitingRequests(userSessionBean.getId()+"",page_no);
+				}else if("inbox".equalsIgnoreCase(request_coming_from)){
+					String tabType = request.getParameter("tab_type");
+					String listType = request.getParameter("list_type");
+					if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("sent_requests")){
+						Objresults = objUsersDao.getsentRequests(userSessionBean.getId()+"",page_no);
+					}else if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("awaiting_requests")){
+						Objresults = objUsersDao.getAwaitingRequests(userSessionBean.getId()+"",page_no);
+					}else if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("pending_requests")){
+						Objresults = objUsersDao.getPendingInterestRequests(userSessionBean.getId()+"",page_no);
+					}else if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("accepted_requests")){
+						Objresults = objUsersDao.getacceptedRequests(userSessionBean.getId()+"",page_no);
+					}else if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("rejected_requests")){
+						Objresults = objUsersDao.getRequestsRejectedByMe(userSessionBean.getId()+"",page_no);
+					}
+					else if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("profile_views")){
+						Objresults = objUsersDao.getProfileViewedMembers(userSessionBean.getId()+"",page_no);
+					}
+					//Objresults = objUsersDao.getAwaitingRequests(userSessionBean.getId()+"",page_no);
 				}else{
 					String selectedCasts = request.getParameter("selected_casts");
 					String selectedReligions = request.getParameter("selected_religions");
@@ -2041,8 +2078,8 @@ public class HomePageController {
 			//int total_records = Integer.parseInt(((Map<String, String>)results.get(0)).get("total_records"));
 			//request.setAttribute("total_records", total_records);
 			//request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
-			if (results != null && results.size() > 0) {
-				jsonObj.put("results", results);
+			if (Objresults != null && Objresults.size() > 0) {
+				jsonObj.put("results", Objresults);
 				
 			} else {
 				if (Objresults != null && Objresults.size() > 0) {
@@ -2231,6 +2268,42 @@ public class HomePageController {
 		return "acceptedInterestRequests";
 	 }
    
+   @RequestMapping(value = "/rejectedByMeList")
+	 public String rejectedByMeList(@ModelAttribute("createProfile") UsersBean objUserssBean, Model objeModel, HttpServletRequest request, HttpSession session) {
+	  List<Map<String, String>> listOrderBeans = null;
+	  ObjectMapper objectMapper = null;
+		String sJson = null;
+		try {
+			UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
+			if(sessionBean == null){
+				return "redirect:HomePage";
+			}
+			long total_records = 0;
+			if("1".equals(sessionBean.getStatus())){
+				List<Map<String,Object>> acceptedRequests = objUsersDao.getRequestsRejectedByMe(sessionBean.getId()+"",0);
+				if(acceptedRequests!=null && acceptedRequests.size()>0){
+					objectMapper = new ObjectMapper();
+					sJson = objectMapper.writeValueAsString(acceptedRequests);
+					request.setAttribute("rejectedRequests", sJson);
+					total_records = (Long)acceptedRequests.get(0).get("total_records");
+				}else{
+					request.setAttribute("rejectedRequests", "''");
+				}
+			}else{
+				request.setAttribute("rejectedRequests", "''");
+			}
+			request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
+			request.setAttribute("total_records", total_records);
+			
+		} catch (Exception e) {
+	   e.printStackTrace();
+	   System.out.println(e);
+	   logger.error(e);
+	   logger.fatal("error in acceptedRequests method");
+	  }
+		return "rejectedByMeList";
+	 }
+   
    @RequestMapping(value = "/sentRequests")
 	 public String sentRequests(@ModelAttribute("createProfile") UsersBean objUserssBean, Model objeModel, HttpServletRequest request, HttpSession session) {
 	  ObjectMapper objectMapper = null;
@@ -2264,6 +2337,41 @@ public class HomePageController {
 	   logger.fatal("error in sentRequests method");
 	  }
 		return "sentInterestRequests";
+	 }
+   
+   @RequestMapping(value = "/awaitingRequests")
+	 public String awaitingRequests(@ModelAttribute("createProfile") UsersBean objUserssBean, Model objeModel, HttpServletRequest request, HttpSession session) {
+	  ObjectMapper objectMapper = null;
+		String sJson = null;
+		try {
+			UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
+			if(sessionBean == null){
+				return "redirect:HomePage";
+			}
+			long total_records = 0;
+			if("1".equals(sessionBean.getStatus())){
+				List<Map<String,Object>> sentRequests = objUsersDao.getAwaitingRequests(sessionBean.getId()+"",0);
+				if(sentRequests!=null && sentRequests.size()>0){
+					objectMapper = new ObjectMapper();
+					sJson = objectMapper.writeValueAsString(sentRequests);
+					request.setAttribute("awaitingRequests", sJson);
+					total_records = (Long)sentRequests.get(0).get("total_records");
+				}else{
+					request.setAttribute("awaitingRequests", "''");
+				}
+			}else{
+				request.setAttribute("awaitingRequests", "''");
+			}
+			request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
+			request.setAttribute("total_records", total_records);
+			
+		} catch (Exception e) {
+	   e.printStackTrace();
+	   System.out.println(e);
+	   logger.error(e);
+	   logger.fatal("error in awaitingRequests method");
+	  }
+		return "awaitingInterestRequests";
 	 }
    
    @RequestMapping(value = "/shortListedMe")
@@ -2423,7 +2531,7 @@ public class HomePageController {
    }
    
    @RequestMapping(value = "/newMatchesAjaxAction")
-	 public @ResponseBody String newMatchesAction(@ModelAttribute("createProfile") UsersBean searchCriteriaBean, Model objeModel, HttpServletRequest request, HttpSession session) {
+	 public @ResponseBody String newMatchesAjaxAction(@ModelAttribute("createProfile") UsersBean searchCriteriaBean, Model objeModel, HttpServletRequest request, HttpSession session) {
 	   List<Map<String, String>> listOrderBeans = null;
 	   JSONObject jsOnObj = new JSONObject();
 	   try{
@@ -3030,9 +3138,14 @@ public class HomePageController {
 				try{
 					 // send personal message from user to user
 					 if(StringUtils.isNotBlank(receipientUser.getEmail())){
-						 EmailUtil.sendInterestMail(userBean, receipientUser, request, objContext);
+						 String retVal = EmailUtil.sendInterestMail(userBean, receipientUser, request, objContext);
+						 if(StringUtils.isNotBlank(retVal)){
+							 objJson.put("message", "success");
+						 }else{
+							 objJson.put("message", "failed");
+						 }
 					 }
-					 objJson.put("message", "success");
+					 
 				 }catch(Exception e){
 					 objJson.put("message", "failed");
 				 }
@@ -3046,6 +3159,107 @@ public class HomePageController {
 		}
 		return String.valueOf(objJson);
 	}
+   
+   @RequestMapping(value = "/inboxAction")
+	 public String inboxAction(@ModelAttribute("createProfile") UsersBean objUserssBean, Model objeModel, HttpServletRequest request, HttpSession session) {
+	  ObjectMapper objectMapper = null;
+		String sJson = null;
+		List<Map<String,Object>> requests = null;
+		try {
+			UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
+			if(sessionBean == null){
+				return "redirect:HomePage";
+			}
+			String tab_type = request.getParameter("tab_type");
+			String list_type = request.getParameter("list_type");
+			long total_records = 0;
+			if("1".equals(sessionBean.getStatus())){
+				if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("sent_requests")){
+					requests = objUsersDao.getsentRequests(sessionBean.getId()+"",0);
+				}else if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("awaiting_requests")){
+					requests = objUsersDao.getAwaitingRequests(sessionBean.getId()+"",0);
+				}else if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("pending_requests")){
+					requests = objUsersDao.getPendingInterestRequests(sessionBean.getId()+"",0);
+				}else if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("accepted_requests")){
+					requests = objUsersDao.getacceptedRequests(sessionBean.getId()+"",0);
+				}else if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("rejected_requests")){
+					requests = objUsersDao.getRequestsRejectedByMe(sessionBean.getId()+"",0);
+				}
+				if(requests!=null && requests.size()>0){
+					objectMapper = new ObjectMapper();
+					sJson = objectMapper.writeValueAsString(requests);
+					request.setAttribute("inbox_requests", sJson);
+					total_records = (Long)requests.get(0).get("total_records");
+				}else{
+					request.setAttribute("inbox_requests", "''");
+				}
+			}else{
+				request.setAttribute("inbox_requests", "''");
+			}
+			request.setAttribute("listType", list_type);
+			request.setAttribute("tabType", tab_type);
+			request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
+			request.setAttribute("total_records", total_records);
+			
+		} catch (Exception e) {
+	   e.printStackTrace();
+	   System.out.println(e);
+	   logger.error(e);
+	   logger.fatal("error in inboxAction method");
+	  }
+		return "awaitingInterestRequests";
+	 }
+   
+   @RequestMapping(value = "/inboxAjaxAction")
+	 public  @ResponseBody String inboxAjaxAction(@ModelAttribute("createProfile") UsersBean objUserssBean, Model objeModel, HttpServletRequest request, HttpSession session) {
+	   	JSONObject jsOnObj = new JSONObject();
+		List<Map<String,Object>> requests = null;
+		try {
+			UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
+			if(sessionBean == null){
+				return "redirect:HomePage";
+			}
+			String tab_type = request.getParameter("tab_type");
+			String list_type = request.getParameter("list_type");
+			long total_records = 0;
+			if("1".equals(sessionBean.getStatus())){
+				if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("sent_requests")){
+					requests = objUsersDao.getsentRequests(sessionBean.getId()+"",0);
+				}else if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("awaiting_requests")){
+					requests = objUsersDao.getAwaitingRequests(sessionBean.getId()+"",0);
+				}else if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("pending_requests")){
+					requests = objUsersDao.getPendingInterestRequests(sessionBean.getId()+"",0);
+				}else if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("accepted_requests")){
+					requests = objUsersDao.getacceptedRequests(sessionBean.getId()+"",0);
+				}else if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("rejected_requests")){
+					requests = objUsersDao.getRequestsRejectedByMe(sessionBean.getId()+"",0);
+				}
+				else if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("profile_views")){
+					requests = objUsersDao.getProfileViewedMembers(sessionBean.getId()+"",0);
+				}
+				if(requests!=null && requests.size()>0){
+					jsOnObj.put("inbox_requests", requests);
+					total_records = (Long)requests.get(0).get("total_records");
+				}else{
+					jsOnObj.put("inbox_requests", "");
+				}
+			}else{
+				jsOnObj.put("inbox_requests", "");
+			}
+			jsOnObj.put("listType", list_type);
+			jsOnObj.put("tabType", tab_type);
+			jsOnObj.put("page_size", MatrimonyConstants.PAGINATION_SIZE);
+			jsOnObj.put("total_records", total_records);
+			
+		} catch (Exception e) {
+	   e.printStackTrace();
+	   System.out.println(e);
+	   logger.error(e);
+	   logger.fatal("error in inboxAjaxAction method");
+	  }
+		return jsOnObj.toString();
+	 }
+   
    private UsersBean copyAboutMySelf(UsersBean source,UsersBean target){
 	   target.setAboutMyself(source.getAboutMyself());
 	   

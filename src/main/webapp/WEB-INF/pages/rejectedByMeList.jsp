@@ -2,21 +2,44 @@
                 
                 
                 <div class="col-md-9 products-grid-left">
-					<div class="panel panel-success">
+                	<div class="panel panel-success">
 			            <div class="panel-heading">
-			            	Sent Interest Requests
+			            	Requests ignored by you.
 			            </div>
+			            <div class="panel-body table-responsive">
 			            <form:form commandName="createProfile"  class="form-horizontal" id="searchForm2" name="searchForm2" role="form"   method="post">
 		             		<form:hidden path="id" />
-							<div class="panel-body" id="sent_requests">
+							<div class="panel-body" id="accepted_requests">
 								
 							</div>
 							<div id="paginator"></div>
 							<div id="table_footer"></div>
 							
 						</form:form>
+						</div>
 					</div>
+            <!-- <div class="panel panel-default">
             
+            <div class="panel-body">
+				<div class="col-md-9">
+            	<div id="tableId">
+            		<table class="table table-hover table-nomargin table-bordered" >
+            			<thead>
+            				<tr>
+            					<th>UserName</th>
+            					<th>Received On</th>
+            					<th></th></tr>
+            			</thead>
+            			<tbody>
+            			</tbody>
+            		</table>
+				</div>
+				<div id="paginator"></div>
+				<div id="table_footer"></div>
+            	</div>
+         </div></div> -->
+         
+			
 		
 				</div>
                 
@@ -81,44 +104,12 @@ var total_items_count = ${total_records};
 var page_size = ${page_size};
 var roleid = ${cacheGuest.roleId};
 var allowed_limit = ${allowed_profiles_limit};
-var listOrders1 = ${sentRequests};
+var listOrders1 = ${acceptedRequests};
 		paginationSetup(total_items_count);
 		$("#paginator").asPaginator('enable');
-		displayMatches_messages(listOrders1,"sent_requests",roleid,"sentRequests");
+		displayMatches_messages(listOrders1,"accepted_requests",roleid,"acceptedRequests");
 		displayTableFooter(1);
-function displayTable(listOrders) {
-	$('#tableId').html('');
-	var tableHead = '<table class="table table-hover table-nomargin table-bordered" >'
-		+ '<thead><tr><th>UserName</th><th>Sent On</th></tr></thead><tbody></tbody></table>';
-	$('#tableId').html(tableHead);
-	serviceUnitArray = {};
-	if(listOrders==""){
-		var tblRow = "<tr><td colspan='3' class='dataTables_empty'>No data available</td></tr>";
-		$(tblRow).appendTo("#tableId table tbody");
-		$("#table_footer").prop("hidden",true);
-		$("#paginator").prop("hidden",true);
-	}
-	$.each(listOrders,function(i, orderObj) {
-						serviceUnitArray[orderObj.id] = orderObj;
-						var tblRow = "<tr>"
-							+ "<td title='"+orderObj.username+"'><a href='#' onclick='fullProfile("+orderObj.id+")'>" + orderObj.username + "</a></td>"
-							+ "<td title='"+orderObj.sentOn+"'>" + orderObj.sentOn + "</td>"
-							+ "</tr >";
-						$(tblRow).appendTo("#tableId table tbody"); 
-					});
-	/* $('#DataTables_Table_0').DataTable({
-		dom: 'Bfrtip',
-		buttons: [{extend:"print",className:"btn default"},{extend:"pdf",className:"btn default"},{extend:"csv",className:"btn default"}]
-	}); */
-	
-	 /*$('#datatable-buttons').DataTable({
-	        "dom": 'C<"clear">lfrtip',
-	        "colVis": {
-	            "buttonText": "Change columns",
-	        "buttons": [{extend:"copy",className:"btn default"},{extend:"print",className:"btn default"},{extend:"pdf",className:"btn default"},{extend:"csv",className:"btn default"}]
-	        }
-	    });*/
-}
+
 function fullProfile(profile_id){
 	var roleId = ${cacheGuest.roleId};
 	$("#id").val(profile_id);
@@ -165,28 +156,28 @@ function paginationSetup(total_items_count) {
           altLists: true
         },
         onChange: function(page) {
-        	var formData = new FormData();
-        	formData.append("page_no",page);
-          	formData.append("request_from","sentrequests");
-          	
-      		$.fn.makeMultipartRequest('POST', 'displayPage', false,
-      				formData, false, 'text', function(data){
-      			var jsonobj = $.parseJSON(data);
-      			var results = jsonobj.results;
-      			if(results==""){
-      				var str = '<div class="alert alert-danger" style="margin-bottom: 0px;padding: 5px;"><h6>No requests found..!</h6></div>';
-        			$('#sent_requests').html('');
-        			$(str).appendTo("#sent_requests");
-        			$("#table_footer").prop("hidden",true);
-        			$("#paginator").prop("hidden",true);
-        		}else{
-        			paginationSetup(total_items_count);
-        			$("#paginator").asPaginator('enable');
-        			displayMatches_messages(results,"sent_requests",roleid,"sentRequests");
-        			$("#table_footer").removeAttr("hidden");
-        			$("#paginator").removeAttr("hidden");
-        			displayTableFooter(page);
-        		}
+           var formData = new FormData();
+      	 formData.append("page_no",page);
+      	formData.append("request_from","acceptedrequests");
+      	
+  		$.fn.makeMultipartRequest('POST', 'displayPage', false,
+  				formData, false, 'text', function(data){
+  			var jsonobj = $.parseJSON(data);
+  			var results = jsonobj.results;
+  			if(results==""){
+  				var str = '<div class="alert alert-danger" style="margin-bottom: 0px;padding: 5px;"><h6>No requests found..!</h6></div>';
+    			$('#accepted_requests').html('');
+    			$(str).appendTo("#accepted_requests");
+    			$("#table_footer").prop("hidden",true);
+    			$("#paginator").prop("hidden",true);
+    		}else{
+    			paginationSetup(total_items_count);
+    			$("#paginator").asPaginator('enable');
+    			displayMatches_messages(results,"accepted_requests",roleid,"acceptedRequests");
+    			$("#table_footer").removeAttr("hidden");
+    			$("#paginator").removeAttr("hidden");
+    			displayTableFooter(page);
+    		}
   			
   		});
           

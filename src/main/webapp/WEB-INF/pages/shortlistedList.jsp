@@ -3,7 +3,7 @@
 	<div class="container" style="background: #FFF;">
 		<div class="mid-grids">
 			
-			<jsp:include page="sideGrid1.jsp" />
+			<jsp:include page="sideGrid2.jsp" />
 			<div id="dial1"></div>
 			<div class="col-md-8 products-grid-left">
 				
@@ -36,6 +36,7 @@ var total_items_count = ${total_records};
 var page_size = ${page_size};
 var allowed_limit = ${allowed_profiles_limit};
 var listOrders1 = ${shortlistedList};
+
 displayMatches_myhome(listOrders1);
 
 

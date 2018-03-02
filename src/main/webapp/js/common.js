@@ -76,7 +76,8 @@ function displayMatches_messages(listOrders,divId,roleId,listType) {
 	var divElem = "#"+divId;
 	var element = $(divElem);
 	if(listOrders==""){
-		var tblRow = "No data available";
+		var tblRow = '<div class="alert alert-danger" style="margin-bottom: 0px;padding: 5px;"><h6>No requests found..!</h6></div>';
+		//var tblRow = "No data available";
 		$(tblRow).appendTo("#"+divId);
 		$("#table_footer").prop("hidden",true);
 		$("#paginator").prop("hidden",true);
@@ -146,7 +147,7 @@ function displayMatches_messages(listOrders,divId,roleId,listType) {
 		            	+ '<button class="btn btn-danger btn-block" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button>'
 		            	+ '<div class="clearfix"></div>'
 		            	+ '</div>'
-		           acceptOptions = "<tr><td title=''><div id='accept"+orderObj.requestId+"'><a href='#' onclick='acceptRequest("+orderObj.requestId+",\"1\")'>Accept</a>&nbsp;|&nbsp;<a id='reject"+orderObj.requestId+"' href='#' onclick='rejectRequest("+orderObj.requestId+" \"0\")'>Reject</a></td><tr>";
+		           acceptOptions = "<tr><td title=''><div id='accept"+orderObj.requestId+"'><a href='#' onclick='acceptRequest("+orderObj.requestId+",\"1\")'>Accept</a>&nbsp;|&nbsp;<a id='reject"+orderObj.requestId+"' href='#' onclick='rejectRequest("+orderObj.requestId+" \"0\")'>Ignore</a></td><tr>";
 				}else if(listType == "acceptedRequests"){
 					options =  '<div class="col-md-3">'
 		            	+ '<button class="btn btn-danger btn-block" onclick="fullProfile('+orderObj.id+')">View Full Profile</button><br>'

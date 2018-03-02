@@ -219,7 +219,8 @@
 			$('#matches').html('');
 			serviceUnitArray = {};
 			if(listOrders==""){
-				var tblRow = '<div>No matches found.</div>';
+				//var tblRow = '<div>No matches found.</div>';
+				var tblRow = '<div class="alert alert-danger" style="margin-bottom: 0px;padding: 5px;"><h6>No data found..!</h6></div>';
 				$(tblRow).appendTo("#matches"); 
 				$("#pagination_div").prop("hidden",true);
 			}
@@ -263,19 +264,22 @@
 						//more_details_str = '<tr><td><span><a href="#" onclick="showMoreDetails(this)">read more...</a></span></td></tr>';
 						//mobile_no__str = '<tr><td><span><a href="#" onclick="viewMobileNumber('+orderObj.id+')">View Mobile Number</a></span></td></tr>';
 					}
-					var abtMySelf = orderObj.aboutMyself;
-					if(abtMySelf=="undefined" || abtMySelf==null){
-						abtMySelf = "";
-					}
+					
 					var premiumMember = "";
 					var memberRoleId = orderObj.role_id;
 					if(memberRoleId!=null && memberRoleId!="" && (memberRoleId==6 || memberRoleId==11 ||
 							memberRoleId==12 || memberRoleId==13 || memberRoleId==14)){
 						premiumMember = "<span class='premium-member' style='color:#000;text-decoration:none'>Premium Member</span>";
 					}
-					var shortListedStr = '<span id="shortlistTD'+orderObj.id+'"><a href="#" type="button" class="btn btn-primary" onclick="shortList('+orderObj.id+')"> Shortlist</a></span>';
-					if(orderObj.short_listed == "1"){
-						shortListedStr = '<span><a type="button" class="btn btn-primary" disabled="true"> Shortlisted</a></span>';
+					var shortListType = "${list_type}";
+					var shortListedStr;
+					if(shortListType != null && typeof shortListType != "undefined" && shortListType=="shortListedByMe"){
+						shortListedStr = '';
+					}else{
+						shortListedStr = '<span id="shortlistTD'+orderObj.id+'"><a href="#" type="button" class="btn btn-primary" onclick="shortList('+orderObj.id+')"> Shortlist</a></span>';
+						if(orderObj.short_listed == "1"){
+							shortListedStr = '<span><a type="button" class="btn btn-primary" disabled="true"> Shortlisted</a></span>';
+						}
 					}
 					var expressed = orderObj.expressedInterest;
 					var interestStr = "";
@@ -502,6 +506,222 @@
 			});
 		}
 		
+		function displayMatches_inbox(listOrders,listType,tabType){
+			serviceUnitArray = {};
+			var divId = listType;
+			var divElem = "#"+divId;
+			var element = $(divElem);
+			
+			$(".tabcontent").attr("hidden",true);
+			$("#"+tabType+"_div").removeAttr("hidden");
+			
+			
+			$(".tab-content_inbox").attr("hidden",true);
+			$(".tab-content_inbox").removeClass('active');
+			var actived_nav = $('.nav-tabs > li.active');
+			actived_nav.removeClass('active');
+			
+			$("#"+listType+"_tab").removeAttr('hidden');
+			$("#"+listType+"_tab").removeClass('hide');
+			$("#"+listType+"_tab").addClass('active');
+			$("#"+listType+"_section").removeClass('hide');
+			$("#"+listType+"_section").removeAttr('hidden');
+			$("#"+listType+"_section").addClass('active');
+			
+			$("#"+divId).html('');
+			if(listOrders==""){
+				var tblRow = '<div class="alert alert-danger" style="margin-bottom: 0px;padding: 5px;"><h6>No requests found..!</h6></div>';
+				//var tblRow = "No data available";
+				$(tblRow).appendTo("#"+divId);
+				//$("#table_footer").attr("hidden",true);
+    			//$("#altLists").attr("hidden",true);
+    			$("#pagination_div").prop("hidden",true);
+			}
+			$.each(listOrders,function(i, orderObj) 
+			{
+				serviceUnitArray[orderObj.id] = orderObj;
+				
+				var array = null;
+//		 		var imageUrl =null;
+				
+				var image = null; image = orderObj.profileImage;
+				if(image == "" || image == null || image == "undefined"){
+					image = "img/default.png";
+				}
+
+				if(orderObj.firstName !=null)
+				{
+					var login_user_role_id =${cacheGuest.roleId}; 
+					var insert_str = '';
+					var mobile_no__str = '';
+					var more_details_str = '';
+					var expressed = orderObj.expressedInterest;
+					var firstname = 'xxxxxx',lastname='xxxxxx';
+					if((login_user_role_id == 6) || (login_user_role_id == 11) || (login_user_role_id == 12)
+							|| (login_user_role_id == 13) || (login_user_role_id == 14)){ //means premium,premium_plus,aarna premium users
+					
+						firstname = orderObj.firstName;
+						lastname = orderObj.lastName;
+					}
+					var occName = orderObj.occupationName;
+					if(occName==null)
+						occName = "";
+					var ageStr = orderObj.age;
+					var age = ageStr.split(".")[0];
+					var options = "";
+					var acceptOptions = "";
+						
+						var abtMySelf = orderObj.aboutMyself;
+						if(abtMySelf=="undefined" || abtMySelf==null){
+							abtMySelf = "";
+						}
+						var premiumMember = "";
+						var memberRoleId = orderObj.role_id;
+						if(memberRoleId!=null && memberRoleId!="" && (memberRoleId==6 || memberRoleId==11 ||
+								memberRoleId==12 || memberRoleId==13 || memberRoleId==14)){
+							premiumMember = "<span class='premium-member'>Premium Member</span>";
+						}
+						var shortListedStr = '<span id="shortlistTD'+orderObj.id+'"><a href="#" type="button" class="btn btn-primary btn-block" onclick="shortList('+orderObj.id+')"> Shortlist</a></span>';
+						if(orderObj.short_listed == "1"){
+							shortListedStr = '<span><a type="button" class="btn btn-primary btn-block" disabled="true"> Shortlisted</a></span>';
+						}
+						var expressed = orderObj.expressedInterest;
+						var interestStr = "";
+						if(expressed==0){
+							interestStr = '<span id="expInterest'+orderObj.id+'"><a   href="#" type="button" class="btn btn-success btn-block btn-md"  onclick="expressInterest('+orderObj.id+')">  Express Interest  </a></span>';
+						}else if(expressed>0){
+							interestStr = '<span><a type="button" class="btn btn-success btn-block" disabled="true" style="text-size-adjust:auto">Expressed Interest</a></span>';
+						}
+						var mobNumViewed = orderObj.mobileNumViewed;
+						var mobile_num_Str = "";
+						if(mobNumViewed==0){
+							mobile_num_Str = '<span id="mobileTD'+orderObj.id+'"><a href="#" type="button" class="btn btn-primary btn-block" onclick="displayMobileNum('+orderObj.id+')">View Mobile Number</a></span>';
+						}else if(mobNumViewed>0){
+							mobile_num_Str = '<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+orderObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>';
+						}
+						var profession = orderObj.occupationName;
+						if((profession == null) || profession == ""){
+							profession = "Not Specified";
+						}
+						var acceptOptions = '';
+						if(listType == "pending_requests"){
+							interestStr = '';
+							options =  '<div class="col-md-3">'
+				            	+ '<button class="btn btn-danger btn-block" onclick="fullProfile('+orderObj.id+')">View Full Profile</button>'
+				            	+ mobile_num_Str
+				            	+ shortListedStr
+				            	//+ '<button class="btn btn-danger btn-block" onclick="displayMobileNum_messages('+orderObj.id+',\'preferences\,'+orderObj.requestId+')">View Mobile Number</button>'
+				            	+ '<div class="clearfix"></div>'
+				            	+ '</div>';
+							acceptOptions = "<span id='accept"+orderObj.requestId+"'><a type='button' class='btn btn-primary btn-block' onclick='acceptRequest("+orderObj.requestId+",\"1\")'>Accept</a><a type='button' class='btn btn-danger btn-block' id='reject"+orderObj.requestId+"' href='#' onclick='acceptRequest("+orderObj.requestId+", \"0\")'>Ignore</a></span><br>";
+							
+						}else if(listType == "accepted_requests"){
+							interestStr = '';
+							options =  '<div class="col-md-3">'
+				            	+ '<button class="btn btn-danger btn-block" onclick="fullProfile('+orderObj.id+')">View Full Profile</button><br>'
+				            	+ mobile_num_Str
+				            	+ shortListedStr
+				            	//+ '<button class="btn1 btn btn-info" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button>'
+				            	+ '<div class="clearfix"></div>'
+				            	+ '</div>';
+						}else if(listType == "rejected_requests"){
+							interestStr = '';
+							options =  '<div class="col-md-3">'
+				            	+ '<button class="btn btn-danger btn-block" onclick="fullProfile('+orderObj.id+')">View Full Profile</button><br>'
+				            	+ mobile_num_Str
+				            	//+ '<button class="btn1 btn btn-info" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button>'
+				            	+ '<div class="clearfix"></div>'
+				            	+ '</div>';
+						}else if(listType == "sent_requests"){
+							interestStr = '';
+							options =  '<div class="col-md-3">'
+				            	+ '<button class="btn btn-danger btn-block" onclick="fullProfile('+orderObj.id+')">View Full Profile</button>'
+				            	+ mobile_num_Str
+				            	+ shortListedStr
+				            	//+ '<button class="btn btn-danger btn-block" onclick="displayMobileNum_messages('+orderObj.id+',\'preferences\,'+orderObj.requestId+')">View Mobile Number</button>'
+				            	+ '<div class="clearfix"></div>'
+				            	+ '</div>';
+							interestStr = '';
+						}else if(listType == "awaiting_requests"){
+							interestStr = '';
+							options =  '<div class="col-md-3">'
+				            	+ '<button class="btn btn-danger btn-block" onclick="fullProfile('+orderObj.id+')">View Full Profile</button><br>'
+				            	+ mobile_num_Str
+				            	+ shortListedStr
+				            	//+ '<button class="btn btn-danger btn-block" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button>'
+				            	+ '<div class="clearfix"></div>'
+				            	+ '</div>';
+				           //acceptOptions = "<tr><td title=''><div id='accept"+orderObj.requestId+"'><a href='#' onclick='acceptRequest("+orderObj.requestId+",\"1\")'>Accept</a>&nbsp;|&nbsp;<a id='reject"+orderObj.requestId+"' href='#' onclick='rejectRequest("+orderObj.requestId+" \"0\")'>Reject</a></td><tr>";
+						}else if(listType == "myProfileViews"){
+							options =  '<div class="col-md-3">'
+				            	+ '<button class="btn btn-danger btn-block" onclick="fullProfile('+orderObj.id+')">View Full Profile</button>'
+				            	+ mobile_num_Str
+				            	//+ '<button class="btn btn-danger btn-block" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button>'
+				            	+ '<div class="clearfix"></div>'
+				            	+ '</div>';
+						} 
+					//}
+					
+					
+						var tblRow = '<div class="panel panel-default">'
+							+ '<div class="panel-heading">'
+							+ '<h5 class="panel-title">'
+							+ '<div class="form-check">'
+
+							+ '	<label class="form-check-label"> <input type="checkbox" class="form-check-input"> '+firstname+' '+lastname+'&nbsp;('+orderObj.username+')</label>'
+							+ '	<span class="pull-right">Created by '+orderObj.createProfileFor+'</span>'
+							//+ '	<label class="form-check-label"> <input type="checkbox" class="form-check-input"> '+orderObj.firstName+' '+orderObj.lastName+'</label>'
+//			 				+ '	<span class="pull-right">Created by '+orderObj.createProfileFor+'</span>'
+
+							+ '</div>'
+							+ '</h5>'
+							+ '</div>'
+							+ '<div class="panel-body">'
+							+ '<div class="col-md-2">'
+							+ '<a href="#"> <img src='+image+' class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: 60px;width: 60px;"></a>'
+			            	+ '</div>'
+			            	+ '<div class="col-md-6">'
+			            	+ '<table>'
+			            	+ '	<tr><td>Age/Height</td><td><span>: '+age+', '+orderObj.inches+'</span></td></tr>'
+			            	+ '	<tr><td>Religion</td><td><span>: '+orderObj.religionName+'</span></td></tr>'
+			            	+ '	<tr><td>Mother Tongue</td><td><span>: '+orderObj.motherTongueName+'</span></td></tr>'
+			            	+ '	<tr><td>Community</td><td><span>: '+orderObj.casteName+'</span></td></tr>'
+			            	+ '	<tr><td>Location</td><td><span>: '+orderObj.currentCityName+'</span></td></tr>'
+			            	+ '	<tr><td>Education</td><td><span>: '+orderObj.educationName+'</span></td></tr>'
+			            	+ '	<tr><td>Profession</td><td><span>: '+profession+'</span></td></tr>'
+			            	+ '<tr><td id="mobileTD'+orderObj.requestId+'">'+mobile_num_Str+'</td><td></td></tr>'
+			            	//+ '<td id="shortlisttd'+orderObj.id+'"><button type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">Shortlist</button></td></tr>'
+			            	//+ '	<tr><td>Age</td><td><span>: '+orderObj.age+'</span></td></tr>'
+			            	//+ '	<tr><td colspan="2">'+orderObj.aboutMyself+'... <a href="#" onclick="showMore('+orderObj.id+')"> read more..</a> </td></tr>'
+			            	//+  more_details_str
+			            	//+ '	<tr class="showMore" hidden="true"><td colspan="2">'+orderObj.aboutMyself+'... <a href="#" > read more..</a> </td></tr>'
+			            	//+ '	<tr class="showMore" hidden="true"><td colspan="2">'+orderObj.aboutMyself+'... <a href="#" > more detailssss</a> </td></tr>'
+			            	//+ '	<tr class="showMore" hidden="true"><td colspan="2">'+orderObj.aboutMyself+'... <a href="#" > more detailssss</a> </td></tr>'
+			            	+ '</table>'
+			            	+ '</div>'
+			            	/* + '<div id="hideMe'+orderObj.id+'" class="form-group hideMe">'
+			            	+ '    <label class="col-md-4 control-label" for="textinput"></label>'  
+			            	+ '    <div class="col-md-6 text-center">'
+			            	+ '    	<span class="more" style="color: #0087AF;cursor: pointer;"><a href="#" >read more </a></span><i style="cursor: pointer;" class="fa fa-angle-down"></i>'
+			            	+ '    </div>'
+			            	+ '</div>' */
+			            	+ '<div class="col-md-4">'
+			            	+ '<h4 style="margin-bottom:20px;">Like this Profile?</h4>'
+			            	+ interestStr
+							//+ '<button class="btn btn-danger btn-block btn-md" onclick="fullProfile('+orderObj.id+')">View Full Profile</button><br><br><br><br><br>'
+							+ '<a href="#" class="btn btn-primary btn-block btn-md" onclick="fullProfile('+orderObj.id+')">View Full Profile</a><br>'
+							+ acceptOptions
+							+ shortListedStr
+							//+ '<span id="shortlistTD"><a href="#" type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="shortList('+orderObj.id+')">Shortlist</a></span> '
+							+ '<div class="clearfix"></div>'
+			            	+ '</div>'
+			            	+ '</div>'
+			            	+ '</div>';
+					$(tblRow).appendTo("#"+divId);
+				}
+			});
+		}
+		
 		function displayMobileNum_messages(profileId,listType,requestId){
 			var roleId = ${cacheGuest.roleId};
 			$("#id").val(profileId);
@@ -537,6 +757,162 @@
 			
 		}
 		
+		function displayMailPopup(profile_id){
+			var roleId = ${cacheGuest.roleId};
+			$("#profile_id").val(profile_id);
+			if(roleId==4 || roleId==12 || roleId==13){
+				document.searchForm2.action = "memberShipPage"
+				document.searchForm2.submit();
+				return true;
+			}else{
+				$('#myModal').modal();
+				
+			}
+		}
+
+		function sendMail(){
+			
+			var content = $("#mail_content").val();
+			if(content.trim() == ""){
+				alert("Please enter some content");
+				return false;
+			}
+			$("#sendMailBtn").prop("disabled",true);
+			$("#sendMailBtn").val("Please wait...");
+			 var formData = new FormData();
+			 formData.append("profile_id",$("#profile_id").val());
+			 formData.append("mail_content",content);
+			 
+			 $.fn.makeMultipartRequest('POST', 'sendMail', false,
+						formData, false, 'text', function(data){
+					var jsonobj = $.parseJSON(data);
+					var msg = jsonobj.message;
+					if(msg != null && typeof msg != "undefined"){
+						if(msg == "success"){
+							alert("E-Mail has been sent successfully.");
+							$("#myModal").dialog("close");
+						}else{
+							alert("failed");
+						}
+					}
+					$("#sendMailBtn").removeAttr("disabled");
+					$("#sendMailBtn").val("Send Mail");
+			 });
+			//$("#sendMailBtn").removeAttr("disabled");
+			//$("#sendMailBtn").val("Send Mail");
+			
+		}
+		
+		function displayInbox(tab_type,list_type){
+			 document.searchForm2.action = "inboxAction?tab_type="+tab_type+"&list_type="+list_type;
+		     document.searchForm2.submit();             // Submit the page
+		    return true;
+			 /* $.fn.makeMultipartRequest('POST', 'inboxAction', false,
+						formData, false, 'text', function(data){
+					var jsonobj = $.parseJSON(data);
+					var requestList = jsonobj.inbox_requests;
+					if(tab_type=="inbox"){
+						$("#inbox").attr('class','active');
+					}
+					displayMatches_inbox(requestList,list_type,tab_type);
+					
+			 }); */
+		}
+		
+		function displayBlock(tabType,listType){
+			$(".tabcontent").attr("hidden",true);
+			$("#"+tabType+"_div").removeAttr("hidden");
+			
+			
+			$(".tab-content_inbox").attr("hidden",true);
+			$(".tab-content_inbox").removeClass('active');
+			var actived_nav = $('.nav-tabs > li.active');
+			actived_nav.removeClass('active');
+			
+			$("#"+listType+"_tab").removeAttr('hidden');
+			$("#"+listType+"_tab").removeClass('hide');
+			$("#"+listType+"_tab").addClass('active');
+			$("#"+listType+"_section").removeClass('hide');
+			$("#"+listType+"_section").removeAttr('hidden');
+			$("#"+listType+"_section").addClass('active');
+			
+			var formData = new FormData();
+		  	formData.append("tab_type",tabType);
+		  	formData.append("list_type",listType);
+				$.fn.makeMultipartRequest('POST', 'inboxAjaxAction', false,
+						formData, false, 'text', function(data){
+					var jsonobj = $.parseJSON(data);
+					var inboxRequests = jsonobj.inbox_requests;
+					var listType = jsonobj.listType;
+					var tabType = jsonobj.tabType;
+						total_items_count = jsonobj.total_records;
+						$("#"+listType).html('');
+						if(inboxRequests==""){
+							var tblRow = '<div class="alert alert-danger" style="margin-bottom: 0px;padding: 5px;"><h6>No requests found..!</h6></div>';
+							//var tblRow = "No data available";
+							$(tblRow).appendTo("#"+listType);
+							$("#table_footer").attr("hidden",true);
+			    			$("#altLists").attr("hidden",true);
+						}else{
+							$("#altLists").asPaginator('destroy');
+			    			paginationSetup(total_items_count);
+			    			$("#altLists").asPaginator('enable');
+			    			displayMatches_inbox(inboxRequests,listType,tabType);
+			    			//$("#table_footer").removeAttr("hidden");
+			    			//$("#altLists").removeAttr("hidden");
+			    			$("#pagination_div").removeAttr("hidden");
+			    			$("#table_footer").removeAttr("hidden");
+			    			$("#altLists").removeAttr("hidden");
+			    			displayTableFooter(1);
+						}
+						
+		    		
+					
+				});
+		}
+		
+		function acceptRequest(requestId,flag){
+			var roleId = ${cacheGuest.roleId};
+			$("#id").val(requestId);
+			 if(roleId==4){
+				document.searchForm2.action = "memberShipPage"
+				document.searchForm2.submit();
+				return true;
+			}else{
+				 /* if(allowed_limit<=0){
+					alert("Exceeded allowed profiles limit. Renew your membership plan and get more profiles");
+					return false;
+				}  */ 
+				var formData = new FormData();
+			
+				formData.append("requestId",requestId);
+				formData.append("accept_flag",flag);
+				
+				jQuery.fn.makeMultipartRequest('POST', 'acceptRequest', false,
+						formData, false, 'text', function(data){
+			    		var jsonobj = $.parseJSON(data);
+			    		var msg = jsonobj.message;
+			    		
+			    			if("success"==msg){
+			    				if(flag==1){
+			    					alert("Request accepted successfully");
+			    					$("#accept"+requestId).html('');
+			    					$("#accept"+requestId).html("<a type='button' class='btn btn-primary btn-block' disabled='true'>Accepted</a>");
+			    				}else{
+			    					alert("Request rejected successfully");
+			    					$("#accept"+requestId).html('');
+			    					$("#accept"+requestId).html("<a type='button' class='btn btn-danger btn-block' disabled='true'>Ignored</a>");
+			    				}
+			    			}else if("failed"==msg || "exception"==msg){
+			    				alert("Some problem occured. Please try again.");
+			    			}
+			    		
+			    		
+						
+					});
+			}
+		}
+
 	</script>
 	
 	<script type="text/javascript" src="js/ajax.js"></script>
@@ -1051,7 +1427,7 @@ xpopup
 									
 									<li><a href="mobileNumViewedByMeList">Mobile no viewed by me</a></li>
 									<li><a href="myMobileNoViewsList">Who viewed my mobile number</a></li>
-									<li><a href="#">Ignored profiles</a></li>
+									<li><a href="inboxAction?tab_type=inbox&list_type=rejected_requests">Ignored profiles</a></li>
 								</ul>
 							</li>
 							<li class="dropdown searchPage">
@@ -1075,10 +1451,10 @@ xpopup
 							<li class="dropdown messages">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Messages <span id="matchcount">${cacheGuest.pendingRequestsCount}</span></a>
 								<ul class="dropdown-menu">
-									<li><a href="pendingRequests">Inbox - pending ${cacheGuest.pendingRequestsCount}</a></li>
-									<li><a href="acceptedRequests">Inbox - Accepted </a></li>
-									<li><a href="sentRequests">Sent All</a></li>
-									<li><a href="#">SMS received/sent</a></li>
+									<li><a href="inboxAction?tab_type=inbox&list_type=pending_requests">Inbox - pending ${cacheGuest.pendingRequestsCount}</a></li>
+									<li><a href="inboxAction?tab_type=inbox&list_type=accepted_requests" >Inbox - Accepted </a></li>
+									<li><a href="inboxAction?tab_type=sent&list_type=sent_requests" >Sent All</a></li>
+									<!-- <li><a href="#">SMS received/sent</a></li> -->
 								</ul>
 							</li>
 							<li class="dropdown upgrade">
@@ -1107,6 +1483,28 @@ xpopup
 		</div>
 	</div>
 </div>
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header" style="background: yellowgreen; border-radius: 6px;">
+          <button type="button" class="close" data-dismiss="modal" style="margin-top: 0px;margin-right: 9px; font-size: 28px;color: black;">&times;</button>
+          <h4 class="modal-title" style="color: aliceblue;padding-bottom: 5px; padding-left: 44px; font-size: 24px;">Mail Content</h4>
+        </div>
+        <div class="modal-body">
+        	<input type="hidden" name="profile_id" id="profile_id">
+         	<textarea id="mail_content" name="mail_content" cols="70" rows="10" style="margin: 0px 0px 0px 29px;" ></textarea><br><div class="clearfix"></div>
+          	
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="sendMailBtn" onclick="sendMail()" class="btn btn-primary" >Send Mail</button>
+        </div>
+      </div>
+      
+    </div>
+</div>	
 
 	<%-- <div class="mega_nav">
 		<div class="container">

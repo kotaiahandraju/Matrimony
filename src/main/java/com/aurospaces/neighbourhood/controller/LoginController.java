@@ -95,6 +95,7 @@ public class LoginController {
 					if(objUserBean.getStatus().equals("1")){
 						session.setAttribute("notificationsCount", notificationsCount);
 						objUserBean.setSentInterestCount((String.valueOf(interestCounts.get("sentInterestCount"))));
+						objUserBean.setAwaitingInterestCount((String.valueOf(interestCounts.get("awaitingInterestCount"))));
 						objUserBean.setReceivedInterestCount((String.valueOf(interestCounts.get("receivedInterestCount"))));
 						objUserBean.setAcceptedInterestCount((String.valueOf(interestCounts.get("acceptedInterestCount"))));
 						objUserBean.setProfileViewedCount((String.valueOf(interestCounts.get("profileViewedCount"))));

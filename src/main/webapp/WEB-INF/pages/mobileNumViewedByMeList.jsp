@@ -113,98 +113,7 @@
 	<div class="container" style="background: #FFF;">
 		<div class="mid-grids">
 			
-			<div class="col-md-3 products-grid-right">
-				<div class="panel panel-success">
-					<div class="panel-body">
-						<h4><strong>Activity</strong></h4>
-						<div class="tabbable" id="tabs-343694">
-							
-							<div class="tab-content">
-								<div class="tab" id="inbox">
-									<table width="100%">
-										<tr style="border-bottom:1px dotted;">
-											<td height="30"><a class="tablinks" onclick="openCity(event, 'London')" id="defaultOpen">Inbox</a></td>
-											
-										</tr>
-										<tr style="border-bottom:1px dotted;">
-											<td height="30"><a href="#" class="tablinks" onclick="openCity(event, 'Paris')">Sent</a></td>
-											
-										</tr>
-										<tr style="border-bottom:1px dotted;">
-											<td height="30"><a href="#">Profiles I have blocked</a></td>
-											<td><span class="badge pull-right">${cacheGuest.acceptedInterestCount}</span></td>
-										</tr>
-									</table>
-									<h4><strong>Profile Views</strong></h4>
-									<table width="100%">
-										<tr style="border-bottom:1px dotted;">
-											<td height="30"><a href="receivedRequests">Members viewed my profile</a></td>
-											
-										</tr>
-										<tr style="border-bottom:1px dotted;">
-											<td height="30"><a href="#">Members shortlisted my profile</a></td>
-											
-										</tr>
-									</table>
-									<h4><strong>SMS</strong></h4>
-									<table width="100%">
-										<tr style="border-bottom:1px dotted;">
-											<td height="30"><a href="receivedRequests">SMS Received</a></td>
-											
-										</tr>
-										<tr style="border-bottom:1px dotted;">
-											<td height="30"><a href="#">SMS Sent</a></td>
-											
-										</tr>
-									</table>
-								</div>
-								<div class="tab-pane" id="sent">
-									<table width="100%">
-										<tr>
-											<td height="30"><a href="sentRequests">Invitations</a></td>
-											<td><span class="badge pull-right">${cacheGuest.sentInterestCount}</span></td>
-										</tr>
-									</table>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div><div class="panel-group" id="accordion">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-             <h4 class="panel-title">
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#panel1"><i class="glyphicon glyphicon-minus"></i>Panel 1</a>
-            </h4>
-
-        </div>
-        <div id="panel1" class="panel-collapse collapse in">
-            <div class="panel-body">Contents panel 1</div>
-        </div>
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-heading">
-             <h4 class="panel-title">
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#panel2"><i class="glyphicon glyphicon-plus"></i>Panel 2</a>
-            </h4>
-
-        </div>
-        <div id="panel2" class="panel-collapse collapse">
-            <div class="panel-body">Contents panel 2</div>
-        </div>
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-heading">
-             <h4 class="panel-title">
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#panel3"><i class="glyphicon glyphicon-plus"></i>Panel 3</a>
-            </h4>
-
-        </div>
-        <div id="panel3" class="panel-collapse collapse">
-            <div class="panel-body">Contents panel 3</div>
-        </div>
-    </div>
-</div>
-			</div>
+			<jsp:include page="sideGrid2.jsp" />
 			<div id="dial1"></div>
 			<div class="col-md-8 products-grid-left">
 			
@@ -251,15 +160,6 @@
 		</section>
 </div>
 
-<div id="Paris" class="tabcontent">
-  <h3>Paris</h3>
-  <p>Paris is the capital of France.</p> 
-</div>
-
-<div id="Tokyo" class="tabcontent">
-  <h3>Tokyo</h3>
-  <p>Tokyo is the capital of Japan.</p>
-</div>
 
 
 				<div id="pagination_div" style="font-size: 12px;">
@@ -346,7 +246,7 @@ function paginationSetup(total_items_count) {
            
       	 var formData = new FormData();
       	formData.append("page_no",page);
-      	formData.append("request_from","dashboard");
+      	formData.append("request_from","mymobilenumviews");
   		$.fn.makeMultipartRequest('POST', 'displayPage', false,
   				formData, false, 'text', function(data){
   			var jsonobj = $.parseJSON(data);

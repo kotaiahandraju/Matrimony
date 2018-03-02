@@ -88,12 +88,12 @@ margin-left:10px;
 			<div class="col-md-3 products-grid-right">
 			<div class="matches1"><h4>Matches</h4><div class="Subl">
 			<p class="on">New Matches</p>
-			<p class="new"><a href="" >Profiles yet to be viewed (${cacheGuest.yetToBeViewedCount})</a><br>
+			<p class="new"><a href="" >Profiles yet to be viewed (7,215)</a><br>
 
 <a href="">Extended Matches</a><br>
 
 <a href="">Profiles viewed & not</a><br>
-<a href="">contacted (${cacheGuest.viewedNotContactedCount})</a><br>
+<a href="">contacted (58)</a><br>
 
 <a href="">Members looking for me</a><br>
 

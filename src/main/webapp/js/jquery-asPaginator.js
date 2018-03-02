@@ -1025,7 +1025,7 @@
       });
     },
     unbindEvents: function unbindEvents(instance) {
-      instance.$wrap.off('click', this.$items);
+      //instance.$wrap.off('click', this.$items);
     },
     resize: function resize(instance) {
       this.render(instance);

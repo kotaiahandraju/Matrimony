@@ -40,19 +40,19 @@ if (listOrders1 != "" && listOrders1 != null) {
 	displayTableFooter(1);
 }else if (listOrders1 == null) {
 	$('#search_criteria').removeAttr("hidden");
-	$('#searchResults').html('');
+	$('#pending_requests').html('');
 	$("#searchresultsDiv").prop("hidden",true);
 }else{
 	$('#countId').html('0');
-	var str = '<div class="alert alert-danger" style="margin-bottom: 0px;padding: 5px;"><h6>No results found..!</h6></div>';
-	$('#searchResults').html('');
-	$(str).appendTo("#searchResults");
+	var str = '<div class="alert alert-danger" style="margin-bottom: 0px;padding: 5px;"><h6>No requests found..!</h6></div>';
+	$('#pending_requests').html('');
+	$(str).appendTo("#pending_requests");
 	$('#search_criteria').prop("hidden",true);
 	$("#searchresultsDiv").removeAttr("hidden");
 }
 
 
-function updateProfilesList(){
+/* function updateProfilesList(){
 	var castVals = [];
 	var religionVals = [];
 	var educationVals = [];
@@ -83,8 +83,8 @@ function updateProfilesList(){
 	    		if(filtered_profiles==""){
 	    			$('#countId').html('0');
 	    			var str = '<div class="alert alert-danger" style="margin-bottom: 0px;padding: 5px;"><h6>No results found..!</h6></div>';
-	    			$('#searchResults').html('');
-	    			$(str).appendTo("#searchResults");
+	    			$('#pending_requests').html('');
+	    			$(str).appendTo("#pending_requests");
 	    			$("#table_footer").prop("hidden",true);
 	    			$("#altLists").prop("hidden",true);
 	    		}else{
@@ -100,38 +100,9 @@ function updateProfilesList(){
     			
     		});
 }
-   
+    */
 
-function submitSearch(){
-	var formData = new FormData();
-	formData.append("username",$("#username").val());
-	$.fn.makeMultipartRequest('POST', 'searchByIdAction', false,
-			formData, false, 'text', function(data){
-		var jsonobj = $.parseJSON(data);
-		var results = jsonobj.results;
-		total_items_count = jsonobj.total_records;
-		$("#search_criteria").prop("hidden",true);
-		$('#searchresultsDiv').removeAttr("hidden");
-		if(results==""){
-			$('#countId').html('0');
-			var str = '<div class="alert alert-danger" style="margin-bottom: 0px;padding: 5px;"><h6>No results found..!</h6></div>';
-			$('#searchResults').html('');
-			$(str).appendTo("#searchResults");
-			$("#table_footer").prop("hidden",true);
-			$("#altLists").prop("hidden",true);
-		}else{
-			$('#countId').html('');
-			$('#countId').html(total_items_count);
-			paginationSetup(total_items_count);
-			$("#altLists").asPaginator('enable');
-			displayMatches_messages(results);
-			$("#table_footer").removeAttr("hidden");
-			$("#altLists").removeAttr("hidden");
-			displayTableFooter(1);
-		}
-		
-	});
-}
+
 	//$("#searchForm2").submit();
 	
 //}
@@ -182,47 +153,6 @@ function acceptRequest(requestId){
 	}
 }
 
-function rejectRequest(requestId){
-	var roleId = ${cacheGuest.roleId};
-	$("#id").val(requestId);
-	 if(roleId==4){
-		document.searchForm2.action = "memberShipPage"
-		document.searchForm2.submit();
-		return true;
-	}else{
-		if(allowed_limit<=0){
-			alert("Exceeded allowed profiles limit. Renew your membership plan and get more profiles");
-			return false;
-		} 
-		var formData = new FormData();
-	
-		formData.append('requestId',requestId);
-		formData.append('accept_flag','0');
-		
-		jQuery.fn.makeMultipartRequest('POST', 'acceptRequest', false,
-				formData, false, 'text', function(data){
-	    		var jsonobj = $.parseJSON(data);
-	    		var limit = jsonobj.allowed_limit;
-	    		var msg = jsonobj.message;
-	    		var profiles = jsonobj.allProfiles;
-	    		//if(typeof msg != "undefined" ){
-	    			if("success"==msg){
-	    				alert("Rejected successfully");
-	    				$("#rejInterest"+requestId).html('Rejected');
-	    				$("#rejInterest"+requestId).removeAttr("href");
-	    				$("#rejInterest"+requestId).removeAttr("onclick");
-	    				$("#rejInterest"+requestId).attr("disabled",true);
-	    				$("#accSpan"+requestId).html('');
-	    				allowed_limit = limit;
-	    			}else if("failed"==msg || "exception"==msg){
-	    				alert("Some problem occured. Please try again.");
-	    			}
-	    		//}
-	    		
-				
-			});
-	}
-}
 
 
 
@@ -279,7 +209,7 @@ function paginationSetup(total_items_count) {
         	 formData.append("rAgeFrom",$("#rAgeFrom").val());
         	 formData.append("rAgeFrom",$("#rAgeFrom").val()); */
         	 formData.append("page_no",page);
-        	 //var tempData = $("#searchForm2").serialize();
+        	 formData.append("request_from","pendingrequests");
     		$.fn.makeMultipartRequest('POST', 'displayPage', false,
     				formData, false, 'text', function(data){
     			var jsonobj = $.parseJSON(data);
@@ -290,15 +220,15 @@ function paginationSetup(total_items_count) {
 	    		if(results==""){
 	    			$('#countId').html('');
 	    			$('#countId').html('0');
-	    			var str = '<div class="alert alert-danger" style="margin-bottom: 0px;padding: 5px;"><h6>No results found..!</h6></div>';
-	    			$('#searchResults').html('');
-	    			$(str).appendTo("#searchResults");
+	    			var str = '<div class="alert alert-danger" style="margin-bottom: 0px;padding: 5px;"><h6>No requests found..!</h6></div>';
+	    			$('#pending_requests').html('');
+	    			$(str).appendTo("#pending_requests");
 	    			$("#table_footer").prop("hidden",true);
 	    			$("#altLists").prop("hidden",true);
 	    		}else{
 	    			paginationSetup(total_items_count);
 	    			$("#altLists").asPaginator('enable');
-	    			displayMatches_messages(results);
+	    			displayMatches_messages(results,"pending_requests",roleid,"pendingRequests");
 	    			$("#table_footer").removeAttr("hidden");
 	    			$("#altLists").removeAttr("hidden");
 	    			displayTableFooter(page);

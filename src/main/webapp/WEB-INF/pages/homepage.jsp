@@ -123,7 +123,7 @@ span.has-error,span.hasError
 
 video {
     width: 100%;
-    height: auto;
+    height: 400px;
 }
 
 </style>
@@ -658,12 +658,9 @@ function validate(id, errorMessage)
 		</div>
 	</section>
 
-	<video width="400" controls>
-	  <source src="images/Wildlife.wmv" type="video/wmv">
-	  
-	  Your browser does not support HTML5 video.
-	</video>
-<p><a href="images/Wildlife.wmv">dddddd</a></p>
+	
+	
+
 
 	<footer class="footer" id="footer">
 		<!-- Section id-->

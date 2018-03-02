@@ -84,7 +84,7 @@ protected String sentInterestCount;
 protected String receivedInterestCount;
 protected String acceptedInterestCount;
 protected String profileViewedCount;
-protected String pendingRequestsCount,yetToBeViewedCount,viewedNotContactedCount;
+protected String pendingRequestsCount,yetToBeViewedCount,viewedNotContactedCount,awaitingInterestCount;
 protected String rejectedInterestCount,profilesViewedByMeCount,mobileNumViewedCount,mobileNumViewedByMeCount,shortListedCount;
 protected boolean forEmail;
 protected String currentStateName;
@@ -937,6 +937,12 @@ public int getMobileNumViewed() {
 }
 public void setMobileNumViewed(int mobileNumViewed) {
 	this.mobileNumViewed = mobileNumViewed;
+}
+public String getAwaitingInterestCount() {
+	return awaitingInterestCount;
+}
+public void setAwaitingInterestCount(String awaitingInterestCount) {
+	this.awaitingInterestCount = awaitingInterestCount;
 }
 
 

@@ -44,11 +44,11 @@
 								<div class="tab-pane active" id="inbox">
 									<table width="100%" class="dotted-seperator">
 										<tr>
-											<td height="30"><a href="pendingRequests">Pending</a></td>
+											<td height="30"><a href="#" onclick="displayInbox('inbox','pending_requests')">Pending</a></td>
 											<td><span class="badge pull-right">${cacheGuest.pendingRequestsCount}</span></td>
 										</tr>
 										<tr>
-											<td height="30"><a href="acceptedRequests">Accepted</a></td>
+											<td height="30"><a href="#" onclick="displayInbox('inbox','accepted_requests')">Accepted</a></td>
 											<td><span class="badge pull-right">${cacheGuest.acceptedInterestCount}</span></td>
 										</tr>
 										<%-- <tr>
@@ -60,12 +60,12 @@
 								<div class="tab-pane" id="sent">
 									<table width="100%" class="dotted-seperator">
 										<tr>
-											<td height="30"><a href="sentRequests">All</a></td>
+											<td height="30"><a href="#" onclick="displayInbox('sent','sent_requests')">All</a></td>
 											<td><span class="badge pull-right">${cacheGuest.sentInterestCount}</span></td>
 										</tr>
 										<tr>
-											<td height="30"><a href="sentRequests">Awaiting Reply</a></td>
-											<td><span class="badge pull-right">${cacheGuest.sentInterestCount}</span></td>
+											<td height="30"><a href="#" onclick="displayInbox('sent','awaiting_requests')">Awaiting Reply</a></td>
+											<td><span class="badge pull-right">${cacheGuest.awaitingInterestCount}</span></td>
 										</tr>
 									</table>
 								</div>

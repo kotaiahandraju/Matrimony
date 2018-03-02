@@ -113,22 +113,22 @@
 	<div class="container" style="background: #FFF;">
 		<div class="mid-grids">
 			
-			<jsp:include page="sideGrid1.jsp" />
+			<jsp:include page="sideGrid2.jsp" />
 			<div id="dial1"></div>
 			<div class="col-md-8 products-grid-left">
 			
 				<div id="London" class="tabcontent">
-  <div>
-			<ul class="nav nav-tabs">
-				<li class="active">
-					<a href="#tab1">Members viewed my profile</a>
-				</li>
-				<li>
-					<a href="#tab2">Privacy Settings</a>
-				</li>
+  					<div>
+						<ul class="nav nav-tabs">
+							<li class="active">
+								<a href="#tab1">Members viewed my profile</a>
+							</li>
+							<li>
+								<a href="#tab2">Privacy Settings</a>
+							</li>
 				
-			</ul>	
-		</div>
+						</ul>	
+					</div>
 		<section id="tab1" class="tab-content active">
 			<div id="profiles_div">
 				
@@ -165,15 +165,6 @@
 		</section>
 </div>
 
-<div id="Paris" class="tabcontent">
-  <h3>Paris</h3>
-  <p>Paris is the capital of France.</p> 
-</div>
-
-<div id="Tokyo" class="tabcontent">
-  <h3>Tokyo</h3>
-  <p>Tokyo is the capital of Japan.</p>
-</div>
 
 
 				<div id="pagination_div" style="font-size: 12px;">

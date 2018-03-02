@@ -55,7 +55,8 @@
 	<script src="${baseurl }/js/prism.js" type="text/javascript" charset="utf-8"></script>
   	<script src="${baseurl }/js/init.js" type="text/javascript" charset="utf-8"></script>
   	<script src="${baseurl }/js/plugins/select2/select2.min.js"></script>
-  	<script src="js/jquery.watermark.js"></script>
+  	<script src="${baseurl}/js/jquery.watermark.js"></script>
+  	<script src="${baseurl}/js/jquery.table2excel.js"></script>
 	<script type="text/javascript">
 		var isCheck = "Yes";
 	</script>

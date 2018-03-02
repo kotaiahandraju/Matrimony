@@ -158,32 +158,26 @@ function paginationSetup(total_items_count) {
         onChange: function(page) {
            var formData = new FormData();
       	 formData.append("page_no",page);
-      	formData.append("request_type","accepted");
+      	formData.append("request_from","acceptedrequests");
       	
-  		$.fn.makeMultipartRequest('POST', 'interestRequestsPagination', false,
+  		$.fn.makeMultipartRequest('POST', 'displayPage', false,
   				formData, false, 'text', function(data){
   			var jsonobj = $.parseJSON(data);
-  			var requestsList = jsonobj.requestsList;
-  			if(requestsList==""){
-	    		/* 	$('#countId').html('');
-	    			$('#countId').html('0');
-	    			var str = '<div class="panel panel-default"><h6>No results found.</h6></div>';
-	    			$('#searchResults').html('');
-	    			$(str).appendTo("#searchResults");
-	    		 */	
-	    		 	var str = '<div class="panel panel-default"><h6>No results found.</h6></div>';
-	    		 	$('#tableId').html('');
-	    		 	$('#tableId').html(str);
-	    		 	$("#table_footer").prop("hidden",true);
-	    			$("#paginator").prop("hidden",true);
-	    		}else{
-	    			paginationSetup(total_items_count);
-	    			$("#paginator").asPaginator('enable');
-	    			displayMatches_messages(requestsList,"accepted_requests",roleid,"acceptedRequests");
-	    			$("#table_footer").removeAttr("hidden");
-	    			$("#paginator").removeAttr("hidden");
-	    			displayTableFooter(page);
-	    		}
+  			var results = jsonobj.results;
+  			if(results==""){
+  				var str = '<div class="alert alert-danger" style="margin-bottom: 0px;padding: 5px;"><h6>No requests found..!</h6></div>';
+    			$('#accepted_requests').html('');
+    			$(str).appendTo("#accepted_requests");
+    			$("#table_footer").prop("hidden",true);
+    			$("#paginator").prop("hidden",true);
+    		}else{
+    			paginationSetup(total_items_count);
+    			$("#paginator").asPaginator('enable');
+    			displayMatches_messages(results,"accepted_requests",roleid,"acceptedRequests");
+    			$("#table_footer").removeAttr("hidden");
+    			$("#paginator").removeAttr("hidden");
+    			displayTableFooter(page);
+    		}
   			
   		});
           
@@ -208,7 +202,7 @@ function acceptRequest(requestId,flag){
 				}else{
 					alert("Request rejected successfully");
 					$("#accept"+requestId).html('');
-					$("#accept"+requestId).html("Rejected");
+					$("#accept"+requestId).html("Ignored");
 				}
 				
 				
