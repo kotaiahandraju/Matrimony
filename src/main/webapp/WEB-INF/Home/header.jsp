@@ -41,13 +41,13 @@
 	<link rel="stylesheet" href="${baseurl }/css/style.css">
 	<!-- Color CSS -->
 	<link rel="stylesheet" href="${baseurl }/css/themes.css">
-	<link rel="stylesheet" href="${baseurl }/css/plugins/datatable/TableTools.css">
+<%-- 	<link rel="stylesheet" href="${baseurl }/css/plugins/datatable/TableTools.css"> --%>
 	<link rel="stylesheet" href="${baseurl }/css/chosen.css">
 <!-- 	<link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css"> -->
 	
 	<!-- jQuery -->
 	<script src="${baseurl }/js/jquery.min.js"></script>
-	<script src="${baseurl }/js/jquery.watermark.js"></script>
+<%-- 	<script src="${baseurl }/js/jquery.watermark.js"></script> --%>
 	<!--[if lte IE 9]>
 		<script src="${baseurl }/js/plugins/placeholder/jquery.placeholder.min.js"></script>
 		<script>

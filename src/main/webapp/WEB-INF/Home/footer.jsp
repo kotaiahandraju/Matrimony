@@ -55,8 +55,31 @@
 	<script src="${baseurl }/js/prism.js" type="text/javascript" charset="utf-8"></script>
   	<script src="${baseurl }/js/init.js" type="text/javascript" charset="utf-8"></script>
   	<script src="${baseurl }/js/plugins/select2/select2.min.js"></script>
-  	<script src="${baseurl}/js/jquery.watermark.js"></script>
-  	<script src="${baseurl}/js/jquery.table2excel.js"></script>
+  	<script src="${baseurl }/js/jquery.watermark.js"></script>
+  	
+  	<!-- Datatables -->
+
+
+<link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"/>
+<link href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css"/>
+<!--  <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
+<script src="${baseurl }/datatable/jquery.dataTables.min.js"></script>
+<script src="${baseurl }/datatable/dataTables.buttons.min.js"></script>
+<script src="${baseurl }/datatable/pdfmake.min.js"></script>
+<script src="${baseurl }/datatable/vfs_fonts.js"></script>
+<script src="${baseurl }/datatable/buttons.html5.min.js"></script>
+<script src="${baseurl }/datatable/buttons.print.min.js"></script>
+<script src="${baseurl }/datatable/buttons.flash.min.js"></script>
+<script src="${baseurl }/datatable/jszip.min.js"></script>
+
+
+
+ 
+
+
+  	
+  	
+  	
 	<script type="text/javascript">
 		var isCheck = "Yes";
 	</script>
