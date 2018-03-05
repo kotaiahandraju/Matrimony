@@ -380,25 +380,7 @@ window.setTimeout(function() {
 						</div>
 <script type="text/javascript">
 
-function validate(id, errorMessage)
-{
-	var styleBlock = '.placeholder-style.placeholder-style::-moz-placeholder {color: #cc0000;} .placeholder-style::-webkit-input-placeholder {color: #cc0000;}';
-	if($('#'+id).val() ==  null || $('#'+id).val() == ""  || $('#'+id).val()=="undefined" ) {
-		$('style').append(styleBlock);
-		$('#'+id).css('border-color','#cc0000');
-		$('#'+id).css('color','#cc0000');
-		$('#'+id).attr('placeholder',errorMessage);
-		$('#'+id).addClass('placeholder-style your-class');
-//			$('#'+id).css('color','#cc0000');
-//			$('#'+id+'Error').text(errorMessage);
-	}else{
-		$('#'+id).css('border-color','');
-		$('#'+id).removeClass('placeholder-style your-class');
-//			$('#'+id).css('color','');
-//			$('#'+id+'Error').text("");
-	}
-	
-}
+
 
 </script>
 						<div class="quote-form row">
@@ -419,6 +401,9 @@ function validate(id, errorMessage)
 
 								<div class="form-group col-md-12">
 									<button name="submit" type="submit" id="userLoginButton" class="btn btn-default">Login</button>
+								</div>
+								<div class="form-group col-md-12">
+									<a href="forgotPassword" style="color:white">Forgot Password</a>
 								</div>
 							</form>
 						</div>

@@ -45,7 +45,7 @@ $( document ).ready(function() {
 <div class="container-fluid">
 	<div class="page-header">
 		<div class="pull-left">
-			<h1>Active Profiles </h1> 
+			<h1>Active Profiles <button id="exportBtn">Export</button></h1> 
 		</div>
 	</div>
 	<div class="breadcrumbs">
@@ -113,7 +113,7 @@ $( document ).ready(function() {
 				</h3>
 			</div>
 			<div class="box-content nopadding table-responsive w3-animate-zoom" id="tableId">
-				<table class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,text,text,text,text,null">
+				<table id="tableToExport" class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,text,text,text,text,null">
 					<thead>
 					<tr>
 						<th>UserName</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Mobile</th>
@@ -689,6 +689,15 @@ s.parentNode.insertBefore(ga, s);
 //		 	$(".view_list").hide();
 //		 	$('#view_list1').hide();
 	 }
+ $("#exportBtn").click(function(){
+	  $("#tableToExport").table2excel({
+	    // exclude CSS class
+	    exclude: ".noExl",
+	    name: "Worksheet Name",
+	    filename: "SomeFile" //do not include extension
+	  }); 
+	});
+ 
  $(".profiles").addClass("active");
  $(".allProfiles").addClass("active"); 
 </script>

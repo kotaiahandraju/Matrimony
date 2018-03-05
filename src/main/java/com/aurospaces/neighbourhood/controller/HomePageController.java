@@ -1011,7 +1011,6 @@ public class HomePageController {
 	 }
 	 @RequestMapping(value = "/dashboard")
 	 public String getPreferredProfiles(@ModelAttribute("createProfile") UsersBean objUsersBean, Model objeModel, HttpServletRequest request, HttpSession session) {
-//	  System.out.println("dashboard Page");
 	  List<Map<String, String>> listOrderBeans = null;
 	  List<CastBean> castList = null;
 	  List<ReligionBean> religionList = null;
@@ -2078,8 +2077,8 @@ public class HomePageController {
 			//int total_records = Integer.parseInt(((Map<String, String>)results.get(0)).get("total_records"));
 			//request.setAttribute("total_records", total_records);
 			//request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
-			if (Objresults != null && Objresults.size() > 0) {
-				jsonObj.put("results", Objresults);
+			if (results != null && results.size() > 0) {
+				jsonObj.put("results", results);
 				
 			} else {
 				if (Objresults != null && Objresults.size() > 0) {
@@ -2508,6 +2507,7 @@ public class HomePageController {
 			listOrderBeans = objUsersDao.getSearchResults(searchCriteriaBean,0,"newmatches");
 			int total_records = 0;//limit - viewed_count;
 			request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
+			System.out.println("page_size======"+MatrimonyConstants.PAGINATION_SIZE);
 			if (listOrderBeans != null && listOrderBeans.size() > 0) {
 				objectMapper = new ObjectMapper();
 				sJson = objectMapper.writeValueAsString(listOrderBeans);
@@ -3259,6 +3259,31 @@ public class HomePageController {
 	  }
 		return jsOnObj.toString();
 	 }
+   
+   @RequestMapping(value = "/forgotPassword")
+	public String forgotPassword(@ModelAttribute("forgotPassword") UsersBean objUsersBean, Model objeModel ,
+			HttpServletRequest request, HttpSession session) {
+
+		try {
+			UsersBean objuserBean = (UsersBean) session.getAttribute("cacheUserBean");
+			if (objuserBean != null) {
+				int rolId =objuserBean.getRoleId();
+				if(rolId == 1 ){
+					return "redirect:admin/BodyTypeHome";
+				}else{
+					return "redirect:HomePage.htm";
+				}
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			//logger.error(e);
+			//logger.fatal("error in CreateProfile class createProfile method  ");
+			return "redirect:HomePage.htm";
+		}
+		return "forgotPassword";
+	}
    
    private UsersBean copyAboutMySelf(UsersBean source,UsersBean target){
 	   target.setAboutMyself(source.getAboutMyself());
