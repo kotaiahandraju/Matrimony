@@ -12,6 +12,7 @@
      
 		<div class="row">
 			<div class="midcontnet">
+				<div id="errorMsg" hidden="true" style="color:red;"></div>
 				<div id="fpStep1">
 					<div class="panel panel-success">
 	   					<div class="panel-heading"> 
@@ -26,6 +27,7 @@
 						
 					</div>
 				</div>
+				
 				<div id="fpStep2" hidden="true">
 					<div class="panel panel-success">
 	   					<div class="panel-heading"> 
@@ -34,8 +36,17 @@
 	   					<form action="forgotPasswordAction" id="quote" name="quote" method="post">
 		             		
 		             			<div class="panel-body">
-		             				<input type="radio" name="sendTo" placeholder="Email To"> <span id="emailStr">Email new password to my registered email id.</span>
-									<input type="radio" name="sendTo" placeholder="Email To"> <span id="mobileStr">SMS new password to my registered.</span> 
+		             				<div class="row" style="left-padding:20">
+		             					<div class="col-md-20">	
+			             				<input type="radio" name="sendTo"  value="emailTo" placeholder="Email To"> <span id="emailStr">Email new password to my registered email id.</span>
+			             				</div>
+			             				<div class="col-md-20">	
+										<input type="radio" name="sendTo"  value="smsTo" placeholder="Email To"> <span id="mobileStr">SMS new password to my registered mobile number.</span>
+										</div>
+										<div class="col-md-20">	
+										<button type="submit" class="btn btn-primary" onclick="checkVal();">Send</button>
+										</div> 
+									</div>
 								</div>
 						</form>
 					</div>
@@ -44,30 +55,42 @@
 <script type="text/javascript">
 
 function displayFpNextPage(){
-	FormData formData = new FormData();
+	var formData = new FormData();
 	var inputVal = $("#forgotPasswordInput").val();
 	formData.append("forgotPasswordInput",inputVal);
 	$.fn.makeMultipartRequest('POST', 'forgotPasswordPreAction', false,
 				formData, false, 'text', function(data){
 			var jsonobj = $.parseJSON(data);
-			var email = jsonobj.emailStr;
-			var mobile = jsonobj.mobileStr;
-			
-				if(email!=""){
-    				$("#emailStr").val('Email new password to my registered email id xxxxxxxx'+email);
+			var email_str = jsonobj.emailStr;
+			var mobile_str = jsonobj.mobileStr;
+			var message = jsonobj.message;
+			if(message=="no-data"){
+				$("#errorMsg").html('No data found for the given input. Please enter valid input.');
+				$("#errorMsg").removeAttr("hidden");
+			}else{
+				$("#errorMsg").html('');
+				$("#errorMsg").attr("hidden",true);
+				if(email_str!=""){
+    				$("#emailStr").html('Email new password to my registered email id xxxxxxxx'+email_str);
 				}
-				if(mobile!=""){
-    				var str = 'Email new password to my registered email id xxxxxxxx'+email;
+				if(mobile_str!=""){
+					$("#mobileStr").html('SMS new password to my registered mobile number xxxxxxx'+mobile_str);
 				}
-    			$('#matches').html('');
-    			$(str).appendTo("#matches");
-    			$("#table_footer").prop("hidden",true);
-    			$("#altLists").prop("hidden",true);
-    		
-			
+				$("#fpStep1").attr("hidden",true);
+				$("#fpStep2").removeAttr("hidden");
+			}
 	});
-	$("#fpStep1").attr("hidden",true);
-	$("#fpStep2").removeAttr("hidden");
+	
+}
+
+
+
+function checkVal(){
+	var selected_val = $("input[name=sendTo]:checked").val();
+	if((typeof(selected_val) == "undefined") || (selected_val=="")){
+		alert("Select any option!");
+		return false;
+	}
 }
 
 </script>

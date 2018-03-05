@@ -151,6 +151,7 @@
 			    				//$("#expInterest"+profile_id).html('You Expressed Interest');
 			    				//$("#expInterest"+profile_id).attr("disabled",true);
 			    				allowed_limit = limit;
+			    				$("#available_limit_span").html(allowed_limit);
 			    			}else if("failed"==msg || "exception"==msg){
 			    				alert("Interest request is not successful. Please try again.");
 			    			}
@@ -205,6 +206,7 @@
 			    			if(msg=="success"){
 			    				$("#mobileTD"+profileId).html('<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+profileObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>');
 			    				allowed_limit = limit;
+			    				$("#available_limit_span").html(allowed_limit);
 			    			}else{
 			    				alert("Some problem occured. Please try again.");
 			    			}

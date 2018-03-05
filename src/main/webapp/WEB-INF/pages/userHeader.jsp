@@ -25,6 +25,7 @@
 									<tr><td><a href="myPhotos">My Photos</a></td></tr>
 									<tr><td><a href="myProfile">Edit Profile</a></td></tr>
 									<tr><td><a href="#">Edit Partner Preferences</a></td></tr>
+									<tr><td style="color:white;font-size:15px">Available profiles limit: <span id="available_limit_span">${allowed_profiles_limit}</span></td></tr>
 								</table>
 							</div>
 						</div>

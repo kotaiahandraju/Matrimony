@@ -2452,5 +2452,18 @@ public boolean deletePhoto(String photoId){
 	   String otp = tempStr.substring(7);
 	   return otp;
 	   }
+	public UsersBean getUser(String inputVal){
+		jdbcTemplate = custom.getJdbcTemplate();
+		String qryStr = "select * from   users where email ='"+inputVal+"' or username='"+inputVal+"' or mobile='"+inputVal+"'";
+		try {
+			List<UsersBean> list = jdbcTemplate.query(qryStr,ParameterizedBeanPropertyRowMapper.newInstance(UsersBean.class));
+			if(list!=null && list.size()>0){
+				return list.get(0);
+			}
+			return null;
+		} catch (Exception ge) {
+			return null;
+		}
+	}
 }
 

@@ -110,6 +110,13 @@ public class EmailUtil {
 				//body = body.replace("_username_", objUsersBean.getUsername());
 				body = body.replace("_email_", objUsersBean.getEmail());
 				body = body.replace("_dateandtime_", objUsersBean.getUpdatedTime().toString());
+	        }else if("forgot_password".equalsIgnoreCase(mailType)){
+	        	subject = prop.getProperty("forgot_password_subject");
+	            
+				body = prop.getProperty("forgot_password_body");
+				body = body.replace("_name_",objUsersBean.getFirstName()+" "+objUsersBean.getLastName());
+				body = body.replace("_email_", objUsersBean.getEmail());
+				body = body.replace("_newpassword_", objUsersBean.getPassword());
 	        }
 			
 			body = body.replace("_img_", "cid:image2");
@@ -347,6 +354,7 @@ public class EmailUtil {
 	        }
 			return subject;
 	}
+	
 	
 }
 			

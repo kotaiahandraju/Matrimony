@@ -3265,15 +3265,7 @@ public class HomePageController {
 			HttpServletRequest request, HttpSession session) {
 
 		try {
-			UsersBean objuserBean = (UsersBean) session.getAttribute("cacheUserBean");
-			if (objuserBean != null) {
-				int rolId =objuserBean.getRoleId();
-				if(rolId == 1 ){
-					return "redirect:admin/BodyTypeHome";
-				}else{
-					return "redirect:HomePage.htm";
-				}
-			}
+			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -3283,6 +3275,92 @@ public class HomePageController {
 			return "redirect:HomePage.htm";
 		}
 		return "forgotPassword";
+	}
+   
+   @RequestMapping(value = "/forgotPasswordPreAction")
+	public  @ResponseBody String forgotPasswordPreAction(@ModelAttribute("forgotPassword") UsersBean objUsersBean, Model objeModel ,
+			HttpServletRequest request, HttpSession session) {
+	   JSONObject jsOnObj = new JSONObject();
+	   String emailStr = "",mobileStr=""; 
+		try {
+			String inputVal = request.getParameter("forgotPasswordInput");
+			if(StringUtils.isNotBlank(inputVal)){
+				UsersBean userBean = objUsersDao.getUser(inputVal.trim());
+				session.setAttribute("userBean", userBean);
+				if(userBean == null){
+					jsOnObj.put("message", "no-data");
+				}else{
+					String email = userBean.getEmail();
+					emailStr = email.substring(email.indexOf("@")-3);
+					String mobileNum = userBean.getMobile();
+					mobileStr = mobileNum.substring(mobileNum.length()-3);
+					session.setAttribute("emailStr", emailStr);
+					session.setAttribute("mobileStr", mobileStr);
+				}
+			}
+			jsOnObj.put("emailStr", emailStr);
+			jsOnObj.put("mobileStr", mobileStr);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			//logger.error(e);
+			//logger.fatal("error in CreateProfile class createProfile method  ");
+			return "redirect:HomePage.htm";
+		}
+		return jsOnObj.toString();
+	}
+   
+   @RequestMapping(value = "/forgotPasswordAction")
+	public  String forgotPasswordAction(@ModelAttribute("forgotPassword") UsersBean objUsersBean, Model objeModel ,
+			HttpServletRequest request, HttpSession session) {
+	   JSONObject jsOnObj = new JSONObject();
+	   String emailStr = "",mobileStr=""; 
+		try {
+				String selectedOption = request.getParameter("sendTo");
+				UsersBean userBean = (UsersBean)session.getAttribute("userBean");
+				userBean.setPassword(MiscUtils.generateRandomString(6));
+				boolean updated = objUsersDao.updatePassword(userBean);
+				if("emailTo".equalsIgnoreCase(selectedOption)){
+					try {
+						EmailUtil emailUtil = new EmailUtil();
+						emailUtil.sendResetPasswordEmail(userBean, objContext, "forgot_password");
+						request.setAttribute("sentToStr", "email id xxxxxxxx"+session.getAttribute("emailStr"));
+						request.setAttribute("message", "success");
+					} catch (Exception e) {
+						e.printStackTrace();
+						request.setAttribute("message", "failed");
+					}
+					if (!updated) {
+						
+						request.setAttribute("message", "failed");
+					}
+				}else if("smsTo".equalsIgnoreCase(selectedOption)){
+					try{
+						   String response = SendSMS.sendSMS("New password has been generated for your Aarna Matrimony account "+userBean.getEmail()+". \n New password: "+userBean.getPassword(),userBean.getMobile());
+						   
+						   if("OK".equalsIgnoreCase(response)){
+							   request.setAttribute("sentToStr", "mobile number xxxxxxx"+session.getAttribute("mobileStr"));
+							   request.setAttribute("message", "success");
+						   }else{
+							   request.setAttribute("message", "failed"); 
+						   }
+						   //throw new Exception();
+					   }catch(Exception e){
+						   e.printStackTrace();
+						   request.setAttribute("message", "failed");
+						   //objUsersDao.delete(sessionBean.getId());
+					   }
+				}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			//logger.error(e);
+			//logger.fatal("error in CreateProfile class createProfile method  ");
+			return "redirect:HomePage.htm";
+		}
+		return "forgotPasswordSuccess";
 	}
    
    private UsersBean copyAboutMySelf(UsersBean source,UsersBean target){
