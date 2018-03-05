@@ -89,9 +89,7 @@ $( document ).ready(function() {
 			</div>
 			<div class="box-content nopadding table-responsive w3-animate-zoom" id="tableId">
 				<table class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,text,text,text,text,null">
-					<thead>
-					<tr>
-						<th>UserName</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Mobile</th>
+					<thead><tr><th>UserName</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Mobile</th><th>Age</th><th>Caste</th><th>Package</th>
 						<th></th>
 					</tr>
 					</thead>
@@ -126,7 +124,7 @@ s.parentNode.insertBefore(ga, s);
  function displayTable(listOrders) {
 		$('#tableId').html('');
 		var tableHead = '<table class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,text,text,text,text,null">'
-			+ '<thead><tr><th>UserName</th><th>Sur Name</th><th>Name</th><th>Email</th><th>Mobile</th><th></th></tr></thead><tbody></tbody></table>';
+			+ '<thead><tr><th>UserName</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Mobile</th><th>Age</th><th>Caste</th><th>Package</th><th></th></tr></thead><tbody></tbody></table>';
 		$('#tableId').html(tableHead);
 		serviceUnitArray = {};
 		$.each(listOrders,function(i, orderObj) {
@@ -151,6 +149,9 @@ s.parentNode.insertBefore(ga, s);
 								+ "<td title='"+orderObj.lastName+"'>" + orderObj.lastName + "</td>"
 								+ "<td title='"+orderObj.email+"'>" + orderObj.email + "</td>"
 								+ "<td title='"+orderObj.mobile+"'>" + orderObj.mobile + "</td>"
+								+ "<td title='"+orderObj.age+"'>" + orderObj.age + "</td>"
+								+ "<td title='"+orderObj.casteName+"'>" + orderObj.casteName + "</td>"
+								+ "<td title='"+orderObj.planPackage+"'>" + orderObj.planPackage + "</td>"
 									+ "<td style='text-align: center;white-space: nowrap;'>" + viewProfile + "&nbsp;&nbsp;" + uploadPhotos + "&nbsp;&nbsp;" 
 									+		moveToHidden + "&nbsp;&nbsp;" + editProfile + "&nbsp;&nbsp;" + sendMail + "&nbsp;&nbsp;" 
 									+		inactive + "&nbsp;&nbsp;" + compareProfiles + "&nbsp;&nbsp;" + deleteProfile + "&nbsp;&nbsp;"
@@ -162,7 +163,7 @@ s.parentNode.insertBefore(ga, s);
 						});
 		if(isCheck=="Yes"){
 			$('.dataTable').DataTable({
-				 dom: 'Bfrtip',
+				 dom: 'lBfrtip',
 				 title: 'Classic Profiles',
 				 /* buttons: [
 				            'copy', 'csv', 'excel', 'pdf','print'
@@ -177,7 +178,7 @@ s.parentNode.insertBefore(ga, s);
 						                extend: 'pdfHtml5',
 //		 		                        messageTop : 'Classic Profiles',
 					                        title : 'Classic Profiles',
-										exportOptions: {columns: [0,1,2,3,4]},
+										exportOptions: {columns: [0,1,2,3,4,5,6,7]},
 				                        customize: function ( doc ) {
 											doc.content.splice( 1, 0, {
 												margin: [ 0, 0, 0, 12 ],
@@ -751,7 +752,7 @@ s.parentNode.insertBefore(ga, s);
 	 }
  $(function(){
 		$('.dataTable').DataTable({
-			 dom: 'Bfrtip',
+			 dom: 'lBfrtip',
 			 title: 'Classic Profiles',
 			 /* buttons: [
 			            'copy', 'csv', 'excel', 'pdf','print'
@@ -766,7 +767,7 @@ s.parentNode.insertBefore(ga, s);
 					                extend: 'pdfHtml5',
 //	 		                        messageTop : 'Classic Profiles',
 				                        title : 'Classic Profiles',
-									exportOptions: {columns: [0,1,2]},
+									exportOptions: {columns: [0,1,2,3,4,5,6,7]},
 			                        customize: function ( doc ) {
 										doc.content.splice( 1, 0, {
 											margin: [ 0, 0, 0, 12 ],

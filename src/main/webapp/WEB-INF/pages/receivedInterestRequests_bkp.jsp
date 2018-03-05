@@ -348,7 +348,7 @@ function displayTable(listOrders) {
 						$(tblRow).appendTo("#tableId table tbody"); 
 					});
 	/* $('#DataTables_Table_0').DataTable({
-		dom: 'Bfrtip',
+		dom: 'lBfrtip',
 		buttons: [{extend:"print",className:"btn default"},{extend:"pdf",className:"btn default"},{extend:"csv",className:"btn default"}]
 	}); */
 	

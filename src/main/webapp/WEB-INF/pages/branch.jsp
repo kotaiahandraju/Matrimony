@@ -170,7 +170,7 @@ function displayTable(listOrders) {
 	});
 	if(isCheck=="Yes"){
 		$('.dataTable').DataTable({
-			 dom: 'Bfrtip',
+			 dom: 'lBfrtip',
 			 title: 'Branch',
 			 /* buttons: [
 			            'copy', 'csv', 'excel', 'pdf','print'
@@ -260,7 +260,7 @@ function deleteBranch(id){
 }
 $(function(){
 	$('.dataTable').DataTable({
-		 dom: 'Bfrtip',
+		 dom: 'lBfrtip',
 		 title: 'Branch',
 		 /* buttons: [
 		            'copy', 'csv', 'excel', 'pdf','print'

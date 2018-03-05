@@ -137,7 +137,7 @@ function displayTable(listOrders) {
 
 	if(isCheck=="Yes"){
 		$('.dataTable').DataTable({
-			 dom: 'Bfrtip',
+			 dom: 'lBfrtip',
 			 title: 'Body Type',
 			 /* buttons: [
 			            'copy', 'csv', 'excel', 'pdf','print'
@@ -225,7 +225,7 @@ function deleteBodyType(id)
 
 $(function(){
 	$('.dataTable').DataTable({
-		 dom: 'Bfrtip',
+		 dom: 'lBfrtip',
 		 title: 'Body Type',
 		 /* buttons: [
 		            'copy', 'csv', 'excel', 'pdf','print'

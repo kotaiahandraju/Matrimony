@@ -111,7 +111,7 @@ function displayTable(listOrders) {
 	});
 	if(isCheck=="Yes"){
 		$('.dataTable').DataTable({
-			 dom: 'Bfrtip',
+			 dom: 'lBfrtip',
 			 title: 'Countries',
 			 /* buttons: [
 			            'copy', 'csv', 'excel', 'pdf','print'
@@ -196,7 +196,7 @@ function deleteCountries(id){
 
 $(function(){
 	$('.dataTable').DataTable({
-		 dom: 'Bfrtip',
+		 dom: 'lBfrtip',
 		 title: 'Countries',
 		 /* buttons: [
 		            'copy', 'csv', 'excel', 'pdf','print'

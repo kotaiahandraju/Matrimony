@@ -27,7 +27,7 @@ $( document ).ready(function() {
 <div class="container-fluid">
 	<div class="page-header">
 		<div class="pull-left">
-			<h1>All Profiles </h1> 
+			<h1>Delete Profiles </h1> 
 		</div>
 	</div>
 	<div class="breadcrumbs">
@@ -91,11 +91,7 @@ $( document ).ready(function() {
 			</div>
 			<div class="box-content nopadding w3-animate-zoom" id="tableId">
 				<table class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,null">
-					<thead>
-					<tr>
-						<th>Name</th>
-						<th></th>
-					</tr>
+					<thead><tr><th>UserName</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Mobile</th><th>Age</th><th>Caste</th><th>Package</th><th></th></tr>
 					</thead>
 					<tbody></tbody>
 				</table>
@@ -128,7 +124,7 @@ s.parentNode.insertBefore(ga, s);
  function displayTable(listOrders) {
 		$('#tableId').html('');
 		var tableHead = '<table  class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,text,text,null">'
-				+ '<thead><tr><th>UserName</th><th>First Name</th><th>Last Name</th><th></th></tr></thead><tbody></tbody></table>';
+				+ '<thead><tr><th>UserName</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Mobile</th><th>Age</th><th>Caste</th><th>Package</th><th></th></tr></thead><tbody></tbody></table>';
 		$('#tableId').html(tableHead);
 		serviceUnitArray = {};
 		$.each(listOrders,function(i, orderObj) {
@@ -139,9 +135,14 @@ s.parentNode.insertBefore(ga, s);
 							serviceUnitArray[orderObj.id] = orderObj;
 							if(orderObj.firstName !=null){
 							var tblRow = "<tr >"
-									+ "<td title='"+orderObj.username+"'>" + orderObj.username + "</td>"
-									+ "<td title='"+orderObj.firstName+"'>" + orderObj.firstName + "</td>"
-									+ "<td title='"+orderObj.lastName+"'>" + orderObj.lastName + "</td>"
+								+ "<td title='"+orderObj.username+"'>" + orderObj.username + "</td>"
+								+ "<td title='"+orderObj.firstName+"'>" + orderObj.firstName + "</td>"
+								+ "<td title='"+orderObj.lastName+"'>" + orderObj.lastName + "</td>"
+								+ "<td title='"+orderObj.email+"'>" + orderObj.email + "</td>"
+								+ "<td title='"+orderObj.mobile+"'>" + orderObj.mobile + "</td>"
+								+ "<td title='"+orderObj.age+"'>" + orderObj.age + "</td>"
+								+ "<td title='"+orderObj.casteName+"'>" + orderObj.casteName + "</td>"
+								+ "<td title='"+orderObj.planPackage+"'>" + orderObj.planPackage + "</td>"
 									+ "<td style='text-align: center;'>" + edit + "&nbsp;|&nbsp;" + viewProfile + "&nbsp;|&nbsp;" + restote + "&nbsp;|&nbsp;"+permanentDelete+"</td>" 
 									+ "</tr >";
 							$(tblRow).appendTo("#tableId table tbody");
@@ -149,7 +150,7 @@ s.parentNode.insertBefore(ga, s);
 						});
 		if(isCheck=="Yes"){
 			$('.dataTable').DataTable({
-				 dom: 'Bfrtip',
+				 dom: 'lBfrtip',
 				 title: 'Delete Profiles',
 				 /* buttons: [
 				            'copy', 'csv', 'excel', 'pdf','print'
@@ -164,7 +165,7 @@ s.parentNode.insertBefore(ga, s);
 						                extend: 'pdfHtml5',
 //		 		                        messageTop : 'Delete Profiles',
 					                        title : 'Delete Profiles',
-										exportOptions: {columns: [0,1,2,3,4]},
+										exportOptions: {columns: [0,1,2,3,4,5,6,7]},
 				                        customize: function ( doc ) {
 											doc.content.splice( 1, 0, {
 												margin: [ 0, 0, 0, 12 ],
@@ -753,7 +754,7 @@ s.parentNode.insertBefore(ga, s);
 	 }
  $(function(){
 		$('.dataTable').DataTable({
-			 dom: 'Bfrtip',
+			 dom: 'lBfrtip',
 			 title: 'Delete Profiles',
 			 /* buttons: [
 			            'copy', 'csv', 'excel', 'pdf','print'
@@ -768,7 +769,7 @@ s.parentNode.insertBefore(ga, s);
 					                extend: 'pdfHtml5',
 //	 		                        messageTop : 'Delete Profiles',
 				                        title : 'Delete Profiles',
-									exportOptions: {columns: [0,1,2]},
+									exportOptions: {columns: [0,1,2,3,4,5,6,7]},
 			                        customize: function ( doc ) {
 										doc.content.splice( 1, 0, {
 											margin: [ 0, 0, 0, 12 ],

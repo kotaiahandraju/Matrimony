@@ -108,7 +108,7 @@ function displayTable(listOrders) {
 	});
 	if(isCheck=="Yes") {
 		$('.dataTable').DataTable({
-			 dom: 'Bfrtip',
+			 dom: 'lBfrtip',
 			 title: 'Religion',
 			 /* buttons: [
 			            'copy', 'csv', 'excel', 'pdf','print'
@@ -192,7 +192,7 @@ function deleteReligion(id){
 }
 $(function(){
 	$('.dataTable').DataTable({
-		 dom: 'Bfrtip',
+		 dom: 'lBfrtip',
 		 title: 'Religion',
 		 /* buttons: [
 		            'copy', 'csv', 'excel', 'pdf','print'

@@ -126,7 +126,7 @@ function displayTable(listOrders) {
 	});
 	if(isCheck=="Yes"){
 		$('.dataTable').DataTable({
-			 dom: 'Bfrtip',
+			 dom: 'lBfrtip',
 			 title: 'States',
 			 /* buttons: [
 			            'copy', 'csv', 'excel', 'pdf','print'
@@ -223,7 +223,7 @@ function editState(id) {
  }
  $(function(){
 		$('.dataTable').DataTable({
-			 dom: 'Bfrtip',
+			 dom: 'lBfrtip',
 			 title: 'States',
 			 /* buttons: [
 			            'copy', 'csv', 'excel', 'pdf','print'

@@ -109,7 +109,7 @@ function displayTable(listOrders) {
 	});
 	if(isCheck=="Yes") {
 		$('.dataTable').DataTable({
-			 dom: 'Bfrtip',
+			 dom: 'lBfrtip',
 			 title: 'Languages',
 			 /* buttons: [
 			            'copy', 'csv', 'excel', 'pdf','print'
@@ -193,7 +193,7 @@ function deleteLanguage(id){
 }
 $(function(){
 	$('.dataTable').DataTable({
-		 dom: 'Bfrtip',
+		 dom: 'lBfrtip',
 		 title: 'Languages',
 		 /* buttons: [
 		            'copy', 'csv', 'excel', 'pdf','print'

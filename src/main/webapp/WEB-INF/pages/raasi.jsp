@@ -109,7 +109,7 @@ function displayTable(listOrders) {
 	});
 	if(isCheck=="Yes") {
 		$('.dataTable').DataTable({
-			 dom: 'Bfrtip',
+			 dom: 'lBfrtip',
 			 title: 'Raasi',
 			 /* buttons: [
 			            'copy', 'csv', 'excel', 'pdf','print'
@@ -192,7 +192,7 @@ function deleteRaasi(id){
 }
 $(function(){
 	$('.dataTable').DataTable({
-		 dom: 'Bfrtip',
+		 dom: 'lBfrtip',
 		 title: 'Raasi',
 		 /* buttons: [
 		            'copy', 'csv', 'excel', 'pdf','print'

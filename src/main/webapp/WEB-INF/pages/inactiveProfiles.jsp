@@ -54,7 +54,7 @@
 			<div class="box-content nopadding w3-animate-zoom" id="tableIdd">
 				
 				<table class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,null">
-					<thead><tr><th>UserName</th><th>Name</th><th>Sur Name</th><th></th></tr></thead>
+					<thead><tr><th>UserName</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Mobile</th><th>Age</th><th>Caste</th><th>Package</th><th></th></tr></thead>
 					<tbody id="tblbody"></tbody>
 				</table>
 				</div>
@@ -75,7 +75,7 @@
  function displayTable(listOrders) {
 		$('#tableId').html('');
 		var tableHead = '<div class="box-content nopadding w3-animate-zoom" id="tableIdd"><table  class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,text,text,null">'
-				+ '<thead><tr><th>UserName</th><th>Name</th><th>Sur Name</th><th></th></tr></thead><tbody id="tblbody"></tbody></table></div>';
+				+ '<thead><tr><th>UserName</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Mobile</th><th>Age</th><th>Caste</th><th>Package</th><th></th></tr></thead><tbody id="tblbody"></tbody></table></div>';
 		$('#tableId').html(tableHead);
 		serviceUnitArray = {};
 		$.each(listOrders,function(i, orderObj) {
@@ -85,9 +85,14 @@
 							serviceUnitArray[orderObj.id] = orderObj;
 							if(orderObj.firstName !=null){
 							var tblRow = "<tr>"
-									+ "<td title='"+orderObj.username+"'>" + orderObj.username + "</td>"
-									+ "<td title='"+orderObj.firstName+"'>" + orderObj.firstName + "</td>"
-									+ "<td title='"+orderObj.lastName+"'>" + orderObj.lastName + "</td>"
+								+ "<td title='"+orderObj.username+"'>" + orderObj.username + "</td>"
+								+ "<td title='"+orderObj.firstName+"'>" + orderObj.firstName + "</td>"
+								+ "<td title='"+orderObj.lastName+"'>" + orderObj.lastName + "</td>"
+								+ "<td title='"+orderObj.email+"'>" + orderObj.email + "</td>"
+								+ "<td title='"+orderObj.mobile+"'>" + orderObj.mobile + "</td>"
+								+ "<td title='"+orderObj.age+"'>" + orderObj.age + "</td>"
+								+ "<td title='"+orderObj.casteName+"'>" + orderObj.casteName + "</td>"
+								+ "<td title='"+orderObj.planPackage+"'>" + orderObj.planPackage + "</td>"
 									+ "<td style='text-align: center;'>" + viewProfile + "&nbsp;|&nbsp;" + active + "&nbsp;|&nbsp;" + deleteProfile + "</td>" 
 									+ "</tr >";
 							$(tblRow).appendTo("#tblbody");
@@ -96,7 +101,7 @@
 		
 		if(isCheck=="Yes"){
 			$('.dataTable').DataTable({
-				 dom: 'Bfrtip',
+				 dom: 'lBfrtip',
 				 title: 'Inactive Profiles',
 				 /* buttons: [
 				            'copy', 'csv', 'excel', 'pdf','print'
@@ -111,7 +116,7 @@
 						                extend: 'pdfHtml5',
 //		 		                        messageTop : 'Inactive Profiles',
 					                        title : 'Inactive Profiles',
-										exportOptions: {columns: [0,1,2,3,4]},
+										exportOptions: {columns: [0,1,2,3,4,5,6,7]},
 				                        customize: function ( doc ) {
 											doc.content.splice( 1, 0, {
 												margin: [ 0, 0, 0, 12 ],
@@ -670,7 +675,7 @@
 
  $(function(){
 		$('.dataTable').DataTable({
-			 dom: 'Bfrtip',
+			 dom: 'lBfrtip',
 			 title: 'Inactive Profiles',
 			 /* buttons: [
 			            'copy', 'csv', 'excel', 'pdf','print'
@@ -685,7 +690,7 @@
 					                extend: 'pdfHtml5',
 //	 		                        messageTop : 'Inactive Profiles',
 				                        title : 'Inactive Profiles',
-									exportOptions: {columns: [0,1,2]},
+									exportOptions: {columns: [0,1,2,3,4,5,6,7]},
 			                        customize: function ( doc ) {
 										doc.content.splice( 1, 0, {
 											margin: [ 0, 0, 0, 12 ],
