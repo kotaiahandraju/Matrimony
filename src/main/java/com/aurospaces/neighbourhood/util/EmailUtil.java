@@ -137,8 +137,8 @@ public class EmailUtil {
 			return subject;
 	}
 	
-	public static String sendProfilesListEmail(String emailId,List<Map<String,String>> profilesList,
-			ServletContext objContext, String mailType) throws AddressException,
+	public static String sendProfilesListEmail(UsersBean receiverBean,List<Map<String,String>> profilesList,
+			String mailType, ServletContext objContext, HttpServletRequest request) throws AddressException,
 			MessagingException, IOException {
 		String subject = null;
 		Properties prop = new Properties();
@@ -146,7 +146,7 @@ public class EmailUtil {
 		String body = null;
 		try{
 	 
-	        String mailTo = emailId;
+	        String mailTo = receiverBean.getEmail();
 	        
 //	        -------------------------------------------------------------------------------------------
 			
@@ -165,7 +165,7 @@ public class EmailUtil {
 	            StringBuffer profiles_list = new StringBuffer("");
 	            for(Map<String,String> profile:profilesList){
 	            	String profile_format = prop.getProperty("profile_format");
-		            /*profile_format = profile_format.replace("_name_",profile.get("firstName")+" "+profile.get("lastName"));
+		            profile_format = profile_format.replace("_name_",profile.get("firstName")+" "+profile.get("lastName"));
 		            profile_format = profile_format.replace("_username_",profile.get("username"));
 		            profile_format = profile_format.replace("_age_",StringUtils.isNotBlank(profile.get("age"))?profile.get("age"):" ");
 		            profile_format = profile_format.replace("_height_",StringUtils.isNotBlank(profile.get("inches"))?profile.get("inches"):" ");
@@ -173,9 +173,14 @@ public class EmailUtil {
 		            profile_format = profile_format.replace("_religion_",StringUtils.isNotBlank(profile.get("religionName"))?profile.get("religionName"):" ");
 		            profile_format = profile_format.replace("_country_",StringUtils.isNotBlank(profile.get("countryName"))?profile.get("countryName"):" ");
 		            profile_format = profile_format.replace("_income_",StringUtils.isNotBlank(profile.get("annualIncome"))?profile.get("annualIncome"):" ");
-		            profile_format = profile_format.replace("_education_",StringUtils.isNotBlank(profile.get("educationName"))?profile.get("educationName"):" ");*/
+		            profile_format = profile_format.replace("_education_",StringUtils.isNotBlank(profile.get("educationName"))?profile.get("educationName"):" ");
 		            profile_format = profile_format.replace("_unnamedimage_","cid:defaultimage");
-		            
+		            // url formation
+		            String baseurl =  request.getScheme() + "://" + request.getServerName() +      ":" +   request.getServerPort() +  request.getContextPath();
+					String actionUrl = baseurl+"/fullProfile?un="+receiverBean.getUsername()+"&pun="+profile.get("username")+"&suc="+receiverBean.getUnique_code()+"&puc="+profile.get("unique_code");
+					///
+					profile_format = profile_format.replace("_actionurl_",actionUrl);
+					
 		            profiles_list.append(profile_format);
 	            }
 	            

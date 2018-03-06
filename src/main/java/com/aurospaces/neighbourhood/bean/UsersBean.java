@@ -103,6 +103,7 @@ protected String weight;
 protected String fOccupationName;
 protected String mOccupationName;
 protected String mail_content,rReligionName,rCasteName,rDietName,rMotherTongueName,rMaritalStatusName;
+protected String unique_code;
 
 public String getRhaveChildren() {
 	return rhaveChildren;
@@ -943,6 +944,12 @@ public String getAwaitingInterestCount() {
 }
 public void setAwaitingInterestCount(String awaitingInterestCount) {
 	this.awaitingInterestCount = awaitingInterestCount;
+}
+public String getUnique_code() {
+	return unique_code;
+}
+public void setUnique_code(String unique_code) {
+	this.unique_code = unique_code;
 }
 
 
