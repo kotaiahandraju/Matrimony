@@ -1333,7 +1333,8 @@ public class UsersDao extends BaseUsersDao
 			buffer.append("select u.id,cit.name as currentCityName,u.occupation,oc.name as occupationName,ed.name as educationName,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.gender, "
 					+"u.firstName, u.lastName, u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName,  " 
 					+"u.maritalStatus, u.caste,c.name as casteName, u.education, " 
-					+" u.height ,h.inches,h.cm,u.annualIncome,cntry.name as countryName, ifnull(u.age,'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString, u.createProfileFor   " 
+					+" u.height ,h.inches,h.cm,u.annualIncome,cntry.name as countryName, ifnull(u.age,'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString, u.createProfileFor,    "
+					+" u.unique_code "
 					+" from users u left join "
 					+" religion re on re.id=u.religion left join language l on l.id=u.motherTongue left join  "
 					+" cast c on c.id=u.caste left join height h on h.id=u.height left join "
@@ -1343,7 +1344,7 @@ public class UsersDao extends BaseUsersDao
 					handlerObj = new String[] {"id","currentCityName","occupation","occupationName","educationName","created_time","updated_time",
 							"role_id","username","password","email","gender","firstName","lastName","dob","religion","religionName","motherTongue","motherTongueName",
 							"maritalStatus",
-							"caste","casteName","education","height","inches","cm","annualIncome","countryName","age","dobString","createProfileFor"};
+							"caste","casteName","education","height","inches","cm","annualIncome","countryName","age","dobString","createProfileFor","unique_code"};
 			
 					String tempQryStr = " from userrequirement ureq where ureq.userId = "+profile.get("id")+" ";
 					buffer.append( " and cast(u.age as decimal(10,2)) >= if((select ureq.rAgeFrom "+tempQryStr+")='' or (select ureq.rAgeFrom "+tempQryStr+") is null,u.age,(select ureq.rAgeFrom "+tempQryStr+"))");
@@ -2454,7 +2455,7 @@ public boolean deletePhoto(String photoId){
 	   }
 	public UsersBean getUser(String inputVal){
 		jdbcTemplate = custom.getJdbcTemplate();
-		String qryStr = "select * from   users where email ='"+inputVal+"' or username='"+inputVal+"' or mobile='"+inputVal+"'";
+		String qryStr = "select *,AES_DECRYPT(PASSWORD,'mykey') as password from   users where email ='"+inputVal+"' or username='"+inputVal+"' or mobile='"+inputVal+"'";
 		try {
 			List<UsersBean> list = jdbcTemplate.query(qryStr,ParameterizedBeanPropertyRowMapper.newInstance(UsersBean.class));
 			if(list!=null && list.size()>0){
