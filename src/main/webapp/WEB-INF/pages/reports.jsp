@@ -110,7 +110,7 @@
 					</div>
 					<div class="box-content nopadding w3-animate-zoom" id="tableId">
 						<table class="table table-hover table-nomargin table-bordereddataTable-column_filter" data-column_filter_types="text,null">
-							<thead><tr><th>UserName</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Mobile</th><th>Age</th><th>Caste</th><th>Package</th></tr>
+							<thead><tr><th>UserName</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Mobile</th><th>Age</th><th>Caste</th><th>Package</th><th>Occupation</th></tr>
 							</thead>
 							<tbody></tbody>
 						</table>
@@ -146,7 +146,7 @@ if (listOrders1 != "") {
 function displayTable(listOrders) {
 	$('#tableId').html('');
 	var tableHead = '<table class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,text,text,text,text,null">'
-		+ '<thead><tr><th>UserName</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Mobile</th><th>Age</th><th>Caste</th><th>Package</th></tr></thead><tbody></tbody></table>';
+		+ '<thead><tr><th>UserName</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Mobile</th><th>Age</th><th>Caste</th><th>Occupation</th><th>Package</th></tr></thead><tbody></tbody></table>';
 	$('#tableId').html(tableHead);
 	serviceUnitArray = {};
 	$.each(listOrders,function(i, orderObj) {
@@ -163,6 +163,7 @@ function displayTable(listOrders) {
 							+ "<td title='"+orderObj.mobile+"'>" + orderObj.mobile + "</td>"
 							+ "<td title='"+orderObj.age+"'>" + orderObj.age + "</td>"
 							+ "<td title='"+orderObj.casteName+"'>" + orderObj.casteName + "</td>"
+							+ "<td title='"+orderObj.occupationName+"'>" + orderObj.occupationName + "</td>"
 							+ "<td title='"+orderObj.planPackage+"'>" + orderObj.planPackage + "</td>"
 							+ "</tr >";
 						$(tblRow).appendTo("#tableId table tbody"); 
@@ -172,21 +173,25 @@ function displayTable(listOrders) {
 	if(isCheck=="Yes"){
 		$('.dataTable').DataTable({
 			 dom: 'lBfrtip',
-			 title: 'Body Type',
+			 title: 'Reports',
 			 /* buttons: [
 			            'copy', 'csv', 'excel', 'pdf','print'
 			        ]	 */
 			        buttons: [
 					            {
 					                extend: 'excelHtml5',
-					                title: 'Body Type',
-					                filename: 'Body Type'
+					                title: 'Reports',
+					                filename: 'Reports'
 					            },
 					            {
 					                extend: 'pdfHtml5',
-//	 		                        messageTop : 'Body Type',
-				                        title : 'Body Type',
-									exportOptions: {columns: [0]},
+//	 		                        messageTop : 'Reports',
+				                        title : 'Reports',
+				                        orientation : 'landscape',
+						                pageSize : 'LEGAL',
+						                text : '<i class="fa fa-file-pdf-o"> PDF</i>',
+						                titleAttr : 'PDF',
+									exportOptions: {columns: [0,1,2,3,4,5,6,7]},
 			                        customize: function ( doc ) {
 										doc.content.splice( 1, 0, {
 											margin: [ 0, 0, 0, 12 ],
@@ -198,7 +203,7 @@ function displayTable(listOrders) {
 					  		     
 					            },{
 					                extend: 'print',
-					                title: 'Body Type',
+					                title: 'Reports',
 					                customize: function(doc) {
 					                  doc.styles.title = {
 					                    color: 'red',
@@ -253,21 +258,25 @@ function SearchReport()
 $(function(){
 	$('.dataTable').DataTable({
 		 dom: 'lBfrtip',
-		 title: 'Body Type',
+		 title: 'Reports',
 		 /* buttons: [
 		            'copy', 'csv', 'excel', 'pdf','print'
 		        ]	 */
 		        buttons: [
 				            {
 				                extend: 'excelHtml5',
-				                title: 'Body Type',
-				                filename: 'Body Type'
+				                title: 'Reports',
+				                filename: 'Reports'
 				            },
 				            {
 				                extend: 'pdfHtml5',
-// 		                        messageTop : 'Body Type',
-			                        title : 'Body Type',
-								exportOptions: {columns: [0]},
+// 		                        messageTop : 'Reports',
+			                        title : 'Reports',
+			                        orientation : 'landscape',
+					                pageSize : 'LEGAL',
+					                text : '<i class="fa fa-file-pdf-o"> PDF</i>',
+					                titleAttr : 'PDF',
+								exportOptions: {columns: [0,1,2,3,4,5,6,7]},
 		                        customize: function ( doc ) {
 									doc.content.splice( 1, 0, {
 										margin: [ 0, 0, 0, 12 ],
@@ -279,7 +288,7 @@ $(function(){
 				  		     
 				            },{
 				                extend: 'print',
-				                title: 'Body Type',
+				                title: 'Reports',
 				                customize: function(doc) {
 				                  doc.styles.title = {
 				                    color: 'red',

@@ -178,6 +178,10 @@ s.parentNode.insertBefore(ga, s);
 						                extend: 'pdfHtml5',
 //		 		                        messageTop : 'Classic Profiles',
 					                        title : 'Classic Profiles',
+					                        orientation : 'landscape',
+							                pageSize : 'LEGAL',
+							                text : '<i class="fa fa-file-pdf-o"> PDF</i>',
+							                titleAttr : 'PDF',
 										exportOptions: {columns: [0,1,2,3,4,5,6,7]},
 				                        customize: function ( doc ) {
 											doc.content.splice( 1, 0, {
@@ -767,6 +771,10 @@ s.parentNode.insertBefore(ga, s);
 					                extend: 'pdfHtml5',
 //	 		                        messageTop : 'Classic Profiles',
 				                        title : 'Classic Profiles',
+				                        orientation : 'landscape',
+						                pageSize : 'LEGAL',
+						                text : '<i class="fa fa-file-pdf-o"> PDF</i>',
+						                titleAttr : 'PDF',
 									exportOptions: {columns: [0,1,2,3,4,5,6,7]},
 			                        customize: function ( doc ) {
 										doc.content.splice( 1, 0, {

@@ -158,7 +158,7 @@
 						<div class="form-group">
 							<label class="col-md-4 control-label" for="textinput">As</label>  
 							<div class="col-md-6">
-								<form:select path="occupation" class="form-control u">
+								<form:select path="occupation" class="form-control u"  onblur="validate(this.id,'');" onfocus="removeBorder(this.id)">
 									<form:option value="">-- Choose Occupation --</form:option>
 									<form:options items="${occupation}"></form:options>
 								</form:select>
@@ -440,13 +440,19 @@ function firstForm(event)
 
 function secondForm(event)
 {
-	if($('#education').val() ==  null || $('#education').val() == "" || $('#education').val()=="undefined") 
+	if($('#education').val() ==  null || $('#education').val() == "" || $('#education').val()=="undefined" || $("#occupation").val()=="" || $('#occupation').val()=="undefined" || $('#occupation').val() ==  null) 
 	{
 		if($('#education').val() ==  null || $('#education').val() == "" || $('#education').val()=="undefined" ) 
 		{			    
 			$('#education').css('border-color','red');
 			$('#education').css('color','#cc0000');
 			$('#education').addClass('your-class');
+		}
+		if($('#occupation').val() ==  null || $('#occupation').val() == "" || $('#occupation').val()=="undefined" ) 
+		{			    
+			$('#occupation').css('border-color','red');
+			$('#occupation').css('color','#cc0000');
+			$('#occupation').addClass('your-class');
 		}
 		 /* if($('#salaryperyear').val() ==  null || $('#salaryperyear').val() == "" || $('#salaryperyear').val()=="undefined" ) 
 		{			    

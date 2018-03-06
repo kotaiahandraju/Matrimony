@@ -125,7 +125,7 @@ public class LoginController {
 					objUserBean.setShortListedCount("0");
 				}
 				
-				if(objUserBean.getRoleId() ==1){
+				if(objUserBean.getRoleId() ==1 || objUserBean.getRoleId() == 3){
 					session.setAttribute("cacheUserBean", objUserBean);
 					session.setAttribute("rolId", objUserBean.getRoleId());
 					session.setAttribute("userName", objUserBean.getUsername());

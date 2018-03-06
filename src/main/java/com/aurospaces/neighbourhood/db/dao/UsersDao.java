@@ -2471,7 +2471,7 @@ public boolean deletePhoto(String photoId){
 		jdbcTemplate = custom.getJdbcTemplate();
 		StringBuffer buffer = new StringBuffer();
 		
-		buffer.append("select u.id,sta.name as currentStateName,cit.name as currentCityName,u.occupation,oc.name as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
+		buffer.append("select u.id,sta.name as currentStateName,cit.name as currentCityName,u.occupation,ifnull(oc.name,'--') as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
 				+"u.firstName, u.lastName, u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName, u.currentCountry,co.name as currentCountryName, " 
 				+"u.currentState, u.currentCity, " 
 				+"u.maritalStatus, u.caste,c.name as casteName, u.gotram, u.star,s.name as starName, u.dosam, u.dosamName, u.education, u.workingWith, u.companyName, " 
