@@ -84,100 +84,8 @@ public class LoginController {
 			}
 			objUserBean = objUsersDao.loginChecking(userObj);
 			if (objUserBean != null ) {
-				//update login time
-				objUsersDao.updateLoginTime(objUserBean);
 				
-					Map<String,Object> interestCounts = objUsersDao.getInterestCounts(objUserBean);
-					long notificationsCount = (Long)interestCounts.get("receivedInterestCount")
-											+ (Long)interestCounts.get("mobileNumViewedCount")
-											+ (Long)interestCounts.get("profileViewedCount")
-											+ (Long)interestCounts.get("shortListedCount");
-					if(objUserBean.getStatus().equals("1")){
-						session.setAttribute("notificationsCount", notificationsCount);
-						objUserBean.setSentInterestCount((String.valueOf(interestCounts.get("sentInterestCount"))));
-						objUserBean.setAwaitingInterestCount((String.valueOf(interestCounts.get("awaitingInterestCount"))));
-						objUserBean.setReceivedInterestCount((String.valueOf(interestCounts.get("receivedInterestCount"))));
-						objUserBean.setAcceptedInterestCount((String.valueOf(interestCounts.get("acceptedInterestCount"))));
-						objUserBean.setProfileViewedCount((String.valueOf(interestCounts.get("profileViewedCount"))));
-						
-						objUserBean.setRejectedInterestCount((String.valueOf(interestCounts.get("rejectedInterestCount"))));
-						objUserBean.setProfilesViewedByMeCount((String.valueOf(interestCounts.get("profilesViewedByMeCount"))));
-						objUserBean.setMobileNumViewedCount((String.valueOf(interestCounts.get("mobileNumViewedCount"))));
-						objUserBean.setMobileNumViewedByMeCount((String.valueOf(interestCounts.get("mobileNumViewedByMeCount"))));
-						objUserBean.setPendingRequestsCount((String.valueOf(interestCounts.get("pendingRequestsCount"))));
-						objUserBean.setYetToBeViewedCount((String.valueOf(interestCounts.get("yetToBeViewedCount"))));
-						objUserBean.setViewedNotContactedCount((String.valueOf(interestCounts.get("viewedNotContactedCount"))));
-						objUserBean.setShortListedCount((String.valueOf(interestCounts.get("shortListedCount"))));
-					
-				}else{
-					session.setAttribute("notificationsCount", 0);
-					objUserBean.setSentInterestCount("0");
-					objUserBean.setReceivedInterestCount("0");
-					objUserBean.setAcceptedInterestCount("0");
-					objUserBean.setProfileViewedCount("0");
-					objUserBean.setRejectedInterestCount("0");
-					objUserBean.setProfilesViewedByMeCount((String.valueOf(interestCounts.get("profilesViewedByMeCount"))));
-					objUserBean.setMobileNumViewedCount("0");
-					objUserBean.setMobileNumViewedByMeCount("0");
-					objUserBean.setPendingRequestsCount("0");
-					objUserBean.setYetToBeViewedCount((String.valueOf(interestCounts.get("yetToBeViewedCount"))));
-					objUserBean.setViewedNotContactedCount((String.valueOf(interestCounts.get("viewedNotContactedCount"))));
-					objUserBean.setShortListedCount("0");
-				}
-				
-				if(objUserBean.getRoleId() ==1){
-					session.setAttribute("cacheUserBean", objUserBean);
-					session.setAttribute("rolId", objUserBean.getRoleId());
-					session.setAttribute("userName", objUserBean.getUsername());
-					return "redirect:admin/dashboard";
-				}else if(objUserBean.getRoleId() == 4){
-					
-					String otpStatus = objUsersDao.getOtpStatus(objUserBean);
-					
-					objUserBean.setOtpStatus(otpStatus);
-					session.setAttribute("allowed_profiles_limit", 0);
-					session.setAttribute("cacheGuest", objUserBean);
-					session.setAttribute("rolId", objUserBean.getRoleId());
-					session.setAttribute("userName", objUserBean.getUsername());
-					
-					int filled_status = objUsersDao.getProfileFilledStatus(objUserBean);
-					session.setAttribute("profile_filled_status", 45+filled_status);
-					if(StringUtils.isBlank(objUserBean.getFatherName())){
-						return "redirect:family-details";
-					}else if(StringUtils.isBlank(objUserBean.getImage())){
-						return "redirect:uploadPhotos";
-					}else if(StringUtils.isBlank(objUserBean.getrAgeFrom()) && StringUtils.isBlank(objUserBean.getrAgeTo()) &&
-							StringUtils.isBlank(objUserBean.getrMaritalStatus()) ){
-						return "redirect:partner-profile";
-					}
-					else{
-						if(StringUtils.isBlank(otpStatus) || "0".equals(otpStatus)){
-							return "redirect:sendOtp";
-						}else
-							return "redirect:dashboard";
-					}
-					
-				}else if(objUserBean.getRoleId() != 4){
-					int allowed_profiles_limit = objUsersDao.getAllowedProfilesLimit(objUserBean.getId());
-					session.setAttribute("allowed_profiles_limit", allowed_profiles_limit);
-					session.setAttribute("cacheGuest", objUserBean);
-					session.setAttribute("rolId", objUserBean.getRoleId());
-					session.setAttribute("userName", objUserBean.getUsername());
-					//session.setAttribute("profile_filled_status", "100");
-					int filled_status = objUsersDao.getProfileFilledStatus(objUserBean);
-					session.setAttribute("profile_filled_status", 45+filled_status);
-					String otpStatus = objUsersDao.getOtpStatus(objUserBean);
-					if(StringUtils.isBlank(otpStatus) || "0".equals(otpStatus)){
-						return "redirect:sendOtp";
-					}else
-						return "redirect:dashboard";
-				}else{
-					session.setAttribute("cacheGuest", objUserBean);
-					session.setAttribute("rolId", objUserBean.getRoleId());
-					session.setAttribute("userName", objUserBean.getUsername());
-					return "redirect:profile.htm?page=1";
-				}
-				
+				return this.setInitialData(objUserBean, session);
 					
 			} else {
 				redirect.addFlashAttribute("msg", "Login Failed");
@@ -199,7 +107,7 @@ public class LoginController {
 
 			HttpSession session = request.getSession(false);
 			UsersBean objuserBean = (UsersBean) session.getAttribute("cacheUserBean");
-			if (objuserBean != null) {
+			//if (objuserBean != null) {
 				session.removeAttribute("cacheUserBean");
 				session.removeAttribute("cacheGuest");
 				session.removeAttribute("rolId");
@@ -214,7 +122,7 @@ public class LoginController {
 				// System.out.println(baseUrl);
 				// response.sendRedirect(baseUrl+"/LoginHome1.htm" );
 //				response.sendRedirect(request.getContextPath() + "/LoginHome");
-			}
+			//}
 			return "redirect:HomePage";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -222,5 +130,99 @@ public class LoginController {
 		}
 		return "LoginHome";
 	}
-
+	public String setInitialData(UsersBean objUserBean,HttpSession session){
+		//update login time
+		objUsersDao.updateLoginTime(objUserBean);
+		
+			Map<String,Object> interestCounts = objUsersDao.getInterestCounts(objUserBean);
+			long notificationsCount = (Long)interestCounts.get("receivedInterestCount")
+									+ (Long)interestCounts.get("mobileNumViewedCount")
+									+ (Long)interestCounts.get("profileViewedCount")
+									+ (Long)interestCounts.get("shortListedCount");
+			if(objUserBean.getStatus().equals("1")){
+				session.setAttribute("notificationsCount", notificationsCount);
+				objUserBean.setSentInterestCount((String.valueOf(interestCounts.get("sentInterestCount"))));
+				objUserBean.setAwaitingInterestCount((String.valueOf(interestCounts.get("awaitingInterestCount"))));
+				objUserBean.setReceivedInterestCount((String.valueOf(interestCounts.get("receivedInterestCount"))));
+				objUserBean.setAcceptedInterestCount((String.valueOf(interestCounts.get("acceptedInterestCount"))));
+				objUserBean.setProfileViewedCount((String.valueOf(interestCounts.get("profileViewedCount"))));
+				
+				objUserBean.setRejectedInterestCount((String.valueOf(interestCounts.get("rejectedInterestCount"))));
+				objUserBean.setProfilesViewedByMeCount((String.valueOf(interestCounts.get("profilesViewedByMeCount"))));
+				objUserBean.setMobileNumViewedCount((String.valueOf(interestCounts.get("mobileNumViewedCount"))));
+				objUserBean.setMobileNumViewedByMeCount((String.valueOf(interestCounts.get("mobileNumViewedByMeCount"))));
+				objUserBean.setPendingRequestsCount((String.valueOf(interestCounts.get("pendingRequestsCount"))));
+				objUserBean.setYetToBeViewedCount((String.valueOf(interestCounts.get("yetToBeViewedCount"))));
+				objUserBean.setViewedNotContactedCount((String.valueOf(interestCounts.get("viewedNotContactedCount"))));
+				objUserBean.setShortListedCount((String.valueOf(interestCounts.get("shortListedCount"))));
+			
+		}else{
+			session.setAttribute("notificationsCount", 0);
+			objUserBean.setSentInterestCount("0");
+			objUserBean.setReceivedInterestCount("0");
+			objUserBean.setAcceptedInterestCount("0");
+			objUserBean.setProfileViewedCount("0");
+			objUserBean.setRejectedInterestCount("0");
+			objUserBean.setProfilesViewedByMeCount((String.valueOf(interestCounts.get("profilesViewedByMeCount"))));
+			objUserBean.setMobileNumViewedCount("0");
+			objUserBean.setMobileNumViewedByMeCount("0");
+			objUserBean.setPendingRequestsCount("0");
+			objUserBean.setYetToBeViewedCount((String.valueOf(interestCounts.get("yetToBeViewedCount"))));
+			objUserBean.setViewedNotContactedCount((String.valueOf(interestCounts.get("viewedNotContactedCount"))));
+			objUserBean.setShortListedCount("0");
+		}
+		
+		if(objUserBean.getRoleId() ==1){
+			session.setAttribute("cacheUserBean", objUserBean);
+			session.setAttribute("rolId", objUserBean.getRoleId());
+			session.setAttribute("userName", objUserBean.getUsername());
+			return "redirect:admin/dashboard";
+		}else if(objUserBean.getRoleId() == 4){
+			
+			String otpStatus = objUsersDao.getOtpStatus(objUserBean);
+			
+			objUserBean.setOtpStatus(otpStatus);
+			session.setAttribute("allowed_profiles_limit", 0);
+			session.setAttribute("cacheGuest", objUserBean);
+			session.setAttribute("rolId", objUserBean.getRoleId());
+			session.setAttribute("userName", objUserBean.getUsername());
+			
+			int filled_status = objUsersDao.getProfileFilledStatus(objUserBean);
+			session.setAttribute("profile_filled_status", 45+filled_status);
+			if(StringUtils.isBlank(objUserBean.getFatherName())){
+				return "redirect:family-details";
+			}else if(StringUtils.isBlank(objUserBean.getImage())){
+				return "redirect:uploadPhotos";
+			}else if(StringUtils.isBlank(objUserBean.getrAgeFrom()) && StringUtils.isBlank(objUserBean.getrAgeTo()) &&
+					StringUtils.isBlank(objUserBean.getrMaritalStatus()) ){
+				return "redirect:partner-profile";
+			}
+			else{
+				if(StringUtils.isBlank(otpStatus) || "0".equals(otpStatus)){
+					return "redirect:sendOtp";
+				}else
+					return "redirect:dashboard";
+			}
+			
+		}else if(objUserBean.getRoleId() != 4){
+			int allowed_profiles_limit = objUsersDao.getAllowedProfilesLimit(objUserBean.getId());
+			session.setAttribute("allowed_profiles_limit", allowed_profiles_limit);
+			session.setAttribute("cacheGuest", objUserBean);
+			session.setAttribute("rolId", objUserBean.getRoleId());
+			session.setAttribute("userName", objUserBean.getUsername());
+			//session.setAttribute("profile_filled_status", "100");
+			int filled_status = objUsersDao.getProfileFilledStatus(objUserBean);
+			session.setAttribute("profile_filled_status", 45+filled_status);
+			String otpStatus = objUsersDao.getOtpStatus(objUserBean);
+			if(StringUtils.isBlank(otpStatus) || "0".equals(otpStatus)){
+				return "redirect:sendOtp";
+			}else
+				return "redirect:dashboard";
+		}else{
+			session.setAttribute("cacheGuest", objUserBean);
+			session.setAttribute("rolId", objUserBean.getRoleId());
+			session.setAttribute("userName", objUserBean.getUsername());
+			return "redirect:profile.htm?page=1";
+		}
+	}
 }
