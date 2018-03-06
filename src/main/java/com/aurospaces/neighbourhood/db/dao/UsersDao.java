@@ -24,6 +24,7 @@ import com.aurospaces.neighbourhood.bean.LoginBean;
 import com.aurospaces.neighbourhood.bean.MemberShipBean;
 import com.aurospaces.neighbourhood.bean.Paymenthistory;
 import com.aurospaces.neighbourhood.bean.ReligionBean;
+import com.aurospaces.neighbourhood.bean.ReportsBean;
 import com.aurospaces.neighbourhood.bean.UsersBean;
 import com.aurospaces.neighbourhood.daosupport.CustomConnection;
 import com.aurospaces.neighbourhood.db.basedao.BaseUsersDao;
@@ -45,7 +46,7 @@ public class UsersDao extends BaseUsersDao
 	
 	public UsersBean loginChecking(LoginBean objUsersBean) {
 		 jdbcTemplate = custom.getJdbcTemplate();
-			String sql = "SELECT u.*,ureq.*,ifnull(u.age,'') as age,  GROUP_CONCAT(uimg.image) as image, (select uimg.image from user_images uimg where uimg.user_id=u.id and uimg.is_profile_picture='1') as profileImage, "
+			String sql = "SELECT u.*,ureq.*,ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,  GROUP_CONCAT(uimg.image) as image, (select uimg.image from user_images uimg where uimg.user_id=u.id and uimg.is_profile_picture='1') as profileImage, "
 							+" cst.name as casteName, rel.name as religionName, edu.name as educationName, curcity.name as currentCityName ,"
 							+" occ.name as occupationName,  "
 							+" DATE_FORMAT(u.dob, '%d-%M-%Y') as dob, DATE_FORMAT(u.created_time, '%d-%M-%Y') as createdTimeAsString, "
@@ -70,7 +71,7 @@ public class UsersDao extends BaseUsersDao
 	 public UsersBean loginChecking(int id) {
 		 jdbcTemplate = custom.getJdbcTemplate();
 		 UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
-			String sql = "SELECT u.*,ureq.*,ifnull(u.age,'') as age,  GROUP_CONCAT(uimg.image) as image, (select uimg.image from user_images uimg where uimg.user_id=u.id and uimg.is_profile_picture='1') as profileImage, "
+			String sql = "SELECT u.*,ureq.*,ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,  GROUP_CONCAT(uimg.image) as image, (select uimg.image from user_images uimg where uimg.user_id=u.id and uimg.is_profile_picture='1') as profileImage, "
 							+" cst.name as casteName, rel.name as religionName, edu.name as educationName, curcity.name as currentCityName ,"
 							+" (select st.name from state st where st.id = u.currentState) as currentStateName ,"
 							+" (select cntry.name from countries cntry where cntry.id = u.currentCountry) as currentCountryName, "
@@ -221,7 +222,7 @@ public class UsersDao extends BaseUsersDao
 					+"u.annualIncome, u.monthlyIncome, u.diet, u.smoking, u.drinking, u.height ,h.inches,h.cm, u.bodyType,b.name as bodyTypeName, u.complexion,com.name as complexionName, u.mobile, " 
 					+"u.aboutMyself, u.disability, u.status, u.showall,ur.userId, rAgeFrom, rAgeTo, "
 					+"rHeight, rMaritalStatus, rReligion,re1.name as requiredReligionName, rCaste,c1.name as requiredCasteName, rMotherTongue,l1.name as requiredMotherTongue,haveChildren,rCountry , con1.name as requiredCountry,rState,rEducation,e1.name as requiredEducationName, "
-					+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,u.age, IFNULL(p.name, 'Free Register') as planPackage from users u left join userrequirement ur on u.id=ur.userId "
+					+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,floor((datediff(current_date(),u.dob))/365) as age, IFNULL(p.name, 'Free Register') as planPackage from users u left join userrequirement ur on u.id=ur.userId "
 					+"left join religion re on re.id=u.religion left join language l on l.id=u.motherTongue left join countries co on co.id=u.currentCountry "
 					+"left join cast c on c.id=u.caste left join star s on s.id =u.star left join height h on h.id=u.height left join body_type b on b.id=u.bodyType left join religion re1  on re1.id=rReligion "
 					+"left join complexion com on com.id =u.complexion left join cast c1 on c1.id=rCaste left join language l1 on l1.id=rMotherTongue "
@@ -386,7 +387,7 @@ public class UsersDao extends BaseUsersDao
 							+"u.aboutMyself, u.disability, u.status, u.showall,ur.userId, rAgeFrom, rAgeTo, "
 							+"rHeight, rMaritalStatus, rReligion,re1.name as requiredReligionName, rCaste,c1.name as requiredCasteName, rMotherTongue,l1.name as requiredMotherTongue,haveChildren,rCountry , con1.name as requiredCountry,rState,rEducation,e1.name as requiredEducationName, "
 							+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,"
-							+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and interested='1') as expressedInterest, ifnull(u.age,'') as age, DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString, "
+							+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and interested='1') as expressedInterest, ifnull(floor((datediff(current_date(),u.dob))/365),'') as age, DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString, "
 							+" (select count(*) from users u "+where_clause+") as total_records, "
 							+" (select uimg.image from user_images uimg where uimg.user_id=u.id and uimg.is_profile_picture='1') as profileImage "
 							+" from users u left join userrequirement ur on u.id=ur.userId "
@@ -408,7 +409,7 @@ public class UsersDao extends BaseUsersDao
 					buffer.append("select u.id,cit.name as currentCityName,u.occupation,oc.name as occupationName,ed.name as educationName,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.gender, "
 							+"u.firstName, u.lastName, u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName,  " 
 							+"u.maritalStatus, u.caste,c.name as casteName, u.education, " 
-							+" u.height ,h.inches,h.cm, ifnull(u.age,'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
+							+" u.height ,h.inches,h.cm, ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 							+" (select count(*) from users u "+where_clause+") as total_records "
 							+" from users u left join "
 							+" religion re on re.id=u.religion left join language l on l.id=u.motherTongue left join  "
@@ -781,8 +782,8 @@ public class UsersDao extends BaseUsersDao
 			if(objUserBean!=null){
 				
 				String tempQryStr = " from userrequirement ureq where ureq.userId = "+objUserBean.getId()+" ";
-				where_clause.append( " and cast(u.age as decimal(10,2)) >= if((select ureq.rAgeFrom "+tempQryStr+")='' or (select ureq.rAgeFrom "+tempQryStr+") is null,u.age,(select ureq.rAgeFrom "+tempQryStr+"))");
-				where_clause.append( " and cast(u.age as decimal(10,2)) <= if((select ureq.rAgeTo "+tempQryStr+")='' or (select ureq.rAgeTo "+tempQryStr+") is null,u.age,(select ureq.rAgeTo "+tempQryStr+"))");
+				where_clause.append( " and cast(floor((datediff(current_date(),u.dob))/365)  as decimal(10,2)) >= if((select ureq.rAgeFrom "+tempQryStr+")='' or (select ureq.rAgeFrom "+tempQryStr+") is null,floor((datediff(current_date(),u.dob))/365) as age,(select ureq.rAgeFrom "+tempQryStr+"))");
+				where_clause.append( " and cast(floor((datediff(current_date(),u.dob))/365)  as decimal(10,2)) <= if((select ureq.rAgeTo "+tempQryStr+")='' or (select ureq.rAgeTo "+tempQryStr+") is null,floor((datediff(current_date(),u.dob))/365) as age,(select ureq.rAgeTo "+tempQryStr+"))");
 				//buffer.append( " and u.age between (select ureq.rAgeFrom "+tempQryStr+") and (select ureq.rAgeTo "+tempQryStr+")  ") ;
 				where_clause.append( " and cast(u.height as unsigned) >= cast(ifnull(if((select ureq.rHeight "+tempQryStr+" )='' or (select ureq.rHeight "+tempQryStr+" )='all' or (select ureq.rHeight  "+tempQryStr+" ) is null,null,(select ureq.rHeight  "+tempQryStr+" )),u.height) as unsigned ) ");
 				where_clause.append( " and cast(u.height as unsigned) <= cast(ifnull(if((select ureq.rHeightTo "+tempQryStr+" )='' or (select ureq.rHeightTo "+tempQryStr+" )='all' or (select ureq.rHeightTo  "+tempQryStr+" ) is null,null,(select ureq.rHeightTo  "+tempQryStr+" )),u.height) as unsigned ) ");
@@ -816,7 +817,7 @@ public class UsersDao extends BaseUsersDao
 							+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and mobile_no_viewed_status='1') as mobileNumViewed, "
 							//+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and interested='1') as expressedInterest, "
 							+" (select uimg.image from user_images uimg where uimg.user_id=u.id and uimg.is_profile_picture='1') as profileImage, "
-							+" ifnull(u.age,'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
+							+" ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 							+" (select count(*) from users u "+where_clause+") as total_records, u.createProfileFor,  "
 							+" (select ifnull((select short_listed from express_intrest where user_id = "+objUserBean.getId()+" and profile_id = u.id),0)) as short_listed "
 							//+" (select uimg.image from user_images uimg where uimg.user_id=u.id and uimg.is_profile_picture='1') as profileImage "
@@ -839,7 +840,7 @@ public class UsersDao extends BaseUsersDao
 							//+"u.firstName, u.lastName, u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName,  " 
 							+" u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName,  "
 							+"u.maritalStatus, u.caste,c.name as casteName, u.education, " 
-							+" u.height ,h.inches,h.cm, ifnull(u.age,'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
+							+" u.height ,h.inches,h.cm, ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 							+" (select count(*) from users u "+where_clause+") as total_records, "
 							+" (select uimg.image from user_images uimg where uimg.user_id=u.id and uimg.is_profile_picture='1') as profileImage, u.createProfileFor,  "
 							+" (select ifnull((select short_listed from express_intrest where user_id = "+objUserBean.getId()+" and profile_id = u.id),0)) as short_listed "
@@ -940,10 +941,10 @@ public class UsersDao extends BaseUsersDao
 				}else{
 					if(StringUtils.isNotBlank(searchCriteriaBean.getrAgeFrom())){
 						
-						where_clause.append( " and cast(u.age as decimal(10,2)) >= "+searchCriteriaBean.getrAgeFrom()+" ");
+						where_clause.append( " and cast(floor((datediff(current_date(),u.dob))/365)  as decimal(10,2)) >= "+searchCriteriaBean.getrAgeFrom()+" ");
 					}
 					if(StringUtils.isNotBlank(searchCriteriaBean.getrAgeTo())){
-						where_clause.append( " and cast(u.age as decimal(10,2)) <= "+searchCriteriaBean.getrAgeTo()+" ");
+						where_clause.append( " and cast(floor((datediff(current_date(),u.dob))/365)  as decimal(10,2)) <= "+searchCriteriaBean.getrAgeTo()+" ");
 					}
 					if(StringUtils.isNotBlank(searchCriteriaBean.getrHeight())){
 						where_clause.append( " and cast(u.height as unsigned) >= cast('"+searchCriteriaBean.getrHeight()+"' as unsigned ) ");
@@ -996,7 +997,7 @@ public class UsersDao extends BaseUsersDao
 							+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,"
 							+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and interested='1') as expressedInterest, "
 							+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and mobile_no_viewed_status='1') as mobileNumViewed, "
-							+" ifnull(u.age,'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
+							+" ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 							+" (select count(*) from (select count(*) from users u left join user_images uimg on u.id = uimg.user_id "+where_clause+" group by u.id) tmp) as total_records, "
 							+" (select uimg.image from user_images uimg where uimg.user_id=u.id and uimg.is_profile_picture='1') as profileImage, u.createProfileFor, "
 							+" (select ifnull((select short_listed from express_intrest where user_id = "+objUserBean.getId()+" and profile_id = u.id),0)) as short_listed "
@@ -1021,7 +1022,7 @@ public class UsersDao extends BaseUsersDao
 							//+"u.firstName, u.lastName, u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName,  " 
 							+" u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName,  "
 							+"u.maritalStatus, u.caste,c.name as casteName, u.education, u.aboutMyself, " 
-							+" u.height ,h.inches,h.cm, ifnull(u.age,'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
+							+" u.height ,h.inches,h.cm, ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 							+" (select count(*) from users u "+where_clause+") as total_records, "
 							+" (select uimg.image from user_images uimg where uimg.user_id=u.id and uimg.is_profile_picture='1') as profileImage, u.createProfileFor, "
 							+" (select ifnull((select short_listed from express_intrest where user_id = "+objUserBean.getId()+" and profile_id = u.id),0)) as short_listed, "
@@ -1333,7 +1334,7 @@ public class UsersDao extends BaseUsersDao
 			buffer.append("select u.id,cit.name as currentCityName,u.occupation,oc.name as occupationName,ed.name as educationName,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.gender, "
 					+"u.firstName, u.lastName, u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName,  " 
 					+"u.maritalStatus, u.caste,c.name as casteName, u.education, " 
-					+" u.height ,h.inches,h.cm,u.annualIncome,cntry.name as countryName, ifnull(u.age,'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString, u.createProfileFor   " 
+					+" u.height ,h.inches,h.cm,u.annualIncome,cntry.name as countryName, ifnull(floor((datediff(current_date(),u.dob))/365) ,'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString, u.createProfileFor   " 
 					+" from users u left join "
 					+" religion re on re.id=u.religion left join language l on l.id=u.motherTongue left join  "
 					+" cast c on c.id=u.caste left join height h on h.id=u.height left join "
@@ -1346,8 +1347,8 @@ public class UsersDao extends BaseUsersDao
 							"caste","casteName","education","height","inches","cm","annualIncome","countryName","age","dobString","createProfileFor"};
 			
 					String tempQryStr = " from userrequirement ureq where ureq.userId = "+profile.get("id")+" ";
-					buffer.append( " and cast(u.age as decimal(10,2)) >= if((select ureq.rAgeFrom "+tempQryStr+")='' or (select ureq.rAgeFrom "+tempQryStr+") is null,u.age,(select ureq.rAgeFrom "+tempQryStr+"))");
-					buffer.append( " and cast(u.age as decimal(10,2)) <= if((select ureq.rAgeTo "+tempQryStr+")='' or (select ureq.rAgeTo "+tempQryStr+") is null,u.age,(select ureq.rAgeTo "+tempQryStr+"))");
+					buffer.append( " and cast(floor((datediff(current_date(),u.dob))/365) as decimal(10,2)) >= if((select ureq.rAgeFrom "+tempQryStr+")='' or (select ureq.rAgeFrom "+tempQryStr+") is null,floor((datediff(current_date(),u.dob))/365) as age,(select ureq.rAgeFrom "+tempQryStr+"))");
+					buffer.append( " and cast(floor((datediff(current_date(),u.dob))/365)  as decimal(10,2)) <= if((select ureq.rAgeTo "+tempQryStr+")='' or (select ureq.rAgeTo "+tempQryStr+") is null,floor((datediff(current_date(),u.dob))/365) as age,(select ureq.rAgeTo "+tempQryStr+"))");
 					buffer.append( " and cast(u.height as unsigned) >= cast(ifnull(if((select ureq.rHeight "+tempQryStr+" )='' or (select ureq.rHeight "+tempQryStr+" )='all' or (select ureq.rHeight  "+tempQryStr+" ) is null,null,(select ureq.rHeight  "+tempQryStr+" )),u.height) as unsigned ) ");
 					buffer.append( " and cast(u.height as unsigned) <= cast(ifnull(if((select ureq.rHeightTo "+tempQryStr+" )='' or (select ureq.rHeightTo "+tempQryStr+" )='all' or (select ureq.rHeightTo  "+tempQryStr+" ) is null,null,(select ureq.rHeightTo  "+tempQryStr+" )),u.height) as unsigned ) ");
 					buffer.append( " and  FIND_IN_SET(u.maritalStatus,if((select ureq.rMaritalStatus "+tempQryStr+" )='' or (select ureq.rMaritalStatus "+tempQryStr+" )='all' or (select ureq.rMaritalStatus  "+tempQryStr+" ) is null,u.maritalStatus,(select ureq.rMaritalStatus  "+tempQryStr+" ))) > 0    ");
@@ -1433,7 +1434,7 @@ public class UsersDao extends BaseUsersDao
 				+"u.aboutMyself, u.disability, u.status, u.showall,ur.userId, rAgeFrom, rAgeTo, "
 				+"rHeight, rMaritalStatus, rReligion,re1.name as requiredReligionName, rCaste,c1.name as requiredCasteName, rMotherTongue,l1.name as requiredMotherTongue,haveChildren,rCountry , con1.name as requiredCountry,rState,rEducation,e1.name as requiredEducationName, "
 				+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,"
-				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and interested='1') as expressedInterest, ifnull(u.age,'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
+				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and interested='1') as expressedInterest, ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 				//+" (select count(*) from users u "+where_clause+") as total_records, "
 				+" (select uimg.image from user_images uimg where uimg.user_id=u.id and uimg.is_profile_picture='1') as profileImage, "
 				+" (select count(*) from users u,express_intrest ei where "+inner_where_clause+") as total_records, "
@@ -1478,7 +1479,7 @@ public class UsersDao extends BaseUsersDao
 				+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,"
 				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and interested='1') as expressedInterest, "
 				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and mobile_no_viewed_status='1') as mobileNumViewed, "
-				+" ifnull(u.age,'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
+				+" ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 				//+" (select count(*) from users u "+where_clause+") as total_records, "
 				+" (select uimg.image from user_images uimg where uimg.user_id=u.id and uimg.is_profile_picture='1') as profileImage, "
 				+" (select count(*) from users u,express_intrest ei where "+inner_where_clause+") as total_records, "
@@ -1525,7 +1526,7 @@ public class UsersDao extends BaseUsersDao
 				+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,"
 				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and interested='1') as expressedInterest, "
 				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and mobile_no_viewed_status='1') as mobileNumViewed, "
-				+" ifnull(u.age,'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
+				+" ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 				//+" (select count(*) from users u "+where_clause+") as total_records, "
 				+" (select uimg.image from user_images uimg where uimg.user_id=u.id and uimg.is_profile_picture='1') as profileImage, "
 				+" (select count(*) from users u,express_intrest ei where "+inner_where_clause+") as total_records, "
@@ -1573,7 +1574,7 @@ public class UsersDao extends BaseUsersDao
 				+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,"
 				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and interested='1') as expressedInterest, "
 				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and mobile_no_viewed_status='1') as mobileNumViewed, "
-				+" ifnull(u.age,'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
+				+" ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 				//+" (select count(*) from users u "+where_clause+") as total_records, "
 				+" (select uimg.image from user_images uimg where uimg.user_id=u.id and uimg.is_profile_picture='1') as profileImage, "
 				+" (select count(*) from users u,express_intrest ei where "+inner_where_clause+") as total_records, "
@@ -1621,7 +1622,7 @@ public class UsersDao extends BaseUsersDao
 				+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,"
 				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and interested='1') as expressedInterest, "
 				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and mobile_no_viewed_status='1') as mobileNumViewed, "
-				+" ifnull(u.age,'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
+				+" ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 				//+" (select count(*) from users u "+where_clause+") as total_records, "
 				+" (select uimg.image from user_images uimg where uimg.user_id=u.id and uimg.is_profile_picture='1') as profileImage, "
 				+" (select count(*) from users u,express_intrest ei where "+inner_where_clause+") as total_records "
@@ -1668,7 +1669,7 @@ public class UsersDao extends BaseUsersDao
 				+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,"
 				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and interested='1') as expressedInterest, "
 				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and mobile_no_viewed_status='1') as mobileNumViewed, "
-				+" ifnull(u.age,'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
+				+" ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 				//+" (select count(*) from users u "+where_clause+") as total_records, "
 				+" (select uimg.image from user_images uimg where uimg.user_id=u.id and uimg.is_profile_picture='1') as profileImage, "
 				+" (select count(*) from users u,express_intrest ei where "+inner_where_clause+") as total_records, "
@@ -1716,7 +1717,7 @@ public class UsersDao extends BaseUsersDao
 				+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,"
 				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and interested='1') as expressedInterest, "
 				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and mobile_no_viewed_status='1') as mobileNumViewed, "
-				+" ifnull(u.age,'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
+				+" ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 				//+" (select count(*) from users u "+where_clause+") as total_records, "
 				+" (select uimg.image from user_images uimg where uimg.user_id=u.id and uimg.is_profile_picture='1') as profileImage, "
 				+" (select count(*) from users u,express_intrest ei where "+inner_where_clause+") as total_records, "
@@ -1767,7 +1768,7 @@ public class UsersDao extends BaseUsersDao
 				+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,"
 				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and interested='1') as expressedInterest, "
 				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and mobile_no_viewed_status='1') as mobileNumViewed, "
-				+" ifnull(u.age,'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
+				+" ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 				//+" (select count(*) from users u "+where_clause+") as total_records, "
 				+" (select uimg.image from user_images uimg where uimg.user_id=u.id and uimg.is_profile_picture='1') as profileImage, "
 				+" (select count(*) from users u,express_intrest ei where "+inner_where_clause+") as total_records, "
@@ -1817,7 +1818,7 @@ public class UsersDao extends BaseUsersDao
 				+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,"
 				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and interested='1') as expressedInterest, "
 				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and mobile_no_viewed_status='1') as mobileNumViewed, "
-				+" ifnull(u.age,'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
+				+" ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 				//+" (select count(*) from users u "+where_clause+") as total_records, "
 				+" (select uimg.image from user_images uimg where uimg.user_id=u.id and uimg.is_profile_picture='1') as profileImage, "
 				+" (select count(*) from users u,express_intrest ei where "+inner_where_clause+") as total_records, "
@@ -1867,7 +1868,7 @@ public class UsersDao extends BaseUsersDao
 				+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,"
 				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and interested='1') as expressedInterest, "
 				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and mobile_no_viewed_status='1') as mobileNumViewed, "
-				+" ifnull(u.age,'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
+				+" ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 				//+" (select count(*) from users u "+where_clause+") as total_records, "
 				+" (select uimg.image from user_images uimg where uimg.user_id=u.id and uimg.is_profile_picture='1') as profileImage, "
 				+" (select count(*) from users u,express_intrest ei where "+inner_where_clause+") as total_records, "
@@ -1918,7 +1919,7 @@ public class UsersDao extends BaseUsersDao
 				+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,"
 				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and interested='1') as expressedInterest, "
 				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and mobile_no_viewed_status='1') as mobileNumViewed, "
-				+" ifnull(u.age,'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
+				+" ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 				//+" (select count(*) from users u "+where_clause+") as total_records, "
 				+" (select uimg.image from user_images uimg where uimg.user_id=u.id and uimg.is_profile_picture='1') as profileImage, "
 				+" (select count(*) from users u,express_intrest ei where "+inner_where_clause+") as total_records, "
@@ -1969,7 +1970,7 @@ public class UsersDao extends BaseUsersDao
 				+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,"
 				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and interested='1') as expressedInterest, "
 				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and mobile_no_viewed_status='1') as mobileNumViewed, "
-				+" ifnull(u.age,'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
+				+" ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 				//+" (select count(*) from users u "+where_clause+") as total_records, "
 				+" (select uimg.image from user_images uimg where uimg.user_id=u.id and uimg.is_profile_picture='1') as profileImage, "
 				+" (select count(*) from users u,express_intrest ei where "+inner_where_clause+") as total_records, "
@@ -2020,7 +2021,7 @@ public class UsersDao extends BaseUsersDao
 				+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,"
 				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and interested='1') as expressedInterest, "
 				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and mobile_no_viewed_status='1') as mobileNumViewed, "
-				+" ifnull(u.age,'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
+				+" ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 				//+" (select count(*) from users u "+where_clause+") as total_records, "
 				+" (select uimg.image from user_images uimg where uimg.user_id=u.id and uimg.is_profile_picture='1') as profileImage, "
 				+" (select count(*) from users u where "+inner_where_clause+" "+where_clause+") as total_records, "
@@ -2071,7 +2072,7 @@ public class UsersDao extends BaseUsersDao
 				+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,"
 				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and interested='1') as expressedInterest, "
 				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and mobile_no_viewed_status='1') as mobileNumViewed, "
-				+" ifnull(u.age,'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
+				+" ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 				//+" (select count(*) from users u "+where_clause+") as total_records, "
 				+" (select uimg.image from user_images uimg where uimg.user_id=u.id and uimg.is_profile_picture='1') as profileImage, "
 				+" (select count(*) from users u,express_intrest ei where "+inner_where_clause+" "+where_clause+ ") as total_records, "
@@ -2465,5 +2466,47 @@ public boolean deletePhoto(String photoId){
 			return null;
 		}
 	}
+	public List<Map<String, Object>> reporsData(ReportsBean objreReportsBean){
+
+		jdbcTemplate = custom.getJdbcTemplate();
+		StringBuffer buffer = new StringBuffer();
+		
+		buffer.append("select u.id,sta.name as currentStateName,cit.name as currentCityName,u.occupation,oc.name as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
+				+"u.firstName, u.lastName, u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName, u.currentCountry,co.name as currentCountryName, " 
+				+"u.currentState, u.currentCity, " 
+				+"u.maritalStatus, u.caste,c.name as casteName, u.gotram, u.star,s.name as starName, u.dosam, u.dosamName, u.education, u.workingWith, u.companyName, " 
+				+"u.annualIncome, u.monthlyIncome, u.diet, u.smoking, u.drinking, u.height ,h.inches,h.cm, u.bodyType,b.name as bodyTypeName, u.complexion,com.name as complexionName, u.mobile, " 
+				+"u.aboutMyself, u.disability, u.status, u.showall,ur.userId, rAgeFrom, rAgeTo, "
+				+"rHeight, rMaritalStatus, rReligion,re1.name as requiredReligionName, rCaste,c1.name as requiredCasteName, rMotherTongue,l1.name as requiredMotherTongue,haveChildren,rCountry , con1.name as requiredCountry,rState,rEducation,e1.name as requiredEducationName, "
+				+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,floor((datediff(current_date(),u.dob))/365) as age, IFNULL(p.name, 'Free Register') as planPackage from users u left join userrequirement ur on u.id=ur.userId "
+				+"left join religion re on re.id=u.religion left join language l on l.id=u.motherTongue left join countries co on co.id=u.currentCountry "
+				+"left join cast c on c.id=u.caste left join star s on s.id =u.star left join height h on h.id=u.height left join body_type b on b.id=u.bodyType left join religion re1  on re1.id=rReligion "
+				+"left join complexion com on com.id =u.complexion left join cast c1 on c1.id=rCaste left join language l1 on l1.id=rMotherTongue "
+				+"left join countries con1 on con1.id=rCountry left join education e1 on e1.id=rEducation left join occupation oc1 on oc1.id=rOccupation  left join user_images uimg on uimg.user_id=u.id left join occupation oc on u.occupation=oc.id left join education ed on ed.id=u.education "
+				+ " left join state sta on sta.id=u.currentState left join city cit on cit.id=u.currentCity left join package p on u.package_id = p.id "
+				+" where 1=1  ");
+					if(StringUtils.isNotBlank(objreReportsBean.getPackages())){
+						buffer.append( " and u.package_id ="+objreReportsBean.getPackages() );
+					}
+					if(StringUtils.isNotBlank(objreReportsBean.getFromdate()) && StringUtils.isNotBlank(objreReportsBean.getTodate())){
+						buffer.append( " and Date(u.created_time) BETWEEN Date('"+new java.sql.Timestamp(objreReportsBean.getFromdate1().getTime())+"') AND Date('"+new java.sql.Timestamp(objreReportsBean.getTodate1().getTime())+"') " );
+					}
+					if(StringUtils.isNotBlank(objreReportsBean.getCaste())){
+						buffer.append( " and u.caste="+objreReportsBean.getCaste() );
+					}
+					if(StringUtils.isNotBlank(objreReportsBean.getOccupation())){
+						buffer.append( " and u.occupation ="+objreReportsBean.getOccupation() );
+					}
+							buffer.append(" group by u.id ");
+							String sql =buffer.toString();
+							System.out.println(sql);
+							
+							
+							List<Map<String, Object>> result = jdbcTemplate.queryForList(sql);
+							return result;
+		
+	
+	}
+	
 }
 

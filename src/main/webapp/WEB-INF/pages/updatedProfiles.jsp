@@ -169,6 +169,7 @@ function searchTable() {
 							$(tblRow).appendTo("#tableId table tbody"); 
 						});
 		
+		
 	}
  function displayTableFooter(page){
 		var from_val = ((parseInt(page)-1)*page_size)+1;
@@ -205,7 +206,7 @@ function searchTable() {
 
 
 
-
+ 
 
 
 $(".updatedProfiles").addClass("active");

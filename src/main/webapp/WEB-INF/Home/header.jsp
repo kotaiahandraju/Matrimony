@@ -221,7 +221,9 @@ $(document).ready(function(){
 					</ul>
 				</li>
 				<li class="interestRequests"><a href="${baseurl }/admin/interestRequests"><span>Interest Requests</span></a></li>
- 				<li class="updatedProfiles"><a href="${baseurl }/admin/updatedProfiles"><span>Updated Profiles</span></a></li> 
+ 				<li class="updatedProfiles"><a href="${baseurl }/admin/updatedProfiles"><span>Updated Profiles</span></a></li>
+ 				<li class="reports"><a href="${baseurl }/admin/reportsHome"><span>Reports</span></a></li> 
+ 				
 			</ul>
 			<div class="user">
 				<ul class="icon-nav">
