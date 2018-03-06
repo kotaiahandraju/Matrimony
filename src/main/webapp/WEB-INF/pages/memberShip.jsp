@@ -157,7 +157,7 @@ function displayTable(listOrders) {
 					                extend: 'pdfHtml5',
 //	 		                        messageTop : 'Membership',
 				                        title : 'Membership',
-									exportOptions: {columns: [0]},
+									exportOptions: {columns: [0,1,2,3]},
 			                        customize: function ( doc ) {
 										doc.content.splice( 1, 0, {
 											margin: [ 0, 0, 0, 12 ],
@@ -245,7 +245,7 @@ $(function(){
 				                extend: 'pdfHtml5',
 // 		                        messageTop : 'Membership',
 			                        title : 'Membership',
-								exportOptions: {columns: [0]},
+								exportOptions: {columns: [0,1,2,3]},
 		                        customize: function ( doc ) {
 									doc.content.splice( 1, 0, {
 										margin: [ 0, 0, 0, 12 ],

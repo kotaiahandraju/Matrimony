@@ -155,6 +155,9 @@ function displayTable(listOrders) {
 	$.each(listOrders,function(i, orderObj) {
 		var edit = "<a class='edit editIt' onclick='editBranch("+ orderObj.id+ ")'><i class='fa fa-pencil'></i></a>"
 		var deleterow = "<a class='delete' onclick='deleteBranch("+ orderObj.id+ ")'><i class='fa fa-trash'></i></a>"
+		if(role_id =="3"){
+			deleterow = "";
+		}
 		serviceUnitArray[orderObj.id] = orderObj;
 		var tblRow = "<tr >"
 			+ "<td title='"+orderObj.name+"'>" + orderObj.name + "</td>"

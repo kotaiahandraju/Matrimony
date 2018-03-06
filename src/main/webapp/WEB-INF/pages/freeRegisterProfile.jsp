@@ -771,6 +771,8 @@ s.parentNode.insertBefore(ga, s);
 					                extend: 'pdfHtml5',
 //	 		                        messageTop : 'Free Register Profiles',
 				                        title : 'Free Register Profiles',
+				                        orientation : 'landscape',
+						                pageSize : 'LEGAL',
 									exportOptions: {columns: [0,1,2,3,4,5,6,7]},
 			                        customize: function ( doc ) {
 										doc.content.splice( 1, 0, {

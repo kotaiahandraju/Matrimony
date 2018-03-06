@@ -137,6 +137,7 @@ $(document).ready(function(){
 	$('.reset').attr('data-original-title','Reset Password');
 	$('[data-toggle="tooltip"]').tooltip();
 });
+var role_id = ${cacheUserBean.roleId};
 </script>
 </head>
 
@@ -189,7 +190,11 @@ $(document).ready(function(){
 					<ul class="dropdown-menu">
 						<li class="languages"><a href="${baseurl }/admin/LanguagesHome">Languages</a></li>
 						<li class="occupation"><a href="${baseurl }/admin/OccupationHome">Occupation</a></li>
+						
+						<c:set var="roleId1"  value="${cacheUserBean.roleId}"/>  
+							<c:if test="${roleId1 != 3}">  
 						<li class="membership"><a href="${baseurl }/admin/MembershipHome">Membership</a></li>
+						</c:if> 
 						<li class="raasi"><a href="${baseurl }/admin/RaasiHome">Raasi</a></li>
 						<li class="religion"><a href="${baseurl }/admin/ReligionHome">Religion</a></li>
 						<li class="star"><a href="${baseurl }/admin/StarHome">Star</a></li>
@@ -221,7 +226,9 @@ $(document).ready(function(){
 					</ul>
 				</li>
 				<li class="interestRequests"><a href="${baseurl }/admin/interestRequests"><span>Interest Requests</span></a></li>
- 				<li class="updatedProfiles"><a href="${baseurl }/admin/updatedProfiles"><span>Updated Profiles</span></a></li> 
+ 				<li class="updatedProfiles"><a href="${baseurl }/admin/updatedProfiles"><span>Updated Profiles</span></a></li>
+ 				<li class="reports"><a href="${baseurl }/admin/reportsHome"><span>Reports</span></a></li> 
+ 				
 			</ul>
 			<div class="user">
 				<ul class="icon-nav">

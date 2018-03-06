@@ -6,52 +6,91 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 
 
-
+<link href="${baseurl }/css/datepicker1.css" rel="stylesheet" type="text/css" />
+<script src="${baseurl }/js/jquery-ui.min.js"></script>
 <div id="main">
 
 	<div class="container-fluid">
 		<div class="page-header">
 			<div class="pull-left">
-				<h1>Body Type</h1> 
+				<h1>Reports</h1> 
 			</div>
 		</div>
 		<div class="breadcrumbs">
 			<ul>
 				<li>
 					<i class="fa fa-edit"></i>
-					<a href="javascript:void(0)" style="color: blue;text-decoration: none;">Data List 1</a>
+<!-- 					<a href="javascript:void(0)" style="color: blue;text-decoration: none;">Data List 1</a> -->
 					<i class="fa fa-angle-right"></i>&nbsp;
 				</li>
 				<li>
 					&nbsp;<i class="fa fa-file"></i>
-					<span style="color: #999;cursor: auto;">Body Type</span>
+					<span style="color: #999;cursor: auto;">Reports</span>
 				</li>
 			</ul>
 		</div>
 		<div class="row">
-			<div class="col-md-8">
+			<div class="col-md-12">
 				<div class="portlet" id="yw0" class="">
 					<div class="portlet-content w3-animate-zoom">
-						<form:form modelAttribute="bodyTypeForm" class="form-horizontal" role="form" id="branch-form" action="addBodyType" method="post">								
+						<form:form modelAttribute="reports" class="form-horizontal" role="form" id="branch-form"  method="post">								
 							<div class="row">
 					  			<div class="col-md-12">
-									<div class="form-group">
-										<label class="col-sm-3 control-label required"><spring:message code="label.bodyType" text="default text" /> <span class="impColor">*</span></label>
-										<div class="col-sm-6">
-											<form:hidden path="id"/>
-											<form:input path="name" type="text" class="form-control onlyCharacters validate" placeholder="Enter Body Type"  autocomplete="off"  maxlength="255"/>						
+					  			
+										<label class="col-sm-2 control-label required">From Date <span class="impColor">*</span></label>
+										<div class="col-sm-2">
+<%-- 											<form:hidden path="id"/> --%>
+											<form:input path="fromdate" type="text" class="form-control  "  placeholder="Enter From Date"  autocomplete="off"  maxlength="255" readonly="true"/>						
 											<span class="hasError" id="nameError"></span>
-									  		<div><form:errors path="name" cssClass="error"/></div>										
 										</div>
+										
+										<label class="col-sm-2 control-label required">To Date<span class="impColor">*</span></label>
+										<div class="col-sm-2">
+											<form:input path="todate" type="text" class="form-control " placeholder="Enter To Date"  autocomplete="off"  maxlength="255" readonly="true"/>						
+											<span class="hasError" id="nameError"></span>
 								  	</div>
+								  	
+								  	<label class="col-sm-1 control-label required">Plan <span class="impColor">*</span></label>
+										<div class="col-sm-2">
+											<form:select path="packages" class="form-control">
+											<form:option value="">--Select Package --</form:option>
+											<form:options items="${packages }"/>
+											</form:select>
+								  	</div>
+								  	
+						  		</div>
+						  		</div>
+						  		<div>&nbsp;</div>
+						  		<div class="row">
+						  		<div class="col-md-12">
+										<label class="col-sm-2 control-label required">Caste <span class="impColor">*</span></label>
+										<div class="col-sm-2">
+<%-- 											<form:hidden path="id"/> --%>
+											<form:select path="caste" class="form-control">
+											<form:option value="">--Select Caste --</form:option>
+											<form:options items="${caste }"/>
+											</form:select>
+										</div>
+										
+										<label class="col-sm-2 control-label required">Job Role <span class="impColor">*</span></label>
+										<div class="col-sm-2">
+											<form:select path="occupation" class="form-control">
+											<form:option value="">--Select Job Role --</form:option>
+											<form:options items="${occupation }"/>
+											</form:select>
+								  	</div>
+								  	
+								  	
+						  		</div>
 						  		</div>
 						  	</div>
+						  	<div>&nbsp;</div>
 							<div class="row">
-						  		<div class="col-md-offset-3 col-md-6">
+						  		<div class="col-md-offset-9 col-md-6">
 							  		<div class="form-group">
 										<div class="col-md-6">
-											<input class="btn btn-primary" type="submit" id="submit1" name="yt0" value="Add">
-											<input class="btn btn-danger cancel" type="button" id="reset" name="yt1" value="Reset">
+											<input style="padding: 8px 21px;" class="btn btn-primary" type="button" name="yt0" value="Search" onclick="SearchReport()">
+											<input style="padding: 8px 21px;" class="btn btn-danger cancel" type="reset" id="reset" name="yt1" value="Reset">
 										</div>
 								  	</div>
 						  		</div>
@@ -67,14 +106,11 @@
 			<div class="col-sm-12">
 				<div class="box">
 					<div class="box-title">
-						<h3><i class="fa fa-table"></i> Body Type's List</h3>
+						<h3><i class="fa fa-table"></i> </h3>
 					</div>
 					<div class="box-content nopadding w3-animate-zoom" id="tableId">
 						<table class="table table-hover table-nomargin table-bordereddataTable-column_filter" data-column_filter_types="text,null">
-							<thead>
-							<tr>
-								<th>Body Type</th><th></th>
-							</tr>
+							<thead><tr><th>UserName</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Mobile</th><th>Age</th><th>Caste</th><th>Package</th><th>Occupation</th></tr>
 							</thead>
 							<tbody></tbody>
 						</table>
@@ -87,31 +123,19 @@
 
 		
 <script type="text/javascript">
-
-function validate(id)
-{
-	if($('#name').val() ==  null || $('#name').val() == "" || $('#name').val()=="undefined")
-	{
-		$('#nameError').css('color','red');
-	    $("#nameError").text("Body Type cannot be blank.");
-	}
-	else{$("#nameError").text("");}
-}
-
-$("#submit11").click(function(){			
-	if($('#name').val() ==  null || $('#name').val() == "" || $('#name').val()=="undefined")
-	{
-		if($('#name').val() ==  null || $('#name').val() == "" || $('#name').val()=="undefined") 
-		{
-// 			$("#name").css("border-color","#e73d4a");
-// 			$("#name").attr("placeholder","Please Enter Body Type");
-// 			$('#name').addClass('your-class');
-			$('#nameError').css('color','red');
-			$("#nameError").text("Body Type cannot be blank.");
-		}
-		return false;
-		$("#bodyType-form").submit();
-	}
+$("#fromdate").datepicker({
+    dateFormat: "dd-MM-yy",
+    changeDate : true,
+	changeMonth : true,
+	changeYear : true,
+	maxDate :0
+}); 
+$("#todate").datepicker({
+    dateFormat: "dd-MM-yy",
+    changeDate : true,
+	changeMonth : true,
+	changeYear : true,
+	maxDate :0
 });
 
 var listOrders1 = ${allOrders1};
@@ -121,42 +145,53 @@ if (listOrders1 != "") {
 
 function displayTable(listOrders) {
 	$('#tableId').html('');
-	var tableHead = '<table  class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,null"">'
-		+ '<thead><tr><th>Body Type</th><th style="text-align: center;"></th></tr></thead><tbody></tbody></table>';
+	var tableHead = '<table class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,text,text,text,text,null">'
+		+ '<thead><tr><th>UserName</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Mobile</th><th>Age</th><th>Caste</th><th>Occupation</th><th>Package</th></tr></thead><tbody></tbody></table>';
 	$('#tableId').html(tableHead);
 	serviceUnitArray = {};
 	$.each(listOrders,function(i, orderObj) {
-		var edit = "<a class='edit editIt' onclick='editBodyType("+orderObj.id+")'><i class='fa fa-pencil'></i></a>";
-		
-		var deleterow = "<a class='delete' onclick='deleteBodyType("+orderObj.id+")'><i class='fa fa-trash'></i></a>";
-		if(role_id =="3"){
-			deleterow = "";
-		}
-		serviceUnitArray[orderObj.id] = orderObj;
-		var tblRow = "<tr>"
-			+ "<td title='"+orderObj.name+"'>"+ orderObj.name + "</td>"
-			+ "<td style='text-align: center;white-space: nowrap;'>" + edit + "&nbsp;|&nbsp;" + deleterow + "</td>" + "</tr>";
-		$(tblRow).appendTo("#tableId table tbody");
-	});
+		/* var viewProfile = "<a title='View Profile' onclick='viewProfile("+ orderObj.id+ ")'><i style='color: blue;' class='fa fa-eye'></i></a>"
+						var viewProfile = "<a title='View Profile' onclick='viewProfile("+ orderObj.id+ ")'><i style='color: blue;' class='fa fa-eye'></i></a>"
+						var viewProfile = "<a title='View Profile' onclick='viewProfile("+ orderObj.id+ ")'><i style='color: blue;' class='fa fa-eye'></i></a>" */
+						serviceUnitArray[orderObj.id] = orderObj;
+						if(orderObj.firstName !=null){
+						var tblRow = "<tr >"
+							+ "<td title='"+orderObj.username+"'>" + orderObj.username + "</td>"
+							+ "<td title='"+orderObj.firstName+"'>" + orderObj.firstName + "</td>"
+							+ "<td title='"+orderObj.lastName+"'>" + orderObj.lastName + "</td>"
+							+ "<td title='"+orderObj.email+"'>" + orderObj.email + "</td>"
+							+ "<td title='"+orderObj.mobile+"'>" + orderObj.mobile + "</td>"
+							+ "<td title='"+orderObj.age+"'>" + orderObj.age + "</td>"
+							+ "<td title='"+orderObj.casteName+"'>" + orderObj.casteName + "</td>"
+							+ "<td title='"+orderObj.occupationName+"'>" + orderObj.occupationName + "</td>"
+							+ "<td title='"+orderObj.planPackage+"'>" + orderObj.planPackage + "</td>"
+							+ "</tr >";
+						$(tblRow).appendTo("#tableId table tbody"); 
+						}
+					});
 
 	if(isCheck=="Yes"){
 		$('.dataTable').DataTable({
 			 dom: 'lBfrtip',
-			 title: 'Body Type',
+			 title: 'Reports',
 			 /* buttons: [
 			            'copy', 'csv', 'excel', 'pdf','print'
 			        ]	 */
 			        buttons: [
 					            {
 					                extend: 'excelHtml5',
-					                title: 'Body Type',
-					                filename: 'Body Type'
+					                title: 'Reports',
+					                filename: 'Reports'
 					            },
 					            {
 					                extend: 'pdfHtml5',
-//	 		                        messageTop : 'Body Type',
-				                        title : 'Body Type',
-									exportOptions: {columns: [0]},
+//	 		                        messageTop : 'Reports',
+				                        title : 'Reports',
+				                        orientation : 'landscape',
+						                pageSize : 'LEGAL',
+						                text : '<i class="fa fa-file-pdf-o"> PDF</i>',
+						                titleAttr : 'PDF',
+									exportOptions: {columns: [0,1,2,3,4,5,6,7]},
 			                        customize: function ( doc ) {
 										doc.content.splice( 1, 0, {
 											margin: [ 0, 0, 0, 12 ],
@@ -168,7 +203,7 @@ function displayTable(listOrders) {
 					  		     
 					            },{
 					                extend: 'print',
-					                title: 'Body Type',
+					                title: 'Reports',
 					                customize: function(doc) {
 					                  doc.styles.title = {
 					                    color: 'red',
@@ -196,55 +231,52 @@ function displayTable(listOrders) {
 	}
 }
 
-function editBodyType(id)
+function SearchReport()
 {
-	$("#id").val(serviceUnitArray[id].id);
-	$("#name").val(serviceUnitArray[id].name);
-	$("#submit1").val("Update");
-	$(window).scrollTop($('body').offset().top);
-}
-
-function deleteBodyType(id)
-{
-	var checkstr =  confirm('Are you sure you want to Delete?');
-	if(checkstr == true)
-	{
+	var packages = $("#packages").val();
+	var caste = $("#caste").val();
+	var occupation = $("#occupation").val();
+	var fromdate = $("#fromdate").val();
+	var todate = $("#todate").val();
+	
 		var formData = new FormData();
-	    formData.append('id', id);
-		$.fn.makeMultipartRequest('POST', 'deleteBodyType', false, formData, false, 'text', function(data){
+	    formData.append('packages', packages);
+	    formData.append('caste', caste);
+	    formData.append('occupation',occupation);
+	    formData.append('fromdate', fromdate);
+	    formData.append('todate', todate);
+		$.fn.makeMultipartRequest('POST', 'reportsData', false, formData, false, 'text', function(data){
 			var jsonobj = $.parseJSON(data);
 // 			alert(jsonobj.message);
-			if(jsonobj.message == "yes"){
-				getDeleteMsg("alert-info","Body Type Deleted Successfully");
-			}
-			else if(jsonobj.message == "no"){
-				getDeleteMsg("alert-danger","Failed to Delete..!");
-			}
+			
 			var alldata = jsonobj.allOrders1;
 			console.log(jsonobj.allOrders1);
 			displayTable(alldata);
 		});
-	}	
 }
 
 $(function(){
 	$('.dataTable').DataTable({
 		 dom: 'lBfrtip',
-		 title: 'Body Type',
+		 title: 'Reports',
 		 /* buttons: [
 		            'copy', 'csv', 'excel', 'pdf','print'
 		        ]	 */
 		        buttons: [
 				            {
 				                extend: 'excelHtml5',
-				                title: 'Body Type',
-				                filename: 'Body Type'
+				                title: 'Reports',
+				                filename: 'Reports'
 				            },
 				            {
 				                extend: 'pdfHtml5',
-// 		                        messageTop : 'Body Type',
-			                        title : 'Body Type',
-								exportOptions: {columns: [0]},
+// 		                        messageTop : 'Reports',
+			                        title : 'Reports',
+			                        orientation : 'landscape',
+					                pageSize : 'LEGAL',
+					                text : '<i class="fa fa-file-pdf-o"> PDF</i>',
+					                titleAttr : 'PDF',
+								exportOptions: {columns: [0,1,2,3,4,5,6,7]},
 		                        customize: function ( doc ) {
 									doc.content.splice( 1, 0, {
 										margin: [ 0, 0, 0, 12 ],
@@ -256,7 +288,7 @@ $(function(){
 				  		     
 				            },{
 				                extend: 'print',
-				                title: 'Body Type',
+				                title: 'Reports',
 				                customize: function(doc) {
 				                  doc.styles.title = {
 				                    color: 'red',
@@ -283,6 +315,5 @@ $(function(){
 	});	
 });
 
-$(".catalog1").addClass("active");
-$(".bodyType").addClass("active"); 
+$(".reports").addClass("active"); 
 </script>

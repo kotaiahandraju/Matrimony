@@ -125,6 +125,10 @@
 	<definition name="adminDashboard" extends="base.definition">
 		<put-attribute name="body" value="/WEB-INF/pages/adminDashboard.jsp" />
 	</definition>
+	<definition name="reports" extends="base.definition">
+		<put-attribute name="body" value="/WEB-INF/pages/reports.jsp" />
+	</definition>
+	
 	
 </tiles-definitions>
 
