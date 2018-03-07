@@ -71,6 +71,8 @@ public class UsersDao extends BaseUsersDao
 	 public UsersBean loginChecking(int id) {
 		 jdbcTemplate = custom.getJdbcTemplate();
 		 UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
+		 if(sessionBean == null) // means call is from admin-->updated profiles
+			 sessionBean = (UsersBean) session.getAttribute("cacheUserBean");
 			String sql = "SELECT u.*,ureq.*,ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,  GROUP_CONCAT(uimg.image) as image, (select uimg.image from user_images uimg where uimg.user_id=u.id and uimg.is_profile_picture='1') as profileImage, "
 							+" cst.name as casteName, rel.name as religionName, edu.name as educationName, curcity.name as currentCityName ,"
 							+" (select st.name from state st where st.id = u.currentState) as currentStateName ,"
@@ -782,8 +784,8 @@ public class UsersDao extends BaseUsersDao
 			if(objUserBean!=null){
 				
 				String tempQryStr = " from userrequirement ureq where ureq.userId = "+objUserBean.getId()+" ";
-				where_clause.append( " and cast(floor((datediff(current_date(),u.dob))/365)  as decimal(10,2)) >= if((select ureq.rAgeFrom "+tempQryStr+")='' or (select ureq.rAgeFrom "+tempQryStr+") is null,floor((datediff(current_date(),u.dob))/365) as age,(select ureq.rAgeFrom "+tempQryStr+"))");
-				where_clause.append( " and cast(floor((datediff(current_date(),u.dob))/365)  as decimal(10,2)) <= if((select ureq.rAgeTo "+tempQryStr+")='' or (select ureq.rAgeTo "+tempQryStr+") is null,floor((datediff(current_date(),u.dob))/365) as age,(select ureq.rAgeTo "+tempQryStr+"))");
+				where_clause.append( " and cast(floor((datediff(current_date(),u.dob))/365) as decimal(10,2)) >= if((select ureq.rAgeFrom "+tempQryStr+")='' or (select ureq.rAgeFrom "+tempQryStr+") is null,floor((datediff(current_date(),u.dob))/365),(select ureq.rAgeFrom "+tempQryStr+"))");
+				where_clause.append( " and cast(floor((datediff(current_date(),u.dob))/365) as decimal(10,2)) <= if((select ureq.rAgeTo "+tempQryStr+")='' or (select ureq.rAgeTo "+tempQryStr+") is null,floor((datediff(current_date(),u.dob))/365),(select ureq.rAgeTo "+tempQryStr+"))");
 				//buffer.append( " and u.age between (select ureq.rAgeFrom "+tempQryStr+") and (select ureq.rAgeTo "+tempQryStr+")  ") ;
 				where_clause.append( " and cast(u.height as unsigned) >= cast(ifnull(if((select ureq.rHeight "+tempQryStr+" )='' or (select ureq.rHeight "+tempQryStr+" )='all' or (select ureq.rHeight  "+tempQryStr+" ) is null,null,(select ureq.rHeight  "+tempQryStr+" )),u.height) as unsigned ) ");
 				where_clause.append( " and cast(u.height as unsigned) <= cast(ifnull(if((select ureq.rHeightTo "+tempQryStr+" )='' or (select ureq.rHeightTo "+tempQryStr+" )='all' or (select ureq.rHeightTo  "+tempQryStr+" ) is null,null,(select ureq.rHeightTo  "+tempQryStr+" )),u.height) as unsigned ) ");
@@ -941,10 +943,10 @@ public class UsersDao extends BaseUsersDao
 				}else{
 					if(StringUtils.isNotBlank(searchCriteriaBean.getrAgeFrom())){
 						
-						where_clause.append( " and cast(floor((datediff(current_date(),u.dob))/365)  as decimal(10,2)) >= "+searchCriteriaBean.getrAgeFrom()+" ");
+						where_clause.append( " and cast(floor((datediff(current_date(),u.dob))/365) as decimal(10,2)) >= "+searchCriteriaBean.getrAgeFrom()+" ");
 					}
 					if(StringUtils.isNotBlank(searchCriteriaBean.getrAgeTo())){
-						where_clause.append( " and cast(floor((datediff(current_date(),u.dob))/365)  as decimal(10,2)) <= "+searchCriteriaBean.getrAgeTo()+" ");
+						where_clause.append( " and cast(floor((datediff(current_date(),u.dob))/365) as decimal(10,2)) <= "+searchCriteriaBean.getrAgeTo()+" ");
 					}
 					if(StringUtils.isNotBlank(searchCriteriaBean.getrHeight())){
 						where_clause.append( " and cast(u.height as unsigned) >= cast('"+searchCriteriaBean.getrHeight()+"' as unsigned ) ");
@@ -1334,8 +1336,7 @@ public class UsersDao extends BaseUsersDao
 			buffer.append("select u.id,cit.name as currentCityName,u.occupation,oc.name as occupationName,ed.name as educationName,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.gender, "
 					+"u.firstName, u.lastName, u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName,  " 
 					+"u.maritalStatus, u.caste,c.name as casteName, u.education, " 
-					+" u.height ,h.inches,h.cm,u.annualIncome,cntry.name as countryName, ifnull(floor((datediff(current_date(),u.dob))/365) ,'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString, u.createProfileFor ,   "
-					+" u.unique_code "
+					+" u.height ,h.inches,h.cm,u.annualIncome,cntry.name as countryName, ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString, u.createProfileFor, u.unique_code   " 
 					+" from users u left join "
 					+" religion re on re.id=u.religion left join language l on l.id=u.motherTongue left join  "
 					+" cast c on c.id=u.caste left join height h on h.id=u.height left join "
@@ -1348,8 +1349,8 @@ public class UsersDao extends BaseUsersDao
 							"caste","casteName","education","height","inches","cm","annualIncome","countryName","age","dobString","createProfileFor","unique_code"};
 			
 					String tempQryStr = " from userrequirement ureq where ureq.userId = "+profile.get("id")+" ";
-					buffer.append( " and cast(floor((datediff(current_date(),u.dob))/365) as decimal(10,2)) >= if((select ureq.rAgeFrom "+tempQryStr+")='' or (select ureq.rAgeFrom "+tempQryStr+") is null,floor((datediff(current_date(),u.dob))/365) as age,(select ureq.rAgeFrom "+tempQryStr+"))");
-					buffer.append( " and cast(floor((datediff(current_date(),u.dob))/365)  as decimal(10,2)) <= if((select ureq.rAgeTo "+tempQryStr+")='' or (select ureq.rAgeTo "+tempQryStr+") is null,floor((datediff(current_date(),u.dob))/365) as age,(select ureq.rAgeTo "+tempQryStr+"))");
+					buffer.append( " and cast(floor((datediff(current_date(),u.dob))/365) as decimal(10,2)) >= if((select ureq.rAgeFrom "+tempQryStr+")='' or (select ureq.rAgeFrom "+tempQryStr+") is null,floor((datediff(current_date(),u.dob))/365),(select ureq.rAgeFrom "+tempQryStr+"))");
+					buffer.append( " and cast(floor((datediff(current_date(),u.dob))/365) as decimal(10,2)) <= if((select ureq.rAgeTo "+tempQryStr+")='' or (select ureq.rAgeTo "+tempQryStr+") is null,floor((datediff(current_date(),u.dob))/365),(select ureq.rAgeTo "+tempQryStr+"))");
 					buffer.append( " and cast(u.height as unsigned) >= cast(ifnull(if((select ureq.rHeight "+tempQryStr+" )='' or (select ureq.rHeight "+tempQryStr+" )='all' or (select ureq.rHeight  "+tempQryStr+" ) is null,null,(select ureq.rHeight  "+tempQryStr+" )),u.height) as unsigned ) ");
 					buffer.append( " and cast(u.height as unsigned) <= cast(ifnull(if((select ureq.rHeightTo "+tempQryStr+" )='' or (select ureq.rHeightTo "+tempQryStr+" )='all' or (select ureq.rHeightTo  "+tempQryStr+" ) is null,null,(select ureq.rHeightTo  "+tempQryStr+" )),u.height) as unsigned ) ");
 					buffer.append( " and  FIND_IN_SET(u.maritalStatus,if((select ureq.rMaritalStatus "+tempQryStr+" )='' or (select ureq.rMaritalStatus "+tempQryStr+" )='all' or (select ureq.rMaritalStatus  "+tempQryStr+" ) is null,u.maritalStatus,(select ureq.rMaritalStatus  "+tempQryStr+" ))) > 0    ");
@@ -2467,6 +2468,7 @@ public boolean deletePhoto(String photoId){
 			return null;
 		}
 	}
+	
 	public List<Map<String, Object>> reporsData(ReportsBean objreReportsBean){
 
 		jdbcTemplate = custom.getJdbcTemplate();
@@ -2512,6 +2514,5 @@ public boolean deletePhoto(String photoId){
 		
 	
 	}
-	
 }
 
