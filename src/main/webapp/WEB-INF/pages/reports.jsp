@@ -54,6 +54,7 @@
 										<div class="col-sm-2">
 											<form:select path="packages" class="form-control">
 											<form:option value="">--Select Package --</form:option>
+											<form:option value="FreeRegister">Free Register</form:option>
 											<form:options items="${packages }"/>
 											</form:select>
 								  	</div>
