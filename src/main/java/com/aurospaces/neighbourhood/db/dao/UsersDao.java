@@ -22,7 +22,6 @@ import com.aurospaces.neighbourhood.bean.EducationBean;
 import com.aurospaces.neighbourhood.bean.HeightBean;
 import com.aurospaces.neighbourhood.bean.LoginBean;
 import com.aurospaces.neighbourhood.bean.MemberShipBean;
-import com.aurospaces.neighbourhood.bean.Paymenthistory;
 import com.aurospaces.neighbourhood.bean.ReligionBean;
 import com.aurospaces.neighbourhood.bean.ReportsBean;
 import com.aurospaces.neighbourhood.bean.UsersBean;
@@ -2514,5 +2513,25 @@ public boolean deletePhoto(String photoId){
 		
 	
 	}
+	public UsersBean emailVerificationCheck(String email,String code) {
+		 jdbcTemplate = custom.getJdbcTemplate();
+			String sql = "SELECT * FROM users where  email=? AND `unique_code`=?  ";
+			List<UsersBean> retlist = jdbcTemplate.query(sql,
+			new Object[]{email,code},
+			ParameterizedBeanPropertyRowMapper.newInstance(UsersBean.class));
+			if(retlist.size() > 0)
+				return retlist.get(0);
+			return null;
+		}
+	public boolean updateEmailVerification(String email) {
+		jdbcTemplate = custom.getJdbcTemplate();
+		String sql = "update users set emailverify='1' where email = ?";
+		int deleted_count = jdbcTemplate.update(sql, new Object[]{email});
+		if(deleted_count>0){
+			return true;
+		}
+		return false;
+	}
+	
 }
 

@@ -345,13 +345,13 @@ s.parentNode.insertBefore(ga, s);
 		}
 		
 	}
- 
+ var username1 =null;
  function viewProfile(id){
 		$('#dial1').html('');
 		
 		var username = serviceUnitArray[id].username;
 // 		var imageUrl = serviceUnitArray[id].image;
-		
+		 username1 = username;
 		var array = null;
 // 		var imageUrl =null;
 		
@@ -521,13 +521,16 @@ s.parentNode.insertBefore(ga, s);
 		var rStateName = null; rStateName = serviceUnitArray[id].rStateName;
 		if(rStateName == "" || rStateName == null || rStateName == "undefined"){rStateName = "---";}
 		
-		 var tblRow = "<div class='container table-responsive'><div class='row'>"
-		 		+ 	"<div class='col-sm-2'>"
-		 		+		"<img src=${baseurl }/"+image+" class='watermark_text' width='150px'/>"
-// 				+		"<i class='fa fa-user' style='font-size: 10em;'></i>"
-//	 	 		+		"<img class='img-responsive' src='../img/default.png' style='width: auto !important;height: 120px !important;'>"
-		 		+ 	"</div>"
-		 		+ 	"<div class='col-sm-10' style='border: 1px solid red;'>"
+		 var tblRow = 	"<div id='printProfile'><div class='col-sm-2' >"
+		 		+		"<img src=${baseurl }/"+image+" class='watermark_text' width='150px' align='right'/>"
+	//			+		"<i class='fa fa-user' style='font-size: 10em;'></i>"
+	// 	 		+		"<img class='img-responsive' src='../img/default.png' style='width: auto !important;height: 120px !important;'>"
+		 		+ 	"</div>" 
+				 +"<div  class='container table-responsive'>"
+			   
+				 +"<div class='row'>"
+		 		+"<a href='' class='noPrint' onclick='PrintElem()' style='background: turquoise;border-radius: 3px;padding: 2px;font-size: 18px;''>Print</a>"
+		 		+ 	"<div class='col-sm-10' >"
 		 		+		"<table class='table table-hoverable table-condensed' style='width: 100%;'>"
 				+			"<tr>"
 				+				"<td><b>Profile Created for</b></td>"
@@ -697,7 +700,7 @@ s.parentNode.insertBefore(ga, s);
 //	 	 		+			"<div class='col-sm-3'>"+name+"</div>"
 //	 	 		+		"</div>"
 		 		+ 	"</div>"
-		 		+ "</div></div>";
+		 		+ "</div></div></div>";
 		 
 		 $(tblRow).appendTo('#dial1');
 		 var mStatus = null;
@@ -809,6 +812,389 @@ s.parentNode.insertBefore(ga, s);
 					        ]
 		});	
 	});
+ function PrintElem(elem)
+ {
+ 	$(".noPrint").hide();
+     Popup($("#printProfile").html());
+     
+ }
+
+
+ function Popup(data)
+ {
+ 	var mywindow = window.open('','new div');
+
+     var is_chrome = Boolean(mywindow.chrome);
+     var isPrinting = false;
+     mywindow.document.write('<html><head><title>'+username1+'</title> <link rel="stylesheet" type="text/css" href="../assets/css/img.css"><link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css"></head><body>');
+     mywindow.document.write(data);
+    
+     mywindow.document.write('</body></html>');
+     mywindow.document.close(); // necessary for IE >= 10 and necessary before onload for chrome
+
+ 
+ $(".noPrint").show();
+     if (is_chrome) {
+         mywindow.onload = function() { // wait until all resources loaded 
+             mywindow.focus(); // necessary for IE >= 10
+             mywindow.print();  // change window to mywindow
+             mywindow.close();// change window to mywindow
+         };
+     
+     
+    } else {
+         mywindow.document.close(); // necessary for IE >= 10
+         mywindow.focus(); // necessary for IE >= 10
+
+         mywindow.print();
+         mywindow.close();
+    }
+   
+     return true;
+ }
+ /* function profilePrit(id){
+
+		$('#dial1').html('');
+		
+		var username = serviceUnitArray[id].username;
+//		var imageUrl = serviceUnitArray[id].image;
+		
+		var array = null;
+//		var imageUrl =null;
+		
+		var image = null; image = serviceUnitArray[id].image;
+		if(image == "" || image == null || image == "undefined"){
+			image = "img/default.png";
+		}
+		else{
+		array = image.split(",");
+		
+		$.each(array,function(i){
+			image = array[i];
+//			   alert(array[i]);
+			});
+		}
+		
+		var registerwith = null; registerwith = serviceUnitArray[id].registerwith;
+		if(registerwith == "" || registerwith == null || registerwith == "undefined"){registerwith = "---";}
+		
+		var executiveName = null; executiveName = serviceUnitArray[id].executiveName;
+		if(executiveName == "" || executiveName == null || executiveName == "undefined"){executiveName = "---";}
+		
+		var email = null; email = serviceUnitArray[id].email;
+		if(email == "" || email == null || email == "undefined"){email = "---";}
+		
+		var createProfileFor = null; createProfileFor = serviceUnitArray[id].createProfileFor;
+		if(createProfileFor == "" || createProfileFor == null || createProfileFor == "undefined"){createProfileFor = "---";}		
+
+		var gender = null; gender = serviceUnitArray[id].gender;
+		if(gender == "" || gender == null || gender == "undefined"){gender = "---";}
+		
+		var firstName = null; firstName = serviceUnitArray[id].firstName;
+		if(firstName == "" || firstName == null || firstName == "undefined"){firstName = "---";}
+		
+		var lastName = null; lastName = serviceUnitArray[id].lastName;
+		if(lastName == "" || lastName == null || lastName == "undefined"){lastName = "---";}
+		
+		/* var dob = null; dob = serviceUnitArray[id].dob;
+		if(dob == "" || dob == null || dob == "undefined"){dob = "---";} */
+		
+/* 		var dob = null; dob = serviceUnitArray[id].dobString;
+		if(dob == "" || dob == null || dob == "undefined"){dob = "---";}
+		
+		var religionName = null; religionName = serviceUnitArray[id].religionName;
+		if(religionName == "" || religionName == null || religionName == "undefined"){religionName = "---";}
+
+		var motherTongueName = null; motherTongueName = serviceUnitArray[id].motherTongueName;
+		if(motherTongueName == "" || motherTongueName == null || motherTongueName == "undefined"){motherTongueName = "---";}
+		
+		var currentCountryName = null; currentCountryName = serviceUnitArray[id].currentCountryName;
+		if(currentCountryName == "" || currentCountryName == null || currentCountryName == "undefined"){currentCountryName = "---";}
+		
+		var currentStateName = null; currentStateName = serviceUnitArray[id].currentStateName;
+		if(currentStateName == "" || currentStateName == null || currentStateName == "undefined"){currentStateName = "---";}
+		
+		var currentCityName = null; currentCityName = serviceUnitArray[id].currentCityName;
+		if(currentCityName == "" || currentCityName == null || currentCityName == "undefined"){currentCityName = "---";}
+		
+		var maritalStatus = null; maritalStatus = serviceUnitArray[id].maritalStatus;
+		if(maritalStatus == "" || maritalStatus == null || maritalStatus == "undefined"){maritalStatus = "---";}
+		
+		var casteName = null; casteName = serviceUnitArray[id].casteName;
+		if(casteName == "" || casteName == null || casteName == "undefined"){casteName = "---";}
+		
+		var gotram = null; gotram = serviceUnitArray[id].gotram;
+		if(gotram == "" || gotram == null || gotram == "undefined"){gotram = "---";}
+		
+		var starName = null; starName = serviceUnitArray[id].starName;
+		if(starName == "" || starName == null || starName == "undefined"){starName = "---";}
+		
+		var dosam = null; dosam = serviceUnitArray[id].dosam;
+		if(dosam == "" || dosam == null || dosam == "undefined"){dosam = "---";}
+		
+		var dosamName = null; dosamName = serviceUnitArray[id].dosamName;
+		if(dosamName == "" || dosamName == null || dosamName == "undefined"){dosamName = "---";}
+		
+		//
+		var educationName = null; educationName = serviceUnitArray[id].educationName;
+		if(educationName == "" || educationName == null || educationName == "undefined"){educationName = "---";}
+		
+		var workingWith = null; workingWith = serviceUnitArray[id].workingWith;
+		if(workingWith == "" || workingWith == null || workingWith == "undefined"){workingWith = "---";}
+		
+		//
+		var occupationName = null; occupationName = serviceUnitArray[id].occupationName;
+		if(occupationName == "" || occupationName == null || occupationName == "undefined"){occupationName = "---";}
+		
+		var annualIncome = null; annualIncome = serviceUnitArray[id].annualIncome;
+		if(annualIncome == "" || annualIncome == null || annualIncome == "undefined"){annualIncome = "---";}
+		
+		var diet = null; diet = serviceUnitArray[id].diet;
+		if(diet == "" || diet == null || diet == "undefined"){diet = "---";}
+		
+		var smoking = null; smoking = serviceUnitArray[id].smoking;
+		if(smoking == "" || smoking == null || smoking == "undefined"){smoking = "---";}
+		
+		var drinking = null; drinking = serviceUnitArray[id].drinking;
+		if(drinking == "" || drinking == null || drinking == "undefined"){drinking = "---";}
+		
+		var height = null; height = serviceUnitArray[id].height;
+		if(height == "" || height == null || height == "undefined"){height = "---";}
+		
+		var bodyTypeName = null; bodyTypeName = serviceUnitArray[id].bodyTypeName;
+		if(bodyTypeName == "" || bodyTypeName == null || bodyTypeName == "undefined"){bodyTypeName = "---";}
+		
+		var complexionName = null; complexionName = serviceUnitArray[id].complexionName;
+		if(complexionName == "" || complexionName == null || complexionName == "undefined"){complexionName = "---";}
+		
+		var mobile = null; mobile = serviceUnitArray[id].mobile;
+		if(mobile == "" || mobile == null || mobile == "undefined"){mobile = "---";}
+		
+		var aboutMyself = null; aboutMyself = serviceUnitArray[id].aboutMyself;
+		if(aboutMyself == "" || aboutMyself == null || aboutMyself == "undefined"){aboutMyself = "---";}
+		
+		var disability = null; disability = serviceUnitArray[id].disability;
+		if(disability == "" || disability == null || disability == "undefined"){disability = "---";}
+		
+		var rAgeFrom = null; rAgeFrom = serviceUnitArray[id].rAgeFrom;
+		if(rAgeFrom == "" || rAgeFrom == null || rAgeFrom == "undefined"){rAgeFrom = "---";}
+		
+		var rAgeTo = null; rAgeTo = serviceUnitArray[id].rAgeTo;
+		if(rAgeTo == "" || rAgeTo == null || rAgeTo == "undefined"){rAgeTo = "---";}
+		
+		var rHeight = null; rHeight = serviceUnitArray[id].rHeight;
+		if(rHeight == "" || rHeight == null || rHeight == "undefined"){rHeight = "---";}
+		
+		var rMaritalStatus = null; rMaritalStatus = serviceUnitArray[id].rMaritalStatus;
+		if(rMaritalStatus == "" || rMaritalStatus == null || rMaritalStatus == "undefined"){rMaritalStatus = "---";}
+		
+		var requiredReligionName = null; requiredReligionName = serviceUnitArray[id].requiredReligionName;
+		if(requiredReligionName == "" || requiredReligionName == null || requiredReligionName == "undefined"){requiredReligionName = "---";}
+		
+		var requiredCasteName = null; requiredCasteName = serviceUnitArray[id].requiredCasteName;
+		if(requiredCasteName == "" || requiredCasteName == null || requiredCasteName == "undefined"){requiredCasteName = "---";}
+		
+		var requiredMotherTongue = null; requiredMotherTongue = serviceUnitArray[id].requiredMotherTongue;
+		if(requiredMotherTongue == "" || requiredMotherTongue == null || requiredMotherTongue == "undefined"){requiredMotherTongue = "---";}
+		
+		var requiredCountry = null; requiredCountry = serviceUnitArray[id].requiredCountry;
+		if(requiredCountry == "" || requiredCountry == null || requiredCountry == "undefined"){requiredCountry = "---";}
+		
+		//
+		var requiredStateName = null; requiredStateName = serviceUnitArray[id].requiredStateName;
+		if(requiredStateName == "" || requiredStateName == null || requiredStateName == "undefined"){requiredStateName = "---";}
+		
+		var requiredStateName = null; requiredStateName = serviceUnitArray[id].requiredStateName;
+		if(requiredStateName == "" || requiredStateName == null || requiredStateName == "undefined"){requiredStateName = "---";}
+		
+		var requiredEducationName = null; requiredEducationName = serviceUnitArray[id].requiredEducationName;
+		if(requiredEducationName == "" || requiredEducationName == null || requiredEducationName == "undefined"){requiredEducationName = "---";}
+		
+		var rWorkingWith = null; rWorkingWith = serviceUnitArray[id].rWorkingWith;
+		if(rWorkingWith == "" || rWorkingWith == null || rWorkingWith == "undefined"){rWorkingWith = "---";}
+		
+		var requiredOccupationName = null; requiredOccupationName = serviceUnitArray[id].requiredOccupationName;
+		if(requiredOccupationName == "" || requiredOccupationName == null || requiredOccupationName == "undefined"){requiredOccupationName = "---";}
+		
+		var rAnnualIncome = null; rAnnualIncome = serviceUnitArray[id].rAnnualIncome;
+		if(rAnnualIncome == "" || rAnnualIncome == null || rAnnualIncome == "undefined"){rAnnualIncome = "---";}
+		
+		var rCreateProfileFor = null; rCreateProfileFor = serviceUnitArray[id].rCreateProfileFor;
+		if(rCreateProfileFor == "" || rCreateProfileFor == null || rCreateProfileFor == "undefined"){rCreateProfileFor = "---";}
+		
+		var rDiet = null; rDiet = serviceUnitArray[id].rDiet;
+		if(rDiet == "" || rDiet == null || rDiet == "undefined"){rDiet = "---";}
+
+		var rStateName = null; rStateName = serviceUnitArray[id].rStateName;
+		if(rStateName == "" || rStateName == null || rStateName == "undefined"){rStateName = "---";}
+		 var tblRow = "<div class='container'>"
+			 +"<div style='border-bottom: 2px inset black; width: 100%;'>"
+			 +"<div style='float: right;'>"
+			 +"<img alt='User Pic' src=${baseurl }/"+image+" style='width:100px;height:100px;' id='profile-image1' class='img-circle img-responsive'>"
+			 +"<h4>User Name</h4></div>"
+			 +"</div>"
+			 +"</div>"
+			 +"<div class='container'>"
+			 +"<table class='table table-responsive'>"
+			 +"<legend>Basic Information</legend>"
+			 +"<tr>"
+			 +"<td>First Name</td>"
+			 +"<td></td>"
+			 +"<td>Last Name</td>"
+			 +"<td>&nbsp;</td>"
+			 +"</tr>"
+			 +"<tr>"
+			 +"<td>Gender</td>"
+			 +"<td>&nbsp;</td>"
+			 +"<td>Date of Birth</td>"
+			 +"<td>&nbsp;</td>"
+			 +"</tr>"
+			 +"<tr>"
+			 +"<td>Email</td>"
+			 +"<td>&nbsp;</td>"
+			 +"<td>Caste</td>"
+			 +"<td>&nbsp;</td>"
+			 +"</tr>"
+			 +"<tr>"
+			 +"<td>Gothram</td>"
+			 +"<td>&nbsp;</td>"
+			 +"<td>Nakshatram</td>"
+			 +"<td>&nbsp;</td>"
+			 +"</tr>"
+			 +"<tr>"
+			 +"<td>Dosham</td>"
+			 +"<td>&nbsp;</td>"
+			 +"<td>Dosham Name</td>"
+			 +"<td>&nbsp;</td>"
+			 +"</tr>"
+			 +"<tr>"
+			 +"<td>Marital Status</td>"
+			 +"<td>&nbsp;</td>"
+			 +"<td>&nbsp;</td>"
+			 +"<td>&nbsp;</td>"
+			 +"</tr>"
+			 +"<tr>"
+			 +"<td>Relegion</td>"
+			 +"<td>&nbsp;</td>"
+			 +"<td>Mother Tongue</td>"
+			 +"<td>&nbsp;</td>"
+			 +"</tr>"
+			 +"<tr>"
+			 +"<td>Country</td>"
+			 +"<td>&nbsp;</td>"
+			 +"<td>State</td>"
+			 +"<td>&nbsp;</td>"
+			 +"</tr>"
+			 +"<tr>"
+			 +"<td>City</td>"
+			 +"<td>&nbsp;</td>"
+			 +"<td>Mobile</td>"
+			 +"<td>&nbsp;</td>"
+			 +"</tr>"
+			 +"</table>"
+
+			 +"<table class='table table-responsive'>"
+			 +"<legend>Education & Job Information</legend>"
+			 +"<tr>"
+			 +"<td>Education</td>"
+			 +"<td>&nbsp;</td>"
+			 +"<td>Working With</td>"
+			 +"<td>&nbsp;</td>"
+			 +"</tr>"
+			 +"<tr>"
+			 +" <td>Occupation</td>"
+			 +" <td>&nbsp;</td>"
+			 +"<td>Annual Income</td>"
+			 +"<td>&nbsp;</td>"
+			 +"</tr>"
+			 +"</table>"
+
+
+			 +" <table class='table table-responsive'>"
+			 +"<legend>Personal Details</legend>"
+			 +"<tr>"
+			 +"<td>Diet</td>"
+			 +"<td>&nbsp;</td>"
+			 +"<td>Smoking</td>"
+			 +"<td>&nbsp;</td>"
+			 +" </tr>"
+			 +" <tr>"
+			 +" <td>Drinking</td>"
+			 +" <td>&nbsp;</td>"
+			 +"<td>Height</td>"
+			 +"<td>&nbsp;</td>"
+			 +" </tr>"
+			 +"<tr>"
+			 +"<td>Body Type</td>"
+			 +"<td>&nbsp;</td>"
+			 +"<td>Complexion</td>"
+			 +"<td>&nbsp;</td>"
+			 +"</tr>"
+			 +"<tr>"
+			 +"<td>About Yourself</td>"
+			 +"<td>&nbsp;</td>"
+			 +"<td>Any Disability</td>"
+			 +"<td>&nbsp;</td>"
+			 +"</tr>"
+			 +"</table>"
+
+			 +"<table class='table table-responsive'>"
+			 +"<legend>Basic Information</legend>"
+			 +" <tr>"
+			 +"<td>Height</td>"
+			 +"<td>&nbsp;</td>"
+			 +"<td>Age</td>"
+			 +"<td>&nbsp;</td>"
+			 +"</tr>"
+			 +" <tr>"
+			 +"<td>Marital Status</td>"
+			 +"<td>&nbsp;</td>"
+			 +" <td>&nbsp;</td>"
+			 +" <td>&nbsp;</td>"
+			 +"</tr>"
+			 +"<tr>"
+			 +"<td>Religion</td>"
+			 +"<td>&nbsp;</td>"
+			 +"<td>Caste</td>"
+			 +" <td>&nbsp;</td>"
+			 +"</tr>"
+			 +" <tr>"
+			 +" <td>Mother Tongue</td>"
+			 +"<td>&nbsp;</td>"
+			 +" <td>Country</td>"
+			 +"<td>&nbsp;</td>"
+			 +" </tr>"
+			 +"<tr>"
+			 +"<td>State</td>"
+			 +"<td>&nbsp;</td>"
+			 +" <td>Education</td>"
+			 +"<td>&nbsp;</td>"
+			 +"</tr>"
+			 +" <tr>"
+			 +" <td>Working with</td>"
+			 +"<td>&nbsp;</td>"
+			 +"<td>Profession Area</td>"
+		 +" <td>&nbsp;</td>"
+		 +" </tr>"
+		 +" <tr>"
+		 +"<td>Annual Income</td>"
+		 +" <td>&nbsp;</td>"
+		 +" <td>&nbsp;</td>"
+		 +" <td>&nbsp;</td>"
+		 +" </tr>"
+		 +" <tr>"
+		 +" <td>Profile Created by</td>"
+		 +"<td>&nbsp;</td>"
+		 +"<td>Diet</td>"
+		 +" <td>&nbsp;</td>"
+		 +" </tr>"
+		 +" </table>"
+		 +" </div>";
+		 
+		 $(tblRow).appendTo('#dial1');
+			 
+		 $('#dial1').dialog({title: "Profile of "+username, width: 1199, height: 600, modal: true}).dialog('open');
+ }  */
  $(".profiles").addClass("active");
  $(".allProfiles").addClass("active"); 
 </script>
