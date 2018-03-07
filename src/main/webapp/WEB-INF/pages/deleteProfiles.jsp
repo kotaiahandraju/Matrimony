@@ -222,7 +222,7 @@ s.parentNode.insertBefore(ga, s);
 	 
 	
 		}
- function permanentDelete(){
+ function permanentDelete(id){
 	 var checkstr =  confirm('Are you sure you want to delete this?');
 		if(checkstr == true){
 		var formData = new FormData();
