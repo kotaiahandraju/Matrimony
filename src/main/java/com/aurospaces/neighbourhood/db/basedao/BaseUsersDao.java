@@ -215,7 +215,7 @@ ps.setString(52, unique_code);
 	 @Transactional
 		public boolean upgradeUser(int userId,int roleId,String package_id) {
 			jdbcTemplate = custom.getJdbcTemplate();
-			String sql = "update users set package_id = ?, package_joined_date = ?, role_id = ? where id = ?";
+			String sql = "update users set package_id = ?, package_joined_date = ?, role_id = ?, membership_status = '1' where id = ?";
 			int updatedCount = jdbcTemplate.update(sql, new Object[]{package_id,new java.sql.Timestamp(new Date().getTime()),roleId,userId});
 			if(updatedCount==1)
 				return true;

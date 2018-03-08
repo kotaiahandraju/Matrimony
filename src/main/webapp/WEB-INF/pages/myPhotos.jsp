@@ -25,7 +25,7 @@
 			      				<c:if test="${photo.is_profile_picture == '1' }">
 			      					<div class="all_pics_normal">
 				      					<span>Profile Picture</span>
-				      				</div>
+				      				</div><br>
 				      				<div class="all_pics_a" hidden="true">
 				      					<a id="profilepic${photo.id}" href="#" class="all_pics" data-littlelightbox-group="gallery" onclick="setAsProfilePicture(${photo.id},'${photo.image}')">Set as Profile Picture</a>
 				      				</div>
@@ -35,14 +35,14 @@
 				      					<span>Profile Picture</span>
 				      				</div>
 				      				<div class="all_pics_a">
-				      					<a id="profilepic${photo.id}" href="#" class="all_pics" data-littlelightbox-group="gallery" onclick="setAsProfilePicture(${photo.id},'${photo.image}')">Set as Profile Picture</a>
+				      					<a style="float: right;" id="profilepic${photo.id}" href="#" class="all_pics" data-littlelightbox-group="gallery" onclick="setAsProfilePicture(${photo.id},'${photo.image}')">Set as Profile Picture</a>
 				      				</div>
 				      			</c:if>
 			      			</c:if>
 			      			<c:if test="${photo.approved_status == '2' }">
 			      				<span>Rejected by Admin</span>
 			      			</c:if>
-			      			&nbsp;<a href="#" onclick="deletePhoto(${photo.id},'div${photo.id}')">Delete</a>
+			      			&nbsp;<a href="#" onclick="deletePhoto(${photo.id},'div${photo.id}')" style="float: right;margin-right: 90px;margin-top: 12px;">Delete</a>
 			      		</div>
 					</c:forEach>
 			    	

@@ -1365,7 +1365,7 @@ xpopup
 
 </style>
 </head>
-<body style="background: #F1F1F2;">
+<body style="background: white;">
 <%@ page import="com.aurospaces.neighbourhood.bean.UsersBean"%>
 <%
 	UsersBean userBean = null;
@@ -1402,7 +1402,7 @@ xpopup
 		</div>
 		<div class="col-md-5">
 			<div class="cart box_1">
-				<p>Dear, <%= userBean.getFirstName() %> <%= userBean.getLastName() %> | &nbsp;&nbsp;<a class="upgradeOption animated flash infinite" href="memberShipPage" style="color: red;">Upgrade</a> &nbsp;&nbsp;|&nbsp;&nbsp; <a href="#" >Help</a> &nbsp;&nbsp;|&nbsp;&nbsp; <a href="logoutHome" >Signout</a></p>
+				<p>Dear, <%= userBean.getFirstName() %> <%= userBean.getLastName() %></p>
 				<div class="clearfix"> </div>
 			</div>				 
 		</div>
@@ -1480,6 +1480,18 @@ xpopup
 									<li><a href="shortListedMe">(${cacheGuest.shortListedCount}) members shortlisted your profile</a></li>
 								</ul>
 							</li>
+							<li><a href="#" >Help</a></li>
+							<li class="dropdown settings">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Image goes here</a>
+								<ul class="dropdown-menu">
+									<li><a href="settings">Change Password</a></li>
+									<li><a href="#">Profile Settings</a></li>
+								</ul>
+							</li>
+							<li><a href="logoutHome" >Signout</a></li>
+							<li><a class="upgradeOption animated flash infinite" href="memberShipPage"
+							 style="font-size: 24px; font-weight: bold; color: white; background-image: -webkit-linear-gradient(1deg, red, white);">Upgrade</a></li>
+							
 						</ul>
 	        		</div>
 	        		<!-- /.navbar-collapse -->

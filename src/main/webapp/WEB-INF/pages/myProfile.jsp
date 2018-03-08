@@ -222,6 +222,9 @@ xpopup
     margin: 8em auto;
   }
 }</style>
+<div class="container">
+<div class="row">
+<div class="col-md-9">
 <div class="container" style=' padding-left: 0px;'>
 <div class="row">
 <div class="col-sm-9">
@@ -686,7 +689,7 @@ xpopup
 </div>
 
 <br>
-<div class="panel panel-success" style='box-shadow: 5px 8px 5px;'>
+<div class="panel panel-success" style='box-shadow: 5px 8px 5px; border: none;'>
 			<div class="panel-body table-responsive">
 			<div class="col-md-11">	<strong class="font">Professional Preferences</strong>
 				<a href="#" class="all_a  pull-right  edit-style" id="partner_professional_a" onclick="toggleDiv('partner_professional');"><i class="fa fa-edit"></i>Edit</a>
@@ -800,7 +803,7 @@ xpopup
 	</div>
 	</div>
 </div>
-
+</div>
 <br>
 <div class="panel panel-success" style='box-shadow: 5px 8px 5px;'>
 			<div class="panel-body table-responsive">
@@ -872,10 +875,12 @@ xpopup
 	</div>
 	</div>
 	</div>
-</div>
+</div></div></div>
 </div></div></div>
 </form:form></div></div>
-<div class="col-sm-3" style='margin: 31px 0px 0px 0px;'>
+</div>
+<div class="col-md-3">
+<div class="col-sm-3" style='width: 100%; margin: 31px 0px 0px 0px;'>
 			<div class="col-md-11 products-grid-right">
 			<div class="panel panel-success">
 			<div class="panel-heading">Add Horoscope</div>
@@ -901,6 +906,10 @@ in a profile. </p></div>
 			<div class="col-md-3 products-grid-right">
 			</div></div>
 			</div>
+</div>
+</div>
+</div>
+
 <script type="text/javascript">
 $(document).ready(function(){
 	$('.multiSelect').select2();

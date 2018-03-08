@@ -3398,6 +3398,137 @@ public class HomePageController {
 		return "forgotPasswordSuccess";
 	}
    
+   @RequestMapping(value = "/settings")
+	public String settings(@ModelAttribute("settingsForm") UsersBean objUsersBean, Model objeModel ,
+			HttpServletRequest request, HttpSession session) {
+
+		try {
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			//logger.error(e);
+			//logger.fatal("error in CreateProfile class createProfile method  ");
+			return "redirect:HomePage.htm";
+		}
+		return "profileSettings";
+	}
+  
+  @RequestMapping(value = "/changePasswordAction")
+	public  @ResponseBody String changePasswordAction(@ModelAttribute("settingsForm") UsersBean objUsersBean, Model objeModel ,
+			HttpServletRequest request, HttpSession session) {
+	   JSONObject jsOnObj = new JSONObject();
+	   String emailStr = "",mobileStr=""; 
+		try {
+				UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
+				if(sessionBean == null){
+					return "redirect:HomePage";
+				}
+				String enteredCurrentPassword = request.getParameter("currentPassword");
+				String newPassword = request.getParameter("newPassword1");
+				String confirmedNewPassword = request.getParameter("newPassword2");
+				UsersBean currentUserBean = objUsersDao.getUser(sessionBean.getUsername());
+				String currentPassword = currentUserBean.getPassword();
+				if(currentPassword.equals(enteredCurrentPassword)){
+					currentUserBean.setPassword(newPassword);
+					boolean success = objUsersDao.updatePassword(currentUserBean);
+					if(success)
+						jsOnObj.putOnce("message", "success");
+					else
+						jsOnObj.putOnce("message", "failed");
+				}
+				
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			//logger.error(e);
+			//logger.fatal("error in CreateProfile class createProfile method  ");
+			jsOnObj.putOnce("message", "failed");
+		}
+		return jsOnObj.toString();
+	}
+  
+  @RequestMapping(value = "/profileSettingsAction")
+	public  @ResponseBody String profileSettingsAction(@ModelAttribute("settingsForm") UsersBean objUsersBean, Model objeModel ,
+			HttpServletRequest request, HttpSession session) {
+	   JSONObject jsOnObj = new JSONObject();
+	    
+		try {
+			UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
+			if(sessionBean == null){
+				return "redirect:HomePage";
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			//logger.error(e);
+			//logger.fatal("error in CreateProfile class createProfile method  ");
+			return "redirect:HomePage.htm";
+		}
+		return jsOnObj.toString();
+	}
+  @RequestMapping(value = "/membershipDetailsAction")
+	public  @ResponseBody String membershipDetailsAction(@ModelAttribute("settingsForm") UsersBean objUsersBean, Model objeModel ,
+			HttpServletRequest request, HttpSession session) {
+	   JSONObject jsOnObj = new JSONObject();
+	    
+		try {
+			UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
+			if(sessionBean == null){
+				return "redirect:HomePage";
+			}
+			Map<String,Object> membership_details = objUsersDao.getMembershipDetails(sessionBean);
+			if(membership_details!=null){
+				jsOnObj.put("message", "success");
+				jsOnObj.put("membership_details", membership_details);
+			}else{
+				jsOnObj.put("message", "failed");
+				jsOnObj.put("membership_details", "");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			//logger.error(e);
+			//logger.fatal("error in CreateProfile class createProfile method  ");
+			jsOnObj.put("message", "failed");
+		}
+		return jsOnObj.toString();
+	}
+  
+  @RequestMapping(value = "/deleteProfileAction")
+	public  @ResponseBody String deleteProfileAction(@ModelAttribute("settingsForm") UsersBean objUsersBean, Model objeModel ,
+			HttpServletRequest request, HttpSession session) {
+	   JSONObject jsOnObj = new JSONObject();
+	    
+		try {
+			UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
+			if(sessionBean == null){
+				return "redirect:HomePage";
+			}
+			objUsersBean.setStatus("2");
+			objUsersBean.setId(sessionBean.getId());
+			boolean updated = objUsersDao.updateStatus(objUsersBean);
+			if(updated){
+				jsOnObj.put("message", "success");
+				
+			}else{
+				jsOnObj.put("message", "failed");
+				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			//logger.error(e);
+			//logger.fatal("error in CreateProfile class createProfile method  ");
+			jsOnObj.put("message", "failed");
+		}
+		return jsOnObj.toString();
+	}
+   
    private UsersBean copyAboutMySelf(UsersBean source,UsersBean target){
 	   target.setAboutMyself(source.getAboutMyself());
 	   
