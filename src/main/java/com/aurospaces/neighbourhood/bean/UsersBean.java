@@ -103,8 +103,15 @@ protected String weight;
 protected String fOccupationName;
 protected String mOccupationName;
 protected String mail_content,rReligionName,rCasteName,rDietName,rMotherTongueName,rMaritalStatusName;
-protected String unique_code;
+protected String unique_code,emailverify;
 
+
+public String getEmailverify() {
+	return emailverify;
+}
+public void setEmailverify(String emailverify) {
+	this.emailverify = emailverify;
+}
 public String getRhaveChildren() {
 	return rhaveChildren;
 }

@@ -34,6 +34,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,6 +44,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.aurospaces.neighbourhood.bean.AutoCompleteBean;
+import com.aurospaces.neighbourhood.bean.BodyTypeBean;
 import com.aurospaces.neighbourhood.bean.BranchBean;
 import com.aurospaces.neighbourhood.bean.CastBean;
 import com.aurospaces.neighbourhood.bean.CityBean;
@@ -107,7 +109,6 @@ public class HomePageController {
 			System.out.println(e);
 			logger.error(e);
 			logger.fatal("error in CreateProfile class createProfile method  ");
-			return "redirect:HomePage.htm";
 		}
 		return "homepage";
 	}
@@ -1038,10 +1039,18 @@ public class HomePageController {
 	  //UsersBean objUsersBean = null;
 		ObjectMapper objectMapper = null;
 		String sJson = null;
+		UsersBean userverifyBean = null;
 		try {
 			UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
+			
 			if(sessionBean == null){
 				return "redirect:HomePage";
+			}
+			userverifyBean = objUsersDao.emailverifycationCheck(sessionBean.getEmail());
+			if(userverifyBean != null){
+				session.setAttribute("emailverify", "0");
+			}else{
+				session.setAttribute("emailverify", "1");
 			}
 			String otpStatus = objUsersDao.getOtpStatus(sessionBean);
 			if(StringUtils.isBlank(otpStatus) || "0".equals(otpStatus)){
@@ -3700,5 +3709,63 @@ public class HomePageController {
 			return "redirect:profile.htm?page=1";
 		}
 	}
+   @RequestMapping(value = "/verifyEmail")
+	public @ResponseBody String verifyEmail( HttpSession session,HttpServletRequest request) {
+	   String response = "";
+	   JSONObject joJsonObject = new JSONObject();
+		try{
+			
+			UsersBean objuserBean = (UsersBean) session.getAttribute("cacheGuest");
+			if(objuserBean != null ){
+				if(objuserBean.getEmailverify().equals("0")){
+					 EmailUtil emailUtil = new EmailUtil();
+					 // email to user email verification link
+						 response = emailUtil.emailVerify(objuserBean, objContext,request);
+						 joJsonObject.put("msg", response);
+				}else{
+					 joJsonObject.put("msg", "");
+				}
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			System.out.println(e);
+			logger.error(e);
+			logger.fatal("error in BodyTypeController class deleteBodyType method");
+		}
+		return String.valueOf(joJsonObject);
+	}
+   @RequestMapping(value = "/emailvarificationlink")
+  	public  String emailvarificationlink( HttpSession session,HttpServletRequest request) {
+  		try{
+  			String email =request.getParameter("email");
+  			String code = request.getParameter("code");
+  			UsersBean objuserBean = (UsersBean) session.getAttribute("cacheGuest");
+  			boolean verify = false;
+  			if(StringUtils.isNotBlank(email) && StringUtils.isNotBlank(code)){
+  				UsersBean usersBean = objUsersDao.emailVerificationCheck(email, code);
+  				if(usersBean != null){
+  					if(usersBean.getEmailverify().equals("1")){
+  						request.setAttribute("msg", "Already email is verified");
+  					}else{
+  						
+  						verify = 	objUsersDao.updateEmailVerification(email);
+  						if(verify){
+  							request.setAttribute("msg", "Email verification is successfully completed ");
+  						}
+  					}
+  				}else{
+  					request.setAttribute("msg", "Data mismatch ");
+  				}
+  			}
+  			
+  		}catch(Exception e){
+  			e.printStackTrace();
+  			System.out.println(e);
+  			logger.error(e);
+  			logger.fatal("error in BodyTypeController class deleteBodyType method");
+  		}
+  		return "emailVerificationLink";
+  	}
    
 }

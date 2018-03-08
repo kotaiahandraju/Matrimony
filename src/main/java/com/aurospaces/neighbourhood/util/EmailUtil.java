@@ -19,7 +19,6 @@ import org.apache.commons.lang.StringUtils;
 import com.aurospaces.neighbourhood.bean.UsersBean;
 
 
-
 public class EmailUtil {
 	public String sendEmail(UsersBean objUsersBean,
 			ServletContext objContext, String sMailTo) throws AddressException,
@@ -360,6 +359,60 @@ public class EmailUtil {
 			return subject;
 	}
 	
+	public String emailVerify(UsersBean objUsersBean,ServletContext objContext,HttpServletRequest request) throws AddressException,
+			MessagingException, IOException {
+		String subject = null;
+		Properties prop = new Properties();
+		InputStream input = null;
+		String body = null;
+		try{
+	 
+	        String mailTo = objUsersBean.getEmail();
+	        
+//	        -------------------------------------------------------------------------------------------
+			
+			
+	        String propertiespath = objContext.getRealPath("Resources" +File.separator+"DataBase.properties");
+			input = new FileInputStream(propertiespath);
+			prop.load(input);
+			String host = prop.getProperty("host");
+			String port = prop.getProperty("port");
+			String mailFrom = prop.getProperty("usermail");
+			String password = prop.getProperty("mailpassword");
+	        
+			subject = prop.getProperty("emaiVerifySubject");
+			
+			body = prop.getProperty("emailVerifyBody");
+			/*body = body.replace("_name_",objUsersBean.getFirstName());
+			//body = body.replace("_username_", objUsersBean.getUsername());
+			body = body.replace("_username_", objUsersBean.getEmail());
+			body = body.replace("_password_", objUsersBean.getPassword());*/
+			body = body.replace("_img_", "cid:image2");
+			
+	       String baseUrl =  MiscUtils.getBaseUrl(request);
+			String link = baseUrl+"/emailvarificationlink?email="+mailTo+"&code="+objUsersBean.getUnique_code();
+			System.out.println(link);
+	       body = body.replace("_link_", link);
+	       body = body.replace("_customer_", objUsersBean.getFirstName()+" "+objUsersBean.getLastName());
+	       
+	       
+	 
+	        // inline images
+	        Map<String, String> inlineImages = new HashMap<String, String>();
+//	        inlineImages.put("image1", objContext.getRealPath("images" +File.separator+"telugu.png"));
+	        inlineImages.put("image2", objContext.getRealPath("images" +File.separator+"logo.jpg"));
+	 
+	       
+	            EmbeddedImageEmailUtil.send(host, port, mailFrom, password, mailTo,
+	                subject, body.toString(), inlineImages);
+	            System.out.println("Email sent.");
+	            return "Mail sent successfully";
+	        } catch (Exception ex) {
+	            System.out.println("Could not send email.");
+	            ex.printStackTrace();
+	            return "Mail sent filed";
+	        }
+	}
 	
 }
 			

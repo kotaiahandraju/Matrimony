@@ -22,7 +22,6 @@ import com.aurospaces.neighbourhood.bean.EducationBean;
 import com.aurospaces.neighbourhood.bean.HeightBean;
 import com.aurospaces.neighbourhood.bean.LoginBean;
 import com.aurospaces.neighbourhood.bean.MemberShipBean;
-import com.aurospaces.neighbourhood.bean.Paymenthistory;
 import com.aurospaces.neighbourhood.bean.ReligionBean;
 import com.aurospaces.neighbourhood.bean.ReportsBean;
 import com.aurospaces.neighbourhood.bean.UsersBean;
@@ -2478,7 +2477,7 @@ public boolean deletePhoto(String photoId){
 				+"u.firstName, u.lastName, u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName, u.currentCountry,co.name as currentCountryName, " 
 				+"u.currentState, u.currentCity, " 
 				+"u.maritalStatus, u.caste,c.name as casteName, u.gotram, u.star,s.name as starName, u.dosam, u.dosamName, u.education, u.workingWith, u.companyName, " 
-				+"u.annualIncome, u.monthlyIncome, u.diet, u.smoking, u.drinking, u.height ,h.inches,h.cm, u.bodyType,b.name as bodyTypeName, u.complexion,com.name as complexionName, u.mobile, " 
+				+"u.annualIncome, u.monthlyIncome, u.diet, u.smoking, u.drinking, u.height ,h.inches,h.cm, u.bodyType,b.name as bodyTypeName, u.complexion,com.name as complexionName, ifnull(u.mobile,'---') as mobile, " 
 				+"u.aboutMyself, u.disability, u.status, u.showall,ur.userId, rAgeFrom, rAgeTo, "
 				+"rHeight, rMaritalStatus, rReligion,re1.name as requiredReligionName, rCaste,c1.name as requiredCasteName, rMotherTongue,l1.name as requiredMotherTongue,haveChildren,rCountry , con1.name as requiredCountry,rState,rEducation,e1.name as requiredEducationName, "
 				+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,floor((datediff(current_date(),u.dob))/365) as age, IFNULL(p.name, 'Free Register') as planPackage from users u left join userrequirement ur on u.id=ur.userId "
@@ -2488,7 +2487,11 @@ public boolean deletePhoto(String photoId){
 				+"left join countries con1 on con1.id=rCountry left join education e1 on e1.id=rEducation left join occupation oc1 on oc1.id=rOccupation  left join user_images uimg on uimg.user_id=u.id left join occupation oc on u.occupation=oc.id left join education ed on ed.id=u.education "
 				+ " left join state sta on sta.id=u.currentState left join city cit on cit.id=u.currentCity left join package p on u.package_id = p.id "
 				+" where 1=1  ");
-					if(StringUtils.isNotBlank(objreReportsBean.getPackages())){
+		
+					if(objreReportsBean.getPackages().equals("FreeRegister")){
+						
+						buffer.append( " and u.role_id ='4' " );
+					}else if(StringUtils.isNotBlank(objreReportsBean.getPackages())){
 						buffer.append( " and u.package_id ="+objreReportsBean.getPackages() );
 					}
 					if(StringUtils.isNotBlank(objreReportsBean.getFromdate()) && StringUtils.isNotBlank(objreReportsBean.getTodate())){
@@ -2510,6 +2513,7 @@ public boolean deletePhoto(String photoId){
 		
 	
 	}
+
 	
 	public Map<String,Object> getMembershipDetails(UsersBean objUserBean){
 		jdbcTemplate = custom.getJdbcTemplate();
@@ -2526,5 +2530,37 @@ public boolean deletePhoto(String photoId){
 			return null;
 		} 
 	}
+
+	public UsersBean emailVerificationCheck(String email,String code) {
+		 jdbcTemplate = custom.getJdbcTemplate();
+			String sql = "SELECT * FROM users where  email=? AND `unique_code`=?  ";
+			List<UsersBean> retlist = jdbcTemplate.query(sql,
+			new Object[]{email,code},
+			ParameterizedBeanPropertyRowMapper.newInstance(UsersBean.class));
+			if(retlist.size() > 0)
+				return retlist.get(0);
+			return null;
+		}
+	public boolean updateEmailVerification(String email) {
+		jdbcTemplate = custom.getJdbcTemplate();
+		String sql = "update users set emailverify='1' where email = ?";
+		int deleted_count = jdbcTemplate.update(sql, new Object[]{email});
+		if(deleted_count>0){
+			return true;
+		}
+		return false;
+	}
+	
+	public UsersBean emailverifycationCheck(String email) {
+		 jdbcTemplate = custom.getJdbcTemplate();
+			String sql = "SELECT * FROM users where  email=? AND `emailverify`='0'  ";
+			List<UsersBean> retlist = jdbcTemplate.query(sql,
+			new Object[]{email},
+			ParameterizedBeanPropertyRowMapper.newInstance(UsersBean.class));
+			if(retlist.size() > 0)
+				return retlist.get(0);
+			return null;
+		}
+
 }
 
