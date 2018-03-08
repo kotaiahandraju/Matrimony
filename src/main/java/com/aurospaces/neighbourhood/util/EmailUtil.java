@@ -406,11 +406,12 @@ public class EmailUtil {
 	            EmbeddedImageEmailUtil.send(host, port, mailFrom, password, mailTo,
 	                subject, body.toString(), inlineImages);
 	            System.out.println("Email sent.");
+	            return "Mail sent successfully";
 	        } catch (Exception ex) {
 	            System.out.println("Could not send email.");
 	            ex.printStackTrace();
+	            return "Mail sent filed";
 	        }
-			return subject;
 	}
 	
 }

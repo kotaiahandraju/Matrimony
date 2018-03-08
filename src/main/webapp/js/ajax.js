@@ -9,8 +9,18 @@ $.fn.makeMultipartRequest = function(method, url, processData, formData,
 		contentType : contentType,
 		dataType : dataType,
 		
+		beforeSend : function() {
+//          $.blockUI({ message: '<img src="../img/cylinder.jpg" height="50px" class="fa fa-spin cylinder" />'});
+			 $.blockUI({ message: '<i class="fa fa-spinner fa-spin" style="font-size:24px"></i><h2 style="color:black;"> Just a moment...</h2>' });
+//          return false;
+       }, 
+       
 		success : successFunction,
-		error :  function(e){console.log(e);}
+		complete: function () {
+         
+         $.unblockUI();
+    },
+		error :  function(e){$.unblockUI();console.log(e);}
 	});
 	$("#loadAjax").hide();
 };

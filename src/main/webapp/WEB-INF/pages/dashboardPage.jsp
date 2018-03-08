@@ -12,9 +12,9 @@
 								<%= session.getAttribute("profile_filled_status") %>% Complete 
 							</div>
 						</div>
-						<c:if test="${cacheGuest.emailverify == '0'}">
+						<c:if test="${emailverify == '0'}">
 						
-						<p><span class="glyphicon glyphicon-envelope"></span> Verify your Email <a href=" " onclick="verifyEmail()"><u>Verify Email Address</u></a></p>
+						<p><span class="glyphicon glyphicon-envelope"></span> Verify your Email <a href="#" onclick="verifyEmail()"><u>Verify Email Address</u></a></p>
 						</c:if>
 						
 					</div>
@@ -407,8 +407,9 @@ function paginationSetup(total_items_count) {
 function verifyEmail(){
 	 var formData = new FormData();
   
-		$.fn.makeMultipartRequest('POST', 'verifyEmail', false,
-				formData, false, 'text', function(data){
+		$.fn.makeMultipartRequest('POST', 'verifyEmail', false,	formData, false, 'text', function(data){
+			var jsonobj = $.parseJSON(data);
+			alert(jsonobj.msg);
 			
 		});
 }

@@ -1039,10 +1039,18 @@ public class HomePageController {
 	  //UsersBean objUsersBean = null;
 		ObjectMapper objectMapper = null;
 		String sJson = null;
+		UsersBean userverifyBean = null;
 		try {
 			UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
+			
 			if(sessionBean == null){
 				return "redirect:HomePage";
+			}
+			userverifyBean = objUsersDao.emailverifycationCheck(sessionBean.getEmail());
+			if(userverifyBean != null){
+				session.setAttribute("emailverify", "0");
+			}else{
+				session.setAttribute("emailverify", "1");
 			}
 			String otpStatus = objUsersDao.getOtpStatus(sessionBean);
 			if(StringUtils.isBlank(otpStatus) || "0".equals(otpStatus)){
@@ -3572,13 +3580,19 @@ public class HomePageController {
 	}
    @RequestMapping(value = "/verifyEmail")
 	public @ResponseBody String verifyEmail( HttpSession session,HttpServletRequest request) {
+	   String response = "";
+	   JSONObject joJsonObject = new JSONObject();
 		try{
+			
 			UsersBean objuserBean = (UsersBean) session.getAttribute("cacheGuest");
 			if(objuserBean != null ){
 				if(objuserBean.getEmailverify().equals("0")){
 					 EmailUtil emailUtil = new EmailUtil();
 					 // email to user email verification link
-						emailUtil.emailVerify(objuserBean, objContext,request);
+						 response = emailUtil.emailVerify(objuserBean, objContext,request);
+						 joJsonObject.put("msg", response);
+				}else{
+					 joJsonObject.put("msg", "");
 				}
 			}
 			
@@ -3588,7 +3602,7 @@ public class HomePageController {
 			logger.error(e);
 			logger.fatal("error in BodyTypeController class deleteBodyType method");
 		}
-		return null;
+		return String.valueOf(joJsonObject);
 	}
    @RequestMapping(value = "/emailvarificationlink")
   	public  String emailvarificationlink( HttpSession session,HttpServletRequest request) {

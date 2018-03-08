@@ -43,7 +43,7 @@ border: none;
 <p align="center" >${msg }.</p>
 <div class="col-md-4 col-md-offset-5">
 <a href="HomePage"><button type="button" class="btn btn-primary" style="width: 105px;font-size: large;">Login</button></a>
-  <a href="#"><button type="button" class="btn btn-success" style="width: 105px;font-size: large;">New User</button></a>
+  <a href="HomePage"><button type="button" class="btn btn-success" style="width: 105px;font-size: large;">New User</button></a>
   </div>
 </div>
 </div>

@@ -2533,5 +2533,15 @@ public boolean deletePhoto(String photoId){
 		return false;
 	}
 	
+	public UsersBean emailverifycationCheck(String email) {
+		 jdbcTemplate = custom.getJdbcTemplate();
+			String sql = "SELECT * FROM users where  email=? AND `emailverify`='0'  ";
+			List<UsersBean> retlist = jdbcTemplate.query(sql,
+			new Object[]{email},
+			ParameterizedBeanPropertyRowMapper.newInstance(UsersBean.class));
+			if(retlist.size() > 0)
+				return retlist.get(0);
+			return null;
+		}
 }
 
