@@ -109,7 +109,6 @@ public class HomePageController {
 			System.out.println(e);
 			logger.error(e);
 			logger.fatal("error in CreateProfile class createProfile method  ");
-			return "redirect:HomePage.htm";
 		}
 		return "homepage";
 	}
@@ -3592,7 +3591,7 @@ public class HomePageController {
 		return null;
 	}
    @RequestMapping(value = "/emailvarificationlink")
-  	public @ResponseBody String emailvarificationlink( HttpSession session,HttpServletRequest request) {
+  	public  String emailvarificationlink( HttpSession session,HttpServletRequest request) {
   		try{
   			String email =request.getParameter("email");
   			String code = request.getParameter("code");
@@ -3602,16 +3601,16 @@ public class HomePageController {
   				UsersBean usersBean = objUsersDao.emailVerificationCheck(email, code);
   				if(usersBean != null){
   					if(usersBean.getEmailverify().equals("1")){
-  						return "Already email is verified";
+  						request.setAttribute("msg", "Already email is verified");
   					}else{
   						
   						verify = 	objUsersDao.updateEmailVerification(email);
   						if(verify){
-  							return "Email verification is successfully completed ";
+  							request.setAttribute("msg", "Email verification is successfully completed ");
   						}
   					}
   				}else{
-  					return "Data mismatch ";
+  					request.setAttribute("msg", "Data mismatch ");
   				}
   			}
   			
@@ -3621,7 +3620,7 @@ public class HomePageController {
   			logger.error(e);
   			logger.fatal("error in BodyTypeController class deleteBodyType method");
   		}
-  		return null;
+  		return "emailVerificationLink";
   	}
    
 }
