@@ -1808,7 +1808,7 @@ public class UsersDao extends BaseUsersDao
 		qryStrBuffer.append(" limit "+page_size+" offset "+(page_no*page_size)+" ");*/
 		UsersBean objUserBean = (UsersBean) session.getAttribute("cacheGuest");
 		StringBuffer buffer = new StringBuffer();
-		String inner_where_clause = " ei.profile_id = u.id and ei.user_id = "+userId+" and ei.interested = '1' and ei.status = '3' and u.role_id not in (1) and u.status in ('1') and u.gender not in  ('"+objUserBean.getGender()+"') and u.id not in  ("+userId+")";
+		String inner_where_clause = " ei.user_id = u.id and ei.profile_id = "+userId+" and ei.interested = '1' and ei.status = '3' and u.role_id not in (1) and u.status in ('1') and u.gender not in  ('"+objUserBean.getGender()+"') and u.id not in  ("+userId+")";
 		StringBuffer where_clause = new StringBuffer(" and u.role_id not in (1) and u.status in ('1') ");
 		buffer.append("select u.id,sta.name as currentStateName,cit.name as currentCityName,u.occupation,oc.name as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
 				+"u.firstName, u.lastName, u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName, u.currentCountry,co.name as currentCountryName, " 
@@ -2509,6 +2509,22 @@ public boolean deletePhoto(String photoId){
 							return result;
 		
 	
+	}
+	
+	public Map<String,Object> getMembershipDetails(UsersBean objUserBean){
+		jdbcTemplate = custom.getJdbcTemplate();
+		String qryStr = "select *,(select date_add((date_add(u.package_joined_date, interval pack.duration month)), interval 1 day)) as renewal_date, "
+				+" (select date(updated_time) from paymenthistory where memberId = "+objUserBean.getId()+" and paymentStatus = 'success' order by updated_time desc limit 1)  as last_renewed_date, "
+				+" (select if(u.membership_status='1','Active','In-Active')) as membership_status,(select datediff(date_add(u.package_joined_date, interval pack.duration month),current_date())) as validity from users u, package pack where u.package_id = pack.id and u.id = "+objUserBean.getId();
+		try {
+			List<Map<String,Object>> list = jdbcTemplate.queryForList(qryStr);
+			if(list!=null && list.size()>0){
+				return list.get(0);
+			}
+			return null;
+		} catch (Exception ge) {
+			return null;
+		} 
 	}
 }
 
