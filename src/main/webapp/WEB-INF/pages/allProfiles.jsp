@@ -45,7 +45,7 @@ $( document ).ready(function() {
 <div class="container-fluid">
 	<div class="page-header">
 		<div class="pull-left">
-			<h1>Active Profiles <button id="exportBtn">Export</button></h1> 
+			<h1>Active Profiles </h1> 
 		</div>
 	</div>
 	<div class="breadcrumbs">

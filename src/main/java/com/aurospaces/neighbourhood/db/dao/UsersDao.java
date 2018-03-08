@@ -265,6 +265,7 @@ public class UsersDao extends BaseUsersDao
 									buffer.append( " and u.status in( '3')" );
 								}
 								buffer.append(" group by u.id ");
+								buffer.append(" order by u.created_time desc ");
 								String sql =buffer.toString();
 								System.out.println(sql);
 								
@@ -2504,6 +2505,7 @@ public boolean deletePhoto(String photoId){
 						buffer.append( " and u.occupation ="+objreReportsBean.getOccupation() );
 					}
 							buffer.append(" group by u.id ");
+							buffer.append(" order by u.created_time desc ");
 							String sql =buffer.toString();
 							System.out.println(sql);
 							
