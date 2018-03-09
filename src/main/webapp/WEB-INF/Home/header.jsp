@@ -229,6 +229,8 @@ var role_id = ${cacheUserBean.roleId};
  				<li class="updatedProfiles"><a href="${baseurl }/admin/updatedProfiles"><span>Updated Profiles</span></a></li>
  				<li class="reports"><a href="${baseurl }/admin/reportsHome"><span>Reports</span></a></li> 
  				<li class="bulksmsmail"><a href="${baseurl }/admin/bulksmsmail"><span>Bulk SMS&Mail</span></a></li> 
+ 				<li class="loginProfiles"><a href="${baseurl }/admin/loginProfiles"><span>Today Login Profiles</span></a></li> 
+ 				
  				
 			</ul>
 			<div class="user">

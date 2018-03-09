@@ -25,7 +25,7 @@
 				</li>
 				<li>
 					&nbsp;<i class="fa fa-file"></i>
-					<span style="color: #999;cursor: auto;">Reports</span>
+					<span style="color: #999;cursor: auto;">Bulk SMS&Mails</span>
 				</li>
 			</ul>
 		</div>

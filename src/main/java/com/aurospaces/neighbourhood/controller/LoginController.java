@@ -107,8 +107,10 @@ public class LoginController {
 		try {
 
 			HttpSession session = request.getSession(false);
-			UsersBean objuserBean = (UsersBean) session.getAttribute("cacheUserBean");
-			//if (objuserBean != null) {
+			UsersBean objuserBean = (UsersBean) session.getAttribute("cacheGuest");
+			if (objuserBean != null) {
+				objUsersDao.updateLoginTime(objuserBean,"0");
+			}
 				session.removeAttribute("cacheUserBean");
 				session.removeAttribute("cacheGuest");
 				session.removeAttribute("rolId");
@@ -133,7 +135,7 @@ public class LoginController {
 	}
 	public String setInitialData(UsersBean objUserBean,HttpSession session){
 		//update login time
-		objUsersDao.updateLoginTime(objUserBean);
+		objUsersDao.updateLoginTime(objUserBean,"1");
 		
 			Map<String,Object> interestCounts = objUsersDao.getInterestCounts(objUserBean);
 			long notificationsCount = (Long)interestCounts.get("receivedInterestCount")

@@ -131,6 +131,9 @@
 	<definition name="bulksmsmail" extends="base.definition">
 		<put-attribute name="body" value="/WEB-INF/pages/bulksmsmail.jsp" />
 	</definition>
+	<definition name="loginProfiles" extends="base.definition">
+		<put-attribute name="body" value="/WEB-INF/pages/loginProfiles.jsp" />
+	</definition>
 	
 </tiles-definitions>
 
