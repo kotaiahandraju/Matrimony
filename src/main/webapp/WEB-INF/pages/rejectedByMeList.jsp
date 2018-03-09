@@ -113,11 +113,11 @@ var listOrders1 = ${acceptedRequests};
 function fullProfile(profile_id){
 	var roleId = ${cacheGuest.roleId};
 	$("#id").val(profile_id);
-	if(roleId==4){
-		document.searchForm2.action = "memberShipPage"
-	}else{
+	//if(roleId==4){
+		//document.searchForm2.action = "memberShipPage"
+	//}else{
 		document.searchForm2.action = "fullProfile"
-	}
+	//}
 	//document.searchForm2.id = profile_id;
 	
     document.searchForm2.target = "_blank";    // Open in a new window
