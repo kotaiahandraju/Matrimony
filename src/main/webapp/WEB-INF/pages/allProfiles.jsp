@@ -116,7 +116,7 @@ $( document ).ready(function() {
 				<table id="tableToExport" class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,text,text,text,text,null">
 					<thead>
 					<tr>
-						<th>UserName</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Mobile</th>
+						<th>created</th><th>UserName</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Mobile</th>
 						<th></th>
 					</tr>
 					</thead>
@@ -173,7 +173,7 @@ s.parentNode.insertBefore(ga, s);
  function displayTable(listOrders) {
 		$('#tableId').html('');
 		var tableHead = '<table class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,text,text,text,text,null">'
-			+ '<thead><tr><th>UserName</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Mobile</th><th>Age</th><th>Caste</th><th>Package</th><th></th></tr></thead><tbody></tbody></table>';
+			+ '<thead><tr><th>created</th><th>UserName</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Mobile</th><th>Age</th><th>Caste</th><th>Package</th><th></th></tr></thead><tbody></tbody></table>';
 		$('#tableId').html(tableHead);
 		serviceUnitArray = {};
 		$.each(listOrders,function(i, orderObj) {
@@ -192,8 +192,15 @@ s.parentNode.insertBefore(ga, s);
 							var viewProfile = "<a title='View Profile' onclick='viewProfile("+ orderObj.id+ ")'><i style='color: blue;' class='fa fa-eye'></i></a>" */
 							serviceUnitArray[orderObj.id] = orderObj;
 							if(orderObj.firstName !=null){
+								if(orderObj.profileVerifyedBy == '0'){
+									var username = "<td style='color: red;' title='"+orderObj.username+"'><b>" + orderObj.username + "</td>"
+								}else{
+									var username = "<td title='"+orderObj.username+"'>" + orderObj.username + "</td>"
+								}
+								
 							var tblRow = "<tr >"
-								+ "<td title='"+orderObj.username+"'>" + orderObj.username + "</td>"
+								+ "<td title='"+orderObj.created_time+"'>" + orderObj.created_time + "</td>"
+								+ username
 								+ "<td title='"+orderObj.firstName+"'>" + orderObj.firstName + "</td>"
 								+ "<td title='"+orderObj.lastName+"'>" + orderObj.lastName + "</td>"
 								+ "<td title='"+orderObj.email+"'>" + orderObj.email + "</td>"
@@ -742,6 +749,17 @@ s.parentNode.insertBefore(ga, s);
 //		 	$(window).scrollTop($('.wrapper').offset().top);
 //		 	$(".view_list").hide();
 //		 	$('#view_list1').hide();
+		 var formData = new FormData();
+	     formData.append('id', id);
+		$.fn.makeMultipartRequest('POST', 'verifyProfile', false,
+				formData, false, 'text', function(data){
+			/* var jsonobj = $.parseJSON(data);
+			alert(jsonobj.message);
+			
+			var alldata = jsonobj.allOrders1;
+			console.log(jsonobj.allOrders1);
+			displayTable(alldata); */
+		});
 	 }
  $("#exportBtn").click(function(){
 	  $("#tableToExport").table2excel({

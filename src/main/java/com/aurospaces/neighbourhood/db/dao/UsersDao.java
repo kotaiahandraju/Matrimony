@@ -223,7 +223,7 @@ public class UsersDao extends BaseUsersDao
 					+"u.annualIncome, u.monthlyIncome, u.diet, u.smoking, u.drinking, u.height ,h.inches,h.cm, u.bodyType,b.name as bodyTypeName, u.complexion,com.name as complexionName, u.mobile, " 
 					+"u.aboutMyself, u.disability, u.status, u.showall,ur.userId, rAgeFrom, rAgeTo, "
 					+"rHeight, rMaritalStatus, rReligion,re1.name as requiredReligionName, rCaste,c1.name as requiredCasteName, rMotherTongue,l1.name as requiredMotherTongue,haveChildren,rCountry , con1.name as requiredCountry,rState,rEducation,e1.name as requiredEducationName, "
-					+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,floor((datediff(current_date(),u.dob))/365) as age, IFNULL(p.name, 'Free Register') as planPackage from users u left join userrequirement ur on u.id=ur.userId "
+					+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,floor((datediff(current_date(),u.dob))/365) as age, IFNULL(p.name, 'Free Register') as planPackage,u.profileVerifyedBy from users u left join userrequirement ur on u.id=ur.userId "
 					+"left join religion re on re.id=u.religion left join language l on l.id=u.motherTongue left join countries co on co.id=u.currentCountry "
 					+"left join cast c on c.id=u.caste left join star s on s.id =u.star left join height h on h.id=u.height left join body_type b on b.id=u.bodyType left join religion re1  on re1.id=rReligion "
 					+"left join complexion com on com.id =u.complexion left join cast c1 on c1.id=rCaste left join language l1 on l1.id=rMotherTongue "
@@ -276,7 +276,7 @@ public class UsersDao extends BaseUsersDao
 										"monthlyIncome","diet","smoking","drinking","height","inches","cm",
 										"bodyType","bodyTypeName","complexion","complexionName","mobile","aboutMyself","disability",
 										"status","showall","userId","rAgeFrom","rAgeTo","rHeight","rMaritalStatus","rReligion","requiredReligionName","rCaste","requiredCasteName","rMotherTongue","requiredMotherTongue","haveChildren","rCountry","requiredCountry","rState","rEducation","requiredEducationName",
-										"rWorkingWith","rOccupation","requiredOccupationName","rAnnualIncome","rCreateProfileFor","rDiet","dobString","age","planPackage"});
+										"rWorkingWith","rOccupation","requiredOccupationName","rAnnualIncome","rCreateProfileFor","rDiet","dobString","age","planPackage","profileVerifyedBy"});
 								jdbcTemplate.query(sql, handler);
 								List<Map<String, String>> result = handler.getResult();
 								return result;
@@ -2563,6 +2563,16 @@ public boolean deletePhoto(String photoId){
 				return retlist.get(0);
 			return null;
 		}
+	
+	public boolean profileVerifyedBy(int id,int sessionId) {
+		jdbcTemplate = custom.getJdbcTemplate();
+		String sql = "update users set profileVerifyedBy=? where id = ?";
+		int deleted_count = jdbcTemplate.update(sql, new Object[]{sessionId,id});
+		if(deleted_count>0){
+			return true;
+		}
+		return false;
+	}
 
 }
 

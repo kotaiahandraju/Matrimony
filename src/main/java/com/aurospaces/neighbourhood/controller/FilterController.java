@@ -718,4 +718,28 @@ public class FilterController {
 		}
 		return objJson.toString();
 	}
+	@RequestMapping(value = "/verifyProfile")
+	public @ResponseBody String verifyProfile(ModelMap model, HttpServletRequest request, HttpSession session, RedirectAttributes redir) {
+		// System.out.println("approvePhoto Page");
+		JSONObject objJson = new JSONObject();
+		try {
+			UsersBean userBean = (UsersBean) session.getAttribute("cacheUserBean");
+			if (userBean == null) {
+				return "redirect:HomePage";
+			}
+			String id = request.getParameter("id");
+			if(id != null){
+				boolean tt =objUsersDao.profileVerifyedBy(Integer.parseInt(id),userBean.getId()) ;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			logger.error(e);
+			logger.fatal("error in FilterController class approvePhoto method");
+			return "updatedProfiles";
+		}
+		return objJson.toString();
+	}
+	
 }

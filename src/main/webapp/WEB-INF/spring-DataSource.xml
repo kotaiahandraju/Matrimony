@@ -30,6 +30,10 @@
 		<property name="url" value="${cs}"></property>
 		<property name="username" value="${userName}"></property>
 		<property name="password" value="${password}"></property>
+		<property name="initialSize" value="10" />
+        <property name="maxActive" value="15" />
+        <property name="maxWait" value="5000" />
+        <property name="maxIdle" value="1" />
 	</bean> 
 <bean id="customConnection" class="com.aurospaces.neighbourhood.daosupport.CustomConnection">
 		<property name="dataSource">
