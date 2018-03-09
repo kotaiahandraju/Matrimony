@@ -30,6 +30,7 @@
 		<property name="url" value="${cs}"></property>
 		<property name="username" value="${userName}"></property>
 		<property name="password" value="${password}"></property>
+		
 	</bean> 
 <bean id="customConnection" class="com.aurospaces.neighbourhood.daosupport.CustomConnection">
 		<property name="dataSource">

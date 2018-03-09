@@ -103,10 +103,16 @@ protected String weight;
 protected String fOccupationName;
 protected String mOccupationName;
 protected String mail_content,rReligionName,rCasteName,rDietName,rMotherTongueName,rMaritalStatusName;
-protected String unique_code,emailverify;
 protected String membership_status;
+protected String unique_code,emailverify,profileVerifyedBy;
 
 
+public String getProfileVerifyedBy() {
+	return profileVerifyedBy;
+}
+public void setProfileVerifyedBy(String profileVerifyedBy) {
+	this.profileVerifyedBy = profileVerifyedBy;
+}
 public String getEmailverify() {
 	return emailverify;
 }

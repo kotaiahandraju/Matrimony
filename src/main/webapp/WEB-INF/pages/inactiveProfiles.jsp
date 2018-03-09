@@ -54,7 +54,7 @@
 			<div class="box-content nopadding w3-animate-zoom" id="tableIdd">
 				
 				<table class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,null">
-					<thead><tr><th>UserName</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Mobile</th><th>Age</th><th>Caste</th><th>Package</th><th></th></tr></thead>
+					<thead><tr><th>created</th><th>UserName</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Mobile</th><th>Age</th><th>Caste</th><th>Package</th><th></th></tr></thead>
 					<tbody id="tblbody"></tbody>
 				</table>
 				</div>
@@ -75,7 +75,7 @@
  function displayTable(listOrders) {
 		$('#tableId').html('');
 		var tableHead = '<div class="box-content nopadding w3-animate-zoom" id="tableIdd"><table  class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,text,text,null">'
-				+ '<thead><tr><th>UserName</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Mobile</th><th>Age</th><th>Caste</th><th>Package</th><th></th></tr></thead><tbody id="tblbody"></tbody></table></div>';
+				+ '<thead><tr><th>created</th><th>UserName</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Mobile</th><th>Age</th><th>Caste</th><th>Package</th><th></th></tr></thead><tbody id="tblbody"></tbody></table></div>';
 		$('#tableId').html(tableHead);
 		serviceUnitArray = {};
 		$.each(listOrders,function(i, orderObj) {
@@ -84,8 +84,14 @@
 							var deleteProfile = "<a title='Delete Profile' onclick='profileAction("+ orderObj.id+ ",2)'><i style='color: green;cursor: pointer;' class='fa fa-remove'></i></a>"
 							serviceUnitArray[orderObj.id] = orderObj;
 							if(orderObj.firstName !=null){
+								if(orderObj.profileVerifyedBy == '0'){
+									var username = "<td style='color: red;' title='"+orderObj.username+"'><b>" + orderObj.username + "</td>"
+								}else{
+									var username = "<td title='"+orderObj.username+"'>" + orderObj.username + "</td>"
+								}
 							var tblRow = "<tr>"
-								+ "<td title='"+orderObj.username+"'>" + orderObj.username + "</td>"
+								+ "<td title='"+orderObj.created_time+"'>" + orderObj.created_time + "</td>"
+								 + username
 								+ "<td title='"+orderObj.firstName+"'>" + orderObj.firstName + "</td>"
 								+ "<td title='"+orderObj.lastName+"'>" + orderObj.lastName + "</td>"
 								+ "<td title='"+orderObj.email+"'>" + orderObj.email + "</td>"
@@ -675,6 +681,17 @@
 //		 	$(window).scrollTop($('.wrapper').offset().top);
 //		 	$(".view_list").hide();
 //		 	$('#view_list1').hide();
+		 var formData = new FormData();
+	     formData.append('id', id);
+		$.fn.makeMultipartRequest('POST', 'verifyProfile', false,
+				formData, false, 'text', function(data){
+			/* var jsonobj = $.parseJSON(data);
+			alert(jsonobj.message);
+			
+			var alldata = jsonobj.allOrders1;
+			console.log(jsonobj.allOrders1);
+			displayTable(alldata); */
+		});
 	 }
 
  $(function(){
