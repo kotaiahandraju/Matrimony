@@ -2573,6 +2573,25 @@ public boolean deletePhoto(String photoId){
 		}
 		return false;
 	}
+	public List<UsersBean> bulksmsmail(ReportsBean objReportsBean) {
+		 jdbcTemplate = custom.getJdbcTemplate();
+		 StringBuffer buffer = new StringBuffer();
+					 buffer.append("SELECT * FROM users where 1=1  ");
+					 if(StringUtils.isNotBlank(objReportsBean.getPackages())){
+						 buffer.append(" and package_id in("+objReportsBean.getPackages()+")");
+					 }
+					 if(objReportsBean.getProfiles().equals("1")){
+						 buffer.append(" and role_id in('4')");
+					 }
+					 if(objReportsBean.getProfiles().equals("2")){
+						 buffer.append(" and status in('1')");		 
+					 }
+			String sql = buffer.toString();
+			List<UsersBean> retlist = jdbcTemplate.query(sql,	new Object[]{},	ParameterizedBeanPropertyRowMapper.newInstance(UsersBean.class));
+			if(retlist.size() > 0)
+				return retlist;
+			return null;
+		}
 
 }
 

@@ -35,7 +35,7 @@ public class ReporsController {
 	@Autowired UsersDao objUsersDao;
 
 	@RequestMapping(value = "/reportsHome")
-	public String bodyTypeHome(@ModelAttribute("reports") ReportsBean objBodyTypeBean, ModelMap model,
+	public String bodyTypeHome(@ModelAttribute("reports") ReportsBean objReportsBean, ModelMap model,
 			HttpServletRequest request, HttpSession session) {
 //		System.out.println("BodyTypeHome Page");
 		List<BodyTypeBean> listOrderBeans = null;
