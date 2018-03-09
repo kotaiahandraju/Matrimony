@@ -25,25 +25,17 @@
 							<img src="img/default.png" class="img-responsive" style="margin-bottom:0;">
 						</c:if>
 						<c:if test="${not empty photosList}">
+							<div id="viewer-wrapper">
+							<div id="gallery-viewer">
+						      	<div class="row"> 
+							        <div class="column">
+							    		<img src="${photosList[0].image}" style="width:100%" onclick="openModal();currentSlide(1)" class="hover-shadow cursor">
+							  		</div>   
+							    </div>
+							    </div>
+							   </div> 
 							<div id="gallery-wrapper">
-	
-								  <!-- gallery viewer -->
-								  <div id="viewer-wrapper">
-								    <div id="gallery-viewer"> 
-								      <img alt="Placeholder" src="img/default.png"> 
-								    </div>  
-								  </div>
-								  <div class="clearfix"></div>
-								  <br>
-								  <!-- navigation -->
-								  <div id="viewer-nav"> 
-								    <a id="gallery-viewer-next" style="margin-top:-180px; margin-right:0px;"  href="#">next</a> 
-								    <a id="gallery-viewer-prev" style="margin-top:-180px; margin-left:0px;" href="#">previous</a> 
-								  </div>
-								  
-								  
-								  
-								  <!-- thumbnail images -->
+								<!-- thumbnail images -->
 								  <div id="thumbs-wrapper">
 								    <div id="gallery">
 								    	<c:forEach items="${photosList}" var="photo" >
@@ -60,8 +52,9 @@
 								    <a id="gallery-prev" style="margin-left:0px; margin-top:-80px;" href="#">previous</a>
 								    <p id="gallery-pos" hidden="true">page 1 of 2</p>
 								  </div>
-								  
-								</div>
+							</div>
+														
+							
 							</c:if>
 						<c:if test="${profileBean.id == cacheGuest.id}">
 							<div style="text-align:center;background:#f1f1f1;line-height:25px;" >
@@ -564,6 +557,8 @@ in a profile. </p></div>
 			</div></div>
 </div></div>
 <script type="text/javascript">
+var slideIndex = 1;
+showSlides(slideIndex);
 var allowed_limit = ${allowed_profiles_limit};
 $(document).ready(function(){
 	$('#gallery').gallery({
@@ -676,6 +671,11 @@ function displayMobileNum(profileId){
 		document.searchForm2.submit();
 		return true;
 	}else{
+		var membershipStatus = ${cacheGuest.membership_status};
+		if(membershipStatus!="1"){
+			alert("Your membership validity period is over. Renew your membership plan and get more profiles");
+			return false;
+		}
 		if(allowed_limit<=0){
 			alert("Exceeded allowed profiles limit. Renew your membership plan and get more profiles");
 			return false;

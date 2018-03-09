@@ -122,6 +122,11 @@ function acceptRequest(requestId){
 			alert("Exceeded allowed profiles limit. Renew your membership plan and get more profiles");
 			return false;
 		}  */ 
+		var membershipStatus = ${cacheGuest.membership_status};
+		if(membershipStatus!="1"){
+			alert("Your membership validity period is over. Renew your membership plan and get more profiles");
+			return false;
+		}
 		var formData = new FormData();
 	
 		formData.append('requestId',requestId);

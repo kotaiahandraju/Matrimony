@@ -118,14 +118,26 @@
 	
 	
 					<div id="change_password" class="all_settings_divs">
-						Enter Current Password<br>
-						<input type="password" id="currentPassword" required="required">
-						Enter New Password<br>
-						<input type="password" id="newPassword1" required="required">
-						Confirm New Password<br>
-						<input type="password" id="newPassword2" required="required"><br>
-						<input type="button" type="button" value="Submit" onclick="submitProfileSettings('change_password')" />
+					<div class="row">
+					<div class="col-md-4">
+						<h3 style='color: black;'>Enter Current Password</h3><br>
+						<input style='border-style: solid; border-radius: 4px;' type="password" id="currentPassword" required="required">
+						</div>
+						<div class="col-md-3">
+						<h3 style='color: black;'>Enter New Password</h3><br>
+						<input style='border-style: solid; border-radius: 4px;' type="password" id="newPassword1" required="required">
+						</div>
+						<div class="col-md-4 col-md-offset-1">
+						<h3 style='color: black;'>Confirm New Password</h3><br>
+						<input style='border-style: solid; border-radius: 4px;' type="password" id="newPassword2" required="required">						
+						</div>						
 					</div>
+					<br>
+						<div class="col-md-3 col-md-offset-9">
+						<input style='background: teal;color: whitesmoke;border-radius: 6px;padding: 7px;width: 102px;' type="button" type="button" value="Submit" onclick="submitProfileSettings('change_password')" />
+						</div>
+					</div>
+
 		
 					<div id="profile_settings" class="all_settings_divs" hidden="true">
 						<input type="checkbox" id="know_ishortlisted"> Let others know that I shortlisted their profile.
@@ -187,9 +199,18 @@
 						</div>
 					</div>
 					<div id="deactivate_profile" class="all_settings_divs" hidden="true">
-						Activate/Deactivate Profile
+						Activate/Deactivate Profile<br>
 						
-						
+						<c:if test="${cacheGuest.status == '1'}">
+							Your profile is currently Active. <br>
+							Click on below button if you want to deactivate your profile.You can activate it again whenever you want using settings.<br>
+							
+							<input type="button" type="button" value="Deactivate My Account" onclick="changeProfileStatus(0)" />
+						</c:if>
+						<c:if test="${cacheGuest.status == '0'}">
+							Your profile is currently In-Active. Click on below button to activate your profile.<br>
+							<input type="button" type="button" value="Activate My Account" onclick="changeProfileStatus(1)" />
+						</c:if>
 						
 						
 					</div>
@@ -199,7 +220,7 @@
 						<input type="radio" /> Marriage Fixed
 						<input type="radio" /> Married
 						<input type="radio" /> Other Reasons<br>
-						<input type="button" type="button" value="Delete Account" onclick="deleteProfile('delete_profile')" />
+						<input type="button" type="button" value="Delete Account" onclick="submitProfileSettings('delete_profile')" />
 					</div>
 	
 					
@@ -284,6 +305,24 @@ function submitProfileSettings(actionStr){
 			//displaySettingsBlock(actionStr); // actionStr and divid are same value.
 			
 	});
+}
+function changeProfileStatus(status){
+	var formData = new FormData();
+	formData.append("status",status);
+	$.fn.makeMultipartRequest('POST', 'updateProfileStatus', false,
+			formData, false, 'text', function(data){
+		var jsonobj = $.parseJSON(data);
+		var msg = jsonobj.message;
+		var membershipDetails = jsonobj.membership_details;
+		if(msg=="success"){
+			
+				alert("Profile status updated successfully");
+			
+			
+		}
+		//displaySettingsBlock(actionStr); // actionStr and divid are same value.
+		
+});
 }
 $(".dashboard").addClass("active");
 </script>

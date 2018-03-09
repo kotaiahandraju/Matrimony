@@ -433,6 +433,11 @@ function expressInterest(profile_id){
 		document.searchForm2.submit();
 		return true;
 	}else{
+		var membershipStatus = ${cacheGuest.membership_status};
+		if(membershipStatus!="1"){
+			alert("Your membership validity period is over. Renew your membership plan and get more profiles");
+			return false;
+		}
 		if(allowed_limit<=0){
 			alert("Exceeded allowed profiles limit. Renew your membership plan and get more profiles");
 			return false;
@@ -520,6 +525,11 @@ function displayMobileNum(profileId,listType){
 		document.searchForm2.submit();
 		return true;
 	}else{
+		var membershipStatus = ${cacheGuest.membership_status};
+		if(membershipStatus!="1"){
+			alert("Your membership validity period is over. Renew your membership plan and get more profiles");
+			return false;
+		}
 		if(allowed_limit<=0){
 			alert("Exceeded allowed profiles limit. Renew your membership plan and get more profiles");
 			return false;

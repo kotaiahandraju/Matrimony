@@ -104,6 +104,7 @@ protected String fOccupationName;
 protected String mOccupationName;
 protected String mail_content,rReligionName,rCasteName,rDietName,rMotherTongueName,rMaritalStatusName;
 protected String unique_code,emailverify;
+protected String membership_status;
 
 
 public String getEmailverify() {
@@ -957,6 +958,12 @@ public String getUnique_code() {
 }
 public void setUnique_code(String unique_code) {
 	this.unique_code = unique_code;
+}
+public String getMembership_status() {
+	return membership_status;
+}
+public void setMembership_status(String membership_status) {
+	this.membership_status = membership_status;
 }
 
 

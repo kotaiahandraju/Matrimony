@@ -1996,6 +1996,8 @@ public class HomePageController {
 		}
 		return statesMap;
 	}
+   
+   /*****     back-end jobs    start       ********/
    @RequestMapping(value="/emailProfilesList")
    public String sendProfilesListEmail(HttpSession session,HttpServletRequest request){
 	   /*UsersBean userSessionBean = (UsersBean) session.getAttribute("cacheGuest");
@@ -2020,6 +2022,21 @@ public class HomePageController {
 	   
 	   return "";
    }
+   
+   /*
+    * 
+    * checks the validity of each paid member and updates his status accordingly
+    */
+   @RequestMapping(value="/checkMembershipValidity")
+   public void checkMembershipValidity(HttpSession session,HttpServletRequest request){
+	   
+	   int updated_count = objUsersDao.updateMembershipStatusBasedOnValidity();
+	   
+		   System.out.println("Membership plan duration completed for:"+updated_count+": members");
+	   
+	   
+   }
+   /*****     back-end jobs   end        ********/
    
    @RequestMapping(value = "/displayPage")
 	public @ResponseBody String displayPage(@ModelAttribute("createProfile") UsersBean searchCriteriaBean,ModelMap model, HttpServletRequest request, HttpSession session)
@@ -2542,7 +2559,7 @@ public class HomePageController {
 			listOrderBeans = objUsersDao.getSearchResults(searchCriteriaBean,0,"newmatches");
 			int total_records = 0;//limit - viewed_count;
 			request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
-			System.out.println("page_size======"+MatrimonyConstants.PAGINATION_SIZE);
+			
 			if (listOrderBeans != null && listOrderBeans.size() > 0) {
 				objectMapper = new ObjectMapper();
 				sJson = objectMapper.writeValueAsString(listOrderBeans);
@@ -3268,6 +3285,10 @@ public class HomePageController {
 					requests = objUsersDao.getacceptedRequests(sessionBean.getId()+"",0);
 				}else if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("rejected_requests")){
 					requests = objUsersDao.getRequestsRejectedByMe(sessionBean.getId()+"",0);
+				}else if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("accepted_me_requests")){
+					requests = objUsersDao.getRequestsAcceptedMe(sessionBean.getId()+"",0);
+				}else if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("rejected_me_requests")){
+					requests = objUsersDao.getRequestsRejectedMe(sessionBean.getId()+"",0);
 				}
 				else if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("profile_views")){
 					requests = objUsersDao.getProfileViewedMembers(sessionBean.getId()+"",0);
@@ -3510,6 +3531,36 @@ public class HomePageController {
 				return "redirect:HomePage";
 			}
 			objUsersBean.setStatus("2");
+			objUsersBean.setId(sessionBean.getId());
+			boolean updated = objUsersDao.updateStatus(objUsersBean);
+			if(updated){
+				jsOnObj.put("message", "success");
+				
+			}else{
+				jsOnObj.put("message", "failed");
+				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			//logger.error(e);
+			//logger.fatal("error in CreateProfile class createProfile method  ");
+			jsOnObj.put("message", "failed");
+		}
+		return jsOnObj.toString();
+	}
+  @RequestMapping(value = "/updateProfileStatus")
+	public  @ResponseBody String updateProfileStatus(@ModelAttribute("settingsForm") UsersBean objUsersBean, Model objeModel ,
+			HttpServletRequest request, HttpSession session) {
+	   JSONObject jsOnObj = new JSONObject();
+	    
+		try {
+			UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
+			if(sessionBean == null){
+				return "redirect:HomePage";
+			}
+			String status = request.getParameter("status");
+			objUsersBean.setStatus(status);
 			objUsersBean.setId(sessionBean.getId());
 			boolean updated = objUsersDao.updateStatus(objUsersBean);
 			if(updated){
