@@ -126,6 +126,7 @@ public class AdminController {
 	public String dashboard(@ModelAttribute("dashboardForm") UsersBean userBean, ModelMap model,
 			HttpServletRequest request, HttpSession session) {
 	   List<Map<String,Object>> packExpiredProfiles = null;
+	   List<Map<String,Object>> listOfOrders = null;
 		ObjectMapper objectMapper = null;
 		String sJson = null;
 		try {

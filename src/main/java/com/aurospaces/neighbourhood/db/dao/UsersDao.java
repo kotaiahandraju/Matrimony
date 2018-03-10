@@ -2650,6 +2650,7 @@ public boolean deletePhoto(String photoId){
 						 buffer.append(" and status in('1')");		 
 					 }
 			String sql = buffer.toString();
+			System.out.println(sql);
 			List<UsersBean> retlist = jdbcTemplate.query(sql,	new Object[]{},	ParameterizedBeanPropertyRowMapper.newInstance(UsersBean.class));
 			if(retlist.size() > 0)
 				return retlist;
