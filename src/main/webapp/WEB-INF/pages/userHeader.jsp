@@ -13,7 +13,7 @@
 					<div class="row">
 						<div class="col-md-11">
 							<c:if test="${not empty cacheGuest.profileImage}">
-								<a href="#" onclick="zoomImage('${cacheGuest.profileImage}');" id="profilePicOuterTag"><img id="profilepic" src="${cacheGuest.profileImage}" class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: 120px;width: 150px;"></a>
+								<a href="#" id="profilePicOuterTag"><img id="profilepic" src="${cacheGuest.profileImage}" class="hover-shadow cursor img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: 120px;width: 150px;" onclick="openModal();currentSlide(1)" ></a>
 							</c:if>
 							<c:if test="${empty cacheGuest.profileImage}">
 								<img id="profilepic" src="img/default.png" class="img-responsive thumbnail " style="margin-bottom:0;">

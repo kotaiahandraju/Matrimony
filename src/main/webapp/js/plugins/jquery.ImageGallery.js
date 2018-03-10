@@ -84,9 +84,9 @@
 			//	'height': (thumbs.height()+parseInt(thumbs.css('margin-bottom'),10)+parseInt(thumbs.css('margin-top'),10)+parseInt(thumbs.css('padding-bottom'),10)+parseInt(thumbs.css('padding-top'),10))*options.rows,
 				'overflow': 'hidden',
 					'height':'81px',
-					'width':'320px',
+					'width':'100%',
 					'margin':'8px',
-					'margin-top' :'-30px'
+					'margin-top' :'-12px'
 			});
 	
 			// set up the thumbnails
@@ -149,7 +149,7 @@
 			// place the first image in the viewer
 			var initimg = thumbs.filter(':first').find('img').attr('src');
 			//initimg = initimg.substr(0,initimg.indexOf('/thumbs')) + initimg.substr(initimg.lastIndexOf('/'));
-			viewer.hide().empty().append('<img src="'+ initimg + '" />');
+			viewer.hide().empty().append('<img src="'+ initimg + '" onclick="openModal();currentSlide(1)" class="hover-shadow cursor" />');
 			viewer.find('img').imagesLoaded(function(){
 				viewer.fadeIn(options.duration);
 				alignImage(viewer);

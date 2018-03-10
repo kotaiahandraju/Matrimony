@@ -66,7 +66,7 @@
 					$(this).toggleClass('open');
 			});
 		});
-		function zoomImage(image){
+		/* function zoomImage(image){
 			$('#dial1').html('');
 			if(image == "" || image == null || image == "undefined"){
 				image = "img/default.png";
@@ -103,7 +103,7 @@
 		            }
 		        }
 				}).dialog('open');
-		}
+		} */
 		
 		function shortList(profileId){
 			$("#id").val(profileId);
@@ -678,7 +678,7 @@
 						} 
 					//}
 					
-					
+						var photos_list = orderObj.photosList;
 						var tblRow = '<div class="panel panel-default">'
 							+ '<div class="panel-heading">'
 							+ '<h5 class="panel-title">'
@@ -694,7 +694,7 @@
 							+ '</div>'
 							+ '<div class="panel-body">'
 							+ '<div class="col-md-2">'
-							+ '<a href="#"> <img src='+image+' class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: 60px;width: 60px;"></a>'
+							+ '<a href="#"> <img src='+image+' class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: 60px;width: 60px;" onclick="openPhotoModal('+photos_list+');"></a>'
 			            	+ '</div>'
 			            	+ '<div class="col-md-6">'
 			            	+ '<table>'
@@ -961,11 +961,49 @@ function plusSlides(n) {
 function currentSlide(n) {
   showSlides(slideIndex = n);
 }
-
+function openPhotoModal(photos_list){
+	var str1 = "";
+	var len = photos_list.length;
+	$.each(photos_list,function(i, photoObject) 
+	{
+		var j = i+1;
+		str1 = ' <div class="mySlides"> '
+  		+' <div class="numbertext">'+j+' / '+len+'</div> '
+		+' <img src="'+photoObject.image+'"  class="myImg" style="height: 400px;width:100%"> '
+		+' </div> ';
+		
+	});
+	var modelContent = ' <span class="close cursor" onclick="closeModal()">&times;</span> '
+	  +' <div class="modal-content"> '
+		//+' <c:set var="counter" value="${0}" /> ' 
+		//+' <c:forEach items="${photosList}" var="photo" > '
+			//+' <c:set var="counter" value="${counter+1}" /> '
+	      	+str1
+		//+' </c:forEach> '
+	    +' <div class="row"> '
+			//+' <c:set var="counter2" value="${0}" /> ' 
+			//+' <c:forEach items="${photosList}" var="photo" > '
+				//+' <c:set var="counter2" value="${counter2+1}" /> '
+				+' <div class="col-sm-2"> '
+			      +' <img class="demo cursor" src="img/default.png" style="width:100%" onclick="currentSlide(1)" alt=""> '
+			    +' </div> '
+		   // +' </c:forEach> '
+		+' </div> '
+		+' <a class="prev" onclick="plusSlides(-1)">&#10094;</a> '
+	    +' <a class="next" onclick="plusSlides(1)">&#10095;</a> '
+	    +' <div class="caption-container"> '
+	      +' <p id="caption"></p> '
+	    +' </div> '   
+	  +' </div> ';
+	  $("#myPhotoModal").html(modelContent);
+	  document.getElementById('myPhotoModal').style.display = "block";
+	  
+}
 function showSlides(n) {
   var i;
   var slides = document.getElementsByClassName("mySlides");
   var dots = document.getElementsByClassName("demo");
+  var imgs = document.getElementsByClassName("myImg");
   var captionText = document.getElementById("caption");
   if (n > slides.length) {slideIndex = 1}
   if (n < 1) {slideIndex = slides.length}
@@ -975,9 +1013,12 @@ function showSlides(n) {
   for (i = 0; i < dots.length; i++) {
       dots[i].className = dots[i].className.replace(" active", "");
   }
-  slides[slideIndex-1].style.display = "block";
+  
+  imgs[slideIndex-1].className += " watermark_text";
   dots[slideIndex-1].className += " active";
+  slides[slideIndex-1].style.display = "block";
   captionText.innerHTML = dots[slideIndex-1].alt;
+  addWaterMark();
 }
 ////Photo pop-up related script---ends
 	</script>
@@ -1444,7 +1485,7 @@ body {
 
 .column {
   float: left;
-  width: 25%;
+  width: 100%;
 }
 
 /* The Modal (background) */
@@ -1598,11 +1639,11 @@ height: 400px;
 				<li><a href="#">Search</a></li>
 				<li><a href="#">Inbox<span class="badge badge-notify">30</span></a></li>
 			</ul> -->
-			<div class="box_1 midfont">
+			<!-- <div class="box_1 midfont">
 				<p><a href="#">Matches</a><span class="badge badge-notify">0</span>&nbsp;&nbsp;&nbsp;
         		<a href="searchProfiles">Search</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
        			<a href="#">Inbox</a><span class="badge badge-notify">0</span></p>
-			</div>
+			</div> -->
 		</div>
 		<div class="col-md-5">
 			<div class="cart box_1">
@@ -1695,7 +1736,7 @@ height: 400px;
 										<img id="profilepic" src="${cacheGuest.profileImage}" class="img img-responsive thumbnail watermark_text" style="margin-top:-10px;height: 40px;width: 40px;border-radius:15%;">
 									</c:if>
 									<c:if test="${empty cacheGuest.profileImage}">
-										<img id="profilepic" src="img/default.png" class="img-responsive thumbnail " style="margin-bottom:0;">
+										<img id="profilepic" src="img/default.png" class="img-responsive thumbnail " style="margin-top:-10px;height: 40px;width: 40px;border-radius:15%;">
 									</c:if>
 								</a>
 								<ul class="dropdown-menu">
@@ -1741,18 +1782,21 @@ height: 400px;
 <div id="myPhotoModal" class="modal">
   <span class="close cursor" onclick="closeModal()">&times;</span>
   <div class="modal-content">
-
+	<c:set var="counter" value="${0}" /> 
 	<c:forEach items="${photosList}" var="photo" >
+		<c:set var="counter" value="${counter+1}" />
       	<div class="mySlides">
-      		<div class="numbertext">1 / 4</div>
-	    		<img src="${photo.image}"  style='height: 400px;width:100%'>
+      		<div class="numbertext">${counter} / ${photosListSize}</div>
+	    		<img src="${photo.image}"  class="myImg" style='height: 400px;width:100%'>
 	    </div>
 	</c:forEach>
     <!--slider-->
 	<div class="row">
+		<c:set var="counter2" value="${0}" /> 
 		<c:forEach items="${photosList}" var="photo" >
+			<c:set var="counter2" value="${counter2+1}" />
 			<div class="col-sm-2">
-		      <img class="demo cursor" src="${photo.image}" style="width:100%" onclick="currentSlide(1)" alt="">
+		      <img class="demo cursor" src="${photo.image}" style="width:100%" onclick="currentSlide(${counter2})" alt="">
 		    </div>
 	    </c:forEach>
 	</div>

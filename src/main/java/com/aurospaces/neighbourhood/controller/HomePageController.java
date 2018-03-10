@@ -956,7 +956,7 @@ public class HomePageController {
 			request.setAttribute("profileBean", profileBean);
 			List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos(profile_id);
 			request.setAttribute("photosList", photosList);
-			
+			request.setAttribute("photosListSize", photosList.size());
 			
 		} catch (Exception e) {
 	   e.printStackTrace();
@@ -1082,6 +1082,9 @@ public class HomePageController {
 			} else {
 				request.setAttribute("new_matches", "''");
 			}
+			List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos(sessionBean.getId());
+			request.setAttribute("photosList", photosList);
+			request.setAttribute("photosListSize", photosList.size());
 			
 		} catch (Exception e) {
 	   e.printStackTrace();
@@ -3238,10 +3241,26 @@ public class HomePageController {
 					requests = objUsersDao.getRequestsRejectedByMe(sessionBean.getId()+"",0);
 				}
 				if(requests!=null && requests.size()>0){
+					
+					//get photos
+					for(Map<String,Object> reqObj:requests){
+						List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos((Integer)reqObj.get("id"));
+						if(photosList!=null && photosList.size()>0){
+							//objectMapper = new ObjectMapper();
+							//sJson = objectMapper.writeValueAsString(photosList);
+							reqObj.put("photosList", photosList);
+							reqObj.put("photosListSize", photosList.size());
+						}else{
+							reqObj.put("photosList", "");
+						}
+						
+						
+					}
 					objectMapper = new ObjectMapper();
 					sJson = objectMapper.writeValueAsString(requests);
 					request.setAttribute("inbox_requests", sJson);
 					total_records = (Long)requests.get(0).get("total_records");
+					
 				}else{
 					request.setAttribute("inbox_requests", "''");
 				}
@@ -3252,6 +3271,7 @@ public class HomePageController {
 			request.setAttribute("tabType", tab_type);
 			request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
 			request.setAttribute("total_records", total_records);
+			
 			
 		} catch (Exception e) {
 	   e.printStackTrace();
@@ -3458,6 +3478,8 @@ public class HomePageController {
 						jsOnObj.putOnce("message", "success");
 					else
 						jsOnObj.putOnce("message", "failed");
+				}else{
+					jsOnObj.putOnce("message", "currentpassword_notexist");
 				}
 				
 			
