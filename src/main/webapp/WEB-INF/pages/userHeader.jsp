@@ -77,36 +77,21 @@
     <div class="panel panel-default">
         <div class="panel-heading">
              <h4 class="panel-title">
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#panel1"><i class="glyphicon glyphicon-minus"></i>Panel 1</a>
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#panel1"><i class="glyphicon glyphicon-minus"></i>Membership Details</a>
             </h4>
 
         </div>
         <div id="panel1" class="panel-collapse collapse in">
-            <div class="panel-body">Contents panel 1</div>
+            <div class="panel-body">
+            	<b><c:out value="${membership_details.name}" /></b><br>
+            	<c:out value="${membership_details.validity}" /> days remaining <br>
+            	Balance Profiles Limit:<c:out value="${allowed_profiles_limit}" />/
+            	<c:out value="${membership_details.allowed_profiles_limit}" />
+            </div>
         </div>
     </div>
-    <div class="panel panel-default">
-        <div class="panel-heading">
-             <h4 class="panel-title">
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#panel2"><i class="glyphicon glyphicon-plus"></i>Panel 2</a>
-            </h4>
-
-        </div>
-        <div id="panel2" class="panel-collapse collapse">
-            <div class="panel-body">Contents panel 2</div>
-        </div>
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-heading">
-             <h4 class="panel-title">
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#panel3"><i class="glyphicon glyphicon-plus"></i>Panel 3</a>
-            </h4>
-
-        </div>
-        <div id="panel3" class="panel-collapse collapse">
-            <div class="panel-body">Contents panel 3</div>
-        </div>
-    </div>
+    
+    
 </div>
 			</div>
 			<div id="dial1"></div>

@@ -1085,6 +1085,13 @@ public class HomePageController {
 			List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos(sessionBean.getId());
 			request.setAttribute("photosList", photosList);
 			request.setAttribute("photosListSize", photosList.size());
+			//membership details to display
+			Map<String,Object> membership_details = objUsersDao.getMembershipDetails(sessionBean);
+			if(membership_details!=null){
+				request.setAttribute("membership_details", membership_details);
+			}else{
+				request.setAttribute("membership_details", "");
+			}
 			
 		} catch (Exception e) {
 	   e.printStackTrace();
