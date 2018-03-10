@@ -260,23 +260,41 @@ function displaySettingsBlock(divId){
 	$(".all_settings_divs").attr("hidden",true);
 	$("#"+divId).removeAttr("hidden");
 }
+function validate(id, errorMessage)
+{
+	var styleBlock = '.placeholder-style.placeholder-style::-moz-placeholder {color: #cc0000;} .placeholder-style::-webkit-input-placeholder {color: #cc0000;}';
+	if($('#'+id).val() ==  null || $('#'+id).val() == ""  || $('#'+id).val()=="undefined" ) {
+		$('style').append(styleBlock);
+		$('#'+id).css('border-color','#cc0000');
+		$('#'+id).css('color','#cc0000');
+		$('#'+id).attr('placeholder',errorMessage);
+		$('#'+id).addClass('placeholder-style your-class');
+		return false;
+	}else{
+		$('#'+id).css('border-color','');
+		$('#'+id).removeClass('placeholder-style your-class');
+		return true;
+	}
+	
+}
 function submitProfileSettings(actionStr){
 	var actionUrl = "";
 	var formData = new FormData();
 	if(actionStr=="change_password"){
 		var currentPassword = $("#currentPassword").val().trim();
 		var newPassword = $("#newPassword1").val().trim();
-		var confirmedNewPassword = $("#newPassword1").val().trim();
-		var styleBlock = '.placeholder-style.placeholder-style::-moz-placeholder {color: #cc0000;} .placeholder-style::-webkit-input-placeholder {color: #cc0000;}';
-		/* if($('#'+id).val() ==  null || $('#'+id).val() == ""  || $('#'+id).val()=="undefined" ) {
-			$('style').append(styleBlock);
-			$('#'+id).css('border-color','#cc0000');
-			$('#'+id).css('color','#cc0000');
-			$('#'+id).attr('placeholder',errorMessage);
-			$('#'+id).addClass('placeholder-style your-class');
-//				$('#'+id).css('color','#cc0000');
-//				$('#'+id+'Error').text(errorMessage);
-		} */
+		var confirmedNewPassword = $("#newPassword2").val().trim();
+		var v1 = validate('currentPassword','Enter Current Password');
+		var v2 = validate('newPassword1','Enter New Password');
+		var v3 = validate('newPassword2','Enter Confirm New Password');
+		if(v1==false || v2==false || v3==false){
+			return false;
+		}
+		if(newPassword != confirmedNewPassword){
+			alert("Passwords mismatched.");
+			return false;
+		}
+		 
 		formData.append("currentPassword",currentPassword);
 		formData.append("newPassword1",newPassword);
 		formData.append("newPassword2",confirmedNewPassword);
@@ -301,6 +319,12 @@ function submitProfileSettings(actionStr){
 					alert("Profile deleted successfully");
 				}
 				
+			}else{
+				if(msg=="currentpassword_notexist"){
+					alert("Current password doesn't exist!! Try again.");
+				}else if(msg=="failed"){
+					alert("Some problem occured. Please try again.");
+				}
 			}
 			//displaySettingsBlock(actionStr); // actionStr and divid are same value.
 			

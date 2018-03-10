@@ -25,22 +25,20 @@
 							<img src="img/default.png" class="img-responsive" style="margin-bottom:0;">
 						</c:if>
 						<c:if test="${not empty photosList}">
-							<div id="viewer-wrapper">
-							<div id="gallery-viewer">
+							
 						      	<div class="row"> 
 							        <div class="column">
-							    		<img src="${photosList[0].image}" style="width:100%" onclick="openModal();currentSlide(1)" class="hover-shadow cursor">
+							    		<img src="${photosList[0].image}" style="width:100%" onclick="openModal();currentSlide(1)" class="hover-shadow cursor watermark_text">
 							  		</div>   
 							    </div>
-							    </div>
-							   </div> 
+							     
 							<div id="gallery-wrapper">
 								<!-- thumbnail images -->
 								  <div id="thumbs-wrapper">
-								    <div id="gallery">
+								    <div id="gallery" style="margin:-10px 8px 8px">
 								    	<c:forEach items="${photosList}" var="photo" >
 									      	<div class="thumbnail" style=""> 
-										        <img src="${photo.image}" /> 
+										        <img src="${photo.image}" class="watermark_text" /> 
 										    </div>
 										</c:forEach>
 								    </div> 
@@ -745,6 +743,23 @@ jQuery(document).ready(function($){
 	    }
     });
 });
+$(function(){
+	 //add text water mark;	
+ addWaterMark();
+});
+function addWaterMark(){
+ $('.watermark_text').watermark({
+	  text: 'aarnamatrimony.com',
+	  textWidth: 700,
+	  textSize: 76,
+	  textColor: 'white',
+	  gravity: 'w',
+	   opacity: 0.8,
+	   //margin: 0,
+	   outputWidth: 'auto',
+	   outputHeight: 'auto'
+	 });
+}
 function toggleDiv(divElem){
 	var isHidden = $("#"+divElem+"_edit").attr("hidden");
 	$(".all_hidden_divs").attr("hidden",true);
