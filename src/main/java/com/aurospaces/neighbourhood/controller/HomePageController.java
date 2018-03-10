@@ -3689,7 +3689,7 @@ public class HomePageController {
    
    public String setInitialData(UsersBean objUserBean,HttpSession session){
 		//update login time
-		objUsersDao.updateLoginTime(objUserBean);
+		objUsersDao.updateLoginTime(objUserBean,"1");
 		
 			Map<String,Object> interestCounts = objUsersDao.getInterestCounts(objUserBean);
 			long notificationsCount = (Long)interestCounts.get("receivedInterestCount")

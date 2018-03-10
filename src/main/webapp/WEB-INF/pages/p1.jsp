@@ -144,7 +144,7 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label required">Working With </label>
 									<div class="col-sm-8">
-										<form:select path="rWorkingWith" class="form-control u1">
+										<form:select path="rWorkingWith" class="u1">
 											<form:option value="">Doesn't Matter</form:option>
 											<form:option value="Private Company">Private Company</form:option>
 											<form:option value="Government/Public Sector">Government/Public Sector</form:option>
@@ -159,7 +159,7 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label required">Profession area</label>
 									<div class="col-sm-8">
-										<form:select path="rOccupation" class="form-control u">
+										<form:select path="rOccupation" class="u">
 											<form:option value="">Doesn't Matter</form:option>
 											<form:options items="${occupation}"></form:options>
 										</form:select>
@@ -305,7 +305,7 @@ $(document).ready(function(){
 								<div class="form-group">
 									<label class="col-sm-4 control-label required">Diet</label>
 									<div class="col-sm-8">
-										<form:select path="rDiet" class="form-control u" >
+										<form:select path="rDiet" class=" u" >
 											<form:option value="">-- Select Diet--</form:option>
 											<form:option value="Veg">Veg</form:option>
 											<form:option value="Non-Veg">Non-Veg</form:option>

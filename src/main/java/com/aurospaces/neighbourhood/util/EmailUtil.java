@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
 
+import com.aurospaces.neighbourhood.bean.ReportsBean;
 import com.aurospaces.neighbourhood.bean.UsersBean;
 
 
@@ -413,6 +414,53 @@ public class EmailUtil {
 	            return "Mail sent filed";
 	        }
 	}
+	public String bulkmail(UsersBean objUsersBean,ServletContext objContext,HttpServletRequest request,ReportsBean objReportsBean) throws AddressException,
+	MessagingException, IOException {
+String subject = null;
+Properties prop = new Properties();
+InputStream input = null;
+String body = null;
+try{
+
+    String mailTo = objUsersBean.getEmail();
+    
+//    -------------------------------------------------------------------------------------------
+	
+	
+    String propertiespath = objContext.getRealPath("Resources" +File.separator+"DataBase.properties");
+	input = new FileInputStream(propertiespath);
+	prop.load(input);
+	String host = prop.getProperty("host");
+	String port = prop.getProperty("port");
+	String mailFrom = prop.getProperty("usermail");
+	String password = prop.getProperty("mailpassword");
+    
+	subject = objReportsBean.getMailSubject();
+	
+	body = prop.getProperty("bulkmail");
+	body = body.replace("_message_", objReportsBean.getMessage());
+	body = body.replace("_img_", "cid:image2");
+	
+   body = body.replace("_customer_", objUsersBean.getFirstName()+" "+objUsersBean.getLastName());
+   
+   
+
+    // inline images
+    Map<String, String> inlineImages = new HashMap<String, String>();
+//    inlineImages.put("image1", objContext.getRealPath("images" +File.separator+"telugu.png"));
+    inlineImages.put("image2", objContext.getRealPath("images" +File.separator+"logo.jpg"));
+
+   
+        EmbeddedImageEmailUtil.send(host, port, mailFrom, password, mailTo,
+            subject, body.toString(), inlineImages);
+        System.out.println("Email sent.");
+        return "Mail sent successfully";
+    } catch (Exception ex) {
+        System.out.println("Could not send email.");
+        ex.printStackTrace();
+        return "Mail sent filed";
+    }
+}
 	
 }
 			
