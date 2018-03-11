@@ -30,29 +30,13 @@
       </div>
     </div>
  </div>
- <div class="row">
-    <div class="form-group">
-      <label class="col-md-4 control-label" for="textinput">Eating Habits</label>  
-      <div class="col-md-7">
-      	<form:select path="rDiet" class="multiSelect" multiple="true">
-			<form:option value="">-- Choose Eating Habits --</form:option>
-			<form:option value="Veg">Veg</form:option>
-			<form:option value="Non-Veg">Non-Veg</form:option>
-			<form:option value="Occasionally Non-Veg">Occasionally Non-Veg</form:option>
-			<form:option value="Eggetarian">Eggetarian</form:option>
-			<form:option value="Jain">Jain</form:option>
-			<form:option value="Vegan">Vegan</form:option>
-		</form:select>
-		
-      </div>
-    </div>
-</div>
+ 
 <div class="row">
     <div class="form-group" >
       <label class="col-md-4 control-label" for="textinput">Marital Status</label>  
       <div class="col-md-7">
       	<form:select path="rMaritalStatus" class="multiSelect" multiple="true" >
-			<form:option value="">Doesn't Matter</form:option>
+			<form:option value="any">Doesn't Matter</form:option>
 			<form:option value="Married">Married</form:option>
 			<form:option value="Unmarried">Unmarried</form:option>
 			<form:option value="Widow/Divorced">Widow/Divorced</form:option>
@@ -78,7 +62,6 @@
       <label class="col-md-4 control-label" for="textinput">Religion</label>  
       <div class="col-md-7">
       	<form:select path="rReligion" class="multiSelect" multiple="true">
-			<form:option value="">-- Choose Religion --</form:option>
 			<form:options items="${religion}"></form:options>
 		</form:select>
       </div>
@@ -89,7 +72,6 @@
       <label class="col-md-4 control-label" for="textinput">Community</label>  
       <div class="col-md-7">
       	<form:select path="rCaste" class="multiSelect" multiple="true">
-			<form:option value="">-- Choose Community --</form:option>
 			<form:options items="${cast}"></form:options>
 		</form:select>
       </div>
@@ -100,9 +82,24 @@
       <label class="col-md-4 control-label" for="textinput">Mother Tongue</label>  
       <div class="col-md-7">
       	<form:select path="rMotherTongue" class="multiSelect"  multiple="true">
-			<form:option value="">-- Choose Mother Tongue --</form:option>
 			<form:options items="${language}"></form:options>
 		</form:select>
+      </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="textinput">Eating Habits</label>  
+      <div class="col-md-7">
+      	<form:select path="rDiet" class="multiSelect" multiple="true">
+			<form:option value="Veg">Veg</form:option>
+			<form:option value="Non-Veg">Non-Veg</form:option>
+			<form:option value="Occasionally Non-Veg">Occasionally Non-Veg</form:option>
+			<form:option value="Eggetarian">Eggetarian</form:option>
+			<form:option value="Jain">Jain</form:option>
+			<form:option value="Vegan">Vegan</form:option>
+		</form:select>
+		
       </div>
     </div>
 </div>

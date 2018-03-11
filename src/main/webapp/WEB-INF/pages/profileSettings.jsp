@@ -183,12 +183,12 @@
 								</table>
 								<table>
 									<tr>
-										<td>Total Count</td>
+										<td>Total Profile Count</td>
 										<td>:</td>
 										<td id="total_profile_count"></td>
 									</tr>
 									<tr>
-										<td>Count Left</td>
+										<td>Profile Count Left</td>
 										<td>:</td>
 										<td id="left_profile_count"></td>
 									</tr>
@@ -245,8 +245,12 @@ function displaySettingsBlock(divId){
 				
 					$("#matrimony_id").html(membershipDetails.username);
 					$("#membership_type").html(membershipDetails.name);
-					$("#membership_status").html(membershipDetails.membership_status);
-					$("#membership_validity").html(membershipDetails.validity);
+					var status = membershipDetails.membership_status;
+					if(status=="1")
+						$("#membership_status").html("Active");
+					else
+						$("#membership_status").html("In-Active");
+					$("#membership_validity").html(membershipDetails.validity+" days");
 					$("#renewal_date").html(membershipDetails.renewal_date);
 					$("#last_renewed").html(membershipDetails.last_renewed_date);
 					$("#total_profile_count").html(membershipDetails.allowed_profiles_limit);

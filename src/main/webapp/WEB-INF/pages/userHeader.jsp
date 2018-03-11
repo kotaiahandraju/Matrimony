@@ -25,7 +25,10 @@
 									<tr><td><a href="myPhotos">My Photos</a></td></tr>
 									<tr><td><a href="myProfile">Edit Profile</a></td></tr>
 									<tr><td><a href="#">Edit Partner Preferences</a></td></tr>
-									<tr><td style="color:white;font-size:15px">Available profiles limit: <span id="available_limit_span">${allowed_profiles_limit}</span></td></tr>
+									<c:if test="${cacheGuest.roleId != '4' && cacheGuest.membership_status!='0'}">
+					            		<tr><td style="color:white;font-size:15px">Available profiles limit: <span id="available_limit_span">${allowed_profiles_limit}</span></td></tr>
+					            	</c:if>
+									
 								</table>
 							</div>
 						</div>
@@ -83,10 +86,24 @@
         </div>
         <div id="panel1" class="panel-collapse collapse in">
             <div class="panel-body">
-            	<b><c:out value="${membership_details.name}" /></b><br>
-            	<c:out value="${membership_details.validity}" /> days remaining <br>
-            	Balance Profiles Limit:<c:out value="${allowed_profiles_limit}" />/
-            	<c:out value="${membership_details.allowed_profiles_limit}" />
+            	<c:if test="${cacheGuest.roleId == '4'}">
+            		Not a paid member.
+            	</c:if>
+            	<c:if test="${cacheGuest.roleId != '4'}">
+	            	<c:if test="${membership_details.validity <= 0}">
+	            		Your membership validity is over on <c:out value="${membership_details.renewal_date}" /><br>
+	            		<a type="button" class="btn btn-primary btn-block" href="memberShipPage">Renew Membership</a>
+	            	</c:if>
+	            	<c:if test="${membership_details.validity > 0}">
+		            	
+		            		<b><c:out value="${membership_details.name}" /></b><br>
+			            	<c:out value="${membership_details.validity}" /> days remaining <br>
+			            	Balance Profiles Limit:<c:out value="${allowed_profiles_limit}" />/
+			            	<c:out value="${membership_details.allowed_profiles_limit}" />
+		            	
+	            	</c:if>
+	            </c:if>
+            	
             </div>
         </div>
     </div>

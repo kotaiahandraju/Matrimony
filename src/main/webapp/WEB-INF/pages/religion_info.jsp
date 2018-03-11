@@ -8,7 +8,7 @@
 				style="color: red;">*</span></label>
 			<div class="col-md-7">
 				<form:select path="religion" onfocus="removeBorder(this.id)"
-					onblur="validate(this.id,'');" class="form-control u">
+					 class="form-control u">
 					<form:option value="">-- Choose Religion --</form:option>
 					<form:options items="${religion}"></form:options>
 				</form:select>
@@ -26,8 +26,7 @@
 			<label class="col-md-5 control-label required">Community <span
 				style="color: red;">*</span></label>
 			<div class="col-md-7">
-				<form:select path="caste" class="form-control u"
-					onblur="validate(this.id,'');" onfocus="removeBorder(this.id)">
+				<form:select path="caste" class="form-control u" >
 					<form:option value="">-- Choose Community --</form:option>
 					<form:options items="${cast}"></form:options>
 				</form:select>

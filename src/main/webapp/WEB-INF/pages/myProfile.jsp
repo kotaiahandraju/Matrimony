@@ -323,7 +323,7 @@ xpopup
 						<tr>
 							<td>Age</td><td>:</td>
 							<td id="age_val">
-								<c:if test="${not empty profileBean.age}">${profileBean.age}</c:if>
+								<c:if test="${not empty profileBean.age}">${profileBean.age} yrs</c:if>
 								<c:if test="${empty profileBean.age}">Not specified</c:if>
 							</td>
 							<td>Complexion</td><td>:</td>
@@ -551,7 +551,7 @@ xpopup
 				<c:if test="${empty profileBean.fatherName}">Not Specified</c:if>
 			</td>
 			<td>Mother's Name</td><td>:</td>
-			<td id="motherName_val">
+			<td id="motherName_val"><c:out value="${profileBean.motherName}"/>
 				<c:if test="${not empty profileBean.motherName}">${profileBean.motherName}</c:if>
 				<c:if test="${empty profileBean.motherName}">Not Specified</c:if>
 			</td>
@@ -619,9 +619,9 @@ xpopup
 				<c:if test="${empty profileBean.rAgeFrom}">Not Specified</c:if>
 			</td>
 			<td>Height</td><td>:</td>
-			<td id="rHeight_val">
-				<c:if test="${not empty profileBean.rHeight}">${profileBean.rHeight} - ${profileBean.rHeightTo} </c:if>
-				<c:if test="${empty profileBean.rHeight}">Not Specified</c:if>
+			<td>
+				<c:if test="${not empty profileBean.rHeightInches}"><span id="rHeight_val">${profileBean.rHeightInches}</span> - <span id="rHeightTo_val">${profileBean.rHeightToInches}</span> </c:if>
+				<c:if test="${empty profileBean.rHeightInches}">Not Specified</c:if>
 			</td>
 		</tr>
 		<tr><td>Marital Status</td><td>:</td>
@@ -697,8 +697,8 @@ xpopup
 	<table class="col-md-12 table-responsive">
 		<tr><td>Education</td><td>:</td>
 			<td id="rEducation_val">
-				<c:if test="${not empty profileBean.rEducation}">${profileBean.rEducation}</c:if>
-				<c:if test="${empty profileBean.rEducation}">Not Specified</c:if>
+				<c:if test="${not empty profileBean.rEducationName}">${profileBean.rEducationName}</c:if>
+				<c:if test="${empty profileBean.rEducationName}">Not Specified</c:if>
 			</td>
 			
 		</tr>
@@ -711,8 +711,8 @@ xpopup
 		</tr>
 		<tr><td>Occupation</td><td>:</td>
 			<td id="rOccupation_val">
-				<c:if test="${not empty profileBean.rOccupation}">${profileBean.rOccupation}</c:if>
-				<c:if test="${empty profileBean.rOccupation}">Not Specified</c:if>
+				<c:if test="${not empty profileBean.rOccupationName}">${profileBean.rOccupationName}</c:if>
+				<c:if test="${empty profileBean.rOccupationName}">Not Specified</c:if>
 			</td>
 			
 		</tr>
@@ -731,9 +731,7 @@ xpopup
 	      <label class="col-md-4 control-label" for="textinput">Education</label>  
 	      <div class="col-md-7">
 	      	<form:select path="rEducation" class="multiSelect" multiple="true">
-	      		<form:option value="">-- Select Education --</form:option>
-				
-				<form:options items="${education}"></form:options>
+	      		<form:options items="${education}"></form:options>
 			</form:select>
 	      </div>
 	    </div>
@@ -744,7 +742,7 @@ xpopup
 	      <label class="col-md-4 control-label" for="textinput">Working with</label>  
 	      <div class="col-md-7">
 	      	<form:select path="rWorkingWith" class="multiSelect" multiple="true">
-				<form:option value="">Doesn't Matter</form:option>
+				<form:option value="any">Doesn't Matter</form:option>
 				<form:option value="Private Company">Private Company</form:option>
 				<form:option value="Government/Public Sector">Government/Public Sector</form:option>
 				<form:option value="Defense/Civil Services">Defense/Civil Services</form:option>
@@ -758,7 +756,6 @@ xpopup
 	      <label class="col-md-4 control-label" for="textinput">Profession area</label>  
 	      <div class="col-md-7">
 	      	<form:select path="rOccupation" class="multiSelect" multiple="true">
-				<form:option value="">Doesn't Matter</form:option>
 				<form:options items="${occupation}"></form:options>
 			</form:select>
 	      </div>
@@ -813,13 +810,15 @@ xpopup
 	<table class="col-md-12 table-responsive">
 		<tr><td>Country</td><td>:</td>
 			<td id="rCountry_val">
-				<c:if test="${not empty profileBean.rCountry}">${profileBean.rCountry}</c:if>
-				<c:if test="${empty profileBean.rCountry}">Not Specified</c:if>
+				<c:if test="${not empty profileBean.rCountryName}">${profileBean.rCountryName}</c:if>
+				<c:if test="${empty profileBean.rCountryName}">Not Specified</c:if>
 			</td>
-			<td id="rState_val">Residing State</td><td>:</td>
-			<td>
-				<c:if test="${not empty profileBean.rState}">${profileBean.rState}</c:if>
-				<c:if test="${empty profileBean.rState}">Not Specified</c:if>
+		</tr>
+		<tr>
+			<td>Residing State</td><td>:</td>
+			<td id="rState_val">
+				<c:if test="${not empty profileBean.rStateName}">${profileBean.rStateName}</c:if>
+				<c:if test="${empty profileBean.rStateName}">Not Specified</c:if>
 			</td>
 			<!-- <td>City</td><td>:</td> -->
 			
@@ -847,7 +846,6 @@ xpopup
 	      <label class="col-md-4 control-label" for="textinput">Country living in</label>  
 	      <div class="col-md-7">
 	      	<form:select path="rCountry" class="multiSelect" multiple="true">
-				<form:option value="">-- Choose Country --</form:option>
 				<form:options items="${countries}"></form:options>
 				
 			</form:select>
@@ -858,7 +856,6 @@ xpopup
 	      <label class="col-md-4 control-label" for="textinput">State living in</label>  
 	      <div class="col-md-7">
 	      	<form:select path="rState" class="multiSelect" multiple="true">
-				<form:option value="">-- Choose State --</form:option>
 				<form:options items="${states }"></form:options>
 			</form:select>
 	      </div>
@@ -909,7 +906,7 @@ in a profile. </p></div>
 </div>
 </div>
 </div>
-
+<link href="css/datepicker1.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
 $(document).ready(function(){
 	$('.multiSelect').select2();
@@ -1177,8 +1174,8 @@ function toggleDiv(divElem){
    	formData.append("aboutMyself",$("#aboutMyself").val());
    	formData.append("createProfileFor",$("#createProfileFor").val());
    	formData.append("gender",$("#gender").val());
-   	formData.append("firstName",$("#firstName").val());
-   	formData.append("lastName",$("#lastName").val());
+   	formData.append("firstName",$("#firstName").val().trim());
+   	formData.append("lastName",$("#lastName").val().trim());
    	formData.append("dob",$("#dob").val());
    	formData.append("height",$("#height").val());
    	formData.append("maritalStatus",$("#maritalStatus").val());
@@ -1192,7 +1189,7 @@ function toggleDiv(divElem){
    	// religion info
    	formData.append("religion",$("#religion").val());
    	formData.append("caste",$("#caste").val());
-   	formData.append("gotram",$("#gotram").val());
+   	formData.append("gotram",$("#gotram").val().trim());
    	formData.append("star",$("#star").val());
    	formData.append("dosam",$("#dosam").val());
    	//formData.append("drinking",$("#drinking").val());
@@ -1205,8 +1202,8 @@ function toggleDiv(divElem){
    	formData.append("workingWith",$("#workingWith").val());
    	formData.append("occupation",$("#occupation").val());
    	// family details
-   	formData.append("fatherName",$("#fatherName").val());
-   	formData.append("motherName",$("#motherName").val());
+   	formData.append("fatherName",$("#fatherName").val().trim());
+   	formData.append("motherName",$("#motherName").val().trim());
    	formData.append("fOccupation",$("#fOccupation").val());
    	formData.append("mOccupation",$("#mOccupation").val());
    	formData.append("noOfBrothers",$("#noOfBrothers").val());
@@ -1214,8 +1211,8 @@ function toggleDiv(divElem){
    	formData.append("noOfSisters",$("#noOfSisters").val());
    	formData.append("noOfSistersMarried",$("#noOfSistersMarried").val());
    	//partner preferences
-   	formData.append("rAgeFrom",$("#rAgeFrom").val());
-   	formData.append("rAgeTo",$("#rAgeTo").val());
+   	formData.append("rAgeFrom",$("#rAgeFrom").val().trim());
+   	formData.append("rAgeTo",$("#rAgeTo").val().trim());
    	formData.append("rHeight",$("#rHeight").val());
    	formData.append("rHeightTo",$("#rHeightTo").val());
    	formData.append("rMaritalStatus",$("#rMaritalStatus").val());
@@ -1236,7 +1233,36 @@ function toggleDiv(divElem){
 		if(msg != "undefined"){
 			if(msg == "success"){
 				alert("Updates are saved.");
-				updateViewValues();
+				updateViewValues(data_type);
+				
+				if(data_type=="partner_basic"){
+					updateMultiDropDownValues("rMaritalStatus");
+					updateMultiDropDownValues("rReligion");
+					updateMultiDropDownValues("rCaste");
+					updateMultiDropDownValues("rMotherTongue");
+					updateMultiDropDownValues("rDiet");
+				}
+				if(data_type=="partner_professional"){
+					updateMultiDropDownValues("rEducation");
+					updateMultiDropDownValues("rWorkingWith");
+					updateMultiDropDownValues("rOccupation");
+				}
+				if(data_type=="partner_location"){
+					updateMultiDropDownValues("rCountry");
+					updateMultiDropDownValues("rState");
+				}
+					/* var updated_values = jsonobj.partner_updated_values;
+					$("#rMaritalStatus_val").html(updated_values.maritalStatus);
+					$("#rReligion_val").html(updated_values.religion);
+					$("#rCaste_val").html(updated_values.caste);
+					$("#rMotherTongue_val").html(updated_values.motherTongue);
+					$("#rCountry_val").html(updated_values.country);
+					$("#rState_val").html(updated_values.state);
+					$("#rEducation_val").html(updated_values.education);
+					$("#rWorkingWith_val").html(updated_values.workingWith);
+					$("#rOccupation_val").html(updated_values.occupation);
+					$("#rDiet_val").html(updated_values.diet); */
+		
 				$(".all_hidden_divs").attr("hidden",true);
 				$(".all_visible_divs").removeAttr("hidden");
 				$(".all_a").html("Edit");
@@ -1260,15 +1286,16 @@ function toggleDiv(divElem){
 		
 	}
   
-  function updateViewValues(){
+  function updateViewValues(data_type){
+	  // all drop down values are updated seperately...so here only update other field values
 	  $("#aboutMyself_val").html($("#aboutMyself").val());
-	  $("#createProfileFor_val").html($("#createProfileFor").val());
-	  $("#gender_val").html($("#gender").val());
+	  //$("#createProfileFor_val").html($("#createProfileFor").val());
+	 // $("#gender_val").html($("#gender").val());
 	  $(".name_val").html($("#firstName").val()+" "+$("#lastName").val());
 	  //$("#lastName_val").html($("#lastName").val());
 	  $("#dob_val").html($("#dob").val());
-	  $("#height_val").html($("#height").label);
-	  $("#maritalStatus_val").html($("#maritalStatus").val());
+	  //$("#height_val").html($("#height").label);
+	 // $("#maritalStatus_val").html($("#maritalStatus").val());
 	  /* $("#bodyType_val").html($('#bodyType option:selected').text());
 	  $("#complexion_val").html($("#complexion option:selected").text());
 	  $("#disability_val").html($("#disability option:selected").text());
@@ -1279,7 +1306,7 @@ function toggleDiv(divElem){
 	   	// religion info
 	   	$("#religion_val").html($("#religion option:selected").text());
 	   	$("#caste_val").html($("#caste option:selected").text()); */
-	   	$("#gotram_val").html($("#gotram").val());
+	   	//$("#gotram_val").html($("#gotram").val());
 	   	/* $("#star_val").html($("#star option:selected").text());
 	   	$("#dosam_val").html($("#dosam option:selected").text());
 	   	//formData.append("drinking",$("#drinking").val());
@@ -1292,8 +1319,8 @@ function toggleDiv(divElem){
 	   	$("#workingWith_val").html($("#workingWith option:selected").text());
 	   	$("#occupation_val").html($("#occupation option:selected").text()); */
 	   	// family details
-	   	$("#fatherName_val").html($("#fatherName").val());
-	   	$("#motherName_val").html($("#motherName").val());
+	   	//$("#fatherName_val").html($("#fatherName").val());
+	   	//$("#motherName_val").html($("#motherName").val());
 	   	/* $("#fOccupation_val").html($("#fOccupation option:selected").text());
 	   	$("#mOccupation_val").html($("#mOccupation option:selected").text());
 	   	$("#noOfBrothers_val").html($("#noOfBrothers option:selected").text());
@@ -1307,7 +1334,7 @@ function toggleDiv(divElem){
 	   	$("#noOfSisters_val").html($("#noOfSisters option:selected").text());
 	   	$("#noOfSistersMarried_val").html($("#noOfSistersMarried option:selected").text()); */
 	    //partner preferences
-	   	$("#rAgeFrom_val").html($("#rAgeFrom").val()+" - "+$("#rAgeTo").val());
+	   	
 	   	//$("#rAgeTo_val").html($("#rAgeTo").val());
 	   	/* $("#rHeight_val").html($("#rHeight option:selected").text());
 	   	$("#rHeightTo_val").html($("#rHeightTo option:selected").text());
@@ -1322,8 +1349,20 @@ function toggleDiv(divElem){
 	   	$("#rOccupation_val").html($("#rOccupation option:selected").text());
 	   	$("#rAnnualIncome_val").html($("#rAnnualIncome option:selected").text());
 	   	$("#rDiet_val").html($("#rDiet option:selected").text()); */
+	   	updateDropDownValues(data_type);
+	   	updateTextFieldValues(data_type);
+	   	$("#rAgeFrom_val").html($("#rAgeFrom").val()+" - "+$("#rAgeTo").val());
+	   	var dob = $("#dob").val();
+	   	var current_date = new Date();
+	   	var date1 = dob.split("-");
+	    var dob_year = date1[2];
+	    var current_year = current_date.getFullYear();
+	    var age = current_year-dob_year;
+	    $("#age_val").html(age+" yrs");
+	    ////partner preferences
+	    //updateMultiDropDownValues(data_type);
   }
-  $("select").change(function(event){
+  /* $("select").change(function(event){
 	  var elemId = this.id;
 	  var val = $("#"+elemId+" option:selected").text();
 	  
@@ -1338,11 +1377,76 @@ function toggleDiv(divElem){
 	  	  	}
 	   		
 	   	}
-  });
+  }); */
+  function updateDropDownValues(data_type){
+	  $("#"+data_type+"_edit :selected").each(function () {
+		  //var elemId = this.id;
+		  var elemId = this.parentElement.id;
+		  var val = $(this).text();
+		  
+		   	if ((val.toLowerCase().indexOf("--") >= 0) || (val.toLowerCase().indexOf("-- choose --") >= 0)){
+		   		
+		   		$("#"+elemId+"_val").html("Not Specified");
+		   	}else{
+		   		
+		  	  		$("#"+elemId+"_val").html(val);
+		  	  	
+		   		
+		   	}
+	        
+	  });
+	  
+  }
   
-  $(".multiSelect").change(function(event){
+  function updateTextFieldValues(data_type){
+	  $("#"+data_type+"_edit input[type=text]").each(function () {
+		  //var elemId = this.id;
+		  var elemId = this.id;
+		  var val = $(this).val().trim();
+		  if(val==""){
+			  $("#"+elemId+"_val").html("Not Specified");
+		  }else{
+			  $("#"+elemId+"_val").html(val);
+		  }
+		   	
+	  });
+	  
+  }
+  
+  function updateMultiDropDownValues(elementId){
+	  
+		  var val = "";
+		  var test = $("#"+elementId);
+		  var dataList = $(test).select2('data');
+		  $.each(dataList,function(i,data){
+			  if(i==0)
+				  val = data.text;
+			  else
+				  val += ","+data.text; 
+		  });
+		  if ((val.toLowerCase().indexOf("--") >= 0) || val.trim()=="" || val.trim()=="null"){
+		   		
+		   		$("#"+elementId+"_val").html("Not Specified");
+		   	}else{
+		   		
+		  	  		$("#"+elementId+"_val").html(val);
+		  	  	
+		   		
+		   	}
+  }
+  
+  
+  /* $(".multiSelect").change(function(event){
 	  var elemId = this.id;
-	  var val = $("#"+elemId+" option:selected").text();
+	  var seletced_opts = this.selectedOptions;
+	  var val = "";
+	  $.each(seletced_opts,function(i,selOption){
+		  if(i==0)
+			  val = selOption.innerHTML; 
+		  else
+			  val += ","+selOption.innerHTML;
+	  });
+	  
 	  
 	   	if ((val.toLowerCase().indexOf("--") >= 0) || (val.toLowerCase().indexOf("-- choose --") >= 0)){
 	   		
@@ -1355,7 +1459,17 @@ function toggleDiv(divElem){
 	  	  	}
 	   		
 	   	}
-  });
+  }); */
+  
+  /* var ss =new Date().getFullYear()-16;
+  $("#dob").datepicker({
+     dateFormat: "dd-MM-yy",
+     changeDate : true,
+ 	changeMonth : true,
+ 	changeYear : true,
+//  	maxDate :0,
+ 	yearRange: '1950:' + ss
+ });  */
   
 </script>
 

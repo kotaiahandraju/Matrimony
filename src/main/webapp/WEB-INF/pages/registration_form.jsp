@@ -156,7 +156,7 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-md-4 control-label" for="textinput">As</label>  
+							<label class="col-md-4 control-label" for="textinput">As <span class='manditory'>*</span></label>  
 							<div class="col-md-6">
 								<form:select path="occupation" class="form-control u"  onblur="validate(this.id,'');" onfocus="removeBorder(this.id)">
 									<form:option value="">-- Choose Occupation --</form:option>

@@ -969,7 +969,7 @@ function openPhotoModal(photos_list){
 		var j = i+1;
 		str1 = ' <div class="mySlides"> '
   		+' <div class="numbertext">'+j+' / '+len+'</div> '
-		+' <img src="'+photoObject.image+'"  class="myImg" style="height: 400px;width:100%"> '
+		+' <img src="'+photoObject.image+'"  class="myImg" style="height: 500px;width:100%"> '
 		+' </div> ';
 		
 	});
@@ -1607,7 +1607,7 @@ img.hover-shadow {
 width: 100%;
 height: 400px;
 }
-
+.manditory{color: red;}
 </style>
 </head>
 <body style="background: white;">
