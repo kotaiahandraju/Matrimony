@@ -82,7 +82,7 @@
 	  $('.watermark_text').watermark({
 		  text: 'aarnamatrimony.com',
 		  textWidth: 700,
-		  textSize: 76,
+		  textSize: 70,
 		  textColor: 'white',
 		  gravity: 'w',
 		   opacity: 0.8,
@@ -304,6 +304,11 @@ function expressInterest_dashboard(profile_id){
 		document.searchForm2.submit();
 		return true;
 	}else{
+		var membershipStatus = ${cacheGuest.membership_status};
+		if(membershipStatus!="1"){
+			alert("Your membership validity period is over. Renew your membership plan and get more profiles");
+			return false;
+		}
 		if(allowed_limit<=0){
 			alert("Exceeded allowed profiles limit. Renew your membership plan and get more profiles");
 			return false;

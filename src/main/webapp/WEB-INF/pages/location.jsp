@@ -47,8 +47,6 @@
 			style="color: red;">*</span></label>
 		<div class="col-md-7">
 			<form:select path="currentCity" onfocus="removeBorder(this.id)"
-				onblur="validate(this.id,'');"
-				onchange="updateUserName(this.value);"
 				class="form-control">
 				<form:option value="">-- Choose City --</form:option>
 				<form:options items="${citys }"></form:options>

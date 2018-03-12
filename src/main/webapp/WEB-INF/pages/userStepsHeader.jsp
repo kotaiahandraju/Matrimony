@@ -41,7 +41,7 @@ body {
 .ilogo { padding:15px 0; border-bottom:12px solid #F1F1F2 }
 .control-label { text-align:left;}
 .midcontnet { border-bottom:12px solid #F1F1F2; padding-bottom:40px; }
-.manditory{color: red;}
+
 
 .your-class::-webkit-input-placeholder {color: #e73d4a !important;}
 .your-class::-moz-placeholder {color: #e73d4a !important;}

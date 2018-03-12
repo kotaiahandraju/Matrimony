@@ -3124,6 +3124,8 @@ public class HomePageController {
 					this.copyReligionInfo(modifiedUserBean, newSessionBean);
 				}else if("location".equalsIgnoreCase(dataToBeSaved)){
 					this.copyLocation(modifiedUserBean, newSessionBean);
+					// username is based on city code..so update username also
+					objUsersDao.updateUserName(newSessionBean.getId(), newSessionBean.getCurrentCity());
 				}else if("professional_info".equalsIgnoreCase(dataToBeSaved)){
 					this.copyProfessionalInfo(modifiedUserBean, newSessionBean);
 				}else if("family_details".equalsIgnoreCase(dataToBeSaved)){
@@ -3138,8 +3140,18 @@ public class HomePageController {
 					this.copyAboutMySelf(modifiedUserBean, newSessionBean);
 				}
 				try{
-					objUsersDao.save(newSessionBean);
+					if(dataToBeSaved.startsWith("partner_")){
+						objUserrequirementDao.save(newSessionBean);
+					}else{
+						objUsersDao.save(newSessionBean);
+					}
+					
 					jsonObj.put("message", "success");
+					/*if("partner_basic".equalsIgnoreCase(dataToBeSaved)){
+						// to display the updated values back in UI
+						Map<String,Object> valuesMap = objUsersDao.getPartnerPreferencesValuesForUser(newSessionBean);
+						jsonObj.put("partner_updated_values", valuesMap);
+					}*/
 				}catch(Exception exp){
 					exp.printStackTrace();
 					jsonObj.put("message", "failed");
@@ -3671,24 +3683,24 @@ public class HomePageController {
 	   target.setrAgeTo(source.getrAgeTo());
 	   target.setrHeight(source.getrHeight());
 	   target.setrHeightTo(source.getrHeightTo());
-	   target.setrMaritalStatus(source.getrMaritalStatus());
-	   target.setrDiet(source.getrDiet());
-	   target.setrReligion(source.getrReligion());
-	   target.setrMotherTongue(source.getrMotherTongue());
-	   target.setrCaste(source.getrCaste());
+	   target.setrMaritalStatus(source.getrMaritalStatus().equalsIgnoreCase("null")?null:source.getrMaritalStatus());
+	   target.setrDiet(source.getrDiet().equalsIgnoreCase("null")?null:source.getrDiet());
+	   target.setrReligion(source.getrReligion().equalsIgnoreCase("null")?null:source.getrReligion());
+	   target.setrMotherTongue(source.getrMotherTongue().equalsIgnoreCase("null")?null:source.getrMotherTongue());
+	   target.setrCaste(source.getrCaste().equalsIgnoreCase("null")?null:source.getrCaste());
 	   
 	   return target;
    }
    private UsersBean copyPartnerProfessionalPreferences(UsersBean source,UsersBean target){
-	   target.setrEducation(source.getrEducation());
-	   target.setrOccupation(source.getrOccupation());
-	   target.setrAnnualIncome(source.getrAnnualIncome());
+	   target.setrEducation(source.getrEducation().equalsIgnoreCase("null")?null:source.getrEducation());
+	   target.setrOccupation(source.getrOccupation().equalsIgnoreCase("null")?null:source.getrOccupation());
+	   target.setrAnnualIncome(source.getrAnnualIncome().equalsIgnoreCase("null")?null:source.getrAnnualIncome());
 	   
 	   return target;
    }
    private UsersBean copyPartnerLocationPreferences(UsersBean source,UsersBean target){
-	   target.setrCountry(source.getrCountry());
-	   target.setrState(source.getrState());
+	   target.setrCountry(source.getrCountry().equalsIgnoreCase("null")?null:source.getrCountry());
+	   target.setrState(source.getrState().equalsIgnoreCase("null")?null:source.getrState());
 	   //target.setrCity(source.getrCity());
 	   
 	   return target;

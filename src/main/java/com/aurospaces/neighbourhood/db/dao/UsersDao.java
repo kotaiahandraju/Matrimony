@@ -93,6 +93,12 @@ public class UsersDao extends BaseUsersDao
 							+" (select GROUP_CONCAT(name) from cast where find_in_set(id,(select rCaste from userrequirement where userId = "+id+"))>0) as rCasteName, "
 							+" (select GROUP_CONCAT(rDiet) from userrequirement where userId = "+id+") as rDietName, "
 							+" (select GROUP_CONCAT(name) from language where find_in_set(id,(select rMotherTongue from userrequirement where userId = "+id+"))>0) as rMotherTongueName, "
+							+" (select GROUP_CONCAT(name) from education where find_in_set(id,(select rEducation from userrequirement where userId = "+id+"))>0) as rEducationName, "
+							+" (select GROUP_CONCAT(name) from occupation where find_in_set(id,(select rOccupation from userrequirement where userId = "+id+"))>0) as rOccupationName, "
+							+" (select GROUP_CONCAT(name) from countries where find_in_set(id,(select rCountry from userrequirement where userId = "+id+"))>0) as rCountryName, "
+							+" (select GROUP_CONCAT(name) from state where find_in_set(id,(select rState from userrequirement where userId = "+id+"))>0) as rStateName, "
+							+" (select h.inches from height h where h.id = (select ur.rHeight from userrequirement ur where ur.userId = "+id+")) as rHeightInches, "
+							+" (select h.inches from height h where h.id = (select ur.rHeightTo from userrequirement ur where ur.userId = "+id+")) as rHeightToInches, "
 							+" (select count(*) from express_intrest intr where intr.user_id="+sessionBean.getId()+" and intr.profile_id="+id+"  and mobile_no_viewed_status='1') as mobileNumViewed " 
 							+" FROM users u left join user_images uimg on uimg.user_id=u.id left join userrequirement ureq on ureq.userId=u.id  "
 							+" left join cast cst on cst.id=u.caste left join religion rel on rel.id=u.religion "
@@ -2570,9 +2576,9 @@ public boolean deletePhoto(String photoId){
 	
 	public Map<String,Object> getMembershipDetails(UsersBean objUserBean){
 		jdbcTemplate = custom.getJdbcTemplate();
-		String qryStr = "select *,(select date_add((date_add(u.package_joined_date, interval pack.duration month)), interval 1 day)) as renewal_date, "
+		String qryStr = "select *,(select (date_add(u.package_joined_date, interval pack.duration month))) as renewal_date, "
 				+" (select date(updated_time) from paymenthistory where memberId = "+objUserBean.getId()+" and paymentStatus = 'success' order by updated_time desc limit 1)  as last_renewed_date, "
-				+" (select if(u.membership_status='1','Active','In-Active')) as membership_status,(select datediff(date_add(u.package_joined_date, interval pack.duration month),current_date())) as validity from users u, package pack where u.package_id = pack.id and u.id = "+objUserBean.getId();
+				+" (select datediff(date_add(u.package_joined_date, interval pack.duration month),current_date())) as validity from users u, package pack where u.package_id = pack.id and u.id = "+objUserBean.getId();
 		try {
 			List<Map<String,Object>> list = jdbcTemplate.queryForList(qryStr);
 			if(list!=null && list.size()>0){
@@ -2698,5 +2704,21 @@ public boolean deletePhoto(String photoId){
 	
 	}
 
+	/*
+	 * This function is used to display selected values as a string in UI 
+	 */
+	/*public Map<String,Object> getPartnerPreferencesValuesForUser(UsersBean userBean) {
+		 jdbcTemplate = custom.getJdbcTemplate();
+		 StringBuffer buffer = new StringBuffer();
+		 try{
+			 buffer.append("SELECT * FROM users where 1=1  ");
+			 String sql = buffer.toString();
+			 Map<String,Object> valuesMap = jdbcTemplate.queryForMap(sql);
+			 return valuesMap;
+		 } 
+		 catch (Exception ge) {
+			return null;
+		 } 
+	}*/
 }
 

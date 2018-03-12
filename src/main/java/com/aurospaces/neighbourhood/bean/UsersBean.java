@@ -105,6 +105,7 @@ protected String mOccupationName;
 protected String mail_content,rReligionName,rCasteName,rDietName,rMotherTongueName,rMaritalStatusName;
 protected String membership_status;
 protected String unique_code,emailverify,profileVerifyedBy;
+protected String rEducationName,rOccupationName,rCountryName,rStateName,rHeightInches,rHeightToInches;
 
 
 public String getProfileVerifyedBy() {
@@ -970,6 +971,42 @@ public String getMembership_status() {
 }
 public void setMembership_status(String membership_status) {
 	this.membership_status = membership_status;
+}
+public String getrEducationName() {
+	return rEducationName;
+}
+public void setrEducationName(String rEducationName) {
+	this.rEducationName = rEducationName;
+}
+public String getrOccupationName() {
+	return rOccupationName;
+}
+public void setrOccupationName(String rOccupationName) {
+	this.rOccupationName = rOccupationName;
+}
+public String getrCountryName() {
+	return rCountryName;
+}
+public void setrCountryName(String rCountryName) {
+	this.rCountryName = rCountryName;
+}
+public String getrStateName() {
+	return rStateName;
+}
+public void setrStateName(String rStateName) {
+	this.rStateName = rStateName;
+}
+public String getrHeightInches() {
+	return rHeightInches;
+}
+public void setrHeightInches(String rHeightInches) {
+	this.rHeightInches = rHeightInches;
+}
+public String getrHeightToInches() {
+	return rHeightToInches;
+}
+public void setrHeightToInches(String rHeightToInches) {
+	this.rHeightToInches = rHeightToInches;
 }
 
 
