@@ -2695,7 +2695,19 @@ public boolean deletePhoto(String photoId){
 
 		jdbcTemplate = custom.getJdbcTemplate();
 		StringBuffer buffer = new StringBuffer();
-		buffer.append("SELECT COUNT(`users`.`package_id`), `package`.`name` FROM `users` RIGHT OUTER JOIN `package`  ON (`package`.`id`=`users`.`package_id`) GROUP BY `users`.`package_id` ");
+		buffer.append("SELECT COUNT(`users`.`package_id`) as count, `package`.`name` FROM `users` RIGHT  JOIN `package`  ON (`package`.`id`=`users`.`package_id`) GROUP BY `package`.`id` ");
+							String sql =buffer.toString();
+							System.out.println(sql);
+							List<Map<String, Object>> result = jdbcTemplate.queryForList(sql);
+							return result;
+		
+	
+	}
+	public List<Map<String, Object>> getFreeUsersCount(){
+
+		jdbcTemplate = custom.getJdbcTemplate();
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("SELECT COUNT(*) AS totalcount,'Free register' AS package FROM users WHERE role_id ='4' ");
 							String sql =buffer.toString();
 							System.out.println(sql);
 							List<Map<String, Object>> result = jdbcTemplate.queryForList(sql);
