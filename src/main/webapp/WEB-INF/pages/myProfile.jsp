@@ -599,8 +599,7 @@ xpopup
 </div>
 
 <br>
-
-<h4   style="padding="10px;"></h4><h3>Partner Preferences</h3><hr>
+		<h4   style="padding="10px;"></h4><h3>Partner Preferences</h3><hr>
 <div class="panel panel-success" style='box-shadow: 5px 8px 5px;'>
 
 			<div class="panel-body table-responsive">
@@ -620,8 +619,8 @@ xpopup
 			</td>
 			<td>Height</td><td>:</td>
 			<td>
-				<c:if test="${not empty profileBean.rHeightInches}"><span id="rHeight_val">${profileBean.rHeightInches}</span> - <span id="rHeightTo_val">${profileBean.rHeightToInches}</span> </c:if>
-				<c:if test="${empty profileBean.rHeightInches}">Not Specified</c:if>
+				<span id="rHeight_val"><c:if test="${not empty profileBean.rHeightInches}">${profileBean.rHeightInches} - </c:if></span> <span id="rHeightTo_val"><c:if test="${not empty profileBean.rHeightInches}">${profileBean.rHeightToInches}</c:if></span>
+				<span id="rHeight_outer_val"><c:if test="${empty profileBean.rHeightInches}">Not Specified</c:if></span>
 			</td>
 		</tr>
 		<tr><td>Marital Status</td><td>:</td>
@@ -872,7 +871,8 @@ xpopup
 	</div>
 	</div>
 	</div>
-</div></div></div>
+</div>
+</div></div>
 </div></div></div>
 </form:form></div></div>
 </div>
@@ -906,6 +906,7 @@ in a profile. </p></div>
 </div>
 </div>
 </div>
+<script src="js/jquery-ui.min.js"></script>
 <link href="css/datepicker1.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
 $(document).ready(function(){
@@ -1349,6 +1350,12 @@ function toggleDiv(divElem){
 	   	$("#rOccupation_val").html($("#rOccupation option:selected").text());
 	   	$("#rAnnualIncome_val").html($("#rAnnualIncome option:selected").text());
 	   	$("#rDiet_val").html($("#rDiet option:selected").text()); */
+	   	if(data_type=="partner_basic"){
+	   		$("#rHeight_outer_val").html("");
+		   	$("#rHeight_val").html("");
+		   	$("#rHeightTo_val").html("");	
+	   	}
+	   	
 	   	updateDropDownValues(data_type);
 	   	updateTextFieldValues(data_type);
 	   	$("#rAgeFrom_val").html($("#rAgeFrom").val()+" - "+$("#rAgeTo").val());
@@ -1385,11 +1392,23 @@ function toggleDiv(divElem){
 		  var val = $(this).text();
 		  
 		   	if ((val.toLowerCase().indexOf("--") >= 0) || (val.toLowerCase().indexOf("-- choose --") >= 0)){
+		   		if(elemId == "rHeight" || elemId == "rHeightTo"){
+			  		  
+			  		$("#rHeight_outer_val").html("Not Specified");
+			  	}else{
+			  		$("#"+elemId+"_val").html("Not Specified");
+			  	}
 		   		
-		   		$("#"+elemId+"_val").html("Not Specified");
 		   	}else{
+		   		if(elemId == "rHeight" || elemId == "rHeightTo"){
+		   			$("#rHeight_outer_val").html("");
+		   		}
 		   		
+		  	  	if(elemId == "rHeight"){
+		  	  		$("#"+elemId+"_val").html(val+" - ");
+		  	  	}else{
 		  	  		$("#"+elemId+"_val").html(val);
+		  	  	}
 		  	  	
 		   		
 		   	}
@@ -1461,15 +1480,15 @@ function toggleDiv(divElem){
 	   	}
   }); */
   
-  /* var ss =new Date().getFullYear()-16;
+   var ss =new Date().getFullYear()-16;
   $("#dob").datepicker({
-     dateFormat: "dd-MM-yy",
-     changeDate : true,
- 	changeMonth : true,
- 	changeYear : true,
-//  	maxDate :0,
- 	yearRange: '1950:' + ss
- });  */
+	     dateFormat: "dd-MM-yy",
+	     changeDate : true,
+	 	changeMonth : true,
+	 	changeYear : true,
+//	  	maxDate :0,
+	 	yearRange: '1950:' + ss
+	 });  
   
 </script>
 

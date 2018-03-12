@@ -24,7 +24,7 @@
 								<table  style="margin-left: 20px;" width="100%" border="0" cellspacing="0" cellpadding="0">
 									<tr><td><a href="myPhotos">My Photos</a></td></tr>
 									<tr><td><a href="myProfile">Edit Profile</a></td></tr>
-									<tr><td><a href="#">Edit Partner Preferences</a></td></tr>
+									<tr><td><a href="myProfile">Edit Partner Preferences</a></td></tr>
 									<c:if test="${cacheGuest.roleId != '4' && cacheGuest.membership_status!='0'}">
 					            		<tr><td style="color:white;font-size:15px">Available profiles limit: <span id="available_limit_span">${allowed_profiles_limit}</span></td></tr>
 					            	</c:if>

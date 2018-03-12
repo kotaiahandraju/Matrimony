@@ -104,6 +104,7 @@ th,td {text-align: center;}
 .multiSelect{
 	width: 187px;
 }
+.manditory{color: red;}
 </style>
 <script>
 

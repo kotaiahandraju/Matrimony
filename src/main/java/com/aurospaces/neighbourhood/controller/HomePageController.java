@@ -918,7 +918,7 @@ public class HomePageController {
 		try {
 			
 			UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
-			if(sessionBean == null){
+			
 				String sender_username = request.getParameter("un");
 				String profile_username = request.getParameter("pun");
 				String sender_unique_code = request.getParameter("suc");
@@ -938,9 +938,11 @@ public class HomePageController {
 						return "redirect:HomePage";
 					}
 				}else{
-					return "redirect:HomePage";
+					if(sessionBean == null){
+						return "redirect:HomePage";
+					}
 				}
-			}
+			
 			int profile_id = objUserssBean.getId();
 			if((profile_id != 0) && (sessionBean.getId()!=profile_id)){
 				boolean success = objUsersDao.viewedProfile(profile_id+"");
@@ -3215,6 +3217,9 @@ public class HomePageController {
 						 String retVal = EmailUtil.sendInterestMail(userBean, receipientUser, request, objContext);
 						 if(StringUtils.isNotBlank(retVal)){
 							 objJson.put("message", "success");
+							 // decrease the profile count
+							 int allowed_profiles_limit = objUsersDao.getAllowedProfilesLimit(userBean.getId());
+							 session.setAttribute("allowed_profiles_limit", allowed_profiles_limit);
 						 }else{
 							 objJson.put("message", "failed");
 						 }
