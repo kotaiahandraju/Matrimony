@@ -2685,6 +2685,18 @@ public boolean deletePhoto(String photoId){
 		
 	
 	}
+	public List<Map<String, Object>> getPackageCount(){
+
+		jdbcTemplate = custom.getJdbcTemplate();
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("SELECT COUNT(`users`.`package_id`), `package`.`name` FROM `users` RIGHT OUTER JOIN `package`  ON (`package`.`id`=`users`.`package_id`) GROUP BY `users`.`package_id` ");
+							String sql =buffer.toString();
+							System.out.println(sql);
+							List<Map<String, Object>> result = jdbcTemplate.queryForList(sql);
+							return result;
+		
+	
+	}
 
 }
 

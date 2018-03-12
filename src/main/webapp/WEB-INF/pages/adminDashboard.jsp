@@ -61,6 +61,10 @@
 	</div>
 	</form:form>
 </div>
+
+<div id="tableId2"></div>
+
+
 </div>
 </div>
 
@@ -215,5 +219,31 @@ var listOrders2 = ${classicPlusExpiredProfiles};
 	    		
 		}); */
 	}
+ 
+ var listOfOrders = ${listOfOrders};
+ function displayTable(listOfOrders) {
+		$('#tableId2').html('');
+		var tableHead = '<table class="table table-hover table-nomargin table-bordered" >'
+			+ '<thead><tr><th>UserName</th><th>Joined On</th><th>Mobile No.</th></tr></thead><tbody></tbody></table>';
+		$('#tableId2').html(tableHead);
+		serviceUnitArray = {};
+		if(listOrders==""){
+			var tblRow = "<tr><td colspan='3' class='dataTables_empty'>No data available</td></tr>";
+			$(tblRow).appendTo("#"+tableId+" table tbody");
+			$("#table_footer").prop("hidden",true);
+			$("#paginator").prop("hidden",true);
+		}
+		$.each(listOrders,function(i, orderObj) {
+							serviceUnitArray[orderObj.id] = orderObj;
+							var tblRow = "<tr>"
+								+ "<td title='"+orderObj.username+"'><a href='#' onclick='fullProfile("+orderObj.id+")'>" + orderObj.username + "</a></td>"
+								+ "<td title='"+orderObj.package_joined_date+"'>" + orderObj.package_joined_date + "</td>"
+								+ "<td title='"+orderObj.mobile+"'>" + orderObj.mobile + "</td>"
+								+ "</tr >";
+							$(tblRow).appendTo("#tableId2 table tbody"); 
+						});
+		
+	}
+ 
  $(".dashboard").addClass("active");
 </script>

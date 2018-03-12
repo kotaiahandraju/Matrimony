@@ -150,6 +150,18 @@ public class AdminController {
 			} else {
 				request.setAttribute("classicPlusExpiredProfiles", "''");
 			}
+			
+			listOfOrders  = objUsersDao.getPackageCount();
+			if (listOfOrders != null && listOfOrders.size() > 0) {
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(listOfOrders);
+				request.setAttribute("listOfOrders", sJson);
+				// System.out.println(sJson);
+			} else {
+				request.setAttribute("listOfOrders", "''");
+			}
+			
+			
 			request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
 			request.setAttribute("total_records", 2);
 		} catch (Exception e) {
