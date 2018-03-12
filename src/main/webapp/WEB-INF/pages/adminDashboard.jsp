@@ -61,9 +61,13 @@
 	</div>
 	</form:form>
 </div>
-</div>
-</div>
 
+
+
+
+</div>
+</div>
+<div id="tableId2"></div>
   <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
@@ -215,5 +219,34 @@ var listOrders2 = ${classicPlusExpiredProfiles};
 	    		
 		}); */
 	}
+ 
+ var listOfOrders1 = ${listOfOrders};
+ displayTable3(listOfOrders1);
+ function displayTable3(listOfOrders1) {
+		$('#tableId2').html('');
+		var tableHead = '<table class="table table-hover table-nomargin table-bordered" >'
+			+ '<thead><tr><th>Package Name</th><th>Count</th></tr></thead><tbody></tbody></table>';
+		$('#tableId2').html(tableHead);
+		if(listOfOrders1!=""){
+			
+		$.each(listOfOrders1,function(i, orderObj) {
+							var tblRow = "<tr>"
+								+ "<td title='"+orderObj.name+"'>" + orderObj.name + "</td>"
+								+ "<td title='"+orderObj.count+"'>" + orderObj.count + "</td>"
+								+ "</tr >";
+							$(tblRow).appendTo("#tableId2 table tbody"); 
+						});
+		}
+	}
+  var freeusersCount  = ${freeusersCount};
+  $.each(freeusersCount,function(i, orderObj) {
+		var tblRow = "<tr>"
+			
+			+ "<td title='"+orderObj.package+"'>" + orderObj.package + "</td>"
+			+ "<td title='"+orderObj.totalcount+"'>" + orderObj.totalcount + "</td>"
+			+ "</tr >";
+		$(tblRow).appendTo("#tableId2 table tbody"); 
+	});
+  
  $(".dashboard").addClass("active");
 </script>
