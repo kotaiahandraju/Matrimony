@@ -26,7 +26,7 @@
 									<tr><td><a href="myProfile">Edit Profile</a></td></tr>
 									<tr><td><a href="myProfile">Edit Partner Preferences</a></td></tr>
 									<c:if test="${cacheGuest.roleId != '4' && cacheGuest.membership_status!='0'}">
-					            		<tr><td style="color:white;font-size:15px">Available profiles limit: <span id="available_limit_span">${allowed_profiles_limit}</span></td></tr>
+					            		
 					            	</c:if>
 									
 								</table>

@@ -106,6 +106,7 @@ protected String mail_content,rReligionName,rCasteName,rDietName,rMotherTongueNa
 protected String membership_status;
 protected String unique_code,emailverify,profileVerifyedBy;
 protected String rEducationName,rOccupationName,rCountryName,rStateName,rHeightInches,rHeightToInches;
+protected int message_sent_status;
 
 
 public String getProfileVerifyedBy() {
@@ -1007,6 +1008,12 @@ public String getrHeightToInches() {
 }
 public void setrHeightToInches(String rHeightToInches) {
 	this.rHeightToInches = rHeightToInches;
+}
+public int getMessage_sent_status() {
+	return message_sent_status;
+}
+public void setMessage_sent_status(int message_sent_status) {
+	this.message_sent_status = message_sent_status;
 }
 
 

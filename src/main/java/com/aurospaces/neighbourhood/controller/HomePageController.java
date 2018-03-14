@@ -644,8 +644,15 @@ public class HomePageController {
 	  
 	 }
 	 
+	 
+	 @RequestMapping(value = "/newsavePartnerProfile")
+	 public String newsavePartnerProfile(@ModelAttribute("partnerProfileFrm") UsersBean objUserrequirementBean, Model objeModel ,
+	   HttpServletRequest request, HttpSession session) {
+	  return "redirect:sendOtp";
+	 }
+	 
 	 @RequestMapping(value = "/savePartnerProfile")
-	 public String savePartnerProfile(@ModelAttribute("partnerProfile") UsersBean objUserrequirementBean, @RequestParam String[] rCountry, Model objeModel ,
+	 public String savePartnerProfile(@ModelAttribute("partnerProfile") UsersBean objUserrequirementBean, Model objeModel ,
 	   HttpServletRequest request, HttpSession session) {
 //	  System.out.println("Partner Profile save Page");
 	  try {
@@ -656,14 +663,14 @@ public class HomePageController {
 			//get session bean values 
 			 objUsersBean1 = objUsersDao.getById(sessionBean.getId());
 			 objUserrequirementBean.setUserId(sessionBean.getId());
-			 if(rCountry != null)
+			 /*if(rCountry != null)
 			 {
 				 String reqCountry = Arrays.toString(rCountry);
 				 reqCountry = reqCountry.replace("[", "");
 				 reqCountry = reqCountry.replace(", ", ",");
 				 reqCountry = reqCountry.replace("]", "");
 				 objUserrequirementBean.setrCountry(reqCountry);
-			 }
+			 }*/
 //			 objUserrequirementBean.setrCountry(Arrays.toString(rCountry).replaceAll("/[", "").replaceAll("/]", ""));
 			 objUserrequirementDao.save(objUserrequirementBean);
 			 UsersBean newBean = objUsersDao.loginChecking(sessionBean.getId());
@@ -740,8 +747,9 @@ public class HomePageController {
 			UsersBean profileBean = objUsersDao.loginChecking(sessionBean.getId());
 			request.setAttribute("profileBean", profileBean);
 			BeanUtils.copyProperties(profileBean,objUserssBean,getNullPropertyNames(profileBean));
-			//List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos(sessionBean.getId());
-			//request.setAttribute("photosList", photosList);
+			List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos(sessionBean.getId());
+			request.setAttribute("photosList", photosList);
+			request.setAttribute("photosListSize", photosList.size());
 		} catch (Exception e) {
 	   e.printStackTrace();
 	   System.out.println(e);
@@ -1093,6 +1101,13 @@ public class HomePageController {
 				request.setAttribute("membership_details", membership_details);
 			}else{
 				request.setAttribute("membership_details", "");
+			}
+			//to display pending requests block in dashboard
+			List<Map<String,Object>> pending_requests = objUsersDao.getPendingInterestRequests(sessionBean.getId()+"",0);
+			if(pending_requests!=null && pending_requests.size()>0){
+				request.setAttribute("pending_reqs", pending_requests);
+			}else{
+				request.setAttribute("pending_reqs", "''");
 			}
 			
 		} catch (Exception e) {
@@ -3217,6 +3232,7 @@ public class HomePageController {
 						 String retVal = EmailUtil.sendInterestMail(userBean, receipientUser, request, objContext);
 						 if(StringUtils.isNotBlank(retVal)){
 							 objJson.put("message", "success");
+							 objUsersDao.sendMailMessage(profile_id);
 							 // decrease the profile count
 							 int allowed_profiles_limit = objUsersDao.getAllowedProfilesLimit(userBean.getId());
 							 session.setAttribute("allowed_profiles_limit", allowed_profiles_limit);

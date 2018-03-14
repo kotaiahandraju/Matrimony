@@ -130,6 +130,7 @@
 		function expressInterest(profile_id){
 			var roleId = ${cacheGuest.roleId};
 			$("#id").val(profile_id);
+			var profileObj = serviceUnitArray[profileId];
 			if(roleId==4){
 				document.searchForm2.action = "memberShipPage"
 				document.searchForm2.submit();
@@ -137,12 +138,14 @@
 			}else{
 				var membershipStatus = ${cacheGuest.membership_status};
 				if(membershipStatus!="1"){
-					alert("Your membership validity period is over. Renew your membership plan and get more profiles");
+					alert("Your membership validity period is over. Renew/Upgrade your membership plan and get more profiles");
 					return false;
 				}
-				if(allowed_limit<=0){
-					alert("Exceeded allowed profiles limit.");
-					return false;
+				if(profileObj.mobileNumViewed==0 && profileObj.message_sent_status==0){
+					if(allowed_limit<=0){
+						alert("Exceeded allowed profiles limit.");
+						return false;
+					}
 				}
 				var formData = new FormData();
 			
@@ -193,6 +196,7 @@
 		function displayMobileNum(profileId,listType){
 			var roleId = ${cacheGuest.roleId};
 			$("#id").val(profileId);
+			var profileObj = serviceUnitArray[profileId];
 			if(roleId==4){
 				document.searchForm2.action = "memberShipPage"
 				document.searchForm2.submit();
@@ -203,11 +207,13 @@
 					alert("Your membership validity period is over. Renew your membership plan and get more profiles");
 					return false;
 				}
-				if(allowed_limit<=0){
-					alert("Exceeded allowed profiles limit. Renew/Upgrade your membership and get more profiles");
-					return false;
+				if(profileObj.expressedInterest==0 && profileObj.message_sent_status==0){
+					if(allowed_limit<=0){
+						alert("Exceeded allowed profiles limit.");
+						return false;
+					}
 				}
-				var profileObj = serviceUnitArray[profileId];
+				
 				var formData = new FormData();
 				formData.append('profile_id',profileId);
 				formData.append('list_type',listType);
@@ -304,12 +310,17 @@
 					}else if(expressed>0){
 						interestStr = '<span><a type="button" class="btn btn-success btn-block" disabled="true" style="text-size-adjust:auto">Expressed Interest</a></span>';
 					}
+					var message_sent_status = orderObj.message_sent_status;
+					var messageStr = "";
+					if(message_sent_status>0){
+						messageStr = 'You sent an email to this member.';
+					}
 					var mobNumViewed = orderObj.mobileNumViewed;
 					var mobile_num_Str = "";
-					if(mobNumViewed==0){
-						mobile_num_Str = '<span ><a href="#" type="button" class="btn btn-primary btn-block" onclick="displayMobileNum('+orderObj.id+')">View Mobile Number</a></span>';
-					}else if(mobNumViewed>0){
+					if(mobNumViewed==1 || expressed==1 || message_sent_status==1){
 						mobile_num_Str = '<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+orderObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>';
+					}else{
+						mobile_num_Str = '<span ><a href="#" type="button" class="btn btn-primary btn-block" onclick="displayMobileNum('+orderObj.id+')">View Mobile Number</a></span>';
 					}
 					var profession = orderObj.occupationName;
 					if((profession == null) || profession == ""){
@@ -440,12 +451,17 @@
 					}else if(expressed>0){
 						interestStr = '<span><a type="button" class="btn btn-success btn-block" disabled="true" style="text-size-adjust:auto">Expressed Interest</a></span>';
 					}
+					var message_sent_status = orderObj.message_sent_status;
+					var messageStr = "";
+					if(message_sent_status>0){
+						messageStr = 'You sent an email to this member.';
+					}
 					var mobNumViewed = orderObj.mobileNumViewed;
 					var mobile_num_Str = "";
-					if(mobNumViewed==0){
-						mobile_num_Str = '<span ><a href="#" type="button" class="btn btn-primary btn-block" onclick="displayMobileNum('+orderObj.id+')">View Mobile Number</a></span>';
-					}else if(mobNumViewed>0){
+					if(mobNumViewed==1 || expressed==1 || message_sent_status==1){
 						mobile_num_Str = '<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+orderObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>';
+					}else{
+						mobile_num_Str = '<span ><a href="#" type="button" class="btn btn-primary btn-block" onclick="displayMobileNum('+orderObj.id+')">View Mobile Number</a></span>';
 					}
 					var profession = orderObj.occupationName;
 					if((profession == null) || profession == ""){
@@ -608,12 +624,17 @@
 						}else if(expressed>0){
 							interestStr = '<span><a type="button" class="btn btn-success btn-block" disabled="true" style="text-size-adjust:auto">Expressed Interest</a></span>';
 						}
+						var message_sent_status = orderObj.message_sent_status;
+						var messageStr = "";
+						if(message_sent_status>0){
+							messageStr = 'You sent an email to this member.';
+						}
 						var mobNumViewed = orderObj.mobileNumViewed;
 						var mobile_num_Str = "";
-						if(mobNumViewed==0){
-							mobile_num_Str = '<span id="mobileTD'+orderObj.id+'"><a href="#" type="button" class="btn btn-primary btn-block" onclick="displayMobileNum('+orderObj.id+')">View Mobile Number</a></span>';
-						}else if(mobNumViewed>0){
+						if(mobNumViewed==1 || expressed==1 || message_sent_status==1){
 							mobile_num_Str = '<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+orderObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>';
+						}else{
+							mobile_num_Str = '<span id="mobileTD'+orderObj.id+'"><a href="#" type="button" class="btn btn-primary btn-block" onclick="displayMobileNum('+orderObj.id+')">View Mobile Number</a></span>';
 						}
 						var profession = orderObj.occupationName;
 						if((profession == null) || profession == ""){
@@ -679,6 +700,10 @@
 					//}
 					
 						var photos_list = orderObj.photosList;
+						var photos_array = {};
+						$.each(photos_array,function(i,photo){
+							photos_array[i] = photo;
+						});
 						var tblRow = '<div class="panel panel-default">'
 							+ '<div class="panel-heading">'
 							+ '<h5 class="panel-title">'
@@ -694,7 +719,7 @@
 							+ '</div>'
 							+ '<div class="panel-body">'
 							+ '<div class="col-md-2">'
-							+ '<a href="#"> <img src='+image+' class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: 60px;width: 60px;" onclick="openPhotoModal('+photos_list+');"></a>'
+							+ '<a href="#" onclick="openModal();"> <img src='+image+' class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: 60px;width: 60px;" ></a>'
 			            	+ '</div>'
 			            	+ '<div class="col-md-6">'
 			            	+ '<table>'
@@ -797,6 +822,9 @@
 		}
 
 		function sendMail(){
+			var roleId = ${cacheGuest.roleId};
+			$("#id").val(profileId);
+			var profileObj = serviceUnitArray[profileId];
 			
 			var content = $("#mail_content").val();
 			if(content.trim() == ""){
@@ -827,8 +855,8 @@
 			//$("#sendMailBtn").removeAttr("disabled");
 			//$("#sendMailBtn").val("Send Mail");
 			
-		}
 		
+		}
 		function displayInbox(tab_type,list_type){
 			 document.searchForm2.action = "inboxAction?tab_type="+tab_type+"&list_type="+list_type;
 		     document.searchForm2.submit();             // Submit the page
@@ -961,9 +989,68 @@ function plusSlides(n) {
 function currentSlide(n) {
   showSlides(slideIndex = n);
 }
+
+function currentSlide_inpage(current_img){
+	var str = '<img id="profilepic" src="'+current_img+'" style="width:100%" onclick="openModal();currentSlide(1)" class="hover-shadow cursor watermark_text">';
+	//$("#profilepic").prop("src",photoImage);
+	$("#fullProfilePicOuterTag").html('');
+	$("#fullProfilePicOuterTag").html(str);
+	addWaterMark();
+	//$("#img_inpage").attr("src",current_img);
+}
+function showSlides(n) {
+	  var i;
+	  var slides = document.getElementsByClassName("mySlides");
+	  var dots = document.getElementsByClassName("demo");
+	  var imgs = document.getElementsByClassName("myImg");
+	  var captionText = document.getElementById("caption");
+	  if (n > slides.length) {slideIndex = 1}
+	  if (n < 1) {slideIndex = slides.length}
+	  for (i = 0; i < slides.length; i++) {
+	      slides[i].style.display = "none";
+	  }
+	  for (i = 0; i < dots.length; i++) {
+	      dots[i].className = dots[i].className.replace(" active", "");
+	  }
+	  
+	  imgs[slideIndex-1].className += " watermark_text";
+	  dots[slideIndex-1].className += " active";
+	  slides[slideIndex-1].style.display = "block";
+	  captionText.innerHTML = dots[slideIndex-1].alt;
+	  addWaterMark();
+	}
+	////Photo pop-up related script---ends
+
+	function getFilteredStatesMultiSelect(id){
+		if($("#"+id).val()== null   || $('#'+id).val() == "" || $('#'+id).val()=="undefined"){
+			$("#"+id).select2({
+			    placeholder: "-- Choose Country --"
+			});
+			
+		}else{
+			var countryIds =$("#"+id).val();
+			var formData = new FormData();
+		     formData.append('country_ids', countryIds);
+		     
+		    $.fn.makeMultipartRequest('POST', 'getFilteredStates', false,
+					formData, false, 'text', function(data){
+				var jsonobj = $.parseJSON(data);
+				var statesList = jsonobj.states_list;
+	         $("#rState").empty();
+				$("#rState").append("<option value='' >-- Choose State --</option>");
+				
+				$.each(statesList, function(i, state) {
+					$("#rState").append("<option value="+state.id+" >"+ state.name+"</option>");
+				});
+				
+			});
+			
+		}
+	}
 function openPhotoModal(photos_list){
 	var str1 = "";
 	var len = photos_list.length;
+	//var scoppedPhotos = ${scopped_photos};
 	$.each(photos_list,function(i, photoObject) 
 	{
 		var j = i+1;
@@ -999,28 +1086,27 @@ function openPhotoModal(photos_list){
 	  document.getElementById('myPhotoModal').style.display = "block";
 	  
 }
-function showSlides(n) {
-  var i;
-  var slides = document.getElementsByClassName("mySlides");
-  var dots = document.getElementsByClassName("demo");
-  var imgs = document.getElementsByClassName("myImg");
-  var captionText = document.getElementById("caption");
-  if (n > slides.length) {slideIndex = 1}
-  if (n < 1) {slideIndex = slides.length}
-  for (i = 0; i < slides.length; i++) {
-      slides[i].style.display = "none";
-  }
-  for (i = 0; i < dots.length; i++) {
-      dots[i].className = dots[i].className.replace(" active", "");
-  }
-  
-  imgs[slideIndex-1].className += " watermark_text";
-  dots[slideIndex-1].className += " active";
-  slides[slideIndex-1].style.display = "block";
-  captionText.innerHTML = dots[slideIndex-1].alt;
-  addWaterMark();
+
+
+function validate(id, errorMessage)
+{
+	var styleBlock = '.placeholder-style.placeholder-style::-moz-placeholder {color: #cc0000;} .placeholder-style::-webkit-input-placeholder {color: #cc0000;}';
+	if($('#'+id).val() ==  null || $('#'+id).val() == ""  || $('#'+id).val()=="undefined" ) {
+		$('style').append(styleBlock);
+		$('#'+id).css('border-color','#cc0000');
+		$('#'+id).css('color','#cc0000');
+		$('#'+id).attr('placeholder',errorMessage);
+		$('#'+id).addClass('placeholder-style your-class');
+//			$('#'+id).css('color','#cc0000');
+//			$('#'+id+'Error').text(errorMessage);
+	}else{
+		$('#'+id).css('border-color','');
+		$('#'+id).removeClass('placeholder-style your-class');
+//			$('#'+id).css('color','');
+//			$('#'+id+'Error').text("");
+	}
+	
 }
-////Photo pop-up related script---ends
 	</script>
 	
 	<script type="text/javascript" src="js/ajax.js"></script>

@@ -317,6 +317,9 @@ function submitProfileSettings(actionStr){
 			if(msg=="success"){
 				if(actionStr=="change_password"){
 					alert("Password changed successfully");
+					$("#currentPassword").val("");
+					$("#newPassword1").val("");
+					$("#newPassword2").val("");
 				}else if(actionStr=="profile_settings"){
 					alert("Settings updated successfully");
 				}else if(actionStr=="delete_profile"){

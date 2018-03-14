@@ -191,20 +191,25 @@ public class LoginController {
 			session.setAttribute("userName", objUserBean.getUsername());
 			
 			int filled_status = objUsersDao.getProfileFilledStatus(objUserBean);
-			
-			if(StringUtils.isBlank(objUserBean.getMaritalStatus())){
+			if(StringUtils.isBlank(objUserBean.getCurrentState()) ||
+			   StringUtils.isBlank(objUserBean.getMaritalStatus()) ||
+			   StringUtils.isBlank(objUserBean.getCaste())){
 				return "redirect:profile.htm?page=1";
 			}
 			filled_status += 15;
-			if(StringUtils.isBlank(objUserBean.getEducation())){
+			if(StringUtils.isBlank(objUserBean.getEducation()) ||
+			   StringUtils.isBlank(objUserBean.getOccupation())){
 				return "redirect:profile.htm?page=2";
 			}
 			filled_status += 15;
-			if(StringUtils.isBlank(objUserBean.getHeight())){
+			if(StringUtils.isBlank(objUserBean.getHeight()) ||
+					StringUtils.isBlank(objUserBean.getSmoking()) ||
+					StringUtils.isBlank(objUserBean.getDrinking()) ||
+					StringUtils.isBlank(objUserBean.getMobile())){
 				return "redirect:profile.htm?page=3";
 			}
 			filled_status += 15;
-			if(StringUtils.isBlank(objUserBean.getAboutMyself()) && StringUtils.isBlank(objUserBean.getDisability())){
+			if(StringUtils.isBlank(objUserBean.getAboutMyself()) || StringUtils.isBlank(objUserBean.getDisability())){
 				return "redirect:profile.htm?page=4";
 			}
 			session.setAttribute("profile_filled_status", filled_status);

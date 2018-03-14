@@ -152,7 +152,7 @@ function displayMatches(listOrders) {
 					memberRoleId==12 || memberRoleId==13 || memberRoleId==14)){
 				premiumMember = "<span class='premium-member'>Premium Member</span>";
 			}
-			var shortListedStr = '<span id="shortlistTD'+orderObj.id+'"><a href="#" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="shortList('+orderObj.id+')"> Shortlist</a></span>';
+			var shortListedStr = '<span id="shortlistTD'+orderObj.id+'"><a href="#" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="shortList_dashboard('+orderObj.id+')"> Shortlist</a></span>';
 			if(orderObj.short_listed == "1"){
 				shortListedStr = "<span>Shortlisted</span>";
 			}
@@ -163,12 +163,18 @@ function displayMatches(listOrders) {
 			}else if(expressed>0){
 				interestStr = '<span>Expressed Interest</span>';
 			}
+			var message_sent_status = orderObj.message_sent_status;
+			var messageStr = "";
+			if(message_sent_status>0){
+				messageStr = 'You sent an email to this member.';
+			}
 			var mobNumViewed = orderObj.mobileNumViewed;
 			var mobile_num_Str = "";
-			if(mobNumViewed==0){
-				mobile_num_Str = '<span ><a href="#" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="displayMobileNum('+orderObj.id+')"> View mobile no.</a></span>';
-			}else if(mobNumViewed>0){
+			if(mobNumViewed==1 || expressed==1 || message_sent_status==1){
 				mobile_num_Str = '<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+orderObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>';
+				
+			}else{
+				mobile_num_Str = '<span ><a href="#" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="displayMobileNum('+orderObj.id+')"> View mobile no.</a></span>';
 			}
 			var tblRow = '<div class="row">'
 				+ '<div class="col-md-2" >'
@@ -313,8 +319,9 @@ function expressInterest_dashboard(profile_id){
 			alert("Exceeded allowed profiles limit. Renew your membership plan and get more profiles");
 			return false;
 		}
+		var profileObj = serviceUnitArray[profile_id];
+
 		var formData = new FormData();
-	
 		formData.append('profile_id',profile_id);
 		jQuery.fn.makeMultipartRequest('POST', 'expressInterestTo', false,
 				formData, false, 'text', function(data){
@@ -327,6 +334,7 @@ function expressInterest_dashboard(profile_id){
 	    				alert("Interest request has been sent successfully");
 	    				$("#expInterest"+profile_id).html('Expressed Interest');
 	    				$("#expInterest"+profile_id).prop("disabled",true);
+	    				$("#mobileTD"+profile_id).html('<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+profileObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>');
 	    				allowed_limit = limit;
 	    			}else if("failed"==msg || "exception"==msg){
 	    				alert("Interest request is not successful. Please try again.");
@@ -501,4 +509,3 @@ $(".dashboard").addClass("active");
 </script>
 
 <%@ include file="userFooter.jsp"%>
-</html>

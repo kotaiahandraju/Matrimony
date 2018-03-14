@@ -244,7 +244,28 @@ xpopup
             	
 					<div class="col-md-3"> <h4></h4>
 						<c:if test="${not empty cacheGuest.profileImage}">
-							<img src="${cacheGuest.profileImage}" class="img-responsive" style="margin-bottom:0;">
+							<a href="#" id="fullProfilePicOuterTag"><img src="${cacheGuest.profileImage}" style="width:100%" onclick="openModal();currentSlide(1)" class="hover-shadow cursor watermark_text"></a>
+							 <%-- <div id="gallery-wrapper">
+								<!-- thumbnail images -->
+								  <div id="thumbs-wrapper">
+								    <div id="gallery" style="margin:-10px 8px 8px;width:200%">
+								    	<c:set var="counter3" value="${0}" /> 
+								    	<c:forEach items="${photosList}" var="photo" >
+								    		<c:set var="counter3" value="${counter3+1}" />
+									      	<div class="thumbnail" style=""> 
+										        <img src="${photo.image}" class="watermark_text" style="width:100%"  onclick="currentSlide_inpage('${photo.image}')"/> 
+										    </div>
+										</c:forEach>
+								    </div> 
+								  </div>
+								  
+								  <!-- thumbnail navigation -->
+								  <div id="thumbs-nav"> 
+								    <a id="gallery-next" style="margin-right:0px; margin-top:-80px;" href="#">next</a>
+								    <a id="gallery-prev" style="margin-left:0px; margin-top:-80px;" href="#">previous</a>
+								    <p id="gallery-pos" hidden="true">page 1 of 2</p>
+								  </div>
+							</div> --%>
 						</c:if>
 						<c:if test="${empty cacheGuest.profileImage}">
 							<img src="img/default.png" class="img-responsive" style="margin-bottom:0;">
@@ -844,7 +865,7 @@ xpopup
 		<div class="form-group">
 	      <label class="col-md-4 control-label" for="textinput">Country living in</label>  
 	      <div class="col-md-7">
-	      	<form:select path="rCountry" class="multiSelect" multiple="true">
+	      	<form:select path="rCountry" class="multiSelect" multiple="true" onchange="getFilteredStatesMultiSelect(this.id)">
 				<form:options items="${countries}"></form:options>
 				
 			</form:select>

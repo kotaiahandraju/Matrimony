@@ -263,7 +263,7 @@
 					    <div class="form-group">
 					      <label class="col-md-4 control-label" for="textinput">Your Mobile number <span class='manditory'>*</span></label>  
 					      <div class="col-md-6">
-					      <form:input path="mobile" class="form-control numericOnly"  onblur="validate(this.id,'Enter Mobile');" onkeydown="removeBorder(this.id)" maxlength="13" placeholder="Mobile Number"/>
+					      <form:input path="mobile" class="form-control numericOnly u"  onblur="validate(this.id,'Enter Mobile');" onkeydown="removeBorder(this.id)" maxlength="10" placeholder="Mobile Number"/>
 					      <span class="hasError" id="mobileError" style="font-size: 13px;color:red"></span>
 					      </div>
 					    </div>

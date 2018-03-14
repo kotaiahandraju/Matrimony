@@ -402,7 +402,6 @@ if(listOrders1 != null && listOrders1 != ""){
 	displayTableFooter(1);
 }
 
-
 function fullProfile(profile_id){
 	/* var roleId = ${cacheGuest.roleId};
 	$("#id").val(profile_id);
