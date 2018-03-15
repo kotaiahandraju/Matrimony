@@ -700,10 +700,17 @@
 					//}
 					
 						var photos_list = orderObj.photosList;
-						var photos_array = {};
-						$.each(photos_array,function(i,photo){
-							photos_array[i] = photo;
+						var slider = "";
+						$.each(photos_list,function(i,photo){
+							slider += '<div class="smallSlides">'
+									+'		<img src="'+photo.image+'" class="img img-responsive thumbnail " style="margin-bottom:0;height: 60px;width: 60px;" >'
+									+'</div>'
 						});
+						slider += '<p style="display: table;">'
+								+'	<a class="" style="margin: 0px 0px 0px 7px;cursor: pointer;" onclick="plusSmallSlides(-1)">&#10094;</a>'
+								//+'	<span>'+(i+1)+' of '+photos_list.length+'</span><br>'
+			    			    +'	<a class="" style="margin-left: 41px;cursor: pointer;" onclick="plusSmallSlides(1)">&#10095;</a>'
+								+'</p>'
 						var tblRow = '<div class="panel panel-default">'
 							+ '<div class="panel-heading">'
 							+ '<h5 class="panel-title">'
@@ -718,8 +725,11 @@
 							+ '</h5>'
 							+ '</div>'
 							+ '<div class="panel-body">'
-							+ '<div class="col-md-2">'
-							+ '<a href="#" onclick="openModal();"> <img src='+image+' class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: 60px;width: 60px;" ></a>'
+							+ '<div class="col-md-2" >'
+							+ ' <div class="smallSlides" style="display:block"> '
+							+ '		<a href="#"> <img src='+image+' class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: 60px;width: 60px;" ></a>'
+							+ ' </div>'
+							+  slider
 			            	+ '</div>'
 			            	+ '<div class="col-md-6">'
 			            	+ '<table>'
@@ -1018,8 +1028,26 @@ function showSlides(n) {
 	  slides[slideIndex-1].style.display = "block";
 	  captionText.innerHTML = dots[slideIndex-1].alt;
 	  addWaterMark();
-	}
+}
 	////Photo pop-up related script---ends
+var slideIndex = 0;
+function plusSmallSlides(n) {
+		slideIndex += n;
+	  var i;
+	  var slides = document.getElementsByClassName("smallSlides");
+	  //var captionText = document.getElementById("caption");
+	  if (slideIndex > slides.length) {slideIndex = 1}
+	  if (slideIndex < 1) {slideIndex = slides.length}
+	  for (i = 0; i < slides.length; i++) {
+	      slides[i].style.display = "none";
+	  }
+	  
+	  
+	  slides[slideIndex-1].style.display = "block";
+	  //$("#temp").html(slides[slideIndex-1].html());
+	  //captionText.innerHTML = dots[slideIndex-1].alt;
+	  //addWaterMark();
+}
 
 	function getFilteredStatesMultiSelect(id){
 		if($("#"+id).val()== null   || $('#'+id).val() == "" || $('#'+id).val()=="undefined"){
@@ -1620,6 +1648,9 @@ body {
   display: none;
 }
 
+.smallSlides {
+  display: none;
+}
 .cursor {
   cursor: pointer
 }

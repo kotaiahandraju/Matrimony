@@ -821,7 +821,7 @@ in a profile. </p></div>
 </div>
 <script type="text/javascript">
 var slideIndex = 1;
-showSlides(slideIndex);
+//showSlides(slideIndex);
 var allowed_limit = ${allowed_profiles_limit};
 $(document).ready(function(){
 	$('#gallery').gallery({

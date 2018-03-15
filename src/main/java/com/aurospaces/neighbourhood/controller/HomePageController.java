@@ -3714,6 +3714,7 @@ public class HomePageController {
    }
    private UsersBean copyPartnerProfessionalPreferences(UsersBean source,UsersBean target){
 	   target.setrEducation(source.getrEducation().equalsIgnoreCase("null")?null:source.getrEducation());
+	   target.setrWorkingWith(source.getrWorkingWith().equalsIgnoreCase("null")?null:source.getrWorkingWith());
 	   target.setrOccupation(source.getrOccupation().equalsIgnoreCase("null")?null:source.getrOccupation());
 	   target.setrAnnualIncome(source.getrAnnualIncome().equalsIgnoreCase("null")?null:source.getrAnnualIncome());
 	   
