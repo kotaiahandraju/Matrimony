@@ -718,4 +718,57 @@ public class FilterController {
 		}
 		return objJson.toString();
 	}
+	@RequestMapping(value = "/verifyProfile")
+	public @ResponseBody String verifyProfile(ModelMap model, HttpServletRequest request, HttpSession session, RedirectAttributes redir) {
+		// System.out.println("approvePhoto Page");
+		JSONObject objJson = new JSONObject();
+		try {
+			UsersBean userBean = (UsersBean) session.getAttribute("cacheUserBean");
+			if (userBean == null) {
+				return "redirect:HomePage";
+			}
+			String id = request.getParameter("id");
+			if(id != null){
+				boolean tt =objUsersDao.profileVerifyedBy(Integer.parseInt(id),userBean.getId()) ;
+			}
+			
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			System.out.println(e);
+			logger.error(e);
+			logger.fatal("error in FilterController class approvePhoto method");
+			return "updatedProfiles";
+		}
+		return objJson.toString();
+	}
+	
+	@RequestMapping(value = "/loginProfiles")
+	public String loginProfiles(@ModelAttribute("createProfile") UsersBean objUsersBean, ModelMap model,
+			HttpServletRequest request, HttpSession session, RedirectAttributes redir) {
+		// System.out.println("updatedProfiles Page");
+		List<Map<String, Object>> listOrderBeans = null;
+		ObjectMapper objectMapper = null;
+		String sJson = null;
+		try {
+			listOrderBeans = objUsersDao.getLoginUsers();
+			if (listOrderBeans != null && listOrderBeans.size() > 0) {
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(listOrderBeans);
+				request.setAttribute("allOrders1", sJson);
+				// System.out.println(sJson);
+			} else {
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(listOrderBeans);
+				request.setAttribute("allOrders1", "''");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			logger.error(e);
+			logger.fatal("error in FilterController class updatedProfiles method");
+		}
+		return "loginProfiles";
+	}
 }

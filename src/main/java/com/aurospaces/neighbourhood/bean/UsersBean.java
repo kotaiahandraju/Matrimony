@@ -103,9 +103,18 @@ protected String weight;
 protected String fOccupationName;
 protected String mOccupationName;
 protected String mail_content,rReligionName,rCasteName,rDietName,rMotherTongueName,rMaritalStatusName;
-protected String unique_code,emailverify;
+protected String membership_status;
+protected String unique_code,emailverify,profileVerifyedBy;
+protected String rEducationName,rOccupationName,rCountryName,rStateName,rHeightInches,rHeightToInches;
+protected int message_sent_status;
 
 
+public String getProfileVerifyedBy() {
+	return profileVerifyedBy;
+}
+public void setProfileVerifyedBy(String profileVerifyedBy) {
+	this.profileVerifyedBy = profileVerifyedBy;
+}
 public String getEmailverify() {
 	return emailverify;
 }
@@ -957,6 +966,54 @@ public String getUnique_code() {
 }
 public void setUnique_code(String unique_code) {
 	this.unique_code = unique_code;
+}
+public String getMembership_status() {
+	return membership_status;
+}
+public void setMembership_status(String membership_status) {
+	this.membership_status = membership_status;
+}
+public String getrEducationName() {
+	return rEducationName;
+}
+public void setrEducationName(String rEducationName) {
+	this.rEducationName = rEducationName;
+}
+public String getrOccupationName() {
+	return rOccupationName;
+}
+public void setrOccupationName(String rOccupationName) {
+	this.rOccupationName = rOccupationName;
+}
+public String getrCountryName() {
+	return rCountryName;
+}
+public void setrCountryName(String rCountryName) {
+	this.rCountryName = rCountryName;
+}
+public String getrStateName() {
+	return rStateName;
+}
+public void setrStateName(String rStateName) {
+	this.rStateName = rStateName;
+}
+public String getrHeightInches() {
+	return rHeightInches;
+}
+public void setrHeightInches(String rHeightInches) {
+	this.rHeightInches = rHeightInches;
+}
+public String getrHeightToInches() {
+	return rHeightToInches;
+}
+public void setrHeightToInches(String rHeightToInches) {
+	this.rHeightToInches = rHeightToInches;
+}
+public int getMessage_sent_status() {
+	return message_sent_status;
+}
+public void setMessage_sent_status(int message_sent_status) {
+	this.message_sent_status = message_sent_status;
 }
 
 

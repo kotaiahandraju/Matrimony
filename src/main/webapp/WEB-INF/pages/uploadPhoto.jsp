@@ -33,7 +33,7 @@
 					    	<div class="col-md-offset-4 col-md-8">
 					    		<input type="button" class="btn btn-info" id="uploadBtn" value="Upload Photo" onclick="imageAjax()">
 			<!-- 		    		<button id="secondButton" class="btn2 btn btn-warning" onclick="goToNextPage()">Continue/Skip</button> -->
-					    		<a style="color: blue;text-decoration: none;" href="${baseurl}/partner-profile">&nbsp;&nbsp;Continue/Skip</a>
+					    		<a style="color: blue;text-decoration: none;" href="${baseurl}/partner-profile">&nbsp;&nbsp;Continue</a>
 					    	</div>
 					    </div>
 					    <div class="form-group">

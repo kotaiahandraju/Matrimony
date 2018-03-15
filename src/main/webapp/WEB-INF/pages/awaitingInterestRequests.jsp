@@ -188,6 +188,12 @@
 							<li id="awaiting_requests_tab">
 								<a href="#" onclick="displayBlock('sent','awaiting_requests');">Awaiting Reply</a>
 							</li>
+							<li id="accepted_me_requests_tab">
+								<a href="#" onclick="displayBlock('sent','accepted_me_requests');">Accepted Me</a>
+							</li>
+							<li id="rejected_me_requests_tab">
+								<a href="#" onclick="displayBlock('sent','rejected_me_requests');">Rejected Me</a>
+							</li>
 							
 						</ul>	
 					</div>
@@ -217,6 +223,36 @@
 		            
 	             		<form:hidden path="id" />
 						<div class="panel-body" id="awaiting_requests">
+							
+						</div>
+					
+				</div>
+				
+				
+			</div>
+		</section>
+		<section id="accepted_me_requests_section" class="tab-content_inbox hide">
+			<div>
+				<div class="panel panel-success">
+					<div class="panel-heading" id="tbl_header">Following members accepted your requests. </div>
+		            
+	             		<form:hidden path="id" />
+						<div class="panel-body" id="accepted_me_requests">
+							
+						</div>
+					
+				</div>
+				
+				
+			</div>
+		</section>
+		<section id="rejected_me_requests_section" class="tab-content_inbox hide">
+			<div>
+				<div class="panel panel-success">
+					<div class="panel-heading" id="tbl_header">Following members rejected your requests. </div>
+		            
+	             		<form:hidden path="id" />
+						<div class="panel-body" id="rejected_me_requests">
 							
 						</div>
 					
@@ -365,7 +401,6 @@ if(listOrders1 != null && listOrders1 != ""){
 	$("#altLists").removeAttr("hidden");
 	displayTableFooter(1);
 }
-
 
 function fullProfile(profile_id){
 	/* var roleId = ${cacheGuest.roleId};

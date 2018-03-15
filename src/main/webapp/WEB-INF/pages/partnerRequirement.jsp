@@ -73,7 +73,7 @@
 				      <label class="col-md-4 control-label" for="textinput">Marital Status</label>  
 				      <div class="col-md-7">
 				      	<form:select path="rMaritalStatus" class="multiSelect" onchange="hideChildren();" multiple="true" >
-							<form:option value="">Doesn't Matter</form:option>
+							<form:option value="any">Doesn't Matter</form:option>
 							<form:option value="Married">Married</form:option>
 							<form:option value="Unmarried">Unmarried</form:option>
 							<form:option value="Widow/Divorced">Widow/Divorced</form:option>
@@ -97,7 +97,6 @@
 				      <label class="col-md-4 control-label" for="textinput">Religion</label>  
 				      <div class="col-md-7">
 				      	<form:select path="rReligion" class="multiSelect" multiple="true">
-							<form:option value="">-- Choose Religion --</form:option>
 							<form:options items="${religion}"></form:options>
 						</form:select>
 				      </div>
@@ -107,7 +106,6 @@
 				      <label class="col-md-4 control-label" for="textinput">Community</label>  
 				      <div class="col-md-7">
 				      	<form:select path="rCaste" class="multiSelect" multiple="true">
-							<form:option value="">-- Choose Community --</form:option>
 							<form:options items="${cast}"></form:options>
 						</form:select>
 				      </div>
@@ -117,7 +115,6 @@
 				      <label class="col-md-4 control-label" for="textinput">Mother Tongue</label>  
 				      <div class="col-md-7">
 				      	<form:select path="rMotherTongue" class="multiSelect"  multiple="true">
-							<form:option value="">-- Choose Mother Tongue --</form:option>
 							<form:options items="${language}"></form:options>
 						</form:select>
 				      </div>
@@ -140,8 +137,7 @@
 				    <div class="form-group">
 				      <label class="col-md-4 control-label" for="textinput">Country living in</label>  
 				      <div class="col-md-7">
-				      	<form:select path="rCountry" class="multiSelect" multiple="true">
-							<form:option value="">-- Choose Country --</form:option>
+				      	<form:select path="rCountry" class="multiSelect" multiple="true" onchange="getFilteredStatesMultiSelect(this.id)">
 							<form:options items="${countries}"></form:options>
 							
 						</form:select>
@@ -152,7 +148,6 @@
 				      <label class="col-md-4 control-label" for="textinput">State living in</label>  
 				      <div class="col-md-7">
 				      	<form:select path="rState" class="multiSelect" multiple="true">
-							<form:option value="">-- Choose State --</form:option>
 							<form:options items="${states }"></form:options>
 						</form:select>
 				      </div>
@@ -167,7 +162,7 @@
 				      <label class="col-md-4 control-label" for="textinput">Education</label>  
 				      <div class="col-md-7">
 				      	<form:select path="rEducation" class="multiSelect" multiple="true">
-							<form:option value="">Doesn't Matter</form:option>
+							<form:option value="any">Doesn't Matter</form:option>
 							<form:options items="${education}"></form:options>
 						</form:select>
 				      </div>
@@ -177,7 +172,7 @@
 				      <label class="col-md-4 control-label" for="textinput">Working with</label>  
 				      <div class="col-md-7">
 				      	<form:select path="rWorkingWith" class="multiSelect" multiple="true">
-							<form:option value="">Doesn't Matter</form:option>
+							<form:option value="any">Doesn't Matter</form:option>
 							<form:option value="Private Company">Private Company</form:option>
 							<form:option value="Government/Public Sector">Government/Public Sector</form:option>
 							<form:option value="Defense/Civil Services">Defense/Civil Services</form:option>
@@ -190,7 +185,7 @@
 				      <label class="col-md-4 control-label" for="textinput">Profession area</label>  
 				      <div class="col-md-7">
 				      	<form:select path="rOccupation" class="multiSelect" multiple="true">
-							<form:option value="">Doesn't Matter</form:option>
+							<form:option value="any">Doesn't Matter</form:option>
 							<form:options items="${occupation}"></form:options>
 						</form:select>
 				      </div>
@@ -239,7 +234,6 @@
 				      <label class="col-md-4 control-label" for="textinput">Diet</label>  
 				      <div class="col-md-7">
 				      	<form:select path="rDiet" class="multiSelect"  multiple="true">
-							<form:option value="">-- Select Diet--</form:option>
 							<form:option value="Veg">Veg</form:option>
 							<form:option value="Non-Veg">Non-Veg</form:option>
 							<form:option value="Occasionally Non-Veg">Occasionally Non-Veg</form:option>
@@ -355,11 +349,27 @@ $(document).ready(function(){
     
     selected_values="";
     selected_values = "${partnerProfile.rState}";
-    $("#rState").val(selected_values.split(","));
+    if(selected_values == "" || selected_values==null){
+    	$("#rState").select2({
+    	    placeholder: "-- Choose State --"
+    	});
+    }else{
+    	var tt = selected_values.split(",");
+    	$("#rState").val(selected_values.split(","));
+    } 
+    
     
     selected_values="";
     selected_values = "${partnerProfile.rEducation}";
-    $("#rEducation").val(selected_values.split(","));
+    if(selected_values == "" || selected_values==null){
+    	$("#rEducation").select2({
+    	    placeholder: "-- Choose Education --"
+    	});
+    }else{
+    	var tt = selected_values.split(",");
+    	$("#rEducation").val(selected_values.split(","));
+    } 
+    
     
     selected_values="";
 	selected_values = "${partnerProfile.rReligion}";
@@ -379,7 +389,7 @@ $(document).ready(function(){
 	selected_values = "${partnerProfile.rMotherTongue}";
 	if(selected_values == "" || selected_values==null){
     	$("#rMotherTongue").select2({
-    	    placeholder: "-- Choose Mother Tongue --"
+    	    placeholder: "-- Choose MotherTongue --"
     	});
     }else{
     	var tt = selected_values.split(",");
@@ -389,19 +399,51 @@ $(document).ready(function(){
 	
 	selected_values="";
 	selected_values = "${partnerProfile.rCountry}";
-	$("#rCountry").val(selected_values.split(","));
+	if(selected_values == "" || selected_values==null){
+    	$("#rCountry").select2({
+    	    placeholder: "-- Choose Country --"
+    	});
+    }else{
+    	var tt = selected_values.split(",");
+    	$("#rCountry").val(selected_values.split(","));
+    } 
+	
 	
 	selected_values="";
 	selected_values = "${partnerProfile.rWorkingWith}";
-	$("#rWorkingWith").val(selected_values.split(","));
+	if(selected_values == "" || selected_values==null){
+    	$("#rWorkingWith").select2({
+    	    placeholder: "-- Choose Working With --"
+    	});
+    }else{
+    	var tt = selected_values.split(",");
+    	$("#rWorkingWith").val(selected_values.split(","));
+    } 
+	
 	
 	selected_values="";
 	selected_values = "${partnerProfile.rOccupation}";
-	$("#rOccupation").val(selected_values.split(","));
+	if(selected_values == "" || selected_values==null){
+    	$("#rOccupation").select2({
+    	    placeholder: "-- Choose Profession --"
+    	});
+    }else{
+    	var tt = selected_values.split(",");
+    	$("#rOccupation").val(selected_values.split(","));
+    } 
+	
 	
 	selected_values="";
 	selected_values = "${partnerProfile.rDiet}";
-	$("#rDiet").val(selected_values.split(","));
+	if(selected_values == "" || selected_values==null){
+    	$("#rDiet").select2({
+    	    placeholder: "-- Choose Diet --"
+    	});
+    }else{
+    	var tt = selected_values.split(",");
+    	$("#rDiet").val(selected_values.split(","));
+    }
+	
 	
 	$('.multiSelect').trigger('change.select2'); 
 });

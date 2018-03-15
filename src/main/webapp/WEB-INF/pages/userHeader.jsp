@@ -13,7 +13,7 @@
 					<div class="row">
 						<div class="col-md-11">
 							<c:if test="${not empty cacheGuest.profileImage}">
-								<a href="#" onclick="zoomImage('${cacheGuest.profileImage}');" id="profilePicOuterTag"><img id="profilepic" src="${cacheGuest.profileImage}" class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: 120px;width: 150px;"></a>
+								<a href="#" id="profilePicOuterTag"><img id="profilepic" src="${cacheGuest.profileImage}" class="hover-shadow cursor img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: 120px;width: 150px;" onclick="openModal();currentSlide(1)" ></a>
 							</c:if>
 							<c:if test="${empty cacheGuest.profileImage}">
 								<img id="profilepic" src="img/default.png" class="img-responsive thumbnail " style="margin-bottom:0;">
@@ -24,8 +24,11 @@
 								<table  style="margin-left: 20px;" width="100%" border="0" cellspacing="0" cellpadding="0">
 									<tr><td><a href="myPhotos">My Photos</a></td></tr>
 									<tr><td><a href="myProfile">Edit Profile</a></td></tr>
-									<tr><td><a href="#">Edit Partner Preferences</a></td></tr>
-									<tr><td style="color:white;font-size:15px">Available profiles limit: <span id="available_limit_span">${allowed_profiles_limit}</span></td></tr>
+									<tr><td><a href="myProfile">Edit Partner Preferences</a></td></tr>
+									<c:if test="${cacheGuest.roleId != '4' && cacheGuest.membership_status!='0'}">
+					            		
+					            	</c:if>
+									
 								</table>
 							</div>
 						</div>
@@ -77,36 +80,35 @@
     <div class="panel panel-default">
         <div class="panel-heading">
              <h4 class="panel-title">
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#panel1"><i class="glyphicon glyphicon-minus"></i>Panel 1</a>
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#panel1"><i class="glyphicon glyphicon-minus"></i>Membership Details</a>
             </h4>
 
         </div>
         <div id="panel1" class="panel-collapse collapse in">
-            <div class="panel-body">Contents panel 1</div>
+            <div class="panel-body">
+            	<c:if test="${cacheGuest.roleId == '4'}">
+            		Not a paid member.
+            	</c:if>
+            	<c:if test="${cacheGuest.roleId != '4'}">
+	            	<c:if test="${membership_details.validity <= 0}">
+	            		Your membership validity is over on <c:out value="${membership_details.renewal_date}" /><br>
+	            		<a type="button" class="btn btn-primary btn-block" href="memberShipPage">Renew Membership</a>
+	            	</c:if>
+	            	<c:if test="${membership_details.validity > 0}">
+		            	
+		            		<b><c:out value="${membership_details.name}" /></b><br>
+			            	<c:out value="${membership_details.validity}" /> days remaining <br>
+			            	Balance Profiles Limit:<c:out value="${allowed_profiles_limit}" />/
+			            	<c:out value="${membership_details.allowed_profiles_limit}" />
+		            	
+	            	</c:if>
+	            </c:if>
+            	
+            </div>
         </div>
     </div>
-    <div class="panel panel-default">
-        <div class="panel-heading">
-             <h4 class="panel-title">
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#panel2"><i class="glyphicon glyphicon-plus"></i>Panel 2</a>
-            </h4>
-
-        </div>
-        <div id="panel2" class="panel-collapse collapse">
-            <div class="panel-body">Contents panel 2</div>
-        </div>
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-heading">
-             <h4 class="panel-title">
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#panel3"><i class="glyphicon glyphicon-plus"></i>Panel 3</a>
-            </h4>
-
-        </div>
-        <div id="panel3" class="panel-collapse collapse">
-            <div class="panel-body">Contents panel 3</div>
-        </div>
-    </div>
+    
+    
 </div>
 			</div>
 			<div id="dial1"></div>
