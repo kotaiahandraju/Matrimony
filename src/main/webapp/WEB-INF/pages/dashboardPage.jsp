@@ -82,7 +82,7 @@
 	  $('.watermark_text').watermark({
 		  text: 'aarnamatrimony.com',
 		  textWidth: 700,
-		  textSize: 76,
+		  textSize: 70,
 		  textColor: 'white',
 		  gravity: 'w',
 		   opacity: 0.8,
@@ -152,23 +152,29 @@ function displayMatches(listOrders) {
 					memberRoleId==12 || memberRoleId==13 || memberRoleId==14)){
 				premiumMember = "<span class='premium-member'>Premium Member</span>";
 			}
-			var shortListedStr = '<span id="shortlistTD'+orderObj.id+'"><a href="#" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="shortList('+orderObj.id+')"> Shortlist</a></span>';
+			var shortListedStr = '<span id="shortlistTD'+orderObj.id+'"><a href="#" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="shortList_dashboard('+orderObj.id+')"> Shortlist</a></span>';
 			if(orderObj.short_listed == "1"){
 				shortListedStr = "<span>Shortlisted</span>";
 			}
 			var expressed = orderObj.expressedInterest;
 			var interestStr = "";
 			if(expressed==0){
-				interestStr = '<span id="expInterest'+orderObj.id+'"><a   href="#" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="expressInterest('+orderObj.id+')">  Express Interest  </a></span>';
+				interestStr = '<span id="expInterest'+orderObj.id+'"><a   href="#" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="expressInterest_dashboard('+orderObj.id+')">  Express Interest  </a></span>';
 			}else if(expressed>0){
 				interestStr = '<span>Expressed Interest</span>';
 			}
+			var message_sent_status = orderObj.message_sent_status;
+			var messageStr = "";
+			if(message_sent_status>0){
+				messageStr = 'You sent an email to this member.';
+			}
 			var mobNumViewed = orderObj.mobileNumViewed;
 			var mobile_num_Str = "";
-			if(mobNumViewed==0){
-				mobile_num_Str = '<span ><a href="#" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="displayMobileNum('+orderObj.id+')"> View mobile no.</a></span>';
-			}else if(mobNumViewed>0){
+			if(mobNumViewed==1 || expressed==1 || message_sent_status==1){
 				mobile_num_Str = '<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+orderObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>';
+				
+			}else{
+				mobile_num_Str = '<span ><a href="#" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="displayMobileNum('+orderObj.id+')"> View mobile no.</a></span>';
 			}
 			var tblRow = '<div class="row">'
 				+ '<div class="col-md-2" >'
@@ -259,14 +265,14 @@ function displayNewMatches(listOrders) {
 			 var expressed = orderObj.expressedInterest;
 			var interestStr = "";
 			if(expressed==0){
-				interestStr = '<p  align="center"><a  id="expInterest'+orderObj.id+'" href="#" type="button" class="btn btn-primary btn-block btn-md"  onclick="expressInterest('+orderObj.id+')">Send Interest</a></p>';
+				interestStr = '<p  align="center" style="margin: 11px 0px 0px 0px;"><a  id="expInterest'+orderObj.id+'" href="#" type="button" class="btn btn-primary btn-block btn-md"  onclick="expressInterest('+orderObj.id+')">Send Interest</a></p>';
 			}else if(expressed>0){
-				interestStr = '<p align="center"><a   type="button" disabled="true"  class="btn btn-primary btn-block btn-md"  >You Expressed Interest</a></p>';
+				interestStr = '<p align="center" style="margin: 11px 0px 0px 0px;"><a   type="button" disabled="true"  class="btn btn-primary btn-block btn-md"  >You Expressed Interest</a></p>';
 			}
 			 item =     item + ' 	<div class="col-md-4">'
-				         +' 			<a class="thumbnail" href="#"><img alt="" src="'+image+'"></a>'
-				         +' 			<p align="center"><a href="#" onclick="fullProfile('+orderObj.id+')" style="padding:5px; color:blue; border-radius:5px;">'+orderObj.username+'</a></p>'
-				         +' 			<p align="center">'+age+' yrs, '+orderObj.inches+'</p>'
+				         +' 			<a class="thumbnail" href="#" style="margin: 0px 0px 0px 47px;"><img alt="" src="'+image+'"></a>'
+				         +' 			<p align="center" style="margin: 130px 0px 0px 0px;"><a href="#" onclick="fullProfile('+orderObj.id+')" style="padding:5px; color:blue; border-radius:5px;">'+orderObj.username+'</a></p>'
+				         +' 			<p align="center" style="margin: 4px 0px 0px -3px;">'+age+' yrs, '+orderObj.inches+'</p>'
 				         + 			    interestStr
 				         +'			</div>';
 	
@@ -296,7 +302,90 @@ function displayNewMatches(listOrders) {
 }
 	
 	
+function expressInterest_dashboard(profile_id){
+	var roleId = ${cacheGuest.roleId};
+	$("#id").val(profile_id);
+	if(roleId==4){
+		document.searchForm2.action = "memberShipPage"
+		document.searchForm2.submit();
+		return true;
+	}else{
+		var membershipStatus = ${cacheGuest.membership_status};
+		if(membershipStatus!="1"){
+			alert("Your membership validity period is over. Renew your membership plan and get more profiles");
+			return false;
+		}
+		if(allowed_limit<=0){
+			alert("Exceeded allowed profiles limit. Renew your membership plan and get more profiles");
+			return false;
+		}
+		var profileObj = serviceUnitArray[profile_id];
 
+		var formData = new FormData();
+		formData.append('profile_id',profile_id);
+		jQuery.fn.makeMultipartRequest('POST', 'expressInterestTo', false,
+				formData, false, 'text', function(data){
+	    		var jsonobj = $.parseJSON(data);
+	    		var limit = jsonobj.allowed_limit;
+	    		var msg = jsonobj.message;
+	    		var profiles = jsonobj.allProfiles;
+	    		//if(typeof msg != "undefined" ){
+	    			if("success"==msg){
+	    				alert("Interest request has been sent successfully");
+	    				$("#expInterest"+profile_id).html('Expressed Interest');
+	    				$("#expInterest"+profile_id).prop("disabled",true);
+	    				$("#mobileTD"+profile_id).html('<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+profileObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>');
+	    				allowed_limit = limit;
+	    			}else if("failed"==msg || "exception"==msg){
+	    				alert("Interest request is not successful. Please try again.");
+	    			}
+	    		//}
+	    		/* if(profiles==""){
+	    			$('#countId').html('0');
+	    			var str = '<div class="panel panel-default"><h6>No results found.</h6></div>';
+	    			$('#searchResults').html('');
+	    			$(str).appendTo("#searchResults");
+	    		}else{
+	    			$('#countId').html(profiles.length);
+	    			displayMatches(profiles);
+	    		} */
+	    		/* var filtered_list = jsonobj.filtered_profiles;
+	    		$('#countId').html('');
+	    		if(filtered_list==""){
+	    			$('#countId').html('0');
+	    			var str = '<div class="panel panel-default"><h6>No results found.</h6></div>';
+	    			$('#searchResults').html('');
+	    			$(str).appendTo("#searchResults");
+	    		}else{
+	    			$('#countId').html(filtered_list.length);
+	    			displayMatches(filtered_list);
+	    		} */
+				
+			});
+	}
+}
+
+function shortList_dashboard(profileId){
+	$("#id").val(profileId);
+	var profileObj = serviceUnitArray[profileId];
+	var formData = new FormData();
+	formData.append('profile_id',profileId);
+	jQuery.fn.makeMultipartRequest('POST', 'shortList', false,
+			formData, false, 'text', function(data){
+    		var jsonobj = $.parseJSON(data);
+    		var msg = jsonobj.message;
+    		if(typeof msg != "undefined"){
+    			if(msg=="success"){
+    				$("#shortlistTD"+profileId).html('Shortlisted');
+    				//$("#shortlistTD"+profileId).removeAttr("href");
+    				//$("#shortlistTD"+profileId).attr("disabled");
+    			}else{
+    				alert("Some problem occured. Please try again.");
+    			}
+    		}
+    		
+	});
+}
 
 /* function displayMobileNum(profileId,listType){
 	 var profileObj = serviceUnitArray[profileId];
@@ -420,4 +509,3 @@ $(".dashboard").addClass("active");
 </script>
 
 <%@ include file="userFooter.jsp"%>
-</html>

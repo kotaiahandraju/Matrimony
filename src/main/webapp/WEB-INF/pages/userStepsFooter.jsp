@@ -1,6 +1,6 @@
-			<div class="col-md-3">
+			<!-- <div class="col-md-3">
 				<img src="user/images/pad.jpg" class="img-responsive">
-			</div>
+			</div> -->
 			<div class="clearfix"></div>
 		</div>
 	</div>

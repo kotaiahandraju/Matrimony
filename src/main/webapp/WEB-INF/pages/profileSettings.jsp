@@ -116,20 +116,34 @@
 			<div class="col-md-8 products-grid-left">
 				<form:form commandName="createProfile"  class="form-horizontal" id="searchForm2" name="searchForm2" role="form"   method="post">
 	
-	
+					
 					<div id="change_password" class="all_settings_divs">
-						Enter Current Password<br>
-						<input type="password" id="currentPassword" required="required">
-						Enter New Password<br>
-						<input type="password" id="newPassword1" required="required">
-						Confirm New Password<br>
-						<input type="password" id="newPassword2" required="required"><br>
-						<input type="button" type="button" value="Submit" onclick="submitProfileSettings('change_password')" />
+					<div class="row">
+					<div class="col-md-4">
+						<h3 style='color: black; font-size: 16px;'>Enter Current Password</h3><br>
+						<input style='border-style: solid; border-radius: 4px;' type="password" id="currentPassword" required="required">
+						</div>
+						<div class="col-md-3">
+						<h3 style='color: black; font-size: 16px;'>Enter New Password</h3><br>
+						<input style='border-style: solid; border-radius: 4px;' type="password" id="newPassword1" required="required">
+						</div>
+						<div class="col-md-4 col-md-offset-1">
+						<h3 style='color: black; font-size: 16px;'>Confirm New Password</h3><br>
+						<input style='border-style: solid; border-radius: 4px;' type="password" id="newPassword2" required="required">						
+						</div>						
 					</div>
-		
-					<div id="profile_settings" class="all_settings_divs" hidden="true">
-						<input type="checkbox" id="know_ishortlisted"> Let others know that I shortlisted their profile.
-						<input type="button" type="button" value="Submit" onclick="submitProfileSettings('profile_settings')" />
+					<br>
+						<div class="col-md-3 col-md-offset-9">
+						<input style='background: teal;color: whitesmoke;border-radius: 6px;padding: 7px;width: 102px;' type="button" type="button" value="Submit" onclick="submitProfileSettings('change_password')" />
+						</div>
+					</div>
+					<div id="profile_settings" class="all_settings_divs" hidden="true">						
+						<h4 style='font-size: 18px; line-height: 31px; color: black; border-bottom: 1px dotted'>Your Profile Privacy has been set as "Show my Profile to all including visitors"</h4>
+						<p style='line-height: 41px; border-bottom: 1px dotted;'><input type="radio" style='color: black;'>Show my Profile to all including visitors.
+						<br>
+						<input type="radio" style='color: black;'>Show my Profile to registered members only.</p>
+						<p style='color: black;'><input type="checkbox" id="know_ishortlisted">&nbsp;&nbsp;Let others know that I shortlisted their profile.</p></input><br>
+						<input type="button" style="background: teal;padding: 5px 19px;color: wheat;font-weight: bold;border-radius: 4px;float: right;"type="button" align='right' value="Submit" onclick="submitProfileSettings('profile_settings')" />
 					</div>
 					<div id="membership_details" class="all_settings_divs" hidden="true">
 						<div class="panel panel-success">
@@ -137,7 +151,10 @@
 								Membership Details
 							</div>
 							<div class="panel-body">
+							<div class="row">
+							<div class="col-md-6">
 								<table>
+								<h3><legend>Membership Details</legend></h3>
 									<tr>
 										<td>Matrimony ID</td>
 										<td>:</td>
@@ -169,7 +186,10 @@
 										<td id="last_renewed"></td>
 									</tr>
 								</table>
+								</div>
+								<div class="col-md-6">
 								<table>
+								<h3><legend>Mobile Number Count</legend></h3>
 									<tr>
 										<td>Total Count</td>
 										<td>:</td>
@@ -181,27 +201,106 @@
 										<td id="left_profile_count"></td>
 									</tr>
 								</table>
-								
-								
+								<br><br>
+								<table>
+								<h3><legend>SMS Count</legend></h3>
+									<tr>
+										<td>Total Count</td>
+										<td>:</td>
+										<td id="total_profile_count"></td>
+									</tr>
+									<tr>
+										<td>Count Left</td>
+										<td>:</td>
+										<td id="left_profile_count"></td>
+									</tr>
+								</table>
+								</div>
+								</div>
+								<div class="row" style='border-top: 2px dashed; line-height: 31px;'>
+								<div class="col-md-6">
+								<table>
+								<h2><legend>ADD ON PACKAGES</legend></h2>
+								<h4>ASTROMATCH</h4>
+								<tr>
+								<td>Last Renewed</td>
+								<td>09 March 2018</td>
+								</tr>
+								<tr>
+								<td>Total Count</td>
+								<td>45</td>
+								</tr>
+								<tr>
+								<td>Count Left</td>
+								<td>12</td>
+								</tr>
+								</table>
+								</div>								
+								</div>								
 							</div>
 						</div>
 					</div>
 					<div id="deactivate_profile" class="all_settings_divs" hidden="true">
-						Activate/Deactivate Profile
-						
-						
+						<legend>Activate/Deactivate Profile</legend>
+						<p style='color: black;'>Select the number of days / months you would like to keep your profile deactivated</p><br>
+						<select style='background: yellowgreen; padding: 5px 14px;color: black;'>
+  								<option value="">--Select--</option>
+  								<option value="">15 Days</option>
+  								<option value="">1 Month</option>
+  								<option value="">2 Months</option>
+ 								 <option value="">3 Months</option>
+						</select><br><br>
+						<p style='color: black; text-align: justify;'><b>NOTE :</b> Your profile will be activated after the selected time period elapses.
+						 E.G. If you select 15 days as the time period, your profile will be deactivated
+						  for 15 days and will be automatically activated on the 16th day. You will receive a mailer in this regard.</p><br><br><br>
+						  
+						  <input type="button" style='background: teal;border-radius: 4px;color: white;font-weight: bold;padding: 6px 12px;float: right;' value="Deactivate Now" />
+					
+						<c:if test="${cacheGuest.status} == '1'">
+							Your profile is currently Active. Click on below button if you want to deactivate your profile.<br>
+							<input type="button" type="button" value="Deactivate My Account" onclick="changeProfileStatus(0)" />
+						</c:if>
+						<c:if test="${cacheGuest.status} == '2'">
+							Your profile is currently In-Active. Click on below button if you want to activate your profile.<br>
+							<input type="button" type="button" value="Activate My Account" onclick="changeProfileStatus(1)" />
+						</c:if>
 						
 						
 					</div>
 					<div id="delete_profile" class="all_settings_divs" hidden="true">
-						Delete Profile
-						Please choose a reason for profile deletion.
-						<input type="radio" /> Marriage Fixed
-						<input type="radio" /> Married
-						<input type="radio" /> Other Reasons<br>
-						<input type="button" type="button" value="Delete Account" onclick="deleteProfile('delete_profile')" />
+						<legend>Delete Profile</legend>
+						<p>Please choose a reason for profile deletion.</p><br><br>
+						<div class='row'>
+						<div class='col-md-3' style='width: 225px; background: lightgrey;border-radius: 12px;padding: 7px 10px;color: black;margin: 0px 0px 0px 14px;'>
+						<input type="radio" /> &nbsp;&nbsp;&nbsp;Marriage Fixed&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						</div>
+						<div class='col-md-3' style='background: lightgrey;border-radius: 12px;padding: 7px 10px;color: black;margin: 0px 0px 0px 14px;'>
+						<input type="radio" /> &nbsp;&nbsp;&nbsp;Married&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						</div>
+						<div class='col-md-3' style='background: lightgrey;border-radius: 12px;padding: 7px 10px;color: black;margin: 0px 0px 0px 14px;'>
+						<input type="radio" /> &nbsp;&nbsp;&nbsp;Other Reasons
+						</div>
+						</div><br><br>
+						<input type="button" style='background: teal;border-radius: 4px;color: white;font-weight: bold;padding: 6px 12px;float: right;' type="button" value="Delete Account" onclick="deleteProfile('delete_profile')" />
 					</div>
 	
+					<div id="edit_emailaddress" class="all_settings_divs" hidden="true">
+					<legend style='border-bottom: -31px dotted; color: black;'>Edit Email Address</legend>
+					<p>A valid e-mail id will be used to send you partner search mailers, member to member communication mailers and special offers.</p>
+					<div class="form-group">
+  						<label class="control-label">Input addons</label>
+  							<div class="form-group">
+    							<div class="input-group mb-3">
+      								<input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+      								<div class="input-group-append">
+      								<input type="button" style='background: teal;border-radius: 4px;color: white;font-weight: bold;padding: 6px 12px;float: right;' type="button" value="Save"  />
+									 </div>
+									 <input type="button" style='background: tomato;border-radius: 4px;color: white;font-weight: bold;padding: 6px 12px;float: right;' type="button" value="Reset"  />
+									
+    							</div>
+  							</div>
+					</div>
+					</div>
 					
 	
 				</form:form>	
@@ -284,6 +383,24 @@ function submitProfileSettings(actionStr){
 			//displaySettingsBlock(actionStr); // actionStr and divid are same value.
 			
 	});
+}
+function changeProfileStatus(status){
+	var formData = new FormData();
+	formData.append("status",status);
+	$.fn.makeMultipartRequest('POST', 'updateProfileStatus', false,
+			formData, false, 'text', function(data){
+		var jsonobj = $.parseJSON(data);
+		var msg = jsonobj.message;
+		var membershipDetails = jsonobj.membership_details;
+		if(msg=="success"){
+			
+				alert("Profile status updated successfully");
+			
+			
+		}
+		//displaySettingsBlock(actionStr); // actionStr and divid are same value.
+		
+});
 }
 $(".dashboard").addClass("active");
 </script>

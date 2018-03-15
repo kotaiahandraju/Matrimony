@@ -41,7 +41,7 @@ body {
 .ilogo { padding:15px 0; border-bottom:12px solid #F1F1F2 }
 .control-label { text-align:left;}
 .midcontnet { border-bottom:12px solid #F1F1F2; padding-bottom:40px; }
-.manditory{color: red;}
+
 
 .your-class::-webkit-input-placeholder {color: #e73d4a !important;}
 .your-class::-moz-placeholder {color: #e73d4a !important;}
@@ -104,6 +104,7 @@ th,td {text-align: center;}
 .multiSelect{
 	width: 187px;
 }
+.manditory{color: red;}
 </style>
 <script>
 
@@ -126,6 +127,34 @@ function validate(id, errorMessage)
 	}
 	
 }
+
+function getFilteredStatesMultiSelect(id){
+	if($("#"+id).val()== null   || $('#'+id).val() == "" || $('#'+id).val()=="undefined"){
+		$("#"+id).select2({
+		    placeholder: "-- Choose Country --"
+		});
+		
+	}else{
+		var countryIds =$("#"+id).val();
+		var formData = new FormData();
+	     formData.append('country_ids', countryIds);
+	     
+	    $.fn.makeMultipartRequest('POST', 'getFilteredStates', false,
+				formData, false, 'text', function(data){
+			var jsonobj = $.parseJSON(data);
+			var statesList = jsonobj.states_list;
+         $("#rState").empty();
+			$("#rState").append("<option value='' >-- Choose State --</option>");
+			
+			$.each(statesList, function(i, state) {
+				$("#rState").append("<option value="+state.id+" >"+ state.name+"</option>");
+			});
+			
+		});
+		
+	}
+}
+
 /* $('.validate').keydown(function() {
 	var id = $(this).attr('id');
 	removeBorder(id);
