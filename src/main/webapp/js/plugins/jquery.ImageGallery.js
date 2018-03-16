@@ -20,7 +20,8 @@
 				viewnext = $('#' + gallery.attr('id') + '-viewer-next'),
 				viewprev = $('#' + gallery.attr('id') + '-viewer-prev'),
 				thumbs = gallery.children(),
-				pages = Math.ceil(thumbs.size() / (options.rows * options.cols)),
+				//pages = Math.ceil(thumbs.size() / (options.rows * options.cols)),
+				pages = Math.ceil(thumbs.size() / 3),
 				tiles = 3,
 				newview,
 				alignImage = function(view){

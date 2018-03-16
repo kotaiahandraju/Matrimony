@@ -24,7 +24,6 @@
 		<div class="form-group">
 			<label class="control-label required">Community <span
 				style="color: red;">*</span></label>
-			
 				<form:select path="caste" class="form-control u" >
 					<form:option value="">-- Choose Community --</form:option>
 					<form:options items="${cast}"></form:options>

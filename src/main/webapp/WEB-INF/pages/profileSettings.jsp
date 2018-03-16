@@ -139,10 +139,10 @@
 					</div>
 					<div id="profile_settings" class="all_settings_divs" hidden="true">						
 						<h4 style='font-size: 18px; line-height: 31px; color: black; border-bottom: 1px dotted'>Your Profile Privacy has been set as "Show my Profile to all including visitors"</h4>
-						<p style='line-height: 41px; border-bottom: 1px dotted;'><input type="radio" style='color: black;'>Show my Profile to all including visitors.
+						<p style='line-height: color: black; 41px; border-bottom: 1px dotted;'><input type="radio" style='color: black;'>Show my Profile to all including visitors.
 						<br>
 						<input type="radio" style='color: black;'>Show my Profile to registered members only.</p>
-						<p style='color: black;'><input type="checkbox" id="know_ishortlisted">&nbsp;&nbsp;Let others know that I shortlisted their profile.</p></input><br>
+						<p style='color: black;'><input  style='color: black;' type="checkbox" id="know_ishortlisted">&nbsp;&nbsp;Let others know that I shortlisted their profile.</p></input><br>
 						<input type="button" style="background: teal;padding: 5px 19px;color: wheat;font-weight: bold;border-radius: 4px;float: right;"type="button" align='right' value="Submit" onclick="submitProfileSettings('profile_settings')" />
 					</div>
 					<div id="membership_details" class="all_settings_divs" hidden="true">
@@ -191,12 +191,12 @@
 								<table>
 								<h3><legend>Mobile Number Count</legend></h3>
 									<tr>
-										<td>Total Count</td>
+										<td>Total Profile Count</td>
 										<td>:</td>
 										<td id="total_profile_count"></td>
 									</tr>
 									<tr>
-										<td>Count Left</td>
+										<td>Profile Count Left</td>
 										<td>:</td>
 										<td id="left_profile_count"></td>
 									</tr>
@@ -240,21 +240,7 @@
 							</div>
 						</div>
 					</div>
-					<div id="deactivate_profile" class="all_settings_divs" hidden="true">
-						<legend>Activate/Deactivate Profile</legend>
-						<p style='color: black;'>Select the number of days / months you would like to keep your profile deactivated</p><br>
-						<select style='background: yellowgreen; padding: 5px 14px;color: black;'>
-  								<option value="">--Select--</option>
-  								<option value="">15 Days</option>
-  								<option value="">1 Month</option>
-  								<option value="">2 Months</option>
- 								 <option value="">3 Months</option>
-						</select><br><br>
-						<p style='color: black; text-align: justify;'><b>NOTE :</b> Your profile will be activated after the selected time period elapses.
-						 E.G. If you select 15 days as the time period, your profile will be deactivated
-						  for 15 days and will be automatically activated on the 16th day. You will receive a mailer in this regard.</p><br><br><br>
-						  
-						  <input type="button" style='background: teal;border-radius: 4px;color: white;font-weight: bold;padding: 6px 12px;float: right;' value="Deactivate Now" />
+					<div id="deactivate_profile" class="all_settings_divs" hidden="true" style="color: black;">
 					
 						<c:if test="${cacheGuest.status} == '1'">
 							Your profile is currently Active. Click on below button if you want to deactivate your profile.<br>
@@ -262,14 +248,24 @@
 						</c:if>
 						<c:if test="${cacheGuest.status} == '2'">
 							Your profile is currently In-Active. Click on below button if you want to activate your profile.<br>
-							<input type="button" type="button" value="Activate My Account" onclick="changeProfileStatus(1)" />
+						Activate/Deactivate Profile<br>
+						</c:if>
+						<c:if test="${cacheGuest.status == '1'}">
+							Your profile is currently Active. <br>
+							Click on below button if you want to deactivate your profile.You can activate it again whenever you want using settings.<br>
+							
+							<input type="button" type="button" value="Deactivate My Account" onclick="changeProfileStatus(0)" />
+						</c:if><br>
+						<c:if test="${cacheGuest.status == '0'}">
+							Your profile is currently In-Active. Click on below button to activate your profile.<br>
+							<input type="button" type="button" style="float: right;" value="Activate My Account" onclick="changeProfileStatus(1)" />
 						</c:if>
 						
 						
 					</div>
 					<div id="delete_profile" class="all_settings_divs" hidden="true">
 						<legend>Delete Profile</legend>
-						<p>Please choose a reason for profile deletion.</p><br><br>
+						<p style="color: black;">Please choose a reason for profile deletion.</p><br><br>
 						<div class='row'>
 						<div class='col-md-3' style='width: 225px; background: lightgrey;border-radius: 12px;padding: 7px 10px;color: black;margin: 0px 0px 0px 14px;'>
 						<input type="radio" /> &nbsp;&nbsp;&nbsp;Marriage Fixed&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -286,19 +282,17 @@
 	
 					<div id="edit_emailaddress" class="all_settings_divs" hidden="true">
 					<legend style='border-bottom: -31px dotted; color: black;'>Edit Email Address</legend>
-					<p>A valid e-mail id will be used to send you partner search mailers, member to member communication mailers and special offers.</p>
-					<div class="form-group">
-  						<label class="control-label">Input addons</label>
-  							<div class="form-group">
+					<p style="color: black;">A valid e-mail id will be used to send you partner search mailers, member to member communication mailers and special offers.</p>
+					<div class="form-group" style="margin: auto;">
+  						<label class="control-label" style="color: black;">Input addons</label>  							
     							<div class="input-group mb-3">
-      								<input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-      								<div class="input-group-append">
-      								<input type="button" style='background: teal;border-radius: 4px;color: white;font-weight: bold;padding: 6px 12px;float: right;' type="button" value="Save"  />
-									 </div>
-									 <input type="button" style='background: tomato;border-radius: 4px;color: white;font-weight: bold;padding: 6px 12px;float: right;' type="button" value="Reset"  />
-									
+      								<input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">      								     								
     							</div>
-  							</div>
+    							<br>
+      								<input type="button" style='margin: 0px 0px 0px 53px; background: teal;border-radius: 4px;color: white;font-weight: bold;padding: 6px 12px;float: left;' type="button" value="Save"  />
+									 
+									 <input type="button" style='background: tomato;border-radius: 4px;color: white;font-weight: bold;padding: 6px 12px;float: left;' type="button" value="Reset"  />
+									
 					</div>
 					</div>
 					
@@ -323,8 +317,12 @@ function displaySettingsBlock(divId){
 				
 					$("#matrimony_id").html(membershipDetails.username);
 					$("#membership_type").html(membershipDetails.name);
-					$("#membership_status").html(membershipDetails.membership_status);
-					$("#membership_validity").html(membershipDetails.validity);
+					var status = membershipDetails.membership_status;
+					if(status=="1")
+						$("#membership_status").html("Active");
+					else
+						$("#membership_status").html("In-Active");
+					$("#membership_validity").html(membershipDetails.validity+" days");
 					$("#renewal_date").html(membershipDetails.renewal_date);
 					$("#last_renewed").html(membershipDetails.last_renewed_date);
 					$("#total_profile_count").html(membershipDetails.allowed_profiles_limit);
@@ -338,23 +336,41 @@ function displaySettingsBlock(divId){
 	$(".all_settings_divs").attr("hidden",true);
 	$("#"+divId).removeAttr("hidden");
 }
+function validate(id, errorMessage)
+{
+	var styleBlock = '.placeholder-style.placeholder-style::-moz-placeholder {color: #cc0000;} .placeholder-style::-webkit-input-placeholder {color: #cc0000;}';
+	if($('#'+id).val() ==  null || $('#'+id).val() == ""  || $('#'+id).val()=="undefined" ) {
+		$('style').append(styleBlock);
+		$('#'+id).css('border-color','#cc0000');
+		$('#'+id).css('color','#cc0000');
+		$('#'+id).attr('placeholder',errorMessage);
+		$('#'+id).addClass('placeholder-style your-class');
+		return false;
+	}else{
+		$('#'+id).css('border-color','');
+		$('#'+id).removeClass('placeholder-style your-class');
+		return true;
+	}
+	
+}
 function submitProfileSettings(actionStr){
 	var actionUrl = "";
 	var formData = new FormData();
 	if(actionStr=="change_password"){
 		var currentPassword = $("#currentPassword").val().trim();
 		var newPassword = $("#newPassword1").val().trim();
-		var confirmedNewPassword = $("#newPassword1").val().trim();
-		var styleBlock = '.placeholder-style.placeholder-style::-moz-placeholder {color: #cc0000;} .placeholder-style::-webkit-input-placeholder {color: #cc0000;}';
-		/* if($('#'+id).val() ==  null || $('#'+id).val() == ""  || $('#'+id).val()=="undefined" ) {
-			$('style').append(styleBlock);
-			$('#'+id).css('border-color','#cc0000');
-			$('#'+id).css('color','#cc0000');
-			$('#'+id).attr('placeholder',errorMessage);
-			$('#'+id).addClass('placeholder-style your-class');
-//				$('#'+id).css('color','#cc0000');
-//				$('#'+id+'Error').text(errorMessage);
-		} */
+		var confirmedNewPassword = $("#newPassword2").val().trim();
+		var v1 = validate('currentPassword','Enter Current Password');
+		var v2 = validate('newPassword1','Enter New Password');
+		var v3 = validate('newPassword2','Enter Confirm New Password');
+		if(v1==false || v2==false || v3==false){
+			return false;
+		}
+		if(newPassword != confirmedNewPassword){
+			alert("Passwords mismatched.");
+			return false;
+		}
+		 
 		formData.append("currentPassword",currentPassword);
 		formData.append("newPassword1",newPassword);
 		formData.append("newPassword2",confirmedNewPassword);
@@ -373,12 +389,21 @@ function submitProfileSettings(actionStr){
 			if(msg=="success"){
 				if(actionStr=="change_password"){
 					alert("Password changed successfully");
+					$("#currentPassword").val("");
+					$("#newPassword1").val("");
+					$("#newPassword2").val("");
 				}else if(actionStr=="profile_settings"){
 					alert("Settings updated successfully");
 				}else if(actionStr=="delete_profile"){
 					alert("Profile deleted successfully");
 				}
 				
+			}else{
+				if(msg=="currentpassword_notexist"){
+					alert("Current password doesn't exist!! Try again.");
+				}else if(msg=="failed"){
+					alert("Some problem occured. Please try again.");
+				}
 			}
 			//displaySettingsBlock(actionStr); // actionStr and divid are same value.
 			

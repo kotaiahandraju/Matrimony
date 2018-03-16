@@ -461,6 +461,7 @@
 						mobile_num_Str = '<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+orderObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>';
 					}else{
 						mobile_num_Str = '<span ><a href="#" type="button" style="margin: 11px 0px 0px 0px;" class="btn btn-primary btn-block" onclick="displayMobileNum('+orderObj.id+')">View Mobile Number</a></span>';
+
 					}
 					var profession = orderObj.occupationName;
 					if((profession == null) || profession == ""){
@@ -700,10 +701,16 @@
 					//}
 					
 						var photos_list = orderObj.photosList;
-						var photos_array = {};
-						$.each(photos_array,function(i,photo){
-							photos_array[i] = photo;
+						$.each(photos_list,function(i,photo){
+							slider += '<div class="smallSlides">'
+									+'		<img src="'+photo.image+'" class="img img-responsive thumbnail " style="margin-bottom:0;height: 60px;width: 60px;" >'
+									+'</div>'
 						});
+						slider += '<p style="display: table;">'
+								+'	<a class="" style="margin: 0px 0px 0px 7px;cursor: pointer;" onclick="plusSmallSlides(-1)">&#10094;</a>'
+								//+'	<span>'+(i+1)+' of '+photos_list.length+'</span><br>'
+			    			    +'	<a class="" style="margin-left: 41px;cursor: pointer;" onclick="plusSmallSlides(1)">&#10095;</a>'
+								+'</p>'
 						var tblRow = '<div class="panel panel-default">'
 							+ '<div class="panel-heading">'
 							+ '<h5 class="panel-title">'
@@ -718,8 +725,11 @@
 							+ '</h5>'
 							+ '</div>'
 							+ '<div class="panel-body">'
-							+ '<div class="col-md-2">'
-							+ '<a href="#" onclick="openModal();"> <img src='+image+' class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: 60px;width: 60px;" ></a>'
+							+ '<div class="col-md-2" >'
+							+ ' <div class="smallSlides" style="display:block"> '
+							+ '		<a href="#"> <img src='+image+' class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: 60px;width: 60px;" ></a>'
+							+ ' </div>'
+							+  slider
 			            	+ '</div>'
 			            	+ '<div class="col-md-6">'
 			            	+ '<table>'
@@ -822,6 +832,9 @@
 		}
 
 		function sendMail(){
+			var roleId = ${cacheGuest.roleId};
+			$("#id").val(profileId);
+			var profileObj = serviceUnitArray[profileId];
 			
 			var content = $("#mail_content").val();
 			if(content.trim() == ""){
@@ -852,8 +865,8 @@
 			//$("#sendMailBtn").removeAttr("disabled");
 			//$("#sendMailBtn").val("Send Mail");
 			
-		}
 		
+		}
 		function displayInbox(tab_type,list_type){
 			 document.searchForm2.action = "inboxAction?tab_type="+tab_type+"&list_type="+list_type;
 		     document.searchForm2.submit();             // Submit the page
@@ -1017,6 +1030,131 @@ function showSlides(n) {
 	  addWaterMark();
 	}
 	////Photo pop-up related script---ends
+
+	function getFilteredStatesMultiSelect(id){
+		if($("#"+id).val()== null   || $('#'+id).val() == "" || $('#'+id).val()=="undefined"){
+			$("#"+id).select2({
+			    placeholder: "-- Choose Country --"
+			});
+			
+		}else{
+			var countryIds =$("#"+id).val();
+			var formData = new FormData();
+		     formData.append('country_ids', countryIds);
+		     
+		    $.fn.makeMultipartRequest('POST', 'getFilteredStates', false,
+					formData, false, 'text', function(data){
+				var jsonobj = $.parseJSON(data);
+				var statesList = jsonobj.states_list;
+	         $("#rState").empty();
+				$("#rState").append("<option value='' >-- Choose State --</option>");
+				
+				$.each(statesList, function(i, state) {
+					$("#rState").append("<option value="+state.id+" >"+ state.name+"</option>");
+				});
+				
+			});
+			
+		}
+	}
+function openPhotoModal(photos_list){
+	var str1 = "";
+	var len = photos_list.length;
+	//var scoppedPhotos = ${scopped_photos};
+	$.each(photos_list,function(i, photoObject) 
+	{
+		var j = i+1;
+		str1 = ' <div class="mySlides"> '
+  		+' <div class="numbertext">'+j+' / '+len+'</div> '
+		+' <img src="'+photoObject.image+'"  class="myImg" style="height: 500px;width:100%"> '
+		+' </div> ';
+		
+	});
+	var modelContent = ' <span class="close cursor" onclick="closeModal()">&times;</span> '
+	  +' <div class="modal-content"> '
+		//+' <c:set var="counter" value="${0}" /> ' 
+		//+' <c:forEach items="${photosList}" var="photo" > '
+			//+' <c:set var="counter" value="${counter+1}" /> '
+	      	+str1
+		//+' </c:forEach> '
+	    +' <div class="row"> '
+			//+' <c:set var="counter2" value="${0}" /> ' 
+			//+' <c:forEach items="${photosList}" var="photo" > '
+				//+' <c:set var="counter2" value="${counter2+1}" /> '
+				+' <div class="col-sm-2"> '
+			      +' <img class="demo cursor" src="img/default.png" style="width:100%" onclick="currentSlide(1)" alt=""> '
+			    +' </div> '
+		   // +' </c:forEach> '
+		+' </div> '
+		+' <a class="prev" onclick="plusSlides(-1)">&#10094;</a> '
+	    +' <a class="next" onclick="plusSlides(1)">&#10095;</a> '
+	    +' <div class="caption-container"> '
+	      +' <p id="caption"></p> '
+	    +' </div> '   
+	  +' </div> ';
+	  $("#myPhotoModal").html(modelContent);
+	  document.getElementById('myPhotoModal').style.display = "block";
+	  
+}
+
+
+
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function currentSlide_inpage(current_img){
+	var str = '<img id="profilepic" src="'+current_img+'" style="width:100%" onclick="openModal();currentSlide(1)" class="hover-shadow cursor watermark_text">';
+	//$("#profilepic").prop("src",photoImage);
+	$("#fullProfilePicOuterTag").html('');
+	$("#fullProfilePicOuterTag").html(str);
+	addWaterMark();
+	//$("#img_inpage").attr("src",current_img);
+}
+function showSlides(n) {
+	  var i;
+	  var slides = document.getElementsByClassName("mySlides");
+	  var dots = document.getElementsByClassName("demo");
+	  var imgs = document.getElementsByClassName("myImg");
+	  var captionText = document.getElementById("caption");
+	  if (n > slides.length) {slideIndex = 1}
+	  if (n < 1) {slideIndex = slides.length}
+	  for (i = 0; i < slides.length; i++) {
+	      slides[i].style.display = "none";
+	  }
+	  for (i = 0; i < dots.length; i++) {
+	      dots[i].className = dots[i].className.replace(" active", "");
+	  }
+	  
+	  imgs[slideIndex-1].className += " watermark_text";
+	  dots[slideIndex-1].className += " active";
+	  slides[slideIndex-1].style.display = "block";
+	  captionText.innerHTML = dots[slideIndex-1].alt;
+	  addWaterMark();
+}
+	////Photo pop-up related script---ends
+var slideIndex = 0;
+function plusSmallSlides(n) {
+		slideIndex += n;
+	  var i;
+	  var slides = document.getElementsByClassName("smallSlides");
+	  //var captionText = document.getElementById("caption");
+	  if (slideIndex > slides.length) {slideIndex = 1}
+	  if (slideIndex < 1) {slideIndex = slides.length}
+	  for (i = 0; i < slides.length; i++) {
+	      slides[i].style.display = "none";
+	  }
+	  
+	  
+	  slides[slideIndex-1].style.display = "block";
+	  //$("#temp").html(slides[slideIndex-1].html());
+	  //captionText.innerHTML = dots[slideIndex-1].alt;
+	  //addWaterMark();
+}
 
 	function getFilteredStatesMultiSelect(id){
 		if($("#"+id).val()== null   || $('#'+id).val() == "" || $('#'+id).val()=="undefined"){
@@ -1679,6 +1817,129 @@ img {
   opacity: 1;
 }
 
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.column {
+  float: left;
+  width: 100%;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: black;
+}
+
+/* Modal Content */
+.modal-content {
+  position: relative;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 0;
+  width: 60%;
+  height: 50%;
+  background-color: black;
+}
+
+/* The Close Button */
+.close {
+  color: white;
+  position: absolute;
+  top: 10px;
+  right: 25px;
+  font-size: 35px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #999;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.mySlides {
+  display: none;
+}
+
+.smallSlides {
+  display: none;
+}
+.cursor {
+  cursor: pointer
+}
+
+/* Next & previous buttons */
+.prev,
+.next {
+  cursor: pointer;
+  position: absolute;
+  width: auto;
+  padding: 16px;
+  color: white;
+  font-weight: bold;
+  font-size: 30px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover,
+.next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+img {
+  margin-bottom: 0px;
+  
+}
+
+.caption-container {
+  text-align: center;
+  background-color: black;
+  padding: 2px 16px;
+  color: white;
+}
+
+.demo {
+  opacity: 0.6;
+}
+
+.active,
+.demo:hover {
+  opacity: 1;
+}
+
 img.hover-shadow {
   transition: 0.3s
 }
@@ -1812,14 +2073,10 @@ height: 400px;
 							
 							<li><a class="upgradeOption animated flash infinite" href="memberShipPage"
 							 style="font-size: 24px; font-weight: bold; color: white; background-image: -webkit-linear-gradient(1deg, white, white);">Upgrade</a></li>
-							
-							
 							<li><a href="#" >&nbsp;</a></li>
 							<li><a href="#" >&nbsp;</a></li>
-							<li><a href="#" >&nbsp;</a></li>
-							
-							
-							
+							<li><a href="#" >&nbsp;</a></li>							
+
 							<li class="dropdown settings pull-right">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 									<c:if test="${not empty cacheGuest.profileImage}">
