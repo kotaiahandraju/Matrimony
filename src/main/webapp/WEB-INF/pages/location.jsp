@@ -20,8 +20,7 @@
 		</div>
 	</div>
 	</div>
-</div>
-<div class="row">
+
 <div class="col-md-6">
 	<div class="form-group">
 		<label class="col-md-5 control-label required">State <span
@@ -39,8 +38,8 @@
 		</div>
 	</div>
 </div>
-</div>
-<div class="row">
+<br>
+<br>
 <div class="col-md-6">
 	<div class="form-group">
 		<label class="col-md-5 control-label required">City <span
@@ -62,9 +61,9 @@
 
 <div class="row">
 	<div class="col-md-4 pull-right">
-		<div class="form-group">
-				<input class="btn btn btn-primary" style="padding: 8px 24px; type="button" id="location_submit" name="yt0" value="Save" onclick="saveChanges('location');">
-				<input class="btn btn btn-success" style="padding: 8px 24px; type="button" id="location_cancel" name="yt1" value="Cancel" onclick="toggleDiv('location');">
+		<div class="form-group" style="display: flex;">
+				<input class="btn btn btn-primary" style="width: 120px;" type="button" id="location_submit" name="yt0" value="Save" onclick="saveChanges('location');">
+				&nbsp;&nbsp;<input class="btn btn btn-success" style="width: 120px;" type="button" id="location_cancel" name="yt1" value="Cancel" onclick="toggleDiv('location');">
 		</div>
 	</div>
 </div>

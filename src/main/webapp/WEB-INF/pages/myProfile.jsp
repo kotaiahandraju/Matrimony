@@ -221,7 +221,15 @@ xpopup
   .cd-popup-container {
     margin: 8em auto;
   }
-}</style>
+}
+
+a:hover, a:focus {
+	color: none;
+	outline: none;
+	outline-offset: 0px;
+}
+
+</style>
 <div class="container">
 <div class="row">
 <div class="col-md-9">
@@ -286,7 +294,7 @@ xpopup
 						<div class="col-md-3">
 						 <h4></h4>
 						<p>How your profile looks
-						to others<a href="#" onclick="fullProfile(${profileBean.id})" class="" style="border:1px solid #cccccc;padding:7px 10px 7px 40px;display:inline-block;border-radius:5px;background:url(user/images/eye.gif) no-repeat 10px 8px;margin-top:5px;text-decoration:none;">Profile Preview</a>
+						to others<a href="#" onclick="fullProfile(${profileBean.id})" class="" style=" width: 200px; border:1px solid #cccccc;padding:7px 10px 7px 40px;display:inline-block;border-radius:5px;background:url(user/images/eye.gif) no-repeat 10px 8px;margin-top:5px;text-decoration:none;">Profile Preview</a>
 						</p>
 						</div><div class="clearfix"></div>
 
@@ -306,7 +314,7 @@ xpopup
 			<h4   style="padding="10px;"></h4><h3>Personal information</h3><hr>
 			<div class="panel panel-success" style='box-shadow: 5px 8px 5px;'>
 			<div class="panel-body table-responsive">			
-			<div class="col-md-11">	<strong class="font">About my ${cacheGuest.createProfileFor}<a href="#" class="all_a  pull-right  edit-style" id="about_a" onclick="toggleDiv('about');"><i class="fa fa-edit"></i>Edit</a></strong>
+			<div class="col-md-11">	<strong class="font">About my ${cacheGuest.createProfileFor}<a href="#" style="padding: 0px;" class="all_a  pull-right  edit-style" id="about_a" onclick="toggleDiv('about');"><i class="fa fa-edit"></i>Edit</a></strong>
 				<div id="about_view" class="all_visible_divs">
 					<p id="aboutMyself_val">
 						<c:if test="${not empty profileBean.aboutMyself}">${profileBean.aboutMyself}</c:if>
@@ -328,7 +336,7 @@ xpopup
 	<br>
 		<div class="panel panel-success" style='box-shadow: 5px 8px 5px;'>
 			<div class="panel-body table-responsive">
-			<div class="col-md-11">	<strong class="font">Basic Details <a href="#" class="all_a  pull-right  edit-style" id="basic_details_a" onclick="toggleDiv('basic_details');"><i class="fa fa-edit"></i>Edit</a></strong>
+			<div class="col-md-11">	<strong class="font">Basic Details <a href="#" style="padding: 0px;" class="all_a  pull-right  edit-style" id="basic_details_a" onclick="toggleDiv('basic_details');"><i class="fa fa-edit"></i>Edit</a></strong>
 				<div id="basic_details_view" class="all_visible_divs">
 					<table class="col-md-12 table-responsive">
 						<tr><td>Name</td>
@@ -900,22 +908,22 @@ xpopup
 <div class="col-md-3">
 <div class="col-sm-3" style='width: 100%; margin: 31px 0px 0px 0px;'>
 			<div class="col-md-11 products-grid-right">
-			<div class="panel panel-success">
+			
+		<!-- 	<div class="panel panel-success" style="width: 250px;">
 			<div class="panel-heading">Add Horoscope</div>
 					<div class="panel-body table-responsive">
-		            	<div class="col-md-3"">
-					<img src="user/images/edit-add-horoscope.gif" width="40">
-				</div><div class="col-md-9"><p>It is simple and absolutely FREE!</p></div>
+		            	<div class="col-md-3" style='width: 232px; display: -webkit-box;'>
+					<img src="user/images/edit-add-horoscope.gif" width="40" style='margin: 0px 0px 0px -25px;'>
+				<p style="margin-left: 29px;">It is simple and absolutely FREE!</p></div>
 	            	</div>
-	            </div>
-			<div class="panel panel-success">
+	            </div> -->
+	            
+			<div class="panel panel-success" style="width: 250px;">
 			<div class="panel-heading">Add Photos Now</div>
 					<div class="panel-body table-responsive">
-		            	<div class="col-md-3"">
-					<img src="user/images/add-photo-edit-avatar.png" width="40">
-				</div><div class="col-md-9"><p>Photos are the first
-things members look for
-in a profile. </p></div>
+		            	<div class="col-md-3" style='width: 232px; display: -webkit-box;'>
+					<img src="user/images/add-photo-edit-avatar.png" width="40" style='margin: 0px 0px 0px -25px;'>
+				<p style="margin-left: 29px;">Photos are the first things members look for in a profile.</p></div>
 	            	</div>
 	            </div><div class="clearfix"></div>
 			

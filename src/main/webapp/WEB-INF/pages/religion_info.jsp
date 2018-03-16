@@ -4,9 +4,9 @@
 <div class="row">
 	<div class="col-md-6">
 		<div class="form-group">
-			<label class="col-md-5 control-label required">Religion <span
+			<label class="control-label required">Religion <span
 				style="color: red;">*</span></label>
-			<div class="col-md-7">
+			
 				<form:select path="religion" onfocus="removeBorder(this.id)"
 					 class="form-control u">
 					<form:option value="">-- Choose Religion --</form:option>
@@ -15,17 +15,15 @@
 				<div>
 					<form:errors path="religion" cssClass="error" />
 				</div>
-			</div>
 		</div>
 	</div>
-</div>
 
-<div class="row">
+
+
 	<div class="col-md-6">
 		<div class="form-group">
-			<label class="col-md-5 control-label required">Community <span
+			<label class="control-label required">Community <span
 				style="color: red;">*</span></label>
-			<div class="col-md-7">
 				<form:select path="caste" class="form-control u" >
 					<form:option value="">-- Choose Community --</form:option>
 					<form:options items="${cast}"></form:options>
@@ -33,32 +31,30 @@
 				<div>
 					<form:errors path="caste" cssClass="error" />
 				</div>
-			</div>
 		</div>
 	</div>
-</div>
 
-<div class="row">
+
+
 	<div class="col-md-6">
 		<div class="form-group">
-			<label class="col-md-5 control-label required">Gotram </label>
-			<div class="col-md-7">
+			<label class="control-label required">Gotram </label>
+			
 				<form:input path="gotram" type="text"
 					class="form-control onlyCharacters u" placeholder="Enter Gotram"
 					maxlength="255" />
 				<div>
 					<form:errors path="gotram" cssClass="error" />
 				</div>
-			</div>
 		</div>
 	</div>
-</div>
 
-<div class="row">
+
+
 	<div class="col-md-6">
 		<div class="form-group">
-			<label class="col-md-5 control-label required">Star </label>
-			<div class="col-md-7">
+			<label class="control-label required">Star </label>
+			
 				<form:select path="star" class="form-control u">
 					<form:option value="">-- Choose Star/Rassi --</form:option>
 					<form:options items="${star}"></form:options>
@@ -66,16 +62,15 @@
 				<div>
 					<form:errors path="star" cssClass="error" />
 				</div>
-			</div>
 		</div>
 	</div>
-</div>
 
-<div class="row">
+
+
 	<div class="col-md-6">
 		<div class="form-group">
-			<label class="col-md-5 control-label required">Dosham </label>
-			<div class="col-md-7">
+			<label class="control-label required">Dosham </label>
+			
 				<form:select path="dosam" class="form-control">
 					<form:option value="">-- Dosham --</form:option>
 					<form:option value="Yes">Yes</form:option>
@@ -85,12 +80,12 @@
 				<div>
 					<form:errors path="dosam" cssClass="error" />
 				</div>
-			</div>
 		</div>
 	</div>
 </div>
 
-<div class="row">
+
+<div class='row'>
 	<div class="col-md-4 pull-right">
 		<div class="form-group">
 				<input class="btn btn btn-primary" style="padding: 8px 24px;" type="button" id="religion_info_submit" name="yt0" value="Save" onclick="saveChanges('religion_info');">

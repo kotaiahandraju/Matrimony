@@ -265,14 +265,14 @@ function displayNewMatches(listOrders) {
 			 var expressed = orderObj.expressedInterest;
 			var interestStr = "";
 			if(expressed==0){
-				interestStr = '<p  align="center"><a  id="expInterest'+orderObj.id+'" href="#" type="button" class="btn btn-primary btn-block btn-md"  onclick="expressInterest('+orderObj.id+')">Send Interest</a></p>';
+				interestStr = '<p  align="center" style="margin: 11px 0px 0px 0px;"><a  id="expInterest'+orderObj.id+'" href="#" type="button" class="btn btn-primary btn-block btn-md"  onclick="expressInterest('+orderObj.id+')">Send Interest</a></p>';
 			}else if(expressed>0){
-				interestStr = '<p align="center"><a   type="button" disabled="true"  class="btn btn-primary btn-block btn-md"  >You Expressed Interest</a></p>';
+				interestStr = '<p align="center" style="margin: 11px 0px 0px 0px;"><a   type="button" disabled="true"  class="btn btn-primary btn-block btn-md"  >You Expressed Interest</a></p>';
 			}
 			 item =     item + ' 	<div class="col-md-4">'
-				         +' 			<a class="thumbnail" href="#"><img alt="" src="'+image+'"></a>'
-				         +' 			<p align="center"><a href="#" onclick="fullProfile('+orderObj.id+')" style="padding:5px; color:blue; border-radius:5px;">'+orderObj.username+'</a></p>'
-				         +' 			<p align="center">'+age+' yrs, '+orderObj.inches+'</p>'
+				         +' 			<a class="thumbnail" href="#" style="margin: 0px 0px 0px 47px;"><img alt="" src="'+image+'"></a>'
+				         +' 			<p align="center" style="margin: 130px 0px 0px 0px;"><a href="#" onclick="fullProfile('+orderObj.id+')" style="transition: 0; padding:5px; color:blue; border-radius:5px;">'+orderObj.username+'</a></p>'
+				         +' 			<p align="center" style="margin: 4px 0px 0px -3px;">'+age+' yrs, '+orderObj.inches+'</p>'
 				         + 			    interestStr
 				         +'			</div>';
 	

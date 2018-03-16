@@ -614,7 +614,7 @@ xpopup
 </div>
 
 <br>
-		<h4   style="padding="10px;"></h4><h3>Partner Preferences</h3><hr>
+		<h4   style="padding: 10px;"></h4><h3>Partner Preferences</h3><hr>
 <div class="panel panel-success" style='box-shadow: 5px 8px 5px;'>
 
 			<div class="panel-body table-responsive">
@@ -803,7 +803,7 @@ xpopup
 			<div class="panel panel-success">
 			<div class="panel-heading">Add Photos Now</div>
 					<div class="panel-body table-responsive">
-		            	<div class="col-md-3"">
+		            	<div class="col-md-3">
 					<img src="user/images/add-photo-edit-avatar.png" width="40">
 				</div><div class="col-md-9"><p>Photos are the first
 things members look for
@@ -821,7 +821,7 @@ in a profile. </p></div>
 </div>
 <script type="text/javascript">
 var slideIndex = 1;
-//showSlides(slideIndex);
+showSlides(slideIndex);
 var allowed_limit = ${allowed_profiles_limit};
 $(document).ready(function(){
 	$('#gallery').gallery({
