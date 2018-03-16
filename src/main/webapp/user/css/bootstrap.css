@@ -5771,7 +5771,7 @@ button.close {
           box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
 }
 .modal-backdrop {
-  position: fixed;
+  position: inherit;
   top: 0;
   right: 0;
   bottom: 0;
@@ -5785,7 +5785,7 @@ button.close {
 }
 .modal-backdrop.in {
   filter: alpha(opacity=50);
-  opacity: .5;
+  opacity: 0;
 }
 .modal-header {
   min-height: 16.42857143px;
@@ -5802,11 +5802,13 @@ button.close {
 .modal-body {
   position: relative;
   padding: 15px;
+  background: transparent;
 }
 .modal-footer {
   padding: 15px;
   text-align: right;
   border-top: 1px solid #e5e5e5;
+  background: transparent;
 }
 .modal-footer .btn + .btn {
   margin-bottom: 0;
