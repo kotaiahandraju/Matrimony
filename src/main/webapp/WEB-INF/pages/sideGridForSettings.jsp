@@ -26,7 +26,9 @@
 										<tr>
 											<td height="30"><a href="#" onclick="displaySettingsBlock('delete_profile');" class="tablinks" >Delete Profile</a></td>
 										</tr>
-										
+										<tr>
+											<td height="30"><a href="#" onclick="displaySettingsBlock('edit_emailaddress');" class="tablinks" >Edit Email Address</a></td>
+										</tr>
 									</table>
 									
 									

@@ -271,7 +271,7 @@ function displayNewMatches(listOrders) {
 			}
 			 item =     item + ' 	<div class="col-md-4">'
 				         +' 			<a class="thumbnail" href="#" style="margin: 0px 0px 0px 47px;"><img alt="" src="'+image+'"></a>'
-				         +' 			<p align="center" style="margin: 130px 0px 0px 0px;"><a href="#" onclick="fullProfile('+orderObj.id+')" style="padding:5px; color:blue; border-radius:5px;">'+orderObj.username+'</a></p>'
+				         +' 			<p align="center" style="margin: 130px 0px 0px 0px;"><a href="#" onclick="fullProfile('+orderObj.id+')" style="transition: 0; padding:5px; color:blue; border-radius:5px;">'+orderObj.username+'</a></p>'
 				         +' 			<p align="center" style="margin: 4px 0px 0px -3px;">'+age+' yrs, '+orderObj.inches+'</p>'
 				         + 			    interestStr
 				         +'			</div>';
