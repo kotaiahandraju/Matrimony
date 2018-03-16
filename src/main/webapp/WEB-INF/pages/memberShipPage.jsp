@@ -25,6 +25,7 @@
 <br>
 <div class='row' style='margin-left: -29px; margin-right: -30px;;'>
 <div class='col-md-12' style='margin: 30px;'>
+<<<<<<< HEAD
 	<form:form commandName="payment"  class="form-horizontal" id="payment-form" role="form" method="post">
 		<h1 align='center' style='font-size: 36px;'>Membership</h1>
 		<c:if test="${not empty packagesList}">
@@ -132,4 +133,5 @@
 		$("#"+divId).removeAttr("hidden");
 	}
 </script>
+
  <%@ include file="userStepsFooter.jsp"%>

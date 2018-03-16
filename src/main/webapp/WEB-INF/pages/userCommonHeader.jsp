@@ -2159,22 +2159,22 @@ height: 400px;
 	</div>
 </div>
 
-<div class="modal fade" id="myModal" role="dialog">
+<div class="modal fade" id="myModal" role="dialog" style="background: transparent;">
     <div class="modal-dialog">
     
       <!-- Modal content-->
       <div class="modal-content">
-        <div class="modal-header" style="background: yellowgreen; border-radius: 6px;">
-          <button type="button" class="close" data-dismiss="modal" style="margin-top: 0px;margin-right: 9px; font-size: 28px;color: black;">&times;</button>
+        <div class="modal-header" style="background: yellowgreen; border-radius: 6px; width: 509px;">
+          <button type="button" class="close" data-dismiss="modal" style="margin-top: -4px;margin-right: -165px; font-size: 28px;color: black;">&times;</button>
           <h4 class="modal-title" style="color: aliceblue;padding-bottom: 5px; padding-left: 44px; font-size: 24px;">Mail Content</h4>
         </div>
-        <div class="modal-body">
+        <div class="modal-body" style="background: transparent;">
         	<input type="hidden" name="profile_id" id="profile_id">
-         	<textarea id="mail_content" name="mail_content" cols="70" rows="10" style="margin: 0px 0px 0px 29px;" ></textarea><br><div class="clearfix"></div>
+         	<textarea id="mail_content" name="mail_content" cols="70" rows="10" style="margin: -16px 0px 0px -15px;" ></textarea><br><div class="clearfix"></div>
           	
         </div>
-        <div class="modal-footer">
-          <button type="button" id="sendMailBtn" onclick="sendMail()" class="btn btn-primary" >Send Mail</button>
+        <div class="modal-footer" style="border: none; background: transparent;">
+          <button type="button" id="sendMailBtn" onclick="sendMail()" class="btn btn-primary" style="margin: 0px 0px 0px 404px;padding: 10px 15px 9px 12px;" >Send Mail</button>
         </div>
       </div>
       
