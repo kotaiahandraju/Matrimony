@@ -1436,7 +1436,7 @@ public class UsersDao extends BaseUsersDao
 	
 	public List<Map<String,Object>> getApprovedUserPhotos(int userId){
 		jdbcTemplate = custom.getJdbcTemplate();
-		String qryStr = "select id,image,approved_status from user_images where user_id = "+userId+" and status = '1' and approved_status = '1' order by id ";
+		String qryStr = "select id,image,approved_status from user_images where user_id = "+userId+" and status = '1' and approved_status = '1' order by is_profile_picture desc ";
 		try{
 			List<Map<String,Object>> list = jdbcTemplate.queryForList(qryStr);
 			if(list!=null)
