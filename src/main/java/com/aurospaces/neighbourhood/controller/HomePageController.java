@@ -1074,6 +1074,23 @@ public class HomePageController {
 			int total_records = 0;//MatrimonyConstants.FREE_USER_PROFILES_LIMIT;
 			request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
 			if (listOrderBeans != null && listOrderBeans.size() > 0) {
+				
+				//get photos
+				for(Map<String,String> profileObj:listOrderBeans){
+					List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos(Integer.parseInt(profileObj.get("id")));
+					if(photosList!=null && photosList.size()>0){
+						String imgStr = "";
+						for(Map<String,Object> photo:photosList){
+							imgStr += photo.get("image");
+						}
+						profileObj.put("photosList", imgStr);
+					}else{
+						profileObj.put("photosList", "");
+					}
+					
+					
+				}
+				
 				objectMapper = new ObjectMapper();
 				sJson = objectMapper.writeValueAsString(listOrderBeans);
 				request.setAttribute("allOrders1", sJson);
@@ -1092,6 +1109,7 @@ public class HomePageController {
 			} else {
 				request.setAttribute("new_matches", "''");
 			}
+			// get the logged in users's photos
 			List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos(sessionBean.getId());
 			request.setAttribute("photosList", photosList);
 			request.setAttribute("photosListSize", photosList.size());

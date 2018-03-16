@@ -10,7 +10,7 @@
 											
 										</tr>
 										<tr>
-											<td height="30"><a href="rejectedByMeList" class="tablinks" >Profiles I have ignored</a></td>
+											<td height="30"><a href="inboxAction?tab_type=inbox&list_type=rejected_requests" class="tablinks" >Profiles I have ignored</a></td>
 											
 										</tr>
 										<%-- <tr>

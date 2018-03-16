@@ -130,7 +130,7 @@
 		function expressInterest(profile_id){
 			var roleId = ${cacheGuest.roleId};
 			$("#id").val(profile_id);
-			var profileObj = serviceUnitArray[profileId];
+			var profileObj = serviceUnitArray[profile_id];
 			if(roleId==4){
 				document.searchForm2.action = "memberShipPage"
 				document.searchForm2.submit();
@@ -326,9 +326,32 @@
 					if((profession == null) || profession == ""){
 						profession = "Not Specified";
 					}
+					var photos_list = orderObj.photosList;
+					var slider = "", displayStyle = ' ';
+					if(photos_list != null && photos_list!=""){
+						$.each(photos_list,function(index,photo){
+							if(photo.image==orderObj.profileImage){
+								displayStyle = ' style="display:block" '
+							}else{
+								displayStyle = ' style="display:none" ';
+							}
+							slider += '<div class="smallSlides'+orderObj.id+'" '+displayStyle+'>'
+									+'		<img src="'+photo.image+'" class="img img-responsive thumbnail " style="margin-bottom:0;height: 60px;width: 60px;" >'
+									+'</div>'
+						});
+						slider += '<p style="display: table;">'
+								+'	<a id="prevBtn'+orderObj.id+'" class="" style="text-decoration: none; margin: 0px 0px 0px 7px;" href="#" onclick="plusSmallSlides(-1,'+orderObj.id+')">&#10094;</a>'
+								//+'	<span>'+(i+1)+' of '+photos_list.length+'</span><br>'
+			    			    +'	<a id="nextBtn'+orderObj.id+'" class="" style="text-decoration: none; margin-left: 41px;" href="#" onclick="plusSmallSlides(1,'+orderObj.id+')">&#10095;</a>'
+								+'</p>'
+					}else{
+						slider = '<img src="'+image+'" class="img-responsive thumbnail" style="margin-bottom: 0px;">';
+					}
+					
 					var tblRow = '<div class="row container-fluid">'
 						+ '<div class="col-md-2" style="margin-right:0; padding-right:0;">'
-			            + 	"<img src="+image+" class='img-responsive thumbnail' style='margin-bottom: 0px;'>"
+			            //+ 	"<img src="+image+" class='img-responsive thumbnail' style='margin-bottom: 0px;'>"
+			            + slider
 			            + '</div>'
 			            + '<div class="col-md-6">'
 			            + 	'<div class="profilesimilar">'
@@ -701,15 +724,22 @@
 					//}
 					
 						var photos_list = orderObj.photosList;
-						$.each(photos_list,function(i,photo){
-							slider += '<div class="smallSlides">'
+
+						var slider = "", displayStyle = ' ';
+						$.each(photos_list,function(index,photo){
+							if(photo.image==orderObj.profileImage){
+								displayStyle = ' style="display:block" '
+							}else{
+								displayStyle = ' style="display:none" ';
+							}
+							slider += '<div class="smallSlides'+orderObj.id+'" '+displayStyle+'>'
 									+'		<img src="'+photo.image+'" class="img img-responsive thumbnail " style="margin-bottom:0;height: 60px;width: 60px;" >'
 									+'</div>'
 						});
 						slider += '<p style="display: table;">'
-								+'	<a class="" style="margin: 0px 0px 0px 7px;cursor: pointer;" onclick="plusSmallSlides(-1)">&#10094;</a>'
+								+'	<a id="prevBtn'+orderObj.id+'" class="" style="text-decoration: none; margin: 0px 0px 0px 7px;" href="#" onclick="plusSmallSlides(-1,'+orderObj.id+')">&#10094;</a>'
 								//+'	<span>'+(i+1)+' of '+photos_list.length+'</span><br>'
-			    			    +'	<a class="" style="margin-left: 41px;cursor: pointer;" onclick="plusSmallSlides(1)">&#10095;</a>'
+			    			    +'	<a id="nextBtn'+orderObj.id+'" class="" style="text-decoration: none; margin-left: 41px;" href="#" onclick="plusSmallSlides(1,'+orderObj.id+')">&#10095;</a>'
 								+'</p>'
 						var tblRow = '<div class="panel panel-default">'
 							+ '<div class="panel-heading">'
@@ -726,9 +756,9 @@
 							+ '</div>'
 							+ '<div class="panel-body">'
 							+ '<div class="col-md-2" >'
-							+ ' <div class="smallSlides" style="display:block"> '
-							+ '		<a href="#"> <img src='+image+' class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: 60px;width: 60px;" ></a>'
-							+ ' </div>'
+							//+ ' <div class="smallSlides" style="display:block"> '
+							//+ '		<a href="#"> <img src='+image+' class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: 60px;width: 60px;" ></a>'
+							//+ ' </div>'
 							+  slider
 			            	+ '</div>'
 			            	+ '<div class="col-md-6">'
@@ -832,10 +862,6 @@
 		}
 
 		function sendMail(){
-			var roleId = ${cacheGuest.roleId};
-			$("#id").val(profileId);
-			var profileObj = serviceUnitArray[profileId];
-			
 			var content = $("#mail_content").val();
 			if(content.trim() == ""){
 				alert("Please enter some content");
@@ -1137,23 +1163,52 @@ function showSlides(n) {
 	  addWaterMark();
 }
 	////Photo pop-up related script---ends
-var slideIndex = 0;
-function plusSmallSlides(n) {
-		slideIndex += n;
+	
+var smallerSlideIndex = 0;
+function plusSmallSlides(n,profile_id) {
+	if(n>0){
+		smallerSlideIndex += n;
+	}else if(n<0){
+		smallerSlideIndex = smallerSlideIndex-1;
+	}
+	
+		
 	  var i;
-	  var slides = document.getElementsByClassName("smallSlides");
+	  var slides = document.getElementsByClassName("smallSlides"+profile_id);
+	  
 	  //var captionText = document.getElementById("caption");
-	  if (slideIndex > slides.length) {slideIndex = 1}
-	  if (slideIndex < 1) {slideIndex = slides.length}
+	  //if (slideIndex > slides.length) {slideIndex = 1}
+	  //if (slideIndex < 1) {slideIndex = slides.length}
 	  for (i = 0; i < slides.length; i++) {
 	      slides[i].style.display = "none";
 	  }
 	  
 	  
-	  slides[slideIndex-1].style.display = "block";
-	  //$("#temp").html(slides[slideIndex-1].html());
-	  //captionText.innerHTML = dots[slideIndex-1].alt;
-	  //addWaterMark();
+	  slides[smallerSlideIndex].style.display = "block";
+	  if(smallerSlideIndex==slides.length-1){
+		//disable next button	
+		//var btn = $("#nextBtn"+profile_id);
+		//$("#nextBtn"+profile_id).attr("disabled","disabled");
+		//$("#nextBtn"+profile_id).href = "javascript:;"
+		$("#nextBtn"+profile_id).removeAttr("href");
+		$("#nextBtn"+profile_id).removeAttr("onclick");
+		$("#nextBtn"+profile_id).style.color = "gray";
+		//$("#nextBtn"+profile_id).style.cursor = "";
+		//document.getElementById("myImg"+profile_id)
+	  }else{
+		  $("#nextBtn"+profile_id).attr("href","#");
+		  $("#nextBtn"+profile_id).attr("onclick","plusSmallSlides(1,"+profile_id+")");
+	  }
+	  if(smallerSlideIndex==0){
+		  //disable previous button
+	  	$("#prevBtn"+profile_id).removeAttr("href");
+		$("#prevBtn"+profile_id).removeAttr("onclick");
+		//$("#nextBtn"+profile_id).style.cursor = "";
+		//document.getElementById("myImg"+profile_id)
+	  }else{
+		  $("#prevBtn"+profile_id).attr("href","#");
+		  $("#prevBtn"+profile_id).attr("onclick","plusSmallSlides(-1,"+profile_id+")");
+	  }
 }
 
 	function getFilteredStatesMultiSelect(id){
