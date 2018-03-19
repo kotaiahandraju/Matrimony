@@ -14,7 +14,7 @@
 						</div>
 						<c:if test="${emailverify == '0'}">
 						
-						<p><span class="glyphicon glyphicon-envelope"></span> Verify your Email <a href="#" onclick="verifyEmail()"><u>Verify Email Address</u></a></p>
+						<p><span class="glyphicon glyphicon-envelope"></span> Verify your Email <a href="#no" onclick="verifyEmail()"><u>Verify Email Address</u></a></p>
 						</c:if>
 						
 					</div>
@@ -70,8 +70,8 @@
   */
   $(document).ready(function() {
 	  $('#media').carousel({
-	    pause: true,
-	    interval: false,
+	    //pause: true,
+	    interval: false
 	  });
  });
   $(function(){
@@ -143,8 +143,8 @@ function displayMatches(listOrders) {
 				firstname = orderObj.firstName;
 				lastname = orderObj.lastName;
 				//mobile_no__str = '<tr id="row'+orderObj.id+'"><td><button type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button></td></tr>';
-				//more_details_str = '<tr><td><span><a href="#" onclick="showMoreDetails(this)">read more...</a></span></td></tr>';
-				//mobile_no__str = '<tr><td><span><a href="#" onclick="viewMobileNumber('+orderObj.id+')">View Mobile Number</a></span></td></tr>';
+				//more_details_str = '<tr><td><span><a href="#no" onclick="showMoreDetails(this)">read more...</a></span></td></tr>';
+				//mobile_no__str = '<tr><td><span><a href="#no" onclick="viewMobileNumber('+orderObj.id+')">View Mobile Number</a></span></td></tr>';
 			}
 			var premiumMember = "";
 			var memberRoleId = orderObj.role_id;
@@ -152,14 +152,14 @@ function displayMatches(listOrders) {
 					memberRoleId==12 || memberRoleId==13 || memberRoleId==14)){
 				premiumMember = "<span class='premium-member'>Premium Member</span>";
 			}
-			var shortListedStr = '<span id="shortlistTD'+orderObj.id+'"><a href="#" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="shortList_dashboard('+orderObj.id+')"> Shortlist</a></span>';
+			var shortListedStr = '<span id="shortlistTD'+orderObj.id+'"><a href="#no" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="shortList_dashboard('+orderObj.id+')"> Shortlist</a></span>';
 			if(orderObj.short_listed == "1"){
 				shortListedStr = "<span>Shortlisted</span>";
 			}
 			var expressed = orderObj.expressedInterest;
 			var interestStr = "";
 			if(expressed==0){
-				interestStr = '<span id="expInterest'+orderObj.id+'"><a   href="#" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="expressInterest_dashboard('+orderObj.id+')">  Express Interest  </a></span>';
+				interestStr = '<span id="expInterest'+orderObj.id+'"><a   href="#no" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="expressInterest_dashboard('+orderObj.id+')">  Express Interest  </a></span>';
 			}else if(expressed>0){
 				interestStr = '<span>Expressed Interest</span>';
 			}
@@ -174,7 +174,7 @@ function displayMatches(listOrders) {
 				mobile_num_Str = '<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+orderObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>';
 				
 			}else{
-				mobile_num_Str = '<span ><a href="#" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="displayMobileNum('+orderObj.id+')"> View mobile no.</a></span>';
+				mobile_num_Str = '<span ><a href="#no" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="displayMobileNum('+orderObj.id+')"> View mobile no.</a></span>';
 			}
 			var tblRow = '<div class="row">'
 				+ '<div class="col-md-2" >'
@@ -182,7 +182,7 @@ function displayMatches(listOrders) {
 	            + '</div>'
 	            + '<div class="col-md-10">'
 	            + ' <p>'+firstname+'&nbsp;'+lastname+'|'+orderObj.username+'&nbsp;'+premiumMember+'&nbsp; '+age+' yrs,&nbsp; '+orderObj.religionName+', '+orderObj.casteName+','+orderObj.inches+' , '+orderObj.occupationName+', '+orderObj.currentCityName+', '+orderObj.currentCountryName+'. </p> '
-	            + ' <p> '+interestStr+'| <a href="#" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="fullProfile('+orderObj.id+')"> Full Profile</a> '
+	            + ' <p> '+interestStr+'| <a href="#no" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" id="sendMail'+orderObj.id+'" onclick="displayMailPopup('+orderObj.id+')">Send Mail</a> | <a href="#no" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="fullProfile('+orderObj.id+')"> Full Profile</a> '
 	            + ' | <span id="mobileTD'+orderObj.id+'">'+mobile_num_Str+'</span> | '+shortListedStr+'</p> '
 	            
 	            + '</div>'
@@ -250,8 +250,8 @@ function displayNewMatches(listOrders) {
 				firstname = orderObj.firstName;
 				lastname = orderObj.lastName;
 				//mobile_no__str = '<tr id="row'+orderObj.id+'"><td><button type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button></td></tr>';
-				//more_details_str = '<tr><td><span><a href="#" onclick="showMoreDetails(this)">read more...</a></span></td></tr>';
-				//mobile_no__str = '<tr><td><span><a href="#" onclick="viewMobileNumber('+orderObj.id+')">View Mobile Number</a></span></td></tr>';
+				//more_details_str = '<tr><td><span><a href="#no" onclick="showMoreDetails(this)">read more...</a></span></td></tr>';
+				//mobile_no__str = '<tr><td><span><a href="#no" onclick="viewMobileNumber('+orderObj.id+')">View Mobile Number</a></span></td></tr>';
 			}
 			
 			var item = '';
@@ -265,13 +265,13 @@ function displayNewMatches(listOrders) {
 			 var expressed = orderObj.expressedInterest;
 			var interestStr = "";
 			if(expressed==0){
-				interestStr = '<p  align="center" style="margin: 11px 0px 0px 0px;"><a  id="expInterest'+orderObj.id+'" href="#" type="button" class="btn btn-primary btn-block btn-md"  onclick="expressInterest('+orderObj.id+')">Send Interest</a></p>';
+				interestStr = '<p  align="center" style="margin: 11px 0px 0px 0px;"><a  id="expInterest'+orderObj.id+'" href="#no" type="button" class="btn btn-primary btn-block btn-md"  onclick="expressInterest('+orderObj.id+')">Send Interest</a></p>';
 			}else if(expressed>0){
 				interestStr = '<p align="center" style="margin: 11px 0px 0px 0px;"><a   type="button" disabled="true"  class="btn btn-primary btn-block btn-md"  >You Expressed Interest</a></p>';
 			}
 			 item =     item + ' 	<div class="col-md-4">'
-				         +' 			<a class="thumbnail" href="#" style="margin: 0px 0px 0px 47px;"><img alt="" src="'+image+'"></a>'
-				         +' 			<p align="center" style="margin: 130px 0px 0px 0px;"><a href="#" onclick="fullProfile('+orderObj.id+')" style="transition: 0; padding:5px; color:blue; border-radius:5px;">'+orderObj.username+'</a></p>'
+				         +' 			<a class="thumbnail" href="#no" style="margin: 0px 0px 0px 47px;"><img alt="" src="'+image+'"></a>'
+				         +' 			<p align="center" style="margin: 130px 0px 0px 0px;"><a href="#no" onclick="fullProfile('+orderObj.id+')" style="transition: 0; padding:5px; color:blue; border-radius:5px;">'+orderObj.username+'</a></p>'
 				         +' 			<p align="center" style="margin: 4px 0px 0px -3px;">'+age+' yrs, '+orderObj.inches+'</p>'
 				         + 			    interestStr
 				         +'			</div>';

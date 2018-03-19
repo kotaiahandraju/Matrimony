@@ -1248,7 +1248,7 @@ public class UsersDao extends BaseUsersDao
 		
 		public boolean mobileNumExistOrNot(UsersBean  objUsersBean) {
 			 jdbcTemplate = custom.getJdbcTemplate();
-				String sql = "SELECT count(*) FROM users where mobile = ? and status = '1' and id not in ("+objUsersBean.getId()+")";
+				String sql = "SELECT count(*) FROM users where mobile = ? and id not in ("+objUsersBean.getId()+")";
 				int count = jdbcTemplate.queryForInt(sql,
 						new Object[]{objUsersBean.getMobile()});
 				if(count==0){
@@ -1298,6 +1298,28 @@ public class UsersDao extends BaseUsersDao
 			try {
 				
 				sSql = "update users set username = concat('AM',(select city_code from city where id = "+cityId+"),'"+MiscUtils.generateRandomNumber(6)+"') where id = "+userId;
+				
+				int updated_count = jdbcTemplate.update(sSql);
+				if (updated_count == 1) {
+					return true;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				return false;
+			} finally {
+
+			}
+			return false;
+		}
+		
+		public boolean updateMobileNumber(String userId, String mobileNum){
+			
+			jdbcTemplate = custom.getJdbcTemplate();
+			String sSql  = null;
+			
+			try {
+				
+				sSql = "update users set mobile = '"+mobileNum+"' where id = "+userId;
 				
 				int updated_count = jdbcTemplate.update(sSql);
 				if (updated_count == 1) {

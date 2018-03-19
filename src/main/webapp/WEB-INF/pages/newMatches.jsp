@@ -242,7 +242,7 @@ var allowed_limit = ${allowed_profiles_limit};
 if (listOrders1 != "" && listOrders1 != null) {
 	paginationSetup(total_items_count);
 	$("#altLists").asPaginator('enable');
-	displayMatches_matches(listOrders1);
+	displayMatches_matches(listOrders1,"newMatches");
 	displayTableFooter(1);
 }else if (listOrders1 == null) {
 	$('#search_criteria').removeAttr("hidden");
@@ -521,7 +521,7 @@ function paginationSetup(total_items_count) {
 	    		}else{
 	    			paginationSetup(total_items_count);
 	    			$("#altLists").asPaginator('enable');
-	    			displayMatches_matches(results);
+	    			displayMatches_matches(results,"newMatches");
 	    			$("#table_footer").removeAttr("hidden");
 	    			$("#altLists").removeAttr("hidden");
 	    			displayTableFooter(page);
@@ -583,7 +583,7 @@ function getMatchesBasedOnCheckboxes(){
     			$("#altLists").asPaginator('destroy');
     			paginationSetup(total_records);
     			$("#altLists").asPaginator('enable');
-    			displayMatches_matches(newMatches);
+    			displayMatches_matches(newMatches,"newMatches");
     			$("#table_footer").removeAttr("hidden");
     			$("#altLists").removeAttr("hidden");
     			displayTableFooter(1);

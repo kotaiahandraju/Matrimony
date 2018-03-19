@@ -245,15 +245,15 @@
 						<c:if test="${cacheGuest.status} == '1'">
 							Your profile is currently Active. Click on below button if you want to deactivate your profile.<br>
 							<input type="button" type="button" value="Deactivate My Account" onclick="changeProfileStatus(0)" />
-						</c:if>
+						</c:if><br>
 						<c:if test="${cacheGuest.status} == '2'">
 							Your profile is currently In-Active. Click on below button if you want to activate your profile.<br>
 						Activate/Deactivate Profile<br>
-						</c:if>
+						</c:if><br>
 						<c:if test="${cacheGuest.status == '1'}">
 							Your profile is currently Active. <br>
 							Click on below button if you want to deactivate your profile.You can activate it again whenever you want using settings.<br>
-							
+							<br>
 							<input type="button" type="button" value="Deactivate My Account" onclick="changeProfileStatus(0)" />
 						</c:if><br>
 						<c:if test="${cacheGuest.status == '0'}">
@@ -284,7 +284,7 @@
 					<legend style='border-bottom: -31px dotted; color: black;'>Edit Email Address</legend>
 					<p style="color: black;">A valid e-mail id will be used to send you partner search mailers, member to member communication mailers and special offers.</p>
 					<div class="form-group" style="margin: auto;">
-  						<label class="control-label" style="color: black;">Input addons</label>  							
+  						<label class="control-label" style="color: black;">Enter Email ID</label>  							
     							<div class="input-group mb-3">
       								<input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">      								     								
     							</div>

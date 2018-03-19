@@ -209,7 +209,7 @@ public class LoginController {
 				return "redirect:profile.htm?page=3";
 			}
 			filled_status += 15;
-			if(StringUtils.isBlank(objUserBean.getAboutMyself()) || StringUtils.isBlank(objUserBean.getDisability())){
+			if(StringUtils.isBlank(objUserBean.getAboutMyself())){
 				return "redirect:profile.htm?page=4";
 			}
 			session.setAttribute("profile_filled_status", filled_status);

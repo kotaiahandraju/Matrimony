@@ -7,7 +7,7 @@
 	<script src="${baseurl }/js/bootstrap.min.js"></script>
 	
 	<!-- jQuery UI -->
-	<script src="${baseurl }/js/plugins/jquery-ui/jquery-ui.js"></script>
+	<%-- <script src="${baseurl }/js/plugins/jquery-ui/jquery-ui.js"></script> --%>
 	<!-- Touch enable for jquery UI -->
 	<script src="${baseurl }/js/plugins/touch-punch/jquery.touch-punch.min.js"></script>
 	<!-- slimScroll -->

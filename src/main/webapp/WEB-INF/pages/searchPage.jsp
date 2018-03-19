@@ -288,8 +288,8 @@ function displayMatches(listOrders) {
             	+ '<h4 style="margin-bottom:20px;">Like this Profile?</h4>'
             	+ insert_str
 				//+ '<button class="btn btn-danger btn-block btn-md" onclick="fullProfile('+orderObj.id+')">View Full Profile</button><br><br><br><br><br>'
-				+ '<a href="#" class="btn btn-danger btn-block btn-md" onclick="fullProfile('+orderObj.id+')">View Full Profile</a><br>'
-				+ '<a href="#" type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="shortList('+orderObj.id+')">Shortlist</a> '
+				+ '<a href="#" class="btn btn-info btn-block btn-md" onclick="fullProfile('+orderObj.id+')">View Full Profile</a><br>'
+				+ '<a href="#" type="button" class="btn1 btn btn-success btn-block"  id="mobileBtn'+orderObj.id+'" onclick="shortList('+orderObj.id+')">Shortlist</a> '
 				+ '<div class="clearfix"></div>'
             	+ '</div>'
             	+ '</div>'

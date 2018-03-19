@@ -38,9 +38,9 @@
 <link href="user/css/style.css" rel="stylesheet">
 <link href="user/css/custom.css" rel="stylesheet">
  <link href="css/datepicker1.css" rel="stylesheet" type="text/css" />
-<!-- <script src="js/jquery-ui.min.js"></script> -->
+ 
 <link rel="stylesheet" type="text/css" href="user/css/component.css" />
-<script src="user/js/modernizr.custom.js"></script>
+
 <style>
 .modal-dialog {
 	position: relative;
@@ -392,11 +392,11 @@ window.setTimeout(function() {
 									</div>
 								</c:if>
 								<div class="form-group col-md-12">
-									<input type="text" class="form-control" onblur="validate('userName','Username')" onkeydown="removeBorder(this.id)" name="userName" id="userName" placeholder="Username" required>
+									<input type="text" class="form-control" onkeydown="removeBorder(this.id)" name="userName" id="userName" placeholder="Username" required>
 								</div>
 
 								<div class="form-group col-md-12">
-									<input type="password" class="form-control" onblur="validate('password','Password')" onkeydown="removeBorder(this.id)" name="password" id="password" placeholder="Password" required>
+									<input type="password" class="form-control"  onkeydown="removeBorder(this.id)" name="password" id="password" placeholder="Password" required>
 								</div>
 
 								<div class="form-group col-md-12">
@@ -700,16 +700,18 @@ window.setTimeout(function() {
 
 
 
-	<script src="user/js/ie10-viewport-bug-workaround.js"></script>
 	<script src="user/vendor/jquery/jquery.min.js"></script>
+	<script src="user/js/ie10-viewport-bug-workaround.js"></script>
 	<script src="user/vendor/bootstrap/js/bootstrap.min.js"></script>
 	<script src="user/vendor/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
 	<script src="user/vendor/scrollreveal/scrollreveal.min.js"></script>
 	<script src="user/js/theme.js"></script>
 	<script src="user/js/custom.js"></script>
+	 <script src="js/jquery.blockUI.min.js"></script>
 	<script src="user/vendor/woocommerce-FlexSlider/jquery.flexslider.js"></script>
+	<script src="user/js/modernizr.custom.js"></script>
 	<script src="user/js/toucheffects.js"></script>
-<script src="js/custemValidation.js"></script>
+<script src="js/custemValidation1.js"></script>
 <script src="js/ajax.js"></script>
 <script src="js/jquery-ui.min.js"></script>
 <script type="text/javascript">

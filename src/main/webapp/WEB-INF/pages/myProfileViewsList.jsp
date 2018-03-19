@@ -190,7 +190,7 @@ function openCity(evt, cityName) {
 }
 
 // Get the element with id="defaultOpen" and click on it
-document.getElementById("defaultOpen").click();
+//document.getElementById("defaultOpen").click();
 </script>
 <script type="text/javascript">
 var total_items_count = ${total_records};

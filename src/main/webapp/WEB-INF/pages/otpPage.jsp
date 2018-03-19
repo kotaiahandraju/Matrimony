@@ -36,6 +36,15 @@
 			      	
 			      	</div>
 			  </div>
+<!-- 			  <div class="form-group"> -->
+		   		
+			   		
+<!-- 		      		<div class="col-md-3"> -->
+<!-- 		      			<input type="text" placeholder="enter mobile Number" id="mobile" name="mobile" /> -->
+<!-- 			      		<button type="button" id="editBtn" onclick="updateMobileNumber();" value="Edit MobileNmuber" class="btn4 btn btn-info">Edit MobileNmuber</button> -->
+			      	
+<!-- 			      	</div> -->
+<!-- 			  </div> -->
 			  <div class="form-group">
 		   		
 			   		
@@ -98,6 +107,45 @@ function resendOtp(){
 			
 		});
 	
+}
+function validate(id, errorMessage)
+{
+	var styleBlock = '.placeholder-style.placeholder-style::-moz-placeholder {color: #cc0000;} .placeholder-style::-webkit-input-placeholder {color: #cc0000;}';
+	if($('#'+id).val() ==  null || $('#'+id).val() == ""  || $('#'+id).val()=="undefined" ) {
+		$('style').append(styleBlock);
+		$('#'+id).css('border-color','#cc0000');
+		$('#'+id).css('color','#cc0000');
+		$('#'+id).attr('placeholder',errorMessage);
+		$('#'+id).addClass('placeholder-style your-class');
+		return false;
+	}else{
+		$('#'+id).css('border-color','');
+		$('#'+id).removeClass('placeholder-style your-class');
+		return true;
+	}
+	
+}
+function updateMobileNumber(){
+		var userId = ${profileToBeCreated.id};
+		var mobileNum = $("#mobile").val();
+		if(mobileNum.trim()==""){
+			var v1 = validate('mobile','Enter Mobile Number');
+			if(v1==false)
+				return false;
+		}
+		var formData = new FormData();
+		formData.append("userId",userId);
+		formData.append("mobileNum",mobileNum);
+		$.fn.makeMultipartRequest('POST', 'resendOtp', false,
+			formData, false, 'text', function(data){
+		var jsonobj = $.parseJSON(data);
+		var msg = jsonobj.message;
+		var mobileStr = jsonobj.mobileStr;
+		if(msg != "undefined" && "success"==msg){
+			$("#displayMsg").html("OTP has been resent on your mobile no. xxxxxxx"+mobileStr);
+		}	
+		
+	});
 }
 </script> 
 <%@ include file="userStepsFooter.jsp"  %>

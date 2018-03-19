@@ -25,7 +25,7 @@
 <br>
 <div class='row' style='margin-left: -29px; margin-right: -30px;;'>
 <div class='col-md-12' style='margin: 30px;'>
-<<<<<<< HEAD
+
 	<form:form commandName="payment"  class="form-horizontal" id="payment-form" role="form" method="post">
 		<h1 align='center' style='font-size: 36px;'>Membership</h1>
 		<c:if test="${not empty packagesList}">
@@ -106,6 +106,22 @@
 					</c:if>
 				</div>
 			</div>	
+		</c:if>
+		<c:if test="${packName == 'Aarna Premium' }">
+			<div class="well" id="infoDiv${pack.id}" style='width: 1100px;' hidden="true">
+				<div class="row">
+					<c:if test="${pack.allowed_messages_limit != null and not empty pack.allowed_messages_limit}">
+						<div class="col-md-4">
+							<i class="fa fa-envelope-o" style='font-size: 28px;'></i>&nbsp;Send mails to <b><c:out value="${pack.allowed_messages_limit}" /></b> members
+						</div>
+					</c:if>
+					<c:if test="${pack.allowed_profiles_limit != null and not empty pack.allowed_profiles_limit}">
+						<div class="col-md-4">
+							<i class="glyphicon glyphicon-phone" style='font-size: 28px;'></i>&nbsp;View mobile numbers of/Send interest requests to <b><c:out value="${pack.allowed_profiles_limit}" /></b> members to contact them directly.
+						</div>
+					</c:if>
+				</div>
+			</div>
 		</c:if>
 	</c:forEach>
 </c:if>

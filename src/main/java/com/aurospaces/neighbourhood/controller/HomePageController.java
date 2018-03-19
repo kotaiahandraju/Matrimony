@@ -1075,22 +1075,6 @@ public class HomePageController {
 			request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
 			if (listOrderBeans != null && listOrderBeans.size() > 0) {
 				
-				//get photos
-				for(Map<String,String> profileObj:listOrderBeans){
-					List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos(Integer.parseInt(profileObj.get("id")));
-					if(photosList!=null && photosList.size()>0){
-						String imgStr = "";
-						for(Map<String,Object> photo:photosList){
-							imgStr += photo.get("image");
-						}
-						profileObj.put("photosList", imgStr);
-					}else{
-						profileObj.put("photosList", "");
-					}
-					
-					
-				}
-				
 				objectMapper = new ObjectMapper();
 				sJson = objectMapper.writeValueAsString(listOrderBeans);
 				request.setAttribute("allOrders1", sJson);
@@ -1470,6 +1454,28 @@ public class HomePageController {
 		}
 		return null;
 	}
+	
+	@RequestMapping(value = "/updateMobileNumber")
+	public @ResponseBody String updateMobileNumber(UsersBean userBean, Model objeModel ,
+			HttpServletRequest request,HttpServletResponse response, HttpSession session) {
+		try {
+				UsersBean objuserBean = (UsersBean) session.getAttribute("cacheGuest");
+				if(objuserBean==null){
+					return "redirect:HomePage";
+				}
+				String mobileNum = request.getParameter("mobileNum");
+				String user_id = request.getParameter("userId");
+				objUsersDao.updateMobileNumber(user_id,mobileNum);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			logger.error(e);
+			logger.fatal("error in updateMobileNumber method  ");
+		}
+		return "";
+	}
+	
 	@ModelAttribute("cast")
 	public Map<Integer, String> populatecast() {
 		Map<Integer, String> statesMap = new LinkedHashMap<Integer, String>();
@@ -2483,6 +2489,20 @@ public class HomePageController {
 			if("1".equals(sessionBean.getStatus())){
 				List<Map<String,Object>> shortlistedMeList = objUsersDao.getShortlistedMeMembers(sessionBean.getId()+"",0);
 				if(shortlistedMeList!=null && shortlistedMeList.size()>0){
+					//get photos
+					for(Map<String,Object> reqObj:shortlistedMeList){
+						List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos((Integer)reqObj.get("id"));
+						if(photosList!=null && photosList.size()>0){
+							//objectMapper = new ObjectMapper();
+							//sJson = objectMapper.writeValueAsString(photosList);
+							reqObj.put("photosList", photosList);
+							reqObj.put("photosListSize", photosList.size());
+						}else{
+							reqObj.put("photosList", "");
+						}
+						
+						
+					}
 					objectMapper = new ObjectMapper();
 					sJson = objectMapper.writeValueAsString(shortlistedMeList);
 					request.setAttribute("shortlistedList", sJson);
@@ -2519,6 +2539,20 @@ public class HomePageController {
 			long total_records = 0;
 			List<Map<String,Object>> shortlistedByMeList = objUsersDao.getShortlistedByMeMembers(sessionBean.getId()+"",0);
 			if(shortlistedByMeList!=null && shortlistedByMeList.size()>0){
+				//get photos
+				for(Map<String,Object> reqObj:shortlistedByMeList){
+					List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos((Integer)reqObj.get("id"));
+					if(photosList!=null && photosList.size()>0){
+						//objectMapper = new ObjectMapper();
+						//sJson = objectMapper.writeValueAsString(photosList);
+						reqObj.put("photosList", photosList);
+						reqObj.put("photosListSize", photosList.size());
+					}else{
+						reqObj.put("photosList", "");
+					}
+					
+					
+				}
 				objectMapper = new ObjectMapper();
 				sJson = objectMapper.writeValueAsString(shortlistedByMeList);
 				request.setAttribute("shortlistedList", sJson);
@@ -2606,6 +2640,24 @@ public class HomePageController {
 			request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
 			
 			if (listOrderBeans != null && listOrderBeans.size() > 0) {
+				//get photos
+				for(Map<String,String> profileObj:listOrderBeans){
+					List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos(Integer.parseInt(profileObj.get("id")));
+					if(photosList!=null && photosList.size()>0){
+						String imgStr = "";
+						for(Map<String,Object> photo:photosList){
+							if(StringUtils.isBlank(imgStr)){
+								imgStr = (String)photo.get("image");
+							}else
+								imgStr += ","+photo.get("image");
+						}
+						profileObj.put("photosList", imgStr);
+					}else{
+						profileObj.put("photosList", "");
+					}
+					
+					
+				}
 				objectMapper = new ObjectMapper();
 				sJson = objectMapper.writeValueAsString(listOrderBeans);
 				request.setAttribute("allOrders1", sJson);
@@ -2966,7 +3018,7 @@ public class HomePageController {
 	 }
    
    @RequestMapping(value = "/mobileNumViewedByMeList")
-	 public String mobileNosList(@ModelAttribute("createProfile") UsersBean objUserssBean, Model objeModel, HttpServletRequest request, HttpSession session) {
+	 public String mobileNumViewedByMeList(@ModelAttribute("createProfile") UsersBean objUserssBean, Model objeModel, HttpServletRequest request, HttpSession session) {
 	  ObjectMapper objectMapper = null;
 		String sJson = null;
 		try {
@@ -2979,6 +3031,20 @@ public class HomePageController {
 
 				List<Map<String,Object>> pendingRequests = objUsersDao.getMobileNumViewedByMeList(sessionBean.getId()+"",0);
 				if(pendingRequests!=null && pendingRequests.size()>0){
+					//get photos
+					for(Map<String,Object> reqObj:pendingRequests){
+						List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos((Integer)reqObj.get("id"));
+						if(photosList!=null && photosList.size()>0){
+							//objectMapper = new ObjectMapper();
+							//sJson = objectMapper.writeValueAsString(photosList);
+							reqObj.put("photosList", photosList);
+							reqObj.put("photosListSize", photosList.size());
+						}else{
+							reqObj.put("photosList", "");
+						}
+						
+						
+					}
 					objectMapper = new ObjectMapper();
 					sJson = objectMapper.writeValueAsString(pendingRequests);
 					request.setAttribute("pendingRequests", sJson);
@@ -3013,6 +3079,20 @@ public class HomePageController {
 			if("1".equals(sessionBean.getStatus())){
 				List<Map<String,Object>> pendingRequests = objUsersDao.getProfileViewedMembers(sessionBean.getId()+"",0);
 				if(pendingRequests!=null && pendingRequests.size()>0){
+					//get photos
+					for(Map<String,Object> reqObj:pendingRequests){
+						List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos((Integer)reqObj.get("id"));
+						if(photosList!=null && photosList.size()>0){
+							//objectMapper = new ObjectMapper();
+							//sJson = objectMapper.writeValueAsString(photosList);
+							reqObj.put("photosList", photosList);
+							reqObj.put("photosListSize", photosList.size());
+						}else{
+							reqObj.put("photosList", "");
+						}
+						
+						
+					}
 					objectMapper = new ObjectMapper();
 					sJson = objectMapper.writeValueAsString(pendingRequests);
 					request.setAttribute("pendingRequests", sJson);
@@ -3049,6 +3129,20 @@ public class HomePageController {
 			if("1".equals(sessionBean.getStatus())){
 				List<Map<String,Object>> pendingRequests = objUsersDao.getMyMobileNoViewedByMembers(sessionBean.getId()+"",0);
 				if(pendingRequests!=null && pendingRequests.size()>0){
+					//get photos
+					for(Map<String,Object> reqObj:pendingRequests){
+						List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos((Integer)reqObj.get("id"));
+						if(photosList!=null && photosList.size()>0){
+							//objectMapper = new ObjectMapper();
+							//sJson = objectMapper.writeValueAsString(photosList);
+							reqObj.put("photosList", photosList);
+							reqObj.put("photosListSize", photosList.size());
+						}else{
+							reqObj.put("photosList", "");
+						}
+						
+						
+					}
 					objectMapper = new ObjectMapper();
 					sJson = objectMapper.writeValueAsString(pendingRequests);
 					request.setAttribute("pendingRequests", sJson);
@@ -3083,6 +3177,20 @@ public class HomePageController {
 			long total_records = 0;
 			List<Map<String,Object>> pendingRequests = objUsersDao.getyetToBeViewedList(sessionBean.getId()+"",0);
 			if(pendingRequests!=null && pendingRequests.size()>0){
+				//get photos
+				for(Map<String,Object> reqObj:pendingRequests){
+					List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos((Integer)reqObj.get("id"));
+					if(photosList!=null && photosList.size()>0){
+						//objectMapper = new ObjectMapper();
+						//sJson = objectMapper.writeValueAsString(photosList);
+						reqObj.put("photosList", photosList);
+						reqObj.put("photosListSize", photosList.size());
+					}else{
+						reqObj.put("photosList", "");
+					}
+					
+					
+				}
 				objectMapper = new ObjectMapper();
 				sJson = objectMapper.writeValueAsString(pendingRequests);
 				request.setAttribute("yetToBeViewedList", sJson);
@@ -3114,6 +3222,20 @@ public class HomePageController {
 			long total_records = 0;
 			List<Map<String,Object>> pendingRequests = objUsersDao.getViewedNotContactedList(sessionBean.getId()+"",0);
 			if(pendingRequests!=null && pendingRequests.size()>0){
+				//get photos
+				for(Map<String,Object> reqObj:pendingRequests){
+					List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos((Integer)reqObj.get("id"));
+					if(photosList!=null && photosList.size()>0){
+						//objectMapper = new ObjectMapper();
+						//sJson = objectMapper.writeValueAsString(photosList);
+						reqObj.put("photosList", photosList);
+						reqObj.put("photosListSize", photosList.size());
+					}else{
+						reqObj.put("photosList", "");
+					}
+					
+					
+				}
 				objectMapper = new ObjectMapper();
 				sJson = objectMapper.writeValueAsString(pendingRequests);
 				request.setAttribute("viewedNotContactedList", sJson);
@@ -3372,6 +3494,20 @@ public class HomePageController {
 					requests = objUsersDao.getProfileViewedMembers(sessionBean.getId()+"",0);
 				}
 				if(requests!=null && requests.size()>0){
+					//get photos
+					for(Map<String,Object> reqObj:requests){
+						List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos((Integer)reqObj.get("id"));
+						if(photosList!=null && photosList.size()>0){
+							//objectMapper = new ObjectMapper();
+							//sJson = objectMapper.writeValueAsString(photosList);
+							reqObj.put("photosList", photosList);
+							reqObj.put("photosListSize", photosList.size());
+						}else{
+							reqObj.put("photosList", "");
+						}
+						
+						
+					}
 					jsOnObj.put("inbox_requests", requests);
 					total_records = (Long)requests.get(0).get("total_records");
 				}else{
@@ -3427,7 +3563,9 @@ public class HomePageController {
 					String email = userBean.getEmail();
 					emailStr = email.substring(email.indexOf("@")-3);
 					String mobileNum = userBean.getMobile();
-					mobileStr = mobileNum.substring(mobileNum.length()-3);
+					if(StringUtils.isNotBlank(mobileNum)){
+						mobileStr = mobileNum.substring(mobileNum.length()-3);
+					}
 					session.setAttribute("emailStr", emailStr);
 					session.setAttribute("mobileStr", mobileStr);
 				}

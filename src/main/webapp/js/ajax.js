@@ -49,3 +49,24 @@ $.fn.makeRequest = function (method,url,data,successFunction)
 		timeout: 30000
 	});
 };
+
+$.fn.makeMultipartRequest1 = function(method, url, processData, formData,
+		contentType, dataType, successFunction) {
+	$("#loadAjax").show();
+	$.ajax({
+		type : method,
+		url : url,
+		processData : processData,
+		data : formData,
+		contentType : contentType,
+		dataType : dataType,
+		
+       
+		success : successFunction,
+		complete: function () {
+         
+    },
+		error :  function(e){console.log(e);}
+	});
+	$("#loadAjax").hide();
+};

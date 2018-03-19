@@ -703,7 +703,7 @@ function getCitys(id){
 	     formData.append('id', id);
 	     formData.append('value', value);
 	     formData.append('constant', constant);
-		$.fn.makeMultipartRequest('POST', 'autoCompleteSave', false,
+		$.fn.makeMultipartRequest1('POST', 'autoCompleteSave', false,
 				formData, false, 'text', function(data){
 			
 		});
@@ -718,7 +718,7 @@ function getCitys(id){
 	     formData.append('id', id);
 	     formData.append('value', value);
 	     formData.append('constant', constant);
-		$.fn.makeMultipartRequest('POST', 'autoCompleteSave', false,
+		$.fn.makeMultipartRequest1('POST', 'autoCompleteSave', false,
 				formData, false, 'text', function(data){
 			
 		});
@@ -752,6 +752,7 @@ function getCitys(id){
 	function isMobileNumDuplicate(){
 		var formData = new FormData();
 	    formData.append('mobile', $("#mobile").val());
+	    formData.append('id', $("#id").val());
 		$.fn.makeMultipartRequest('POST', 'mobileNumChecking', false,
 				formData, false, 'text', function(data){
 			var jsonobj = $.parseJSON(data);

@@ -240,6 +240,7 @@
 		function displayMatches_myhome(listOrders) {
 			$('#matches').html('');
 			serviceUnitArray = {};
+			smallerSlideIndex = {};
 			if(listOrders==""){
 				//var tblRow = '<div>No matches found.</div>';
 				var tblRow = '<div class="alert alert-danger" style="margin-bottom: 0px;padding: 5px;"><h6>No data found..!</h6></div>';
@@ -283,8 +284,8 @@
 						firstname = orderObj.firstName;
 						lastname = orderObj.lastName;
 						//mobile_no__str = '<tr id="row'+orderObj.id+'"><td><button type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button></td></tr>';
-						//more_details_str = '<tr><td><span><a href="#" onclick="showMoreDetails(this)">read more...</a></span></td></tr>';
-						//mobile_no__str = '<tr><td><span><a href="#" onclick="viewMobileNumber('+orderObj.id+')">View Mobile Number</a></span></td></tr>';
+						//more_details_str = '<tr><td><span><a href="#no" onclick="showMoreDetails(this)">read more...</a></span></td></tr>';
+						//mobile_no__str = '<tr><td><span><a href="#no" onclick="viewMobileNumber('+orderObj.id+')">View Mobile Number</a></span></td></tr>';
 					}
 					
 					var premiumMember = "";
@@ -298,7 +299,7 @@
 					if(shortListType != null && typeof shortListType != "undefined" && shortListType=="shortListedByMe"){
 						shortListedStr = '';
 					}else{
-						shortListedStr = '<span id="shortlistTD'+orderObj.id+'"><a href="#" type="button" class="btn btn-primary" onclick="shortList('+orderObj.id+')"> Shortlist</a></span>';
+						shortListedStr = '<span id="shortlistTD'+orderObj.id+'"><a href="#no" type="button" class="btn btn-primary" onclick="shortList('+orderObj.id+')"> Shortlist</a></span>';
 						if(orderObj.short_listed == "1"){
 							shortListedStr = '<span><a type="button" class="btn btn-primary" disabled="true"> Shortlisted</a></span>';
 						}
@@ -306,7 +307,7 @@
 					var expressed = orderObj.expressedInterest;
 					var interestStr = "";
 					if(expressed==0){
-						interestStr = '<span id="expInterest'+orderObj.id+'"><a   href="#" type="button" class="btn btn-success btn-block btn-md"  onclick="expressInterest('+orderObj.id+')">  Express Interest  </a></span>';
+						interestStr = '<span id="expInterest'+orderObj.id+'"><a   href="#no" type="button" class="btn btn-success btn-block btn-md"  onclick="expressInterest('+orderObj.id+')">  Express Interest  </a></span>';
 					}else if(expressed>0){
 						interestStr = '<span><a type="button" class="btn btn-success btn-block" disabled="true" style="text-size-adjust:auto">Expressed Interest</a></span>';
 					}
@@ -318,9 +319,9 @@
 					var mobNumViewed = orderObj.mobileNumViewed;
 					var mobile_num_Str = "";
 					if(mobNumViewed==1 || expressed==1 || message_sent_status==1){
-						mobile_num_Str = '<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+orderObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>';
+						mobile_num_Str = '<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;float:left;">&nbsp;+91-'+orderObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;float:left;color:#4baa26;">Verified </span>)</font></span>';
 					}else{
-						mobile_num_Str = '<span ><a href="#" type="button" class="btn btn-primary btn-block" onclick="displayMobileNum('+orderObj.id+')">View Mobile Number</a></span>';
+						mobile_num_Str = '<span ><a href="#no" type="button" class="btn btn-primary btn-block" onclick="displayMobileNum('+orderObj.id+')">View Mobile Number</a></span>';
 					}
 					var profession = orderObj.occupationName;
 					if((profession == null) || profession == ""){
@@ -328,7 +329,8 @@
 					}
 					var photos_list = orderObj.photosList;
 					var slider = "", displayStyle = ' ';
-					if(photos_list != null && photos_list!=""){
+					if(typeof photos_list != "undefined" && photos_list!=""){
+						smallerSlideIndex[orderObj.id] = 0;
 						$.each(photos_list,function(index,photo){
 							if(photo.image==orderObj.profileImage){
 								displayStyle = ' style="display:block" '
@@ -339,11 +341,13 @@
 									+'		<img src="'+photo.image+'" class="img img-responsive thumbnail " style="margin-bottom:0;height: 60px;width: 60px;" >'
 									+'</div>'
 						});
-						slider += '<p style="display: table;">'
-								+'	<a id="prevBtn'+orderObj.id+'" class="" style="text-decoration: none; margin: 0px 0px 0px 7px;" href="#" onclick="plusSmallSlides(-1,'+orderObj.id+')">&#10094;</a>'
-								//+'	<span>'+(i+1)+' of '+photos_list.length+'</span><br>'
-			    			    +'	<a id="nextBtn'+orderObj.id+'" class="" style="text-decoration: none; margin-left: 41px;" href="#" onclick="plusSmallSlides(1,'+orderObj.id+')">&#10095;</a>'
-								+'</p>'
+						if(photos_list.length>1){
+							slider += '<p style="display: table;">'
+									+'	<a id="prevBtn'+orderObj.id+'" class="" style="text-decoration: none; margin: 0px 0px 0px 7px;" href="#no" onclick="plusSmallSlides(-1,'+orderObj.id+')">&#10094;</a>'
+									//+'	<span>'+(i+1)+' of '+photos_list.length+'</span><br>'
+				    			    +'	<a id="nextBtn'+orderObj.id+'" class="" style="text-decoration: none; margin-left: 41px;" href="#no" onclick="plusSmallSlides(1,'+orderObj.id+')">&#10095;</a>'
+									+'</p>'
+						}
 					}else{
 						slider = '<img src="'+image+'" class="img-responsive thumbnail" style="margin-bottom: 0px;">';
 					}
@@ -360,25 +364,27 @@
 			            + 			'<tr><td><p>'+age+' yrs, '+orderObj.religionName+', '+orderObj.casteName+',</p></td></tr>'
 			            + 			'<tr><td><p>'+orderObj.inches+'&nbsp'+occName+', '+orderObj.currentCityName+', '+orderObj.currentCountryName+'.</p></td></tr>'
 			            //+			mobile_no__str
-			            //+ 			'<tr><td><span><a href="#" onclick="fullProfile('+orderObj.id+')">Full Profile</span> </td></tr>'
+			            //+ 			'<tr><td><span><a href="#no" onclick="fullProfile('+orderObj.id+')">Full Profile</span> </td></tr>'
 			            + 		'</table>'
 			            + 	'</div>'
 			            + '</div>'
 			            + '<div class="col-md-3" style="margin-right:0; padding-right:0;">'
 			            +  '<h4 style="margin-bottom:20px;">Like this Profile?</h4>'
 			            + interestStr
-			            //+ 	'<a href="#" id="expInterest'+orderObj.id+'" type="button" class="btn btn-primary" onclick="expressInterest('+orderObj.id+')">Yes I\'m interested</a><br><br>'
+			            //+ 	'<a href="#no" id="expInterest'+orderObj.id+'" type="button" class="btn btn-primary" onclick="expressInterest('+orderObj.id+')">Yes I\'m interested</a><br><br>'
 			            +   '<br>'
-			            + 	'<a href="#"  type="button" class="btn btn-primary btn-block" onclick="fullProfile('+orderObj.id+')">View Full Profile</a>'
-			            //+   '<button id="mobileBtn'+orderObj.id+'" type="button" class="btn btn-info" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button>'
+			            + 	'<a href="#no"  type="button" class="btn btn-primary btn-block" onclick="fullProfile('+orderObj.id+')">View Full Profile</a>'
+			               //+   '<button id="mobileBtn'+orderObj.id+'" type="button" class="btn btn-info" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button>'
 			            + '</div>'
+			            + mobile_num_Str
 			            + '<div class="row container-fluid">'
 			            + 	'<div class="col-md-7" style="margin-right:0; padding-right:0;">'
 			            +		'<table width="100%" border="0" cellspacing="0" cellpadding="0">'
 			            + 			'<tr>'
 			            //+				'<td><button  type="button" class="btn btn-primary btn-block" onclick="fullProfile('+orderObj.id+')">View Full Profile</button></td>'
 			            //+ 				'<td>&nbsp;</td><td><button id="mobileBtn'+orderObj.id+'" type="button" class="btn btn-info" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button></td></tr>'
-			            //+				'<td><a href="#" onclick="fullProfile('+orderObj.id+')">View Full Profile</a></td>'			            
+			            //+				'<td><a href="#no" onclick="fullProfile('+orderObj.id+')">View Full Profile</a></td>'
+			            + 				'<td id="mobileTD'+orderObj.id+'">'+mobile_num_Str+'</td>'
 			            +				'<td></td>'
 			            + 				'<td id="shortlistTD'+orderObj.id+'">'+shortListedStr+'</td></tr>'
 			            + 		'</table>'
@@ -398,11 +404,12 @@
 			});
 		}
 		
-		function displayMatches_matches(listOrders) {
+		function displayMatches_matches(listOrders,new_matches) {
 			$('#searchResults').html('');
 			$("#search_criteria").prop("hidden",true);
 			$('#searchresultsDiv').removeAttr("hidden");
 			serviceUnitArray = {};
+			smallerSlideIndex = {};
 			$.each(listOrders,function(i, orderObj) 
 			{
 				serviceUnitArray[orderObj.id] = orderObj;
@@ -429,8 +436,8 @@
 					var more_details_str = '';
 					var expressed = orderObj.expressedInterest;
 					var firstname = 'xxxxxx',lastname='xxxxxx';
-					//mobile_no__str = '<tr id="row'+orderObj.id+'"><td><a href="#" type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</a></td></tr>';
-					//insert_str = '<a href="#" id="expInterest'+orderObj.id+'" type="button" class="btn btn-primary btn-block" onclick="expressInterest('+orderObj.id+')">Yes I\'m interested</a>';
+					//mobile_no__str = '<tr id="row'+orderObj.id+'"><td><a href="#no" type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</a></td></tr>';
+					//insert_str = '<a href="#no" id="expInterest'+orderObj.id+'" type="button" class="btn btn-primary btn-block" onclick="expressInterest('+orderObj.id+')">Yes I\'m interested</a>';
 					/* if(expressed==0){
 						insert_str = '<button id="expInterest'+orderObj.id+'" type="button" class="btn btn-primary btn-block" onclick="expressInterest('+orderObj.id+')">Yes I\'m interested</button>';
 					}else if(expressed>0){
@@ -438,8 +445,8 @@
 					} */
 					/* if((login_user_role_id == 6) || (login_user_role_id == 11) || (login_user_role_id == 14)){ //means premium user
 						mobile_no__str = '<tr id="row'+orderObj.id+'"><td><button type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button></td></tr>';
-						//more_details_str = '<tr><td><span><a href="#" onclick="showMoreDetails(this)">read more...</a></span></td></tr>';
-						//mobile_no__str = '<tr><td><span><a href="#" onclick="viewMobileNumber('+orderObj.id+')">View Mobile Number</a></span></td></tr>';
+						//more_details_str = '<tr><td><span><a href="#no" onclick="showMoreDetails(this)">read more...</a></span></td></tr>';
+						//mobile_no__str = '<tr><td><span><a href="#no" onclick="viewMobileNumber('+orderObj.id+')">View Mobile Number</a></span></td></tr>';
 						if(expressed==0){
 							insert_str = '<button id="expInterest'+orderObj.id+'" type="button" class="btn btn-primary btn-block" onclick="expressInterest('+orderObj.id+')">Yes I\'m interested</button>';
 						}else if(expressed>0){
@@ -462,14 +469,14 @@
 							memberRoleId==12 || memberRoleId==13 || memberRoleId==14)){
 						premiumMember = "<span class='premium-member'>Premium Member</span>";
 					}
-					var shortListedStr = '<span id="shortlistTD'+orderObj.id+'"><a href="#" type="button" class="btn btn-primary btn-block" onclick="shortList('+orderObj.id+')"> Shortlist</a></span>';
+					var shortListedStr = '<span id="shortlistTD'+orderObj.id+'"><a href="#no" type="button" class="btn btn-primary btn-block" onclick="shortList('+orderObj.id+')"> Shortlist</a></span>';
 					if(orderObj.short_listed == "1"){
 						shortListedStr = '<span><a type="button" class="btn btn-primary btn-block" disabled="true"> Shortlisted</a></span>';
 					}
 					var expressed = orderObj.expressedInterest;
 					var interestStr = "";
 					if(expressed==0){
-						interestStr = '<span id="expInterest'+orderObj.id+'"><a   href="#" type="button" class="btn btn-success btn-block btn-md"  onclick="expressInterest('+orderObj.id+')">  Express Interest  </a></span>';
+						interestStr = '<span id="expInterest'+orderObj.id+'"><a   href="#no" type="button" class="btn btn-success btn-block btn-md"  onclick="expressInterest('+orderObj.id+')">  Express Interest  </a></span>';
 					}else if(expressed>0){
 						interestStr = '<span><a type="button" class="btn btn-success btn-block" disabled="true" style="text-size-adjust:auto">Expressed Interest</a></span>';
 					}
@@ -481,15 +488,70 @@
 					var mobNumViewed = orderObj.mobileNumViewed;
 					var mobile_num_Str = "";
 					if(mobNumViewed==1 || expressed==1 || message_sent_status==1){
-						mobile_num_Str = '<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+orderObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>';
+						mobile_num_Str = '<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;float:left;">&nbsp;+91-'+orderObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;float:left;color:#4baa26;">Verified </span>)</font></span>';
 					}else{
-						mobile_num_Str = '<span ><a href="#" type="button" style="margin: 11px 0px 0px 0px;" class="btn btn-primary btn-block" onclick="displayMobileNum('+orderObj.id+')">View Mobile Number</a></span>';
+						mobile_num_Str = '<span ><a href="#no" type="button" style="margin: 11px 0px 0px 0px;" class="btn btn-primary btn-block" onclick="displayMobileNum('+orderObj.id+')">View Mobile Number</a></span>';
 
 					}
 					var profession = orderObj.occupationName;
 					if((profession == null) || profession == ""){
 						profession = "Not Specified";
 					}
+					if(new_matches!="" && new_matches=="newMatches"){
+						var photos_list = orderObj.photosList;
+						var slider = "", displayStyle = ' ';
+						if(photos_list == "" || typeof photos_list == "undefined"){
+							slider = '<img src="img/default.png" class="img img-responsive thumbnail " style="margin-bottom:0;height: 60px;width: 60px;" >';
+						}else{
+							smallerSlideIndex[orderObj.id] = 0;
+							var slider = "", displayStyle = ' ';
+							var photosArray = photos_list.split(",");
+							$.each(photosArray,function(index){
+								if(photosArray[index]==orderObj.profileImage){
+									displayStyle = ' style="display:block" '
+								}else{
+									displayStyle = ' style="display:none" ';
+								}
+								slider += '<div class="smallSlides'+orderObj.id+'" '+displayStyle+'>'
+										+'		<img src="'+photosArray[index]+'" class="img img-responsive thumbnail " style="margin-bottom:0;height: 60px;width: 60px;" >'
+										+'</div>'
+							});
+							if(photosArray.length>1){
+								slider += '<p style="display: table;">'
+									+'	<a id="prevBtn'+orderObj.id+'" class="" style="text-decoration: none; margin: 0px 0px 0px 7px;" href="#no" onclick="plusSmallSlides(-1,'+orderObj.id+')">&#10094;</a>'
+									//+'	<span>'+(i+1)+' of '+photos_list.length+'</span><br>'
+				    			    +'	<a id="nextBtn'+orderObj.id+'" class="" style="text-decoration: none; margin-left: 41px;" href="#no" onclick="plusSmallSlides(1,'+orderObj.id+')">&#10095;</a>'
+									+'</p>'
+							}
+							
+						}
+					}else{
+						var photos_list = orderObj.photosList;
+						var slider = "", displayStyle = ' ';
+						if(typeof photos_list != "undefined" && photos_list!=""){
+							smallerSlideIndex[orderObj.id] = 0;
+							$.each(photos_list,function(index,photo){
+								if(photo.image==orderObj.profileImage){
+									displayStyle = ' style="display:block" '
+								}else{
+									displayStyle = ' style="display:none" ';
+								}
+								slider += '<div class="smallSlides'+orderObj.id+'" '+displayStyle+'>'
+										+'		<img src="'+photo.image+'" class="img img-responsive thumbnail " style="margin-bottom:0;height: 60px;width: 60px;" >'
+										+'</div>'
+							});
+							if(photos_list.length>1){
+								slider += '<p style="display: table;">'
+										+'	<a id="prevBtn'+orderObj.id+'" class="" style="text-decoration: none; margin: 0px 0px 0px 7px;" href="#no" onclick="plusSmallSlides(-1,'+orderObj.id+')">&#10094;</a>'
+										//+'	<span>'+(i+1)+' of '+photos_list.length+'</span><br>'
+					    			    +'	<a id="nextBtn'+orderObj.id+'" class="" style="text-decoration: none; margin-left: 41px;" href="#no" onclick="plusSmallSlides(1,'+orderObj.id+')">&#10095;</a>'
+										+'</p>'
+							}
+						}else{
+							slider = '<img src="'+image+'" class="img-responsive thumbnail" style="margin-bottom: 0px;">';
+						}
+					}
+					
 					var tblRow = '<div class="panel panel-default">'
 						+ '<div class="panel-heading">'
 						+ '<h5 class="panel-title">'
@@ -505,7 +567,8 @@
 						+ '</div>'
 						+ '<div class="panel-body">'
 						+ '<div class="col-md-3">'
-						+ '<a href="#"> <img src='+image+' class="img img-responsive thumbnail" style="width: 150px; height: 120px;"></a>'
+						//+ '<a href="#no"> <img src='+image+' class="img img-responsive thumbnail" style="width: 150px; height: 120px;"></a>'
+						+ slider
 						+ '<button type="button" style="background: transparent; margin: 11px 0px 0px 0px;display: list-item;border: none;" id="mobileTD'+orderObj.id+'">'+mobile_num_Str+'</button>'
 		            	+ '</div>'
 		            	+ '<div class="col-md-4"  style="overflow-y:scroll;max-height: 900px">'
@@ -524,34 +587,34 @@
 		            	+ '	<tr><td>Profession</td><td><span>: '+profession+'</span></td></tr>'
 		            	+'</td></tr>'
 		            	//+ '	<tr><td>Age</td><td><span>: '+orderObj.age+'</span></td></tr>'
-		            	//+ '	<tr><td colspan="2">'+orderObj.aboutMyself+'... <a href="#" onclick="showMore('+orderObj.id+')"> read more..</a> </td></tr>'
+		            	//+ '	<tr><td colspan="2">'+orderObj.aboutMyself+'... <a href="#no" onclick="showMore('+orderObj.id+')"> read more..</a> </td></tr>'
 		            	//+  more_details_str
-		            	//+ '	<tr class="showMore" hidden="true"><td colspan="2">'+orderObj.aboutMyself+'... <a href="#" > read more..</a> </td></tr>'
-		            	//+ '	<tr class="showMore" hidden="true"><td colspan="2">'+orderObj.aboutMyself+'... <a href="#" > more detailssss</a> </td></tr>'
-		            	//+ '	<tr class="showMore" hidden="true"><td colspan="2">'+orderObj.aboutMyself+'... <a href="#" > more detailssss</a> </td></tr>'
+		            	//+ '	<tr class="showMore" hidden="true"><td colspan="2">'+orderObj.aboutMyself+'... <a href="#no" > read more..</a> </td></tr>'
+		            	//+ '	<tr class="showMore" hidden="true"><td colspan="2">'+orderObj.aboutMyself+'... <a href="#no" > more detailssss</a> </td></tr>'
+		            	//+ '	<tr class="showMore" hidden="true"><td colspan="2">'+orderObj.aboutMyself+'... <a href="#no" > more detailssss</a> </td></tr>'
 		            	+ '</table>'
 		            	+ '</div>'
 		            	/* + '<div id="hideMe'+orderObj.id+'" class="form-group hideMe">'
 		            	+ '    <label class="col-md-4 control-label" for="textinput"></label>'  
 		            	+ '    <div class="col-md-6 text-center">'
-		            	+ '    	<span class="more" style="color: #0087AF;cursor: pointer;"><a href="#" >read more </a></span><i style="cursor: pointer;" class="fa fa-angle-down"></i>'
+		            	+ '    	<span class="more" style="color: #0087AF;cursor: pointer;"><a href="#no" >read more </a></span><i style="cursor: pointer;" class="fa fa-angle-down"></i>'
 		            	+ '    </div>'
 		            	+ '</div>' */
 		            	+ '<div class="col-md-3">'
-		            	+ '<a href="#" type="button" class="btn btn-success btn-block btn-md" onclick="fullProfile('+orderObj.id+')">View Full Profile</a>'
+		            	+ '<a href="#no" type="button" class="btn btn-success btn-block btn-md" onclick="fullProfile('+orderObj.id+')">View Full Profile</a>'
 		            	+ '</div>'
 		            	+ '<div class="col-md-3">'
-		            	+ '<a href="#" type="button" class="btn btn-primary btn-block btn-md" id="sendMail'+orderObj.id+'" onclick="displayMailPopup('+orderObj.id+')">Send Mail</a>'
+		            	+ '<a href="#no" type="button" class="btn btn-primary btn-block btn-md" id="sendMail'+orderObj.id+'" onclick="displayMailPopup('+orderObj.id+')">Send Mail</a>'
 		            	+ '</div>'
 		            	+ '<div class="col-md-3">'
 		            	+ interestStr
 		            	+ '</div>'
-		            	//+ '<span id="expInterest'+orderObj.id+'"><a href="#" type="button" class="btn btn-primary btn-block btn-md"  onclick="expressInterest('+orderObj.id+')">Send Interest</a></span>'
+		            	//+ '<span id="expInterest'+orderObj.id+'"><a href="#no" type="button" class="btn btn-primary btn-block btn-md"  onclick="expressInterest('+orderObj.id+')">Send Interest</a></span>'
 		            	+ '<div class="col-md-3">'
 		               //+ '<c:if test="${(cacheGuest.roleId == 6)}">'
 		            	//+ insert_str
 						//+ '</c:if>	 '
-						//+ '<span id="shortlistTD'+orderObj.id+'"><a href="#" class="btn btn-danger btn-block btn-md" onclick="shortList('+orderObj.id+')">Short List</span></a>'
+						//+ '<span id="shortlistTD'+orderObj.id+'"><a href="#no" class="btn btn-danger btn-block btn-md" onclick="shortList('+orderObj.id+')">Short List</span></a>'
 						+shortListedStr
 		            	+ '<div class="clearfix"></div>'
 		            	+ '</div>'
@@ -564,6 +627,7 @@
 		
 		function displayMatches_inbox(listOrders,listType,tabType){
 			serviceUnitArray = {};
+			smallerSlideIndex = {};
 			var divId = listType;
 			var divElem = "#"+divId;
 			var element = $(divElem);
@@ -637,14 +701,14 @@
 								memberRoleId==12 || memberRoleId==13 || memberRoleId==14)){
 							premiumMember = "<span class='premium-member'>Premium Member</span>";
 						}
-						var shortListedStr = '<span id="shortlistTD'+orderObj.id+'"><a href="#" type="button" class="btn btn-primary btn-block" onclick="shortList('+orderObj.id+')"> Shortlist</a></span>';
+						var shortListedStr = '<span id="shortlistTD'+orderObj.id+'"><a href="#no" type="button" class="btn btn-primary btn-block" onclick="shortList('+orderObj.id+')"> Shortlist</a></span>';
 						if(orderObj.short_listed == "1"){
 							shortListedStr = '<span><a type="button" class="btn btn-primary btn-block" disabled="true"> Shortlisted</a></span>';
 						}
 						var expressed = orderObj.expressedInterest;
 						var interestStr = "";
 						if(expressed==0){
-							interestStr = '<span id="expInterest'+orderObj.id+'"><a   href="#" type="button" class="btn btn-success btn-block btn-md"  onclick="expressInterest('+orderObj.id+')">  Express Interest  </a></span>';
+							interestStr = '<span id="expInterest'+orderObj.id+'"><a   href="#no" type="button" class="btn btn-success btn-block btn-md"  onclick="expressInterest('+orderObj.id+')">  Express Interest  </a></span>';
 						}else if(expressed>0){
 							interestStr = '<span><a type="button" class="btn btn-success btn-block" disabled="true" style="text-size-adjust:auto">Expressed Interest</a></span>';
 						}
@@ -658,7 +722,7 @@
 						if(mobNumViewed==1 || expressed==1 || message_sent_status==1){
 							mobile_num_Str = '<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+orderObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>';
 						}else{
-							mobile_num_Str = '<span id="mobileTD'+orderObj.id+'"><a href="#" type="button" class="btn btn-primary btn-block" onclick="displayMobileNum('+orderObj.id+')">View Mobile Number</a></span>';
+							mobile_num_Str = '<span id="mobileTD'+orderObj.id+'"><a href="#no" type="button" class="btn btn-primary btn-block" onclick="displayMobileNum('+orderObj.id+')">View Mobile Number</a></span>';
 						}
 						var profession = orderObj.occupationName;
 						if((profession == null) || profession == ""){
@@ -722,25 +786,33 @@
 				            	+ '</div>';
 						} 
 					//}
-					
+						
 						var photos_list = orderObj.photosList;
-
 						var slider = "", displayStyle = ' ';
-						$.each(photos_list,function(index,photo){
-							if(photo.image==orderObj.profileImage){
-								displayStyle = ' style="display:block" '
-							}else{
-								displayStyle = ' style="display:none" ';
+						if(photos_list == "" || typeof photos_list == "undefined"){
+							slider = '<img src="img/default.png" class="img img-responsive thumbnail " style="margin-bottom:0;height: 60px;width: 60px;" >';
+						}else{
+							smallerSlideIndex[orderObj.id] = 0;
+							var slider = "", displayStyle = ' ';
+							$.each(photos_list,function(index,photo){
+								if(photo.image==orderObj.profileImage){
+									displayStyle = ' style="display:block" '
+								}else{
+									displayStyle = ' style="display:none" ';
+								}
+								slider += '<div class="smallSlides'+orderObj.id+'" '+displayStyle+'>'
+										+'		<img src="'+photo.image+'" class="img img-responsive thumbnail " style="margin-bottom:0;height: 60px;width: 60px;" >'
+										+'</div>'
+							});
+							if(photos_list.length>1){
+								slider += '<p style="display: table;">'
+									+'	<a id="prevBtn'+orderObj.id+'" class="" style="text-decoration: none; margin: 0px 0px 0px 7px;" href="#no" onclick="plusSmallSlides(-1,'+orderObj.id+')">&#10094;</a>'
+									//+'	<span>'+(i+1)+' of '+photos_list.length+'</span><br>'
+				    			    +'	<a id="nextBtn'+orderObj.id+'" class="" style="text-decoration: none; margin-left: 41px;" href="#no" onclick="plusSmallSlides(1,'+orderObj.id+')">&#10095;</a>'
+									+'</p>'	
 							}
-							slider += '<div class="smallSlides'+orderObj.id+'" '+displayStyle+'>'
-									+'		<img src="'+photo.image+'" class="img img-responsive thumbnail " style="margin-bottom:0;height: 60px;width: 60px;" >'
-									+'</div>'
-						});
-						slider += '<p style="display: table;">'
-								+'	<a id="prevBtn'+orderObj.id+'" class="" style="text-decoration: none; margin: 0px 0px 0px 7px;" href="#" onclick="plusSmallSlides(-1,'+orderObj.id+')">&#10094;</a>'
-								//+'	<span>'+(i+1)+' of '+photos_list.length+'</span><br>'
-			    			    +'	<a id="nextBtn'+orderObj.id+'" class="" style="text-decoration: none; margin-left: 41px;" href="#" onclick="plusSmallSlides(1,'+orderObj.id+')">&#10095;</a>'
-								+'</p>'
+							
+						}
 						var tblRow = '<div class="panel panel-default">'
 							+ '<div class="panel-heading">'
 							+ '<h5 class="panel-title">'
@@ -757,7 +829,7 @@
 							+ '<div class="panel-body">'
 							+ '<div class="col-md-2" >'
 							//+ ' <div class="smallSlides" style="display:block"> '
-							//+ '		<a href="#"> <img src='+image+' class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: 60px;width: 60px;" ></a>'
+							//+ '		<a href="#no"> <img src='+image+' class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: 60px;width: 60px;" ></a>'
 							//+ ' </div>'
 							+  slider
 			            	+ '</div>'
@@ -773,27 +845,27 @@
 			            	+ '<tr><td id="mobileTD'+orderObj.requestId+'">'+mobile_num_Str+'</td><td></td></tr>'
 			            	//+ '<td id="shortlisttd'+orderObj.id+'"><button type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">Shortlist</button></td></tr>'
 			            	//+ '	<tr><td>Age</td><td><span>: '+orderObj.age+'</span></td></tr>'
-			            	//+ '	<tr><td colspan="2">'+orderObj.aboutMyself+'... <a href="#" onclick="showMore('+orderObj.id+')"> read more..</a> </td></tr>'
+			            	//+ '	<tr><td colspan="2">'+orderObj.aboutMyself+'... <a href="#no" onclick="showMore('+orderObj.id+')"> read more..</a> </td></tr>'
 			            	//+  more_details_str
-			            	//+ '	<tr class="showMore" hidden="true"><td colspan="2">'+orderObj.aboutMyself+'... <a href="#" > read more..</a> </td></tr>'
-			            	//+ '	<tr class="showMore" hidden="true"><td colspan="2">'+orderObj.aboutMyself+'... <a href="#" > more detailssss</a> </td></tr>'
-			            	//+ '	<tr class="showMore" hidden="true"><td colspan="2">'+orderObj.aboutMyself+'... <a href="#" > more detailssss</a> </td></tr>'
+			            	//+ '	<tr class="showMore" hidden="true"><td colspan="2">'+orderObj.aboutMyself+'... <a href="#no" > read more..</a> </td></tr>'
+			            	//+ '	<tr class="showMore" hidden="true"><td colspan="2">'+orderObj.aboutMyself+'... <a href="#no" > more detailssss</a> </td></tr>'
+			            	//+ '	<tr class="showMore" hidden="true"><td colspan="2">'+orderObj.aboutMyself+'... <a href="#no" > more detailssss</a> </td></tr>'
 			            	+ '</table>'
 			            	+ '</div>'
 			            	/* + '<div id="hideMe'+orderObj.id+'" class="form-group hideMe">'
 			            	+ '    <label class="col-md-4 control-label" for="textinput"></label>'  
 			            	+ '    <div class="col-md-6 text-center">'
-			            	+ '    	<span class="more" style="color: #0087AF;cursor: pointer;"><a href="#" >read more </a></span><i style="cursor: pointer;" class="fa fa-angle-down"></i>'
+			            	+ '    	<span class="more" style="color: #0087AF;cursor: pointer;"><a href="#no" >read more </a></span><i style="cursor: pointer;" class="fa fa-angle-down"></i>'
 			            	+ '    </div>'
 			            	+ '</div>' */
 			            	+ '<div class="col-md-4">'
 			            	+ '<h4 style="margin-bottom:20px;">Like this Profile?</h4>'
 			            	+ interestStr
 							//+ '<button class="btn btn-danger btn-block btn-md" onclick="fullProfile('+orderObj.id+')">View Full Profile</button><br><br><br><br><br>'
-							+ '<a href="#" class="btn btn-primary btn-block btn-md" onclick="fullProfile('+orderObj.id+')">View Full Profile</a><br>'
+							+ '<a href="#no" class="btn btn-primary btn-block btn-md" onclick="fullProfile('+orderObj.id+')">View Full Profile</a><br>'
 							+ acceptOptions
 							+ shortListedStr
-							//+ '<span id="shortlistTD"><a href="#" type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="shortList('+orderObj.id+')">Shortlist</a></span> '
+							//+ '<span id="shortlistTD"><a href="#no" type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="shortList('+orderObj.id+')">Shortlist</a></span> '
 							+ '<div class="clearfix"></div>'
 			            	+ '</div>'
 			            	+ '</div>'
@@ -1164,12 +1236,12 @@ function showSlides(n) {
 }
 	////Photo pop-up related script---ends
 	
-var smallerSlideIndex = 0;
+var smallerSlideIndex = {};
 function plusSmallSlides(n,profile_id) {
 	if(n>0){
-		smallerSlideIndex += n;
+		smallerSlideIndex[profile_id] += n;
 	}else if(n<0){
-		smallerSlideIndex = smallerSlideIndex-1;
+		smallerSlideIndex[profile_id] = smallerSlideIndex[profile_id]-1;
 	}
 	
 		
@@ -1184,29 +1256,29 @@ function plusSmallSlides(n,profile_id) {
 	  }
 	  
 	  
-	  slides[smallerSlideIndex].style.display = "block";
-	  if(smallerSlideIndex==slides.length-1){
+	  slides[smallerSlideIndex[profile_id]].style.display = "block";
+	  if(smallerSlideIndex[profile_id]==slides.length-1){
 		//disable next button	
 		//var btn = $("#nextBtn"+profile_id);
 		//$("#nextBtn"+profile_id).attr("disabled","disabled");
 		//$("#nextBtn"+profile_id).href = "javascript:;"
 		$("#nextBtn"+profile_id).removeAttr("href");
 		$("#nextBtn"+profile_id).removeAttr("onclick");
-		$("#nextBtn"+profile_id).style.color = "gray";
+		//$("#nextBtn"+profile_id).style.color = "gray";
 		//$("#nextBtn"+profile_id).style.cursor = "";
 		//document.getElementById("myImg"+profile_id)
 	  }else{
-		  $("#nextBtn"+profile_id).attr("href","#");
+		  $("#nextBtn"+profile_id).attr("href","#no");
 		  $("#nextBtn"+profile_id).attr("onclick","plusSmallSlides(1,"+profile_id+")");
 	  }
-	  if(smallerSlideIndex==0){
+	  if(smallerSlideIndex[profile_id]==0){
 		  //disable previous button
 	  	$("#prevBtn"+profile_id).removeAttr("href");
 		$("#prevBtn"+profile_id).removeAttr("onclick");
 		//$("#nextBtn"+profile_id).style.cursor = "";
 		//document.getElementById("myImg"+profile_id)
 	  }else{
-		  $("#prevBtn"+profile_id).attr("href","#");
+		  $("#prevBtn"+profile_id).attr("href","#no");
 		  $("#prevBtn"+profile_id).attr("onclick","plusSmallSlides(-1,"+profile_id+")");
 	  }
 }
@@ -1304,211 +1376,242 @@ function validate(id, errorMessage)
 	<script src="js/jquery.watermark.js"></script>
 	<script type="text/javascript" src="js/common.js"></script>
 <style type="text/css">
-.animated.infinite{animation-iteration-count:infinite}
-.upgradeOption {
-    color: #f35626;
-    background-image: -webkit-linear-gradient(2deg, #f35626, red);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    -webkit-animation: hue 2s infinite linear;
+.animated.infinite {
+	animation-iteration-count: infinite
 }
-.multiSelect{
+
+.upgradeOption {
+	color: #f35626;
+	background-image: -webkit-linear-gradient(2deg, #f35626, red);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	-webkit-animation: hue 2s infinite linear;
+}
+
+.multiSelect {
 	width: 187px;
 }
-.dropdown-menu {
-box-shadow: 0px 0px 2px 0px #363636;
-border-radius: 6px;
-}
-.dropdown-menu:after {
-       content: '';
-    position: absolute;
-    bottom: 100%;
-    left: 40px;
-    margin-left: 0;
-    width: 0;
-    height: 0;
-    border-bottom: 8px solid #ffffff;
-    border-right: 8px solid transparent;
-    border-left: 8px solid transparent;
-    opacity: 1;
-    -webkit-transform: translate3d(0, 0px, 0);
-    transform: translate3d(0, 0px, 0);
-    -webkit-transition: all .1s ease-in-out;
-    transition: all .1s ease-in-out;
-}
-.panel-title {
-    font-size: 16px;
-    color: #000;
-    text-align: right;
-    
-}
-h4.panel-title a {
-    font-size: 15px;
-    text-transform: capitalize;
-    color: #000;
-}
-#matchcount {
-background-color: red;
-color: #ffffff;
-padding: 2px 4px;
-font-size: 11px;
-border: none;
-cursor: pointer;
-border-radius: 5px;
-vertical-align: top;
-margin:2px 2px;
-}
-.premium-member {
-background-color: #8bb2e2;
-color: #000;
-padding: 2px 4px;
-font-size: 11px;
-border: none;
-cursor: pointer;
-border-radius: 5px;
-vertical-align: top;
-margin:2px 2px;
-}
-@-webkit-keyframes hue {
-  from {
-    -webkit-filter: hue-rotate(0deg);
-  }
 
-  to {
-    -webkit-filter: hue-rotate(-360deg);
-  }
+.dropdown-menu {
+	box-shadow: 0px 0px 2px 0px #363636;
+	border-radius: 6px;
 }
-@keyframes flash{0%,50%,to{opacity:1}25%,75%{opacity:0}}.flash{animation-name:flash}
-	/* carousel */
-.media-carousel 
-{
-  margin-bottom: 0;
-  padding: 0 40px 30px 40px;
-  margin-top: 30px;
+
+.dropdown-menu:after {
+	content: '';
+	position: absolute;
+	bottom: 100%;
+	left: 40px;
+	margin-left: 0;
+	width: 0;
+	height: 0;
+	border-bottom: 8px solid #ffffff;
+	border-right: 8px solid transparent;
+	border-left: 8px solid transparent;
+	opacity: 1;
+	-webkit-transform: translate3d(0, 0px, 0);
+	transform: translate3d(0, 0px, 0);
+	-webkit-transition: all .1s ease-in-out;
+	transition: all .1s ease-in-out;
+}
+
+.panel-title {
+	font-size: 16px;
+	color: #000;
+	text-align: right;
+}
+
+h4.panel-title a {
+	font-size: 15px;
+	text-transform: capitalize;
+	color: #000;
+}
+
+#matchcount {
+	background-color: red;
+	color: #ffffff;
+	padding: 2px 4px;
+	font-size: 11px;
+	border: none;
+	cursor: pointer;
+	border-radius: 5px;
+	vertical-align: top;
+	margin: 2px 2px;
+}
+
+.premium-member {
+	background-color: #8bb2e2;
+	color: #000;
+	padding: 2px 4px;
+	font-size: 11px;
+	border: none;
+	cursor: pointer;
+	border-radius: 5px;
+	vertical-align: top;
+	margin: 2px 2px;
+}
+
+@
+-webkit-keyframes hue {from { -webkit-filter:hue-rotate(0deg);
+	
+}
+
+to {
+	-webkit-filter: hue-rotate(-360deg);
+}
+
+}
+@
+keyframes flash { 0%,50%,
+	to {opacity: 1
+}
+
+25%,75%{
+opacity
+:
+0
+}
+}
+.flash {
+	animation-name: flash
+}
+/* carousel */
+.media-carousel {
+	margin-bottom: 0;
+	padding: 0 40px 30px 40px;
+	margin-top: 30px;
 }
 /* Previous button  */
-.media-carousel .carousel-control.left 
-{
-  left: -12px;
-  background-image: none;
-  background: none repeat scroll 0 0 #222222;
-  border: 4px solid #FFFFFF;
-  border-radius: 23px 23px 23px 23px;
-  height: 40px;
-  width : 40px;
-  margin-top: 30px
+.media-carousel .carousel-control.left {
+	left: -12px;
+	background-image: none;
+	background: none repeat scroll 0 0 #222222;
+	border: 4px solid #FFFFFF;
+	border-radius: 23px 23px 23px 23px;
+	height: 40px;
+	width: 40px;
+	margin-top: 30px
 }
 /* Next button  */
-.media-carousel .carousel-control.right 
-{
-  right: -12px !important;
-  background-image: none;
-  background: none repeat scroll 0 0 #222222;
-  border: 4px solid #FFFFFF;
-  border-radius: 23px 23px 23px 23px;
-  height: 40px;
-  width : 40px;
-  margin-top: 30px
+.media-carousel .carousel-control.right {
+	right: -12px !important;
+	background-image: none;
+	background: none repeat scroll 0 0 #222222;
+	border: 4px solid #FFFFFF;
+	border-radius: 23px 23px 23px 23px;
+	height: 40px;
+	width: 40px;
+	margin-top: 30px
 }
-p{letter-spacing:1px;}
+
+p {
+	letter-spacing: 1px;
+}
+
 .thumbnail {
-    display: block;
-    padding: 4px;
-    margin-bottom: 5px;
-    line-height: 1.42857143;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    -webkit-transition: border .2s ease-in-out;
-    -o-transition: border .2s ease-in-out;
-    transition: border .2s ease-in-out;
+	display: block;
+	padding: 4px;
+	margin-bottom: 5px;
+	line-height: 1.42857143;
+	background-color: #fff;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	-webkit-transition: border .2s ease-in-out;
+	-o-transition: border .2s ease-in-out;
+	transition: border .2s ease-in-out;
 }
 /* Changes the position of the indicators */
-.media-carousel .carousel-indicators 
-{
-  right: 50%;
-  top: auto;
-  bottom: 0px;
-  margin-right: -19px;
+.media-carousel .carousel-indicators {
+	right: 50%;
+	top: auto;
+	bottom: 0px;
+	margin-right: -19px;
 }
 /* Changes the colour of the indicators */
-.media-carousel .carousel-indicators li 
-{
-  background: #c0c0c0;
+.media-carousel .carousel-indicators li {
+	background: #c0c0c0;
 }
-.media-carousel .carousel-indicators .active 
-{
-  background: #333333;
-}
-.media-carousel img
-{
-  width: 250px;
-  height: 100px
-}
-.img-replace {
-  /* replace text with an image */
-  display: inline-block;
-  overflow: hidden;
-  text-indent: 100%; 
-  color: transparent;
-  white-space: nowrap;
-}
-.edit-style{
-text-decoration: none;
-background-color: cornflowerblue;
-padding: 6px;
-width: 52px;
-font-size: 13px;
-padding-top: 0px;
-padding-left: 7px;
-border-radius: 3px;
-margin-right: 0px;
-color: white;
-height: 23px;
-}
-            	
-.img-replace {
-  
-  display: inline-block;
-  overflow: hidden;
-  text-indent: 100%;
-  color: transparent;
-  white-space: nowrap;
-}
-.font {
-color: #006699;
 
-line-height: 2;
-font-size:18px;}
-            	.cd-nugget-info {
-  text-align: center;
-  position: absolute;
-  width: 100%;
-  height: 50px;
-  line-height: 50px;
-  bottom: 0;
-  left: 0;
+.media-carousel .carousel-indicators .active {
+	background: #333333;
 }
+
+.media-carousel img {
+	width: 250px;
+	height: 100px
+}
+
+.img-replace {
+	/* replace text with an image */
+	display: inline-block;
+	overflow: hidden;
+	text-indent: 100%;
+	color: transparent;
+	white-space: nowrap;
+}
+
+.edit-style {
+	text-decoration: none;
+	background-color: cornflowerblue;
+	padding: 6px;
+	width: 52px;
+	font-size: 13px;
+	padding-top: 0px;
+	padding-left: 7px;
+	border-radius: 3px;
+	margin-right: 0px;
+	color: white;
+	height: 23px;
+}
+
+.img-replace {
+	display: inline-block;
+	overflow: hidden;
+	text-indent: 100%;
+	color: transparent;
+	white-space: nowrap;
+}
+
+.font {
+	color: #006699;
+	line-height: 2;
+	font-size: 18px;
+}
+
+.cd-nugget-info {
+	text-align: center;
+	position: absolute;
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	bottom: 0;
+	left: 0;
+}
+
 .cd-nugget-info a {
-  position: relative;
-  font-size: 14px;
-  color: #5e6e8d;
-  -webkit-transition: all 0.2s;
-  -moz-transition: all 0.2s;
-  transition: all 0.2s;
+	position: relative;
+	font-size: 14px;
+	color: #5e6e8d;
+	-webkit-transition: all 0.2s;
+	-moz-transition: all 0.2s;
+	transition: all 0.2s;
 }
+
 .no-touch .cd-nugget-info a:hover {
-  opacity: .8;
+	opacity: .8;
 }
+
 .cd-nugget-info span {
-  vertical-align: middle;
-  display: inline-block;
+	vertical-align: middle;
+	display: inline-block;
 }
+
 .cd-nugget-info span svg {
-  display: block;
+	display: block;
 }
+
 .cd-nugget-info .cd-nugget-info-arrow {
-  fill: #5e6e8d;
+	fill: #5e6e8d;
 }
 
 /* -------------------------------- 
@@ -1517,38 +1620,39 @@ Main components
 
 -------------------------------- */
 header {
-  height: 200px;
-  line-height: 200px;
-  text-align: center;
-  background-color: #5e6e8d;
-  color: #FFF;
+	height: 200px;
+	line-height: 200px;
+	text-align: center;
+	background-color: #5e6e8d;
+	color: #FFF;
 }
+
 header h1 {
-  font-size: 20px;
-  font-size: 1.25rem;
+	font-size: 20px;
+	font-size: 1.25rem;
 }
 
 .cd-popup-trigger {
-  display: block;
-  width: 170px;
-  height: 50px;
-  line-height: 50px;
-  margin: 3em auto;
-  text-align: center;
-  color: #FFF;
-  font-size: 14px;
-  font-size: 0.875rem;
-  font-weight: bold;
-  text-transform: uppercase;
-  border-radius: 50em;
-  background: #35a785;
-  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.07);
-  
+	display: block;
+	width: 170px;
+	height: 50px;
+	line-height: 50px;
+	margin: 3em auto;
+	text-align: center;
+	color: #FFF;
+	font-size: 14px;
+	font-size: 0.875rem;
+	font-weight: bold;
+	text-transform: uppercase;
+	border-radius: 50em;
+	background: #35a785;
+	box-shadow: 0 3px 0 rgba(0, 0, 0, 0.07);
 }
+
 @media only screen and (min-width: 1170px) {
-  .cd-popup-trigger {
-    margin: 6em auto;
-  }
+	.cd-popup-trigger {
+		margin: 6em auto;
+	}
 }
 
 /* -------------------------------- 
@@ -1557,456 +1661,479 @@ xpopup
 
 -------------------------------- */
 .cd-popup {
-  position: fixed;
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 100%;
-  background-color: rgba(94, 110, 141, 0.9);
-  opacity: 0;
-  visibility: hidden;
-  -webkit-transition: opacity 0.3s 0s, visibility 0s 0.3s;
-  -moz-transition: opacity 0.3s 0s, visibility 0s 0.3s;
-  transition: opacity 0.3s 0s, visibility 0s 0.3s;
-  
+	position: fixed;
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	background-color: rgba(94, 110, 141, 0.9);
+	opacity: 0;
+	visibility: hidden;
+	-webkit-transition: opacity 0.3s 0s, visibility 0s 0.3s;
+	-moz-transition: opacity 0.3s 0s, visibility 0s 0.3s;
+	transition: opacity 0.3s 0s, visibility 0s 0.3s;
 }
+
 .cd-popup.is-visible {
-  opacity: 1;
-  visibility: visible;
-  -webkit-transition: opacity 0.3s 0s, visibility 0s 0s;
-  -moz-transition: opacity 0.3s 0s, visibility 0s 0s;
-  transition: opacity 0.3s 0s, visibility 0s 0s;
+	opacity: 1;
+	visibility: visible;
+	-webkit-transition: opacity 0.3s 0s, visibility 0s 0s;
+	-moz-transition: opacity 0.3s 0s, visibility 0s 0s;
+	transition: opacity 0.3s 0s, visibility 0s 0s;
 }
 
 .cd-popup-container {
-  position: relative;
-  width: 90%;
-  max-width: 400px;
-  margin: 4em auto;
-  background: #FFF;
-  border-radius: .25em .25em .4em .4em;
-  text-align: center;
-  
-  -webkit-transform: translateY(-40px);
-  -moz-transform: translateY(-40px);
-  -ms-transform: translateY(-40px);
-  -o-transform: translateY(-40px);
-  transform: translateY(-40px);
-  /* Force Hardware Acceleration in WebKit */
-  -webkit-backface-visibility: hidden;
-  -webkit-transition-property: -webkit-transform;
-  -moz-transition-property: -moz-transform;
-  transition-property: transform;
-  -webkit-transition-duration: 0.3s;
-  -moz-transition-duration: 0.3s;
-  transition-duration: 0.3s;
-   -moz-box-shadow:    inset 0 0 10px #006699;
-   -webkit-box-shadow: inset 0 0 10px #006699;
-   box-shadow:         inset 0 0 10px #006699;
+	position: relative;
+	width: 90%;
+	max-width: 400px;
+	margin: 4em auto;
+	background: #FFF;
+	border-radius: .25em .25em .4em .4em;
+	text-align: center;
+	-webkit-transform: translateY(-40px);
+	-moz-transform: translateY(-40px);
+	-ms-transform: translateY(-40px);
+	-o-transform: translateY(-40px);
+	transform: translateY(-40px);
+	/* Force Hardware Acceleration in WebKit */
+	-webkit-backface-visibility: hidden;
+	-webkit-transition-property: -webkit-transform;
+	-moz-transition-property: -moz-transform;
+	transition-property: transform;
+	-webkit-transition-duration: 0.3s;
+	-moz-transition-duration: 0.3s;
+	transition-duration: 0.3s;
+	-moz-box-shadow: inset 0 0 10px #006699;
+	-webkit-box-shadow: inset 0 0 10px #006699;
+	box-shadow: inset 0 0 10px #006699;
 }
-.cd-popup-container  {
-  padding: 3em 1em;
-  
+
+.cd-popup-container {
+	padding: 3em 1em;
 }
+
 .cd-popup-container p {
-  text-align:left;
+	text-align: left;
 }
+
 .cd-popup-container .cd-buttons:after {
-  content: "";
-  display: table;
-  clear: both;
+	content: "";
+	display: table;
+	clear: both;
 }
+
 .cd-popup-container .cd-buttons li {
-  float: left;
-  width: 50%;
-  list-style: none;
+	float: left;
+	width: 50%;
+	list-style: none;
 }
+
 .cd-popup-container .cd-buttons a {
-  display: block;
-  height: 60px;
-  line-height: 60px;
-  text-transform: uppercase;
-  color: #FFF;
-  -webkit-transition: background-color 0.2s;
-  -moz-transition: background-color 0.2s;
-  transition: background-color 0.2s;
+	display: block;
+	height: 60px;
+	line-height: 60px;
+	text-transform: uppercase;
+	color: #FFF;
+	-webkit-transition: background-color 0.2s;
+	-moz-transition: background-color 0.2s;
+	transition: background-color 0.2s;
 }
+
 .cd-popup-container .cd-buttons li:first-child a {
-  background: #fc7169;
-  border-radius: 0 0 0 .25em;
+	background: #fc7169;
+	border-radius: 0 0 0 .25em;
 }
+
 .no-touch .cd-popup-container .cd-buttons li:first-child a:hover {
-  background-color: #fc8982;
+	background-color: #fc8982;
 }
+
 .cd-popup-container .cd-buttons li:last-child a {
-  background: #b6bece;
-  border-radius: 0 0 .25em 0;
+	background: #b6bece;
+	border-radius: 0 0 .25em 0;
 }
+
 .no-touch .cd-popup-container .cd-buttons li:last-child a:hover {
-  background-color: #c5ccd8;
+	background-color: #c5ccd8;
 }
+
 .cd-popup-container .cd-popup-close {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  width: 30px;
-  height: 30px;
+	position: absolute;
+	top: 8px;
+	right: 8px;
+	width: 30px;
+	height: 30px;
 }
-.cd-popup-container .cd-popup-close::before, .cd-popup-container .cd-popup-close::after {
-  content: '';
-  position: absolute;
-  top: 12px;
-  width: 14px;
-  height: 3px;
-  background-color: #8f9cb5;
+
+.cd-popup-container .cd-popup-close::before, .cd-popup-container .cd-popup-close::after
+	{
+	content: '';
+	position: absolute;
+	top: 12px;
+	width: 14px;
+	height: 3px;
+	background-color: #8f9cb5;
 }
+
 .cd-popup-container .cd-popup-close::before {
-  -webkit-transform: rotate(45deg);
-  -moz-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  -o-transform: rotate(45deg);
-  transform: rotate(45deg);
-  left: 8px;
+	-webkit-transform: rotate(45deg);
+	-moz-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	-o-transform: rotate(45deg);
+	transform: rotate(45deg);
+	left: 8px;
 }
+
 .cd-popup-container .cd-popup-close::after {
-  -webkit-transform: rotate(-45deg);
-  -moz-transform: rotate(-45deg);
-  -ms-transform: rotate(-45deg);
-  -o-transform: rotate(-45deg);
-  transform: rotate(-45deg);
-  right: 8px;
+	-webkit-transform: rotate(-45deg);
+	-moz-transform: rotate(-45deg);
+	-ms-transform: rotate(-45deg);
+	-o-transform: rotate(-45deg);
+	transform: rotate(-45deg);
+	right: 8px;
 }
+
 .is-visible .cd-popup-container {
-  -webkit-transform: translateY(0);
-  -moz-transform: translateY(0);
-  -ms-transform: translateY(0);
-  -o-transform: translateY(0);
-  transform: translateY(0);
+	-webkit-transform: translateY(0);
+	-moz-transform: translateY(0);
+	-ms-transform: translateY(0);
+	-o-transform: translateY(0);
+	transform: translateY(0);
 }
+
 @media only screen and (min-width: 1170px) {
-  .cd-popup-container {
-    margin: 8em auto;
-  }
+	.cd-popup-container {
+		margin: 8em auto;
+	}
 }
-#thumbs-wrapper, #viewer-wrapper, #setup-wrapper { padding: 15px; }
+
+#thumbs-wrapper, #viewer-wrapper, #setup-wrapper {
+	padding: 15px;
+}
 
 /*  #thumbs-wrapper,  #setup-wrapper,  #thumbs-nav { }*/
-
-#viewer-wrapper { height: 300px; }
-
-#gallery-viewer { height: 100%; }
-
-#gallery-viewer img {
-  max-width: 100%;
-  max-height: 100%;
+#viewer-wrapper {
+	height: 300px;
 }
 
-#viewer-nav, #thumbs-nav { height: 0px; }
+#gallery-viewer {
+	height: 100%;
+}
 
-#viewer-nav { margin-top: 2px; }
+#gallery-viewer img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+#viewer-nav, #thumbs-nav {
+	height: 0px;
+}
+
+#viewer-nav {
+	margin-top: 2px;
+}
 
 #thumbs-nav {
-  margin-top: 10px;
-  margin-bottom: 2px;
+	margin-top: 10px;
+	margin-bottom: 2px;
 }
 
 #thumbs-nav p {
-  width: 50%;
-  text-align: center;
-  margin: 0 auto;
-  line-height: 30px;
+	width: 50%;
+	text-align: center;
+	margin: 0 auto;
+	line-height: 30px;
 }
 
-#gallery-next, #gallery-viewer-next, #gallery-prev, #gallery-viewer-prev {
-  text-indent: -9999px;
-  margin: 6.5px 25px;
-  height: 17px;
-  width: 16px;
-  background-image: url('images/spt_arrows.png');
-  background-repeat: no-repeat;
+#gallery-next, #gallery-viewer-next, #gallery-prev, #gallery-viewer-prev
+	{
+	text-indent: -9999px;
+	margin: 6.5px 25px;
+	height: 17px;
+	width: 16px;
+	background-image: url('images/spt_arrows.png');
+	background-repeat: no-repeat;
 }
 
 #gallery-next, #gallery-viewer-next {
-  background-position: -16px 0;
-  float: right;
+	background-position: -16px 0;
+	float: right;
 }
 
-#gallery-prev, #gallery-viewer-prev { float: left; }
+#gallery-prev, #gallery-viewer-prev {
+	float: left;
+}
 
 .thumbnail {
-  float: left;
-  width: 80px;
-  height: 75px;
-  padding:0px;
-  margin:5px
+	float: left;
+	width: 80px;
+	height: 75px;
+	padding: 0px;
+	margin: 5px
 }
+
 body {
-  font-family: Verdana, sans-serif;
-  margin: 0;
+	font-family: Verdana, sans-serif;
+	margin: 0;
 }
 
 * {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
 
-.row > .column {
-  padding: 0 8px;
+.row>.column {
+	padding: 0 8px;
 }
 
 .row:after {
-  content: "";
-  display: table;
-  clear: both;
+	content: "";
+	display: table;
+	clear: both;
 }
 
 .column {
-  float: left;
-  width: 100%;
+	float: left;
+	width: 100%;
 }
 
 /* The Modal (background) */
 .modal {
-  display: none;
-  position: fixed;
-  z-index: 1;
-  padding-top: 100px;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: black;
+	display: none;
+	position: fixed;
+	z-index: 1;
+	padding-top: 100px;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: black;
 }
 
 /* Modal Content */
 .modal-content {
-  position: relative;
-  background-color: #fefefe;
-  margin: auto;
-  padding: 0;
-  width: 60%;
-  height: 50%;
-  background-color: black;
+	position: relative;
+	background-color: #fefefe;
+	margin: auto;
+	padding: 0;
+	width: 60%;
+	height: 50%;
+	background-color: black;
 }
 
 /* The Close Button */
 .close {
-  color: white;
-  position: absolute;
-  top: 10px;
-  right: 25px;
-  font-size: 35px;
-  font-weight: bold;
+	color: white;
+	position: absolute;
+	top: 10px;
+	right: 25px;
+	font-size: 35px;
+	font-weight: bold;
 }
 
-.close:hover,
-.close:focus {
-  color: #999;
-  text-decoration: none;
-  cursor: pointer;
+.close:hover, .close:focus {
+	color: #999;
+	text-decoration: none;
+	cursor: pointer;
 }
 
 .mySlides {
-  display: none;
+	display: none;
 }
 
 .cursor {
-  cursor: pointer
+	cursor: pointer
 }
 
 /* Next & previous buttons */
-.prev,
-.next {
-  cursor: pointer;
-  position: absolute;
-  width: auto;
-  padding: 16px;
-  color: white;
-  font-weight: bold;
-  font-size: 30px;
-  transition: 0.6s ease;
-  border-radius: 0 3px 3px 0;
-  user-select: none;
-  -webkit-user-select: none;
+.prev, .next {
+	cursor: pointer;
+	position: absolute;
+	width: auto;
+	padding: 16px;
+	color: white;
+	font-weight: bold;
+	font-size: 30px;
+	transition: 0.6s ease;
+	border-radius: 0 3px 3px 0;
+	user-select: none;
+	-webkit-user-select: none;
 }
 
 /* Position the "next button" to the right */
 .next {
-  right: 0;
-  border-radius: 3px 0 0 3px;
+	right: 0;
+	border-radius: 3px 0 0 3px;
 }
 
 /* On hover, add a black background color with a little bit see-through */
-.prev:hover,
-.next:hover {
-  background-color: rgba(0, 0, 0, 0.8);
+.prev:hover, .next:hover {
+	background-color: rgba(0, 0, 0, 0.8);
 }
 
 /* Number text (1/3 etc) */
 .numbertext {
-  color: #f2f2f2;
-  font-size: 12px;
-  padding: 8px 12px;
-  position: absolute;
-  top: 0;
+	color: #f2f2f2;
+	font-size: 12px;
+	padding: 8px 12px;
+	position: absolute;
+	top: 0;
 }
 
 img {
-  margin-bottom: 0px;
-  
+	margin-bottom: 0px;
 }
 
 .caption-container {
-  text-align: center;
-  background-color: black;
-  padding: 2px 16px;
-  color: white;
+	text-align: center;
+	background-color: black;
+	padding: 2px 16px;
+	color: white;
 }
 
 .demo {
-  opacity: 0.6;
+	opacity: 0.6;
 }
 
-.active,
-.demo:hover {
-  opacity: 1;
+.active, .demo:hover {
+	opacity: 1;
 }
-
 
 .row:after {
-  content: "";
-  display: table;
-  clear: both;
+	content: "";
+	display: table;
+	clear: both;
 }
 
 .column {
-  float: left;
-  width: 100%;
+	float: left;
+	width: 100%;
 }
 
 /* The Modal (background) */
 .modal {
-  display: none;
-  position: fixed;
-  z-index: 1;
-  padding-top: 100px;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: black;
+	display: none;
+	position: fixed;
+	z-index: 1;
+	padding-top: 100px;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: black;
 }
 
 /* Modal Content */
 .modal-content {
-  position: relative;
-  background-color: #fefefe;
-  margin: auto;
-  padding: 0;
-  width: 60%;
-  height: 50%;
-  background-color: black;
+	position: relative;
+	background-color: #fefefe;
+	margin: auto;
+	padding: 0;
+	width: 60%;
+	height: 0px;
+	background-color: transparent;
 }
 
 /* The Close Button */
 .close {
-  color: white;
-  position: absolute;
-  top: 10px;
-  right: 25px;
-  font-size: 35px;
-  font-weight: bold;
+	color: white;
+	position: absolute;
+	top: 10px;
+	right: 25px;
+	font-size: 35px;
+	font-weight: bold;
 }
 
-.close:hover,
-.close:focus {
-  color: #999;
-  text-decoration: none;
-  cursor: pointer;
+.close:hover, .close:focus {
+	color: #999;
+	text-decoration: none;
+	cursor: pointer;
 }
 
 .mySlides {
-  display: none;
+	display: none;
 }
 
 .smallSlides {
-  display: none;
+	display: none;
 }
+
 .cursor {
-  cursor: pointer
+	cursor: pointer
 }
 
 /* Next & previous buttons */
-.prev,
-.next {
-  cursor: pointer;
-  position: absolute;
-  width: auto;
-  padding: 16px;
-  color: white;
-  font-weight: bold;
-  font-size: 30px;
-  transition: 0.6s ease;
-  border-radius: 0 3px 3px 0;
-  user-select: none;
-  -webkit-user-select: none;
+.prev, .next {
+	cursor: pointer;
+	position: absolute;
+	width: auto;
+	padding: 16px;
+	color: white;
+	font-weight: bold;
+	font-size: 30px;
+	transition: 0.6s ease;
+	border-radius: 0 3px 3px 0;
+	user-select: none;
+	-webkit-user-select: none;
 }
 
 /* Position the "next button" to the right */
 .next {
-  right: 0;
-  border-radius: 3px 0 0 3px;
+	right: 0;
+	border-radius: 3px 0 0 3px;
 }
 
 /* On hover, add a black background color with a little bit see-through */
-.prev:hover,
-.next:hover {
-  background-color: rgba(0, 0, 0, 0.8);
+.prev:hover, .next:hover {
+	background-color: rgba(0, 0, 0, 0.8);
 }
 
 /* Number text (1/3 etc) */
 .numbertext {
-  color: #f2f2f2;
-  font-size: 12px;
-  padding: 8px 12px;
-  position: absolute;
-  top: 0;
+	color: #f2f2f2;
+	font-size: 12px;
+	padding: 8px 12px;
+	position: absolute;
+	top: 0;
 }
 
 img {
-  margin-bottom: 0px;
-  
+	margin-bottom: 0px;
 }
 
 .caption-container {
-  text-align: center;
-  background-color: black;
-  padding: 2px 16px;
-  color: white;
+	text-align: center;
+	background-color: black;
+	padding: 2px 16px;
+	color: white;
 }
 
 .demo {
-  opacity: 0.6;
+	opacity: 0.6;
 }
 
-.active,
-.demo:hover {
-  opacity: 1;
+.active, .demo:hover {
+	opacity: 1;
 }
 
 img.hover-shadow {
-  transition: 0.3s
+	transition: 0.3s
 }
 
 .hover-shadow:hover {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
+		rgba(0, 0, 0, 0.19)
 }
-.mySlides{
-width: 100%;
-height: 400px;
+
+.mySlides {
+	width: 100%;
+	height: 400px;
 }
-.manditory{color: red;}
+
+.manditory {
+	color: red;
+}
 </style>
 </head>
 <body style="background: white;">
@@ -2034,14 +2161,14 @@ height: 400px;
 		</div>
 		<div class="col-md-4">
 			<!-- <ul class="nav navbar-nav">
-				<li><a href="#">Matches<span class="badge badge-notify">30</span></a></li>
-				<li><a href="#">Search</a></li>
-				<li><a href="#">Inbox<span class="badge badge-notify">30</span></a></li>
+				<li><a href="#no">Matches<span class="badge badge-notify">30</span></a></li>
+				<li><a href="#no">Search</a></li>
+				<li><a href="#no">Inbox<span class="badge badge-notify">30</span></a></li>
 			</ul> -->
 			<!-- <div class="box_1 midfont">
-				<p><a href="#">Matches</a><span class="badge badge-notify">0</span>&nbsp;&nbsp;&nbsp;
+				<p><a href="#no">Matches</a><span class="badge badge-notify">0</span>&nbsp;&nbsp;&nbsp;
         		<a href="searchProfiles">Search</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-       			<a href="#">Inbox</a><span class="badge badge-notify">0</span></p>
+       			<a href="#no">Inbox</a><span class="badge badge-notify">0</span></p>
 			</div> -->
 		</div>
 		<div class="col-md-5">
@@ -2081,59 +2208,61 @@ height: 400px;
 								</ul>
 							</li>
 							<li class="dropdown searchPage">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Search</a>
+								<a href="#no" class="dropdown-toggle" data-toggle="dropdown">Search</a>
 								<ul class="dropdown-menu">
 									<li><a href="searchProfiles">Regular search</a></li>
 									<li><a href="searchById">Search by ID </a></li>
-									<li><a href="#">Recently viewed profiles</a></li>
+									<li><a href="#no">Recently viewed profiles</a></li>
 								</ul>
 							</li>
 							<li class="dropdown matches">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Matches <span id="matchcount">${cacheGuest.yetToBeViewedCount}</span></a>
+								<a href="#no" class="dropdown-toggle" data-toggle="dropdown">Matches <span id="matchcount">${cacheGuest.yetToBeViewedCount}</span></a>
 								<ul class="dropdown-menu">
 									<li><a href="newMatches">New Matches</a></li>
 									<li><a href="yetToBeViewed">Yet to be viewed(${cacheGuest.yetToBeViewedCount}) </a></li>
 									<li><a href="viewedNotContacted">Viewed & not contacted(${cacheGuest.viewedNotContactedCount})</a></li>
 									<li><a href="shortListedByMe">Shortlisted Matches</a></li>
-									<li><a href="#">Premium Members</a></li>
+									<!-- <li><a href="#no">Premium Members</a></li> -->
 								</ul>
 							</li>
 							<li class="dropdown messages">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Messages <span id="matchcount">${cacheGuest.pendingRequestsCount}</span></a>
+								<a href="#no" class="dropdown-toggle" data-toggle="dropdown">Messages <span id="matchcount">${cacheGuest.pendingRequestsCount}</span></a>
 								<ul class="dropdown-menu">
 									<li><a href="inboxAction?tab_type=inbox&list_type=pending_requests">Inbox - pending ${cacheGuest.pendingRequestsCount}</a></li>
 									<li><a href="inboxAction?tab_type=inbox&list_type=accepted_requests" >Inbox - Accepted </a></li>
 									<li><a href="inboxAction?tab_type=sent&list_type=sent_requests" >Sent All</a></li>
-									<!-- <li><a href="#">SMS received/sent</a></li> -->
+									<!-- <li><a href="#no">SMS received/sent</a></li> -->
 								</ul>
 							</li>
-							<li class="dropdown upgrade">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Upgrade</a>
+							<!-- <li class="dropdown upgrade">
+								<a href="#no" class="dropdown-toggle" data-toggle="dropdown">Upgrade</a>
 								<ul class="dropdown-menu">
 									<li><a href="memberShipPage">Payment Options</a></li>
-									<li><a href="#">Profile Highliter </a></li>
+									<li><a href="#no">Profile Highliter </a></li>
 								</ul>
-							</li>
+							</li> -->
 							
 							<li class="dropdown notifications">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Notifications <span id="matchcount">${notificationsCount}</span></a>
+								<a href="#no" class="dropdown-toggle" data-toggle="dropdown">Notifications <span id="matchcount">${notificationsCount}</span></a>
 								<ul class="dropdown-menu">
 									<li><a href="myProfileViewsList">(${cacheGuest.profileViewedCount})members viewed your profile</a></li>
 									<li><a href="myMobileNoViewsList">(${cacheGuest.mobileNumViewedCount})members viewed your mobile number </a></li>
-									<li><a href="#">Received interest from (${cacheGuest.receivedInterestCount})  members</a></li>
+									<li><a href="#no">Received interest from (${cacheGuest.receivedInterestCount})  members</a></li>
 									<li><a href="shortListedMe">(${cacheGuest.shortListedCount}) members shortlisted your profile</a></li>
 								</ul>
 							</li>
-							<li><a href="#" >Help</a></li>
+							<li><a href="#no" >Help</a></li>
 							
 							<li><a class="upgradeOption animated flash infinite" href="memberShipPage"
 							 style="font-size: 24px; font-weight: bold; color: white; background-image: -webkit-linear-gradient(1deg, white, white);">Upgrade</a></li>
-							<li><a href="#" >&nbsp;</a></li>
-							<li><a href="#" >&nbsp;</a></li>
-							<li><a href="#" >&nbsp;</a></li>							
-
+							<li><a href="#no" >&nbsp;</a></li>
+							<li><a href="#no" >&nbsp;</a></li>
+							<li><a href="#no" >&nbsp;</a></li>							
+							<li><a href="#no" >&nbsp;</a></li>
+							<li><a href="#no" >&nbsp;</a></li>
+							<li><a href="#no" >&nbsp;</a></li>
 							<li class="dropdown settings pull-right">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+								<a href="#no" class="dropdown-toggle" data-toggle="dropdown">
 									<c:if test="${not empty cacheGuest.profileImage}">
 										<img id="profilepic" src="${cacheGuest.profileImage}" class="img img-responsive thumbnail watermark_text" style="margin-top:-10px;height: 40px;width: 40px;border-radius:15%;">
 									</c:if>
@@ -2164,18 +2293,18 @@ height: 400px;
     
       <!-- Modal content-->
       <div class="modal-content">
-        <div class="modal-header" style="background: yellowgreen; border-radius: 6px; width: 509px;">
+        <div class="modal-header" style="background: yellowgreen; border-radius: 0px; width: 509px;">
           <button type="button" class="close" data-dismiss="modal" style="margin-top: -4px;margin-right: -165px; font-size: 28px;color: black;">&times;</button>
           <h4 class="modal-title" style="color: aliceblue;padding-bottom: 5px; padding-left: 44px; font-size: 24px;">Mail Content</h4>
         </div>
         <div class="modal-body" style="background: transparent;">
         	<input type="hidden" name="profile_id" id="profile_id">
-         	<textarea id="mail_content" name="mail_content" cols="70" rows="10" style="margin: -16px 0px 0px -15px;" ></textarea><br><div class="clearfix"></div>
+         	<textarea id="mail_content" name="mail_content" cols="70" rows="10" style="height: 230px; margin: -16px 0px 0px -15px;" ></textarea><br><div class="clearfix"></div>
           	
         </div>
-        <div class="modal-footer" style="border: none; background: transparent;">
-          <button type="button" id="sendMailBtn" onclick="sendMail()" class="btn btn-primary" style="margin: 0px 0px 0px 404px;padding: 10px 15px 9px 12px;" >Send Mail</button>
-        </div>
+        
+          <button type="button" id="sendMailBtn" onclick="sendMail()" class="btn btn-primary" style="width: 142%; margin: -18px 0px 0px 0px;" >Send Mail</button>
+        
       </div>
       
     </div>
@@ -2224,10 +2353,10 @@ height: 400px;
 					<li><a class="color1" href="myProfile">My Profile</a></li>
 					<li><a class="color1" href="myPhotos">My Photos</a></li>
 					<li><a class="color1" href="searchProfiles">Search</a></li>
-					<li><a class="color1" href="#">Matches</a></li>
+					<li><a class="color1" href="#no">Matches</a></li>
 					<li><a class="color1" href="memberShipPage">Upgrade</a></li>
-					<li><a class="color1" href="#">Help</a></li>
-					<li><a class="color1" href="#">Dear, <%= userBean.getFirstName() %> <%= userBean.getLastName() %></a></li>
+					<li><a class="color1" href="#no">Help</a></li>
+					<li><a class="color1" href="#no">Dear, <%= userBean.getFirstName() %> <%= userBean.getLastName() %></a></li>
 					<li><a class="color1" href="logoutHome">Logout</a></li>
 				</ul> 
 				<div class="clearfix"></div>
