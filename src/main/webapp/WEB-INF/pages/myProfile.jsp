@@ -289,7 +289,9 @@ a:hover, a:focus {
 						${profileBean.religionName}, ${profileBean.casteName}<br>
 						${profileBean.currentCityName}, ${profileBean.currentStateName}, ${profileBean.currentCountryName}<br>
 						${profileBean.educationName}, ${profileBean.occupationName}</p>
-						<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-${cacheGuest.mobile}&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font>&nbsp;&nbsp;</span><br><br>
+						<div id="editMobileDiv" hidden="true"><input type="text" placeholder="+91-${cacheGuest.mobile}" id="mobile"/></div> 
+						<div id="mobileNoDiv"><span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;<span id="mobileNoText">+91-${cacheGuest.mobile}</span>&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font>&nbsp;&nbsp;</span>&nbsp;</div> <a href="#no" id="editMobileAnchor" style="color:blue"  onclick="displayEditMobilenumberDiv(${profileBean.id},'${cacheGuest.mobile}')">Edit Mobile No.</a>
+						<br><br>
 						</div>
 						<div class="col-md-3">
 						 <h4></h4>
@@ -1483,6 +1485,14 @@ function toggleDiv(divElem){
 		   	}
   }
   
+  function displayEditMobilenumberDiv(user_id,old_mobile_no){
+	  $("#mobileNoDiv").attr("hidden",true);
+	  $("#editMobileDiv").removeAttr("hidden");
+	  $("#editMobileAnchor").html("Update");
+	  $("#mobile").val(old_mobile_no);
+	  $("#editMobileAnchor").attr("onclick","editMobileNumber("+user_id+","+old_mobile_no+")");
+	  return false;
+  }
   
   /* $(".multiSelect").change(function(event){
 	  var elemId = this.id;
