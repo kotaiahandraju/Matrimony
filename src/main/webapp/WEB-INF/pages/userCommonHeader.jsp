@@ -11,11 +11,13 @@
 
 <html>
 <head>
-	<title>Aarna Matrimony</title>
+	<title>Aarna Matrimony: Best site for search perfect bride & groom</title>
 	<link rel="shortcut icon" href="img/aarna-fav.png"/>
 	<!-- for-mobile-apps -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="description" content="The Best Matrimonal site for all types castes & religions(hindu, muslim, christian,jains,sikhs etc..),Perfect matches for both bride & groom, aarna matrimony,best search site for marriages">
+    <meta name="keyword" content="arna matrimony,telugu matrimony,best telugu matrimony site,best site for marriages,search, best indian martimony site,bride,groom,muslim,hindu,christian,brahmin,aarna matrimony guntur,aarna matrimony vijayawada,aarna matrimony tenali,aarna matrimony amaravathi,aarna matrimony marriages,marriage lines,matrimonys in guntur,matrimonys in vijayawada,matches,matrimonys in tenali,bride&groom">
 	<script type="application/x-javascript">
 		addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 		function hideURLbar(){ window.scrollTo(0,1); }
@@ -224,7 +226,7 @@
 			    		var msg = jsonobj.message;
 			    		if(typeof msg != "undefined"){
 			    			if(msg=="success"){
-			    				$("#mobileTD"+profileId).html('<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+profileObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>');
+			    				$("#mobileTD"+profileId).html('<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+profileObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="img" title="image" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>');
 			    				allowed_limit = limit;
 			    				$("#available_limit_span").html(allowed_limit);
 			    			}else{
@@ -319,7 +321,7 @@
 					var mobNumViewed = orderObj.mobileNumViewed;
 					var mobile_num_Str = "";
 					if(mobNumViewed==1 || expressed==1 || message_sent_status==1){
-						mobile_num_Str = '<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;float:left;">&nbsp;+91-'+orderObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;float:left;color:#4baa26;">Verified </span>)</font></span>';
+						mobile_num_Str = '<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;float:left;">&nbsp;+91-'+orderObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="image" title="image" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;float:left;color:#4baa26;">Verified </span>)</font></span>';
 					}else{
 						mobile_num_Str = '<span ><a href="#no" type="button" class="btn btn-primary btn-block" onclick="displayMobileNum('+orderObj.id+')">View Mobile Number</a></span>';
 					}
@@ -488,7 +490,7 @@
 					var mobNumViewed = orderObj.mobileNumViewed;
 					var mobile_num_Str = "";
 					if(mobNumViewed==1 || expressed==1 || message_sent_status==1){
-						mobile_num_Str = '<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;float:left;">&nbsp;+91-'+orderObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;float:left;color:#4baa26;">Verified </span>)</font></span>';
+						mobile_num_Str = '<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;float:left;">&nbsp;+91-'+orderObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="image" title="image" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;float:left;color:#4baa26;">Verified </span>)</font></span>';
 					}else{
 						mobile_num_Str = '<span ><a href="#no" type="button" style="margin: 11px 0px 0px 0px;" class="btn btn-primary btn-block" onclick="displayMobileNum('+orderObj.id+')">View Mobile Number</a></span>';
 
@@ -720,7 +722,7 @@
 						var mobNumViewed = orderObj.mobileNumViewed;
 						var mobile_num_Str = "";
 						if(mobNumViewed==1 || expressed==1 || message_sent_status==1){
-							mobile_num_Str = '<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+orderObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>';
+							mobile_num_Str = '<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+orderObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="image" title="image" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>';
 						}else{
 							mobile_num_Str = '<span id="mobileTD'+orderObj.id+'"><a href="#no" type="button" class="btn btn-primary btn-block" onclick="displayMobileNum('+orderObj.id+')">View Mobile Number</a></span>';
 						}
@@ -903,7 +905,7 @@
 			    		var msg = jsonobj.message;
 			    		if(typeof msg != "undefined"){
 			    			if(msg=="success"){
-			    				$("#mobileTD"+requestId).html('<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+profileObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>');
+			    				$("#mobileTD"+requestId).html('<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+profileObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="image" title="image" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>');
 			    				allowed_limit = limit;
 			    			}else{
 			    				alert("Some problem occured. Please try again.");
@@ -2190,7 +2192,7 @@ img.hover-shadow {
 	<div class="container" style="background: #FFF;">
     	<div class="col-md-3">
 			<div class="logo">
-				<img src="user/images/logo1.jpg" class="img img-responsive">
+				<img src="user/images/logo1.jpg" alt="image" title="image" class="img img-responsive">
 			</div>
 			<div class="clearfix"></div>
 		</div>
@@ -2299,10 +2301,10 @@ img.hover-shadow {
 							<li class="dropdown settings pull-right">
 								<a href="#no" class="dropdown-toggle" data-toggle="dropdown">
 									<c:if test="${not empty cacheGuest.profileImage}">
-										<img id="profilepic" src="${cacheGuest.profileImage}" class="img img-responsive thumbnail watermark_text" style="margin-top:-10px;height: 40px;width: 40px;border-radius:15%;">
+										<img id="profilepic" src="${cacheGuest.profileImage}" alt="profileImage" title="profileImage" class="img img-responsive thumbnail watermark_text" style="margin-top:-10px;height: 40px;width: 40px;border-radius:15%;">
 									</c:if>
 									<c:if test="${empty cacheGuest.profileImage}">
-										<img id="profilepic" src="img/default.png" class="img-responsive thumbnail " style="margin-top:-10px;height: 40px;width: 40px;border-radius:15%;">
+										<img id="profilepic" src="img/default.png" alt="image" title="image" class="img-responsive thumbnail " style="margin-top:-10px;height: 40px;width: 40px;border-radius:15%;">
 									</c:if>
 								</a>
 								<ul class="dropdown-menu" style="left: none; right: auto; min-width: 102px;">
@@ -2362,7 +2364,7 @@ img.hover-shadow {
 		<c:forEach items="${photosList}" var="photo" >
 			<c:set var="counter2" value="${counter2+1}" />
 			<div class="col-sm-2">
-		      <img class="demo cursor" src="${photo.image}" style="width:100%" onclick="currentSlide(${counter2})" alt="">
+		      <img class="demo cursor" src="${photo.image}" style="width:100%" onclick="currentSlide(${counter2})" alt="photo">
 		    </div>
 	    </c:forEach>
 	</div>
@@ -2383,7 +2385,8 @@ img.hover-shadow {
 			<div class="menu_sec">
 				<!-- start header menu -->
 				<ul class="megamenu skyblue">
-					<!-- <li><a class="color1" href="" style="padding: 0px 15px;"><img src="img/aarna-fav.png" class="img img-responsive"></a></li> -->
+					<!-- <li><a class="color1" href="" style="padding: 0px 15px;"><img alt="img
+					" src="img/aarna-fav.png" class="img img-responsive"></a></li> -->
 					<li class="active" ><a class="color1" href="dashboard">My Home</a></li>
 					<li><a class="color1" href="myProfile">My Profile</a></li>
 					<li><a class="color1" href="myPhotos">My Photos</a></li>
