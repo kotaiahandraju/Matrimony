@@ -79,7 +79,7 @@
 		$('#tableId').html(tableHead);
 		serviceUnitArray = {};
 		$.each(listOrders,function(i, orderObj) {
-							var viewProfile = "<a title='View Profile' onclick='viewProfile("+ orderObj.id+ ")'><i style='color: blue;cursor: pointer;' class='fa fa-eye'></i></a>"
+							var viewProfile = "<a title='View Profile' onclick='viewProfileNew("+ orderObj.id+ ")'><i style='color: blue;cursor: pointer;' class='fa fa-eye'></i></a>"
 							var active = "<a  title='Active Profile' onclick='profileAction("+ orderObj.id+ ",1)'><i style='color: green;cursor: pointer;' class='fa fa-repeat'></i></a>"
 							var deleteProfile = "<a title='Delete Profile' onclick='profileAction("+ orderObj.id+ ",2)'><i style='color: green;cursor: pointer;' class='fa fa-remove'></i></a>"
 							serviceUnitArray[orderObj.id] = orderObj;

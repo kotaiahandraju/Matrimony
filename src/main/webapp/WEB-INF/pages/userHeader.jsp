@@ -90,11 +90,11 @@
             		Not a paid member.
             	</c:if>
             	<c:if test="${cacheGuest.roleId != '4'}">
-	            	<c:if test="${membership_details.validity <= 0}">
+	            	<c:if test="${membership_details.validity < 0}">
 	            		Your membership validity is over on <c:out value="${membership_details.renewal_date}" /><br>
 	            		<a type="button" class="btn btn-primary btn-block" href="memberShipPage">Renew Membership</a>
 	            	</c:if>
-	            	<c:if test="${membership_details.validity > 0}">
+	            	<c:if test="${membership_details.validity >= 0}">
 		            	
 		            		<b><c:out value="${membership_details.name}" /></b><br>
 			            	<c:out value="${membership_details.validity}" /> days remaining <br>

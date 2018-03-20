@@ -130,7 +130,7 @@ s.parentNode.insertBefore(ga, s);
 		$.each(listOrders,function(i, orderObj) {
 							var edit = "<a title='Edit Profile' onclick='editProfile("+ orderObj.id+ ")'><i style='color: green;cursor: pointer;' class='fa fa-edit'></i></a>";
 							var restote = "<a  title='Restore Profile' onclick='restoreDeleteProfile("+ orderObj.id+ ")'><i style='color: green;cursor: pointer;' class='fa fa-repeat'></i></a>";
-							var viewProfile = "<a title='View Profile' onclick='viewProfile("+ orderObj.id+ ")'><i style='color: blue;cursor: pointer;' class='fa fa-eye'></i></a>";
+							var viewProfile = "<a title='View Profile' onclick='viewProfileNew("+ orderObj.id+ ")'><i style='color: blue;cursor: pointer;' class='fa fa-eye'></i></a>";
 							var permanentDelete = "<a title='Delete Permanently' onclick='permanentDelete("+ orderObj.id+ ")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-trash'></i></a>";
 							serviceUnitArray[orderObj.id] = orderObj;
 							if(orderObj.firstName !=null){

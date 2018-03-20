@@ -59,7 +59,7 @@
     </div>
     
     
-    <div class="col-md-6">
+    <%-- <div class="col-md-6">
     <div class="form-group" id="haveChildrenId">
       <label class="control-label" for="textinput" >If Children</label>  
       
@@ -70,7 +70,7 @@
 			<form:option value="No Children">No Children</form:option>
 		</form:select>
     </div>
-    </div>
+    </div> --%>
     
     <br>
     <div class="col-md-6">
@@ -119,22 +119,7 @@
     </div>
     
 </div>
-<div class="row">
-    <div class="form-group">
-      <label class="col-md-4 control-label" for="textinput">Eating Habits</label>  
-      <div class="col-md-7">
-      	<form:select path="rDiet" class="multiSelect" multiple="true">
-			<form:option value="Veg">Veg</form:option>
-			<form:option value="Non-Veg">Non-Veg</form:option>
-			<form:option value="Occasionally Non-Veg">Occasionally Non-Veg</form:option>
-			<form:option value="Eggetarian">Eggetarian</form:option>
-			<form:option value="Jain">Jain</form:option>
-			<form:option value="Vegan">Vegan</form:option>
-		</form:select>
-		
-      </div>
-    </div>
-</div>
+
 <br>
 <div class="row">
 	<div class="col-md-4 pull-right">
