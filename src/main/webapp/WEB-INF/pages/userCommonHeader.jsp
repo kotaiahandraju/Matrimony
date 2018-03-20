@@ -1371,6 +1371,41 @@ function validate(id, errorMessage)
 	}
 	
 }
+
+function editMobileNumber(user_id,old_mobile_no){
+	var userId = user_id;
+	var mobileNum = $("#mobile").val();
+	if(mobileNum.trim()==""){
+		var v1 = validate('mobile','Enter Mobile Number');
+		if(v1==false)
+			return false;
+	}
+	var formData = new FormData();
+	formData.append("userId",userId);
+	formData.append("mobileNum",mobileNum);
+	formData.append("oldMobileNum",old_mobile_no);
+	$.fn.makeMultipartRequest('POST', 'updateMobileNumber', false,
+		formData, false, 'text', function(data){
+	var jsonobj = $.parseJSON(data);
+	var msg = jsonobj.message;
+	
+	if("success"==msg){
+		alert("Mobile Number Updated Successfully.");
+		$("#editMobileDiv").attr("hidden",true);
+		 $("#mobileNoDiv").removeAttr("hidden");
+		$("#mobileNoText").html(mobileNum);
+		$("#editMobileAnchor").html("Edit Mobile No.");
+		$("#editMobileAnchor").attr("onclick","displayEditMobilenumberDiv("+user_id+","+mobileNum+")");
+	}else if(msg == "duplicate"){
+		alert("Mobile number already in user. Please try another.");
+	}else{
+		alert("Some problem occured!! Please try again.");
+	}	
+	
+});
+}
+
+
 	</script>
 	
 	<script type="text/javascript" src="js/ajax.js"></script>

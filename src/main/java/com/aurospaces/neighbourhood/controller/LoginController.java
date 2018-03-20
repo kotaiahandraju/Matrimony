@@ -209,24 +209,26 @@ public class LoginController {
 				return "redirect:profile.htm?page=3";
 			}
 			filled_status += 15;
-			if(StringUtils.isBlank(objUserBean.getAboutMyself())){
-				return "redirect:profile.htm?page=4";
-			}
 			session.setAttribute("profile_filled_status", filled_status);
-			if(StringUtils.isBlank(objUserBean.getFatherName())){
-				return "redirect:family-details";
-			}else if(StringUtils.isBlank(objUserBean.getImage())){
-				return "redirect:uploadPhotos";
-			}else if(StringUtils.isBlank(objUserBean.getrAgeFrom()) && StringUtils.isBlank(objUserBean.getrAgeTo()) &&
-					StringUtils.isBlank(objUserBean.getrMaritalStatus()) ){
-				return "redirect:partner-profile";
-			}
-			else{
-				if(StringUtils.isBlank(otpStatus) || "0".equals(otpStatus)){
-					return "redirect:sendOtp";
-				}else
-					return "redirect:dashboard";
-			}
+			if(StringUtils.isBlank(otpStatus) || "0".equals(otpStatus)){
+				if(StringUtils.isBlank(objUserBean.getAboutMyself())){
+					return "redirect:profile.htm?page=4";
+				}
+				
+				if(StringUtils.isBlank(objUserBean.getFatherName())){
+					return "redirect:family-details";
+				}
+				if(StringUtils.isBlank(objUserBean.getImage())){
+					return "redirect:uploadPhotos";
+				}
+				if(StringUtils.isBlank(objUserBean.getrAgeFrom()) && StringUtils.isBlank(objUserBean.getrAgeTo()) &&
+						StringUtils.isBlank(objUserBean.getrMaritalStatus()) ){
+					return "redirect:partner-profile";
+				}
+				return "redirect:sendOtp";
+			}else
+				return "redirect:dashboard";
+			//}
 			
 		}else if(objUserBean.getRoleId() != 4){
 			int allowed_profiles_limit = objUsersDao.getAllowedProfilesLimit(objUserBean.getId());
@@ -250,7 +252,7 @@ public class LoginController {
 			}
 			filled_status += 15;
 			if(StringUtils.isBlank(objUserBean.getAboutMyself()) && StringUtils.isBlank(objUserBean.getDisability())){
-				return "redirect:profile.htm?page=4";
+				//return "redirect:profile.htm?page=4";
 			}
 			session.setAttribute("profile_filled_status", filled_status);
 			String otpStatus = objUsersDao.getOtpStatus(objUserBean);

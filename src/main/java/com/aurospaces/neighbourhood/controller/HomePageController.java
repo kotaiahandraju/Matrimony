@@ -1458,6 +1458,7 @@ public class HomePageController {
 	@RequestMapping(value = "/updateMobileNumber")
 	public @ResponseBody String updateMobileNumber(UsersBean userBean, Model objeModel ,
 			HttpServletRequest request,HttpServletResponse response, HttpSession session) {
+		JSONObject objJson =new JSONObject();
 		try {
 				UsersBean objuserBean = (UsersBean) session.getAttribute("cacheGuest");
 				if(objuserBean==null){
@@ -1465,15 +1466,31 @@ public class HomePageController {
 				}
 				String mobileNum = request.getParameter("mobileNum");
 				String user_id = request.getParameter("userId");
-				objUsersDao.updateMobileNumber(user_id,mobileNum);
+				userBean.setId(objuserBean.getId());
+				userBean.setMobile(mobileNum);
+				boolean exists = objUsersDao.mobileNumExistOrNot(userBean);
+				if(exists){
+					objJson.putOnce("message", "duplicate");
+				}else{
+					boolean success = objUsersDao.updateMobileNumber(user_id,mobileNum);
+					if(success){
+						objJson.putOnce("message", "success");
+						objuserBean.setMobile(mobileNum);
+						session.setAttribute("cacheGuest", objuserBean);
+					}else{
+						objJson.putOnce("message", "failed");
+					}
+				}
+				
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e);
 			logger.error(e);
 			logger.fatal("error in updateMobileNumber method  ");
+			objJson.putOnce("message", "failed");
 		}
-		return "";
+		return objJson.toString();
 	}
 	
 	@ModelAttribute("cast")
