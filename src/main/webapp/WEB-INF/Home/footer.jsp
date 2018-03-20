@@ -84,6 +84,46 @@
   	
 	<script type="text/javascript">
 		var isCheck = "Yes";
+		function PrintElem(elem)
+		 {
+		 	$(".noPrint").hide();
+		     Popup($("#printProfile").html());
+		     
+		 }
+
+
+		 function Popup(data)
+		 {
+		 	var mywindow = window.open('','new div');
+
+		     var is_chrome = Boolean(mywindow.chrome);
+		     var isPrinting = false;
+		     mywindow.document.write('<html><head><title>'+username1+'</title> <link rel="stylesheet" type="text/css" href="../assets/css/img.css"><link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css"></head><body>');
+		     mywindow.document.write(data);
+		    
+		     mywindow.document.write('</body></html>');
+		     mywindow.document.close(); // necessary for IE >= 10 and necessary before onload for chrome
+
+		 
+		 $(".noPrint").show();
+		     if (is_chrome) {
+		         mywindow.onload = function() { // wait until all resources loaded 
+		             mywindow.focus(); // necessary for IE >= 10
+		             mywindow.print();  // change window to mywindow
+		             mywindow.close();// change window to mywindow
+		         };
+		     
+		     
+		    } else {
+		         mywindow.document.close(); // necessary for IE >= 10
+		         mywindow.focus(); // necessary for IE >= 10
+
+		         mywindow.print();
+		         mywindow.close();
+		    }
+		   
+		     return true;
+		 }
 	</script>
 </body>
 </html>
