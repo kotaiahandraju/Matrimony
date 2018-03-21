@@ -381,7 +381,7 @@
 			            + 	'<a href="#no"  type="button" class="btn btn-primary btn-block" onclick="fullProfile('+orderObj.id+')">View Full Profile</a>'
 			               //+   '<button id="mobileBtn'+orderObj.id+'" type="button" class="btn btn-info" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button>'
 			            + '</div>'
-			            + mobile_num_Str
+			            //+ mobile_num_Str
 			            + '<div class="row container-fluid">'
 			            + 	'<div class="col-md-7" style="margin-right:0; padding-right:0;">'
 			            +		'<table width="100%" border="0" cellspacing="0" cellpadding="0">'
@@ -737,15 +737,61 @@
 						var premiumMember = "";
 						var memberRoleId = orderObj.role_id;
 						if(memberRoleId!=null && memberRoleId!="" && (typeof memberRoleId != "undefined")){
-							/* if(){
+							if(memberRoleId==12){
+								 premiumMember = "<span class='premium-member'>Classic Member</span>";
+							}
+							if(memberRoleId==13){
+								 premiumMember = "<span class='premium-member'>Classic Advantage Member</span>";
+							}
+							if(memberRoleId==6){
+								 premiumMember = "<span class='premium-member'>Premium Member</span>";
+							}
+							if(memberRoleId==11){
+								 premiumMember = "<span class='premium-member'>Premium Plus Member</span>";
+							}
+							if(memberRoleId==14){
+								 premiumMember = "<span class='premium-member'>Aarna Family Member</span>";
+							}
+							
+						}
+						var user_gender = '${cacheGuest.gender}';
+						var opp_gender_str = "";
+						if(user_gender!=null && user_gender!="" && (typeof user_gender != "undefined")){
+							if(user_gender=="Female"){
+								opp_gender_str = "He";
+							}else if(user_gender=="Male"){
+								opp_gender_str = "She";
+							}
 								
-							} */
-							premiumMember = "<span class='premium-member'>Premium Member</span>";
 						}
-						if(memberRoleId!=null && memberRoleId!="" && (memberRoleId==6 || memberRoleId==11 ||
-								memberRoleId==12 || memberRoleId==13 || memberRoleId==14)){
-							premiumMember = "<span class='premium-member'>Premium Member</span>";
+						// activities to display
+						var myMobileNumViewed_str = "";
+						var tempStr = orderObj.myMobileNumViewed;
+						if(tempStr!=null && tempStr!="" && (typeof tempStr != "undefined")){
+							myMobileNumViewed_str = opp_gender_str+" viewed your mobile number.<br>";
 						}
+						
+						var message_sent_to_me_str = "";
+						tempStr="";
+						tempStr = orderObj.message_sent_to_me;
+						if(tempStr!=null && tempStr!="" && (typeof tempStr != "undefined")){
+							message_sent_to_me_str = opp_gender_str+" sent you a personal mail.<br>";
+						}
+						
+						var shortListedMe_str = "";
+						tempStr="";
+						tempStr = orderObj.shortListedMe;
+						if(tempStr!=null && tempStr!="" && (typeof tempStr != "undefined")){
+							shortListedMe_str = opp_gender_str+" shortlisted your profile.<br>";
+						}
+						
+						var myProfileViewed_str = "";
+						tempStr="";
+						tempStr = orderObj.myProfileViewed;
+						if(tempStr!=null && tempStr!="" && (typeof tempStr != "undefined")){
+							myProfileViewed_str = opp_gender_str+" viewed your profile.<br>";
+						}
+						//
 						
 						var acceptOptions = '';
 						if(listType == "pending_requests"){
@@ -757,7 +803,7 @@
 				            	//+ '<button class="btn btn-danger btn-block" onclick="displayMobileNum_messages('+orderObj.id+',\'preferences\,'+orderObj.requestId+')">View Mobile Number</button>'
 				            	+ '<div class="clearfix"></div>'
 				            	+ '</div>';
-							acceptOptions = "<span id='accept"+orderObj.requestId+"'><a type='button' class='btn btn-primary btn-block' onclick='acceptRequest("+orderObj.requestId+",\"1\")'>Accept</a><a type='button' class='btn btn-danger btn-block' id='reject"+orderObj.requestId+"' href='#' onclick='acceptRequest("+orderObj.requestId+", \"0\")'>Ignore</a></span><br>";
+							acceptOptions = "<span id='accept"+orderObj.requestId+"'><a type='button' class='btn btn-primary btn-block' onclick='acceptRequest("+orderObj.requestId+",\"1\")'>Yes</a><a type='button' class='btn btn-danger btn-block' id='reject"+orderObj.requestId+"' href='#' onclick='acceptRequest("+orderObj.requestId+", \"0\")'>Not Interested</a></span><br>";
 							
 						}else if(listType == "accepted_requests"){
 							interestStr = '';
@@ -842,38 +888,20 @@
 			            	+ '</div>'
 			            	+ '<div class="col-md-6">'
 			            	+ '<table>'
-			            	+ '	<tr><td><td>'+firstname+' '+lastname+'&nbsp;('+orderObj.username+')</td></tr>'
-			            	+ '	<tr><td>Religion</td><td><span>: '+orderObj.religionName+'</span></td></tr>'
-			            	+ '	<tr><td>Mother Tongue</td><td><span>: '+orderObj.motherTongueName+'</span></td></tr>'
-			            	+ '	<tr><td>Community</td><td><span>: '+orderObj.casteName+'</span></td></tr>'
-			            	+ '	<tr><td>Location</td><td><span>: '+orderObj.currentCityName+'</span></td></tr>'
-			            	+ '	<tr><td>Education</td><td><span>: '+orderObj.educationName+'</span></td></tr>'
-			            	+ '	<tr><td>Profession</td><td><span>: '+profession+'</span></td></tr>'
-			            	+ '<tr><td id="mobileTD'+orderObj.requestId+'">'+mobile_num_Str+'</td><td></td></tr>'
-			            	//+ '<td id="shortlisttd'+orderObj.id+'"><button type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">Shortlist</button></td></tr>'
-			            	//+ '	<tr><td>Age</td><td><span>: '+orderObj.age+'</span></td></tr>'
-			            	//+ '	<tr><td colspan="2">'+orderObj.aboutMyself+'... <a href="#no" onclick="showMore('+orderObj.id+')"> read more..</a> </td></tr>'
-			            	//+  more_details_str
-			            	//+ '	<tr class="showMore" hidden="true"><td colspan="2">'+orderObj.aboutMyself+'... <a href="#no" > read more..</a> </td></tr>'
-			            	//+ '	<tr class="showMore" hidden="true"><td colspan="2">'+orderObj.aboutMyself+'... <a href="#no" > more detailssss</a> </td></tr>'
-			            	//+ '	<tr class="showMore" hidden="true"><td colspan="2">'+orderObj.aboutMyself+'... <a href="#no" > more detailssss</a> </td></tr>'
+			            	+ '	<tr><td>'+firstname+' '+lastname+'&nbsp;('+orderObj.username+')&nbsp;'+premiumMember+'</td></tr>'
+			            	+ '	<tr><td>'+orderObj.age+'Yrs,'+orderObj.inches+','+orderObj.religionName+','+orderObj.casteName+','
+			            	+ 		orderObj.currentCityName+','+orderObj.currentStateName+','+orderObj.currentCountryName+','
+			            	+ 		orderObj.educationName+','+orderObj.occupationName+'.'
+			            	+'	</td></tr>'
+			            	+ '	<tr><td>'
+			            	+ myMobileNumViewed_str 
+			            	+ message_sent_to_me_str 
+			            	+ shortListedMe_str 
+			            	+ myProfileViewed_str 
+			            	+ '</td></tr>'
+			            	+ '	<tr><td>'+opp_gender_str+' expressed interest. Would you like to take it further?</td></tr>'
+			            	+ '	<tr><td>'+acceptOptions+'</td></tr>'
 			            	+ '</table>'
-			            	+ '</div>'
-			            	/* + '<div id="hideMe'+orderObj.id+'" class="form-group hideMe">'
-			            	+ '    <label class="col-md-4 control-label" for="textinput"></label>'  
-			            	+ '    <div class="col-md-6 text-center">'
-			            	+ '    	<span class="more" style="color: #0087AF;cursor: pointer;"><a href="#no" >read more </a></span><i style="cursor: pointer;" class="fa fa-angle-down"></i>'
-			            	+ '    </div>'
-			            	+ '</div>' */
-			            	+ '<div class="col-md-4">'
-			            	+ '<h4 style="margin-bottom:20px;">Like this Profile?</h4>'
-			            	+ interestStr
-							//+ '<button class="btn btn-danger btn-block btn-md" onclick="fullProfile('+orderObj.id+')">View Full Profile</button><br><br><br><br><br>'
-							+ '<a href="#no" class="btn btn-primary btn-block btn-md" onclick="fullProfile('+orderObj.id+')">View Full Profile</a><br>'
-							+ acceptOptions
-							+ shortListedStr
-							//+ '<span id="shortlistTD"><a href="#no" type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="shortList('+orderObj.id+')">Shortlist</a></span> '
-							+ '<div class="clearfix"></div>'
 			            	+ '</div>'
 			            	+ '</div>'
 			            	+ '</div>';
