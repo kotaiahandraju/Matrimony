@@ -177,7 +177,7 @@ s.parentNode.insertBefore(ga, s);
 		$('#tableId').html(tableHead);
 		serviceUnitArray = {};
 		$.each(listOrders,function(i, orderObj) {
-			var viewProfile = "<a data-toggle='tooltip' title='View' onclick='viewProfile("+ orderObj.id+ ")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-eye'></i></a>"
+			var viewProfile = "<a data-toggle='tooltip' title='View' onclick='viewProfileNew("+ orderObj.id+ ")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-eye'></i></a>"
 			var uploadPhotos = "<a data-toggle='tooltip'  title='Upload Photos' onclick='uploadPhotos("+ orderObj.id+ ")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-photo'></i></a>"
 			var moveToHidden = "<a data-toggle='tooltip' title='Move To Hidden' onclick='moveToHidden("+ orderObj.id+ ",\"all\")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-eye-slash'></i></a>"
 			var editProfile = "<a data-toggle='tooltip' title='Edit' onclick='editProfile("+ orderObj.id+ ")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-pencil'></i></a>"
@@ -458,7 +458,7 @@ s.parentNode.insertBefore(ga, s);
 		var drinking = null; drinking = serviceUnitArray[id].drinking;
 		if(drinking == "" || drinking == null || drinking == "undefined"){drinking = "---";}
 		
-		var height = null; height = serviceUnitArray[id].height;
+		var height = null; height = serviceUnitArray[id].inches;
 		if(height == "" || height == null || height == "undefined"){height = "---";}
 		
 		var bodyTypeName = null; bodyTypeName = serviceUnitArray[id].bodyTypeName;
@@ -482,8 +482,11 @@ s.parentNode.insertBefore(ga, s);
 		var rAgeTo = null; rAgeTo = serviceUnitArray[id].rAgeTo;
 		if(rAgeTo == "" || rAgeTo == null || rAgeTo == "undefined"){rAgeTo = "---";}
 		
-		var rHeight = null; rHeight = serviceUnitArray[id].rHeight;
+		var rHeight = null; rHeight = serviceUnitArray[id].rHeightInches;
 		if(rHeight == "" || rHeight == null || rHeight == "undefined"){rHeight = "---";}
+		
+		var rHeightTo = null; rHeightTo = serviceUnitArray[id].rHeightToInches;
+		if(rHeightTo == "" || rHeightTo == null || rHeightTo == "undefined"){rHeightTo = "---";}
 		
 		var rMaritalStatus = null; rMaritalStatus = serviceUnitArray[id].rMaritalStatus;
 		if(rMaritalStatus == "" || rMaritalStatus == null || rMaritalStatus == "undefined"){rMaritalStatus = "---";}

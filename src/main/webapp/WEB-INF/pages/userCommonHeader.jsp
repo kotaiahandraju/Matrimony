@@ -1394,7 +1394,7 @@ height:120px;
 overflow:hidden;
 }
 .profilepic0 {
-
+height:150px;
 overflow:hidden;
 
 }
@@ -2146,10 +2146,10 @@ img.hover-shadow {
 	transition: 0.3s
 }
 
-/* .hover-shadow:hover {
+.hover-shadow:hover {
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
 		rgba(0, 0, 0, 0.19)
-} */
+}
 
 .mySlides {
 	width: 100%;
@@ -2292,9 +2292,14 @@ img.hover-shadow {
 								<a href="#no" class="dropdown-toggle" data-toggle="dropdown">
 									
 									
-										<img id="profilepic" src="img/default.png" class="img-responsive thumbnail " style="margin-top:-10px;height: 40px;width: 40px;border-radius:15%;"> <i class="fa fa-angle-down" aria-hidden="true"></i>
+<!-- 										<img id="profilepic" src="img/default.png" class="img-responsive thumbnail " style="margin-top:-10px;height: 40px;width: 40px;border-radius:15%;">  -->
 
-
+								<c:if test="${not empty cacheGuest.profileImage}">
+										<img id="profilepic" src="${cacheGuest.profileImage}" alt="profileImage" title="profileImage" class="img img-responsive thumbnail watermark_text" style="margin-top:-10px;height: 40px;width: 40px;border-radius:15%;"><i class="fa fa-angle-down" aria-hidden="true"></i>
+									</c:if>
+									<c:if test="${empty cacheGuest.profileImage}">
+										<img id="profilepic" src="img/default.png" alt="image" title="image" class="img-responsive thumbnail " style="margin-top:-10px;height: 40px;width: 40px;border-radius:15%;"><i class="fa fa-angle-down" aria-hidden="true"></i>
+									</c:if>
 
 									
 								</a>
@@ -2356,7 +2361,7 @@ img.hover-shadow {
 		<c:forEach items="${photosList}" var="photo" >
 			<c:set var="counter2" value="${counter2+1}" />
 			<div class="col-sm-2">
-		      <img class="demo cursor" src="${photo.image}" style="width:100%" onclick="currentSlide(${counter2})" >
+		      <img class="demo cursor" src="${photo.image}" style="width:100%" onclick="currentSlide(${counter2})" alt="">
 		    </div>
 	    </c:forEach>
 	</div>

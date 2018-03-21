@@ -125,27 +125,5 @@ function validate(id, errorMessage)
 	}
 	
 }
-function updateMobileNumber(){
-		var userId = ${profileToBeCreated.id};
-		var mobileNum = $("#mobile").val();
-		if(mobileNum.trim()==""){
-			var v1 = validate('mobile','Enter Mobile Number');
-			if(v1==false)
-				return false;
-		}
-		var formData = new FormData();
-		formData.append("userId",userId);
-		formData.append("mobileNum",mobileNum);
-		$.fn.makeMultipartRequest('POST', 'resendOtp', false,
-			formData, false, 'text', function(data){
-		var jsonobj = $.parseJSON(data);
-		var msg = jsonobj.message;
-		var mobileStr = jsonobj.mobileStr;
-		if(msg != "undefined" && "success"==msg){
-			$("#displayMsg").html("OTP has been resent on your mobile no. xxxxxxx"+mobileStr);
-		}	
-		
-	});
-}
 </script> 
 <%@ include file="userStepsFooter.jsp"  %>
