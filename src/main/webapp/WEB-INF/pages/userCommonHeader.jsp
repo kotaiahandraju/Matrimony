@@ -2477,7 +2477,7 @@ img.hover-shadow {
 	<div class="container" style="background: #FFF;">
     	<div class="col-md-3">
 			<div class="logo">
-				<img src="user/images/logo1.jpg" class="img img-responsive">
+				<a href="dashboard"><img  src="user/images/logo1.jpg" class="img img-responsive"></a>
 			</div>
 			<div class="clearfix"></div>
 		</div>

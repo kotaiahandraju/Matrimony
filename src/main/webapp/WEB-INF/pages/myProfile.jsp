@@ -305,10 +305,10 @@ xpopup
         <div id="about_edit" class="all_hidden_divs" hidden="true">
             <form:textarea path="aboutMyself" cols="90" rows="6"/>
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-4" style="float:right;">
                     <div class="form-group">
-                            <input class="btn btn btn-danger" type="button" id="about_submit" name="yt0" value="Save" onclick="saveChanges('about');">
-                            <input class="btn btn btn-default"type="button" id="about_cancel" name="yt1" value="Cancel" onclick="toggleDiv('about');">
+                            <input class="btn btn btn-success" type="button" id="about_submit" name="yt0" value="Save" onclick="saveChanges('about');">
+                            <input class="btn btn btn-danger"type="button" id="about_cancel" name="yt1" value="Cancel" onclick="toggleDiv('about');">
                     </div>
                 </div>
             </div>
@@ -800,10 +800,10 @@ xpopup
 </div>
 <br>
 <div class="row">
-    <div class="col-md-4 pull-right">
+    <div class="col-md-4 pull-right" style="float:right;">
         <div class="form-group">
-                <input class="btn btn btn-danger"  type="button" id="partner_professional_submit" name="yt0" value="Save" onclick="saveChanges('partner_professional');">
-                <input class="btn btn btn-default"  type="button" id="partner_professional_cancel" name="yt1" value="Cancel" onclick="toggleDiv('partner_professional');">
+                <input class="btn btn btn-success"  type="button" id="partner_professional_submit" name="yt0" value="Save" onclick="saveChanges('partner_professional');">
+                <input class="btn btn btn-danger"  type="button" id="partner_professional_cancel" name="yt1" value="Cancel" onclick="toggleDiv('partner_professional');">
         </div>
     </div>
 </div>
@@ -872,10 +872,10 @@ xpopup
 </div>
 <br>
 <div class="row">
-    <div class="col-md-4 pull-right">
+    <div class="col-md-4 pull-right" style="float:right;">
         <div class="form-group">
-                <input class="btn btn btn-danger" type="button" id="partner_location_submit" name="yt0" value="Save" onclick="saveChanges('partner_location');">
-                <input class="btn btn btn-default"  type="button" id="partner_location_cancel" name="yt1" value="Cancel" onclick="toggleDiv('partner_location');">
+                <input class="btn btn btn-success" type="button" id="partner_location_submit" name="yt0" value="Save" onclick="saveChanges('partner_location');">
+                <input class="btn btn btn-danger"  type="button" id="partner_location_cancel" name="yt1" value="Cancel" onclick="toggleDiv('partner_location');">
         </div>
     </div>
 </div>
