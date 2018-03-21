@@ -1,13 +1,13 @@
 <%@ include file="userHeader.jsp"%>
 
-			<div class="col-md-9 products-grid-left">
-            	<div class="panel panel-default">
+			<div class="col-md-8 products-grid-left">
+            	<div class="panel panel-success">
 					<div class="panel-heading">Search Profiles</div>
 					<div class="panel-body table-responsive">
 						<form:form commandName="createProfile"  class="form-horizontal" id="searchForm2" name="searchForm2" role="form" method="post">
 						<form:hidden path="id" />
              			<div class="col-md-12">
-							<div id="searchresultsDiv" class="bare">
+							<div id="searchresultsDiv" style="font-size: 12px;">
 								<div class="searchresults">
 								    <h3>Your Search Results</h3>
 								    <p><span id="countId">${count}</span> Profiles found <a href="searchProfiles">Modify Search</a></p>
@@ -39,18 +39,13 @@
 											<form:options items="${height}"></form:options>
 										</form:select>
 									</div>
-                                    
-                                   
-                                    
 									<div class="col-md-3">
 										<form:select path="rHeightTo" class="form-control u1">
 											<form:option value="">To</form:option>
 											<form:options items="${height}"></form:options>
 										</form:select>
 									</div>
-                                    </div>
-                                    
-									<div class="form-group prfic">
+									<div class="form-group" >
 									      <label class="col-md-4 control-label" for="textinput">Marital Status</label>  
 									      <div class="col-md-6">
 									      	<form:select path="rMaritalStatus" class="multiSelect" onchange="hideChildren();" multiple="true" >
@@ -62,7 +57,7 @@
 									      </div>
 									    </div>
 									
-									    <div class="form-group prific" id="haveChildrenId">
+									    <div class="form-group" id="haveChildrenId" style="display: none">
 									      <label class="col-md-4 control-label" for="textinput" >Have Children</label>  
 									      <div class="col-md-6">
 									      	<form:select path="rhaveChildren" class="form-control u1">
@@ -127,7 +122,7 @@
 									    <div class="form-group">
 									      <label class="col-md-4 control-label" for="textinput"></label>  
 									      <div class="col-md-6">
-									     	<a href="#" type="button" id="searchBtn" class="btn1 btn btn-danger" onclick="submitSearch()">Search</a> 
+									     	<a href="#" type="button" id="searchBtn" class="btn1 btn btn-info" onclick="submitSearch()">Search</a> 
 									      <!-- 	<a href="savePartnerProfile" class="btn1 btn btn-info">Save & Continue</a> -->
 									      </div>
 									    </div>
@@ -181,7 +176,7 @@ if (listOrders1 != "" && listOrders1 != null) {
 	$("#searchresultsDiv").prop("hidden",true);
 }else{
 	$('#countId').html('0');
-	var str = '<div class="alert alert-danger nixi"><h6>No results found..!</h6></div>';
+	var str = '<div class="alert alert-danger" style="margin-bottom: 0px;padding: 5px;"><h6>No results found..!</h6></div>';
 	$('#searchResults').html('');
 	$(str).appendTo("#searchResults");
 	$('#search_criteria').prop("hidden",true);
@@ -262,7 +257,7 @@ function displayMatches(listOrders) {
 				+ '</div>'
 				+ '<div class="panel-body">'
 				+ '<div class="col-md-2">'
-				+ '<a href="#"> <img src='+image+' class="img img-responsive thumbnail watermark_text beir"></a>'
+				+ '<a href="#"> <img src='+image+' class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: 60px;width: 60px;"></a>'
             	+ '</div>'
             	+ '<div class="col-md-6">'
             	+ '<table>'
@@ -286,11 +281,11 @@ function displayMatches(listOrders) {
             	/* + '<div id="hideMe'+orderObj.id+'" class="form-group hideMe">'
             	+ '    <label class="col-md-4 control-label" for="textinput"></label>'  
             	+ '    <div class="col-md-6 text-center">'
-            	+ '    	<span class="more mire"><a href="#" >read more </a></span><i class="fa fa-angle-down dim"></i>'
+            	+ '    	<span class="more" style="color: #0087AF;cursor: pointer;"><a href="#" >read more </a></span><i style="cursor: pointer;" class="fa fa-angle-down"></i>'
             	+ '    </div>'
             	+ '</div>' */
             	+ '<div class="col-md-4">'
-            	+ '<h4 class="bin">Like this Profile?</h4>'
+            	+ '<h4 style="margin-bottom:20px;">Like this Profile?</h4>'
             	+ insert_str
 				//+ '<button class="btn btn-danger btn-block btn-md" onclick="fullProfile('+orderObj.id+')">View Full Profile</button><br><br><br><br><br>'
 				+ '<a href="#" class="btn btn-info btn-block btn-md" onclick="fullProfile('+orderObj.id+')">View Full Profile</a><br>'
@@ -366,7 +361,7 @@ function updateProfilesList(){
 	    		$('#searchresultsDiv').removeAttr("hidden");
 	    		if(filtered_profiles==""){
 	    			$('#countId').html('0');
-	    			var str = '<div class="alert alert-danger ban" ><h6>No results found..!</h6></div>';
+	    			var str = '<div class="alert alert-danger" style="margin-bottom: 0px;padding: 5px;"><h6>No results found..!</h6></div>';
 	    			$('#searchResults').html('');
 	    			$(str).appendTo("#searchResults");
 	    			$("#table_footer").prop("hidden",true);
@@ -649,7 +644,7 @@ function paginationSetup(total_items_count) {
 	    		if(results==""){
 	    			$('#countId').html('');
 	    			$('#countId').html('0');
-	    			var str = '<div class="alert alert-danger ban"><h6>No results found..!</h6></div>';
+	    			var str = '<div class="alert alert-danger" style="margin-bottom: 0px;padding: 5px;"><h6>No results found..!</h6></div>';
 	    			$('#searchResults').html('');
 	    			$(str).appendTo("#searchResults");
 	    			$("#table_footer").prop("hidden",true);
