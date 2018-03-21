@@ -116,7 +116,8 @@
 		    		var msg = jsonobj.message;
 		    		if(typeof msg != "undefined"){
 		    			if(msg=="success"){
-		    				$("#shortlistTD"+profileId).html('<a type="button" class="btn btn-primary btn-block" disabled="true"> Shortlisted</a>');
+		    				$("#shortlistTD"+profileId).attr('disabled', 'disabled');
+		    				$("#shortlistTD"+profileId).text("Shortlisted");
 		    				//$("#shortlistTD"+profileId).removeAttr("href");
 		    				//$("#shortlistTD"+profileId).attr("disabled");
 		    			}else{
@@ -158,7 +159,7 @@
 			    		var profiles = jsonobj.allProfiles;
 			    		//if(typeof msg != "undefined" ){
 			    			if("success"==msg){
-			    				$("#expInterest"+profile_id).html('<a type="button" class="btn btn-success btn-block" disabled="true">Expressed Interest</a>');
+			    				$("#expInterest"+profile_id).html('<a type="button" class="btn btn-success btn-sm" disabled="true">Expressed Interest</a>');
 			    				alert("Interest request has been sent successfully");
 			    				//$("#expInterest"+profile_id).html('You Expressed Interest');
 			    				//$("#expInterest"+profile_id).attr("disabled",true);
@@ -292,16 +293,16 @@
 					var memberRoleId = orderObj.role_id;
 					if(memberRoleId!=null && memberRoleId!="" && (memberRoleId==6 || memberRoleId==11 ||
 							memberRoleId==12 || memberRoleId==13 || memberRoleId==14)){
-						premiumMember = "<span class='premium-member' style='color:#000;text-decoration:none'>Premium Member</span>";
+						premiumMember = "<span class='premium-member' style='color:#000;text-decoration:none; background:url(img/premium_member.gif) no-repeat; width:110px; height:18px; display:inline-block;'></span>";
 					}
 					var shortListType = "${list_type}";
 					var shortListedStr;
 					if(shortListType != null && typeof shortListType != "undefined" && shortListType=="shortListedByMe"){
 						shortListedStr = '';
 					}else{
-						shortListedStr = '<span id="shortlistTD'+orderObj.id+'"><a href="#no" type="button" class="btn btn-primary" onclick="shortList('+orderObj.id+')"> Shortlist</a></span>';
+						shortListedStr = '<span><a id="shortlistTD'+orderObj.id+'" href="#no" type="button" class="btn btn-primary btn-sm" onclick="shortList('+orderObj.id+')"> Shortlist</a></span>';
 						if(orderObj.short_listed == "1"){
-							shortListedStr = '<span><a type="button" class="btn btn-primary" disabled="true"> Shortlisted</a></span>';
+							shortListedStr = '<span><a type="button" class="btn btn-primary btn-sm" disabled="true"> Shortlisted</a></span>';
 						}
 					}
 					var expressed = orderObj.expressedInterest;
@@ -375,10 +376,11 @@
 			            +   '<br>'
 			            + 	'<a href="#no"  type="button" class="btn btn-primary btn-sm view0" onclick="fullProfile('+orderObj.id+')">View Full Profile</a>'
 			               //+   '<button id="mobileBtn'+orderObj.id+'" type="button" class="btn btn-info" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button>'
+			            +   shortListedStr
 			            + '</div>'
 			            //+ mobile_num_Str
 			            + '<div class="row container-fluid">'
-			            + 	'<div class="col-md-7" style="margin-right:0; padding-right:0;">'
+			            + 	'<div class="col-md-12" style="margin-right:0; padding-right:0;">'
 			            +		'<table width="100%" border="0" cellspacing="0" cellpadding="0">'
 			            + 			'<tr>'
 			            //+				'<td><button  type="button" class="btn btn-primary btn-block" onclick="fullProfile('+orderObj.id+')">View Full Profile</button></td>'
@@ -386,7 +388,8 @@
 			            //+				'<td><a href="#no" onclick="fullProfile('+orderObj.id+')">View Full Profile</a></td>'
 			            + 				'<td id="mobileTD'+orderObj.id+'">'+mobile_num_Str+'</td>'
 			            +				'<td></td>'
-			            + 				'<td id="shortlistTD'+orderObj.id+'">'+shortListedStr+'</td></tr>'
+// 			            + 				'<td id="shortlistTD'+orderObj.id+'">'+shortListedStr+'</td>'
+			            + '</tr>'
 			            + 		'</table>'
 			            //+ 		'<button  type="button" class="btn btn-primary btn-block" onclick="fullProfile('+orderObj.id+')">View Full Profile</button>'
 			            //+   	'<button id="mobileBtn'+orderObj.id+'" type="button" class="btn btn-info" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button>'
@@ -469,7 +472,7 @@
 							memberRoleId==12 || memberRoleId==13 || memberRoleId==14)){
 						premiumMember = "<span class='premium-member'>Premium Member</span>";
 					}
-					var shortListedStr = '<span id="shortlistTD'+orderObj.id+'"><a href="#no" type="button" class="btn btn-primary btn-block" onclick="shortList('+orderObj.id+')"> Shortlist</a></span>';
+					var shortListedStr = '<span id="shortlistTD'+orderObj.id+'"><a href="#no" type="button" class="btn btn-primary btn-sm" onclick="shortList('+orderObj.id+')"> Shortlist</a></span>';
 					if(orderObj.short_listed == "1"){
 						shortListedStr = '<span><a type="button" class="btn btn-primary btn-sm" disabled="true"> Shortlisted</a></span>';
 					}
@@ -981,16 +984,16 @@
 								memberRoleId==12 || memberRoleId==13 || memberRoleId==14)){
 							premiumMember = "<span class='premium-member'>Premium Member</span>";
 						}
-						var shortListedStr = '<span id="shortlistTD'+orderObj.id+'"><a href="#no" type="button" class="btn btn-primary btn-block" onclick="shortList('+orderObj.id+')"> Shortlist</a></span>';
+						var shortListedStr = '<span id="shortlistTD'+orderObj.id+'"><a href="#no" type="button" class="btn btn-primary btn-sm" onclick="shortList('+orderObj.id+')"> Shortlist</a></span>';
 						if(orderObj.short_listed == "1"){
-							shortListedStr = '<span><a type="button" class="btn btn-primary btn-block" disabled="true"> Shortlisted</a></span>';
+							shortListedStr = '<span><a type="button" class="btn btn-primary btn-sm" disabled="true"> Shortlisted</a></span>';
 						}
 						var expressed = orderObj.expressedInterest;
 						var interestStr = "";
 						if(expressed==0){
 							interestStr = '<span id="expInterest'+orderObj.id+'"><a   href="#no" type="button" class="btn btn-success btn-block btn-md"  onclick="expressInterest('+orderObj.id+')">  Express Interest  </a></span>';
 						}else if(expressed>0){
-							interestStr = '<span><a type="button" class="btn btn-success btn-block" disabled="true" style="text-size-adjust:auto">Expressed Interest</a></span>';
+							interestStr = '<span><a type="button" class="btn btn-success btn-sm" disabled="true" style="text-size-adjust:auto">Expressed Interest</a></span>';
 						}
 						var message_sent_status = orderObj.message_sent_status;
 						var messageStr = "";
@@ -1718,6 +1721,9 @@ overflow:hidden;
 .view0 {
 margin-bottom:5px;
 }
+.btn-sm {
+width:130px;
+}
 .panel-title {
 	font-size: 16px;
 	color: #000;
@@ -1759,7 +1765,9 @@ transition:none !important;
 	vertical-align: top;
 	margin: 2px 2px;
 }
-
+.ptransition {
+cursor:pointer;
+}
 @
 -webkit-keyframes hue {from { -webkit-filter:hue-rotate(0deg);
 	
@@ -2623,7 +2631,7 @@ img.hover-shadow {
           	
         </div>
         
-          <button type="button" id="sendMailBtn" onclick="sendMail()" class="btn btn-primary" style="width: 142%; margin: -18px 0px 0px 0px;" >Send Mail</button>
+          <button type="button" id="sendMailBtn" onclick="sendMail()" class="btn btn-primary " style="width: 142%; margin: -18px 0px 0px 0px;" >Send Mail</button>
         
       </div>
       

@@ -258,7 +258,7 @@ xpopup
                     <a href="myPhotos" style="font-size:12px; padding:12px 0; text-align:center; font-weight:600;"> Add / Edit  Photos</a>
                 </div>
              </div>
-             <div class="col-md-9">
+             <div class="col-md-6">
                  <h3><p class="name_val">${profileBean.firstName} ${profileBean.lastName}</h3><h4> (${cacheGuest.username})</p></h4>
                 <p style=" color:#000;font-size: 13px; line-height:19px;"><i>Profile created for <span id="createProfileFor_val">${cacheGuest.createProfileFor}</span></i><br>
                 ${profileBean.age} Yrs, ${profileBean.heightInches}<Br>
@@ -268,12 +268,13 @@ xpopup
                 <div id="editMobileDiv" hidden="true"><input type="text" placeholder="+91-${cacheGuest.mobile}" id="mobile"/></div> 
                 <div id="mobileNoDiv"><span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px; font-weight:600;">&nbsp;<span id="mobileNoText">+91-${cacheGuest.mobile}</span>&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font>&nbsp;&nbsp;</span>&nbsp;</div> <a href="#no" id="editMobileAnchor" style="color:blue; font-size:12px; text-decoration:underline;"  onclick="displayEditMobilenumberDiv(${profileBean.id},'${cacheGuest.mobile}')">Edit Mobile No.</a>
                 <br>
-                 <p style=" color:#000;font-size: 13px;">How your profile looks
-                to others? Click here for <a href="#no" onclick="fullProfile(${profileBean.id})" class="" style=" width:auto; border:1px solid #cccccc;padding:7px 10px 7px 40px;display:inline-block;border-radius:5px;background:url(user/images/eye.gif) no-repeat 10px 8px;margin-top:5px;text-decoration:none;">Profile Preview</a>
-                </p>
+                
                 </div>
+                <div class="col-md-3">
                
-            
+             <p style=" color:#000;font-size: 13px;">How your profile looks
+                to others? Click here for <a href="#no" onclick="fullProfile(${profileBean.id})" class="" style=" width:auto; border:1px solid #cccccc;padding:7px 10px 7px 40px;display:inline-block;border-radius:5px;background:url(user/images/eye.gif) no-repeat 10px 8px;margin-top:5px;text-decoration:none;">Profile Preview</a>
+                </p></div>
 
 <div class="clearfix"></div>
         

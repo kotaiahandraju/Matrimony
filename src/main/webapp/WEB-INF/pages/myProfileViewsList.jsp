@@ -93,6 +93,9 @@
 			  border: 1px solid #ddd;
 			  border-bottom-color: transparent;
 			}
+			.btn-sm {
+margin-bottom:5px !important;
+}
 			
 			li {
 			  line-height: 18px;

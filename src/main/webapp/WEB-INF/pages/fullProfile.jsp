@@ -227,12 +227,10 @@ xpopup
 
 <script src="js/plugins/jquery.ImageGallery.js"></script> 
 <script src="js/plugins/jquery.imagesloaded.min.js"></script> 
-<div class="container">
-<div class="row">
-<div class="col-md-9">
+
 <div class="container" style=' padding-left: 0px;'>
 <div class="row">
-<div class="col-sm-9">
+<div class="col-sm-8">
 <div class="products">
 	<div class="container" style="background: #FFF;">
 	
@@ -242,7 +240,7 @@ xpopup
 			<form:hidden path="pageName"/>
 			<form:hidden path="id"/>
 			
-		<div class="col-md-9 products-grid-left">
+		<div class="col-md-8 products-grid-left">
 		
             	<div class="panel panel-success">
             	
@@ -251,8 +249,8 @@ xpopup
 							<img id="img_inpage" src="img/default.png" class="img-responsive" style="margin-bottom:0;">
 						</c:if>
 						<c:if test="${not empty photosList}">
-							<a href="#" id="fullProfilePicOuterTag"><img src="${photosList[0].image}" style="width:100%" onclick="openModal();currentSlide(1)" class="hover-shadow cursor watermark_text"></a>
-							
+						<div class="fullprofile" style="height:300px; overflow:hidden;"">	<a href="#" id="fullProfilePicOuterTag"><img src="${photosList[0].image}" style="width:100%; height:auto;" onclick="openModal();currentSlide(1)" class="hover-shadow cursor watermark_text"></a>
+						</div>	
 							<div id="gallery-wrapper">
 								<!-- thumbnail images -->
 								  <div id="thumbs-wrapper">
@@ -260,7 +258,11 @@ xpopup
 								    	<c:set var="counter2" value="${0}" /> 
 								    	<c:forEach items="${photosList}" var="photo" >
 								    		<c:set var="counter2" value="${counter2+1}" />
-									      	<div class="thumbnail" style=""> 
+									      	<div class="profilethumbnail" style="float: left;
+    width: 80px;
+    height: 75px;
+    padding: 0px;
+    margin: 5px; "> 
 										        <img src="${photo.image}" class="watermark_text" style="width:100%"  onclick="currentSlide_inpage('${photo.image}')"/> 
 										    </div>
 										</c:forEach>
@@ -787,9 +789,8 @@ xpopup
 </div>
 </div></div>
 </div></div></div>
-</form:form></div></div>
-</div>
-<div class="col-md-3">
+</form:form>
+<div class="col-md-4">
 <div class="col-sm-3" style='width: 100%; margin: 31px 0px 0px 0px;'>
 			<div class="col-md-11 products-grid-right">
 			<div class="panel panel-success">
