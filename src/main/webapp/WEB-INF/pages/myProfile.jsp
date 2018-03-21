@@ -1,5 +1,5 @@
 <%@ include file="userCommonHeader.jsp"%>
-            	<style>
+<style>
             	
 .img-replace {
   
@@ -8,20 +8,6 @@
   text-indent: 100%;
   color: transparent;
   white-space: nowrap;
-}
-.font {
-color: #006699;
-
-line-height: 2;
-font-size:18px;}
-            	.cd-nugget-info {
-  text-align: center;
-  position: absolute;
-  width: 100%;
-  height: 50px;
-  line-height: 50px;
-  bottom: 0;
-  left: 0;
 }
 .cd-nugget-info a {
   position: relative;
@@ -223,201 +209,196 @@ xpopup
   }
 }
 
-a:hover, a:focus {
-	color: none;
-	outline: none;
-	outline-offset: 0px;
-}
 
 </style>
 
-<div class="container" style=' padding-left: 0px;'>
+<div class="container" style="background:#FFF;">
 <div class="row">
-<div class="col-sm-9">
-<div class="products" style='background-color: white;'>
-	<form:form commandName="editProfileForm" id="userProfile" method="post" action="">
-			<form:hidden path="redirectPage" value="dashboard"></form:hidden>
-			<form:hidden path="pageName"></form:hidden>
-			<form:hidden path="id"></form:hidden>
-	<div class="container" style="background: #FFF;">
-	
-		<div class="mid-grids">
-		
-			
-		<div class="col-md-9 products-grid-left">
-		
-            	<div class="panel panel-success">
-            	
-					<div class="col-md-3"> <h4></h4>
-						<c:if test="${not empty cacheGuest.profileImage}">
-							<a href="#no" id="fullProfilePicOuterTag"><img src="${cacheGuest.profileImage}" style="width:100%" onclick="openModal();currentSlide(1)" class="hover-shadow cursor watermark_text"></a>
-							 <%-- <div id="gallery-wrapper">
-								<!-- thumbnail images -->
-								  <div id="thumbs-wrapper">
-								    <div id="gallery" style="margin:-10px 8px 8px;width:200%">
-								    	<c:set var="counter3" value="${0}" /> 
-								    	<c:forEach items="${photosList}" var="photo" >
-								    		<c:set var="counter3" value="${counter3+1}" />
-									      	<div class="thumbnail" style=""> 
-										        <img src="${photo.image}" class="watermark_text" style="width:100%"  onclick="currentSlide_inpage('${photo.image}')"/> 
-										    </div>
-										</c:forEach>
-								    </div> 
-								  </div>
-								  
-								  <!-- thumbnail navigation -->
-								  <div id="thumbs-nav"> 
-								    <a id="gallery-next" style="margin-right:0px; margin-top:-80px;" href="#">next</a>
-								    <a id="gallery-prev" style="margin-left:0px; margin-top:-80px;" href="#">previous</a>
-								    <p id="gallery-pos" hidden="true">page 1 of 2</p>
-								  </div>
-							</div> --%>
-						</c:if>
-						<c:if test="${empty cacheGuest.profileImage}">
-						<img src="img/default.png" class="img-responsive" style="margin-bottom:0;">
-						</c:if>
-						<div style="text-align:center;background:#f1f1f1;line-height:25px;" >
-                            <a href="myPhotos"> Add / Edit  Photos</a>
-                        </div>
-                     </div>
-                     <div class="col-md-5"><h4></h4>
-						 <h3><p class="name_val">${profileBean.firstName} ${profileBean.lastName}</h3><h4> (${cacheGuest.username})</p></h4><p></p>
-						<p style="line-height:2; color:#000;font-size: 14px;"><span>Profile created for <span id="createProfileFor_val">${cacheGuest.createProfileFor}</span></span><br>
-						${profileBean.age} Yrs, ${profileBean.heightInches}<Br>
-						${profileBean.religionName}, ${profileBean.casteName}<br>
-						${profileBean.currentCityName}, ${profileBean.currentStateName}, ${profileBean.currentCountryName}<br>
-						${profileBean.educationName}, ${profileBean.occupationName}</p>
-						<div id="editMobileDiv" hidden="true"><input type="text" placeholder="+91-${cacheGuest.mobile}" id="mobile"/></div> 
-						<div id="mobileNoDiv"><span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;<span id="mobileNoText">+91-${cacheGuest.mobile}</span>&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font>&nbsp;&nbsp;</span>&nbsp;</div> <a href="#no" id="editMobileAnchor" style="color:blue"  onclick="displayEditMobilenumberDiv(${profileBean.id},'${cacheGuest.mobile}')">Edit Mobile No.</a>
-						<br><br>
-						</div>
-						<div class="col-md-3">
-						 <h4></h4>
-						<p>How your profile looks
-						to others<a href="#no" onclick="fullProfile(${profileBean.id})" class="" style=" width: 200px; border:1px solid #cccccc;padding:7px 10px 7px 40px;display:inline-block;border-radius:5px;background:url(user/images/eye.gif) no-repeat 10px 8px;margin-top:5px;text-decoration:none;">Profile Preview</a>
-						</p>
-						</div><div class="clearfix"></div>
+<div  class="mid-grids">
+<div class="col-md-9">
+<div>
+<form:form commandName="editProfileForm" id="userProfile" method="post" action=""> 
+    <form:hidden path="redirectPage" value="dashboard"></form:hidden>
+    <form:hidden path="pageName"></form:hidden>
+    <form:hidden path="id"></form:hidden>
+
+<div>
+<div>
+
+        <div class="panel" style="background:#F7F6F7; padding:20px 15px;">
+            <div class="col-md-3">
+                <c:if test="${not empty cacheGuest.profileImage}">
+                    <a href="#no" id="fullProfilePicOuterTag" style="width:100%; max-height:275px; height:auto; overflow:hidden;"><img src="${cacheGuest.profileImage}"   onclick="openModal();currentSlide(1)" class="cursor watermark_text" style="width:100%; height:auto;"></a>
+                     <%-- <div id="gallery-wrapper">
+                        <!-- thumbnail images -->
+                          <div id="thumbs-wrapper">
+                            <div id="gallery" style="margin:-10px 8px 8px;width:200%">
+                                <c:set var="counter3" value="${0}" /> 
+                                <c:forEach items="${photosList}" var="photo" >
+                                    <c:set var="counter3" value="${counter3+1}" />
+                                    <div class="thumbnail" style=""> 
+                                        <img src="${photo.image}" class="watermark_text" style="width:100%"  onclick="currentSlide_inpage('${photo.image}')"/> 
+                                    </div>
+                                </c:forEach>
+                            </div> 
+                          </div>
+                          
+                          <!-- thumbnail navigation -->
+                          <div id="thumbs-nav"> 
+                            <a id="gallery-next" style="margin-right:0px; margin-top:-80px;" href="#">next</a>
+                            <a id="gallery-prev" style="margin-left:0px; margin-top:-80px;" href="#">previous</a>
+                            <p id="gallery-pos" hidden="true">page 1 of 2</p>
+                          </div>
+                    </div> --%>
+                </c:if>
+                <c:if test="${empty cacheGuest.profileImage}">
+                    <img src="img/default.png" class="img-responsive" style="margin-bottom:0;">
+                </c:if>
+                <div>
+                    <a href="myPhotos" style="font-size:12px; padding:12px 0; text-align:center; font-weight:600;"> Add / Edit  Photos</a>
+                </div>
+             </div>
+             <div class="col-md-9">
+                 <h3><p class="name_val">${profileBean.firstName} ${profileBean.lastName}</h3><h4> (${cacheGuest.username})</p></h4>
+                <p style=" color:#000;font-size: 13px; line-height:19px;"><i>Profile created for <span id="createProfileFor_val">${cacheGuest.createProfileFor}</span></i><br>
+                ${profileBean.age} Yrs, ${profileBean.heightInches}<Br>
+                ${profileBean.religionName}, ${profileBean.casteName}<br>
+                ${profileBean.currentCityName}, ${profileBean.currentStateName}, ${profileBean.currentCountryName}<br>
+                ${profileBean.educationName}, ${profileBean.occupationName}</p>
+                <div id="editMobileDiv" hidden="true"><input type="text" placeholder="+91-${cacheGuest.mobile}" id="mobile"/></div> 
+                <div id="mobileNoDiv"><span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px; font-weight:600;">&nbsp;<span id="mobileNoText">+91-${cacheGuest.mobile}</span>&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font>&nbsp;&nbsp;</span>&nbsp;</div> <a href="#no" id="editMobileAnchor" style="color:blue; font-size:12px; text-decoration:underline;"  onclick="displayEditMobilenumberDiv(${profileBean.id},'${cacheGuest.mobile}')">Edit Mobile No.</a>
+                <br>
+                 <p style=" color:#000;font-size: 13px;">How your profile looks
+                to others? Click here for <a href="#no" onclick="fullProfile(${profileBean.id})" class="" style=" width:auto; border:1px solid #cccccc;padding:7px 10px 7px 40px;display:inline-block;border-radius:5px;background:url(user/images/eye.gif) no-repeat 10px 8px;margin-top:5px;text-decoration:none;">Profile Preview</a>
+                </p>
+                </div>
+               
+            
 
 <div class="clearfix"></div>
-            	
+        
 
 <div class="cd-popup" role="alert">
-	<div class="cd-popup-container">
-		<h4 >Privacy Settings</h4>
-		<p>Your privacy settings have been saved successfully.</p>
-		
-		<a href="#0" class="cd-popup-close img-replace">Close</a>
-	</div> <!-- cd-popup-container -->
+<div class="cd-popup-container">
+<h4 >Privacy Settings</h4>
+<p>Your privacy settings have been saved successfully.</p>
+
+<a href="#0" class="cd-popup-close img-replace">Close</a>
+</div> <!-- cd-popup-container -->
 </div> <!-- cd-popup -->
-					
-			</div><br>
-			<h4   style="padding="10px;"></h4><h3>Personal information</h3><hr>
-			<div class="panel panel-success" style='box-shadow: 5px 8px 5px;'>
-			<div class="panel-body table-responsive">			
-			<div class="col-md-11">	<strong class="font">About my ${cacheGuest.createProfileFor}<a href="#no" style="padding: 0px;" class="all_a  pull-right  edit-style" id="about_a" onclick="toggleDiv('about');"><i class="fa fa-edit"></i>Edit</a></strong>
-				<div id="about_view" class="all_visible_divs">
-					<p id="aboutMyself_val">
-						<c:if test="${not empty profileBean.aboutMyself}">${profileBean.aboutMyself}</c:if>
-						<c:if test="${empty profileBean.aboutMyself}">Not Specified</c:if>
-					</p></div>
-				</div>
-				<div id="about_edit" class="all_hidden_divs" hidden="true">
-					<form:textarea path="aboutMyself" cols="90" rows="6"/>
-					<div class="row">
-						<div class="col-md-4">
-							<div class="form-group">
-									<input class="btn btn btn-success" type="button" id="about_submit" name="yt0" value="Save" onclick="saveChanges('about');">
-									<input type="button" class="btn btn-danger" id="about_cancel" name="yt1" value="Cancel" onclick="toggleDiv('about');">
-							</div>
-						</div>
-					</div>
-				</div>
-			</div></div>
-	<br>
-		<div class="panel panel-success" style='box-shadow: 5px 8px 5px;'>
-			<div class="panel-body table-responsive">
-			<div class="col-md-11">	<strong class="font">Basic Details <a href="#no" style="padding: 0px;" class="all_a  pull-right  edit-style" id="basic_details_a" onclick="toggleDiv('basic_details');"><i class="fa fa-edit"></i>Edit</a></strong>
-				<div id="basic_details_view" class="all_visible_divs">
-					<table class="col-md-12 table-responsive">
-						<tr><td>Name</td>
-							<td>:</td>
-							<td class="name_val">${profileBean.firstName}&nbsp; ${profileBean.lastName}</td>
-							<td>Body Type</td><td>:</td>
-							<td id="bodyType_val">
-								<c:if test="${not empty profileBean.bodyTypeName}">${profileBean.bodyTypeName}</c:if>
-								<c:if test="${empty profileBean.bodyTypeName}">Not specified
-								</c:if>
-							</td>
-						</tr>
-						<tr>
-							<td>Age</td><td>:</td>
-							<td id="age_val">
-								<c:if test="${not empty profileBean.age}">${profileBean.age} yrs</c:if>
-								<c:if test="${empty profileBean.age}">Not specified</c:if>
-							</td>
-							<td>Complexion</td><td>:</td>
-							<td id="complexion_val">
-								<c:if test="${not empty profileBean.complexionName}">${profileBean.complexionName}</c:if>
-								<c:if test="${empty profileBean.complexionName}">Not specified</c:if>
-							</td>
-						</tr>
-						<tr>
-							<td>Height</td><td>:</td>
-							<td id="height_val">
-								<c:if test="${not empty profileBean.heightInches}">${profileBean.heightInches}</c:if>
-								<c:if test="${empty profileBean.heightInches}">Not specified</c:if>
-							</td>
-							<td>Physical Status</td><td>:</td>
-							<td id="disability_val">
-								<c:if test="${not empty profileBean.disability}">${profileBean.disability}</c:if>
-								<c:if test="${empty profileBean.disability}">Not specified</c:if>
-							</td>
-						</tr>
-						<tr>
-							<%-- <td>Weight</td><td>:</td>
-							<td id="height_val">
-								<c:if test="${not empty profileBean.weight}">${profileBean.weight}</c:if>
-								<c:if test="${empty profileBean.weight}">Not specified</c:if>
-							</td> --%>
-							<td>Eating Habits</td><td>:</td>
-							<td id="diet_val"> 
-								<c:if test="${not empty profileBean.diet}">${profileBean.diet}</c:if>
-								<c:if test="${empty profileBean.diet}">Not specified</c:if>
-							</td>
-						</tr>
-						<tr>
-							<td>Mother Tongue</td><td>:</td>
-							<td id="motherTongue_val">
-								<c:if test="${not empty profileBean.motherTongueName}">${profileBean.motherTongueName}</c:if>
-								<c:if test="${empty profileBean.motherTongueName}">Not specified</c:if>
-							</td>
-							<td>Drinking Habits</td><td>:</td>
-							<td id="drinking_val">
-								<c:if test="${not empty profileBean.drinking}">${profileBean.drinking}</c:if>
-								<c:if test="${empty profileBean.drinking}">Not specified</c:if>
-							</td>
-						</tr>
-						<tr>
-							<td>Marital Status</td><td>:</td>
-							<td id="maritalStatus_val">
-								<c:if test="${not empty profileBean.maritalStatus}">${profileBean.maritalStatus}</c:if>
-								<c:if test="${empty profileBean.maritalStatus}">Not specified</c:if>
-							</td>
-							<td>Smoking Habits</td><td>:</td>
-							<td id="smoking_val">
-								<c:if test="${not empty profileBean.smoking}">${profileBean.smoking}</c:if>
-								<c:if test="${empty profileBean.smoking}">Not specified</c:if>
-							</td>
-						</tr>
-					</table>
-			</div>
-			<div id="basic_details_edit" class="all_hidden_divs" hidden="true">
-				<jsp:include page="basic_details.jsp" />
-			</div></div></div>
-		</div><br>
+            
+    </div><br>
+   <h3>Personal information</h3>
+    <div class="panel panel-default" style="background:#FDFDFD;">
+    <div class="panel-body table-responsive">			
+        <strong class="font">About my ${cacheGuest.createProfileFor}
+        <a href="#no" style="font-size:13px; color:#C00;" class="pull-right" id="about_a" onclick="toggleDiv('about');"> <i class="fa fa-edit"></i> Edit</a>
+        </strong>
+        <div id="about_view" class="all_visible_divs">
+            <p id="aboutMyself_val">
+                <c:if test="${not empty profileBean.aboutMyself}">${profileBean.aboutMyself}</c:if>
+                <c:if test="${empty profileBean.aboutMyself}">Not Specified</c:if>
+            </p>
+        </div>
+       
+        <div id="about_edit" class="all_hidden_divs" hidden="true">
+            <form:textarea path="aboutMyself" cols="90" rows="6"/>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                            <input class="btn btn btn-danger" type="button" id="about_submit" name="yt0" value="Save" onclick="saveChanges('about');">
+                            <input class="btn btn btn-default"type="button" id="about_cancel" name="yt1" value="Cancel" onclick="toggleDiv('about');">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+<br>
+<div class="panel panel-default" style="background:#FDFDFD;">
+    <div class="panel-body table-responsive">
+    <div >	<strong class="font">Basic Details <a href="#no" style="font-size:13px; color:#C00;" class="pull-right" id="basic_details_a" onclick="toggleDiv('basic_details');"> <i class="fa fa-edit"></i> Edit</a></strong>
+        <div id="basic_details_view" class="all_visible_divs">
+            <table class="col-md-12 table-responsive">
+                <tr><td>Name</td>
+                    <td>:</td>
+                    <td class="name_val">${profileBean.firstName}&nbsp; ${profileBean.lastName}</td>
+                    <td>Body Type</td><td>:</td>
+                    <td id="bodyType_val">
+                        <c:if test="${not empty profileBean.bodyTypeName}">${profileBean.bodyTypeName}</c:if>
+                        <c:if test="${empty profileBean.bodyTypeName}">Not specified
+                        </c:if>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Age</td><td>:</td>
+                    <td id="age_val">
+                        <c:if test="${not empty profileBean.age}">${profileBean.age} yrs</c:if>
+                        <c:if test="${empty profileBean.age}">Not specified</c:if>
+                    </td>
+                    <td>Complexion</td><td>:</td>
+                    <td id="complexion_val">
+                        <c:if test="${not empty profileBean.complexionName}">${profileBean.complexionName}</c:if>
+                        <c:if test="${empty profileBean.complexionName}">Not specified</c:if>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Height</td><td>:</td>
+                    <td id="height_val">
+                        <c:if test="${not empty profileBean.heightInches}">${profileBean.heightInches}</c:if>
+                        <c:if test="${empty profileBean.heightInches}">Not specified</c:if>
+                    </td>
+                    <td>Physical Status</td><td>:</td>
+                    <td id="disability_val">
+                        <c:if test="${not empty profileBean.disability}">${profileBean.disability}</c:if>
+                        <c:if test="${empty profileBean.disability}">Not specified</c:if>
+                    </td>
+                </tr>
+                <tr>
+                    <%-- <td>Weight</td><td>:</td>
+                    <td id="height_val">
+                        <c:if test="${not empty profileBean.weight}">${profileBean.weight}</c:if>
+                        <c:if test="${empty profileBean.weight}">Not specified</c:if>
+                    </td> --%>
+                    <td>Eating Habits</td><td>:</td>
+                    <td id="diet_val"> 
+                        <c:if test="${not empty profileBean.diet}">${profileBean.diet}</c:if>
+                        <c:if test="${empty profileBean.diet}">Not specified</c:if>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Mother Tongue</td><td>:</td>
+                    <td id="motherTongue_val">
+                        <c:if test="${not empty profileBean.motherTongueName}">${profileBean.motherTongueName}</c:if>
+                        <c:if test="${empty profileBean.motherTongueName}">Not specified</c:if>
+                    </td>
+                    <td>Drinking Habits</td><td>:</td>
+                    <td id="drinking_val">
+                        <c:if test="${not empty profileBean.drinking}">${profileBean.drinking}</c:if>
+                        <c:if test="${empty profileBean.drinking}">Not specified</c:if>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Marital Status</td><td>:</td>
+                    <td id="maritalStatus_val">
+                        <c:if test="${not empty profileBean.maritalStatus}">${profileBean.maritalStatus}</c:if>
+                        <c:if test="${empty profileBean.maritalStatus}">Not specified</c:if>
+                    </td>
+                    <td>Smoking Habits</td><td>:</td>
+                    <td id="smoking_val">
+                        <c:if test="${not empty profileBean.smoking}">${profileBean.smoking}</c:if>
+                        <c:if test="${empty profileBean.smoking}">Not specified</c:if>
+                    </td>
+                </tr>
+            </table>
+    </div>
+    <div id="basic_details_edit" class="all_hidden_divs" hidden="true">
+        <jsp:include page="basic_details.jsp" />
+    </div></div></div>
+</div><br>
 <!-- <div class="col-md-1"><img src="user/images/media.png"></div>
-			<div class="col-md-11">	
-			<strong class="font">Contact Details</strong>
+    <div class="col-md-11">	
+    <strong class="font">Contact Details</strong>
 <p>
 <table class="col-md-6 table-responsive">
 <tr><td>Contact Number</td><td>:</td><td>-------------</td></tr>
@@ -429,511 +410,513 @@ a:hover, a:focus {
 </table></p>
 </div>
 <br> -->
-	<div class="panel panel-success" style='box-shadow: 5px 8px 5px;'>
-			<div class="panel-body table-responsive">
-		<div class="col-md-11">	
-			<strong class="font">Religion Information<a href="#no" class="all_a  pull-right  edit-style" id="religion_info_a" onclick="toggleDiv('religion_info');"><i class="fa fa-edit"></i>Edit</a>
-			</strong><div id="religion_info_view" class="all_visible_divs">
-				<table class="col-md-6 table-responsive">
-				<tr><td>Religion</td><td>:</td>
-					<td id="religion_val">
-						<c:if test="${not empty profileBean.religionName}">${profileBean.religionName}</c:if>
-						<c:if test="${empty profileBean.religionName}">Not specified</c:if>
-					</td>
-				</tr>
-				<tr><td>Caste / Sub Caste</td><td>:</td>
-					<td id="caste_val">
-					<c:if test="${not empty profileBean.casteName}">${profileBean.casteName}</c:if>
-					<c:if test="${empty profileBean.casteName}">Not specified</c:if>
-					</td>
-				</tr>
-				<tr><td>Gothram</td><td>:</td>
-					<td id="gotram_val">
-						<c:if test="${not empty profileBean.gotram}">${profileBean.gotram}</c:if>
-						<c:if test="${empty profileBean.gotram}">Not specified</c:if>
-					</td>
-				</tr>
-				<%-- <tr><td>Zodiac</td><td>:</td>
-					<td id="smoking_val">
-						<c:if test="${not empty profileBean.smoking}">${profileBean.smoking}</c:if>
-						<c:if test="${empty profileBean.smoking}">Not specified</c:if>
-					</td>
-				</tr> --%>
-				<tr><td>Star / Raasi</td><td>:</td>
-					<td id="star_val">
-						<c:if test="${not empty profileBean.starName}">${profileBean.starName}</c:if>
-						<c:if test="${empty profileBean.starName}">Not specified</c:if>
-						
-						
-					</td>
-				</tr>
-				<tr><td>Dosham</td><td>:</td>
-					<td id="dosam_val">
-						<c:if test="${not empty profileBean.dosam}">
-							<c:if test="${(profileBean.dosam == 'YES')  &&  (not empty profileBean.dosamName)}">
-								YES - ${profileBean.dosamName}
-							</c:if>
-							<c:if test="${(profileBean.dosam == 'YES')  &&  (empty profileBean.dosamName)}">
-								YES
-							</c:if>
-							<c:if test="${profileBean.dosam != 'YES'}">
-								${profileBean.dosam}
-							</c:if>
-						</c:if>
-						<c:if test="${empty profileBean.dosam}">Not specified</c:if>
-					</td>
-				</tr>
-				
-				</table>
-			</div>
-			<div id="religion_info_edit" class="all_hidden_divs" hidden="true">
-				<jsp:include page="religion_info.jsp"></jsp:include>
-				
-			</div>
-		</div>
-		</div>
-		</div>
-<br>
-	<div class="panel panel-success" style='box-shadow: 5px 8px 5px;'>
-			<div class="panel-body table-responsive">
-			<div class="col-md-11">	<strong class="font">
-			<c:if test="${profileBean.gender == 'Female'}">Bride</c:if>
-			<c:if test="${profileBean.gender == 'Male'}">Groom</c:if>
-			's Location<a href="#no" class="all_a  pull-right  edit-style" id="location_a" onclick="toggleDiv('location');"><i class="fa fa-edit"></i>Edit</a>
-	</strong> 
-	<div id="location_view" class="all_visible_divs">
-	<table class="col-md-12 table-responsive">
-		<tr><td>Country</td><td>:</td>
-			<td id="currentCountry_val">
-				<c:if test="${not empty profileBean.currentCountryName}">${profileBean.currentCountryName}</c:if>
-				<c:if test="${empty profileBean.currentCountryName}">Not Specified</c:if>
-			</td>
-		</tr>
-		<tr>
-			<td>City</td><td>:</td>
-			<td id="currentState_val">
-				<c:if test="${not empty profileBean.currentCityName}">${profileBean.currentCityName}</c:if>
-				<c:if test="${empty profileBean.currentCityName}">Not Specified</c:if>
-			</td>
-		</tr>
-		<tr><td>State</td><td>:</td>
-			<td id="currentCity_val">
-				<c:if test="${not empty profileBean.currentStateName}">${profileBean.currentStateName}</c:if>
-				<c:if test="${empty profileBean.currentStateName}">Not Specified</c:if>
-			</td>
-			
-		</tr>
-	</table>
-	</div>
-	<div id="location_edit" class="all_hidden_divs" hidden="true">
-		<jsp:include page="location.jsp" />
-	</div>
-	</div>
-	</div>
+
+<div class="panel panel-default" style="background:#FDFDFD;">
+    <div class="panel-body table-responsive">
+<div>	
+    <strong class="font">Religion Information</strong>
+    <a href="#no" style="font-size:13px; color:#C00;" class="pull-right" id="religion_info_a" onclick="toggleDiv('religion_info');"> <i class="fa fa-edit"></i> Edit</a>
+    <div id="religion_info_view" class="all_visible_divs">
+        <table class="col-md-6 table-responsive">
+        <tr><td>Religion</td><td>:</td>
+            <td id="religion_val">
+                <c:if test="${not empty profileBean.religionName}">${profileBean.religionName}</c:if>
+                <c:if test="${empty profileBean.religionName}">Not specified</c:if>
+            </td>
+        </tr>
+        <tr><td>Caste / Sub Caste</td><td>:</td>
+            <td id="caste_val">
+            <c:if test="${not empty profileBean.casteName}">${profileBean.casteName}</c:if>
+            <c:if test="${empty profileBean.casteName}">Not specified</c:if>
+            </td>
+        </tr>
+        <tr><td>Gothram</td><td>:</td>
+            <td id="gotram_val">
+                <c:if test="${not empty profileBean.gotram}">${profileBean.gotram}</c:if>
+                <c:if test="${empty profileBean.gotram}">Not specified</c:if>
+            </td>
+        </tr>
+        <%-- <tr><td>Zodiac</td><td>:</td>
+            <td id="smoking_val">
+                <c:if test="${not empty profileBean.smoking}">${profileBean.smoking}</c:if>
+                <c:if test="${empty profileBean.smoking}">Not specified</c:if>
+            </td>
+        </tr> --%>
+        <tr><td>Star / Raasi</td><td>:</td>
+            <td id="star_val">
+                <c:if test="${not empty profileBean.starName}">${profileBean.starName}</c:if>
+                <c:if test="${empty profileBean.starName}">Not specified</c:if>
+                
+                
+            </td>
+        </tr>
+        <tr><td>Dosham</td><td>:</td>
+            <td id="dosam_val">
+                <c:if test="${not empty profileBean.dosam}">
+                    <c:if test="${(profileBean.dosam == 'YES')  &&  (not empty profileBean.dosamName)}">
+                        YES - ${profileBean.dosamName}
+                    </c:if>
+                    <c:if test="${(profileBean.dosam == 'YES')  &&  (empty profileBean.dosamName)}">
+                        YES
+                    </c:if>
+                    <c:if test="${profileBean.dosam != 'YES'}">
+                        ${profileBean.dosam}
+                    </c:if>
+                </c:if>
+                <c:if test="${empty profileBean.dosam}">Not specified</c:if>
+            </td>
+        </tr>
+        
+        </table>
+    </div>
+    <div id="religion_info_edit" class="all_hidden_divs" hidden="true">
+        <jsp:include page="religion_info.jsp"></jsp:include>
+        
+    </div>
 </div>
-
-<br>
-	<div class="panel panel-success" style='box-shadow: 5px 8px 5px;'>
-			<div class="panel-body table-responsive">	
-			<div class="col-md-11">	<strong class="font">Professional Information
-	<a href="#no" class="all_a  pull-right  edit-style" id="professional_info_a" onclick="toggleDiv('professional_info');"><i class="fa fa-edit"></i>Edit</a>
-	</strong><div id="professional_info_view" class="all_visible_divs">
-	<table class="col-md-12 table-responsive">
-		<tr><td>Education</td><td>:</td>
-			<td id="education_val">
-				<c:if test="${not empty profileBean.educationName}">${profileBean.educationName}</c:if>
-				<c:if test="${empty profileBean.educationName}">Not Specified</c:if>
-			</td>
-		</tr>
-		<tr><td>Employed in</td><td>:</td>
-			<td id="workingWith_val">
-				<c:if test="${not empty profileBean.workingWith}">${profileBean.workingWith}</c:if>
-				<c:if test="${empty profileBean.workingWith}">Not Specified</c:if>
-			</td>
-		</tr>
-		<tr><td>Occupation</td><td>:</td>
-			<td id="occupation_val">
-				<c:if test="${not empty profileBean.occupationName}">${profileBean.occupationName}</c:if>
-				<c:if test="${empty profileBean.occupationName}">Not Specified</c:if>
-			</td>
-		</tr>
-	</table>
-	</div>
-	<div id="professional_info_edit" class="all_hidden_divs" hidden="true">
-		<jsp:include page="professional_info.jsp" />
-	</div>
-	</div>
-	</div>
- </div>
-
-
-<br>
-<div class="panel panel-success" style='box-shadow: 5px 8px 5px;'>
-			<div class="panel-body table-responsive">
-			<div class="col-md-11">	<strong class="font">Family Details
-				<a href="#no" class="all_a  pull-right  edit-style" id="family_details_a" onclick="toggleDiv('family_details');"><i class="fa fa-edit"></i>Edit</a>
-	</strong>
-	<div id="family_details_view" class="all_visible_divs">
-	<table class="col-md-12 table-responsive">
-		<tr><td>Father's Name</td><td>:</td>
-			<td id="fatherName_val">
-				<c:if test="${not empty profileBean.fatherName}">${profileBean.fatherName}</c:if>
-				<c:if test="${empty profileBean.fatherName}">Not Specified</c:if>
-			</td>
-			<td>Mother's Name</td><td>:</td>
-			<td id="motherName_val"><c:out value="${profileBean.motherName}"/>
-				<c:if test="${not empty profileBean.motherName}">${profileBean.motherName}</c:if>
-				<c:if test="${empty profileBean.motherName}">Not Specified</c:if>
-			</td>
-		</tr>
-		<tr><td>Father's Occupation</td><td>:</td>
-			<td id="fOccupation_val">
-				<c:if test="${not empty profileBean.fOccupation}">${profileBean.fOccupationName}</c:if>
-				<c:if test="${empty profileBean.fOccupation}">Not Specified</c:if>
-			</td>
-			<td>Mother's Occupation</td><td>:</td>
-			<td id="mOccupation_val">
-				<c:if test="${not empty profileBean.mOccupation}">${profileBean.mOccupationName}</c:if>
-				<c:if test="${empty profileBean.mOccupation}">Not Specified</c:if>
-			</td>
-		</tr>
-		<tr><td>No. of Brothers</td><td>:</td>
-			<td id="noOfBrothers_val">
-				<c:if test="${not empty profileBean.noOfBrothers}">${profileBean.noOfBrothers}</c:if>
-				<c:if test="${empty profileBean.noOfBrothers}">Not Specified</c:if>
-			</td>
-			<td>Brothers Married</td><td>:</td>
-			<td id="noOfBrothersMarried_val">
-				<c:if test="${not empty profileBean.noOfBrothersMarried}">${profileBean.noOfBrothersMarried}</c:if>
-				<c:if test="${empty profileBean.noOfBrothersMarried}">Not Specified</c:if>
-			</td>
-		</tr>
-		<tr><td>No. of Sisters</td><td>:</td>
-			<td id="noOfSisters_val">
-				<c:if test="${not empty profileBean.noOfSisters}">${profileBean.noOfSisters}</c:if>
-				<c:if test="${empty profileBean.noOfSisters}">Not Specified</c:if>
-			</td>
-			<td>Sisters Married</td><td>:</td>
-			<td id="noOfSistersMarried_val">
-				<c:if test="${not empty profileBean.noOfSistersMarried}">${profileBean.noOfSistersMarried}</c:if>
-				<c:if test="${empty profileBean.noOfSistersMarried}">Not Specified</c:if>
-			</td>
-		</tr>
-	</table>
-	</div>
-	<div id="family_details_edit" class="all_hidden_divs" hidden="true">
-		<jsp:include page="family_details.jsp" />
-	</div>
-	</div>
-	</div>
-</div>
-
-<br>
-		<h4   style="padding="10px;"></h4><h3>Partner Preferences</h3><hr>
-<div class="panel panel-success" style='box-shadow: 5px 8px 5px;'>
-
-			<div class="panel-body table-responsive">
-			
-			<div class="col-md-11">	<strong class="font">Basic & Religion Preferences
-				<a href="#no" class="all_a  pull-right  edit-style" id="partner_basic_a" onclick="toggleDiv('partner_basic');"><i class="fa fa-edit"></i>Edit</a>
-	</strong><div id="partner_basic_view" class="all_visible_divs">
-	<table class="col-md-12 table-responsive">
-		<tr><td>
-				<c:if test="${profileBean.gender == 'Female'}">Groom</c:if>
-				<c:if test="${profileBean.gender == 'Male'}">Bride</c:if>
-				's Age
-			</td><td>:</td>
-			<td id="rAgeFrom_val">
-				<c:if test="${not empty profileBean.rAgeFrom}">${profileBean.rAgeFrom} - ${profileBean.rAgeTo} Years</c:if>
-				<c:if test="${empty profileBean.rAgeFrom}">Not Specified</c:if>
-			</td>
-			<td>Height</td><td>:</td>
-			<td>
-				<span id="rHeight_val"><c:if test="${not empty profileBean.rHeightInches}">${profileBean.rHeightInches} - </c:if></span> <span id="rHeightTo_val"><c:if test="${not empty profileBean.rHeightInches}">${profileBean.rHeightToInches}</c:if></span>
-				<span id="rHeight_outer_val"><c:if test="${empty profileBean.rHeightInches}">Not Specified</c:if></span>
-			</td>
-		</tr>
-		<tr><td>Marital Status</td><td>:</td>
-			<td id="rMaritalStatus_val">
-				<c:if test="${not empty profileBean.rMaritalStatusName}">${profileBean.rMaritalStatusName}</c:if>
-				<c:if test="${empty profileBean.rMaritalStatusName}">Not Specified</c:if>
-			</td>
-			<%-- <td>Physical Status</td><td>:</td>
-			<td>
-				<c:if test="${not empty profileBean.casteName}">${profileBean.casteName}</c:if>
-				<c:if test="${empty profileBean.casteName}">Not Specified</c:if>
-			</td> --%>
-			<%-- <td>Eating Habits</td><td>:</td>
-			<td id="rDiet_val">
-				<c:if test="${not empty profileBean.rDietName}">${profileBean.rDietName}</c:if>
-				<c:if test="${empty profileBean.rDietName}">Not Specified</c:if>
-			</td> --%>
-		</tr>
-		<tr>
-			<%-- <td>Smoking Habits</td><td>:</td>
-			<td>
-				<c:if test="${not empty profileBean.casteName}">${profileBean.casteName}</c:if>
-				<c:if test="${empty profileBean.casteName}">Not Specified</c:if> 
-			</td>  --%>
-		</tr>
-		<tr>
-			<%-- <td>Drinking Habits</td><td>:</td>
-			<td>
-				<c:if test="${not empty profileBean.currentStateName}">${profileBean.currentStateName}</c:if>
-				<c:if test="${empty profileBean.currentStateName}">Not Specified</c:if> 
-			</td> --%>
-			<td>Religion</td><td>:</td>
-			<td id="rReligion_val">
-				<c:if test="${not empty profileBean.rReligionName}">${profileBean.rReligionName}</c:if>
-				<c:if test="${empty profileBean.rReligionName}">Not Specified</c:if>
-			</td>
-			<td>Mothertongue</td><td>:</td>
-			<td id="rMotherTongue_val">
-				<c:if test="${not empty profileBean.rMotherTongueName}">${profileBean.rMotherTongueName}</c:if>
-				<c:if test="${empty profileBean.rMotherTongueName}">Not Specified</c:if>
-			</td>
-		</tr>
-		<tr>
-			<td>Caste</td><td>:</td>
-			<td id="rCaste_val">
-				<c:if test="${not empty profileBean.rCasteName}">${profileBean.rCasteName}</c:if>
-				<c:if test="${empty profileBean.rCasteName}">Not Specified</c:if>
-			</td>
-		</tr>
-		<%-- <tr>
-			<td>Star</td><td>:</td>
-			 <td>
-				<c:if test="${not empty profileBean.currentStateName}">${profileBean.currentStateName}</c:if>
-				<c:if test="${empty profileBean.currentStateName}">Not Specified</c:if>
-			</td> 
-			
-		</tr> --%>
-	</table>
-	</div>
-	<div id="partner_basic_edit" class="all_hidden_divs" hidden="true">
-		<jsp:include page="partner_basics.jsp" />
-	</div>
-	</div>
-	</div>
-</div>
-
-<br>
-<div class="panel panel-success" style='box-shadow: 5px 8px 5px; border: none;'>
-			<div class="panel-body table-responsive">
-			<div class="col-md-11">	<strong class="font">Professional Preferences
-				<a href="#no" class="all_a  pull-right  edit-style" id="partner_professional_a" onclick="toggleDiv('partner_professional');"><i class="fa fa-edit"></i>Edit</a>
-	</strong><div id="partner_professional_view" class="all_visible_divs">
-	<table class="col-md-12 table-responsive">
-		<tr><td>Education</td><td>:</td>
-			<td id="rEducation_val">
-				<c:if test="${not empty profileBean.rEducationName}">${profileBean.rEducationName}</c:if>
-				<c:if test="${empty profileBean.rEducationName}">Not Specified</c:if>
-			</td>
-			
-		</tr>
-		<tr><td>Working With</td><td>:</td>
-			<td id="rWorkingWith_val">
-				<c:if test="${not empty profileBean.rWorkingWith}">${profileBean.rWorkingWith}</c:if>
-				<c:if test="${empty profileBean.rWorkingWith}">Not Specified</c:if>
-			</td>
-			
-		</tr>
-		<tr><td>Occupation</td><td>:</td>
-			<td id="rOccupation_val">
-				<c:if test="${not empty profileBean.rOccupationName}">${profileBean.rOccupationName}</c:if>
-				<c:if test="${empty profileBean.rOccupationName}">Not Specified</c:if>
-			</td>
-			
-		</tr>
-		<tr><td>Annual Income</td><td>:</td>
-			<td id="rAnnualIncome_val">
-				<c:if test="${not empty profileBean.rAnnualIncome}">${profileBean.rAnnualIncome}</c:if>
-				<c:if test="${empty profileBean.rAnnualIncome}">Not Specified</c:if>
-			</td>
-			
-		</tr>
-	</table>
-	</div>
-	<div id="partner_professional_edit" class="all_hidden_divs" hidden="true">
-	  <div class="row">
-		<div class="form-group">
-	      <label class="col-md-4 control-label" for="textinput">Education</label>  
-	      <div class="col-md-7">
-	      	<form:select path="rEducation" class="multiSelect" multiple="true">
-	      		<form:options items="${education}"></form:options>
-			</form:select>
-	      </div>
-	    </div>
-	   </div>
-	   
-	   <div class="row"> 
-	    <div class="form-group">
-	      <label class="col-md-4 control-label" for="textinput">Working with</label>  
-	      <div class="col-md-7">
-	      	<form:select path="rWorkingWith" class="multiSelect" multiple="true">
-				<form:option value="any">Doesn't Matter</form:option>
-				<form:option value="Private Company">Private Company</form:option>
-				<form:option value="Government/Public Sector">Government/Public Sector</form:option>
-				<form:option value="Defense/Civil Services">Defense/Civil Services</form:option>
-				<form:option value="Not Working">Not Working</form:option>
-			</form:select>
-	      </div>
-	    </div>
-	    </div>
-	    <div class="row">
-	    <div class="form-group">
-	      <label class="col-md-4 control-label" for="textinput">Profession area</label>  
-	      <div class="col-md-7">
-	      	<form:select path="rOccupation" class="multiSelect" multiple="true">
-				<form:options items="${occupation}"></form:options>
-			</form:select>
-	      </div>
-	    </div>
-	    </div>
-	    <div class="row">
-	    <div class="form-group">
-	      <label class="col-md-4 control-label" for="textinput">Annual Income</label>  
-	      <div class="col-md-7">
-	      	<input type="radio" name="annualIncome" class="incomeMatter" id="ai1" value=""> <label for="ai1">Doesn't Matter</label>
-	      	<input type="radio" name="annualIncome" class="incomeRange" id="ai2" value="Specify an income range"> <label for="ai2">Specify an income range</label>
-	      	<%-- <form:select path="education" class="form-control u">
-				<form:option value="">Doesn't Matter</form:option>
-				<form:option value="Specify an income range">Specify an income range</form:option>
-			</form:select> --%>
-	      </div>
-	    </div>
-	    </div>
-	    <div class="row">
-		    <div class="form-group incomeBlock">
-		      <label class="col-md-4 control-label" for="textinput"></label>  
-		      <div class="col-md-7">
-		      	<form:select path="rAnnualIncome" class="form-control u1">
-					<form:option value="">-- Annual Income --</form:option>
-					<form:option value="Upto INR 1 Lakh">Upto INR 1 Lakh</form:option>
-					<form:option value="INR 2 Lakh to 4 Lakh">INR 2 Lakh to 4 Lakh</form:option>
-					<form:option value="INR 5 Lakh to 7 Lakh">INR 5 Lakh to 7 Lakh</form:option>
-					<form:option value="Above INR 7 Lakh">Above INR 7 Lakh</form:option>
-				</form:select>
-		      </div>
-		    </div>
-		</div>
-		<br>
-		<div class="row">
-			<div class="col-md-4 pull-right">
-				<div class="form-group">
-						<input class="btn btn btn-success" style="padding: 8px 24px;" type="button" id="partner_professional_submit" name="yt0" value="Save" onclick="saveChanges('partner_professional');">
-						<input class="btn btn btn-danger" style="padding: 8px 24px;" type="button" id="partner_professional_cancel" name="yt1" value="Cancel" onclick="toggleDiv('partner_professional');">
-				</div>
-			</div>
-		</div>
-	</div>
-	</div>
 </div>
 </div>
 <br>
-<div class="panel panel-success" style='box-shadow: 5px 8px 5px;'>
-			<div class="panel-body table-responsive">
-			<div class="col-md-11">	<strong class="font">Location Preferences
-				<a href="#no" class="all_a  pull-right  edit-style" id="partner_location_a" onclick="toggleDiv('partner_location');"><i class="fa fa-edit"></i>Edit</a>
-	</strong><div id="partner_location_view" class="all_visible_divs">
-	<table class="col-md-12 table-responsive">
-		<tr><td>Country</td><td>:</td>
-			<td id="rCountry_val">
-				<c:if test="${not empty profileBean.rCountryName}">${profileBean.rCountryName}</c:if>
-				<c:if test="${empty profileBean.rCountryName}">Not Specified</c:if>
-			</td>
-		</tr>
-		<tr>
-			<td>Residing State</td><td>:</td>
-			<td id="rState_val">
-				<c:if test="${not empty profileBean.rStateName}">${profileBean.rStateName}</c:if>
-				<c:if test="${empty profileBean.rStateName}">Not Specified</c:if>
-			</td>
-			<!-- <td>City</td><td>:</td> -->
-			
-		</tr>
-		
-		<%-- <tr><td>Residing City</td><td>:</td>
-			<td>
-				<c:if test="${not empty profileBean.rCity}">${profileBean.rCity}</c:if>
-				<c:if test="${empty profileBean.rCity}">Not Specified</c:if>
-			</td>
-			
-			
-		</tr>
-		<tr><td>Citizenship</td><td>:</td>
-			<td>
-				 <c:if test="${not empty profileBean.currentStateName}">${profileBean.currentStateName}</c:if>
-				<c:if test="${empty profileBean.currentStateName}"><a>Add State</a></c:if> 
-			</td>
-			
-		</tr> --%>
-	</table>
-	</div>
-	<div id="partner_location_edit" class="all_hidden_divs" hidden="true">
-		<div class="form-group">
-	      <label class="col-md-4 control-label" for="textinput">Country living in</label>  
-	      <div class="col-md-7">
-	      	<form:select path="rCountry" class="multiSelect" multiple="true" onchange="getFilteredStatesMultiSelect(this.id)">
-				<form:options items="${countries}"></form:options>
-				
-			</form:select>
-	      </div>
-	    </div>
-	    
-	    <div class="form-group">
-	      <label class="col-md-4 control-label" for="textinput">State living in</label>  
-	      <div class="col-md-7">
-	      	<form:select path="rState" class="multiSelect" multiple="true">
-				<form:options items="${states }"></form:options>
-			</form:select>
-	      </div>
-	    </div>
-		<br>
-		<div class="row">
-			<div class="col-md-4 pull-right">
-				<div class="form-group">
-						<input class="btn btn btn-success" style="padding: 8px 24px;" type="button" id="partner_location_submit" name="yt0" value="Save" onclick="saveChanges('partner_location');">
-						<input class="btn btn btn-danger" style="padding: 8px 24px;" type="button" id="partner_location_cancel" name="yt1" value="Cancel" onclick="toggleDiv('partner_location');">
-				</div>
-			</div>
-		</div>
-	</div>
-	</div>
-	</div>
+<div class="panel panel-default" style="background:#FDFDFD;">
+    <div class="panel-body table-responsive">
+    <div >	<strong class="font">
+    <c:if test="${profileBean.gender == 'Female'}">Bride</c:if>
+    <c:if test="${profileBean.gender == 'Male'}">Groom</c:if>
+    's Location</strong> <a href="#no" style="font-size:13px; color:#C00;" class="pull-right" id="location_a" onclick="toggleDiv('location');"> <i class="fa fa-edit"></i> Edit</a>
+
+<div id="location_view" class="all_visible_divs">
+<table class="col-md-12 table-responsive">
+<tr><td>Country</td><td>:</td>
+    <td id="currentCountry_val">
+        <c:if test="${not empty profileBean.currentCountryName}">${profileBean.currentCountryName}</c:if>
+        <c:if test="${empty profileBean.currentCountryName}">Not Specified</c:if>
+    </td>
+</tr>
+<tr>
+    <td>City</td><td>:</td>
+    <td id="currentState_val">
+        <c:if test="${not empty profileBean.currentCityName}">${profileBean.currentCityName}</c:if>
+        <c:if test="${empty profileBean.currentCityName}">Not Specified</c:if>
+    </td>
+</tr>
+<tr><td>State</td><td>:</td>
+    <td id="currentCity_val">
+        <c:if test="${not empty profileBean.currentStateName}">${profileBean.currentStateName}</c:if>
+        <c:if test="${empty profileBean.currentStateName}">Not Specified</c:if>
+    </td>
+    
+</tr>
+</table>
+</div>
+<div id="location_edit" class="all_hidden_divs" hidden="true">
+<jsp:include page="location.jsp" />
+</div>
+</div>
+</div>
+</div>
+
+<br>
+<div class="panel panel-default" style="background:#FDFDFD;">
+    <div class="panel-body table-responsive">	
+    <div >	<strong class="font">Professional Information</strong>
+        <a href="#no" style="font-size:13px; color:#C00;"  class="pull-right" id="professional_info_a" onclick="toggleDiv('professional_info');"> <i class="fa fa-edit"></i> Edit</a>
+<div id="professional_info_view" class="all_visible_divs">
+<table class="col-md-12 table-responsive">
+<tr><td>Education</td><td>:</td>
+    <td id="education_val">
+        <c:if test="${not empty profileBean.educationName}">${profileBean.educationName}</c:if>
+        <c:if test="${empty profileBean.educationName}">Not Specified</c:if>
+    </td>
+</tr>
+<tr><td>Employed in</td><td>:</td>
+    <td id="workingWith_val">
+        <c:if test="${not empty profileBean.workingWith}">${profileBean.workingWith}</c:if>
+        <c:if test="${empty profileBean.workingWith}">Not Specified</c:if>
+    </td>
+</tr>
+<tr><td>Occupation</td><td>:</td>
+    <td id="occupation_val">
+        <c:if test="${not empty profileBean.occupationName}">${profileBean.occupationName}</c:if>
+        <c:if test="${empty profileBean.occupationName}">Not Specified</c:if>
+    </td>
+</tr>
+</table>
+</div>
+<div id="professional_info_edit" class="all_hidden_divs" hidden="true">
+<jsp:include page="professional_info.jsp" />
+</div>
+</div>
+</div>
+</div>
+
+
+<br>
+<div class="panel panel-default" style="background:#FDFDFD;">
+    <div class="panel-body table-responsive">
+    <div >	<strong class="font">Family Details</strong>
+        <a href="#no" style="font-size:13px; color:#C00;" class=" pull-right" id="family_details_a" onclick="toggleDiv('family_details');"> <i class="fa fa-edit"></i> Edit</a>
+<div id="family_details_view" class="all_visible_divs">
+<table class="col-md-12 table-responsive">
+<tr><td>Father's Name</td><td>:</td>
+    <td id="fatherName_val">
+        <c:if test="${not empty profileBean.fatherName}">${profileBean.fatherName}</c:if>
+        <c:if test="${empty profileBean.fatherName}">Not Specified</c:if>
+    </td>
+    <td>Mother's Name</td><td>:</td>
+    <td id="motherName_val"><c:out value="${profileBean.motherName}"/>
+        <c:if test="${not empty profileBean.motherName}">${profileBean.motherName}</c:if>
+        <c:if test="${empty profileBean.motherName}">Not Specified</c:if>
+    </td>
+</tr>
+<tr><td>Father's Occupation</td><td>:</td>
+    <td id="fOccupation_val">
+        <c:if test="${not empty profileBean.fOccupation}">${profileBean.fOccupationName}</c:if>
+        <c:if test="${empty profileBean.fOccupation}">Not Specified</c:if>
+    </td>
+    <td>Mother's Occupation</td><td>:</td>
+    <td id="mOccupation_val">
+        <c:if test="${not empty profileBean.mOccupation}">${profileBean.mOccupationName}</c:if>
+        <c:if test="${empty profileBean.mOccupation}">Not Specified</c:if>
+    </td>
+</tr>
+<tr><td>No. of Brothers</td><td>:</td>
+    <td id="noOfBrothers_val">
+        <c:if test="${not empty profileBean.noOfBrothers}">${profileBean.noOfBrothers}</c:if>
+        <c:if test="${empty profileBean.noOfBrothers}">Not Specified</c:if>
+    </td>
+    <td>Brothers Married</td><td>:</td>
+    <td id="noOfBrothersMarried_val">
+        <c:if test="${not empty profileBean.noOfBrothersMarried}">${profileBean.noOfBrothersMarried}</c:if>
+        <c:if test="${empty profileBean.noOfBrothersMarried}">Not Specified</c:if>
+    </td>
+</tr>
+<tr><td>No. of Sisters</td><td>:</td>
+    <td id="noOfSisters_val">
+        <c:if test="${not empty profileBean.noOfSisters}">${profileBean.noOfSisters}</c:if>
+        <c:if test="${empty profileBean.noOfSisters}">Not Specified</c:if>
+    </td>
+    <td>Sisters Married</td><td>:</td>
+    <td id="noOfSistersMarried_val">
+        <c:if test="${not empty profileBean.noOfSistersMarried}">${profileBean.noOfSistersMarried}</c:if>
+        <c:if test="${empty profileBean.noOfSistersMarried}">Not Specified</c:if>
+    </td>
+</tr>
+</table>
+</div>
+<div id="family_details_edit" class="all_hidden_divs" hidden="true">
+<jsp:include page="family_details.jsp" />
+</div>
+</div>
+</div>
+</div>
+
+<br>
+<h3>Partner Preferences</h3>
+<div class="panel panel-default" style="background:#FDFDFD;">
+    <div class="panel-body table-responsive">
+    <div>	<strong class="font">Basic & Religion Preferences</strong>
+        <a href="#no" style="font-size:13px; color:#C00;"  class="pull-right" id="partner_basic_a" onclick="toggleDiv('partner_basic');"> <i class="fa fa-edit"></i> Edit</a>
+<div id="partner_basic_view" class="all_visible_divs">
+<table class="col-md-12 table-responsive">
+<tr><td>
+        <c:if test="${profileBean.gender == 'Female'}">Groom</c:if>
+        <c:if test="${profileBean.gender == 'Male'}">Bride</c:if>
+        's Age
+    </td><td>:</td>
+    <td id="rAgeFrom_val">
+        <c:if test="${not empty profileBean.rAgeFrom}">${profileBean.rAgeFrom} - ${profileBean.rAgeTo} Years</c:if>
+        <c:if test="${empty profileBean.rAgeFrom}">Not Specified</c:if>
+    </td>
+    <td>Height</td><td>:</td>
+    <td>
+        <span id="rHeight_val"><c:if test="${not empty profileBean.rHeightInches}">${profileBean.rHeightInches} - </c:if></span> <span id="rHeightTo_val"><c:if test="${not empty profileBean.rHeightInches}">${profileBean.rHeightToInches}</c:if></span>
+        <span id="rHeight_outer_val"><c:if test="${empty profileBean.rHeightInches}">Not Specified</c:if></span>
+    </td>
+</tr>
+<tr><td>Marital Status</td><td>:</td>
+    <td id="rMaritalStatus_val">
+        <c:if test="${not empty profileBean.rMaritalStatusName}">${profileBean.rMaritalStatusName}</c:if>
+        <c:if test="${empty profileBean.rMaritalStatusName}">Not Specified</c:if>
+    </td>
+    <%-- <td>Physical Status</td><td>:</td>
+    <td>
+        <c:if test="${not empty profileBean.casteName}">${profileBean.casteName}</c:if>
+        <c:if test="${empty profileBean.casteName}">Not Specified</c:if>
+    </td> --%>
+    <td>Eating Habits</td><td>:</td>
+    <td id="rDiet_val">
+        <c:if test="${not empty profileBean.rDietName}">${profileBean.rDietName}</c:if>
+        <c:if test="${empty profileBean.rDietName}">Not Specified</c:if>
+    </td>
+</tr>
+<tr>
+    <%-- <td>Smoking Habits</td><td>:</td>
+    <td>
+        <c:if test="${not empty profileBean.casteName}">${profileBean.casteName}</c:if>
+        <c:if test="${empty profileBean.casteName}">Not Specified</c:if> 
+    </td>  --%>
+</tr>
+<tr>
+    <%-- <td>Drinking Habits</td><td>:</td>
+    <td>
+        <c:if test="${not empty profileBean.currentStateName}">${profileBean.currentStateName}</c:if>
+        <c:if test="${empty profileBean.currentStateName}">Not Specified</c:if> 
+    </td> --%>
+    <td>Religion</td><td>:</td>
+    <td id="rReligion_val">
+        <c:if test="${not empty profileBean.rReligionName}">${profileBean.rReligionName}</c:if>
+        <c:if test="${empty profileBean.rReligionName}">Not Specified</c:if>
+    </td>
+    <td>Mothertongue</td><td>:</td>
+    <td id="rMotherTongue_val">
+        <c:if test="${not empty profileBean.rMotherTongueName}">${profileBean.rMotherTongueName}</c:if>
+        <c:if test="${empty profileBean.rMotherTongueName}">Not Specified</c:if>
+    </td>
+</tr>
+<tr>
+    <td>Caste</td><td>:</td>
+    <td id="rCaste_val">
+        <c:if test="${not empty profileBean.rCasteName}">${profileBean.rCasteName}</c:if>
+        <c:if test="${empty profileBean.rCasteName}">Not Specified</c:if>
+    </td>
+</tr>
+<%-- <tr>
+    <td>Star</td><td>:</td>
+     <td>
+        <c:if test="${not empty profileBean.currentStateName}">${profileBean.currentStateName}</c:if>
+        <c:if test="${empty profileBean.currentStateName}">Not Specified</c:if>
+    </td> 
+    
+</tr> --%>
+</table>
+</div>
+<div id="partner_basic_edit" class="all_hidden_divs" hidden="true">
+<jsp:include page="partner_basics.jsp" />
+</div>
+</div>
+</div>
+</div>
+
+<br>
+<div class="panel panel-default" style="background:#FDFDFD;">
+    <div class="panel-body table-responsive">
+    <div >	<strong class="font">Professional Preferences</strong>
+        <a href="#no"  style="font-size:13px; color:#C00;" class="pull-right" id="partner_professional_a" onclick="toggleDiv('partner_professional');"> <i class="fa fa-edit"></i> Edit</a>
+<div id="partner_professional_view" class="all_visible_divs">
+<table class="col-md-12 table-responsive">
+<tr><td>Education</td><td>:</td>
+    <td id="rEducation_val">
+        <c:if test="${not empty profileBean.rEducationName}">${profileBean.rEducationName}</c:if>
+        <c:if test="${empty profileBean.rEducationName}">Not Specified</c:if>
+    </td>
+    
+</tr>
+<tr><td>Working With</td><td>:</td>
+    <td id="rWorkingWith_val">
+        <c:if test="${not empty profileBean.rWorkingWith}">${profileBean.rWorkingWith}</c:if>
+        <c:if test="${empty profileBean.rWorkingWith}">Not Specified</c:if>
+    </td>
+    
+</tr>
+<tr><td>Occupation</td><td>:</td>
+    <td id="rOccupation_val">
+        <c:if test="${not empty profileBean.rOccupationName}">${profileBean.rOccupationName}</c:if>
+        <c:if test="${empty profileBean.rOccupationName}">Not Specified</c:if>
+    </td>
+    
+</tr>
+<tr><td>Annual Income</td><td>:</td>
+    <td id="rAnnualIncome_val">
+        <c:if test="${not empty profileBean.rAnnualIncome}">${profileBean.rAnnualIncome}</c:if>
+        <c:if test="${empty profileBean.rAnnualIncome}">Not Specified</c:if>
+    </td>
+    
+</tr>
+</table>
+</div>
+<div id="partner_professional_edit" class="all_hidden_divs" hidden="true">
+<div class="row">
+<div class="form-group">
+  <label class="col-md-4 control-label" for="textinput">Education</label>  
+  <div class="col-md-7">
+    <form:select path="rEducation" class="multiSelect" multiple="true">
+        <form:options items="${education}"></form:options>
+    </form:select>
+  </div>
+</div>
+</div>
+
+<div class="row"> 
+<div class="form-group">
+  <label class="col-md-4 control-label" for="textinput">Working with</label>  
+  <div class="col-md-7">
+    <form:select path="rWorkingWith" class="multiSelect" multiple="true">
+        <form:option value="any">Doesn't Matter</form:option>
+        <form:option value="Private Company">Private Company</form:option>
+        <form:option value="Government/Public Sector">Government/Public Sector</form:option>
+        <form:option value="Defense/Civil Services">Defense/Civil Services</form:option>
+        <form:option value="Not Working">Not Working</form:option>
+    </form:select>
+  </div>
+</div>
+</div>
+<div class="row">
+<div class="form-group">
+  <label class="col-md-4 control-label" for="textinput">Profession area</label>  
+  <div class="col-md-7">
+    <form:select path="rOccupation" class="multiSelect" multiple="true">
+        <form:options items="${occupation}"></form:options>
+    </form:select>
+  </div>
+</div>
+</div>
+<div class="row">
+<div class="form-group">
+  <label class="col-md-4 control-label" for="textinput">Annual Income</label>  
+  <div class="col-md-7">
+    <input type="radio" name="annualIncome" class="incomeMatter" id="ai1" value=""> <label for="ai1">Doesn't Matter</label>
+    <input type="radio" name="annualIncome" class="incomeRange" id="ai2" value="Specify an income range"> <label for="ai2">Specify an income range</label>
+    <%-- <form:select path="education" class="form-control u">
+        <form:option value="">Doesn't Matter</form:option>
+        <form:option value="Specify an income range">Specify an income range</form:option>
+    </form:select> --%>
+  </div>
+</div>
+</div>
+<div class="row">
+    <div class="form-group incomeBlock">
+      <label class="col-md-4 control-label" for="textinput"></label>  
+      <div class="col-md-7">
+        <form:select path="rAnnualIncome" class="form-control u1">
+            <form:option value="">-- Annual Income --</form:option>
+            <form:option value="Upto INR 1 Lakh">Upto INR 1 Lakh</form:option>
+            <form:option value="INR 2 Lakh to 4 Lakh">INR 2 Lakh to 4 Lakh</form:option>
+            <form:option value="INR 5 Lakh to 7 Lakh">INR 5 Lakh to 7 Lakh</form:option>
+            <form:option value="Above INR 7 Lakh">Above INR 7 Lakh</form:option>
+        </form:select>
+      </div>
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-md-4 pull-right">
+        <div class="form-group">
+                <input class="btn btn btn-danger"  type="button" id="partner_professional_submit" name="yt0" value="Save" onclick="saveChanges('partner_professional');">
+                <input class="btn btn btn-default"  type="button" id="partner_professional_cancel" name="yt1" value="Cancel" onclick="toggleDiv('partner_professional');">
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<br>
+<div class="panel panel-default" style="background:#FDFDFD;">
+    <div class="panel-body table-responsive">
+    <div >	<strong class="font">Location Preferences</strong>
+        <a href="#no" style="font-size:13px; color:#C00;" class="pull-right" id="partner_location_a" onclick="toggleDiv('partner_location');"> <i class="fa fa-edit"></i> Edit</a>
+<div id="partner_location_view" class="all_visible_divs">
+<table class="col-md-12 table-responsive">
+<tr><td>Country</td><td>:</td>
+    <td id="rCountry_val">
+        <c:if test="${not empty profileBean.rCountryName}">${profileBean.rCountryName}</c:if>
+        <c:if test="${empty profileBean.rCountryName}">Not Specified</c:if>
+    </td>
+</tr>
+<tr>
+    <td>Residing State</td><td>:</td>
+    <td id="rState_val">
+        <c:if test="${not empty profileBean.rStateName}">${profileBean.rStateName}</c:if>
+        <c:if test="${empty profileBean.rStateName}">Not Specified</c:if>
+    </td>
+    <!-- <td>City</td><td>:</td> -->
+    
+</tr>
+
+<%-- <tr><td>Residing City</td><td>:</td>
+    <td>
+        <c:if test="${not empty profileBean.rCity}">${profileBean.rCity}</c:if>
+        <c:if test="${empty profileBean.rCity}">Not Specified</c:if>
+    </td>
+    
+    
+</tr>
+<tr><td>Citizenship</td><td>:</td>
+    <td>
+         <c:if test="${not empty profileBean.currentStateName}">${profileBean.currentStateName}</c:if>
+        <c:if test="${empty profileBean.currentStateName}"><a>Add State</a></c:if> 
+    </td>
+    
+</tr> --%>
+</table>
+</div>
+<div id="partner_location_edit" class="all_hidden_divs" hidden="true">
+<div class="form-group">
+  <label class="col-md-4 control-label" for="textinput">Country living in</label>  
+  <div class="col-md-7">
+    <form:select path="rCountry" class="multiSelect" multiple="true" onchange="getFilteredStatesMultiSelect(this.id)">
+        <form:options items="${countries}"></form:options>
+        
+    </form:select>
+  </div>
+</div>
+
+<div class="form-group">
+  <label class="col-md-4 control-label" for="textinput">State living in</label>  
+  <div class="col-md-7">
+    <form:select path="rState" class="multiSelect" multiple="true">
+        <form:options items="${states }"></form:options>
+    </form:select>
+  </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-md-4 pull-right">
+        <div class="form-group">
+                <input class="btn btn btn-danger" type="button" id="partner_location_submit" name="yt0" value="Save" onclick="saveChanges('partner_location');">
+                <input class="btn btn btn-default"  type="button" id="partner_location_cancel" name="yt1" value="Cancel" onclick="toggleDiv('partner_location');">
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div></div>
-</div></div></div>
-</form:form>
-<div class="col-md-3">
-<div class="col-sm-3" style='width: 100%; margin: 31px 0px 0px -25px;'>
-			<div class="col-md-11 products-grid-right">
-			
-		<!-- 	<div class="panel panel-success" style="width: 250px;">
-			<div class="panel-heading">Add Horoscope</div>
-					<div class="panel-body table-responsive">
-		            	<div class="col-md-3" style='width: 232px; display: -webkit-box;'>
-					<img src="user/images/edit-add-horoscope.gif" width="40" style='margin: 0px 0px 0px -25px;'>
-				<p style="margin-left: 29px;">It is simple and absolutely FREE!</p></div>
-	            	</div>
-	            </div> -->
-	            
-			<div class="panel panel-success" style="width: 250px;">
-			<div class="panel-heading">Add Photos Now</div>
-					<div class="panel-body table-responsive">
-		            	<div class="col-md-3" style='width: 232px; display: -webkit-box;'>
-					<img src="user/images/add-photo-edit-avatar.png" width="40" style='margin: 0px 0px 0px -25px;'>
-				<p style="margin-left: 29px;">Photos are the first things members look for in a profile.</p></div>
-	            	</div>
-	            </div><div class="clearfix"></div>
-			
-			
-			
-			<div class="col-md-3 products-grid-right">
-			</div></div>
-			</div>
+
+</form:form> 
 </div>
 </div>
+
+
+
+
+
+<div class="col-md-3" >
+<div class="products-grid-right">
+
+<!-- 	<div class="panel panel-success" style="width: 250px;">
+<div class="panel-heading">Add Horoscope</div>
+        <div class="panel-body table-responsive">
+            <div class="col-md-3" style='width: 232px; display: -webkit-box;'>
+        <img src="user/images/edit-add-horoscope.gif" width="40" style='margin: 0px 0px 0px -25px;'>
+    <p style="margin-left: 29px;">It is simple and absolutely FREE!</p></div>
+        </div>
+    </div> -->
+    
+<div class="panel panel-default" style="width: 250px;">
+<div class="panel-heading">Add Photos Now</div>
+        <div class="panel-body table-responsive">
+            <div>
+        <img src="user/images/add-photo-edit-avatar.png" style="text-align:center">
+    <p>Photos are the first things members look for in a profile.</p></div>
+        </div>
+    </div><div class="clearfix"></div>
+</div>
+</div>
+ 
+ </div>           
+</div>           
 </div>
 <script src="js/jquery-ui.min.js"></script>
 <link href="css/datepicker1.css" rel="stylesheet" type="text/css" />
@@ -1295,7 +1278,7 @@ function toggleDiv(divElem){
 		
 				$(".all_hidden_divs").attr("hidden",true);
 				$(".all_visible_divs").removeAttr("hidden");
-				$(".all_a").html("Edit");
+				$(".all_a").html("<i class='fa fa-edit'></i>Edit");
 			}else{
 				alert("Problem occured while saving the updates. Please try again");
 			}
