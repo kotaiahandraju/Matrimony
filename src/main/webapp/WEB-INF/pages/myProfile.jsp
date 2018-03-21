@@ -272,8 +272,8 @@ xpopup
                 </div>
                 <div class="col-md-3">
                
-             <p style=" color:#000;font-size: 13px;">How your profile looks
-                to others? Click here for <a href="#no" onclick="fullProfile(${profileBean.id})" class="" style=" width:auto; border:1px solid #cccccc;padding:7px 10px 7px 40px;display:inline-block;border-radius:5px;background:url(user/images/eye.gif) no-repeat 10px 8px;margin-top:5px;text-decoration:none;">Profile Preview</a>
+             <p style=" color:#000;font-size: 13px; text-align:center;">How your profile looks
+                to others <a href="#no" onclick="fullProfile(${profileBean.id})" class="" style=" width:auto; border:1px solid #cccccc;padding:7px 10px 7px 40px;display:inline-block;border-radius:5px;background:url(user/images/eye.gif) no-repeat 10px 8px;margin-top:5px;text-decoration:none;">Profile Preview</a>
                 </p></div>
 
 <div class="clearfix"></div>
@@ -896,21 +896,21 @@ xpopup
 <div class="col-md-3" >
 <div class="products-grid-right">
 
-<!-- 	<div class="panel panel-success" style="width: 250px;">
+	<div class="panel panel-success" style="width: 250px;">
 <div class="panel-heading">Add Horoscope</div>
         <div class="panel-body table-responsive">
             <div class="col-md-3" style='width: 232px; display: -webkit-box;'>
         <img src="user/images/edit-add-horoscope.gif" width="40" style='margin: 0px 0px 0px -25px;'>
     <p style="margin-left: 29px;">It is simple and absolutely FREE!</p></div>
         </div>
-    </div> -->
+    </div>
     
 <div class="panel panel-default" style="width: 250px;">
 <div class="panel-heading">Add Photos Now</div>
         <div class="panel-body table-responsive">
-            <div>
-        <img src="user/images/add-photo-edit-avatar.png" style="text-align:center">
-    <p>Photos are the first things members look for in a profile.</p></div>
+            <div class="col-md-3" style='width: 232px; display: -webkit-box;'>
+        <img src="user/images/add-photo-edit-avatar.png" width="40" style='margin: 0px 0px 0px -25px;'>
+    <p style="margin-left: 29px;">Photos are the first things members look for in a profile.</p></div>
         </div>
     </div><div class="clearfix"></div>
 </div>

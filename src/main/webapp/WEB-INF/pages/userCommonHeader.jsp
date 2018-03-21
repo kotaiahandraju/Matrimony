@@ -374,7 +374,7 @@
 			            + interestStr
 			            //+ 	'<a href="#no" id="expInterest'+orderObj.id+'" type="button" class="btn btn-primary" onclick="expressInterest('+orderObj.id+')">Yes I\'m interested</a><br><br>'
 			            +   '<br>'
-			            + 	'<a href="#no"  type="button" class="btn btn-primary btn-sm view0" onclick="fullProfile('+orderObj.id+')">View Full Profile</a>'
+			            + 	'<a href="#no"  type="button" class="btn btn-warning btn-sm view0" onclick="fullProfile('+orderObj.id+')">View Full Profile</a>'
 			               //+   '<button id="mobileBtn'+orderObj.id+'" type="button" class="btn btn-info" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button>'
 			            +   shortListedStr
 			            + '</div>'
@@ -1764,6 +1764,9 @@ transition:none !important;
 	border-radius: 5px;
 	vertical-align: top;
 	margin: 2px 2px;
+}
+.btn-sm {
+margin-bottom:5px;
 }
 .ptransition {
 cursor:pointer;
