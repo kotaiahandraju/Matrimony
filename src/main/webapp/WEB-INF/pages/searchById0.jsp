@@ -1,16 +1,16 @@
 <%@ include file="userHeader.jsp"%>
 
-			<div class="col-md-9 products-grid-left">
-            	<div class="panel panel-default">
+			<div class="col-md-8 products-grid-left">
+            	<div class="panel panel-success">
 					<div class="panel-heading">Search Profiles</div>
 					<div class="panel-body table-responsive">
 						<form:form commandName="createProfile"  class="form-horizontal" id="searchForm2" name="searchForm2" role="form" method="post">
 						<form:hidden path="id" />
-             			<div class="col-md-12">
-							<div id="searchresultsDiv" class="bare">
+							<div class="col-md-12">
+							<div id="searchresultsDiv" style="font-size: 12px;">
 								<div class="searchresults">
 								    <h3>Your Search Results</h3>
-								    <p><span id="countId">${count}</span> Profiles found <a href="searchProfiles">Modify Search</a></p>
+								    <p><span id="countId">${count}</span> Profiles found </p>
 									<div id="searchResults">
 										
 
@@ -23,131 +23,27 @@
 							
 							<div id="search_criteria">
 								<div class="form-group">
-									<label class="col-md-4 control-label" for="textinput">Age</label>  
-									<div class="col-md-3">
-										<form:input path="rAgeFrom" class="form-control  numericOnly u1" placeholder="From" />
-									</div>
-									<div class="col-md-3">
-										<form:input path="rAgeTo" class="form-control numericOnly u1" placeholder="To" />
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="col-md-4 control-label" for="textinput">Height </label>
-									<div class="col-md-3">
-										<form:select path="rHeight" class="form-control u1">
-											<form:option value="">From</form:option>
-											<form:options items="${height}"></form:options>
-										</form:select>
-									</div>
-                                    
-                                   
-                                    
-									<div class="col-md-3">
-										<form:select path="rHeightTo" class="form-control u1">
-											<form:option value="">To</form:option>
-											<form:options items="${height}"></form:options>
-										</form:select>
-									</div>
-                                    </div>
-                                    
-									<div class="form-group prfic">
-									      <label class="col-md-4 control-label" for="textinput">Marital Status</label>  
-									      <div class="col-md-6">
-									      	<form:select path="rMaritalStatus" class="multiSelect" onchange="hideChildren();" multiple="true" >
-												<form:option value="">Doesn't Matter</form:option>
-												<form:option value="Married">Married</form:option>
-												<form:option value="Unmarried">Unmarried</form:option>
-												<form:option value="Widow/Divorced">Widow/Divorced</form:option>
-											</form:select>
-									      </div>
-									    </div>
-									
-									    <div class="form-group prific" id="haveChildrenId">
-									      <label class="col-md-4 control-label" for="textinput" >Have Children</label>  
-									      <div class="col-md-6">
-									      	<form:select path="rhaveChildren" class="form-control u1">
-												<form:option value="">Doesn't Matter</form:option>
-												<form:option value="1">1</form:option>
-												<form:option value="2">2</form:option>
-												<form:option value="No Children">No Children</form:option>
-											</form:select>
-									      </div>
-									    </div>
-									
-									    <div class="form-group">
-									      <label class="col-md-4 control-label" for="textinput">Religion</label>  
-									      <div class="col-md-6">
-									      	<form:select path="rReligion" class="multiSelect" multiple="true">
-												<form:option value="">-- Choose Religion --</form:option>
-												<form:options items="${religion}"></form:options>
-											</form:select>
-									      </div>
-									    </div>
-									
-									    <div class="form-group">
-									      <label class="col-md-4 control-label" for="textinput">Community</label>  
-									      <div class="col-md-6">
-									      	<form:select path="rCaste" class="multiSelect" multiple="true">
-												<form:option value="">-- Choose Community --</form:option>
-												<form:options items="${cast}"></form:options>
-											</form:select>
-									      </div>
-									    </div>
-									
-									    <div class="form-group">
-									      <label class="col-md-4 control-label" for="textinput">Mother Tongue</label>  
-									      <div class="col-md-6">
-									      	<form:select path="rMotherTongue" class="multiSelect" multiple="true">
-												<form:option value="">-- Choose Mother Tongue --</form:option>
-												<form:options items="${language}"></form:options>
-											</form:select>
-									      </div>
-									    </div>
-									    
-									    <div class="form-group">
-											<label class="col-md-4 control-label required">Country living in </label>
-											<div class="col-md-6">
-												<form:select path="rCountry" class="multiSelect"  multiple="true" onchange="getFilteredStatesMultiSelect(this.id)">
-													<form:option value="">-- Choose Country --</form:option>
-													<form:options items="${countries}"></form:options>
-												</form:select>
-										  		<div><form:errors path="rCountry" cssClass="error" /></div>
-											</div>
-									  	</div>
-									    <div class="form-group">
-											<label class="col-md-4 control-label required">State living in</label>
-											<div class="col-md-6">
-												<form:select path="rState"  class="multiSelect" multiple="true">
-													<form:option value="">-- Choose State --</form:option>
-													<form:options items="${states }"></form:options>
-												</form:select>
-												<div><form:errors path="rState" cssClass="error" /></div>
-											</div>
-									  	</div>
-									    <div class="form-group">
-									      <label class="col-md-4 control-label" for="textinput"></label>  
-									      <div class="col-md-6">
-									     	<a href="#" type="button" id="searchBtn" class="btn1 btn btn-danger" onclick="submitSearch()">Search</a> 
-									      <!-- 	<a href="savePartnerProfile" class="btn1 btn btn-info">Save & Continue</a> -->
-									      </div>
-									    </div>
-								</div>
-
-							</div>
-						
-					</div>
-					</form:form>
+							      <div class="col-md-6">
+							      	<form:input path="username" class="form-control" placeholder="" />
+							      </div>
+							    </div>
+							    <div class="form-group">
+							      <label class="col-md-4 control-label" for="textinput"></label>  
+							      <div class="col-md-6 text-center">
+							     	<a href="#" type="button" id="searchBtn" class="btn1 btn btn-info" onclick="submitSearch()">Search</a> 
+							      </div>
+							    </div>
+							  </div></div>
+						</form:form>
 				</div></div>
-             
                          
 					</div>
-			
 			
 			
 
 <script type="text/javascript">
 $(function(){
-	 //add text water mark;	
+		 //add text water mark;	
 	  addWaterMark();
   });
   function addWaterMark(){
@@ -181,7 +77,7 @@ if (listOrders1 != "" && listOrders1 != null) {
 	$("#searchresultsDiv").prop("hidden",true);
 }else{
 	$('#countId').html('0');
-	var str = '<div class="alert alert-danger nixi"><h6>No results found..!</h6></div>';
+	var str = '<div class="alert alert-danger" style="margin-bottom: 0px;padding: 5px;"><h6>No results found..!</h6></div>';
 	$('#searchResults').html('');
 	$(str).appendTo("#searchResults");
 	$('#search_criteria').prop("hidden",true);
@@ -262,7 +158,7 @@ function displayMatches(listOrders) {
 				+ '</div>'
 				+ '<div class="panel-body">'
 				+ '<div class="col-md-2">'
-				+ '<a href="#"> <img src='+image+' class="img img-responsive thumbnail watermark_text beir"></a>'
+				+ '<a href="#"> <img src='+image+' class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: 60px;width: 60px;"></a>'
             	+ '</div>'
             	+ '<div class="col-md-6">'
             	+ '<table>'
@@ -273,8 +169,8 @@ function displayMatches(listOrders) {
             	+ '	<tr><td>Location</td><td><span>: '+orderObj.currentCityName+'</span></td></tr>'
             	+ '	<tr><td>Education</td><td><span>: '+orderObj.educationName+'</span></td></tr>'
             	+ '	<tr><td>Profession</td><td><span>: '+occName+'</span></td></tr>'
-            	+ '<tr><td id="mobiletd'+orderObj.id+'"><a href="#" type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</a></td><td></td></tr>'
-            	//+ '<td id="shortlisttd'+orderObj.id+'"><button type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">Shortlist</button></td></tr>'
+            	+ mobile_no__str
+            	
             	//+ '	<tr><td>Age</td><td><span>: '+orderObj.age+'</span></td></tr>'
             	//+ '	<tr><td colspan="2">'+orderObj.aboutMyself+'... <a href="#" onclick="showMore('+orderObj.id+')"> read more..</a> </td></tr>'
             	//+  more_details_str
@@ -286,16 +182,15 @@ function displayMatches(listOrders) {
             	/* + '<div id="hideMe'+orderObj.id+'" class="form-group hideMe">'
             	+ '    <label class="col-md-4 control-label" for="textinput"></label>'  
             	+ '    <div class="col-md-6 text-center">'
-            	+ '    	<span class="more mire"><a href="#" >read more </a></span><i class="fa fa-angle-down dim"></i>'
+            	+ '    	<span class="more" style="color: #0087AF;cursor: pointer;"><a href="#" >read more </a></span><i style="cursor: pointer;" class="fa fa-angle-down"></i>'
             	+ '    </div>'
             	+ '</div>' */
             	+ '<div class="col-md-4">'
-            	+ '<h4 class="bin">Like this Profile?</h4>'
+            	+ '<h4 style="margin-bottom:20px;">Like this Profile?</h4>'
             	+ insert_str
-				//+ '<button class="btn btn-danger btn-block btn-md" onclick="fullProfile('+orderObj.id+')">View Full Profile</button><br><br><br><br><br>'
-				+ '<a href="#" class="btn btn-info btn-block btn-md" onclick="fullProfile('+orderObj.id+')">View Full Profile</a><br>'
-				+ '<a href="#" type="button" class="btn1 btn btn-success btn-block"  id="mobileBtn'+orderObj.id+'" onclick="shortList('+orderObj.id+')">Shortlist</a> '
-				+ '<div class="clearfix"></div>'
+				+ '<a href="#" class="btn btn-success btn-block btn-md" onclick="fullProfile('+orderObj.id+')">View Full Profile</a><br>'
+				+ '<a href="#" type="button" class="btn1 btn btn-info btn-block"  id="mobileBtn'+orderObj.id+'" onclick="shortList('+orderObj.id+')">Shortlist</a> '
+            	+ '<div class="clearfix"></div>'
             	+ '</div>'
             	+ '</div>'
             	+ '</div>';
@@ -366,7 +261,7 @@ function updateProfilesList(){
 	    		$('#searchresultsDiv').removeAttr("hidden");
 	    		if(filtered_profiles==""){
 	    			$('#countId').html('0');
-	    			var str = '<div class="alert alert-danger ban" ><h6>No results found..!</h6></div>';
+	    			var str = '<div class="alert alert-danger" style="margin-bottom: 0px;padding: 5px;"><h6>No results found..!</h6></div>';
 	    			$('#searchResults').html('');
 	    			$(str).appendTo("#searchResults");
 	    			$("#table_footer").prop("hidden",true);
@@ -391,9 +286,35 @@ $("#educationdiv input[name='education']").click(updateProfilesList);
 
 
 function submitSearch(){
-	document.searchForm2.action = "SearchResults"
-    document.searchForm2.submit();            
-    return true;
+	var formData = new FormData();
+	formData.append("username",$("#username").val());
+	$.fn.makeMultipartRequest('POST', 'searchByIdAction', false,
+			formData, false, 'text', function(data){
+		var jsonobj = $.parseJSON(data);
+		var results = jsonobj.results;
+		total_items_count = jsonobj.total_records;
+		$("#search_criteria").prop("hidden",true);
+		$('#searchresultsDiv').removeAttr("hidden");
+		if(results==""){
+			$('#countId').html('0');
+			var str = '<div class="alert alert-danger" style="margin-bottom: 0px;padding: 5px;"><h6>No results found..!</h6></div>';
+			$('#searchResults').html('');
+			$(str).appendTo("#searchResults");
+			$("#table_footer").prop("hidden",true);
+			$("#altLists").prop("hidden",true);
+		}else{
+			$('#countId').html('');
+			$('#countId').html(total_items_count);
+			paginationSetup(total_items_count);
+			$("#altLists").asPaginator('enable');
+			displayMatches(results);
+			$("#table_footer").removeAttr("hidden");
+			$("#altLists").removeAttr("hidden");
+			displayTableFooter(1);
+			addWaterMark();
+		}
+		
+	});
 }
 	//$("#searchForm2").submit();
 	
@@ -573,8 +494,8 @@ function fullProfile(profile_id){
 	} */
 	
 	$("#id").val(profile_id);
-	document.searchForm2.action = "fullProfile"
-    document.searchForm2.target = "_blank";   // Open in a new window
+	document.searchForm2.action = "fullProfile";
+    document.searchForm2.target = "_blank";    // Open in a new window
     document.searchForm2.submit();             // Submit the page
     return true;
 }
@@ -617,20 +538,7 @@ function paginationSetup(total_items_count) {
 		    	educationVals.push($(this).val());
 		    });
         	 var formData = new FormData();
-        	 formData.append('selected_casts',castVals);
-         	formData.append('selected_religions',religionVals);
-         	formData.append('selected_educations',educationVals);
-        	 formData.append("rAgeFrom",$("#rAgeFrom").val());
-        	 formData.append("rAgeTo",$("#rAgeTo").val());
-        	 formData.append("rHeight",$("#rHeight").val());
-        	 formData.append("rHeightTo",$("#rHeightTo").val());
-        	 var t1 = $("#rMaritalStatus").val();
-        	 var t2 = $("#rCaste").val();
-        	 var t3 = $("#rReligion").val();
-        	 formData.append("rMaritalStatus",$("#rMaritalStatus").val());
-        	 formData.append("rReligion",$("#rReligion").val());
-        	 formData.append("rCaste",$("#rCaste").val());
-        	 formData.append("rMotherTongue",$("#rMotherTongue").val());
+        	 formData.append("username",$("#username").val());
         	 /* formData.append("rAgeFrom",$("#rAgeFrom").val());
         	 formData.append("rAgeFrom",$("#rAgeFrom").val());
         	 formData.append("rAgeFrom",$("#rAgeFrom").val());
@@ -649,7 +557,7 @@ function paginationSetup(total_items_count) {
 	    		if(results==""){
 	    			$('#countId').html('');
 	    			$('#countId').html('0');
-	    			var str = '<div class="alert alert-danger ban"><h6>No results found..!</h6></div>';
+	    			var str = '<div class="alert alert-danger" style="margin-bottom: 0px;padding: 5px;"><h6>No results found..!</h6></div>';
 	    			$('#searchResults').html('');
 	    			$(str).appendTo("#searchResults");
 	    			$("#table_footer").prop("hidden",true);
@@ -683,75 +591,16 @@ function displayTableFooter(page){
 }
 
 function hideChildren() {
-	var maritalStatus=$("#rMaritalStatus").val();
-	var married_selected = "";
-	if(maritalStatus!=null){
-		$.each(maritalStatus,function(i){
-			if(maritalStatus[i]=="Married"){
-				married_selected = "true";
-			}
-		});
+	 var maritalStatus=$("#rMaritalStatus").val();
+	 if(maritalStatus == "Unmarried"){
+		 $("#haveChildrenId").hide();
+		 $("#haveChildren").val();
+	 }else{
+		 $("#haveChildrenId").show();
+	 }
 	}
-	if(married_selected == "true"){
-		$("#haveChildrenId").show();
-	}else{
-		$("#haveChildrenId").hide();
-		$("#haveChildren").val();
-	}
-}
-	
-function getFilteredStatesMultiSelect(id){
-	if($("#"+id).val()== null   || $('#'+id).val() == "" || $('#'+id).val()=="undefined"){
-		$("#"+id).select2({
-		    placeholder: "-- Choose Country --"
-		});
-		
-	}else{
-		var countryIds =$("#"+id).val();
-		var formData = new FormData();
-	     formData.append('country_ids', countryIds);
-	    $.fn.makeMultipartRequest('POST', 'getFilteredStates', false,
-				formData, false, 'text', function(data){
-			var jsonobj = $.parseJSON(data);
-			var statesList = jsonobj.states_list;
-         $("#rState").empty();
-			$("#rState").append("<option value='' >-- Choose State --</option>");
-			
-			$.each(statesList, function(i, state) {
-				$("#rState").append("<option value="+state.id+" >"+ state.name+"</option>");
-			});
-			
-		});
-		
-	}
-}
-
 $(document).ready(function(){
-	
-	$("#rReligion").select2({
-	    placeholder: "-- Choose Religion --"
-	});
-	$("#rMaritalStatus").select2({
-	    placeholder: "-- Choose MaritalStatus --"
-	});
-	$("#rCaste").select2({
-	    placeholder: "-- Choose Community --"
-	});
-	$("#rMotherTongue").select2({
-	    placeholder: "-- Choose Mother Tongue --"
-	});
-	$("#rCountry").select2({
-	    placeholder: "-- Choose Country --",
-	    allowClear: true
-	});
-	$("#rState").select2({
-	    placeholder: "-- Choose State --",
-	    allowClear: true
-	});
-	$("#rEducation").select2({
-	    placeholder: "-- Choose Education --"
-	});
-	/* var selected_values = "${createProfile.rMaritalStatus}";
+	var selected_values = "${createProfile.rMaritalStatus}";
     $("#rMaritalStatus").val(selected_values.split(","));
     
     selected_values="";
@@ -788,7 +637,7 @@ $(document).ready(function(){
 	
 	selected_values="";
 	selected_values = "${createProfile.rDiet}";
-	$("#rDiet").val(selected_values.split(",")); */
+	$("#rDiet").val(selected_values.split(","));
 });
 
 $(".searchPage").addClass("active");

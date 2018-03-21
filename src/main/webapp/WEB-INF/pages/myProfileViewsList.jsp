@@ -29,7 +29,7 @@
 		<style>
 			/** Start: to style navigation tab **/
 			.nav {
-			  margin-bottom: 18px;
+			 
 			  margin-left: 0;
 			  list-style: none;
 			}

@@ -1,6 +1,6 @@
 <%@ include file="userHeader.jsp"%>
 			
-			<div class="col-md-8 products-grid-left">
+			<div class="col-md-9 products-grid-left">
 				<div class="panel panel-default">
 					<div class="panel-body">
 						<c:if test="${profile_filled_status != '100'}">
@@ -36,21 +36,35 @@
 				</div>
 				<div class="panel panel-success">
 					<div class="panel-heading">New Matches</div>
-		            <div class="panel-body"> <div class="panel-body"> 
+		            <div class="panel-body"> 
 					  <div class='row'>
 					    <div class='col-md-12'>
 					      <div class="carousel slide media-carousel" id="media">
 					        <div class="carousel-inner" id="new_matches">
 						    	
 					    	</div>
-					    	<a data-slide="prev" href="#media" class="left carousel-control">(</a>
-        					<a data-slide="next" href="#media" class="right carousel-control">)</a>
+					    	<a data-slide="prev" href="#media" class="left carousel-control"> <i style="margin-top:8px;" class="fa fa-chevron-left"></i></a>
+        					<a data-slide="next" href="#media" class="right carousel-control"> <i  style="margin-top:8px;" class="fa fa-chevron-right"></i></a>
 					    </div>
-					</div></div></div></div></div>
+					</div></div></div></div>
 				</div>
             
+           
+            <!-- <div class="col-md-3">
+           <div class="panel panel-success">
+					<div class="panel-heading">Search</div>
+		            <div class="panel-body"> 
+		            
+		            <form action="">
+      <input type="text" class="search0" placeholder="Search.." name="search">
+      <button type="submit" class="searchh"><i class="fa fa-search"></i></button>
+    </form>
             
+           </div>
+            </div>
+        
             
+            </div> -->
 			
 			
 	<!-- Modal Starts here-->
@@ -177,8 +191,8 @@ function displayMatches(listOrders) {
 				mobile_num_Str = '<span ><a href="#no" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="displayMobileNum('+orderObj.id+')"> View mobile no.</a></span>';
 			}
 			var tblRow = '<div class="row">'
-				+ '<div class="col-md-2" >'
-	            + 	"<img src="+image+" class='watermark_text img-responsive thumbnail ' style='max-height:70px;'>"
+				+ '<div class="col-md-2 preprofile" >'
+	            + 	"<img src="+image+" class='watermark_text img-responsive thumbnail ' style='width:100%; height:auto;'>"
 	            + '</div>'
 	            + '<div class="col-md-10">'
 	            + ' <p>'+firstname+'&nbsp;'+lastname+'|'+orderObj.username+'&nbsp;'+premiumMember+'&nbsp; '+age+' yrs,&nbsp; '+orderObj.religionName+', '+orderObj.casteName+','+orderObj.inches+' , '+orderObj.occupationName+', '+orderObj.currentCityName+', '+orderObj.currentCountryName+'. </p> '
@@ -265,20 +279,20 @@ function displayNewMatches(listOrders) {
 			 var expressed = orderObj.expressedInterest;
 			var interestStr = "";
 			if(expressed==0){
-				interestStr = '<p  align="center" style="margin: 11px 0px 0px 0px;"><a  id="expInterest'+orderObj.id+'" href="#no" type="button" class="btn btn-primary btn-block btn-md"  onclick="expressInterest('+orderObj.id+')">Send Interest</a></p>';
+				interestStr = '<p  align="center" style="margin: 11px 0px 0px 0px;"><a  id="expInterest'+orderObj.id+'" href="#no" type="button" class="btn btn-warning  btn-sm"  onclick="expressInterest('+orderObj.id+')">Send Interest</a></p>';
 			}else if(expressed>0){
-				interestStr = '<p align="center" style="margin: 11px 0px 0px 0px;"><a   type="button" disabled="true"  class="btn btn-primary btn-block btn-md"  >You Expressed Interest</a></p>';
+				interestStr = '<p align="center" style="margin: 11px 0px 0px 0px;"><a   type="button" disabled="true"  class="btn btn-warning  btn-sm"  >You Expressed Interest</a></p>';
 			}
-			 item =     item + ' 	<div class="col-md-4">'
-				         +' 			<a class="thumbnail" href="#no" style="margin: 0px 0px 0px 47px;"><img alt="" src="'+image+'"></a>'
-				         +' 			<p align="center" style="margin: 130px 0px 0px 0px;"><a href="#no" onclick="fullProfile('+orderObj.id+')" style="transition: 0; padding:5px; color:blue; border-radius:5px;">'+orderObj.username+'</a></p>'
-				         +' 			<p align="center" style="margin: 4px 0px 0px -3px;">'+age+' yrs, '+orderObj.inches+'</p>'
+			 item =     item + ' 	<div class="col-md-3 thumbnailgal">'
+				         +' 		<div class="thumbnailmain">	<a class="thumbnail thumbimg" href="#no" style="margin: 0px 0px 0px 0px; width:100%; height:auto;"><img alt="" src="'+image+'"></a></div>'
+				         +' 			<p align="center" class="ptransition" style="margin: 0px 0px 0px 0px;"><span  class="ptransition" href="#no" onclick="fullProfile('+orderObj.id+')" style="transition: 0; padding:5px; color:blue; border-radius:5px;">'+orderObj.username+'</span></p>'
+				         +' 			<p align="center" style="margin: px 0px 0px -3px;">'+age+' yrs, '+orderObj.inches+'</p>'
 				         + 			    interestStr
 				         +'			</div>';
 	
 	
 			        
-		    if(count==3){
+		    if(count==4){
 			 count = 1;
 			 //item = item + itemEnd;
 			 //rowStr = rowStr + item;

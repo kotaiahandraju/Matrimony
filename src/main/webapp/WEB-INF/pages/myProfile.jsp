@@ -230,9 +230,7 @@ a:hover, a:focus {
 }
 
 </style>
-<div class="container">
-<div class="row">
-<div class="col-md-9">
+
 <div class="container" style=' padding-left: 0px;'>
 <div class="row">
 <div class="col-sm-9">
@@ -276,7 +274,7 @@ a:hover, a:focus {
 							</div> --%>
 						</c:if>
 						<c:if test="${empty cacheGuest.profileImage}">
-							<img src="img/default.png" class="img-responsive" style="margin-bottom:0;">
+						<img src="img/default.png" class="img-responsive" style="margin-bottom:0;">
 						</c:if>
 						<div style="text-align:center;background:#f1f1f1;line-height:25px;" >
                             <a href="myPhotos"> Add / Edit  Photos</a>
@@ -326,8 +324,8 @@ a:hover, a:focus {
 					<div class="row">
 						<div class="col-md-4">
 							<div class="form-group">
-									<input class="btn btn btn-primary" type="button" id="about_submit" name="yt0" value="Save" onclick="saveChanges('about');">
-									<input type="button" id="about_cancel" name="yt1" value="Cancel" onclick="toggleDiv('about');">
+									<input class="btn btn btn-success" type="button" id="about_submit" name="yt0" value="Save" onclick="saveChanges('about');">
+									<input type="button" class="btn btn-danger" id="about_cancel" name="yt1" value="Cancel" onclick="toggleDiv('about');">
 							</div>
 						</div>
 					</div>
@@ -432,8 +430,8 @@ a:hover, a:focus {
 	<div class="panel panel-success" style='box-shadow: 5px 8px 5px;'>
 			<div class="panel-body table-responsive">
 		<div class="col-md-11">	
-			<strong class="font">Religion Information</strong><a href="#no" class="all_a  pull-right  edit-style" id="religion_info_a" onclick="toggleDiv('religion_info');"><i class="fa fa-edit"></i>Edit</a>
-			<div id="religion_info_view" class="all_visible_divs">
+			<strong class="font">Religion Information<a href="#no" class="all_a  pull-right  edit-style" id="religion_info_a" onclick="toggleDiv('religion_info');"><i class="fa fa-edit"></i>Edit</a>
+			</strong><div id="religion_info_view" class="all_visible_divs">
 				<table class="col-md-6 table-responsive">
 				<tr><td>Religion</td><td>:</td>
 					<td id="religion_val">
@@ -499,8 +497,8 @@ a:hover, a:focus {
 			<div class="col-md-11">	<strong class="font">
 			<c:if test="${profileBean.gender == 'Female'}">Bride</c:if>
 			<c:if test="${profileBean.gender == 'Male'}">Groom</c:if>
-			's Location</strong> <a href="#no" class="all_a  pull-right  edit-style" id="location_a" onclick="toggleDiv('location');"><i class="fa fa-edit"></i>Edit</a>
-	
+			's Location<a href="#no" class="all_a  pull-right  edit-style" id="location_a" onclick="toggleDiv('location');"><i class="fa fa-edit"></i>Edit</a>
+	</strong> 
 	<div id="location_view" class="all_visible_divs">
 	<table class="col-md-12 table-responsive">
 		<tr><td>Country</td><td>:</td>
@@ -535,9 +533,9 @@ a:hover, a:focus {
 <br>
 	<div class="panel panel-success" style='box-shadow: 5px 8px 5px;'>
 			<div class="panel-body table-responsive">	
-			<div class="col-md-11">	<strong class="font">Professional Information</strong>
-				<a href="#no" class="all_a  pull-right  edit-style" id="professional_info_a" onclick="toggleDiv('professional_info');"><i class="fa fa-edit"></i>Edit</a>
-	<div id="professional_info_view" class="all_visible_divs">
+			<div class="col-md-11">	<strong class="font">Professional Information
+	<a href="#no" class="all_a  pull-right  edit-style" id="professional_info_a" onclick="toggleDiv('professional_info');"><i class="fa fa-edit"></i>Edit</a>
+	</strong><div id="professional_info_view" class="all_visible_divs">
 	<table class="col-md-12 table-responsive">
 		<tr><td>Education</td><td>:</td>
 			<td id="education_val">
@@ -570,8 +568,9 @@ a:hover, a:focus {
 <br>
 <div class="panel panel-success" style='box-shadow: 5px 8px 5px;'>
 			<div class="panel-body table-responsive">
-			<div class="col-md-11">	<strong class="font">Family Details</strong>
+			<div class="col-md-11">	<strong class="font">Family Details
 				<a href="#no" class="all_a  pull-right  edit-style" id="family_details_a" onclick="toggleDiv('family_details');"><i class="fa fa-edit"></i>Edit</a>
+	</strong>
 	<div id="family_details_view" class="all_visible_divs">
 	<table class="col-md-12 table-responsive">
 		<tr><td>Father's Name</td><td>:</td>
@@ -633,9 +632,9 @@ a:hover, a:focus {
 
 			<div class="panel-body table-responsive">
 			
-			<div class="col-md-11">	<strong class="font">Basic & Religion Preferences</strong>
+			<div class="col-md-11">	<strong class="font">Basic & Religion Preferences
 				<a href="#no" class="all_a  pull-right  edit-style" id="partner_basic_a" onclick="toggleDiv('partner_basic');"><i class="fa fa-edit"></i>Edit</a>
-	<div id="partner_basic_view" class="all_visible_divs">
+	</strong><div id="partner_basic_view" class="all_visible_divs">
 	<table class="col-md-12 table-responsive">
 		<tr><td>
 				<c:if test="${profileBean.gender == 'Female'}">Groom</c:if>
@@ -662,11 +661,11 @@ a:hover, a:focus {
 				<c:if test="${not empty profileBean.casteName}">${profileBean.casteName}</c:if>
 				<c:if test="${empty profileBean.casteName}">Not Specified</c:if>
 			</td> --%>
-			<td>Eating Habits</td><td>:</td>
+			<%-- <td>Eating Habits</td><td>:</td>
 			<td id="rDiet_val">
 				<c:if test="${not empty profileBean.rDietName}">${profileBean.rDietName}</c:if>
 				<c:if test="${empty profileBean.rDietName}">Not Specified</c:if>
-			</td>
+			</td> --%>
 		</tr>
 		<tr>
 			<%-- <td>Smoking Habits</td><td>:</td>
@@ -719,9 +718,9 @@ a:hover, a:focus {
 <br>
 <div class="panel panel-success" style='box-shadow: 5px 8px 5px; border: none;'>
 			<div class="panel-body table-responsive">
-			<div class="col-md-11">	<strong class="font">Professional Preferences</strong>
+			<div class="col-md-11">	<strong class="font">Professional Preferences
 				<a href="#no" class="all_a  pull-right  edit-style" id="partner_professional_a" onclick="toggleDiv('partner_professional');"><i class="fa fa-edit"></i>Edit</a>
-	<div id="partner_professional_view" class="all_visible_divs">
+	</strong><div id="partner_professional_view" class="all_visible_divs">
 	<table class="col-md-12 table-responsive">
 		<tr><td>Education</td><td>:</td>
 			<td id="rEducation_val">
@@ -820,8 +819,8 @@ a:hover, a:focus {
 		<div class="row">
 			<div class="col-md-4 pull-right">
 				<div class="form-group">
-						<input class="btn btn btn-primary" style="padding: 8px 24px;" type="button" id="partner_professional_submit" name="yt0" value="Save" onclick="saveChanges('partner_professional');">
-						<input class="btn btn btn-success" style="padding: 8px 24px;" type="button" id="partner_professional_cancel" name="yt1" value="Cancel" onclick="toggleDiv('partner_professional');">
+						<input class="btn btn btn-success" style="padding: 8px 24px;" type="button" id="partner_professional_submit" name="yt0" value="Save" onclick="saveChanges('partner_professional');">
+						<input class="btn btn btn-danger" style="padding: 8px 24px;" type="button" id="partner_professional_cancel" name="yt1" value="Cancel" onclick="toggleDiv('partner_professional');">
 				</div>
 			</div>
 		</div>
@@ -832,9 +831,9 @@ a:hover, a:focus {
 <br>
 <div class="panel panel-success" style='box-shadow: 5px 8px 5px;'>
 			<div class="panel-body table-responsive">
-			<div class="col-md-11">	<strong class="font">Location Preferences</strong>
+			<div class="col-md-11">	<strong class="font">Location Preferences
 				<a href="#no" class="all_a  pull-right  edit-style" id="partner_location_a" onclick="toggleDiv('partner_location');"><i class="fa fa-edit"></i>Edit</a>
-	<div id="partner_location_view" class="all_visible_divs">
+	</strong><div id="partner_location_view" class="all_visible_divs">
 	<table class="col-md-12 table-responsive">
 		<tr><td>Country</td><td>:</td>
 			<td id="rCountry_val">
@@ -892,8 +891,8 @@ a:hover, a:focus {
 		<div class="row">
 			<div class="col-md-4 pull-right">
 				<div class="form-group">
-						<input class="btn btn btn-primary" style="padding: 8px 24px;" type="button" id="partner_location_submit" name="yt0" value="Save" onclick="saveChanges('partner_location');">
-						<input class="btn btn btn-success" style="padding: 8px 24px;" type="button" id="partner_location_cancel" name="yt1" value="Cancel" onclick="toggleDiv('partner_location');">
+						<input class="btn btn btn-success" style="padding: 8px 24px;" type="button" id="partner_location_submit" name="yt0" value="Save" onclick="saveChanges('partner_location');">
+						<input class="btn btn btn-danger" style="padding: 8px 24px;" type="button" id="partner_location_cancel" name="yt1" value="Cancel" onclick="toggleDiv('partner_location');">
 				</div>
 			</div>
 		</div>
@@ -903,10 +902,9 @@ a:hover, a:focus {
 </div>
 </div></div>
 </div></div></div>
-</form:form></div></div>
-</div>
+</form:form>
 <div class="col-md-3">
-<div class="col-sm-3" style='width: 100%; margin: 31px 0px 0px 0px;'>
+<div class="col-sm-3" style='width: 100%; margin: 31px 0px 0px -25px;'>
 			<div class="col-md-11 products-grid-right">
 			
 		<!-- 	<div class="panel panel-success" style="width: 250px;">
@@ -1182,15 +1180,15 @@ function toggleDiv(divElem){
 	var isHidden = $("#"+divElem+"_edit").attr("hidden");
 	$(".all_hidden_divs").attr("hidden",true);
 	$(".all_visible_divs").removeAttr("hidden");
-	$(".all_a").html("Edit");
+	$(".all_a").html("<i class='fa fa-edit'></i>Edit");
 	if(isHidden){
 		$("#"+divElem+"_view").attr("hidden",true);
 		$("#"+divElem+"_edit").removeAttr("hidden");
-		$("#"+divElem+"_a").html("Close");
+		$("#"+divElem+"_a").html("<i class='fa fa-close'></i>Close");
 	}else{
 		$("#"+divElem+"_edit").attr("hidden",true);
 		$("#"+divElem+"_view").removeAttr("hidden");
-		$("#"+divElem+"_a").html("Edit");
+		$("#"+divElem+"_a").html("<i class='fa fa-edit'></i>Edit");
 	}
 	
 }

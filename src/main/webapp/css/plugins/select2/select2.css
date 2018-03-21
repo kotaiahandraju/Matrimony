@@ -495,6 +495,7 @@ disabled look for disabled choices in the results dropdown
     border: 1px solid #aaa;
     cursor: text;
     overflow: hidden;
+    border-radius:5px;
 
     background-color: #fff;
     background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(1%, #eee), color-stop(15%, #fff));
@@ -510,9 +511,14 @@ html[dir="rtl"] .select2-container-multi .select2-choices {
 .select2-locked {
   padding: 3px 5px 3px 5px !important;
 }
-
+.fa-edit {
+	
+	margin-left:5px;
+}
 .select2-container-multi .select2-choices {
     min-height: 26px;
+    
+ 
 }
 
 .select2-container-multi.select2-container-active .select2-choices {

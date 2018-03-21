@@ -11,12 +11,14 @@
 			<div class="col-md-3 products-grid-right">
 				<div class="well">
 					<div class="row">
-						<div class="col-md-11">
+						<div class="col-md-12 profileauto">
 							<c:if test="${not empty cacheGuest.profileImage}">
-								<a href="#" id="profilePicOuterTag"><img id="profilepic" src="${cacheGuest.profileImage}" class="hover-shadow cursor img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: 120px;width: 150px;" onclick="openModal();currentSlide(1)" ></a>
+								<div class="profilepic0"><a href="#" id="profilePicOuterTag"><img id="profilepic" src="${cacheGuest.profileImage}" class="hover-shadow cursor img img-responsive thumbnail watermark_text" style="margin-bottom:0;height:auto;width: 100%;" onclick="openModal();currentSlide(1)" ></a>
+					</div>
 							</c:if>
 							<c:if test="${empty cacheGuest.profileImage}">
-								<a href="#" id="profilePicOuterTag"><img id="profilepic" src="img/default.png" class="img-responsive thumbnail " style="margin-bottom:0;"></a>
+								<div class="profilepic0"><a href="#" id="profilePicOuterTag"><img id="profilepic" src="img/default.png" class="img-responsive thumbnail " style="margin-bottom:0;"></a>
+							</div>
 							</c:if>
 						</div>	
 						<div class="col-md-12" style="padding-left:0;" >
