@@ -880,7 +880,7 @@ $("#secondButton").click(function(event)
 				if($('#dob').val() ==  null || $('#dob').val() == "" || $('#dob').val()=="undefined" ) 
 				{
 					$("#dob").css("border-color","#e73d4a");
-					$("#dob").attr("placeholder","Please Enter Password");
+					$("#dob").attr("placeholder","Please Enter Date Of Birth");
 					$('#dob').addClass('your-class');
 					$('#dob').css('color','red');
 				}

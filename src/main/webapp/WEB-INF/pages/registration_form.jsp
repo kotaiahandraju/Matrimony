@@ -263,7 +263,7 @@
 					    <div class="form-group">
 					      <label class="col-md-4 control-label" for="textinput">Your Mobile number <span class='manditory'>*</span></label>  
 					      <div class="col-md-6">
-					      <form:input path="mobile" class="form-control numericOnly u"  onblur="validate(this.id,'Enter Mobile');" onkeydown="removeBorder(this.id)" maxlength="10" placeholder="Mobile Number"/>
+					      <form:input path="mobile" class="form-control numbersOnly u"  onblur="validate(this.id,'Enter Mobile');" onkeydown="removeBorder(this.id)" maxlength="10" placeholder="Mobile Number"/>
 					      <span class="hasError" id="mobileError" style="font-size: 13px;color:red"></span>
 					      </div>
 					    </div>
@@ -520,37 +520,44 @@ function thirdForm(event)
 	}
 	else
 	{
-		isMobileNumDuplicate();
-		/* if(mobileExists){
-			 $("#firstForm").hide();
-			$('#secondForm').hide();
-			$("#thirdForm").show();
-			$('#fourthForm').hide();
-			ChangeUrl('page1', 'profile.htm?page=4');
+		if($('#mobile').val().trim().length<10){
+			$('#mobileError').text("Please enter a valid mobile number.");
 			event.preventDefault();
-			
-			$("#step1").removeClass("btn-primary");
-			 $("#step2").removeClass("btn-primary");
-			 $("#step3").removeClass("btn-primary");
-			 $("#step4").addClass("btn-primary"); 
-			 event.preventDefault();
 			return false;
-		}else{
-			$("#firstForm").hide();
-			$('#secondForm').hide();
-			$("#thirdForm").hide();
-			$('#fourthForm').show();
-			ChangeUrl('page1', 'profile.htm?page=4');
-			event.preventDefault();
-			
-			$("#step1").removeClass("btn-primary");
-			 $("#step2").removeClass("btn-primary");
-			 $("#step3").removeClass("btn-primary");
-			 $("#step4").addClass("btn-primary");
-			return true;
-		} */
-		return true;
+		}
+		else{
+			isMobileNumDuplicate();
 		
+			/* if(mobileExists){
+				 $("#firstForm").hide();
+				$('#secondForm').hide();
+				$("#thirdForm").show();
+				$('#fourthForm').hide();
+				ChangeUrl('page1', 'profile.htm?page=4');
+				event.preventDefault();
+				
+				$("#step1").removeClass("btn-primary");
+				 $("#step2").removeClass("btn-primary");
+				 $("#step3").removeClass("btn-primary");
+				 $("#step4").addClass("btn-primary"); 
+				 event.preventDefault();
+				return false;
+			}else{
+				$("#firstForm").hide();
+				$('#secondForm').hide();
+				$("#thirdForm").hide();
+				$('#fourthForm').show();
+				ChangeUrl('page1', 'profile.htm?page=4');
+				event.preventDefault();
+				
+				$("#step1").removeClass("btn-primary");
+				 $("#step2").removeClass("btn-primary");
+				 $("#step3").removeClass("btn-primary");
+				 $("#step4").addClass("btn-primary");
+				return true;
+			} */
+			return true;
+		}
 	}
 }
 function fourthForm(event){
