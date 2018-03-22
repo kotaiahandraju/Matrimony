@@ -1,5 +1,10 @@
 <%@ include file="userHeader.jsp"%>
-
+<style>
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: red;
+    opacity: 1; /* Firefox */
+}
+</style>
 			<div class="col-md-9 products-grid-left">
             	<div class="panel panel-default">
 					<div class="panel-heading">Search Profiles</div>
@@ -24,7 +29,7 @@
 							<div id="search_criteria">
 								<div class="form-group">
 							      <div class="col-md-6">
-							      	<form:input path="username" class="form-control" placeholder="" />
+							      	<form:input path="username" class="form-control" placeholder="Enter Matrimony Id" />
 							      </div>
 							   
 							      <div class="col-md-6">

@@ -1,7 +1,6 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ include file="userCommonHeader.jsp"%>
             	<style>
+            	
 .img-replace {
   
   display: inline-block;
@@ -223,46 +222,43 @@ xpopup
     margin: 8em auto;
   }
 }
-</style>
 
-<script src="js/plugins/jquery.ImageGallery.js"></script> 
-<script src="js/plugins/jquery.imagesloaded.min.js"></script> 
+a:hover, a:focus {
+	color: none;
+	outline: none;
+	outline-offset: 0px;
+}
+
+</style>
 
 <div class="container" style=' padding-left: 0px;'>
 <div class="row">
-<div class="col-sm-8">
-<div class="products">
+<div class="col-sm-9">
+<div class="products" style='background-color: white;'>
+	<form:form commandName="editProfileForm" id="userProfile" method="post" action="">
+			<form:hidden path="redirectPage" value="dashboard"></form:hidden>
+			<form:hidden path="pageName"></form:hidden>
+			<form:hidden path="id"></form:hidden>
 	<div class="container" style="background: #FFF;">
 	
 		<div class="mid-grids">
-		<form:form commandName="createProfile" id="userProfile"  name="searchForm2"  method="post" action="">
-			<form:hidden path="redirectPage" value="dashboard"></form:hidden>
-			<form:hidden path="pageName"/>
-			<form:hidden path="id"/>
+		
 			
-		<div class="col-md-8 products-grid-left">
+		<div class="col-md-9 products-grid-left">
 		
             	<div class="panel panel-success">
             	
-					<div class="col-md-5"> <h4></h4>
-						<c:if test="${empty photosList}">
-							<img id="img_inpage" src="img/default.png" class="img-responsive" style="margin-bottom:0;">
-						</c:if>
-						<c:if test="${not empty photosList}">
-						<div class="fullprofile" style="height:300px; overflow:hidden;"">	<a href="#" id="fullProfilePicOuterTag"><img src="${photosList[0].image}" style="width:100%; height:auto;" onclick="openModal();currentSlide(1)" class="hover-shadow cursor watermark_text"></a>
-						</div>	
-							<div id="gallery-wrapper">
+					<div class="col-md-3"> <h4></h4>
+						<c:if test="${not empty cacheGuest.profileImage}">
+							<a href="#no" id="fullProfilePicOuterTag"><img src="${cacheGuest.profileImage}" style="width:100%" onclick="openModal();currentSlide(1)" class="hover-shadow cursor watermark_text"></a>
+							 <%-- <div id="gallery-wrapper">
 								<!-- thumbnail images -->
 								  <div id="thumbs-wrapper">
 								    <div id="gallery" style="margin:-10px 8px 8px;width:200%">
-								    	<c:set var="counter2" value="${0}" /> 
+								    	<c:set var="counter3" value="${0}" /> 
 								    	<c:forEach items="${photosList}" var="photo" >
-								    		<c:set var="counter2" value="${counter2+1}" />
-									      	<div class="profilethumbnail" style="float: left;
-    width: 80px;
-    height: 75px;
-    padding: 0px;
-    margin: 5px; "> 
+								    		<c:set var="counter3" value="${counter3+1}" />
+									      	<div class="thumbnail" style=""> 
 										        <img src="${photo.image}" class="watermark_text" style="width:100%"  onclick="currentSlide_inpage('${photo.image}')"/> 
 										    </div>
 										</c:forEach>
@@ -275,37 +271,32 @@ xpopup
 								    <a id="gallery-prev" style="margin-left:0px; margin-top:-80px;" href="#">previous</a>
 								    <p id="gallery-pos" hidden="true">page 1 of 2</p>
 								  </div>
-							</div>
-							
+							</div> --%>
 						</c:if>
-						
+						<c:if test="${empty cacheGuest.profileImage}">
+						<img src="img/default.png" class="img-responsive" style="margin-bottom:0;">
+						</c:if>
+						<div style="text-align:center;background:#f1f1f1;line-height:25px;" >
+                            <a href="myPhotos"> Add / Edit  Photos</a>
+                        </div>
                      </div>
-                     <div class="col-md-7"><h4></h4>
-						 <h3>
-						 	<c:if test="${cacheGuest.roleId == 4}">
-						 		xxxxxx&nbsp;xxxxxx
-						 	</c:if>
-						 	<c:if test="${cacheGuest.roleId != 4}">
-						 		${profileBean.firstName}&nbsp;${profileBean.lastName}
-						 	</c:if>&nbsp;
-						 	(${profileBean.username})
-						 </h3><p></p>
-						<p style="line-height:2; color:#000;font-size: 14px;"><span>Profile created for ${profileBean.createProfileFor}</span><br>
+                     <div class="col-md-5"><h4></h4>
+						 <h3><p class="name_val">${profileBean.firstName} ${profileBean.lastName}</h3><h4> (${cacheGuest.username})</p></h4><p></p>
+						<p style="line-height:2; color:#000;font-size: 14px;"><span>Profile created for <span id="createProfileFor_val">${cacheGuest.createProfileFor}</span></span><br>
 						${profileBean.age} Yrs, ${profileBean.heightInches}<Br>
 						${profileBean.religionName}, ${profileBean.casteName}<br>
 						${profileBean.currentCityName}, ${profileBean.currentStateName}, ${profileBean.currentCountryName}<br>
 						${profileBean.educationName}, ${profileBean.occupationName}</p>
-						
-						<c:if test="${profileBean.mobileNumViewed == '1' || profileBean.message_sent_status == '1' || profileBean.expressedInterest == '1'}">
-					 		<p><span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-${profileBean.mobile}&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span></p>
-					 	</c:if>
-					 	<c:if test="${profileBean.mobileNumViewed != '1'}">
-					 		<p id="mobileTD${profileBean.id}">
-						 		<a href="#" type="button" class="btn1 btn btn-info"  id="mobileBtn" onclick="displayMobileNum(${profileBean.id})">View Mobile Number</a>
-						 	</p>
-					 	</c:if>
-					 </div>
-						<div class="clearfix"></div>
+						<div id="editMobileDiv" hidden="true"><input type="text" placeholder="+91-${cacheGuest.mobile}" id="mobile"/></div> 
+						<div id="mobileNoDiv"><span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;<span id="mobileNoText">+91-${cacheGuest.mobile}</span>&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font>&nbsp;&nbsp;</span>&nbsp;</div> <a href="#no" id="editMobileAnchor" style="color:blue"  onclick="displayEditMobilenumberDiv(${profileBean.id},'${cacheGuest.mobile}')">Edit Mobile No.</a>
+						<br><br>
+						</div>
+						<div class="col-md-3">
+						 <h4></h4>
+						<p>How your profile looks
+						to others<a href="#no" onclick="fullProfile(${profileBean.id})" class="" style=" width: 200px; border:1px solid #cccccc;padding:7px 10px 7px 40px;display:inline-block;border-radius:5px;background:url(user/images/eye.gif) no-repeat 10px 8px;margin-top:5px;text-decoration:none;">Profile Preview</a>
+						</p>
+						</div><div class="clearfix"></div>
 
 <div class="clearfix"></div>
             	
@@ -323,19 +314,29 @@ xpopup
 			<h4   style="padding="10px;"></h4><h3>Personal information</h3><hr>
 			<div class="panel panel-success" style='box-shadow: 5px 8px 5px;'>
 			<div class="panel-body table-responsive">			
-			<div class="col-md-11">	<strong class="font">About my ${cacheGuest.createProfileFor}</strong>
+			<div class="col-md-11">	<strong class="font">About my ${cacheGuest.createProfileFor}<a href="#no" style="padding: 0px;" class="all_a  pull-right  edit-style" id="about_a" onclick="toggleDiv('about');"><i class="fa fa-edit"></i>Edit</a></strong>
 				<div id="about_view" class="all_visible_divs">
 					<p id="aboutMyself_val">
 						<c:if test="${not empty profileBean.aboutMyself}">${profileBean.aboutMyself}</c:if>
 						<c:if test="${empty profileBean.aboutMyself}">Not Specified</c:if>
 					</p></div>
 				</div>
-				
+				<div id="about_edit" class="all_hidden_divs" hidden="true">
+					<form:textarea path="aboutMyself" cols="90" rows="6"/>
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group">
+									<input class="btn btn btn-success" type="button" id="about_submit" name="yt0" value="Save" onclick="saveChanges('about');">
+									<input type="button" class="btn btn-danger" id="about_cancel" name="yt1" value="Cancel" onclick="toggleDiv('about');">
+							</div>
+						</div>
+					</div>
+				</div>
 			</div></div>
 	<br>
 		<div class="panel panel-success" style='box-shadow: 5px 8px 5px;'>
 			<div class="panel-body table-responsive">
-			<div class="col-md-11">	<strong class="font">Basic Details </strong>
+			<div class="col-md-11">	<strong class="font">Basic Details <a href="#no" style="padding: 0px;" class="all_a  pull-right  edit-style" id="basic_details_a" onclick="toggleDiv('basic_details');"><i class="fa fa-edit"></i>Edit</a></strong>
 				<div id="basic_details_view" class="all_visible_divs">
 					<table class="col-md-12 table-responsive">
 						<tr><td>Name</td>
@@ -410,7 +411,9 @@ xpopup
 						</tr>
 					</table>
 			</div>
-			</div></div>
+			<div id="basic_details_edit" class="all_hidden_divs" hidden="true">
+				<jsp:include page="basic_details.jsp" />
+			</div></div></div>
 		</div><br>
 <!-- <div class="col-md-1"><img src="user/images/media.png"></div>
 			<div class="col-md-11">	
@@ -429,8 +432,8 @@ xpopup
 	<div class="panel panel-success" style='box-shadow: 5px 8px 5px;'>
 			<div class="panel-body table-responsive">
 		<div class="col-md-11">	
-			<strong class="font">Religion Information</strong>
-			<div id="religion_info_view" class="all_visible_divs">
+			<strong class="font">Religion Information<a href="#no" class="all_a  pull-right  edit-style" id="religion_info_a" onclick="toggleDiv('religion_info');"><i class="fa fa-edit"></i>Edit</a>
+			</strong><div id="religion_info_view" class="all_visible_divs">
 				<table class="col-md-6 table-responsive">
 				<tr><td>Religion</td><td>:</td>
 					<td id="religion_val">
@@ -483,7 +486,10 @@ xpopup
 				
 				</table>
 			</div>
-			
+			<div id="religion_info_edit" class="all_hidden_divs" hidden="true">
+				<jsp:include page="religion_info.jsp"></jsp:include>
+				
+			</div>
 		</div>
 		</div>
 		</div>
@@ -493,8 +499,8 @@ xpopup
 			<div class="col-md-11">	<strong class="font">
 			<c:if test="${profileBean.gender == 'Female'}">Bride</c:if>
 			<c:if test="${profileBean.gender == 'Male'}">Groom</c:if>
-			's Location</strong> 
-	
+			's Location<a href="#no" class="all_a  pull-right  edit-style" id="location_a" onclick="toggleDiv('location');"><i class="fa fa-edit"></i>Edit</a>
+	</strong> 
 	<div id="location_view" class="all_visible_divs">
 	<table class="col-md-12 table-responsive">
 		<tr><td>Country</td><td>:</td>
@@ -519,7 +525,9 @@ xpopup
 		</tr>
 	</table>
 	</div>
-	
+	<div id="location_edit" class="all_hidden_divs" hidden="true">
+		<jsp:include page="location.jsp" />
+	</div>
 	</div>
 	</div>
 </div>
@@ -527,9 +535,9 @@ xpopup
 <br>
 	<div class="panel panel-success" style='box-shadow: 5px 8px 5px;'>
 			<div class="panel-body table-responsive">	
-			<div class="col-md-11">	<strong class="font">Professional Information</strong>
-				
-	<div id="professional_info_view" class="all_visible_divs">
+			<div class="col-md-11">	<strong class="font">Professional Information
+	<a href="#no" class="all_a  pull-right  edit-style" id="professional_info_a" onclick="toggleDiv('professional_info');"><i class="fa fa-edit"></i>Edit</a>
+	</strong><div id="professional_info_view" class="all_visible_divs">
 	<table class="col-md-12 table-responsive">
 		<tr><td>Education</td><td>:</td>
 			<td id="education_val">
@@ -551,7 +559,9 @@ xpopup
 		</tr>
 	</table>
 	</div>
-	
+	<div id="professional_info_edit" class="all_hidden_divs" hidden="true">
+		<jsp:include page="professional_info.jsp" />
+	</div>
 	</div>
 	</div>
  </div>
@@ -560,8 +570,9 @@ xpopup
 <br>
 <div class="panel panel-success" style='box-shadow: 5px 8px 5px;'>
 			<div class="panel-body table-responsive">
-			<div class="col-md-11">	<strong class="font">Family Details</strong>
-				
+			<div class="col-md-11">	<strong class="font">Family Details
+				<a href="#no" class="all_a  pull-right  edit-style" id="family_details_a" onclick="toggleDiv('family_details');"><i class="fa fa-edit"></i>Edit</a>
+	</strong>
 	<div id="family_details_view" class="all_visible_divs">
 	<table class="col-md-12 table-responsive">
 		<tr><td>Father's Name</td><td>:</td>
@@ -610,20 +621,22 @@ xpopup
 		</tr>
 	</table>
 	</div>
-	
+	<div id="family_details_edit" class="all_hidden_divs" hidden="true">
+		<jsp:include page="family_details.jsp" />
+	</div>
 	</div>
 	</div>
 </div>
 
 <br>
-		<h4   style="padding: 10px;"></h4><h3>Partner Preferences</h3><hr>
+		<h4   style="padding="10px;"></h4><h3>Partner Preferences</h3><hr>
 <div class="panel panel-success" style='box-shadow: 5px 8px 5px;'>
 
 			<div class="panel-body table-responsive">
 			
-			<div class="col-md-11">	<strong class="font">Basic & Religion Preferences</strong>
-				
-	<div id="partner_basic_view" class="all_visible_divs">
+			<div class="col-md-11">	<strong class="font">Basic & Religion Preferences
+				<a href="#no" class="all_a  pull-right  edit-style" id="partner_basic_a" onclick="toggleDiv('partner_basic');"><i class="fa fa-edit"></i>Edit</a>
+	</strong><div id="partner_basic_view" class="all_visible_divs">
 	<table class="col-md-12 table-responsive">
 		<tr><td>
 				<c:if test="${profileBean.gender == 'Female'}">Groom</c:if>
@@ -650,11 +663,11 @@ xpopup
 				<c:if test="${not empty profileBean.casteName}">${profileBean.casteName}</c:if>
 				<c:if test="${empty profileBean.casteName}">Not Specified</c:if>
 			</td> --%>
-			<td>Eating Habits</td><td>:</td>
+			<%-- <td>Eating Habits</td><td>:</td>
 			<td id="rDiet_val">
 				<c:if test="${not empty profileBean.rDietName}">${profileBean.rDietName}</c:if>
 				<c:if test="${empty profileBean.rDietName}">Not Specified</c:if>
-			</td>
+			</td> --%>
 		</tr>
 		<tr>
 			<%-- <td>Smoking Habits</td><td>:</td>
@@ -697,7 +710,9 @@ xpopup
 		</tr> --%>
 	</table>
 	</div>
-	
+	<div id="partner_basic_edit" class="all_hidden_divs" hidden="true">
+		<jsp:include page="partner_basics.jsp" />
+	</div>
 	</div>
 	</div>
 </div>
@@ -705,9 +720,9 @@ xpopup
 <br>
 <div class="panel panel-success" style='box-shadow: 5px 8px 5px; border: none;'>
 			<div class="panel-body table-responsive">
-			<div class="col-md-11">	<strong class="font">Professional Preferences</strong>
-				
-	<div id="partner_professional_view" class="all_visible_divs">
+			<div class="col-md-11">	<strong class="font">Professional Preferences
+				<a href="#no" class="all_a  pull-right  edit-style" id="partner_professional_a" onclick="toggleDiv('partner_professional');"><i class="fa fa-edit"></i>Edit</a>
+	</strong><div id="partner_professional_view" class="all_visible_divs">
 	<table class="col-md-12 table-responsive">
 		<tr><td>Education</td><td>:</td>
 			<td id="rEducation_val">
@@ -739,16 +754,88 @@ xpopup
 		</tr>
 	</table>
 	</div>
-	
+	<div id="partner_professional_edit" class="all_hidden_divs" hidden="true">
+	  <div class="row">
+		<div class="form-group">
+	      <label class="col-md-4 control-label" for="textinput">Education</label>  
+	      <div class="col-md-7">
+	      	<form:select path="rEducation" class="multiSelect" multiple="true">
+	      		<form:options items="${education}"></form:options>
+			</form:select>
+	      </div>
+	    </div>
+	   </div>
+	   
+	   <div class="row"> 
+	    <div class="form-group">
+	      <label class="col-md-4 control-label" for="textinput">Working with</label>  
+	      <div class="col-md-7">
+	      	<form:select path="rWorkingWith" class="multiSelect" multiple="true">
+				<form:option value="any">Doesn't Matter</form:option>
+				<form:option value="Private Company">Private Company</form:option>
+				<form:option value="Government/Public Sector">Government/Public Sector</form:option>
+				<form:option value="Defense/Civil Services">Defense/Civil Services</form:option>
+				<form:option value="Not Working">Not Working</form:option>
+			</form:select>
+	      </div>
+	    </div>
+	    </div>
+	    <div class="row">
+	    <div class="form-group">
+	      <label class="col-md-4 control-label" for="textinput">Profession area</label>  
+	      <div class="col-md-7">
+	      	<form:select path="rOccupation" class="multiSelect" multiple="true">
+				<form:options items="${occupation}"></form:options>
+			</form:select>
+	      </div>
+	    </div>
+	    </div>
+	    <div class="row">
+	    <div class="form-group">
+	      <label class="col-md-4 control-label" for="textinput">Annual Income</label>  
+	      <div class="col-md-7">
+	      	<input type="radio" name="annualIncome" class="incomeMatter" id="ai1" value=""> <label for="ai1">Doesn't Matter</label>
+	      	<input type="radio" name="annualIncome" class="incomeRange" id="ai2" value="Specify an income range"> <label for="ai2">Specify an income range</label>
+	      	<%-- <form:select path="education" class="form-control u">
+				<form:option value="">Doesn't Matter</form:option>
+				<form:option value="Specify an income range">Specify an income range</form:option>
+			</form:select> --%>
+	      </div>
+	    </div>
+	    </div>
+	    <div class="row">
+		    <div class="form-group incomeBlock">
+		      <label class="col-md-4 control-label" for="textinput"></label>  
+		      <div class="col-md-7">
+		      	<form:select path="rAnnualIncome" class="form-control u1">
+					<form:option value="">-- Annual Income --</form:option>
+					<form:option value="Upto INR 1 Lakh">Upto INR 1 Lakh</form:option>
+					<form:option value="INR 2 Lakh to 4 Lakh">INR 2 Lakh to 4 Lakh</form:option>
+					<form:option value="INR 5 Lakh to 7 Lakh">INR 5 Lakh to 7 Lakh</form:option>
+					<form:option value="Above INR 7 Lakh">Above INR 7 Lakh</form:option>
+				</form:select>
+		      </div>
+		    </div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-md-4 pull-right">
+				<div class="form-group">
+						<input class="btn btn btn-success" style="padding: 8px 24px;" type="button" id="partner_professional_submit" name="yt0" value="Save" onclick="saveChanges('partner_professional');">
+						<input class="btn btn btn-danger" style="padding: 8px 24px;" type="button" id="partner_professional_cancel" name="yt1" value="Cancel" onclick="toggleDiv('partner_professional');">
+				</div>
+			</div>
+		</div>
+	</div>
 	</div>
 </div>
 </div>
 <br>
 <div class="panel panel-success" style='box-shadow: 5px 8px 5px;'>
 			<div class="panel-body table-responsive">
-			<div class="col-md-11">	<strong class="font">Location Preferences</strong>
-				
-	<div id="partner_location_view" class="all_visible_divs">
+			<div class="col-md-11">	<strong class="font">Location Preferences
+				<a href="#no" class="all_a  pull-right  edit-style" id="partner_location_a" onclick="toggleDiv('partner_location');"><i class="fa fa-edit"></i>Edit</a>
+	</strong><div id="partner_location_view" class="all_visible_divs">
 	<table class="col-md-12 table-responsive">
 		<tr><td>Country</td><td>:</td>
 			<td id="rCountry_val">
@@ -783,32 +870,60 @@ xpopup
 		</tr> --%>
 	</table>
 	</div>
-	
+	<div id="partner_location_edit" class="all_hidden_divs" hidden="true">
+		<div class="form-group">
+	      <label class="col-md-4 control-label" for="textinput">Country living in</label>  
+	      <div class="col-md-7">
+	      	<form:select path="rCountry" class="multiSelect" multiple="true" onchange="getFilteredStatesMultiSelect(this.id)">
+				<form:options items="${countries}"></form:options>
+				
+			</form:select>
+	      </div>
+	    </div>
+	    
+	    <div class="form-group">
+	      <label class="col-md-4 control-label" for="textinput">State living in</label>  
+	      <div class="col-md-7">
+	      	<form:select path="rState" class="multiSelect" multiple="true">
+				<form:options items="${states }"></form:options>
+			</form:select>
+	      </div>
+	    </div>
+		<br>
+		<div class="row">
+			<div class="col-md-4 pull-right">
+				<div class="form-group">
+						<input class="btn btn btn-success" style="padding: 8px 24px;" type="button" id="partner_location_submit" name="yt0" value="Save" onclick="saveChanges('partner_location');">
+						<input class="btn btn btn-danger" style="padding: 8px 24px;" type="button" id="partner_location_cancel" name="yt1" value="Cancel" onclick="toggleDiv('partner_location');">
+				</div>
+			</div>
+		</div>
+	</div>
 	</div>
 	</div>
 </div>
 </div></div>
 </div></div></div>
 </form:form>
-<div class="col-md-4">
-<div class="col-sm-3" style='width: 100%; margin: 31px 0px 0px 0px;'>
+<div class="col-md-3">
+<div class="col-sm-3" style='width: 100%; margin: 31px 0px 0px -25px;'>
 			<div class="col-md-11 products-grid-right">
-			<div class="panel panel-success">
+			
+		<!-- 	<div class="panel panel-success" style="width: 250px;">
 			<div class="panel-heading">Add Horoscope</div>
 					<div class="panel-body table-responsive">
-		            	<div class="col-md-3"">
-					<img src="user/images/edit-add-horoscope.gif" width="40">
-				</div><div class="col-md-9"><p>It is simple and absolutely FREE!</p></div>
+		            	<div class="col-md-3" style='width: 232px; display: -webkit-box;'>
+					<img src="user/images/edit-add-horoscope.gif" width="40" style='margin: 0px 0px 0px -25px;'>
+				<p style="margin-left: 29px;">It is simple and absolutely FREE!</p></div>
 	            	</div>
-	            </div>
-			<div class="panel panel-success">
+	            </div> -->
+	            
+			<div class="panel panel-success" style="width: 250px;">
 			<div class="panel-heading">Add Photos Now</div>
 					<div class="panel-body table-responsive">
-		            	<div class="col-md-3">
-					<img src="user/images/add-photo-edit-avatar.png" width="40">
-				</div><div class="col-md-9"><p>Photos are the first
-things members look for
-in a profile. </p></div>
+		            	<div class="col-md-3" style='width: 232px; display: -webkit-box;'>
+					<img src="user/images/add-photo-edit-avatar.png" width="40" style='margin: 0px 0px 0px -25px;'>
+				<p style="margin-left: 29px;">Photos are the first things members look for in a profile.</p></div>
 	            	</div>
 	            </div><div class="clearfix"></div>
 			
@@ -820,27 +935,13 @@ in a profile. </p></div>
 </div>
 </div>
 </div>
+<script src="js/jquery-ui.min.js"></script>
+<link href="css/datepicker1.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
-var slideIndex = 1;
-showSlides(slideIndex);
-var allowed_limit = ${allowed_profiles_limit};
 $(document).ready(function(){
-	$('#gallery').gallery({
-
-		  // the number of rows of the thumbnail navigation
-		  'rows': 1,
-
-		  // the number of columns of the thumbnail navigation
-		  'cols': 4,
-
-		  // animation duration
-		  //duration: 400,
-
-		  // easing effect
-		  easing: 'swing'
-		  
-		});
-	$("#rReligion").select2({
+	$('.multiSelect').select2();
+	
+	/* $("#rReligion").select2({
 	    placeholder: "-- Choose Religion --"
 	});
 	$("#rMaritalStatus").select2({
@@ -871,10 +972,64 @@ $(document).ready(function(){
 	});
 	$("#rDiet").select2({
 	    placeholder: "-- Choose Diet --"
-	});
+	}); */
 	//selected_values="";
 	
-	 var selected_values = "${profileBean.rMaritalStatus}";
+	var selected_values = "";
+	selected_values = "${profileBean.rMaritalStatus}";
+    if(selected_values == "" || selected_values==null){
+    	$("#rMaritalStatus").select2({
+    	    placeholder: "-- Choose MaritalStatus --"
+    	});
+    }else{
+    	var tt = selected_values.split(",");
+        $("#rMaritalStatus").val(selected_values.split(","));
+    } 
+    
+    selected_values="";
+    selected_values = "${profileBean.rCaste}";
+    if(selected_values == "" || selected_values==null){
+    	$("#rCaste").select2({
+    	    placeholder: "-- Choose Community --"
+    	});
+    }else{
+    	var tt = selected_values.split(",");
+        $("#rCaste").val(selected_values.split(","));
+    }
+    
+    selected_values="";
+	selected_values = "${profileBean.rReligion}";
+    if(selected_values == "" || selected_values==null){
+    	$("#rReligion").select2({
+    	    placeholder: "-- Choose Religion --"
+    	});
+    }else{
+    	var tt = selected_values.split(",");
+        $("#rReligion").val(selected_values.split(","));
+    }
+    
+    selected_values="";
+	selected_values = "${profileBean.rMotherTongue}";
+	if(selected_values == "" || selected_values==null){
+    	$("#rMotherTongue").select2({
+    	    placeholder: "-- Choose Mother Tongue --"
+    	});
+    }else{
+    	var tt = selected_values.split(",");
+        $("#rMotherTongue").val(selected_values.split(","));
+    }
+	
+	selected_values = "";
+	selected_values = "${profileBean.rDiet}";
+    if(selected_values == "" || selected_values==null){
+    	$("#rDiet").select2({
+    	    placeholder: "-- Choose Eating Habits --"
+    	});
+    }else{
+    	var tt = selected_values.split(",");
+        $("#rDiet").val(selected_values.split(","));
+    }
+	 /* var selected_values = "${profileBean.rMaritalStatus}";
 	 if(selected_values!="")
 	$("#rMaritalStatus").select2('val',selected_values.split(","));
 	
@@ -884,87 +1039,101 @@ $(document).ready(function(){
 	
 	selected_values = "${createProfile.rCaste}";
 	if(selected_values!="")
-	$("#rCaste").select2('val',selected_values.split(","));
+	$("#rCaste").select2('val',selected_values.split(",")); */
 	
-	selected_values="";
+	/* selected_values="";
 	selected_values = "${createProfile.rState}";
 	if(selected_values!="")
-	$("#rState").select2('val',selected_values.split(","));
+	$("#rState").select2('val',selected_values.split(",")); */
 	
-	selected_values="";
+	selected_values = "";
+	selected_values = "${profileBean.rState}";
+    if(selected_values == "" || selected_values==null){
+    	$("#rState").select2({
+    	    placeholder: "-- Choose State --"
+    	});
+    }else{
+    	var tt = selected_values.split(",");
+        $("#rState").val(selected_values.split(","));
+    }
+	
+	/* selected_values="";
 	selected_values = "${createProfile.rEducation}";
 	if(selected_values!="")
-	$("#rEducation").select2('val',selected_values.split(","));
+	$("#rEducation").select2('val',selected_values.split(",")); */
 	
-	selected_values="";
+	selected_values = "";
+	selected_values = "${profileBean.rEducation}";
+    if(selected_values == "" || selected_values==null){
+    	 $("#rEducation").select2({
+    	    placeholder: "-- Select Education --"
+    	}); 
+    }else{
+    	var tt = selected_values.split(",");
+        $("#rEducation").val(selected_values.split(","));
+    }
+	
+	
+	/* selected_values="";
 	selected_values = "${createProfile.rMotherTongue}";
 	if(selected_values!="")
-		$("#rMotherTongue").select2('val',selected_values.split(","));
+		$("#rMotherTongue").select2('val',selected_values.split(",")); */
 	
-	selected_values="";
+	/* selected_values="";
 	selected_values = "${createProfile.rCountry}";
 	if(selected_values!="")
-	$("#rCountry").select2('val',selected_values.split(","));
+	$("#rCountry").select2('val',selected_values.split(",")); */
 	
-	selected_values="";
+	selected_values = "";
+	selected_values = "${profileBean.rCountry}";
+    if(selected_values == "" || selected_values==null){
+    	$("#rCountry").select2({
+    	    placeholder: "-- Choose Country --"
+    	});
+    }else{
+    	var tt = selected_values.split(",");
+        $("#rCountry").val(selected_values.split(","));
+    }
+	
+	/* selected_values="";
 	selected_values = "${createProfile.rWorkingWith}";
 	if(selected_values!="")
-	$("#rWorkingWith").select2('val',selected_values.split(","));
+	$("#rWorkingWith").select2('val',selected_values.split(",")); */
 	
-	selected_values="";
+	selected_values = "";
+	selected_values = "${profileBean.rWorkingWith}";
+    if(selected_values == "" || selected_values==null){
+    	$("#rWorkingWith").select2({
+    	    placeholder: "-- Select --"
+    	});
+    }else{
+    	var tt = selected_values.split(",");
+        $("#rWorkingWith").val(selected_values.split(","));
+    }
+	
+	/* selected_values="";
 	selected_values = "${createProfile.rOccupation}";
 	if(selected_values!="")
-	$("#rOccupation").select2('val',selected_values.split(","));
+	$("#rOccupation").select2('val',selected_values.split(",")); */
 	
-	selected_values="";
-	selected_values = "${createProfile.rDiet}";
-	if(selected_values!="")
-	$("#rDiet").select2('val',selected_values.split(",")); 
+	selected_values = "";
+	selected_values = "${profileBean.rOccupation}";
+    if(selected_values == "" || selected_values==null){
+    	$("#rOccupation").select2({
+    	    placeholder: "-- Select --"
+    	});
+    }else{
+    	var tt = selected_values.split(",");
+        $("#rOccupation").val(selected_values.split(","));
+    }
 	
 	 var genderVal = "${profileBean.gender}";
 	$('input[name=gender][value='+genderVal+']').prop("checked",true); 
 	
+	$('.multiSelect').trigger('change.select2');
 	
 });
-function displayMobileNum(profileId){
-	
-	var roleId = ${cacheGuest.roleId};
-	$("#id").val(profileId);
-	if(roleId==4){
-		document.searchForm2.action = "memberShipPage"
-		document.searchForm2.submit();
-		return true;
-	}else{
-		var membershipStatus = ${cacheGuest.membership_status};
-		if(membershipStatus!="1"){
-			alert("Your membership validity period is over. Renew your membership plan and get more profiles");
-			return false;
-		}
-		if(allowed_limit<=0){
-			alert("Exceeded allowed profiles limit. Renew your membership plan and get more profiles");
-			return false;
-		}
-		var formData = new FormData();
-		formData.append('profile_id',profileId);
-		jQuery.fn.makeMultipartRequest('POST', 'viewedMobileNumber', false,
-				formData, false, 'text', function(data){
-	    		var jsonobj = $.parseJSON(data);
-	    		var limit = jsonobj.allowed_limit;
-	    		var msg = jsonobj.message;
-	    		if(typeof msg != "undefined"){
-	    			if(msg=="success"){
-	    				var mobStr = '<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-${profileBean.mobile}&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>';
-	    				$("#mobileTD"+profileId).html(mobStr);
-	    				allowed_limit = limit;
-	    			}else{
-	    				alert("Some problem occured. Please try again.");
-	    			}
-	    		}
-	    		
-		});
-	}
-}
-/* function displayMobileNum(profileId,listType){
+function displayMobileNum(profileId,listType){
 	 var profileObj = serviceUnitArray[profileId];
 	var formData = new FormData();
 	formData.append('profile_id',profileId);
@@ -983,7 +1152,7 @@ function displayMobileNum(profileId){
     		
 	}); 
 	
-} */
+}
 
 $(".dashboard").addClass("active");
 </script>
@@ -1009,36 +1178,19 @@ jQuery(document).ready(function($){
 	    }
     });
 });
-$(function(){
-	 //add text water mark;	
- addWaterMark();
-});
-function addWaterMark(){
- $('.watermark_text').watermark({
-	  text: 'aarnamatrimony.com',
-	  textWidth: 700,
-	  textSize: 76,
-	  textColor: 'white',
-	  gravity: 'w',
-	   opacity: 0.8,
-	   //margin: 0,
-	   outputWidth: 'auto',
-	   outputHeight: 'auto'
-	 });
-}
 function toggleDiv(divElem){
 	var isHidden = $("#"+divElem+"_edit").attr("hidden");
 	$(".all_hidden_divs").attr("hidden",true);
 	$(".all_visible_divs").removeAttr("hidden");
-	$(".all_a").html("Edit");
+	$(".all_a").html("<i class='fa fa-edit'></i>Edit");
 	if(isHidden){
 		$("#"+divElem+"_view").attr("hidden",true);
 		$("#"+divElem+"_edit").removeAttr("hidden");
-		$("#"+divElem+"_a").html("Close");
+		$("#"+divElem+"_a").html("<i class='fa fa-close'></i>Close");
 	}else{
 		$("#"+divElem+"_edit").attr("hidden",true);
 		$("#"+divElem+"_view").removeAttr("hidden");
-		$("#"+divElem+"_a").html("Edit");
+		$("#"+divElem+"_a").html("<i class='fa fa-edit'></i>Edit");
 	}
 	
 }
@@ -1049,10 +1201,11 @@ function toggleDiv(divElem){
 	  
 	 var formData = new FormData();
    	formData.append("pageName",data_type);
+   	formData.append("aboutMyself",$("#aboutMyself").val());
    	formData.append("createProfileFor",$("#createProfileFor").val());
    	formData.append("gender",$("#gender").val());
-   	formData.append("firstName",$("#firstName").val());
-   	formData.append("lastName",$("#lastName").val());
+   	formData.append("firstName",$("#firstName").val().trim());
+   	formData.append("lastName",$("#lastName").val().trim());
    	formData.append("dob",$("#dob").val());
    	formData.append("height",$("#height").val());
    	formData.append("maritalStatus",$("#maritalStatus").val());
@@ -1066,7 +1219,7 @@ function toggleDiv(divElem){
    	// religion info
    	formData.append("religion",$("#religion").val());
    	formData.append("caste",$("#caste").val());
-   	formData.append("gotram",$("#gotram").val());
+   	formData.append("gotram",$("#gotram").val().trim());
    	formData.append("star",$("#star").val());
    	formData.append("dosam",$("#dosam").val());
    	//formData.append("drinking",$("#drinking").val());
@@ -1079,29 +1232,300 @@ function toggleDiv(divElem){
    	formData.append("workingWith",$("#workingWith").val());
    	formData.append("occupation",$("#occupation").val());
    	// family details
-   	formData.append("fatherName",$("#fatherName").val());
-   	formData.append("motherName",$("#motherName").val());
+   	formData.append("fatherName",$("#fatherName").val().trim());
+   	formData.append("motherName",$("#motherName").val().trim());
    	formData.append("fOccupation",$("#fOccupation").val());
    	formData.append("mOccupation",$("#mOccupation").val());
    	formData.append("noOfBrothers",$("#noOfBrothers").val());
    	formData.append("noOfBrothersMarried",$("#noOfBrothersMarried").val());
    	formData.append("noOfSisters",$("#noOfSisters").val());
    	formData.append("noOfSistersMarried",$("#noOfSistersMarried").val());
+   	//partner preferences
+   	formData.append("rAgeFrom",$("#rAgeFrom").val().trim());
+   	formData.append("rAgeTo",$("#rAgeTo").val().trim());
+   	formData.append("rHeight",$("#rHeight").val());
+   	formData.append("rHeightTo",$("#rHeightTo").val());
+   	formData.append("rMaritalStatus",$("#rMaritalStatus").val());
+   	formData.append("rReligion",$("#rReligion").val());
+   	formData.append("rCaste",$("#rCaste").val());
+   	formData.append("rMotherTongue",$("#rMotherTongue").val());
+   	formData.append("rCountry",$("#rCountry").val());
+   	formData.append("rState",$("#rState").val());
+   	formData.append("rEducation",$("#rEducation").val());
+   	formData.append("rWorkingWith",$("#rWorkingWith").val());
+   	formData.append("rOccupation",$("#rOccupation").val());
+   	formData.append("rAnnualIncome",$("#rAnnualIncome").val());
+   	formData.append("rDiet",$("#rDiet").val());
 	$.fn.makeMultipartRequest('POST', 'editProfile', false,
 			formData, false, 'text', function(data){
 		var jsonobj = $.parseJSON(data);
+		var msg = jsonobj.message;
+		if(msg != "undefined"){
+			if(msg == "success"){
+				alert("Updates are saved.");
+				updateViewValues(data_type);
+				
+				if(data_type=="partner_basic"){
+					updateMultiDropDownValues("rMaritalStatus");
+					updateMultiDropDownValues("rReligion");
+					updateMultiDropDownValues("rCaste");
+					updateMultiDropDownValues("rMotherTongue");
+					updateMultiDropDownValues("rDiet");
+				}
+				if(data_type=="partner_professional"){
+					updateMultiDropDownValues("rEducation");
+					updateMultiDropDownValues("rWorkingWith");
+					updateMultiDropDownValues("rOccupation");
+				}
+				if(data_type=="partner_location"){
+					updateMultiDropDownValues("rCountry");
+					updateMultiDropDownValues("rState");
+				}
+					/* var updated_values = jsonobj.partner_updated_values;
+					$("#rMaritalStatus_val").html(updated_values.maritalStatus);
+					$("#rReligion_val").html(updated_values.religion);
+					$("#rCaste_val").html(updated_values.caste);
+					$("#rMotherTongue_val").html(updated_values.motherTongue);
+					$("#rCountry_val").html(updated_values.country);
+					$("#rState_val").html(updated_values.state);
+					$("#rEducation_val").html(updated_values.education);
+					$("#rWorkingWith_val").html(updated_values.workingWith);
+					$("#rOccupation_val").html(updated_values.occupation);
+					$("#rDiet_val").html(updated_values.diet); */
 		
-		
+				$(".all_hidden_divs").attr("hidden",true);
+				$(".all_visible_divs").removeAttr("hidden");
+				$(".all_a").html("Edit");
+			}else{
+				alert("Problem occured while saving the updates. Please try again");
+			}
+		}
 	});
 } 
  
-  function displayImage(imageName){
-		$("#profImage").prop("src",imageName);
-  }
+  function fullProfile(profile_id){
+		
+		$("#id").val(profile_id);
+		//document.editProfileForm.action = "fullProfile"
+	    //document.editProfileForm.target = "_blank";    // Open in a new window
+	    //document.editProfileForm.submit();             // Submit the page
+	    $('#userProfile').attr('target',"_blank");
+	    $('#userProfile').attr('action',"fullProfile");
+		$("#userProfile").submit();
+	    return true;
+		
+	}
   
-  function picsPagination(){
+  function updateViewValues(data_type){
+	  // all drop down values are updated seperately...so here only update other field values
+	  $("#aboutMyself_val").html($("#aboutMyself").val());
+	  //$("#createProfileFor_val").html($("#createProfileFor").val());
+	 // $("#gender_val").html($("#gender").val());
+	  $(".name_val").html($("#firstName").val()+" "+$("#lastName").val());
+	  //$("#lastName_val").html($("#lastName").val());
+	  $("#dob_val").html($("#dob").val());
+	  //$("#height_val").html($("#height").label);
+	 // $("#maritalStatus_val").html($("#maritalStatus").val());
+	  /* $("#bodyType_val").html($('#bodyType option:selected').text());
+	  $("#complexion_val").html($("#complexion option:selected").text());
+	  $("#disability_val").html($("#disability option:selected").text());
+	  $("#motherTongue_val").html($('#motherTongue option:selected').text());
+	  $("#diet_val").html($("#diet option:selected").text());
+	  $("#smoking_val").html($("#smoking option:selected").text());
+	  $("#drinking_val").html($("#drinking option:selected").text());
+	   	// religion info
+	   	$("#religion_val").html($("#religion option:selected").text());
+	   	$("#caste_val").html($("#caste option:selected").text()); */
+	   	//$("#gotram_val").html($("#gotram").val());
+	   	/* $("#star_val").html($("#star option:selected").text());
+	   	$("#dosam_val").html($("#dosam option:selected").text());
+	   	//formData.append("drinking",$("#drinking").val());
+	   	// location info
+	   	$("#currentCountry_val").html($("#currentCountry option:selected").text());
+	   	$("#currentState_val").html($("#currentState option:selected").text());
+	   	$("#currentCity_val").html($("#currentCity option:selected").text());
+	   	// professional info
+	   	$("#education_val").html($("#education option:selected").text());
+	   	$("#workingWith_val").html($("#workingWith option:selected").text());
+	   	$("#occupation_val").html($("#occupation option:selected").text()); */
+	   	// family details
+	   	//$("#fatherName_val").html($("#fatherName").val());
+	   	//$("#motherName_val").html($("#motherName").val());
+	   	/* $("#fOccupation_val").html($("#fOccupation option:selected").text());
+	   	$("#mOccupation_val").html($("#mOccupation option:selected").text());
+	   	$("#noOfBrothers_val").html($("#noOfBrothers option:selected").text());
+	   	var temp = $("#noOfBrothersMarried option:selected").text();
+	   	if ((temp.toLowerCase().indexOf("-- select --") >= 0) || (temp.toLowerCase().indexOf("-- choose --") >= 0)){
+	   		$("#noOfBrothersMarried_val").html("Not Specified");
+	   	}else{
+	   		$("#noOfBrothersMarried_val").html(temp);
+	   	}
+	   	
+	   	$("#noOfSisters_val").html($("#noOfSisters option:selected").text());
+	   	$("#noOfSistersMarried_val").html($("#noOfSistersMarried option:selected").text()); */
+	    //partner preferences
+	   	
+	   	//$("#rAgeTo_val").html($("#rAgeTo").val());
+	   	/* $("#rHeight_val").html($("#rHeight option:selected").text());
+	   	$("#rHeightTo_val").html($("#rHeightTo option:selected").text());
+	   	$("#rMaritalStatus_val").html($("#rMaritalStatus option:selected").text());
+	   	$("#rReligion_val").html($("#rReligion option:selected").text());
+	   	$("#rCaste_val").html($("#rCaste option:selected").text());
+	   	$("#rMotherTongue_val").html($("#rMotherTongue option:selected").text());
+	   	$("#rCountry_val").html($("#rCountry option:selected").text());
+	   	$("#rState_val").html($("#rState option:selected").text());
+	   	$("#rEducation_val").html($("#rEducation option:selected").text());
+	   	$("#rWorkingWith_val").html($("#rWorkingWith option:selected").text());
+	   	$("#rOccupation_val").html($("#rOccupation option:selected").text());
+	   	$("#rAnnualIncome_val").html($("#rAnnualIncome option:selected").text());
+	   	$("#rDiet_val").html($("#rDiet option:selected").text()); */
+	   	if(data_type=="partner_basic"){
+	   		$("#rHeight_outer_val").html("");
+		   	$("#rHeight_val").html("");
+		   	$("#rHeightTo_val").html("");	
+	   	}
+	   	
+	   	updateDropDownValues(data_type);
+	   	updateTextFieldValues(data_type);
+	   	$("#rAgeFrom_val").html($("#rAgeFrom").val()+" - "+$("#rAgeTo").val());
+	   	var dob = $("#dob").val();
+	   	var current_date = new Date();
+	   	var date1 = dob.split("-");
+	    var dob_year = date1[2];
+	    var current_year = current_date.getFullYear();
+	    var age = current_year-dob_year;
+	    $("#age_val").html(age+" yrs");
+	    ////partner preferences
+	    //updateMultiDropDownValues(data_type);
+  }
+  /* $("select").change(function(event){
+	  var elemId = this.id;
+	  var val = $("#"+elemId+" option:selected").text();
+	  
+	   	if ((val.toLowerCase().indexOf("--") >= 0) || (val.toLowerCase().indexOf("-- choose --") >= 0)){
+	   		
+	   		$("#"+elemId+"_val").html("Not Specified");
+	   	}else{
+	   		if(elemId == "rHeight" || elemId == "rHeightTo"){
+	  		  $("#rHeight_val").html($("rHeight").val()+" - "+$("rHeightTo").val());
+	  	  	}else{
+	  	  		$("#"+elemId+"_val").html(val);
+	  	  	}
+	   		
+	   	}
+  }); */
+  function updateDropDownValues(data_type){
+	  $("#"+data_type+"_edit :selected").each(function () {
+		  //var elemId = this.id;
+		  var elemId = this.parentElement.id;
+		  var val = $(this).text();
+		  
+		   	if ((val.toLowerCase().indexOf("--") >= 0) || (val.toLowerCase().indexOf("-- choose --") >= 0)){
+		   		if(elemId == "rHeight" || elemId == "rHeightTo"){
+			  		  
+			  		$("#rHeight_outer_val").html("Not Specified");
+			  	}else{
+			  		$("#"+elemId+"_val").html("Not Specified");
+			  	}
+		   		
+		   	}else{
+		   		if(elemId == "rHeight" || elemId == "rHeightTo"){
+		   			$("#rHeight_outer_val").html("");
+		   		}
+		   		
+		  	  	if(elemId == "rHeight"){
+		  	  		$("#"+elemId+"_val").html(val+" - ");
+		  	  	}else{
+		  	  		$("#"+elemId+"_val").html(val);
+		  	  	}
+		  	  	
+		   		
+		   	}
+	        
+	  });
 	  
   }
+  
+  function updateTextFieldValues(data_type){
+	  $("#"+data_type+"_edit input[type=text]").each(function () {
+		  //var elemId = this.id;
+		  var elemId = this.id;
+		  var val = $(this).val().trim();
+		  if(val==""){
+			  $("#"+elemId+"_val").html("Not Specified");
+		  }else{
+			  $("#"+elemId+"_val").html(val);
+		  }
+		   	
+	  });
+	  
+  }
+  
+  function updateMultiDropDownValues(elementId){
+	  
+		  var val = "";
+		  var test = $("#"+elementId);
+		  var dataList = $(test).select2('data');
+		  $.each(dataList,function(i,data){
+			  if(i==0)
+				  val = data.text;
+			  else
+				  val += ","+data.text; 
+		  });
+		  if ((val.toLowerCase().indexOf("--") >= 0) || val.trim()=="" || val.trim()=="null"){
+		   		
+		   		$("#"+elementId+"_val").html("Not Specified");
+		   	}else{
+		   		
+		  	  		$("#"+elementId+"_val").html(val);
+		  	  	
+		   		
+		   	}
+  }
+  
+  function displayEditMobilenumberDiv(user_id,old_mobile_no){
+	  $("#mobileNoDiv").attr("hidden",true);
+	  $("#editMobileDiv").removeAttr("hidden");
+	  $("#editMobileAnchor").html("Update");
+	  $("#mobile").val(old_mobile_no);
+	  $("#editMobileAnchor").attr("onclick","editMobileNumber("+user_id+","+old_mobile_no+")");
+	  return false;
+  }
+  
+  /* $(".multiSelect").change(function(event){
+	  var elemId = this.id;
+	  var seletced_opts = this.selectedOptions;
+	  var val = "";
+	  $.each(seletced_opts,function(i,selOption){
+		  if(i==0)
+			  val = selOption.innerHTML; 
+		  else
+			  val += ","+selOption.innerHTML;
+	  });
+	  
+	  
+	   	if ((val.toLowerCase().indexOf("--") >= 0) || (val.toLowerCase().indexOf("-- choose --") >= 0)){
+	   		
+	   		$("#"+elemId+"_val").html("Not Specified");
+	   	}else{
+	   		if(elemId == "rHeight" || elemId == "rHeightTo"){
+	  		  $("#rHeight_val").html($("rHeight").val()+" - "+$("rHeightTo").val());
+	  	  	}else{
+	  	  		$("#"+elemId+"_val").html(val);
+	  	  	}
+	   		
+	   	}
+  }); */
+  
+   var ss =new Date().getFullYear()-16;
+  $("#dob").datepicker({
+	     dateFormat: "dd-MM-yy",
+	     changeDate : true,
+	 	changeMonth : true,
+	 	changeYear : true,
+//	  	maxDate :0,
+	 	yearRange: '1950:' + ss
+	 });  
   
 </script>
 
