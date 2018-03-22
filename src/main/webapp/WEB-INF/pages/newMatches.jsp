@@ -8,7 +8,7 @@
 <style>
 blockquote {
   background: #f9f9f9;
-  border-left: 10px solid #ccc;
+  border-left: 1px solid #ccc;
   margin: 1.5em 10px;
   padding: 0.5em 10px;
   quotes: "\201C""\201D""\2018""\2019";
@@ -570,7 +570,8 @@ function getMatchesBasedOnCheckboxes(){
 			formData, false, 'text', function(data){
     		var jsonobj = $.parseJSON(data);;
     		var total_records = jsonobj.total_records;
-    		var newMatches = jsonobj.new_matches;
+    		var newMsmallSlides188
+    		atches = jsonobj.new_matches;
     		total_items_count = total_records;
     		if(newMatches==""){
     			

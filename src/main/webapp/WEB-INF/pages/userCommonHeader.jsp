@@ -37,6 +37,13 @@
 	<script src="js/jquery.watermark.js"></script>
 	<script src="js/jquery.littlelightbox.js"></script>
 	<link href="css/jquery.littlelightbox.css" rel="stylesheet" type="text/css">
+	<style>
+	
+	.smallSlides0 {
+	height:200px;
+	overflow:hidden;
+	}
+	</style>
 	<script type="text/javascript">
 	$(function(){
 		 //add text water mark;	
@@ -334,12 +341,12 @@
 						smallerSlideIndex[orderObj.id] = 0;
 						$.each(photos_list,function(index,photo){
 							if(photo.image==orderObj.profileImage){
-								displayStyle = ' style="display:block" '
+								displayStyle = ' style="display:block; height:220px; overflow:hidden;" '
 							}else{
 								displayStyle = ' style="display:none" ';
 							}
 							slider += '<div class="smallSlides'+orderObj.id+'" '+displayStyle+'>'
-									+'		<img src="'+photo.image+'" class="img img-responsive thumbnail " style="margin-bottom:0;height: 60px;width: 60px;" >'
+									+'		<img src="'+photo.image+'" class="img img-responsive " style="margin-bottom:0;height: auto;width: 100%;" >'
 									+'</div>'
 						});
 						if(photos_list.length>1){
@@ -350,7 +357,7 @@
 									+'</p>'
 						}
 					}else{
-						slider = '<img src="'+image+'" class="img-responsive thumbnail" style="margin-bottom: 0px;">';
+						slider = '<img src="'+image+'" class="img-responsive thumbnail" style="margin-bottom: 0px; ">';
 					}
 					
 					var tblRow = '<div class="row container-fluid">'
@@ -479,7 +486,7 @@
 					var expressed = orderObj.expressedInterest;
 					var interestStr = "";
 					if(expressed==0){
-						interestStr = '<span id="expInterest'+orderObj.id+'"><a   href="#no" type="button" class="btn btn-success btn-block btn-md"  onclick="expressInterest('+orderObj.id+')">  Express Interest  </a></span>';
+						interestStr = '<span id="expInterest'+orderObj.id+'"><a   href="#no" type="button" class="btn btn-success btn-sm"  onclick="expressInterest('+orderObj.id+')">  Express Interest  </a></span>';
 					}else if(expressed>0){
 						interestStr = '<span><a type="button" class="btn btn-success btn-sm" disabled="true" style="text-size-adjust:auto">Expressed Interest</a></span>';
 					}
@@ -504,19 +511,19 @@
 						var photos_list = orderObj.photosList;
 						var slider = "", displayStyle = ' ';
 						if(photos_list == "" || typeof photos_list == "undefined"){
-							slider = '<img src="img/default.png" class="img img-responsive thumbnail " style="margin-bottom:0;height: 60px;width: 60px;" >';
+							slider = '<img src="img/default.png" class="img img-responsive thumbnail " style="margin-bottom:0;height: auto;width: 100%;" >';
 						}else{
 							smallerSlideIndex[orderObj.id] = 0;
 							var slider = "", displayStyle = ' ';
 							var photosArray = photos_list.split(",");
 							$.each(photosArray,function(index){
 								if(photosArray[index]==orderObj.profileImage){
-									displayStyle = ' style="display:block" '
+									displayStyle = ' style="display:block; height:200px; overflow:hidden;" '
 								}else{
 									displayStyle = ' style="display:none" ';
 								}
 								slider += '<div class="smallSlides'+orderObj.id+'" '+displayStyle+'>'
-										+'		<img src="'+photosArray[index]+'" class="img img-responsive thumbnail " style="margin-bottom:0;height: 60px;width: 60px;" >'
+										+'		<img src="'+photosArray[index]+'" class="img img-responsive thumbnail " style="margin-bottom:0;height: auto;width: 100%;" >'
 										+'</div>'
 							});
 							if(photosArray.length>1){
@@ -572,22 +579,23 @@
 						+ '<div class="col-md-3">'
 						//+ '<a href="#no"> <img src='+image+' class="img img-responsive thumbnail" style="width: 150px; height: 120px;"></a>'
 						+ slider
-						+ '<button type="button" style="background: transparent; margin: 11px 0px 0px 0px;display: list-item;border: none;" id="mobileTD'+orderObj.id+'">'+mobile_num_Str+'</button>'
 		            	+ '</div>'
-		            	+ '<div class="col-md-4"  style="overflow-y:scroll;max-height: 900px">'
-		                + '<blockquote><p>'+abtMySelf+'</p></blockquote>'
+		            	+ '<div class="col-md-4">'
+		                + '<blockquote style="min-height:180px; max-height:180px; "><p>'+abtMySelf+'</p><br>'
+		                + '<br>'
+		                + '<a href="#"><p style="float:right;">...more</p></a>'
+		                + '</blockquote>'
 		                + '</div>'
-		                +'<br>'
-		                +'<br>'
 		            	+ '<div class="col-md-5">'
 		            	+ '<table>'
-		            	+ '	<tr><td>Age/Height</td><td><span>: '+orderObj.age+' yrs, '+orderObj.inches+'</span></td></tr>'
+		            	+ '	<tr><td width="150px">Age/Height</td><td><span>: '+orderObj.age+' yrs, '+orderObj.inches+'</span></td></tr>'
 		            	+ '	<tr><td>Religion</td><td><span>: '+orderObj.religionName+'</span></td></tr>'
 		            	+ '	<tr><td>Mother Tongue</td><td><span>: '+orderObj.motherTongueName+'</span></td></tr>'
 		            	+ '	<tr><td>Community</td><td><span>: '+orderObj.casteName+'</span></td></tr>'
 		            	+ '	<tr><td>Location</td><td><span>: '+orderObj.currentCityName+'</span></td></tr>'
 		            	+ '	<tr><td>Education</td><td><span>: '+orderObj.educationName+'</span></td></tr>'
 		            	+ '	<tr><td>Profession</td><td><span>: '+profession+'</span></td></tr>'
+		            	+ '<tr><td colspan="2"><button type="button" style="background: transparent; margin: 0px 5px 0px 0px;display: list-item;border: none;" id="mobileTD'+orderObj.id+'">'+mobile_num_Str+'</button></td></tr>'
 		            	+'</td></tr>'
 		            	//+ '	<tr><td>Age</td><td><span>: '+orderObj.age+'</span></td></tr>'
 		            	//+ '	<tr><td colspan="2">'+orderObj.aboutMyself+'... <a href="#no" onclick="showMore('+orderObj.id+')"> read more..</a> </td></tr>'
@@ -597,6 +605,7 @@
 		            	//+ '	<tr class="showMore" hidden="true"><td colspan="2">'+orderObj.aboutMyself+'... <a href="#no" > more detailssss</a> </td></tr>'
 		            	+ '</table>'
 		            	+ '</div>'
+		            	+ '<div class="clearfix"></div>'
 		            	/* + '<div id="hideMe'+orderObj.id+'" class="form-group hideMe">'
 		            	+ '    <label class="col-md-4 control-label" for="textinput"></label>'  
 		            	+ '    <div class="col-md-6 text-center">'
@@ -725,7 +734,7 @@
 						if(mobNumViewed==1 || expressed==1 || message_sent_status==1){
 							mobile_num_Str = '<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+orderObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="image" title="image" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>';
 						}else{
-							mobile_num_Str = '<span id="mobileTD'+orderObj.id+'"><a href="#no" type="button" class="btn btn-primary btn-block" onclick="displayMobileNum('+orderObj.id+')">View Mobile Number</a></span>';
+							mobile_num_Str = '<span id="mobileTD'+orderObj.id+'"><a href="#no" type="button" class="btn btn-primary btn-sm" onclick="displayMobileNum('+orderObj.id+')">View Mobile Number</a></span>';
 						}
 						var profession = orderObj.occupationName;
 						if((profession == null) || profession == ""){
@@ -795,13 +804,13 @@
 						if(listType == "pending_requests"){
 							interestStr = '';
 							options =  '<div class="col-md-3">'
-				            	+ '<button class="btn btn-danger btn-block" onclick="fullProfile('+orderObj.id+')">View Full Profile</button>'
+				            	+ '<button class="btn btn-danger btn-sm" onclick="fullProfile('+orderObj.id+')">View Full Profile</button>'
 				            	+ mobile_num_Str
 				            	+ shortListedStr
 				            	//+ '<button class="btn btn-danger btn-block" onclick="displayMobileNum_messages('+orderObj.id+',\'preferences\,'+orderObj.requestId+')">View Mobile Number</button>'
 				            	+ '<div class="clearfix"></div>'
 				            	+ '</div>';
-							acceptOptions = "<span id='accept"+orderObj.requestId+"'><a type='button' class='btn btn-primary btn-block' onclick='acceptRequest("+orderObj.requestId+",\"1\")'>Yes</a><a type='button' class='btn btn-danger btn-block' id='reject"+orderObj.requestId+"' href='#' onclick='acceptRequest("+orderObj.requestId+", \"0\")'>Not Interested</a></span><br>";
+							acceptOptions = "<span id='accept"+orderObj.requestId+"'><a type='button' class='btn btn-primary btn-sm' onclick='acceptRequest("+orderObj.requestId+",\"1\")'>Yes</a><a type='button' class='btn btn-danger btn-sm' id='reject"+orderObj.requestId+"' href='#' onclick='acceptRequest("+orderObj.requestId+", \"0\")'>Not Interested</a></span><br>";
 							
 						}else if(listType == "accepted_requests"){
 							interestStr = '';
@@ -864,7 +873,7 @@
 									displayStyle = ' style="display:none" ';
 								}
 								slider += '<div class="smallSlides'+orderObj.id+'" '+displayStyle+'>'
-										+'		<img src="'+photo.image+'" class="img img-responsive thumbnail " style="margin-bottom:0;height: 60px;width: 60px;" >'
+										+'		<img src="'+photo.image+'" class="img img-responsive thumbnail " style="margin-bottom:0;height: auto;width: 100%;" >'
 										+'</div>'
 							});
 							if(photos_list.length>1){
@@ -991,7 +1000,7 @@
 						var expressed = orderObj.expressedInterest;
 						var interestStr = "";
 						if(expressed==0){
-							interestStr = '<span id="expInterest'+orderObj.id+'"><a   href="#no" type="button" class="btn btn-success btn-block btn-md"  onclick="expressInterest('+orderObj.id+')">  Express Interest  </a></span>';
+							interestStr = '<span id="expInterest'+orderObj.id+'"><a   href="#no" type="button" class="btn btn-success btn-sm"  onclick="expressInterest('+orderObj.id+')">  Express Interest  </a></span>';
 						}else if(expressed>0){
 							interestStr = '<span><a type="button" class="btn btn-success btn-sm" disabled="true" style="text-size-adjust:auto">Expressed Interest</a></span>';
 						}
@@ -1446,9 +1455,9 @@ function openPhotoModal(photos_list){
 	$.each(photos_list,function(i, photoObject) 
 	{
 		var j = i+1;
-		str1 = ' <div class="mySlides"> '
+		str1 = ' <div class="mySlides" style="height:400px; overflow:hidden;"> '
   		+' <div class="numbertext">'+j+' / '+len+'</div> '
-		+' <img src="'+photoObject.image+'"  class="myImg" style="height: 500px;width:100%"> '
+		+' <img src="'+photoObject.image+'"  class="myImg" style="height: auto;width:100%"> '
 		+' </div> ';
 		
 	});
@@ -1464,7 +1473,7 @@ function openPhotoModal(photos_list){
 			//+' <c:forEach items="${photosList}" var="photo" > '
 				//+' <c:set var="counter2" value="${counter2+1}" /> '
 				+' <div class="col-sm-2"> '
-			      +' <img class="demo cursor" src="img/default.png" style="width:100%" onclick="currentSlide(1)" alt=""> '
+			      +' <img class="demo cursor" src="img/default.png" style="width:100%;" onclick="currentSlide(1)" alt=""> '
 			    +' </div> '
 		   // +' </c:forEach> '
 		+' </div> '
@@ -1602,7 +1611,7 @@ function openPhotoModal(photos_list){
 		var j = i+1;
 		str1 = ' <div class="mySlides"> '
   		+' <div class="numbertext">'+j+' / '+len+'</div> '
-		+' <img src="'+photoObject.image+'"  class="myImg" style="height: 500px;width:100%"> '
+		+' <img src="'+photoObject.image+'"  class="myImg" style="height: auto;width:100%;"> '
 		+' </div> ';
 		
 	});
@@ -1681,9 +1690,12 @@ height:120px;
 overflow:hidden;
 }
 .profilepic0 {
-height:150px;
+height:220px;
 overflow:hidden;
 
+}
+body {
+background:#ccc !important;
 }
 .upgradeOption {
     color: #f35626;
@@ -1747,6 +1759,9 @@ h4.panel-title a {
 	vertical-align: top;
 	margin: 2px 2px;
 }
+.pull-right {
+
+float:right;}
 .ptransition {
 transition:none !important;
   -webkit-transition:none !important;
@@ -2450,7 +2465,8 @@ img.hover-shadow {
 
 .mySlides {
 	width: 100%;
-	height: 400px;
+	height: 600px;
+	overflow:hidden;
 }
 
 .manditory {
@@ -2516,9 +2532,9 @@ img.hover-shadow {
 					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 						<ul class="nav navbar-nav">
 							<li class="dropdown dashboard">
-								<a href="dashboard" style='background: ;'>My Home</a>
+								<a href="dashboard" class="dropdown-toggle" data-toggle="dropdown">My Home</a>
 								<ul class="dropdown-menu">
-									<!-- <li><a href="dashboard">My Home</a></li> -->
+									<li><a href="dashboard">My Home</a></li>
 									<li><a href="myProfile">My Profile</a></li>
 									<!-- <li><a href="myPhotos">My Photos</a></li> -->
 									<li><a href="myProfileViewsList">Who viewed my profile</a></li>
@@ -2649,7 +2665,7 @@ img.hover-shadow {
 		<c:set var="counter" value="${counter+1}" />
       	<div class="mySlides">
       		<div class="numbertext">${counter} / ${photosListSize}</div>
-	    		<img src="${photo.image}"  class="myImg" style="height:400px;width:100%">
+	    		<img src="${photo.image}"  class="myImg" style="height:auto;width:100%">
 	    </div>
 	</c:forEach>
     <!--slider-->

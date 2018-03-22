@@ -92,9 +92,9 @@
 <br>
 <div class="row">
 	<div class="col-md-4 pull-right">
-		<div class="form-group" style="display: flex;">
-				<input class="btn btn btn-primary" style="width: 120px; type="button" id="family_details_submit" name="yt0" value="Save" onclick="saveChanges('family_details');">
-				&nbsp;<input class="btn btn btn-success" style="width: 120px; type="button" id="family_details_cancel" name="yt1" value="Cancel" onclick="toggleDiv('family_details');">
+		<div class="form-group" style="display: ;">
+				<input class="btn  btn-success"   type="button" id="family_details_submit" name="yt0" value="Save" onclick="saveChanges('family_details');">
+				<input class="btn  btn-danger"   type="button" id="family_details_cancel" name="yt1" value="Cancel" onclick="toggleDiv('family_details');">
 		</div>
 	</div>
 </div>

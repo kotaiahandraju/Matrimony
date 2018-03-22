@@ -415,8 +415,9 @@ xpopup
 <div class="panel panel-default" style="background:#FDFDFD;">
     <div class="panel-body table-responsive">
 <div>	
-    <strong class="font">Religion Information</strong>
+    <strong class="font">Religion Information
     <a href="#no" style="font-size:13px; color:#C00;" class="pull-right" id="religion_info_a" onclick="toggleDiv('religion_info');"> <i class="fa fa-edit"></i> Edit</a>
+    </strong>
     <div id="religion_info_view" class="all_visible_divs">
         <table class="col-md-6 table-responsive">
         <tr><td>Religion</td><td>:</td>
@@ -483,8 +484,8 @@ xpopup
     <div >	<strong class="font">
     <c:if test="${profileBean.gender == 'Female'}">Bride</c:if>
     <c:if test="${profileBean.gender == 'Male'}">Groom</c:if>
-    's Location</strong> <a href="#no" style="font-size:13px; color:#C00;" class="pull-right" id="location_a" onclick="toggleDiv('location');"> <i class="fa fa-edit"></i> Edit</a>
-
+    's Location <a href="#no" style="font-size:13px; color:#C00;" class="pull-right" id="location_a" onclick="toggleDiv('location');"> <i class="fa fa-edit"></i> Edit</a>
+</strong>
 <div id="location_view" class="all_visible_divs">
 <table class="col-md-12 table-responsive">
 <tr><td>Country</td><td>:</td>
@@ -519,8 +520,9 @@ xpopup
 <br>
 <div class="panel panel-default" style="background:#FDFDFD;">
     <div class="panel-body table-responsive">	
-    <div >	<strong class="font">Professional Information</strong>
+    <div >	<strong class="font">Professional Information
         <a href="#no" style="font-size:13px; color:#C00;"  class="pull-right" id="professional_info_a" onclick="toggleDiv('professional_info');"> <i class="fa fa-edit"></i> Edit</a>
+</strong>
 <div id="professional_info_view" class="all_visible_divs">
 <table class="col-md-12 table-responsive">
 <tr><td>Education</td><td>:</td>
@@ -554,8 +556,9 @@ xpopup
 <br>
 <div class="panel panel-default" style="background:#FDFDFD;">
     <div class="panel-body table-responsive">
-    <div >	<strong class="font">Family Details</strong>
+    <div >	<strong class="font">Family Details
         <a href="#no" style="font-size:13px; color:#C00;" class=" pull-right" id="family_details_a" onclick="toggleDiv('family_details');"> <i class="fa fa-edit"></i> Edit</a>
+</strong>
 <div id="family_details_view" class="all_visible_divs">
 <table class="col-md-12 table-responsive">
 <tr><td>Father's Name</td><td>:</td>
@@ -615,8 +618,9 @@ xpopup
 <h3>Partner Preferences</h3>
 <div class="panel panel-default" style="background:#FDFDFD;">
     <div class="panel-body table-responsive">
-    <div>	<strong class="font">Basic & Religion Preferences</strong>
+    <div>	<strong class="font">Basic & Religion Preferences
         <a href="#no" style="font-size:13px; color:#C00;"  class="pull-right" id="partner_basic_a" onclick="toggleDiv('partner_basic');"> <i class="fa fa-edit"></i> Edit</a>
+</strong>
 <div id="partner_basic_view" class="all_visible_divs">
 <table class="col-md-12 table-responsive">
 <tr><td>
@@ -701,8 +705,9 @@ xpopup
 <br>
 <div class="panel panel-default" style="background:#FDFDFD;">
     <div class="panel-body table-responsive">
-    <div >	<strong class="font">Professional Preferences</strong>
+    <div >	<strong class="font">Professional Preferences
         <a href="#no"  style="font-size:13px; color:#C00;" class="pull-right" id="partner_professional_a" onclick="toggleDiv('partner_professional');"> <i class="fa fa-edit"></i> Edit</a>
+</strong>
 <div id="partner_professional_view" class="all_visible_divs">
 <table class="col-md-12 table-responsive">
 <tr><td>Education</td><td>:</td>
@@ -814,8 +819,9 @@ xpopup
 <br>
 <div class="panel panel-default" style="background:#FDFDFD;">
     <div class="panel-body table-responsive">
-    <div >	<strong class="font">Location Preferences</strong>
+    <div >	<strong class="font">Location Preferences
         <a href="#no" style="font-size:13px; color:#C00;" class="pull-right" id="partner_location_a" onclick="toggleDiv('partner_location');"> <i class="fa fa-edit"></i> Edit</a>
+</strong>
 <div id="partner_location_view" class="all_visible_divs">
 <table class="col-md-12 table-responsive">
 <tr><td>Country</td><td>:</td>

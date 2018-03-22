@@ -2976,6 +2976,7 @@ label.radio {
 	}
 	.box_1 {
 	  float: none;
+	  margin-top:-20px;
 	}
 	.header_right {
 	  float: none;

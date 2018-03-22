@@ -8,9 +8,25 @@
 	<div class="col-md-6">    
 	<div class="form-group">
       <label class="control-label" for="textinput">Age From</label>  
-     
-      	<form:input path="rAgeFrom" class="form-control numericOnly u1" placeholder="Enter Age From" style='width: 188px; float: right; display: inline-flex;' />
-      </div>
+     <form:select path="rAgeFrom" class="form-control numericOnly u1" style='width: 188px; float: right; display: inline-flex;'>
+			<form:option value="">-- Enter Age From --</form:option>
+			<form:option value="18">18</form:option>
+			<form:option value="19">19</form:option>
+			<form:option value="20">20</form:option>
+			<form:option value="21">21</form:option>
+			<form:option value="22">22</form:option>
+			<form:option value="23">23</form:option>
+			<form:option value="24">24</form:option>
+			<form:option value="25">25</form:option>
+			<form:option value="26">26</form:option>
+			<form:option value="27">27</form:option>
+			<form:option value="28">28</form:option>
+			<form:option value="29">29</form:option>
+			<form:option value="30">30</form:option>
+		</form:select>
+ <%--      	<form:input path="rAgeFrom" class="form-control numericOnly u1" placeholder="Enter Age From" style='width: 188px; float: right; display: inline-flex;' />
+  --%>   
+    </div>
       </div>
       
       <div class="col-md-6">
@@ -124,8 +140,8 @@
 <div class="row">
 	<div class="col-md-4 pull-right">
 		<div class="form-group">
-				<input class="btn btn btn-primary" style="padding: 8px 24px;" type="button" id="partner_basic_submit" name="yt0" value="Save" onclick="saveChanges('partner_basic');">
-				<input class="btn btn btn-success" style="padding: 8px 24px;" type="button" id="partner_basic_cancel" name="yt1" value="Cancel" onclick="toggleDiv('partner_basic');">
+				<input class="btn  btn-success"  type="button" id="partner_basic_submit" name="yt0" value="Save" onclick="saveChanges('partner_basic');">
+				<input class="btn  btn-danger"  type="button" id="partner_basic_cancel" name="yt1" value="Cancel" onclick="toggleDiv('partner_basic');">
 		</div>
 	</div>
 </div>

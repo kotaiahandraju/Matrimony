@@ -121,7 +121,7 @@
 </div>
 <div class="col-md-6">
 
-	<label for="" >Mother tongue</label>
+	<label for="" >Mother Tongue</label>
 	<form:select path="motherTongue" onfocus="removeBorder(this.id)"  class="form-control" >
 	<form:option value="">-- Choose Mother Tongue --</form:option>
 	<form:options items="${language}"></form:options>
@@ -170,11 +170,12 @@
     
 </div>
 </div>
-<br>
+<br><div class="row">
 	<div class="col-md-4 pull-right">
 		<div class="form-group">
-				<input class="btn btn btn-primary" style="padding: 8px 24px;" type="button" id="basic_details_submit" name="yt0" value="Save" onclick="saveChanges('basic_details');">
-				<input class="btn btn btn-success" style="padding: 8px 24px;" type="button" id="basic_details_cancel" name="yt1" value="Cancel" onclick="toggleDiv('basic_details');">
+				<input class="btn  btn-success"  type="button" id="basic_details_submit" name="yt0" value="Save" onclick="saveChanges('basic_details');">
+				<input class="btn  btn-danger" type="button" id="basic_details_cancel" name="yt1" value="Cancel" onclick="toggleDiv('basic_details');">
+		</div>
 		</div>
 	</div>
 </div>

@@ -2,7 +2,7 @@
 
 			<div class="col-md-9 products-grid-left">
             	<div class="panel panel-default">
-					<div class="panel-heading">Search Profiles</div>
+					<div class="panel-heading">Search Profiles<span><a href="" style="float:right; font-size:12px; color:#006699;">Modify Search</a></span></div>
 					<div class="panel-body table-responsive">
 						<form:form commandName="createProfile"  class="form-horizontal" id="searchForm2" name="searchForm2" role="form" method="post">
 						<form:hidden path="id" />
@@ -127,7 +127,8 @@
 									    <div class="form-group">
 									      <label class="col-md-4 control-label" for="textinput"></label>  
 									      <div class="col-md-6">
-									     	<a href="#" type="button" id="searchBtn" class="btn1 btn btn-danger" onclick="submitSearch()">Search</a> 
+									     	<a href="#" type="button" id="searchBtn" class="btn1 btn btn-success" onclick="submitSearch()">Search</a> 
+									     	<a href="#" type="button" id="searchBtn" class="btn1 btn btn-danger" onclick="">Reset</a> 
 									      <!-- 	<a href="savePartnerProfile" class="btn1 btn btn-info">Save & Continue</a> -->
 									      </div>
 									    </div>
@@ -220,7 +221,7 @@ function displayMatches(listOrders) {
 			var expressed = orderObj.expressedInterest;
 			var firstname = 'xxxxxx',lastname='xxxxxx';
 			mobile_no__str = '<tr id="row'+orderObj.id+'"><td><a href="#" type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</a></td></tr>';
-			insert_str = '<a href="#" id="expInterest'+orderObj.id+'" type="button" class="btn btn-primary btn-block" onclick="expressInterest('+orderObj.id+')">Yes I\'m interested</a>';
+			insert_str = '<a href="#" id="expInterest'+orderObj.id+'" type="button" class="btn btn-success btn-sm" onclick="expressInterest('+orderObj.id+')">Yes I\'m interested</a>';
 			/* if(expressed==0){
 				insert_str = '<button id="expInterest'+orderObj.id+'" type="button" class="btn btn-primary btn-block" onclick="expressInterest('+orderObj.id+')">Yes I\'m interested</button>';
 			}else if(expressed>0){
@@ -273,7 +274,7 @@ function displayMatches(listOrders) {
             	+ '	<tr><td>Location</td><td><span>: '+orderObj.currentCityName+'</span></td></tr>'
             	+ '	<tr><td>Education</td><td><span>: '+orderObj.educationName+'</span></td></tr>'
             	+ '	<tr><td>Profession</td><td><span>: '+occName+'</span></td></tr>'
-            	+ '<tr><td id="mobiletd'+orderObj.id+'"><a href="#" type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</a></td><td></td></tr>'
+            	+ '<tr><td id="mobiletd'+orderObj.id+'"><a href="#" type="button" class="btn1 btn-sm btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</a></td><td></td></tr>'
             	//+ '<td id="shortlisttd'+orderObj.id+'"><button type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">Shortlist</button></td></tr>'
             	//+ '	<tr><td>Age</td><td><span>: '+orderObj.age+'</span></td></tr>'
             	//+ '	<tr><td colspan="2">'+orderObj.aboutMyself+'... <a href="#" onclick="showMore('+orderObj.id+')"> read more..</a> </td></tr>'
@@ -293,8 +294,8 @@ function displayMatches(listOrders) {
             	+ '<h4 class="bin">Like this Profile?</h4>'
             	+ insert_str
 				//+ '<button class="btn btn-danger btn-block btn-md" onclick="fullProfile('+orderObj.id+')">View Full Profile</button><br><br><br><br><br>'
-				+ '<a href="#" class="btn btn-info btn-block btn-md" onclick="fullProfile('+orderObj.id+')">View Full Profile</a><br>'
-				+ '<a href="#" type="button" class="btn1 btn btn-success btn-block"  id="mobileBtn'+orderObj.id+'" onclick="shortList('+orderObj.id+')">Shortlist</a> '
+				+ '<a href="#" class="btn btn-warning  btn-sm" onclick="fullProfile('+orderObj.id+')">View Full Profile</a>'
+				+ '<a href="#" type="button" class="btn1 btn btn-primary btn-sm"  id="mobileBtn'+orderObj.id+'" onclick="shortList('+orderObj.id+')">Shortlist</a> '
 				+ '<div class="clearfix"></div>'
             	+ '</div>'
             	+ '</div>'

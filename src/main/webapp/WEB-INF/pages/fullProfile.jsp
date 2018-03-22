@@ -259,11 +259,11 @@ xpopup
 								    	<c:forEach items="${photosList}" var="photo" >
 								    		<c:set var="counter2" value="${counter2+1}" />
 									      	<div class="profilethumbnail" style="float: left;
-    width: 80px;
-    height: 75px;
+    width: 69px;
+    height: 69px;
     padding: 0px;
     margin: 5px; "> 
-										        <img src="${photo.image}" class="watermark_text" style="width:100%"  onclick="currentSlide_inpage('${photo.image}')"/> 
+										        <img src="${photo.image}" class="watermark_text" style="width:100%; height:auto;"  onclick="currentSlide_inpage('${photo.image}')"/> 
 										    </div>
 										</c:forEach>
 								    </div> 

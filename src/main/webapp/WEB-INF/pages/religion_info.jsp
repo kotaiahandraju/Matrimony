@@ -88,8 +88,8 @@
 <div class='row'>
 	<div class="col-md-4 pull-right">
 		<div class="form-group">
-				<input class="btn btn btn-primary" style="padding: 8px 24px;" type="button" id="religion_info_submit" name="yt0" value="Save" onclick="saveChanges('religion_info');">
-				<input class="btn btn btn-success" type="button" style="padding: 8px 24px;" id="religion_info_cancel" name="yt1" value="Cancel" onclick="toggleDiv('religion_info');">
+				<input class="btn  btn-success" type="button" id="religion_info_submit" name="yt0" value="Save" onclick="saveChanges('religion_info');">
+				<input class="btn btn-danger" type="button"  id="religion_info_cancel" name="yt1" value="Cancel" onclick="toggleDiv('religion_info');">
 		</div>
 	</div>
 </div>

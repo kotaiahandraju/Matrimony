@@ -54,9 +54,9 @@
 
 <div class="row">
 	<div class="col-md-4 pull-right">
-		<div class="form-group" style="display: flex;">
-				<input class="btn btn btn-primary" style="width: 120px; type="button" id="professional_info_submit" name="yt0" value="Save" onclick="saveChanges('professional_info');">
-				&nbsp;&nbsp;<input class="btn btn btn-success" style="width: 120px; type="button" id="professional_info_cancel" name="yt1" value="Cancel" onclick="toggleDiv('professional_info');">
+		<div class="form-group" style="display: ;">
+				<input class="btn  btn-success"  type="button" id="professional_info_submit" name="yt0" value="Save" onclick="saveChanges('professional_info');">
+				&nbsp;&nbsp;<input class="btn  btn-danger"  type="button" id="professional_info_cancel" name="yt1" value="Cancel" onclick="toggleDiv('professional_info');">
 		</div>
 	</div>
 </div>
