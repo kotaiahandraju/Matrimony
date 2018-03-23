@@ -470,8 +470,10 @@
 						lastname = orderObj.lastName;
 					}
 					var abtMySelf = orderObj.aboutMyself;
-					if(abtMySelf=="undefined" || abtMySelf==null){
+					if(typeof abtMySelf == "undefined" || abtMySelf==null){
 						abtMySelf = "";
+					}else{
+						abtMySelf = abtMySelf.substring(0,40);
 					}
 					var premiumMember = "";
 					var memberRoleId = orderObj.role_id;

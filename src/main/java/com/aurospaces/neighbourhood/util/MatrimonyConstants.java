@@ -33,4 +33,6 @@ public class MatrimonyConstants {
 	public static final int EMAIL_PROFILES_LIMIT = 10;
 	
 	public static final int OTP_LIMIT = 5;
+	
+	public static final int ABOUT_MY_SELF_MIN_LENGTH_TO_DISPLAY = 40;
 }
