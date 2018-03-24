@@ -644,8 +644,15 @@ public class HomePageController {
 	  
 	 }
 	 
+	 
+	 @RequestMapping(value = "/newsavePartnerProfile")
+	 public String newsavePartnerProfile(@ModelAttribute("partnerProfileFrm") UsersBean objUserrequirementBean, Model objeModel ,
+	   HttpServletRequest request, HttpSession session) {
+	  return "redirect:sendOtp";
+	 }
+	 
 	 @RequestMapping(value = "/savePartnerProfile")
-	 public String savePartnerProfile(@ModelAttribute("partnerProfile") UsersBean objUserrequirementBean, @RequestParam String[] rCountry, Model objeModel ,
+	 public String savePartnerProfile(@ModelAttribute("partnerProfile") UsersBean objUserrequirementBean, Model objeModel ,
 	   HttpServletRequest request, HttpSession session) {
 //	  System.out.println("Partner Profile save Page");
 	  try {
@@ -656,14 +663,14 @@ public class HomePageController {
 			//get session bean values 
 			 objUsersBean1 = objUsersDao.getById(sessionBean.getId());
 			 objUserrequirementBean.setUserId(sessionBean.getId());
-			 if(rCountry != null)
+			 /*if(rCountry != null)
 			 {
 				 String reqCountry = Arrays.toString(rCountry);
 				 reqCountry = reqCountry.replace("[", "");
 				 reqCountry = reqCountry.replace(", ", ",");
 				 reqCountry = reqCountry.replace("]", "");
 				 objUserrequirementBean.setrCountry(reqCountry);
-			 }
+			 }*/
 //			 objUserrequirementBean.setrCountry(Arrays.toString(rCountry).replaceAll("/[", "").replaceAll("/]", ""));
 			 objUserrequirementDao.save(objUserrequirementBean);
 			 UsersBean newBean = objUsersDao.loginChecking(sessionBean.getId());
@@ -740,8 +747,9 @@ public class HomePageController {
 			UsersBean profileBean = objUsersDao.loginChecking(sessionBean.getId());
 			request.setAttribute("profileBean", profileBean);
 			BeanUtils.copyProperties(profileBean,objUserssBean,getNullPropertyNames(profileBean));
-			//List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos(sessionBean.getId());
-			//request.setAttribute("photosList", photosList);
+			List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos(sessionBean.getId());
+			request.setAttribute("photosList", photosList);
+			request.setAttribute("photosListSize", photosList.size());
 		} catch (Exception e) {
 	   e.printStackTrace();
 	   System.out.println(e);
@@ -918,7 +926,7 @@ public class HomePageController {
 		try {
 			
 			UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
-			if(sessionBean == null){
+			
 				String sender_username = request.getParameter("un");
 				String profile_username = request.getParameter("pun");
 				String sender_unique_code = request.getParameter("suc");
@@ -938,9 +946,11 @@ public class HomePageController {
 						return "redirect:HomePage";
 					}
 				}else{
-					return "redirect:HomePage";
+					if(sessionBean == null){
+						return "redirect:HomePage";
+					}
 				}
-			}
+			
 			int profile_id = objUserssBean.getId();
 			if((profile_id != 0) && (sessionBean.getId()!=profile_id)){
 				boolean success = objUsersDao.viewedProfile(profile_id+"");
@@ -1064,6 +1074,7 @@ public class HomePageController {
 			int total_records = 0;//MatrimonyConstants.FREE_USER_PROFILES_LIMIT;
 			request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
 			if (listOrderBeans != null && listOrderBeans.size() > 0) {
+				
 				objectMapper = new ObjectMapper();
 				sJson = objectMapper.writeValueAsString(listOrderBeans);
 				request.setAttribute("allOrders1", sJson);
@@ -1082,6 +1093,7 @@ public class HomePageController {
 			} else {
 				request.setAttribute("new_matches", "''");
 			}
+			// get the logged in users's photos
 			List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos(sessionBean.getId());
 			request.setAttribute("photosList", photosList);
 			request.setAttribute("photosListSize", photosList.size());
@@ -1091,6 +1103,13 @@ public class HomePageController {
 				request.setAttribute("membership_details", membership_details);
 			}else{
 				request.setAttribute("membership_details", "");
+			}
+			//to display pending requests block in dashboard
+			List<Map<String,Object>> pending_requests = objUsersDao.getPendingInterestRequests(sessionBean.getId()+"",0);
+			if(pending_requests!=null && pending_requests.size()>0){
+				request.setAttribute("pending_reqs", pending_requests);
+			}else{
+				request.setAttribute("pending_reqs", "''");
 			}
 			
 		} catch (Exception e) {
@@ -1435,6 +1454,45 @@ public class HomePageController {
 		}
 		return null;
 	}
+	
+	@RequestMapping(value = "/updateMobileNumber")
+	public @ResponseBody String updateMobileNumber(UsersBean userBean, Model objeModel ,
+			HttpServletRequest request,HttpServletResponse response, HttpSession session) {
+		JSONObject objJson =new JSONObject();
+		try {
+				UsersBean objuserBean = (UsersBean) session.getAttribute("cacheGuest");
+				if(objuserBean==null){
+					return "redirect:HomePage";
+				}
+				String mobileNum = request.getParameter("mobileNum");
+				String user_id = request.getParameter("userId");
+				userBean.setId(objuserBean.getId());
+				userBean.setMobile(mobileNum);
+				boolean exists = objUsersDao.mobileNumExistOrNot(userBean);
+				if(exists){
+					objJson.putOnce("message", "duplicate");
+				}else{
+					boolean success = objUsersDao.updateMobileNumber(user_id,mobileNum);
+					if(success){
+						objJson.putOnce("message", "success");
+						objuserBean.setMobile(mobileNum);
+						session.setAttribute("cacheGuest", objuserBean);
+					}else{
+						objJson.putOnce("message", "failed");
+					}
+				}
+				
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			logger.error(e);
+			logger.fatal("error in updateMobileNumber method  ");
+			objJson.putOnce("message", "failed");
+		}
+		return objJson.toString();
+	}
+	
 	@ModelAttribute("cast")
 	public Map<Integer, String> populatecast() {
 		Map<Integer, String> statesMap = new LinkedHashMap<Integer, String>();
@@ -2448,6 +2506,20 @@ public class HomePageController {
 			if("1".equals(sessionBean.getStatus())){
 				List<Map<String,Object>> shortlistedMeList = objUsersDao.getShortlistedMeMembers(sessionBean.getId()+"",0);
 				if(shortlistedMeList!=null && shortlistedMeList.size()>0){
+					//get photos
+					for(Map<String,Object> reqObj:shortlistedMeList){
+						List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos((Integer)reqObj.get("id"));
+						if(photosList!=null && photosList.size()>0){
+							//objectMapper = new ObjectMapper();
+							//sJson = objectMapper.writeValueAsString(photosList);
+							reqObj.put("photosList", photosList);
+							reqObj.put("photosListSize", photosList.size());
+						}else{
+							reqObj.put("photosList", "");
+						}
+						
+						
+					}
 					objectMapper = new ObjectMapper();
 					sJson = objectMapper.writeValueAsString(shortlistedMeList);
 					request.setAttribute("shortlistedList", sJson);
@@ -2484,6 +2556,20 @@ public class HomePageController {
 			long total_records = 0;
 			List<Map<String,Object>> shortlistedByMeList = objUsersDao.getShortlistedByMeMembers(sessionBean.getId()+"",0);
 			if(shortlistedByMeList!=null && shortlistedByMeList.size()>0){
+				//get photos
+				for(Map<String,Object> reqObj:shortlistedByMeList){
+					List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos((Integer)reqObj.get("id"));
+					if(photosList!=null && photosList.size()>0){
+						//objectMapper = new ObjectMapper();
+						//sJson = objectMapper.writeValueAsString(photosList);
+						reqObj.put("photosList", photosList);
+						reqObj.put("photosListSize", photosList.size());
+					}else{
+						reqObj.put("photosList", "");
+					}
+					
+					
+				}
 				objectMapper = new ObjectMapper();
 				sJson = objectMapper.writeValueAsString(shortlistedByMeList);
 				request.setAttribute("shortlistedList", sJson);
@@ -2571,6 +2657,24 @@ public class HomePageController {
 			request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
 			
 			if (listOrderBeans != null && listOrderBeans.size() > 0) {
+				//get photos
+				for(Map<String,String> profileObj:listOrderBeans){
+					List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos(Integer.parseInt(profileObj.get("id")));
+					if(photosList!=null && photosList.size()>0){
+						String imgStr = "";
+						for(Map<String,Object> photo:photosList){
+							if(StringUtils.isBlank(imgStr)){
+								imgStr = (String)photo.get("image");
+							}else
+								imgStr += ","+photo.get("image");
+						}
+						profileObj.put("photosList", imgStr);
+					}else{
+						profileObj.put("photosList", "");
+					}
+					
+					
+				}
 				objectMapper = new ObjectMapper();
 				sJson = objectMapper.writeValueAsString(listOrderBeans);
 				request.setAttribute("allOrders1", sJson);
@@ -2931,7 +3035,7 @@ public class HomePageController {
 	 }
    
    @RequestMapping(value = "/mobileNumViewedByMeList")
-	 public String mobileNosList(@ModelAttribute("createProfile") UsersBean objUserssBean, Model objeModel, HttpServletRequest request, HttpSession session) {
+	 public String mobileNumViewedByMeList(@ModelAttribute("createProfile") UsersBean objUserssBean, Model objeModel, HttpServletRequest request, HttpSession session) {
 	  ObjectMapper objectMapper = null;
 		String sJson = null;
 		try {
@@ -2944,6 +3048,20 @@ public class HomePageController {
 
 				List<Map<String,Object>> pendingRequests = objUsersDao.getMobileNumViewedByMeList(sessionBean.getId()+"",0);
 				if(pendingRequests!=null && pendingRequests.size()>0){
+					//get photos
+					for(Map<String,Object> reqObj:pendingRequests){
+						List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos((Integer)reqObj.get("id"));
+						if(photosList!=null && photosList.size()>0){
+							//objectMapper = new ObjectMapper();
+							//sJson = objectMapper.writeValueAsString(photosList);
+							reqObj.put("photosList", photosList);
+							reqObj.put("photosListSize", photosList.size());
+						}else{
+							reqObj.put("photosList", "");
+						}
+						
+						
+					}
 					objectMapper = new ObjectMapper();
 					sJson = objectMapper.writeValueAsString(pendingRequests);
 					request.setAttribute("pendingRequests", sJson);
@@ -2978,6 +3096,20 @@ public class HomePageController {
 			if("1".equals(sessionBean.getStatus())){
 				List<Map<String,Object>> pendingRequests = objUsersDao.getProfileViewedMembers(sessionBean.getId()+"",0);
 				if(pendingRequests!=null && pendingRequests.size()>0){
+					//get photos
+					for(Map<String,Object> reqObj:pendingRequests){
+						List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos((Integer)reqObj.get("id"));
+						if(photosList!=null && photosList.size()>0){
+							//objectMapper = new ObjectMapper();
+							//sJson = objectMapper.writeValueAsString(photosList);
+							reqObj.put("photosList", photosList);
+							reqObj.put("photosListSize", photosList.size());
+						}else{
+							reqObj.put("photosList", "");
+						}
+						
+						
+					}
 					objectMapper = new ObjectMapper();
 					sJson = objectMapper.writeValueAsString(pendingRequests);
 					request.setAttribute("pendingRequests", sJson);
@@ -3014,6 +3146,20 @@ public class HomePageController {
 			if("1".equals(sessionBean.getStatus())){
 				List<Map<String,Object>> pendingRequests = objUsersDao.getMyMobileNoViewedByMembers(sessionBean.getId()+"",0);
 				if(pendingRequests!=null && pendingRequests.size()>0){
+					//get photos
+					for(Map<String,Object> reqObj:pendingRequests){
+						List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos((Integer)reqObj.get("id"));
+						if(photosList!=null && photosList.size()>0){
+							//objectMapper = new ObjectMapper();
+							//sJson = objectMapper.writeValueAsString(photosList);
+							reqObj.put("photosList", photosList);
+							reqObj.put("photosListSize", photosList.size());
+						}else{
+							reqObj.put("photosList", "");
+						}
+						
+						
+					}
 					objectMapper = new ObjectMapper();
 					sJson = objectMapper.writeValueAsString(pendingRequests);
 					request.setAttribute("pendingRequests", sJson);
@@ -3048,6 +3194,20 @@ public class HomePageController {
 			long total_records = 0;
 			List<Map<String,Object>> pendingRequests = objUsersDao.getyetToBeViewedList(sessionBean.getId()+"",0);
 			if(pendingRequests!=null && pendingRequests.size()>0){
+				//get photos
+				for(Map<String,Object> reqObj:pendingRequests){
+					List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos((Integer)reqObj.get("id"));
+					if(photosList!=null && photosList.size()>0){
+						//objectMapper = new ObjectMapper();
+						//sJson = objectMapper.writeValueAsString(photosList);
+						reqObj.put("photosList", photosList);
+						reqObj.put("photosListSize", photosList.size());
+					}else{
+						reqObj.put("photosList", "");
+					}
+					
+					
+				}
 				objectMapper = new ObjectMapper();
 				sJson = objectMapper.writeValueAsString(pendingRequests);
 				request.setAttribute("yetToBeViewedList", sJson);
@@ -3079,6 +3239,20 @@ public class HomePageController {
 			long total_records = 0;
 			List<Map<String,Object>> pendingRequests = objUsersDao.getViewedNotContactedList(sessionBean.getId()+"",0);
 			if(pendingRequests!=null && pendingRequests.size()>0){
+				//get photos
+				for(Map<String,Object> reqObj:pendingRequests){
+					List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos((Integer)reqObj.get("id"));
+					if(photosList!=null && photosList.size()>0){
+						//objectMapper = new ObjectMapper();
+						//sJson = objectMapper.writeValueAsString(photosList);
+						reqObj.put("photosList", photosList);
+						reqObj.put("photosListSize", photosList.size());
+					}else{
+						reqObj.put("photosList", "");
+					}
+					
+					
+				}
 				objectMapper = new ObjectMapper();
 				sJson = objectMapper.writeValueAsString(pendingRequests);
 				request.setAttribute("viewedNotContactedList", sJson);
@@ -3215,6 +3389,10 @@ public class HomePageController {
 						 String retVal = EmailUtil.sendInterestMail(userBean, receipientUser, request, objContext);
 						 if(StringUtils.isNotBlank(retVal)){
 							 objJson.put("message", "success");
+							 objUsersDao.sendMailMessage(profile_id);
+							 // decrease the profile count
+							 int allowed_profiles_limit = objUsersDao.getAllowedProfilesLimit(userBean.getId());
+							 session.setAttribute("allowed_profiles_limit", allowed_profiles_limit);
 						 }else{
 							 objJson.put("message", "failed");
 						 }
@@ -3333,6 +3511,20 @@ public class HomePageController {
 					requests = objUsersDao.getProfileViewedMembers(sessionBean.getId()+"",0);
 				}
 				if(requests!=null && requests.size()>0){
+					//get photos
+					for(Map<String,Object> reqObj:requests){
+						List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos((Integer)reqObj.get("id"));
+						if(photosList!=null && photosList.size()>0){
+							//objectMapper = new ObjectMapper();
+							//sJson = objectMapper.writeValueAsString(photosList);
+							reqObj.put("photosList", photosList);
+							reqObj.put("photosListSize", photosList.size());
+						}else{
+							reqObj.put("photosList", "");
+						}
+						
+						
+					}
 					jsOnObj.put("inbox_requests", requests);
 					total_records = (Long)requests.get(0).get("total_records");
 				}else{
@@ -3388,7 +3580,9 @@ public class HomePageController {
 					String email = userBean.getEmail();
 					emailStr = email.substring(email.indexOf("@")-3);
 					String mobileNum = userBean.getMobile();
-					mobileStr = mobileNum.substring(mobileNum.length()-3);
+					if(StringUtils.isNotBlank(mobileNum)){
+						mobileStr = mobileNum.substring(mobileNum.length()-3);
+					}
 					session.setAttribute("emailStr", emailStr);
 					session.setAttribute("mobileStr", mobileStr);
 				}
@@ -3693,6 +3887,7 @@ public class HomePageController {
    }
    private UsersBean copyPartnerProfessionalPreferences(UsersBean source,UsersBean target){
 	   target.setrEducation(source.getrEducation().equalsIgnoreCase("null")?null:source.getrEducation());
+	   target.setrWorkingWith(source.getrWorkingWith().equalsIgnoreCase("null")?null:source.getrWorkingWith());
 	   target.setrOccupation(source.getrOccupation().equalsIgnoreCase("null")?null:source.getrOccupation());
 	   target.setrAnnualIncome(source.getrAnnualIncome().equalsIgnoreCase("null")?null:source.getrAnnualIncome());
 	   

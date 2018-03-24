@@ -263,7 +263,7 @@
 					    <div class="form-group">
 					      <label class="col-md-4 control-label" for="textinput">Your Mobile number <span class='manditory'>*</span></label>  
 					      <div class="col-md-6">
-					      <form:input path="mobile" class="form-control numericOnly"  onblur="validate(this.id,'Enter Mobile');" onkeydown="removeBorder(this.id)" maxlength="13" placeholder="Mobile Number"/>
+					      <form:input path="mobile" class="form-control numbersOnly u"  onblur="validate(this.id,'Enter Mobile');" onkeydown="removeBorder(this.id)" maxlength="10" placeholder="Mobile Number"/>
 					      <span class="hasError" id="mobileError" style="font-size: 13px;color:red"></span>
 					      </div>
 					    </div>
@@ -520,37 +520,44 @@ function thirdForm(event)
 	}
 	else
 	{
-		isMobileNumDuplicate();
-		/* if(mobileExists){
-			 $("#firstForm").hide();
-			$('#secondForm').hide();
-			$("#thirdForm").show();
-			$('#fourthForm').hide();
-			ChangeUrl('page1', 'profile.htm?page=4');
+		if($('#mobile').val().trim().length<10){
+			$('#mobileError').text("Please enter a valid mobile number.");
 			event.preventDefault();
-			
-			$("#step1").removeClass("btn-primary");
-			 $("#step2").removeClass("btn-primary");
-			 $("#step3").removeClass("btn-primary");
-			 $("#step4").addClass("btn-primary"); 
-			 event.preventDefault();
 			return false;
-		}else{
-			$("#firstForm").hide();
-			$('#secondForm').hide();
-			$("#thirdForm").hide();
-			$('#fourthForm').show();
-			ChangeUrl('page1', 'profile.htm?page=4');
-			event.preventDefault();
-			
-			$("#step1").removeClass("btn-primary");
-			 $("#step2").removeClass("btn-primary");
-			 $("#step3").removeClass("btn-primary");
-			 $("#step4").addClass("btn-primary");
-			return true;
-		} */
-		return true;
+		}
+		else{
+			isMobileNumDuplicate();
 		
+			/* if(mobileExists){
+				 $("#firstForm").hide();
+				$('#secondForm').hide();
+				$("#thirdForm").show();
+				$('#fourthForm').hide();
+				ChangeUrl('page1', 'profile.htm?page=4');
+				event.preventDefault();
+				
+				$("#step1").removeClass("btn-primary");
+				 $("#step2").removeClass("btn-primary");
+				 $("#step3").removeClass("btn-primary");
+				 $("#step4").addClass("btn-primary"); 
+				 event.preventDefault();
+				return false;
+			}else{
+				$("#firstForm").hide();
+				$('#secondForm').hide();
+				$("#thirdForm").hide();
+				$('#fourthForm').show();
+				ChangeUrl('page1', 'profile.htm?page=4');
+				event.preventDefault();
+				
+				$("#step1").removeClass("btn-primary");
+				 $("#step2").removeClass("btn-primary");
+				 $("#step3").removeClass("btn-primary");
+				 $("#step4").addClass("btn-primary");
+				return true;
+			} */
+			return true;
+		}
 	}
 }
 function fourthForm(event){
@@ -703,7 +710,7 @@ function getCitys(id){
 	     formData.append('id', id);
 	     formData.append('value', value);
 	     formData.append('constant', constant);
-		$.fn.makeMultipartRequest('POST', 'autoCompleteSave', false,
+		$.fn.makeMultipartRequest1('POST', 'autoCompleteSave', false,
 				formData, false, 'text', function(data){
 			
 		});
@@ -718,7 +725,7 @@ function getCitys(id){
 	     formData.append('id', id);
 	     formData.append('value', value);
 	     formData.append('constant', constant);
-		$.fn.makeMultipartRequest('POST', 'autoCompleteSave', false,
+		$.fn.makeMultipartRequest1('POST', 'autoCompleteSave', false,
 				formData, false, 'text', function(data){
 			
 		});
@@ -752,6 +759,7 @@ function getCitys(id){
 	function isMobileNumDuplicate(){
 		var formData = new FormData();
 	    formData.append('mobile', $("#mobile").val());
+	    formData.append('id', $("#id").val());
 		$.fn.makeMultipartRequest('POST', 'mobileNumChecking', false,
 				formData, false, 'text', function(data){
 			var jsonobj = $.parseJSON(data);

@@ -309,7 +309,7 @@ public class EmailUtil {
 			return subject;
 	}
 	
-	public static String sendInterestMail(UsersBean senderBean,UsersBean receipientBean,HttpServletRequest request,
+	public static String sendInterestMail(UsersBean senderBean,UsersBean receiverBean,HttpServletRequest request,
 			ServletContext objContext) throws AddressException,
 			MessagingException, IOException {
 		String subject = null;
@@ -318,7 +318,7 @@ public class EmailUtil {
 		String body = null;
 		try{
 	 
-	        String mailTo = receipientBean.getEmail();
+	        String mailTo = receiverBean.getEmail();
 	        
 //	        -------------------------------------------------------------------------------------------
 			
@@ -337,12 +337,16 @@ public class EmailUtil {
 			body = prop.getProperty("interest_mail_body");
 			body = body.replace("_senderphoto_", "cid:senderimage");
 			body = body.replace("_senderusername_", senderBean.getUsername());
-			String baseurl =  request.getScheme() + "://" + request.getServerName() +      ":" +   request.getServerPort() +  request.getContextPath();
-			body = body.replace("_fullprofileaction_", baseurl+"/fullProfile?profileId="+senderBean.getId());
-			body = body.replace("_content_", receipientBean.getMail_content());
+			
+			// url formation
+            String baseurl =  request.getScheme() + "://" + request.getServerName() +      ":" +   request.getServerPort() +  request.getContextPath();
+			String actionUrl = baseurl+"/fullProfile?un="+receiverBean.getUsername()+"&pun="+senderBean.getUsername()+"&suc="+receiverBean.getUnique_code()+"&puc="+senderBean.getUnique_code();
+			///
+			body = body.replace("_fullprofileaction_", actionUrl);
+			body = body.replace("_content_", receiverBean.getMail_content());
 			body = body.replace("_img_", "cid:image2");
 	        String str = body.toString();
-	 
+	        	
 	        // inline images
 	        Map<String, String> inlineImages = new HashMap<String, String>();
 //	        inlineImages.put("image1", objContext.getRealPath("images" +File.separator+"telugu.png"));

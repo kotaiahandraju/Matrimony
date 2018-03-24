@@ -33,7 +33,7 @@
 					    	<div class="col-md-offset-4 col-md-8">
 					    		<input type="button" class="btn btn-info" id="uploadBtn" value="Upload Photo" onclick="imageAjax()">
 			<!-- 		    		<button id="secondButton" class="btn2 btn btn-warning" onclick="goToNextPage()">Continue/Skip</button> -->
-					    		<a style="color: blue;text-decoration: none;" href="${baseurl}/partner-profile">&nbsp;&nbsp;Continue/Skip</a>
+					    		<a style="color: blue;text-decoration: none;" href="${baseurl}/partner-profile">&nbsp;&nbsp;Continue</a>
 					    	</div>
 					    </div>
 					    <div class="form-group">
@@ -54,22 +54,28 @@ function checkImg(objImg)
 }
   
 function imageAjax(){
-	$("#uploadBtn").prop("disabled",true);
-	$("#uploadBtn").val("Please wait...");
-	var formData = new FormData();
-	formData.append("imageName", imageName.files[0]);
-//	formData.append("id", id);
-  	$.fn.makeMultipartRequest('POST', 'photoUpload', false, formData, false, 'text', function(data){
-	  	var jsonobj = $.parseJSON(data);
-	  	var msg = jsonobj.message;
-	  	if("success" == msg){
-	  		alert("Photo uploaded Successfully");
-	  	}else{
-	  		alert("Photo upload failed, Please try again..!");
-	  	}
-	  	$("#uploadBtn").removeAttr("disabled");
-   		$("#uploadBtn").val("Upload Photo");
-	});
+	if($("#imageName").val() == "" || $("#imageName").val() == "undefined" || $("#imageName").val() == null){
+		alert("Please Upload Image..!");
+	}
+	else
+	{
+		$("#uploadBtn").prop("disabled",true);
+		$("#uploadBtn").val("Please wait...");
+		var formData = new FormData();
+		formData.append("imageName", imageName.files[0]);
+	//	formData.append("id", id);
+	  	$.fn.makeMultipartRequest('POST', 'photoUpload', false, formData, false, 'text', function(data){
+		  	var jsonobj = $.parseJSON(data);
+		  	var msg = jsonobj.message;
+		  	if("success" == msg){
+		  		alert("Photo uploaded Successfully");
+		  	}else{
+		  		alert("Photo upload failed, Please try again..!");
+		  	}
+		  	$("#uploadBtn").removeAttr("disabled");
+	   		$("#uploadBtn").val("Upload Photo");
+		});
+	}
 }
 
 function goToNextPage(){

@@ -5,9 +5,9 @@
 <div class="row">
 	<div class="col-md-6">
 		<div class="form-group">
-			<label class="col-md-5 control-label required">Education <span
+			<label class="control-label required">Education <span
 				style="color: red;">*</span></label>
-			<div class="col-md-7">
+			
 				<form:select path="education" class="form-control u"
 					onblur="validate(this.id,'');" onfocus="removeBorder(this.id)">
 					<form:option value="">-- Choose Education --</form:option>
@@ -16,15 +16,13 @@
 				<div>
 					<form:errors path="education" cssClass="error" />
 				</div>
-			</div>
-		</div>
 	</div>
-</div>
-<div class="row">
+	</div>
+
 	<div class="col-md-6">
 		<div class="form-group">
-			<label class="col-md-5 control-label required">Employed in </label>
-			<div class="col-md-7">
+			<label class="control-label required">Employed in </label>
+			
 				<form:select path="workingWith" class="form-control u">
 					<form:option value="">-- Select --</form:option>
 					<form:option value="Private Company">Private Company</form:option>
@@ -35,15 +33,14 @@
 				<div>
 					<form:errors path="workingWith" cssClass="error" />
 				</div>
-			</div>
 		</div>
 	</div>
-</div>
-<div class="row">
+
+
 	<div class="col-md-6">
 		<div class="form-group">
-			<label class="col-md-5 control-label required">Occupation </label>
-			<div class="col-md-7">
+			<label class="control-label required">Occupation </label>
+			
 				<form:select path="occupation" class="form-control u">
 					<form:option value="">-- Choose Occupation --</form:option>
 					<form:options items="${occupation}"></form:options>
@@ -51,16 +48,15 @@
 				<div>
 					<form:errors path="occupation" cssClass="error" />
 				</div>
-			</div>
 		</div>
 	</div>
 </div>
 
 <div class="row">
 	<div class="col-md-4 pull-right">
-		<div class="form-group">
-				<input class="btn btn btn-primary" style="padding: 8px 24px; type="button" id="professional_info_submit" name="yt0" value="Save" onclick="saveChanges('professional_info');">
-				<input class="btn btn btn-success" style="padding: 8px 24px; type="button" id="professional_info_cancel" name="yt1" value="Cancel" onclick="toggleDiv('professional_info');">
+		<div class="form-group" style="display: ;">
+				<input class="btn  btn-success"  type="button" id="professional_info_submit" name="yt0" value="Save" onclick="saveChanges('professional_info');">
+				&nbsp;&nbsp;<input class="btn  btn-danger"  type="button" id="professional_info_cancel" name="yt1" value="Cancel" onclick="toggleDiv('professional_info');">
 		</div>
 	</div>
 </div>

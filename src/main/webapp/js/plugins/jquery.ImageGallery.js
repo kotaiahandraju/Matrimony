@@ -6,7 +6,7 @@
 			duration: 400,
 			easing: 'swing',
 			rows: 1,
-			cols: 5
+			cols: 3
 		}, options);
 		
 		return this.each(function(){
@@ -20,8 +20,9 @@
 				viewnext = $('#' + gallery.attr('id') + '-viewer-next'),
 				viewprev = $('#' + gallery.attr('id') + '-viewer-prev'),
 				thumbs = gallery.children(),
-				pages = Math.ceil(thumbs.size() / (options.rows * options.cols)),
-				tiles = options.rows * options.cols,
+				//pages = Math.ceil(thumbs.size() / (options.rows * options.cols)),
+				pages = Math.ceil(thumbs.size() / 3),
+				tiles = 3,
 				newview,
 				alignImage = function(view){
 					var height = view.css('height'),

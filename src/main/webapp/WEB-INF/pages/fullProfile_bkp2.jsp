@@ -2,235 +2,12 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ include file="userCommonHeader.jsp"%>
             	<style>
-.img-replace {
-  
-  display: inline-block;
-  overflow: hidden;
-  text-indent: 100%;
-  color: transparent;
-  white-space: nowrap;
-}
-.font {
-color: #006699;
 
-line-height: 2;
-font-size:18px;}
-            	.cd-nugget-info {
-  text-align: center;
-  position: absolute;
-  width: 100%;
-  height: 50px;
-  line-height: 50px;
-  bottom: 0;
-  left: 0;
-}
-.cd-nugget-info a {
-  position: relative;
-  font-size: 14px;
-  color: #5e6e8d;
-  -webkit-transition: all 0.2s;
-  -moz-transition: all 0.2s;
-  transition: all 0.2s;
-}
-.no-touch .cd-nugget-info a:hover {
-  opacity: .8;
-}
-.cd-nugget-info span {
-  vertical-align: middle;
-  display: inline-block;
-}
-.cd-nugget-info span svg {
-  display: block;
-}
-.cd-nugget-info .cd-nugget-info-arrow {
-  fill: #5e6e8d;
-}
-
-/* -------------------------------- 
-
-Main components 
-
--------------------------------- */
-header {
-  height: 200px;
-  line-height: 200px;
-  text-align: center;
-  background-color: #5e6e8d;
-  color: #FFF;
-}
-header h1 {
-  font-size: 20px;
-  font-size: 1.25rem;
-}
-
-.cd-popup-trigger {
-  display: block;
-  width: 170px;
-  height: 50px;
-  line-height: 50px;
-  margin: 3em auto;
-  text-align: center;
-  color: #FFF;
-  font-size: 14px;
-  font-size: 0.875rem;
-  font-weight: bold;
-  text-transform: uppercase;
-  border-radius: 50em;
-  background: #35a785;
-  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.07);
-  
-}
-@media only screen and (min-width: 1170px) {
-  .cd-popup-trigger {
-    margin: 6em auto;
-  }
-}
-
-/* -------------------------------- 
-
-xpopup 
-
--------------------------------- */
-.cd-popup {
-  position: fixed;
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 100%;
-  background-color: rgba(94, 110, 141, 0.9);
-  opacity: 0;
-  visibility: hidden;
-  -webkit-transition: opacity 0.3s 0s, visibility 0s 0.3s;
-  -moz-transition: opacity 0.3s 0s, visibility 0s 0.3s;
-  transition: opacity 0.3s 0s, visibility 0s 0.3s;
-  
-}
-.cd-popup.is-visible {
-  opacity: 1;
-  visibility: visible;
-  -webkit-transition: opacity 0.3s 0s, visibility 0s 0s;
-  -moz-transition: opacity 0.3s 0s, visibility 0s 0s;
-  transition: opacity 0.3s 0s, visibility 0s 0s;
-}
-
-.cd-popup-container {
-  position: relative;
-  width: 90%;
-  max-width: 400px;
-  margin: 4em auto;
-  background: #FFF;
-  border-radius: .25em .25em .4em .4em;
-  text-align: center;
-  
-  -webkit-transform: translateY(-40px);
-  -moz-transform: translateY(-40px);
-  -ms-transform: translateY(-40px);
-  -o-transform: translateY(-40px);
-  transform: translateY(-40px);
-  /* Force Hardware Acceleration in WebKit */
-  -webkit-backface-visibility: hidden;
-  -webkit-transition-property: -webkit-transform;
-  -moz-transition-property: -moz-transform;
-  transition-property: transform;
-  -webkit-transition-duration: 0.3s;
-  -moz-transition-duration: 0.3s;
-  transition-duration: 0.3s;
-   -moz-box-shadow:    inset 0 0 10px #006699;
-   -webkit-box-shadow: inset 0 0 10px #006699;
-   box-shadow:         inset 0 0 10px #006699;
-}
-.cd-popup-container  {
-  padding: 3em 1em;
-  
-}
-.cd-popup-container p {
-  text-align:left;
-}
-.cd-popup-container .cd-buttons:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-.cd-popup-container .cd-buttons li {
-  float: left;
-  width: 50%;
-  list-style: none;
-}
-.cd-popup-container .cd-buttons a {
-  display: block;
-  height: 60px;
-  line-height: 60px;
-  text-transform: uppercase;
-  color: #FFF;
-  -webkit-transition: background-color 0.2s;
-  -moz-transition: background-color 0.2s;
-  transition: background-color 0.2s;
-}
-.cd-popup-container .cd-buttons li:first-child a {
-  background: #fc7169;
-  border-radius: 0 0 0 .25em;
-}
-.no-touch .cd-popup-container .cd-buttons li:first-child a:hover {
-  background-color: #fc8982;
-}
-.cd-popup-container .cd-buttons li:last-child a {
-  background: #b6bece;
-  border-radius: 0 0 .25em 0;
-}
-.no-touch .cd-popup-container .cd-buttons li:last-child a:hover {
-  background-color: #c5ccd8;
-}
-.cd-popup-container .cd-popup-close {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  width: 30px;
-  height: 30px;
-}
-.cd-popup-container .cd-popup-close::before, .cd-popup-container .cd-popup-close::after {
-  content: '';
-  position: absolute;
-  top: 12px;
-  width: 14px;
-  height: 3px;
-  background-color: #8f9cb5;
-}
-.cd-popup-container .cd-popup-close::before {
-  -webkit-transform: rotate(45deg);
-  -moz-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  -o-transform: rotate(45deg);
-  transform: rotate(45deg);
-  left: 8px;
-}
-.cd-popup-container .cd-popup-close::after {
-  -webkit-transform: rotate(-45deg);
-  -moz-transform: rotate(-45deg);
-  -ms-transform: rotate(-45deg);
-  -o-transform: rotate(-45deg);
-  transform: rotate(-45deg);
-  right: 8px;
-}
-.is-visible .cd-popup-container {
-  -webkit-transform: translateY(0);
-  -moz-transform: translateY(0);
-  -ms-transform: translateY(0);
-  -o-transform: translateY(0);
-  transform: translateY(0);
-}
-@media only screen and (min-width: 1170px) {
-  .cd-popup-container {
-    margin: 8em auto;
-  }
-}
 </style>
 
 <script src="js/plugins/jquery.ImageGallery.js"></script> 
 <script src="js/plugins/jquery.imagesloaded.min.js"></script> 
 
-<div class="container" style=' padding-left: 0px;'>
-<div class="row">
-<div class="col-sm-8">
 <div class="products">
 	<div class="container" style="background: #FFF;">
 	
@@ -240,30 +17,30 @@ xpopup
 			<form:hidden path="pageName"/>
 			<form:hidden path="id"/>
 			
-		<div class="col-md-8 products-grid-left">
-		
+		<div class="col-md-9 products-grid-left">
             	<div class="panel panel-success">
             	
 					<div class="col-md-5"> <h4></h4>
 						<c:if test="${empty photosList}">
-							<img id="img_inpage" src="img/default.png" class="img-responsive" style="margin-bottom:0;">
+							<img src="img/default.png" class="img-responsive" style="margin-bottom:0;">
 						</c:if>
 						<c:if test="${not empty photosList}">
-						<div class="fullprofile" style="height:300px; overflow:hidden;"">	<a href="#" id="fullProfilePicOuterTag"><img src="${photosList[0].image}" style="width:100%; height:auto;" onclick="openModal();currentSlide(1)" class="hover-shadow cursor watermark_text"></a>
-						</div>	
+							<div id="viewer-wrapper">
+							<div id="gallery-viewer">
+						      	<div class="row"> 
+							        <div class="column">
+							    		<img src="${photosList[0].image}" style="width:100%" onclick="openModal();currentSlide(1)" class="hover-shadow cursor">
+							  		</div>   
+							    </div>
+							    </div>
+							   </div> 
 							<div id="gallery-wrapper">
 								<!-- thumbnail images -->
 								  <div id="thumbs-wrapper">
-								    <div id="gallery" style="margin:-10px 8px 8px;width:200%">
-								    	<c:set var="counter2" value="${0}" /> 
+								    <div id="gallery">
 								    	<c:forEach items="${photosList}" var="photo" >
-								    		<c:set var="counter2" value="${counter2+1}" />
-									      	<div class="profilethumbnail" style="float: left;
-    width: 69px;
-    height: 69px;
-    padding: 0px;
-    margin: 5px; "> 
-										        <img src="${photo.image}" class="watermark_text" style="width:100%; height:auto;"  onclick="currentSlide_inpage('${photo.image}')"/> 
+									      	<div class="thumbnail" style=""> 
+										        <img src="${photo.image}" /> 
 										    </div>
 										</c:forEach>
 								    </div> 
@@ -276,7 +53,13 @@ xpopup
 								    <p id="gallery-pos" hidden="true">page 1 of 2</p>
 								  </div>
 							</div>
+														
 							
+							</c:if>
+						<c:if test="${profileBean.id == cacheGuest.id}">
+							<div style="text-align:center;background:#f1f1f1;line-height:25px;" >
+	                            <a href="myPhotos"> Add / Edit  Photos</a>
+	                        </div>
 						</c:if>
 						
                      </div>
@@ -296,7 +79,7 @@ xpopup
 						${profileBean.currentCityName}, ${profileBean.currentStateName}, ${profileBean.currentCountryName}<br>
 						${profileBean.educationName}, ${profileBean.occupationName}</p>
 						
-						<c:if test="${profileBean.mobileNumViewed == '1' || profileBean.message_sent_status == '1' || profileBean.expressedInterest == '1'}">
+						<c:if test="${profileBean.mobileNumViewed == '1'}">
 					 		<p><span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-${profileBean.mobile}&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span></p>
 					 	</c:if>
 					 	<c:if test="${profileBean.mobileNumViewed != '1'}">
@@ -304,113 +87,106 @@ xpopup
 						 		<a href="#" type="button" class="btn1 btn btn-info"  id="mobileBtn" onclick="displayMobileNum(${profileBean.id})">View Mobile Number</a>
 						 	</p>
 					 	</c:if>
-					 </div>
+						 
+						 
+						 
+						
+						</div>
 						<div class="clearfix"></div>
 
 <div class="clearfix"></div>
             	
 
-<div class="cd-popup" role="alert">
-	<div class="cd-popup-container">
-		<h4 >Privacy Settings</h4>
-		<p>Your privacy settings have been saved successfully.</p>
-		
-		<a href="#0" class="cd-popup-close img-replace">Close</a>
-	</div> <!-- cd-popup-container -->
-</div> <!-- cd-popup -->
+
 					
-			</div><br>
+			</div>
+			<div class="panel panel-success"><div class="panel-body table-responsive">
 			<h4   style="padding="10px;"></h4><h3>Personal information</h3><hr>
-			<div class="panel panel-success" style='box-shadow: 5px 8px 5px;'>
-			<div class="panel-body table-responsive">			
-			<div class="col-md-11">	<strong class="font">About my ${cacheGuest.createProfileFor}</strong>
-				<div id="about_view" class="all_visible_divs">
-					<p id="aboutMyself_val">
+			<div class="col-md-1"><img src="user/images/edit.png"></div>
+			<div class="col-md-11">	<strong class="font">About my ${profileBean.createProfileFor}</strong>
+					<p>
 						<c:if test="${not empty profileBean.aboutMyself}">${profileBean.aboutMyself}</c:if>
 						<c:if test="${empty profileBean.aboutMyself}">Not Specified</c:if>
 					</p></div>
-				</div>
-				
-			</div></div>
-	<br>
-		<div class="panel panel-success" style='box-shadow: 5px 8px 5px;'>
-			<div class="panel-body table-responsive">
+	
+	<br><div>&nbsp;</div>
+		<div class="col-md-1"><img src="user/images/details.png"></div>
 			<div class="col-md-11">	<strong class="font">Basic Details </strong>
 				<div id="basic_details_view" class="all_visible_divs">
 					<table class="col-md-12 table-responsive">
-						<tr><td>Name</td>
-							<td>:</td>
-							<td class="name_val">${profileBean.firstName}&nbsp; ${profileBean.lastName}</td>
-							<td>Body Type</td><td>:</td>
-							<td id="bodyType_val">
-								<c:if test="${not empty profileBean.bodyTypeName}">${profileBean.bodyTypeName}</c:if>
-								<c:if test="${empty profileBean.bodyTypeName}">Not specified
-								</c:if>
-							</td>
-						</tr>
+						
 						<tr>
 							<td>Age</td><td>:</td>
-							<td id="age_val">
-								<c:if test="${not empty profileBean.age}">${profileBean.age} yrs</c:if>
+							<td>
+								<c:if test="${not empty profileBean.age}">${profileBean.age}</c:if>
 								<c:if test="${empty profileBean.age}">Not specified</c:if>
 							</td>
+							
+							
+						</tr>
+						<tr>
+							<td>Body Type</td><td>:</td>
+							<td>
+								<c:if test="${not empty profileBean.bodyTypeName}">${profileBean.bodyTypeName}</c:if>
+								<c:if test="${empty profileBean.bodyTypeName}">Not specified</c:if>
+							</td>
 							<td>Complexion</td><td>:</td>
-							<td id="complexion_val">
+							<td>
 								<c:if test="${not empty profileBean.complexionName}">${profileBean.complexionName}</c:if>
 								<c:if test="${empty profileBean.complexionName}">Not specified</c:if>
 							</td>
 						</tr>
 						<tr>
 							<td>Height</td><td>:</td>
-							<td id="height_val">
+							<td>
 								<c:if test="${not empty profileBean.heightInches}">${profileBean.heightInches}</c:if>
 								<c:if test="${empty profileBean.heightInches}">Not specified</c:if>
 							</td>
 							<td>Physical Status</td><td>:</td>
-							<td id="disability_val">
+							<td>
 								<c:if test="${not empty profileBean.disability}">${profileBean.disability}</c:if>
 								<c:if test="${empty profileBean.disability}">Not specified</c:if>
 							</td>
 						</tr>
 						<tr>
-							<%-- <td>Weight</td><td>:</td>
-							<td id="height_val">
+							<td>Weight</td><td>:</td>
+							<td>
 								<c:if test="${not empty profileBean.weight}">${profileBean.weight}</c:if>
 								<c:if test="${empty profileBean.weight}">Not specified</c:if>
-							</td> --%>
+							</td>
 							<td>Eating Habits</td><td>:</td>
-							<td id="diet_val"> 
+							<td>
 								<c:if test="${not empty profileBean.diet}">${profileBean.diet}</c:if>
 								<c:if test="${empty profileBean.diet}">Not specified</c:if>
 							</td>
 						</tr>
 						<tr>
 							<td>Mother Tongue</td><td>:</td>
-							<td id="motherTongue_val">
+							<td>
 								<c:if test="${not empty profileBean.motherTongueName}">${profileBean.motherTongueName}</c:if>
 								<c:if test="${empty profileBean.motherTongueName}">Not specified</c:if>
 							</td>
 							<td>Drinking Habits</td><td>:</td>
-							<td id="drinking_val">
+							<td>
 								<c:if test="${not empty profileBean.drinking}">${profileBean.drinking}</c:if>
 								<c:if test="${empty profileBean.drinking}">Not specified</c:if>
 							</td>
 						</tr>
 						<tr>
 							<td>Marital Status</td><td>:</td>
-							<td id="maritalStatus_val">
+							<td>
 								<c:if test="${not empty profileBean.maritalStatus}">${profileBean.maritalStatus}</c:if>
 								<c:if test="${empty profileBean.maritalStatus}">Not specified</c:if>
 							</td>
 							<td>Smoking Habits</td><td>:</td>
-							<td id="smoking_val">
+							<td>
 								<c:if test="${not empty profileBean.smoking}">${profileBean.smoking}</c:if>
 								<c:if test="${empty profileBean.smoking}">Not specified</c:if>
 							</td>
 						</tr>
 					</table>
 			</div>
-			</div></div>
+			
 		</div><br>
 <!-- <div class="col-md-1"><img src="user/images/media.png"></div>
 			<div class="col-md-11">	
@@ -425,39 +201,38 @@ xpopup
 
 </table></p>
 </div>
-<br> -->
-	<div class="panel panel-success" style='box-shadow: 5px 8px 5px;'>
-			<div class="panel-body table-responsive">
+<br> --><div>&nbsp;</div>
+	<div class="col-md-1"><img src="user/images/rel.png"></div>
 		<div class="col-md-11">	
 			<strong class="font">Religion Information</strong>
 			<div id="religion_info_view" class="all_visible_divs">
 				<table class="col-md-6 table-responsive">
 				<tr><td>Religion</td><td>:</td>
-					<td id="religion_val">
+					<td>
 						<c:if test="${not empty profileBean.religionName}">${profileBean.religionName}</c:if>
 						<c:if test="${empty profileBean.religionName}">Not specified</c:if>
 					</td>
 				</tr>
 				<tr><td>Caste / Sub Caste</td><td>:</td>
-					<td id="caste_val">
+					<td>
 					<c:if test="${not empty profileBean.casteName}">${profileBean.casteName}</c:if>
 					<c:if test="${empty profileBean.casteName}">Not specified</c:if>
 					</td>
 				</tr>
 				<tr><td>Gothram</td><td>:</td>
-					<td id="gotram_val">
+					<td>
 						<c:if test="${not empty profileBean.gotram}">${profileBean.gotram}</c:if>
 						<c:if test="${empty profileBean.gotram}">Not specified</c:if>
 					</td>
 				</tr>
-				<%-- <tr><td>Zodiac</td><td>:</td>
-					<td id="smoking_val">
+				<tr><td>Zodiac</td><td>:</td>
+					<td>
 						<c:if test="${not empty profileBean.smoking}">${profileBean.smoking}</c:if>
 						<c:if test="${empty profileBean.smoking}">Not specified</c:if>
 					</td>
-				</tr> --%>
+				</tr>
 				<tr><td>Star / Raasi</td><td>:</td>
-					<td id="star_val">
+					<td>
 						<c:if test="${not empty profileBean.starName}">${profileBean.starName}</c:if>
 						<c:if test="${empty profileBean.starName}">Not specified</c:if>
 						
@@ -465,19 +240,9 @@ xpopup
 					</td>
 				</tr>
 				<tr><td>Dosham</td><td>:</td>
-					<td id="dosam_val">
-						<c:if test="${not empty profileBean.dosam}">
-							<c:if test="${(profileBean.dosam == 'YES')  &&  (not empty profileBean.dosamName)}">
-								YES - ${profileBean.dosamName}
-							</c:if>
-							<c:if test="${(profileBean.dosam == 'YES')  &&  (empty profileBean.dosamName)}">
-								YES
-							</c:if>
-							<c:if test="${profileBean.dosam != 'YES'}">
-								${profileBean.dosam}
-							</c:if>
-						</c:if>
-						<c:if test="${empty profileBean.dosam}">Not specified</c:if>
+					<td>
+						<c:if test="${not empty profileBean.dosamName}">${profileBean.dosamName}</c:if>
+						<c:if test="${empty profileBean.dosamName}">Not specified</c:if>
 					</td>
 				</tr>
 				
@@ -485,11 +250,8 @@ xpopup
 			</div>
 			
 		</div>
-		</div>
-		</div>
-<br>
-	<div class="panel panel-success" style='box-shadow: 5px 8px 5px;'>
-			<div class="panel-body table-responsive">
+<br><div>&nbsp;</div>
+<div class="col-md-1"><img src="user/images/bride.png" style='width: 48px;'></div>
 			<div class="col-md-11">	<strong class="font">
 			<c:if test="${profileBean.gender == 'Female'}">Bride</c:if>
 			<c:if test="${profileBean.gender == 'Male'}">Groom</c:if>
@@ -498,53 +260,52 @@ xpopup
 	<div id="location_view" class="all_visible_divs">
 	<table class="col-md-12 table-responsive">
 		<tr><td>Country</td><td>:</td>
-			<td id="currentCountry_val">
+			<td>
 				<c:if test="${not empty profileBean.currentCountryName}">${profileBean.currentCountryName}</c:if>
 				<c:if test="${empty profileBean.currentCountryName}">Not Specified</c:if>
 			</td>
-		</tr>
-		<tr>
 			<td>City</td><td>:</td>
-			<td id="currentState_val">
+			<td>
 				<c:if test="${not empty profileBean.currentCityName}">${profileBean.currentCityName}</c:if>
 				<c:if test="${empty profileBean.currentCityName}">Not Specified</c:if>
 			</td>
 		</tr>
 		<tr><td>State</td><td>:</td>
-			<td id="currentCity_val">
+			<td>
 				<c:if test="${not empty profileBean.currentStateName}">${profileBean.currentStateName}</c:if>
 				<c:if test="${empty profileBean.currentStateName}">Not Specified</c:if>
 			</td>
-			
+			<td>Citizenship</td><td>:</td>
+			<td>
+				<c:if test="${not empty profileBean.casteName}">${profileBean.casteName}</c:if>
+				<c:if test="${empty profileBean.casteName}">Not Specified</c:if>
+			</td>
 		</tr>
 	</table>
 	</div>
 	
-	</div>
-	</div>
 </div>
 
-<br>
-	<div class="panel panel-success" style='box-shadow: 5px 8px 5px;'>
-			<div class="panel-body table-responsive">	
+<br><div>&nbsp;</div>
+<div class="col-md-1"><img src="user/images/profess.jpg" style='width: 48px;'></div>
 			<div class="col-md-11">	<strong class="font">Professional Information</strong>
 				
-	<div id="professional_info_view" class="all_visible_divs">
+	<div id="professional_view" class="all_visible_divs">
 	<table class="col-md-12 table-responsive">
 		<tr><td>Education</td><td>:</td>
-			<td id="education_val">
+			<td>
 				<c:if test="${not empty profileBean.educationName}">${profileBean.educationName}</c:if>
 				<c:if test="${empty profileBean.educationName}">Not Specified</c:if>
 			</td>
 		</tr>
 		<tr><td>Employed in</td><td>:</td>
-			<td id="workingWith_val">
+			<td>
 				<c:if test="${not empty profileBean.workingWith}">${profileBean.workingWith}</c:if>
 				<c:if test="${empty profileBean.workingWith}">Not Specified</c:if>
 			</td>
 		</tr>
 		<tr><td>Occupation</td><td>:</td>
-			<td id="occupation_val">
+			<td>
 				<c:if test="${not empty profileBean.occupationName}">${profileBean.occupationName}</c:if>
 				<c:if test="${empty profileBean.occupationName}">Not Specified</c:if>
 			</td>
@@ -552,58 +313,55 @@ xpopup
 	</table>
 	</div>
 	
-	</div>
-	</div>
  </div>
 
 
-<br>
-<div class="panel panel-success" style='box-shadow: 5px 8px 5px;'>
-			<div class="panel-body table-responsive">
+<br><div>&nbsp;</div>
+<div class="col-md-1"><img src="user/images/family.jpg" style='width: 48px;'></div>
 			<div class="col-md-11">	<strong class="font">Family Details</strong>
 				
 	<div id="family_details_view" class="all_visible_divs">
 	<table class="col-md-12 table-responsive">
 		<tr><td>Father's Name</td><td>:</td>
-			<td id="fatherName_val">
+			<td>
 				<c:if test="${not empty profileBean.fatherName}">${profileBean.fatherName}</c:if>
 				<c:if test="${empty profileBean.fatherName}">Not Specified</c:if>
 			</td>
 			<td>Mother's Name</td><td>:</td>
-			<td id="motherName_val"><c:out value="${profileBean.motherName}"/>
+			<td>
 				<c:if test="${not empty profileBean.motherName}">${profileBean.motherName}</c:if>
 				<c:if test="${empty profileBean.motherName}">Not Specified</c:if>
 			</td>
 		</tr>
-		<tr><td>Father's Occupation</td><td>:</td>
-			<td id="fOccupation_val">
-				<c:if test="${not empty profileBean.fOccupation}">${profileBean.fOccupationName}</c:if>
+		<tr><td>Father's Status</td><td>:</td>
+			<td>
+				<c:if test="${not empty profileBean.fOccupation}">${profileBean.fOccupation}</c:if>
 				<c:if test="${empty profileBean.fOccupation}">Not Specified</c:if>
 			</td>
-			<td>Mother's Occupation</td><td>:</td>
-			<td id="mOccupation_val">
-				<c:if test="${not empty profileBean.mOccupation}">${profileBean.mOccupationName}</c:if>
+			<td>Mother's Status</td><td>:</td>
+			<td>
+				<c:if test="${not empty profileBean.mOccupation}">${profileBean.mOccupation}</c:if>
 				<c:if test="${empty profileBean.mOccupation}">Not Specified</c:if>
 			</td>
 		</tr>
 		<tr><td>No. of Brothers</td><td>:</td>
-			<td id="noOfBrothers_val">
+			<td>
 				<c:if test="${not empty profileBean.noOfBrothers}">${profileBean.noOfBrothers}</c:if>
 				<c:if test="${empty profileBean.noOfBrothers}">Not Specified</c:if>
 			</td>
 			<td>Brothers Married</td><td>:</td>
-			<td id="noOfBrothersMarried_val">
+			<td>
 				<c:if test="${not empty profileBean.noOfBrothersMarried}">${profileBean.noOfBrothersMarried}</c:if>
 				<c:if test="${empty profileBean.noOfBrothersMarried}">Not Specified</c:if>
 			</td>
 		</tr>
 		<tr><td>No. of Sisters</td><td>:</td>
-			<td id="noOfSisters_val">
+			<td>
 				<c:if test="${not empty profileBean.noOfSisters}">${profileBean.noOfSisters}</c:if>
 				<c:if test="${empty profileBean.noOfSisters}">Not Specified</c:if>
 			</td>
 			<td>Sisters Married</td><td>:</td>
-			<td id="noOfSistersMarried_val">
+			<td>
 				<c:if test="${not empty profileBean.noOfSistersMarried}">${profileBean.noOfSistersMarried}</c:if>
 				<c:if test="${empty profileBean.noOfSistersMarried}">Not Specified</c:if>
 			</td>
@@ -611,16 +369,14 @@ xpopup
 	</table>
 	</div>
 	
-	</div>
-	</div>
 </div>
+</div>
+</div>
+<div class="panel panel-success"><div class="panel-body table-responsive">
+			<h4   style="padding="10px;"></h4><h3>Partner Preferences</h3><hr>
 
-<br>
-		<h4   style="padding: 10px;"></h4><h3>Partner Preferences</h3><hr>
-<div class="panel panel-success" style='box-shadow: 5px 8px 5px;'>
-
-			<div class="panel-body table-responsive">
-			
+<br><div>&nbsp;</div>
+<!-- <div class="col-md-1"><img src="user/images/location.png"></div> -->
 			<div class="col-md-11">	<strong class="font">Basic & Religion Preferences</strong>
 				
 	<div id="partner_basic_view" class="all_visible_divs">
@@ -630,108 +386,94 @@ xpopup
 				<c:if test="${profileBean.gender == 'Male'}">Bride</c:if>
 				's Age
 			</td><td>:</td>
-			<td id="rAgeFrom_val">
+			<td>
 				<c:if test="${not empty profileBean.rAgeFrom}">${profileBean.rAgeFrom} - ${profileBean.rAgeTo} Years</c:if>
 				<c:if test="${empty profileBean.rAgeFrom}">Not Specified</c:if>
 			</td>
 			<td>Height</td><td>:</td>
 			<td>
-				<span id="rHeight_val"><c:if test="${not empty profileBean.rHeightInches}">${profileBean.rHeightInches} - </c:if></span> <span id="rHeightTo_val"><c:if test="${not empty profileBean.rHeightInches}">${profileBean.rHeightToInches}</c:if></span>
-				<span id="rHeight_outer_val"><c:if test="${empty profileBean.rHeightInches}">Not Specified</c:if></span>
+				<c:if test="${not empty profileBean.rHeight}">${profileBean.rHeight} - ${profileBean.rHeightTo} </c:if>
+				<c:if test="${empty profileBean.rHeight}">Not Specified</c:if>
 			</td>
 		</tr>
 		<tr><td>Marital Status</td><td>:</td>
-			<td id="rMaritalStatus_val">
-				<c:if test="${not empty profileBean.rMaritalStatusName}">${profileBean.rMaritalStatusName}</c:if>
-				<c:if test="${empty profileBean.rMaritalStatusName}">Not Specified</c:if>
-			</td>
-			<%-- <td>Physical Status</td><td>:</td>
 			<td>
-				<c:if test="${not empty profileBean.casteName}">${profileBean.casteName}</c:if>
-				<c:if test="${empty profileBean.casteName}">Not Specified</c:if>
-			</td> --%>
-			<td>Eating Habits</td><td>:</td>
-			<td id="rDiet_val">
-				<c:if test="${not empty profileBean.rDietName}">${profileBean.rDietName}</c:if>
-				<c:if test="${empty profileBean.rDietName}">Not Specified</c:if>
+				<c:if test="${not empty profileBean.rMaritalStatus}">${profileBean.rMaritalStatus}</c:if>
+				<c:if test="${empty profileBean.rMaritalStatus}">Not Specified</c:if>
+			</td>
+			<td>Physical Status</td><td>:</td>
+			<td>
+				<%-- <c:if test="${not empty profileBean.casteName}">${profileBean.casteName}</c:if>
+				<c:if test="${empty profileBean.casteName}">Not Specified</c:if> --%>
 			</td>
 		</tr>
-		<tr>
-			<%-- <td>Smoking Habits</td><td>:</td>
+		<tr><td>Eating Habits</td><td>:</td>
 			<td>
-				<c:if test="${not empty profileBean.casteName}">${profileBean.casteName}</c:if>
-				<c:if test="${empty profileBean.casteName}">Not Specified</c:if> 
-			</td>  --%>
+				<c:if test="${not empty profileBean.rDiet}">${profileBean.rDiet}</c:if>
+				<c:if test="${empty profileBean.rDiet}">Not Specified</c:if>
+			</td>
+			<td>Smoking Habits</td><td>:</td>
+			<td>
+				<%-- <c:if test="${not empty profileBean.casteName}">${profileBean.casteName}</c:if>
+				<c:if test="${empty profileBean.casteName}">Not Specified</c:if> --%>
+			</td>
 		</tr>
-		<tr>
-			<%-- <td>Drinking Habits</td><td>:</td>
+		<tr><td>Drinking Habits</td><td>:</td>
 			<td>
-				<c:if test="${not empty profileBean.currentStateName}">${profileBean.currentStateName}</c:if>
-				<c:if test="${empty profileBean.currentStateName}">Not Specified</c:if> 
-			</td> --%>
+				<%-- <c:if test="${not empty profileBean.currentStateName}">${profileBean.currentStateName}</c:if>
+				<c:if test="${empty profileBean.currentStateName}">Not Specified</c:if> --%>
+			</td>
 			<td>Religion</td><td>:</td>
-			<td id="rReligion_val">
-				<c:if test="${not empty profileBean.rReligionName}">${profileBean.rReligionName}</c:if>
-				<c:if test="${empty profileBean.rReligionName}">Not Specified</c:if>
-			</td>
-			<td>Mothertongue</td><td>:</td>
-			<td id="rMotherTongue_val">
-				<c:if test="${not empty profileBean.rMotherTongueName}">${profileBean.rMotherTongueName}</c:if>
-				<c:if test="${empty profileBean.rMotherTongueName}">Not Specified</c:if>
+			<td>
+				<c:if test="${not empty profileBean.rReligion}">${profileBean.rReligion}</c:if>
+				<c:if test="${empty profileBean.rReligion}">Not Specified</c:if>
 			</td>
 		</tr>
-		<tr>
+		<tr><td>Mothertongue</td><td>:</td>
+			<td>
+				<c:if test="${not empty profileBean.rMotherTongue}">${profileBean.rMotherTongue}</c:if>
+				<c:if test="${empty profileBean.rMotherTongue}">Not Specified</c:if>
+			</td>
 			<td>Caste</td><td>:</td>
-			<td id="rCaste_val">
-				<c:if test="${not empty profileBean.rCasteName}">${profileBean.rCasteName}</c:if>
-				<c:if test="${empty profileBean.rCasteName}">Not Specified</c:if>
+			<td>
+				<c:if test="${not empty profileBean.rCaste}">${profileBean.rCaste}</c:if>
+				<c:if test="${empty profileBean.rCaste}">Not Specified</c:if>
 			</td>
 		</tr>
-		<%-- <tr>
-			<td>Star</td><td>:</td>
-			 <td>
+		<tr><td>Star</td><td>:</td>
+			<%-- <td>
 				<c:if test="${not empty profileBean.currentStateName}">${profileBean.currentStateName}</c:if>
 				<c:if test="${empty profileBean.currentStateName}">Not Specified</c:if>
-			</td> 
+			</td> --%>
 			
-		</tr> --%>
+		</tr>
 	</table>
 	</div>
 	
-	</div>
-	</div>
 </div>
 
-<br>
-<div class="panel panel-success" style='box-shadow: 5px 8px 5px; border: none;'>
-			<div class="panel-body table-responsive">
+<br><div>&nbsp;</div>
+<!-- <div class="col-md-1"><img src="user/images/location.png"></div> -->
 			<div class="col-md-11">	<strong class="font">Professional Preferences</strong>
 				
 	<div id="partner_professional_view" class="all_visible_divs">
 	<table class="col-md-12 table-responsive">
 		<tr><td>Education</td><td>:</td>
-			<td id="rEducation_val">
-				<c:if test="${not empty profileBean.rEducationName}">${profileBean.rEducationName}</c:if>
-				<c:if test="${empty profileBean.rEducationName}">Not Specified</c:if>
-			</td>
-			
-		</tr>
-		<tr><td>Working With</td><td>:</td>
-			<td id="rWorkingWith_val">
-				<c:if test="${not empty profileBean.rWorkingWith}">${profileBean.rWorkingWith}</c:if>
-				<c:if test="${empty profileBean.rWorkingWith}">Not Specified</c:if>
+			<td>
+				<c:if test="${not empty profileBean.rEducation}">${profileBean.rEducation}</c:if>
+				<c:if test="${empty profileBean.rEducation}">Not Specified</c:if>
 			</td>
 			
 		</tr>
 		<tr><td>Occupation</td><td>:</td>
-			<td id="rOccupation_val">
-				<c:if test="${not empty profileBean.rOccupationName}">${profileBean.rOccupationName}</c:if>
-				<c:if test="${empty profileBean.rOccupationName}">Not Specified</c:if>
+			<td>
+				<c:if test="${not empty profileBean.rOccupation}">${profileBean.rOccupation}</c:if>
+				<c:if test="${empty profileBean.rOccupation}">Not Specified</c:if>
 			</td>
 			
 		</tr>
 		<tr><td>Annual Income</td><td>:</td>
-			<td id="rAnnualIncome_val">
+			<td>
 				<c:if test="${not empty profileBean.rAnnualIncome}">${profileBean.rAnnualIncome}</c:if>
 				<c:if test="${empty profileBean.rAnnualIncome}">Not Specified</c:if>
 			</td>
@@ -740,60 +482,56 @@ xpopup
 	</table>
 	</div>
 	
-	</div>
 </div>
-</div>
-<br>
-<div class="panel panel-success" style='box-shadow: 5px 8px 5px;'>
-			<div class="panel-body table-responsive">
+
+<br><div>&nbsp;</div>
+<!-- <div class="col-md-1"><img src="user/images/location.png"></div> -->
 			<div class="col-md-11">	<strong class="font">Location Preferences</strong>
 				
 	<div id="partner_location_view" class="all_visible_divs">
 	<table class="col-md-12 table-responsive">
 		<tr><td>Country</td><td>:</td>
-			<td id="rCountry_val">
-				<c:if test="${not empty profileBean.rCountryName}">${profileBean.rCountryName}</c:if>
-				<c:if test="${empty profileBean.rCountryName}">Not Specified</c:if>
+			<td>
+				<c:if test="${not empty profileBean.rCountry}">${profileBean.rCountry}</c:if>
+				<c:if test="${empty profileBean.rCountry}">Not Specified</c:if>
 			</td>
-		</tr>
-		<tr>
-			<td>Residing State</td><td>:</td>
-			<td id="rState_val">
-				<c:if test="${not empty profileBean.rStateName}">${profileBean.rStateName}</c:if>
-				<c:if test="${empty profileBean.rStateName}">Not Specified</c:if>
-			</td>
-			<!-- <td>City</td><td>:</td> -->
+			<td>City</td><td>:</td>
 			
 		</tr>
-		
-		<%-- <tr><td>Residing City</td><td>:</td>
+		<tr><td>Residing State</td><td>:</td>
 			<td>
-				<c:if test="${not empty profileBean.rCity}">${profileBean.rCity}</c:if>
-				<c:if test="${empty profileBean.rCity}">Not Specified</c:if>
+				<c:if test="${not empty profileBean.rState}">${profileBean.rState}</c:if>
+				<c:if test="${empty profileBean.rState}">Not Specified</c:if>
+			</td>
+			
+			
+		</tr>
+		<tr><td>Residing City</td><td>:</td>
+			<td>
+				<%-- <c:if test="${not empty profileBean.rCity}">${profileBean.rCity}</c:if>
+				<c:if test="${empty profileBean.rCity}">Not Specified</c:if> --%>
 			</td>
 			
 			
 		</tr>
 		<tr><td>Citizenship</td><td>:</td>
 			<td>
-				 <c:if test="${not empty profileBean.currentStateName}">${profileBean.currentStateName}</c:if>
-				<c:if test="${empty profileBean.currentStateName}"><a>Add State</a></c:if> 
+				<%-- <c:if test="${not empty profileBean.currentStateName}">${profileBean.currentStateName}</c:if>
+				<c:if test="${empty profileBean.currentStateName}"><a>Add State</a></c:if> --%>
 			</td>
 			
-		</tr> --%>
+		</tr>
 	</table>
 	</div>
 	
-	</div>
-	</div>
+</div>
+	
 </div>
 </div></div>
-</div></div></div>
-</form:form>
-<div class="col-md-4">
-<div class="col-sm-3" style='width: 100%; margin: 31px 0px 0px 0px;'>
-			<div class="col-md-11 products-grid-right">
-			<div class="panel panel-success">
+</form:form></div></div></div></div>
+<div class="col-sm-3" style='margin: 31px 0px 0px 0px;'>
+			<div class="col-md-3 products-grid-right">
+			<div class="panel panel-success" style="width: 654%;">
 			<div class="panel-heading">Add Horoscope</div>
 					<div class="panel-body table-responsive">
 		            	<div class="col-md-3"">
@@ -801,25 +539,23 @@ xpopup
 				</div><div class="col-md-9"><p>It is simple and absolutely FREE!</p></div>
 	            	</div>
 	            </div>
-			<div class="panel panel-success">
+			<div class="panel panel-success" style="width: 654%;">
 			<div class="panel-heading">Add Photos Now</div>
 					<div class="panel-body table-responsive">
-		            	<div class="col-md-3">
+		            	<div class="col-md-3"">
 					<img src="user/images/add-photo-edit-avatar.png" width="40">
 				</div><div class="col-md-9"><p>Photos are the first
 things members look for
 in a profile. </p></div>
 	            	</div>
-	            </div><div class="clearfix"></div>
+	            </div></div><div class="clearfix"></div>
+			
 			
 			
 			
 			<div class="col-md-3 products-grid-right">
 			</div></div>
-			</div>
-</div>
-</div>
-</div>
+</div></div>
 <script type="text/javascript">
 var slideIndex = 1;
 showSlides(slideIndex);
@@ -1009,23 +745,6 @@ jQuery(document).ready(function($){
 	    }
     });
 });
-$(function(){
-	 //add text water mark;	
- addWaterMark();
-});
-function addWaterMark(){
- $('.watermark_text').watermark({
-	  text: 'aarnamatrimony.com',
-	  textWidth: 700,
-	  textSize: 76,
-	  textColor: 'white',
-	  gravity: 'w',
-	   opacity: 0.8,
-	   //margin: 0,
-	   outputWidth: 'auto',
-	   outputHeight: 'auto'
-	 });
-}
 function toggleDiv(divElem){
 	var isHidden = $("#"+divElem+"_edit").attr("hidden");
 	$(".all_hidden_divs").attr("hidden",true);

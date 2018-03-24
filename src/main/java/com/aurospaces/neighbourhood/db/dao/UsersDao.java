@@ -45,7 +45,7 @@ public class UsersDao extends BaseUsersDao
 	
 	public UsersBean loginChecking(LoginBean objUsersBean) {
 		 jdbcTemplate = custom.getJdbcTemplate();
-			String sql = "SELECT u.*,ureq.*,ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,  GROUP_CONCAT(uimg.image) as image, (select uimg.image from user_images uimg where uimg.user_id=u.id and uimg.is_profile_picture='1') as profileImage, "
+			String sql = "SELECT u.*,ureq.*,ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,  GROUP_CONCAT(uimg.image) as image, (select uimg.image from user_images uimg where uimg.user_id=u.id and uimg.status = '1' and uimg.is_profile_picture='1') as profileImage, "
 							+" cst.name as casteName, rel.name as religionName, edu.name as educationName, curcity.name as currentCityName ,"
 							+" occ.name as occupationName,  "
 							+" DATE_FORMAT(u.dob, '%d-%M-%Y') as dob, DATE_FORMAT(u.created_time, '%d-%M-%Y') as createdTimeAsString, "
@@ -99,6 +99,8 @@ public class UsersDao extends BaseUsersDao
 							+" (select GROUP_CONCAT(name) from state where find_in_set(id,(select rState from userrequirement where userId = "+id+"))>0) as rStateName, "
 							+" (select h.inches from height h where h.id = (select ur.rHeight from userrequirement ur where ur.userId = "+id+")) as rHeightInches, "
 							+" (select h.inches from height h where h.id = (select ur.rHeightTo from userrequirement ur where ur.userId = "+id+")) as rHeightToInches, "
+							+" (select count(*) from express_intrest intr where intr.user_id="+sessionBean.getId()+" and intr.profile_id="+id+"  and intr.interested='1') as expressedInterest, "
+							+" (select count(*) from express_intrest intr where intr.user_id="+sessionBean.getId()+" and intr.profile_id="+id+"  and message_sent_status='1') as message_sent_status, "
 							+" (select count(*) from express_intrest intr where intr.user_id="+sessionBean.getId()+" and intr.profile_id="+id+"  and mobile_no_viewed_status='1') as mobileNumViewed " 
 							+" FROM users u left join user_images uimg on uimg.user_id=u.id left join userrequirement ureq on ureq.userId=u.id  "
 							+" left join cast cst on cst.id=u.caste left join religion rel on rel.id=u.religion "
@@ -229,7 +231,10 @@ public class UsersDao extends BaseUsersDao
 					+"u.annualIncome, u.monthlyIncome, u.diet, u.smoking, u.drinking, u.height ,h.inches,h.cm, u.bodyType,b.name as bodyTypeName, u.complexion,com.name as complexionName, u.mobile, " 
 					+"u.aboutMyself, u.disability, u.status, u.showall,ur.userId, rAgeFrom, rAgeTo, "
 					+"rHeight, rMaritalStatus, rReligion,re1.name as requiredReligionName, rCaste,c1.name as requiredCasteName, rMotherTongue,l1.name as requiredMotherTongue,haveChildren,rCountry , con1.name as requiredCountry,rState,rEducation,e1.name as requiredEducationName, "
-					+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,floor((datediff(current_date(),u.dob))/365) as age, IFNULL(p.name, 'Free Register') as planPackage,u.profileVerifyedBy from users u left join userrequirement ur on u.id=ur.userId "
+					+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,floor((datediff(current_date(),u.dob))/365) as age, IFNULL(p.name, 'Free Register') as planPackage,u.profileVerifyedBy, "
+					+" (select h.inches from height h where h.id = (select ur.rHeight from userrequirement ur where ur.userId = u.id)) as rHeightInches, "
+					+" (select h.inches from height h where h.id = (select ur.rHeightTo from userrequirement ur where ur.userId = u.id)) as rHeightToInches "
+					+"from users u left join userrequirement ur on u.id=ur.userId "
 					+"left join religion re on re.id=u.religion left join language l on l.id=u.motherTongue left join countries co on co.id=u.currentCountry "
 					+"left join cast c on c.id=u.caste left join star s on s.id =u.star left join height h on h.id=u.height left join body_type b on b.id=u.bodyType left join religion re1  on re1.id=rReligion "
 					+"left join complexion com on com.id =u.complexion left join cast c1 on c1.id=rCaste left join language l1 on l1.id=rMotherTongue "
@@ -282,7 +287,7 @@ public class UsersDao extends BaseUsersDao
 										"monthlyIncome","diet","smoking","drinking","height","inches","cm",
 										"bodyType","bodyTypeName","complexion","complexionName","mobile","aboutMyself","disability",
 										"status","showall","userId","rAgeFrom","rAgeTo","rHeight","rMaritalStatus","rReligion","requiredReligionName","rCaste","requiredCasteName","rMotherTongue","requiredMotherTongue","haveChildren","rCountry","requiredCountry","rState","rEducation","requiredEducationName",
-										"rWorkingWith","rOccupation","requiredOccupationName","rAnnualIncome","rCreateProfileFor","rDiet","dobString","age","planPackage","profileVerifyedBy"});
+										"rWorkingWith","rOccupation","requiredOccupationName","rAnnualIncome","rCreateProfileFor","rDiet","dobString","age","planPackage","profileVerifyedBy","rHeightInches","rHeightToInches"});
 								jdbcTemplate.query(sql, handler);
 								List<Map<String, String>> result = handler.getResult();
 								return result;
@@ -603,11 +608,11 @@ public class UsersDao extends BaseUsersDao
 					int updated_count = 0;
 					int existing_count = jdbcTemplate.queryForInt("select count(*) from express_intrest ei where ei.user_id="+objUserBean.getId()+" and ei.profile_id="+profileId);
 					if(existing_count==0){
-						buffer.append("insert into express_intrest(user_id,profile_id,interested,created_on,intrest_to,allowed_profiles_limit) values(?,?,?,?,?,?)");
+						buffer.append("insert into express_intrest(user_id,profile_id,interested,created_on,intrest_to,allowed_profiles_limit,status) values(?,?,?,?,?,?,'1')");
 						updated_count = jdbcTemplate.update(buffer.toString(), new Object[]{objUserBean.getId(),profileId,"1",
 												new java.sql.Timestamp(new DateTime().getMillis()),profileId,MatrimonyConstants.PREMIUM_USER_PROFILES_LIMIT});
 					}else if(existing_count>0){
-						buffer.append("update express_intrest set interested = '1',created_on = ? where user_id = ? and profile_id = ?");
+						buffer.append("update express_intrest set interested = '1', status='1', created_on = ? where user_id = ? and profile_id = ? ");
 						updated_count = jdbcTemplate.update(buffer.toString(), new Object[]{new java.sql.Timestamp(new DateTime().getMillis()),objUserBean.getId(),profileId});
 					}
 					if(updated_count == 1){
@@ -774,6 +779,40 @@ public class UsersDao extends BaseUsersDao
 			return false;
 	 }
 	 
+	 public boolean sendMailMessage(String profileId){
+			jdbcTemplate = custom.getJdbcTemplate();
+			StringBuffer buffer = new StringBuffer();
+			UsersBean objUserBean = null;
+			objUserBean = (UsersBean) session.getAttribute("cacheGuest");
+			if(objUserBean!=null){
+				try{
+					int updated_count = 0;
+					int existing_count = jdbcTemplate.queryForInt("select count(*) from express_intrest ei where ei.user_id="+objUserBean.getId()+" and ei.profile_id="+profileId+"");
+					if(existing_count==0){
+						buffer.append("insert into express_intrest(user_id,profile_id,message_sent_status,created_on) values(?,?,?,?)");
+						updated_count = jdbcTemplate.update(buffer.toString(), new Object[]{objUserBean.getId(),profileId,"1",
+								new java.sql.Timestamp(new DateTime().getMillis())});
+						
+					}else if(existing_count>0){
+						buffer.append("update express_intrest set message_sent_status = '1',created_on = ? where user_id = ? and profile_id = ?");
+						updated_count = jdbcTemplate.update(buffer.toString(), new Object[]{new java.sql.Timestamp(new DateTime().getMillis()),objUserBean.getId(),profileId});
+					}
+					if(updated_count == 1){
+						int allowed_profiles_limit = this.getAllowedProfilesLimit(objUserBean.getId());
+						//int allowed_profiles_limit = (Integer)session.getAttribute("allowed_profiles_limit");
+						//session.removeAttribute("allowed_profiles_limit");
+						session.setAttribute("allowed_profiles_limit", allowed_profiles_limit);
+						return true;
+					}
+					
+				}catch(Exception e){
+					e.printStackTrace();
+					return false;
+				}
+			}
+			return false;
+	 }
+	 
 	 public List<Map<String, String>> getProfilesFilteredByPreferences(){
 		 return this.getProfilesFilteredByPreferences(0);
 	 }
@@ -799,6 +838,7 @@ public class UsersDao extends BaseUsersDao
 				where_clause.append( " and FIND_IN_SET(u.caste,if((select ureq.rCaste "+tempQryStr+" )='' or (select ureq.rCaste "+tempQryStr+" )='all' or (select ureq.rCaste  "+tempQryStr+" ) is null,u.caste,(select ureq.rCaste  "+tempQryStr+" )))>0  ");
 				where_clause.append( " and FIND_IN_SET(u.currentCountry,if((select ureq.rCountry "+tempQryStr+" )='' or (select ureq.rCountry "+tempQryStr+" )='all' or (select ureq.rCountry  "+tempQryStr+" ) is null,u.currentCountry,(select ureq.rCountry  "+tempQryStr+" ))) > 0 ");
 				where_clause.append( " and FIND_IN_SET(u.education,if((select ureq.rEducation "+tempQryStr+" )='' or (select ureq.rEducation "+tempQryStr+" )='all' or (select ureq.rEducation "+tempQryStr+" )='any'  or (select ureq.rEducation  "+tempQryStr+" ) is null,u.education,(select ureq.rEducation  "+tempQryStr+" ))) > 0  ");
+				where_clause.append( " and FIND_IN_SET(u.religion,if((select ureq.rReligion "+tempQryStr+" )='' or (select ureq.rReligion "+tempQryStr+" )='all' or (select ureq.rReligion "+tempQryStr+" )='any'  or (select ureq.rReligion  "+tempQryStr+" ) is null,u.religion,(select ureq.rReligion  "+tempQryStr+" ))) > 0  ");
 				//buffer.append( " and u.occupation = ifnull((select ureq.rOccupation "+tempQryStr+"),u.occupation) ");
 				
 				if(objUserBean.getRoleId()!=1){
@@ -822,6 +862,7 @@ public class UsersDao extends BaseUsersDao
 							+"rHeight, rMaritalStatus, rReligion,re1.name as requiredReligionName, rCaste,c1.name as requiredCasteName, rMotherTongue,l1.name as requiredMotherTongue,haveChildren,rCountry , con1.name as requiredCountry,rState,rEducation,e1.name as requiredEducationName, "
 							+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,"
 							+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and interested='1') as expressedInterest, "
+							+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and message_sent_status='1') as message_sent_status, "
 							+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and mobile_no_viewed_status='1') as mobileNumViewed, "
 							//+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and interested='1') as expressedInterest, "
 							+" (select uimg.image from user_images uimg where uimg.user_id=u.id and uimg.is_profile_picture='1') as profileImage, "
@@ -842,7 +883,7 @@ public class UsersDao extends BaseUsersDao
 							"monthlyIncome","diet","smoking","drinking","height","inches","cm",
 							"bodyType","bodyTypeName","complexion","complexionName","mobile","aboutMyself","disability",
 							"status","showall","userId","rAgeFrom","rAgeTo","rHeight","rMaritalStatus","rReligion","requiredReligionName","rCaste","requiredCasteName","rMotherTongue","requiredMotherTongue","haveChildren","rCountry","requiredCountry","rState","rEducation","requiredEducationName",
-							"rWorkingWith","rOccupation","requiredOccupationName","rAnnualIncome","rCreateProfileFor","rDiet","expressedInterest","mobileNumViewed","age","dobString","total_records","profileImage","createProfileFor","short_listed"};
+							"rWorkingWith","rOccupation","requiredOccupationName","rAnnualIncome","rCreateProfileFor","rDiet","expressedInterest","message_sent_status","mobileNumViewed","age","dobString","total_records","profileImage","createProfileFor","short_listed"};
 				}else{
 					buffer.append("select u.id,cit.name as currentCityName,u.occupation,ifnull(oc.name,'') as occupationName,ed.name as educationName,co.name as currentCountryName, u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.gender, "
 							//+"u.firstName, u.lastName, u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName,  " 
@@ -852,7 +893,7 @@ public class UsersDao extends BaseUsersDao
 							+" (select count(*) from users u "+where_clause+") as total_records, "
 							+" (select uimg.image from user_images uimg where uimg.user_id=u.id and uimg.is_profile_picture='1') as profileImage, u.createProfileFor,  "
 							+" (select ifnull((select short_listed from express_intrest where user_id = "+objUserBean.getId()+" and profile_id = u.id),0)) as short_listed, "
-							+" '0' as expressedInterest, '0' as mobileNumViewed "
+							+" '0' as expressedInterest, '0' as message_sent_status, '0' as mobileNumViewed "
 							+" from users u left join "
 							+" religion re on re.id=u.religion left join language l on l.id=u.motherTongue left join  "
 							+" cast c on c.id=u.caste left join height h on h.id=u.height left join "
@@ -862,7 +903,7 @@ public class UsersDao extends BaseUsersDao
 					handlerObj = new String[] {"id","currentCityName","occupation","occupationName","educationName","currentCountryName","created_time","updated_time",
 							"role_id","username","password","email","gender","dob","religion","religionName","motherTongue","motherTongueName",
 							"maritalStatus",
-							"caste","casteName","education","height","inches","cm","age","dobString","total_records","profileImage","createProfileFor","short_listed","expressedInterest","mobileNumViewed"};
+							"caste","casteName","education","height","inches","cm","age","dobString","total_records","profileImage","createProfileFor","short_listed","expressedInterest","message_sent_status","mobileNumViewed"};
 				} 
 				
 				/*buffer.append("select u.id,sta.name as currentStateName,cit.name as currentCityName,u.occupation,oc.name as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
@@ -981,7 +1022,7 @@ public class UsersDao extends BaseUsersDao
 				
 				// add checkboxes criteria also
 				if(StringUtils.isNotBlank(withPhoto) && withPhoto.equalsIgnoreCase("true")){
-					where_clause.append(" and image is not null and image not in ('') and uimg.approved_status = '1'");
+					where_clause.append(" and u.id in (select umg.user_id from user_images umg where umg.is_profile_picture = '1' and umg.approved_status = '1') ");
 				}
 				if(StringUtils.isNotBlank(alreadyViewed) && alreadyViewed.equalsIgnoreCase("true")){
 					where_clause.append(" and u.id not in(select exp.profile_id from express_intrest exp where exp.user_id = "+objUserBean.getId()+" and exp.profile_viewed_status = '1') ");
@@ -1005,6 +1046,7 @@ public class UsersDao extends BaseUsersDao
 							+"rHeight, rMaritalStatus, rReligion,re1.name as requiredReligionName, rCaste,c1.name as requiredCasteName, rMotherTongue,l1.name as requiredMotherTongue,haveChildren,rCountry , con1.name as requiredCountry,rState,rEducation,e1.name as requiredEducationName, "
 							+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,"
 							+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and interested='1') as expressedInterest, "
+							+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and message_sent_status='1') as message_sent_status, "
 							+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and mobile_no_viewed_status='1') as mobileNumViewed, "
 							+" ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 							+" (select count(*) from (select count(*) from users u left join user_images uimg on u.id = uimg.user_id "+where_clause+" group by u.id) tmp) as total_records, "
@@ -1024,7 +1066,7 @@ public class UsersDao extends BaseUsersDao
 							"monthlyIncome","diet","smoking","drinking","height","inches","cm",
 							"bodyType","bodyTypeName","complexion","complexionName","mobile","aboutMyself","disability",
 							"status","showall","userId","rAgeFrom","rAgeTo","rHeight","rMaritalStatus","rReligion","requiredReligionName","rCaste","requiredCasteName","rMotherTongue","requiredMotherTongue","haveChildren","rCountry","requiredCountry","rState","rEducation","requiredEducationName",
-							"rWorkingWith","rOccupation","requiredOccupationName","rAnnualIncome","rCreateProfileFor","rDiet","expressedInterest","mobileNumViewed","age","dobString","total_records","profileImage","createProfileFor","short_listed"};
+							"rWorkingWith","rOccupation","requiredOccupationName","rAnnualIncome","rCreateProfileFor","rDiet","expressedInterest","message_sent_status","mobileNumViewed","age","dobString","total_records","profileImage","createProfileFor","short_listed"};
 				}else{
 					where_clause.append(" and u.status in ('1')    ");
 					buffer.append("select u.id,cit.name as currentCityName,u.occupation,oc.name as occupationName,ed.name as educationName,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.gender, "
@@ -1035,7 +1077,7 @@ public class UsersDao extends BaseUsersDao
 							+" (select count(*) from users u "+where_clause+") as total_records, "
 							+" (select uimg.image from user_images uimg where uimg.user_id=u.id and uimg.is_profile_picture='1') as profileImage, u.createProfileFor, "
 							+" (select ifnull((select short_listed from express_intrest where user_id = "+objUserBean.getId()+" and profile_id = u.id),0)) as short_listed, "
-							+" '0' as expressedInterest, '0' as mobileNumViewed, GROUP_CONCAT(uimg.image) as image "
+							+" '0' as expressedInterest, '0' as message_sent_status,'0' as mobileNumViewed, GROUP_CONCAT(uimg.image) as image "
 							+" from users u left join "
 							+" religion re on re.id=u.religion left join language l on l.id=u.motherTongue left join  "
 							+" cast c on c.id=u.caste left join height h on h.id=u.height left join "
@@ -1045,7 +1087,7 @@ public class UsersDao extends BaseUsersDao
 					handlerObj = new String[] {"id","currentCityName","occupation","occupationName","educationName","created_time","updated_time",
 							"role_id","username","password","email","gender","dob","religion","religionName","motherTongue","motherTongueName",
 							"maritalStatus",
-							"caste","casteName","education","aboutMyself","height","inches","cm","age","dobString","total_records","profileImage","createProfileFor","short_listed","expressedInterest","mobileNumViewed","image"};
+							"caste","casteName","education","aboutMyself","height","inches","cm","age","dobString","total_records","profileImage","createProfileFor","short_listed","expressedInterest","message_sent_status","mobileNumViewed","image"};
 				} 
 				
 				/*buffer.append("select u.id,sta.name as currentStateName,cit.name as currentCityName,u.occupation,oc.name as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
@@ -1210,7 +1252,7 @@ public class UsersDao extends BaseUsersDao
 		
 		public boolean mobileNumExistOrNot(UsersBean  objUsersBean) {
 			 jdbcTemplate = custom.getJdbcTemplate();
-				String sql = "SELECT count(*) FROM users where mobile = ? and status = '1' and id not in ("+objUsersBean.getId()+")";
+				String sql = "SELECT count(*) FROM users where mobile = ? and id not in ("+objUsersBean.getId()+")";
 				int count = jdbcTemplate.queryForInt(sql,
 						new Object[]{objUsersBean.getMobile()});
 				if(count==0){
@@ -1260,6 +1302,28 @@ public class UsersDao extends BaseUsersDao
 			try {
 				
 				sSql = "update users set username = concat('AM',(select city_code from city where id = "+cityId+"),'"+MiscUtils.generateRandomNumber(6)+"') where id = "+userId;
+				
+				int updated_count = jdbcTemplate.update(sSql);
+				if (updated_count == 1) {
+					return true;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				return false;
+			} finally {
+
+			}
+			return false;
+		}
+		
+		public boolean updateMobileNumber(String userId, String mobileNum){
+			
+			jdbcTemplate = custom.getJdbcTemplate();
+			String sSql  = null;
+			
+			try {
+				
+				sSql = "update users set mobile = '"+mobileNum+"' where id = "+userId;
 				
 				int updated_count = jdbcTemplate.update(sSql);
 				if (updated_count == 1) {
@@ -1398,7 +1462,7 @@ public class UsersDao extends BaseUsersDao
 	
 	public List<Map<String,Object>> getApprovedUserPhotos(int userId){
 		jdbcTemplate = custom.getJdbcTemplate();
-		String qryStr = "select id,image,approved_status from user_images where user_id = "+userId+" and status = '1' and approved_status = '1' order by id ";
+		String qryStr = "select id,image,approved_status from user_images where user_id = "+userId+" and status = '1' and approved_status = '1' order by is_profile_picture desc ";
 		try{
 			List<Map<String,Object>> list = jdbcTemplate.queryForList(qryStr);
 			if(list!=null)
@@ -1478,7 +1542,7 @@ public class UsersDao extends BaseUsersDao
 		StringBuffer buffer = new StringBuffer();
 		String inner_where_clause = " ei.user_id = u.id and ei.profile_id = "+userId+" and ei.interested = '1' and ei.status = '1' and u.role_id not in (1) and u.status in ('1')  and u.gender not in  ('"+objUserBean.getGender()+"') and u.id not in  ("+userId+") ";
 		StringBuffer where_clause = new StringBuffer(" and u.role_id not in (1) and u.status in ('1') ");
-		buffer.append("select ei.id as requestId,u.id,sta.name as currentStateName,cit.name as currentCityName,u.occupation,oc.name as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
+		buffer.append("select ei.id as requestId,u.id,u.gender,sta.name as currentStateName,cit.name as currentCityName,u.occupation,ifnull(oc.name,'') as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
 				+"u.firstName, u.lastName, u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName, u.currentCountry,co.name as currentCountryName, " 
 				+"u.currentState, u.currentCity, " 
 				+"u.maritalStatus, u.caste,c.name as casteName, u.gotram, u.star,s.name as starName, u.dosam, u.dosamName, u.education, u.workingWith, u.companyName, " 
@@ -1487,7 +1551,12 @@ public class UsersDao extends BaseUsersDao
 				+"rHeight, rMaritalStatus, rReligion,re1.name as requiredReligionName, rCaste,c1.name as requiredCasteName, rMotherTongue,l1.name as requiredMotherTongue,haveChildren,rCountry , con1.name as requiredCountry,rState,rEducation,e1.name as requiredEducationName, "
 				+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,"
 				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and interested='1') as expressedInterest, "
+				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and message_sent_status='1') as message_sent_status, "
 				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and mobile_no_viewed_status='1') as mobileNumViewed, "
+				+" (select count(*) from express_intrest intr where intr.user_id=u.id and intr.profile_id="+objUserBean.getId()+"  and mobile_no_viewed_status='1') as myMobileNumViewed, "
+				+" (select count(*) from express_intrest intr where intr.user_id=u.id and intr.profile_id="+objUserBean.getId()+"  and message_sent_status='1') as message_sent_to_me, "
+				+" (select count(*) from express_intrest intr where intr.user_id=u.id and intr.profile_id="+objUserBean.getId()+"  and short_listed='1') as shortListedMe, "
+				+" (select count(*) from express_intrest intr where intr.user_id=u.id and intr.profile_id="+objUserBean.getId()+"  and profile_viewed_status='1') as myProfileViewed, "
 				+" ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 				//+" (select count(*) from users u "+where_clause+") as total_records, "
 				+" (select uimg.image from user_images uimg where uimg.user_id=u.id and uimg.is_profile_picture='1') as profileImage, "
@@ -1534,6 +1603,7 @@ public class UsersDao extends BaseUsersDao
 				+"rHeight, rMaritalStatus, rReligion,re1.name as requiredReligionName, rCaste,c1.name as requiredCasteName, rMotherTongue,l1.name as requiredMotherTongue,haveChildren,rCountry , con1.name as requiredCountry,rState,rEducation,e1.name as requiredEducationName, "
 				+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,"
 				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and interested='1') as expressedInterest, "
+				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and message_sent_status='1') as message_sent_status, "
 				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and mobile_no_viewed_status='1') as mobileNumViewed, "
 				+" ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 				//+" (select count(*) from users u "+where_clause+") as total_records, "
@@ -1582,6 +1652,7 @@ public class UsersDao extends BaseUsersDao
 				+"rHeight, rMaritalStatus, rReligion,re1.name as requiredReligionName, rCaste,c1.name as requiredCasteName, rMotherTongue,l1.name as requiredMotherTongue,haveChildren,rCountry , con1.name as requiredCountry,rState,rEducation,e1.name as requiredEducationName, "
 				+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,"
 				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and interested='1') as expressedInterest, "
+				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and message_sent_status='1') as message_sent_status, "
 				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and mobile_no_viewed_status='1') as mobileNumViewed, "
 				+" ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 				//+" (select count(*) from users u "+where_clause+") as total_records, "
@@ -1630,6 +1701,7 @@ public class UsersDao extends BaseUsersDao
 				+"rHeight, rMaritalStatus, rReligion,re1.name as requiredReligionName, rCaste,c1.name as requiredCasteName, rMotherTongue,l1.name as requiredMotherTongue,haveChildren,rCountry , con1.name as requiredCountry,rState,rEducation,e1.name as requiredEducationName, "
 				+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,"
 				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and interested='1') as expressedInterest, "
+				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and message_sent_status='1') as message_sent_status, "
 				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and mobile_no_viewed_status='1') as mobileNumViewed, "
 				+" ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 				//+" (select count(*) from users u "+where_clause+") as total_records, "
@@ -1677,6 +1749,7 @@ public class UsersDao extends BaseUsersDao
 				+"rHeight, rMaritalStatus, rReligion,re1.name as requiredReligionName, rCaste,c1.name as requiredCasteName, rMotherTongue,l1.name as requiredMotherTongue,haveChildren,rCountry , con1.name as requiredCountry,rState,rEducation,e1.name as requiredEducationName, "
 				+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,"
 				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and interested='1') as expressedInterest, "
+				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and message_sent_status='1') as message_sent_status, "
 				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and mobile_no_viewed_status='1') as mobileNumViewed, "
 				+" ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 				//+" (select count(*) from users u "+where_clause+") as total_records, "
@@ -1725,6 +1798,7 @@ public class UsersDao extends BaseUsersDao
 				+"rHeight, rMaritalStatus, rReligion,re1.name as requiredReligionName, rCaste,c1.name as requiredCasteName, rMotherTongue,l1.name as requiredMotherTongue,haveChildren,rCountry , con1.name as requiredCountry,rState,rEducation,e1.name as requiredEducationName, "
 				+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,"
 				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and interested='1') as expressedInterest, "
+				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and message_sent_status='1') as message_sent_status, "
 				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and mobile_no_viewed_status='1') as mobileNumViewed, "
 				+" ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 				//+" (select count(*) from users u "+where_clause+") as total_records, "
@@ -1776,6 +1850,7 @@ public class UsersDao extends BaseUsersDao
 				+"rHeight, rMaritalStatus, rReligion,re1.name as requiredReligionName, rCaste,c1.name as requiredCasteName, rMotherTongue,l1.name as requiredMotherTongue,haveChildren,rCountry , con1.name as requiredCountry,rState,rEducation,e1.name as requiredEducationName, "
 				+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,"
 				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and interested='1') as expressedInterest, "
+				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and message_sent_status='1') as message_sent_status, "
 				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and mobile_no_viewed_status='1') as mobileNumViewed, "
 				+" ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 				//+" (select count(*) from users u "+where_clause+") as total_records, "
@@ -1827,6 +1902,7 @@ public class UsersDao extends BaseUsersDao
 				+"rHeight, rMaritalStatus, rReligion,re1.name as requiredReligionName, rCaste,c1.name as requiredCasteName, rMotherTongue,l1.name as requiredMotherTongue,haveChildren,rCountry , con1.name as requiredCountry,rState,rEducation,e1.name as requiredEducationName, "
 				+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,"
 				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and interested='1') as expressedInterest, "
+				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and message_sent_status='1') as message_sent_status, "
 				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and mobile_no_viewed_status='1') as mobileNumViewed, "
 				+" ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 				//+" (select count(*) from users u "+where_clause+") as total_records, "
@@ -1877,6 +1953,7 @@ public class UsersDao extends BaseUsersDao
 				+"rHeight, rMaritalStatus, rReligion,re1.name as requiredReligionName, rCaste,c1.name as requiredCasteName, rMotherTongue,l1.name as requiredMotherTongue,haveChildren,rCountry , con1.name as requiredCountry,rState,rEducation,e1.name as requiredEducationName, "
 				+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,"
 				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and interested='1') as expressedInterest, "
+				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and message_sent_status='1') as message_sent_status, "
 				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and mobile_no_viewed_status='1') as mobileNumViewed, "
 				+" ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 				//+" (select count(*) from users u "+where_clause+") as total_records, "
@@ -1927,6 +2004,7 @@ public class UsersDao extends BaseUsersDao
 				+"rHeight, rMaritalStatus, rReligion,re1.name as requiredReligionName, rCaste,c1.name as requiredCasteName, rMotherTongue,l1.name as requiredMotherTongue,haveChildren,rCountry , con1.name as requiredCountry,rState,rEducation,e1.name as requiredEducationName, "
 				+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,"
 				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and interested='1') as expressedInterest, "
+				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and message_sent_status='1') as message_sent_status, "
 				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and mobile_no_viewed_status='1') as mobileNumViewed, "
 				+" ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 				//+" (select count(*) from users u "+where_clause+") as total_records, "
@@ -1978,6 +2056,7 @@ public class UsersDao extends BaseUsersDao
 				+"rHeight, rMaritalStatus, rReligion,re1.name as requiredReligionName, rCaste,c1.name as requiredCasteName, rMotherTongue,l1.name as requiredMotherTongue,haveChildren,rCountry , con1.name as requiredCountry,rState,rEducation,e1.name as requiredEducationName, "
 				+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,"
 				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and interested='1') as expressedInterest, "
+				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and message_sent_status='1') as message_sent_status, "
 				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and mobile_no_viewed_status='1') as mobileNumViewed, "
 				+" ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 				//+" (select count(*) from users u "+where_clause+") as total_records, "
@@ -2029,6 +2108,7 @@ public class UsersDao extends BaseUsersDao
 				+"rHeight, rMaritalStatus, rReligion,re1.name as requiredReligionName, rCaste,c1.name as requiredCasteName, rMotherTongue,l1.name as requiredMotherTongue,haveChildren,rCountry , con1.name as requiredCountry,rState,rEducation,e1.name as requiredEducationName, "
 				+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,"
 				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and interested='1') as expressedInterest, "
+				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and message_sent_status='1') as message_sent_status, "
 				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and mobile_no_viewed_status='1') as mobileNumViewed, "
 				+" ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 				//+" (select count(*) from users u "+where_clause+") as total_records, "
@@ -2080,6 +2160,7 @@ public class UsersDao extends BaseUsersDao
 				+"rHeight, rMaritalStatus, rReligion,re1.name as requiredReligionName, rCaste,c1.name as requiredCasteName, rMotherTongue,l1.name as requiredMotherTongue,haveChildren,rCountry , con1.name as requiredCountry,rState,rEducation,e1.name as requiredEducationName, "
 				+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,"
 				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and interested='1') as expressedInterest, "
+				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and message_sent_status='1') as message_sent_status, "
 				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and mobile_no_viewed_status='1') as mobileNumViewed, "
 				+" ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 				//+" (select count(*) from users u "+where_clause+") as total_records, "
@@ -2131,6 +2212,7 @@ public class UsersDao extends BaseUsersDao
 				+"rHeight, rMaritalStatus, rReligion,re1.name as requiredReligionName, rCaste,c1.name as requiredCasteName, rMotherTongue,l1.name as requiredMotherTongue,haveChildren,rCountry , con1.name as requiredCountry,rState,rEducation,e1.name as requiredEducationName, "
 				+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,"
 				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and interested='1') as expressedInterest, "
+				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and message_sent_status='1') as message_sent_status, "
 				+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and mobile_no_viewed_status='1') as mobileNumViewed, "
 				+" ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 				//+" (select count(*) from users u "+where_clause+") as total_records, "

@@ -29,7 +29,6 @@
 		<style>
 			/** Start: to style navigation tab **/
 			.nav {
-			  margin-bottom: 18px;
 			  margin-left: 0;
 			  list-style: none;
 			}
@@ -401,7 +400,6 @@ if(listOrders1 != null && listOrders1 != ""){
 	$("#altLists").removeAttr("hidden");
 	displayTableFooter(1);
 }
-
 
 function fullProfile(profile_id){
 	/* var roleId = ${cacheGuest.roleId};

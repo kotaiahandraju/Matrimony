@@ -40,7 +40,7 @@
 		             					<div class="col-md-20">	
 			             				<input type="radio" name="sendTo"  value="emailTo" placeholder="Email To"> <span id="emailStr">Email new password to my registered email id.</span>
 			             				</div>
-			             				<div class="col-md-20">	
+			             				<div class="col-md-20" id="mobile_option">	
 										<input type="radio" name="sendTo"  value="smsTo" placeholder="Email To"> <span id="mobileStr">SMS new password to my registered mobile number.</span>
 										</div>
 										<div class="col-md-20">	
@@ -75,6 +75,9 @@ function displayFpNextPage(){
 				}
 				if(mobile_str!=""){
 					$("#mobileStr").html('SMS new password to my registered mobile number xxxxxxx'+mobile_str);
+					$("#mobile_option").removeAttr("hidden");
+				}else{
+					$("#mobile_option").attr("hidden",true);
 				}
 				$("#fpStep1").attr("hidden",true);
 				$("#fpStep2").removeAttr("hidden");

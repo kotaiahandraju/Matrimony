@@ -11,11 +11,13 @@
 
 <html>
 <head>
-	<title>Aarna Matrimony</title>
+	<title>Aarna Matrimony: Best site for search perfect bride & groom</title>
 	<link rel="shortcut icon" href="img/aarna-fav.png"/>
 	<!-- for-mobile-apps -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="description" content="The Best Matrimonal site for all types castes & religions(hindu, muslim, christian,jains,sikhs etc..),Perfect matches for both bride & groom, aarna matrimony,best search site for marriages">
+    <meta name="keyword" content="arna matrimony,telugu matrimony,best telugu matrimony site,best site for marriages,search, best indian martimony site,bride,groom,muslim,hindu,christian,brahmin,aarna matrimony guntur,aarna matrimony vijayawada,aarna matrimony tenali,aarna matrimony amaravathi,aarna matrimony marriages,marriage lines,matrimonys in guntur,matrimonys in vijayawada,matches,matrimonys in tenali,bride&groom">
 	<script type="application/x-javascript">
 		addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 		function hideURLbar(){ window.scrollTo(0,1); }
@@ -26,7 +28,7 @@
 	<link href="user/css/megamenu.css" rel="stylesheet" type="text/css" media="all" />
 	<link rel="stylesheet" type="text/css" href="css/asPaginator.css">
 	<link href="user/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="css/animate.min.css" />
+	<link rel="stylesheet" href="css/animate.min.css" />
 	<link href='http://fonts.googleapis.com/css?family=Monda:400,700' rel='stylesheet' type='text/css'>
 	<link href="css/thickbox.css" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="css/plugins/select2/select2.css">
@@ -37,13 +39,6 @@
 	<script src="js/jquery.watermark.js"></script>
 	<script src="js/jquery.littlelightbox.js"></script>
 	<link href="css/jquery.littlelightbox.css" rel="stylesheet" type="text/css">
-	<style>
-	
-	.smallSlides0 {
-	height:200px;
-	overflow:hidden;
-	}
-	</style>
 	<script type="text/javascript">
 	$(function(){
 		 //add text water mark;	
@@ -123,8 +118,7 @@
 		    		var msg = jsonobj.message;
 		    		if(typeof msg != "undefined"){
 		    			if(msg=="success"){
-		    				$("#shortlistTD"+profileId).attr('disabled', 'disabled');
-		    				$("#shortlistTD"+profileId).text("Shortlisted");
+		    				$("#shortlistTD"+profileId).html('<a type="button" class="btn btn-primary btn-block" disabled="true"> Shortlisted</a>');
 		    				//$("#shortlistTD"+profileId).removeAttr("href");
 		    				//$("#shortlistTD"+profileId).attr("disabled");
 		    			}else{
@@ -139,6 +133,9 @@
 			var roleId = ${cacheGuest.roleId};
 			$("#id").val(profile_id);
 			var profileObj = serviceUnitArray[profile_id];
+			if(typeof profileObj == "undefined"){
+				profileObj = serviceUnitArray2[profile_id];
+			}
 			if(roleId==4){
 				document.searchForm2.action = "memberShipPage"
 				document.searchForm2.submit();
@@ -166,7 +163,7 @@
 			    		var profiles = jsonobj.allProfiles;
 			    		//if(typeof msg != "undefined" ){
 			    			if("success"==msg){
-			    				$("#expInterest"+profile_id).html('<a type="button" class="btn btn-success btn-sm" disabled="true">Expressed Interest</a>');
+			    				$("#expInterest"+profile_id).html('<a type="button" class="btn btn-success btn-block" disabled="true">Expressed Interest</a>');
 			    				alert("Interest request has been sent successfully");
 			    				//$("#expInterest"+profile_id).html('You Expressed Interest');
 			    				//$("#expInterest"+profile_id).attr("disabled",true);
@@ -232,7 +229,7 @@
 			    		var msg = jsonobj.message;
 			    		if(typeof msg != "undefined"){
 			    			if(msg=="success"){
-			    				$("#mobileTD"+profileId).html('<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+profileObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>');
+			    				$("#mobileTD"+profileId).html('<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+profileObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="img" title="image" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>');
 			    				allowed_limit = limit;
 			    				$("#available_limit_span").html(allowed_limit);
 			    			}else{
@@ -300,24 +297,24 @@
 					var memberRoleId = orderObj.role_id;
 					if(memberRoleId!=null && memberRoleId!="" && (memberRoleId==6 || memberRoleId==11 ||
 							memberRoleId==12 || memberRoleId==13 || memberRoleId==14)){
-						premiumMember = "<span class='premium-member' style='color:#000;text-decoration:none; background:url(img/premium_member.gif) no-repeat; width:110px; height:18px; display:inline-block;'></span>";
+						premiumMember = "<span class='premium-member' style='color:#000;text-decoration:none'>Premium Member</span>";
 					}
 					var shortListType = "${list_type}";
 					var shortListedStr;
 					if(shortListType != null && typeof shortListType != "undefined" && shortListType=="shortListedByMe"){
 						shortListedStr = '';
 					}else{
-						shortListedStr = '<span><a id="shortlistTD'+orderObj.id+'" href="#no" type="button" class="btn btn-primary btn-sm" onclick="shortList('+orderObj.id+')"> Shortlist</a></span>';
+						shortListedStr = '<span id="shortlistTD'+orderObj.id+'"><a href="#no" type="button" class="btn btn-primary" onclick="shortList('+orderObj.id+')"> Shortlist</a></span>';
 						if(orderObj.short_listed == "1"){
-							shortListedStr = '<span><a type="button" class="btn btn-primary btn-sm" disabled="true"> Shortlisted</a></span>';
+							shortListedStr = '<span><a type="button" class="btn btn-primary" disabled="true"> Shortlisted</a></span>';
 						}
 					}
 					var expressed = orderObj.expressedInterest;
 					var interestStr = "";
 					if(expressed==0){
-						interestStr = '<span id="expInterest'+orderObj.id+'"><a   href="#no" type="button" class="btn btn-success  btn-sm"  onclick="expressInterest('+orderObj.id+')">  Express Interest  </a></span>';
+						interestStr = '<span id="expInterest'+orderObj.id+'"><a   href="#no" type="button" class="btn btn-success btn-block btn-md"  onclick="expressInterest('+orderObj.id+')">  Express Interest  </a></span>';
 					}else if(expressed>0){
-						interestStr = '<span><a type="button" class="btn btn-success btn-sm" disabled="true" style="text-size-adjust:auto">Expressed Interest</a></span>';
+						interestStr = '<span><a type="button" class="btn btn-success btn-block" disabled="true" style="text-size-adjust:auto">Expressed Interest</a></span>';
 					}
 					var message_sent_status = orderObj.message_sent_status;
 					var messageStr = "";
@@ -327,9 +324,9 @@
 					var mobNumViewed = orderObj.mobileNumViewed;
 					var mobile_num_Str = "";
 					if(mobNumViewed==1 || expressed==1 || message_sent_status==1){
-						mobile_num_Str = '<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;float:left;">&nbsp;+91-'+orderObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;float:left;color:#4baa26;">Verified </span>)</font></span>';
+						mobile_num_Str = '<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;float:left;">&nbsp;+91-'+orderObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="image" title="image" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;float:left;color:#4baa26;">Verified </span>)</font></span>';
 					}else{
-						mobile_num_Str = '<span ><a href="#no" type="button" class="btn btn-primary btn-sm" onclick="displayMobileNum('+orderObj.id+')">View Mobile Number</a></span>';
+						mobile_num_Str = '<span ><a href="#no" type="button" class="btn btn-primary btn-block" onclick="displayMobileNum('+orderObj.id+')">View Mobile Number</a></span>';
 					}
 					var profession = orderObj.occupationName;
 					if((profession == null) || profession == ""){
@@ -341,12 +338,12 @@
 						smallerSlideIndex[orderObj.id] = 0;
 						$.each(photos_list,function(index,photo){
 							if(photo.image==orderObj.profileImage){
-								displayStyle = ' style="display:block; height:220px; overflow:hidden;" '
+								displayStyle = ' style="display:block" '
 							}else{
 								displayStyle = ' style="display:none" ';
 							}
 							slider += '<div class="smallSlides'+orderObj.id+'" '+displayStyle+'>'
-									+'		<img src="'+photo.image+'" class="img img-responsive " style="margin-bottom:0;height: auto;width: 100%;" >'
+									+'		<img src="'+photo.image+'" class="img img-responsive thumbnail " style="margin-bottom:0;height: 60px;width: 60px;" >'
 									+'</div>'
 						});
 						if(photos_list.length>1){
@@ -357,7 +354,7 @@
 									+'</p>'
 						}
 					}else{
-						slider = '<img src="'+image+'" class="img-responsive thumbnail" style="margin-bottom: 0px; ">';
+						slider = '<img src="'+image+'" class="img-responsive thumbnail" style="margin-bottom: 0px;">';
 					}
 					
 					var tblRow = '<div class="row container-fluid">'
@@ -381,13 +378,12 @@
 			            + interestStr
 			            //+ 	'<a href="#no" id="expInterest'+orderObj.id+'" type="button" class="btn btn-primary" onclick="expressInterest('+orderObj.id+')">Yes I\'m interested</a><br><br>'
 			            +   '<br>'
-			            + 	'<a href="#no"  type="button" class="btn btn-warning btn-sm view0" onclick="fullProfile('+orderObj.id+')">View Full Profile</a>'
+			            + 	'<a href="#no"  type="button" class="btn btn-primary btn-block" onclick="fullProfile('+orderObj.id+')">View Full Profile</a>'
 			               //+   '<button id="mobileBtn'+orderObj.id+'" type="button" class="btn btn-info" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button>'
-			            +   shortListedStr
 			            + '</div>'
-			            //+ mobile_num_Str
+			            + mobile_num_Str
 			            + '<div class="row container-fluid">'
-			            + 	'<div class="col-md-12" style="margin-right:0; padding-right:0;">'
+			            + 	'<div class="col-md-7" style="margin-right:0; padding-right:0;">'
 			            +		'<table width="100%" border="0" cellspacing="0" cellpadding="0">'
 			            + 			'<tr>'
 			            //+				'<td><button  type="button" class="btn btn-primary btn-block" onclick="fullProfile('+orderObj.id+')">View Full Profile</button></td>'
@@ -395,8 +391,7 @@
 			            //+				'<td><a href="#no" onclick="fullProfile('+orderObj.id+')">View Full Profile</a></td>'
 			            + 				'<td id="mobileTD'+orderObj.id+'">'+mobile_num_Str+'</td>'
 			            +				'<td></td>'
-// 			            + 				'<td id="shortlistTD'+orderObj.id+'">'+shortListedStr+'</td>'
-			            + '</tr>'
+			            + 				'<td id="shortlistTD'+orderObj.id+'">'+shortListedStr+'</td></tr>'
 			            + 		'</table>'
 			            //+ 		'<button  type="button" class="btn btn-primary btn-block" onclick="fullProfile('+orderObj.id+')">View Full Profile</button>'
 			            //+   	'<button id="mobileBtn'+orderObj.id+'" type="button" class="btn btn-info" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button>'
@@ -479,16 +474,16 @@
 							memberRoleId==12 || memberRoleId==13 || memberRoleId==14)){
 						premiumMember = "<span class='premium-member'>Premium Member</span>";
 					}
-					var shortListedStr = '<span id="shortlistTD'+orderObj.id+'"><a href="#no" type="button" class="btn btn-primary btn-sm" onclick="shortList('+orderObj.id+')"> Shortlist</a></span>';
+					var shortListedStr = '<span id="shortlistTD'+orderObj.id+'"><a href="#no" type="button" class="btn btn-primary btn-block" onclick="shortList('+orderObj.id+')"> Shortlist</a></span>';
 					if(orderObj.short_listed == "1"){
-						shortListedStr = '<span><a type="button" class="btn btn-primary btn-sm" disabled="true"> Shortlisted</a></span>';
+						shortListedStr = '<span><a type="button" class="btn btn-primary btn-block" disabled="true"> Shortlisted</a></span>';
 					}
 					var expressed = orderObj.expressedInterest;
 					var interestStr = "";
 					if(expressed==0){
-						interestStr = '<span id="expInterest'+orderObj.id+'"><a   href="#no" type="button" class="btn btn-success btn-sm"  onclick="expressInterest('+orderObj.id+')">  Express Interest  </a></span>';
+						interestStr = '<span id="expInterest'+orderObj.id+'"><a   href="#no" type="button" class="btn btn-success btn-block btn-md"  onclick="expressInterest('+orderObj.id+')">  Express Interest  </a></span>';
 					}else if(expressed>0){
-						interestStr = '<span><a type="button" class="btn btn-success btn-sm" disabled="true" style="text-size-adjust:auto">Expressed Interest</a></span>';
+						interestStr = '<span><a type="button" class="btn btn-success btn-block" disabled="true" style="text-size-adjust:auto">Expressed Interest</a></span>';
 					}
 					var message_sent_status = orderObj.message_sent_status;
 					var messageStr = "";
@@ -498,9 +493,9 @@
 					var mobNumViewed = orderObj.mobileNumViewed;
 					var mobile_num_Str = "";
 					if(mobNumViewed==1 || expressed==1 || message_sent_status==1){
-						mobile_num_Str = '<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;float:left;">&nbsp;+91-'+orderObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;float:left;color:#4baa26;">Verified </span>)</font></span>';
+						mobile_num_Str = '<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;float:left;">&nbsp;+91-'+orderObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="image" title="image" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;float:left;color:#4baa26;">Verified </span>)</font></span>';
 					}else{
-						mobile_num_Str = '<span ><a href="#no" type="button" style="margin: 11px 0px 0px 0px;" class="btn btn-primary btn-sm" onclick="displayMobileNum('+orderObj.id+')">View Mobile Number</a></span>';
+						mobile_num_Str = '<span ><a href="#no" type="button" style="margin: 11px 0px 0px 0px;" class="btn btn-primary btn-block" onclick="displayMobileNum('+orderObj.id+')">View Mobile Number</a></span>';
 
 					}
 					var profession = orderObj.occupationName;
@@ -511,19 +506,19 @@
 						var photos_list = orderObj.photosList;
 						var slider = "", displayStyle = ' ';
 						if(photos_list == "" || typeof photos_list == "undefined"){
-							slider = '<img src="img/default.png" class="img img-responsive thumbnail " style="margin-bottom:0;height: auto;width: 100%;" >';
+							slider = '<img src="img/default.png" class="img img-responsive thumbnail " style="margin-bottom:0;height: 60px;width: 60px;" >';
 						}else{
 							smallerSlideIndex[orderObj.id] = 0;
 							var slider = "", displayStyle = ' ';
 							var photosArray = photos_list.split(",");
 							$.each(photosArray,function(index){
 								if(photosArray[index]==orderObj.profileImage){
-									displayStyle = ' style="display:block; height:200px; overflow:hidden;" '
+									displayStyle = ' style="display:block" '
 								}else{
 									displayStyle = ' style="display:none" ';
 								}
 								slider += '<div class="smallSlides'+orderObj.id+'" '+displayStyle+'>'
-										+'		<img src="'+photosArray[index]+'" class="img img-responsive thumbnail " style="margin-bottom:0;height: auto;width: 100%;" >'
+										+'		<img src="'+photosArray[index]+'" class="img img-responsive thumbnail " style="margin-bottom:0;height: 60px;width: 60px;" >'
 										+'</div>'
 							});
 							if(photosArray.length>1){
@@ -579,23 +574,22 @@
 						+ '<div class="col-md-3">'
 						//+ '<a href="#no"> <img src='+image+' class="img img-responsive thumbnail" style="width: 150px; height: 120px;"></a>'
 						+ slider
+						+ '<button type="button" style="background: transparent; margin: 11px 0px 0px 0px;display: list-item;border: none;" id="mobileTD'+orderObj.id+'">'+mobile_num_Str+'</button>'
 		            	+ '</div>'
-		            	+ '<div class="col-md-4">'
-		                + '<blockquote style="min-height:180px; max-height:180px; "><p>'+abtMySelf+'</p><br>'
-		                + '<br>'
-		                + '<a href="#"><p style="float:right;">...more</p></a>'
-		                + '</blockquote>'
+		            	+ '<div class="col-md-4"  style="overflow-y:scroll;max-height: 900px">'
+		                + '<blockquote><p>'+abtMySelf+'</p></blockquote>'
 		                + '</div>'
+		                +'<br>'
+		                +'<br>'
 		            	+ '<div class="col-md-5">'
 		            	+ '<table>'
-		            	+ '	<tr><td width="150px">Age/Height</td><td><span>: '+orderObj.age+' yrs, '+orderObj.inches+'</span></td></tr>'
+		            	+ '	<tr><td>Age/Height</td><td><span>: '+orderObj.age+' yrs, '+orderObj.inches+'</span></td></tr>'
 		            	+ '	<tr><td>Religion</td><td><span>: '+orderObj.religionName+'</span></td></tr>'
 		            	+ '	<tr><td>Mother Tongue</td><td><span>: '+orderObj.motherTongueName+'</span></td></tr>'
 		            	+ '	<tr><td>Community</td><td><span>: '+orderObj.casteName+'</span></td></tr>'
 		            	+ '	<tr><td>Location</td><td><span>: '+orderObj.currentCityName+'</span></td></tr>'
 		            	+ '	<tr><td>Education</td><td><span>: '+orderObj.educationName+'</span></td></tr>'
 		            	+ '	<tr><td>Profession</td><td><span>: '+profession+'</span></td></tr>'
-		            	+ '<tr><td colspan="2"><button type="button" style="background: transparent; margin: 0px 5px 0px 0px;display: list-item;border: none;" id="mobileTD'+orderObj.id+'">'+mobile_num_Str+'</button></td></tr>'
 		            	+'</td></tr>'
 		            	//+ '	<tr><td>Age</td><td><span>: '+orderObj.age+'</span></td></tr>'
 		            	//+ '	<tr><td colspan="2">'+orderObj.aboutMyself+'... <a href="#no" onclick="showMore('+orderObj.id+')"> read more..</a> </td></tr>'
@@ -605,7 +599,6 @@
 		            	//+ '	<tr class="showMore" hidden="true"><td colspan="2">'+orderObj.aboutMyself+'... <a href="#no" > more detailssss</a> </td></tr>'
 		            	+ '</table>'
 		            	+ '</div>'
-		            	+ '<div class="clearfix"></div>'
 		            	/* + '<div id="hideMe'+orderObj.id+'" class="form-group hideMe">'
 		            	+ '    <label class="col-md-4 control-label" for="textinput"></label>'  
 		            	+ '    <div class="col-md-6 text-center">'
@@ -613,10 +606,10 @@
 		            	+ '    </div>'
 		            	+ '</div>' */
 		            	+ '<div class="col-md-3">'
-		            	+ '<a href="#no" type="button" class="btn btn-success btn-sm " onclick="fullProfile('+orderObj.id+')">View Full Profile</a>'
+		            	+ '<a href="#no" type="button" class="btn btn-success btn-block btn-md" onclick="fullProfile('+orderObj.id+')">View Full Profile</a>'
 		            	+ '</div>'
 		            	+ '<div class="col-md-3">'
-		            	+ '<a href="#no" type="button" class="btn btn-primary btn-sm" id="sendMail'+orderObj.id+'" onclick="displayMailPopup('+orderObj.id+')">Send Mail</a>'
+		            	+ '<a href="#no" type="button" class="btn btn-primary btn-block btn-md" id="sendMail'+orderObj.id+'" onclick="displayMailPopup('+orderObj.id+')">Send Mail</a>'
 		            	+ '</div>'
 		            	+ '<div class="col-md-3">'
 		            	+ interestStr
@@ -713,16 +706,16 @@
 								memberRoleId==12 || memberRoleId==13 || memberRoleId==14)){
 							premiumMember = "<span class='premium-member'>Premium Member</span>";
 						}
-						var shortListedStr = '<span id="shortlistTD'+orderObj.id+'"><a href="#no" type="button" class="btn btn-primary btn-sm" onclick="shortList('+orderObj.id+')"> Shortlist</a></span>';
+						var shortListedStr = '<span id="shortlistTD'+orderObj.id+'"><a href="#no" type="button" class="btn btn-primary btn-block" onclick="shortList('+orderObj.id+')"> Shortlist</a></span>';
 						if(orderObj.short_listed == "1"){
-							shortListedStr = '<span><a type="button" class="btn btn-primary btn-sm" disabled="true"> Shortlisted</a></span>';
+							shortListedStr = '<span><a type="button" class="btn btn-primary btn-block" disabled="true"> Shortlisted</a></span>';
 						}
 						var expressed = orderObj.expressedInterest;
 						var interestStr = "";
 						if(expressed==0){
-							interestStr = '<span id="expInterest'+orderObj.id+'"><a   href="#no" type="button" class="btn btn-success btn-sm"  onclick="expressInterest('+orderObj.id+')">  Express Interest  </a></span>';
+							interestStr = '<span id="expInterest'+orderObj.id+'"><a   href="#no" type="button" class="btn btn-success btn-block btn-md"  onclick="expressInterest('+orderObj.id+')">  Express Interest  </a></span>';
 						}else if(expressed>0){
-							interestStr = '<span><a type="button" class="btn btn-success btn-sm" disabled="true" style="text-size-adjust:auto">Expressed Interest</a></span>';
+							interestStr = '<span><a type="button" class="btn btn-success btn-block" disabled="true" style="text-size-adjust:auto">Expressed Interest</a></span>';
 						}
 						var message_sent_status = orderObj.message_sent_status;
 						var messageStr = "";
@@ -734,7 +727,7 @@
 						if(mobNumViewed==1 || expressed==1 || message_sent_status==1){
 							mobile_num_Str = '<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+orderObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="image" title="image" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>';
 						}else{
-							mobile_num_Str = '<span id="mobileTD'+orderObj.id+'"><a href="#no" type="button" class="btn btn-primary btn-sm" onclick="displayMobileNum('+orderObj.id+')">View Mobile Number</a></span>';
+							mobile_num_Str = '<span id="mobileTD'+orderObj.id+'"><a href="#no" type="button" class="btn btn-primary btn-block" onclick="displayMobileNum('+orderObj.id+')">View Mobile Number</a></span>';
 						}
 						var profession = orderObj.occupationName;
 						if((profession == null) || profession == ""){
@@ -744,73 +737,27 @@
 						var premiumMember = "";
 						var memberRoleId = orderObj.role_id;
 						if(memberRoleId!=null && memberRoleId!="" && (typeof memberRoleId != "undefined")){
-							if(memberRoleId==12){
-								 premiumMember = "<span class='premium-member'>Classic Member</span>";
-							}
-							if(memberRoleId==13){
-								 premiumMember = "<span class='premium-member'>Classic Advantage Member</span>";
-							}
-							if(memberRoleId==6){
-								 premiumMember = "<span class='premium-member'>Premium Member</span>";
-							}
-							if(memberRoleId==11){
-								 premiumMember = "<span class='premium-member'>Premium Plus Member</span>";
-							}
-							if(memberRoleId==14){
-								 premiumMember = "<span class='premium-member'>Aarna Family Member</span>";
-							}
-							
-						}
-						var user_gender = '${cacheGuest.gender}';
-						var opp_gender_str = "";
-						if(user_gender!=null && user_gender!="" && (typeof user_gender != "undefined")){
-							if(user_gender=="Female"){
-								opp_gender_str = "He";
-							}else if(user_gender=="Male"){
-								opp_gender_str = "She";
-							}
+							/* if(){
 								
+							} */
+							premiumMember = "<span class='premium-member'>Premium Member</span>";
 						}
-						// activities to display
-						var myMobileNumViewed_str = "";
-						var tempStr = orderObj.myMobileNumViewed;
-						if(tempStr!=null && tempStr!="" && (typeof tempStr != "undefined")){
-							myMobileNumViewed_str = opp_gender_str+" viewed your mobile number.<br>";
+						if(memberRoleId!=null && memberRoleId!="" && (memberRoleId==6 || memberRoleId==11 ||
+								memberRoleId==12 || memberRoleId==13 || memberRoleId==14)){
+							premiumMember = "<span class='premium-member'>Premium Member</span>";
 						}
-						
-						var message_sent_to_me_str = "";
-						tempStr="";
-						tempStr = orderObj.message_sent_to_me;
-						if(tempStr!=null && tempStr!="" && (typeof tempStr != "undefined")){
-							message_sent_to_me_str = opp_gender_str+" sent you a personal mail.<br>";
-						}
-						
-						var shortListedMe_str = "";
-						tempStr="";
-						tempStr = orderObj.shortListedMe;
-						if(tempStr!=null && tempStr!="" && (typeof tempStr != "undefined")){
-							shortListedMe_str = opp_gender_str+" shortlisted your profile.<br>";
-						}
-						
-						var myProfileViewed_str = "";
-						tempStr="";
-						tempStr = orderObj.myProfileViewed;
-						if(tempStr!=null && tempStr!="" && (typeof tempStr != "undefined")){
-							myProfileViewed_str = opp_gender_str+" viewed your profile.<br>";
-						}
-						//
 						
 						var acceptOptions = '';
 						if(listType == "pending_requests"){
 							interestStr = '';
 							options =  '<div class="col-md-3">'
-				            	+ '<button class="btn btn-danger btn-sm" onclick="fullProfile('+orderObj.id+')">View Full Profile</button>'
+				            	+ '<button class="btn btn-danger btn-block" onclick="fullProfile('+orderObj.id+')">View Full Profile</button>'
 				            	+ mobile_num_Str
 				            	+ shortListedStr
 				            	//+ '<button class="btn btn-danger btn-block" onclick="displayMobileNum_messages('+orderObj.id+',\'preferences\,'+orderObj.requestId+')">View Mobile Number</button>'
 				            	+ '<div class="clearfix"></div>'
 				            	+ '</div>';
-							acceptOptions = "<span id='accept"+orderObj.requestId+"'><a type='button' class='btn btn-primary btn-sm' onclick='acceptRequest("+orderObj.requestId+",\"1\")'>Yes</a><a type='button' class='btn btn-danger btn-sm' id='reject"+orderObj.requestId+"' href='#' onclick='acceptRequest("+orderObj.requestId+", \"0\")'>Not Interested</a></span><br>";
+							acceptOptions = "<span id='accept"+orderObj.requestId+"'><a type='button' class='btn btn-primary btn-block' onclick='acceptRequest("+orderObj.requestId+",\"1\")'>Accept</a><a type='button' class='btn btn-danger btn-block' id='reject"+orderObj.requestId+"' href='#' onclick='acceptRequest("+orderObj.requestId+", \"0\")'>Ignore</a></span><br>";
 							
 						}else if(listType == "accepted_requests"){
 							interestStr = '';
@@ -873,7 +820,7 @@
 									displayStyle = ' style="display:none" ';
 								}
 								slider += '<div class="smallSlides'+orderObj.id+'" '+displayStyle+'>'
-										+'		<img src="'+photo.image+'" class="img img-responsive thumbnail " style="margin-bottom:0;height: auto;width: 100%;" >'
+										+'		<img src="'+photo.image+'" class="img img-responsive thumbnail " style="margin-bottom:0;height: 60px;width: 60px;" >'
 										+'</div>'
 							});
 							if(photos_list.length>1){
@@ -895,20 +842,38 @@
 			            	+ '</div>'
 			            	+ '<div class="col-md-6">'
 			            	+ '<table>'
-			            	+ '	<tr><td>'+firstname+' '+lastname+'&nbsp;('+orderObj.username+')&nbsp;'+premiumMember+'</td></tr>'
-			            	+ '	<tr><td>'+orderObj.age+'Yrs,'+orderObj.inches+','+orderObj.religionName+','+orderObj.casteName+','
-			            	+ 		orderObj.currentCityName+','+orderObj.currentStateName+','+orderObj.currentCountryName+','
-			            	+ 		orderObj.educationName+','+orderObj.occupationName+'.'
-			            	+'	</td></tr>'
-			            	+ '	<tr><td>'
-			            	+ myMobileNumViewed_str 
-			            	+ message_sent_to_me_str 
-			            	+ shortListedMe_str 
-			            	+ myProfileViewed_str 
-			            	+ '</td></tr>'
-			            	+ '	<tr><td>'+opp_gender_str+' expressed interest. Would you like to take it further?</td></tr>'
-			            	+ '	<tr><td>'+acceptOptions+'</td></tr>'
+			            	+ '	<tr><td><td>'+firstname+' '+lastname+'&nbsp;('+orderObj.username+')</td></tr>'
+			            	+ '	<tr><td>Religion</td><td><span>: '+orderObj.religionName+'</span></td></tr>'
+			            	+ '	<tr><td>Mother Tongue</td><td><span>: '+orderObj.motherTongueName+'</span></td></tr>'
+			            	+ '	<tr><td>Community</td><td><span>: '+orderObj.casteName+'</span></td></tr>'
+			            	+ '	<tr><td>Location</td><td><span>: '+orderObj.currentCityName+'</span></td></tr>'
+			            	+ '	<tr><td>Education</td><td><span>: '+orderObj.educationName+'</span></td></tr>'
+			            	+ '	<tr><td>Profession</td><td><span>: '+profession+'</span></td></tr>'
+			            	+ '<tr><td id="mobileTD'+orderObj.requestId+'">'+mobile_num_Str+'</td><td></td></tr>'
+			            	//+ '<td id="shortlisttd'+orderObj.id+'"><button type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">Shortlist</button></td></tr>'
+			            	//+ '	<tr><td>Age</td><td><span>: '+orderObj.age+'</span></td></tr>'
+			            	//+ '	<tr><td colspan="2">'+orderObj.aboutMyself+'... <a href="#no" onclick="showMore('+orderObj.id+')"> read more..</a> </td></tr>'
+			            	//+  more_details_str
+			            	//+ '	<tr class="showMore" hidden="true"><td colspan="2">'+orderObj.aboutMyself+'... <a href="#no" > read more..</a> </td></tr>'
+			            	//+ '	<tr class="showMore" hidden="true"><td colspan="2">'+orderObj.aboutMyself+'... <a href="#no" > more detailssss</a> </td></tr>'
+			            	//+ '	<tr class="showMore" hidden="true"><td colspan="2">'+orderObj.aboutMyself+'... <a href="#no" > more detailssss</a> </td></tr>'
 			            	+ '</table>'
+			            	+ '</div>'
+			            	/* + '<div id="hideMe'+orderObj.id+'" class="form-group hideMe">'
+			            	+ '    <label class="col-md-4 control-label" for="textinput"></label>'  
+			            	+ '    <div class="col-md-6 text-center">'
+			            	+ '    	<span class="more" style="color: #0087AF;cursor: pointer;"><a href="#no" >read more </a></span><i style="cursor: pointer;" class="fa fa-angle-down"></i>'
+			            	+ '    </div>'
+			            	+ '</div>' */
+			            	+ '<div class="col-md-4">'
+			            	+ '<h4 style="margin-bottom:20px;">Like this Profile?</h4>'
+			            	+ interestStr
+							//+ '<button class="btn btn-danger btn-block btn-md" onclick="fullProfile('+orderObj.id+')">View Full Profile</button><br><br><br><br><br>'
+							+ '<a href="#no" class="btn btn-primary btn-block btn-md" onclick="fullProfile('+orderObj.id+')">View Full Profile</a><br>'
+							+ acceptOptions
+							+ shortListedStr
+							//+ '<span id="shortlistTD"><a href="#no" type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="shortList('+orderObj.id+')">Shortlist</a></span> '
+							+ '<div class="clearfix"></div>'
 			            	+ '</div>'
 			            	+ '</div>'
 			            	+ '</div>';
@@ -993,16 +958,16 @@
 								memberRoleId==12 || memberRoleId==13 || memberRoleId==14)){
 							premiumMember = "<span class='premium-member'>Premium Member</span>";
 						}
-						var shortListedStr = '<span id="shortlistTD'+orderObj.id+'"><a href="#no" type="button" class="btn btn-primary btn-sm" onclick="shortList('+orderObj.id+')"> Shortlist</a></span>';
+						var shortListedStr = '<span id="shortlistTD'+orderObj.id+'"><a href="#no" type="button" class="btn btn-primary btn-block" onclick="shortList('+orderObj.id+')"> Shortlist</a></span>';
 						if(orderObj.short_listed == "1"){
-							shortListedStr = '<span><a type="button" class="btn btn-primary btn-sm" disabled="true"> Shortlisted</a></span>';
+							shortListedStr = '<span><a type="button" class="btn btn-primary btn-block" disabled="true"> Shortlisted</a></span>';
 						}
 						var expressed = orderObj.expressedInterest;
 						var interestStr = "";
 						if(expressed==0){
-							interestStr = '<span id="expInterest'+orderObj.id+'"><a   href="#no" type="button" class="btn btn-success btn-sm"  onclick="expressInterest('+orderObj.id+')">  Express Interest  </a></span>';
+							interestStr = '<span id="expInterest'+orderObj.id+'"><a   href="#no" type="button" class="btn btn-success btn-block btn-md"  onclick="expressInterest('+orderObj.id+')">  Express Interest  </a></span>';
 						}else if(expressed>0){
-							interestStr = '<span><a type="button" class="btn btn-success btn-sm" disabled="true" style="text-size-adjust:auto">Expressed Interest</a></span>';
+							interestStr = '<span><a type="button" class="btn btn-success btn-block" disabled="true" style="text-size-adjust:auto">Expressed Interest</a></span>';
 						}
 						var message_sent_status = orderObj.message_sent_status;
 						var messageStr = "";
@@ -1012,10 +977,9 @@
 						var mobNumViewed = orderObj.mobileNumViewed;
 						var mobile_num_Str = "";
 						if(mobNumViewed==1 || expressed==1 || message_sent_status==1){
-							//mobile_num_Str = '<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+orderObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="image" title="image" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>';
-							mobile_num_Str = '<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+orderObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>';
+							mobile_num_Str = '<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+orderObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="image" title="image" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>';
 						}else{
-							mobile_num_Str = '<span id="mobileTD'+orderObj.id+'"><a href="#no" type="button" class="btn btn-primary btn-sm" onclick="displayMobileNum('+orderObj.id+')">View Mobile Number</a></span>';
+							mobile_num_Str = '<span id="mobileTD'+orderObj.id+'"><a href="#no" type="button" class="btn btn-primary btn-block" onclick="displayMobileNum('+orderObj.id+')">View Mobile Number</a></span>';
 						}
 						var profession = orderObj.occupationName;
 						if((profession == null) || profession == ""){
@@ -1025,18 +989,18 @@
 						if(listType == "pending_requests"){
 							interestStr = '';
 							options =  '<div class="col-md-3">'
-				            	+ '<button class="btn btn-danger btn-sm" onclick="fullProfile('+orderObj.id+')">View Full Profile</button>'
+				            	+ '<button class="btn btn-danger btn-block" onclick="fullProfile('+orderObj.id+')">View Full Profile</button>'
 				            	+ mobile_num_Str
 				            	+ shortListedStr
 				            	//+ '<button class="btn btn-danger btn-block" onclick="displayMobileNum_messages('+orderObj.id+',\'preferences\,'+orderObj.requestId+')">View Mobile Number</button>'
 				            	+ '<div class="clearfix"></div>'
 				            	+ '</div>';
-							acceptOptions = "<span id='accept"+orderObj.requestId+"'><a type='button' class='btn btn-primary btn-sm' onclick='acceptRequest("+orderObj.requestId+",\"1\")'>Accept</a><a type='button' class='btn btn-danger btn-block' id='reject"+orderObj.requestId+"' href='#' onclick='acceptRequest("+orderObj.requestId+", \"0\")'>Ignore</a></span><br>";
+							acceptOptions = "<span id='accept"+orderObj.requestId+"'><a type='button' class='btn btn-primary btn-block' onclick='acceptRequest("+orderObj.requestId+",\"1\")'>Accept</a><a type='button' class='btn btn-danger btn-block' id='reject"+orderObj.requestId+"' href='#' onclick='acceptRequest("+orderObj.requestId+", \"0\")'>Ignore</a></span><br>";
 							
 						}else if(listType == "accepted_requests"){
 							interestStr = '';
 							options =  '<div class="col-md-3">'
-				            	+ '<button class="btn btn-danger btn-sm" onclick="fullProfile('+orderObj.id+')">View Full Profile</button><br>'
+				            	+ '<button class="btn btn-danger btn-block" onclick="fullProfile('+orderObj.id+')">View Full Profile</button><br>'
 				            	+ mobile_num_Str
 				            	+ shortListedStr
 				            	//+ '<button class="btn1 btn btn-info" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button>'
@@ -1045,7 +1009,7 @@
 						}else if(listType == "rejected_requests"){
 							interestStr = '';
 							options =  '<div class="col-md-3">'
-				            	+ '<button class="btn btn-danger btn-sm" onclick="fullProfile('+orderObj.id+')">View Full Profile</button><br>'
+				            	+ '<button class="btn btn-danger btn-block" onclick="fullProfile('+orderObj.id+')">View Full Profile</button><br>'
 				            	+ mobile_num_Str
 				            	//+ '<button class="btn1 btn btn-info" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button>'
 				            	+ '<div class="clearfix"></div>'
@@ -1053,7 +1017,7 @@
 						}else if(listType == "sent_requests"){
 							interestStr = '';
 							options =  '<div class="col-md-3">'
-				            	+ '<button class="btn btn-danger btn-sm" onclick="fullProfile('+orderObj.id+')">View Full Profile</button>'
+				            	+ '<button class="btn btn-danger btn-block" onclick="fullProfile('+orderObj.id+')">View Full Profile</button>'
 				            	+ mobile_num_Str
 				            	+ shortListedStr
 				            	//+ '<button class="btn btn-danger btn-block" onclick="displayMobileNum_messages('+orderObj.id+',\'preferences\,'+orderObj.requestId+')">View Mobile Number</button>'
@@ -1063,7 +1027,7 @@
 						}else if(listType == "awaiting_requests"){
 							interestStr = '';
 							options =  '<div class="col-md-3">'
-				            	+ '<button class="btn btn-danger btn-sm" onclick="fullProfile('+orderObj.id+')">View Full Profile</button><br>'
+				            	+ '<button class="btn btn-danger btn-block" onclick="fullProfile('+orderObj.id+')">View Full Profile</button><br>'
 				            	+ mobile_num_Str
 				            	+ shortListedStr
 				            	//+ '<button class="btn btn-danger btn-block" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button>'
@@ -1072,7 +1036,7 @@
 				           //acceptOptions = "<tr><td title=''><div id='accept"+orderObj.requestId+"'><a href='#' onclick='acceptRequest("+orderObj.requestId+",\"1\")'>Accept</a>&nbsp;|&nbsp;<a id='reject"+orderObj.requestId+"' href='#' onclick='rejectRequest("+orderObj.requestId+" \"0\")'>Reject</a></td><tr>";
 						}else if(listType == "myProfileViews"){
 							options =  '<div class="col-md-3">'
-				            	+ '<button class="btn btn-danger btn-sm" onclick="fullProfile('+orderObj.id+')">View Full Profile</button>'
+				            	+ '<button class="btn btn-danger btn-block" onclick="fullProfile('+orderObj.id+')">View Full Profile</button>'
 				            	+ mobile_num_Str
 				            	//+ '<button class="btn btn-danger btn-block" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button>'
 				            	+ '<div class="clearfix"></div>'
@@ -1155,7 +1119,7 @@
 			            	+ '<h4 style="margin-bottom:20px;">Like this Profile?</h4>'
 			            	+ interestStr
 							//+ '<button class="btn btn-danger btn-block btn-md" onclick="fullProfile('+orderObj.id+')">View Full Profile</button><br><br><br><br><br>'
-							+ '<a href="#no" class="btn btn-primary btn-sm" onclick="fullProfile('+orderObj.id+')">View Full Profile</a><br>'
+							+ '<a href="#no" class="btn btn-primary btn-block btn-md" onclick="fullProfile('+orderObj.id+')">View Full Profile</a><br>'
 							+ acceptOptions
 							+ shortListedStr
 							//+ '<span id="shortlistTD"><a href="#no" type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="shortList('+orderObj.id+')">Shortlist</a></span> '
@@ -1196,7 +1160,7 @@
 			    		var msg = jsonobj.message;
 			    		if(typeof msg != "undefined"){
 			    			if(msg=="success"){
-			    				$("#mobileTD"+requestId).html('<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+profileObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>');
+			    				$("#mobileTD"+requestId).html('<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+profileObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="image" title="image" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>');
 			    				allowed_limit = limit;
 			    			}else{
 			    				alert("Some problem occured. Please try again.");
@@ -1455,9 +1419,9 @@ function openPhotoModal(photos_list){
 	$.each(photos_list,function(i, photoObject) 
 	{
 		var j = i+1;
-		str1 = ' <div class="mySlides" style="height:400px; overflow:hidden;"> '
+		str1 = ' <div class="mySlides"> '
   		+' <div class="numbertext">'+j+' / '+len+'</div> '
-		+' <img src="'+photoObject.image+'"  class="myImg" style="height: auto;width:100%"> '
+		+' <img src="'+photoObject.image+'"  class="myImg" style="height: 500px;width:100%"> '
 		+' </div> ';
 		
 	});
@@ -1473,7 +1437,7 @@ function openPhotoModal(photos_list){
 			//+' <c:forEach items="${photosList}" var="photo" > '
 				//+' <c:set var="counter2" value="${counter2+1}" /> '
 				+' <div class="col-sm-2"> '
-			      +' <img class="demo cursor" src="img/default.png" style="width:100%;" onclick="currentSlide(1)" alt=""> '
+			      +' <img class="demo cursor" src="img/default.png" style="width:100%" onclick="currentSlide(1)" alt=""> '
 			    +' </div> '
 		   // +' </c:forEach> '
 		+' </div> '
@@ -1611,7 +1575,7 @@ function openPhotoModal(photos_list){
 		var j = i+1;
 		str1 = ' <div class="mySlides"> '
   		+' <div class="numbertext">'+j+' / '+len+'</div> '
-		+' <img src="'+photoObject.image+'"  class="myImg" style="height: auto;width:100%;"> '
+		+' <img src="'+photoObject.image+'"  class="myImg" style="height: 500px;width:100%"> '
 		+' </div> ';
 		
 	});
@@ -1662,6 +1626,41 @@ function validate(id, errorMessage)
 	}
 	
 }
+
+function editMobileNumber(user_id,old_mobile_no){
+	var userId = user_id;
+	var mobileNum = $("#mobile").val();
+	if(mobileNum.trim()==""){
+		var v1 = validate('mobile','Enter Mobile Number');
+		if(v1==false)
+			return false;
+	}
+	var formData = new FormData();
+	formData.append("userId",userId);
+	formData.append("mobileNum",mobileNum);
+	formData.append("oldMobileNum",old_mobile_no);
+	$.fn.makeMultipartRequest('POST', 'updateMobileNumber', false,
+		formData, false, 'text', function(data){
+	var jsonobj = $.parseJSON(data);
+	var msg = jsonobj.message;
+	
+	if("success"==msg){
+		alert("Mobile Number Updated Successfully.");
+		$("#editMobileDiv").attr("hidden",true);
+		 $("#mobileNoDiv").removeAttr("hidden");
+		$("#mobileNoText").html(mobileNum);
+		$("#editMobileAnchor").html("Edit Mobile No.");
+		$("#editMobileAnchor").attr("onclick","displayEditMobilenumberDiv("+user_id+","+mobileNum+")");
+	}else if(msg == "duplicate"){
+		alert("Mobile number already in user. Please try another.");
+	}else{
+		alert("Some problem occured!! Please try again.");
+	}	
+	
+});
+}
+
+
 	</script>
 	
 	<script type="text/javascript" src="js/ajax.js"></script>
@@ -1672,36 +1671,13 @@ function validate(id, errorMessage)
 .animated.infinite {
 	animation-iteration-count: infinite
 }
-.thumbimg {
-border:none !important;
-width:100%;
-height:auto;
-}
-.preprofile {
-	width:90px;
-	height:60px;
-	overflow:hidden;
-}
-#shortlistTD168 {
-margin-bottom:5px;
-}
-.thumbnailmain {
-height:120px;
-overflow:hidden;
-}
-.profilepic0 {
-height:220px;
-overflow:hidden;
 
-}
-body {
-background:#ccc !important;
-}
 .upgradeOption {
-    color: #f35626;
-    background-image: -webkit-linear-gradient(2deg, #fff, #fff);
-    -webkit-background-clip: text;
-    -webkit-animation: hue 2s infinite linear;
+	color: #f35626;
+	background-image: -webkit-linear-gradient(2deg, #f35626, red);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	-webkit-animation: hue 2s infinite linear;
 }
 
 .multiSelect {
@@ -1730,12 +1706,7 @@ background:#ccc !important;
 	-webkit-transition: all .1s ease-in-out;
 	transition: all .1s ease-in-out;
 }
-.view0 {
-margin-bottom:5px;
-}
-.btn-sm {
-width:130px;
-}
+
 .panel-title {
 	font-size: 16px;
 	color: #000;
@@ -1749,8 +1720,8 @@ h4.panel-title a {
 }
 
 #matchcount {
-	background-color: #FFECD9;
-	color: #000;
+	background-color: red;
+	color: #ffffff;
 	padding: 2px 4px;
 	font-size: 11px;
 	border: none;
@@ -1759,16 +1730,7 @@ h4.panel-title a {
 	vertical-align: top;
 	margin: 2px 2px;
 }
-.pull-right {
 
-float:right;}
-.ptransition {
-transition:none !important;
-  -webkit-transition:none !important;
-  -moz-transition:none !important;
-  -o-transition:none !important;
-  transition:none !important;
-}
 .premium-member {
 	background-color: #8bb2e2;
 	color: #000;
@@ -1780,12 +1742,7 @@ transition:none !important;
 	vertical-align: top;
 	margin: 2px 2px;
 }
-.btn-sm {
-margin-bottom:5px;
-}
-.ptransition {
-cursor:pointer;
-}
+
 @
 -webkit-keyframes hue {from { -webkit-filter:hue-rotate(0deg);
 	
@@ -1825,7 +1782,7 @@ opacity
 	border-radius: 23px 23px 23px 23px;
 	height: 40px;
 	width: 40px;
-	margin-top: 80px
+	margin-top: 30px
 }
 /* Next button  */
 .media-carousel .carousel-control.right {
@@ -1836,11 +1793,11 @@ opacity
 	border-radius: 23px 23px 23px 23px;
 	height: 40px;
 	width: 40px;
-	margin-top: 80px
+	margin-top: 30px
 }
 
 p {
-	letter-spacing: px;
+	letter-spacing: 1px;
 }
 
 .thumbnail {
@@ -1872,8 +1829,8 @@ p {
 }
 
 .media-carousel img {
-	width: 100%;
-	height: auto;
+	width: 250px;
+	height: 100px
 }
 
 .img-replace {
@@ -1896,9 +1853,7 @@ p {
 	border-radius: 3px;
 	margin-right: 0px;
 	color: white;
-	height: 26px;
-	padding:0;
-	font-weight:400;
+	height: 23px;
 }
 
 .img-replace {
@@ -2203,14 +2158,14 @@ xpopup
 
 .thumbnail {
 	float: left;
-	width: 100%;
-	height: auto;
+	width: 80px;
+	height: 75px;
 	padding: 0px;
 	margin: 5px
 }
 
 body {
-	font-family:'Open Sans', sans-serif;
+	font-family: Verdana, sans-serif;
 	margin: 0;
 }
 
@@ -2465,8 +2420,7 @@ img.hover-shadow {
 
 .mySlides {
 	width: 100%;
-	height: 600px;
-	overflow:hidden;
+	height: 400px;
 }
 
 .manditory {
@@ -2474,7 +2428,7 @@ img.hover-shadow {
 }
 </style>
 </head>
-<body style="background: ;">
+<body style="background: white;">
 <%@ page import="com.aurospaces.neighbourhood.bean.UsersBean"%>
 <%
 	UsersBean userBean = null;
@@ -2493,7 +2447,7 @@ img.hover-shadow {
 	<div class="container" style="background: #FFF;">
     	<div class="col-md-3">
 			<div class="logo">
-				<a href="dashboard"><img  src="user/images/logo1.jpg" class="img img-responsive"></a>
+				<img src="user/images/logo1.jpg" alt="image" title="image" class="img img-responsive">
 			</div>
 			<div class="clearfix"></div>
 		</div>
@@ -2519,8 +2473,8 @@ img.hover-shadow {
 
 	<div class="container">
 		<div class="row">
-			<nav class="navbar navbar-inverse" role="navigation" >
-				<div >
+			<nav class="navbar navbar-inverse" role="navigation" style='height:0px'>
+				<div class="container-fluid">
 	        		<div class="navbar-header">
 						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
 							<span class="sr-only">Toggle navigation</span>
@@ -2532,9 +2486,9 @@ img.hover-shadow {
 					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 						<ul class="nav navbar-nav">
 							<li class="dropdown dashboard">
-								<a href="dashboard" class="dropdown-toggle" data-toggle="dropdown">My Home</a>
+								<a href="dashboard" style='background: powderblue;'>My Home</a>
 								<ul class="dropdown-menu">
-									<li><a href="dashboard">My Home</a></li>
+									<!-- <li><a href="dashboard">My Home</a></li> -->
 									<li><a href="myProfile">My Profile</a></li>
 									<!-- <li><a href="myPhotos">My Photos</a></li> -->
 									<li><a href="myProfileViewsList">Who viewed my profile</a></li>
@@ -2554,19 +2508,19 @@ img.hover-shadow {
 								</ul>
 							</li>
 							<li class="dropdown matches">
-								<a href="#no" class="dropdown-toggle" data-toggle="dropdown">Matches <span id="matchcount">15</span></a>
+								<a href="#no" class="dropdown-toggle" data-toggle="dropdown">Matches <span id="matchcount">${cacheGuest.yetToBeViewedCount}</span></a>
 								<ul class="dropdown-menu">
 									<li><a href="newMatches">New Matches</a></li>
-									<li><a href="yetToBeViewed">Yet to be viewed(15) </a></li>
-									<li><a href="viewedNotContacted">Viewed & not contacted(2)</a></li>
+									<li><a href="yetToBeViewed">Yet to be viewed(${cacheGuest.yetToBeViewedCount}) </a></li>
+									<li><a href="viewedNotContacted">Viewed & not contacted(${cacheGuest.viewedNotContactedCount})</a></li>
 									<li><a href="shortListedByMe">Shortlisted Matches</a></li>
 									<!-- <li><a href="#no">Premium Members</a></li> -->
 								</ul>
 							</li>
 							<li class="dropdown messages">
-								<a href="#no" class="dropdown-toggle" data-toggle="dropdown">Messages <span id="matchcount">1</span></a>
+								<a href="#no" class="dropdown-toggle" data-toggle="dropdown">Messages <span id="matchcount">${cacheGuest.pendingRequestsCount}</span></a>
 								<ul class="dropdown-menu">
-									<li><a href="inboxAction?tab_type=inbox&list_type=pending_requests">Inbox - pending 1</a></li>
+									<li><a href="inboxAction?tab_type=inbox&list_type=pending_requests">Inbox - pending ${cacheGuest.pendingRequestsCount}</a></li>
 									<li><a href="inboxAction?tab_type=inbox&list_type=accepted_requests" >Inbox - Accepted </a></li>
 									<li><a href="inboxAction?tab_type=sent&list_type=sent_requests" >Sent All</a></li>
 									<!-- <li><a href="#no">SMS received/sent</a></li> -->
@@ -2581,56 +2535,47 @@ img.hover-shadow {
 							</li> -->
 							
 							<li class="dropdown notifications">
-								<a href="#no" class="dropdown-toggle" data-toggle="dropdown">Notifications <span id="matchcount">4</span></a>
+								<a href="#no" class="dropdown-toggle" data-toggle="dropdown">Notifications <span id="matchcount">${notificationsCount}</span></a>
 								<ul class="dropdown-menu">
-									<li><a href="myProfileViewsList">(1)members viewed your profile</a></li>
-									<li><a href="myMobileNoViewsList">(1)members viewed your mobile number </a></li>
-									<li><a href="#no">Received interest from (1)  members</a></li>
-									<li><a href="shortListedMe">(1) members shortlisted your profile</a></li>
+									<li><a href="myProfileViewsList">(${cacheGuest.profileViewedCount})members viewed your profile</a></li>
+									<li><a href="myMobileNoViewsList">(${cacheGuest.mobileNumViewedCount})members viewed your mobile number </a></li>
+									<li><a href="#no">Received interest from (${cacheGuest.receivedInterestCount})  members</a></li>
+									<li><a href="shortListedMe">(${cacheGuest.shortListedCount}) members shortlisted your profile</a></li>
 								</ul>
 							</li>
 							<li><a href="#no" >Help</a></li>
 							
-							<li><a class="upgradeOption animated flash infinite" href="memberShipPage" style="font-size: 18px; font-weight: bold; color: #fff;">Upgrade</a></li>
-							
-                            
-                            </ul>
-                            
-                            
-                            
-                            <ul class="nav navbar-nav navbar-right">
-                            
-                            
+							<li><a class="upgradeOption animated flash infinite" href="memberShipPage"
+							 style="font-size: 24px; font-weight: bold; color: white; background-image: -webkit-linear-gradient(1deg, white, white);">Upgrade</a></li>
+							<li><a href="#no" >&nbsp;</a></li>
+							<li><a href="#no" >&nbsp;</a></li>
+							<li><a href="#no" >&nbsp;</a></li>							
+							<li><a href="#no" >&nbsp;</a></li>
+							<li><a href="#no" >&nbsp;</a></li>
+							<li><a href="#no" >&nbsp;</a></li>
 							<li class="dropdown settings pull-right">
 								<a href="#no" class="dropdown-toggle" data-toggle="dropdown">
-									
-									
-<!-- 										<img id="profilepic" src="img/default.png" class="img-responsive thumbnail " style="margin-top:-10px;height: 40px;width: 40px;border-radius:15%;">  -->
-
-								<c:if test="${not empty cacheGuest.profileImage}">
-										<img id="profilepic" src="${cacheGuest.profileImage}" alt="profileImage" title="profileImage" class="img img-responsive thumbnail watermark_text" style="margin-top:-10px;height: 40px;width: 40px;border-radius:15%;"><i class="fa fa-angle-down" aria-hidden="true"></i>
+									<c:if test="${not empty cacheGuest.profileImage}">
+										<img id="profilepic" src="${cacheGuest.profileImage}" alt="profileImage" title="profileImage" class="img img-responsive thumbnail watermark_text" style="margin-top:-10px;height: 40px;width: 40px;border-radius:15%;">
 									</c:if>
 									<c:if test="${empty cacheGuest.profileImage}">
-										<img id="profilepic" src="img/default.png" alt="image" title="image" class="img-responsive thumbnail " style="margin-top:-10px;height: 40px;width: 40px;border-radius:15%;"><i class="fa fa-angle-down" aria-hidden="true"></i>
+										<img id="profilepic" src="img/default.png" alt="image" title="image" class="img-responsive thumbnail " style="margin-top:-10px;height: 40px;width: 40px;border-radius:15%;">
 									</c:if>
-
-									
 								</a>
-								<ul class="dropdown-menu" style="left: none; right: auto; min-width: 85px;">
+								<ul class="dropdown-menu" style="left: none; right: auto; min-width: 102px;">
 									<li><a href="settings">Settings</a></li>
 									<li><a href="logoutHome" >Signout</a></li>
 								</ul>
 							</li>
 							
-						</ul>	
 							
-						
+							
+						</ul>
 	        		</div>
 	        		<!-- /.navbar-collapse -->
 	      		</div>
 	      		<!-- /.container-fluid -->
 	    	</nav>
-			
 		</div>
 	</div>
 </div>
@@ -2650,7 +2595,7 @@ img.hover-shadow {
           	
         </div>
         
-          <button type="button" id="sendMailBtn" onclick="sendMail()" class="btn btn-primary " style="width: 142%; margin: -18px 0px 0px 0px;" >Send Mail</button>
+          <button type="button" id="sendMailBtn" onclick="sendMail()" class="btn btn-primary" style="width: 142%; margin: -18px 0px 0px 0px;" >Send Mail</button>
         
       </div>
       
@@ -2665,7 +2610,7 @@ img.hover-shadow {
 		<c:set var="counter" value="${counter+1}" />
       	<div class="mySlides">
       		<div class="numbertext">${counter} / ${photosListSize}</div>
-	    		<img src="${photo.image}"  class="myImg" style="height:auto;width:100%">
+	    		<img src="${photo.image}"  class="myImg" style='height: 400px;width:100%'>
 	    </div>
 	</c:forEach>
     <!--slider-->
@@ -2674,7 +2619,7 @@ img.hover-shadow {
 		<c:forEach items="${photosList}" var="photo" >
 			<c:set var="counter2" value="${counter2+1}" />
 			<div class="col-sm-2">
-		      <img class="demo cursor" src="${photo.image}" style="width:100%" onclick="currentSlide(${counter2})" alt="">
+		      <img class="demo cursor" src="${photo.image}" style="width:100%" onclick="currentSlide(${counter2})" alt="photo">
 		    </div>
 	    </c:forEach>
 	</div>
@@ -2695,7 +2640,8 @@ img.hover-shadow {
 			<div class="menu_sec">
 				<!-- start header menu -->
 				<ul class="megamenu skyblue">
-					<!-- <li><a class="color1" href="" style="padding: 0px 15px;"><img src="img/aarna-fav.png" class="img img-responsive"></a></li> -->
+					<!-- <li><a class="color1" href="" style="padding: 0px 15px;"><img alt="img
+					" src="img/aarna-fav.png" class="img img-responsive"></a></li> -->
 					<li class="active" ><a class="color1" href="dashboard">My Home</a></li>
 					<li><a class="color1" href="myProfile">My Profile</a></li>
 					<li><a class="color1" href="myPhotos">My Photos</a></li>

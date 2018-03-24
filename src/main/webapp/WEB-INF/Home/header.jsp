@@ -43,7 +43,7 @@
 	<link rel="stylesheet" href="${baseurl }/css/themes.css">
 <%-- 	<link rel="stylesheet" href="${baseurl }/css/plugins/datatable/TableTools.css"> --%>
 	<link rel="stylesheet" href="${baseurl }/css/chosen.css">
-<!-- 	<link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css"> -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	
 	<!-- jQuery -->
 	<script src="${baseurl }/js/jquery.min.js"></script>
@@ -225,7 +225,7 @@ var role_id = ${cacheUserBean.roleId};
 						 
 					</ul>
 				</li>
-				<li class="interestRequests"><a href="${baseurl }/admin/interestRequests"><span>Interest Requests</span></a></li>
+				
  				<li class="updatedProfiles"><a href="${baseurl }/admin/updatedProfiles"><span>Updated Profiles</span></a></li>
  				<li class="reports"><a href="${baseurl }/admin/reportsHome"><span>Reports</span></a></li> 
  				<li class="bulksmsmail"><a href="${baseurl }/admin/bulksmsmail"><span>Bulk SMS&Mail</span></a></li> 

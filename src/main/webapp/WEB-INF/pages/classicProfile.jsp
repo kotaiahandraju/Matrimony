@@ -128,7 +128,7 @@ s.parentNode.insertBefore(ga, s);
 		$('#tableId').html(tableHead);
 		serviceUnitArray = {};
 		$.each(listOrders,function(i, orderObj) {
-			var viewProfile = "<a data-toggle='tooltip' title='View' onclick='viewProfile("+ orderObj.id+ ")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-eye'></i></a>"
+			var viewProfile = "<a data-toggle='tooltip' title='View' onclick='viewProfileNew("+ orderObj.id+ ")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-eye'></i></a>"
 			var uploadPhotos = "<a data-toggle='tooltip' title='Upload Photos' onclick='uploadPhotos("+ orderObj.id+ ")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-photo'></i></a>"
 			var moveToHidden = "<a data-toggle='tooltip' title='Move To Hidden' onclick='moveToHidden("+ orderObj.id+ ",\"classic\")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-eye-slash'></i></a>"
 			var editProfile = "<a data-toggle='tooltip' title='Edit' onclick='editProfile("+ orderObj.id+ ")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-pencil'></i></a>"
@@ -255,442 +255,339 @@ s.parentNode.insertBefore(ga, s);
 		
 	} 
  
- function viewProfile(id){
+  function viewProfile(id){
 		$('#dial1').html('');
 		
 		var username = serviceUnitArray[id].username;
+//		var imageUrl = serviceUnitArray[id].image;
+		 username1 = username;
+		var array = null;
+//		var imageUrl =null;
 		
-		var created_by = null; created_by = serviceUnitArray[id].created_by;
-		if(created_by == "" || created_by == null || created_by == "undefined"){created_by = "---";}
-
+		var image = null; image = serviceUnitArray[id].image;
+		if(image == "" || image == null || image == "undefined"){
+			image = "img/default.png";
+		}
+		else{
+		array = image.split(",");
+		
+		$.each(array,function(i){
+			image = array[i];
+//			   alert(array[i]);
+			});
+		}
+		
+		var registerwith = null; registerwith = serviceUnitArray[id].registerwith;
+		if(registerwith == "" || registerwith == null || registerwith == "undefined"){registerwith = "---";}
+		
 		var executiveName = null; executiveName = serviceUnitArray[id].executiveName;
 		if(executiveName == "" || executiveName == null || executiveName == "undefined"){executiveName = "---";}
 		
-		var castname = null; castname = serviceUnitArray[id].castname;
-		if(castname == "" || castname == null || castname == "undefined"){castname = "---";}
+		var email = null; email = serviceUnitArray[id].email;
+		if(email == "" || email == null || email == "undefined"){email = "---";}
 		
-		var SubCaste = null; SubCaste = serviceUnitArray[id].SubCaste;
-		if(SubCaste == "" || SubCaste == null || SubCaste == "undefined"){SubCaste = "---";}
-
-		var sname = null; sname = serviceUnitArray[id].sname;
-		if(sname == "" || sname == null || sname == "undefined"){sname = "---";}
-
-		var name = null; name = serviceUnitArray[id].name;
-		if(name == "" || name == null || name == "undefined"){name = "---";}
+		var createProfileFor = null; createProfileFor = serviceUnitArray[id].createProfileFor;
+		if(createProfileFor == "" || createProfileFor == null || createProfileFor == "undefined"){createProfileFor = "---";}		
 
 		var gender = null; gender = serviceUnitArray[id].gender;
 		if(gender == "" || gender == null || gender == "undefined"){gender = "---";}
-
-		var dob = null; dob = serviceUnitArray[id].dob;
+		
+		var firstName = null; firstName = serviceUnitArray[id].firstName;
+		if(firstName == "" || firstName == null || firstName == "undefined"){firstName = "---";}
+		
+		var lastName = null; lastName = serviceUnitArray[id].lastName;
+		if(lastName == "" || lastName == null || lastName == "undefined"){lastName = "---";}
+		
+		/* var dob = null; dob = serviceUnitArray[id].dob;
+		if(dob == "" || dob == null || dob == "undefined"){dob = "---";} */
+		
+		var dob = null; dob = serviceUnitArray[id].dobString;
 		if(dob == "" || dob == null || dob == "undefined"){dob = "---";}
-		
-		var tob = null; tob = serviceUnitArray[id].tob;
-		if(tob == "" || tob == null || tob == "undefined"){tob = "---";}
-		
-		var pob = null; pob = serviceUnitArray[id].pob;
-		if(pob == "" || pob == null || pob == "undefined"){pob = "---";}
-		
-		var inches = null; inches = serviceUnitArray[id].inches;
-		if(inches == "" || inches == null || inches == "undefined"){inches = "---";}
-		
-		var complexionName = null; complexionName = serviceUnitArray[id].complexionName;
-		if(complexionName == "" || complexionName == null || complexionName == "undefined"){complexionName = "---";}
-		
-		var raasiName = null; raasiName = serviceUnitArray[id].raasiName;
-		if(raasiName == "" || raasiName == null || raasiName == "undefined"){raasiName = "---";}
-		
-		var starName = null; starName = serviceUnitArray[id].starName;
-		if(starName == "" || starName == null || starName == "undefined"){starName = "---";}
-		
-		var padam = null; padam = serviceUnitArray[id].padam;
-		if(padam == "" || padam == null || padam == "undefined"){padam = "---";}
-		
-		var gotram = null; gotram = serviceUnitArray[id].gotram;
-		if(gotram == "" || gotram == null || gotram == "undefined"){gotram = "---";}
-		
-		var maritalStatus = null; maritalStatus = serviceUnitArray[id].maritalStatus;
-		if(maritalStatus == "" || maritalStatus == null || maritalStatus == "undefined"){maritalStatus = "---";}
 		
 		var religionName = null; religionName = serviceUnitArray[id].religionName;
 		if(religionName == "" || religionName == null || religionName == "undefined"){religionName = "---";}
 
-		var mtongue = null; mtongue = serviceUnitArray[id].mtongue;
-		if(mtongue == "" || mtongue == null || mtongue == "undefined"){mtongue = "---";}
+		var motherTongueName = null; motherTongueName = serviceUnitArray[id].motherTongueName;
+		if(motherTongueName == "" || motherTongueName == null || motherTongueName == "undefined"){motherTongueName = "---";}
 		
-		var sLanguages = null; sLanguages = serviceUnitArray[id].languageName;
-		if(sLanguages == "" || sLanguages == null || sLanguages == "undefined"){sLanguages = "---";}
+		var currentCountryName = null; currentCountryName = serviceUnitArray[id].currentCountryName;
+		if(currentCountryName == "" || currentCountryName == null || currentCountryName == "undefined"){currentCountryName = "---";}
 		
-		var aboutYourself = null; aboutYourself = serviceUnitArray[id].aboutYourself;
-		if(aboutYourself == "" || aboutYourself == null || aboutYourself == "undefined"){aboutYourself = "---";}
+		var currentStateName = null; currentStateName = serviceUnitArray[id].currentStateName;
+		if(currentStateName == "" || currentStateName == null || currentStateName == "undefined"){currentStateName = "---";}
 		
-		var fname = null; fname = serviceUnitArray[id].fname;
-		if(fname == "" || fname == null || fname == "undefined"){fname = "---";}
-
-		var fatherEducation = null; fatherEducation = serviceUnitArray[id].fatherEducation;
-		if(fatherEducation == "" || fatherEducation == null || fatherEducation == "undefined"){fatherEducation = "---";}
+		var currentCityName = null; currentCityName = serviceUnitArray[id].currentCityName;
+		if(currentCityName == "" || currentCityName == null || currentCityName == "undefined"){currentCityName = "---";}
 		
-		var fatherOccupation = null; fatherOccupation = serviceUnitArray[id].fatherOccupation;
-		if(fatherOccupation == "" || fatherOccupation == null || fatherOccupation == "undefined"){fatherOccupation = "---";}
+		var maritalStatus = null; maritalStatus = serviceUnitArray[id].maritalStatus;
+		if(maritalStatus == "" || maritalStatus == null || maritalStatus == "undefined"){maritalStatus = "---";}
 		
-		var foDetails = null; foDetails = serviceUnitArray[id].foDetails;
-		if(foDetails == "" || foDetails == null || foDetails == "undefined"){foDetails = "---";}
+		var casteName = null; casteName = serviceUnitArray[id].casteName;
+		if(casteName == "" || casteName == null || casteName == "undefined"){casteName = "---";}
 		
-		var ffName = null; ffName = serviceUnitArray[id].ffName;
-		if(ffName == "" || ffName == null || ffName == "undefined"){ffName = "---";}
-
-		var fnativeAddress = null; fnativeAddress = serviceUnitArray[id].fnativeAddress;
-		if(fnativeAddress == "" || fnativeAddress == null || fnativeAddress == "undefined"){fnativeAddress = "---";}
+		var gotram = null; gotram = serviceUnitArray[id].gotram;
+		if(gotram == "" || gotram == null || gotram == "undefined"){gotram = "---";}
 		
-		var presentAddress = null; presentAddress = serviceUnitArray[id].presentAddress;
-		if(presentAddress == "" || presentAddress == null || presentAddress == "undefined"){presentAddress = "---";}
-
+		var starName = null; starName = serviceUnitArray[id].starName;
+		if(starName == "" || starName == null || starName == "undefined"){starName = "---";}
+		
+		var dosam = null; dosam = serviceUnitArray[id].dosam;
+		if(dosam == "" || dosam == null || dosam == "undefined"){dosam = "---";}
+		
+		var dosamName = null; dosamName = serviceUnitArray[id].dosamName;
+		if(dosamName == "" || dosamName == null || dosamName == "undefined"){dosamName = "---";}
+		
+		//
+		var educationName = null; educationName = serviceUnitArray[id].educationName;
+		if(educationName == "" || educationName == null || educationName == "undefined"){educationName = "---";}
+		
+		var workingWith = null; workingWith = serviceUnitArray[id].workingWith;
+		if(workingWith == "" || workingWith == null || workingWith == "undefined"){workingWith = "---";}
+		
+		//
+		var occupationName = null; occupationName = serviceUnitArray[id].occupationName;
+		if(occupationName == "" || occupationName == null || occupationName == "undefined"){occupationName = "---";}
+		
+		var annualIncome = null; annualIncome = serviceUnitArray[id].annualIncome;
+		if(annualIncome == "" || annualIncome == null || annualIncome == "undefined"){annualIncome = "---";}
+		
+		var diet = null; diet = serviceUnitArray[id].diet;
+		if(diet == "" || diet == null || diet == "undefined"){diet = "---";}
+		
+		var smoking = null; smoking = serviceUnitArray[id].smoking;
+		if(smoking == "" || smoking == null || smoking == "undefined"){smoking = "---";}
+		
+		var drinking = null; drinking = serviceUnitArray[id].drinking;
+		if(drinking == "" || drinking == null || drinking == "undefined"){drinking = "---";}
+		
+		var height = null; height = serviceUnitArray[id].height;
+		if(height == "" || height == null || height == "undefined"){height = "---";}
+		
+		var bodyTypeName = null; bodyTypeName = serviceUnitArray[id].bodyTypeName;
+		if(bodyTypeName == "" || bodyTypeName == null || bodyTypeName == "undefined"){bodyTypeName = "---";}
+		
+		var complexionName = null; complexionName = serviceUnitArray[id].complexionName;
+		if(complexionName == "" || complexionName == null || complexionName == "undefined"){complexionName = "---";}
+		
 		var mobile = null; mobile = serviceUnitArray[id].mobile;
 		if(mobile == "" || mobile == null || mobile == "undefined"){mobile = "---";}
 		
-		var phone2 = null; phone2 = serviceUnitArray[id].phone2;
-		if(phone2 == "" || phone2 == null || phone2 == "undefined"){phone2 = "---";}
+		var aboutMyself = null; aboutMyself = serviceUnitArray[id].aboutMyself;
+		if(aboutMyself == "" || aboutMyself == null || aboutMyself == "undefined"){aboutMyself = "---";}
+		
+		var disability = null; disability = serviceUnitArray[id].disability;
+		if(disability == "" || disability == null || disability == "undefined"){disability = "---";}
+		
+		var rAgeFrom = null; rAgeFrom = serviceUnitArray[id].rAgeFrom;
+		if(rAgeFrom == "" || rAgeFrom == null || rAgeFrom == "undefined"){rAgeFrom = "---";}
+		
+		var rAgeTo = null; rAgeTo = serviceUnitArray[id].rAgeTo;
+		if(rAgeTo == "" || rAgeTo == null || rAgeTo == "undefined"){rAgeTo = "---";}
+		
+		var rHeight = null; rHeight = serviceUnitArray[id].rHeight;
+		if(rHeight == "" || rHeight == null || rHeight == "undefined"){rHeight = "---";}
+		
+		var rMaritalStatus = null; rMaritalStatus = serviceUnitArray[id].rMaritalStatus;
+		if(rMaritalStatus == "" || rMaritalStatus == null || rMaritalStatus == "undefined"){rMaritalStatus = "---";}
+		
+		var requiredReligionName = null; requiredReligionName = serviceUnitArray[id].requiredReligionName;
+		if(requiredReligionName == "" || requiredReligionName == null || requiredReligionName == "undefined"){requiredReligionName = "---";}
+		
+		var requiredCasteName = null; requiredCasteName = serviceUnitArray[id].requiredCasteName;
+		if(requiredCasteName == "" || requiredCasteName == null || requiredCasteName == "undefined"){requiredCasteName = "---";}
+		
+		var requiredMotherTongue = null; requiredMotherTongue = serviceUnitArray[id].requiredMotherTongue;
+		if(requiredMotherTongue == "" || requiredMotherTongue == null || requiredMotherTongue == "undefined"){requiredMotherTongue = "---";}
+		
+		var requiredCountry = null; requiredCountry = serviceUnitArray[id].requiredCountry;
+		if(requiredCountry == "" || requiredCountry == null || requiredCountry == "undefined"){requiredCountry = "---";}
+		
+		//
+		var requiredStateName = null; requiredStateName = serviceUnitArray[id].requiredStateName;
+		if(requiredStateName == "" || requiredStateName == null || requiredStateName == "undefined"){requiredStateName = "---";}
+		
+		var requiredStateName = null; requiredStateName = serviceUnitArray[id].requiredStateName;
+		if(requiredStateName == "" || requiredStateName == null || requiredStateName == "undefined"){requiredStateName = "---";}
+		
+		var requiredEducationName = null; requiredEducationName = serviceUnitArray[id].requiredEducationName;
+		if(requiredEducationName == "" || requiredEducationName == null || requiredEducationName == "undefined"){requiredEducationName = "---";}
+		
+		var rWorkingWith = null; rWorkingWith = serviceUnitArray[id].rWorkingWith;
+		if(rWorkingWith == "" || rWorkingWith == null || rWorkingWith == "undefined"){rWorkingWith = "---";}
+		
+		var requiredOccupationName = null; requiredOccupationName = serviceUnitArray[id].requiredOccupationName;
+		if(requiredOccupationName == "" || requiredOccupationName == null || requiredOccupationName == "undefined"){requiredOccupationName = "---";}
+		
+		var rAnnualIncome = null; rAnnualIncome = serviceUnitArray[id].rAnnualIncome;
+		if(rAnnualIncome == "" || rAnnualIncome == null || rAnnualIncome == "undefined"){rAnnualIncome = "---";}
+		
+		var rCreateProfileFor = null; rCreateProfileFor = serviceUnitArray[id].rCreateProfileFor;
+		if(rCreateProfileFor == "" || rCreateProfileFor == null || rCreateProfileFor == "undefined"){rCreateProfileFor = "---";}
+		
+		var rDiet = null; rDiet = serviceUnitArray[id].rDiet;
+		if(rDiet == "" || rDiet == null || rDiet == "undefined"){rDiet = "---";}
 
-		var landLine = null; landLine = serviceUnitArray[id].landLine;
-		if(landLine == "" || landLine == null || landLine == "undefined"){landLine = "---";}
+		var rStateName = null; rStateName = serviceUnitArray[id].rStateName;
+		if(rStateName == "" || rStateName == null || rStateName == "undefined"){rStateName = "---";}
 		
-		var email = null; email = serviceUnitArray[id].email;
-		if(email == "" || email == null || email == "undefined"){email = "---";}
-
-		var email2 = null; email2 = serviceUnitArray[id].email2;
-		if(email2 == "" || email2 == null || email2 == "undefined"){email2 = "---";}
-		
-		var mname = null; mname = serviceUnitArray[id].mname;
-		if(mname == "" || mname == null || mname == "undefined"){mname = "---";}
-
-		var motherEducation = null; motherEducation = serviceUnitArray[id].motherEducation;
-		if(motherEducation == "" || motherEducation == null || motherEducation == "undefined"){motherEducation = "---";}
-		
-		var motherOccupation = null; motherOccupation = serviceUnitArray[id].motherOccupation;
-		if(motherOccupation == "" || motherOccupation == null || motherOccupation == "undefined"){motherOccupation = "---";}
-
-		var moDetails = null; moDetails = serviceUnitArray[id].moDetails;
-		if(moDetails == "" || moDetails == null || moDetails == "undefined"){moDetails = "---";}
-		
-		var mfName = null; mfName = serviceUnitArray[id].mfName;
-		if(mfName == "" || mfName == null || mfName == "undefined"){mfName = "---";}
-
-		var mnativeAddress = null; mnativeAddress = serviceUnitArray[id].mnativeAddress;
-		if(mnativeAddress == "" || mnativeAddress == null || mnativeAddress == "undefined"){mnativeAddress = "---";}
-		
-		var sibilings = null; sibilings = serviceUnitArray[id].sibilings;
-		if(sibilings == "" || sibilings == null || sibilings == "undefined"){sibilings = "---";}
-
-		var property = null; property = serviceUnitArray[id].property;
-		if(property == "" || property == null || property == "undefined"){property = "---";}
-		
-		var aboutFamily = null; aboutFamily = serviceUnitArray[id].aboutFamily;
-		if(aboutFamily == "" || aboutFamily == null || aboutFamily == "undefined"){aboutFamily = "---";}
-
-		var branchName = null; branchName = serviceUnitArray[id].branchName;
-		if(branchName == "" || branchName == null || branchName == "undefined"){branchName = "---";}
-
-		var educationName = null; educationName = serviceUnitArray[id].educationName;
-		if(educationName == "" || educationName == null || educationName == "undefined"){educationName = "---";}
-
-		var educationDetails = null; educationDetails = serviceUnitArray[id].educationDetails;
-		if(educationDetails == "" || educationDetails == null || educationDetails == "undefined"){educationDetails = "---";}
-		
-		var educationInfo = null; educationInfo = serviceUnitArray[id].educationInfo;
-		if(educationInfo == "" || educationInfo == null || educationInfo == "undefined"){educationInfo = "---";}
-
-		var occupationName = null; occupationName = serviceUnitArray[id].occupationName;
-		if(occupationName == "" || occupationName == null || occupationName == "undefined"){occupationName = "---";}
-
-		var occupationDetails = null; occupationDetails = serviceUnitArray[id].occupationDetails;
-		if(occupationDetails == "" || occupationDetails == null || occupationDetails == "undefined"){occupationDetails = "---";}
-		
-		var sinceWorking = null; sinceWorking = serviceUnitArray[id].sinceWorking;
-		if(sinceWorking == "" || sinceWorking == null || sinceWorking == "undefined"){sinceWorking = "---";}
-
-		var salaryperMonth = null; salaryperMonth = serviceUnitArray[id].salaryperMonth;
-		if(salaryperMonth == "" || salaryperMonth == null || salaryperMonth == "undefined"){salaryperMonth = "---";}
-
-		var salaryperyear = null; salaryperyear = serviceUnitArray[id].salaryperyear;
-		if(salaryperyear == "" || salaryperyear == null || salaryperyear == "undefined"){salaryperyear = "---";}
-		
-		var nriCitizenOf = null; nriCitizenOf = serviceUnitArray[id].nriCitizenOf;
-		if(nriCitizenOf == "" || nriCitizenOf == null || nriCitizenOf == "undefined"){nriCitizenOf = "---";}
-
-		var currentCountry = null; currentCountry = serviceUnitArray[id].currentCountry;
-		if(currentCountry == "" || currentCountry == null || currentCountry == "undefined"){currentCountry = "---";}
-
-		var visaType = null; visaType = serviceUnitArray[id].visaType;
-		if(visaType == "" || visaType == null || visaType == "undefined"){visaType = "---";}
-		
-		var stayingSince = null; stayingSince = serviceUnitArray[id].stayingSince;
-		if(stayingSince == "" || stayingSince == null || stayingSince == "undefined"){stayingSince = "---";}
-
-		var visaValidity = null; visaValidity = serviceUnitArray[id].visaValidity;
-		if(visaValidity == "" || visaValidity == null || visaValidity == "undefined"){visaValidity = "---";}
-		
-		var ageGap = null; ageGap = serviceUnitArray[id].ageGap;
-		if(ageGap == "" || ageGap == null || ageGap == "undefined"){ageGap = "---";}
-
-		var requiredHeightFrom = null; requiredHeightFrom = serviceUnitArray[id].requiredHeightFrom;
-		if(requiredHeightFrom == "" || requiredHeightFrom == null || requiredHeightFrom == "undefined"){requiredHeightFrom = "---";}
-		
-		var requiredHeightTo = null; requiredHeightTo = serviceUnitArray[id].requiredHeightTo;
-		if(requiredHeightTo == "" || requiredHeightTo == null || requiredHeightTo == "undefined"){requiredHeightTo = "---";}
-
-		var requiredComplexion = null; requiredComplexion = serviceUnitArray[id].requiredComplexion;
-		if(requiredComplexion == "" || requiredComplexion == null || requiredComplexion == "undefined"){requiredComplexion = "---";}
-		
-		var requiredOccupation = null; requiredOccupation = serviceUnitArray[id].requiredOccupation;
-		if(requiredOccupation == "" || requiredOccupation == null || requiredOccupation == "undefined"){requiredOccupation = "---";}
-		
-		var defendentName = null;
-		if(defendentName == "" || defendentName == null || defendentName == "undefined"){defendentName = "---";}
-		
-		var sOrD = null;
-		if(sOrD == "" || sOrD == null || sOrD == "undefined"){sOrD = "---";}
-		
-		var marriedOn = null;
-		if(marriedOn == "" || marriedOn == null || marriedOn == "undefined"){marriedOn = "---";}
-		
-		var dateOfSeparation = null;
-		if(dateOfSeparation == "" || dateOfSeparation == null || dateOfSeparation == "undefined"){dateOfSeparation = "---";}
-		
-		var courtCase = null;
-		if(courtCase == "" || courtCase == null || courtCase == "undefined"){courtCase = "---";}
-		
-		var reason = null;
-		if(reason == "" || reason == null || reason == "undefined"){reason = "---";}
-		
-		var maleChildrens = null;
-		if(maleChildrens == "" || maleChildrens == null || maleChildrens == "undefined"){maleChildrens = "---";}
-		
-		var femaleChildrens = null;
-		if(femaleChildrens == "" || femaleChildrens == null || femaleChildrens == "undefined"){femaleChildrens = "---";}
-		
-		
-			 
-		 
-//	 	 Occupation :	 "46"	 Religion	 :	 "1"	 SubCaste	 :	 "xvcxv"	 aboutFamily	 :	 "xcx"	 aboutYourself	 :	 "zxczxc"	 ageGap	 :	 "xxcxc"
-//	 	 branch	 :	 "1"	 branchName	 :	 "Guntur"	 cast	 :	 "9"	 castname	 :	 "Goud"	 cm	 :	 "139"	 complexion	 :	 "6"	 complexionName	 :	 "Medium"
-//	 	 country	 :	 null	 countryName	 :	 null	 crCountry	 :	 "3"	 created_by	 :	 "xcvxv"	 created_time	 :	 "2017-10-06 16:16:42.0"
-//	 	 currentCountry	 :	 "Australia"	 dob	 :	 "2017-10-06"	 education	 :	 "4"	 educationDetails	 :	 ""	 educationInfo	 :	 ""	 
-//	 	 educationName	 :	 "B.Com"	 email	 :	 "andraju.kotaiah@gmail.com"	 email2	 :	 ""	 emply_type	 :	 null	 executiveName	 :	 "xcvxcv"
-//	 	 fatherEducation	 :	 "M.Tech"	 fatherOccupation	 :	 "Government"	 feducation	 :	 "2"	 ffName	 :	 ""	 fname	 :	 "xcxcv"
-//	 	 fnativeAddress	 :	 "xvxcv"	 foDetails	 :	 ""	 foccupation	 :	 "20"	 gender	 :	 "Male"	 requiredOccupation	 :	 "zxczcx"	 height	 :	 "3"
-//	 	 id	 :	 "2756"	 inches	 :	 "4'7"	 landLine	 :	 ""	 languageName	 :	 "hhh"	 last_ip	 :	 "0:0:0:0:0:0:0:1"	 last_login	 :	 "2017-10-06 16:16:42.0"
-//	 	 maritalStatus	 :	 "Unmarried"	 meducation	 :	 "4"	 mfName	 :	 "zxczxc"	 mname	 :	 "zxczxc"	 mnativeAddress	 :	 "zxczxc"	 moDetails	 :	 ""
-//	 	 mobile	 :	 "9999999999999"	 moccupation	 :	 ""	 motherEducation	 :	 "B.Com"	 motherOccupation	 :	 null	 mstatus	 :	 null
-//	 	 mtongue	 :	 "zxzxc"	 name	 :	 "xcvxv"	 ncitizenOf	 :	 "3"	 nriCitizenOf	 :	 "Australia"	 occupationDetails	 :	 "xcxc"
-//	 	 occupationName	 :	 "Any"	 padam	 :	 ""	 password	 :	 ""	 phone1	 :	 null	 phone2	 :	 ""	 pob	 :	 "xvxcv"	 presentAddress	 :	 "xvcxz"
-//	 	 profile_pic_status	 :	 null	 property	 :	 "xcxc"	 rComplexion	 :	 "6"	 rHeightFrom	 :	 "18"	 rHeightTo	 :	 "17"	 raasi	 :	 "7"
-//	 	 raasiName	 :	 "Karkataka "	 register_with	 :	 null	 requiredComplexion	 :	 "Medium"	 requiredHeightFrom	 :	 "5'9"	 requiredHeightTo	 :	 "5'8"
-//	 	 requiredOccupation	 :	 "Housewife"	 role_id	 :	 "4"	 rolename	 :	 "Free Profile"	 rprofession	 :	 "45"	 sLanguages	 :	 "7" salaryperMonth	 :	 ""
-//	 	 salaryperyear	 :	 ""	 sibilings	 :	 "czxc"	 sinceWorking	 :	 "xcxc"	 sname	 :	 "xcvxcv"	 star	 :	 "4"	 starName	 :	 "Aslesha"
-//	 	 status	 :	 null	 stayingSince	 :	 ""	 tob	 :	 "0000-00-00"	 udcreated_time	 :	 "2017-10-06 16:16:42.0"	 udupdated_time	 :	 "2017-10-06 16:16:42.0"
-//	 	 updated_time	 :	 "2017-10-06 16:16:42.0"	 userId	 :	 "2756"	 userdetailsId	 :	 "21"	 username	 :	 "VMB3002756"	 visaType	 :	 ""	 
-//	 	 visaValidity	
-
-		 var tblRow = "<div class='container table-responsive'><div class='row'>"
-		 		+ 	"<div class='col-sm-2'>"
-		 		+		"<i class='fa fa-user' style='font-size: 10em;'></i>"
-//	 	 		+		"<img class='img-responsive' src='../img/default.png' style='width: auto !important;height: 120px !important;'>"
-		 		+ 	"</div>"
-		 		+ 	"<div class='col-sm-10' style='border: 1px solid red;'>"
+		 var tblRow = 	"<div id='printProfile'><div class='col-sm-2' >"
+		 		+		"<img src=${baseurl }/"+image+" class='watermark_text' width='150px' align='right'/>"
+	//			+		"<i class='fa fa-user' style='font-size: 10em;'></i>"
+	// 	 		+		"<img class='img-responsive' src='../img/default.png' style='width: auto !important;height: 120px !important;'>"
+		 		+ 	"</div>" 
+				 +"<div  class='container table-responsive'>"
+			   
+				 +"<div class='row'>"
+		 		+"<a href='' class='noPrint' onclick='PrintElem()' style='background: turquoise;border-radius: 3px;padding: 2px;font-size: 18px;''>Print</a>"
+		 		+ 	"<div class='col-sm-10' >"
 		 		+		"<table class='table table-hoverable table-condensed' style='width: 100%;'>"
 				+			"<tr>"
-				+				"<td><b><spring:message code='label.createdByName' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+created_by+"</td>"
+				+				"<td><b>Profile Created for</b></td>"
+				+				"<td>:</td><td>"+createProfileFor+"</td>"
 				+				"<td><b><spring:message code='label.executiveName' text='default text'/></b></td>"
 				+				"<td>:</td><td>"+executiveName+"</td>"
 				+			"</tr>"
 				//Basic Information
 				+			"<tr class='bg'><td colspan='6' style='color: green;'><b>Basic Information</b></td></tr>"
 				+			"<tr>"
-				+				"<td><b><spring:message code='label.casteName' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+castname+"</td>"
-				+				"<td><b><spring:message code='label.subCaste' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+SubCaste+"</td>"
+				+				"<td><b>First Name</b></td>"
+				+				"<td>:</td><td>"+firstName+"</td>"
+				+				"<td><b>Last Name</b></td>"
+				+				"<td>:</td><td>"+lastName+"</td>"
 				+			"</tr>"
 				+			"<tr>"
-				+				"<td><b><spring:message code='label.surName' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+sname+"</td>"
-				+				"<td><b><spring:message code='label.name' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+name+"</td>"
-				+			"</tr>"
-				+			"<tr>"
-				+				"<td><b><spring:message code='label.gender' text='default text'/></b></td>"
+				+				"<td><b>Gender</b></td>"
 				+				"<td>:</td><td>"+gender+"</td>"
-				+				"<td><b><spring:message code='label.dob' text='default text'/></b></td>"
+				+				"<td><b>Date of Birth</b></td>"
 				+				"<td>:</td><td>"+dob+"</td>"
 				+			"</tr>"
 				+			"<tr>"
-				+				"<td><b><spring:message code='label.tob' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+tob+"</td>"
-				+				"<td><b><spring:message code='label.pob' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+pob+"</td>"
+				+				"<td><b>Email</b></td>"
+				+				"<td>:</td><td>"+email+"</td>"
+				+				"<td><b>Caste</b></td>"
+				+				"<td>:</td><td>"+casteName+"</td>"
 				+			"</tr>"
 				+			"<tr>"
-				+				"<td><b><spring:message code='label.height' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+inches+"</td>"
-				+				"<td><b><spring:message code='label.complexion' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+complexionName+"</td>"
-				+			"</tr>"
-				+			"<tr>"
-				+				"<td><b><spring:message code='label.raasi' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+raasiName+"</td>"
-				+				"<td><b><spring:message code='label.star' text='default text'/></b></td>"
+				+				"<td><b>Gothram</b></td>"
+				+				"<td>:</td><td>"+gotram+"</td>"
+				+				"<td><b>Nakshtram</b></td>"
 				+				"<td>:</td><td>"+starName+"</td>"
 				+			"</tr>"
 				+			"<tr>"
-				+				"<td><b><spring:message code='label.padam' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+padam+"</td>"
-				+				"<td><b><spring:message code='label.gothram' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+gotram+"</td>"
+				+				"<td><b>Dosham</b></td>"
+				+				"<td>:</td><td>"+dosam+"</td>"
+				+				"<td><b>Dosham Name</b></td>"
+				+				"<td>:</td><td>"+dosamName+"</td>"
 				+			"</tr>"
 				+			"<tr>"
-				+				"<td><b><spring:message code='label.maritalStatus' text='default text'/></b></td>"
+				+				"<td><b>Marital Status</b></td>"
 				+				"<td>:</td><td colspan='4'>"+maritalStatus+"</td>"
 				+			"</tr>"
 				//Widow / Divorcee Details
-	 			+		"<tr id='mstatusId'></tr>"
+//	 			+			mStatus
 				+			"<tr>"
-				+				"<td><b><spring:message code='label.religion' text='default text'/></b></td>"
+				+				"<td><b>Religion</b></td>"
 				+				"<td>:</td><td>"+religionName+"</td>"
-				+				"<td><b><spring:message code='label.motherTongue' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+mtongue+"</td>"
+				+				"<td><b>Mother Tongue</b></td>"
+				+				"<td>:</td><td>"+motherTongueName+"</td>"
 				+			"</tr>"
 				+			"<tr>"
-				+				"<td><b><spring:message code='label.spokenLanguages' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+sLanguages+"</td>"
-				+				"<td><b><spring:message code='label.aboutYourself' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+aboutYourself+"</td>"
-				+			"</tr>"
-				
-				//About My Family
-				+			"<tr class='bg'><td colspan='6' style='color: green;'><b>About My Family</b></td></tr>"
-				+			"<tr>"
-				+				"<td><b><spring:message code='label.fatherName' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+fname+"</td>"
-				+				"<td><b><spring:message code='label.fatherEducation' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+fatherEducation+"</td>"
+				+				"<td><b>Country</b></td>"
+				+				"<td>:</td><td>"+currentCountryName+"</td>"
+				+				"<td><b>State</b></td>"
+				+				"<td>:</td><td>"+currentStateName+"</td>"
 				+			"</tr>"
 				+			"<tr>"
-				+				"<td><b><spring:message code='label.fatherOccupation' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+fatherOccupation+"</td>"
-				+				"<td><b><spring:message code='label.fatherOccupationDetails' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+foDetails+"</td>"
-				+			"</tr>"
-				+			"<tr>"
-				+				"<td><b><spring:message code='label.fathersFatherName' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+ffName+"</td>"
-				+				"<td><b><spring:message code='label.fatherNativeAddress' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+fnativeAddress+"</td>"
-				+			"</tr>"
-				+			"<tr>"
-				+				"<td><b><spring:message code='label.presentAddress' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+presentAddress+"</td>"
-				+				"<td><b><spring:message code='label.contactPhNo' text='default text'/></b></td>"
+				+				"<td><b>City</b></td>"
+				+				"<td>:</td><td>"+currentCityName+"</td>"
+				+				"<td><b>Mobile</b></td>"
 				+				"<td>:</td><td>"+mobile+"</td>"
-				+			"</tr>"
-				+			"<tr>"
-				+				"<td><b><spring:message code='label.contactPhNo2' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+phone2+"</td>"
-				+				"<td><b><spring:message code='label.landLine' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+landLine+"</td>"
-				+			"</tr>"
-				+			"<tr>"
-				+				"<td><b><spring:message code='label.email' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+email+"</td>"
-				+				"<td><b><spring:message code='label.email2' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+email2+"</td>"
-				+			"</tr>"
-				+			"<tr>"
-				+				"<td><b><spring:message code='label.motherName' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+mname+"</td>"
-				+				"<td><b><spring:message code='label.motherEducation' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+motherEducation+"</td>"
-				+			"</tr>"
-				+			"<tr>"
-				+				"<td><b><spring:message code='label.motherOccupation' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+motherOccupation+"</td>"
-				+				"<td><b><spring:message code='label.motherOccupationDetails' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+moDetails+"</td>"
-				+			"</tr>"
-				+			"<tr>"
-				+				"<td><b><spring:message code='label.mothersFatherName' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+mfName+"</td>"
-				+				"<td><b><spring:message code='label.motherNativeAddress' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+mnativeAddress+"</td>"
-				+			"</tr>"
-				+			"<tr>"
-				+				"<td><b><spring:message code='label.siblings' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+sibilings+"</td>"
-				+				"<td><b><spring:message code='label.property' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+property+"</td>"
-				+			"</tr>"
-				+			"<tr>"
-				+				"<td><b><spring:message code='label.aboutFamily' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+aboutFamily+"</td>"
-				+				"<td><b><spring:message code='label.selectNearestBranch' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+branchName+"</td>"
 				+			"</tr>"
 				//Education & Job information
 				+			"<tr class='bg'><td colspan='6' style='color: green;'><b>Education &amp; Job Information</b></td></tr>"
 				+			"<tr>"
-				+				"<td><b><spring:message code='label.education' text='default text'/></b></td>"
+				+				"<td><b>Education</b></td>"
 				+				"<td>:</td><td>"+educationName+"</td>"
-				+				"<td><b><spring:message code='label.educationDetails' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+educationDetails+"</td>"
+				+				"<td><b>Working with</b></td>"
+				+				"<td>:</td><td>"+workingWith+"</td>"
 				+			"</tr>"
 				+			"<tr>"
-				+				"<td><b><spring:message code='label.educationInfo' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+educationInfo+"</td>"
-				+				"<td><b><spring:message code='label.occupation' text='default text'/></b></td>"
+				+				"<td><b>Occupation</b></td>"
 				+				"<td>:</td><td>"+occupationName+"</td>"
+				+				"<td><b>Annual Income</b></td>"
+				+				"<td>:</td><td>"+annualIncome+"</td>"
+				+			"</tr>"
+				//Personal Details
+				+			"<tr class='bg'><td colspan='6' style='color: green;'><b>Personal Details</b></td></tr>"
+				+			"<tr>"
+				+				"<td><b>Diet</b></td>"
+				+				"<td>:</td><td>"+diet+"</td>"
+				+				"<td><b>Smoking</b></td>"
+				+				"<td>:</td><td>"+smoking+"</td>"
 				+			"</tr>"
 				+			"<tr>"
-				+				"<td><b><spring:message code='label.occupationDetails' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+occupationDetails+"</td>"
-				+				"<td><b><spring:message code='label.sinceWorking' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+sinceWorking+"</td>"
+				+				"<td><b>Drinking</b></td>"
+				+				"<td>:</td><td>"+drinking+"</td>"
+				+				"<td><b>Height</b></td>"
+				+				"<td>:</td><td>"+height+"</td>"
 				+			"</tr>"
 				+			"<tr>"
-				+				"<td><b><spring:message code='label.salaryPerMonth' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+salaryperMonth+"</td>"
-				+				"<td><b><spring:message code='label.salaryPerYear' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+salaryperyear+"</td>"
-				+			"</tr>"
-				//for NRI - Visa Details
-				+			"<tr class='bg'><td colspan='6' style='color: green;'><b>for NRI - Visa Details</b></td></tr>"
-				+			"<tr>"
-				+				"<td><b><spring:message code='label.citizenOf' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+nriCitizenOf+"</td>"
-				+				"<td><b><spring:message code='label.currentResidenceCountry' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+currentCountry+"</td>"
+				+				"<td><b>Body Type</b></td>"
+				+				"<td>:</td><td>"+bodyTypeName+"</td>"
+				+				"<td><b>Complexion</b></td>"
+				+				"<td>:</td><td>"+complexionName+"</td>"
 				+			"</tr>"
 				+			"<tr>"
-				+				"<td><b><spring:message code='label.visaType' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+visaType+"</td>"
-				+				"<td><b><spring:message code='label.stayingSince' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+stayingSince+"</td>"
+				+				"<td><b>About Yourself</b></td>"
+				+				"<td>:</td><td>"+aboutMyself+"</td>"
+				+				"<td><b>Any Disability</b></td>"
+				+				"<td>:</td><td>"+disability+"</td>"
+				+			"</tr>"
+				//Life Partner Requirements
+				+			"<tr class='bg'><td colspan='6' style='color: green;'><b>Life Partner Requirements</b></td></tr>"
+				+			"<tr>"
+				+				"<td><b>Height</b></td>"
+				+				"<td>:</td><td>"+rHeight+"</td>"
+				+				"<td><b>Age</b></td>"
+				+				"<td>:</td><td>"+rAgeFrom+" <b>to</b> "+rAgeTo+"</td>"
 				+			"</tr>"
 				+			"<tr>"
-				+				"<td><b><spring:message code='label.visaValidity' text='default text'/></b></td>"
-				+				"<td>:</td><td colspan='4'>"+visaValidity+"</td>"
-				+			"</tr>"
-				//Requirement
-				+			"<tr class='bg'><td colspan='6' style='color: green;'><b>Requirement</b></td></tr>"
-				+			"<tr>"
-				+				"<td><b><spring:message code='label.ageGap' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+ageGap+"</td>"
-				+				"<td><b><spring:message code='label.heightFrom' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+requiredHeightFrom+" <b><spring:message code='label.to' text='default text'/></b> "+requiredHeightTo+"</td>"
+				+				"<td><b>Marital Status</b></td>"
+				+				"<td>:</td><td colspan='4'>"+rMaritalStatus+"</td>"
 				+			"</tr>"
 				+			"<tr>"
-				+				"<td><b><spring:message code='label.complexion' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+requiredComplexion+"</td>"
-				+				"<td><b><spring:message code='label.profession' text='default text'/></b></td>"
-				+				"<td>:</td><td>"+requiredOccupation+"</td>"
+				+				"<td><b>Religion</b></td>"
+				+				"<td>:</td><td>"+requiredReligionName+"</td>"
+				+				"<td><b>Caste</b></td>"
+				+				"<td>:</td><td>"+requiredCasteName+"</td>"
+				+			"</tr>"
+				+			"<tr>"
+				+				"<td><b>Mother Tongue</b></td>"
+				+				"<td>:</td><td>"+requiredMotherTongue+"</td>"
+				+				"<td><b>Country</b></td>"
+				+				"<td>:</td><td>"+requiredCountry+"</td>"
+				+			"</tr>"
+				+			"<tr>"
+				+				"<td><b>State</b></td>"
+				+				"<td>:</td><td>"+rStateName+"</td>"
+				+				"<td><b>Education</b></td>"
+				+				"<td>:</td><td>"+requiredEducationName+"</td>"
+				+			"</tr>"
+				+			"<tr>"
+				+				"<td><b>Working with</b></td>"
+				+				"<td>:</td><td>"+rWorkingWith+"</td>"
+				+				"<td><b>Profession area</b></td>"
+				+				"<td>:</td><td>"+requiredOccupationName+"</td>"
+				+			"</tr>"
+				+			"<tr>"
+				+				"<td><b>Annual Income</b></td>"
+				+				"<td>:</td><td colspan='4'>"+rAnnualIncome+"</td>"
+				+			"</tr>"
+				+			"<tr>"
+				+				"<td><b>Profile Created by</b></td>"
+				+				"<td>:</td><td>"+rCreateProfileFor+"</td>"
+				+				"<td><b>Diet</b></td>"
+				+				"<td>:</td><td>"+rDiet+"</td>"
 				+			"</tr>"
 				+		"</table>"
 //	 	 		+		"<div class='row'>"
@@ -712,7 +609,7 @@ s.parentNode.insertBefore(ga, s);
 //	 	 		+			"<div class='col-sm-3'>"+name+"</div>"
 //	 	 		+		"</div>"
 		 		+ 	"</div>"
-		 		+ "</div></div>";
+		 		+ "</div></div></div>";
 		 
 		 $(tblRow).appendTo('#dial1');
 		 var mStatus = null;
@@ -749,10 +646,22 @@ s.parentNode.insertBefore(ga, s);
 			}
 			else{mStatus = "<tr></tr>";}
 			 $(mStatus).appendTo('#mstatusId');
+			 
 		 $('#dial1').dialog({title: "Profile of "+username, width: 1199, height: 600, modal: true}).dialog('open');
 //		 	$(window).scrollTop($('.wrapper').offset().top);
 //		 	$(".view_list").hide();
 //		 	$('#view_list1').hide();
+		 var formData = new FormData();
+	     formData.append('id', id);
+		$.fn.makeMultipartRequest('POST', 'verifyProfile', false,
+				formData, false, 'text', function(data){
+			/* var jsonobj = $.parseJSON(data);
+			alert(jsonobj.message);
+			
+			var alldata = jsonobj.allOrders1;
+			console.log(jsonobj.allOrders1);
+			displayTable(alldata); */
+		});
 	 }
  $(function(){
 		$('.dataTable').DataTable({

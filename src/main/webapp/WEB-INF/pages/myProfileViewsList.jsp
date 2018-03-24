@@ -29,7 +29,7 @@
 		<style>
 			/** Start: to style navigation tab **/
 			.nav {
-			  margin-bottom: 18px;
+			 
 			  margin-left: 0;
 			  list-style: none;
 			}
@@ -93,6 +93,9 @@
 			  border: 1px solid #ddd;
 			  border-bottom-color: transparent;
 			}
+			.btn-sm {
+margin-bottom:5px !important;
+}
 			
 			li {
 			  line-height: 18px;
@@ -190,7 +193,7 @@ function openCity(evt, cityName) {
 }
 
 // Get the element with id="defaultOpen" and click on it
-document.getElementById("defaultOpen").click();
+//document.getElementById("defaultOpen").click();
 </script>
 <script type="text/javascript">
 var total_items_count = ${total_records};

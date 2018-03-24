@@ -130,7 +130,7 @@
 /* Title helper */
 
 .lightbox-wrap .lightbox-title {
-	font: normal 16px/20px "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font: normal 16px/20px Verdana, sans-serif;
 	position: relative;
 	text-shadow: none;
 	z-index: 1030;

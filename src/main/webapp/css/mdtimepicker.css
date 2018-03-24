@@ -6,7 +6,7 @@
  *
  * Date: Tuesday, August 28 2017
  */
- @import url('https://fonts.googleapis.com/css?family=Roboto');
+ @import url('https://fonts.googleapis.com/css?family=Verdana, sans-serif');
  
  body[mdtimepicker-display='on'] { overflow: hidden; }
 .mdtimepicker {
@@ -15,7 +15,7 @@
 	left: 0;
 	right: 0;
 	bottom: 0;
-	font-family: Roboto, sans-serif;
+	font-family: Verdana, sans-serif;
 	font-size: 14px;
 	background-color: rgba(10,10,10,.7);
 	transition: background-color .28s ease;

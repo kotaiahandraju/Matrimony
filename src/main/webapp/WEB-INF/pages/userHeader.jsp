@@ -11,12 +11,14 @@
 			<div class="col-md-3 products-grid-right">
 				<div class="well">
 					<div class="row">
-						<div class="col-md-11">
+						<div class="col-md-12 profileauto">
 							<c:if test="${not empty cacheGuest.profileImage}">
-								<a href="#" id="profilePicOuterTag"><img id="profilepic" src="${cacheGuest.profileImage}" class="hover-shadow cursor img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: 120px;width: 150px;" onclick="openModal();currentSlide(1)" ></a>
+								<div class="profilepic0"><a href="#" id="profilePicOuterTag"><img id="profilepic" src="${cacheGuest.profileImage}" class="hover-shadow cursor img img-responsive thumbnail watermark_text" style="margin-bottom:0;height:auto;width: 100%;" onclick="openModal();currentSlide(1)" ></a>
+					</div>
 							</c:if>
 							<c:if test="${empty cacheGuest.profileImage}">
-								<img id="profilepic" src="img/default.png" class="img-responsive thumbnail " style="margin-bottom:0;">
+								<div class="profilepic0"><a href="#" id="profilePicOuterTag"><img id="profilepic" src="img/default.png" class="img-responsive thumbnail " style="margin-bottom:0;"></a>
+							</div>
 							</c:if>
 						</div>	
 						<div class="col-md-12" style="padding-left:0;" >
@@ -24,9 +26,9 @@
 								<table  style="margin-left: 20px;" width="100%" border="0" cellspacing="0" cellpadding="0">
 									<tr><td><a href="myPhotos">My Photos</a></td></tr>
 									<tr><td><a href="myProfile">Edit Profile</a></td></tr>
-									<tr><td><a href="#">Edit Partner Preferences</a></td></tr>
+									<tr><td><a href="myProfile">Edit Partner Preferences</a></td></tr>
 									<c:if test="${cacheGuest.roleId != '4' && cacheGuest.membership_status!='0'}">
-					            		<tr><td style="color:white;font-size:15px">Available profiles limit: <span id="available_limit_span">${allowed_profiles_limit}</span></td></tr>
+					            		
 					            	</c:if>
 									
 								</table>
@@ -90,11 +92,11 @@
             		Not a paid member.
             	</c:if>
             	<c:if test="${cacheGuest.roleId != '4'}">
-	            	<c:if test="${membership_details.validity <= 0}">
+	            	<c:if test="${membership_details.validity < 0}">
 	            		Your membership validity is over on <c:out value="${membership_details.renewal_date}" /><br>
 	            		<a type="button" class="btn btn-primary btn-block" href="memberShipPage">Renew Membership</a>
 	            	</c:if>
-	            	<c:if test="${membership_details.validity > 0}">
+	            	<c:if test="${membership_details.validity >= 0}">
 		            	
 		            		<b><c:out value="${membership_details.name}" /></b><br>
 			            	<c:out value="${membership_details.validity}" /> days remaining <br>

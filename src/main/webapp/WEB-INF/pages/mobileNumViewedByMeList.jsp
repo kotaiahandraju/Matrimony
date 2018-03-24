@@ -29,7 +29,7 @@
 		<style>
 			/** Start: to style navigation tab **/
 			.nav {
-			  margin-bottom: 18px;
+			  margin-bottom: px;
 			  margin-left: 0;
 			  list-style: none;
 			}
@@ -106,7 +106,9 @@
 				display: none;
 			}
 			
-			
+			.btn-sm {
+margin-bottom:5px !important;
+}
 			/** End: to style navigation tab **/
 		</style>
 <div class="products">

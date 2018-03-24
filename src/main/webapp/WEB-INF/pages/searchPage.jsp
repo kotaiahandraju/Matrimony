@@ -1,13 +1,13 @@
 <%@ include file="userHeader.jsp"%>
 
-			<div class="col-md-8 products-grid-left">
-            	<div class="panel panel-success">
-					<div class="panel-heading">Search Profiles</div>
+			<div class="col-md-9 products-grid-left">
+            	<div class="panel panel-default">
+					<div class="panel-heading">Search Profiles<span><a href="" style="float:right; font-size:12px; color:#006699;">Modify Search</a></span></div>
 					<div class="panel-body table-responsive">
 						<form:form commandName="createProfile"  class="form-horizontal" id="searchForm2" name="searchForm2" role="form" method="post">
 						<form:hidden path="id" />
              			<div class="col-md-12">
-							<div id="searchresultsDiv" style="font-size: 12px;">
+							<div id="searchresultsDiv" class="bare">
 								<div class="searchresults">
 								    <h3>Your Search Results</h3>
 								    <p><span id="countId">${count}</span> Profiles found <a href="searchProfiles">Modify Search</a></p>
@@ -39,13 +39,18 @@
 											<form:options items="${height}"></form:options>
 										</form:select>
 									</div>
+                                    
+                                   
+                                    
 									<div class="col-md-3">
 										<form:select path="rHeightTo" class="form-control u1">
 											<form:option value="">To</form:option>
 											<form:options items="${height}"></form:options>
 										</form:select>
 									</div>
-									<div class="form-group" >
+                                    </div>
+                                    
+									<div class="form-group prfic">
 									      <label class="col-md-4 control-label" for="textinput">Marital Status</label>  
 									      <div class="col-md-6">
 									      	<form:select path="rMaritalStatus" class="multiSelect" onchange="hideChildren();" multiple="true" >
@@ -57,7 +62,7 @@
 									      </div>
 									    </div>
 									
-									    <div class="form-group" id="haveChildrenId" style="display: none">
+									    <div class="form-group prific" id="haveChildrenId">
 									      <label class="col-md-4 control-label" for="textinput" >Have Children</label>  
 									      <div class="col-md-6">
 									      	<form:select path="rhaveChildren" class="form-control u1">
@@ -122,7 +127,8 @@
 									    <div class="form-group">
 									      <label class="col-md-4 control-label" for="textinput"></label>  
 									      <div class="col-md-6">
-									     	<a href="#" type="button" id="searchBtn" class="btn1 btn btn-info" onclick="submitSearch()">Search</a> 
+									     	<a href="#" type="button" id="searchBtn" class="btn1 btn btn-success" onclick="submitSearch()">Search</a> 
+									     	<a href="#" type="button" id="searchBtn" class="btn1 btn btn-danger" onclick="">Reset</a> 
 									      <!-- 	<a href="savePartnerProfile" class="btn1 btn btn-info">Save & Continue</a> -->
 									      </div>
 									    </div>
@@ -176,7 +182,7 @@ if (listOrders1 != "" && listOrders1 != null) {
 	$("#searchresultsDiv").prop("hidden",true);
 }else{
 	$('#countId').html('0');
-	var str = '<div class="alert alert-danger" style="margin-bottom: 0px;padding: 5px;"><h6>No results found..!</h6></div>';
+	var str = '<div class="alert alert-danger nixi"><h6>No results found..!</h6></div>';
 	$('#searchResults').html('');
 	$(str).appendTo("#searchResults");
 	$('#search_criteria').prop("hidden",true);
@@ -215,7 +221,7 @@ function displayMatches(listOrders) {
 			var expressed = orderObj.expressedInterest;
 			var firstname = 'xxxxxx',lastname='xxxxxx';
 			mobile_no__str = '<tr id="row'+orderObj.id+'"><td><a href="#" type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</a></td></tr>';
-			insert_str = '<a href="#" id="expInterest'+orderObj.id+'" type="button" class="btn btn-primary btn-block" onclick="expressInterest('+orderObj.id+')">Yes I\'m interested</a>';
+			insert_str = '<a href="#" id="expInterest'+orderObj.id+'" type="button" class="btn btn-success btn-sm" onclick="expressInterest('+orderObj.id+')">Yes I\'m interested</a>';
 			/* if(expressed==0){
 				insert_str = '<button id="expInterest'+orderObj.id+'" type="button" class="btn btn-primary btn-block" onclick="expressInterest('+orderObj.id+')">Yes I\'m interested</button>';
 			}else if(expressed>0){
@@ -257,7 +263,7 @@ function displayMatches(listOrders) {
 				+ '</div>'
 				+ '<div class="panel-body">'
 				+ '<div class="col-md-2">'
-				+ '<a href="#"> <img src='+image+' class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: 60px;width: 60px;"></a>'
+				+ '<a href="#"> <img src='+image+' class="img img-responsive thumbnail watermark_text beir"></a>'
             	+ '</div>'
             	+ '<div class="col-md-6">'
             	+ '<table>'
@@ -268,7 +274,7 @@ function displayMatches(listOrders) {
             	+ '	<tr><td>Location</td><td><span>: '+orderObj.currentCityName+'</span></td></tr>'
             	+ '	<tr><td>Education</td><td><span>: '+orderObj.educationName+'</span></td></tr>'
             	+ '	<tr><td>Profession</td><td><span>: '+occName+'</span></td></tr>'
-            	+ '<tr><td id="mobiletd'+orderObj.id+'"><a href="#" type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</a></td><td></td></tr>'
+            	+ '<tr><td id="mobiletd'+orderObj.id+'"><a href="#" type="button" class="btn1 btn-sm btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</a></td><td></td></tr>'
             	//+ '<td id="shortlisttd'+orderObj.id+'"><button type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">Shortlist</button></td></tr>'
             	//+ '	<tr><td>Age</td><td><span>: '+orderObj.age+'</span></td></tr>'
             	//+ '	<tr><td colspan="2">'+orderObj.aboutMyself+'... <a href="#" onclick="showMore('+orderObj.id+')"> read more..</a> </td></tr>'
@@ -281,15 +287,15 @@ function displayMatches(listOrders) {
             	/* + '<div id="hideMe'+orderObj.id+'" class="form-group hideMe">'
             	+ '    <label class="col-md-4 control-label" for="textinput"></label>'  
             	+ '    <div class="col-md-6 text-center">'
-            	+ '    	<span class="more" style="color: #0087AF;cursor: pointer;"><a href="#" >read more </a></span><i style="cursor: pointer;" class="fa fa-angle-down"></i>'
+            	+ '    	<span class="more mire"><a href="#" >read more </a></span><i class="fa fa-angle-down dim"></i>'
             	+ '    </div>'
             	+ '</div>' */
             	+ '<div class="col-md-4">'
-            	+ '<h4 style="margin-bottom:20px;">Like this Profile?</h4>'
+            	+ '<h4 class="bin">Like this Profile?</h4>'
             	+ insert_str
 				//+ '<button class="btn btn-danger btn-block btn-md" onclick="fullProfile('+orderObj.id+')">View Full Profile</button><br><br><br><br><br>'
-				+ '<a href="#" class="btn btn-danger btn-block btn-md" onclick="fullProfile('+orderObj.id+')">View Full Profile</a><br>'
-				+ '<a href="#" type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="shortList('+orderObj.id+')">Shortlist</a> '
+				+ '<a href="#" class="btn btn-warning  btn-sm" onclick="fullProfile('+orderObj.id+')">View Full Profile</a>'
+				+ '<a href="#" type="button" class="btn1 btn btn-primary btn-sm"  id="mobileBtn'+orderObj.id+'" onclick="shortList('+orderObj.id+')">Shortlist</a> '
 				+ '<div class="clearfix"></div>'
             	+ '</div>'
             	+ '</div>'
@@ -361,7 +367,7 @@ function updateProfilesList(){
 	    		$('#searchresultsDiv').removeAttr("hidden");
 	    		if(filtered_profiles==""){
 	    			$('#countId').html('0');
-	    			var str = '<div class="alert alert-danger" style="margin-bottom: 0px;padding: 5px;"><h6>No results found..!</h6></div>';
+	    			var str = '<div class="alert alert-danger ban" ><h6>No results found..!</h6></div>';
 	    			$('#searchResults').html('');
 	    			$(str).appendTo("#searchResults");
 	    			$("#table_footer").prop("hidden",true);
@@ -644,7 +650,7 @@ function paginationSetup(total_items_count) {
 	    		if(results==""){
 	    			$('#countId').html('');
 	    			$('#countId').html('0');
-	    			var str = '<div class="alert alert-danger" style="margin-bottom: 0px;padding: 5px;"><h6>No results found..!</h6></div>';
+	    			var str = '<div class="alert alert-danger ban"><h6>No results found..!</h6></div>';
 	    			$('#searchResults').html('');
 	    			$(str).appendTo("#searchResults");
 	    			$("#table_footer").prop("hidden",true);

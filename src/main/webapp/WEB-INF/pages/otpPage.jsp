@@ -36,6 +36,15 @@
 			      	
 			      	</div>
 			  </div>
+<!-- 			  <div class="form-group"> -->
+		   		
+			   		
+<!-- 		      		<div class="col-md-3"> -->
+<!-- 		      			<input type="text" placeholder="enter mobile Number" id="mobile" name="mobile" /> -->
+<!-- 			      		<button type="button" id="editBtn" onclick="updateMobileNumber();" value="Edit MobileNmuber" class="btn4 btn btn-info">Edit MobileNmuber</button> -->
+			      	
+<!-- 			      	</div> -->
+<!-- 			  </div> -->
 			  <div class="form-group">
 		   		
 			   		
@@ -97,6 +106,23 @@ function resendOtp(){
 			}	
 			
 		});
+	
+}
+function validate(id, errorMessage)
+{
+	var styleBlock = '.placeholder-style.placeholder-style::-moz-placeholder {color: #cc0000;} .placeholder-style::-webkit-input-placeholder {color: #cc0000;}';
+	if($('#'+id).val() ==  null || $('#'+id).val() == ""  || $('#'+id).val()=="undefined" ) {
+		$('style').append(styleBlock);
+		$('#'+id).css('border-color','#cc0000');
+		$('#'+id).css('color','#cc0000');
+		$('#'+id).attr('placeholder',errorMessage);
+		$('#'+id).addClass('placeholder-style your-class');
+		return false;
+	}else{
+		$('#'+id).css('border-color','');
+		$('#'+id).removeClass('placeholder-style your-class');
+		return true;
+	}
 	
 }
 </script> 

@@ -137,7 +137,7 @@
 				    <div class="form-group">
 				      <label class="col-md-4 control-label" for="textinput">Country living in</label>  
 				      <div class="col-md-7">
-				      	<form:select path="rCountry" class="multiSelect" multiple="true">
+				      	<form:select path="rCountry" class="multiSelect" multiple="true" onchange="getFilteredStatesMultiSelect(this.id)">
 							<form:options items="${countries}"></form:options>
 							
 						</form:select>
