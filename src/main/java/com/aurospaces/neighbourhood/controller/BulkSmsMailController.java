@@ -22,6 +22,7 @@ import com.aurospaces.neighbourhood.bean.ReportsBean;
 import com.aurospaces.neighbourhood.bean.UsersBean;
 import com.aurospaces.neighbourhood.db.dao.UsersDao;
 import com.aurospaces.neighbourhood.util.EmailUtil;
+import com.aurospaces.neighbourhood.util.HRMSUtil;
 import com.aurospaces.neighbourhood.util.SendSMS;
 
 @Controller
@@ -54,6 +55,12 @@ public class BulkSmsMailController {
 		try {
 			 messageType = objReportsBean.getMessageType();
 			 message = objReportsBean.getMessage();
+			 if(StringUtils.isNotBlank(objReportsBean.getFromdate())){
+				 objReportsBean.setFromdate1( HRMSUtil.dateFormate(objReportsBean.getFromdate()));
+			 }
+			 if(StringUtils.isNotBlank(objReportsBean.getTodate())){
+				 objReportsBean.setTodate1( HRMSUtil.dateFormate(objReportsBean.getTodate()));
+			 }
 			List<UsersBean> objUserBean = objUsersDao.bulksmsmail(objReportsBean);
 			if(objUserBean != null){
 				for(UsersBean userbean : objUserBean ){

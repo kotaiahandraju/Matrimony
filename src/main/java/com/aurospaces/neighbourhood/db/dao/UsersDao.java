@@ -2735,7 +2735,10 @@ public boolean deletePhoto(String photoId){
 						 buffer.append(" and role_id in('4')");
 					 }
 					 if(objReportsBean.getProfiles().equals("2")){
-						 buffer.append(" and status in('1')");		 
+						 buffer.append(" and status in('1') ");		 
+					 }
+					 if(objReportsBean.getTodate1() != null && objReportsBean.getFromdate1() != null){
+						 buffer.append(" and Date(created_time) between Date('"+new java.sql.Timestamp(objReportsBean.getFromdate1().getTime())+"') and Date('"+new java.sql.Timestamp(objReportsBean.getTodate1().getTime())+ "') ");
 					 }
 			String sql = buffer.toString();
 			System.out.println(sql);
