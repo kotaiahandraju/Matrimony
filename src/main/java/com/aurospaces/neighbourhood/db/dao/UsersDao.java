@@ -15,6 +15,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.ParameterizedBeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.aurospaces.neighbourhood.bean.AutoCompleteBean;
 import com.aurospaces.neighbourhood.bean.CastBean;
@@ -615,6 +616,10 @@ public class UsersDao extends BaseUsersDao
 						buffer.append("update express_intrest set interested = '1', status='1', created_on = ? where user_id = ? and profile_id = ? ");
 						updated_count = jdbcTemplate.update(buffer.toString(), new Object[]{new java.sql.Timestamp(new DateTime().getMillis()),objUserBean.getId(),profileId});
 					}
+					buffer = new StringBuffer();
+					buffer.append("insert into users_activity_log(created_time,activity_type,act_done_by_user_id,act_done_on_user_id) "
+							+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','interest_request',"+objUserBean.getId()+","+profileId+")");
+					int inserted_count = jdbcTemplate.update(buffer.toString());
 					if(updated_count == 1){
 						int allowed_profiles_limit = this.getAllowedProfilesLimit(objUserBean.getId());
 						session.setAttribute("allowed_profiles_limit", allowed_profiles_limit);
@@ -650,6 +655,10 @@ public class UsersDao extends BaseUsersDao
 							updated_count = jdbcTemplate.update(buffer.toString(), new Object[]{new java.sql.Timestamp(new DateTime().getMillis()),objUserBean.getId(),profileId});
 						}
 					}
+					buffer = new StringBuffer();
+					buffer.append("insert into users_activity_log(created_time,activity_type,act_done_by_user_id,act_done_on_user_id) "
+							+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','profile_viewed',"+objUserBean.getId()+","+profileId+")");
+					int inserted_count = jdbcTemplate.update(buffer.toString());
 					if(updated_count > 0){
 						int to_be_viewed = Integer.parseInt(objUserBean.getYetToBeViewedCount());
 						objUserBean.setYetToBeViewedCount(to_be_viewed>0?(to_be_viewed-1)+"":"0");
@@ -745,6 +754,8 @@ public class UsersDao extends BaseUsersDao
 					return 0;
 				}
 	 }
+	 
+	 @Transactional
 	 public boolean viewMobileNumber(String profileId){
 			jdbcTemplate = custom.getJdbcTemplate();
 			StringBuffer buffer = new StringBuffer();
@@ -763,6 +774,11 @@ public class UsersDao extends BaseUsersDao
 						buffer.append("update express_intrest set mobile_no_viewed_status = '1',created_on = ? where user_id = ? and profile_id = ?");
 						updated_count = jdbcTemplate.update(buffer.toString(), new Object[]{new java.sql.Timestamp(new DateTime().getMillis()),objUserBean.getId(),profileId});
 					}
+					// entry in activity log table
+					buffer = new StringBuffer();
+					buffer.append("insert into users_activity_log(created_time,activity_type,act_done_by_user_id,act_done_on_user_id) "
+							+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','mobile_no_viewed',"+objUserBean.getId()+","+profileId+")");
+					int inserted_count = jdbcTemplate.update(buffer.toString());
 					if(updated_count == 1){
 						int allowed_profiles_limit = this.getAllowedProfilesLimit(objUserBean.getId());
 						//int allowed_profiles_limit = (Integer)session.getAttribute("allowed_profiles_limit");
@@ -779,7 +795,8 @@ public class UsersDao extends BaseUsersDao
 			return false;
 	 }
 	 
-	 public boolean sendMailMessage(String profileId){
+	 @Transactional
+	 public boolean sendMailMessage(String profileId,String mail_content){
 			jdbcTemplate = custom.getJdbcTemplate();
 			StringBuffer buffer = new StringBuffer();
 			UsersBean objUserBean = null;
@@ -797,6 +814,10 @@ public class UsersDao extends BaseUsersDao
 						buffer.append("update express_intrest set message_sent_status = '1',created_on = ? where user_id = ? and profile_id = ?");
 						updated_count = jdbcTemplate.update(buffer.toString(), new Object[]{new java.sql.Timestamp(new DateTime().getMillis()),objUserBean.getId(),profileId});
 					}
+					buffer = new StringBuffer();
+					buffer.append("insert into users_activity_log(created_time,activity_type,act_done_by_user_id,act_done_on_user_id,activity_content) "
+							+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','email',"+objUserBean.getId()+","+profileId+",'"+mail_content+"')");
+					int inserted_count = jdbcTemplate.update(buffer.toString());
 					if(updated_count == 1){
 						int allowed_profiles_limit = this.getAllowedProfilesLimit(objUserBean.getId());
 						//int allowed_profiles_limit = (Integer)session.getAttribute("allowed_profiles_limit");

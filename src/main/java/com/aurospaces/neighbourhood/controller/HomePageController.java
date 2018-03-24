@@ -3389,7 +3389,7 @@ public class HomePageController {
 						 String retVal = EmailUtil.sendInterestMail(userBean, receipientUser, request, objContext);
 						 if(StringUtils.isNotBlank(retVal)){
 							 objJson.put("message", "success");
-							 objUsersDao.sendMailMessage(profile_id);
+							 objUsersDao.sendMailMessage(profile_id,receipientUser.getMail_content());
 							 // decrease the profile count
 							 int allowed_profiles_limit = objUsersDao.getAllowedProfilesLimit(userBean.getId());
 							 session.setAttribute("allowed_profiles_limit", allowed_profiles_limit);

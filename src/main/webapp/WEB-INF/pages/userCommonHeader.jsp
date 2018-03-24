@@ -139,6 +139,9 @@
 			var roleId = ${cacheGuest.roleId};
 			$("#id").val(profile_id);
 			var profileObj = serviceUnitArray[profile_id];
+			if(typeof profileObj == "undefined"){
+				profileObj = serviceUnitArray2[profile_id];
+			}
 			if(roleId==4){
 				document.searchForm2.action = "memberShipPage"
 				document.searchForm2.submit();
@@ -1223,6 +1226,7 @@
 					alert("Your membership validity period is over. Renew your membership plan and get more profiles");
 					return false;
 				}
+				$('#myModal').show();
 				$('#myModal').modal();
 				
 			}
@@ -1247,7 +1251,12 @@
 					if(msg != null && typeof msg != "undefined"){
 						if(msg == "success"){
 							alert("E-Mail has been sent successfully.");
-							$("#myModal").dialog("close");
+							$("#mail_content").val("");
+							var t = $("#myModal");
+							t.hide();
+							var tt = "";
+							//$("#myModal").close();
+							//$("#myModal").dialog("close");
 						}else{
 							alert("failed");
 						}

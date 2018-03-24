@@ -496,7 +496,8 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label required">Mobile <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-										<form:input path="mobile" class="form-control numericOnly u validate" maxlength="13" placeholder="Mobile Number"/>
+										<form:input path="mobile" class="form-control numbersOnly u validate" maxlength="10" placeholder="Mobile Number"/>
+										<span class="hasError" id="mobileError111"></span>
 										<div><form:errors path="mobile" cssClass="error" /></div>
 									</div>
 							  	</div>
@@ -836,10 +837,22 @@ $("#submit11").click(function()
 								
 							} 
 							return false;
+	}else{
+							if($('#mobile').val().trim().length<10){
+								$('#mobileError111').text("Please enter a valid mobile number.");
+								event.preventDefault();
+								return false;
+							}
+							else{
+								var exists = isMobileNumDuplicate();
+								if(exists){
+									return false;
+								}
+								
+							}
 	}
 	$("#creteProfile").submit();
 });
-
 
 $('.widow_divorcee_details').hide();
 $(function(){

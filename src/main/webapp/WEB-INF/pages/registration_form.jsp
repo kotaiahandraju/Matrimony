@@ -797,7 +797,7 @@ function getCitys(id){
 				
 			}
 		});
-	};
+	}
 		
 
 </script>
