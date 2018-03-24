@@ -89,6 +89,9 @@
 								}else{
 									var username = "<td title='"+orderObj.username+"'>" + orderObj.username + "</td>"
 								}
+								if(orderObj.package_id != null){
+									var username = "<td style='color: blue;' title='"+orderObj.username+"'><b>" + orderObj.username + "</td>"
+								}
 							var tblRow = "<tr>"
 								+ "<td title='"+orderObj.created_time+"'>" + orderObj.created_time + "</td>"
 								 + username
