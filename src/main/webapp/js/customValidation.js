@@ -114,6 +114,50 @@ function checkEmail(str) {
 	}
 }
 
+$('#mobile').blur(function() {
+	if($('#mobile').val().trim().length<10){
+		$('#mobileError111').text("Please enter a valid mobile number.");
+		event.preventDefault();
+		return false;
+	}
+	else{
+		var exists = isMobileNumDuplicate();
+		if(exists){
+			return false;
+		}
+		
+	}
+});
+function isMobileNumDuplicate(){
+	var formData = new FormData();
+    formData.append('mobile', $("#mobile").val());
+    formData.append('id', $("#id").val());
+	$.fn.makeMultipartRequest('POST', '../mobileNumChecking', false,
+			formData, false, 'text', function(data){
+		var jsonobj = $.parseJSON(data);
+		if(jsonobj.msg =="exist"){
+			//error message write
+			$('#mobileError111').text("Mobile number already in Use. Please Try Another.");
+			mobileExists = true;
+			
+			event.preventDefault();
+			
+			
+			return false;
+			
+		}else{
+			$('#mobileError111').text("");
+			mobileExists = false;
+			
+			
+			event.preventDefault();
+			
+			
+			return true;
+			
+		}
+	});
+}
 /*$(".emailOnly").on(	"keypress",	function(e) {
 
 					// console.log(event.which);
@@ -198,9 +242,24 @@ $('.emailOnly').blur(function(event) {
 		return false;
 	}
 	else{
-//		$('#emailError').text("");
-		emailExist = true;
-		event.preventDefault();
+		$('#emailError111').text("");
+	}
+	if(email !=null && email != "" && email !="undefined"){
+		var formData = new FormData();
+	    formData.append('email', email);
+		$.fn.makeMultipartRequest('POST', '../emailChecking', false,
+				formData, false, 'text', function(data){
+			var jsonobj = $.parseJSON(data);
+			if(jsonobj.msg =="exist"){
+				//error message write
+				$('#emailError111').text("Email already in Use. Please Try Another.");
+				emailExist = false;
+				return false;
+			}else{
+				$('#emailError111').text("");
+				emailExist = true;
+			}
+		});
 	}
 });
 
@@ -266,6 +325,14 @@ $('#submit1').click(function(event) {
 			validation = false;
 		} 
 	});
+	if($('#mobile').val().trim().length<10){
+		$('#mobileError111').text("Please enter a valid mobile number.");
+		validation = false;
+	}
+	var exists = isMobileNumDuplicate();
+	if(exists){
+		validation = false;
+	}
 	if(validation && emailExist) {
 		$("#submit1").attr("disabled",true);
 		$("#submit1").val("Please wait...");

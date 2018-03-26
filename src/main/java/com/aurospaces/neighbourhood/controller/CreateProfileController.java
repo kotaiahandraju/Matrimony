@@ -167,18 +167,11 @@ public class CreateProfileController {
 				}*/
 				objUsersBean.setStatus("1");
 				objUsersBean.setUsername("AM"+MiscUtils.generateRandomNumber(6));
-				objUsersDao.save(objUsersBean);
-				// make an entry for otp also
-				String otp = objUsersDao.genOtp();
-				try{
-					boolean success = objUsersDao.saveOtp(objUsersBean.getId()+"",objUsersBean.getMobile(),otp,"1");
-				    if(success){
-				    	//objUsersDao.updateOtpStatus(objUsersBean.getMobile(),otp);
-				    }
-				}catch(Exception e){
-					e.printStackTrace();
+				if (objuserBean1 != null) {
+					objUsersBean.setRegisterwith(String.valueOf(objuserBean1.getId()));
 				}
-			    
+				
+				objUsersDao.save(objUsersBean);
 				//
 				try {
 					EmailUtil emailUtil = new EmailUtil();
@@ -188,9 +181,7 @@ public class CreateProfileController {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				if (objuserBean1 != null) {
-					objUsersBean.setRegisterwith(String.valueOf(objuserBean1.getId()));
-				}
+				
 				msg = "Inserted";
 			}else{
 				objUsersDao.save(objUsersBean);

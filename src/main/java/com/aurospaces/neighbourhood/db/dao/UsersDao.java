@@ -15,6 +15,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.ParameterizedBeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.aurospaces.neighbourhood.bean.AutoCompleteBean;
 import com.aurospaces.neighbourhood.bean.CastBean;
@@ -233,7 +234,7 @@ public class UsersDao extends BaseUsersDao
 					+"rHeight, rMaritalStatus, rReligion,re1.name as requiredReligionName, rCaste,c1.name as requiredCasteName, rMotherTongue,l1.name as requiredMotherTongue,haveChildren,rCountry , con1.name as requiredCountry,rState,rEducation,e1.name as requiredEducationName, "
 					+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,floor((datediff(current_date(),u.dob))/365) as age, IFNULL(p.name, 'Free Register') as planPackage,u.profileVerifyedBy, "
 					+" (select h.inches from height h where h.id = (select ur.rHeight from userrequirement ur where ur.userId = u.id)) as rHeightInches, "
-					+" (select h.inches from height h where h.id = (select ur.rHeightTo from userrequirement ur where ur.userId = u.id)) as rHeightToInches "
+					+" (select h.inches from height h where h.id = (select ur.rHeightTo from userrequirement ur where ur.userId = u.id)) as rHeightToInches ,u.package_id "
 					+"from users u left join userrequirement ur on u.id=ur.userId "
 					+"left join religion re on re.id=u.religion left join language l on l.id=u.motherTongue left join countries co on co.id=u.currentCountry "
 					+"left join cast c on c.id=u.caste left join star s on s.id =u.star left join height h on h.id=u.height left join body_type b on b.id=u.bodyType left join religion re1  on re1.id=rReligion "
@@ -287,7 +288,7 @@ public class UsersDao extends BaseUsersDao
 										"monthlyIncome","diet","smoking","drinking","height","inches","cm",
 										"bodyType","bodyTypeName","complexion","complexionName","mobile","aboutMyself","disability",
 										"status","showall","userId","rAgeFrom","rAgeTo","rHeight","rMaritalStatus","rReligion","requiredReligionName","rCaste","requiredCasteName","rMotherTongue","requiredMotherTongue","haveChildren","rCountry","requiredCountry","rState","rEducation","requiredEducationName",
-										"rWorkingWith","rOccupation","requiredOccupationName","rAnnualIncome","rCreateProfileFor","rDiet","dobString","age","planPackage","profileVerifyedBy","rHeightInches","rHeightToInches"});
+										"rWorkingWith","rOccupation","requiredOccupationName","rAnnualIncome","rCreateProfileFor","rDiet","dobString","age","planPackage","profileVerifyedBy","rHeightInches","rHeightToInches","package_id"});
 								jdbcTemplate.query(sql, handler);
 								List<Map<String, String>> result = handler.getResult();
 								return result;
@@ -615,6 +616,10 @@ public class UsersDao extends BaseUsersDao
 						buffer.append("update express_intrest set interested = '1', status='1', created_on = ? where user_id = ? and profile_id = ? ");
 						updated_count = jdbcTemplate.update(buffer.toString(), new Object[]{new java.sql.Timestamp(new DateTime().getMillis()),objUserBean.getId(),profileId});
 					}
+					buffer = new StringBuffer();
+					buffer.append("insert into users_activity_log(created_time,activity_type,act_done_by_user_id,act_done_on_user_id) "
+							+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','interest_request',"+objUserBean.getId()+","+profileId+")");
+					int inserted_count = jdbcTemplate.update(buffer.toString());
 					if(updated_count == 1){
 						int allowed_profiles_limit = this.getAllowedProfilesLimit(objUserBean.getId());
 						session.setAttribute("allowed_profiles_limit", allowed_profiles_limit);
@@ -650,6 +655,10 @@ public class UsersDao extends BaseUsersDao
 							updated_count = jdbcTemplate.update(buffer.toString(), new Object[]{new java.sql.Timestamp(new DateTime().getMillis()),objUserBean.getId(),profileId});
 						}
 					}
+					buffer = new StringBuffer();
+					buffer.append("insert into users_activity_log(created_time,activity_type,act_done_by_user_id,act_done_on_user_id) "
+							+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','profile_viewed',"+objUserBean.getId()+","+profileId+")");
+					int inserted_count = jdbcTemplate.update(buffer.toString());
 					if(updated_count > 0){
 						int to_be_viewed = Integer.parseInt(objUserBean.getYetToBeViewedCount());
 						objUserBean.setYetToBeViewedCount(to_be_viewed>0?(to_be_viewed-1)+"":"0");
@@ -745,6 +754,8 @@ public class UsersDao extends BaseUsersDao
 					return 0;
 				}
 	 }
+	 
+	 @Transactional
 	 public boolean viewMobileNumber(String profileId){
 			jdbcTemplate = custom.getJdbcTemplate();
 			StringBuffer buffer = new StringBuffer();
@@ -763,6 +774,11 @@ public class UsersDao extends BaseUsersDao
 						buffer.append("update express_intrest set mobile_no_viewed_status = '1',created_on = ? where user_id = ? and profile_id = ?");
 						updated_count = jdbcTemplate.update(buffer.toString(), new Object[]{new java.sql.Timestamp(new DateTime().getMillis()),objUserBean.getId(),profileId});
 					}
+					// entry in activity log table
+					buffer = new StringBuffer();
+					buffer.append("insert into users_activity_log(created_time,activity_type,act_done_by_user_id,act_done_on_user_id) "
+							+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','mobile_no_viewed',"+objUserBean.getId()+","+profileId+")");
+					int inserted_count = jdbcTemplate.update(buffer.toString());
 					if(updated_count == 1){
 						int allowed_profiles_limit = this.getAllowedProfilesLimit(objUserBean.getId());
 						//int allowed_profiles_limit = (Integer)session.getAttribute("allowed_profiles_limit");
@@ -779,7 +795,8 @@ public class UsersDao extends BaseUsersDao
 			return false;
 	 }
 	 
-	 public boolean sendMailMessage(String profileId){
+	 @Transactional
+	 public boolean sendMailMessage(String profileId,String mail_content){
 			jdbcTemplate = custom.getJdbcTemplate();
 			StringBuffer buffer = new StringBuffer();
 			UsersBean objUserBean = null;
@@ -797,6 +814,10 @@ public class UsersDao extends BaseUsersDao
 						buffer.append("update express_intrest set message_sent_status = '1',created_on = ? where user_id = ? and profile_id = ?");
 						updated_count = jdbcTemplate.update(buffer.toString(), new Object[]{new java.sql.Timestamp(new DateTime().getMillis()),objUserBean.getId(),profileId});
 					}
+					buffer = new StringBuffer();
+					buffer.append("insert into users_activity_log(created_time,activity_type,act_done_by_user_id,act_done_on_user_id,activity_content) "
+							+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','email',"+objUserBean.getId()+","+profileId+",'"+mail_content+"')");
+					int inserted_count = jdbcTemplate.update(buffer.toString());
 					if(updated_count == 1){
 						int allowed_profiles_limit = this.getAllowedProfilesLimit(objUserBean.getId());
 						//int allowed_profiles_limit = (Integer)session.getAttribute("allowed_profiles_limit");
@@ -2735,7 +2756,10 @@ public boolean deletePhoto(String photoId){
 						 buffer.append(" and role_id in('4')");
 					 }
 					 if(objReportsBean.getProfiles().equals("2")){
-						 buffer.append(" and status in('1')");		 
+						 buffer.append(" and status in('1') ");		 
+					 }
+					 if(objReportsBean.getTodate1() != null && objReportsBean.getFromdate1() != null){
+						 buffer.append(" and Date(created_time) between Date('"+new java.sql.Timestamp(objReportsBean.getFromdate1().getTime())+"') and Date('"+new java.sql.Timestamp(objReportsBean.getTodate1().getTime())+ "') ");
 					 }
 			String sql = buffer.toString();
 			System.out.println(sql);

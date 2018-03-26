@@ -36,19 +36,31 @@
 						<form:form modelAttribute="usersForm" class="form-horizontal" action="submitbulkmessage" role="form" id="branch-form"  method="post">								
 							<div class="row">
 					  			<div class="col-md-12">
-					  			
+					  			<div class="form-group">
+					  			<label class="col-sm-2 control-label required">From Date  <span class="impColor">*</span></label>
+										<div class="col-sm-2">
+										<form:input path="fromdate" placeholder="From Date" readonly="true" class="form-control"/>
+								  	</div>
+								  	
+								  	
+								  	<label class="col-sm-2 control-label required">To Date  <span class="impColor">*</span></label>
+										<div class="col-sm-2">
+											<form:input path="todate" placeholder="To Date" readonly="true" class="form-control"/>
+								  	</div>
 										
-								  	<div class="col-sm-1"></div>
-								  	<label class="col-sm-1 control-label required">Plan <span class="impColor">*</span></label>
+<!-- 								  	<div class="col-sm-1"></div> -->
+								  	<label class="col-sm-2 control-label required">Plan <span class="impColor">*</span></label>
 										<div class="col-sm-2">
 											<form:select path="packages" class="multiSelect" multiple="multiple">
 											<form:option value="">--Select Package --</form:option>
 											<form:options items="${packages }"/>
 											</form:select>
 								  	</div>
-								  	<label class="col-sm-1 control-label required">Profiles  <span class="impColor">*</span></label>
-										<div class="col-sm-2">
-											<form:select path="profiles" >
+								  	</div>
+								  	<div class="form-group">
+								  	<label class="col-sm-2 control-label required">Profiles  <span class="impColor">*</span></label>
+										<div class="col-sm-2" style="padding-top:7px">
+											<form:select path="profiles" class="form-control" >
 											<form:option value="">--Select profile Type --</form:option>
 											<form:option value="1">Free Register Profiles</form:option>
 											<form:option value="2">Active Profiles</form:option>
@@ -56,11 +68,11 @@
 								  	</div>
 								  	<label class="col-sm-2 control-label required">Mail Subject <span class="impColor">*</span></label>
 										<div class="col-sm-2">
-											<form:input path="mailSubject"/>
-								  	</div><div class="clearfix"></div><br>
+											<form:input path="mailSubject" placeholder="Mail Subject " class="form-control"/>
+								  	</div>
 								  	<label class="col-sm-2 control-label required">Message Type <span class="impColor">*</span></label>
 										<div class="col-sm-2">
-											<form:select path="messageType" >
+											<form:select path="messageType" class="form-control" >
 											<form:option value="">--Select Message Type --</form:option>
 											<form:option value="1">SMS</form:option>
 											<form:option value="2">Mail</form:option>
@@ -68,12 +80,15 @@
 											
 											</form:select>
 								  	</div>
-								  	
-								  	<label class="col-sm-1 control-label required">message <span class="impColor">*</span></label>
-								  	<div class="col-sm-6">
-											<form:textarea path="message" cols="50" rows="3"/>
 								  	</div>
-								  									  	
+								  	<div class="clearfix"></div><br>
+								
+								  	<div class="form-group">
+								  	<label class="col-sm-2 control-label required">message <span class="impColor">*</span></label>
+								  	<div class="col-sm-6">
+											<form:textarea path="message" cols="50" rows="3" placeholder="Message " class="form-control"/>
+								  	</div>
+								  	</div>							  	
 								  	
 						  		</div>
 						  		</div>
@@ -109,18 +124,34 @@ $( document ).ready(function() {
 	    placeholder: "-- Select package --"
 	});
 });
+$("#fromdate").datepicker({
+    dateFormat: "dd-MM-yy",
+    changeDate : true,
+	changeMonth : true,
+	changeYear : true,
+	maxDate :0
+}); 
+$("#todate").datepicker({
+    dateFormat: "dd-MM-yy",
+    changeDate : true,
+	changeMonth : true,
+	changeYear : true,
+	maxDate :0
+});
+
 $("#submit11").click(function(){			
-		/* if($('#packages').val() ==  null || $('#packages').val() == "" || $('#packages').val()=="undefined") 
-		{
-			alert("Please Seletct Package");
-			return false;
-		}
+		 
 		if($('#message').val() ==  null || $('#message').val() == "" || $('#message').val()=="undefined") 
 		{
 			alert("Please Enter message");
-// 			return false;
-		} */
-		
+			return false;
+		} 
+		if($('#messageType').val() ==  null || $('#messageType').val() == "" || $('#messageType').val()=="undefined"){
+			alert("Please Enter message Type");
+			return false;
+		}
+		$("#submit11").prop('disabled', true);
+		$("#submit11").text("Please wait..");
 		$("#bodyType-form").submit();
 });
 
