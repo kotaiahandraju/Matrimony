@@ -199,7 +199,7 @@ line-height:2.5 !important;
                 <div class="pricingTable blue">
                     <div class="pricingTable-header">
                       
-                        <div class="price-value">&#x20b9; 1000.00 <span class="month">3 Months</span> </div>
+                        <div class="price-value"><li class="fa fa-inr"></li> 1000.00 <span class="month">3 Months</span> </div>
                     </div>
                     <h3 class="heading">CLASSIC</h3>
                     <div class="pricing-content">
@@ -221,7 +221,7 @@ line-height:2.5 !important;
                 <div class="pricingTable green">
                     <div class="pricingTable-header">
                         
-                        <div class="price-value"> &#x20b9; 2000.00 <span class="month">6 Months</span> </div>
+                        <div class="price-value"> <li class="fa fa-inr"></li> 2000.00 <span class="month">6 Months</span> </div>
                     </div>
                     <h3 class="heading">CLASSIC PLUS</h3>
                     <div class="pricing-content">
@@ -241,7 +241,7 @@ line-height:2.5 !important;
                 <div class="pricingTable red">
                     <div class="pricingTable-header">
                        
-                        <div class="price-value"> &#x20b9; 3000.00 <span class="month">9 Months</span> </div>
+                        <div class="price-value"> <li class="fa fa-inr"></li> 3000.00 <span class="month">9 Months</span> </div>
                     </div>
                     <h3 class="heading">PREMIUM</h3>
                     <div class="pricing-content">
@@ -262,7 +262,7 @@ line-height:2.5 !important;
                 <div class="pricingTable">
                     <div class="pricingTable-header">
                        
-                        <div class="price-value"> &#x20b9; 4000.00 <span class="month">12 Months</span> </div>
+                        <div class="price-value"> <li class="fa fa-inr"></li> 4000.00 <span class="month">12 Months</span> </div>
                     </div>
                     <h3 class="heading">PREMIUM PLUS</h3>
                     <div class="pricing-content">
@@ -283,7 +283,7 @@ line-height:2.5 !important;
                 <div class="pricingTable light">
                     <div class="pricingTable-header">
                        
-                        <div class="price-value"> &#x20b9; 5000.00 <span class="month">Till Marriage</span> </div>
+                        <div class="price-value"> <li class="fa fa-inr"></li> 5000.00 <span class="month">Till Marriage</span> </div>
                     </div>
                     <h3 class="heading">AARNA PREMIUM</h3>
                     <div class="pricing-content">
