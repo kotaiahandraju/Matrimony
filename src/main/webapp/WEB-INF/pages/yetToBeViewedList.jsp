@@ -5,7 +5,7 @@
 <style>
 blockquote {
   background: #f9f9f9;
-  border-left: 10px solid #ccc;
+  border-left: 1px solid #ccc;
   margin: 1.5em 10px;
   padding: 0.5em 10px;
   quotes: "\201C""\201D""\2018""\2019";
@@ -20,6 +20,7 @@ blockquote:before {
 }
 blockquote p {
   display: inline;
+  word-wrap:break-word;
 }
 p {
 font-size:13px;
@@ -58,6 +59,10 @@ text-align:left;
   margin-bottom: 10px;
 }
 
+.smallSlides, .picstyle {
+height:220px !important;
+overflow:hidden !important;
+}
 .panel-title .trigger:before {
   content: '\e082';
   font-family: 'Glyphicons Halflings';
