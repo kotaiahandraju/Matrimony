@@ -11,7 +11,7 @@ $.fn.makeMultipartRequest = function(method, url, processData, formData,
 		
 		beforeSend : function() {
 //          $.blockUI({ message: '<img src="../img/cylinder.jpg" height="50px" class="fa fa-spin cylinder" />'});
-			 $.blockUI({ message: '<i class="fa fa-spinner fa-spin" style="font-size:24px"></i><h2 style="color:black;"> Just a moment...</h2>' });
+			 $.blockUI({ message: '<i class="fa fa-spinner fa-spin" style="font-size:14px;" ></i><p style="color:black;">Just a moment... </p>' });
 //          return false;
        }, 
        

@@ -10,6 +10,10 @@ blockquote {
   padding: 0.5em 10px;
   quotes: "\201C""\201D""\2018""\2019";
 }
+.smallSlides, .picstyle {
+height:220px !important;
+overflow:hidden !important;
+}
 blockquote:before {
   color: #ccc;
   content: open-quote;

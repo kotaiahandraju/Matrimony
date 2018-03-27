@@ -1,0 +1,358 @@
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+	<title>Aarna Matrimony</title>
+	<link rel="shortcut icon" href="img/aarna-fav.png"/>
+	<!-- for-mobile-apps -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script type="application/x-javascript">
+		addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+		function hideURLbar(){ window.scrollTo(0,1); }
+	</script>
+	<!-- //for-mobile-apps -->
+	<link href="user/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="user/css/style-profile.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="user/css/megamenu.css" rel="stylesheet" type="text/css" media="all" />
+	<link rel="stylesheet" type="text/css" href="css/asPaginator.css">
+	<link href="user/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="css/animate.min.css" />
+	<link href='http://fonts.googleapis.com/css?family=Monda:400,700' rel='stylesheet' type='text/css'>
+	<link href="css/thickbox.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="css/plugins/select2/select2.css">
+	<link href="user/css/style.css" rel="stylesheet" type="text/css">
+	<link href="user/css/style-profile.css" rel="stylesheet" type="text/css">
+	<script src="user/js/jquery-1.11.1.min.js"></script>
+	<script src="js/plugins/select2/select2.min.js"></script>
+	<script type="text/javascript" src="../code.jquery.com/jquery-1.11.0.min.js"></script>
+    
+    <!-- for Raxus Slider -->
+    <link rel="stylesheet" href="css/raxus.css" media="screen" type="text/css">
+    <script type="text/javascript" src="js/raxus-slider.min.js"></script>
+    <!-- for Raxus Slider #end -->
+
+    <!-- for documentation: you don't need them -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" media="screen" type="text/css">
+    <link rel="stylesheet" href="documentation/css/documentation.css" media="screen" type="text/css">
+    <link rel="stylesheet" href="../yandex.st/highlightjs/8.0/styles/default.min.css" media="screen" type="text/css">
+    <script type="text/javascript" src="documentation/js/document.js"></script>
+    <script src="documentation/js/highlight.pack.js"></script>
+     
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <!-- for documentation #end: you don't need them -->
+
+    <style>
+        #mySlider {
+            width: 550px;
+            height: 400px;
+            margin: auto; /* for center alignment */
+        }
+        #mySlider .mini-images li {
+            width: 100px;
+            height: 50px;
+        }
+        .modal-header .close {
+    margin-top: -12px;
+}
+
+        /* for tablet */
+        @media screen and (max-width: 980px) {
+            #mySlider {
+                width: 100%;
+                height: 450px;
+            }
+        }
+        /* for mobile */
+        @media screen and (max-width: 640px) {
+            #mySlider {
+                width: 570px;
+                height: 450px;
+            }
+        }
+         @media screen and (max-width: 480px) {
+            #mySlider {
+                width: 400px;
+                height: 380px;
+            }
+        }
+          @media screen and (max-width: 360px) {
+            #mySlider {
+                width: 350px;
+                height: 350px;
+            }
+        }
+          @media screen and (max-width: 320px) {
+            #mySlider {
+                width: 300px;
+                height: 250px;
+            }
+        }
+    </style>
+	
+	<script type="text/javascript">
+		$(function(){
+			$(".dropdown").hover(            
+				function() {
+					$('.dropdown-menu', this).stop( true, true ).fadeIn("fast");
+					$(this).toggleClass('open');
+				},
+				function() {
+					$('.dropdown-menu', this).stop( true, true ).fadeOut("fast");
+					$(this).toggleClass('open');
+			});
+		});
+		function zoomImage(image){
+			$('#dial1').html('');
+			if(image == "" || image == null || image == "undefined"){
+				image = "img/default.png";
+			}
+			var tblRow = "<div>"
+		 		+ 	"<div >"
+		 		+		"<img src="+image+" width='600px' class='watermark_text1'/>"
+		 		+ 	"</div></div>";
+			$(tblRow).appendTo('#dial1');
+			
+			$('.watermark_text1').watermark({
+				  text: 'aarnamatrimony.com',
+				  textWidth: 700,
+				  textSize:76,
+				  textColor: 'white',
+				  gravity: 'w',
+				  opacity: 0.3,
+				  //margin: 10,
+				  outputWidth: 'auto',
+				  outputHeight: 'auto'
+				 });
+			$('#dial1').dialog({
+				width: 700, height: 2000, modal: true,
+				buttons: {
+		            "Enrol": function()
+		            {
+		                $(this).dialog('close');
+		                choice(true);
+		            },
+		            "Cancel Enrol": function()
+		            {
+		                $(this).dialog('close');
+		                choice(false);
+		            }
+		        }
+				}).dialog('open');
+		}
+		
+		function shortList(profileId){
+			$("#id").val(profileId);
+			var profileObj = serviceUnitArray[profileId];
+			var formData = new FormData();
+			formData.append('profile_id',profileId);
+			jQuery.fn.makeMultipartRequest('POST', 'shortList', false,
+					formData, false, 'text', function(data){
+		    		var jsonobj = $.parseJSON(data);
+		    		var msg = jsonobj.message;
+		    		if(typeof msg != "undefined"){
+		    			if(msg=="success"){
+		    				$("#shortlistTD"+profileId).html("Shortlisted");
+		    			}else{
+		    				alert("Some problem occured. Please try again.");
+		    			}
+		    		}
+		    		
+			});
+	}
+		
+		function expressInterest(profile_id){
+			var roleId = 4;
+			$("#id").val(profile_id);
+			if(roleId==4){
+				document.searchForm2.action = "memberShipPage"
+				document.searchForm2.submit();
+				return true;
+			}else{
+				if(allowed_limit<=0){
+					alert("Exceeded allowed profiles limit. Renew your membership plan and get more profiles");
+					return false;
+				}
+				var formData = new FormData();
+			
+				formData.append('profile_id',profile_id);
+				jQuery.fn.makeMultipartRequest('POST', 'expressInterestTo', false,
+						formData, false, 'text', function(data){
+			    		var jsonobj = $.parseJSON(data);
+			    		var limit = jsonobj.allowed_limit;
+			    		var msg = jsonobj.message;
+			    		var profiles = jsonobj.allProfiles;
+			    		//if(typeof msg != "undefined" ){
+			    			if("success"==msg){
+			    				alert("Interest request has been sent successfully");
+			    				$("#expInterest"+profile_id).html('Expressed Interest');
+			    				$("#expInterest"+profile_id).prop("disabled",true);
+			    				allowed_limit = limit;
+			    			}else if("failed"==msg || "exception"==msg){
+			    				alert("Interest request is not successful. Please try again.");
+			    			}
+			    		//}
+			    		/* if(profiles==""){
+			    			$('#countId').html('0');
+			    			var str = '<div class="panel panel-default"><h6>No results found.</h6></div>';
+			    			$('#searchResults').html('');
+			    			$(str).appendTo("#searchResults");
+			    		}else{
+			    			$('#countId').html(profiles.length);
+			    			displayMatches(profiles);
+			    		} */
+			    		/* var filtered_list = jsonobj.filtered_profiles;
+			    		$('#countId').html('');
+			    		if(filtered_list==""){
+			    			$('#countId').html('0');
+			    			var str = '<div class="panel panel-default"><h6>No results found.</h6></div>';
+			    			$('#searchResults').html('');
+			    			$(str).appendTo("#searchResults");
+			    		}else{
+			    			$('#countId').html(filtered_list.length);
+			    			displayMatches(filtered_list);
+			    		} */
+						
+					});
+			}
+		}
+		
+		function displayMobileNum(profileId){
+			var roleId = 4;
+			$("#id").val(profileId);
+			if(roleId==4){
+				document.searchForm2.action = "memberShipPage"
+				document.searchForm2.submit();
+				return true;
+			}else{
+				if(allowed_limit<=0){
+					alert("Exceeded allowed profiles limit. Renew your membership plan and get more profiles");
+					return false;
+				}
+				var profileObj = serviceUnitArray[profileId];
+				var formData = new FormData();
+				formData.append('profile_id',profileId);
+				jQuery.fn.makeMultipartRequest('POST', 'viewedMobileNumber', false,
+						formData, false, 'text', function(data){
+			    		var jsonobj = $.parseJSON(data);
+			    		var limit = jsonobj.allowed_limit;
+			    		var msg = jsonobj.message;
+			    		if(typeof msg != "undefined"){
+			    			if(msg=="success"){
+			    				$("#mobileTD"+profileId).html(profileObj.mobile);
+			    				allowed_limit = limit;
+			    			}else{
+			    				alert("Some problem occured. Please try again.");
+			    			}
+			    		}
+			    		
+				});
+			}
+			
+			
+		}
+	</script>
+	
+	<script type="text/javascript" src="js/ajax.js"></script>
+	<script type="text/javascript" src="js/jquery-asPaginator.js"></script>
+	<script src="js/jquery.watermark.js"></script>
+	</head>
+<body>
+<br><br><br>
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        
+        <div class="modal-body">
+       
+         <div class="bg"></div>
+
+
+
+<section class="welcome">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-12 a">
+  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <div id="mySlider" class="raxus-slider" data-autoplay="3000" data-arrows="show" data-fullscreen="show" data-dots="show" data-keypress="true" data-thumbnail="bottom">
+                    <ul class="slider-relative" id="relative">
+                        <li class="slide fix-width">
+                            <a href=""><img src="img/107791.png" alt=""></a>
+                            
+                        </li>
+                        
+                        <li class="slide">
+                            <img src="img/100587.png" alt="" data-thumbnailurl="img/100587.png">
+                           
+                        </li>
+                        <li class="slide">
+                            <a href=""><img src="img/74520.png" alt=""></a>
+                           
+                        </li>
+                       
+                        <li class="slide">
+                            <img src="img/74564.png" alt="">
+                        </li>
+                        <li class="slide fix-width">
+                            <img src="img/101765.png" alt="">
+                            
+                        </li>
+                        <li class="slide fix-width">
+                            <img src="img/102306.png" alt="">
+                        </li>
+                       
+                        <li class="slide">
+                             <img src="img/102379.png" alt="">
+                        </li>
+                        <li class="slide">
+                            <img src="img/10323.png" alt="">
+                        </li>
+                        <li class="slide">
+                             <img src="img/10533.png" alt="">
+                        </li>
+                        <li class="slide">
+                            <img src="img/106234.png" alt="">
+                            
+                        </li>
+                        <li class="slide">
+                           <img src="img/106967.png" alt="">
+                        </li>
+                        <li class="slide fix-width">
+                            <img src="img/106621.png" alt="">
+                          
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            
+        </div>
+    </div>
+</section>
+
+        </div>
+       
+      </div>
+      
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+</body>
+</html>

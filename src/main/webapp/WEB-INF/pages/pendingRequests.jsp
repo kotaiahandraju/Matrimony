@@ -1,5 +1,9 @@
 <%@ include file="userHeader.jsp"%>
-
+<style>
+ .btn-sm {
+margin-left:5px;
+}
+</style>
 			<div class="col-md-8 products-grid-left">
             	<div class="panel panel-success">
 					<div class="panel-heading">Pending Requests</div>

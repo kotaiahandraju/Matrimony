@@ -640,7 +640,7 @@ public class HomePageController {
 			}
 			List<MemberShipBean> packagesList = objUsersDao.getPackagesList();
 			request.setAttribute("packagesList", packagesList);
-	  return "memberShipPage";
+	  return "memberShipPage3";
 	  
 	 }
 	 

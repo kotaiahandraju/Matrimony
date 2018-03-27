@@ -30,6 +30,9 @@
 .cd-nugget-info .cd-nugget-info-arrow {
   fill: #5e6e8d;
 }
+.mobileNoDiv {
+margin-bottom:5px;
+}
 
 /* -------------------------------- 
 
@@ -228,7 +231,7 @@ xpopup
         <div class="panel" style="background:#F7F6F7; padding:20px 15px;">
             <div class="col-md-3">
                 <c:if test="${not empty cacheGuest.profileImage}">
-                    <a href="#no" id="fullProfilePicOuterTag" style="width:100%; max-height:275px; height:auto; overflow:hidden;"><img src="${cacheGuest.profileImage}"   onclick="openModal();currentSlide(1)" class="cursor watermark_text" style="width:100%; height:auto;"></a>
+                    <a href="#no" id="fullProfilePicOuterTag"><div  style="width:100%; max-height:195px; overflow:hidden;"><img src="${cacheGuest.profileImage}"   onclick="openModal();currentSlide(1)" class="cursor watermark_text" style="width:100%; height:auto;"></div></a>
                      <%-- <div id="gallery-wrapper">
                         <!-- thumbnail images -->
                           <div id="thumbs-wrapper">
@@ -260,14 +263,14 @@ xpopup
              </div>
              <div class="col-md-6">
                  <h3><p class="name_val">${profileBean.firstName} ${profileBean.lastName}</h3><h4> (${cacheGuest.username})</p></h4>
-                <p style=" color:#000;font-size: 13px; line-height:19px;"><i>Profile created for <span id="createProfileFor_val">${cacheGuest.createProfileFor}</span></i><br>
+                <p style=" color:#000;font-size: 13px; line-height:19px;">Profile created for <span id="createProfileFor_val">${cacheGuest.createProfileFor}</span><br>
                 ${profileBean.age} Yrs, ${profileBean.heightInches}<Br>
                 ${profileBean.religionName}, ${profileBean.casteName}<br>
                 ${profileBean.currentCityName}, ${profileBean.currentStateName}, ${profileBean.currentCountryName}<br>
                 ${profileBean.educationName}, ${profileBean.occupationName}</p>
                 <div id="editMobileDiv" hidden="true"><input type="text" placeholder="+91-${cacheGuest.mobile}" id="mobile"/></div> 
-                <div id="mobileNoDiv"><span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px; font-weight:600;">&nbsp;<span id="mobileNoText">+91-${cacheGuest.mobile}</span>&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font>&nbsp;&nbsp;</span>&nbsp;</div> <a href="#no" id="editMobileAnchor" style="color:blue; font-size:12px; text-decoration:underline;"  onclick="displayEditMobilenumberDiv(${profileBean.id},'${cacheGuest.mobile}')">Edit Mobile No.</a>
-                <br>
+                <div id="mobileNoDiv"><span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px; font-weight:600;">&nbsp;<span id="mobileNoText">+91-${cacheGuest.mobile}</span>&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font>&nbsp;&nbsp;</span>&nbsp;<a href="#no" id="editMobileAnchor" style="color:blue; font-size:12px; text-decoration:underline;"  onclick="displayEditMobilenumberDiv(${profileBean.id},'${cacheGuest.mobile}')">Edit Mobile No.</a>
+                </div> <br>
                 
                 </div>
                 <div class="col-md-3">

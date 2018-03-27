@@ -1,0 +1,421 @@
+
+<!-- for-mobile-apps -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script type="application/x-javascript">
+		addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+		function hideURLbar(){ window.scrollTo(0,1); }
+	</script>
+	<!-- //for-mobile-apps -->
+	
+    <!-- for Raxus Slider -->
+    <link rel="stylesheet" href="css/raxus.css" media="screen" type="text/css">
+    <script type="text/javascript" src="js/raxus-slider.min.js"></script>
+    <!-- for Raxus Slider #end -->
+
+    <!-- for documentation: you don't need them -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" media="screen" type="text/css">
+    <link rel="stylesheet" href="documentation/css/documentation.css" media="screen" type="text/css">
+    <link rel="stylesheet" href="../yandex.st/highlightjs/8.0/styles/default.min.css" media="screen" type="text/css">
+    <script type="text/javascript" src="documentation/js/document.js"></script>
+    <script src="documentation/js/highlight.pack.js"></script>
+     
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<style>
+
+.demo{
+    background: linear-gradient(to right, #f3d08e , #afeb86);
+}
+.pricingTable{
+    text-align: center;
+    background: #fff;
+    margin: 0 -15px;
+    box-shadow: 0 0 10px #ababab;
+    padding-bottom: 40px;
+    border-radius: 10px;
+    color: #cad0de;
+    transform: scale(1);
+    transition: all 0.5s ease 0s;
+}
+.pricingTable:hover{
+    transform: scale(1.05);
+    z-index: 1;
+}
+.pricingTable .pricingTable-header{
+    padding: 40px 0;
+    background: #f5f6f9;
+    border-radius: 10px 10px 50% 50%;
+    transition: all 0.5s ease 0s;
+}
+.pricingTable:hover .pricingTable-header{
+    background: #ff9624;
+}
+.pricingTable .pricingTable-header i{
+    font-size: 50px;
+    color: #858c9a;
+    margin-bottom: 10px;
+    transition: all 0.5s ease 0s;
+}
+.pricingTable .price-value{
+    font-size: 35px;
+    color: #ff9624;
+    transition: all 0.5s ease 0s;
+}
+.pricingTable .month{
+    display: block;
+    font-size: 14px;
+    color: #121419;
+}
+.pricingTable:hover .pricingTable-header i,
+.pricingTable:hover .price-value,
+.pricingTable:hover .month{
+    color: #fff;
+}
+.pricingTable .heading{
+    font-size: 24px;
+    color: #ff9624;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+.pricingTable .pricing-content ul{
+    list-style: none;
+    padding: 0;
+    margin-bottom: 30px;
+}
+.pricingTable .pricing-content ul li{
+    line-height: 30px;
+    color: #a7a8aa;
+}
+.pricingTable .pricingTable-signup a{
+    display: inline-block;
+    font-size: 15px;
+    color: #fff;
+    padding: 10px 35px;
+    border-radius: 20px;
+    background: #ffa442;
+    text-transform: uppercase;
+    transition: all 0.3s ease 0s;
+}
+.pricingTable .pricingTable-signup a:hover{
+    box-shadow: 0 0 10px #ffa442;
+}
+.pricingTable.blue .price-value,
+.pricingTable.blue .heading{
+    color: #4b64ff;
+}
+.pricingTable.blue:hover .pricingTable-header,
+.pricingTable.blue .pricingTable-signup a{
+    background: #4b64ff;
+}
+.pricingTable.blue .pricingTable-signup a:hover{
+    box-shadow: 0 0 10px #4b64ff;
+}
+.pricingTable.light .price-value,
+.pricingTable.light .heading{
+    color: #006699;
+}
+.pricingTable.light:hover .pricingTable-header,
+.pricingTable.light .pricingTable-signup a{
+    background: #006699;
+}
+.pricingTable.light .pricingTable-signup a:hover{
+    box-shadow: 0 0 10px 3006699;
+}
+.pricingTable.red .price-value,
+.pricingTable.red .heading{
+    color: #ff4b4b;
+}
+.pricingTable.red:hover .pricingTable-header,
+.pricingTable.red .pricingTable-signup a{
+    background: #ff4b4b;
+}
+.pricingTable.red .pricingTable-signup a:hover{
+    box-shadow: 0 0 10px #ff4b4b;
+}
+.pricingTable.green .price-value,
+.pricingTable.green .heading{
+    color: #40c952;
+}
+.prit {
+
+width:200px;
+margin-left:20px;
+}
+.pricingTable.green:hover .pricingTable-header,
+.pricingTable.green .pricingTable-signup a{
+    background: #40c952;
+}
+.pricingTable.green .pricingTable-signup a:hover{
+    box-shadow: 0 0 10px #40c952;
+}
+
+.pricingTable.blue:hover .price-value,
+.pricingTable.light:hover .price-value,
+.pricingTable.red:hover .price-value,
+.pricingTable.green:hover .price-value{
+    color: #fff;
+}
+@media screen and (max-width: 990px){
+    .pricingTable{ margin: 0 0 20px 0; }
+}
+</style>
+<body>
+<div class="header_top">
+	<div class="container" style="background: #FFF;">
+    	<div class="col-md-3">
+			<div class="logo">
+				<a href="dashboard"><img src="user/images/logo1.jpg" class="img img-responsive"></a>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+		<div class="col-md-4">
+			<!-- <ul class="nav navbar-nav">
+				<li><a href="#no">Matches<span class="badge badge-notify">30</span></a></li>
+				<li><a href="#no">Search</a></li>
+				<li><a href="#no">Inbox<span class="badge badge-notify">30</span></a></li>
+			</ul> -->
+			<!-- <div class="box_1 midfont">
+				<p><a href="#no">Matches</a><span class="badge badge-notify">0</span>&nbsp;&nbsp;&nbsp;
+        		<a href="searchProfiles">Search</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       			<a href="#no">Inbox</a><span class="badge badge-notify">0</span></p>
+			</div> -->
+		</div>
+		<div class="col-md-5">
+			<div class="cart box_1">
+				<p>Dear, krishna Jonnadula</p>
+				<div class="clearfix"> </div>
+			</div>				 
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="row">
+			<nav class="navbar navbar-inverse" role="navigation">
+				<div>
+	        		<div class="navbar-header">
+						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+					</div>
+					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+						<ul class="nav navbar-nav">
+							<li class="dropdown dashboard">
+								<a href="dashboard" class="dropdown-toggle" data-toggle="dropdown">My Home</a>
+								<ul class="dropdown-menu" style="display: none;">
+									<li><a href="dashboard">My Home</a></li>
+									<li><a href="myProfile">My Profile</a></li>
+									<!-- <li><a href="myPhotos">My Photos</a></li> -->
+									<li><a href="myProfileViewsList">Who viewed my profile</a></li>
+									<li><a href="shortListedMe">Who short listed me</a></li>
+									
+									<li><a href="mobileNumViewedByMeList">Mobile no viewed by me</a></li>
+									<li><a href="myMobileNoViewsList">Who viewed my mobile number</a></li>
+									<li><a href="inboxAction?tab_type=inbox&amp;list_type=rejected_requests">Ignored profiles</a></li>
+								</ul>
+							</li>
+							<li class="dropdown searchPage active">
+								<a href="#no" class="dropdown-toggle" data-toggle="dropdown">Search</a>
+								<ul class="dropdown-menu" style="display: none;">
+									<li><a href="searchProfiles">Regular search</a></li>
+									<li><a href="searchById">Search by ID </a></li>
+									<li><a href="#no">Recently viewed profiles</a></li>
+								</ul>
+							</li>
+							<li class="dropdown matches">
+								<a href="#no" class="dropdown-toggle" data-toggle="dropdown">Matches <span id="matchcount">15</span></a>
+								<ul class="dropdown-menu" style="display: none;">
+									<li><a href="newMatches">New Matches</a></li>
+									<li><a href="yetToBeViewed">Yet to be viewed(15) </a></li>
+									<li><a href="viewedNotContacted">Viewed &amp; not contacted(2)</a></li>
+									<li><a href="shortListedByMe">Shortlisted Matches</a></li>
+									<!-- <li><a href="#no">Premium Members</a></li> -->
+								</ul>
+							</li>
+							<li class="dropdown messages">
+								<a href="#no" class="dropdown-toggle" data-toggle="dropdown">Messages <span id="matchcount">1</span></a>
+								<ul class="dropdown-menu" style="display: none;">
+									<li><a href="inboxAction?tab_type=inbox&amp;list_type=pending_requests">Inbox - pending 1</a></li>
+									<li><a href="inboxAction?tab_type=inbox&amp;list_type=accepted_requests">Inbox - Accepted </a></li>
+									<li><a href="inboxAction?tab_type=sent&amp;list_type=sent_requests">Sent All</a></li>
+									<!-- <li><a href="#no">SMS received/sent</a></li> -->
+								</ul>
+							</li>
+							<!-- <li class="dropdown upgrade">
+								<a href="#no" class="dropdown-toggle" data-toggle="dropdown">Upgrade</a>
+								<ul class="dropdown-menu">
+									<li><a href="memberShipPage">Payment Options</a></li>
+									<li><a href="#no">Profile Highliter </a></li>
+								</ul>
+							</li> -->
+							
+							<li class="dropdown notifications">
+								<a href="#no" class="dropdown-toggle" data-toggle="dropdown">Notifications <span id="matchcount">4</span></a>
+								<ul class="dropdown-menu" style="display: none;">
+									<li><a href="myProfileViewsList">(1)members viewed your profile</a></li>
+									<li><a href="myMobileNoViewsList">(1)members viewed your mobile number </a></li>
+									<li><a href="#no">Received interest from (1)  members</a></li>
+									<li><a href="shortListedMe">(1) members shortlisted your profile</a></li>
+								</ul>
+							</li>
+							<li><a href="#no">Help</a></li>
+							
+							<li><a class="upgradeOption animated flash infinite" href="memberShipPage" style="font-size: 18px; font-weight: bold; color: #fff;">Upgrade</a></li>
+							
+                            
+                            </ul>
+                            
+                            
+                            
+                            <ul class="nav navbar-nav navbar-right">
+                            
+                            
+							<li class="dropdown settings pull-right">
+								<a href="#no" class="dropdown-toggle" data-toggle="dropdown">
+									
+									
+<!-- 										<img id="profilepic" src="img/default.png" class="img-responsive thumbnail " style="margin-top:-10px;height: 40px;width: 40px;border-radius:15%;">  -->
+
+								
+										<img id="profilepic" src="data:image/jpeg;base64,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" alt="profileImage" title="profileImage" class="img img-responsive thumbnail watermark_text" style="margin-top:-10px;height: 40px;width: 40px;border-radius:15%;"><i class="fa fa-angle-down" aria-hidden="true"></i>
+									
+									
+
+									
+								</a>
+								<ul class="dropdown-menu" style="left: none; right: auto; min-width: 85px;">
+									<li><a href="settings">Settings</a></li>
+									<li><a href="logoutHome">Signout</a></li>
+								</ul>
+							</li>
+							
+						</ul>	
+							
+						
+	        		</div>
+	        		<!-- /.navbar-collapse -->
+	      		</div>
+	      		<!-- /.container-fluid -->
+	    	</nav>
+			
+		</div>
+	</div>
+</div>
+<div class="demo">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 col-sm-2 prit">
+                <div class="pricingTable blue">
+                    <div class="pricingTable-header">
+                        <i class="fa fa-adjust"></i>
+                        <div class="price-value">&#x20b9; 10.00 <span class="month">3 Months</span> </div>
+                    </div>
+                    <h3 class="heading">CLASSIC</h3>
+                    <div class="pricing-content">
+                        <ul>
+                            <li><b><input id="#classic" type="radio"></input></b></li>
+                            <li><b></b> View Details</li>
+                           <!--  <li><b>50GB</b> Monthly Bandwidth</li>
+                            <li><b>10</b> subdomains</li>
+                            <li><b>15</b> Domains</li> -->
+                        </ul>
+                    </div>
+                    <div class="pricingTable-signup">
+                        <a href="#">Make Payment</a>
+                    </div>
+                </div>
+            </div>
+ 
+            <div class="col-md-2 col-sm-2 prit">
+                <div class="pricingTable green">
+                    <div class="pricingTable-header">
+                        <i class="fa fa-briefcase"></i>
+                        <div class="price-value"> &#x20b9; 20.00 <span class="month">6 Months</span> </div>
+                    </div>
+                    <h3 class="heading">CLASSIC PLUS</h3>
+                    <div class="pricing-content">
+                        <ul>
+                           <li><b><input id="plus" type="radio"></input></b></li>
+                            <li><b></b> View Details</li>
+                            <!-- <li><b>60GB</b> Monthly Bandwidth</li>
+                            <li><b>15</b> subdomains</li>
+                            <li><b>20</b> Domains</li> -->
+                        </ul>
+                    </div>
+                    <div class="pricingTable-signup">
+                        <a href="#">Make Payment</a>
+                    </div>
+                </div>
+            </div> <div class="col-md-2 col-sm-2 prit">
+                <div class="pricingTable red">
+                    <div class="pricingTable-header">
+                        <i class="fa fa-adjust"></i>
+                        <div class="price-value"> &#x20b9; 30.00 <span class="month">9 Months</span> </div>
+                    </div>
+                    <h3 class="heading">PREMIUM</h3>
+                    <div class="pricing-content">
+                        <ul>
+                            <li><b><input type="radio"></input></b></li>
+                            <li><b></b> View Details</li>
+                          <!--   <li><b>50GB</b> Monthly Bandwidth</li>
+                            <li><b>10</b> subdomains</li>
+                            <li><b>15</b> Domains</li> -->
+                        </ul>
+                    </div>
+                    <div class="pricingTable-signup">
+                        <a href="#">Make Pament</a>
+                    </div>
+                </div>
+            </div>
+             <div class="col-md-2 col-sm-2 prit">
+                <div class="pricingTable">
+                    <div class="pricingTable-header">
+                        <i class="fa fa-adjust"></i>
+                        <div class="price-value"> &#x20b9; 10.00 <span class="month">12 Months</span> </div>
+                    </div>
+                    <h3 class="heading">PREMIUM PLUS</h3>
+                    <div class="pricing-content">
+                        <ul>
+                          <li><b><input type="radio"></input></b></li>
+                            <li><b></b> View Details</li>
+                           <!--  <li><b>50GB</b> Monthly Bandwidth</li>
+                            <li><b>10</b> subdomains</li>
+                            <li><b>15</b> Domains</li> -->
+                        </ul>
+                    </div>
+                    <div class="pricingTable-signup">
+                        <a href="#">Make Payment</a>
+                    </div>
+                </div>
+            </div>
+             <div class="col-md-2 col-sm-2 prit">
+                <div class="pricingTable light">
+                    <div class="pricingTable-header">
+                        <i class="fa fa-adjust"></i>
+                        <div class="price-value"> &#x20b9; 30.00 <span class="month">Till Marriage</span> </div>
+                    </div>
+                    <h3 class="heading">AARNA PREMIUM</h3>
+                    <div class="pricing-content">
+                        <ul>
+                            <li><b><input type="radio"></input></b></li>
+                            <li><b></b> View Details</li>
+                           <!--  <li><b>50GB</b> Monthly Bandwidth</li>
+                            <li><b>10</b> subdomains</li>
+                            <li><b>15</b> Domains</li> -->
+                        </ul>
+                    </div>
+                    <div class="pricingTable-signup">
+                        <a href="#">Make payment</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+</div>
+</body>
+</html>

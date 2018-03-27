@@ -49,6 +49,10 @@ font-weight: bold;
 
 
 }
+.picstyle {
+height:220px !important;
+overflow:hidden !important;
+}
 .controls {
   margin-bottom: 10px;
 }
