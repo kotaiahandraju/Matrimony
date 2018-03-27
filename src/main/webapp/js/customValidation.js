@@ -119,8 +119,8 @@ $('#mobile').blur(function() {
 		$('#mobileError111').text("Please enter a valid mobile number.");
 		event.preventDefault();
 		return false;
-	}
-	else{
+	}else{
+		$('#mobileError111').text("");
 		var exists = isMobileNumDuplicate();
 		if(exists){
 			return false;
@@ -128,36 +128,7 @@ $('#mobile').blur(function() {
 		
 	}
 });
-function isMobileNumDuplicate(){
-	var formData = new FormData();
-    formData.append('mobile', $("#mobile").val());
-    formData.append('id', $("#id").val());
-	$.fn.makeMultipartRequest('POST', '../mobileNumChecking', false,
-			formData, false, 'text', function(data){
-		var jsonobj = $.parseJSON(data);
-		if(jsonobj.msg =="exist"){
-			//error message write
-			$('#mobileError111').text("Mobile number already in Use. Please Try Another.");
-			mobileExists = true;
-			
-			event.preventDefault();
-			
-			
-			return false;
-			
-		}else{
-			$('#mobileError111').text("");
-			mobileExists = false;
-			
-			
-			event.preventDefault();
-			
-			
-			return true;
-			
-		}
-	});
-}
+
 /*$(".emailOnly").on(	"keypress",	function(e) {
 
 					// console.log(event.which);
@@ -222,46 +193,6 @@ $(".onlyCharacters").on("keypress",	function(event) {
 var styleBlock = '.placeholder-style.placeholder-style::-moz-placeholder {color: #cc0000;} .placeholder-style::-webkit-input-placeholder {color: #cc0000;}';
 var emailExist = true;
 var expr = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
-$('.emailOnly').blur(function(event) {
-	var email = $('#email').val();
-	/*if(email == "" || email == null || email == "undefined")
-	{
-		$("#email").css("border-color","#e73d4a");
-		$("#email").attr("placeholder","Enter Email");
-		$('#email').css('color','#e73d4a');
-		emailExist = false;
-	}*/
-	if(email != "" && !email.match(expr))
-	{
-		$('style').append(styleBlock);
-	 	$("#email").css("border-color","#e73d4a");
-	 	$('#email').css('color','#e73d4a');
-//	 	$("#email").addClass('placeholder-style your-class');
-	 	$('#emailError111').text("Please Enter Valid Email-ID");
- 		emailExist = false;
-		return false;
-	}
-	else{
-		$('#emailError111').text("");
-	}
-	if(email !=null && email != "" && email !="undefined"){
-		var formData = new FormData();
-	    formData.append('email', email);
-		$.fn.makeMultipartRequest('POST', '../emailChecking', false,
-				formData, false, 'text', function(data){
-			var jsonobj = $.parseJSON(data);
-			if(jsonobj.msg =="exist"){
-				//error message write
-				$('#emailError111').text("Email already in Use. Please Try Another.");
-				emailExist = false;
-				return false;
-			}else{
-				$('#emailError111').text("");
-				emailExist = true;
-			}
-		});
-	}
-});
 
 // input placeholders
 $("input").each(function() {
@@ -328,12 +259,19 @@ $('#submit1').click(function(event) {
 	if($('#mobile').val().trim().length<10){
 		$('#mobileError111').text("Please enter a valid mobile number.");
 		validation = false;
+	}else{
+		$('#mobileError111').text("");
 	}
 	var exists = isMobileNumDuplicate();
 	if(exists){
 		validation = false;
 	}
-	if(validation && emailExist) {
+	if(mobileExists){
+		$('#mobileError111').text("Mobile number already in Use. Please Try Another.");
+		
+		validation = false;
+	}
+	if(validation && emailExist && !mobileExists) {
 		$("#submit1").attr("disabled",true);
 		$("#submit1").val("Please wait...");
 		$("form").submit();											

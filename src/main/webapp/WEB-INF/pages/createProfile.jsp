@@ -973,6 +973,91 @@ function getFilteredStatesMultiSelect(id){
 		
 	}
 }
+
+var mobileExists = true;
+function isMobileNumDuplicate(){
+	var formData = new FormData();
+    formData.append('mobile', $("#mobile").val());
+    formData.append('id', $("#id").val());
+    var actionStr = "../mobileNumChecking";
+    var nextPage = "${pageName}";
+    if(nextPage!=null && nextPage!="" && nextPage!="undefined"){
+   	 actionStr = "../../../mobileNumChecking";
+    }
+	$.fn.makeMultipartRequest('POST', actionStr, false,
+			formData, false, 'text', function(data){
+		var jsonobj = $.parseJSON(data);
+		if(jsonobj.msg =="exist"){
+			//error message write
+			$('#mobileError111').text("Mobile number already in Use. Please Try Another.");
+			mobileExists = true;
+			
+			event.preventDefault();
+			
+			
+			return false;
+			
+		}else{
+			$('#mobileError111').text("");
+			mobileExists = false;
+			
+			
+			event.preventDefault();
+			
+			
+			return true;
+			
+		}
+	});
+}
+
+$('.emailOnly').blur(function(event) {
+	var email = $('#email').val();
+	/*if(email == "" || email == null || email == "undefined")
+	{
+		$("#email").css("border-color","#e73d4a");
+		$("#email").attr("placeholder","Enter Email");
+		$('#email').css('color','#e73d4a');
+		emailExist = false;
+	}*/
+	if(email != "" && !email.match(expr))
+	{
+		$('style').append(styleBlock);
+	 	$("#email").css("border-color","#e73d4a");
+	 	$('#email').css('color','#e73d4a');
+//	 	$("#email").addClass('placeholder-style your-class');
+	 	$('#emailError111').text("Please Enter Valid Email-ID");
+ 		emailExist = false;
+		return false;
+	}
+	else{
+		$('#emailError111').text("");
+	}
+	if(email !=null && email != "" && email !="undefined"){
+		var formData = new FormData();
+	    formData.append('email', email);
+	    var actionStr = "../emailChecking";
+	    var nextPage = "${pageName}";
+	    if(nextPage!=null && nextPage!="" && nextPage!="undefined"){
+	   	 actionStr = "../../../emailChecking";
+	    }
+		$.fn.makeMultipartRequest('POST', actionStr, false,
+				formData, false, 'text', function(data){
+			var jsonobj = $.parseJSON(data);
+			if(jsonobj.msg =="exist"){
+				//error message write
+				$('#emailError111').text("Email already in Use. Please Try Another.");
+				emailExist = false;
+				return false;
+			}else{
+				$('#emailError111').text("");
+				emailExist = true;
+			}
+		});
+	}
+});
+
+
 $(".profiles").addClass("active");
 $(".createProfile").addClass("active");
 
