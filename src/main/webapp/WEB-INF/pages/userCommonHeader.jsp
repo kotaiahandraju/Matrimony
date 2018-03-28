@@ -577,7 +577,7 @@ tooltip:hover:after {
 									displayStyle = ' style="display:none;" ';
 								}
 								slider += '<div class="picstyle smallSlides'+orderObj.id+'" '+displayStyle+'>'
-										+'		<img src="'+photosArray[index]+'" class="img img-responsive thumbnail " style="margin-bottom:0;height: auto;width: 100%;" >'
+										+'		<img src="'+photosArray[index]+'" class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: auto;width: 100%;" >'
 										+'</div>'
 							});
 							if(photosArray.length>1){
@@ -2782,28 +2782,35 @@ img.hover-shadow {
   </div>
   </div>
 
-<div class="modal fade" id="myModalthumb" role="dialog">
+ <!-- Modal -->
+  <div tabindex="-1" class="modal fade in" id="myModalNew" role="dialog">
     <div class="modal-dialog">
     
       <!-- Modal content-->
+    
       <div class="modal-content">
         
         <div class="modal-body">
        
-         <div class="bg"></div>
-
+         
 
 
 <section class="welcome">
     <div class="container">
 
         <div class="row">
-            <div class="col-md-12 a">
-  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <div id="mySlider" class="raxus-slider" data-autoplay="3000" data-arrows="show" data-fullscreen="show" data-dots="show" data-keypress="true" data-thumbnail="bottom">
-                    <ul class="slider-relative" id="relative">
-                        <li class="slide fix-width">
-                            <a href=""><img src="img/107791.png" alt=""></a>
+            
+  <button style="float:right;" type="button" class="close" data-dismiss="modal">&times;</button>
+                <div id="mySlider" class="raxus-slider" data-autoplay="3000" data-arrows="show"  data-dots="show" data-keypress="true" data-thumbnail="bottom">
+                	<ul class="slider-relative" id="relative">
+						<c:forEach items="${photosList}" var="photo" >
+					      	<li class="slide fix-width">
+	                            <img src="${photo.image}" alt="" class="watermark_text">
+	                        </li>
+						</c:forEach>
+                    
+                        <!-- <li class="slide fix-width">
+                            <img src="img/113510.png" alt="">
                             
                         </li>
                         
@@ -2812,7 +2819,7 @@ img.hover-shadow {
                            
                         </li>
                         <li class="slide">
-                            <a href=""><img src="img/74520.png" alt=""></a>
+                            <img src="img/74520.png" alt="">
                            
                         </li>
                        
@@ -2846,9 +2853,9 @@ img.hover-shadow {
                         <li class="slide fix-width">
                             <img src="img/106621.png" alt="">
                           
-                        </li>
+                        </li> -->
                     </ul>
-                </div>
+               
 
             </div>
 
