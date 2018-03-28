@@ -1,39 +1,44 @@
+<%@ include file="userCommonHeader.jsp"%>
 <%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://displaytag.sf.net" prefix="display"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
-    <%
+<style>
+.failed {
+padding:50px;
+
+}
+
+</style>
+ <%--    <%
 String baseurl =  request.getScheme() + "://" + request.getServerName() +      ":" +   request.getServerPort() +  request.getContextPath();
 session.setAttribute("baseurl", baseurl);
-%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
-<link href="${baseurl}/css/bootstrap.min.css" rel="stylesheet">
-<script src="${baseurl }/js/jquery.min.js"></script>
-<script src="${baseurl }/js/jquery-ui.min.js"></script>
-</head>
-<body>
+%> --%>
+<div class="container" style="background:#fff;">
+<div class="col-md-12 failed">
 <%-- <%= request.getAttribute("params")%> --%>
-Name : <c:out value="${params.firstname} ${params.lastname}"></c:out><br>
-Total Fee : <c:out value="${params.amount}"></c:out><br>
-  Payment Status:  <c:out value="${params.status}"></c:out><br>
-  Transaction Id :  <c:out value="${params.txnid}"></c:out><br>
+<div class="col-md-3"></div>
+<div class="col-md-6">
+<table class="table table-bordered" >
+<tr><td>Name</td><td><c:out value="${params.firstname} ${params.lastname}"></c:out></td></tr>
+<tr><td>Total Fee </td><td><c:out value="${params.amount}"></c:out></td></tr>
+ <tr><td> Payment Status</td><td> <c:out value="${params.status}"></c:out></td></tr>
+  <tr><td>Transaction Id</td><td>  <c:out value="${params.txnid}"></c:out></td></tr>
+  </table>
   
-  <div style="text-align: center;">
-   		<a href="memberShipPage" type="button" class="btn btn-primary" id="paymentBtn" >Goto Payment Page</a>
-   </div><br>
-   <div style="text-align: center;">
-   		<p><a href="dashboard" type="button" class="btn btn-primary" id="homepagBtn" >Goto MyAccount</a></p>
-   
    </div>
+   <div class="col-md-3"></div><div class="clearfix"></div>
+    <div class="col-md-3"></div>
+   <div class="col-md-3" style="text-align: center;">
+   		<a href="memberShipPage" type="button" class="btn btn-primary" id="paymentBtn" >Goto Payment Page</a>
+   </div>
+   <div class="col-md-3" style="text-align: center;">
+   		<p><a href="dashboard" type="button" class="btn btn-success" id="homepagBtn" >Goto MyAccount</a></p>
+   
+   </div></div></div>
 <script type="text/javascript">
 // var params = ${params };
 </script>
-
-</body>
-</html>
+<%@ include file="userFooter.jsp"%>

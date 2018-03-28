@@ -3310,9 +3310,9 @@ label.radio {
 .glyphicon.glyphicon-envelope {
     font-size: 22px;
 }
-.profilesimilar h4{ color:#C00; font-weight:500; padding:0; margin:0;}
+.profilesimilar h4{ color:#060404; font-weight:500; padding:0; margin:0;}
 .profilesimilar p{ font-size:13px;padding:0; margin:0; }
-.profilesimilar span{ color:#00BCD5; text-decoration:underline; font-size:13px;}	
+.profilesimilar span{ color:#00BCD5; text-decoration:none; font-size:13px;}	
  hr {
     margin-top: 8px;
     margin-bottom: 8px;

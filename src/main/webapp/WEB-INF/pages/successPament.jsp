@@ -1,57 +1,19 @@
+<%@ include file="userCommonHeader.jsp"%>
 <%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://displaytag.sf.net" prefix="display"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
-    <%
-String baseurl =  request.getScheme() + "://" + request.getServerName() +      ":" +   request.getServerPort() +  request.getContextPath();
-session.setAttribute("baseurl", baseurl);
-%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
- <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Aarna Matrimony</title>
-  <!-- PLUGINS CSS STYLE -->
-
-  <link href="${baseurl}/css/bootstrap.min.css" rel="stylesheet">
   
 
-<!--   <link rel="stylesheet" href="plugins/selectbox/select_option1.css"> -->
-
-<!--   <link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.min.css"> -->
-
-
-<!--   <link rel="stylesheet" type="text/css" href="plugins/rs-plugin/css/settings.css" media="screen"> -->
-
-  
-	<script src="${baseurl }/js/jquery.min.js"></script>
-	<script src="${baseurl }/js/jquery-ui.min.js"></script>
-
-  <!-- CUSTOM CSS -->
-
-  <link rel="stylesheet" href="${baseurl }/css1/style.css">
-
-  <link rel="stylesheet" href="${baseurl }/css1/default.css" id="option_color">
-</head>
-<body>
-<%-- <%= request.getAttribute("allOrders1")%><br> --%>
-<%-- <%-- <img alt="" src="${baseurl }/img/9TKOM.png"> --%>
-<%-- Name : <c:out value="${params.firstname }"></c:out><br> --%>
-<%-- Total Fee : <c:out value="${params.amount }"></c:out><br> --%>
-<%--   Payment Status:  <c:out value="${params.status }"></c:out><br> --%>
-<%--   Transaction Id :  <c:out value="${params.txnid }"></c:out><br> --%>
-<div class="container">
+<div class="container"  style="background:#fff;">
 	
-	<div><img src="${baseurl }/img/header-bill.jpg" alt="logo.com"></div>
-
+	<div align="center"><img src="${baseurl }/user/images/logo1.jpg" alt="logo"></div>
+<br>
 	<table align="center" style="min-width: 680px;min-height:0px">
-    <tr>
-        <th rowspan="3">
+    <%-- <tr align="right">
+        <th rowspan="3" align="right">
         	
         	<c:if test="${not empty cacheGuest.profileImage}">
         		<img src="${cacheGuest.profileImage}" alt="passport pic" id="imageID1" style="width: 50px;height: 50px;">
@@ -62,44 +24,69 @@ session.setAttribute("baseurl", baseurl);
 				
 			</c:if>
         </th>
-      <tr> 
+      <tr>  --%>
 <!--       <td>Date:xx/xx/xxxx</td> -->
 <!--       <td>Time:xx:xx</td> -->
       </tr>
       </tr>
 	</table>
-	<table class="table table-bordered" align="center" style="min-width: 680px;min-height:200px">      
+	<div class="col-md-3"></div>
+	<div class="col-md-6">
+	<table class="table table-bordered table-responsive" align="center" >      
 		<tr>
         <th>Name</th>
         <td id="nameID">xxxxxx</td>
-        <th>Payment done on:</th>
-        <td id="createdDate">xxxxxx</td>
+        
         </tr>
       
        <tr>
         <th>Email</t>
         <td id="email">xxxxxx</td>
+       
+      </tr>
+      <tr>
+        
+        <th>Payment done on:</th>
+        <td id="createdDate">xxxxxx</td>
+        </tr>
+         <tr>
+        
+        <th>Package Name:</th>
+        <td id="createdDate">xxxxxx</td>
+        </tr>
+        <tr>
+       
         <th>Total Price</th>
         <td id="totalPrice">xxxxxx</td>
       </tr>
-      
       <tr>
         <th>Transaction ID</th>
         <td id="txid">xxxxxx</td>
         
       </tr>
-  </table>
-  
-       <div style="text-align: center;">
-       <button onclick="printpage()" id="printpagebutton">Print</button>
+  </table></div>
+  <div class="col-md-3">
+<%-- <div align="center">	<c:if test="${not empty cacheGuest.profileImage}">
+        		<img src="${cacheGuest.profileImage}" alt="passport pic" id="imageID1" style="width: 150px;height: 150px;">
+				
+			</c:if>
+			<c:if test="${empty cacheGuest.profileImage}">
+				<img src="img/default.png" alt="passport pic" id="imageID1" style="width: 150px;height: 150px;">
+				
+			</c:if></div> --%>
+			</div><div class="clearfix"></div>
+  <div class="col-md-3" style="text-align: center;"></div>
+       <div class="col-md-2" style="text-align: center;">
+       <button class="btn btn-warning" onclick="printpage()" id="printpagebutton">Print</button>
        </div>
-       <div style="text-align: center;">
+       <div class="col-md-2" style="text-align: center;">
        		<a href="dashboard" type="button" class="btn btn-primary" id="myaccountBtn" >Goto My Account</a>
-       </div><br>
-       <div style="text-align: center;">
-       		<p><a href="HomePage" type="button" class="btn btn-primary" id="homepagBtn" >Goto HomePage</a></p>
+       </div>
+       <div class="col-md-2" style="text-align: center;">
+       		<p><a href="HomePage" type="button" class="btn btn-success" id="homepagBtn" >Goto HomePage</a></p>
        
        </div>
+       <br><br>
        <script>
        function printpage() {
            var printButton = document.getElementById("printpagebutton");
@@ -133,9 +120,4 @@ session.setAttribute("baseurl", baseurl);
   	}
 </script>
 </div>
-</body>
-<script type="text/javascript">
-// var params = ${params };
-</script>
-
-</html>
+<%@ include file="userFooter.jsp"%>
