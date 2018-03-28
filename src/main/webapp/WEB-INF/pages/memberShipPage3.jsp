@@ -148,7 +148,7 @@
 position: relative;
     background: rgb(244, 251, 254);
     margin-top: 25px;
-    display: block;
+    
 }
 
 
@@ -193,142 +193,112 @@ line-height:2.5 !important;
 <body>
  <div class="container" style="background:#fff; padding-top:25px; z-index:0;">
 <div class="demo1">
-   
+   <form:form commandName="payment"  class="form-horizontal" id="payment-form" role="form" method="post">
         <div class="row">
-            <div class="col-md-2 col-sm-2 prit">
-                <div class="pricingTable blue">
-                    <div class="pricingTable-header">
-                      
-                        <div class="price-value"><li class="fa fa-inr"></li> 1000.00 <span class="month">3 Months</span> </div>
-                    </div>
-                    <h3 class="heading">CLASSIC</h3>
-                    <div class="pricing-content">
-                        <ul>
-                            <li><b><input type="radio"  class="benifitscroll" name="radiobtn" ></input></b></li>
-                            <li><b></b> View Details</li>
-                           <!--  <li><b>50GB</b> Monthly Bandwidth</li>
-                            <li><b>10</b> subdomains</li>
-                            <li><b>15</b> Domains</li> -->
-                        </ul>
-                    </div>
-                    <div class="pricingTable-signup">
-                        <a href="#">Make Payment</a>
-                    </div>
-                </div>
-            </div>
- 
-            <div class="col-md-2 col-sm-2 prit">
-                <div class="pricingTable green">
-                    <div class="pricingTable-header">
-                        
-                        <div class="price-value"> <li class="fa fa-inr"></li> 2000.00 <span class="month">6 Months</span> </div>
-                    </div>
-                    <h3 class="heading">CLASSIC PLUS</h3>
-                    <div class="pricing-content">
-                        <ul>
-                           <li><b><input  class="benifitscroll"  type="radio" name="radiobtn"></input></b></li>
-                            <li><b></b> View Details</li>
-                            <!-- <li><b>60GB</b> Monthly Bandwidth</li>
-                            <li><b>15</b> subdomains</li>
-                            <li><b>20</b> Domains</li> -->
-                        </ul>
-                    </div>
-                    <div class="pricingTable-signup">
-                        <a href="#">Make Payment</a>
-                    </div>
-                </div>
-            </div> <div class="col-md-2 col-sm-2 prit">
-                <div class="pricingTable red">
-                    <div class="pricingTable-header">
-                       
-                        <div class="price-value"> <li class="fa fa-inr"></li> 3000.00 <span class="month">9 Months</span> </div>
-                    </div>
-                    <h3 class="heading">PREMIUM</h3>
-                    <div class="pricing-content">
-                        <ul>
-                            <li><b><input type="radio" class="benifitscroll" id="benifitbtn" name="radiobtn"></input></b></li>
-                            <li><b></b> View Details</li>
-                          <!--   <li><b>50GB</b> Monthly Bandwidth</li>
-                            <li><b>10</b> subdomains</li>
-                            <li><b>15</b> Domains</li> -->
-                        </ul>
-                    </div>
-                    <div class="pricingTable-signup">
-                        <a href="#">Make Pament</a>
-                    </div>
-                </div>
-            </div>
-             <div class="col-md-2 col-sm-2 prit">
-                <div class="pricingTable">
-                    <div class="pricingTable-header">
-                       
-                        <div class="price-value"> <li class="fa fa-inr"></li> 4000.00 <span class="month">12 Months</span> </div>
-                    </div>
-                    <h3 class="heading">PREMIUM PLUS</h3>
-                    <div class="pricing-content">
-                        <ul>
-                          <li><b><input type="radio"  class="benifitscroll" name="radiobtn"></input></b></li>
-                            <li><b></b> View Details</li>
-                           <!--  <li><b>50GB</b> Monthly Bandwidth</li>
-                            <li><b>10</b> subdomains</li>
-                            <li><b>15</b> Domains</li> -->
-                        </ul>
-                    </div>
-                    <div class="pricingTable-signup">
-                        <a href="#">Make Payment</a>
-                    </div>
-                </div>
-            </div>
-             <div class="col-md-2 col-sm-2 prit">
-                <div class="pricingTable light">
-                    <div class="pricingTable-header">
-                       
-                        <div class="price-value"> <li class="fa fa-inr"></li> 5000.00 <span class="month">Till Marriage</span> </div>
-                    </div>
-                    <h3 class="heading">AARNA PREMIUM</h3>
-                    <div class="pricing-content">
-                        <ul>
-                            <li><b><input type="radio"  class="benifitscroll" name="radiobtn" ></input></b></li>
-                            <li><b></b> View Details</li>
-                           <!--  <li><b>50GB</b> Monthly Bandwidth</li>
-                            <li><b>10</b> subdomains</li>
-                            <li><b>15</b> Domains</li> -->
-                        </ul>
-                    </div>
-                    <div class="pricingTable-signup">
-                        <a href="#">Make payment</a>
-                    </div>
-                </div>
-            </div>
+        	<c:if test="${not empty packagesList}">
+        		<c:forEach items="${packagesList}" var="pack">
+					<c:set var="packName" value="${pack.name}"/>
+					<c:if test="${packName != 'Aarna Family' }">
+						<div class="col-md-2 col-sm-2 prit" onclick="displayDetails('infoDiv${pack.id}');">
+			                <div class="pricingTable blue">
+			                    <div class="pricingTable-header">
+			                      
+			                        <div class="price-value"><li class="fa fa-inr"></li> <c:out value="${pack.price}"/> <span class="month"><c:out value="${pack.duration}"/> Months</span> </div>
+			                    </div>
+			                    <h3 class="heading"><c:out value="${pack.name}"/></h3>
+			                    <div class="pricing-content">
+			                        <ul>
+			                            <li><b><input type="radio"  class="benifitscroll"  name="package_id" value="${pack.id}"></input></b></li>
+			                            <li><b></b> View Details</li>
+			                           <!--  <li><b>50GB</b> Monthly Bandwidth</li>
+			                            <li><b>10</b> subdomains</li>
+			                            <li><b>15</b> Domains</li> -->
+			                        </ul>
+			                    </div>
+			                    <div class="pricingTable-signup">
+			                        <a href="#" id="makePaymentBtn" onclick="makePayment(event)">Make Payment</a>
+			                    </div>
+			                </div>
+			            </div>
+					</c:if>
+					<c:if test="${packName == 'Aarna Family' }">
+						<div class="col-md-2 col-sm-2 prit" onclick="displayDetails('infoDiv${pack.id}');">
+			                <div class="pricingTable blue">
+			                    <div class="pricingTable-header">
+			                      
+			                        <div class="price-value"><li class="fa fa-inr"></li> <c:out value="${pack.price}"/> <span class="month">Till Marriage</span> </div>
+			                    </div>
+			                    <h3 class="heading"><c:out value="${pack.name}"/></h3>
+			                    <div class="pricing-content">
+			                        <ul>
+			                            <li><b><input type="radio"  class="benifitscroll"  name="package_id" value="${pack.id}"></input></b></li>
+			                            <li><b></b> View Details</li>
+			                           <!--  <li><b>50GB</b> Monthly Bandwidth</li>
+			                            <li><b>10</b> subdomains</li>
+			                            <li><b>15</b> Domains</li> -->
+			                        </ul>
+			                    </div>
+			                    <div class="pricingTable-signup">
+			                        <a href="#" id="makePaymentBtn" onclick="makePayment(event)">Make Payment</a>
+			                    </div>
+			                </div>
+			            </div>
+					</c:if>
+				</c:forEach>
+        	</c:if>
         </div>
+       </form:form>
     </div>
+    <c:if test="${not empty packagesList}">
+	<c:forEach items="${packagesList}" var="pack">
+		<c:set var="packName" value="${pack.name}"/>
+		<c:if test="${packName != 'Aarna Family' }">
+			<div class="col-md-12 benefit pack_details" id="infoDiv${pack.id}" hidden="true">
     
-    <div class="col-md-12 benefit" id='benifitDiv' style='display:none'>
+			    <div class="benefit">
+			  
+			    
+			    	<h4>Benefits of <c:out value="${pack.name}"/> - <c:out value="${pack.duration}"/> Months</h4>
+					    <c:if test="${pack.highlight_profile == '1' }">
+					    	<div class="col-md-4 benefit1">
+						    	<p><img  src="images/icon1.png"/> Profile Highlighter </p>
+						    </div>
+					    </c:if>
+						<c:if test="${pack.allowed_messages_limit != null && pack.allowed_messages_limit != ''}">    
+						    <div class="col-md-4">
+						    <p><img  src="images/icon2.png"/>  Send <c:out value="${pack.allowed_messages_limit}"/> Personalized 
+							Messages *</p>
+						    </div>
+					  	</c:if>
+					  	<c:if test="${pack.allowed_profiles_limit != null && pack.allowed_profiles_limit != '' && pack.allowed_profiles_limit != 0}">
+						    <div class="col-md-4">
+						    <p><img  src="images/icon3.png"/> View mobile numbers of <c:out value="${pack.allowed_profiles_limit}"/> members
+							to contact </p>
+						    
+						    </div>
+			    		</c:if>
+			    		<div class="col-md-4">
+			    			<p>Profile tagged with '<c:out value="${pack.name}"/> member'</p>
+			    		</div>
+			    </div></div>	
+		</c:if>
+		<c:if test="${packName == 'Aarna Family' }">
+			<div class="col-md-12 benefit pack_details" id="infoDiv${pack.id}" hidden="true">
     
-    <div class="benefit">
-  
+				<div class="benefit">
+					<h5>Familiar Package</h5><br>
+					<h4><c:out value="${pack.name}"/> - <c:out value="${pack.price}"/></h4>
+					<p>Premium Benefits</p>
+					<p>High Responsive</p>
+					<p>Co-ordinate with Mutual Interests</p>
+					<p>Weekly Feedback</p>
+					<p>Relationship Manager</p>
+				</div>
+			</div>
+		</c:if>
+	</c:forEach>
+</c:if>
     
-    <h4>Benefits of Classic Premium - 3 Months</h4>
-    <div class="col-md-4 benefit1">
-    <p><img  src="images/icon1.png"/> Profile Highlighter for 3 Months - 
-</p>
-<p><img  src="images/icon4.png"/> Enhanced privacy settings</p>
-<p><img  src="images/icon5.png"/>  Enhanced 
-profile visibility</p>
-    </div>
-    <div class="col-md-4">
-    <p><img  src="images/icon2.png"/>  Send Unlimited Personalized 
-Messages *</p>
-    </div>
-   
-    <div class="col-md-4">
-    <p><img  src="images/icon3.png"/> View mobile numbers of 60 members
-to contact </p>
-    
-    </div>
-    
-    
-    </div></div>
     <div class="clearfix"></div>
     <br><br>
     </div>
@@ -336,5 +306,25 @@ to contact </p>
     $(".benifitscroll").click(function(){
     	$("#benifitDiv").css('display','block');
     });
+    $(".pack_details").attr("hidden",true);
+    function makePayment(event){
+		var selected_pack = $("input[name=package_id]:checked").val();
+		if((typeof(selected_pack) == "undefined") || (selected_pack=="")){
+			alert("Select any package");
+			return false;
+		}else{
+			$("#makePaymentBtn").attr("disabled",true);
+			$("#makePaymentBtn").val("Please wait...");
+			$("#payment-form").attr('action',"savePayment");
+			$("#payment-form").submit();
+			event.preventDefault(); 
+		}
+		
+		
+	}
+    function displayDetails(divId){
+		$(".pack_details").attr("hidden",true);
+		$("#"+divId).removeAttr("hidden");
+	}
     </script>
 <%@ include file="userFooter.jsp"%>

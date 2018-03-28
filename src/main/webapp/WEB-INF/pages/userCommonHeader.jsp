@@ -322,9 +322,23 @@ tooltip:hover:after {
 					
 					var premiumMember = "";
 					var memberRoleId = orderObj.role_id;
-					if(memberRoleId!=null && memberRoleId!="" && (memberRoleId==6 || memberRoleId==11 ||
-							memberRoleId==12 || memberRoleId==13 || memberRoleId==14)){
-						premiumMember = "<span class='premium-member' style='color:#000;text-decoration:none; background:url(img/premium_member.gif) no-repeat; width:110px; height:18px; display:inline-block;'></span>";
+					if(memberRoleId!=null && memberRoleId!="" && (typeof memberRoleId != "undefined")){
+						if(memberRoleId==12){
+							 premiumMember = "<span class='premium-member'>Classic Member</span>";
+						}
+						if(memberRoleId==13){
+							 premiumMember = "<span class='premium-member'>Classic Advantage Member</span>";
+						}
+						if(memberRoleId==6){
+							 premiumMember = "<span class='premium-member'>Premium Member</span>";
+						}
+						if(memberRoleId==11){
+							 premiumMember = "<span class='premium-member'>Premium Plus Member</span>";
+						}
+						if(memberRoleId==14){
+							 premiumMember = "<span class='premium-member'>Aarna Family Member</span>";
+						}
+						
 					}
 					var shortListType = "${list_type}";
 					var shortListedStr;
@@ -501,9 +515,23 @@ tooltip:hover:after {
 					}
 					var premiumMember = "";
 					var memberRoleId = orderObj.role_id;
-					if(memberRoleId!=null && memberRoleId!="" && (memberRoleId==6 || memberRoleId==11 ||
-							memberRoleId==12 || memberRoleId==13 || memberRoleId==14)){
-						premiumMember = "<span class='premium-member'>Premium Member</span>";
+					if(memberRoleId!=null && memberRoleId!="" && (typeof memberRoleId != "undefined")){
+						if(memberRoleId==12){
+							 premiumMember = "<span class='premium-member'>Classic Member</span>";
+						}
+						if(memberRoleId==13){
+							 premiumMember = "<span class='premium-member'>Classic Advantage Member</span>";
+						}
+						if(memberRoleId==6){
+							 premiumMember = "<span class='premium-member'>Premium Member</span>";
+						}
+						if(memberRoleId==11){
+							 premiumMember = "<span class='premium-member'>Premium Plus Member</span>";
+						}
+						if(memberRoleId==14){
+							 premiumMember = "<span class='premium-member'>Aarna Family Member</span>";
+						}
+						
 					}
 					var shortListedStr = '<span id="shortlistTD'+orderObj.id+'"><a href="#no" type="button" class="btn btn-warning btn-sm" onclick="shortList('+orderObj.id+')"> Shortlist</a></span>';
 					if(orderObj.short_listed == "1"){
@@ -733,13 +761,13 @@ tooltip:hover:after {
 						if(abtMySelf=="undefined" || abtMySelf==null){
 							abtMySelf = "";
 						}
-						var premiumMember = "";
+						/* var premiumMember = "";
 						var memberRoleId = orderObj.role_id;
 						if(memberRoleId!=null && memberRoleId!="" && (memberRoleId==6 || memberRoleId==11 ||
 								memberRoleId==12 || memberRoleId==13 || memberRoleId==14)){
 							premiumMember = "<span class='premium-member'>Premium Member</span>";
-						}
-						var shortListedStr = '<span id="shortlistTD'+orderObj.id+'"><a href="#no" type="button" class="btn btn-warning btn-sm" onclick="shortList('+orderObj.id+')"> Shortlist</a></span>';
+						} */
+						var shortListedStr = '<span id="shortlistTD'+orderObj.id+'"><a href="#no" type="button" class="btn btn-primary btn-sm" onclick="shortList('+orderObj.id+')"> Shortlist</a></span>';
 						if(orderObj.short_listed == "1"){
 							shortListedStr = '<span><a type="button" class="btn btn-warning btn-sm" disabled="true"> Shortlisted</a></span>';
 						}
@@ -788,16 +816,43 @@ tooltip:hover:after {
 							
 						}
 						var user_gender = '${cacheGuest.gender}';
-						var opp_gender_str = "";
+						var opp_gender_str = "",her_his_you = "";
 						if(user_gender!=null && user_gender!="" && (typeof user_gender != "undefined")){
 							if(user_gender=="Female"){
 								opp_gender_str = "He";
+								her_his_you = "his";
 							}else if(user_gender=="Male"){
 								opp_gender_str = "She";
+								her_his_you = "her";
 							}
 								
 						}
 						// activities to display
+						var act_list = orderObj.activities_list;
+						var logged_in_user_id = ${cacheGuest.id};
+						$.each(act_list,function(i,activity){
+							var act_str = "";
+							var act_type = activity.get("activity_type");
+							var act_done_by_id = activity.get("act_done_by_user_id");
+							if(act_done_by_id==logged_in_user_id){
+								act_str = "You";
+							}else{
+								act_str = opp_gender_str;
+								her_his_you = "your";
+							}
+							if(act_type=="profile_viewed"){
+								act_str += " viewed "+her_his_you+" profile";
+							}
+							if(act_type=="interest_request"){
+								act_str += " have sent an interest to "+her_his_you;
+							}
+							if(act_type=="mobile_no_viewed"){
+								act_str += " viewed "+her_his_you+" mobile number";
+							}
+							if(act_type=="email"){
+								act_str += " have sent an email to "+her_his_you;
+							}
+						});
 						var myMobileNumViewed_str = "";
 						var tempStr = orderObj.myMobileNumViewed;
 						if(tempStr!=null && tempStr!="" && (typeof tempStr != "undefined")){
@@ -944,7 +999,7 @@ tooltip:hover:after {
 			});
 		}
 		
-		function displayMatches_inbox_bkp(listOrders,listType,tabType){
+		/* function displayMatches_inbox_bkp(listOrders,listType,tabType){
 			serviceUnitArray = {};
 			smallerSlideIndex = {};
 			var divId = listType;
@@ -1172,12 +1227,6 @@ tooltip:hover:after {
 			            	//+ '	<tr class="showMore" hidden="true"><td colspan="2">'+orderObj.aboutMyself+'... <a href="#no" > more detailssss</a> </td></tr>'
 			            	+ '</table>'
 			            	+ '</div>'
-			            	/* + '<div id="hideMe'+orderObj.id+'" class="form-group hideMe">'
-			            	+ '    <label class="col-md-4 control-label" for="textinput"></label>'  
-			            	+ '    <div class="col-md-6 text-center">'
-			            	+ '    	<span class="more" style="color: #0087AF;cursor: pointer;"><a href="#no" >read more </a></span><i style="cursor: pointer;" class="fa fa-angle-down"></i>'
-			            	+ '    </div>'
-			            	+ '</div>' */
 			            	+ '<div class="col-md-4">'
 			            	+ '<h4 style="margin-bottom:20px;">Like this Profile?</h4>'
 			            	+ interestStr
@@ -1193,7 +1242,7 @@ tooltip:hover:after {
 					$(tblRow).appendTo("#"+divId);
 				}
 			});
-		}
+		} */
 		
 		function displayMobileNum_messages(profileId,listType,requestId){
 			var roleId = ${cacheGuest.roleId};
