@@ -10,6 +10,15 @@
   color: transparent;
   white-space: nowrap;
 }
+.likeprofile {
+margin-top:5px;
+padding:15px;
+background:#ffb7458a;
+}
+.likeprofile p {
+color:#000;
+margin-bottom:5px;
+}
 .font {
 color: #006699;
 
@@ -62,7 +71,9 @@ header h1 {
   font-size: 20px;
   font-size: 1.25rem;
 }
+.profileskip {
 
+margin-bottom:5px;}
 .cd-popup-trigger {
   display: block;
   width: 170px;
@@ -303,7 +314,30 @@ xpopup
 					 		<p id="mobileTD${profileBean.id}">
 						 		<a href="#" type="button" class="btn1 btn btn-info"  id="mobileBtn" onclick="displayMobileNum(${profileBean.id})">View Mobile Number</a>
 						 	</p>
+						 	
 					 	</c:if>
+					 	<div class="col-md-12 likeprofile">
+					 	<p>Like this profile? Take the next step by sending her a mail.</p>
+					 	<div class="col-md-4 profileskip">
+					 	<a href="#" class="btn btn-warning"><li  class="fa fa-envelope" aria-hidden="true"></li> Send Mail</a>
+					 	</div>
+					 	<div class="col-md-4 profileskip">
+					 	<a href="#" class="btn btn-default">Skip</a>
+					 	</div>
+					 	<div class="col-md-4 profileskip">
+					 	<div class="dropdown">
+    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+    <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+      <li><a href="#">Shortlist</a></li>
+      <li><a href="#">Forward</a></li>
+      <li><a href="#">Print</a></li>
+      <li><a href="#">Ignore</a></li>
+      <li><a href="#">Back</a></li>
+    </ul>
+  </div></div>
+					 	
+					 	</div>
 					 </div>
 						<div class="clearfix"></div>
 

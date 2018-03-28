@@ -251,7 +251,7 @@
 				      <div class="col-md-7 text-center">
 				     	<button type="button" id="firstButton" class="btn1 btn btn-info" onclick="submitForm()">Save & Continue</button> 
 				<!--      	<button type="button" id="skipfirstButton" class="btn1 btn btn-info" onclick="skip()">Skip</button> -->
-				      	<a style="color: blue;text-decoration: none;" href="${baseurl}/sendOtp">&nbsp;&nbsp;Skip</a>
+				      	<a class="btn btn-success " href="${baseurl}/sendOtp">&nbsp;&nbsp;Skip</a>
 				      </div>
 				    </div>
 				</div>

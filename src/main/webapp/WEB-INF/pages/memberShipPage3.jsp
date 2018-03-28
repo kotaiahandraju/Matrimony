@@ -196,11 +196,26 @@ line-height:2.5 !important;
    <form:form commandName="payment"  class="form-horizontal" id="payment-form" role="form" method="post">
         <div class="row">
         	<c:if test="${not empty packagesList}">
-        		<c:forEach items="${packagesList}" var="pack">
+        		<c:forEach items="${packagesList}" var="pack" varStatus="theCount">
 					<c:set var="packName" value="${pack.name}"/>
 					<c:if test="${packName != 'Aarna Family' }">
 						<div class="col-md-2 col-sm-2 prit" onclick="displayDetails('infoDiv${pack.id}');">
+						 <c:if test = "${theCount.index=='0'}">
 			                <div class="pricingTable blue">
+			                </c:if>
+			                 <c:if test = "${theCount.index=='1'}">
+			                <div class="pricingTable green">
+			                </c:if>
+			                 <c:if test = "${theCount.index=='2'}">
+			                <div class="pricingTable red">
+			                </c:if>
+			                 <c:if test = "${theCount.index=='3'}">
+			                <div class="pricingTable ">
+			                </c:if>
+			                 <c:if test = "${theCount.index=='4'}">
+			                <div class="pricingTable light">
+			                </c:if>
+			                
 			                    <div class="pricingTable-header">
 			                      
 			                        <div class="price-value"><li class="fa fa-inr"></li> <c:out value="${pack.price}"/> <span class="month"><c:out value="${pack.duration}"/> Months</span> </div>

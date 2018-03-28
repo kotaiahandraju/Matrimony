@@ -18,7 +18,7 @@
 					      <h3>Upload photo.</h3>
 					    </div>
 					    <div class="form-group">
-					      <label class="col-md-4 control-label" for="textinput">Image</label>
+					      <label class="col-md-4 control-label" for="textinput"></label>
 					      <div class="col-md-8">
 					      	<img src="${baseurl}/img/default.png" alt="Preview" id="previewImg" align="middle" style="border-style: solid;height: 100px;width: 100px;border-bottom-style: none;border-left-style: none;border-top-style: none;">
 					      	<input type="file" id='imageName'  onchange="checkImg(this)"><br>
@@ -33,7 +33,7 @@
 					    	<div class="col-md-offset-4 col-md-8">
 					    		<input type="button" class="btn btn-info" id="uploadBtn" value="Upload Photo" onclick="imageAjax()">
 			<!-- 		    		<button id="secondButton" class="btn2 btn btn-warning" onclick="goToNextPage()">Continue/Skip</button> -->
-					    		<a style="color: blue;text-decoration: none;" href="${baseurl}/partner-profile">&nbsp;&nbsp;Continue</a>
+					    		<a class="btn btn-success " href="${baseurl}/partner-profile">&nbsp;&nbsp;Continue</a>
 					    	</div>
 					    </div>
 					    <div class="form-group">

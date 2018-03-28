@@ -498,7 +498,7 @@ function displayMatches(listOrders) {
 		} */
 		
 			var login_user_role_id = ${cacheGuest.roleId};
-			var firstname = 'xxxxxx',lastname='xxxxxx';
+			var firstname = 'xxxxxx',lastname='xxxxxx'; 
 			
 			if((login_user_role_id == 6) || (login_user_role_id == 11) || (login_user_role_id == 12)
 					|| (login_user_role_id == 13) || (login_user_role_id == 14)){ //means premium,premium_plus,aarna premium users
@@ -608,10 +608,7 @@ function displayMobileNum(profileId,listType){
 	    		
 		});
 	}
-<<<<<<< HEAD
-	
-	
-=======
+
 	var profileObj = serviceUnitArray[profileId];
 	var formData = new FormData();
 	formData.append('profile_id',profileId);
@@ -629,7 +626,6 @@ function displayMobileNum(profileId,listType){
    			}
    		}
 	});
->>>>>>> e4476360267c874a840c5d228270923640584d8a
 }
 
 function fullProfile(profile_id){
@@ -701,7 +697,6 @@ function paginationSetup(total_items_count) {
         }
 	});
 }
-<<<<<<< HEAD
 function getNewMatches(){
 	document.searchForm2.action = "newMatches";
     document.searchForm2.submit();            
@@ -763,9 +758,7 @@ function expressInterest(profile_id){
 			});
 	}
 }
-=======
 $(".dashboard").addClass("active");
->>>>>>> e4476360267c874a840c5d228270923640584d8a
 </script>
 
 <%@ include file="userFooter.jsp"%>
