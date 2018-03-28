@@ -38,10 +38,25 @@
 	<script src="js/jquery.littlelightbox.js"></script>
 	<link href="css/jquery.littlelightbox.css" rel="stylesheet" type="text/css">
 	<style>
+.closeic {
+float:right;
 
+}
+tooltip:hover:after {
+    display: inline-block;
+    content: attr(data-tooltip);
+    white-space: pre-wrap;
+    color: Tomato;
+    background-color: OldLace;
+    padding: 1em;
+}
 	.smallSlides0 {
 	height:200px;
 	overflow:hidden;
+	}
+	.createdby {
+	color:#000 !important;
+	
 	}
 	.morecon {
 	color:#006699 !important;
@@ -454,7 +469,7 @@
 					var mobile_no__str = '';
 					var more_details_str = '';
 					var expressed = orderObj.expressedInterest;
-					var firstname = 'xxxxxx',lastname='xxxxxx';
+					var firstname = '<img src="images/blurr.png"/>',lastname='';
 					//mobile_no__str = '<tr id="row'+orderObj.id+'"><td><a href="#no" type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</a></td></tr>';
 					//insert_str = '<a href="#no" id="expInterest'+orderObj.id+'" type="button" class="btn btn-primary btn-block" onclick="expressInterest('+orderObj.id+')">Yes I\'m interested</a>';
 					/* if(expressed==0){
@@ -579,7 +594,7 @@
 						+ '<div class="form-check">'
 
 						+ '	<label class="form-check-label"> <input type="checkbox" class="form-check-input"> '+firstname+' '+lastname+'&nbsp;('+orderObj.username+')&nbsp;'+premiumMember+'</label>'
-						+ '	<span class="pull-right">Created by '+orderObj.createProfileFor+'</span>'
+						+ '	<span class="pull-right">Created by '+orderObj.createProfileFor+' <a href="#" data-toggle="tooltip" data-placement="bottom" title="Mark As Viewed"><img style="margin-left:15px;" src="images/eye.png"/></a><a href="#" data-toggle="tooltip" data-placement="bottom" title="Move this profile &#xa; to ignore  list"><img style="margin-left:15px;" src="images/ignore.png"/></a></span>'
 						//+ '	<label class="form-check-label"> <input type="checkbox" class="form-check-input"> '+orderObj.firstName+' '+orderObj.lastName+'</label>'
 //		 				+ '	<span class="pull-right">Created by '+orderObj.createProfileFor+'</span>'
 
@@ -1410,7 +1425,7 @@ function currentSlide(n) {
 }
 
 function currentSlide_inpage(current_img){
-	var str = '<img id="profilepic" src="'+current_img+'" style="width:100%" onclick="openModal();currentSlide(1)" class="hover-shadow cursor watermark_text">';
+	var str = '<img id="profilepic" src="'+current_img+'" style="width:100%"  onclick="openModal();currentSlide(1)" class="hover-shadow cursor watermark_text">';
 	//$("#profilepic").prop("src",photoImage);
 	$("#fullProfilePicOuterTag").html('');
 	$("#fullProfilePicOuterTag").html(str);
@@ -1695,10 +1710,14 @@ border:none !important;
 width:100%;
 height:auto;
 }
+blockquote {
+ margin: 0.5em 10px !important;
+}
 blockquote p {
   display: inline;
   word-wrap:break-word;
   min-height:10px;
+ 
 }
 .preprofile {
 	width:90px;
@@ -1794,9 +1813,9 @@ transition:none !important;
 }
 .premium-member {
 	background-color: #319604;
-	color: #fff;
-	padding: 4px 9px;
-	font-size: 11px;
+	color: #fff !important;
+	padding: 2px 9px;
+	font-size: 11px !important;
 	border: none;
 	cursor: pointer;
 	border-radius: 1px;
@@ -2714,7 +2733,87 @@ img.hover-shadow {
   </div>
   </div>
 
+<div class="modal fade" id="myModalthumb" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        
+        <div class="modal-body">
+       
+         <div class="bg"></div>
 
+
+
+<section class="welcome">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-12 a">
+  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <div id="mySlider" class="raxus-slider" data-autoplay="3000" data-arrows="show" data-fullscreen="show" data-dots="show" data-keypress="true" data-thumbnail="bottom">
+                    <ul class="slider-relative" id="relative">
+                        <li class="slide fix-width">
+                            <a href=""><img src="img/107791.png" alt=""></a>
+                            
+                        </li>
+                        
+                        <li class="slide">
+                            <img src="img/100587.png" alt="" data-thumbnailurl="img/100587.png">
+                           
+                        </li>
+                        <li class="slide">
+                            <a href=""><img src="img/74520.png" alt=""></a>
+                           
+                        </li>
+                       
+                        <li class="slide">
+                            <img src="img/74564.png" alt="">
+                        </li>
+                        <li class="slide fix-width">
+                            <img src="img/101765.png" alt="">
+                            
+                        </li>
+                        <li class="slide fix-width">
+                            <img src="img/102306.png" alt="">
+                        </li>
+                       
+                        <li class="slide">
+                             <img src="img/102379.png" alt="">
+                        </li>
+                        <li class="slide">
+                            <img src="img/10323.png" alt="">
+                        </li>
+                        <li class="slide">
+                             <img src="img/10533.png" alt="">
+                        </li>
+                        <li class="slide">
+                            <img src="img/106234.png" alt="">
+                            
+                        </li>
+                        <li class="slide">
+                           <img src="img/106967.png" alt="">
+                        </li>
+                        <li class="slide fix-width">
+                            <img src="img/106621.png" alt="">
+                          
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            
+        </div>
+    </div>
+</section>
+
+        </div>
+       
+      </div>
+      
+    </div>
+  </div>
 	<%-- <div class="mega_nav">
 		<div class="container">
 			<div class="menu_sec">

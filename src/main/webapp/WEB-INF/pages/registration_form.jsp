@@ -304,7 +304,7 @@
 					      <div class="col-md-6">
 					      <button type="button" id="fourthButton" onclick="fourthForm(event);" value="Create Profile" class="btn4 btn btn-info">Create Profile</button>
 					<!--       <button type="button" id="skipfourthButton" onclick="skipfourthForm(event);" value="Skip" class="btn4 btn btn-info">Skip</button> -->
-					      <a style="color: blue;text-decoration: none;" href="${baseurl}/family-details">&nbsp;&nbsp;Skip</a>
+					      <a style="color: ;text-decoration: none;" class="btn btn-success " href="${baseurl}/family-details">&nbsp;&nbsp;Skip</a>
 					      </div>
 					    </div>
 					</div>

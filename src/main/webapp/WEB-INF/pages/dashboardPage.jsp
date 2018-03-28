@@ -1,5 +1,309 @@
 <%@ include file="userHeader.jsp"%>
-			
+
+ <!-- for Raxus Slider -->
+    <link rel="stylesheet" href="css/raxus.css" media="screen" type="text/css">
+    <script type="text/javascript" src="js/raxus-slider.min.js"></script>
+    <!-- for Raxus Slider #end -->
+
+    <!-- for documentation: you don't need them -->
+    <link rel="stylesheet" href="documentation/css/documentation.css" media="screen" type="text/css">
+    <link rel="stylesheet" href="../yandex.st/highlightjs/8.0/styles/default.min.css" media="screen" type="text/css">
+    <script type="text/javascript" src="documentation/js/document.js"></script>
+    <script src="documentation/js/highlight.pack.js"></script>
+     
+    <script>hljs.initHighlightingOnLoad();</script>
+    <!-- for documentation #end: you don't need them -->
+
+    <style>
+        #mySlider {
+            width: 550px;
+            height: 400px;
+            margin: auto; /* for center alignment */
+        }
+        #mySlider .mini-images li {
+            width: 100px;
+            height: 50px;
+        }
+        
+        .modal-header .close {
+    margin-top: -12px;
+}
+@media (min-width: 768px) {}
+.modal-dialog {
+   width: px !important;
+    margin: 30px 250px !important;
+}
+}
+        /* for tablet */
+        @media screen and (max-width: 980px) {
+            #mySlider {
+                width: 100%;
+                height: 450px;
+            }
+        }
+        /* for mobile */
+        @media screen and (max-width: 640px) {
+            #mySlider {
+                width: 570px;
+                height: 450px;
+            }
+        }
+         @media screen and (max-width: 480px) {
+            #mySlider {
+                width: 400px;
+                height: 380px;
+            }
+        }
+          @media screen and (max-width: 360px) {
+            #mySlider {
+                width: 350px;
+                height: 350px;
+            }
+        }
+          @media screen and (max-width: 320px) {
+            #mySlider {
+                width: 300px;
+                height: 250px;
+            }
+        }
+    </style>
+
+		<style>
+/* #slider {
+  width: 500px;
+  height: 300px;
+  margin: 0 auto 10px;
+  overflow: hidden;
+  position: relative;
+}
+#slider ul {
+  overflow: hidden;
+  *zoom: 1;
+}
+#slider ul li {
+  font-size: 1.5em;
+  color: #fff;
+  text-align: center;
+  float: left;
+  width: 560px;
+  height: 300px;
+  line-height: 300px;
+}
+#slider a {
+  display: block;
+  position: absolute;
+  color: #fff;
+  font-size: 2em;
+  top: 50%;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  margin-top: -15px;
+  text-decoration: none;
+  background: #000;
+}
+#slider a#sliderNext {
+  right: 0;
+}
+#slider a:hover {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
+  opacity: 0.5;
+}
+
+#pager {
+  text-align: center;
+}
+#pager a {
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  *zoom: 1;
+  *display: inline;
+  cursor: pointer;
+  -moz-transition-property: opacity;
+  -o-transition-property: opacity;
+  -webkit-transition-property: opacity;
+  transition-property: opacity;
+  -moz-transition-duration: 0.2s;
+  -o-transition-duration: 0.2s;
+  -webkit-transition-duration: 0.2s;
+  transition-duration: 0.2s;
+  -moz-transition-timing-function: ease-in;
+  -o-transition-timing-function: ease-in;
+  -webkit-transition-timing-function: ease-in;
+  transition-timing-function: ease-in;
+}
+#pager a:hover, #pager a.active {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
+  opacity: 0.5;
+}
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+}
+.overlay:target {
+  visibility: visible;
+  opacity: 1;
+}
+
+.popup {
+  margin: 50px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 50%;
+  position: relative;
+  transition: all 5s ease-in-out;
+}
+
+.popup h2 {
+  margin-top: 0;
+  color: #333;
+  font-family:  Arial, sans-serif;
+}
+.popup .close {
+  position: absolute;
+  top: 0px;
+  right: 10px;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+}
+.popup .close:hover {
+  color: #06D85F;
+}
+.popup .content {
+  max-height: 30%;
+  overflow: auto;
+}
+
+@media screen and (max-width: 700px){
+  .box{
+    width: 70%;
+  }
+  .popup{
+    width: 70%;
+  }
+} */
+/* .modal-backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1040;
+    background-color: #000;
+}
+.modal-backdrop.in {
+  
+    opacity: .5;
+}   */
+.modal
+{
+background: none !important;
+}
+</style>	
+
+
+  <!-- Modal -->
+  <div tabindex="-1" class="modal fade in" id="myModalNew" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-header">
+      	<button style="float:right;" type="button" class="close btn btn-primary" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-content">
+        
+        <div class="modal-body">
+       
+         
+
+
+<section class="welcome">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-12">
+  
+                <div id="mySlider" class="raxus-slider" data-autoplay="3000" data-arrows="show"  data-dots="show" data-keypress="true" data-thumbnail="bottom">
+                    <ul class="slider-relative" id="relative">
+                        <li class="slide fix-width">
+                            <img src="img/107791.png" alt="">
+                            
+                        </li>
+                        
+                        <li class="slide">
+                            <img src="img/100587.png" alt="" data-thumbnailurl="img/100587.png">
+                           
+                        </li>
+                        <li class="slide">
+                            <img src="img/74520.png" alt="">
+                           
+                        </li>
+                       
+                        <li class="slide">
+                            <img src="img/74564.png" alt="">
+                        </li>
+                        <li class="slide fix-width">
+                            <img src="img/101765.png" alt="">
+                            
+                        </li>
+                        <li class="slide fix-width">
+                            <img src="img/102306.png" alt="">
+                        </li>
+                       
+                        <li class="slide">
+                             <img src="img/102379.png" alt="">
+                        </li>
+                        <li class="slide">
+                            <img src="img/10323.png" alt="">
+                        </li>
+                        <li class="slide">
+                             <img src="img/10533.png" alt="">
+                        </li>
+                        <li class="slide">
+                            <img src="img/106234.png" alt="">
+                            
+                        </li>
+                        <li class="slide">
+                           <img src="img/106967.png" alt="">
+                        </li>
+                        <li class="slide fix-width">
+                            <img src="img/106621.png" alt="">
+                          
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            
+        </div>
+    </div>
+</section>
+
+        </div>
+       
+      </div>
+      
+    </div>
+  </div>
+
+
+
+
+
 			<div class="col-md-9 products-grid-left">
 				<div class="panel panel-default">
 					<div class="panel-body">
@@ -48,7 +352,10 @@
 					    </div>
 					</div></div></div></div>
 				</div>
-            
+				
+
+
+           
            
             <!-- <div class="col-md-3">
            <div class="panel panel-success">
@@ -202,6 +509,7 @@ function displayMatches(listOrders) {
 	            + '</div>'
 	            + '<div class="clearfix" style="border-bottom:1px solid #f1f11;margin-bottom:5px;"></div>'
 	            + '<hr>'
+	          
 	            + '</div>';
 	        /* var login_user_role_id = ${cacheGuest.roleId};
 	        if(login_user_role_id==4){ // means free user
@@ -521,5 +829,114 @@ function verifyEmail(){
 	 
 $(".dashboard").addClass("active");
 </script>
+<script>
+$(function(){
+	var slider = $('#slider');
+	var sliderWrap = $('#slider ul');
+	var sliderImg = $('#slider ul li');
+	var prevBtm = $('#sliderPrev');
+	var nextBtm = $('#sliderNext');
+	var length = sliderImg.length;
+	var width = sliderImg.width();
+	var thumbWidth = width/length;
+
+	sliderWrap.width(width*(length+2));
+
+	//Set up
+	slider.after('<div id="' + 'pager' + '"></div>');
+	var dataVal = 1;
+	sliderImg.each(
+		function(){
+			$(this).attr('data-img',dataVal);
+			$('#pager').append('<a data-img="' + dataVal + '"><img src=' + $('img', this).attr('src') + ' width=' + thumbWidth + '></a>');
+		dataVal++;
+	});
+	
+	//Copy 2 images and put them in the front and at the end
+	$('#slider ul li:first-child').clone().appendTo('#slider ul');
+	$('#slider ul li:nth-child(' + length + ')').clone().prependTo('#slider ul');
+
+	sliderWrap.css('margin-left', - width);
+	$('#slider ul li:nth-child(2)').addClass('active');
+
+	var imgPos = pagerPos = $('#slider ul li.active').attr('data-img');
+	$('#pager a:nth-child(' +pagerPos+ ')').addClass('active');
+
+
+	//Click on Pager  
+	$('#pager a').on('click', function() {
+		pagerPos = $(this).attr('data-img');
+		$('#pager a.active').removeClass('active');
+		$(this).addClass('active');
+
+		if (pagerPos > imgPos) {
+			var movePx = width * (pagerPos - imgPos);
+			moveNext(movePx);
+		}
+
+		if (pagerPos < imgPos) {
+			var movePx = width * (imgPos - pagerPos);
+			movePrev(movePx);
+		}
+		return false;
+	});
+
+	//Click on Buttons
+	nextBtm.on('click', function(){
+		moveNext(width);
+		return false;
+	});
+
+	prevBtm.on('click', function(){
+		movePrev(width);
+		return false;
+	});
+
+	//Function for pager active motion
+	function pagerActive() {
+		pagerPos = imgPos;
+		$('#pager a.active').removeClass('active');
+		$('#pager a[data-img="' + pagerPos + '"]').addClass('active');
+	}
+
+	//Function for moveNext Button
+	function moveNext(moveWidth) {
+		sliderWrap.animate({
+    		'margin-left': '-=' + moveWidth
+  			}, 500, function() {
+  				if (imgPos==length) {
+  					imgPos=1;
+  					sliderWrap.css('margin-left', - width);
+  				}
+  				else if (pagerPos > imgPos) {
+  					imgPos = pagerPos;
+  				} 
+  				else {
+  					imgPos++;
+  				}
+  				pagerActive();
+  		});
+	}
+
+	//Function for movePrev Button
+	function movePrev(moveWidth) {
+		sliderWrap.animate({
+    		'margin-left': '+=' + moveWidth
+  			}, 500, function() {
+  				if (imgPos==1) {
+  					imgPos=length;
+  					sliderWrap.css('margin-left', -(width*length));
+  				}
+  				else if (pagerPos < imgPos) {
+  					imgPos = pagerPos;
+  				} 
+  				else {
+  					imgPos--;
+  				}
+  				pagerActive();
+  		});
+	}
+
+});</script>
 
 <%@ include file="userFooter.jsp"%>

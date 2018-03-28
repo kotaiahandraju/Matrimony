@@ -146,6 +146,7 @@ s.parentNode.insertBefore(ga, s);
 							serviceUnitArray[orderObj.id] = orderObj;
 							if(orderObj.firstName !=null){
 							var tblRow = "<tr >"
+								+ "<td title='"+orderObj.created_time+"'>" + orderObj.created_time + "</td>"
 								+ "<td title='"+orderObj.username+"'>" + orderObj.username + "</td>"
 								+ "<td title='"+orderObj.firstName+"'>" + orderObj.firstName + "</td>"
 								+ "<td title='"+orderObj.lastName+"'>" + orderObj.lastName + "</td>"

@@ -98,7 +98,7 @@
 					      <div class="col-md-6">
 					    	<button type="button" id="secondButton" class="btn2 btn btn-info" onclick="submitForm()">Continue</button>
 					<!--     	<button type="button" id="skipsecondButton" class="btn2 btn btn-info" onclick="skip()">Skip</button> -->
-					    	<a style="color: blue;text-decoration: none;" href="${baseurl}/uploadPhotos">&nbsp;&nbsp;Skip</a>
+					    	<a  class="btn btn-success " href="${baseurl}/uploadPhotos">&nbsp;&nbsp;Skip</a>
 					      </div>
 					    </div>
 					</div>
