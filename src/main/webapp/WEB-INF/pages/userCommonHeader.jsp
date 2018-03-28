@@ -2327,7 +2327,7 @@ body {
 }
 
 /* The Modal (background) */
-.modal {
+/* .modal {
 	display: none;
 	position: fixed;
 	z-index: 1;
@@ -2338,10 +2338,10 @@ body {
 	height: 100%;
 	overflow: auto;
 	background-color: black;
-}
+} */
 
 /* Modal Content */
-.modal-content {
+/* .modal-content {
 	position: relative;
 	background-color: #fefefe;
 	margin: auto;
@@ -2349,17 +2349,17 @@ body {
 	width: 60%;
 	height: 50%;
 	background-color: black;
-}
+} */
 
 /* The Close Button */
-.close {
+/* .close {
 	color: white;
 	position: absolute;
 	top: 10px;
 	right: 25px;
 	font-size: 35px;
 	font-weight: bold;
-}
+} */
 
 .close:hover, .close:focus {
 	color: #999;
@@ -2441,7 +2441,7 @@ img {
 }
 
 /* The Modal (background) */
-.modal {
+/* .modal {
 	display: none;
 	position: fixed;
 	z-index: 1;
@@ -2452,10 +2452,10 @@ img {
 	height: 100%;
 	overflow: auto;
 	background-color: black;
-}
+} */
 
 /* Modal Content */
-.modal-content {
+/* .modal-content {
 	position: relative;
 	background-color: #fefefe;
 	margin: auto;
@@ -2463,17 +2463,17 @@ img {
 	width: 60%;
 	height: 0px;
 	background-color: transparent;
-}
+} */
 
 /* The Close Button */
-.close {
+/* .close {
 	color: white;
 	position: absolute;
 	top: 10px;
 	right: 25px;
 	font-size: 35px;
 	font-weight: bold;
-}
+} */
 
 .close:hover, .close:focus {
 	color: #999;

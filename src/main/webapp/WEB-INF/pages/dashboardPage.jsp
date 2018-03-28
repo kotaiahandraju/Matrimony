@@ -16,8 +16,8 @@
 
     <style>
         #mySlider {
-            width: 550px;
-            height: 400px;
+            width: 580px;
+            height: 520px;
             margin: auto; /* for center alignment */
         }
         #mySlider .mini-images li {
@@ -25,15 +25,15 @@
             height: 50px;
         }
         
-        .modal-header .close {
+       /*  .modal-header .close {
     margin-top: -12px;
-}
-@media (min-width: 768px) {}
+} */
+/* @media (min-width: 768px) {
 .modal-dialog {
    width: px !important;
     margin: 30px 250px !important;
 }
-}
+} */
         /* for tablet */
         @media screen and (max-width: 980px) {
             #mySlider {
@@ -54,15 +54,21 @@
                 height: 380px;
             }
         }
-          @media screen and (max-width: 360px) {
+         @media screen and (max-width: 414px) {
             #mySlider {
                 width: 350px;
                 height: 350px;
             }
         }
-          @media screen and (max-width: 320px) {
+          @media screen and (max-width: 360px) {
             #mySlider {
                 width: 300px;
+                height: 350px;
+            }
+        }
+          @media screen and (max-width: 320px) {
+            #mySlider {
+                width: 280px;
                 height: 250px;
             }
         }
@@ -195,7 +201,7 @@
     width: 70%;
   }
 } */
-/* .modal-backdrop {
+ .modal-backdrop {
     position: fixed;
     top: 0;
     right: 0;
@@ -207,7 +213,7 @@
 .modal-backdrop.in {
   
     opacity: .5;
-}   */
+}   
 .modal
 {
 background: none !important;
@@ -220,9 +226,7 @@ background: none !important;
     <div class="modal-dialog">
     
       <!-- Modal content-->
-      <div class="modal-header">
-      	<button style="float:right;" type="button" class="close btn btn-primary" data-dismiss="modal">&times;</button>
-      </div>
+    
       <div class="modal-content">
         
         <div class="modal-body">
@@ -234,12 +238,12 @@ background: none !important;
     <div class="container">
 
         <div class="row">
-            <div class="col-md-12">
-  
+            
+  <button style="float:right;" type="button" class="close" data-dismiss="modal">&times;</button>
                 <div id="mySlider" class="raxus-slider" data-autoplay="3000" data-arrows="show"  data-dots="show" data-keypress="true" data-thumbnail="bottom">
                     <ul class="slider-relative" id="relative">
                         <li class="slide fix-width">
-                            <img src="img/107791.png" alt="">
+                            <img src="img/113510.png" alt="">
                             
                         </li>
                         
@@ -284,7 +288,7 @@ background: none !important;
                           
                         </li>
                     </ul>
-                </div>
+               
 
             </div>
 
