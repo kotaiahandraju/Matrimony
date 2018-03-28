@@ -813,7 +813,7 @@
 								
 						}
 						// activities to display
-						var act_list = orderObj.activities_list;
+						/* var act_list = orderObj.activities_list;
 						var logged_in_user_id = ${cacheGuest.id};
 						$.each(act_list,function(i,activity){
 							var act_str = "";
@@ -837,7 +837,7 @@
 							if(act_type=="email"){
 								act_str += " have sent an email to "+her_his_you;
 							}
-						});
+						}); */
 						var myMobileNumViewed_str = "";
 						var tempStr = orderObj.myMobileNumViewed;
 						if(tempStr!=null && tempStr!="" && (typeof tempStr != "undefined")){
