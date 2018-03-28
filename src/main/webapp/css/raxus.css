@@ -55,7 +55,7 @@ http://pikselmatik.com
 	margin-top: -15px;
 	cursor: pointer;
 	z-index: 2;
-	background: url(../img/sprite.png) rgba(0,0,0,0.8) no-repeat;
+	background: url(../images/sprite.png) rgba(0,0,0,0.8) no-repeat;
 	transition: all .1s;
 	-moz-transition: all .1s;
 	-webkit-transition: all .1s;
@@ -275,7 +275,7 @@ http://pikselmatik.com
 	width: 60px;
 	height: 50px;
 	border-radius: 5px;
-	background: url(../img/sprite.png) -58px 14px rgba(0,0,0,0.6) no-repeat;
+	background: url(../images/sprite.png) -58px 14px rgba(0,0,0,0.6) no-repeat;
 	margin: -25px 0 0 -30px;
 	cursor: pointer;
 }
@@ -554,7 +554,7 @@ http://pikselmatik.com
 .raxus-slider .close-video {
 	width: 30px;
 	height: 30px;
-	background: url(../img/sprite.png) 8px -51px rgba(0,0,0,0.8);
+	background: url(../images/sprite.png) 8px -51px rgba(0,0,0,0.8);
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -572,7 +572,7 @@ http://pikselmatik.com
 	opacity: 1;
 }
 .raxus-slider .close-video {
-	background: url(../img/sprite.png) -16px -51px rgba(0,0,0,0.8);
+	background: url(../images/sprite.png) -16px -51px rgba(0,0,0,0.8);
 }
 
 .raxus-slider[data-loop=false] .arrow-l {
