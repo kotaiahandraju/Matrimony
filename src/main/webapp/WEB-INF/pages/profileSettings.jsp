@@ -29,13 +29,22 @@
 		<style>
 			/** Start: to style navigation tab **/
 			.nav {
-			  margin-bottom: 18px;
+			  margin-bottom: px;
 			  margin-left: 0;
 			  list-style: none;
+			}
+			.btnre {
+			margin-bottom:5px;
+			float: left;
+    margin: 5px;
 			}
 
 			.nav > li > a {
 			  display: block;
+			}
+			a {
+			list-style:none;
+			text-decoration:none;
 			}
 			
 			.nav-tabs{
@@ -54,6 +63,11 @@
 
 			.nav-tabs > li {
 			  float: left;
+			}
+			legend {
+			font-size:16px;
+			padding:5px;
+			margin-bottom:10px;
 			}
 
 			.nav-tabs > li > a {
@@ -93,7 +107,10 @@
 			  border: 1px solid #ddd;
 			  border-bottom-color: transparent;
 			}
-			
+			.control-label {
+			color:#000;
+			font-size:13px;
+			}
 			li {
 			  line-height: 18px;
 			}
@@ -105,7 +122,24 @@
 			.tab-content.hide{
 				display: none;
 			}
-			
+::-webkit-input-placeholder {
+color: #cfcfcf !important;
+
+}
+ 
+:-moz-placeholder { /* Firefox 18- */
+color: #cfcfcf !important; 
+
+}
+ 
+::-moz-placeholder {  /* Firefox 19+ */
+color: #cfcfcf !important;  
+
+}
+ 
+:-ms-input-placeholder {  
+color: #cfcfcf !important;  
+}
 			
 			/** End: to style navigation tab **/
 		</style>
@@ -116,9 +150,16 @@
 			<div class="col-md-8 products-grid-left">
 				<form:form commandName="createProfile"  class="form-horizontal" id="searchForm2" name="searchForm2" role="form"   method="post">
 	
-					
+    
 					<div id="change_password" class="all_settings_divs">
-					<div class="row">
+					<div class="panel panel-success">
+							<div class="panel-heading">
+								Change Password
+							</div>
+							<div class="panel-body">
+							<div class="row">
+							<div class="col-md-12">
+					<!-- <div class="row">
 					<div class="col-md-4">
 						<h3 style='color: black; font-size: 16px;'>Enter Current Password</h3><br>
 						<input style='border-style: solid; border-radius: 4px;' type="password" id="currentPassword" required="required">
@@ -131,20 +172,53 @@
 						<h3 style='color: black; font-size: 16px;'>Confirm New Password</h3><br>
 						<input style='border-style: solid; border-radius: 4px;' type="password" id="newPassword2" required="required">						
 						</div>						
-					</div>
+					</div> -->
+					
+	<div class="form-group">
+     <label class="col-sm-5 control-label">Enter Current Password</label>
+     <div class="col-sm-5">
+     <input class="form-control" type="password" id="currentPassword" placeholder="Enter Current Password" onblur="this.placeholder='Enter Current Password'" onfocus="this.placeholder=''" required="required" >
+    </div>
+    </div>
+    <div class="form-group">
+     <label class="col-sm-5 control-label">Enter New Password</label>
+     <div class="col-sm-5">
+     <input class="form-control" type="password" id="newPassword1" placeholder="Enter New Password" onblur="this.placeholder='Enter New Password'" onfocus="this.placeholder=''" required="required" >
+    </div>
+    </div>
+     <div class="form-group">
+     <label class="col-sm-5 control-label">Confirm New Password</label>
+     <div class="col-sm-5">
+     <input class="form-control" type="password" id="newPassword2" placeholder="Confirm New Password" onblur="this.placeholder='Confirm New Password'" onfocus="this.placeholder=''" required="required" >
+    </div>
+    </div>
 					<br>
-						<div class="col-md-3 col-md-offset-9">
-						<input style='background: teal;color: whitesmoke;border-radius: 6px;padding: 7px;width: 102px;' type="button" type="button" value="Submit" onclick="submitProfileSettings('change_password')" />
+					<div class="col-md-12">
+					<div class="col-md-6"></div>
+						<div class="col-md-2">
+						<input  type="button" class="btn btn-primary btnre"  value="Submit" onclick="submitProfileSettings('change_password')" />
 						</div>
-					</div>
+						<div class="col-md-2 ">
+						<input  type="button" class="btn btn-danger btnre"  value="Reset" onclick="submitProfileSettings('change_password')" />
+						</div>
+						</div>
+					</div></div></div></div></div>
 					<div id="profile_settings" class="all_settings_divs" hidden="true">						
-						<h4 style='font-size: 18px; line-height: 31px; color: black; border-bottom: 1px dotted'>Your Profile Privacy has been set as "Show my Profile to all including visitors"</h4>
-						<p style='line-height: color: black; 41px; border-bottom: 1px dotted;'><input type="radio" style='color: black;'>Show my Profile to all including visitors.
+					<div class="panel panel-success">
+							<div class="panel-heading">
+								Profile Settings
+							</div>
+							<div class="panel-body">
+							<div class="row">
+							<div class="col-md-12">
+								<h4 style='font-size: 16px; line-height: 31px; color: black;'>Your Profile Privacy has been set as "Show my Profile to all including visitors"</h4>
+						<p style='line-height: color: black; 41px; margin-bottom:5px; '><input type="radio" style='color: black;'> Show my Profile to all including visitors.
 						<br>
-						<input type="radio" style='color: black;'>Show my Profile to registered members only.</p>
+						<input type="radio" style='color: black; margin-bottom:5px;'> Show my Profile to registered members only.</p>
 						<p style='color: black;'><input  style='color: black;' type="checkbox" id="know_ishortlisted">&nbsp;&nbsp;Let others know that I shortlisted their profile.</p></input><br>
-						<input type="button" style="background: teal;padding: 5px 19px;color: wheat;font-weight: bold;border-radius: 4px;float: right;"type="button" align='right' value="Submit" onclick="submitProfileSettings('profile_settings')" />
-					</div>
+						<input type="button" class="btn btn-success" align='right' value="Submit" onclick="submitProfileSettings('profile_settings')" />
+					<br></div>
+					</div></div></div></div>
 					<div id="membership_details" class="all_settings_divs" hidden="true">
 						<div class="panel panel-success">
 							<div class="panel-heading">
@@ -171,7 +245,7 @@
 										<td id="membership_status"></td>
 									</tr>
 									<tr>
-										<td>Membership Validity</td>
+										<td>Membership Validity &nbsp;</td>
 										<td>:</td>
 										<td id="membership_validity"></td>
 									</tr>
@@ -191,21 +265,21 @@
 								<table>
 								<h3><legend>Mobile Number Count</legend></h3>
 									<tr>
-										<td>Total Profile Count</td>
+										<td>Total  Count &nbsp;</td>
 										<td>:</td>
 										<td id="total_profile_count"></td>
 									</tr>
 									<tr>
-										<td>Profile Count Left</td>
+										<td> Count Left</td>
 										<td>:</td>
 										<td id="left_profile_count"></td>
 									</tr>
 								</table>
-								<br><br>
+								<br>
 								<table>
 								<h3><legend>SMS Count</legend></h3>
 									<tr>
-										<td>Total Count</td>
+										<td>Total Count &nbsp;</td>
 										<td>:</td>
 										<td id="total_profile_count"></td>
 									</tr>
@@ -214,7 +288,7 @@
 										<td>:</td>
 										<td id="left_profile_count"></td>
 									</tr>
-								</table>
+								</table><br>
 								</div>
 								</div>
 								<div class="row" style='border-top: 2px dashed; line-height: 31px;'>
@@ -223,15 +297,18 @@
 								<h2><legend>ADD ON PACKAGES</legend></h2>
 								<h4>ASTROMATCH</h4>
 								<tr>
-								<td>Last Renewed</td>
+								<td>Last Renewed &nbsp;</td>
+									<td>: &nbsp;</td>
 								<td>09 March 2018</td>
 								</tr>
 								<tr>
-								<td>Total Count</td>
+								<td>Total Count &nbsp;</td>
+								<td>:</td>
 								<td>45</td>
 								</tr>
 								<tr>
 								<td>Count Left</td>
+								<td>:</td>
 								<td>12</td>
 								</tr>
 								</table>
@@ -241,7 +318,13 @@
 						</div>
 					</div>
 					<div id="deactivate_profile" class="all_settings_divs" hidden="true" style="color: black;">
-					
+					<div class="panel panel-success">
+							<div class="panel-heading">
+							Activate/Deactivate Profile
+							</div>
+							<div class="panel-body">
+							<div class="row">
+							<div class="col-md-12">
 						<c:if test="${cacheGuest.status} == '1'">
 							Your profile is currently Active. Click on below button if you want to deactivate your profile.<br>
 							<input type="button" type="button" value="Deactivate My Account" onclick="changeProfileStatus(0)" />
@@ -254,51 +337,64 @@
 							Your profile is currently Active. <br>
 							Click on below button if you want to deactivate your profile.You can activate it again whenever you want using settings.<br>
 							<br>
-							<input type="button" type="button" value="Deactivate My Account" onclick="changeProfileStatus(0)" />
+							<input type="button" class="btn btn-warning"   value="Deactivate My Account" onclick="changeProfileStatus(0)" />
 						</c:if><br>
 						<c:if test="${cacheGuest.status == '0'}">
 							Your profile is currently In-Active. Click on below button to activate your profile.<br>
-							<input type="button" type="button" style="float: right;" value="Activate My Account" onclick="changeProfileStatus(1)" />
+							<input type="button"  class="btn btn-warning" style="float: right;" value="Activate My Account" onclick="changeProfileStatus(1)" />
 						</c:if>
-						
-						
+						</div></div></div>
+						</div>
 					</div>
 					<div id="delete_profile" class="all_settings_divs" hidden="true">
-						<legend>Delete Profile</legend>
+						<div class="panel panel-success">
+							<div class="panel-heading">
+							Delete Profile
+							</div>
+							<div class="panel-body">
+							<div class="row">
+							<div class="col-md-12">
+						
 						<p style="color: black;">Please choose a reason for profile deletion.</p><br><br>
 						<div class='row'>
-						<div class='col-md-3' style='width: 225px; background: lightgrey;border-radius: 12px;padding: 7px 10px;color: black;margin: 0px 0px 0px 14px;'>
+						<div class='col-md-3' style='width: 225px; background: #f1f1f1;border-radius: 12px;padding: 7px 10px;color: black;margin: 0px 0px 0px 14px;'>
 						<input type="radio" /> &nbsp;&nbsp;&nbsp;Marriage Fixed&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						</div>
-						<div class='col-md-3' style='background: lightgrey;border-radius: 12px;padding: 7px 10px;color: black;margin: 0px 0px 0px 14px;'>
+						<div class='col-md-3' style='background: #f1f1f1;border-radius: 12px;padding: 7px 10px;color: black;margin: 0px 0px 0px 14px;'>
 						<input type="radio" /> &nbsp;&nbsp;&nbsp;Married&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						</div>
-						<div class='col-md-3' style='background: lightgrey;border-radius: 12px;padding: 7px 10px;color: black;margin: 0px 0px 0px 14px;'>
+						<div class='col-md-3' style='background: #f1f1f1;border-radius: 12px;padding: 7px 10px;color: black;margin: 0px 0px 0px 14px;'>
 						<input type="radio" /> &nbsp;&nbsp;&nbsp;Other Reasons
 						</div>
 						</div><br><br>
-						<input type="button" style='background: teal;border-radius: 4px;color: white;font-weight: bold;padding: 6px 12px;float: right;' type="button" value="Delete Account" onclick="deleteProfile('delete_profile')" />
-					</div>
+						<input type="button" class="btn btn-danger" type="button" value="Delete Account" onclick="deleteProfile('delete_profile')" />
+					</div></div></div></div></div>
 	
 					<div id="edit_emailaddress" class="all_settings_divs" hidden="true">
-					<legend style='border-bottom: -31px dotted; color: black;'>Edit Email Address</legend>
+					<div class="panel panel-success">
+							<div class="panel-heading">
+							Edit Email Address
+							</div>
+							<div class="panel-body">
+							<div class="row">
+							<div class="col-md-12">
 					<p style="color: black;">A valid e-mail id will be used to send you partner search mailers, member to member communication mailers and special offers.</p>
 					<div class="form-group" style="margin: auto;">
   						<label class="control-label" style="color: black;">Enter Email ID</label>  							
     							<div class="input-group mb-3">
-      								<input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">      								     								
+      								<input type="text" placeholder="Enter Email id" class="form-control" aria-label="Amount (to the nearest dollar)">      								     								
     							</div>
     							<br>
-      								<input type="button" style='margin: 0px 0px 0px 53px; background: teal;border-radius: 4px;color: white;font-weight: bold;padding: 6px 12px;float: left;' type="button" value="Save"  />
+      								<input type="button" class="btn btn-success" type="button" value="Save"  />
 									 
-									 <input type="button" style='background: tomato;border-radius: 4px;color: white;font-weight: bold;padding: 6px 12px;float: left;' type="button" value="Reset"  />
+									 <input type="button" class="btn btn-danger"  type="button" value="Reset"  />
 									
-					</div>
+					</div></div></div></div></div>
 					</div>
 					
 	
 				</form:form>	
-			</div>
+			</div><div class="clearfix"></div><br><br>
 			
 			
        <script>
@@ -334,6 +430,10 @@ function displaySettingsBlock(divId){
 		});
 	}
 	$(".all_settings_divs").attr("hidden",true);
+	var cls=divId.split('_');
+	var clss=cls[0]+'-'+cls[1];
+	$(".profileTab tr").removeClass('active');
+	$("."+clss).parent('td').parent('tr').addClass('active');
 	$("#"+divId).removeAttr("hidden");
 }
 function validate(id, errorMessage)

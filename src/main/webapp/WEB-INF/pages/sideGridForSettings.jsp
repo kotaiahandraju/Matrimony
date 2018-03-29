@@ -1,33 +1,65 @@
+<style>
+a {
+color:#337ab7;}
+/* Change background color of buttons on hover */
 
+.table tr td:hover {
+ background: #FFF!important;
+  text-decoration:none;
+  list-style:none;
+  
+}
+
+
+/* Create an active/current "tab button" class */
+.table tr td.active {
+    background: #D4ECFD;
+    font-weight: bold;
+    text-decoration:none !important;
+    list-style:none;
+ 	color: #ec971f !important;
+}
+ .profileTab tbody tr td:hover
+ {
+ 	background-color: #f5f5f5 !important;
+ 	cursor: pointer;
+ 	color: #ec971f !important;
+ }
+ .profileTab tbody .active td a
+ {
+ 	text-decoration: none !important;
+ 	color: #ec971f !important;
+ } 
+</style>
 <h4><strong>Profile Settings</strong></h4>
 <div class="col-md-3 products-grid-right">
 				
-				<div class="panel panel-success">
-					<div class="panel-body">
+				<div class="panel panel-success" style="width:185px;" >
+					<div class="panel-body"  style="padding:0px 0px !important;">
 						
 						<div class="tabbable" id="tabs-343694">
 							
 							<div class="tab-content">
 								<div class="tab" id="inbox">
-									<table width="100%" class="dotted-seperator">
-										<tr>
-											<td height="30"><a href="#" onclick="displaySettingsBlock('change_password');" class="tablinks" id="defaultOpen">Change Password</a></td>
+									<table width="100%" class="dotted-seperator table table-hover profileTab">
+										<tr class="active">
+											<td height="30"><a href="#" onclick="displaySettingsBlock('change_password');" class="tablinks change-password" id="defaultOpen">Change Password</a></td>
 											
 										</tr>
 										<tr>
-											<td height="30"><a href="#" onclick="displaySettingsBlock('profile_settings');" class="tablinks" >Profile Settings</a></td>
+											<td height="30"><a href="#" onclick="displaySettingsBlock('profile_settings');" class="tablinks profile-settings" >Profile Settings</a></td>
 										</tr>
 										<tr>
-											<td height="30"><a href="#" onclick="displaySettingsBlock('membership_details');" class="tablinks" >Membership Details</a></td>
+											<td height="30"><a href="#" onclick="displaySettingsBlock('membership_details');" class="tablinks membership-details" >Membership Details</a></td>
 										</tr>
 										<tr>
-											<td height="30"><a href="#" onclick="displaySettingsBlock('deactivate_profile');" class="tablinks" >Activate/Deactivate Profile</a></td>
+											<td height="30"><a href="#" onclick="displaySettingsBlock('deactivate_profile');" class="tablinks deactivate-profile" >Activate/Deactivate Profile</a></td>
 										</tr>
 										<tr>
-											<td height="30"><a href="#" onclick="displaySettingsBlock('delete_profile');" class="tablinks" >Delete Profile</a></td>
+											<td height="30"><a href="#" onclick="displaySettingsBlock('delete_profile');" class="tablinks delete-profile" >Delete Profile</a></td>
 										</tr>
 										<tr>
-											<td height="30"><a href="#" onclick="displaySettingsBlock('edit_emailaddress');" class="tablinks" >Edit Email Address</a></td>
+											<td height="30"><a href="#" onclick="displaySettingsBlock('edit_emailaddress');" class="tablinks edit-emailaddress" >Edit Email Address</a></td>
 										</tr>
 									</table>
 									
@@ -37,7 +69,8 @@
 							</div>
 						</div>
 					</div>
-				</div><div class="panel-group" id="accordion">
+				</div>
+				<!-- <div class="panel-group" id="accordion">
     <div class="panel panel-default">
         <div class="panel-heading">
              <h4 class="panel-title">
@@ -71,6 +104,6 @@
             <div class="panel-body">Contents panel 3</div>
         </div>
     </div>
-</div>
+</div> -->
 			</div>
 			

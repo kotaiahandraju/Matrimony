@@ -38,6 +38,24 @@
 	<script src="js/jquery.littlelightbox.js"></script>
 	<link href="css/jquery.littlelightbox.css" rel="stylesheet" type="text/css">
 	<style>
+	::-webkit-input-placeholder {
+color: #cfcfcf !important;
+
+}
+ 
+:-moz-placeholder { /* Firefox 18- */
+color: #cfcfcf !important; 
+
+}
+ 
+::-moz-placeholder {  /* Firefox 19+ */
+color: #cfcfcf !important;  
+
+}
+ 
+:-ms-input-placeholder {  
+color: #cfcfcf !important;  
+}
 .closeic {
 float:right;
 
@@ -649,7 +667,7 @@ tooltip:hover:after {
 		            	+ '	<tr><td>Location</td><td><span>: '+orderObj.currentCityName+'</span></td></tr>'
 		            	+ '	<tr><td>Education</td><td><span>: '+orderObj.educationName+'</span></td></tr>'
 		            	+ '	<tr><td>Profession</td><td><span>: '+profession+'</span></td></tr>'
-		            	+ '<tr><td colspan="2"><button type="button" style="background: transparent; margin: 0px 5px 0px 0px;display: list-item;border: none;" id="mobileTD'+orderObj.id+'">'+mobile_num_Str+'</button></td></tr>'
+		            	+ '<tr><td colspan="2"><button type="button" style="background: transparent; margin: 0px 5px 0px 0px;border: none;" id="mobileTD'+orderObj.id+'">'+mobile_num_Str+'</button></td></tr>'
 		            	+'</td></tr>'
 		            	//+ '	<tr><td>Age</td><td><span>: '+orderObj.age+'</span></td></tr>'
 		            	//+ '	<tr><td colspan="2">'+orderObj.aboutMyself+'... <a href="#no" onclick="showMore('+orderObj.id+')"> read more..</a> </td></tr>'
@@ -1830,7 +1848,7 @@ transition:none !important;
 	padding: 2px 9px;
 	font-size: 11px !important;
 	border: none;
-	cursor: pointer;
+	
 	border-radius: 1px;
 	vertical-align: top;
 	margin: 2px 2px;
@@ -2591,7 +2609,7 @@ img.hover-shadow {
 							<li class="dropdown dashboard">
 								<a href="dashboard" class="dropdown-toggle" data-toggle="dropdown">My Home</a>
 								<ul class="dropdown-menu">
-									<li><a href="dashboard">My Home</a></li>
+									<li><a href="dashboard">Dashboard</a></li>
 									<li><a href="myProfile">My Profile</a></li>
 									<!-- <li><a href="myPhotos">My Photos</a></li> -->
 									<li><a href="myProfileViewsList">Who viewed my profile</a></li>
