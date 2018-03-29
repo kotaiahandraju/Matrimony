@@ -812,7 +812,7 @@ xpopup
 </div>
 
 <br>
-<div class="panel panel-success" style='box-shadow: 5px 8px 5px; border: none;'>
+<div class="panel panel-success" style='box-shadow: 5px 8px 5px; '>
 			<div class="panel-body table-responsive">
 			<div class="col-md-11">	<strong class="font">Professional Preferences</strong>
 				
