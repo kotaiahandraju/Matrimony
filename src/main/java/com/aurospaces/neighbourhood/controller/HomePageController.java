@@ -2198,10 +2198,42 @@ public class HomePageController {
 			//request.setAttribute("total_records", total_records);
 			//request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
 			if (results != null && results.size() > 0) {
+				//get photos
+				for(Map<String,String> profileObj:results){
+					List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos(Integer.parseInt(profileObj.get("id")));
+					if(photosList!=null && photosList.size()>0){
+						String imgStr = "";
+						for(Map<String,Object> photo:photosList){
+							if(StringUtils.isBlank(imgStr)){
+								imgStr = (String)photo.get("image");
+							}else
+								imgStr += ","+photo.get("image");
+						}
+						profileObj.put("photosList", imgStr);
+					}else{
+						profileObj.put("photosList", "");
+					}
+					
+					
+				}
 				jsonObj.put("results", results);
 				
 			} else {
 				if (Objresults != null && Objresults.size() > 0) {
+					//get photos
+					for(Map<String,Object> reqObj:Objresults){
+						List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos((Integer)reqObj.get("id"));
+						if(photosList!=null && photosList.size()>0){
+							//objectMapper = new ObjectMapper();
+							//sJson = objectMapper.writeValueAsString(photosList);
+							reqObj.put("photosList", photosList);
+							reqObj.put("photosListSize", photosList.size());
+						}else{
+							reqObj.put("photosList", "");
+						}
+						
+						
+					}
 					jsonObj.put("results", Objresults);
 					
 				} else {
@@ -2713,9 +2745,24 @@ public class HomePageController {
 			int total_records = 0;//limit - viewed_count;
 			request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
 			if (listOrderBeans != null && listOrderBeans.size() > 0) {
-				/*objectMapper = new ObjectMapper();
-				sJson = objectMapper.writeValueAsString(listOrderBeans);
-				request.setAttribute("allOrders1", sJson);*/
+				//get photos
+				for(Map<String,String> profileObj:listOrderBeans){
+					List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos(Integer.parseInt(profileObj.get("id")));
+					if(photosList!=null && photosList.size()>0){
+						String imgStr = "";
+						for(Map<String,Object> photo:photosList){
+							if(StringUtils.isBlank(imgStr)){
+								imgStr = (String)photo.get("image");
+							}else
+								imgStr += ","+photo.get("image");
+						}
+						profileObj.put("photosList", imgStr);
+					}else{
+						profileObj.put("photosList", "");
+					}
+					
+					
+				}
 				jsOnObj.put("new_matches", listOrderBeans);
 				total_records = Integer.parseInt(((Map<String, String>)listOrderBeans.get(0)).get("total_records"));
 				jsOnObj.put("total_records", total_records);

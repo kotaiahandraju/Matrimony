@@ -448,16 +448,11 @@ xpopup
 			<div class="col-md-11">	<strong class="font">Basic Details </strong>
 				<div id="basic_details_view" class="all_visible_divs">
 					<table class="col-md-12 table-responsive">
-						<tr><td>Name</td>
+						<%-- <tr><td>Name</td>
 							<td>:</td>
 							<td class="name_val">${profileBean.firstName}&nbsp; ${profileBean.lastName}</td>
-							<td>Body Type</td><td>:</td>
-							<td id="bodyType_val">
-								<c:if test="${not empty profileBean.bodyTypeName}">${profileBean.bodyTypeName}</c:if>
-								<c:if test="${empty profileBean.bodyTypeName}">Not specified
-								</c:if>
-							</td>
-						</tr>
+							
+						</tr> --%>
 						<tr>
 							<td>Age</td><td>:</td>
 							<td id="age_val">
@@ -492,6 +487,12 @@ xpopup
 							<td id="diet_val"> 
 								<c:if test="${not empty profileBean.diet}">${profileBean.diet}</c:if>
 								<c:if test="${empty profileBean.diet}">Not specified</c:if>
+							</td>
+							<td>Body Type</td><td>:</td>
+							<td id="bodyType_val">
+								<c:if test="${not empty profileBean.bodyTypeName}">${profileBean.bodyTypeName}</c:if>
+								<c:if test="${empty profileBean.bodyTypeName}">Not specified
+								</c:if>
 							</td>
 						</tr>
 						<tr>

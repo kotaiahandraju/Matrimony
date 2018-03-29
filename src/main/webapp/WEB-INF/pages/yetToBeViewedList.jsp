@@ -60,7 +60,7 @@ text-align:left;
 }
 
 .smallSlides, .picstyle {
-height:220px !important;
+/* height:220px !important; */
 overflow:hidden !important;
 }
 .panel-title .trigger:before {
