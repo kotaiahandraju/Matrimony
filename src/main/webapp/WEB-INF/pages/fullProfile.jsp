@@ -381,16 +381,17 @@ xpopup
 						${profileBean.religionName}, ${profileBean.casteName}<br>
 						${profileBean.currentCityName}, ${profileBean.currentStateName}, ${profileBean.currentCountryName}<br>
 						${profileBean.educationName}, ${profileBean.occupationName}</p>
+						<c:choose>
+							<c:when test="${profileBean.mobileNumViewed == '1' || profileBean.message_sent_status == '1' || profileBean.expressedInterest == '1'}">
+								<p><span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-${profileBean.mobile}&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span></p>
+							</c:when>
+							<c:otherwise>
+								<p id="mobileTD${profileBean.id}">
+							 		<a href="#" type="button" class="btn1 btn btn-info"  id="mobileBtn" onclick="displayMobileNum(${profileBean.id})">View Mobile Number</a>
+							 	</p>
+							</c:otherwise>
+						</c:choose>
 						
-						<c:if test="${profileBean.mobileNumViewed == '1' || profileBean.message_sent_status == '1' || profileBean.expressedInterest == '1'}">
-					 		<p><span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-${profileBean.mobile}&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span></p>
-					 	</c:if>
-					 	<c:if test="${profileBean.mobileNumViewed != '1'}">
-					 		<p id="mobileTD${profileBean.id}">
-						 		<a href="#" type="button" class="btn1 btn btn-info"  id="mobileBtn" onclick="displayMobileNum(${profileBean.id})">View Mobile Number</a>
-						 	</p>
-						 	
-					 	</c:if>
 					 	<div class="col-md-12 likeprofile">
 					 	<p>Like this profile? Take the next step by sending her a mail.</p>
 					 	<div class="col-md-4 profileskip">
