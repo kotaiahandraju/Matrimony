@@ -1773,22 +1773,14 @@ function editMobileNumber(user_id,old_mobile_no){
             $('.nailthumb-container').nailthumb();
         });
     </script>
-    <script>
-    $(document).ready(function () {
-        $('#imageName').awesomeCropper(
-        { width: 150, height: 150, debug: true }
-        );
-    });
-    </script> 
+    
 	<script type="text/javascript" src="js/ajax.js"></script>
 	<script type="text/javascript" src="js/jquery-asPaginator.js"></script>
 	<script src="js/jquery.watermark.js"></script>
 	<script type="text/javascript" src="js/common.js"></script>
-	<script src="js/jquery.imgareaselect.js"></script> 
-	<script src="js/jquery.awesome-cropper.js"></script>
+	
     <script type="text/javascript" src="js/jquery.nailthumb.1.1.js"></script>
-    <link href="css/imgareaselect-default.css" rel="stylesheet" media="screen">
-	<link rel="stylesheet" href="css/jquery.awesome-cropper.css">
+    
     <link href="css/jquery.nailthumb.1.1.css" type="text/css" rel="stylesheet" />
     <style type="text/css" media="screen">
         .square-thumb {
@@ -1796,6 +1788,79 @@ function editMobileNumber(user_id,old_mobile_no){
             height: 100px;
         }
     </style>
+ <!-- for Raxus Slider -->
+    <link rel="stylesheet" href="css/raxus.css" media="screen" type="text/css">
+    <script type="text/javascript" src="js/raxus-slider.min.js"></script>
+    <!-- for Raxus Slider #end -->
+
+    <!-- for documentation: you don't need them -->
+    <link rel="stylesheet" href="documentation/css/documentation.css" media="screen" type="text/css">
+    <link rel="stylesheet" href="../yandex.st/highlightjs/8.0/styles/default.min.css" media="screen" type="text/css">
+    <script type="text/javascript" src="documentation/js/document.js"></script>
+    <script src="documentation/js/highlight.pack.js"></script>
+     
+    <script>hljs.initHighlightingOnLoad();</script>
+    <!-- for documentation #end: you don't need them -->
+
+    <style>
+        #mySlider {
+            width: 580px;
+            height: 520px;
+            margin: auto; /* for center alignment */
+        }
+        #mySlider .mini-images li {
+            width: 100px;
+            height: 50px;
+        }
+        
+       /*  .modal-header .close {
+    margin-top: -12px;
+} */
+/* @media (min-width: 768px) {
+.modal-dialog {
+   width: px !important;
+    margin: 30px 250px !important;
+}
+} */
+        /* for tablet */
+        @media screen and (max-width: 980px) {
+            #mySlider {
+                width: 100%;
+                height: 450px;
+            }
+        }
+        /* for mobile */
+        @media screen and (max-width: 640px) {
+            #mySlider {
+                width: 570px;
+                height: 450px;
+            }
+        }
+         @media screen and (max-width: 480px) {
+            #mySlider {
+                width: 400px;
+                height: 380px;
+            }
+        }
+         @media screen and (max-width: 414px) {
+            #mySlider {
+                width: 350px;
+                height: 350px;
+            }
+        }
+          @media screen and (max-width: 360px) {
+            #mySlider {
+                width: 300px;
+                height: 350px;
+            }
+        }
+          @media screen and (max-width: 320px) {
+            #mySlider {
+                width: 280px;
+                height: 250px;
+            }
+        }
+    </style>    
 <style type="text/css">
 .animated.infinite {
 	animation-iteration-count: infinite
