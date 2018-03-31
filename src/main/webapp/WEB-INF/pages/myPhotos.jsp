@@ -1,4 +1,6 @@
 <%@ include file="userHeader.jsp"%>
+<link href="css/imgareaselect-default.css" rel="stylesheet" media="screen">
+<link rel="stylesheet" href="css/jquery.awesome-cropper.css">
 <style>
 .ui-dialog-titlebar-close
 {
@@ -58,7 +60,9 @@
 					    <div class="form-group">
 					      <div class="col-md-8">
 					      	<input type="file" id='imageName'  onchange="checkImg(this)"><br>
-					    	
+					    	<form role="form">
+      <input id="sample_input" type="hidden" name="test[image]">
+    </form>
 					      </div>
 					    </div>
 					    <div class="form-group">
@@ -231,5 +235,13 @@ function deletePhoto(photoId,divId){
 $(".dashboard").addClass("active");
 
 </script>
-
+<script src="js/jquery.imgareaselect.js"></script> 
+<script src="js/jquery.awesome-cropper.js"></script> 
+<script>
+    $(document).ready(function () {
+        $('#sample_input').awesomeCropper(
+        { width: 150, height: 150, debug: true }
+        );
+    });
+    </script> 
 <%@ include file="userFooter.jsp"%>
