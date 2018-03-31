@@ -52,6 +52,7 @@ font-weight: bold;
 .picstyle {
 height:220px !important;
 overflow:hidden !important;
+margin-bottom:5px;
 }
 .controls {
   margin-bottom: 10px;
@@ -226,7 +227,7 @@ margin-left:10px;
 							    <div id="table_footer"></div>
 								<div id="altLists"></div>
 							</div>
-							<div class="clearfix"></div>
+							<div class="clearfix"></div><br>
 							
 							</div>
 						</form:form>

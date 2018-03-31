@@ -1,5 +1,9 @@
 <%@ include file="userHeader.jsp"%>
-
+<style>
+.panel-title {
+text-align:left;
+}
+</style>
 			<div class="col-md-9 products-grid-left">
             	<div class="panel panel-default">
 					<div class="panel-heading">Search Profiles<span><a href="" style="float:right; font-size:12px; color:#006699;">Modify Search</a></span></div>
