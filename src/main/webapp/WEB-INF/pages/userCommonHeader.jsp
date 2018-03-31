@@ -322,7 +322,7 @@ tooltip:hover:after {
 				} */
 				
 					var login_user_role_id = ${cacheGuest.roleId};
-					var firstname = 'xxxxxx',lastname='xxxxxx';
+					var firstname = '<img src="images/blurr.png"/>',lastname='';
 					var ageStr = orderObj.age;
 					var age = ageStr.split(".")[0];
 					var occName = orderObj.occupationName;
@@ -760,7 +760,7 @@ tooltip:hover:after {
 					var mobile_no__str = '';
 					var more_details_str = '';
 					var expressed = orderObj.expressedInterest;
-					var firstname = 'xxxxxx',lastname='xxxxxx';
+					var firstname = '<img src="images/blurr.png"/>',lastname='';
 					if((login_user_role_id == 6) || (login_user_role_id == 11) || (login_user_role_id == 12)
 							|| (login_user_role_id == 13) || (login_user_role_id == 14)){ //means premium,premium_plus,aarna premium users
 					
@@ -1716,22 +1716,86 @@ function validate(id, errorMessage)
 		$('#'+id).css('color','#cc0000');
 		$('#'+id).attr('placeholder',errorMessage);
 		$('#'+id).addClass('placeholder-style your-class');
+		return false;
 //			$('#'+id).css('color','#cc0000');
 //			$('#'+id+'Error').text(errorMessage);
 	}else{
 		$('#'+id).css('border-color','');
 		$('#'+id).removeClass('placeholder-style your-class');
+		$('#'+id).attr('placeholder','');
+		return true;
 //			$('#'+id).css('color','');
 //			$('#'+id+'Error').text("");
 	}
 	
 }
-	</script>
+
+function editMobileNumber(user_id,old_mobile_no){
+	var userId = user_id;
+	var mobileNum = $("#mobile").val();
+	if(mobileNum.trim()==""){
+		var v1 = validate('mobile','Enter Mobile Number');
+		if(v1==false)
+			return false;
+	}
+	if($('#mobile').val().trim().length<10){
+		$('#mobileError').text("Please enter a valid mobile number.");
+		event.preventDefault();
+		return false;
+	}
+	var formData = new FormData();
+	formData.append("userId",userId);
+	formData.append("mobileNum",mobileNum);
+	formData.append("oldMobileNum",old_mobile_no);
+	$.fn.makeMultipartRequest('POST', 'updateMobileNumber', false,
+		formData, false, 'text', function(data){
+	var jsonobj = $.parseJSON(data);
+	var msg = jsonobj.message;
 	
+	if("success"==msg){
+		alert("Mobile Number Updated Successfully.");
+		$("#editMobileDiv").attr("hidden",true);
+		 $("#mobileNoDiv").removeAttr("hidden");
+		$("#mobileNoText").html(mobileNum);
+		$("#editMobileAnchor").html("Edit Mobile No.");
+		$("#editMobileAnchor").attr("onclick","displayEditMobilenumberDiv("+user_id+","+mobileNum+")");
+	}else if(msg == "duplicate"){
+		alert("Mobile number already in use. Please try another.");
+	}else{
+		alert("Some problem occured!! Please try again.");
+	}	
+	
+});
+}
+	</script>
+	<script type="text/javascript">
+        $(document).ready(function() {
+            $('.nailthumb-container').nailthumb();
+        });
+    </script>
+    <script>
+    $(document).ready(function () {
+        $('#imageName').awesomeCropper(
+        { width: 150, height: 150, debug: true }
+        );
+    });
+    </script> 
 	<script type="text/javascript" src="js/ajax.js"></script>
 	<script type="text/javascript" src="js/jquery-asPaginator.js"></script>
 	<script src="js/jquery.watermark.js"></script>
 	<script type="text/javascript" src="js/common.js"></script>
+	<script src="js/jquery.imgareaselect.js"></script> 
+	<script src="js/jquery.awesome-cropper.js"></script>
+    <script type="text/javascript" src="js/jquery.nailthumb.1.1.js"></script>
+    <link href="css/imgareaselect-default.css" rel="stylesheet" media="screen">
+	<link rel="stylesheet" href="css/jquery.awesome-cropper.css">
+    <link href="css/jquery.nailthumb.1.1.css" type="text/css" rel="stylesheet" />
+    <style type="text/css" media="screen">
+        .square-thumb {
+            width: 100px;
+            height: 100px;
+        }
+    </style>
 <style type="text/css">
 .animated.infinite {
 	animation-iteration-count: infinite

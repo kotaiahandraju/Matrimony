@@ -117,7 +117,7 @@ function displayMatches(listOrders) {
 			var mobile_no__str = '';
 			var more_details_str = '';
 			var expressed = orderObj.expressedInterest;
-			var firstname = 'xxxxxx',lastname='xxxxxx';
+			var firstname = '<img src="images/blurr.png"/>',lastname='';
 			mobile_no__str = '<tr id="row'+orderObj.id+'"><td><a href="#" type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</a></td></tr>';
 			insert_str = '<a href="#" id="expInterest'+orderObj.id+'" type="button" class="btn btn-primary btn-block" onclick="expressInterest('+orderObj.id+')">Yes I\'m interested</a>';
 			/* if(expressed==0){

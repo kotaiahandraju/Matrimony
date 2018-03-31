@@ -342,9 +342,13 @@ xpopup
                 ${profileBean.religionName}, ${profileBean.casteName}<br>
                 ${profileBean.currentCityName}, ${profileBean.currentStateName}, ${profileBean.currentCountryName}<br>
                 ${profileBean.educationName}, ${profileBean.occupationName}</p>
-                <div id="editMobileDiv" hidden="true"><input type="text" placeholder="+91-${cacheGuest.mobile}" id="mobile"/></div> 
-                <div id="mobileNoDiv"><span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px; font-weight:600;">&nbsp;<span id="mobileNoText">+91-${cacheGuest.mobile}</span>&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font>&nbsp;&nbsp;</span>&nbsp;<a href="#no" id="editMobileAnchor" style="color:blue; font-size:12px; text-decoration:underline;"  onclick="displayEditMobilenumberDiv(${profileBean.id},'${cacheGuest.mobile}')">Edit Mobile No.</a>
-                </div> <br>
+                <div id="editMobileDiv" hidden="true">
+                	<input type="text" placeholder="+91-${cacheGuest.mobile}" id="mobile" class="numbersOnly" onblur="validate(this.id,'Enter Mobile Number');" maxlength="10" />
+                	<br><span class="hasError" id="mobileError" style="font-size: 13px;color:red"></span>
+                </div> 
+                <div id="mobileNoDiv"><span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px; font-weight:600;">&nbsp;<span id="mobileNoText">+91-${cacheGuest.mobile}</span>&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font>&nbsp;&nbsp;</span>&nbsp;</div>
+                <a href="#no" id="editMobileAnchor" style="color:blue; font-size:12px; text-decoration:underline;"  onclick="displayEditMobilenumberDiv(${profileBean.id},'${cacheGuest.mobile}')">Edit Mobile No.</a>
+                 <br>
                 
                 </div>
                 <div class="col-md-3">
@@ -597,7 +601,7 @@ xpopup
 <br>
 <div class="panel panel-default" style="background:#FDFDFD;">
     <div class="panel-body table-responsive">	
-    <div >	<strong class="font">Professional Information
+    <div>	<strong class="font">Professional Information
         <a href="#no" style="font-size:13px; color:#C00;"  class="all_a pull-right" id="professional_info_a" onclick="toggleDiv('professional_info');"> <i class="fa fa-edit"></i> Edit</a>
 </strong>
 <div id="professional_info_view" class="all_visible_divs">

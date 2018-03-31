@@ -272,6 +272,7 @@ background: none !important;
 					    	</div>
 					    	<a data-slide="prev" href="#media" class="left carousel-control"> <i style="margin-top:8px;" class="fa fa-chevron-left"></i></a>
         					<a data-slide="next" href="#media" class="right carousel-control"> <i  style="margin-top:8px;" class="fa fa-chevron-right"></i></a>
+        					<a href="newMatches">View all</a>
 					    </div>
 					</div></div></div></div>
 				</div>
@@ -378,7 +379,7 @@ function displayMatches(listOrders) {
 		} */
 		
 			var login_user_role_id = ${cacheGuest.roleId};
-			var firstname = 'xxxxxx',lastname='xxxxxx';
+			var firstname = '<img src="images/blurr.png"/>',lastname='';
 			var ageStr = orderObj.age;
 			var age = ageStr.split(".")[0];
 			if((login_user_role_id == 6) || (login_user_role_id == 11) || (login_user_role_id == 12)
@@ -421,8 +422,8 @@ function displayMatches(listOrders) {
 				mobile_num_Str = '<span ><a href="#no" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="displayMobileNum('+orderObj.id+')"> View mobile no.</a></span>';
 			}
 			var tblRow = '<div class="row">'
-				+ '<div class="col-md-2 preprofile" >'
-	            + 	"<img src="+image+" class='watermark_text img-responsive thumbnail ' style='width:100%; height:auto;'>"
+				+ '<div class="nailthumb-container square-thumb" >'
+	            + 	"<img src="+image+" class='watermark_text'>"
 	            + '</div>'
 	            + '<div class="col-md-10">'
 	            + ' <p>'+firstname+'&nbsp;'+lastname+'|'+orderObj.username+'&nbsp;'+premiumMember+'&nbsp; '+age+' yrs,&nbsp; '+orderObj.religionName+', '+orderObj.casteName+','+orderObj.inches+' , '+orderObj.occupationName+', '+orderObj.currentCityName+', '+orderObj.currentCountryName+'. </p> '
@@ -486,7 +487,7 @@ function displayNewMatches(listOrders) {
 		} */
 		
 			var login_user_role_id = ${cacheGuest.roleId};
-			var firstname = 'xxxxxx',lastname='xxxxxx';
+			var firstname = '<img src="images/blurr.png"/>',lastname='';
 			var ageStr = orderObj.age;
 			var age = ageStr.split(".")[0];
 			if((login_user_role_id == 6) || (login_user_role_id == 11) || (login_user_role_id == 12)
@@ -538,7 +539,11 @@ function displayNewMatches(listOrders) {
 			 return;
 		 }
 	});
-	
+	//if(len>12){
+		//display viewall link
+		//var view_all_link = '<a href="newMatches">View all</a>';
+		//$(view_all_link).appendTo("#new_matches");
+	//}
 	 /* if(count<=3){
 		rowStr = rowStr + itemEnd ;
 		$(rowStr).appendTo("#new_matches");
