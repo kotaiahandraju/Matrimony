@@ -558,9 +558,9 @@ tooltip:hover:after {
 					var expressed = orderObj.expressedInterest;
 					var interestStr = "";
 					if(expressed==0){
-						interestStr = '<span id="expInterest'+orderObj.id+'"><a   href="#no" type="button" class="btn btn-success btn-sm"  onclick="expressInterest('+orderObj.id+')">  Express Interest  </a></span>';
+						interestStr = '<span id="expInterest'+orderObj.id+'"><a   href="#no" type="button" class="btn btn-blue btn-sm"  onclick="expressInterest('+orderObj.id+')">  Express Interest  </a></span>';
 					}else if(expressed>0){
-						interestStr = '<span><a type="button" class="btn btn-success btn-sm" disabled="true" style="text-size-adjust:auto">Expressed Interest</a></span>';
+						interestStr = '<span><a type="button" class="btn btn-blue btn-sm" disabled="true" style="text-size-adjust:auto">Expressed Interest</a></span>';
 					}
 					var message_sent_status = orderObj.message_sent_status;
 					var messageStr = "";
@@ -572,7 +572,7 @@ tooltip:hover:after {
 					if(mobNumViewed==1 || expressed==1 || message_sent_status==1){
 						mobile_num_Str = '<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;float:left;">&nbsp;+91-'+orderObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;float:left;color:#4baa26;">Verified </span>)</font></span>';
 					}else{
-						mobile_num_Str = '<span ><a href="#no" type="button" style="margin: 11px 0px 0px 0px;" class="btn btn-info btn-sm" onclick="displayMobileNum('+orderObj.id+')">View Mobile Number</a></span>';
+						mobile_num_Str = '<span ><a href="#no" type="button" style="margin: 11px 0px 10px 0px;" class="btn btn-info btn-sm" onclick="displayMobileNum('+orderObj.id+')">View Mobile Number</a></span>';
 
 					}
 					var profession = orderObj.occupationName;
@@ -653,7 +653,7 @@ tooltip:hover:after {
 						+ slider
 		            	+ '</div>'
 		            	+ '<div class="col-md-4">'
-		                + '<blockquote style="min-height:180px; max-height:180px; "><p>'+abtMySelf+'</p><br>'
+		                + '<blockquote style="min-height:100px; max-height:120px; "><p>'+abtMySelf+'</p><br>'
 		                + '<br>'
 		                + '<a href="#"><p style="float:right;">...more</p></a>'
 		                + '</blockquote>'
@@ -667,7 +667,7 @@ tooltip:hover:after {
 		            	+ '	<tr><td>Location</td><td><span>: '+orderObj.currentCityName+'</span></td></tr>'
 		            	+ '	<tr><td>Education</td><td><span>: '+orderObj.educationName+'</span></td></tr>'
 		            	+ '	<tr><td>Profession</td><td><span>: '+profession+'</span></td></tr>'
-		            	+ '<tr><td colspan="2"><button type="button" style="background: transparent; margin: 0px 5px 0px 0px;border: none;" id="mobileTD'+orderObj.id+'">'+mobile_num_Str+'</button></td></tr>'
+		            	+ '<tr><td colspan="2"><button type="button" style="background: transparent; margin: 0px 5px 05px 0px;border: none;" id="mobileTD'+orderObj.id+'">'+mobile_num_Str+'</button></td></tr>'
 		            	+'</td></tr>'
 		            	//+ '	<tr><td>Age</td><td><span>: '+orderObj.age+'</span></td></tr>'
 		            	//+ '	<tr><td colspan="2">'+orderObj.aboutMyself+'... <a href="#no" onclick="showMore('+orderObj.id+')"> read more..</a> </td></tr>'
@@ -2844,17 +2844,18 @@ img.hover-shadow {
     
       <!-- Modal content-->
       <div class="modal-content">
-        <div class="modal-header" style="background: yellowgreen; border-radius: 0px; width: 509px;">
-          <button type="button" class="close" data-dismiss="modal" style="margin-top: -4px;margin-right: -165px; font-size: 28px;color: black;">&times;</button>
-          <h4 class="modal-title" style="color: aliceblue;padding-bottom: 5px; padding-left: 44px; font-size: 24px;">Mail Content</h4>
+        <div class="modal-header" style="background: yellowgreen; border-radius: 0px; ">
+          <button type="button" class="close" data-dismiss="modal" style="margin-top:0px; margin-right:8px; font-size: 28px;color: black;">&times;</button>
+          <h4 class="modal-title" style="color: aliceblue;padding: 10px; padding-left: 2px; font-size: 18px;">Send Message to Hamsa Lekha Tenneti</h4>
         </div>
         <div class="modal-body" style="background: transparent;">
+        <label>Enter Your Message</label>
         	<input type="hidden" name="profile_id" id="profile_id">
-         	<textarea id="mail_content" name="mail_content" cols="70" rows="10" style="height: 230px; margin: -16px 0px 0px -15px;" ></textarea><br><div class="clearfix"></div>
+         	<textarea id="mail_content" placeholder="Enter Your Message..." onblur="this.placeholder='Enter Your Message'" onfocus="this.placeholder=''" name="mail_content" cols="70" rows="10"style="margin-top:5px;" ></textarea><br><div class="clearfix"></div>
           	
         </div>
-        
-          <button type="button" id="sendMailBtn" onclick="sendMail()" class="btn btn-danger " style="width: 142%; margin: -18px 0px 0px 0px;" >Send Mail</button>
+       &nbsp; <input type="checkbox"/><span>  &nbsp; Set As Default Text </span>
+          <button type="button" id="sendMailBtn" onclick="sendMail()" class="btn btn-danger " style="  margin: 10px 0px 10px 50px;" >Send Mail</button>
         
       </div>
       
