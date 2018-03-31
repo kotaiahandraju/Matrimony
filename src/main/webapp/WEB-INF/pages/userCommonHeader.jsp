@@ -402,7 +402,7 @@ tooltip:hover:after {
 								displayStyle = ' style="display:none" ';
 							}
 							slider += '<div class="picstyle smallSlides'+orderObj.id+'" '+displayStyle+'>'
-									+'		<img src="'+photo.image+'" class="img img-responsive " style="margin-bottom:0;height: auto;width: 100%;" >'
+									+'		<img src="'+photo.image+'" class="img img-responsive watermark_text" style="margin-bottom:0;height: auto;width: 100%;" >'
 									+'</div>'
 						});
 						if(photos_list.length>1){
@@ -972,7 +972,7 @@ tooltip:hover:after {
 									displayStyle = ' style="display:none" ';
 								}
 								slider += '<div class="smallSlides'+orderObj.id+'" '+displayStyle+'>'
-										+'		<img src="'+photo.image+'" class="img img-responsive thumbnail " style="margin-bottom:0;height: auto;width: 100%;" >'
+										+'		<img src="'+photo.image+'" class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: auto;width: 100%;" >'
 										+'</div>'
 							});
 							if(photos_list.length>1){
@@ -1492,7 +1492,7 @@ function currentSlide(n) {
 }
 
 function currentSlide_inpage(current_img){
-	var str = '<img id="profilepic" src="'+current_img+'" style="width:100%"  onclick="openModal();currentSlide(1)" class="hover-shadow cursor watermark_text">';
+	var str = '<img id="profilepic" src="'+current_img+'" class="hover-shadow cursor img img-responsive thumbnail watermark_text" style="margin-bottom:0;height:auto;width: 100%;">';
 	//$("#profilepic").prop("src",photoImage);
 	$("#fullProfilePicOuterTag").html('');
 	$("#fullProfilePicOuterTag").html(str);
@@ -1590,43 +1590,7 @@ function openPhotoModal(photos_list){
 
 
 
-function plusSlides(n) {
-  showSlides(slideIndex += n);
-}
 
-function currentSlide(n) {
-  showSlides(slideIndex = n);
-}
-
-function currentSlide_inpage(current_img){
-	var str = '<img id="profilepic" src="'+current_img+'" style="width:100%" onclick="openModal();currentSlide(1)" class="hover-shadow cursor watermark_text">';
-	//$("#profilepic").prop("src",photoImage);
-	$("#fullProfilePicOuterTag").html('');
-	$("#fullProfilePicOuterTag").html(str);
-	addWaterMark();
-	//$("#img_inpage").attr("src",current_img);
-}
-function showSlides(n) {
-	  var i;
-	  var slides = document.getElementsByClassName("mySlides");
-	  var dots = document.getElementsByClassName("demo");
-	  var imgs = document.getElementsByClassName("myImg");
-	  var captionText = document.getElementById("caption");
-	  if (n > slides.length) {slideIndex = 1}
-	  if (n < 1) {slideIndex = slides.length}
-	  for (i = 0; i < slides.length; i++) {
-	      slides[i].style.display = "none";
-	  }
-	  for (i = 0; i < dots.length; i++) {
-	      dots[i].className = dots[i].className.replace(" active", "");
-	  }
-	  
-	  imgs[slideIndex-1].className += " watermark_text";
-	  dots[slideIndex-1].className += " active";
-	  slides[slideIndex-1].style.display = "block";
-	  captionText.innerHTML = dots[slideIndex-1].alt;
-	  addWaterMark();
-}
 	////Photo pop-up related script---ends
 	
 var smallerSlideIndex = {};

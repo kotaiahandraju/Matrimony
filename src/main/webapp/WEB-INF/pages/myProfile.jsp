@@ -370,7 +370,7 @@ xpopup
     <div class="panel panel-default" style="background:#FDFDFD;">
     <div class="panel-body table-responsive">			
         <strong class="font">About my ${cacheGuest.createProfileFor}
-        <a href="#no" style="font-size:13px; color:#C00;" class="pull-right" id="about_a" onclick="toggleDiv('about');"> <i class="fa fa-edit"></i> Edit</a>
+        <a href="#no" style="font-size:13px; color:#C00;" class="all_a pull-right" id="about_a" onclick="toggleDiv('about');"> <i class="fa fa-edit"></i> Edit</a>
         </strong>
         <div id="about_view" class="all_visible_divs">
             <p id="aboutMyself_val">
@@ -395,7 +395,7 @@ xpopup
 <br>
 <div class="panel panel-default" style="background:#FDFDFD;">
     <div class="panel-body table-responsive">
-    <div >	<strong class="font">Basic Details <a href="#no" style="font-size:13px; color:#C00;" class="pull-right" id="basic_details_a" onclick="toggleDiv('basic_details');"> <i class="fa fa-edit"></i> Edit</a></strong>
+    <div >	<strong class="font">Basic Details <a href="#no" style="font-size:13px; color:#C00;" class="all_a pull-right" id="basic_details_a" onclick="toggleDiv('basic_details');"> <i class="fa fa-edit"></i> Edit</a></strong>
         <div id="basic_details_view" class="all_visible_divs">
             <table class="col-md-12 table-responsive">
                 <tr><td>Name</td>
@@ -493,7 +493,7 @@ xpopup
     <div class="panel-body table-responsive">
 <div>	
     <strong class="font">Religion Information
-    <a href="#no" style="font-size:13px; color:#C00;" class="pull-right" id="religion_info_a" onclick="toggleDiv('religion_info');"> <i class="fa fa-edit"></i> Edit</a>
+    <a href="#no" style="font-size:13px; color:#C00;" class="all_a pull-right" id="religion_info_a" onclick="toggleDiv('religion_info');"> <i class="fa fa-edit"></i> Edit</a>
     </strong>
     <div id="religion_info_view" class="all_visible_divs">
         <table class="col-md-6 table-responsive">
@@ -561,7 +561,7 @@ xpopup
     <div >	<strong class="font">
     <c:if test="${profileBean.gender == 'Female'}">Bride</c:if>
     <c:if test="${profileBean.gender == 'Male'}">Groom</c:if>
-    's Location <a href="#no" style="font-size:13px; color:#C00;" class="pull-right" id="location_a" onclick="toggleDiv('location');"> <i class="fa fa-edit"></i> Edit</a>
+    's Location <a href="#no" style="font-size:13px; color:#C00;" class="all_a pull-right" id="location_a" onclick="toggleDiv('location');"> <i class="fa fa-edit"></i> Edit</a>
 </strong>
 <div id="location_view" class="all_visible_divs">
 <table class="col-md-12 table-responsive">
@@ -598,7 +598,7 @@ xpopup
 <div class="panel panel-default" style="background:#FDFDFD;">
     <div class="panel-body table-responsive">	
     <div >	<strong class="font">Professional Information
-        <a href="#no" style="font-size:13px; color:#C00;"  class="pull-right" id="professional_info_a" onclick="toggleDiv('professional_info');"> <i class="fa fa-edit"></i> Edit</a>
+        <a href="#no" style="font-size:13px; color:#C00;"  class="all_a pull-right" id="professional_info_a" onclick="toggleDiv('professional_info');"> <i class="fa fa-edit"></i> Edit</a>
 </strong>
 <div id="professional_info_view" class="all_visible_divs">
 <table class="col-md-12 table-responsive">
@@ -696,7 +696,7 @@ xpopup
 <div class="panel panel-default" style="background:#FDFDFD;">
     <div class="panel-body table-responsive">
     <div>	<strong class="font">Basic & Religion Preferences
-        <a href="#no" style="font-size:13px; color:#C00;"  class="pull-right" id="partner_basic_a" onclick="toggleDiv('partner_basic');"> <i class="fa fa-edit"></i> Edit</a>
+        <a href="#no" style="font-size:13px; color:#C00;"  class="all_a pull-right" id="partner_basic_a" onclick="toggleDiv('partner_basic');"> <i class="fa fa-edit"></i> Edit</a>
 </strong>
 <div id="partner_basic_view" class="all_visible_divs">
 <table class="col-md-12 table-responsive">
@@ -783,7 +783,7 @@ xpopup
 <div class="panel panel-default" style="background:#FDFDFD;">
     <div class="panel-body table-responsive">
     <div >	<strong class="font">Professional Preferences
-        <a href="#no"  style="font-size:13px; color:#C00;" class="pull-right" id="partner_professional_a" onclick="toggleDiv('partner_professional');"> <i class="fa fa-edit"></i> Edit</a>
+        <a href="#no"  style="font-size:13px; color:#C00;" class="all_a pull-right" id="partner_professional_a" onclick="toggleDiv('partner_professional');"> <i class="fa fa-edit"></i> Edit</a>
 </strong>
 <div id="partner_professional_view" class="all_visible_divs">
 <table class="col-md-12 table-responsive">
@@ -897,7 +897,7 @@ xpopup
 <div class="panel panel-default" style="background:#FDFDFD;">
     <div class="panel-body table-responsive">
     <div >	<strong class="font">Location Preferences
-        <a href="#no" style="font-size:13px; color:#C00;" class="pull-right" id="partner_location_a" onclick="toggleDiv('partner_location');"> <i class="fa fa-edit"></i> Edit</a>
+        <a href="#no" style="font-size:13px; color:#C00;" class="all_a pull-right" id="partner_location_a" onclick="toggleDiv('partner_location');"> <i class="fa fa-edit"></i> Edit</a>
 </strong>
 <div id="partner_location_view" class="all_visible_divs">
 <table class="col-md-12 table-responsive">

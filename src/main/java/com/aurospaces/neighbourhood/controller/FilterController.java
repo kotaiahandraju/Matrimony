@@ -668,11 +668,11 @@ public class FilterController {
 			}
 			if (page_no != 0)
 				page_no = page_no - 1;
-			int total_records = 0;
+			long total_records = 0;
 			profilesList = objUsersDao.getUpdatedProfiles(page_no);
 			if (profilesList != null && profilesList.size() > 0) {
 				objJson.put("updatedProfilesList", profilesList);
-				total_records = Integer.parseInt((String)profilesList.get(0).get("total_count"));
+				total_records = (Long)profilesList.get(0).get("total_count");
 			} else {
 				objJson.put("updatedProfilesList", "");
 			}

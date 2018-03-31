@@ -11,7 +11,7 @@ blockquote {
   quotes: "\201C""\201D""\2018""\2019";
 }
 .smallSlides, .picstyle {
-height:220px !important;
+/* height:220px !important; */
 overflow:hidden !important;
 }
 blockquote:before {

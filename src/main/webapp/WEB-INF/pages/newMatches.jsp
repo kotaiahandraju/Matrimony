@@ -50,7 +50,7 @@ font-weight: bold;
 
 }
 .picstyle {
-height:220px !important;
+/* height:220px !important; */
 overflow:hidden !important;
 margin-bottom:5px;
 }
@@ -575,8 +575,7 @@ function getMatchesBasedOnCheckboxes(){
 			formData, false, 'text', function(data){
     		var jsonobj = $.parseJSON(data);;
     		var total_records = jsonobj.total_records;
-    		var newMsmallSlides188
-    		atches = jsonobj.new_matches;
+    		var newMatches = jsonobj.new_matches;
     		total_items_count = total_records;
     		if(newMatches==""){
     			
