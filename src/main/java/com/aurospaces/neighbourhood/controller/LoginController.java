@@ -138,12 +138,15 @@ public class LoginController {
 		objUsersDao.updateLoginTime(objUserBean,"1");
 		
 			Map<String,Object> interestCounts = objUsersDao.getInterestCounts(objUserBean);
-			long notificationsCount = (Long)interestCounts.get("receivedInterestCount")
-									+ (Long)interestCounts.get("mobileNumViewedCount")
-									+ (Long)interestCounts.get("profileViewedCount")
-									+ (Long)interestCounts.get("shortListedCount");
+			long notificationsCount = (Long)interestCounts.get("notificationsCount");
 			if(objUserBean.getStatus().equals("1")){
 				session.setAttribute("notificationsCount", notificationsCount);
+				List<Map<String,Object>> notificationsList = objUsersDao.getNotifications(objUserBean);
+				if(notificationsList!=null && notificationsList.size()>0){
+					session.setAttribute("notificationsList", notificationsList);
+				}else{
+					session.setAttribute("notificationsList", "");
+				}
 				objUserBean.setSentInterestCount((String.valueOf(interestCounts.get("sentInterestCount"))));
 				objUserBean.setAwaitingInterestCount((String.valueOf(interestCounts.get("awaitingInterestCount"))));
 				objUserBean.setReceivedInterestCount((String.valueOf(interestCounts.get("receivedInterestCount"))));

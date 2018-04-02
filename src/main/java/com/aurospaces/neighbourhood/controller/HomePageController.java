@@ -931,7 +931,14 @@ public class HomePageController {
 				String profile_username = request.getParameter("pun");
 				String sender_unique_code = request.getParameter("suc");
 				String profile_unique_code = request.getParameter("puc");
-				if(StringUtils.isNotBlank(sender_username) && StringUtils.isNotBlank(profile_username)){
+				String request_from = request.getParameter("rfrm");
+				if(StringUtils.isNotBlank(request_from) && "notifications".equalsIgnoreCase(request_from)){
+					String notification_id = request.getParameter("nid");
+					String profile_id = request.getParameter("pid");
+					objUserssBean.setId(Integer.parseInt(profile_id));// for local use
+					//update notification status as read
+					objUsersDao.updateNotificationStatus(notification_id);
+				}else if(StringUtils.isNotBlank(sender_username) && StringUtils.isNotBlank(profile_username)){
 					UsersBean senderBean = objUsersDao.getUser(sender_username.trim());
 					UsersBean profileBean = objUsersDao.getUser(profile_username.trim());
 					if(senderBean.getUnique_code().equals(sender_unique_code) && profileBean.getUnique_code().equals(profile_unique_code)){

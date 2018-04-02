@@ -1394,7 +1394,8 @@ public class UsersDao extends BaseUsersDao
 								+" 	 and "+subStr+"  ) as yetToBeViewedCount, "
 								+" (select count(*) from users u,express_intrest ei where u.id=ei.profile_id and ei.user_id = "+userId+" and ei.profile_viewed_status = '1' and ei.mobile_no_viewed_status = '0' and ei.interested='0' "
 								+"   and "+subStr+" ) as viewedNotContactedCount, "
-								+" (select count(*) from  users u,express_intrest  ei where u.id = ei.user_id and ei.profile_id = "+userId+" and ei.short_listed = '1' and "+subStr+" ) as shortListedCount ";
+								+" (select count(*) from  users u,express_intrest  ei where u.id = ei.user_id and ei.profile_id = "+userId+" and ei.short_listed = '1' and "+subStr+" ) as shortListedCount, "
+								+" (select count(*) from user_notifications where user_id = "+objUserBean.getId()+" and read_status = '0') as notificationsCount";
 					
 			try{
 				List<Map<String,Object>> list = jdbcTemplate.queryForList(qryStr);
@@ -2852,5 +2853,37 @@ public boolean deletePhoto(String photoId){
 			return null;
 		 } 
 	}*/
+	
+	public List<Map<String, Object>> getNotifications(UsersBean objUserBean){
+
+		jdbcTemplate = custom.getJdbcTemplate();
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("select *,(select concat(u.firstName,' ',u.lastName) from users u where u.id=user_notifications.profile_id) as fullName, "
+				+" (select u.username from users u where u.id=user_notifications.profile_id) as userName,date_format(user_notifications.created_on,'%d-%M-%Y') as created_on from user_notifications where user_id = "+objUserBean.getId()+" and user_type = 'member' order by created_on desc ");
+			
+		String sql =buffer.toString();
+		
+		List<Map<String, Object>> notifications = jdbcTemplate.queryForList(sql);
+		return notifications;
+		
+	
+	}
+	public boolean updateNotificationStatus(String notification_id) {
+		 jdbcTemplate = custom.getJdbcTemplate();
+			boolean isStatusUpdate = false;
+			try {
+				String sSql = "update user_notifications set read_status = '1' where id = "+notification_id;
+				int iCount = jdbcTemplate.update(sSql);
+				if (iCount == 1) {
+					isStatusUpdate = true;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				return isStatusUpdate;
+			} finally {
+
+			}
+			return isStatusUpdate;
+		}
 }
 
