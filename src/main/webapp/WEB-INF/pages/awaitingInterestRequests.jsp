@@ -112,7 +112,7 @@
 	<div class="container" style="background: #FFF;">
 		<div class="mid-grids">
 			<jsp:include page="sideGrid1.jsp" />
-			<div class="col-md-8 products-grid-left">
+			<div class="col-md-9 products-grid-left">
 			<form:form commandName="createProfile"  class="form-horizontal" id="searchForm2" name="searchForm2" role="form"   method="post">
 <div id="inbox_div" class="tabcontent">
   					<div>

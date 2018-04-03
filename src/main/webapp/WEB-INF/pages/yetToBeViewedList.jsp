@@ -54,7 +54,7 @@ font-weight: bold;
 text-align:left;
 }
 .collapse-group {
-  padding: 10px;
+  
   border: 1px solid darkgrey;
   margin-bottom: 10px;
 }
@@ -103,13 +103,12 @@ margin-left:10px;
 
 <a href="">Premium Members</a></p><br>
 			</div></div>
-			<div class="matches1"><h4>Filter Results</h4>
-			</div>
+			
 				
-				
+		 <br>		
 				
 <div class="collapse-group">
-  
+ 
 
   <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingOne">

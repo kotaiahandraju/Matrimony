@@ -370,10 +370,10 @@ xpopup
 </div> <!-- cd-popup -->
             
     </div><br>
-   <h3>Personal information</h3>
+   <h3>Personal Information</h3>
     <div class="panel panel-default" style="background:#FDFDFD;">
     <div class="panel-body table-responsive">			
-        <strong class="font">About my ${cacheGuest.createProfileFor}
+        <strong class="font">About My ${cacheGuest.createProfileFor}
         <a href="#no" style="font-size:13px; color:#C00;" class="all_a pull-right" id="about_a" onclick="toggleDiv('about');"> <i class="fa fa-edit"></i> Edit</a>
         </strong>
         <div id="about_view" class="all_visible_divs">
