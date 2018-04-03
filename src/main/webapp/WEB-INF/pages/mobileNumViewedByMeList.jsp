@@ -117,7 +117,7 @@ margin-bottom:5px !important;
 			
 			<jsp:include page="sideGrid2.jsp" />
 			<div id="dial1"></div>
-			<div class="col-md-8 products-grid-left">
+			<div class="col-md-9 products-grid-left">
 			
 				<div id="London" class="tabcontent">
   <div>
