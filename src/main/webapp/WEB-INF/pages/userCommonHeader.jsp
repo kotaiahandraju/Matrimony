@@ -2797,8 +2797,6 @@ img.hover-shadow {
 								<a href="#no" class="dropdown-toggle" data-toggle="dropdown">Notifications <span id="matchcount"><c:out value="${notificationsCount}" /> </span></a>
 								<ul class="dropdown-menu">
 									<c:if test="${not empty notificationsList}">
-										<form:form commandName="createProfile"  class="form-horizontal" id="searchForm22" name="searchForm22" role="form"   method="post">
-	             							<form:hidden path="id" />
 											<c:forEach var="notification" items="${notificationsList}">
 												<li>
 													<div id="notifydiv${notification.id}" class="row well">
@@ -2836,7 +2834,6 @@ img.hover-shadow {
 												
 												
 											</c:forEach>
-										</form:form>
 									</c:if>
 									
 								</ul>
