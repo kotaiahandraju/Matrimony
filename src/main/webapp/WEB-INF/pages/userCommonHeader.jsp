@@ -2801,7 +2801,12 @@ img.hover-shadow {
 												<li>
 													<div id="notifydiv${notification.id}" class="row well">
 														<div class="nailthumb-container" style="width: 50px;height: 30px;" >
-															<img src="${cacheGuest.profileImage}" style="top: 0px">
+															<c:if test="${not empty notification.profileImage}">
+																<img src="${notification.profileImage}" style="top: 0px">
+															</c:if>
+															<c:if test="${empty notification.profileImage}">
+																<img src="img/default.png" style="top: 0px">
+															</c:if>
 														</div>
 														<div>
 															<a href="fullProfile?pid=${notification.profile_id}&nid=${notification.id}&rfrm=notifications" onclick="fullProfile_notifications(${notification.id});" target="_blank"><b><c:out value="${notification.fullName}" /></b>

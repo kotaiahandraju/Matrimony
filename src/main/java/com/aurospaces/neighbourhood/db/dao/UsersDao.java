@@ -620,6 +620,10 @@ public class UsersDao extends BaseUsersDao
 					buffer.append("insert into users_activity_log(created_time,activity_type,act_done_by_user_id,act_done_on_user_id) "
 							+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','interest_request',"+objUserBean.getId()+","+profileId+")");
 					int inserted_count = jdbcTemplate.update(buffer.toString());
+					buffer = new StringBuffer();
+					buffer.append("insert into user_notifications(created_on,user_type,user_id,profile_id,notifi_type) "
+							+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','member',"+objUserBean.getId()+","+profileId+",'interest')");
+					inserted_count = jdbcTemplate.update(buffer.toString());
 					if(updated_count == 1){
 						int allowed_profiles_limit = this.getAllowedProfilesLimit(objUserBean.getId());
 						session.setAttribute("allowed_profiles_limit", allowed_profiles_limit);
@@ -659,6 +663,10 @@ public class UsersDao extends BaseUsersDao
 					buffer.append("insert into users_activity_log(created_time,activity_type,act_done_by_user_id,act_done_on_user_id) "
 							+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','profile_viewed',"+objUserBean.getId()+","+profileId+")");
 					int inserted_count = jdbcTemplate.update(buffer.toString());
+					buffer = new StringBuffer();
+					buffer.append("insert into user_notifications(created_on,user_type,user_id,profile_id,notifi_type) "
+							+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','member',"+objUserBean.getId()+","+profileId+",'profile_viewed')");
+					inserted_count = jdbcTemplate.update(buffer.toString());
 					if(updated_count > 0){
 						int to_be_viewed = Integer.parseInt(objUserBean.getYetToBeViewedCount());
 						objUserBean.setYetToBeViewedCount(to_be_viewed>0?(to_be_viewed-1)+"":"0");
@@ -779,6 +787,10 @@ public class UsersDao extends BaseUsersDao
 					buffer.append("insert into users_activity_log(created_time,activity_type,act_done_by_user_id,act_done_on_user_id) "
 							+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','mobile_no_viewed',"+objUserBean.getId()+","+profileId+")");
 					int inserted_count = jdbcTemplate.update(buffer.toString());
+					buffer = new StringBuffer();
+					buffer.append("insert into user_notifications(created_on,user_type,user_id,profile_id,notifi_type) "
+							+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','member',"+objUserBean.getId()+","+profileId+",'mobile_num_viewed')");
+					inserted_count = jdbcTemplate.update(buffer.toString());
 					if(updated_count == 1){
 						int allowed_profiles_limit = this.getAllowedProfilesLimit(objUserBean.getId());
 						//int allowed_profiles_limit = (Integer)session.getAttribute("allowed_profiles_limit");
@@ -818,6 +830,10 @@ public class UsersDao extends BaseUsersDao
 					buffer.append("insert into users_activity_log(created_time,activity_type,act_done_by_user_id,act_done_on_user_id,activity_content) "
 							+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','email',"+objUserBean.getId()+","+profileId+",'"+mail_content+"')");
 					int inserted_count = jdbcTemplate.update(buffer.toString());
+					buffer = new StringBuffer();
+					buffer.append("insert into user_notifications(created_on,user_type,user_id,profile_id,notifi_type) "
+							+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','member',"+objUserBean.getId()+","+profileId+",'mail')");
+					inserted_count = jdbcTemplate.update(buffer.toString());
 					if(updated_count == 1){
 						int allowed_profiles_limit = this.getAllowedProfilesLimit(objUserBean.getId());
 						//int allowed_profiles_limit = (Integer)session.getAttribute("allowed_profiles_limit");
@@ -2859,7 +2875,9 @@ public boolean deletePhoto(String photoId){
 		jdbcTemplate = custom.getJdbcTemplate();
 		StringBuffer buffer = new StringBuffer();
 		buffer.append("select *,(select concat(u.firstName,' ',u.lastName) from users u where u.id=user_notifications.profile_id) as fullName, "
-				+" (select u.username from users u where u.id=user_notifications.profile_id) as userName,date_format(user_notifications.created_on,'%d-%M-%Y') as created_on from user_notifications where user_id = "+objUserBean.getId()+" and user_type = 'member' order by created_on desc ");
+				+" (select u.username from users u where u.id=user_notifications.profile_id) as userName,date_format(user_notifications.created_on,'%d-%M-%Y') as created_on, "
+				+" (select uimg.image from user_images uimg where uimg.user_id=user_notifications.profile_id and  uimg.status = '1' and uimg.is_profile_picture='1') as profileImage "
+				+" from user_notifications where user_id = "+objUserBean.getId()+" and user_type = 'member' order by created_on desc ");
 			
 		String sql =buffer.toString();
 		
