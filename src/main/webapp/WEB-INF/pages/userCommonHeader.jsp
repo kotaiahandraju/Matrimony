@@ -653,7 +653,9 @@ tooltip:hover:after {
 						+ slider
 		            	+ '</div>'
 		            	+ '<div class="col-md-4">'
-		                + '<blockquote style="min-height:100px; max-height:120px; "><p>'+abtMySelf+'</p><br>'
+		  + '<h2 class="pull-right"><a href="#" data-toggle="tooltip" data-placement="bottom" title="View Mobile Number/Send SMS"><img src="images/Mobile_Icon.png"/> &nbsp;</a></h2>'
+		                + '<div class="clearfix"></div>'
+		            	+ '<blockquote style="min-height:100px; max-height:120px; "><p>'+abtMySelf+'</p><br>'
 		                + '<br>'
 		                + '<a href="#"><p style="float:right;">...more</p></a>'
 		                + '</blockquote>'
@@ -2704,7 +2706,7 @@ img.hover-shadow {
 	<div class="container" style="background: #FFF;">
     	<div class="col-md-3">
 			<div class="logo">
-				<a href="dashboard"><img  src="user/images/logo1.jpg" class="img img-responsive"></a>
+				<a href="dashboard"><img  src="images/logo.png" class="img img-responsive"></a>
 			</div>
 			<div class="clearfix"></div>
 		</div>
@@ -2892,7 +2894,7 @@ img.hover-shadow {
       <div class="modal-content">
         <div class="modal-header" style="background: yellowgreen; border-radius: 0px; ">
           <button type="button" class="close" data-dismiss="modal" style="margin-top:0px; margin-right:8px; font-size: 28px;color: black;">&times;</button>
-          <h4 class="modal-title" style="color: aliceblue;padding: 10px; padding-left: 2px; font-size: 18px;">Send Message to Hamsa Lekha Tenneti</h4>
+          <h4 class="modal-title" style="color: aliceblue;padding: 10px; padding-left: px; font-size: 18px;">Send Message to Hamsa Lekha Tenneti</h4>
         </div>
         <div class="modal-body" style="background: transparent;">
         <label>Enter Your Message</label>

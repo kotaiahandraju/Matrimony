@@ -105,7 +105,9 @@
 			.tab-content.hide{
 				display: none;
 			}
-			
+			section {
+			padding:0px;
+			}
 			.btn-sm {
 			margin-bottom:5px !important;
 			}

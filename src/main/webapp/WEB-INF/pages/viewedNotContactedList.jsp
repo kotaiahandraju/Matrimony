@@ -27,7 +27,7 @@ blockquote p {
 }
 p {
 font-size:13px;
-letter-spacing:1px;
+
 }
 .matches1 {
 border: 1px solid #d6d6d6;
@@ -57,7 +57,7 @@ font-weight: bold;
 text-align:left;
 }
 .collapse-group {
-  padding: 10px;
+ 
   border: 1px solid darkgrey;
   margin-bottom: 10px;
 }
@@ -102,10 +102,9 @@ margin-left:10px;
 
 <a href="">Premium Members</a></p><br>
 			</div></div>
-			<div class="matches1"><h4>Filter Results</h4>
-			</div>
+		
 				
-				
+		<br>		
 				
 <div class="collapse-group">
   

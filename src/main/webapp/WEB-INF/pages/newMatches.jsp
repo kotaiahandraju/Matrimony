@@ -26,7 +26,6 @@ blockquote p {
 }
 p {
 font-size:13px;
-letter-spacing:1px;
 }
 .matches1 {
 border: 1px solid #d6d6d6;
@@ -61,7 +60,7 @@ margin-bottom:5px;
 text-align:left;
 }
 .collapse-group {
-  padding: 10px;
+  
   border: 1px solid darkgrey;
   margin-bottom: 10px;
 }
@@ -77,6 +76,7 @@ text-align:left;
 .panel-title .trigger.collapsed:before {
   content: '\e081';
 }
+
 .new {
 margin-left:10px;
 }</style>
@@ -106,8 +106,7 @@ margin-left:10px;
 
 <a href="">Premium Members</a></p><br>
 			</div></div>
-			<div class="matches1"><h4>Filter Results</h4>
-			</div>
+		<br>
 				
 				
 				
@@ -235,8 +234,6 @@ margin-left:10px;
                          
 					</div>
 			
-		
-
 <script type="text/javascript">
 
 var total_items_count = ${total_records};
