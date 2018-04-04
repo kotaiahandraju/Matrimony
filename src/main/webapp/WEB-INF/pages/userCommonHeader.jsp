@@ -37,6 +37,102 @@
 	<script src="js/jquery.watermark.js"></script>
 	<script src="js/jquery.littlelightbox.js"></script>
 	<link href="css/jquery.littlelightbox.css" rel="stylesheet" type="text/css">
+	<style type="text/css">
+.note {
+padding-right:0px;
+padding-left:0px;
+}
+#notification_li
+			{
+			position:relative
+			}
+			#notificationContainer 
+			{
+			background-color: #fff;
+			border: 1px solid rgba(100, 100, 100, .4);
+			-webkit-box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
+			overflow: visible;
+			position: absolute;
+			top: 50px;
+			
+			width: 250px;
+			z-index:999;
+			display: none; // Enable this after jquery implementation 
+			}
+			// Popup Arrow
+			#notificationContainer:before {
+			content: '';
+			display: block;
+			position: absolute;
+			width: 0;
+			height: 0;
+			color: transparent;
+			border: 10px solid black;
+			border-color: transparent transparent white;
+			margin-top: -20px;
+			margin-left: 188px;
+			}
+			#notificationTitle
+			{
+			font-weight: bold;
+			padding: 8px;
+			font-size: 13px;
+			background-color: #f2f2f3;
+			
+			z-index: 1000;
+			width: 248px;
+			border-bottom: 1px solid #dddddd;
+			}
+			#notificationsBody
+			{
+			padding: 3px 0px 0px 0px !important;
+			max-height:300px;	
+    overflow-y: scroll;
+			}
+			#notificationFooter
+			{
+			background-color: #e9eaed;
+			text-align: center;
+			font-weight: bold;
+			padding: 8px;
+			font-size: 12px;
+			border-top: 1px solid #dddddd;
+			}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+
+		#notification_count 
+		{
+		padding: 3px 7px 3px 7px;
+		background: #cc0000;
+		color: #ffffff;
+		font-weight: bold;
+		margin-left: 77px;
+		border-radius: 9px;
+		-moz-border-radius: 9px; 
+		-webkit-border-radius: 9px;
+		position: absolute;
+		margin-top: -11px;
+		font-size: 11px;
+		}
+		</style>
 	<style>
 	::-webkit-input-placeholder {
 color: #cfcfcf !important;
@@ -2874,7 +2970,6 @@ img.hover-shadow {
 							<li class="dropdown notifications" id="notification_li">
 								<a href="#" id="notificationLink"> <span class="fa fa-bell"></span>Notifications</a>
 								<div id="notificationContainer" class="dropdown-menu">
-								
 									<c:if test="${not empty notificationsList}">
 											<div id="notificationsBody" class="notifications">
 												<c:forEach var="notification" items="${notificationsList}">
@@ -2906,6 +3001,8 @@ img.hover-shadow {
 																	shortlisted your profile
 																</c:if>
 															</a>
+															<br>
+															<c:out value="${notification.created_on}" />
 														.</p>
 													</div><hr>
 													<div class="clearfix"></div><hr>
@@ -2914,6 +3011,9 @@ img.hover-shadow {
 											<form:form commandName="notificationsForm"  class="form-horizontal" id="allNotificationsForm" name="allNotificationsForm" role="form"   method="post">
 												<div id="notificationFooter"><a href="#" onclick="getAllNotifications();">See All</a></div>
 											</form:form>
+									</c:if>
+									<c:if test="${empty notificationsList}">
+										<p>Currently, you have no notifications.</p>
 									</c:if>
 								</div>	
 							</li>

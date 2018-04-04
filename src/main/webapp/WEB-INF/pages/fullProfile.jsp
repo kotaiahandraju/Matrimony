@@ -376,7 +376,7 @@ xpopup
 						 	</c:if>&nbsp;
 						 	(${profileBean.username})
 						 </h3><p></p>
-						<p style="line-height:2; color:#000;font-size: 14px;"><span>Profile created for ${profileBean.createProfileFor}</span><br>
+						<p style="line-height:2; color:#000;font-size: 14px;"><span>Profile Created for ${profileBean.createProfileFor}</span><br>
 						${profileBean.age} Yrs, ${profileBean.heightInches}<Br>
 						${profileBean.religionName}, ${profileBean.casteName}<br>
 						${profileBean.currentCityName}, ${profileBean.currentStateName}, ${profileBean.currentCountryName}<br>
@@ -430,10 +430,10 @@ xpopup
 </div> <!-- cd-popup -->
 					
 			</div><br>
-			<h4   style="padding="10px;"></h4><h3>Personal information</h3><hr>
-			<div class="panel panel-success" style='box-shadow: 5px 8px 5px;'>
+			<h4   style="padding="10px;"></h4><h3>Personal Information</h3><hr>
+			<div class="panel panel-success" >
 			<div class="panel-body table-responsive">			
-			<div class="col-md-11">	<strong class="font">About my ${cacheGuest.createProfileFor}</strong>
+			<div class="col-md-11">	<strong class="font">About My ${cacheGuest.createProfileFor}</strong>
 				<div id="about_view" class="all_visible_divs">
 					<p id="aboutMyself_val">
 						<c:if test="${not empty profileBean.aboutMyself}">${profileBean.aboutMyself}</c:if>
@@ -443,7 +443,7 @@ xpopup
 				
 			</div></div>
 	<br>
-		<div class="panel panel-success" style='box-shadow: 5px 8px 5px;'>
+		<div class="panel panel-success">
 			<div class="panel-body table-responsive">
 			<div class="col-md-11">	<strong class="font">Basic Details </strong>
 				<div id="basic_details_view" class="all_visible_divs">
@@ -537,7 +537,7 @@ xpopup
 </table></p>
 </div>
 <br> -->
-	<div class="panel panel-success" style='box-shadow: 5px 8px 5px;'>
+	<div class="panel panel-success">
 			<div class="panel-body table-responsive">
 		<div class="col-md-11">	
 			<strong class="font">Religion Information</strong>
@@ -599,15 +599,16 @@ xpopup
 		</div>
 		</div>
 <br>
-	<div class="panel panel-success" style='box-shadow: 5px 8px 5px;'>
+	<div class="panel panel-success">
 			<div class="panel-body table-responsive">
-			<div class="col-md-11">	<strong class="font">
+			<div class="col-md-11">	
+			<strong class="font">
 			<c:if test="${profileBean.gender == 'Female'}">Bride</c:if>
 			<c:if test="${profileBean.gender == 'Male'}">Groom</c:if>
 			's Location</strong> 
 	
 	<div id="location_view" class="all_visible_divs">
-	<table class="col-md-12 table-responsive">
+	<table class="col-md-6 table-responsive">
 		<tr><td>Country</td><td>:</td>
 			<td id="currentCountry_val">
 				<c:if test="${not empty profileBean.currentCountryName}">${profileBean.currentCountryName}</c:if>
@@ -636,7 +637,7 @@ xpopup
 </div>
 
 <br>
-	<div class="panel panel-success" style='box-shadow: 5px 8px 5px;'>
+	<div class="panel panel-success">
 			<div class="panel-body table-responsive">	
 			<div class="col-md-11">	<strong class="font">Professional Information</strong>
 				
@@ -669,7 +670,7 @@ xpopup
 
 
 <br>
-<div class="panel panel-success" style='box-shadow: 5px 8px 5px;'>
+<div class="panel panel-success">
 			<div class="panel-body table-responsive">
 			<div class="col-md-11">	<strong class="font">Family Details</strong>
 				
@@ -728,7 +729,7 @@ xpopup
 
 <br>
 		<h4   style="padding: 10px;"></h4><h3>Partner Preferences</h3><hr>
-<div class="panel panel-success" style='box-shadow: 5px 8px 5px;'>
+<div class="panel panel-success">
 
 			<div class="panel-body table-responsive">
 			
@@ -814,7 +815,7 @@ xpopup
 </div>
 
 <br>
-<div class="panel panel-success" style='box-shadow: 5px 8px 5px; '>
+<div class="panel panel-success">
 			<div class="panel-body table-responsive">
 			<div class="col-md-11">	<strong class="font">Professional Preferences</strong>
 				
@@ -855,7 +856,7 @@ xpopup
 </div>
 </div>
 <br>
-<div class="panel panel-success" style='box-shadow: 5px 8px 5px;'>
+<div class="panel panel-success" >
 			<div class="panel-body table-responsive">
 			<div class="col-md-11">	<strong class="font">Location Preferences</strong>
 				
