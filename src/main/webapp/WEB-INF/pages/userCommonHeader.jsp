@@ -1105,7 +1105,7 @@ tooltip:hover:after {
 			            	+ myProfileViewed_str 
 			            	+ '</td></tr>'*/
 			            	+ '	<tr><td>'+opp_gender_str+' expressed interest. Would you like to take it further?</td></tr>' 
-			            	+ '	<tr><td>'+acceptOptions+' <a href="#"><span class="pull-right" style="color:#006699;">+1 More Conversations</span></a></td></tr>'
+			            	+ '	<tr><td>'+acceptOptions+' <a href="moreConversations"><span class="pull-right" style="color:#006699;">+1 More Conversations</span></a></td></tr>'
 			            	+ '</table>'
 			            	+ '</div>'
 			            	+ '</div>'
