@@ -1866,11 +1866,13 @@ function editMobileNumber(user_id,old_mobile_no){
 });
 }
 
-function fullProfile_notifications(id){
-	$("#notifydiv"+id).removeAttr("class");
-	$("#notifydiv"+id).attr("class","row");
-	alert("#####");
+function getAllNotifications(){
+	document.allNotificationsForm.action = "allNotifications"
+    document.allNotificationsForm.target = "_blank";    // Open in a new window
+    document.allNotificationsForm.submit();             // Submit the page
+    return true;
 }
+
 
 	</script>
 	<script type="text/javascript">
@@ -2781,6 +2783,82 @@ img.hover-shadow {
 .manditory {
 	color: red;
 }
+
+/*   Notifications styles    */
+#notification_li
+			{
+			position:relative
+			}
+			#notificationContainer 
+			{
+			background-color: #fff;
+			border: 1px solid rgba(100, 100, 100, .4);
+			-webkit-box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
+			overflow: visible;
+			position: absolute;
+			top: 50px;
+			
+			width: 250px;
+			z-index:999;
+			display: none; // Enable this after jquery implementation 
+			}
+			// Popup Arrow
+			#notificationContainer:before {
+			content: '';
+			display: block;
+			position: absolute;
+			width: 0;
+			height: 0;
+			color: transparent;
+			border: 10px solid black;
+			border-color: transparent transparent white;
+			margin-top: -20px;
+			margin-left: 188px;
+			}
+			#notificationTitle
+			{
+			font-weight: bold;
+			padding: 8px;
+			font-size: 13px;
+			background-color: #f2f2f3;
+			
+			z-index: 1000;
+			width: 248px;
+			border-bottom: 1px solid #dddddd;
+			}
+			#notificationsBody
+			{
+			padding: 3px 0px 0px 0px !important;
+			max-height:300px;	
+    overflow-y: scroll;
+			}
+			#notificationFooter
+			{
+			background-color: #e9eaed;
+			text-align: center;
+			font-weight: bold;
+			padding: 8px;
+			font-size: 12px;
+			border-top: 1px solid #dddddd;
+			}
+
+
+
+		#notification_count 
+		{
+		padding: 3px 7px 3px 7px;
+		background: #cc0000;
+		color: #ffffff;
+		font-weight: bold;
+		margin-left: 77px;
+		border-radius: 9px;
+		-moz-border-radius: 9px; 
+		-webkit-border-radius: 9px;
+		position: absolute;
+		margin-top: -11px;
+		font-size: 11px;
+		}
+
 </style>
 </head>
 <body style="background: ;">
@@ -2888,102 +2966,56 @@ img.hover-shadow {
 									<li><a href="#no">Profile Highliter </a></li>
 								</ul>
 							</li> -->
-							<li class="dropdown notifications">
-								<a href="#no" class="dropdown-toggle" data-toggle="dropdown">Notifications <span id="matchcount"><c:out value="${notificationsCount}" /> </span></a>
-			
-
-			<div id="notificationContainer" class="dropdown-menu">
-			<div id="notificationTitle">Notifications</div>
-			<div id="notificationsBody" class="notifications">
-			<div class="col-md-3"  style="padding-right:0px; padding-left:0px;" >
-			<img src="img/aavatar.jpg" style="border-radius:  50%;width: 100%;padding: 5px;"></div>
-			<div class="col-md-9" style="padding-right:0px; padding-left:0px;" >
-<p>Ravindra Muppalla (T3995843) has sent you a new message.</p>
-			</div><hr><div class="clearfix"></div><hr>
-			<div class="col-md-3" style="padding-right:0px; padding-left:0px;">
-			<img src="img/aavatar.jpg" style="border-radius:  50%;width: 100%;padding: 5px;"></div>
-			<div class="col-md-9" style="padding-right:0px; padding-left:0px;">
-<p>Sai Krishna (E3995843) has sent you a new message.</p>
-			</div><hr><div class="clearfix"></div><hr>
-			<div class="col-md-3" style="padding-right:0px; padding-left:0px;">
-			<img src="img/aavatar.jpg" style="border-radius:  50%;width: 100%;padding: 5px;"></div>
-			<div class="col-md-9" style="padding-right:0px; padding-left:0px;">
-<p>Naresh Vemuri (A3995843) has sent you a new message.</p>
-			</div><div class="clearfix"></div><hr>
-			<div class="col-md-3" style="padding-right:0px; padding-left:0px;">
-			<img src="img/aavatar.jpg" style="border-radius:  50%;width: 100%;padding: 5px;"></div>
-			<div class="col-md-9" style="padding-right:0px; padding-left:0px;">
-<p>Naresh Vemuri (A3995843) has sent you a new message.</p>
-			</div><div class="clearfix"></div><hr>
-			<div class="col-md-3" style="padding-right:0px; padding-left:0px;">
-			<img src="img/aavatar.jpg" style="border-radius:  50%;width: 100%;padding: 5px;"></div>
-			<div class="col-md-9" style="padding-right:0px; padding-left:0px;">
-<p>Naresh Vemuri (A3995843) has sent you a new message.</p>
-			</div><div class="clearfix"></div><hr>
-			<div class="col-md-3" style="padding-right:0px; padding-left:0px;">
-			<img src="img/aavatar.jpg" style="border-radius:  50%;width: 100%;padding: 5px;"></div>
-			<div class="col-md-9" style="padding-right:0px; padding-left:0px;">
-<p>Naresh Vemuri (A3995843) has sent you a new message.</p>
-			</div><div class="clearfix"></div><hr>
-			<div class="col-md-3" style="padding-right:0px; padding-left:0px;">
-			<img src="img/aavatar.jpg" style="border-radius:  50%;width: 100%;padding: 5px;"></div>
-			<div class="col-md-9" style="padding-right:0px; padding-left:0px;">
-<p>Naresh Vemuri (A3995843) has sent you a new message.</p>
-			</div><div class="clearfix"></div><hr>
-			<div class="col-md-3" style="padding-right:0px; padding-left:0px;">
-			<img src="img/aavatar.jpg" style="border-radius:  50%;width: 100%;padding: 5px;"></div>
-			<div class="col-md-9" style="padding-right:0px; padding-left:0px;">
-<p>Naresh Vemuri (A3995843) has sent you a new message.</p>
-			</div><div class="clearfix"></div><hr>
-			</div>
-			<div id="notificationFooter"><a href="#">See All</a></div>
-			</div>
-
-		</li>
-							<li class="dropdown notifications">
-								<a href="#no" class="dropdown-toggle" data-toggle="dropdown">Notifications <span id="matchcount"><c:out value="${notificationsCount}" /> </span></a>
-								<ul class="dropdown-menu">
+							
+							<li class="dropdown notifications" id="notification_li">
+								<a href="#" id="notificationLink"> <span class="fa fa-bell"></span>Notifications</a>
+								<div id="notificationContainer" class="dropdown-menu">
 									<c:if test="${not empty notificationsList}">
-											<c:forEach var="notification" items="${notificationsList}">
-												<li>
-													<div id="notifydiv${notification.id}" class="row well">
-														<div class="nailthumb-container" style="width: 50px;height: 30px;" >
-															<c:if test="${not empty notification.profileImage}">
-																<img src="${notification.profileImage}" style="top: 0px">
-															</c:if>
-															<c:if test="${empty notification.profileImage}">
-																<img src="img/default.png" style="top: 0px">
-															</c:if>
-														</div>
-														<div>
-															<a href="fullProfile?pid=${notification.profile_id}&nid=${notification.id}&rfrm=notifications" onclick="fullProfile_notifications(${notification.id});" target="_blank"><b><c:out value="${notification.fullName}" /></b>
-															<c:if test="${notification.notifi_type == 'interest'}">
-																expressed interest in your profile
-															</c:if>
-															<c:if test="${notification.notifi_type == 'mobile_num_viewed'}">
-																viewed your mobile number
-															</c:if>
-															<c:if test="${notification.notifi_type == 'profile_viewed'}">
-																viewed your profile
-															</c:if>
-															<c:if test="${notification.notifi_type == 'mail'}">
-																sent you personal mail
-															</c:if>
-															<c:if test="${notification.notifi_type == 'short_listed'}">
-																shortlisted your profile
-															</c:if>
+											<div id="notificationsBody" class="notifications">
+												<c:forEach var="notification" items="${notificationsList}">
+													<div class="col-md-3"  style="padding-right:0px; padding-left:0px;" >
+														<c:if test="${not empty notification.profileImage}">
+															<img src="${notification.profileImage}" style="border-radius:  50%;width: 100%;padding: 5px;">
+														</c:if>
+														<c:if test="${empty notification.profileImage}">
+															<img src="img/default.png" style="border-radius:  50%;width: 100%;padding: 5px;">
+														</c:if>
+													</div>
+													<div class="col-md-9" style="padding-right:0px; padding-left:0px;" >
+														<p>
+															<a href="fullProfile?pid=${notification.profile_id}&nid=${notification.id}&rfrm=notifications" target="_blank" >
+																<b><c:out value="${notification.fullName}" /> (<c:out value="${notification.username}" />)</b> 
+																<c:if test="${notification.notifi_type == 'interest'}">
+																	expressed interest in your profile
+																</c:if>
+																<c:if test="${notification.notifi_type == 'mobile_num_viewed'}">
+																	viewed your mobile number
+																</c:if>
+																<c:if test="${notification.notifi_type == 'profile_viewed'}">
+																	viewed your profile
+																</c:if>
+																<c:if test="${notification.notifi_type == 'mail'}">
+																	sent you personal mail
+																</c:if>
+																<c:if test="${notification.notifi_type == 'short_listed'}">
+																	shortlisted your profile
+																</c:if>
 															</a>
 															<br>
 															<c:out value="${notification.created_on}" />
-														</div>
-													</div>
-												</li>
-												
-												
-											</c:forEach>
+														.</p>
+													</div><hr>
+													<div class="clearfix"></div><hr>
+												</c:forEach>
+											</div>
+											<form:form commandName="notificationsForm"  class="form-horizontal" id="allNotificationsForm" name="allNotificationsForm" role="form"   method="post">
+												<div id="notificationFooter"><a href="#" onclick="getAllNotifications();">See All</a></div>
+											</form:form>
 									</c:if>
-									
-								</ul>
+									<c:if test="${empty notificationsList}">
+										<p>Currently, you have no notifications.</p>
+									</c:if>
+								</div>	
 							</li>
 							<li><a href="#no" >Help</a></li>
 							

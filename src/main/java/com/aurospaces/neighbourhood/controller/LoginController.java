@@ -141,7 +141,7 @@ public class LoginController {
 			long notificationsCount = (Long)interestCounts.get("notificationsCount");
 			if(objUserBean.getStatus().equals("1")){
 				session.setAttribute("notificationsCount", notificationsCount);
-				List<Map<String,Object>> notificationsList = objUsersDao.getNotifications(objUserBean);
+				List<Map<String,Object>> notificationsList = objUsersDao.getNotifications(objUserBean,false);
 				if(notificationsList!=null && notificationsList.size()>0){
 					session.setAttribute("notificationsList", notificationsList);
 				}else{

@@ -2870,7 +2870,7 @@ public boolean deletePhoto(String photoId){
 		 } 
 	}*/
 	
-	public List<Map<String, Object>> getNotifications(UsersBean objUserBean){
+	public List<Map<String, Object>> getNotifications(UsersBean objUserBean,boolean all_notifications){
 
 		jdbcTemplate = custom.getJdbcTemplate();
 		StringBuffer buffer = new StringBuffer();
@@ -2878,7 +2878,9 @@ public boolean deletePhoto(String photoId){
 				+" (select u.username from users u where u.id=user_notifications.profile_id) as userName,date_format(user_notifications.created_on,'%d-%M-%Y') as created_on, "
 				+" (select uimg.image from user_images uimg where uimg.user_id=user_notifications.profile_id and  uimg.status = '1' and uimg.is_profile_picture='1') as profileImage "
 				+" from user_notifications where user_id = "+objUserBean.getId()+" and user_type = 'member' order by created_on desc ");
-			
+		if(!all_notifications){
+			buffer.append(" limit 10 offset 0");
+		}
 		String sql =buffer.toString();
 		
 		List<Map<String, Object>> notifications = jdbcTemplate.queryForList(sql);
