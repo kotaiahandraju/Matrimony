@@ -200,7 +200,7 @@ background: none !important;
 					    	</div>
 					    	<a data-slide="prev" href="#media" class="left carousel-control"> <i style="margin-top:8px;" class="fa fa-chevron-left"></i></a>
         					<a data-slide="next" href="#media" class="right carousel-control"> <i  style="margin-top:8px;" class="fa fa-chevron-right"></i></a>
-        					<a href="newMatches">View all</a>
+        					<br><div align="center"><a class="btn btn-primary" href="newMatches">View all</a></div>
 					    </div>
 					</div></div></div></div>
 				</div>

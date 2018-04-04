@@ -4,6 +4,9 @@
     color: red;
     opacity: 1; /* Firefox */
 }
+.form-check {
+text-align:left;
+}
 </style>
 			<div class="col-md-9 products-grid-left">
             	<div class="panel panel-default">
@@ -14,8 +17,18 @@
 							<div class="col-md-12">
 							<div id="searchresultsDiv" class="bare">
 								<div class="searchresults">
-								    <h3>Your Search Results</h3>
+								    <h3>Your Search Results <div class="form-group pull-right" >
+							      <div class="col-md-9">
+							      	<input id="username" name="username" placeholder="Enter Matrimony Id" class="form-control" type="text" value="">
+							      </div>
+							   
+							      <div class="col-md-3">
+							     	<a href="#" type="button" id="searchBtn" class="btn1 btn btn-danger" onclick="submitSearch()">Search</a> 
+							      </div>
+							    </div></h3>
 								    <p><span id="countId">${count}</span> Profiles found </p>
+								    <br>
+								    
 									<div id="searchResults">
 										
 
