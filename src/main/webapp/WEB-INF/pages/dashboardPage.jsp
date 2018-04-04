@@ -159,7 +159,7 @@ background: none !important;
 				<div class="panel panel-default">
 					<div class="panel-body">
 						<c:if test="${profile_filled_status != '100'}">
-							Complete the remaining Profile
+							Complete the Remaining Profile
 						</c:if>
 						
 						<div class="progress">

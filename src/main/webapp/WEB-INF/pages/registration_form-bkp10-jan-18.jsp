@@ -280,10 +280,11 @@
 					<!-- 4th Step starts here-->
 					<div id="fourthForm" class="dispnone">
 					    <div class="col-md-12">
-					      <h3>One last thing! Describe yourself in a few words</h3>
+					      <h3>
+</h3>
 					    </div>
 					    <div class="form-group">
-					      <label class="col-md-4 control-label" for="textinput">About myself</label>  
+					      <label class="col-md-4 control-label" for="textinput">About Myself</label>  
 					      <div class="col-md-6">
 					      	<form:textarea rows="6" path="aboutMyself" class="form-control u"></form:textarea>
 					      </div>

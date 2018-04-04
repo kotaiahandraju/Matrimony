@@ -136,7 +136,7 @@ margin-bottom:5px !important;
 		<section id="tab1" class="tab-content active">
 			<div>
 				<div class="panel panel-success">
-					<div class="panel-heading" id="tbl_header">You viewed mobiles no.s of following members. </div>
+					<div class="panel-heading" id="tbl_header">You viewed mobile no of following members. </div>
 		            <form:form commandName="createProfile"  class="form-horizontal" id="searchForm2" name="searchForm2" role="form"   method="post">
 	             		<form:hidden path="id" />
 						<div class="panel-body" id="matches">
