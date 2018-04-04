@@ -119,7 +119,7 @@ function displayMatches(listOrders) {
 			var expressed = orderObj.expressedInterest;
 			var firstname = '<img src="images/blurr.png"/>',lastname='';
 			mobile_no__str = '<tr id="row'+orderObj.id+'"><td><a href="#" type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</a></td></tr>';
-			insert_str = '<a href="#" id="expInterest'+orderObj.id+'" type="button" class="btn btn-primary btn-block" onclick="expressInterest('+orderObj.id+')">Yes I\'m interested</a>';
+			insert_str = '<a href="#" id="expInterest'+orderObj.id+'" type="button" class="btn btn-primary btn-sm" onclick="expressInterest('+orderObj.id+')">Yes I\'m interested</a>';
 			/* if(expressed==0){
 				insert_str = '<button id="expInterest'+orderObj.id+'" type="button" class="btn btn-primary btn-block" onclick="expressInterest('+orderObj.id+')">Yes I\'m interested</button>';
 			}else if(expressed>0){
@@ -191,8 +191,8 @@ function displayMatches(listOrders) {
             	+ '<div class="col-md-4">'
             	+ '<h4 class="bin">Like this Profile?</h4>'
             	+ insert_str
-				+ '<a href="#" class="btn btn-success btn-block btn-md" onclick="fullProfile('+orderObj.id+')">View Full Profile</a><br>'
-				+ '<a href="#" type="button" class="btn1 btn btn-info btn-block"  id="mobileBtn'+orderObj.id+'" onclick="shortList('+orderObj.id+')">Shortlist</a> '
+				+ '<a href="#" class="btn btn-success btn-sm " onclick="fullProfile('+orderObj.id+')">View Full Profile</a><br>'
+				+ '<a href="#" type="button" class="btn1 btn btn-info btn-sm"  id="mobileBtn'+orderObj.id+'" onclick="shortList('+orderObj.id+')">Shortlist</a> '
             	+ '<div class="clearfix"></div>'
             	+ '</div>'
             	+ '</div>'
