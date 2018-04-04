@@ -37,6 +37,102 @@
 	<script src="js/jquery.watermark.js"></script>
 	<script src="js/jquery.littlelightbox.js"></script>
 	<link href="css/jquery.littlelightbox.css" rel="stylesheet" type="text/css">
+	<style type="text/css">
+.note {
+padding-right:0px;
+padding-left:0px;
+}
+#notification_li
+			{
+			position:relative
+			}
+			#notificationContainer 
+			{
+			background-color: #fff;
+			border: 1px solid rgba(100, 100, 100, .4);
+			-webkit-box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
+			overflow: visible;
+			position: absolute;
+			top: 50px;
+			
+			width: 250px;
+			z-index:999;
+			display: none; // Enable this after jquery implementation 
+			}
+			// Popup Arrow
+			#notificationContainer:before {
+			content: '';
+			display: block;
+			position: absolute;
+			width: 0;
+			height: 0;
+			color: transparent;
+			border: 10px solid black;
+			border-color: transparent transparent white;
+			margin-top: -20px;
+			margin-left: 188px;
+			}
+			#notificationTitle
+			{
+			font-weight: bold;
+			padding: 8px;
+			font-size: 13px;
+			background-color: #f2f2f3;
+			
+			z-index: 1000;
+			width: 248px;
+			border-bottom: 1px solid #dddddd;
+			}
+			#notificationsBody
+			{
+			padding: 3px 0px 0px 0px !important;
+			max-height:300px;	
+    overflow-y: scroll;
+			}
+			#notificationFooter
+			{
+			background-color: #e9eaed;
+			text-align: center;
+			font-weight: bold;
+			padding: 8px;
+			font-size: 12px;
+			border-top: 1px solid #dddddd;
+			}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+
+		#notification_count 
+		{
+		padding: 3px 7px 3px 7px;
+		background: #cc0000;
+		color: #ffffff;
+		font-weight: bold;
+		margin-left: 77px;
+		border-radius: 9px;
+		-moz-border-radius: 9px; 
+		-webkit-border-radius: 9px;
+		position: absolute;
+		margin-top: -11px;
+		font-size: 11px;
+		}
+		</style>
 	<style>
 	::-webkit-input-placeholder {
 color: #cfcfcf !important;
@@ -2792,7 +2888,58 @@ img.hover-shadow {
 									<li><a href="#no">Profile Highliter </a></li>
 								</ul>
 							</li> -->
-							
+							<li class="dropdown notifications">
+								<a href="#no" class="dropdown-toggle" data-toggle="dropdown">Notifications <span id="matchcount"><c:out value="${notificationsCount}" /> </span></a>
+			
+
+			<div id="notificationContainer" class="dropdown-menu">
+			<div id="notificationTitle">Notifications</div>
+			<div id="notificationsBody" class="notifications">
+			<div class="col-md-3"  style="padding-right:0px; padding-left:0px;" >
+			<img src="img/aavatar.jpg" style="border-radius:  50%;width: 100%;padding: 5px;"></div>
+			<div class="col-md-9" style="padding-right:0px; padding-left:0px;" >
+<p>Ravindra Muppalla (T3995843) has sent you a new message.</p>
+			</div><hr><div class="clearfix"></div><hr>
+			<div class="col-md-3" style="padding-right:0px; padding-left:0px;">
+			<img src="img/aavatar.jpg" style="border-radius:  50%;width: 100%;padding: 5px;"></div>
+			<div class="col-md-9" style="padding-right:0px; padding-left:0px;">
+<p>Sai Krishna (E3995843) has sent you a new message.</p>
+			</div><hr><div class="clearfix"></div><hr>
+			<div class="col-md-3" style="padding-right:0px; padding-left:0px;">
+			<img src="img/aavatar.jpg" style="border-radius:  50%;width: 100%;padding: 5px;"></div>
+			<div class="col-md-9" style="padding-right:0px; padding-left:0px;">
+<p>Naresh Vemuri (A3995843) has sent you a new message.</p>
+			</div><div class="clearfix"></div><hr>
+			<div class="col-md-3" style="padding-right:0px; padding-left:0px;">
+			<img src="img/aavatar.jpg" style="border-radius:  50%;width: 100%;padding: 5px;"></div>
+			<div class="col-md-9" style="padding-right:0px; padding-left:0px;">
+<p>Naresh Vemuri (A3995843) has sent you a new message.</p>
+			</div><div class="clearfix"></div><hr>
+			<div class="col-md-3" style="padding-right:0px; padding-left:0px;">
+			<img src="img/aavatar.jpg" style="border-radius:  50%;width: 100%;padding: 5px;"></div>
+			<div class="col-md-9" style="padding-right:0px; padding-left:0px;">
+<p>Naresh Vemuri (A3995843) has sent you a new message.</p>
+			</div><div class="clearfix"></div><hr>
+			<div class="col-md-3" style="padding-right:0px; padding-left:0px;">
+			<img src="img/aavatar.jpg" style="border-radius:  50%;width: 100%;padding: 5px;"></div>
+			<div class="col-md-9" style="padding-right:0px; padding-left:0px;">
+<p>Naresh Vemuri (A3995843) has sent you a new message.</p>
+			</div><div class="clearfix"></div><hr>
+			<div class="col-md-3" style="padding-right:0px; padding-left:0px;">
+			<img src="img/aavatar.jpg" style="border-radius:  50%;width: 100%;padding: 5px;"></div>
+			<div class="col-md-9" style="padding-right:0px; padding-left:0px;">
+<p>Naresh Vemuri (A3995843) has sent you a new message.</p>
+			</div><div class="clearfix"></div><hr>
+			<div class="col-md-3" style="padding-right:0px; padding-left:0px;">
+			<img src="img/aavatar.jpg" style="border-radius:  50%;width: 100%;padding: 5px;"></div>
+			<div class="col-md-9" style="padding-right:0px; padding-left:0px;">
+<p>Naresh Vemuri (A3995843) has sent you a new message.</p>
+			</div><div class="clearfix"></div><hr>
+			</div>
+			<div id="notificationFooter"><a href="#">See All</a></div>
+			</div>
+
+		</li>
 							<li class="dropdown notifications">
 								<a href="#no" class="dropdown-toggle" data-toggle="dropdown">Notifications <span id="matchcount"><c:out value="${notificationsCount}" /> </span></a>
 								<ul class="dropdown-menu">
