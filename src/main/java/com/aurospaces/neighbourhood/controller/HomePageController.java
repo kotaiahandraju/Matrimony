@@ -4109,4 +4109,26 @@ public class HomePageController {
   		return "emailVerificationLink";
   	}
    
+   @RequestMapping(value = "/allNotifications")
+	 public String allNotifications(@ModelAttribute("notificationsForm") UsersBean objUserssBean, Model objeModel, HttpServletRequest request, HttpSession session) {
+	  List<Map<String, Object>> notifications = null;
+		try {
+			UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
+			if(sessionBean == null){
+				return "redirect:HomePage";
+			}
+			notifications = objUsersDao.getNotifications(sessionBean, true);
+			if(notifications!=null && notifications.size()>0){
+				request.setAttribute("notificationsList", notifications);
+			}else{
+				request.setAttribute("notificationsList", "''");
+			}
+		} catch (Exception e) {
+	   e.printStackTrace();
+	   System.out.println(e);
+	   logger.error(e);
+	   logger.fatal("error in allNotifications method");
+	  }
+		return "allNotifications";
+	 }
 }
