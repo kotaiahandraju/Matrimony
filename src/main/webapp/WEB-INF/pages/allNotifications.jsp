@@ -39,8 +39,10 @@ color:#006699;
 																<c:if test="${notification.notifi_type == 'short_listed'}">
 																	shortlisted your profile
 																</c:if>
-															</a>
-														.</p>
+															</a></br>
+															<p>Last Viewed &nbsp;<c:out value="${notification.created_on}"/></p>
+														</p>
+														
 													</div><hr>
 													<div class="clearfix"></div><hr>
 												</c:forEach>
