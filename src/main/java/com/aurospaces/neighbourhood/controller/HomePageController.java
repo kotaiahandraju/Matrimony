@@ -2,6 +2,7 @@ package com.aurospaces.neighbourhood.controller;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,6 +26,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.castor.util.Base64Decoder;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.json.JSONObject;
 import org.springframework.beans.BeanUtils;
@@ -481,6 +483,133 @@ public class HomePageController {
 	  }
 	  return "uploadPhoto";
 	 }
+	 
+	 @RequestMapping(value = "/croppedPhotoUpload")
+		public @ResponseBody String photoUploadd( ModelMap model,
+					HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
+		 //String imgData = request.getParameter("imageData");
+		 String temp;
+		 
+		 FileOutputStream osf;
+		 String id =null;
+		String msg= null;
+		String name=null;
+		String sTomcatRootPath = null;
+		String sDirPath = null;
+		String filepath = null;
+		UserImagesBean objUerImagesBean = null;
+		JSONObject objJson =new JSONObject();
+		try {
+			
+			 
+			 UsersBean sessionBean =(UsersBean)session.getAttribute("cacheGuest");
+				if(sessionBean!=null){
+					
+				
+					objUerImagesBean = new UserImagesBean();
+					id=sessionBean.getId()+"";
+					if(StringUtils.isNotBlank(id)){
+						objUerImagesBean.setUserId(id);
+					}
+					String imgData = request.getParameter("imageData");
+					if (StringUtils.isNotBlank(imgData)) {
+						Base64Decoder decoder = new Base64Decoder(); 
+						 byte[] imgBytes = decoder.decode(imgData.split(",")[1]);
+						//byte[] bytes = file.getBytes();
+						//name = imgData.split(",")[0].split("")   //file.getOriginalFilename();
+						//int n=name.lastIndexOf(".");
+						/*name=name.substring(n + 1);
+						name=name+".png";*/
+						long millis = System.currentTimeMillis() % 1000;
+						filepath= id+millis+".png";
+						
+						
+						
+						 String latestUploadPhoto = "";
+					        String rootPath = request.getSession().getServletContext().getRealPath("/");
+					        File dir = new File(rootPath + File.separator + "img");
+					        if (!dir.exists()) {
+					            dir.mkdirs();
+					        }
+					         
+					        File serverFile = new File(dir.getAbsolutePath() + File.separator + filepath);
+					      //  latestUploadPhoto = file.getOriginalFilename();
+	//				        file.transferTo(serverFile);
+					    //write uploaded image to disk
+					        try {
+					            
+					            osf = new FileOutputStream(new File(dir.getAbsolutePath() + File.separator + filepath));
+					    		
+								 osf.write(imgBytes);
+								 osf.flush();
+					        } catch (IOException e) {
+					            System.out.println("error : " + e);
+					        }
+						  
+						
+					        filepath= "img/"+filepath;
+					        objUerImagesBean.setImage(filepath);
+					        objUerImagesBean.setStatus("1");
+					        
+					     /*   ----------------------------------------*/
+					        sTomcatRootPath = System.getProperty("catalina.base");
+							sDirPath = sTomcatRootPath + File.separator + "webapps"+ File.separator + "img" ;
+							System.out.println(sDirPath);
+							File file1 = new File(sDirPath);
+						    //file.transferTo(file1);
+						    try{
+						    	objUserImageUploadDao.save(objUerImagesBean);
+						    	UsersBean newBean = objUsersDao.loginChecking(sessionBean.getId());
+						    	int filled_status = objUsersDao.getProfileFilledStatus(newBean);
+								session.setAttribute("profile_filled_status", 45+filled_status);
+						    	/*int filled_status = (Integer)session.getAttribute("profile_filled_status");
+								 if(StringUtils.isBlank(sessionBean.getImage()) && StringUtils.isNotBlank(newBean.getImage())){
+									 filled_status += 20;
+								 }
+								 session.setAttribute("profile_filled_status",filled_status);*/
+								 /*if(StringUtils.isBlank(newBean.getFatherName())){
+										session.setAttribute("profile_filled_status", "55");
+									}else if(StringUtils.isBlank(newBean.getImage())){
+										session.setAttribute("profile_filled_status", "65");
+									}else if(StringUtils.isBlank(newBean.getrAgeFrom()) && StringUtils.isBlank(newBean.getrAgeTo()) &&
+											StringUtils.isBlank(newBean.getrMaritalStatus()) ){
+										session.setAttribute("profile_filled_status", "90");
+									}
+									else{
+										session.setAttribute("profile_filled_status", "100");
+									}*/
+						    	
+						    	/*Object filled_status = session.getAttribute("profile_filled_status");
+						    	int intValOfStatus = 0;
+						    	if(filled_status != null){
+									 intValOfStatus = Integer.parseInt((String)filled_status);
+								 }
+						    	if(StringUtils.isBlank(sessionBean.getImage())){
+						    		session.setAttribute("profile_filled_status", (intValOfStatus+25)+"");
+						    	}*/
+								
+						    	/*BranchBean imageBean = objUserImageUploadDao.getByUserId(objUerImagesBean.getUserId());
+						    	if(imageBean != null){
+						    		String profileImage = imageBean.getImage();
+						    		sessionBean.setProfileImage(profileImage);
+						    		session.setAttribute("cacheGuest",sessionBean);
+						    	}*/
+						    	List<Map<String,Object>> photosList = objUsersDao.getUserPhotos(Integer.parseInt(objUerImagesBean.getUserId()));
+						    	objJson.put("photosList", photosList);
+						    	objJson.put("message", "success");
+						    }catch(Exception e){
+						    	e.printStackTrace();
+						    	objJson.put("message", "failed");
+						    }
+					}
+				}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return objJson.toString();
+	 }
+	 
 	 @RequestMapping(value = "/photoUpload")
 	public @ResponseBody String photoUpload(@RequestParam("imageName") MultipartFile file, ModelMap model,
 				HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
@@ -502,6 +631,7 @@ public class HomePageController {
 					if(StringUtils.isNotBlank(id)){
 						objUerImagesBean.setUserId(id);
 					}
+					String imgData = request.getParameter("imageData");
 					if (!file.isEmpty()) {
 						byte[] bytes = file.getBytes();
 						name =file.getOriginalFilename();
