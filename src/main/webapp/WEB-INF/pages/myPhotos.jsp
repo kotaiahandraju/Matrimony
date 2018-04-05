@@ -59,10 +59,10 @@
 					    </div>
 					    <div class="form-group">
 					      <div class="col-md-8">
-					      	<input type="file" id='imageName'  onchange="checkImg(this)"><br>
+					      	<!-- <input type="file" id='imageName1'  onchange="checkImg(this)"><br> -->
 					    	<form role="form">
-      <input id="sample_input" type="hidden" name="test[image]">
-    </form>
+						      <input id="imageName" type="hidden" name="test[image]">
+						    </form>
 					      </div>
 					    </div>
 					    <div class="form-group">
@@ -120,8 +120,8 @@ $(function(){
 function addWaterMark(){
  $('.watermark_text').watermark({
 	  text: 'aarnamatrimony.com',
-	  textWidth: 700,
-	  textSize: 76,
+	  textWidth: 250,
+	  textSize: 15,
 	  textColor: 'white',
 	  gravity: 'w',
 	   opacity: 0.8,
@@ -137,16 +137,18 @@ function checkImg(objImg)
 
 function imageAjax(){
 	if($("#imageName").val() == "" || $("#imageName").val() == "undefined" || $("#imageName").val() == null){
-		alert("Please Upload Image..!");
+		alert("Please Select An Image..!");
 	}
 	else
 	{
 		$("#uploadBtn").prop("disabled",true);
 		$("#uploadBtn").val("Please wait...");
 		var formData = new FormData();
-		formData.append("imageName", imageName.files[0]);
+		//var imgurl =  $("#imageName").getCroppedCanvas().toDataURL();
+		//formData.append("imageName", $("#imageName").val());
+		formData.append("imageData", $("#imageName").val());
 		//formData.append("id", id);
-	  	$.fn.makeMultipartRequest('POST', 'photoUpload', false, formData, false, 'text', function(data){
+	  	$.fn.makeMultipartRequest('POST', 'croppedPhotoUpload', false, formData, false, 'text', function(data){
 		  	var jsonobj = $.parseJSON(data);
 		  	var msg = jsonobj.message;
 		  	var photosList = jsonobj.photosList;
@@ -239,7 +241,7 @@ $(".dashboard").addClass("active");
 <script src="js/jquery.awesome-cropper.js"></script> 
 <script>
     $(document).ready(function () {
-        $('#sample_input').awesomeCropper(
+        $('#imageName').awesomeCropper(
         { width: 150, height: 150, debug: true }
         );
     });

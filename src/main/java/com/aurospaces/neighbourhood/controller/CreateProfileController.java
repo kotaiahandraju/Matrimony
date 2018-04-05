@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.castor.util.Base64Decoder;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -216,7 +217,7 @@ public class CreateProfileController {
 		}
 		return "redirect:AllProfilesHome";
 	}
-	@RequestMapping(value = "/imageUpload")
+	/*@RequestMapping(value = "/imageUpload")
 	public @ResponseBody String imageUpload(@RequestParam("imageName") MultipartFile file, ModelMap model,
 			HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
 		String id =null;
@@ -237,8 +238,8 @@ public class CreateProfileController {
 				byte[] bytes = file.getBytes();
 				name =file.getOriginalFilename();
 				int n=name.lastIndexOf(".");
-				/*name=name.substring(n + 1);
-				name=name+".png";*/
+				name=name.substring(n + 1);
+				name=name+".png";
 				long millis = System.currentTimeMillis() % 1000;
 				filepath= id+millis+".png";
 				
@@ -273,7 +274,7 @@ public class CreateProfileController {
 			        objUerImagesBean.setImage(filepath);
 			        objUerImagesBean.setStatus("1");
 			        
-			     /*   ----------------------------------------*/
+			        ----------------------------------------
 			        sTomcatRootPath = System.getProperty("catalina.base");
 					sDirPath = sTomcatRootPath + File.separator + "webapps"+ File.separator + "img" ;
 					System.out.println(sDirPath);
@@ -296,8 +297,85 @@ public class CreateProfileController {
 			logger.fatal("error in CreateProfile class addProfile method  ");
 		}
 		return objJson.toString();
-	}
+	}*/
 	
+	@RequestMapping(value = "/croppedImageUpload")
+	public @ResponseBody String imageUpload(ModelMap model,
+			HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
+		String id =null;
+		String msg= null;
+		String name=null;
+		String sTomcatRootPath = null;
+		String sDirPath = null;
+		String filepath = null;
+		UserImagesBean objUerImagesBean = null;
+		JSONObject objJson =new JSONObject();
+		FileOutputStream osf;
+		try {
+			objUerImagesBean = new UserImagesBean();
+			id=request.getParameter("id");
+			if(StringUtils.isNotBlank(id)){
+				objUerImagesBean.setUserId(id);
+			}
+			String imgData = request.getParameter("imageData");
+			if (StringUtils.isNotBlank(imgData)) {
+				Base64Decoder decoder = new Base64Decoder(); 
+				byte[] imgBytes = decoder.decode(imgData.split(",")[1]);
+				/*name=name.substring(n + 1);
+				name=name+".png";*/
+				long millis = System.currentTimeMillis() % 1000;
+				filepath= id+millis+".png";
+				
+				
+				
+				 String latestUploadPhoto = "";
+			        String rootPath = request.getSession().getServletContext().getRealPath("/");
+			        File dir = new File(rootPath + File.separator + "img");
+			        if (!dir.exists()) {
+			            dir.mkdirs();
+			        }
+			         
+			        File serverFile = new File(dir.getAbsolutePath() + File.separator + filepath);
+			      //  latestUploadPhoto = file.getOriginalFilename();
+//			        file.transferTo(serverFile);
+			    //write uploaded image to disk
+			        try {
+			        	osf = new FileOutputStream(new File(dir.getAbsolutePath() + File.separator + filepath));
+			        	osf.write(imgBytes);
+						 osf.flush();
+			        } catch (IOException e) {
+			            System.out.println("error : " + e);
+			        }
+				  
+				
+			        filepath= "img/"+filepath;
+			        objUerImagesBean.setImage(filepath);
+			        objUerImagesBean.setStatus("1");
+			        
+			     /*   ----------------------------------------*/
+			        sTomcatRootPath = System.getProperty("catalina.base");
+					sDirPath = sTomcatRootPath + File.separator + "webapps"+ File.separator + "img" ;
+					System.out.println(sDirPath);
+					//File file1 = new File(sDirPath);
+				    //file.transferTo(file1);
+				    try{
+				    	objUserImageUploadDao.save(objUerImagesBean);
+					    objJson.put("message", "success");
+				    }catch(Exception e){
+				    	e.printStackTrace();
+				    	objJson.put("message", "failed");
+				    }
+				    
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			logger.error(e);
+			logger.fatal("error in CreateProfile class addProfile method  ");
+		}
+		return objJson.toString();
+	}
 	
 	
 	@ModelAttribute("cast")
