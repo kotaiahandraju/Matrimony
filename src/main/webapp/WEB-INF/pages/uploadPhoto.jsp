@@ -5,6 +5,11 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 
+<style>
+input[type="file"] {
+margin:5px;
+}
+</style>
 				<div class="col-md-5 col-sm-12"></div>
 	            <div  class="clearfix"></div>    
 			</div>
