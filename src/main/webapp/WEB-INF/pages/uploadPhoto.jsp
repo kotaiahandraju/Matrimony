@@ -4,7 +4,8 @@
 <%@ taglib uri="http://displaytag.sf.net" prefix="display"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
-
+<link href="css/imgareaselect-default.css" rel="stylesheet" media="screen">
+<link rel="stylesheet" href="css/jquery.awesome-cropper.css">
 				<div class="col-md-5 col-sm-12"></div>
 	            <div  class="clearfix"></div>    
 			</div>
@@ -21,7 +22,11 @@
 					      <label class="col-md-4 control-label" for="textinput"></label>
 					      <div class="col-md-8">
 					      	<img src="${baseurl}/img/default.png" alt="Preview" id="previewImg" align="middle" style="border-style: solid;height: 100px;width: 100px;border-bottom-style: none;border-left-style: none;border-top-style: none;">
-					      	<input type="file" id='imageName'  onchange="checkImg(this)"><br>
+					      	<!-- <input type="file" id='imageName'  onchange="checkImg(this)"> -->
+					      	<form role="form">
+						      <input id="imageName" type="hidden" name="test[image]">
+						    </form>
+					      	<br>
 					      </div>
 					    </div>
 					    <%-- <div class="form-group">
@@ -62,9 +67,10 @@ function imageAjax(){
 		$("#uploadBtn").prop("disabled",true);
 		$("#uploadBtn").val("Please wait...");
 		var formData = new FormData();
-		formData.append("imageName", imageName.files[0]);
+		//formData.append("imageName", imageName.files[0]);
+		formData.append("imageData", $("#imageName").val());
 	//	formData.append("id", id);
-	  	$.fn.makeMultipartRequest('POST', 'photoUpload', false, formData, false, 'text', function(data){
+	  	$.fn.makeMultipartRequest('POST', 'croppedPhotoUpload', false, formData, false, 'text', function(data){
 		  	var jsonobj = $.parseJSON(data);
 		  	var msg = jsonobj.message;
 		  	if("success" == msg){
@@ -84,5 +90,13 @@ function goToNextPage(){
 }
 
 </script>
-
+<script src="js/jquery.imgareaselect.js"></script> 
+<script src="js/jquery.awesome-cropper.js"></script> 
+<script>
+    $(document).ready(function () {
+        $('#imageName').awesomeCropper(
+        { width: 150, height: 150, debug: true }
+        );
+    });
+    </script>
 <%@ include file="userStepsFooter.jsp"%>
