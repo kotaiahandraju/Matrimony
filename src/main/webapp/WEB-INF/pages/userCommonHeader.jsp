@@ -2898,7 +2898,7 @@ img.hover-shadow {
 		</div>
 		<div class="col-md-5">
 			<div class="cart box_1">
-				<p>Dear, <%= userBean.getFirstName() %> <%= userBean.getLastName() %></p>
+				<p>Dear <%= userBean.getFirstName() %> <%= userBean.getLastName() %></p>
 				<div class="clearfix"> </div>
 			</div>				 
 		</div>
@@ -3046,7 +3046,7 @@ img.hover-shadow {
 								</a>
 								<ul class="dropdown-menu" style="left: none; right: auto; min-width: 85px;">
 									<li><a href="settings">Settings</a></li>
-									<li><a href="logoutHome" >Signout</a></li>
+									<li><a href="logoutHome" >Sign out</a></li>
 								</ul>
 							</li>
 							
