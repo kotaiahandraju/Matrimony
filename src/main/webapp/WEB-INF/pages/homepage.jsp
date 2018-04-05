@@ -250,7 +250,7 @@ window.setTimeout(function() {
                                                 </div> 
                                                 
                                                  <div class="form-group">
-                                                    <label for="">Mother tongue</label>
+                                                    <label for="">Mother Tongue</label>
                         				 <form:select path="motherTongue" onfocus="removeBorder(this.id)"  class="form-control" >
 														<form:option value="">-- Choose Mother Tongue --</form:option>
 														<form:options items="${language}"></form:options>
@@ -815,7 +815,7 @@ $("#submit11").click(function(event){
 		if($('#email').val() ==  null || $('#email').val() == "" || $('#email').val()=="undefined") 
 		{
 			$("#email").css("border-color","#e73d4a");
-			$("#email").attr("placeholder","Enter Mail");
+			$("#email").attr("placeholder","Enter EMail");
 			$('#email').addClass('your-class');
 			$('#email').css('color','red');
 		}
@@ -866,7 +866,7 @@ $("#secondButton").click(function(event)
 				if($('#firstName').val() ==  null || $('#firstName').val() == "" || $('#firstName').val()=="undefined") 
 				{
 					$("#firstName").css("border-color","#e73d4a");
-					$("#firstName").attr("placeholder","Please Enter FirstName");
+					$("#firstName").attr("placeholder","Please Enter First Name");
 					$('#firstName').addClass('your-class');
 					$('#firstName').css('color','red');
 				}

@@ -1105,7 +1105,7 @@ tooltip:hover:after {
 			            	+ myProfileViewed_str 
 			            	+ '</td></tr>'*/
 			            	+ '	<tr><td>'+opp_gender_str+' expressed interest. Would you like to take it further?</td></tr>' 
-			            	+ '	<tr><td>'+acceptOptions+' <a href="#"><span class="pull-right" style="color:#006699;">+1 More Conversations</span></a></td></tr>'
+			            	+ '	<tr><td>'+acceptOptions+' <a href="moreConversations"><span class="pull-right" style="color:#006699;">+1 More Conversations</span></a></td></tr>'
 			            	+ '</table>'
 			            	+ '</div>'
 			            	+ '</div>'
@@ -2953,7 +2953,7 @@ img.hover-shadow {
 							<li class="dropdown messages">
 								<a href="#no" class="dropdown-toggle" data-toggle="dropdown">Messages <span id="matchcount">1</span></a>
 								<ul class="dropdown-menu">
-									<li><a href="inboxAction?tab_type=inbox&list_type=pending_requests">Inbox - pending 1</a></li>
+									<li><a href="inboxAction?tab_type=inbox&list_type=pending_requests">Inbox - Pending 1</a></li>
 									<li><a href="inboxAction?tab_type=inbox&list_type=accepted_requests" >Inbox - Accepted </a></li>
 									<li><a href="inboxAction?tab_type=sent&list_type=sent_requests" >Sent All</a></li>
 									<!-- <li><a href="#no">SMS received/sent</a></li> -->

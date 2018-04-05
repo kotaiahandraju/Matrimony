@@ -15,7 +15,7 @@
 				<div class="col-md-8">
    					<div id="secondForm">
 			   			<div class="col-md-12">
-					      <h3>Upload photo.</h3>
+					      <h3>Upload Photo.</h3>
 					    </div>
 					    <div class="form-group">
 					      <label class="col-md-4 control-label" for="textinput"></label>
