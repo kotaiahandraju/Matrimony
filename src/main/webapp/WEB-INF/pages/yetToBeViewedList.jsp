@@ -24,7 +24,7 @@ blockquote p {
 }
 p {
 font-size:13px;
-letter-spacing:1px;
+letter-spacing:px;
 }
 .matches1 {
 border: 1px solid #d6d6d6;

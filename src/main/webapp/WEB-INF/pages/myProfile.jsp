@@ -562,13 +562,14 @@ xpopup
 <br>
 <div class="panel panel-default" style="background:#FDFDFD;">
     <div class="panel-body table-responsive">
-    <div >	<strong class="font">
+    <div >	
+    <strong class="font">
     <c:if test="${profileBean.gender == 'Female'}">Bride</c:if>
     <c:if test="${profileBean.gender == 'Male'}">Groom</c:if>
     's Location <a href="#no" style="font-size:13px; color:#C00;" class="all_a pull-right" id="location_a" onclick="toggleDiv('location');"> <i class="fa fa-edit"></i> Edit</a>
 </strong>
 <div id="location_view" class="all_visible_divs">
-<table class="col-md-12 table-responsive">
+<table class="col-md-10 table-responsive">
 <tr><td>Country</td><td>:</td>
     <td id="currentCountry_val">
         <c:if test="${not empty profileBean.currentCountryName}">${profileBean.currentCountryName}</c:if>
@@ -605,7 +606,7 @@ xpopup
         <a href="#no" style="font-size:13px; color:#C00;"  class="all_a pull-right" id="professional_info_a" onclick="toggleDiv('professional_info');"> <i class="fa fa-edit"></i> Edit</a>
 </strong>
 <div id="professional_info_view" class="all_visible_divs">
-<table class="col-md-12 table-responsive">
+<table class="col-md-9 table-responsive">
 <tr><td>Education</td><td>:</td>
     <td id="education_val">
         <c:if test="${not empty profileBean.educationName}">${profileBean.educationName}</c:if>
@@ -703,7 +704,7 @@ xpopup
         <a href="#no" style="font-size:13px; color:#C00;"  class="all_a pull-right" id="partner_basic_a" onclick="toggleDiv('partner_basic');"> <i class="fa fa-edit"></i> Edit</a>
 </strong>
 <div id="partner_basic_view" class="all_visible_divs">
-<table class="col-md-12 table-responsive">
+<table class="col-md-6 table-responsive">
 <tr><td>
         <c:if test="${profileBean.gender == 'Female'}">Groom</c:if>
         <c:if test="${profileBean.gender == 'Male'}">Bride</c:if>
@@ -712,29 +713,14 @@ xpopup
     <td id="rAgeFrom_val">
         <c:if test="${not empty profileBean.rAgeFrom}">${profileBean.rAgeFrom} - ${profileBean.rAgeTo} Years</c:if>
         <c:if test="${empty profileBean.rAgeFrom}">Not Specified</c:if>
-    </td>
-    <td>Height</td><td>:</td>
-    <td>
-        <span id="rHeight_val"><c:if test="${not empty profileBean.rHeightInches}">${profileBean.rHeightInches} - </c:if></span> <span id="rHeightTo_val"><c:if test="${not empty profileBean.rHeightInches}">${profileBean.rHeightToInches}</c:if></span>
-        <span id="rHeight_outer_val"><c:if test="${empty profileBean.rHeightInches}">Not Specified</c:if></span>
-    </td>
-</tr>
+    </td></tr>
+   
 <tr><td>Marital Status</td><td>:</td>
     <td id="rMaritalStatus_val">
         <c:if test="${not empty profileBean.rMaritalStatusName}">${profileBean.rMaritalStatusName}</c:if>
         <c:if test="${empty profileBean.rMaritalStatusName}">Not Specified</c:if>
-    </td>
-    <%-- <td>Physical Status</td><td>:</td>
-    <td>
-        <c:if test="${not empty profileBean.casteName}">${profileBean.casteName}</c:if>
-        <c:if test="${empty profileBean.casteName}">Not Specified</c:if>
-    </td> --%>
-    <td>Eating Habits</td><td>:</td>
-    <td id="rDiet_val">
-        <c:if test="${not empty profileBean.rDietName}">${profileBean.rDietName}</c:if>
-        <c:if test="${empty profileBean.rDietName}">Not Specified</c:if>
-    </td>
-</tr>
+    </td></tr>
+   
 <tr>
     <%-- <td>Smoking Habits</td><td>:</td>
     <td>
@@ -752,13 +738,8 @@ xpopup
     <td id="rReligion_val">
         <c:if test="${not empty profileBean.rReligionName}">${profileBean.rReligionName}</c:if>
         <c:if test="${empty profileBean.rReligionName}">Not Specified</c:if>
-    </td>
-    <td>Mothertongue</td><td>:</td>
-    <td id="rMotherTongue_val">
-        <c:if test="${not empty profileBean.rMotherTongueName}">${profileBean.rMotherTongueName}</c:if>
-        <c:if test="${empty profileBean.rMotherTongueName}">Not Specified</c:if>
-    </td>
-</tr>
+    </td></tr>
+   
 <tr>
     <td>Caste</td><td>:</td>
     <td id="rCaste_val">
@@ -775,6 +756,34 @@ xpopup
     
 </tr> --%>
 </table>
+<table class="col-md-6 table-responsive">
+ <tr>
+    <td>Height</td><td>:</td>
+    <td>
+        <span id="rHeight_val"><c:if test="${not empty profileBean.rHeightInches}">${profileBean.rHeightInches} - </c:if></span> <span id="rHeightTo_val"><c:if test="${not empty profileBean.rHeightInches}">${profileBean.rHeightToInches}</c:if></span>
+        <span id="rHeight_outer_val"><c:if test="${empty profileBean.rHeightInches}">Not Specified</c:if></span>
+    </td>
+</tr>
+ <tr>
+    <%-- <td>Physical Status</td><td>:</td>
+    <td>
+        <c:if test="${not empty profileBean.casteName}">${profileBean.casteName}</c:if>
+        <c:if test="${empty profileBean.casteName}">Not Specified</c:if>
+    </td> --%>
+    <td>Eating Habits</td><td>:</td>
+    <td id="rDiet_val">
+        <c:if test="${not empty profileBean.rDietName}">${profileBean.rDietName}</c:if>
+        <c:if test="${empty profileBean.rDietName}">Not Specified</c:if>
+    </td>
+</tr>
+ <tr>
+    <td>Mothertongue</td><td>:</td>
+    <td id="rMotherTongue_val">
+        <c:if test="${not empty profileBean.rMotherTongueName}">${profileBean.rMotherTongueName}</c:if>
+        <c:if test="${empty profileBean.rMotherTongueName}">Not Specified</c:if>
+    </td>
+</tr>
+</table>
 </div>
 <div id="partner_basic_edit" class="all_hidden_divs" hidden="true">
 <jsp:include page="partner_basics.jsp" />
@@ -790,7 +799,7 @@ xpopup
         <a href="#no"  style="font-size:13px; color:#C00;" class="all_a pull-right" id="partner_professional_a" onclick="toggleDiv('partner_professional');"> <i class="fa fa-edit"></i> Edit</a>
 </strong>
 <div id="partner_professional_view" class="all_visible_divs">
-<table class="col-md-12 table-responsive">
+<table class="col-md-6 table-responsive">
 <tr><td>Education</td><td>:</td>
     <td id="rEducation_val">
         <c:if test="${not empty profileBean.rEducationName}">${profileBean.rEducationName}</c:if>
@@ -904,7 +913,7 @@ xpopup
         <a href="#no" style="font-size:13px; color:#C00;" class="all_a pull-right" id="partner_location_a" onclick="toggleDiv('partner_location');"> <i class="fa fa-edit"></i> Edit</a>
 </strong>
 <div id="partner_location_view" class="all_visible_divs">
-<table class="col-md-12 table-responsive">
+<table class="col-md-6 table-responsive">
 <tr><td>Country</td><td>:</td>
     <td id="rCountry_val">
         <c:if test="${not empty profileBean.rCountryName}">${profileBean.rCountryName}</c:if>

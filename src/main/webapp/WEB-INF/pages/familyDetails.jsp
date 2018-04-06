@@ -4,7 +4,11 @@
 <%@ taglib uri="http://displaytag.sf.net" prefix="display"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
-
+<style>
+.non {
+width:120px;
+}
+</style>
             <div class="col-md-5 col-sm-12"></div>
 			<div  class="clearfix"></div>    
 		</div>
@@ -51,7 +55,7 @@
 					    <div class="form-group">
 					      <label class="col-md-4 control-label" for="textinput">No. of Brothers</label>  
 					      <div class="col-md-2">
-					      	<form:select path="noOfBrothers" class="form-control u1">
+					      	<form:select path="noOfBrothers" class="form-control u1 non">
 								<form:option value="">-- Select --</form:option>
 								<form:option value="None">None</form:option>
 								<form:option value="1">1</form:option>
@@ -61,7 +65,7 @@
 					      </div>
 					      <label class="col-md-2">of whom</label>
 					      <div class="col-md-2">
-					      	<form:select path="noOfBrothersMarried" class="form-control u1">
+					      	<form:select path="noOfBrothersMarried" class="form-control u1 non">
 								<form:option value="">-- Select --</form:option>
 								<form:option value="None">None</form:option>
 								<form:option value="1">1</form:option>
@@ -75,7 +79,7 @@
 					    <div class="form-group">
 					      <label class="col-md-4 control-label" for="textinput">No. of Sisters</label>  
 					      <div class="col-md-2">
-					      	<form:select path="noOfSisters" class="form-control u1">
+					      	<form:select path="noOfSisters" class="form-control u1 non">
 								<form:option value="">-- Select --</form:option>
 									<form:option value="None">None</form:option>
 								<form:option value="1">1</form:option>
@@ -85,7 +89,7 @@
 					      </div>
 					      <label class="col-md-2">of whom</label>
 					      <div class="col-md-2">
-					      	<form:select path="noOfSistersMarried" class="form-control u1">
+					      	<form:select path="noOfSistersMarried" class="form-control u1 non">
 								<form:option value="">-- Select --</form:option>
 									<form:option value="None">None</form:option>
 								<form:option value="1">1</form:option>

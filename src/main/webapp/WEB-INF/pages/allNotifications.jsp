@@ -3,6 +3,19 @@
 h5 {
 color:#006699;
 }
+.notifications1:hover {
+    background-color: #ddd;
+}
+hr:hover {
+    background-color: #ddd;
+}
+/* Create an active/current "tab button" class */
+.notifications1.active {
+    background-color: #ccc;
+}
+.allnoti {
+    background-color: #ccc;
+}
 </style>
 <div class="container" style="background:#fff; padding:15px;">
 	<div class="col-md-9">
@@ -10,8 +23,9 @@ color:#006699;
 <hr>
 
 <c:if test="${not empty notificationsList}">
-											<div id="notificationsBody" class="notifications">
+											<div id="notificationsBody" class="notifications allnoti">
 												<c:forEach var="notification" items="${notificationsList}">
+													<div class="notifications1 col-md-12">
 													<div class="col-md-2 preprofile"  >
 														<c:if test="${not empty notification.profileImage}">
 														<div align="center"><img src="${notification.profileImage}" style="max-width: 100%; height:auto;" class="img-responsive"></div>
@@ -39,9 +53,12 @@ color:#006699;
 																<c:if test="${notification.notifi_type == 'short_listed'}">
 																	shortlisted your profile
 																</c:if>
-															</a>
-														.</p>
-													</div><hr>
+															</a></br>
+															<p>Last Viewed &nbsp;<c:out value="${notification.created_on}"/></p>
+														</p>
+														
+													
+													</div></div><hr>
 													<div class="clearfix"></div><hr>
 												</c:forEach>
 											</div>

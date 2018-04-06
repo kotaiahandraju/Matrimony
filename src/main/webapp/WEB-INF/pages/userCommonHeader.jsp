@@ -100,7 +100,7 @@ padding-left:0px;
 			}
 
 ::-webkit-scrollbar {
-    width: 10px;
+    width: 3px;
 }
 
 /* Track */
@@ -2084,12 +2084,12 @@ transition:none !important;
 .premium-member {
 	background-color: #319604;
 	color: #fff !important;
-	padding: 2px 9px;
+	padding: 2px 8px;
 	font-size: 11px !important;
 	border: none;
 	
 	border-radius: 1px;
-	vertical-align: top;
+	
 	margin: 2px 2px;
 	margin-left:5px;
 }
