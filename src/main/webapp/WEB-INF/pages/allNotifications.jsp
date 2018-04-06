@@ -57,9 +57,12 @@ hr:hover {
 																<c:if test="${notification.notifi_type == 'short_listed'}">
 																	shortlisted your profile
 																</c:if>
-															</a><br>
-																<p>Last Viewed &nbsp;<c:out value="${notification.created_on}"/></p>
-														.</p>
+
+															</a></br>
+															<p>Last Viewed &nbsp;<c:out value="${notification.created_on}"/></p>
+														</p>
+														
+													
 													</div></div><hr>
 													<div class="clearfix"></div><hr>
 												</c:forEach>
