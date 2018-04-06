@@ -1438,18 +1438,21 @@ tooltip:hover:after {
 					if(msg != null && typeof msg != "undefined"){
 						if(msg == "success"){
 							alert("E-Mail has been sent successfully.");
+							$("#sendMailBtn").removeAttr("disabled");
+							$("#sendMailBtn").val("Send Mail");
 							$("#mail_content").val("");
-							var t = $("#myModal");
-							t.hide();
-							var tt = "";
-							//$("#myModal").close();
-							//$("#myModal").dialog("close");
+							$("#closeBtn").trigger("click");
 						}else{
-							alert("failed");
+							alert("Some problem occured while sending e-mail!!! Please try again.");
+							$("#sendMailBtn").removeAttr("disabled");
+							$("#sendMailBtn").val("Send Mail");
+							$("#mail_content").val("");
+							//var t = $("#myModal");
+							//t.hide();
+							$("#closeBtn").trigger("click");
 						}
 					}
-					$("#sendMailBtn").removeAttr("disabled");
-					$("#sendMailBtn").val("Send Mail");
+					
 			 });
 			//$("#sendMailBtn").removeAttr("disabled");
 			//$("#sendMailBtn").val("Send Mail");
@@ -3069,7 +3072,7 @@ img.hover-shadow {
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header" style="background: yellowgreen; border-radius: 0px; ">
-          <button type="button" class="close" data-dismiss="modal" style="margin-top:0px; margin-right:8px; font-size: 28px;color: black;">&times;</button>
+          <button type="button" id="closeBtn" class="close" data-dismiss="modal" style="margin-top:0px; margin-right:8px; font-size: 28px;color: black;">&times;</button>
           <h4 class="modal-title" style="color: aliceblue;padding: 10px; padding-left: px; font-size: 18px;">Send Message to Hamsa Lekha Tenneti</h4>
         </div>
         <div class="modal-body" style="background: transparent;">
