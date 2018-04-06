@@ -10,6 +10,9 @@
     background-image: url(img/close.png);
     background-repeat: no-repeat;
 }
+canvas {
+display:none;
+}
 </style>
 			<div class="col-md-8 products-grid-left">
 				<div class="panel panel-success">
@@ -242,7 +245,7 @@ $(".dashboard").addClass("active");
 <script>
     $(document).ready(function () {
         $('#imageName').awesomeCropper(
-        { width: 150, height: 150, debug: true }
+        { width: 626, height: 417, debug: true }
         );
     });
     </script> 

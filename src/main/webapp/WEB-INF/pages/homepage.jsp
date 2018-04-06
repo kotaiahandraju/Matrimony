@@ -149,7 +149,7 @@ window.setTimeout(function() {
 
 				<!-- Logo Here -->
 				<a class="navbar-brand page-scroll" href="#page-top"><img
-					src="images/logo01.png" style="height: 70px;width: auto;" alt="" class="img-responsive" /></a>
+					src="images/logo01.png" style="width: auto;" alt="" class="img-responsive" /></a>
 			</div>
 
 			<!-- Collect the nav links, forms, and other content for toggling -->

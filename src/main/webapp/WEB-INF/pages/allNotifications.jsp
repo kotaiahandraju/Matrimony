@@ -6,6 +6,10 @@ color:#006699;
 .notifications1:hover {
     background-color: #ddd;
 }
+hr {
+    margin-top: 1px !important;
+    margin-bottom: 1px !important;
+}
 hr:hover {
     background-color: #ddd;
 }
@@ -14,7 +18,7 @@ hr:hover {
     background-color: #ccc;
 }
 .allnoti {
-    background-color: #ccc;
+    background-color: #f7f0f0;
 }
 </style>
 <div class="container" style="background:#fff; padding:15px;">
@@ -53,7 +57,8 @@ hr:hover {
 																<c:if test="${notification.notifi_type == 'short_listed'}">
 																	shortlisted your profile
 																</c:if>
-															</a>
+															</a><br>
+																<p>Last Viewed &nbsp;<c:out value="${notification.created_on}"/></p>
 														.</p>
 													</div></div><hr>
 													<div class="clearfix"></div><hr>
