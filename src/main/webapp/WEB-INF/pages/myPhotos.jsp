@@ -70,12 +70,12 @@ display:none;
 					    </div>
 					    <div class="form-group">
 					    	<div class="col-md-8">
-					    	<img alt="Preview" id="previewImg" align="middle" style="border-style: solid;height: 100px;width: 100px;border-bottom-style: none;border-left-style: none;border-top-style: none;">
+					    	<img alt=" Preview" id="previewImg" align="middle" style="border-style: solid;height: 100px;width: 100px;border-bottom-style: none;border-left-style: none;border-top-style: none;">
 					    	</div>
 					    </div>
 					    <div class="form-group">
 					    	<div class="col-md-8">
-					    		<input type="button" id="uploadBtn" value="Upload Photo" onclick="imageAjax()">
+					    		<input type="button" id="uploadBtn" class="btn btn-primary" value="Upload Photo" onclick="imageAjax()">
 					    	</div>
 					    </div>
 					    
