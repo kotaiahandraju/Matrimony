@@ -441,7 +441,7 @@ function displayNewMatches(listOrders) {
 			if(expressed==0){
 				interestStr = '<p  align="center" style="margin: 11px 0px 0px 0px;"><a  id="expInterest'+orderObj.id+'" href="#no" type="button" class="btn btn-warning  btn-sm"  onclick="expressInterest('+orderObj.id+')">Send Interest</a></p>';
 			}else if(expressed>0){
-				interestStr = '<p align="center" style="margin: 11px 0px 0px 0px;"><a   type="button" disabled="true"  class="btn btn-warning  btn-sm"  >You Expressed Interest</a></p>';
+				interestStr = '<p align="center" style="margin: 11px 0px 0px 0px;"><a   type="button" disabled="true"  class="btn btn-warning "  >You Expressed Interest</a></p>';
 			}
 			 item =     item + ' 	<div class="col-md-3 thumbnailgal">'
 				         +' 		<div class="thumbnailmain">	<a class="thumbnail thumbimg" href="#no" style="margin: 0px 0px 0px 0px; width:100%; height:auto;"><img alt="" src="'+image+'" class="watermark_text"></a></div>'

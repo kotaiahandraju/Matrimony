@@ -4,17 +4,14 @@
 <%@ taglib uri="http://displaytag.sf.net" prefix="display"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
-<<<<<<< HEAD
 
 <style>
 input[type="file"] {
 margin:5px;
 }
 </style>
-=======
 <link href="css/imgareaselect-default.css" rel="stylesheet" media="screen">
 <link rel="stylesheet" href="css/jquery.awesome-cropper.css">
->>>>>>> 2a8409468441a1772a32c542c6d7459f5b5d00ad
 				<div class="col-md-5 col-sm-12"></div>
 	            <div  class="clearfix"></div>    
 			</div>
@@ -104,7 +101,7 @@ function goToNextPage(){
 <script>
     $(document).ready(function () {
         $('#imageName').awesomeCropper(
-        { width: 150, height: 150, debug: true }
+        { width: 626, height: 417, debug: true }
         );
     });
     </script>

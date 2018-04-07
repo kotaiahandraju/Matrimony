@@ -10,6 +10,9 @@
     background-image: url(img/close.png);
     background-repeat: no-repeat;
 }
+canvas {
+display:none;
+}
 </style>
 			<div class="col-md-8 products-grid-left">
 				<div class="panel panel-success">
@@ -67,12 +70,12 @@
 					    </div>
 					    <div class="form-group">
 					    	<div class="col-md-8">
-					    	<img alt="Preview" id="previewImg" align="middle" style="border-style: solid;height: 100px;width: 100px;border-bottom-style: none;border-left-style: none;border-top-style: none;">
+					    	<img alt=" Preview" id="previewImg" align="middle" style="border-style: solid;height: 100px;width: 100px;border-bottom-style: none;border-left-style: none;border-top-style: none;">
 					    	</div>
 					    </div>
 					    <div class="form-group">
 					    	<div class="col-md-8">
-					    		<input type="button" id="uploadBtn" value="Upload Photo" onclick="imageAjax()">
+					    		<input type="button" id="uploadBtn" class="btn btn-primary" value="Upload Photo" onclick="imageAjax()">
 					    	</div>
 					    </div>
 					    
@@ -242,7 +245,7 @@ $(".dashboard").addClass("active");
 <script>
     $(document).ready(function () {
         $('#imageName').awesomeCropper(
-        { width: 150, height: 150, debug: true }
+        { width: 626, height: 417, debug: true }
         );
     });
     </script> 

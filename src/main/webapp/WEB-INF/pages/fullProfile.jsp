@@ -903,7 +903,7 @@ xpopup
 </div></div></div>
 </form:form>
 <div class="col-md-4">
-<div class="col-sm-3" style='width: 100%; margin: 31px 0px 0px 0px;'>
+<div class="col-sm-3" style='width: 100%; margin: 46px 0px 0px 0px;'>
 			<div class="col-md-11 products-grid-right">
 			<div class="panel panel-success">
 			<div class="panel-heading">Add Horoscope</div>

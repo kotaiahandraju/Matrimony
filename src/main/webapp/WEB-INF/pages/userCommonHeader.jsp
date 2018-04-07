@@ -2005,11 +2005,11 @@ margin-bottom:5px;
 height:120px;
 overflow:hidden;
 }
-.profilepic0 {
+/* .profilepic0 {
 height:220px;
 overflow:hidden;
 
-}
+} */
 body {
 background:#ccc !important;
 }
@@ -2309,7 +2309,12 @@ header h1 {
 		margin: 6em auto;
 	}
 }
-
+@media  (min-width: 320px) and (max-width:640px) {
+.logo img{
+margin:0 auto;
+height:auto;
+}
+}
 /* -------------------------------- 
 
 xpopup 
@@ -2524,7 +2529,7 @@ xpopup
 	width: 100%;
 	height: auto;
 	padding: 0px;
-	margin: 5px
+	margin: 0px
 }
 
 body {
@@ -2776,10 +2781,10 @@ img.hover-shadow {
 	transition: 0.3s
 }
 
-.hover-shadow:hover {
+/* .hover-shadow:hover {
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
 		rgba(0, 0, 0, 0.19)
-}
+} */
 
 .mySlides {
 	width: 100%;
@@ -2886,7 +2891,7 @@ img.hover-shadow {
 <div class="header_top">
 	<div class="container" style="background: #FFF;">
     	<div class="col-md-3">
-			<div class="logo">
+			<div class="logo" style="margin-top:5px;">
 				<a href="dashboard"><img  src="images/logo.png" class="img img-responsive"></a>
 			</div>
 			<div class="clearfix"></div>
@@ -2980,12 +2985,12 @@ img.hover-shadow {
 									<c:if test="${not empty notificationsList}">
 											<div id="notificationsBody" class="notifications">
 												<c:forEach var="notification" items="${notificationsList}">
-													<div class="col-md-3"  style="padding-right:0px; padding-left:0px;" >
+													<div class="col-md-3 col-xs-3"  style="height:70px; overflow:hidden;padding-right:0px; padding-left:0px;" >
 														<c:if test="${not empty notification.profileImage}">
-															<img src="${notification.profileImage}" style="border-radius:  50%;width: 100%;padding: 5px;">
+															<img src="${notification.profileImage}" style="width: 100%;padding: 5px;">
 														</c:if>
 														<c:if test="${empty notification.profileImage}">
-															<img src="img/default.png" style="border-radius:  50%;width: 100%;padding: 5px;">
+															<img src="img/default.png" style="width: 100%;padding: 5px;">
 														</c:if>
 													</div>
 													<div class="col-md-9" style="padding-right:0px; padding-left:0px;" >
