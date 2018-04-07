@@ -1413,6 +1413,9 @@ tooltip:hover:after {
 					alert("Your membership validity period is over. Renew your membership plan and get more profiles");
 					return false;
 				}
+				//var default_text = "${mail_default_text}";
+				//alert("##:"+default_text);
+				//$("#mail_content").val(default_text);
 				$('#myModal').show();
 				$('#myModal').modal();
 				
@@ -1430,7 +1433,8 @@ tooltip:hover:after {
 			 var formData = new FormData();
 			 formData.append("profile_id",$("#profile_id").val());
 			 formData.append("mail_content",content);
-			 
+			 var default_option = $("#default_text_opt").prop("checked");
+			 formData.append("default_text_option",default_option);
 			 $.fn.makeMultipartRequest('POST', 'sendMail', false,
 						formData, false, 'text', function(data){
 					var jsonobj = $.parseJSON(data);
@@ -3078,10 +3082,19 @@ img.hover-shadow {
         <div class="modal-body" style="background: transparent;">
         <label>Enter Your Message</label>
         	<input type="hidden" name="profile_id" id="profile_id">
-         	<textarea id="mail_content" placeholder="Enter Your Message..." onblur="this.placeholder='Enter Your Message'" onfocus="this.placeholder=''" name="mail_content" cols="70" rows="10"style="margin-top:5px;" ></textarea><br><div class="clearfix"></div>
+        	<c:if test="${default_text_option == '0' }">
+        		<textarea id="mail_content" placeholder="Enter Your Message..." onblur="this.placeholder='Enter Your Message'" onfocus="this.placeholder=''" name="mail_content" cols="70" rows="10"style="margin-top:5px;" ></textarea>
+        	</c:if>
+         	<%-- <c:if test="${default_text_option != '0' }">
+        		<textarea id="mail_content" placeholder="" onblur="this.placeholder='Enter Your Message'" onfocus="this.placeholder=''" name="mail_content" cols="70" rows="10"  style="white-space: pre-wrap;margin-top:5px;" >
+        			<c:out value="${mail_default_text}" />
+        		</textarea>
+        	</c:if> --%>
+         	
+         	<br><div class="clearfix"></div>
           	
         </div>
-       &nbsp; <input type="checkbox"/><span>  &nbsp; Set As Default Text </span>
+       &nbsp; <input type="checkbox" name="default_text_opt" id="default_text_opt" /><span>  &nbsp; Set as default text </span>
           <button type="button" id="sendMailBtn" onclick="sendMail()" class="btn btn-danger " style="  margin: 10px 0px 10px 50px;" >Send Mail</button>
         
       </div>

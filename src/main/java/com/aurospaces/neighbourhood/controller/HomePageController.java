@@ -2094,17 +2094,19 @@ public class HomePageController {
 					if(success)
 						;
 				}
-					
+				//SEND MAIL&SMS TO THE MEMBER
+				List<Map<String,Object>> paymentDetails = this.objUsersDao.getPaymentDetailsForPrint(txnid);
+				String retVal = EmailUtil.sendPostPaymentMail(userSessionBean, paymentDetails.get(0), request, objContext);
+				String response = SendSMS.sendSMS("Dear member, Congratulations. The payment you made on "+paymentDetails.get(0).get("paymentDate")+" towards Aarna Matrimony membership is successful. Amount paid is:"+paymentDetails.get(0).get("price"), userSessionBean.getMobile());
+				// notify Admin
+				objUsersDao.addAdminNotifications(userId+"",(String)paymentDetails.get(0).get("price"));
 		}
-				
-			
-	       
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e);
 			logger.error(e);
-			logger.fatal("error in MembersController class AddMembers method  ");
+			logger.fatal("error in payment success  method  ");
 		}
 		return "redirect:successPrint";
 	}
@@ -3562,8 +3564,8 @@ public class HomePageController {
 				return "redirect:HomePage";
 			}
 			String profile_id = request.getParameter("profile_id");
-			
 			String mailContent = request.getParameter("mail_content");
+			String default_text_option = request.getParameter("default_text_option");
 			if(StringUtils.isNotBlank(profile_id)){
 				UsersBean receipientUser = objUsersDao.loginChecking(Integer.parseInt(profile_id));
 				receipientUser.setMail_content(mailContent);
@@ -3573,7 +3575,9 @@ public class HomePageController {
 						 String retVal = EmailUtil.sendInterestMail(userBean, receipientUser, request, objContext);
 						 if(StringUtils.isNotBlank(retVal)){
 							 objJson.put("message", "success");
-							 objUsersDao.sendMailMessage(profile_id,receipientUser.getMail_content());
+							 objUsersDao.sendMailMessage(profile_id,receipientUser.getMail_content(),default_text_option.equalsIgnoreCase("true")?"1":"0");
+							 session.setAttribute("default_text_option", default_text_option);
+							 session.setAttribute("mail_default_text", receipientUser.getMail_content());
 							 // decrease the profile count
 							 int allowed_profiles_limit = objUsersDao.getAllowedProfilesLimit(userBean.getId());
 							 session.setAttribute("allowed_profiles_limit", allowed_profiles_limit);

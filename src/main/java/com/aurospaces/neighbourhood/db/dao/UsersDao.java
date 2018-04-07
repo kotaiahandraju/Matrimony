@@ -808,7 +808,7 @@ public class UsersDao extends BaseUsersDao
 	 }
 	 
 	 @Transactional
-	 public boolean sendMailMessage(String profileId,String mail_content){
+	 public boolean sendMailMessage(String profileId,String mail_content,String default_text_option){
 			jdbcTemplate = custom.getJdbcTemplate();
 			StringBuffer buffer = new StringBuffer();
 			UsersBean objUserBean = null;
@@ -818,13 +818,20 @@ public class UsersDao extends BaseUsersDao
 					int updated_count = 0;
 					int existing_count = jdbcTemplate.queryForInt("select count(*) from express_intrest ei where ei.user_id="+objUserBean.getId()+" and ei.profile_id="+profileId+"");
 					if(existing_count==0){
-						buffer.append("insert into express_intrest(user_id,profile_id,message_sent_status,created_on) values(?,?,?,?)");
+						buffer.append("insert into express_intrest(user_id,profile_id,message_sent_status,created_on,default_text_option,mail_default_text) values(?,?,?,?,?,?)");
 						updated_count = jdbcTemplate.update(buffer.toString(), new Object[]{objUserBean.getId(),profileId,"1",
-								new java.sql.Timestamp(new DateTime().getMillis())});
+								new java.sql.Timestamp(new DateTime().getMillis()),default_text_option,mail_content});
 						
 					}else if(existing_count>0){
-						buffer.append("update express_intrest set message_sent_status = '1',created_on = ? where user_id = ? and profile_id = ?");
-						updated_count = jdbcTemplate.update(buffer.toString(), new Object[]{new java.sql.Timestamp(new DateTime().getMillis()),objUserBean.getId(),profileId});
+						if(default_text_option.equals("1")){
+							String qry = "update express_intrest set default_text_option = '0' , mail_default_text = '' where user_id = "+objUserBean.getId();
+							jdbcTemplate.update(qry);
+							buffer.append("update express_intrest set message_sent_status = '1',created_on = ? , default_text_option = ?, mail_default_text = ? where user_id = ? and profile_id = ?");
+							updated_count = jdbcTemplate.update(buffer.toString(), new Object[]{new java.sql.Timestamp(new DateTime().getMillis()),default_text_option,mail_content.replace(' ', '\n'),objUserBean.getId(),profileId});
+						}else{
+							buffer.append("update express_intrest set message_sent_status = '1',created_on = ?  where user_id = ? and profile_id = ?");
+							updated_count = jdbcTemplate.update(buffer.toString(), new Object[]{new java.sql.Timestamp(new DateTime().getMillis()),objUserBean.getId(),profileId});
+						}
 					}
 					buffer = new StringBuffer();
 					buffer.append("insert into users_activity_log(created_time,activity_type,act_done_by_user_id,act_done_on_user_id,activity_content) "
@@ -1378,7 +1385,8 @@ public class UsersDao extends BaseUsersDao
 		public List<Map<String,Object>>  getPaymentDetailsForPrint(String transactionId){
 			jdbcTemplate = custom.getJdbcTemplate();
 			try{
-				String qryStr = "select u.firstName,u.lastName,u.email,ph.price,ph.paymentStatus,ph.remarks,DATE_FORMAT(ph.updated_time, '%d-%M-%Y') as paymentDate,ph.txid as transactionId from users u, paymenthistory ph where ph.memberId = u.id and ph.txid = '"+transactionId+"' ";
+				String qryStr = "select u.firstName,u.lastName,u.email,ph.price,ph.paymentStatus,ph.remarks,DATE_FORMAT(ph.updated_time, '%d-%M-%Y') as paymentDate,ph.txid as transactionId "
+						+" from users u, paymenthistory ph where ph.memberId = u.id and ph.txid = '"+transactionId+"' ";
 				List<Map<String,Object>> list = jdbcTemplate.queryForList(qryStr);
 				return list;
 			}catch(Exception e){
@@ -1411,7 +1419,9 @@ public class UsersDao extends BaseUsersDao
 								+" (select count(*) from users u,express_intrest ei where u.id=ei.profile_id and ei.user_id = "+userId+" and ei.profile_viewed_status = '1' and ei.mobile_no_viewed_status = '0' and ei.interested='0' "
 								+"   and "+subStr+" ) as viewedNotContactedCount, "
 								+" (select count(*) from  users u,express_intrest  ei where u.id = ei.user_id and ei.profile_id = "+userId+" and ei.short_listed = '1' and "+subStr+" ) as shortListedCount, "
-								+" (select count(*) from user_notifications where user_id = "+objUserBean.getId()+" and read_status = '0') as notificationsCount";
+								+" (select count(*) from user_notifications where user_id = "+objUserBean.getId()+" and read_status = '0') as notificationsCount,"
+								+" (select count(*) from express_intrest ei where ei.user_id = "+objUserBean.getId()+" and ei.default_text_option = '1') as default_text_option, "
+								+" (select mail_default_text from express_intrest ei where ei.user_id = "+objUserBean.getId()+" and ei.default_text_option = '1' group by ei.user_id ) as mail_default_text ";
 					
 			try{
 				List<Map<String,Object>> list = jdbcTemplate.queryForList(qryStr);
@@ -2888,6 +2898,42 @@ public boolean deletePhoto(String photoId){
 		
 	
 	}
+	public List<Map<String, Object>> getAdminNotifications(String notification_type,boolean all_notifications){
+
+		jdbcTemplate = custom.getJdbcTemplate();
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("select *,(select concat(u.firstName,' ',u.lastName) from users u where u.id=user_notifications.profile_id) as fullName, "
+				+" (select u.username from users u where u.id=user_notifications.profile_id) as userName,date_format(user_notifications.created_on,'%d-%M-%Y') as created_on, "
+				+" (select uimg.image from user_images uimg where uimg.user_id=user_notifications.profile_id and  uimg.status = '1' and uimg.is_profile_picture='1') as profileImage "
+				+" from user_notifications where user_type = 'admin' and notifi_type = '"+notification_type+"' order by created_on desc ");
+		if(!all_notifications){
+			buffer.append(" limit 10 offset 0");
+		}
+		String sql =buffer.toString();
+		
+		List<Map<String, Object>> notifications = jdbcTemplate.queryForList(sql);
+		return notifications;
+		
+	
+	}
+	public List<Map<String, Object>> getAdminNotifications(boolean all_notifications){
+
+		jdbcTemplate = custom.getJdbcTemplate();
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("select *,(select concat(u.firstName,' ',u.lastName) from users u where u.id=user_notifications.profile_id) as fullName, "
+				+" (select u.username from users u where u.id=user_notifications.profile_id) as userName,date_format(user_notifications.created_on,'%d-%M-%Y') as created_on, "
+				+" (select uimg.image from user_images uimg where uimg.user_id=user_notifications.profile_id and  uimg.status = '1' and uimg.is_profile_picture='1') as profileImage "
+				+" from user_notifications where user_type = 'admin'  order by created_on desc ");
+		if(!all_notifications){
+			buffer.append(" limit 10 offset 0");
+		}
+		String sql =buffer.toString();
+		
+		List<Map<String, Object>> notifications = jdbcTemplate.queryForList(sql);
+		return notifications;
+		
+	
+	}
 	public boolean updateNotificationStatus(String notification_id) {
 		 jdbcTemplate = custom.getJdbcTemplate();
 			boolean isStatusUpdate = false;
@@ -2905,5 +2951,43 @@ public boolean deletePhoto(String photoId){
 			}
 			return isStatusUpdate;
 		}
+	public boolean addAdminNotifications(String profileId,String amount){
+		jdbcTemplate = custom.getJdbcTemplate();
+		boolean inserted = false;
+		StringBuffer buffer = new StringBuffer();
+		try {
+			buffer.append("insert into user_notifications(created_on,user_type,user_id,profile_id,notifi_type,amount) "
+							+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','admin',(select id from users where role_id = 1),"+profileId+",'payment','"+amount+"')");;
+			int iCount = jdbcTemplate.update(buffer.toString());
+			if (iCount == 1) {
+				inserted = true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+
+		}
+		return inserted;
+	}
+	public boolean addAdminNotifications(String profileId){
+		jdbcTemplate = custom.getJdbcTemplate();
+		boolean inserted = false;
+		StringBuffer buffer = new StringBuffer();
+		try {
+			buffer.append("insert into user_notifications(created_on,user_type,user_id,profile_id,notifi_type) "
+							+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','admin',(select id from users where role_id = 1),"+profileId+",'payment')");;
+			int iCount = jdbcTemplate.update(buffer.toString());
+			if (iCount == 1) {
+				inserted = true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+
+		}
+		return inserted;
+	}
 }
 

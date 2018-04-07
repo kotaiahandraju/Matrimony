@@ -366,6 +366,55 @@ public class EmailUtil {
 	        } catch (Exception ex) {
 	            System.out.println("Could not send email.");
 	            ex.printStackTrace();
+	            return null;
+	        }
+			return subject;
+	}
+	
+	public static String sendPostPaymentMail(UsersBean userBean, Map<String,Object> paymentDetails, HttpServletRequest request,
+			ServletContext objContext) throws AddressException,
+			MessagingException, IOException {
+		String subject = null;
+		Properties prop = new Properties();
+		InputStream input = null;
+		String body = null;
+		try{
+	 
+	        String mailTo = userBean.getEmail();
+	        
+//	        -------------------------------------------------------------------------------------------
+			
+			
+	        String propertiespath = objContext.getRealPath("Resources" +File.separator+"DataBase.properties");
+			input = new FileInputStream(propertiespath);
+			prop.load(input);
+			String host = prop.getProperty("host");
+			String port = prop.getProperty("port");
+			String mailFrom = prop.getProperty("usermail");
+			String password = prop.getProperty("mailpassword");
+	        
+			subject = prop.getProperty("post_payment_subject");
+			subject = subject.replace("_name_", userBean.getFirstName()+" "+userBean.getLastName()+" ("+userBean.getUsername()+")");
+			
+			body = prop.getProperty("post_payment_body");
+			body = body.replace("_dateandtime_", (String)paymentDetails.get("paymentDate"));
+			//body = body.replace("_plan_", "");
+			body = body.replace("_paidamount_", (String)paymentDetails.get("price"));
+			body = body.replace("_img_", "cid:image2");
+	        // inline images
+	        Map<String, String> inlineImages = new HashMap<String, String>();
+//	        inlineImages.put("image1", objContext.getRealPath("images" +File.separator+"telugu.png"));
+	        
+	        inlineImages.put("image2", objContext.getRealPath("images" +File.separator+"logo.jpg"));
+	 
+	       
+	            EmbeddedImageEmailUtil.send(host, port, mailFrom, password, mailTo,
+	                subject, body.toString(), inlineImages);
+	            System.out.println("Email sent.");
+	        } catch (Exception ex) {
+	            System.out.println("Could not send email.");
+	            ex.printStackTrace();
+	            return null;
 	        }
 			return subject;
 	}

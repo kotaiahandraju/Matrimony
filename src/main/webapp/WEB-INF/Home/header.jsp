@@ -103,6 +103,62 @@ span.impColor{color: red;}
 .multiSelect{
 	width: 187px;
 }
+#notification_li
+			{
+			position:relative
+			}
+			#notificationContainer 
+			{
+			background-color: #fff;
+			border: 1px solid rgba(100, 100, 100, .4);
+			-webkit-box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
+			overflow: visible;
+			position: absolute;
+			top: 50px;
+			
+			width: 250px;
+			z-index:999;
+			display: none; // Enable this after jquery implementation 
+			}
+			// Popup Arrow
+			#notificationContainer:before {
+			content: '';
+			display: block;
+			position: absolute;
+			width: 0;
+			height: 0;
+			color: transparent;
+			border: 10px solid black;
+			border-color: transparent transparent white;
+			margin-top: -20px;
+			margin-left: 188px;
+			}
+			#notificationTitle
+			{
+			font-weight: bold;
+			padding: 8px;
+			font-size: 13px;
+			background-color: #f2f2f3;
+			
+			z-index: 1000;
+			width: 248px;
+			border-bottom: 1px solid #dddddd;
+			}
+			#notificationsBody
+			{
+			padding: 3px 0px 0px 0px !important;
+			max-height:300px;	
+    overflow-y: scroll;
+			}
+			#notificationFooter
+			{
+			background-color: #e9eaed;
+			text-align: center;
+			font-weight: bold;
+			padding: 8px;
+			font-size: 12px;
+			border-top: 1px solid #dddddd;
+			}
 </style>
 
 <script type="text/javascript">
@@ -139,6 +195,29 @@ $(document).ready(function(){
 });
 var role_id = ${cacheUserBean.roleId};
 </script>
+<script>			$(document).ready(function()
+		{
+	$("#notificationLink").click(function()
+	{
+	$("#notificationContainer").fadeToggle(300);
+	$("#notification_count").fadeOut("slow");
+	return false;
+	});
+
+	//Document Click hiding the popup 
+	$(document).click(function()
+	{
+	$("#notificationContainer").hide();
+	});
+
+	//Popup on click
+	$("#notificationContainer").click(function()
+	{
+	return false;
+	});
+
+	});</script>
+
 </head>
 
 <body>
@@ -229,7 +308,44 @@ var role_id = ${cacheUserBean.roleId};
  				<li class="updatedProfiles"><a href="${baseurl }/admin/updatedProfiles"><span>Updated Profiles</span></a></li>
  				<li class="reports"><a href="${baseurl }/admin/reportsHome"><span>Reports</span></a></li> 
  				<li class="bulksmsmail"><a href="${baseurl }/admin/bulksmsmail"><span>Bulk SMS&Mail</span></a></li> 
- 				<li class="loginProfiles"><a href="${baseurl }/admin/loginProfiles"><span>Today Login Profiles</span></a></li> 
+ 				<li class="loginProfiles"><a href="${baseurl }/admin/loginProfiles"><span>Today Login Profiles</span></a></li>
+ 				<%-- <li class="paymentNotifications"><a href="${baseurl }/admin/paymentNotifications"><span>Payment Notifications</span></a></li> --%>
+ 				<li class="dropdown notifications" id="notification_li">
+					<a href="#" id="notificationLink"> <span class="fa fa-bell"></span>Notifications</a>
+					<div id="notificationContainer" class="dropdown-menu">
+						<c:if test="${not empty paymentNotificationsList}">
+								<div id="notificationsBody" class="notifications">
+									<c:forEach var="notification" items="${paymentNotificationsList}">
+										<div class="col-md-3"  style="padding-right:0px; padding-left:0px;" >
+											<c:if test="${not empty notification.profileImage}">
+												<img src="${baseurl }/${notification.profileImage}" style="border-radius:  50%;width: 100%;padding: 5px;">
+											</c:if>
+											<c:if test="${empty notification.profileImage}">
+												<img src="${baseurl }/img/default.png" style="border-radius:  50%;width: 100%;padding: 5px;">
+											</c:if>
+										</div>
+										<div class="col-md-9" style="padding-right:0px; padding-left:0px;" >
+											<p>
+												<a href="fullProfile?pid=${notification.profile_id}&nid=${notification.id}&rfrm=notifications" target="_blank" >
+													<b><c:out value="${notification.fullName}" /> (<c:out value="${notification.username}" />)</b> 
+													paid an amount of ${notification.amount}
+												</a>
+												<br>
+												<c:out value="${notification.created_on}" />
+											.</p>
+										</div><hr>
+										<div class="clearfix"></div><hr>
+									</c:forEach>
+								</div>
+								<form:form commandName="notificationsForm"  class="form-horizontal" id="allNotificationsForm" name="allNotificationsForm" role="form"   method="post">
+									<div id="notificationFooter"><a href="#" onclick="getAllNotifications();">See All</a></div>
+								</form:form>
+						</c:if>
+						<c:if test="${empty paymentNotificationsList}">
+							<p>Currently, there are no payment notifications.</p>
+						</c:if>
+					</div>	
+				</li>
  				
  				
 			</ul>
