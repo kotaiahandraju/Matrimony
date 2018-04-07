@@ -2099,7 +2099,7 @@ public class HomePageController {
 				String retVal = EmailUtil.sendPostPaymentMail(userSessionBean, paymentDetails.get(0), request, objContext);
 				String response = SendSMS.sendSMS("Dear member, Congratulations. The payment you made on "+paymentDetails.get(0).get("paymentDate")+" towards Aarna Matrimony membership is successful. Amount paid is:"+paymentDetails.get(0).get("price"), userSessionBean.getMobile());
 				// notify Admin
-				objUsersDao.addAdminNotifications(userId+"",(String)paymentDetails.get(0).get("price"));
+				objUsersDao.addAdminNotifications(userId+"",String.valueOf(paymentDetails.get(0).get("price")));
 		}
 			
 		} catch (Exception e) {
