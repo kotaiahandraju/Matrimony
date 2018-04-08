@@ -870,21 +870,24 @@ xpopup
 <div class="form-group">
   <label class="col-md-4 control-label" for="textinput">Annual Income</label>  
   <div class="col-md-7">
-    <input type="radio" name="annualIncome" class="incomeMatter" id="ai1" value=""> <label for="ai1">Doesn't Matter</label>
-    <input type="radio" name="annualIncome" class="incomeRange" id="ai2" value="Specify an income range"> <label for="ai2">Specify an income range</label>
-    <%-- <form:select path="education" class="form-control u">
-        <form:option value="">Doesn't Matter</form:option>
-        <form:option value="Specify an income range">Specify an income range</form:option>
-    </form:select> --%>
-  </div>
+        <form:select path="rAnnualIncome" class="form-control u1">
+            <form:option value="">-- Annual Income --</form:option>
+            <form:option value="Doesn't Matter">Doesn't Matter</form:option>
+            <form:option value="Upto INR 1 Lakh">Upto INR 1 Lakh</form:option>
+            <form:option value="INR 2 Lakh to 4 Lakh">INR 2 Lakh to 4 Lakh</form:option>
+            <form:option value="INR 5 Lakh to 7 Lakh">INR 5 Lakh to 7 Lakh</form:option>
+            <form:option value="Above INR 7 Lakh">Above INR 7 Lakh</form:option>
+        </form:select>
+      </div>
 </div>
 </div>
-<div class="row">
+<%-- <div class="row">
     <div class="form-group incomeBlock">
       <label class="col-md-4 control-label" for="textinput"></label>  
       <div class="col-md-7">
         <form:select path="rAnnualIncome" class="form-control u1">
             <form:option value="">-- Annual Income --</form:option>
+            <form:option value="Doesn't Matter">Doesn't Matter</form:option>
             <form:option value="Upto INR 1 Lakh">Upto INR 1 Lakh</form:option>
             <form:option value="INR 2 Lakh to 4 Lakh">INR 2 Lakh to 4 Lakh</form:option>
             <form:option value="INR 5 Lakh to 7 Lakh">INR 5 Lakh to 7 Lakh</form:option>
@@ -892,7 +895,7 @@ xpopup
         </form:select>
       </div>
     </div>
-</div>
+</div> --%>
 <br>
 <div class="row">
     <div class="col-md-4 pull-right" style="float:right;">
