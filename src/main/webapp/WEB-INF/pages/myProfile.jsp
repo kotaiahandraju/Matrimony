@@ -639,7 +639,7 @@ xpopup
 <div class="panel panel-default" style="background:#FDFDFD;">
     <div class="panel-body table-responsive">
     <div >	<strong class="font">Family Details
-        <a href="#no" style="font-size:13px; color:#C00;" class=" pull-right" id="family_details_a" onclick="toggleDiv('family_details');"> <i class="fa fa-edit"></i> Edit</a>
+        <a href="#no" style="font-size:13px; color:#C00;" class="all_a pull-right" id="family_details_a" onclick="toggleDiv('family_details');"> <i class="fa fa-edit"></i> Edit</a>
 </strong>
 <div id="family_details_view" class="all_visible_divs">
 <table class="col-md-12 table-responsive">
