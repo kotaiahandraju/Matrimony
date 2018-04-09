@@ -161,7 +161,8 @@ public class LoginController {
 				objUserBean.setYetToBeViewedCount((String.valueOf(interestCounts.get("yetToBeViewedCount"))));
 				objUserBean.setViewedNotContactedCount((String.valueOf(interestCounts.get("viewedNotContactedCount"))));
 				objUserBean.setShortListedCount((String.valueOf(interestCounts.get("shortListedCount"))));
-			
+				session.setAttribute("default_text_option", interestCounts.get("default_text_option"));
+				session.setAttribute("mail_default_text", interestCounts.get("mail_default_text"));
 		}else{
 			session.setAttribute("notificationsCount", 0);
 			objUserBean.setSentInterestCount("0");
@@ -176,12 +177,22 @@ public class LoginController {
 			objUserBean.setYetToBeViewedCount((String.valueOf(interestCounts.get("yetToBeViewedCount"))));
 			objUserBean.setViewedNotContactedCount((String.valueOf(interestCounts.get("viewedNotContactedCount"))));
 			objUserBean.setShortListedCount("0");
+			session.setAttribute("notificationsList", "");
+			session.setAttribute("default_text_option", "0");
+			session.setAttribute("mail_default_text", "");
 		}
 		
 		if(objUserBean.getRoleId() ==1 || objUserBean.getRoleId() == 3){
 			session.setAttribute("cacheUserBean", objUserBean);
 			session.setAttribute("rolId", objUserBean.getRoleId());
 			session.setAttribute("userName", objUserBean.getUsername());
+			//get payment notifications 
+			List<Map<String,Object>> paymentNotificationsList = objUsersDao.getAdminNotifications("payment",false);
+			if(paymentNotificationsList!=null && paymentNotificationsList.size()>0){
+				session.setAttribute("paymentNotificationsList", paymentNotificationsList);
+			}else{
+				session.setAttribute("paymentNotificationsList", "");
+			}
 			return "redirect:admin/dashboard";
 		}else if(objUserBean.getRoleId() == 4){
 			

@@ -53,6 +53,7 @@ $(function ($) {
 </script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/jquery.blockUI.min.js"></script>
+	
 	<!-- start-smoth-scrolling -->
 	<script type="text/javascript" src="user/js/move-top.js"></script>
 	<!-- <script type="text/javascript" src="user/js/easing.js"></script> -->

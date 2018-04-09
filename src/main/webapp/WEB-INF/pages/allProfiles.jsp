@@ -4,6 +4,8 @@
 <%@ taglib uri="http://displaytag.sf.net" prefix="display"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
+<link href="${baseurl }/css/imgareaselect-default.css" rel="stylesheet" media="screen">
+<link rel="stylesheet" href="${baseurl }/css/jquery.awesome-cropper.css">
 <style>
  .error {
         color: red; font-weight: bold;
@@ -141,7 +143,10 @@ $( document ).ready(function() {
         </div>
         <div class="modal-body">
          <input type="hidden" name="profileId" id="profileId">
-        <input id="imageName" type="file" value="" name="imageName" >
+        <!-- <input id="imageName" type="file" value="" name="imageName" > -->
+        	<form role="form">
+		      <input id="imageName" type="hidden" name="test[image]">
+		    </form>
           <button type="button" id="uploadBtn" onclick="imageAjax()" class="btn btn-default" >Upload</button>
         </div>
         <div class="modal-footer">
@@ -282,26 +287,33 @@ s.parentNode.insertBefore(ga, s);
 
 	 $("#profileId").val(id);
 	    $('#myModal').modal();
-	} 
+	    
+} 
  function imageAjax(){
-	 $("#uploadBtn").prop("disabled",true);
-		$("#uploadBtn").val("Please wait...");
-	var id= $("#profileId").val();
-	var formData = new FormData();
-	formData.append("imageName", imageName.files[0]);
-	formData.append("id", id);
-	  $.fn.makeMultipartRequest('POST', 'imageUpload', false,
-				formData, false, 'text', function(data){
-		  	var jsonobj = $.parseJSON(data);
-		  	var msg = jsonobj.message;
-		  	if("success" == msg){
-		  		alert("Photo uploaded Successfully");
-		  	}else{
-		  		alert("Photo upload failed, Please try again..!");
-		  	}
-		  	$("#uploadBtn").removeAttr("disabled");
-	   		$("#uploadBtn").val("Upload Photo");
-		});
+	 if($("#imageName").val() == "" || $("#imageName").val() == "undefined" || $("#imageName").val() == null){
+			alert("Please Select An Image..!");
+		}
+	 else{
+		 $("#uploadBtn").prop("disabled",true);
+			$("#uploadBtn").val("Please wait...");
+		var id= $("#profileId").val();
+		var formData = new FormData();
+		//formData.append("imageName", imageName.files[0]);
+		formData.append("imageData", $("#imageName").val());
+		formData.append("id", id);
+		  $.fn.makeMultipartRequest('POST', 'croppedImageUpload', false,
+					formData, false, 'text', function(data){
+			  	var jsonobj = $.parseJSON(data);
+			  	var msg = jsonobj.message;
+			  	if("success" == msg){
+			  		alert("Photo uploaded Successfully");
+			  	}else{
+			  		alert("Photo upload failed, Please try again..!");
+			  	}
+			  	$("#uploadBtn").removeAttr("disabled");
+		   		$("#uploadBtn").val("Upload Photo");
+			});
+ 	}
  }
  function editProfile(id) {
 	 var location = $("#loc").val();
@@ -1233,7 +1245,15 @@ s.parentNode.insertBefore(ga, s);
  $(".profiles").addClass("active");
  $(".allProfiles").addClass("active"); 
 </script>
-
+<script src="${baseurl }/js/jquery.imgareaselect.js"></script> 
+<script src="${baseurl }/js/jquery.awesome-cropper.js"></script> 
+<script>
+    $(document).ready(function () {
+        $('#imageName').awesomeCropper(
+        { width: 150, height: 150, debug: true }
+        );
+    });
+    </script>
 </body>
 
 
