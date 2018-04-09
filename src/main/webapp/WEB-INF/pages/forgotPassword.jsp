@@ -51,42 +51,69 @@
 						</form>
 					</div>
    				</div>
-<script src="${baseurl }/js/jquery-ui.min.js"></script>
+<script src="js/jquery-ui.min.js"></script>
 <script type="text/javascript">
 
 function displayFpNextPage(){
 	var formData = new FormData();
 	var inputVal = $("#forgotPasswordInput").val();
-	formData.append("forgotPasswordInput",inputVal);
-	$.fn.makeMultipartRequest('POST', 'forgotPasswordPreAction', false,
-				formData, false, 'text', function(data){
-			var jsonobj = $.parseJSON(data);
-			var email_str = jsonobj.emailStr;
-			var mobile_str = jsonobj.mobileStr;
-			var message = jsonobj.message;
-			if(message=="no-data"){
-				$("#errorMsg").html('No data found for the given input. Please enter valid input.');
-				$("#errorMsg").removeAttr("hidden");
-			}else{
-				$("#errorMsg").html('');
-				$("#errorMsg").attr("hidden",true);
-				if(email_str!=""){
-    				$("#emailStr").html('Email new password to my registered email id xxxxxxxx'+email_str);
-				}
-				if(mobile_str!=""){
-					$("#mobileStr").html('SMS new password to my registered mobile number xxxxxxx'+mobile_str);
-					$("#mobile_option").removeAttr("hidden");
-				}else{
-					$("#mobile_option").attr("hidden",true);
-				}
-				$("#fpStep1").attr("hidden",true);
-				$("#fpStep2").removeAttr("hidden");
-			}
-	});
 	
+		var retVal = validateInput("forgotPasswordInput", "Enter input data");
+		if(!retVal){
+			return false;
+		}else{
+		formData.append("forgotPasswordInput",inputVal);
+		$.fn.makeMultipartRequest('POST', 'forgotPasswordPreAction', false,
+					formData, false, 'text', function(data){
+				var jsonobj = $.parseJSON(data);
+				var email_str = jsonobj.emailStr;
+				var mobile_str = jsonobj.mobileStr;
+				var message = jsonobj.message;
+				if(message=="no-data"){
+					$("#errorMsg").html('No data found for the given input. Please enter valid input.');
+					$("#errorMsg").removeAttr("hidden");
+				}else{
+					$("#errorMsg").html('');
+					$("#errorMsg").attr("hidden",true);
+					if(email_str!=""){
+	    				$("#emailStr").html('Email new password to my registered email id xxxxxxxx'+email_str);
+					}
+					if(mobile_str!=""){
+						$("#mobileStr").html('SMS new password to my registered mobile number xxxxxxx'+mobile_str);
+						$("#mobile_option").removeAttr("hidden");
+					}else{
+						$("#mobile_option").attr("hidden",true);
+					}
+					$("#fpStep1").attr("hidden",true);
+					$("#fpStep2").removeAttr("hidden");
+				}
+		});
+	}
 }
 
-
+function validateInput(id, errorMessage)
+{
+	var styleBlock = '.placeholder-style.placeholder-style::-moz-placeholder {color: #cc0000;} .placeholder-style::-webkit-input-placeholder {color: #cc0000;}';
+	if($('#'+id).val().trim() ==  null || $('#'+id).val().trim() == ""  || $('#'+id).val().trim()=="undefined" ) {
+		$('style').append(styleBlock);
+		$('#'+id).css('border-color','#cc0000');
+		$('#'+id).css('color','#cc0000');
+		$('#'+id).val('');
+		$('#'+id).attr('placeholder',errorMessage);
+		$('#'+id).addClass('placeholder-style your-class');
+		return false;
+//			$('#'+id).css('color','#cc0000');
+//			$('#'+id+'Error').text(errorMessage);
+	}else{
+		$('#'+id).css('border-color','');
+		$('#'+id).removeClass('placeholder-style your-class');
+		$('#'+id).attr('placeholder','');
+		return true;
+//			$('#'+id).css('color','');
+//			$('#'+id+'Error').text("");
+	}
+	
+}
 
 function checkVal(){
 	var selected_val = $("input[name=sendTo]:checked").val();
