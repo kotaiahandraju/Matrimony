@@ -111,7 +111,7 @@ th,td {text-align: center;}
 function validate(id, errorMessage)
 {
 	var styleBlock = '.placeholder-style.placeholder-style::-moz-placeholder {color: #cc0000;} .placeholder-style::-webkit-input-placeholder {color: #cc0000;}';
-	if($('#'+id).val() ==  null || $('#'+id).val() == ""  || $('#'+id).val()=="undefined" ) {
+	if($('#'+id).val().trim() ==  null || $('#'+id).val().trim() == ""  || $('#'+id).val().trim()=="undefined" ) {
 		$('style').append(styleBlock);
 		$('#'+id).css('border-color','#cc0000');
 		$('#'+id).css('color','#cc0000');

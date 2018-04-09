@@ -1046,17 +1046,26 @@ public class UsersDao extends BaseUsersDao
 					if(StringUtils.isNotBlank(searchCriteriaBean.getrHeightTo())){
 						where_clause.append( " and cast(u.height as unsigned) <= cast('"+searchCriteriaBean.getrHeightTo()+"' as unsigned ) ");
 					}
-					if(StringUtils.isNotBlank(searchCriteriaBean.getrMaritalStatus())){
+					if(StringUtils.isNotBlank(searchCriteriaBean.getrMaritalStatus()) && !searchCriteriaBean.getrMaritalStatus().equalsIgnoreCase("null")){
 						where_clause.append( " and  FIND_IN_SET(u.maritalStatus,'"+searchCriteriaBean.getrMaritalStatus()+"')>0    ");
 					}
-					if(StringUtils.isNotBlank(searchCriteriaBean.getrReligion())){
-						where_clause.append( " and FIND_IN_SET(u.education,'"+searchCriteriaBean.getrEducation()+"')>0  ");
+					if(StringUtils.isNotBlank(searchCriteriaBean.getrReligion()) && !searchCriteriaBean.getrReligion().equalsIgnoreCase("null")){
+						where_clause.append( " and FIND_IN_SET(u.religion,'"+searchCriteriaBean.getrReligion()+"')>0  ");
 					}
-					if(StringUtils.isNotBlank(searchCriteriaBean.getrCaste())){
+					if(StringUtils.isNotBlank(searchCriteriaBean.getrCaste()) && !searchCriteriaBean.getrCaste().equalsIgnoreCase("null")){
 						where_clause.append( " and FIND_IN_SET(u.caste,'"+searchCriteriaBean.getrCaste()+"')>0  ");
 					}
-					if(StringUtils.isNotBlank(searchCriteriaBean.getrEducation())){
+					if(StringUtils.isNotBlank(searchCriteriaBean.getrMotherTongue()) && !searchCriteriaBean.getrMotherTongue().equalsIgnoreCase("null")){
+						where_clause.append( " and FIND_IN_SET(u.motherTongue,'"+searchCriteriaBean.getrMotherTongue()+"' )>0  ");
+					}
+					if(StringUtils.isNotBlank(searchCriteriaBean.getrEducation()) && !searchCriteriaBean.getrEducation().equalsIgnoreCase("null")){
 						where_clause.append( " and FIND_IN_SET(u.education,'"+searchCriteriaBean.getrEducation()+"' )>0  ");
+					}
+					if(StringUtils.isNotBlank(searchCriteriaBean.getrCountry()) && !searchCriteriaBean.getrCountry().equalsIgnoreCase("null")){
+						where_clause.append( " and FIND_IN_SET(u.currentCountry,'"+searchCriteriaBean.getrCountry()+"' )>0  ");
+					}
+					if(StringUtils.isNotBlank(searchCriteriaBean.getrState()) && !searchCriteriaBean.getrState().equalsIgnoreCase("null")){
+						where_clause.append( " and FIND_IN_SET(u.currentState,'"+searchCriteriaBean.getrState()+"' )>0  ");
 					}
 				}
 				if(objUserBean.getRoleId()!=1){
@@ -2956,8 +2965,8 @@ public boolean deletePhoto(String photoId){
 		boolean inserted = false;
 		StringBuffer buffer = new StringBuffer();
 		try {
-			buffer.append("insert into user_notifications(created_on,user_type,profile_id,notifi_type,amount) "
-							+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','admin',"+profileId+",'payment','"+amount+"')");;
+			buffer.append("insert into user_notifications(created_on,user_type,user_id,profile_id,notifi_type,amount) "
+							+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','admin',3,"+profileId+",'payment','"+amount+"')");;
 			int iCount = jdbcTemplate.update(buffer.toString());
 			if (iCount == 1) {
 				inserted = true;
@@ -2976,7 +2985,7 @@ public boolean deletePhoto(String photoId){
 		StringBuffer buffer = new StringBuffer();
 		try {
 			buffer.append("insert into user_notifications(created_on,user_type,user_id,profile_id,notifi_type) "
-							+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','admin',(select id from users where role_id = 1),"+profileId+",'payment')");;
+							+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','admin',3,"+profileId+",'payment')");;
 			int iCount = jdbcTemplate.update(buffer.toString());
 			if (iCount == 1) {
 				inserted = true;

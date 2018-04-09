@@ -19,11 +19,11 @@ text-align:left;
 								<div class="searchresults">
 								    <h3>Your Search Results <div class="form-group pull-right" >
 							      <div class="col-md-9">
-							      	<input id="username" name="username" placeholder="Enter Matrimony Id" class="form-control" type="text" value="">
+							      	<input id="username1" name="username1" placeholder="Enter Matrimony Id" class="form-control" type="text" value="">
 							      </div>
 							   
 							      <div class="col-md-3">
-							     	<a href="#" type="button" id="searchBtn" class="btn1 btn btn-danger" onclick="submitSearch()">Search</a> 
+							     	<a href="#" type="button" id="searchBtn1" class="btn1 btn btn-danger" onclick="submitSearch('searchBtn1')">Search</a> 
 							      </div>
 							    </div></h3>
 								    <p><span id="countId">${count}</span> Profiles found </p>
@@ -46,7 +46,7 @@ text-align:left;
 							      </div>
 							   
 							      <div class="col-md-6">
-							     	<a href="#" type="button" id="searchBtn" class="btn1 btn btn-danger" onclick="submitSearch()">Search</a> 
+							     	<a href="#" type="button" id="searchBtn" class="btn1 btn btn-danger" onclick="submitSearch('searchBtn')">Search</a> 
 							      </div>
 							    </div>
 							  </div></div>
@@ -301,9 +301,27 @@ $("#religiondiv input[name='religion']").click(updateProfilesList);
 $("#educationdiv input[name='education']").click(updateProfilesList);
 
 
-function submitSearch(){
+function submitSearch(btnId){
+	var elemId = btnId;
+	var input_val = "";
 	var formData = new FormData();
-	formData.append("username",$("#username").val());
+	if(elemId=="searchBtn"){
+		var retVal = validateInput("username","Enter ID");
+		if(!retVal){
+			return false;
+		}else{
+			input_val = $("#username").val().trim();
+		}
+	}else if(elemId=="searchBtn1"){
+		var retVal = validateInput("username1","Enter ID");
+		if(!retVal){
+			return false;
+		}else{
+			input_val = $("#username1").val().trim();
+		}
+	}
+	 
+	formData.append("username",input_val);
 	$.fn.makeMultipartRequest('POST', 'searchByIdAction', false,
 			formData, false, 'text', function(data){
 		var jsonobj = $.parseJSON(data);
@@ -319,6 +337,12 @@ function submitSearch(){
 			$("#table_footer").prop("hidden",true);
 			$("#altLists").prop("hidden",true);
 		}else{
+			$('#username').css('border-color','');
+			$('#username').removeClass('placeholder-style your-class');
+			$('#username1').css('border-color','');
+			$('#username1').removeClass('placeholder-style your-class');
+			//$('#'+id).attr('placeholder','');
+			////
 			$('#countId').html('');
 			$('#countId').html(total_items_count);
 			paginationSetup(total_items_count);
@@ -332,6 +356,32 @@ function submitSearch(){
 		
 	});
 }
+
+function validateInput(id, errorMessage)
+{
+	var styleBlock = '.placeholder-style.placeholder-style::-moz-placeholder {color: #cc0000;} .placeholder-style::-webkit-input-placeholder {color: #cc0000;}';
+	if($('#'+id).val().trim() ==  null || $('#'+id).val().trim() == ""  || $('#'+id).val().trim()=="undefined" ) {
+		$('style').append(styleBlock);
+		$('#'+id).css('border-color','#cc0000');
+		$('#'+id).css('color','#cc0000');
+		$('#'+id).val('');
+		$('#'+id).attr('placeholder',errorMessage);
+		$('#'+id).addClass('placeholder-style your-class');
+		return false;
+//			$('#'+id).css('color','#cc0000');
+//			$('#'+id+'Error').text(errorMessage);
+	}else{
+		$('#'+id).css('border-color','');
+		$('#'+id).removeClass('placeholder-style your-class');
+		$('#'+id).attr('placeholder','');
+		return true;
+//			$('#'+id).css('color','');
+//			$('#'+id+'Error').text("");
+	}
+	
+}
+
+
 	//$("#searchForm2").submit();
 	
 //}

@@ -6,7 +6,7 @@ text-align:left;
 </style>
 			<div class="col-md-9 products-grid-left">
             	<div class="panel panel-default">
-					<div class="panel-heading">Search Profiles<span><a href="" style="float:right; font-size:12px; color:#006699;">Modify Search</a></span></div>
+					<div class="panel-heading">Search Profiles</div>
 					<div class="panel-body table-responsive">
 						<form:form commandName="createProfile"  class="form-horizontal" id="searchForm2" name="searchForm2" role="form" method="post">
 						<form:hidden path="id" />
@@ -14,7 +14,7 @@ text-align:left;
 							<div id="searchresultsDiv" class="bare">
 								<div class="searchresults">
 								    <h3>Your Search Results</h3>
-								    <p><span id="countId">${count}</span> Profiles found <a href="searchProfiles">Modify Search</a></p>
+								    <p><span id="countId">${count}</span> Profiles found <a href="" onclick="modifySearch(event);" style="float:right; font-size:12px; color:#006699;">Modify Search</a></p>
 									<div id="searchResults">
 										
 
@@ -132,16 +132,15 @@ text-align:left;
 									      <label class="col-md-4 control-label" for="textinput"></label>  
 									      <div class="col-md-6">
 									     	<a href="#" type="button" id="searchBtn" class="btn1 btn btn-success" onclick="submitSearch()">Search</a> 
-									     	<a href="#" type="button" id="searchBtn" class="btn1 btn btn-danger" onclick="">Reset</a> 
+									     	<a href="#" type="button" id="resetBtn" class="btn1 btn btn-danger" onclick="">Reset</a> 
 									      <!-- 	<a href="savePartnerProfile" class="btn1 btn btn-info">Save & Continue</a> -->
 									      </div>
 									    </div>
 								</div>
 
 							</div>
-						
+						</form:form>
 					</div>
-					</form:form>
 				</div></div>
              
                          
@@ -394,11 +393,58 @@ $("#castdiv input[name='caste']").click(updateProfilesList);
 $("#religiondiv input[name='religion']").click(updateProfilesList);
 $("#educationdiv input[name='education']").click(updateProfilesList);
 
+function validateInput(id, errorMessage)
+{
+	var styleBlock = '.placeholder-style.placeholder-style::-moz-placeholder {color: #cc0000;} .placeholder-style::-webkit-input-placeholder {color: #cc0000;}';
+	if($('#'+id).val().trim() ==  null || $('#'+id).val().trim() == ""  || $('#'+id).val().trim()=="undefined" ) {
+		$('style').append(styleBlock);
+		$('#'+id).css('border-color','#cc0000');
+		$('#'+id).css('color','#cc0000');
+		$('#'+id).val('');
+		$('#'+id).attr('placeholder',errorMessage);
+		$('#'+id).addClass('placeholder-style your-class');
+		return false;
+//			$('#'+id).css('color','#cc0000');
+//			$('#'+id+'Error').text(errorMessage);
+	}else{
+		$('#'+id).css('border-color','');
+		$('#'+id).removeClass('placeholder-style your-class');
+		$('#'+id).attr('placeholder','');
+		return true;
+//			$('#'+id).css('color','');
+//			$('#'+id+'Error').text("");
+	}
+	
+}
 
 function submitSearch(){
-	document.searchForm2.action = "SearchResults"
-    document.searchForm2.submit();            
-    return true;
+	var ageFrom = $("#rAgeFrom").val().trim();
+	var ageTo = $("#rAgeTo").val().trim();
+	var heightFrom = $("#rHeight").val();
+	var heightTo = $("#rHeightTo").val();
+	var maritalStatus = $("#rMaritalStatus").val();
+	var religion = $("#rReligion").val();
+	var caste = $("#rCaste").val();
+	var motherTongue = $("#rMotherTongue").val();
+	var country = $("#rCountry").val();
+	var state = $("#rState").val();
+	if(ageFrom=="" && ageTo=="" && maritalStatus==null && caste==null && motherTongue==null && country==null 
+			&& state==null && religion==null && heightFrom==""){
+		alert("Enter any input");
+		return false;
+	}else{
+		document.searchForm2.action = "SearchResults"
+	    document.searchForm2.submit();            
+	    return true;
+	}
+	
+}
+function modifySearch(event){
+	$('#search_criteria').removeAttr("hidden");
+	$('#searchResults').html('');
+	$("#searchresultsDiv").prop("hidden",true);
+	event.preventDefault();
+	return false;
 }
 	//$("#searchForm2").submit();
 	
@@ -636,6 +682,8 @@ function paginationSetup(total_items_count) {
         	 formData.append("rReligion",$("#rReligion").val());
         	 formData.append("rCaste",$("#rCaste").val());
         	 formData.append("rMotherTongue",$("#rMotherTongue").val());
+        	 formData.append("rCountry",$("#rCountry").val());
+        	 formData.append("rState",$("#rState").val());
         	 /* formData.append("rAgeFrom",$("#rAgeFrom").val());
         	 formData.append("rAgeFrom",$("#rAgeFrom").val());
         	 formData.append("rAgeFrom",$("#rAgeFrom").val());
