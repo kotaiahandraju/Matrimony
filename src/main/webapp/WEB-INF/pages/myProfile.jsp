@@ -23,7 +23,8 @@
             width: 100px;
             height: 50px;
         }
-        
+       td:first-child{ width: 150px; }
+        td:fourth-child{ width: 150px; } 
        /*  .modal-header .close {
     margin-top: -12px;
 } */
@@ -401,16 +402,11 @@ xpopup
     <div class="panel-body table-responsive">
     <div >	<strong class="font">Basic Details <a href="#no" style="font-size:13px; color:#C00;" class="all_a pull-right" id="basic_details_a" onclick="toggleDiv('basic_details');"> <i class="fa fa-edit"></i> Edit</a></strong>
         <div id="basic_details_view" class="all_visible_divs">
-            <table class="col-md-12 table-responsive">
+            <table class="col-md-6 table-responsive">
                 <tr><td>Name</td>
                     <td>:</td>
                     <td class="name_val">${profileBean.firstName}&nbsp; ${profileBean.lastName}</td>
-                    <td>Body Type</td><td>:</td>
-                    <td id="bodyType_val">
-                        <c:if test="${not empty profileBean.bodyTypeName}">${profileBean.bodyTypeName}</c:if>
-                        <c:if test="${empty profileBean.bodyTypeName}">Not specified
-                        </c:if>
-                    </td>
+                   
                 </tr>
                 <tr>
                     <td>Age</td><td>:</td>
@@ -418,11 +414,7 @@ xpopup
                         <c:if test="${not empty profileBean.age}">${profileBean.age} yrs</c:if>
                         <c:if test="${empty profileBean.age}">Not specified</c:if>
                     </td>
-                    <td>Complexion</td><td>:</td>
-                    <td id="complexion_val">
-                        <c:if test="${not empty profileBean.complexionName}">${profileBean.complexionName}</c:if>
-                        <c:if test="${empty profileBean.complexionName}">Not specified</c:if>
-                    </td>
+                   
                 </tr>
                 <tr>
                     <td>Height</td><td>:</td>
@@ -430,11 +422,7 @@ xpopup
                         <c:if test="${not empty profileBean.heightInches}">${profileBean.heightInches}</c:if>
                         <c:if test="${empty profileBean.heightInches}">Not specified</c:if>
                     </td>
-                    <td>Physical Status</td><td>:</td>
-                    <td id="disability_val">
-                        <c:if test="${not empty profileBean.disability}">${profileBean.disability}</c:if>
-                        <c:if test="${empty profileBean.disability}">Not specified</c:if>
-                    </td>
+                    
                 </tr>
                 <tr>
                     <%-- <td>Weight</td><td>:</td>
@@ -454,11 +442,7 @@ xpopup
                         <c:if test="${not empty profileBean.motherTongueName}">${profileBean.motherTongueName}</c:if>
                         <c:if test="${empty profileBean.motherTongueName}">Not specified</c:if>
                     </td>
-                    <td>Drinking Habits</td><td>:</td>
-                    <td id="drinking_val">
-                        <c:if test="${not empty profileBean.drinking}">${profileBean.drinking}</c:if>
-                        <c:if test="${empty profileBean.drinking}">Not specified</c:if>
-                    </td>
+                    
                 </tr>
                 <tr>
                     <td>Marital Status</td><td>:</td>
@@ -466,18 +450,50 @@ xpopup
                         <c:if test="${not empty profileBean.maritalStatus}">${profileBean.maritalStatus}</c:if>
                         <c:if test="${empty profileBean.maritalStatus}">Not specified</c:if>
                     </td>
-                    <td>Smoking Habits</td><td>:</td>
+                   
+                </tr>
+            </table>
+           <table class="col-md-6 table-responsive">
+          <tr>  <td>Body Type</td><td>:</td>
+                    <td id="bodyType_val">
+                        <c:if test="${not empty profileBean.bodyTypeName}">${profileBean.bodyTypeName}</c:if>
+                        <c:if test="${empty profileBean.bodyTypeName}">Not specified
+                        </c:if>
+                    </td></tr>
+                    <tr>
+                     <td>Complexion</td><td>:</td>
+                    <td id="complexion_val">
+                        <c:if test="${not empty profileBean.complexionName}">${profileBean.complexionName}</c:if>
+                        <c:if test="${empty profileBean.complexionName}">Not specified</c:if>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>Physical Status</td><td>:</td>
+                    <td id="disability_val">
+                        <c:if test="${not empty profileBean.disability}">${profileBean.disability}</c:if>
+                        <c:if test="${empty profileBean.disability}">Not specified</c:if>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>Drinking Habits</td><td>:</td>
+                    <td id="drinking_val">
+                        <c:if test="${not empty profileBean.drinking}">${profileBean.drinking}</c:if>
+                        <c:if test="${empty profileBean.drinking}">Not specified</c:if>
+                    </td>
+                    </tr>
+                    <tr>
+                     <td>Smoking Habits</td><td>:</td>
                     <td id="smoking_val">
                         <c:if test="${not empty profileBean.smoking}">${profileBean.smoking}</c:if>
                         <c:if test="${empty profileBean.smoking}">Not specified</c:if>
                     </td>
-                </tr>
-            </table>
+                    </tr>
+           </table>  
     </div>
     <div id="basic_details_edit" class="all_hidden_divs" hidden="true">
         <jsp:include page="basic_details.jsp" />
     </div></div></div>
-</div><br>
+</div><br><div class="clearfix"></div>
 <!-- <div class="col-md-1"><img src="user/images/media.png"></div>
     <div class="col-md-11">	
     <strong class="font">Contact Details</strong>
@@ -550,7 +566,7 @@ xpopup
             </td>
         </tr>
         
-        </table>
+        </table><table class="col-md-6 table-responsive"></table>
     </div>
     <div id="religion_info_edit" class="all_hidden_divs" hidden="true">
         <jsp:include page="religion_info.jsp"></jsp:include>
@@ -559,7 +575,7 @@ xpopup
 </div>
 </div>
 </div>
-<br>
+<div class="clearfix"></div><br>
 <div class="panel panel-default" style="background:#FDFDFD;">
     <div class="panel-body table-responsive">
     <div >	
@@ -569,8 +585,8 @@ xpopup
     's Location <a href="#no" style="font-size:13px; color:#C00;" class="all_a pull-right" id="location_a" onclick="toggleDiv('location');"> <i class="fa fa-edit"></i> Edit</a>
 </strong>
 <div id="location_view" class="all_visible_divs">
-<table class="col-md-10 table-responsive">
-<tr><td>Country</td><td>:</td>
+<table  class="col-md-6 table-responsive" cellspacing="10">
+<tr><td >Country &#160;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>:</td>
     <td id="currentCountry_val">
         <c:if test="${not empty profileBean.currentCountryName}">${profileBean.currentCountryName}</c:if>
         <c:if test="${empty profileBean.currentCountryName}">Not Specified</c:if>
@@ -590,8 +606,8 @@ xpopup
     </td>
     
 </tr>
-</table>
-</div>
+</table><table class="col-md-6 table-responsive"></table>
+</div><div class="clearfix"></div>
 <div id="location_edit" class="all_hidden_divs" hidden="true">
 <jsp:include page="location.jsp" />
 </div>
@@ -599,7 +615,7 @@ xpopup
 </div>
 </div>
 
-<br>
+<br><div class="clearfix"></div>
 <div class="panel panel-default" style="background:#FDFDFD;">
     <div class="panel-body table-responsive">	
     <div>	<strong class="font">Professional Information
@@ -642,51 +658,62 @@ xpopup
         <a href="#no" style="font-size:13px; color:#C00;" class="all_a pull-right" id="family_details_a" onclick="toggleDiv('family_details');"> <i class="fa fa-edit"></i> Edit</a>
 </strong>
 <div id="family_details_view" class="all_visible_divs">
-<table class="col-md-12 table-responsive">
+<table class="col-md-6 table-responsive">
 <tr><td>Father's Name</td><td>:</td>
     <td id="fatherName_val">
         <c:if test="${not empty profileBean.fatherName}">${profileBean.fatherName}</c:if>
         <c:if test="${empty profileBean.fatherName}">Not Specified</c:if>
     </td>
-    <td>Mother's Name</td><td>:</td>
-    <td id="motherName_val"><c:out value="${profileBean.motherName}"/>
-        <c:if test="${not empty profileBean.motherName}">${profileBean.motherName}</c:if>
-        <c:if test="${empty profileBean.motherName}">Not Specified</c:if>
-    </td>
+    
 </tr>
 <tr><td>Father's Occupation</td><td>:</td>
     <td id="fOccupation_val">
         <c:if test="${not empty profileBean.fOccupation}">${profileBean.fOccupationName}</c:if>
         <c:if test="${empty profileBean.fOccupation}">Not Specified</c:if>
     </td>
-    <td>Mother's Occupation</td><td>:</td>
-    <td id="mOccupation_val">
-        <c:if test="${not empty profileBean.mOccupation}">${profileBean.mOccupationName}</c:if>
-        <c:if test="${empty profileBean.mOccupation}">Not Specified</c:if>
-    </td>
+    
 </tr>
 <tr><td>No. of Brothers</td><td>:</td>
     <td id="noOfBrothers_val">
         <c:if test="${not empty profileBean.noOfBrothers}">${profileBean.noOfBrothers}</c:if>
         <c:if test="${empty profileBean.noOfBrothers}">Not Specified</c:if>
     </td>
-    <td>Brothers Married</td><td>:</td>
-    <td id="noOfBrothersMarried_val">
-        <c:if test="${not empty profileBean.noOfBrothersMarried}">${profileBean.noOfBrothersMarried}</c:if>
-        <c:if test="${empty profileBean.noOfBrothersMarried}">Not Specified</c:if>
-    </td>
+    
 </tr>
 <tr><td>No. of Sisters</td><td>:</td>
     <td id="noOfSisters_val">
         <c:if test="${not empty profileBean.noOfSisters}">${profileBean.noOfSisters}</c:if>
         <c:if test="${empty profileBean.noOfSisters}">Not Specified</c:if>
     </td>
-    <td>Sisters Married</td><td>:</td>
+    
+</tr>
+</table>
+<table class="col-md-6 table-responsive">
+<tr>
+<td>Mother's Name</td><td>:</td>
+    <td id="motherName_val"><c:out value="${profileBean.motherName}"/>
+        <c:if test="${not empty profileBean.motherName}">${profileBean.motherName}</c:if>
+        <c:if test="${empty profileBean.motherName}">Not Specified</c:if>
+    </td></tr>
+    <tr>
+    <td>Mother's Occupation</td><td>:</td>
+    <td id="mOccupation_val">
+        <c:if test="${not empty profileBean.mOccupation}">${profileBean.mOccupationName}</c:if>
+        <c:if test="${empty profileBean.mOccupation}">Not Specified</c:if>
+    </td></tr>
+    <tr>
+    <td>Brothers Married</td><td>:</td>
+    <td id="noOfBrothersMarried_val">
+        <c:if test="${not empty profileBean.noOfBrothersMarried}">${profileBean.noOfBrothersMarried}</c:if>
+        <c:if test="${empty profileBean.noOfBrothersMarried}">Not Specified</c:if>
+    </td></tr>
+    <tr>
+<td>Sisters Married</td><td>:</td>
     <td id="noOfSistersMarried_val">
         <c:if test="${not empty profileBean.noOfSistersMarried}">${profileBean.noOfSistersMarried}</c:if>
         <c:if test="${empty profileBean.noOfSistersMarried}">Not Specified</c:if>
-    </td>
-</tr>
+    </td></tr>
+    <tr>
 </table>
 </div>
 <div id="family_details_edit" class="all_hidden_divs" hidden="true">
