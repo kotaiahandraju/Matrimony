@@ -126,6 +126,16 @@ public class CreateProfileController {
 		}
 		return "createProfile";
 	}
+	
+	@RequestMapping(value = "/uploadPhotos/{id}/{page}")
+	public String uploadPhotos(@ModelAttribute("createProfile") UsersBean objUsersBean, Model objeModel ,
+			HttpServletRequest request, HttpSession session, @PathVariable("id") int id,@PathVariable("page") String pageName) {
+		
+		return "createUploadPhotos";
+	}
+	
+	
+	
 	@RequestMapping(value = "/addProfile")
 	public String addProfile(@ModelAttribute("createProfile") UsersBean objUsersBean, ModelMap model,
 			HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
@@ -316,7 +326,9 @@ public class CreateProfileController {
 			id=request.getParameter("id");
 			if(StringUtils.isNotBlank(id)){
 				objUerImagesBean.setUserId(id);
+				
 			}
+			
 			String imgData = request.getParameter("imageData");
 			if (StringUtils.isNotBlank(imgData)) {
 				Base64Decoder decoder = new Base64Decoder(); 

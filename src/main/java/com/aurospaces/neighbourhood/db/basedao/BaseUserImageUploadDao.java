@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.poi.util.SystemOutLogger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -38,6 +39,7 @@ public class BaseUserImageUploadDao{
 	public void save(final UserImagesBean objUserImagesBean) 
 	{
 		jdbcTemplate = custom.getJdbcTemplate();
+		
 	if(objUserImagesBean.getId() == 0)	{
 
 	KeyHolder keyHolder = new GeneratedKeyHolder();

@@ -317,6 +317,20 @@ s.parentNode.insertBefore(ga, s);
 	 
 	
 		}
+ function uploadPhotos(id) {
+	 var location = $("#loc").val();
+//  	 var win = window.open(""+location+"/admin/CreateProfile/"+id+"");
+ 	 window.location.href =location+"/admin/uploadPhotos/"+id+"/uploadPhotos";
+	 if (win) {
+	     //Browser has allowed it to be opened
+	     win.focus();
+	 } else {
+	     //Browser has blocked it
+	     alert('Please allow popups for this website');
+	 }
+	 
+	
+		}
  
  function payment(id) {
 	 /* var location = $("#loc").val();
