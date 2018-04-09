@@ -2956,8 +2956,8 @@ public boolean deletePhoto(String photoId){
 		boolean inserted = false;
 		StringBuffer buffer = new StringBuffer();
 		try {
-			buffer.append("insert into user_notifications(created_on,user_type,user_id,profile_id,notifi_type,amount) "
-							+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','admin',(select id from users where role_id = 1),"+profileId+",'payment','"+amount+"')");;
+			buffer.append("insert into user_notifications(created_on,user_type,profile_id,notifi_type,amount) "
+							+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','admin',"+profileId+",'payment','"+amount+"')");;
 			int iCount = jdbcTemplate.update(buffer.toString());
 			if (iCount == 1) {
 				inserted = true;
