@@ -134,7 +134,9 @@
 	<definition name="loginProfiles" extends="base.definition">
 		<put-attribute name="body" value="/WEB-INF/pages/loginProfiles.jsp" />
 	</definition>
-	
+	<definition name="createUploadPhotos" extends="base.definition">
+		<put-attribute name="body" value="/WEB-INF/pages/createUploadPhotos.jsp" />
+	</definition>
 </tiles-definitions>
 
 
