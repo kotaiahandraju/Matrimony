@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 <html>
 <%-- <%! String pages1= null; %> --%>
@@ -337,7 +338,7 @@ var role_id = ${cacheUserBean.roleId};
 										<div class="clearfix"></div><hr>
 									</c:forEach>
 								</div>
-								<form:form commandName="notificationsForm"  class="form-horizontal" id="allNotificationsForm" name="allNotificationsForm" role="form"   method="post">
+								<form:form commandName="allNotificationsInAdmin"  class="form-horizontal" id="allNotificationsForm" name="allNotificationsForm" role="form"   method="post">
 									<div id="notificationFooter"><a href="#" onclick="getAllNotifications();">See All</a></div>
 								</form:form>
 						</c:if>
@@ -417,4 +418,13 @@ var role_id = ${cacheUserBean.roleId};
 			</div>
 		</div>
 	</div>
+	 <script>
 	
+	
+	function getAllNotifications(){
+		document.allNotificationsForm.action = "${baseurl}/allNotificationsInAdmin"
+	    document.allNotificationsForm.target = "_blank";    // Open in a new window
+	    document.allNotificationsForm.submit();             // Submit the page
+	    return true;
+	}
+</script> 
