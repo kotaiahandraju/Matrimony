@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 <html>
 <%-- <%! String pages1= null; %> --%>
@@ -69,6 +70,30 @@ span.has-error,span.hasError
   display: block !important;
   position: absolute;
 }
+#navigation .main-nav > li > a {
+    display: block;
+    padding: 10px 12px;
+    line-height: 20px;
+    color: #fff;
+}
+::-webkit-scrollbar {
+    width: 3px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
 
 .error{color: red; font-weight: bold;}
 
@@ -114,7 +139,7 @@ span.impColor{color: red;}
 			-webkit-box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
 			overflow: visible;
 			position: absolute;
-			top: 50px;
+			top: 45px;
 			
 			width: 250px;
 			z-index:999;
@@ -316,12 +341,12 @@ var role_id = ${cacheUserBean.roleId};
 						<c:if test="${not empty paymentNotificationsList}">
 								<div id="notificationsBody" class="notifications">
 									<c:forEach var="notification" items="${paymentNotificationsList}">
-										<div class="col-md-3"  style="padding-right:0px; padding-left:0px;" >
+										<div class="col-md-3 col-xs-3"  style="height:70px; overflow:hidden;padding-right:0px; padding-left:0px;" >
 											<c:if test="${not empty notification.profileImage}">
-												<img src="${baseurl }/${notification.profileImage}" style="border-radius:  50%;width: 100%;padding: 5px;">
+												<img src="${baseurl }/${notification.profileImage}" style="width: 100%;padding: 5px;">
 											</c:if>
 											<c:if test="${empty notification.profileImage}">
-												<img src="${baseurl }/img/default.png" style="border-radius:  50%;width: 100%;padding: 5px;">
+												<img src="${baseurl }/img/default.png" style="width: 100%;padding: 5px;">
 											</c:if>
 										</div>
 										<div class="col-md-9" style="padding-right:0px; padding-left:0px;" >
@@ -333,11 +358,11 @@ var role_id = ${cacheUserBean.roleId};
 												<br>
 												<c:out value="${notification.created_on}" />
 											.</p>
-										</div><hr>
-										<div class="clearfix"></div><hr>
+										</div>
+										<div class="clearfix"></div><hr style="margin-top:0px;margin-bottom:0px;">
 									</c:forEach>
 								</div>
-								<form:form commandName="notificationsForm"  class="form-horizontal" id="allNotificationsForm" name="allNotificationsForm" role="form"   method="post">
+								<form:form commandName="allNotificationsInAdmin"  class="form-horizontal" id="allNotificationsForm" name="allNotificationsForm" role="form"   method="post">
 									<div id="notificationFooter"><a href="#" onclick="getAllNotifications();">See All</a></div>
 								</form:form>
 						</c:if>
@@ -417,4 +442,13 @@ var role_id = ${cacheUserBean.roleId};
 			</div>
 		</div>
 	</div>
+	 <script>
 	
+	
+	function getAllNotifications(){
+		document.allNotificationsForm.action = "${baseurl}/allNotificationsInAdmin"
+	    document.allNotificationsForm.target = "_blank";    // Open in a new window
+	    document.allNotificationsForm.submit();             // Submit the page
+	    return true;
+	}
+</script> 

@@ -733,7 +733,8 @@ var ss =new Date().getFullYear()-16;
 	changeMonth : true,
 	changeYear : true,
 // 	maxDate :0,
-	yearRange: '1950:' + ss
+	yearRange: '1964:' + ss,
+	 defaultDate: '01-January-1964'
 }); 
 
   

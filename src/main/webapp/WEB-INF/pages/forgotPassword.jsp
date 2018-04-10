@@ -4,16 +4,40 @@
 <%@ taglib uri="http://displaytag.sf.net" prefix="display"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
+<style>
+.btn {
+margin-left:8px;
+}
+.form-control {
+    display: block;
+    width: 30%;
+    margin-left: 8px;
+    height:34px;
+    padding: 6px 10px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555555;
+    background-color: #ffffff;
+    background-image: none;
+    border: 1px solid #BABABA;
+    border-radius: 0px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
 
+</style>
 				<div class="col-md-5 col-sm-12"></div>
 	            <div  class="clearfix"></div>    
 			</div>
 		</div>
      
-		<div class="row">
+		<div class="col-md-12"><br><br>
 			<div class="midcontnet">
 				<div id="errorMsg" hidden="true" style="color:red;"></div>
-				<div id="fpStep1">
+				<div id="fpStep1" class="col-md-12">
 					<div class="panel panel-success">
 	   					<div class="panel-heading"> 
 	   						Enter your registered email-id/phone number/username
@@ -21,7 +45,7 @@
 	   					
 		             		
 		             			<div class="panel-body">
-		             				<input type="text" id="forgotPasswordInput" name="forgotPasswordInput" placeholder="" /> 
+		             				<input type="text" class="col-md-5 form-control" id="forgotPasswordInput" placeholder="Enter email-id/phone number/username" name="forgotPasswordInput" placeholder="" /> 
 		             				<button name="fpNextBtn" type="button" id="fpNextBtn" class="btn btn-primary" onclick="displayFpNextPage()">Next</button>
 								</div>
 						
@@ -58,7 +82,7 @@ function displayFpNextPage(){
 	var formData = new FormData();
 	var inputVal = $("#forgotPasswordInput").val();
 	
-		var retVal = validateInput("forgotPasswordInput", "Enter input data");
+		var retVal = validateInput("forgotPasswordInput", "Enter email-id/phone number/username");
 		if(!retVal){
 			return false;
 		}else{

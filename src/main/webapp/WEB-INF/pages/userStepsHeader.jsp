@@ -168,5 +168,5 @@ function getFilteredStatesMultiSelect(id){
 	<div class="row">
 		<div class="ilogo">
 			<div class="col-md-7 col-sm-12">
-				<img src="user/images/logo.jpg" class="img-responsive">
+				<img src="images/logo.png" class="img-responsive">
 			</div>
