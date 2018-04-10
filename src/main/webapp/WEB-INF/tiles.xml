@@ -137,6 +137,13 @@
 	<definition name="createUploadPhotos" extends="base.definition">
 		<put-attribute name="body" value="/WEB-INF/pages/createUploadPhotos.jsp" />
 	</definition>
+	<definition name="allNotificationsInAdmin" extends="base.definition">
+		<put-attribute name="body" value="/WEB-INF/pages/allNotificationsInAdmin.jsp" />
+	</definition>
+	
+	
+	
+	
 </tiles-definitions>
 
 
