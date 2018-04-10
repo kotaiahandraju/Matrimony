@@ -273,10 +273,7 @@ public class HomePageController {
 					if(!("dashboard".equalsIgnoreCase(objUsersBean.getRedirectPage()))){ // send email only on create.
 						session.setAttribute("profile_filled_status", 45);
 						Map<String,Object> interestCounts = objUsersDao.getInterestCounts(objUsersBean);
-						long notificationsCount = (Long)interestCounts.get("receivedInterestCount")
-								+ (Long)interestCounts.get("mobileNumViewedCount")
-								+ (Long)interestCounts.get("profileViewedCount")
-								+ (Long)interestCounts.get("shortListedCount");
+						long notificationsCount = (Long)interestCounts.get("notificationsCount");
 						session.setAttribute("notificationsCount", notificationsCount);
 						sessionBean.setYetToBeViewedCount((String.valueOf(interestCounts.get("yetToBeViewedCount"))));
 						sessionBean.setSentInterestCount("0");
@@ -1289,6 +1286,8 @@ public class HomePageController {
 				total_records = Integer.parseInt(((Map<String, String>)listOrderBeans.get(0)).get("total_records"));
 					
 				request.setAttribute("total_records", total_records);
+				request.setAttribute("r_age_from", searchCriteriaBean.getrAgeFrom());
+				request.setAttribute("r_age_to", searchCriteriaBean.getrAgeTo());
 				// System.out.println(sJson);
 			} else {
 				//objectMapper = new ObjectMapper();

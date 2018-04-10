@@ -31,7 +31,8 @@ text-align:left;
 									<div class="col-md-3">
 										<%-- <form:input path="rAgeFrom" class="form-control  numericOnly u1" placeholder="From" /> --%>
 										
-								<select path="rAgeFrom" class="form-control numericOnly u1" >
+								<select id="rAgeFrom" name="rAgeFrom" class="form-control numericOnly u1" >
+									<option value="">From</option>
 									<option value="18">18</option>
 									<option value="19">19</option>
 									<option value="20">20</option>
@@ -90,7 +91,8 @@ text-align:left;
 									<div class="col-md-3">
 <%-- 										<form:input path="rAgeTo" class="form-control numericOnly u1" placeholder="To" />
  --%>	
- 											<select path="rAgeFrom" class="form-control numericOnly u1">
+ 									<select id="rAgeTo" name="rAgeTo" class="form-control numericOnly u1">
+									<option value="">To</option>
 									<option value="18">18</option>
 									<option value="19">19</option>
 									<option value="20">20</option>
@@ -309,6 +311,10 @@ function displayMatches(listOrders) {
 	$("#search_criteria").prop("hidden",true);
 	$('#searchresultsDiv').removeAttr("hidden");
 	serviceUnitArray = {};
+	var r_age_from = "${r_age_from}";
+	var r_age_to = "${r_age_to}";
+	$("#rAgeFrom").val(r_age_from);
+	$("#rAgeTo").val(r_age_to);
 	$.each(listOrders,function(i, orderObj) 
 	{
 		serviceUnitArray[orderObj.id] = orderObj;
@@ -508,7 +514,7 @@ $("#educationdiv input[name='education']").click(updateProfilesList);
 function validateInput(id, errorMessage)
 {
 	var styleBlock = '.placeholder-style.placeholder-style::-moz-placeholder {color: #cc0000;} .placeholder-style::-webkit-input-placeholder {color: #cc0000;}';
-	if($('#'+id).val().trim() ==  null || $('#'+id).val().trim() == ""  || $('#'+id).val().trim()=="undefined" ) {
+	if($('#'+id).val() ==  null || $('#'+id).val() == ""  || $('#'+id).val()=="undefined" ) {
 		$('style').append(styleBlock);
 		$('#'+id).css('border-color','#cc0000');
 		$('#'+id).css('color','#cc0000');
@@ -530,8 +536,10 @@ function validateInput(id, errorMessage)
 }
 
 function submitSearch(){
-	var ageFrom = $("#rAgeFrom").val().trim();
-	var ageTo = $("#rAgeTo").val().trim();
+	//var ageFrom = $("#rAgeFrom").val();
+	//var ageTo = $("#rAgeTo").val();
+	var ageFrom = $("select[name='rAgeFrom']").val();
+	var ageTo = $("select[name='rAgeTo']").val();
 	var heightFrom = $("#rHeight").val();
 	var heightTo = $("#rHeightTo").val();
 	var maritalStatus = $("#rMaritalStatus").val();
@@ -783,8 +791,8 @@ function paginationSetup(total_items_count) {
         	 formData.append('selected_casts',castVals);
          	formData.append('selected_religions',religionVals);
          	formData.append('selected_educations',educationVals);
-        	 formData.append("rAgeFrom",$("#rAgeFrom").val());
-        	 formData.append("rAgeTo",$("#rAgeTo").val());
+        	 formData.append("rAgeFrom",$("select[name='rAgeFrom'] :selected").val());
+        	 formData.append("rAgeTo",$("select[name='rAgeTo'] :selected").val());
         	 formData.append("rHeight",$("#rHeight").val());
         	 formData.append("rHeightTo",$("#rHeightTo").val());
         	 var t1 = $("#rMaritalStatus").val();

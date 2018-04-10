@@ -2436,7 +2436,8 @@ public boolean deletePhoto(String photoId){
 		String qryStr = "select allowed_profiles_limit from package where id = (select u.package_id from users u where u.id="+userId+")";
 		try{
 			int allowed_profiles_limit = jdbcTemplate.queryForInt(qryStr);
-			qryStr = "select count(*) from express_intrest where user_id = "+userId+" and (mobile_no_viewed_status = '1' or interested = '1')";
+			qryStr = "select count(*) from express_intrest where user_id = "+userId+" and (mobile_no_viewed_status = '1' or interested = '1' or message_sent_status = '1') "
+					+" and date(created_on) >= (SELECT date(u.package_joined_date) from users u where u.id = "+userId+") ";
 			int viewed_profiles = jdbcTemplate.queryForInt(qryStr);
 			return (allowed_profiles_limit-viewed_profiles);
 		}catch(Exception e){

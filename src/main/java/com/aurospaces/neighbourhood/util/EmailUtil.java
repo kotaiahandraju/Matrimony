@@ -399,7 +399,7 @@ public class EmailUtil {
 			body = prop.getProperty("post_payment_body");
 			body = body.replace("_dateandtime_", (String)paymentDetails.get("paymentDate"));
 			//body = body.replace("_plan_", "");
-			body = body.replace("_paidamount_", (String)paymentDetails.get("price"));
+			body = body.replace("_paidamount_", String.valueOf(paymentDetails.get("price")));
 			body = body.replace("_img_", "cid:image2");
 	        // inline images
 	        Map<String, String> inlineImages = new HashMap<String, String>();
