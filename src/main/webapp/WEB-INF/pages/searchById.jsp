@@ -8,6 +8,7 @@
 text-align:left;
 }
 </style>
+
 			<div class="col-md-9 products-grid-left">
             	<div class="panel panel-default">
 					<div class="panel-heading">Search Profiles</div>

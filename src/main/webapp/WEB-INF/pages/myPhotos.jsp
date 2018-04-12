@@ -70,7 +70,8 @@ display:none;
 					    </div>
 					    <div class="form-group">
 					    	<div class="col-md-8">
-					    	<img alt=" Preview" id="previewImg" align="middle" style="border-style: solid;height: 100px;width: 100px;border-bottom-style: none;border-left-style: none;border-top-style: none;">
+<!--  <img alt=" Preview" id="previewImg" align="middle" style="border-style: solid;height: 100px;width: 100px;border-bottom-style: none;border-left-style: none;border-top-style: none;">
+					    -->
 					    	</div>
 					    </div>
 					    <div class="form-group">
@@ -135,6 +136,7 @@ function addWaterMark(){
 }
 function checkImg(objImg)
 {
+	console.log(window.URL.createObjectURL(objImg.files[0]));
 	$("#previewImg").prop("src",window.URL.createObjectURL(objImg.files[0]));
 }
 
