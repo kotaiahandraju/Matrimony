@@ -68,9 +68,6 @@ width:120px;
 					      	<form:select path="noOfBrothersMarried" class="form-control u1 non">
 								<form:option value="">-- Select --</form:option>
 								<form:option value="None">None</form:option>
-								<form:option value="1">1</form:option>
-								<form:option value="2">2</form:option>
-								<form:option value="3">3</form:option>
 							</form:select>
 					      </div>
 					      <label class="col-md-2">are married</label>
@@ -92,9 +89,6 @@ width:120px;
 					      	<form:select path="noOfSistersMarried" class="form-control u1 non">
 								<form:option value="">-- Select --</form:option>
 									<form:option value="None">None</form:option>
-								<form:option value="1">1</form:option>
-								<form:option value="2">2</form:option>
-								<form:option value="3">3</form:option>
 							</form:select>
 					      </div>
 					      <label class="col-md-2">are married</label>
@@ -113,7 +107,63 @@ width:120px;
 					<!-- 2nd Step ends here-->
 				</form:form>
 			</div>
+<script>
+	$(document).ready(
+			function() {
+				$('#noOfBrothers').change(
+						function() {
 
+							var val = $(this).val();
+
+							if (val == 'None') {
+								$("#noOfBrothersMarried").val("");
+								$('#noOfBrothersMarried')
+										.attr("disabled", true);
+							} else {
+								$('#noOfBrothersMarried').find('option').not(
+										':first').remove();
+								$("#noOfBrothersMarried").append(
+										'<option>None</option>');
+								for (var i = 1; i <= val; i++) {
+									$("#noOfBrothersMarried").append(
+											'<option>' + i + '</option>');
+								}
+								$('#noOfBrothersMarried').attr("disabled",
+										false);
+							}
+						});
+
+			});
+
+	$(document).ready(
+			function() {
+				$('#noOfSisters')
+						.change(
+								function() {
+
+									var val = $(this).val();
+
+									if (val == 'None') {
+										$("#noOfSistersMarried").val("");
+										$('#noOfSistersMarried').attr(
+												"disabled", true);
+									} else {
+										$('#noOfSistersMarried').find('option')
+												.not(':first').remove();
+										$("#noOfSistersMarried").append(
+												'<option>None</option>');
+										for (var i = 1; i <= val; i++) {
+											$("#noOfSistersMarried").append(
+													'<option>' + i
+															+ '</option>');
+										}
+										$('#noOfSistersMarried').attr(
+												"disabled", false);
+									}
+								});
+
+			});
+</script>
 <script type="text/javascript">
 function submitForm(){
 	$("#saveImproveFamilyDetails").submit();

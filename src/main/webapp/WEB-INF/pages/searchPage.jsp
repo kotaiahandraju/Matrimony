@@ -32,7 +32,7 @@ text-align:left;
 										<%-- <form:input path="rAgeFrom" class="form-control  numericOnly u1" placeholder="From" /> --%>
 										
 								<select id="rAgeFrom" name="rAgeFrom" class="form-control numericOnly u1" >
-									<option value="">From</option>
+									<option value="">--From--</option>
 									<option value="18">18</option>
 									<option value="19">19</option>
 									<option value="20">20</option>
@@ -66,86 +66,15 @@ text-align:left;
 									<option value="48">48</option>
 									<option value="49">49</option>
 									<option value="50">50</option>
-									<option value="51">51</option>
-									<option value="52">52</option>
-									<option value="53">53</option>
-									<option value="54">54</option>
-									<option value="55">55</option>
-									<option value="56">56</option>
-									<option value="57">57</option>
-									<option value="58">58</option>
-									<option value="59">59</option>
-									<option value="60">60</option>
-									<option value="61">61</option>
-									<option value="62">62</option>
-									<option value="63">63</option>
-									<option value="64">64</option>
-									<option value="65">65</option>
-									<option value="66">66</option>
-									<option value="67">67</option>
-									<option value="68">68</option>
-									<option value="69">69</option>
-									<option value="70">70</option>
+									
 								</select>
 									</div>
 									<div class="col-md-3">
 <%-- 										<form:input path="rAgeTo" class="form-control numericOnly u1" placeholder="To" />
  --%>	
  									<select id="rAgeTo" name="rAgeTo" class="form-control numericOnly u1">
-									<option value="">To</option>
-									<option value="18">18</option>
-									<option value="19">19</option>
-									<option value="20">20</option>
-									<option value="21">21</option>
-									<option value="22">22</option>
-									<option value="23">23</option>
-									<option value="24">24</option>
-									<option value="25">25</option>
-									<option value="26">26</option>
-									<option value="27">27</option>
-									<option value="28">28</option>
-									<option value="29">29</option>
-									<option value="30">30</option>
-									<option value="31">31</option>
-									<option value="32">32</option>
-									<option value="33">33</option>
-									<option value="34">34</option>
-									<option value="35">35</option>
-									<option value="36">36</option>
-									<option value="37">37</option>
-									<option value="38">38</option>
-									<option value="39">39</option>
-									<option value="40">40</option>
-									<option value="41">41</option>
-									<option value="42">42</option>
-									<option value="43">43</option>
-									<option value="44">44</option>
-									<option value="45">45</option>
-									<option value="46">46</option>
-									<option value="47">47</option>
-									<option value="48">48</option>
-									<option value="49">49</option>
-									<option value="50">50</option>
-									<option value="51">51</option>
-									<option value="52">52</option>
-									<option value="53">53</option>
-									<option value="54">54</option>
-									<option value="55">55</option>
-									<option value="56">56</option>
-									<option value="57">57</option>
-									<option value="58">58</option>
-									<option value="59">59</option>
-									<option value="60">60</option>
-									<option value="61">61</option>
-									<option value="62">62</option>
-									<option value="63">63</option>
-									<option value="64">64</option>
-									<option value="65">65</option>
-									<option value="66">66</option>
-									<option value="67">67</option>
-									<option value="68">68</option>
-									<option value="69">69</option>
-									<option value="70">70</option>
+									<option value="" selected="">--To---</option>
+								
 								</select>
  								</div>
 								</div>
@@ -163,7 +92,7 @@ text-align:left;
 									<div class="col-md-3">
 										<form:select path="rHeightTo" class="form-control u1">
 											<form:option value="">To</form:option>
-											<form:options items="${height}"></form:options>
+											<form:options style="display:none" items="${height}"></form:options>
 										</form:select>
 									</div>
                                     </div>
@@ -965,6 +894,40 @@ $(document).ready(function(){
 });
 
 $(".searchPage").addClass("active");
-</script>
+
+
+$("#rHeight").change(function(){
+	$('#rHeightTo').val('');
+	var val_from = $(this).val();
+	var val_to   = $("#rHeight option:last").val();
+	$('#rHeightTo option').hide();
+	if(val_from!=''){
+		val_from = (val_from-0)+1;
+		for(var i=val_from;i<=val_to;i++)
+		{
+			$('#rHeightTo option[value='+ i +']').show();
+		}		
+	}
+});
+
+$('#rAgeFrom').change(function() {
+	$('#rAgeFromTo').val('');
+	var val = $(this).val();
+	$('#rAgeTo').find('option').not(':first').remove();
+	if(val!=''){
+	val=(val-0)+1;
+	for (var i = val; i <= 50; i++) {
+		$("#rAgeTo").append('<option>' + i + '</option>');
+	}
+	}
+});
+
+/* /* $('#formId').onchange(finction(){
+	$('#rAgeTo').hide();
+	
+});
+
+
+ */</script>
 
 <%@ include file="userFooter.jsp"%>

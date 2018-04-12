@@ -9,20 +9,73 @@
 	<div class="form-group">
       <label class="control-label" for="textinput">Age From</label>  
      <form:select path="rAgeFrom" class="form-control numericOnly u1" style='width: 188px; float: right; display: inline-flex;'>
-			<form:option value="">-- Enter Age From --</form:option>
-			<form:option value="18">18</form:option>
-			<form:option value="19">19</form:option>
-			<form:option value="20">20</form:option>
-			<form:option value="21">21</form:option>
-			<form:option value="22">22</form:option>
-			<form:option value="23">23</form:option>
-			<form:option value="24">24</form:option>
-			<form:option value="25">25</form:option>
-			<form:option value="26">26</form:option>
-			<form:option value="27">27</form:option>
-			<form:option value="28">28</form:option>
-			<form:option value="29">29</form:option>
-			<form:option value="30">30</form:option>
+			<form:option value="">-- Select Age From --</form:option>
+							
+								<option value="18">18</option>
+
+								<option value="19">19</option>
+
+								<option value="20">20</option>
+
+								<option value="21">21</option>
+
+								<option value="22">22</option>
+
+								<option value="23">23</option>
+
+								<option value="24">24</option>
+
+								<option value="25">25</option>
+
+								<option value="26">26</option>
+
+								<option value="27">27</option>
+
+								<option value="28">28</option>
+
+								<option value="29">29</option>
+
+								<option value="30">30</option>
+
+								<option value="31">31</option>
+
+								<option value="32">32</option>
+
+								<option value="33">33</option>
+
+								<option value="34">34</option>
+
+								<option value="35">35</option>
+
+								<option value="36">36</option>
+
+								<option value="37">37</option>
+
+								<option value="38">38</option>
+
+								<option value="39">39</option>
+
+								<option value="40">40</option>
+
+								<option value="41">41</option>
+
+								<option value="42">42</option>
+
+								<option value="43">43</option>
+
+								<option value="44">44</option>
+
+								<option value="45">45</option>
+
+								<option value="46">46</option>
+
+								<option value="47">47</option>
+
+								<option value="48">48</option>
+
+								<option value="49">49</option>
+
+								<option value="50">50</option>
 		</form:select>
  <%--      	<form:input path="rAgeFrom" class="form-control numericOnly u1" placeholder="Enter Age From" style='width: 188px; float: right; display: inline-flex;' />
   --%>   
@@ -33,7 +86,9 @@
       <div class="form-group">
       <label class="control-label" style="text-align: -webkit-center;" for="textinput">To</label>  
      
-      	<form:input path="rAgeTo" class="form-control numericOnly u1" placeholder="Enter Age To" style='width: 188px; float: right; display: inline-flex;' />
+      	<form:select path="rAgeTo" class="form-control numericOnly u1" placeholder="Enter Age To" style='width: 188px; float: right; display: inline-flex;'>
+      		 <option value="" selected="">--Select Age To--</option>
+      	</form:select>
       </div>
     	</div>
     
@@ -55,7 +110,7 @@
       
       	<form:select path="rHeightTo" class="form-control u1" style='width: 188px; float: right; display: inline-flex;'>
 			<form:option value="">-- Choose Height --</form:option>
-			<form:options items="${height}"></form:options>
+			<form:options style="display:none" items="${height}"></form:options>
 		</form:select>
       </div>
       </div>
@@ -145,3 +200,31 @@
 		</div>
 	</div>
 </div>
+<script>$("#rHeight").change(function(){
+	$('#rHeightTo').val('');
+	var val_from = $(this).val();
+	var val_to   = $("#rHeight option:last").val();
+	$('#rHeightTo option').hide();
+	if(val_from!=''){
+		val_from = (val_from-0)+1;
+		for(var i=val_from;i<=val_to;i++)
+		{
+			$('#rHeightTo option[value='+ i +']').show();
+		}		
+	}
+});
+
+$('#rAgeFrom').change(function() {
+	$('#rAgeFromTo').val('');
+	var val = $(this).val();
+	$('#rAgeTo').find('option').not(':first').remove();
+	if(val!=''){
+	val=(val-0)+1;
+	for (var i = val; i <= 50; i++) {
+		$("#rAgeTo").append('<option>' + i + '</option>');
+	}
+	}
+});
+	
+		
+</script>
