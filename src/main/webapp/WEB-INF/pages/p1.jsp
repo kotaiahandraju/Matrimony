@@ -12,17 +12,62 @@
 							<div class="col-md-3">
 								<div class="form-group">
 									<label class="col-sm-4 control-label required">Age From </label>
-									<div class="col-sm-8">
-										<form:input path="rAgeFrom" class="form-control u1" placeholder="Enter Age From" />
-								  		<div><form:errors path="rAgeFrom" cssClass="error" /></div>
-									</div>
-							  	</div>
+			<div class="col-sm-8">
+				<form:select path="rAgeFrom" class="form-control u1"
+					placeholder="Enter Age From">
+					<option value="">--Select Age From--</option>
+					<option value="18">18</option>
+					<option value="19">19</option>
+					<option value="20">20</option>
+					<option value="21">21</option>
+					<option value="22">22</option>
+					<option value="23">23</option>
+					<option value="24">24</option>
+					<option value="25">25</option>
+					<option value="26">26</option>
+					<option value="27">27</option>
+					<option value="28">28</option>
+					<option value="29">29</option>
+					<option value="30">30</option>
+					<option value="31">31</option>
+					<option value="32">32</option>
+					<option value="33">33</option>
+					<option value="34">34</option>
+					<option value="35">35</option>
+					<option value="36">36</option>
+					<option value="37">37</option>
+					<option value="38">38</option>
+					<option value="39">39</option>
+					<option value="40">40</option>
+					<option value="41">41</option>
+					<option value="42">42</option>
+					<option value="43">43</option>
+					<option value="44">44</option>
+					<option value="45">45</option>
+					<option value="46">46</option>
+					<option value="47">47</option>
+					<option value="48">48</option>
+					<option value="49">49</option>
+					<option value="50">50</option>
+
+
+
+
+				</form:select>
+				<div>
+					<form:errors path="rAgeFrom" cssClass="error" />
+				</div>
+			</div>
+		</div>
 							</div>
 							<div class="col-md-3">
 								<div class="form-group">
 									<label class="col-sm-4 control-label required">Age To </label>
+									
 									<div class="col-sm-8">
-										<form:input path="rAgeTo" class="form-control u1" placeholder="Enter Age To" />
+										<form:select path="rAgeTo" class="form-control u1" placeholder="Enter Age To">
+										<option value="" selected="">--Select Age To---</option>
+										</form:select>
 								  		<div><form:errors path="rAgeTo" cssClass="error" /></div>
 									</div>
 							  	</div>
@@ -45,7 +90,7 @@
 							      <div class="col-md-8">
 							      	<form:select path="rHeightTo" class="form-control u1">
 										<form:option value="">-- Choose Height --</form:option>
-										<form:options items="${height}"></form:options>
+										<form:options style="display:none" items="${height}"></form:options>
 									</form:select>
 							      </div>
 							    </div>
@@ -169,6 +214,11 @@
 							</div>
 						</div>
 <script>
+
+
+
+
+
 $(document).ready(function(){
 	$(".incomeBlock").hide();
 	
@@ -271,6 +321,33 @@ $(document).ready(function(){
 	if(selected_values!="")
 	$("#rDiet").select2('val',selected_values.split(","));  
     
+});
+
+
+$("#rHeight").change(function(){
+	$('#rHeightTo').val('');
+	var val_from = $(this).val();
+	var val_to   = $("#rHeight option:last").val();
+	$('#rHeightTo option').hide();
+	if(val_from!=''){
+		val_from = (val_from-0)+1;
+		for(var i=val_from;i<=val_to;i++)
+		{
+			$('#rHeightTo option[value='+ i +']').show();
+		}		
+	}
+});
+
+$('#rAgeFrom').change(function() {
+	$('#rAgeFromTo').val('');
+	var val = $(this).val();
+	$('#rAgeTo').find('option').not(':first').remove();
+	if(val!=''){
+	val=(val-0)+1;
+	for (var i = val; i <= 50; i++) {
+		$("#rAgeTo").append('<option>' + i + '</option>');
+	}
+	}
 });
 </script>   						
 						<div class="row">
