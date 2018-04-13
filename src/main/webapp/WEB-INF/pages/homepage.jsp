@@ -726,7 +726,7 @@ window.setTimeout(function() {
 //		yearRange: '1950:' + ss
 	});
 }); */
-var ss =new Date().getFullYear()-16;
+var ss =new Date().getFullYear()-18;
  $("#dob").datepicker({
     dateFormat: "dd-MM-yy",
     changeDate : true,

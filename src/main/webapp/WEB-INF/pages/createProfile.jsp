@@ -172,7 +172,7 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label required">Date of Birth <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-									<form:input path="dob" onchange="removeBorder(this.id)" class="form-control validate" placeholder="Enter Date of Birth" readonly="true"/>
+									<form:input path="dob" onchange="removeBorder(this.id)" class="form-control validate" placeholder="Enter Date of Birth" readonly="readonly"/>
 <!-- 									  	<input type="text" name="dob" onclick="removeBorder(this.id)" class="form-control" id="dob" placeholder="Enter Date of Birth" readonly="readonly"> -->
 								  		<div><form:errors path="dob" cssClass="error" /></div>
 									</div>
@@ -658,7 +658,7 @@
 
 <!-- <script type="text/javascript" src="js/custom.js"></script> -->
 <script type="text/javascript">
-var ss =new Date().getFullYear()-16;
+var ss =new Date().getFullYear()-18;
 $("#dob").datepicker({
     dateFormat: "dd-MM-yy",
     changeDate : true,
