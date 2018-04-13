@@ -1,7 +1,7 @@
 <%@ include file="userCommonHeader.jsp"%>
  <!-- for Raxus Slider -->
-    <link rel="stylesheet" href="css/raxus.css" media="screen" type="text/css">
-    <script type="text/javascript" src="js/raxus-slider.min.js"></script>
+   <!--  <link rel="stylesheet" href="css/raxus.css" media="screen" type="text/css">
+    <script type="text/javascript" src="js/raxus-slider.min.js"></script> -->
     <!-- for Raxus Slider #end -->
 
     <!-- for documentation: you don't need them -->

@@ -317,7 +317,7 @@ line-height:2.5 !important;
     <div class="clearfix"></div>
     <br><br>
     </div>
-    <script>
+    <script>    
     $(".benifitscroll").click(function(){
     	$("#benifitDiv").css('display','block');
     });

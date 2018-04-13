@@ -67,7 +67,7 @@
 
 </div>
 </div>
-<div id="tableId2"></div>
+<div class="container-fluid" id="tableId2"></div>
   <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">

@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="${baseurl }/css/plugins/select2/select2.css">
 <style type="text/css">
 .multiSelect{
-	width: 187px;
+	width: 100%;
 }
 </style>
 <script src="${baseurl }/js/jquery-ui.min.js"></script>
@@ -524,12 +524,12 @@
 									</div>
 							  	</div>
 							</div>
-						</div>
+						</div><div class="clearfix"></div>
 						<div class="row">
 							<div class="col-md-12">
 								<legend>Family Details</legend>
 							</div>
-							
+							</div>
 							<div class="row">
 							<div class="col-md-4">
 								<div class="form-group">
@@ -551,7 +551,7 @@
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
-									<label class="col-sm-4 control-label">Father's Occupation </label>
+									<label class="col-sm-4 control-label">Fath er's Occupation </label>
 									<div class="col-sm-8">
 										<form:select path="fOccupation" class="form-control u1">
 											<form:options items="${maleOccupation}"></form:options>
