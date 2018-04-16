@@ -2,8 +2,8 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ include file="userCommonHeader.jsp"%>
  <!-- for Raxus Slider -->
-    <link rel="stylesheet" href="css/raxus.css" media="screen" type="text/css">
-    <script type="text/javascript" src="js/raxus-slider.min.js"></script>
+   <!--  <link rel="stylesheet" href="css/raxus.css" media="screen" type="text/css">
+    <script type="text/javascript" src="js/raxus-slider.min.js"></script> -->
     <!-- for Raxus Slider #end -->
 
     <!-- for documentation: you don't need them -->
@@ -335,7 +335,7 @@ xpopup
 							<img id="img_inpage" src="img/default.png" class="img-responsive" style="margin-bottom:0;">
 						</c:if>
 						<c:if test="${not empty photosList}">
-						<div class="fullprofile" style="height:300px; overflow:hidden;"">	
+						<div class="fullprofile" style="height:220px; overflow:hidden;"">	
 							<a href="#" id="fullProfilePicOuterTag" data-toggle="modal" data-target="#myModalNew"><img  src="${photosList[0].image}" class="hover-shadow cursor img img-responsive thumbnail watermark_text" style="margin-bottom:0;height:auto;width: 100%;" /></a>
 							<%-- <a href="#" id="fullProfilePicOuterTag"><img src="${photosList[0].image}" style="width:100%; height:auto;" onclick="openModal();currentSlide(1)" class="hover-shadow cursor watermark_text"></a> --%>
 						</div>	

@@ -72,14 +72,16 @@ span.has-error,span.hasError
 }
 #navigation .main-nav > li > a {
     display: block;
-    padding: 10px 12px;
-    line-height: 20px;
+    padding: 20px 8px;
+    line-height: 21px;
     color: #fff;
 }
 ::-webkit-scrollbar {
     width: 3px;
 }
-
+.main-nav {
+margin-top:8px;
+}
 /* Track */
 ::-webkit-scrollbar-track {
     background: #f1f1f1; 
@@ -88,6 +90,28 @@ span.has-error,span.hasError
 /* Handle */
 ::-webkit-scrollbar-thumb {
     background: #888; 
+}
+.dropdown-menu {
+	box-shadow: 0px 0px 2px 0px #363636;
+	border-radius: 6px;
+}
+
+.dropdown-menu:after {
+	content: '';
+	position: absolute;
+	bottom: 100%;
+	left: 40px;
+	margin-left: 0;
+	width: 0;
+	height: 0;
+	border-bottom: 8px solid #ffffff;
+	border-right: 8px solid transparent;
+	border-left: 8px solid transparent;
+	opacity: 1;
+	-webkit-transform: translate3d(0, 0px, 0);
+	transform: translate3d(0, 0px, 0);
+	-webkit-transition: all .1s ease-in-out;
+	transition: all .1s ease-in-out;
 }
 
 /* Handle on hover */
@@ -265,7 +289,9 @@ var role_id = ${cacheUserBean.roleId};
 	
 	<div id="navigation">
 		<div class="container-fluid">
-			<a href="#" id="brand">&nbsp;AARNA</a>
+			<a href="#" id="brand">
+				<img  src="../images/logo.png" class="img img-responsive"></a>
+			
 			<!-- <a href="#" class="toggle-nav" rel="tooltip" data-placement="bottom" title="Toggle navigation">
 				<i class="fa fa-bars"></i>
 			</a> -->
@@ -427,7 +453,7 @@ var role_id = ${cacheUserBean.roleId};
 						</ul>
 					</li> --%>
 				</ul>
-				<div class="dropdown" style="">
+				<div class="dropdown"  style="margin-top:5px;">
 					<a href="#" class='dropdown-toggle' data-toggle="dropdown">Admin
 					<i class="fa fa-2x fa-user"></i>
 <%-- 						<img src="${baseurl }/img/demo/user-avatar.jpg" alt=""> --%>

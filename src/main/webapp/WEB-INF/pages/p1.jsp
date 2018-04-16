@@ -2,6 +2,11 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://displaytag.sf.net" prefix="display"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<style>
+.select2-container {
+width:100%;
+}
+</style>
 <div class="row">
 						<div class="col-md-12">
 								<legend>Life Partner Requirements</legend>
@@ -9,25 +14,70 @@
 						</div>
 						
 						<div class="row">
-							<div class="col-md-3">
+							<div class="col-md-4">
 								<div class="form-group">
 									<label class="col-sm-4 control-label required">Age From </label>
-									<div class="col-sm-8">
-										<form:input path="rAgeFrom" class="form-control u1" placeholder="Enter Age From" />
-								  		<div><form:errors path="rAgeFrom" cssClass="error" /></div>
-									</div>
-							  	</div>
+			<div class="col-sm-8">
+				<form:select path="rAgeFrom" class="form-control u1"
+					placeholder="Enter Age From">
+					<option value="">--Select Age From--</option>
+					<option value="18">18</option>
+					<option value="19">19</option>
+					<option value="20">20</option>
+					<option value="21">21</option>
+					<option value="22">22</option>
+					<option value="23">23</option>
+					<option value="24">24</option>
+					<option value="25">25</option>
+					<option value="26">26</option>
+					<option value="27">27</option>
+					<option value="28">28</option>
+					<option value="29">29</option>
+					<option value="30">30</option>
+					<option value="31">31</option>
+					<option value="32">32</option>
+					<option value="33">33</option>
+					<option value="34">34</option>
+					<option value="35">35</option>
+					<option value="36">36</option>
+					<option value="37">37</option>
+					<option value="38">38</option>
+					<option value="39">39</option>
+					<option value="40">40</option>
+					<option value="41">41</option>
+					<option value="42">42</option>
+					<option value="43">43</option>
+					<option value="44">44</option>
+					<option value="45">45</option>
+					<option value="46">46</option>
+					<option value="47">47</option>
+					<option value="48">48</option>
+					<option value="49">49</option>
+					<option value="50">50</option>
+
+
+
+
+				</form:select>
+				<div>
+					<form:errors path="rAgeFrom" cssClass="error" />
+				</div>
+			</div>
+		</div>
 							</div>
-							<div class="col-md-3">
+							<div class="col-md-4">
 								<div class="form-group">
 									<label class="col-sm-4 control-label required">Age To </label>
+									
 									<div class="col-sm-8">
-										<form:input path="rAgeTo" class="form-control u1" placeholder="Enter Age To" />
+										<form:select path="rAgeTo" class="form-control u1" placeholder="Enter Age To">
+										<option value="" selected="">--Select Age To---</option>
+										</form:select>
 								  		<div><form:errors path="rAgeTo" cssClass="error" /></div>
 									</div>
 							  	</div>
 							</div>
-							<div class="col-md-3">
+							<div class="col-md-4">
 								<div class="form-group">
 									<label class="col-sm-4 control-label required">Height From</label>
 									<div class="col-sm-8">
@@ -39,20 +89,21 @@
 									</div>
 							  	</div>
 							</div>
-							<div class="col-md-3">
+							
+						</div>
+						<div class="clearfix"></div><br>
+						<div class="row">
+						<div class="col-md-4">
 							  	<div class="form-group">
 							      <label class="col-md-4 control-label" for="textinput">Height To</label>  
 							      <div class="col-md-8">
 							      	<form:select path="rHeightTo" class="form-control u1">
 										<form:option value="">-- Choose Height --</form:option>
-										<form:options items="${height}"></form:options>
+										<form:options style="display:none" items="${height}"></form:options>
 									</form:select>
 							      </div>
 							    </div>
 							</div>
-						</div>
-						
-						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group">
 									<label class="col-sm-4 control-label required">Marital Status </label>
@@ -78,7 +129,11 @@
 									</div>
 							  	</div>
 							</div>
-							<div class="col-md-4">
+							
+						</div>
+						<div class="clearfix"></div><br>
+						<div class="row">
+						<div class="col-md-4">
 								<div class="form-group">
 									<label class="col-sm-4 control-label required">Community</label>
 									<div class="col-sm-8">
@@ -89,9 +144,6 @@
 									</div>
 							  	</div>
 							</div>
-						</div>
-						
-						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group">
 									<label class="col-sm-4 control-label required">Mother Tongue </label>
@@ -114,7 +166,11 @@
 									</div>
 							  	</div>
 							</div>
-							<div class="col-md-4">
+							
+						</div>
+						<div class="clearfix"></div><br>
+						<div class="row">
+						<div class="col-md-4">
 								<div class="form-group">
 									<label class="col-sm-4 control-label required">State living in</label>
 									<div class="col-sm-8">
@@ -125,9 +181,6 @@
 									</div>
 							  	</div>
 							</div>
-						</div>
-						
-						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group">
 									<label class="col-sm-4 control-label required">Education </label>
@@ -144,7 +197,7 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label required">Working With </label>
 									<div class="col-sm-8">
-										<form:select path="rWorkingWith" class="u1">
+										<form:select path="rWorkingWith" class=" u1">
 											<form:option value="">Doesn't Matter</form:option>
 											<form:option value="Private Company">Private Company</form:option>
 											<form:option value="Government/Public Sector">Government/Public Sector</form:option>
@@ -155,20 +208,16 @@
 									</div>
 							  	</div>
 							</div>
-							<div class="col-md-4">
-								<div class="form-group">
-									<label class="col-sm-4 control-label required">Profession area</label>
-									<div class="col-sm-8">
-										<form:select path="rOccupation" class="u">
-											<form:option value="">Doesn't Matter</form:option>
-											<form:options items="${occupation}"></form:options>
-										</form:select>
-										<div><form:errors path="rOccupation" cssClass="error" /></div>
-									</div>
-							  	</div>
-							</div>
+							
 						</div>
+						<div class="clearfix"></div>
+	<br>
 <script>
+
+
+
+
+
 $(document).ready(function(){
 	$(".incomeBlock").hide();
 	
@@ -272,35 +321,51 @@ $(document).ready(function(){
 	$("#rDiet").select2('val',selected_values.split(","));  
     
 });
+
+
+$("#rHeight").change(function(){
+	$('#rHeightTo').val('');
+	var val_from = $(this).val();
+	var val_to   = $("#rHeight option:last").val();
+	$('#rHeightTo option').hide();
+	if(val_from!=''){
+		val_from = (val_from-0)+1;
+		for(var i=val_from;i<=val_to;i++)
+		{
+			$('#rHeightTo option[value='+ i +']').show();
+		}		
+	}
+});
+
+$('#rAgeFrom').change(function() {
+	$('#rAgeFromTo').val('');
+	var val = $(this).val();
+	$('#rAgeTo').find('option').not(':first').remove();
+	if(val!=''){
+	val=(val-0)+1;
+	for (var i = val; i <= 50; i++) {
+		$("#rAgeTo").append('<option>' + i + '</option>');
+	}
+	}
+});
 </script>   						
+=======
+</script>   				
+>>>>>>> f26d2ee6ef2989b199c79a02622c70c64739bb54
 						<div class="row">
-							<div class="col-md-4">
+						<div class="col-md-4">
 								<div class="form-group">
-									<label class="col-sm-4 control-label required">Annual Income </label>
+									<label class="col-sm-4 control-label required">Profession area</label>
 									<div class="col-sm-8">
-										<label class="radio-inline" for="ai1">
-											<input name="annualIncome" class="incomeMatter" id="ai1" value="" type="radio"> Doesn't Matter
-										</label>
-										<label class="radio-inline" for="ai2"> 
-											<input name="annualIncome" class="incomeRange" id="ai2" value="Specify an income range" type="radio"> Specify Income
-										</label>
-									</div>
-							  	</div>
-							</div>
-							<div class="col-md-4">
-								<div class="form-group incomeBlock">
-									<div class="col-md-offset-4 col-sm-8">
-										<form:select path="rAnnualIncome" class="form-control u1">
-											<form:option value="">-- Annual Income --</form:option>
-											<form:option value="Upto INR 1 Lakh">Upto INR 1 Lakh</form:option>
-											<form:option value="INR 2 Lakh to 4 Lakh">INR 2 Lakh to 4 Lakh</form:option>
-											<form:option value="INR 5 Lakh to 7 Lakh">INR 5 Lakh to 7 Lakh</form:option>
-											<form:option value="Above INR 7 Lakh">Above INR 7 Lakh</form:option>
+										<form:select path="rOccupation" class="u">
+											<form:option value="">Doesn't Matter</form:option>
+											<form:options items="${occupation}"></form:options>
 										</form:select>
-								  		<div><form:errors path="rAnnualIncome" cssClass="error" /></div>
+										<div><form:errors path="rOccupation" cssClass="error" /></div>
 									</div>
 							  	</div>
 							</div>
+							
 							<div class="col-md-4">
 								<div class="form-group">
 									<label class="col-sm-4 control-label required">Diet</label>
@@ -318,8 +383,43 @@ $(document).ready(function(){
 									</div>
 							  	</div>
 							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="col-sm-4 control-label required">Annual Income </label>
+									<div class="col-sm-8">
+										<!-- <label class="radio-inline" for="ai1">
+											<input name="annualIncome" class="incomeMatter" id="ai1" value="" type="radio"> Doesn't Matter
+										</label>
+										<label class="radio-inline" for="ai2"> 
+											<input name="annualIncome" class="incomeRange" id="ai2" value="Specify an income range" type="radio"> Specify Income
+										</label> -->
+										<form:select path="rAnnualIncome" class="form-control u1">
+											<form:option value="">-- Annual Income --</form:option>
+											<form:option value="Upto INR 1 Lakh">Upto INR 1 Lakh</form:option>
+											<form:option value="INR 2 Lakh to 4 Lakh">INR 2 Lakh to 4 Lakh</form:option>
+											<form:option value="INR 5 Lakh to 7 Lakh">INR 5 Lakh to 7 Lakh</form:option>
+											<form:option value="Above INR 7 Lakh">Above INR 7 Lakh</form:option>
+										</form:select>
+									</div>
+							  	</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group incomeBlock">
+									<div class="col-md-offset-4 col-sm-8">
+										<%-- <form:select path="rAnnualIncome" class="form-control u1">
+											<form:option value="">-- Annual Income --</form:option>
+											<form:option value="Upto INR 1 Lakh">Upto INR 1 Lakh</form:option>
+											<form:option value="INR 2 Lakh to 4 Lakh">INR 2 Lakh to 4 Lakh</form:option>
+											<form:option value="INR 5 Lakh to 7 Lakh">INR 5 Lakh to 7 Lakh</form:option>
+											<form:option value="Above INR 7 Lakh">Above INR 7 Lakh</form:option>
+										</form:select> --%>
+								  		<div><form:errors path="rAnnualIncome" cssClass="error" /></div>
+									</div>
+							  	</div>
+							</div>
 						</div>
-						
+						<div class="clearfix"></div>
+	<br>
 						<div class="row">
 							<%-- <div class="col-md-4">
 								<div class="form-group">

@@ -9,14 +9,24 @@ canvas{display:none}
 </style>
 
 <div class="container">
-			<h2>Upload Photos</h2> <br>
+
+			<h3>Upload <span id="user" ></span> <span id="lastNameId"></span> Photo</h3>
+    <div class="pull-right"><a href="${baseurl}/admin/AllProfilesHome" class="btn btn-primary">Back to Active Profiles</a></div>
+			
 	<form method="POST" enctype="multipart/form-data" id="fileUploadForm">
-    <input type="hidden" name="files" id="imageName"/><br/>
-    <input type="submit" value="UploadPhoto" onclick="imageAjax()" id=uploadBtn class="btn btn-primary"/>
-</form>	<br>
-    <a href="${baseurl}/admin/AllProfilesHome" class="btn btn-primary">Back to Active Profile</a>	
+    <br><input type="hidden" name="files" id="imageName"/><br/>
+    <input type="submit" value="Upload Photo" onclick="imageAjax()" id=uploadBtn class="btn btn-primary"/>
+    <input type="button" style="display:none" value="Cancel" onclick="window.location.href='?'" id='uploadCancel' class="btn btn-danger"/>
+</form>	<br>	
 </div>
+
 <script>
+
+// var firstName='${firstName}'
+$('#user').html('${firstName}');
+$('#lastNameId').html('${lastName}');
+
+
     $(document).ready(function () {
         $('#imageName').awesomeCropper(
         {
@@ -30,6 +40,7 @@ canvas{display:none}
     	}
     	else
     	{
+ 	$('#imageName').hide();
    	 $("#uploadBtn").prop("disabled",true);
    		$("#uploadBtn").val("Please wait...");
    	var id= ${id};
@@ -38,7 +49,7 @@ canvas{display:none}
 //    	formData.append("imageName", imageName.files[0]);
 formData.append("imageData", $("#imageName").val());
    	formData.append("id", id);
-   	  $.fn.makeMultipartRequest('POST', '../../croppedImageUpload', false,
+   	  $.fn.makeMultipartRequest('POST', '${baseurl}/admin/croppedImageUpload', false,
    				formData, false, 'text', function(data){
    		  	var jsonobj = $.parseJSON(data);
    		  	var msg = jsonobj.message;

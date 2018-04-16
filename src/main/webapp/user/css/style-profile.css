@@ -100,7 +100,7 @@ span.item_price {
 }
 .box_1 {
 	text-align:center;
-	margin-top:1em;
+	/* margin-top:1em; */
 }
 .box_1 h3 {
   color: #000;
@@ -216,7 +216,7 @@ select.item_Size {
 }
 .box_1 {
   float: right;
-  margin-top: 40px;
+ /*  margin-top: 40px; */
 }
 .box_1 h3 {
   color: #702428 !important;

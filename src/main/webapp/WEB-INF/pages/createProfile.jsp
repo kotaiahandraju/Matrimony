@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="${baseurl }/css/plugins/select2/select2.css">
 <style type="text/css">
 .multiSelect{
-	width: 187px;
+	width: 100%;
 }
 </style>
 <script src="${baseurl }/js/jquery-ui.min.js"></script>
@@ -172,7 +172,7 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label required">Date of Birth <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-									<form:input path="dob" onchange="removeBorder(this.id)" class="form-control validate" placeholder="Enter Date of Birth" readonly="true"/>
+									<form:input path="dob" onchange="removeBorder(this.id)" class="form-control validate" placeholder="Enter Date of Birth" readonly="readonly"/>
 <!-- 									  	<input type="text" name="dob" onclick="removeBorder(this.id)" class="form-control" id="dob" placeholder="Enter Date of Birth" readonly="readonly"> -->
 								  		<div><form:errors path="dob" cssClass="error" /></div>
 									</div>
@@ -524,12 +524,12 @@
 									</div>
 							  	</div>
 							</div>
-						</div>
+						</div><div class="clearfix"></div>
 						<div class="row">
 							<div class="col-md-12">
 								<legend>Family Details</legend>
 							</div>
-							
+							</div>
 							<div class="row">
 							<div class="col-md-4">
 								<div class="form-group">
@@ -551,7 +551,7 @@
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
-									<label class="col-sm-4 control-label">Father's Occupation </label>
+									<label class="col-sm-4 control-label">Fath er's Occupation </label>
 									<div class="col-sm-8">
 										<form:select path="fOccupation" class="form-control u1">
 											<form:options items="${maleOccupation}"></form:options>
@@ -580,6 +580,7 @@
 									<div class="col-sm-8">
 										<form:select path="noOfBrothers" class="form-control u1">
 											<form:option value="">-- Select --</form:option>
+											<form:option value="None">None</form:option>
 											<form:option value="1">1</form:option>
 											<form:option value="2">2</form:option>
 											<form:option value="3">3</form:option>
@@ -594,6 +595,7 @@
 									<div class="col-sm-8">
 										<form:select path="noOfSisters" class="form-control u1">
 											<form:option value="">-- Select --</form:option>
+											<form:option value="None">None</form:option>
 											<form:option value="1">1</form:option>
 											<form:option value="2">2</form:option>
 											<form:option value="3">3</form:option>
@@ -611,9 +613,7 @@
 									<div class="col-sm-8">
 										<form:select path="noOfBrothersMarried" class="form-control u1">
 											<form:option value="">-- Select --</form:option>
-											<form:option value="1">1</form:option>
-											<form:option value="2">2</form:option>
-											<form:option value="3">3</form:option>
+											<<form:option value="None">None</form:option>
 										</form:select>
 										<div><form:errors path="mobile" cssClass="error" /></div>
 									</div>
@@ -625,9 +625,7 @@
 									<div class="col-sm-8">
 										<form:select path="noOfSistersMarried" class="form-control u1">
 											<form:option value="">-- Select --</form:option>
-											<form:option value="1">1</form:option>
-											<form:option value="2">2</form:option>
-											<form:option value="3">3</form:option>
+										<form:option value="None">None</form:option>
 										</form:select>
 								  		<div><form:errors path="aboutMyself" cssClass="error" /></div>
 									</div>
@@ -660,7 +658,7 @@
 
 <!-- <script type="text/javascript" src="js/custom.js"></script> -->
 <script type="text/javascript">
-var ss =new Date().getFullYear()-16;
+var ss =new Date().getFullYear()-18;
 $("#dob").datepicker({
     dateFormat: "dd-MM-yy",
     changeDate : true,
@@ -1081,6 +1079,63 @@ function updateUserName(cityId){
 		});
 	}
 }
+
+$(document).ready(
+		function() {
+			$('#noOfBrothers').change(
+					function() {
+
+						var val = $(this).val();
+
+						if (val == 'None') {
+							$("#noOfBrothersMarried").val("");
+							$('#noOfBrothersMarried')
+									.attr("disabled", true);
+						} else {
+							$('#noOfBrothersMarried').find('option').not(
+									':first').remove();
+							$("#noOfBrothersMarried").append(
+									'<option>None</option>');
+							for (var i = 1; i <= val; i++) {
+								$("#noOfBrothersMarried").append(
+										'<option>' + i + '</option>');
+							}
+							$('#noOfBrothersMarried').attr("disabled",
+									false);
+						}
+					});
+
+		});
+
+$(document).ready(
+		function() {
+			$('#noOfSisters')
+					.change(
+							function() {
+
+								var val = $(this).val();
+
+								if (val == 'None') {
+									$("#noOfSistersMarried").val("");
+									$('#noOfSistersMarried').attr(
+											"disabled", true);
+								} else {
+									$('#noOfSistersMarried').find('option')
+											.not(':first').remove();
+									$("#noOfSistersMarried").append(
+											'<option>None</option>');
+									for (var i = 1; i <= val; i++) {
+										$("#noOfSistersMarried").append(
+												'<option>' + i
+														+ '</option>');
+									}
+									$('#noOfSistersMarried').attr(
+											"disabled", false);
+								}
+							});
+
+		});
+
 </script>
 </body>
 

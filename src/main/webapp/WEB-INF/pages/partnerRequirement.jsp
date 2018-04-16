@@ -4,7 +4,16 @@
 <%@ taglib uri="http://displaytag.sf.net" prefix="display"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
-
+<style>
+.form-control {
+width:190px !important;
+}
+ @media only screen and (max-width: 600px) and (min-width: 320px) {
+.form-control, .select2-container {
+ width:100% !important;
+ }
+ }
+</style>
             <div class="col-md-5 col-sm-12">
             	<!-- <div class="stepwizard">
 				    <div class="stepwizard-row">
@@ -45,11 +54,82 @@
 				    <div class="form-group">
 				      <label class="col-md-4 control-label" for="textinput">Age From</label>  
 				      <div class="col-md-3">
-				      	<form:input path="rAgeFrom" class="form-control numericOnly u1" placeholder="Enter Age From" />
-				      </div>
+							<form:select path="rAgeFrom" class="form-control numericOnly u1"
+								placeholder="Enter Age From">
+								<option value="" selected="">--Select Age From--</option>
+
+								<option value="18">18</option>
+
+								<option value="19">19</option>
+
+								<option value="20">20</option>
+
+								<option value="21">21</option>
+
+								<option value="22">22</option>
+
+								<option value="23">23</option>
+
+								<option value="24">24</option>
+
+								<option value="25">25</option>
+
+								<option value="26">26</option>
+
+								<option value="27">27</option>
+
+								<option value="28">28</option>
+
+								<option value="29">29</option>
+
+								<option value="30">30</option>
+
+								<option value="31">31</option>
+
+								<option value="32">32</option>
+
+								<option value="33">33</option>
+
+								<option value="34">34</option>
+
+								<option value="35">35</option>
+
+								<option value="36">36</option>
+
+								<option value="37">37</option>
+
+								<option value="38">38</option>
+
+								<option value="39">39</option>
+
+								<option value="40">40</option>
+
+								<option value="41">41</option>
+
+								<option value="42">42</option>
+
+								<option value="43">43</option>
+
+								<option value="44">44</option>
+
+								<option value="45">45</option>
+
+								<option value="46">46</option>
+
+								<option value="47">47</option>
+
+								<option value="48">48</option>
+
+								<option value="49">49</option>
+
+								<option value="50">50</option>
+							</form:select>
+						</div>
 				      <label class="col-md-1 control-label" style="text-align: -webkit-center;" for="textinput">To</label>  
 				      <div class="col-md-3">
-				      	<form:input path="rAgeTo" class="form-control numericOnly u1" placeholder="Enter Age To" />
+				      	<form:select path="rAgeTo" class="form-control numericOnly u1" placeholder="Enter Age To" >
+				      					 <option value="" selected="">--Select Age To--</option>
+				      	</form:select>
 				      </div>
 				    </div>
 				    <div class="form-group">
@@ -64,7 +144,7 @@
 				      <div class="col-md-3">
 				      	<form:select path="rHeightTo" class="form-control u1">
 							<form:option value="">-- Choose Height --</form:option>
-							<form:options items="${height}"></form:options>
+							<form:options style="display:none" items="${height}"></form:options>
 						</form:select>
 				      </div>
 				    </div>
@@ -194,25 +274,27 @@
 				    <div class="form-group">
 				      <label class="col-md-4 control-label" for="textinput">Annual Income</label>  
 				      <div class="col-md-7">
-				      	<input type="radio" name="annualIncome" class="incomeMatter" id="ai1" value=""> <label for="ai1">Doesn't Matter</label>
-				      	<input type="radio" name="annualIncome" class="incomeRange" id="ai2" value="Specify an income range"> <label for="ai2">Specify an income range</label>
+				      <!-- 	<input type="radio" name="annualIncome" class="incomeMatter" id="ai1" value=""> <label for="ai1">Doesn't Matter</label>
+				      	<input type="radio" name="annualIncome" class="incomeRange" id="ai2" value="Specify an income range"> <label for="ai2">Specify an income range</label> -->
 				      	<%-- <form:select path="education" class="form-control u">
 							<form:option value="">Doesn't Matter</form:option>
 							<form:option value="Specify an income range">Specify an income range</form:option>
 						</form:select> --%>
+						<form:select path="rAnnualIncome" class="form-control u1" style="width:190px;">
+							<form:option value="">-- Annual Income --</form:option>
+							<form:option value="Doesn't Matter">Doesn't Matter</form:option>
+							<form:option value="Upto INR 1 Lakh">Upto INR 1 Lakh</form:option>
+							<form:option value="INR 2 Lakh to 4 Lakh">INR 2 Lakh to 4 Lakh</form:option>
+							<form:option value="INR 5 Lakh to 7 Lakh">INR 5 Lakh to 7 Lakh</form:option>
+							<form:option value="Above INR 7 Lakh">Above INR 7 Lakh</form:option>
+						</form:select>
 				      </div>
 				    </div>
 				    
 				    <div class="form-group incomeBlock">
 				      <label class="col-md-4 control-label" for="textinput"></label>  
 				      <div class="col-md-7">
-				      	<form:select path="rAnnualIncome" class="form-control u1">
-							<form:option value="">-- Annual Income --</form:option>
-							<form:option value="Upto INR 1 Lakh">Upto INR 1 Lakh</form:option>
-							<form:option value="INR 2 Lakh to 4 Lakh">INR 2 Lakh to 4 Lakh</form:option>
-							<form:option value="INR 5 Lakh to 7 Lakh">INR 5 Lakh to 7 Lakh</form:option>
-							<form:option value="Above INR 7 Lakh">Above INR 7 Lakh</form:option>
-						</form:select>
+				      	
 				      </div>
 				    </div>
 				    
@@ -263,6 +345,7 @@
 <script src="js/plugins/select2/select2.min.js"></script>
 
 <script type="text/javascript">
+
 
 $(document).ready(function(){
 	$('.multiSelect').select2();
@@ -481,6 +564,36 @@ function skip(){
 	var location = "${baseurl}";
 	window.location.href =location+"/sendOtp";
 }	
+
+$("#rHeight").change(function(){
+	$('#rHeightTo').val('');
+	var val_from = $(this).val();
+	var val_to   = $("#rHeight option:last").val();
+	$('#rHeightTo option').hide();
+	if(val_from!=''){
+		val_from = (val_from-0)+1;
+		for(var i=val_from;i<=val_to;i++)
+		{
+			$('#rHeightTo option[value='+ i +']').show();
+		}		
+	}
+});
+
+$('#rAgeFrom').change(function() {
+	$('#rAgeFromTo').val('');
+	var val = $(this).val();
+	$('#rAgeTo').find('option').not(':first').remove();
+	if(val!=''){
+	val=(val-0)+1;
+	for (var i = val; i <= 50; i++) {
+		$("#rAgeTo").append('<option>' + i + '</option>');
+	}
+	}
+});
+
+
+
+
 </script>
 
 <%@ include file="userStepsFooter.jsp"%>
