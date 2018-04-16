@@ -61,6 +61,10 @@
 	<!-- Apple devices Homescreen icon -->
 	<link rel="apple-touch-icon-precomposed" href="img/apple-touch-icon-precomposed.png" />
 <style type="text/css">
+.notsp p, b  {
+font-size:11px;
+}
+
 span.has-error,span.hasError
 {
   font-weight:normal;
@@ -384,7 +388,7 @@ var role_id = ${cacheUserBean.roleId};
 												<img src="${baseurl }/img/default.png" style="width: 100%;padding: 5px;">
 											</c:if>
 										</div>
-										<div class="col-md-9" style="padding-right:0px; padding-left:0px;" >
+										<div class="col-md-9 notsp" style="padding-right:0px; padding-left:0px;" >
 											<p>
 												<a href="fullProfile?pid=${notification.profile_id}&nid=${notification.id}&rfrm=notifications" target="_blank" >
 													<b><c:out value="${notification.fullName}" /> (<c:out value="${notification.username}" />)</b> 
