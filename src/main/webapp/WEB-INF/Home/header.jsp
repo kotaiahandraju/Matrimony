@@ -290,7 +290,7 @@ var role_id = ${cacheUserBean.roleId};
 	<div id="navigation">
 		<div class="container-fluid">
 			<a href="#" id="brand">
-				<img  src="../images/logo.png" class="img img-responsive"></a>
+				<img  src="${baseurl}/images/logo.png" class="img img-responsive"></a>
 			
 			<!-- <a href="#" class="toggle-nav" rel="tooltip" data-placement="bottom" title="Toggle navigation">
 				<i class="fa fa-bars"></i>
