@@ -335,7 +335,7 @@ xpopup
 							<img id="img_inpage" src="img/default.png" class="img-responsive" style="margin-bottom:0;">
 						</c:if>
 						<c:if test="${not empty photosList}">
-						<div class="fullprofile" style="height:300px; overflow:hidden;"">	
+						<div class="fullprofile" style="height:220px; overflow:hidden;"">	
 							<a href="#" id="fullProfilePicOuterTag" data-toggle="modal" data-target="#myModalNew"><img  src="${photosList[0].image}" class="hover-shadow cursor img img-responsive thumbnail watermark_text" style="margin-bottom:0;height:auto;width: 100%;" /></a>
 							<%-- <a href="#" id="fullProfilePicOuterTag"><img src="${photosList[0].image}" style="width:100%; height:auto;" onclick="openModal();currentSlide(1)" class="hover-shadow cursor watermark_text"></a> --%>
 						</div>	
@@ -435,7 +435,7 @@ xpopup
 			<h4   style="padding="10px;"></h4><h3>Personal Information</h3><hr>
 			<div class="panel panel-success" >
 			<div class="panel-body table-responsive">			
-			<div class="col-md-11">	<strong class="font">About My ${cacheGuest.createProfileFor}</strong>
+			<div class="col-md-11">	<strong class="font">About My ${profileBean.createProfileFor}</strong>
 				<div id="about_view" class="all_visible_divs">
 					<p id="aboutMyself_val">
 						<c:if test="${not empty profileBean.aboutMyself}">${profileBean.aboutMyself}</c:if>

@@ -9,6 +9,8 @@
 input[type="file"] {
 margin:5px;
 }
+canvas {
+display:none;}
 </style>
 <link href="css/imgareaselect-default.css" rel="stylesheet" media="screen">
 <link rel="stylesheet" href="css/jquery.awesome-cropper.css">

@@ -72,8 +72,8 @@ span.has-error,span.hasError
 }
 #navigation .main-nav > li > a {
     display: block;
-    padding: 10px 8px;
-    line-height: 20px;
+    padding: 20px 8px;
+    line-height: 21px;
     color: #fff;
 }
 ::-webkit-scrollbar {
@@ -295,7 +295,7 @@ var role_id = ${cacheUserBean.roleId};
 			<!-- <a href="#" class="toggle-nav" rel="tooltip" data-placement="bottom" title="Toggle navigation">
 				<i class="fa fa-bars"></i>
 			</a> -->
-			<ul class='main-nav' style="margin-top:9px;">
+			<ul class='main-nav'>
 				<li class="dashboard"><a href="dashboard"><span>Dashboard</span></a></li>
 				<li class="catalog1">
 					<a href="#" data-toggle="dropdown" class='dropdown-toggle'>

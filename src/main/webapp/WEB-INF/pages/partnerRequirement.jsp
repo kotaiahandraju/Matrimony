@@ -4,7 +4,16 @@
 <%@ taglib uri="http://displaytag.sf.net" prefix="display"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
-
+<style>
+.form-control {
+width:190px !important;
+}
+ @media only screen and (max-width: 600px) and (min-width: 320px) {
+.form-control, .select2-container {
+ width:100% !important;
+ }
+ }
+</style>
             <div class="col-md-5 col-sm-12">
             	<!-- <div class="stepwizard">
 				    <div class="stepwizard-row">

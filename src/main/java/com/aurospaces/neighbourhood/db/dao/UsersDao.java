@@ -2345,6 +2345,13 @@ public class UsersDao extends BaseUsersDao
 			
 			int updated_count = jdbcTemplate.update(sSql);
 			if (updated_count == 1) {
+				// set as profile pic if profile pic is not yet set 
+				String picQry = "select count(*) from user_images where user_id = (select uimg.user_id from user_images uimg where uimg.id = "+photoId+" limit 1) and status = '1' and is_profile_picture = '1'";
+				int profile_pic_count = jdbcTemplate.queryForInt(picQry);
+				if(profile_pic_count==0){
+					picQry = "update user_images set is_profile_picture = '1' where id = "+photoId;
+					int updated = jdbcTemplate.update(picQry);
+				}
 				return true;
 			}
 		} catch (Exception e) {

@@ -31,6 +31,11 @@
 
 <style>
 
+input[name=package_id]
+{
+	cursor: pointer;
+}
+
 .demo{
     
 }
@@ -94,7 +99,7 @@
     line-height: 30px;
     color: #a7a8aa;
 }
-.pricingTable .pricingTable-signup a{
+.pricingTable .pricingTable-signup button{
     display: inline-block;
     font-size: 15px;
     color: #fff;
@@ -104,29 +109,37 @@
     text-transform: uppercase;
     transition: all 0.3s ease 0s;
 }
-.pricingTable .pricingTable-signup a:hover{
+.pricingTable .pricingTable-signup button:hover{
     box-shadow: 0 0 10px #ffa442;
 }
 .pricingTable.blue .price-value,
-.pricingTable.blue .heading{
+.pricingTable.blue .heading .activeblue{
+    color: #fff;
+}
+.pricingTable.blue .price-value, .pricingTable.blue .heading {
     color: #4b64ff;
 }
 .pricingTable.blue:hover .pricingTable-header,
-.pricingTable.blue .pricingTable-signup a{
+.pricingTable.blue .pricingTable-signup button, .activeblue{
     background: #4b64ff;
 }
-.pricingTable.blue .pricingTable-signup a:hover{
+.pricingTable.blue .activeblue .pricingTable-signup button:hover{
     box-shadow: 0 0 10px #4b64ff;
 }
+
+.activeblue {
+    box-shadow: 0 0 10px #4b64ff;
+}
+
 .pricingTable.light .price-value,
 .pricingTable.light .heading{
     color: #006699;
 }
 .pricingTable.light:hover .pricingTable-header,
-.pricingTable.light .pricingTable-signup a{
+.pricingTable.light .pricingTable-signup button{
     background: #006699;
 }
-.pricingTable.light .pricingTable-signup a:hover{
+.pricingTable.light .pricingTable-signup button:hover{
     box-shadow: 0 0 10px 3006699;
 }
 .pricingTable.red .price-value,
@@ -134,10 +147,10 @@
     color: #ff4b4b;
 }
 .pricingTable.red:hover .pricingTable-header,
-.pricingTable.red .pricingTable-signup a{
+.pricingTable.red .pricingTable-signup button{
     background: #ff4b4b;
 }
-.pricingTable.red .pricingTable-signup a:hover{
+.pricingTable.red .pricingTable-signup button:hover{
     box-shadow: 0 0 10px #ff4b4b;
 }
 .pricingTable.green .price-value,
@@ -158,10 +171,10 @@ width:200px;
 margin-left:20px;
 }
 .pricingTable.green:hover .pricingTable-header,
-.pricingTable.green .pricingTable-signup a{
+.pricingTable.green .pricingTable-signup button{
     background: #40c952;
 }
-.pricingTable.green .pricingTable-signup a:hover{
+.pricingTable.green .pricingTable-signup button:hover{
     box-shadow: 0 0 10px #40c952;
 }
 
@@ -189,6 +202,71 @@ margin-left:0px;
 line-height:2.5 !important;
     margin: 0 0 2px 0 !important;
 }
+.blue1 {
+transform:scale(1.05);
+z-index:1;
+}
+.blue2 {
+background:#4b64ff !important;
+color:#fff !important;
+}
+.blue2 .month, .blue2 .price-value
+{
+color: white !important
+}
+.green1 {
+    transform: scale(1.05);
+    z-index: 1;
+}
+.green2 {
+background:#40c952 !important;
+color:#fff !important;
+}
+.green2 .month, .green2 .price-value
+{
+color: white !important
+}
+.red1 {
+    transform: scale(1.05);
+    z-index: 1;
+}
+.red2 {
+background:#ff4b4b !important;
+color:#fff !important;
+}
+.red2 .month, .red2 .price-value
+{
+color: white !important
+}
+/* .org1 {
+    transform: scale(1.05);
+    z-index: 1;
+} */
+.org2 {
+background:#ff9624 !important;
+color:#fff !important;
+}
+.org2 .month, .org2 .price-value
+{
+color: white !important
+}
+.light1 {
+    transform: scale(1.05) !important;
+    z-index: 1 !important;
+}
+.light2 {
+background:#006699 !important;
+color:#fff !important;
+}
+.light2 .month, .light2 .price-value
+{
+color: white !important
+}
+.whitecolor {
+color:#fff !important;
+}
+button {
+border:none;}
 </style>
 <body>
  <div class="container" style="background:#fff; padding-top:25px; z-index:0;">
@@ -201,25 +279,41 @@ line-height:2.5 !important;
 					<c:if test="${packName != 'Aarna Family' }">
 						<div class="col-md-2 col-sm-2 prit" onclick="displayDetails('infoDiv${pack.id}');">
 						 <c:if test = "${theCount.index=='0'}">
-			                <div class="pricingTable blue">
-			                </c:if>
-			                 <c:if test = "${theCount.index=='1'}">
-			                <div class="pricingTable green">
-			                </c:if>
-			                 <c:if test = "${theCount.index=='2'}">
-			                <div class="pricingTable red">
-			                </c:if>
-			                 <c:if test = "${theCount.index=='3'}">
-			                <div class="pricingTable ">
-			                </c:if>
-			                 <c:if test = "${theCount.index=='4'}">
-			                <div class="pricingTable light">
-			                </c:if>
-			                
+			                <div class="pricingTable blue" id="pricing_${pack.id}">
 			                    <div class="pricingTable-header">
 			                      
 			                        <div class="price-value"><li class="fa fa-inr"></li> <c:out value="${pack.price}"/> <span class="month"><c:out value="${pack.duration}"/> Months</span> </div>
 			                    </div>
+			                </c:if>
+			                 <c:if test = "${theCount.index=='1'}">
+			                <div class="pricingTable green" id="pricing_${pack.id}">
+			                    <div class="pricingTable-header">
+			                      
+			                        <div class="price-value "><li class="fa fa-inr"></li> <c:out value="${pack.price}"/> <span class="month"><c:out value="${pack.duration}"/> Months</span> </div>
+			                    </div>
+			                </c:if>
+			                 <c:if test = "${theCount.index=='2'}">
+			                <div class="pricingTable red" id="pricing_${pack.id}">
+			                    <div class="pricingTable-header">
+			                      
+			                        <div class="price-value "><li class="fa fa-inr"></li> <c:out value="${pack.price}"/> <span class="month"><c:out value="${pack.duration}"/> Months</span> </div>
+			                    </div>
+			                </c:if>
+			                 <c:if test = "${theCount.index=='3'}">
+			                <div class="pricingTable org org1" id="pricing_${pack.id}">
+			                    <div class="pricingTable-header">
+			                      
+			                        <div class="price-value "><li class="fa fa-inr"></li> <c:out value="${pack.price}"/> <span class="month"><c:out value="${pack.duration}"/> Months</span> </div>
+			                    </div>
+			                </c:if>
+			                 <c:if test = "${theCount.index=='4'}">
+			                <div class="pricingTable light" id="pricing_${pack.id}">
+			                    <div class="pricingTable-header">
+			                      
+			                        <div class="price-value "><li class="fa fa-inr"></li> <c:out value="${pack.price}"/> <span class="month"><c:out value="${pack.duration}"/> Months</span> </div>
+			                    </div>
+			                </c:if>
+			                
 			                    <h3 class="heading"><c:out value="${pack.name}"/></h3>
 			                    <div class="pricing-content">
 			                        <ul>
@@ -231,17 +325,17 @@ line-height:2.5 !important;
 			                        </ul>
 			                    </div>
 			                    <div class="pricingTable-signup">
-			                        <a href="#" id="makePaymentBtn" onclick="makePayment(event)">Make Payment</a>
+			                        <button type="button" href="#" id="makePaymentBtn" disabled="disabled" class="makePaymentBtn" onclick="makePayment(event)">Make Payment</button>
 			                    </div>
 			                </div>
 			            </div>
 					</c:if>
 					<c:if test="${packName == 'Aarna Family' }">
 						<div class="col-md-2 col-sm-2 prit" onclick="displayDetails('infoDiv${pack.id}');">
-			                <div class="pricingTable blue">
-			                    <div class="pricingTable-header">
+			                <div class="pricingTable blue blue1 ">
+			                    <div class="pricingTable-header blue2">
 			                      
-			                        <div class="price-value"><li class="fa fa-inr"></li> <c:out value="${pack.price}"/> <span class="month">Till Marriage</span> </div>
+			                        <div class="price-value whitecolor "><li class="fa fa-inr"></li> <c:out value="${pack.price}"/> <span class="month whitecolor">Till Marriage</span> </div>
 			                    </div>
 			                    <h3 class="heading"><c:out value="${pack.name}"/></h3>
 			                    <div class="pricing-content">
@@ -254,7 +348,7 @@ line-height:2.5 !important;
 			                        </ul>
 			                    </div>
 			                    <div class="pricingTable-signup">
-			                        <a href="#" id="makePaymentBtn" onclick="makePayment(event)">Make Payment</a>
+			                        <button type="button" href="#" id="makePaymentBtn" disabled="disabled" class="makePaymentBtn" onclick="makePayment(event)">Make Payment</button>
 			                    </div>
 			                </div>
 			            </div>
@@ -270,9 +364,7 @@ line-height:2.5 !important;
 		<c:if test="${packName != 'Aarna Family' }">
 			<div class="col-md-12 benefit pack_details" id="infoDiv${pack.id}" hidden="true">
     
-			    <div class="benefit">
-			  
-			    
+			    <div class="benefit">  
 			    	<h4>Benefits of <c:out value="${pack.name}"/> - <c:out value="${pack.duration}"/> Months</h4>
 					    <c:if test="${pack.highlight_profile == '1' }">
 					    	<div class="col-md-4 benefit1">
@@ -289,7 +381,6 @@ line-height:2.5 !important;
 						    <div class="col-md-4">
 						    <p><img  src="images/icon3.png"/> View mobile numbers of <c:out value="${pack.allowed_profiles_limit}"/> members
 							to contact </p>
-						    
 						    </div>
 			    		</c:if>
 			    		<div class="col-md-4">
@@ -318,6 +409,21 @@ line-height:2.5 !important;
     <br><br>
     </div>
     <script>    
+    $("input[name=package_id]").click(function(){
+    	$('.pricingTable').each(function(){
+        	var rcls1 = $(this).attr('class').split(' ');
+        	var rcls2 = $(this).find('.pricingTable-header').attr('class').split(' ');
+        	$(this).removeClass(rcls1[2]);
+        	$(this).find('.pricingTable-header').removeClass(rcls2[1]);
+        	$(this).find('.makePaymentBtn').attr('disabled',true);
+    	});
+    	var val = $(this).val();
+    	var cls = $('#pricing_'+val).attr('class').split(' ');
+    	$('#pricing_'+val).addClass(cls[1]+'1');
+    	$('#pricing_'+val).find('.pricingTable-header').addClass(cls[1]+'2');
+    	$('#pricing_'+val).find('.makePaymentBtn').attr('disabled',false);
+    });
+    
     $(".benifitscroll").click(function(){
     	$("#benifitDiv").css('display','block');
     });
