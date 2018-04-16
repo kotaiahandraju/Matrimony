@@ -439,9 +439,9 @@ function displayNewMatches(listOrders) {
 			 var expressed = orderObj.expressedInterest;
 			var interestStr = "";
 			if(expressed==0){
-				interestStr = '<p  align="center" style="margin: 11px 0px 0px 0px;"><a  id="expInterest'+orderObj.id+'" href="#no" type="button" class="btn btn-warning  btn-sm"  onclick="expressInterest('+orderObj.id+')">Send Interest</a></p>';
+				interestStr = '<p  align="center" style="margin: 11px 0px 0px 0px;" id="expInterest'+orderObj.id+'"><a  href="#no" type="button" class="btn btn-warning  btn-sm"  onclick="expressInterest_dashboardnewmatches('+orderObj.id+')">Send Interest</a></p>';
 			}else if(expressed>0){
-				interestStr = '<p align="center" style="margin: 11px 0px 0px 0px;"><a   type="button" disabled="true"  class="btn btn-warning "  >You Expressed Interest</a></p>';
+				interestStr = '<p align="center" style="margin: 11px 0px 0px 0px;"><a   type="button" disabled="true"  class="btn btn-warning "  >Request Sent</a></p>';
 			}
 			 item =     item + ' 	<div class="col-md-3 thumbnailgal">'
 				         +' 		<div class="thumbnailmain">	<a class="thumbnail thumbimg" href="#no" style="margin: 0px 0px 0px 0px; width:100%; height:auto;"><img alt="" src="'+image+'" class="watermark_text"></a></div>'
@@ -543,6 +543,67 @@ function expressInterest_dashboard(profile_id){
 	}
 }
 
+function expressInterest_dashboardnewmatches(profile_id){
+	var roleId = ${cacheGuest.roleId};
+	$("#id").val(profile_id);
+	if(roleId==4){
+		document.searchForm2.action = "memberShipPage"
+		document.searchForm2.submit();
+		return true;
+	}else{
+		var membershipStatus = ${cacheGuest.membership_status};
+		if(membershipStatus!="1"){
+			alert("Your membership validity period is over. Renew your membership plan and get more profiles");
+			return false;
+		}
+		if(allowed_limit<=0){
+			alert("Exceeded allowed profiles limit. Renew your membership plan and get more profiles");
+			return false;
+		}
+		var profileObj = serviceUnitArray[profile_id];
+
+		var formData = new FormData();
+		formData.append('profile_id',profile_id);
+		jQuery.fn.makeMultipartRequest('POST', 'expressInterestTo', false,
+				formData, false, 'text', function(data){
+	    		var jsonobj = $.parseJSON(data);
+	    		var limit = jsonobj.allowed_limit;
+	    		var msg = jsonobj.message;
+	    		var profiles = jsonobj.allProfiles;
+	    		//if(typeof msg != "undefined" ){
+	    			if("success"==msg){
+	    				alert("Interest request has been sent successfully");
+	    				$("#expInterest"+profile_id).html('<a   type="button" disabled="true"  class="btn btn-warning "  >Request Sent</a>');
+	    				$("#expInterest"+profile_id).prop("disabled",true);
+	    				allowed_limit = limit;
+	    			}else if("failed"==msg || "exception"==msg){
+	    				alert("Interest request is not successful. Please try again.");
+	    			}
+	    		//}
+	    		/* if(profiles==""){
+	    			$('#countId').html('0');
+	    			var str = '<div class="panel panel-default"><h6>No results found.</h6></div>';
+	    			$('#searchResults').html('');
+	    			$(str).appendTo("#searchResults");
+	    		}else{
+	    			$('#countId').html(profiles.length);
+	    			displayMatches(profiles);
+	    		} */
+	    		/* var filtered_list = jsonobj.filtered_profiles;
+	    		$('#countId').html('');
+	    		if(filtered_list==""){
+	    			$('#countId').html('0');
+	    			var str = '<div class="panel panel-default"><h6>No results found.</h6></div>';
+	    			$('#searchResults').html('');
+	    			$(str).appendTo("#searchResults");
+	    		}else{
+	    			$('#countId').html(filtered_list.length);
+	    			displayMatches(filtered_list);
+	    		} */
+				
+			});
+	}
+}
 function shortList_dashboard(profileId){
 	$("#id").val(profileId);
 	var profileObj = serviceUnitArray[profileId];
