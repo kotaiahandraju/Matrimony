@@ -275,8 +275,8 @@ tooltip:hover:after {
 		    		var msg = jsonobj.message;
 		    		if(typeof msg != "undefined"){
 		    			if(msg=="success"){
-		    				$("#shortlistTD"+profileId).attr('disabled', 'disabled');
-		    				$("#shortlistTD"+profileId).text("Shortlisted");
+		    				$("#shortlistTD"+profileId).find('a').attr('disabled', 'disabled');
+		    				$("#shortlistTD"+profileId).find('a').text("Shortlisted");
 		    				//$("#shortlistTD"+profileId).removeAttr("href");
 		    				//$("#shortlistTD"+profileId).attr("disabled");
 		    			}else{
@@ -3074,10 +3074,10 @@ img.hover-shadow {
 <!-- 										<img id="profilepic" src="img/default.png" class="img-responsive thumbnail " style="margin-top:-10px;height: 40px;width: 40px;border-radius:15%;">  -->
 
 								<c:if test="${not empty cacheGuest.profileImage}">
-										<img id="profilepic" src="${cacheGuest.profileImage}" alt="profileImage" title="profileImage" class="img img-responsive thumbnail watermark_text" style="margin-top:-10px;height: 40px;width: 40px;border-radius:15%;"><i class="fa fa-angle-down" aria-hidden="true"></i>
+										<img id="profilepic" src="${cacheGuest.profileImage}" alt="profileImage"  class="img img-responsive thumbnail watermark_text" style="margin-top:-10px;height: 40px;width: 40px;border-radius:15%;"><i class="fa fa-angle-down" aria-hidden="true"></i>
 									</c:if>
 									<c:if test="${empty cacheGuest.profileImage}">
-										<img id="profilepic" src="img/default.png" alt="image" title="image" class="img-responsive thumbnail " style="margin-top:-10px;height: 40px;width: 40px;border-radius:15%;"><i class="fa fa-angle-down" aria-hidden="true"></i>
+										<img id="profilepic" src="img/default.png" alt="image" class="img-responsive thumbnail " style="margin-top:-10px;height: 40px;width: 40px;border-radius:15%;"><i class="fa fa-angle-down" aria-hidden="true"></i>
 									</c:if>
 
 									
