@@ -283,12 +283,12 @@ s.parentNode.insertBefore(ga, s);
 			});	
 		}
 	}
- function uploadPhotos(id){
-
+/*  function uploadPhotos(id){
+	
 	 $("#profileId").val(id);
 	    $('#myModal').modal();
 	    
-} 
+}  */
  function imageAjax(){
 	 if($("#imageName").val() == "" || $("#imageName").val() == "undefined" || $("#imageName").val() == null){
 			alert("Please Select An Image..!");
@@ -332,7 +332,9 @@ s.parentNode.insertBefore(ga, s);
  function uploadPhotos(id) {
 	 var location = $("#loc").val();
 //  	 var win = window.open(""+location+"/admin/CreateProfile/"+id+"");
- 	 window.location.href =location+"/admin/uploadPhotos/"+id+"/uploadPhotos";
+	firstName=serviceUnitArray[id].firstName;
+	lastName=serviceUnitArray[id].lastName;
+ 	 window.location.href =location+"/admin/uploadPhotos/"+id+"/"+firstName+"/"+lastName;
 	 if (win) {
 	     //Browser has allowed it to be opened
 	     win.focus();
