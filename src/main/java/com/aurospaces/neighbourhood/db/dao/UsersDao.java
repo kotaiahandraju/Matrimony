@@ -1428,7 +1428,7 @@ public class UsersDao extends BaseUsersDao
 								+" (select count(*) from users u,express_intrest ei where u.id=ei.profile_id and ei.user_id = "+userId+" and ei.profile_viewed_status = '1' and ei.mobile_no_viewed_status = '0' and ei.interested='0' "
 								+"   and "+subStr+" ) as viewedNotContactedCount, "
 								+" (select count(*) from  users u,express_intrest  ei where u.id = ei.user_id and ei.profile_id = "+userId+" and ei.short_listed = '1' and "+subStr+" ) as shortListedCount, "
-								+" (select count(*) from user_notifications where user_id = "+objUserBean.getId()+" and read_status = '0') as notificationsCount,"
+								+" (select count(*) from user_notifications where profile_id = "+objUserBean.getId()+" and read_status = '0') as notificationsCount,"
 								+" (select count(*) from express_intrest ei where ei.user_id = "+objUserBean.getId()+" and ei.default_text_option = '1') as default_text_option, "
 								+" (select mail_default_text from express_intrest ei where ei.user_id = "+objUserBean.getId()+" and ei.default_text_option = '1' group by ei.user_id ) as mail_default_text ";
 					
@@ -2901,10 +2901,10 @@ public boolean deletePhoto(String photoId){
 
 		jdbcTemplate = custom.getJdbcTemplate();
 		StringBuffer buffer = new StringBuffer();
-		buffer.append("select *,(select concat(u.firstName,' ',u.lastName) from users u where u.id=user_notifications.profile_id) as fullName, "
-				+" (select u.username from users u where u.id=user_notifications.profile_id) as userName,date_format(user_notifications.created_on,'%d-%M-%Y') as created_on, "
-				+" (select uimg.image from user_images uimg where uimg.user_id=user_notifications.profile_id and  uimg.status = '1' and uimg.is_profile_picture='1') as profileImage "
-				+" from user_notifications where user_id = "+objUserBean.getId()+" and user_type = 'member' order by created_on desc ");
+		buffer.append("select *,(select concat(u.firstName,' ',u.lastName) from users u where u.id=user_notifications.user_id) as fullName, "
+				+" (select u.username from users u where u.id=user_notifications.user_id) as userName,date_format(user_notifications.created_on,'%d-%M-%Y') as created_on, "
+				+" (select uimg.image from user_images uimg where uimg.user_id=user_notifications.user_id and  uimg.status = '1' and uimg.is_profile_picture='1') as profileImage "
+				+" from user_notifications where profile_id = "+objUserBean.getId()+" and user_type = 'member' order by created_on desc ");
 		if(!all_notifications){
 			buffer.append(" limit 10 offset 0");
 		}
@@ -2919,9 +2919,9 @@ public boolean deletePhoto(String photoId){
 
 		jdbcTemplate = custom.getJdbcTemplate();
 		StringBuffer buffer = new StringBuffer();
-		buffer.append("select *,(select concat(u.firstName,' ',u.lastName) from users u where u.id=user_notifications.profile_id) as fullName, "
-				+" (select u.username from users u where u.id=user_notifications.profile_id) as userName,date_format(user_notifications.created_on,'%d-%M-%Y') as created_on, "
-				+" (select uimg.image from user_images uimg where uimg.user_id=user_notifications.profile_id and  uimg.status = '1' and uimg.is_profile_picture='1') as profileImage "
+		buffer.append("select *,(select concat(u.firstName,' ',u.lastName) from users u where u.id=user_notifications.user_id) as fullName, "
+				+" (select u.username from users u where u.id=user_notifications.user_id) as userName,date_format(user_notifications.created_on,'%d-%M-%Y') as created_on, "
+				+" (select uimg.image from user_images uimg where uimg.user_id=user_notifications.user_id and  uimg.status = '1' and uimg.is_profile_picture='1') as profileImage "
 				+" from user_notifications where user_type = 'admin' and notifi_type = '"+notification_type+"' order by created_on desc ");
 		if(!all_notifications){
 			buffer.append(" limit 10 offset 0");
@@ -2974,7 +2974,7 @@ public boolean deletePhoto(String photoId){
 		StringBuffer buffer = new StringBuffer();
 		try {
 			buffer.append("insert into user_notifications(created_on,user_type,user_id,profile_id,notifi_type,amount) "
-							+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','admin',3,"+profileId+",'payment','"+amount+"')");;
+							+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','admin',"+profileId+",3,'payment','"+amount+"')");;
 			int iCount = jdbcTemplate.update(buffer.toString());
 			if (iCount == 1) {
 				inserted = true;
@@ -2993,7 +2993,7 @@ public boolean deletePhoto(String photoId){
 		StringBuffer buffer = new StringBuffer();
 		try {
 			buffer.append("insert into user_notifications(created_on,user_type,user_id,profile_id,notifi_type) "
-							+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','admin',3,"+profileId+",'payment')");;
+							+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','admin',"+profileId+",3,'payment')");;
 			int iCount = jdbcTemplate.update(buffer.toString());
 			if (iCount == 1) {
 				inserted = true;
