@@ -1884,12 +1884,14 @@ function editMobileNumber(user_id,old_mobile_no){
 	var msg = jsonobj.message;
 	
 	if("success"==msg){
-		alert("Mobile Number Updated Successfully.");
-		$("#editMobileDiv").attr("hidden",true);
+		var location = "${baseurl}";
+		window.location.href =location+"/sendOtp";
+		//alert("Mobile Number Updated Successfully.");
+		/* $("#editMobileDiv").attr("hidden",true);
 		 $("#mobileNoDiv").removeAttr("hidden");
 		$("#mobileNoText").html(mobileNum);
 		$("#editMobileAnchor").html("Edit Mobile No.");
-		$("#editMobileAnchor").attr("onclick","displayEditMobilenumberDiv("+user_id+","+mobileNum+")");
+		$("#editMobileAnchor").attr("onclick","displayEditMobilenumberDiv("+user_id+","+mobileNum+")"); */
 	}else if(msg == "duplicate"){
 		alert("Mobile number already in use. Please try another.");
 	}else{

@@ -43,6 +43,7 @@
 	</div>
 </div>
 <!-- //footer -->
+<script src="js/customValidation.js"></script>
 <script>
 var selectIds = $('#panel1,#panel2,#panel3');
 $(function ($) {
