@@ -343,7 +343,7 @@ function displayMatches(listOrders) {
 			}
 			var mobNumViewed = orderObj.mobileNumViewed;
 			var mobile_num_Str = "";
-			if(mobNumViewed==1 || expressed==1 || message_sent_status==1){
+			if(mobNumViewed=="1" || expressed=="1" || message_sent_status=="1"){
 				mobile_num_Str = '<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+orderObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>';
 				
 			}else{

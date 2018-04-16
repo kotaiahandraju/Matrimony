@@ -275,8 +275,8 @@ tooltip:hover:after {
 		    		var msg = jsonobj.message;
 		    		if(typeof msg != "undefined"){
 		    			if(msg=="success"){
-		    				$("#shortlistTD"+profileId).attr('disabled', 'disabled');
-		    				$("#shortlistTD"+profileId).text("Shortlisted");
+		    				$("#shortlistTD"+profileId).html('');
+		    				$("#shortlistTD"+profileId).html('<a type="button" class="btn btn-warning btn-sm" disabled="true"> Shortlisted</a>');
 		    				//$("#shortlistTD"+profileId).removeAttr("href");
 		    				//$("#shortlistTD"+profileId).attr("disabled");
 		    			}else{
@@ -321,7 +321,7 @@ tooltip:hover:after {
 			    		var profiles = jsonobj.allProfiles;
 			    		//if(typeof msg != "undefined" ){
 			    			if("success"==msg){
-			    				$("#expInterest"+profile_id).html('<a type="button" class="btn btn-success btn-sm" disabled="true">Expressed Interest</a>');
+			    				$("#expInterest"+profile_id).html('<a type="button" class="btn btn-blue btn-sm" disabled="true">Expressed Interest</a>');
 			    				alert("Interest request has been sent successfully");
 			    				//$("#expInterest"+profile_id).html('You Expressed Interest');
 			    				//$("#expInterest"+profile_id).attr("disabled",true);
@@ -495,7 +495,7 @@ tooltip:hover:after {
 					}
 					var mobNumViewed = orderObj.mobileNumViewed;
 					var mobile_num_Str = "";
-					if(mobNumViewed==1 || expressed==1 || message_sent_status==1){
+					if(mobNumViewed=="1" || expressed=="1" || message_sent_status=="1"){
 						mobile_num_Str = '<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;float:left;">&nbsp;+91-'+orderObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;float:left;color:#4baa26;">Verified </span>)</font></span>';
 					}else{
 						mobile_num_Str = '<span ><a href="#no" type="button" class="btn btn-info btn-sm" onclick="displayMobileNum('+orderObj.id+')">View Mobile Number</a></span>';
@@ -682,11 +682,11 @@ tooltip:hover:after {
 					}
 					var mobNumViewed = orderObj.mobileNumViewed;
 					var mobile_num_Str = "";
-					if(mobNumViewed==1 || expressed==1 || message_sent_status==1){
+					if(mobNumViewed=="1" || expressed=="1" || message_sent_status=="1"){
 						mobile_num_Str = '<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;float:left;">&nbsp;+91-'+orderObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;float:left;color:#4baa26;">Verified </span>)</font></span>';
 					}else{
-						mobile_num_Str = '<span ><a href="#no" type="button" style="margin: 11px 0px 10px 0px;" class="btn btn-info btn-sm" onclick="displayMobileNum('+orderObj.id+')">View Mobile Number</a></span>';
-
+						//mobile_num_Str = '<span ><a href="#no" type="button" style="margin: 11px 0px 10px 0px;" class="btn btn-info btn-sm" onclick="displayMobileNum('+orderObj.id+')">View Mobile Number</a></span>';
+						mobile_num_Str = '<span id="mobileTD'+orderObj.id+'"><h2 class="pull-right"><a href="#" data-toggle="tooltip" data-placement="bottom" title="View Mobile Number" onclick="displayMobileNum('+orderObj.id+')"><img src="images/Mobile_Icon.png"/> &nbsp;</a></h2></span>';
 					}
 					var profession = orderObj.occupationName;
 					if((profession == null) || profession == ""){
@@ -766,7 +766,7 @@ tooltip:hover:after {
 						+ slider
 		            	+ '</div>'
 		            	+ '<div class="col-md-4">'
-		  + '<h2 class="pull-right"><a href="#" data-toggle="tooltip" data-placement="bottom" title="View Mobile Number/Send SMS"><img src="images/Mobile_Icon.png"/> &nbsp;</a></h2>'
+		  				+ mobile_num_Str
 		                + '<div class="clearfix"></div>'
 		            	+ '<blockquote style="min-height:100px; max-height:120px; "><p>'+abtMySelf+'</p><br>'
 		                + '<br>'
@@ -782,7 +782,7 @@ tooltip:hover:after {
 		            	+ '	<tr><td>Location</td><td><span>: '+orderObj.currentCityName+'</span></td></tr>'
 		            	+ '	<tr><td>Education</td><td><span>: '+orderObj.educationName+'</span></td></tr>'
 		            	+ '	<tr><td>Profession</td><td><span>: '+profession+'</span></td></tr>'
-		            	+ '<tr><td colspan="2"><button type="button" style="background: transparent; margin: 0px 5px 05px 0px;border: none;" id="mobileTD'+orderObj.id+'">'+mobile_num_Str+'</button></td></tr>'
+		            	//+ '<tr><td colspan="2"><button type="button" style="background: transparent; margin: 0px 5px 05px 0px;border: none;" id="mobileTD'+orderObj.id+'">'+mobile_num_Str+'</button></td></tr>'
 		            	+'</td></tr>'
 		            	//+ '	<tr><td>Age</td><td><span>: '+orderObj.age+'</span></td></tr>'
 		            	//+ '	<tr><td colspan="2">'+orderObj.aboutMyself+'... <a href="#no" onclick="showMore('+orderObj.id+')"> read more..</a> </td></tr>'
@@ -918,7 +918,7 @@ tooltip:hover:after {
 						}
 						var mobNumViewed = orderObj.mobileNumViewed;
 						var mobile_num_Str = "";
-						if(mobNumViewed==1 || expressed==1 || message_sent_status==1){
+						if(mobNumViewed=="1" || expressed=="1" || message_sent_status=="1"){
 							mobile_num_Str = '<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+orderObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="image" title="image" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>';
 						}else{
 							mobile_num_Str = '<span id="mobileTD'+orderObj.id+'"><a href="#no" type="button" class="btn btn-info btn-sm" onclick="displayMobileNum('+orderObj.id+')">View Mobile Number</a></span>';
