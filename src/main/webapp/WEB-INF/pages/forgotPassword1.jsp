@@ -45,7 +45,7 @@ margin-left:8px;
 	   					
 		             		
 		             			<div class="panel-body">
-		             				<input type="text" class="col-md-5 form-control" id="forgotPasswordInput" placeholder="Enter email-id/phone number/username" onkeyup="removeBorder(this.id)"  name="forgotPasswordInput"  /> 
+		             				<input type="text" class="col-md-5 form-control" id="forgotPasswordInput" placeholder="Enter email-id/phone number/username" name="forgotPasswordInput" placeholder="" /> 
 		             				<button name="fpNextBtn" type="button" id="fpNextBtn" class="btn btn-primary" onclick="displayFpNextPage()">Next</button>
 								</div>
 						
@@ -60,15 +60,15 @@ margin-left:8px;
 	   					<form action="forgotPasswordAction" id="quote" name="quote" method="post">
 		             		
 		             			<div class="panel-body">
-		             				<div class="row" style="padding:20px">
-		             					<div class="col-md-20" >	
+		             				<div class="row" style="left-padding:20">
+		             					<div class="col-md-20">	
 			             				<input type="radio" name="sendTo"  value="emailTo" placeholder="Email To"> <span id="emailStr">Email new password to my registered email id.</span>
 			             				</div>
 			             				<div class="col-md-20" id="mobile_option">	
 										<input type="radio" name="sendTo"  value="smsTo" placeholder="Email To"> <span id="mobileStr">SMS new password to my registered mobile number.</span>
-										</div><br>
+										</div>
 										<div class="col-md-20">	
-										<button type="button" class="btn btn-primary" onclick="checkVal(event);">Send</button>
+										<button type="submit" class="btn btn-primary" onclick="checkVal();">Send</button>
 										</div> 
 									</div>
 								</div>
@@ -139,14 +139,11 @@ function validateInput(id, errorMessage)
 	
 }
 
-function checkVal(event){
+function checkVal(){
 	var selected_val = $("input[name=sendTo]:checked").val();
 	if((typeof(selected_val) == "undefined") || (selected_val=="")){
 		alert("Select any option!");
 		return false;
-		event.preventDefault();
-	}else{
-		$("#quote").submit();	
 	}
 }
 

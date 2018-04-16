@@ -150,4 +150,62 @@ public class ReporsController {
 		}
 		return String.valueOf(jsonObj);
 	}
+	
+	@RequestMapping(value = "/paymentreport")
+	public String paymentreport(@ModelAttribute("reports") ReportsBean objReportsBean, ModelMap model,
+			HttpServletRequest request, HttpSession session) {
+//		System.out.println("BodyTypeHome Page");
+		List<BodyTypeBean> listOrderBeans = null;
+		ObjectMapper objectMapper = null;
+		String sJson = null;
+		try {
+
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			logger.error(e);
+		}
+		return "paymentreport";
+	}
+	@RequestMapping(value = "/paymentreportsData")
+	public @ResponseBody String paymentreportsData( ReportsBean objReportsBean,ModelMap model,HttpServletRequest request,HttpSession session,BindingResult objBindingResult) {
+		List<Map<String, Object>> listOrderBeans = null;
+		JSONObject jsonObj = new JSONObject();
+		ObjectMapper objectMapper = null;
+		String sJson=null;
+		try{
+			Date d = HRMSUtil.dateFormate(objReportsBean.getFromdate());
+			Date d1 = HRMSUtil.dateFormate(objReportsBean.getTodate());
+			objReportsBean.setFromdate1(d);
+			objReportsBean.setTodate1(d1);
+			listOrderBeans = objUsersDao.paymentreporsData(objReportsBean);
+			if (listOrderBeans != null && listOrderBeans.size() > 0) {
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(listOrderBeans);
+				request.setAttribute("allOrders1", sJson);
+				jsonObj.put("allOrders1", listOrderBeans);
+			} else {
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(listOrderBeans);
+				request.setAttribute("allOrders1", "''");
+				jsonObj.put("allOrders1", listOrderBeans);
+			}
+
+		}catch(Exception e){
+			e.printStackTrace();
+			System.out.println(e);
+			logger.error(e);
+			logger.fatal("error in BodyTypeController class deleteBodyType method");
+			jsonObj.put("message", "excetption"+e);
+			return String.valueOf(jsonObj);
+		}
+		return String.valueOf(jsonObj);
+	}
+	
+	
 }
+
+
+
