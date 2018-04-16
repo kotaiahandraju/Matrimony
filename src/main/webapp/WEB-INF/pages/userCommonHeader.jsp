@@ -2979,19 +2979,19 @@ img.hover-shadow {
 								</ul>
 							</li>
 							<li class="dropdown matches">
-								<a href="#no" class="dropdown-toggle" data-toggle="dropdown">Matches <span id="matchcount">15</span></a>
+								<a href="#no" class="dropdown-toggle" data-toggle="dropdown">Matches <span id="matchcount">${cacheGuest.yetToBeViewedCount}</span></a>
 								<ul class="dropdown-menu">
 									<li><a href="newMatches">New Matches</a></li>
-									<li><a href="yetToBeViewed">Yet to be viewed(15) </a></li>
-									<li><a href="viewedNotContacted">Viewed & not contacted(2)</a></li>
+									<li><a href="yetToBeViewed">Yet to be viewed(${cacheGuest.yetToBeViewedCount}) </a></li>
+									<li><a href="viewedNotContacted">Viewed & not contacted(${cacheGuest.viewedNotContactedCount})</a></li>
 									<li><a href="shortListedByMe">Shortlisted Matches</a></li>
 									<!-- <li><a href="#no">Premium Members</a></li> -->
 								</ul>
 							</li>
 							<li class="dropdown messages">
-								<a href="#no" class="dropdown-toggle" data-toggle="dropdown">Messages <span id="matchcount">1</span></a>
+								<a href="#no" class="dropdown-toggle" data-toggle="dropdown">Messages <span id="matchcount">${cacheGuest.pendingRequestsCount}</span></a>
 								<ul class="dropdown-menu">
-									<li><a href="inboxAction?tab_type=inbox&list_type=pending_requests">Inbox - Pending 1</a></li>
+									<li><a href="inboxAction?tab_type=inbox&list_type=pending_requests">Inbox - Pending ${cacheGuest.pendingRequestsCount}</a></li>
 									<li><a href="inboxAction?tab_type=inbox&list_type=accepted_requests" >Inbox - Accepted </a></li>
 									<li><a href="inboxAction?tab_type=sent&list_type=sent_requests" >Sent All</a></li>
 									<!-- <li><a href="#no">SMS received/sent</a></li> -->
@@ -3006,7 +3006,7 @@ img.hover-shadow {
 							</li> -->
 							
 							<li class="dropdown notifications" id="notification_li">
-								<a href="#" id="notificationLink"> <span class="fa fa-bell"></span>Notifications</a>
+								<a href="#" id="notificationLink"> <span class="fa fa-bell"></span>Notifications <span id="matchcount">${notificationsCount}</span></a>
 								<div id="notificationContainer" class="dropdown-menu">
 									<c:if test="${not empty notificationsList}">
 											<div id="notificationsBody" class="notifications">
