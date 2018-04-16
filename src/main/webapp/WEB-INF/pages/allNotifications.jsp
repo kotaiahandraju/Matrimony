@@ -5,7 +5,7 @@ color:#006699;
 }
 .notifications1:hover {
     background-color: #ddd;
-}
+} 
 hr {
     margin-top: 1px !important;
     margin-bottom: 1px !important;
@@ -21,15 +21,26 @@ hr:hover {
     background-color: #f7f0f0;
 }
 </style>
+<script>
+
+function notificationId(id){
+	$("#id").css("background-color","red");
+}
+
+</script>
+
+
+
+
 <div class="container" style="background:#fff; padding:15px;">
 	<div class="col-md-9">
 									<h5>Your Notifications <span class="pull-right">Notification Settings</span></h5>
 <hr>
 
-<c:if test="${not empty notificationsList}">
-											<div id="notificationsBody" class="notifications allnoti">
+													<c:if test="${not empty notificationsList}">
+											<div id="notificationsBody"  class="notifications allnoti">
 												<c:forEach var="notification" items="${notificationsList}">
-													<div class="notifications1 col-md-12">
+													<div class="notifications1 col-md-12" id="notificationdiv${notification.id}" onclick="notificationId(this.id);">
 													<div class="col-md-2 preprofile"  >
 														<c:if test="${not empty notification.profileImage}">
 														<div align="center"><img src="${notification.profileImage}" style="max-width: 100%; height:auto;" class="img-responsive"></div>
@@ -40,7 +51,7 @@ hr:hover {
 													</div>
 													<div class="col-md-10" style="padding-right:0px; padding-left:0px;" >
 														<p>
-															<a href="fullProfile?pid=${notification.profile_id}&nid=${notification.id}&rfrm=notifications" target="_blank" >
+															<a  href="fullProfile?pid=${notification.profile_id}&nid=${notification.id}&rfrm=notifications"  target="_blank" >
 																<b><c:out value="${notification.fullName}" /> (<c:out value="${notification.username}" />)</b> 
 																<c:if test="${notification.notifi_type == 'interest'}">
 																	expressed interest in your profile
