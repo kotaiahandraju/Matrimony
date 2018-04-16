@@ -117,7 +117,20 @@ padding-left:0px;
 ::-webkit-scrollbar-thumb:hover {
     background: #555; 
 }
-
+::-moz-scrollbar {
+width: 3px;
+}
+::-moz-scrollbar-track {
+-moz-box-shadow: inset 0 0 6px #fff);
+background:#f1f1f1;
+}
+::-moz-scrollbar-thumb {
+border-radius: 10px;
+-moz-box-shadow: inset 0 0 6px #fff;
+background:#888;
+}*
+scrollbar{
+-moz-appearance: none !important;
 		#notification_count 
 		{
 		padding: 3px 7px 3px 7px;
@@ -177,6 +190,10 @@ tooltip:hover:after {
 	}
 	.pendinginbox td {
 	line-height:2.5;
+	}
+	hr {
+	margin-top:8px !important;
+	margin-bottom:8px !important;
 	}
 	</style>
 	<script type="text/javascript">
@@ -3016,7 +3033,7 @@ img.hover-shadow {
 															<br>
 															<c:out value="${notification.created_on}" />
 														.</p>
-													</div><hr>
+													</div>
 													<div class="clearfix"></div><hr>
 												</c:forEach>
 											</div>
@@ -3088,7 +3105,7 @@ img.hover-shadow {
         <label>Enter Your Message</label>
         	<input type="hidden" name="profile_id" id="profile_id">
         	<c:if test="${default_text_option == '0' }">
-        		<textarea id="mail_content" placeholder="Enter Your Message..." onblur="this.placeholder='Enter Your Message'" onfocus="this.placeholder=''" name="mail_content" cols="70" rows="10"style="margin-top:5px;" ></textarea>
+        		<textarea id="mail_content" placeholder="Enter Your Message..." onblur="this.placeholder='Enter Your Message'" onfocus="this.placeholder=''" name="mail_content" class="form-control" rows="10"style="margin-top:5px; resize:none; overflow:auto;" ></textarea>
         	</c:if>
          	<%-- <c:if test="${default_text_option != '0' }">
         		<textarea id="mail_content" placeholder="" onblur="this.placeholder='Enter Your Message'" onfocus="this.placeholder=''" name="mail_content" cols="70" rows="10"  style="white-space: pre-wrap;margin-top:5px;" >
