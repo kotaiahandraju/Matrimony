@@ -3575,8 +3575,9 @@ public class HomePageController {
 						 if(StringUtils.isNotBlank(retVal)){
 							 objJson.put("message", "success");
 							 objUsersDao.sendMailMessage(profile_id,receipientUser.getMail_content(),default_text_option.equalsIgnoreCase("true")?"1":"0");
-							 session.setAttribute("default_text_option", default_text_option);
+							 session.setAttribute("default_text_option", default_text_option.equalsIgnoreCase("true")?"1":"0");
 							 session.setAttribute("mail_default_text", receipientUser.getMail_content());
+							 objJson.put("mail_default_text", receipientUser.getMail_content());
 							 // decrease the profile count
 							 int allowed_profiles_limit = objUsersDao.getAllowedProfilesLimit(userBean.getId());
 							 session.setAttribute("allowed_profiles_limit", allowed_profiles_limit);

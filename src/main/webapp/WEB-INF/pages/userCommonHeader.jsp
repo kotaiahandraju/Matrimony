@@ -786,7 +786,7 @@ tooltip:hover:after {
 		            	+ '<a href="#no" type="button" class="btn btn-primary btn-sm " onclick="fullProfile('+orderObj.id+')">View Full Profile</a>'
 		            	+ '</div>'
 		            	+ '<div class="col-md-3">'
-		            	+ '<a href="#no" type="button" class="btn btn-danger btn-sm" id="sendMail'+orderObj.id+'" onclick="displayMailPopup('+orderObj.id+')">Send Mail</a>'
+		            	+ '<a href="#no" type="button" class="btn btn-danger btn-sm" id="sendMail'+orderObj.id+'" onclick="displayMailPopup('+orderObj.id+',\''+firstname+' '+lastname+'\')">Send Mail</a>'
 		            	+ '</div>'
 		            	+ '<div class="col-md-3">'
 		            	+ interestStr
@@ -1400,9 +1400,20 @@ tooltip:hover:after {
 			
 		}
 		
-		function displayMailPopup(profile_id){
+		function displayMailPopup(profile_id,memberName){
 			var roleId = ${cacheGuest.roleId};
 			$("#profile_id").val(profile_id);
+			$("#memberName").val(memberName);
+			$("#member_name_todisplay").html(" to "+memberName);
+			var option_selection = "${default_text_option}";
+			if(typeof option_selection != "undefined"){ 
+				if(option_selection=="1"){
+					$("#default_text_opt").attr("checked",true);
+				}else{
+					$("#default_text_opt").removeAttr("checked");
+				}
+			}
+			
 			if(roleId==4 || roleId==12 || roleId==13){
 				document.searchForm2.action = "memberShipPage"
 				document.searchForm2.submit();
@@ -1413,9 +1424,7 @@ tooltip:hover:after {
 					alert("Your membership validity period is over. Renew your membership plan and get more profiles");
 					return false;
 				}
-				//var default_text = "${mail_default_text}";
-				//alert("##:"+default_text);
-				//$("#mail_content").val(default_text);
+				
 				$('#myModal').show();
 				$('#myModal').modal();
 				
@@ -3082,19 +3091,23 @@ img.hover-shadow {
       <div class="modal-content">
         <div class="modal-header" style="background: yellowgreen; border-radius: 0px; ">
           <button type="button" id="closeBtn" class="close" data-dismiss="modal" style="margin-top:0px; margin-right:8px; font-size: 28px;color: black;">&times;</button>
-          <h4 class="modal-title" style="color: aliceblue;padding: 10px; padding-left: px; font-size: 18px;">Send Message to Hamsa Lekha Tenneti</h4>
+          <h4 class="modal-title" style="color: aliceblue;padding: 10px; padding-left: px; font-size: 18px;">Send Message <span id="member_name_todisplay"></span></h4>
         </div>
         <div class="modal-body" style="background: transparent;">
         <label>Enter Your Message</label>
         	<input type="hidden" name="profile_id" id="profile_id">
+        	<input type="hidden" id="memberName" name="memberName">
         	<c:if test="${default_text_option == '0' }">
         		<textarea id="mail_content" placeholder="Enter Your Message..." onblur="this.placeholder='Enter Your Message'" onfocus="this.placeholder=''" name="mail_content" cols="70" rows="10"style="margin-top:5px;" ></textarea>
         	</c:if>
-         	<%-- <c:if test="${default_text_option != '0' }">
-        		<textarea id="mail_content" placeholder="" onblur="this.placeholder='Enter Your Message'" onfocus="this.placeholder=''" name="mail_content" cols="70" rows="10"  style="white-space: pre-wrap;margin-top:5px;" >
-        			<c:out value="${mail_default_text}" />
-        		</textarea>
+        	<%-- <c:if test="${default_text_option != '0' }">
+        		<textarea id="mail_content" placeholder="Enter Your " onblur="this.placeholder='Enter Your Message'" onfocus="this.placeholder=''" name="mail_content" cols="70" rows="10"style="margin-top:5px;" ></textarea>
         	</c:if> --%>
+         	 <c:if test="${default_text_option != '0' }">
+        		<textarea id="mail_content" placeholder="" onblur="this.placeholder='Enter Your Message'" onfocus="this.placeholder=''" name="mail_content" cols="70" rows="10"  style="white-space: pre-wrap;margin-top:5px;" ><c:out value="${mail_default_text}" />
+        			
+        		</textarea>
+        	</c:if> 
          	
          	<br><div class="clearfix"></div>
           	

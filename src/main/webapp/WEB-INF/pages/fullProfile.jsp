@@ -435,7 +435,7 @@ xpopup
 			<h4   style="padding="10px;"></h4><h3>Personal Information</h3><hr>
 			<div class="panel panel-success" >
 			<div class="panel-body table-responsive">			
-			<div class="col-md-11">	<strong class="font">About My ${cacheGuest.createProfileFor}</strong>
+			<div class="col-md-11">	<strong class="font">About My ${profileBean.createProfileFor}</strong>
 				<div id="about_view" class="all_visible_divs">
 					<p id="aboutMyself_val">
 						<c:if test="${not empty profileBean.aboutMyself}">${profileBean.aboutMyself}</c:if>

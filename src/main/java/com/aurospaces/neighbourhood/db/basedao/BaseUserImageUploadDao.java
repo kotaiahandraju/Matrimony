@@ -76,13 +76,7 @@ public class BaseUserImageUploadDao{
 				
 				Number unId = keyHolder.getKey();
 				objUserImagesBean.setId(unId.intValue());
-				// set as profile pic if profile pic is not yet set 
-				String picQry = "select count(*) from user_images where user_id = "+objUserImagesBean.getUserId()+" and status = '1' and is_profile_picture = '1'";
-				int profile_pic_count = jdbcTemplate.queryForInt(picQry);
-				if(profile_pic_count==0){
-					picQry = "update user_images set is_profile_picture = '1' where id = "+objUserImagesBean.getId();
-					int updated = jdbcTemplate.update(picQry);
-				}
+				
 		}
 		else
 		{
