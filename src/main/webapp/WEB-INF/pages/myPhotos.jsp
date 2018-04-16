@@ -192,7 +192,7 @@ function setAsProfilePicture(photoId,photoImage){
 		  	var jsonobj = $.parseJSON(data);
 		  	var msg = jsonobj.message;
 		  	if("success" == msg){
-		  		var str = '<img id="profilepic" src="'+photoImage+'" class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: 120px;width: 150px;">';
+		  		var str = '<img id="profilepic" src="'+photoImage+'" class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: auto;width: 100%;">';
 		  		//$("#profilepic").prop("src",photoImage);
 		  		$("#profilePicOuterTag").html('');
 		  		$("#profilePicOuterTag").html(str);

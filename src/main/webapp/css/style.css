@@ -3961,7 +3961,7 @@ li [class*=" glyphicon-regular-"], .nav li [class^="glyphicon-regular-"],
   filter: none;
 }
 .dropdown-menu > li:focus > a, .dropdown-menu > li:hover > a {
-  background: #ddd;
+  background: #1ba261;
   color: #333;
   filter: none;
 }
@@ -5059,7 +5059,8 @@ label, input, button, select, textarea {
 }
 
 #navigation {
-  background: #368ee0;
+  background: #1ba261;
+  /* background:url("../images/topnavbg.gif") ; */
   position: relative;
   z-index: 100;
 }
@@ -5079,14 +5080,14 @@ label, input, button, select, textarea {
   margin-left: 0;
 }
 #navigation .dropdown-menu > li.dropdown-submenu:hover > a, #navigation .dropdown-menu > li.dropdown-submenu:focus > a {
-  background: #368ee0;
+  /* background: #368ee0; */
   color: #fff;
 }
 #navigation .dropdown-menu > li.dropdown-submenu:hover > a:after, #navigation .dropdown-menu > li.dropdown-submenu:focus > a:after {
   border-left-color: #fff;
 }
 #navigation .dropdown-menu > li > a:hover {
-  background: #368ee0;
+  /* background: #368ee0; */
   color: #fff;
   filter: none;
 }
@@ -5300,7 +5301,7 @@ label, input, button, select, textarea {
   float: left;
 }
 #navigation .user .dropdown.open {
-  background: #1b67af;
+/*   background: #1b67af; */
 }
 #navigation .user .dropdown > a {
   display: block;
@@ -5309,7 +5310,7 @@ label, input, button, select, textarea {
   text-decoration: none;
 }
 #navigation .user .dropdown > a:hover {
-  background: #1b67af;
+/*   background: #1b67af; */
 }
 #navigation .user .dropdown > a img {
   margin-left: 10px;
@@ -5323,28 +5324,30 @@ label, input, button, select, textarea {
   margin: 0;
 }
 #navigation .main-nav > li.active > a {
-  background: #FFF;
+  /* background: #FFF; */
   text-decoration: none;
-  color: #2a2a2a;
+  color: #ffffff;
+  border-bottom:3px solid #fff;
+  font-size:14px;
 }
 #navigation .main-nav > li.active > a .caret {
-  border-top-color: #333;
+  border-top-color: #ffffff;
 }
 #navigation .main-nav > li.active > a:hover {
-  background: #FFF;
+  /* background: #FFF; */
 }
 #navigation .main-nav > li.active > a:hover .caret {
-  border-top-color: #333;
+  border-top-color: #fff;
 }
 #navigation .main-nav > li.open > a {
-  background: #1e74c5;
+ /*  background: #1e74c5; */
   text-decoration: none;
 }
 #navigation .main-nav > li.open > a .caret {
   border-top-color: #fff;
 }
 #navigation .main-nav > li.open.active > a {
-  background: #fff;
+ /*  background: #fff; */
 }
 #navigation .main-nav > li.open.active > .dropdown-menu {
   left: -2px;
@@ -5365,7 +5368,7 @@ label, input, button, select, textarea {
 }
 #navigation .main-nav > li > a:hover {
   text-decoration: none;
-  background: #1e74c5;
+  /* background: #1e74c5; */
 }
 #navigation .main-nav > li > a:hover .caret {
   border-top-color: #fff;
