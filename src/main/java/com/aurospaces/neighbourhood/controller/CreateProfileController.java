@@ -127,10 +127,11 @@ public class CreateProfileController {
 		return "createProfile";
 	}
 	
-	@RequestMapping(value = "/uploadPhotos/{id}/{page}")
+	@RequestMapping(value = "/uploadPhotos/{id}/{firstName}/{lastName}")
 	public String uploadPhotos(@ModelAttribute("createProfile") UsersBean objUsersBean, Model objeModel ,
-			HttpServletRequest request, HttpSession session, @PathVariable("id") int id,@PathVariable("page") String pageName) {
-		
+			HttpServletRequest request, HttpSession session, @PathVariable("id") int id,@PathVariable("firstName") String firstName,@PathVariable("lastName") String lastName) {
+		request.setAttribute("firstName", firstName);
+		request.setAttribute("lastName", lastName);
 		return "createUploadPhotos";
 	}
 	
