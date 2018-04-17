@@ -298,6 +298,35 @@ function displayMatches(listOrders) {
 				occName = "";
 			var ageStr = orderObj.age;
 			var age = ageStr.split(".")[0];
+			
+			var photos_list = orderObj.photosList;
+			var slider = "", displayStyle = ' ';
+			if(photos_list == "" || typeof photos_list == "undefined"){
+				slider = '<img src="img/default.png" class="img img-responsive thumbnail " style="margin-bottom:0;height: auto;width: 100%;" >';
+			}else{
+				smallerSlideIndex[orderObj.id] = 0;
+				var slider = "", displayStyle = ' ';
+				var photosArray = photos_list.split(",");
+				$.each(photosArray,function(index){
+					if(photosArray[index]==orderObj.profileImage){
+						displayStyle = ' style="display:block;" '
+					}else{
+						displayStyle = ' style="display:none;" ';
+					}
+					slider += '<div class="picstyle smallSlides'+orderObj.id+'" '+displayStyle+'>'
+							+'		<img src="'+photosArray[index]+'" class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: auto;width: 100%;" >'
+							+'</div>'
+				});
+				if(photosArray.length>1){
+					slider += '<p style="display: table;">'
+						+'	<a id="prevBtn'+orderObj.id+'" class="" style="text-decoration: none; margin: 0px 0px 0px 7px;" href="#no" onclick="plusSmallSlides(-1,'+orderObj.id+')">&#10094;</a>'
+						//+'	<span>'+(i+1)+' of '+photos_list.length+'</span><br>'
+	    			    +'	<a id="nextBtn'+orderObj.id+'" class="" style="text-decoration: none; margin-left: 41px;" href="#no" onclick="plusSmallSlides(1,'+orderObj.id+')">&#10095;</a>'
+						+'</p>'
+				}
+				
+			}
+			
 			var tblRow = '<div class="panel panel-default">'
 				+ '<div class="panel-heading">'
 				+ '<h5 class="panel-title">'
@@ -313,7 +342,8 @@ function displayMatches(listOrders) {
 				+ '</div>'
 				+ '<div class="panel-body">'
 				+ '<div class="col-md-2">'
-				+ '<a href="#"> <img src='+image+' class="img img-responsive thumbnail watermark_text beir"></a>'
+				//+ '<a href="#"> <img src='+image+' class="img img-responsive thumbnail watermark_text beir"></a>'
+				+ slider
             	+ '</div>'
             	+ '<div class="col-md-6">'
             	+ '<table>'

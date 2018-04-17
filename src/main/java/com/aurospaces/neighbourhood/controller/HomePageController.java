@@ -955,6 +955,24 @@ public class HomePageController {
 			int total_records = 0;//limit - viewed_count;
 			request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
 			if (listOrderBeans != null && listOrderBeans.size() > 0) {
+				//get photos
+				for(Map<String,String> profileObj:listOrderBeans){
+					List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos(Integer.parseInt(profileObj.get("id")));
+					if(photosList!=null && photosList.size()>0){
+						String imgStr = "";
+						for(Map<String,Object> photo:photosList){
+							if(StringUtils.isBlank(imgStr)){
+								imgStr = (String)photo.get("image");
+							}else
+								imgStr += ","+photo.get("image");
+						}
+						profileObj.put("photosList", imgStr);
+					}else{
+						profileObj.put("photosList", "");
+					}
+					
+					
+				}
 				objJson.put("results", listOrderBeans);
 				total_records = Integer.parseInt(((Map<String, String>)listOrderBeans.get(0)).get("total_records"));
 				objJson.put("total_records", total_records)	;
@@ -1280,6 +1298,24 @@ public class HomePageController {
 			int total_records = 0;//limit - viewed_count;
 			request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
 			if (listOrderBeans != null && listOrderBeans.size() > 0) {
+				//get photos
+				for(Map<String,String> profileObj:listOrderBeans){
+					List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos(Integer.parseInt(profileObj.get("id")));
+					if(photosList!=null && photosList.size()>0){
+						String imgStr = "";
+						for(Map<String,Object> photo:photosList){
+							if(StringUtils.isBlank(imgStr)){
+								imgStr = (String)photo.get("image");
+							}else
+								imgStr += ","+photo.get("image");
+						}
+						profileObj.put("photosList", imgStr);
+					}else{
+						profileObj.put("photosList", "");
+					}
+					
+					
+				}
 				objectMapper = new ObjectMapper();
 				sJson = objectMapper.writeValueAsString(listOrderBeans);
 				request.setAttribute("allOrders1", sJson);

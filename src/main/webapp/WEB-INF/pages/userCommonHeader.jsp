@@ -266,7 +266,7 @@ tooltip:hover:after {
 		
 		function shortList(profileId){
 			$("#id").val(profileId);
-			var profileObj = serviceUnitArray[profileId];
+			//var profileObj = serviceUnitArray[profileId];
 			var formData = new FormData();
 			formData.append('profile_id',profileId);
 			jQuery.fn.makeMultipartRequest('POST', 'shortList', false,
@@ -1907,7 +1907,9 @@ function getAllNotifications(){
     document.allNotificationsForm.submit();             // Submit the page
     return true;
 }
-
+function goBack() {
+    window.history.back();
+}
 
 	</script>
 	<script type="text/javascript">

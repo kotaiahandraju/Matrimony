@@ -326,7 +326,7 @@ xpopup
 			<form:hidden path="pageName"/>
 			<form:hidden path="id"/>
 			
-		<div class="col-md-8 products-grid-left">
+		<div class="col-md-8 products-grid-left" id="printProfile">
 		
             	<div class="panel panel-success">
             	
@@ -339,7 +339,7 @@ xpopup
 							<a href="#" id="fullProfilePicOuterTag" data-toggle="modal" data-target="#myModalNew"><img  src="${photosList[0].image}" class="hover-shadow cursor img img-responsive thumbnail watermark_text" style="margin-bottom:0;height:auto;width: 100%;" /></a>
 							<%-- <a href="#" id="fullProfilePicOuterTag"><img src="${photosList[0].image}" style="width:100%; height:auto;" onclick="openModal();currentSlide(1)" class="hover-shadow cursor watermark_text"></a> --%>
 						</div>	
-							<div id="gallery-wrapper">
+							<div id="gallery-wrapper" class="noPrint">
 								<!-- thumbnail images -->
 								  <div id="thumbs-wrapper">
 								    <div id="gallery" style="margin:-10px 8px 8px;width:200%">
@@ -394,10 +394,10 @@ xpopup
 							</c:otherwise>
 						</c:choose>
 						
-					 	<div class="col-md-12 likeprofile">
+					 	<div class="col-md-12 likeprofile noPrint">
 					 	<p>Like this profile? Take the next step by sending her a mail.</p>
 					 	<div class="col-md-4 profileskip">
-					 	<a href="#" class="btn btn-warning"><li  class="fa fa-envelope" aria-hidden="true"></li> Send Mail</a>
+					 	<a href="#" class="btn btn-warning" onclick="displayMailPopup(${profileBean.id},'${profileBean.firstName}'+' '+'${profileBean.lastName}')"><li  class="fa fa-envelope" aria-hidden="true"></li> Send Mail</a>
 					 	</div>
 					 	<div class="col-md-4 profileskip">
 					 	<a href="#" class="btn btn-default">Skip</a>
@@ -407,11 +407,11 @@ xpopup
     <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
     <span class="caret"></span></button>
     <ul class="dropdown-menu">
-      <li><a href="#">Shortlist</a></li>
-      <li><a href="#">Forward</a></li>
-      <li><a href="#">Print</a></li>
-      <li><a href="#">Ignore</a></li>
-      <li><a href="#">Back</a></li>
+      <li><a href="#" onclick="shortList_fullprofile(${profileBean.id})">Shortlist</a></li>
+      <!-- <li><a href="#">Forward</a></li> -->
+      <li><a href="#" class="noPrint" onclick="PrintElem()">Print</a></li>
+      <!-- <li><a href="#">Ignore</a></li> -->
+      <li><a href="#" onclick="goBack();">Back</a></li>
     </ul>
   </div></div>
 					 	
@@ -422,14 +422,14 @@ xpopup
 <div class="clearfix"></div>
             	
 
-<div class="cd-popup" role="alert">
+<!-- <div class="cd-popup" role="alert">
 	<div class="cd-popup-container">
 		<h4 >Privacy Settings</h4>
 		<p>Your privacy settings have been saved successfully.</p>
 		
 		<a href="#0" class="cd-popup-close img-replace">Close</a>
-	</div> <!-- cd-popup-container -->
-</div> <!-- cd-popup -->
+	</div> cd-popup-container
+</div> --> <!-- cd-popup -->
 					
 			</div><br>
 			<h4   style="padding="10px;"></h4><h3>Personal Information</h3><hr>
@@ -1250,6 +1250,67 @@ function toggleDiv(divElem){
   
   function picsPagination(){
 	  
+  }
+  
+  function shortList_fullprofile(profileId){
+		$("#id").val(profileId);
+		//var profileObj = serviceUnitArray[profileId];
+		var formData = new FormData();
+		formData.append('profile_id',profileId);
+		jQuery.fn.makeMultipartRequest('POST', 'shortList', false,
+				formData, false, 'text', function(data){
+	    		var jsonobj = $.parseJSON(data);
+	    		var msg = jsonobj.message;
+	    		if(typeof msg != "undefined"){
+	    			if(msg=="success"){
+	    				alert("This profile has been shortlisted.");
+	    			}else{
+	    				alert("Some problem occured. Please try again.");
+	    			}
+	    		}
+	    		
+		});
+}
+
+  function PrintElem(elem)
+  {
+  	$(".noPrint").hide();
+      Popup($("#printProfile").html());
+      
+  }
+
+
+  function Popup(data)
+  {
+  	var mywindow = window.open('','new div');
+
+      var is_chrome = Boolean(mywindow.chrome);
+      var isPrinting = false;
+      mywindow.document.write('<html><head> <link rel="stylesheet" type="text/css" href="../assets/css/img.css"><link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css"></head><body>');
+      mywindow.document.write(data);
+     
+      mywindow.document.write('</body></html>');
+      mywindow.document.close(); // necessary for IE >= 10 and necessary before onload for chrome
+
+  
+  $(".noPrint").show();
+      if (is_chrome) {
+          mywindow.onload = function() { // wait until all resources loaded 
+              mywindow.focus(); // necessary for IE >= 10
+              mywindow.print();  // change window to mywindow
+              mywindow.close();// change window to mywindow
+          };
+      
+      
+     } else {
+          mywindow.document.close(); // necessary for IE >= 10
+          mywindow.focus(); // necessary for IE >= 10
+
+          mywindow.print();
+          mywindow.close();
+     }
+    
+      return true;
   }
   
 </script>
