@@ -18,11 +18,7 @@ hr:hover {
     background-color: #ccc;
 }
 .allnoti {
-    /* background-color: #f7f0f0; */
-}
-.notip p {
-    letter-spacing: px;
-    font-size: 13px;
+    background-color: #f7f0f0;
 }
 </style>
 <script>
@@ -37,7 +33,7 @@ function notificationId(id){
 
 
 <div class="container" style="background:#fff; padding:15px;">
-	<div class="col-md-12">
+	<div class="col-md-9">
 									<h5>Your Notifications <span class="pull-right">Notification Settings</span></h5>
 <hr>
 
@@ -53,7 +49,7 @@ function notificationId(id){
 															<img src="img/default.png" style="max-width: 100%; height:60px;padding: 5px;" class="img-responsive">
 														</c:if>
 													</div>
-													<div class="col-md-10 notip" style="padding-right:0px; padding-left:0px;" >
+													<div class="col-md-10" style="padding-right:0px; padding-left:0px;" >
 														<p>
 															<a  href="fullProfile?pid=${notification.profile_id}&nid=${notification.id}&rfrm=notifications"  target="_blank" >
 																<b><c:out value="${notification.fullName}" /> (<c:out value="${notification.username}" />)</b> 

@@ -231,7 +231,7 @@ color: #cfcfcf !important;
 								<h3><legend>Membership Details</legend></h3>
 									<tr>
 										<td>Matrimony ID</td>
-										<td>:</td>
+										<td>: &nbsp;</td>
 										<td id="matrimony_id"></td>
 									</tr>
 									<tr>
@@ -266,21 +266,21 @@ color: #cfcfcf !important;
 								<h3><legend>Mobile Number Count</legend></h3>
 									<tr>
 										<td>Total  Count &nbsp;</td>
-										<td>:</td>
+										<td>: &nbsp;</td>
 										<td id="total_profile_count"></td>
 									</tr>
 									<tr>
 										<td> Count Left</td>
 										<td>:</td>
 										<td id="left_profile_count"></td>
-									</tr>
+									</tr> 
 								</table>
 								<br>
 								<table>
 								<h3><legend>SMS Count</legend></h3>
 									<tr>
 										<td>Total Count &nbsp;</td>
-										<td>:</td>
+										<td>: &nbsp;</td>
 										<td id="total_profile_count"></td>
 									</tr>
 									<tr>

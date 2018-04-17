@@ -140,10 +140,9 @@
 	<definition name="allNotificationsInAdmin" extends="base.definition">
 		<put-attribute name="body" value="/WEB-INF/pages/allNotificationsInAdmin.jsp" />
 	</definition>
-	
-	
-	
-	
+	<definition name="paymentreport" extends="base.definition">
+		<put-attribute name="body" value="/WEB-INF/pages/paymentReport.jsp" />
+	</definition>
 </tiles-definitions>
 
 

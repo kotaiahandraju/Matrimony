@@ -1428,7 +1428,7 @@ public class UsersDao extends BaseUsersDao
 								+" (select count(*) from users u,express_intrest ei where u.id=ei.profile_id and ei.user_id = "+userId+" and ei.profile_viewed_status = '1' and ei.mobile_no_viewed_status = '0' and ei.interested='0' "
 								+"   and "+subStr+" ) as viewedNotContactedCount, "
 								+" (select count(*) from  users u,express_intrest  ei where u.id = ei.user_id and ei.profile_id = "+userId+" and ei.short_listed = '1' and "+subStr+" ) as shortListedCount, "
-								+" (select count(*) from user_notifications where user_id = "+objUserBean.getId()+" and read_status = '0') as notificationsCount,"
+								+" (select count(*) from user_notifications where profile_id = "+objUserBean.getId()+" and read_status = '0') as notificationsCount,"
 								+" (select count(*) from express_intrest ei where ei.user_id = "+objUserBean.getId()+" and ei.default_text_option = '1') as default_text_option, "
 								+" (select mail_default_text from express_intrest ei where ei.user_id = "+objUserBean.getId()+" and ei.default_text_option = '1' group by ei.user_id ) as mail_default_text ";
 					
@@ -2901,10 +2901,10 @@ public boolean deletePhoto(String photoId){
 
 		jdbcTemplate = custom.getJdbcTemplate();
 		StringBuffer buffer = new StringBuffer();
-		buffer.append("select *,(select concat(u.firstName,' ',u.lastName) from users u where u.id=user_notifications.profile_id) as fullName, "
-				+" (select u.username from users u where u.id=user_notifications.profile_id) as userName,date_format(user_notifications.created_on,'%d-%M-%Y') as created_on, "
-				+" (select uimg.image from user_images uimg where uimg.user_id=user_notifications.profile_id and  uimg.status = '1' and uimg.is_profile_picture='1') as profileImage "
-				+" from user_notifications where user_id = "+objUserBean.getId()+" and user_type = 'member' order by created_on desc ");
+		buffer.append("select *,(select concat(u.firstName,' ',u.lastName) from users u where u.id=user_notifications.user_id) as fullName, "
+				+" (select u.username from users u where u.id=user_notifications.user_id) as userName,date_format(user_notifications.created_on,'%d-%M-%Y') as created_on, "
+				+" (select uimg.image from user_images uimg where uimg.user_id=user_notifications.user_id and  uimg.status = '1' and uimg.is_profile_picture='1') as profileImage "
+				+" from user_notifications where profile_id = "+objUserBean.getId()+" and user_type = 'member' order by created_on desc ");
 		if(!all_notifications){
 			buffer.append(" limit 10 offset 0");
 		}
@@ -2919,9 +2919,9 @@ public boolean deletePhoto(String photoId){
 
 		jdbcTemplate = custom.getJdbcTemplate();
 		StringBuffer buffer = new StringBuffer();
-		buffer.append("select *,(select concat(u.firstName,' ',u.lastName) from users u where u.id=user_notifications.profile_id) as fullName, "
-				+" (select u.username from users u where u.id=user_notifications.profile_id) as userName,date_format(user_notifications.created_on,'%d-%M-%Y') as created_on, "
-				+" (select uimg.image from user_images uimg where uimg.user_id=user_notifications.profile_id and  uimg.status = '1' and uimg.is_profile_picture='1') as profileImage "
+		buffer.append("select *,(select concat(u.firstName,' ',u.lastName) from users u where u.id=user_notifications.user_id) as fullName, "
+				+" (select u.username from users u where u.id=user_notifications.user_id) as userName,date_format(user_notifications.created_on,'%d-%M-%Y') as created_on, "
+				+" (select uimg.image from user_images uimg where uimg.user_id=user_notifications.user_id and  uimg.status = '1' and uimg.is_profile_picture='1') as profileImage "
 				+" from user_notifications where user_type = 'admin' and notifi_type = '"+notification_type+"' order by created_on desc ");
 		if(!all_notifications){
 			buffer.append(" limit 10 offset 0");
@@ -2974,7 +2974,7 @@ public boolean deletePhoto(String photoId){
 		StringBuffer buffer = new StringBuffer();
 		try {
 			buffer.append("insert into user_notifications(created_on,user_type,user_id,profile_id,notifi_type,amount) "
-							+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','admin',3,"+profileId+",'payment','"+amount+"')");;
+							+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','admin',"+profileId+",3,'payment','"+amount+"')");;
 			int iCount = jdbcTemplate.update(buffer.toString());
 			if (iCount == 1) {
 				inserted = true;
@@ -2993,7 +2993,7 @@ public boolean deletePhoto(String photoId){
 		StringBuffer buffer = new StringBuffer();
 		try {
 			buffer.append("insert into user_notifications(created_on,user_type,user_id,profile_id,notifi_type) "
-							+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','admin',3,"+profileId+",'payment')");;
+							+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','admin',"+profileId+",3,'payment')");;
 			int iCount = jdbcTemplate.update(buffer.toString());
 			if (iCount == 1) {
 				inserted = true;
@@ -3006,5 +3006,49 @@ public boolean deletePhoto(String photoId){
 		}
 		return inserted;
 	}
+	
+	public List<Map<String, Object>> paymentreporsData(ReportsBean objreReportsBean){
+
+		jdbcTemplate = custom.getJdbcTemplate();
+		StringBuffer buffer = new StringBuffer();
+		
+		buffer.append("select u.id,sta.name as currentStateName,cit.name as currentCityName,u.occupation,ifnull(oc.name,'--') as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
+				+"u.firstName, u.lastName, u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName, u.currentCountry,co.name as currentCountryName, " 
+				+"u.currentState, u.currentCity, " 
+				+"u.maritalStatus, u.caste,c.name as casteName, u.gotram, u.star,s.name as starName, u.dosam, u.dosamName, u.education, u.workingWith, u.companyName, " 
+				+"u.annualIncome, u.monthlyIncome, u.diet, u.smoking, u.drinking, u.height ,h.inches,h.cm, u.bodyType,b.name as bodyTypeName, u.complexion,com.name as complexionName, ifnull(u.mobile,'---') as mobile, " 
+				+"u.aboutMyself, u.disability, u.status, u.showall,ur.userId, rAgeFrom, rAgeTo, "
+				+"rHeight, rMaritalStatus, rReligion,re1.name as requiredReligionName, rCaste,c1.name as requiredCasteName, rMotherTongue,l1.name as requiredMotherTongue,haveChildren,rCountry , con1.name as requiredCountry,rState,rEducation,e1.name as requiredEducationName, "
+				+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,floor((datediff(current_date(),u.dob))/365) as age, IFNULL(p.name, 'Free Register') as planPackage,p.price as price from users u left join userrequirement ur on u.id=ur.userId "
+				+"left join religion re on re.id=u.religion left join language l on l.id=u.motherTongue left join countries co on co.id=u.currentCountry "
+				+"left join cast c on c.id=u.caste left join star s on s.id =u.star left join height h on h.id=u.height left join body_type b on b.id=u.bodyType left join religion re1  on re1.id=rReligion "
+				+"left join complexion com on com.id =u.complexion left join cast c1 on c1.id=rCaste left join language l1 on l1.id=rMotherTongue "
+				+"left join countries con1 on con1.id=rCountry left join education e1 on e1.id=rEducation left join occupation oc1 on oc1.id=rOccupation  left join user_images uimg on uimg.user_id=u.id left join occupation oc on u.occupation=oc.id left join education ed on ed.id=u.education "
+				+ " left join state sta on sta.id=u.currentState left join city cit on cit.id=u.currentCity left join package p on u.package_id = p.id "
+				+" where 1=1  ");
+		
+					 if(StringUtils.isNotBlank(objreReportsBean.getPackages())){
+						buffer.append( " and u.package_id ="+objreReportsBean.getPackages() );
+					}
+					if(StringUtils.isNotBlank(objreReportsBean.getFromdate()) && StringUtils.isNotBlank(objreReportsBean.getTodate())){
+						buffer.append( " and Date(u.created_time) BETWEEN Date('"+new java.sql.Timestamp(objreReportsBean.getFromdate1().getTime())+"') AND Date('"+new java.sql.Timestamp(objreReportsBean.getTodate1().getTime())+"') " );
+					}
+					if(StringUtils.isNotBlank(objreReportsBean.getCaste())){
+						buffer.append( " and u.caste="+objreReportsBean.getCaste() );
+					}
+					
+							buffer.append(" group by u.id ");
+							buffer.append(" order by u.created_time desc ");
+							String sql =buffer.toString();
+							System.out.println(sql);
+							
+							
+							List<Map<String, Object>> result = jdbcTemplate.queryForList(sql);
+							return result;
+		
+	
+	}
+	
+	
 }
 
