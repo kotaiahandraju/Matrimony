@@ -172,7 +172,7 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label required">Date of Birth <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-									<form:input path="dob" onchange="removeBorder(this.id)" class="form-control validate" placeholder="Enter Date of Birth" readonly="readonly"/>
+									<form:input path="dob" onchange="removeBorder(this.id)" class="form-control validate" placeholder="Enter Date of Birth"  readonly="true" />
 <!-- 									  	<input type="text" name="dob" onclick="removeBorder(this.id)" class="form-control" id="dob" placeholder="Enter Date of Birth" readonly="readonly"> -->
 								  		<div><form:errors path="dob" cssClass="error" /></div>
 									</div>

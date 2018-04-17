@@ -57,7 +57,7 @@
 	<div class="form-group">
 	
 			<label for="">Date of Birth</label>
-			<form:input type="text"  path="dob" onclick="removeBorder(this.id)" class="form-control"  placeholder="Enter Date of Birth" readonly="readonly" />
+			<form:input type="text"  path="dob" onclick="removeBorder(this.id)" class="form-control"  placeholder="Enter Date of Birth" readonly="true"/>
 	 	 
 	 </div>
 </div>

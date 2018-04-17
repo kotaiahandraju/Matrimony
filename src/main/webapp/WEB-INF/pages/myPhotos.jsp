@@ -2,6 +2,11 @@
 <link href="css/imgareaselect-default.css" rel="stylesheet" media="screen">
 <link rel="stylesheet" href="css/jquery.awesome-cropper.css">
 <style>
+canvas{
+display : none
+}
+
+
 .ui-dialog-titlebar-close
 {
  width: 25px;
@@ -243,7 +248,7 @@ $(".dashboard").addClass("active");
 <script>
     $(document).ready(function () {
         $('#imageName').awesomeCropper(
-        { width: 150, height: 150, debug: true }
+        { width: 626, height: 417, debug: true }
         );
     });
     </script> 
