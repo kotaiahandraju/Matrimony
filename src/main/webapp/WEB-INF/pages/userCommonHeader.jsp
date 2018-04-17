@@ -686,7 +686,7 @@ tooltip:hover:after {
 						mobile_num_Str = '<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;float:left;">&nbsp;+91-'+orderObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;float:left;color:#4baa26;">Verified </span>)</font></span>';
 					}else{
 						//mobile_num_Str = '<span ><a href="#no" type="button" style="margin: 11px 0px 10px 0px;" class="btn btn-info btn-sm" onclick="displayMobileNum('+orderObj.id+')">View Mobile Number</a></span>';
-						mobile_num_Str = '<span id="mobileTD'+orderObj.id+'"><h2 class="pull-right"><a href="#" data-toggle="tooltip" data-placement="bottom" title="View Mobile Number" onclick="displayMobileNum('+orderObj.id+')"><img src="images/Mobile_Icon.png"/> &nbsp;</a></h2></span>';
+						mobile_num_Str = '<span id="mobileTD'+orderObj.id+'"><h2 style="margin-top:10px;" class="pull-right"><a href="#" data-toggle="tooltip" data-placement="bottom" title="View Mobile Number" onclick="displayMobileNum('+orderObj.id+')"><img style="margin-top:-10px;" src="images/Mobile_Icon.png"/> &nbsp;</a></h2></span>';
 					}
 					var profession = orderObj.occupationName;
 					if((profession == null) || profession == ""){

@@ -74,7 +74,11 @@
         }
     </style>
 <style>
-            	
+       .anin{
+       border-radius:0px;
+       width : 187px;
+       }     	
+       
 .img-replace {
   
   display: inline-block;
@@ -896,8 +900,8 @@ xpopup
 <div class="row">
 <div class="form-group">
   <label class="col-md-4 control-label" for="textinput">Annual Income</label>  
-  <div class="col-md-7">
-        <form:select path="rAnnualIncome" class="form-control u1">
+  <div class="col-md-3">
+        <form:select path="rAnnualIncome" class="form-control u1 anin">
             <form:option value="">-- Annual Income --</form:option>
             <form:option value="Doesn't Matter">Doesn't Matter</form:option>
             <form:option value="Upto INR 1 Lakh">Upto INR 1 Lakh</form:option>

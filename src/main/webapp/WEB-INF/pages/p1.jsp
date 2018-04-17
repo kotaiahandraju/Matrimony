@@ -349,9 +349,7 @@ $('#rAgeFrom').change(function() {
 	}
 });
 </script>   						
-=======
 </script>   				
->>>>>>> f26d2ee6ef2989b199c79a02622c70c64739bb54
 						<div class="row">
 						<div class="col-md-4">
 								<div class="form-group">
