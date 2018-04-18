@@ -1117,7 +1117,7 @@ public class HomePageController {
 			UsersBean profileBean = objUsersDao.loginChecking(profile_id);
 			request.setAttribute("profileBean", profileBean);
 			List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos(profile_id);
-			request.setAttribute("photosList", photosList);
+			request.setAttribute("fullProfilePhotosList", photosList);
 			request.setAttribute("photosListSize", photosList.size());
 			
 		} catch (Exception e) {

@@ -664,7 +664,7 @@ function fullProfile(profile_id){
 	} */
 	$("#id").val(profile_id);
 	document.searchForm2.action = "fullProfile"
-    //document.searchForm2.target = "_blank";    // Open in a new window
+    document.searchForm2.target = "_blank";    // Open in a new window
     document.searchForm2.submit();             // Submit the page
     return true;
 	

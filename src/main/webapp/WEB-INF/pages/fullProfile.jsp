@@ -331,12 +331,12 @@ xpopup
             	<div class="panel panel-success">
             	
 					<div class="col-md-5"> <h4></h4>
-						<c:if test="${empty photosList}">
+						<c:if test="${empty fullProfilePhotosList}">
 							<img id="img_inpage" src="img/default.png" class="img-responsive" style="margin-bottom:0;">
 						</c:if>
-						<c:if test="${not empty photosList}">
+						<c:if test="${not empty fullProfilePhotosList}">
 						<div class="fullprofile" style="height:220px; overflow:hidden;"">	
-							<a href="#" id="fullProfilePicOuterTag" data-toggle="modal" data-target="#myModalNew"><img  src="${photosList[0].image}" class="hover-shadow cursor img img-responsive thumbnail watermark_text" style="margin-bottom:0;height:auto;width: 100%;" /></a>
+							<a href="#" id="fullProfilePicOuterTag" data-toggle="modal" data-target="#myModalFullProfile"><img  src="${fullProfilePhotosList[0].image}" class="hover-shadow cursor img img-responsive thumbnail watermark_text" style="margin-bottom:0;height:auto;width: 100%;" /></a>
 							<%-- <a href="#" id="fullProfilePicOuterTag"><img src="${photosList[0].image}" style="width:100%; height:auto;" onclick="openModal();currentSlide(1)" class="hover-shadow cursor watermark_text"></a> --%>
 						</div>	
 							<div id="gallery-wrapper" class="noPrint">
@@ -344,7 +344,7 @@ xpopup
 								  <div id="thumbs-wrapper">
 								    <div id="gallery" style="margin:-10px 8px 8px;width:200%">
 								    	<c:set var="counter2" value="${0}" /> 
-								    	<c:forEach items="${photosList}" var="photo" >
+								    	<c:forEach items="${fullProfilePhotosList}" var="photo" >
 								    		<c:set var="counter2" value="${counter2+1}" />
 									      	<div class="profilethumbnail" style="float: left;
     width: 69px;
@@ -399,9 +399,9 @@ xpopup
 					 	<div class="col-md-4 profileskip">
 					 	<a href="#" class="btn btn-warning" onclick="displayMailPopup(${profileBean.id},'${profileBean.firstName}'+' '+'${profileBean.lastName}')"><li  class="fa fa-envelope" aria-hidden="true"></li> Send Mail</a>
 					 	</div>
-					 	<div class="col-md-4 profileskip">
+					 	<!-- <div class="col-md-4 profileskip">
 					 	<a href="#" class="btn btn-default">Skip</a>
-					 	</div>
+					 	</div> -->
 					 	<div class="col-md-4 profileskip">
 					 	<div class="dropdown">
     <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
@@ -411,7 +411,7 @@ xpopup
       <!-- <li><a href="#">Forward</a></li> -->
       <li><a href="#" class="noPrint" onclick="PrintElem()">Print</a></li>
       <!-- <li><a href="#">Ignore</a></li> -->
-      <li><a href="#" onclick="goBack();">Back</a></li>
+      <!-- <li><a href="#" onclick="goBack();">Back</a></li> -->
     </ul>
   </div></div>
 					 	
@@ -969,9 +969,47 @@ in a profile. </p></div>
 </div>
 </div>
 </div>
+<!-- Modal -->
+  <div tabindex="-1" class="modal fade in" id="myModalFullProfile" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+    
+      <div class="modal-content">
+        
+        <div class="modal-body">
+       
+         
+
+
+<section class="welcome">
+    <div class="container">
+
+        <div class="row">
+            
+  <button style="float:right;" type="button" class="close" data-dismiss="modal">&times;</button>
+                <div id="mySlider" class="raxus-slider" data-autoplay="3000" data-arrows="show"  data-dots="show" data-keypress="true" data-thumbnail="bottom">
+                	<ul class="slider-relative" id="relative">
+						<c:forEach items="${fullProfilePhotosList}" var="photo" >
+					      	<li class="slide fix-width">
+	                            <img src="${photo.image}" alt="" class="watermark_text">
+	                        </li>
+						</c:forEach>
+                    </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+        </div>
+       
+      </div>
+      
+    </div>
+  </div>
 <script type="text/javascript">
 var slideIndex = 1;
-showSlides(slideIndex);
+//showSlides(slideIndex);
 var allowed_limit = ${allowed_profiles_limit};
 $(document).ready(function(){
 	$('#gallery').gallery({
