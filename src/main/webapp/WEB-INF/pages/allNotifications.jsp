@@ -18,8 +18,10 @@ hr:hover {
     background-color: #ccc;
 }
 .allnoti {
-    background-color: #f7f0f0;
+    background-color: #fff;
 }
+.allnoti p {
+font-size:14px;}
 </style>
 <script>
 
@@ -33,7 +35,7 @@ function notificationId(id){
 
 
 <div class="container" style="background:#fff; padding:15px;">
-	<div class="col-md-9">
+	<div class="col-md-12">
 									<h5>Your Notifications <span class="pull-right">Notification Settings</span></h5>
 <hr>
 
@@ -83,5 +85,5 @@ function notificationId(id){
 											</form:form> --%>
 									</c:if>
 								
-</div>
+</div></div>
 <%@ include file="userFooter.jsp"%>
