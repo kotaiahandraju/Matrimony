@@ -139,6 +139,9 @@ public class LoginController {
 		
 			Map<String,Object> interestCounts = objUsersDao.getInterestCounts(objUserBean);
 			long notificationsCount = (Long)interestCounts.get("notificationsCount");
+			// get the logged in users's photos
+			List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos(objUserBean.getId());
+			session.setAttribute("logged_in_user_photosList", photosList);
 			if(objUserBean.getStatus().equals("1")){
 				session.setAttribute("notificationsCount", notificationsCount);
 				List<Map<String,Object>> notificationsList = objUsersDao.getNotifications(objUserBean,false);

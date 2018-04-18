@@ -3194,7 +3194,7 @@ img.hover-shadow {
   <button style="float:right;" type="button" class="close" data-dismiss="modal">&times;</button>
                 <div id="mySlider" class="raxus-slider" data-autoplay="3000" data-arrows="show"  data-dots="show" data-keypress="true" data-thumbnail="bottom">
                 	<ul class="slider-relative" id="relative">
-						<c:forEach items="${photosList}" var="photo" >
+						<c:forEach items="${logged_in_user_photosList}" var="photo" >
 					      	<li class="slide fix-width">
 	                            <img src="${photo.image}" alt="" class="watermark_text">
 	                        </li>
