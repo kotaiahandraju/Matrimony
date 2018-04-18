@@ -80,7 +80,7 @@ margin-left:10px;
 	<div class="container" style="background: #FFF;">
 	<div class="col-md-12">
 <h4>Viewed Not Contacted List</h4>
-<p>Listed below are the profiles that you viewed but not contacted.</p><p> <input type="checkbox"/>  Show profiles with photo   
+<p>Listed below are the profiles that you viewed but not contacted.</p><p> <input type="checkbox" id="withphotos" onclick="filterProfiles()"/>  Show profiles with photo   
 </p>
 </div><br><br><br>
 		<div class="mid-grids">
@@ -599,5 +599,37 @@ $(".open-button").on("click", function() {
 	$(".close-button").on("click", function() {
 	  $(this).closest('.collapse-group').find('.collapse').collapse('hide');
 	});
+	
+	function filterProfiles(){
+		
+		var with_photo = $("#withphotos").prop("checked");
+		var formData = new FormData();
+		formData.append('withPhoto',with_photo);
+		$.fn.makeMultipartRequest('POST', 'newMatchesAjaxAction', false,
+				formData, false, 'text', function(data){
+	    		var jsonobj = $.parseJSON(data);;
+	    		var total_records = jsonobj.total_records;
+	    		var newMatches = jsonobj.new_matches;
+	    		total_items_count = total_records;
+	    		if(newMatches==""){
+	    			
+	    			var str = '<div class="alert alert-danger" style="margin-bottom: 0px;padding: 5px;"><h6>No matches found..!</h6></div>';
+	    			$('#searchResults').html('');
+	    			$(str).appendTo("#searchResults");
+	    			$("#table_footer").prop("hidden",true);
+	    			$("#altLists").prop("hidden",true);
+	    		}else{
+	    			$("#altLists").asPaginator('destroy');
+	    			paginationSetup(total_records);
+	    			$("#altLists").asPaginator('enable');
+	    			displayMatches_matches(newMatches,"newMatches");
+	    			$("#table_footer").removeAttr("hidden");
+	    			$("#altLists").removeAttr("hidden");
+	    			displayTableFooter(1);
+	    			
+	    		}
+		});
+	}
+	
 </script>
 <%@ include file="userFooter.jsp"%>

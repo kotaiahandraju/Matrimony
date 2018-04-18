@@ -23,16 +23,16 @@ display : none
 					
 				<div id="imagesDiv" class="row" style="margin-bottom: 0.4em;">
 			      	<c:forEach items="${photosList}" var="photo" >
-			      		<div id="div${photo.id}" class="col-md-3">
+			      		<div id="div${photo.id}" class="col-md-3" style="text-align:center;">
  			      			<a href="${photo.image}" data-littlelightbox-group="gallery" class="lightbox thumbnail watermark_text1"><img id="photo${photo.id}" src="${photo.image}" class="img-responsive thumbnail watermark_text" style="margin-bottom:0;"></a>
 			      			<c:if test="${photo.approved_status == '0' }">
-			      					<span>Approval Pending</span>
+			      					<span style="display:block;">Approval Pending</span>
 			      			</c:if>
 			      			<c:if test="${photo.approved_status == '1' }">
 			      				<c:if test="${photo.is_profile_picture == '1' }">
 			      					<div class="all_pics_normal">
 				      					<span>Profile Picture</span>
-				      				</div><br>
+				      				</div>
 				      				<div class="all_pics_a" hidden="true">
 				      					<a id="profilepic${photo.id}" href="#" class="all_pics" data-littlelightbox-group="gallery" onclick="setAsProfilePicture(${photo.id},'${photo.image}')">Set as Profile Picture</a>
 				      				</div>
@@ -42,14 +42,14 @@ display : none
 				      					<span>Profile Picture</span>
 				      				</div>
 				      				<div class="all_pics_a">
-				      					<a style="float: right;" id="profilepic${photo.id}" href="#" class="all_pics" data-littlelightbox-group="gallery" onclick="setAsProfilePicture(${photo.id},'${photo.image}')">Set as Profile Picture</a>
+				      					<a style="text-align:center;" id="profilepic${photo.id}" href="#" class="all_pics" data-littlelightbox-group="gallery" onclick="setAsProfilePicture(${photo.id},'${photo.image}')">Set as Profile Picture</a>
 				      				</div>
 				      			</c:if>
 			      			</c:if>
 			      			<c:if test="${photo.approved_status == '2' }">
-			      				<span>Rejected by Admin</span>
+			      				<span style="text-align:center;display:block;">Rejected by Admin</span>
 			      			</c:if>
-			      			&nbsp;<a href="#" onclick="deletePhoto(${photo.id},'div${photo.id}')" style="float: right;margin-right: 90px;margin-top: 12px;">Delete</a>
+			      			&nbsp;<a  style="text-align:center;" href="#" onclick="deletePhoto(${photo.id},'div${photo.id}')" style="text-align:center;margin-right: 90px;margin-top: 12px;">Delete</a>
 			      		</div>
 					</c:forEach>
 			    	
@@ -72,7 +72,7 @@ display : none
 					    </div>
 					    <div class="form-group">
 					    	<div class="col-md-8">
-					    	<img alt="Preview" id="previewImg" align="middle" style="border-style: solid;height: 100px;width: 100px;border-bottom-style: none;border-left-style: none;border-top-style: none;">
+<!-- 					    	<img alt="Preview" id="previewImg" align="middle" style="border-style: solid;height: 100px;width: 100px;border-bottom-style: none;border-left-style: none;border-top-style: none;"> -->
 					    	</div>
 					    </div>
 					    <div class="form-group">
