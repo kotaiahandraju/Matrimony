@@ -50,7 +50,7 @@ hr:hover {
 
 </style>
 <div class="container" style="background:#fff; padding:15px;">
-	<div class="col-md-9">
+	<div class="col-md-12">
 		<h5>Your Notifications <span class="pull-right">Notification Settings</span></h5>
 <hr>
 		<c:if test="${not empty paymentNotificationsList}">
