@@ -79,7 +79,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 
 @Controller
 public class HomePageController {
-	private Logger logger = Logger.getLogger(CreateProfileController.class);
+	private Logger logger = Logger.getLogger(HomePageController.class);
 	@Autowired
 	CountriesDao objCountriesDao;
 	 @Autowired BranchDao objBranchDao;
@@ -4301,4 +4301,5 @@ public class HomePageController {
 	  }
 		return "allNotifications";
 	 }
+   
 }

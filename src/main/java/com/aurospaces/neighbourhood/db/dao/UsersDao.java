@@ -3049,6 +3049,19 @@ public boolean deletePhoto(String photoId){
 	
 	}
 	
+	public List<Map<String, Object>> getConversationsList(UsersBean objUserBean,String profile_id){
+
+		jdbcTemplate = custom.getJdbcTemplate();
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("select *,date_format(created_time,'%d-%b-%Y') as created_on from users_activity_log where (act_done_by_user_id = "+objUserBean.getId()+" and act_done_on_user_id = "+profile_id+") "
+				+" or (act_done_by_user_id = "+profile_id+" and act_done_on_user_id = "+objUserBean.getId()+") order by created_time desc ");
+		String sql =buffer.toString();
+		
+		List<Map<String, Object>> notifications = jdbcTemplate.queryForList(sql);
+		return notifications;
+		
+	
+	}
 	
 }
 

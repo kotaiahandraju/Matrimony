@@ -985,7 +985,7 @@ tooltip:hover:after {
 							if(act_type=="email"){
 								act_str += " have sent an email to "+her_his_you;
 							}
-						}); */
+						}); */ 
 						var myMobileNumViewed_str = "";
 						var tempStr = orderObj.myMobileNumViewed;
 						if(tempStr!=null && tempStr!="" && (typeof tempStr != "undefined")){
