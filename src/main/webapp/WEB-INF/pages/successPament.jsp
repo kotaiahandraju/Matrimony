@@ -7,28 +7,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
   
 
-<div class="container"  style="background:#fff;">
+<div class="container" id="printDiv"  style="background:#fff;">
 	
 	<div align="center"><img src="${baseurl }/user/images/logo1.jpg" alt="logo"></div>
 <br>
 	<table align="center" style="min-width: 680px;min-height:0px">
-    <%-- <tr align="right">
-        <th rowspan="3" align="right">
-        	
-        	<c:if test="${not empty cacheGuest.profileImage}">
-        		<img src="${cacheGuest.profileImage}" alt="passport pic" id="imageID1" style="width: 50px;height: 50px;">
-				
-			</c:if>
-			<c:if test="${empty cacheGuest.profileImage}">
-				<img src="img/default.png" alt="passport pic" id="imageID1" style="width: 50px;height: 50px;">
-				
-			</c:if>
-        </th>
-      <tr>  --%>
-<!--       <td>Date:xx/xx/xxxx</td> -->
-<!--       <td>Time:xx:xx</td> -->
-      </tr>
-      </tr>
+    
 	</table>
 	<div class="col-md-3"></div>
 	<div class="col-md-6">
@@ -77,7 +61,7 @@
 			</div><div class="clearfix"></div>
   <div class="col-md-3" style="text-align: center;"></div>
        <div class="col-md-2" style="text-align: center;">
-       <button class="btn btn-warning" onclick="printpage()" id="printpagebutton">Print</button>
+       <button class="btn btn-warning" onclick="PrintElem('#printDiv');" id="printpagebutton">Print</button>
        </div>
        <div class="col-md-2" style="text-align: center;">
        		<a href="dashboard" type="button" class="btn btn-primary" id="myaccountBtn" >Goto My Account</a>
@@ -87,6 +71,7 @@
        
        </div>
        <br><br>
+</div>
        <script>
        function printpage() {
            var printButton = document.getElementById("printpagebutton");
@@ -118,6 +103,49 @@
 //   			alert(new Date(orderObj.createdDate));
   		});
   	}
+  	function PrintElem(elem)
+  	{
+  		$(".noPrint").hide();
+  		$(".printbtn").hide();
+  		 $("#printFooter").show();
+  	    Popup($(elem).html());
+  	    
+  	}
+  	function Popup(data)
+  	{
+  		var mywindow = window.open('','new div');
+
+  	    var is_chrome = Boolean(mywindow.chrome);
+  	    var isPrinting = false;
+  	    mywindow.document.write('<html><head><title></title> </head><body>');
+  	    mywindow.document.write(data);
+  	   
+  	    mywindow.document.write('</body></html>');
+  	    mywindow.document.close(); // necessary for IE >= 10 and necessary before onload for chrome
+
+  	$(".printbtn").show();
+  	$(".noPrint").show();
+  	$("#printFooter").hide();
+  	    if (is_chrome) {
+  	        mywindow.onload = function() { // wait until all resources loaded 
+  	            mywindow.focus(); // necessary for IE >= 10
+  	            mywindow.print();  // change window to mywindow
+  	            mywindow.close();// change window to mywindow
+  	        };
+  	    
+  	    
+  	   } else {
+  	        mywindow.document.close(); // necessary for IE >= 10
+  	        mywindow.focus(); // necessary for IE >= 10
+
+  	        mywindow.print();
+  	        mywindow.close();
+  	   }
+  		
+  		
+  		
+  	 
+  	    return true;
+  	}
 </script>
-</div>
 <%@ include file="userFooter.jsp"%>
