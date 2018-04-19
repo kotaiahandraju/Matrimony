@@ -30,13 +30,18 @@ public class MoreConversationsController {
 			if(sessionBean == null){
 				return "redirect:HomePage";
 			}
-			String profile_id =request.getParameter("profile_id");
-			conversations = objUsersDao.getConversationsList(sessionBean, "61");
+			String profile_id =request.getParameter("pid");
+			conversations = objUsersDao.getConversationsList(sessionBean, profile_id);
 			if(conversations!=null && conversations.size()>0){
 				request.setAttribute("conversationsList", conversations);
 			}else{
 				request.setAttribute("conversationsList", "''");
 			}
+			UsersBean profileBean = objUsersDao.loginChecking(Integer.parseInt(profile_id));
+			request.setAttribute("profileBean", profileBean);
+			List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos(Integer.parseInt(profile_id));
+			request.setAttribute("fullProfilePhotosList", photosList);
+			request.setAttribute("photosListSize", photosList.size());
 		} catch (Exception e) {
 	   e.printStackTrace();
 	   System.out.println(e);

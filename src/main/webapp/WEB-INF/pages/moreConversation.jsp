@@ -72,13 +72,36 @@ padding:10px;}
 <div class="panel panel-success">
 					<div class="panel-heading" id="tbl_header">More Conversations </div>
 						<div class="panel-body conver">
+						<form:form commandName="notificationsForm"  class="form-horizontal" id="searchForm2" name="searchForm2" role="form"   method="post">
 						<div class="col-md-12 conver12">
 						<div class="col-md-2">
-						<img src="images/default.png" class="img-responsive"/>
+							<c:if test="${empty fullProfilePhotosList}">
+								<img id="img_inpage" src="images/default.png" class="img-responsive" style="margin-bottom:0;">
+							</c:if>
+							<c:if test="${not empty fullProfilePhotosList}">
+								<c:forEach items="${fullProfilePhotosList}" var="photo">
+									<c:if test="${photo.image == profileBean.profileImage }">
+										<div class="picstyle smallSlides${profileBean.id}" style="display:block;">
+											<img src="${photo.image}" class="img img-responsive watermark_text" style="margin-bottom:0;height: auto;width: 100%;" >
+										</div>
+									</c:if>
+									<c:if test="${photo.image != profileBean.profileImage }">
+										<div class="picstyle smallSlides${profileBean.id}" style="display:none;">
+											<img src="${photo.image}" class="img img-responsive watermark_text" style="margin-bottom:0;height: auto;width: 100%;" >
+										</div>
+									</c:if>
+								</c:forEach>
+								<c:if test="${photosListSize>1 }">
+									<p style="display: table;">
+										<a id="prevBtn${profileBean.id}" class="" style="text-decoration: none; margin: 0px 0px 0px 7px;" href="#no" onclick="plusSmallSlide(-1,${profileBean.id})">&#10094;</a>
+										<a id="nextBtn${profileBean.id}" class="" style="text-decoration: none; margin-left: 41px;" href="#no" onclick="plusSmallSlide(1,${profileBean.id})">&#10095;</a>
+									</p>
+								</c:if>
+							</c:if>
 						</div>
 						<div class="col-md-10">
-						<h3>Krishna Jonnadula <span><a href="#"><img  data-toggle="tooltip" title="Vie Mobile Number" src="images/micon.png"/></a></span> <span class="pull-right"><a href="#"><i data-toggle="tooltip" title="Delete" class="fa fa-trash-o" style="font-size:16px;"></i></a></span></h3>
-						<p>18 Yrs, 4 Ft 6 In / 137 Cms, Hindu: Yadav, Puja, Guntur, Andhra Pradesh, India, B.Sc IT/ Computer Science, Not working</p>
+						<h3>${profileBean.firstName} ${profileBean.lastName}<span><a href="#"><img  data-toggle="tooltip" title="Vie Mobile Number" src="images/micon.png"/></a></span> <span class="pull-right"><a href="#"><i data-toggle="tooltip" title="Delete" class="fa fa-trash-o" style="font-size:16px;"></i></a></span></h3>
+						<p>${profileBean.age} Yrs, ${profileBean.heightInches}, ${profileBean.religionName}: ${profileBean.casteName}, ${profileBean.currentCityName}, ${profileBean.currentStateName}, ${profileBean.currentCountryName}, ${profileBean.educationName}, ${profileBean.occupationName}</p>
 						</div>
 						</div>
 						<div class="clearfix"></div><br>
@@ -124,7 +147,7 @@ padding:10px;}
 									</c:if>
 								<p><span><img src="images/arrowaccepted.png"/> <c:out value="${short_str}" /> <span class="pull-right"><c:out value="${conversation.created_on}" /> <a href="#"><i data-toggle="tooltip" title="Delete" class="fa fa-trash-o" style="font-size:16px;"></i></a></span></p>
 								<p><strong> &nbsp; &nbsp; <c:out value="${act_str}" />.</strong></p>
-								<a class="btn btn-danger">Send mail</a> &nbsp; &nbsp;	<a class="btn btn-success">Call Now</a>
+								<a class="btn btn-danger" id="sendMail${profileBean.id}" onclick="displayMailPopup(${profileBean.id},'${profileBean.firstName} ${profileBean.lastName}')">Send mail</a> &nbsp; &nbsp;
 								</div>
 								<div class="clearfix"></div><br><hr>
 							</c:forEach>
@@ -147,7 +170,56 @@ padding:10px;}
 						<a class="btn btn-danger">Send mail</a> &nbsp; &nbsp;	<a class="btn btn-success">Call Now</a>
 						</div>
 						<div class="clearfix"></div><br><hr>
+	</form:form>
 </div>
 </div>
 </div>
+<script type="text/javascript">
+var smallSlideIndex = 0;
+function plusSmallSlide(n,profile_id) {
+	if(n>0){
+		smallSlideIndex += n;
+	}else if(n<0){
+		smallSlideIndex = smallSlideIndex-1;
+	}
+	
+		
+	  var i;
+	  var slides = document.getElementsByClassName("smallSlides"+profile_id);
+	  
+	  //var captionText = document.getElementById("caption");
+	  //if (slideIndex > slides.length) {slideIndex = 1}
+	  //if (slideIndex < 1) {slideIndex = slides.length}
+	  for (i = 0; i < slides.length; i++) {
+	      slides[i].style.display = "none";
+	  }
+	  
+	  
+	  slides[smallSlideIndex].style.display = "block";
+	  if(smallSlideIndex==slides.length-1){
+		//disable next button	
+		//var btn = $("#nextBtn"+profile_id);
+		//$("#nextBtn"+profile_id).attr("disabled","disabled");
+		//$("#nextBtn"+profile_id).href = "javascript:;"
+		$("#nextBtn"+profile_id).removeAttr("href");
+		$("#nextBtn"+profile_id).removeAttr("onclick");
+		//$("#nextBtn"+profile_id).style.color = "gray";
+		//$("#nextBtn"+profile_id).style.cursor = "";
+		//document.getElementById("myImg"+profile_id)
+	  }else{
+		  $("#nextBtn"+profile_id).attr("href","#no");
+		  $("#nextBtn"+profile_id).attr("onclick","plusSmallSlide(1,"+profile_id+")");
+	  }
+	  if(smallSlideIndex==0){
+		  //disable previous button
+	  	$("#prevBtn"+profile_id).removeAttr("href");
+		$("#prevBtn"+profile_id).removeAttr("onclick");
+		//$("#nextBtn"+profile_id).style.cursor = "";
+		//document.getElementById("myImg"+profile_id)
+	  }else{
+		  $("#prevBtn"+profile_id).attr("href","#no");
+		  $("#prevBtn"+profile_id).attr("onclick","plusSmallSlide(-1,"+profile_id+")");
+	  }
+}
+</script>
 <%@ include file="userFooter.jsp"%>
