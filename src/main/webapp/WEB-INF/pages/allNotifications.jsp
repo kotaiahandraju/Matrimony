@@ -55,7 +55,7 @@ function notificationId(id){
 													</div>
 													<div class="col-md-10" style="padding-right:0px; padding-left:0px;" >
 														<p>
-															<a  href="fullProfile?pid=${notification.profile_id}&nid=${notification.id}&rfrm=notifications"  target="_blank" >
+															<a  href="fullProfile?pid=${notification.user_id}&nid=${notification.id}&rfrm=notifications"  target="_blank" >
 															
 																<c:if test="${ notification.read_status==0}">
 																<b><c:out value="${notification.fullName}" /> (<c:out value="${notification.username}" />)</b> 

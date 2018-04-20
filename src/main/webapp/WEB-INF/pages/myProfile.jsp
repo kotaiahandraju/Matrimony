@@ -292,6 +292,29 @@ xpopup
 
 
 </style>
+<<script type="text/javascript">
+$(".onlyCharacters").on("keypress",	function(event) {
+
+	// Disallow anything not matching the regex pattern (A to Z
+	// uppercase, a to z lowercase and white space)
+	var englishAlphabetAndWhiteSpace = /[A-Za-z. ]/g;
+
+	// Retrieving the key from the char code passed in event.which
+	var key = String.fromCharCode(event.which);
+
+	// alert(event.keyCode);
+
+	if (event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 37
+			|| event.keyCode == 39
+			|| englishAlphabetAndWhiteSpace.test(key)) {
+		return true;
+	}
+
+	// If we got this far, just return false because a disallowed key
+	// was typed.
+	return false;
+});
+</script>
 
 <div class="container" style="background:#FFF;">
 <div class="row">
@@ -388,7 +411,7 @@ xpopup
             </p>
         </div>
        
-        <div id="about_edit" class="all_hidden_divs" hidden="true">
+        <div id="about_edit" class="all_hidden_divs onlyCharacters" hidden="true">
             <form:textarea path="aboutMyself" cols="90" rows="6"/>
             <div class="row">
                 <div class="col-md-4" style="float:right;">
