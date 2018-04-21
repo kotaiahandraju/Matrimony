@@ -867,42 +867,42 @@ $("#secondButton").click(function(event)
 				if($('#firstName').val() ==  null || $('#firstName').val() == "" || $('#firstName').val()=="undefined") 
 				{
 					$("#firstName").css("border-color","#e73d4a");
-					$("#firstName").attr("placeholder","Please Enter First Name");
+					$("#firstName").attr("placeholder","Enter First Name");
 					$('#firstName').addClass('your-class');
 					$('#firstName').css('color','red');
 				}
 				if($('#lastName').val() ==  null || $('#lastName').val() == "" || $('#lastName').val()=="undefined" ) 
 				{
 					$("#lastName").css("border-color","#e73d4a");
-					$("#lastName").attr("placeholder","Please Enter Last Name");
+					$("#lastName").attr("placeholder","Enter Last Name");
 					$('#lastName').addClass('your-class');
 					$('#lastName').css('color','red');
 				}
 				if($('#dob').val() ==  null || $('#dob').val() == "" || $('#dob').val()=="undefined" ) 
 				{
 					$("#dob").css("border-color","#e73d4a");
-					$("#dob").attr("placeholder","Please Enter Date Of Birth");
+					$("#dob").attr("placeholder","Enter Date Of Birth");
 					$('#dob').addClass('your-class');
 					$('#dob').css('color','red');
 				}
 				if($('#religion').val() ==  null || $('#religion').val() == "" || $('#religion').val()=="undefined" ) 
 				{
 					$("#religion").css("border-color","#e73d4a");
-					$("#religion").attr("placeholder","Please Enter Password");
+					$("#religion").attr("placeholder","Enter Password");
 					$('#religion').addClass('your-class');
 					$('#religion').css('color','red');
 				}
 				if($('#motherTongue').val() ==  null || $('#motherTongue').val() == "" || $('#motherTongue').val()=="undefined" ) 
 				{
 					$("#motherTongue").css("border-color","#e73d4a");
-					$("#motherTongue").attr("placeholder","Please Enter Password");
+					$("#motherTongue").attr("placeholder","Enter Password");
 					$('#motherTongue').addClass('your-class');
 					$('#motherTongue').css('color','red');
 				}
 				if($('#currentCountry').val() ==  null || $('#currentCountry').val() == "" || $('#currentCountry').val()=="undefined" ) 
 				{
 					$("#currentCountry").css("border-color","#e73d4a");
-					$("#currentCountry").attr("placeholder","Please Enter Password");
+					$("#currentCountry").attr("placeholder","Enter Password");
 					$('#currentCountry').addClass('your-class');
 					$('#currentCountry').css('color','red');
 				}
