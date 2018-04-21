@@ -86,7 +86,7 @@ margin-left:10px;
 <h4>New Matches</h4>
 <p>Listed below are the new matches.</p><p> <input type="checkbox" id="withPhoto" onchange="getMatchesBasedOnCheckboxes()"/>  Show profiles with photo  <input type="checkbox" id="alreadyViewed" onchange="getMatchesBasedOnCheckboxes()" /> Don't show already viewed <input type="checkbox"  id="alreadyContacted" onchange="getMatchesBasedOnCheckboxes()" /> Don't show already contacted
 </p>
-</div><br><br><br>
+</div><div class="clearfix" style="margin-bottom:5px;"></div>
 		<div class="mid-grids">
 		
 			  

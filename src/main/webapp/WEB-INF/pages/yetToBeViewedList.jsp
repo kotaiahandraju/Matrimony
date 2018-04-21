@@ -82,7 +82,7 @@ margin-left:10px;
 	<div class="col-md-12">
 <h4>Yet to be viewed</h4>
 <p>Listed below are the profiles that are yet to be viewed by you.</p><p> <input id="with_photo" type="checkbox" onclick="filterProfiles()"/>  Show profiles with photo</p>
-</div><br><br><br>
+</div><div class="clearfix" style="margin-bottom:5px;"></div>
 		<div class="mid-grids">
 		
 			  
