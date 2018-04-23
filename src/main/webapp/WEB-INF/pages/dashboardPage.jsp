@@ -129,6 +129,13 @@
     width: 70%;
   }
 } */
+@media  (min-width: 320px) and (max-width:640px) {
+.col-xs-2 {
+    width: 16.66666667% !important;
+    padding-right:0px !important;
+}
+
+}
  .modal-backdrop {
     position: fixed;
     top: 0;
@@ -185,7 +192,7 @@ background: none !important;
 							</div>
 						</form:form>
 				</div>
-				<div id="pagination_div" style="font-size: 12px;">
+				<div id="pagination_div" style="font-size: 12px; margin-bottom:8px;">
 					<div id="altLists"></div>
 					<div id="table_footer"></div>
 				</div>
@@ -350,10 +357,10 @@ function displayMatches(listOrders) {
 				mobile_num_Str = '<span ><a href="#no" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="displayMobileNum('+orderObj.id+')"> View mobile no.</a></span>';
 			}
 			var tblRow = '<div class="row">'
-				+ '<div class=" col-md-2 preprofile" >'
+				+ '<div class=" col-md-2 col-xs-2 preprofile" >'
 	            + 	"<img src="+image+" class='watermark_text img-responsive thumbnail ' >"
 	            + '</div>'
-	            + '<div class="col-md-10">'
+	            + '<div class="col-md-10 col-xs-10">'
 	            + ' <p>'+firstname+'&nbsp;'+lastname+'|'+orderObj.username+'&nbsp;'+premiumMember+'&nbsp; '+age+' yrs,&nbsp; '+orderObj.religionName+', '+orderObj.casteName+','+orderObj.inches+' , '+orderObj.occupationName+', '+orderObj.currentCityName+', '+orderObj.currentCountryName+'. </p> '
 	            + ' <p> '+interestStr+'| <a href="#no" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" id="sendMail'+orderObj.id+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')">Send Mail</a> | <a href="#no" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="fullProfile('+orderObj.id+')"> Full Profile</a> '
 	            + ' | <span id="mobileTD'+orderObj.id+'">'+mobile_num_Str+'</span> | '+shortListedStr+'</p> '
@@ -441,7 +448,7 @@ function displayNewMatches(listOrders) {
 			if(expressed==0){
 				interestStr = '<p  align="center" style="margin: 11px 0px 0px 0px;" id="expInterest'+orderObj.id+'"><a  href="#no" type="button" class="btn btn-warning  btn-sm"  onclick="expressInterest_dashboardnewmatches('+orderObj.id+')">Send Interest</a></p>';
 			}else if(expressed>0){
-				interestStr = '<p align="center" style="margin: 11px 0px 0px 0px;"><a   type="button" disabled="true"  class="btn btn-warning "  >Request Sent</a></p>';
+				interestStr = '<p align="center" style="margin: 11px 0px 0px 0px;"><a   type="button" disabled="true"  class="btn btn-warning btn-sm "  >Request Sent</a></p>';
 			}
 			 item =     item + ' 	<div class="col-md-3 thumbnailgal">'
 				         +' 		<div class="thumbnailmain">	<a class="thumbnail thumbimg" href="#no" style="margin: 0px 0px 0px 0px; width:100%; height:auto;"><img alt="" src="'+image+'" class="watermark_text"></a></div>'

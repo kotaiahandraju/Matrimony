@@ -5,7 +5,8 @@ text-align:left;
 }
 .form-control {
 width:187px;
-border-radius:0px;}
+border-radius:0px;
+margin-bottom:15px;}
 </style>
 			<div class="col-md-9 products-grid-left">
             	<div class="panel panel-default">

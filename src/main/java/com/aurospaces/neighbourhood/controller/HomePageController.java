@@ -1120,6 +1120,17 @@ public class HomePageController {
 			request.setAttribute("fullProfilePhotosList", photosList);
 			request.setAttribute("photosListSize", photosList.size());
 			
+			objUserssBean.setId(sessionBean.getId());
+			Map<String,Object> interestCounts = objUsersDao.getInterestCounts(objUserssBean);
+			long notificationsCount = (Long)interestCounts.get("notificationsCount");
+			session.setAttribute("notificationsCount", notificationsCount);
+			List<Map<String,Object>> notificationsList = objUsersDao.getNotifications(objUserssBean,false);
+			if(notificationsList!=null && notificationsList.size()>0){
+				session.setAttribute("notificationsList", notificationsList);
+			}else{
+				session.setAttribute("notificationsList", "");
+			}
+			
 		} catch (Exception e) {
 	   e.printStackTrace();
 	   System.out.println(e);

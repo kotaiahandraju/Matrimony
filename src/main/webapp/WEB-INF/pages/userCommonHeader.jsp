@@ -42,6 +42,12 @@
 padding-right:0px;
 padding-left:0px;
 }
+.notifications a{
+color:#000;
+}
+.notifications a:hover{
+color:#777;
+}
 #notification_li
 			{
 			position:relative
@@ -2144,8 +2150,15 @@ overflow:hidden;
 
 } */
 body {
-background:#ccc !important;
-}
+/* background:url('images/body.jpg')  !important;
+ background-repeat: repeat-y; */
+ background:#f1f1f1 !important;
+ }
+ .products{
+/* background:url('images/body.jpg')  !important;
+ background-repeat: repeat-y; */
+  background:#f1f1f1 !important;
+ }
 .upgradeOption {
     color: #f35626;
     background-image: -webkit-linear-gradient(2deg, #fff, #fff);
@@ -2183,7 +2196,7 @@ background:#ccc !important;
 margin-bottom:5px;
 }
 .btn-sm {
-width:130px;
+width:120px;
 }
 .panel-title {
 	font-size: 16px;
@@ -2446,6 +2459,14 @@ header h1 {
 .logo img{
 margin:0 auto;
 height:auto;
+}
+.table-responsive {
+border:none !important;}
+.box_1 p {
+    margin: 0px 0 0px 8px;
+}
+.logo {
+    margin-bottom: 5px !important;
 }
 }
 /* -------------------------------- 
@@ -3118,7 +3139,7 @@ img.hover-shadow {
 									<c:if test="${not empty notificationsList}">
 											<div id="notificationsBody" class="notifications">
 												<c:forEach var="notification" items="${notificationsList}">
-													<div class="col-md-3 col-xs-3"  style="height:70px; overflow:hidden;padding-right:0px; padding-left:0px;" >
+													<div class="col-md-3 col-xs-3"  style="height:55px; overflow:hidden;padding-right:0px; padding-left:0px;" >
 														<c:if test="${not empty notification.profileImage}">
 															<img src="${notification.profileImage}" style="width: 100%;padding: 5px;">
 														</c:if>
@@ -3128,8 +3149,13 @@ img.hover-shadow {
 													</div>
 													<div class="col-md-9" style="padding-right:0px; padding-left:0px;" >
 														<p>
-															<a href="fullProfile?pid=${notification.profile_id}&nid=${notification.id}&rfrm=notifications" target="_blank" >
+															<a href="fullProfile?pid=${notification.user_id}&nid=${notification.id}&rfrm=notifications" target="_blank" >
+															<c:if test="${ notification.read_status==0}">
 																<b><c:out value="${notification.fullName}" /> (<c:out value="${notification.username}" />)</b> 
+																</c:if>
+																<c:if test="${ notification.read_status==1}">
+																<c:out value="${notification.fullName}" /> (<c:out value="${notification.username}" />)
+																</c:if>
 																<c:if test="${notification.notifi_type == 'interest'}">
 																	expressed interest in your profile
 																</c:if>
@@ -3175,7 +3201,7 @@ img.hover-shadow {
                             
                             
 							<li class="dropdown settings pull-right">
-								<a href="#no" class="dropdown-toggle" data-toggle="dropdown">
+								<a href="#no" class="dropdown-toggle setpic" data-toggle="dropdown">
 									
 									
 <!-- 										<img id="profilepic" src="img/default.png" class="img-responsive thumbnail " style="margin-top:-10px;height: 40px;width: 40px;border-radius:15%;">  -->
@@ -3229,7 +3255,7 @@ img.hover-shadow {
         		<textarea id="mail_content" placeholder="Enter Your " onblur="this.placeholder='Enter Your Message'" onfocus="this.placeholder=''" name="mail_content" cols="70" rows="10"style="margin-top:5px;" ></textarea>
         	</c:if> --%>
          	 <c:if test="${default_text_option != '0' }">
-        		<textarea id="mail_content" placeholder="" onblur="this.placeholder='Enter Your Message'" onfocus="this.placeholder=''" name="mail_content" cols="70" rows="10"  style="white-space: pre-wrap;margin-top:5px;" ><c:out value="${mail_default_text}" />
+        		<textarea id="mail_content" placeholder="" onblur="this.placeholder='Enter Your Message'" onfocus="this.placeholder=''" name="mail_content"   style="width:100%; height:250px;white-space: pre-wrap;margin-top:5px;" ><c:out value="${mail_default_text}" />
         			
         		</textarea>
         	</c:if> 
@@ -3387,3 +3413,6 @@ img.hover-shadow {
 	</div> --%>
 
 <!-- body starts here-->
+<script>
+
+</script>

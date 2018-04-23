@@ -19,9 +19,11 @@ hr:hover {
 }
 .allnoti {
     background-color: #fff;
+    min-height: 300px;
 }
 .allnoti p {
 font-size:14px;}
+
 </style>
 <script>
 
@@ -53,8 +55,14 @@ function notificationId(id){
 													</div>
 													<div class="col-md-10" style="padding-right:0px; padding-left:0px;" >
 														<p>
-															<a  href="fullProfile?pid=${notification.profile_id}&nid=${notification.id}&rfrm=notifications"  target="_blank" >
+															<a  href="fullProfile?pid=${notification.user_id}&nid=${notification.id}&rfrm=notifications"  target="_blank" >
+															
+																<c:if test="${ notification.read_status==0}">
 																<b><c:out value="${notification.fullName}" /> (<c:out value="${notification.username}" />)</b> 
+																</c:if>
+																<c:if test="${ notification.read_status==1}">
+																<c:out value="${notification.fullName}" /> (<c:out value="${notification.username}" />)
+																</c:if>
 																<c:if test="${notification.notifi_type == 'interest'}">
 																	expressed interest in your profile
 																</c:if>

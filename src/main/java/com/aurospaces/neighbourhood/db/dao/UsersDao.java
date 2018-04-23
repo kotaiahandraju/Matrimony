@@ -2987,9 +2987,9 @@ public boolean deletePhoto(String photoId){
 		jdbcTemplate = custom.getJdbcTemplate();
 		StringBuffer buffer = new StringBuffer();
 		buffer.append("select *,(select concat(u.firstName,' ',u.lastName) from users u where u.id=user_notifications.user_id) as fullName, "
-				+" (select u.username from users u where u.id=user_notifications.user_id) as userName,date_format(user_notifications.created_on,'%d-%M-%Y') as created_on, "
+				+" (select u.username from users u where u.id=user_notifications.user_id) as userName,date_format(user_notifications.created_on,'%d-%M-%Y %H:%i') as created_on, "
 				+" (select uimg.image from user_images uimg where uimg.user_id=user_notifications.user_id and  uimg.status = '1' and uimg.is_profile_picture='1') as profileImage "
-				+" from user_notifications where profile_id = "+objUserBean.getId()+" and user_type = 'member' order by created_on desc ");
+				+" from user_notifications where profile_id = "+objUserBean.getId()+" and user_type = 'member' order by user_notifications.created_on desc ");
 		if(!all_notifications){
 			buffer.append(" limit 10 offset 0");
 		}
