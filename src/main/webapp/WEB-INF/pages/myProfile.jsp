@@ -718,7 +718,8 @@ $(".onlyCharacters").on("keypress",	function(event) {
 <table class="col-md-6 table-responsive">
 <tr>
 <td>Mother's Name</td><td>:</td>
-    <td id="motherName_val"><c:out value="${profileBean.motherName}"/>
+    <td id="motherName_val">
+    <%-- <c:out value="${profileBean.motherName}"/> --%>
         <c:if test="${not empty profileBean.motherName}">${profileBean.motherName}</c:if>
         <c:if test="${empty profileBean.motherName}">Not Specified</c:if>
     </td></tr>

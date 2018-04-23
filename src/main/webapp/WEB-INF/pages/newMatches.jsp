@@ -84,7 +84,7 @@ margin-left:10px;
 	<div class="container" style="background: #FFF;">
 	<div class="col-md-12">
 <h4>New Matches</h4>
-<p>Listed below are the new matches.</p><p> <input type="checkbox" id="withPhoto" onchange="getMatchesBasedOnCheckboxes()"/>  Show profiles with photo  <input type="checkbox" id="alreadyViewed" onchange="getMatchesBasedOnCheckboxes()" /> Don't show already viewed <input type="checkbox"  id="alreadyContacted" onchange="getMatchesBasedOnCheckboxes()" /> Don't show already contacted
+<p>Listed below are the new matches.</p><p> <input type="checkbox" id="withPhoto" onchange="getMatchesBasedOnCheckboxes()"/>  Show profiles with photo  &nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" id="alreadyViewed" onchange="getMatchesBasedOnCheckboxes()" /> Don't show already viewed &nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox"  id="alreadyContacted" onchange="getMatchesBasedOnCheckboxes()" /> Don't show already contacted
 </p>
 </div><br><br><br>
 		<div class="mid-grids">
