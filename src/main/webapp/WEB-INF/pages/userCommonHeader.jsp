@@ -1107,87 +1107,107 @@ tooltip:hover:after {
 						}
 						// to display recent activity details
 						var activity_str = "",act_short_str = "";
+						var login_user_id = ${cacheGuest.id};
 						var recent_activity = orderObj.recent_activity_map;
-						if(recent_activity.activity_type=="interest_request"){
-							if(login_user_role_id==recent_activity.act_done_by_user_id){
-								act_short_str = "Interest Request Sent";
-								if(her_his_you=="his")
-									activity_str = "You sent an interest request to him";
-								else
-									activity_str = "You sent an interest request to "+her_his_you ;
-							}else{
-								act_short_str = "Interest Request Received";
-								activity_str = opp_gender_str +" sent an interest request to you" ;
+						if(typeof recent_activity != "undefined"){
+							if(recent_activity.activity_type=="interest_request"){
+								if(login_user_id==recent_activity.act_done_by_user_id){
+									act_short_str = "Interest Request Sent";
+									if(her_his_you=="his")
+										activity_str = "You sent an interest request to him";
+									else
+										activity_str = "You sent an interest request to "+her_his_you ;
+								}else{
+									act_short_str = "Interest Request Received";
+									activity_str = opp_gender_str +" sent an interest request to you. Would you like to take it further?" ;
+								}
+									
 							}
+							if(recent_activity.activity_type=="interest_accepted"){
+								act_short_str = "Request Accepted";
+								if(login_user_id==recent_activity.act_done_by_user_id){
+									activity_str = "You accepted "+her_his_you+" request";
+								}else{
+									activity_str = opp_gender_str+" accepted your request";
+								}
+								acceptOptions = '<span id="mail'+orderObj.requestId+'"><a type="button" class="btn btn-primary btn-sm" id="sendMail'+orderObj.id+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')">Send Mail</a></span>';
+							}
+							if(recent_activity.activity_type=="interest_rejected"){
+								act_short_str = "Request Rejected";
+								if(login_user_id==recent_activity.act_done_by_user_id){
+									activity_str = "You rejected "+her_his_you+" request";
+								}else{
+									activity_str = opp_gender_str+" rejected your request";
+								}
+							}
+							/* if(recent_activity.activity_type=="message"){
+								if(login_user_id==recent_activity.act_done_by_user_id){
+									act_short_str = "Message Sent";
+									if(her_his_you=="his")
+										activity_str = "You sent a message to him";
+									else
+										activity_str = "You sent a message to "+her_his_you ;
+								}else{
+									act_short_str = "Interest Request Received";
+									activity_str = opp_gender_str +" sent a message to you" ;
+								}
 								
-						}
-						if(recent_activity.activity_type=="interest_accepted"){
-							act_short_str = "Request Accepted";
-							if(login_user_role_id==recent_activity.act_done_by_user_id){
-								activity_str = "You accepted "+her_his_you+" request";
-							}else{
-								activity_str = opp_gender_str+" accepted your request";
+							} */
+							if(recent_activity.activity_type=="message"){
+								if(login_user_id==recent_activity.act_done_by_user_id){
+									act_short_str = "Message Sent";
+									if(her_his_you=="his")
+										activity_str = "You sent a message to him";
+									else
+										activity_str = "You sent a message to "+her_his_you ;
+								}else{
+									act_short_str = "Message Received";
+									activity_str = opp_gender_str +" sent a message to you" ;
+								}
+								
 							}
-						}
-						if(recent_activity.activity_type=="interest_rejected"){
-							act_short_str = "Request Rejected";
-							if(login_user_role_id==recent_activity.act_done_by_user_id){
-								activity_str = "You rejected "+her_his_you+" request";
-							}else{
-								activity_str = opp_gender_str+" rejected your request";
+							if(recent_activity.activity_type=="message_accepted"){
+								act_short_str = "Message Accepted";
+								if(login_user_id==recent_activity.act_done_by_user_id){
+									activity_str = "You accepted "+her_his_you+" message";
+									//acceptOptions = '<span id="reply'+orderObj.requestId+'"><a type="button" class="btn btn-primary btn-sm" onclick="replyMessage('+orderObj.requestId+',\''+recent_activity.activity_content+'\')">Reply</a></span>';
+									acceptOptions = '<span id="replyarea'+orderObj.requestId+'"><a type="button" class="btn btn-primary btn-sm" onclick="displayReplyArea()">Reply</a></span>';
+								}else{
+									activity_str = opp_gender_str+" rejected your message";
+									acceptOptions = '<span id="mail'+orderObj.requestId+'"><a type="button" class="btn btn-primary btn-sm" id="sendMail'+orderObj.id+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')">Reply</a></span>';
+								}
 							}
-						}
-						if(recent_activity.activity_type=="message"){
-							if(login_user_role_id==recent_activity.act_done_by_user_id){
-								act_short_str = "Message Sent";
-								if(her_his_you=="his")
-									activity_str = "You sent a message to him";
-								else
-									activity_str = "You sent a message to "+her_his_you ;
-							}else{
-								act_short_str = "Interest Request Received";
-								activity_str = opp_gender_str +" sent a message to you" ;
+							if(recent_activity.activity_type=="message_rejected"){
+								act_short_str = "Message Rejected";
+								if(login_user_id==recent_activity.act_done_by_user_id){
+									activity_str = "You rejected "+her_his_you+" message";
+								}else{
+									activity_str = opp_gender_str+" rejected your message";
+								}
 							}
-							
-						}
-						if(recent_activity.activity_type=="message_accepted"){
-							act_short_str = "Message Accepted";
-							if(login_user_role_id==recent_activity.act_done_by_user_id){
-								activity_str = "You accepted "+her_his_you+" message";
-							}else{
-								activity_str = opp_gender_str+" rejected your message";
+							if(recent_activity.activity_type=="message_replied"){
+								act_short_str = "Message Replied";
+								if(login_user_id==recent_activity.act_done_by_user_id){
+									activity_str = "You replied to "+her_his_you+" message";
+								}else{
+									activity_str = opp_gender_str+" replied to your message";
+								}
 							}
-						}
-						if(recent_activity.activity_type=="message_rejected"){
-							act_short_str = "Message Rejected";
-							if(login_user_role_id==recent_activity.act_done_by_user_id){
-								activity_str = "You rejected "+her_his_you+" message";
-							}else{
-								activity_str = opp_gender_str+" rejected your message";
+							if(recent_activity.activity_type=="profile_viewed"){
+								act_short_str = "Profile Viewed";
+								if(login_user_id==recent_activity.act_done_by_user_id){
+									activity_str = "You viewed "+her_his_you+" profile";
+								}else{
+									activity_str = opp_gender_str+" viewed your profile";
+								}
 							}
-						}
-						if(recent_activity.activity_type=="message_replied"){
-							act_short_str = "Message Replied";
-							if(login_user_role_id==recent_activity.act_done_by_user_id){
-								activity_str = "You replied to "+her_his_you+" message";
-							}else{
-								activity_str = opp_gender_str+" replied to your message";
-							}
-						}
-						if(recent_activity.activity_type=="profile_viewed"){
-							act_short_str = "Profile Viewed";
-							if(login_user_role_id==recent_activity.act_done_by_user_id){
-								activity_str = "You viewed "+her_his_you+" profile";
-							}else{
-								activity_str = opp_gender_str+" viewed your profile";
-							}
-						}
-						if(recent_activity.activity_type=="mobile_no_viewed"){
-							act_short_str = "Number Viewed";
-							if(login_user_role_id==recent_activity.act_done_by_user_id){
-								activity_str = "You viewed "+her_his_you+" mobile number";
-							}else{
-								activity_str = opp_gender_str+" viewed your mobile number";
+							if(recent_activity.activity_type=="mobile_no_viewed"){
+								act_short_str = "Number Viewed";
+								if(login_user_id==recent_activity.act_done_by_user_id){
+									activity_str = "You viewed "+her_his_you+" mobile number";
+								}else{
+									activity_str = opp_gender_str+" viewed your mobile number";
+								}
 							}
 						}
 						
@@ -1214,7 +1234,7 @@ tooltip:hover:after {
 			            	+ shortListedMe_str 
 			            	+ myProfileViewed_str 
 			            	+ '</td></tr>'*/
-			            	+ '	<tr><td>'+activity_str+'. Would you like to take it further?</td></tr>' 
+			            	+ '	<tr><td>'+activity_str+'.</td></tr>' 
 			            	+ '	<tr><td>'+acceptOptions+' <a href="moreConversations?pid='+orderObj.id+'"><span class="pull-right" style="color:#006699;">+ More Conversations</span></a></td></tr>'
 			            	+ '</table>'
 			            	+ '</div>'
@@ -1580,9 +1600,10 @@ tooltip:hover:after {
 										$("#default_text_opt").removeAttr("checked");
 									}
 							 }
+							 //$("#mail_content").val("");
 							$("#closeBtn").trigger("click");
 						}else{
-							alert("Some problem occured while sending e-mail!!! Please try again.");
+							alert("Some problem occured while sending e-mail!! Please try again.");
 							$("#sendMailBtn").removeAttr("disabled");
 							$("#sendMailBtn").val("Send Mail");
 							$("#mail_content").val("");
@@ -1689,6 +1710,56 @@ tooltip:hover:after {
 				formData.append("accept_flag",flag);
 				
 				jQuery.fn.makeMultipartRequest('POST', 'acceptRequest', false,
+						formData, false, 'text', function(data){
+			    		var jsonobj = $.parseJSON(data);
+			    		var msg = jsonobj.message;
+			    		
+			    			if("success"==msg){
+			    				if(flag==1){
+			    					alert("Request accepted successfully");
+			    					$("#accept"+requestId).html('');
+			    					$("#accept"+requestId).html("<a type='button' class='btn btn-success btn-sm' disabled='true'>Accepted</a>");
+			    				}else{
+			    					alert("Request rejected successfully");
+			    					$("#accept"+requestId).html('');
+			    					$("#accept"+requestId).html("<a type='button' class='btn btn-danger btn-sm' disabled='true' >Ignored</a>");
+			    				}
+			    			}else if("failed"==msg || "exception"==msg){
+			    				alert("Some problem occured. Please try again.");
+			    			}
+			    		
+			    		
+						
+					});
+			}
+		}
+		function replyMessage(requestId,message_content){
+			var roleId = ${cacheGuest.roleId};
+			$("#id").val(requestId);
+			 if(roleId==4){
+				document.searchForm2.action = "memberShipPage"
+				document.searchForm2.submit();
+				return true;
+			}else{
+				 /* if(allowed_limit<=0){
+					alert("Exceeded allowed profiles limit. Renew your membership plan and get more profiles");
+					return false;
+				}  */ 
+				var membershipStatus = ${cacheGuest.membership_status};
+				if(membershipStatus!="1"){
+					alert("Your membership validity period is over. Renew your membership plan and reply to the messages");
+					return false;
+				}
+				var texttt = message_content;
+				texttt = texttt.replace(/##newline##/g,"\r\n");
+				texttt = texttt.replace(/##tabspace##/g,"\t");
+				$("#reply_text_area").val(texttt);
+				$("#reply_text_area").removeAttr("hidden");
+				var formData = new FormData();
+			
+				formData.append("requestId",requestId);
+				
+				jQuery.fn.makeMultipartRequest('POST', 'replyMessage', false,
 						formData, false, 'text', function(data){
 			    		var jsonobj = $.parseJSON(data);
 			    		var msg = jsonobj.message;

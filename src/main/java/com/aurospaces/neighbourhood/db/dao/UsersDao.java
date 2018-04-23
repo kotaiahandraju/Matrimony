@@ -1704,10 +1704,6 @@ public class UsersDao extends BaseUsersDao
 		try{
 			List<Map<String,Object>> list = jdbcTemplate.queryForList(buffer.toString());
 			if(list!=null){
-				buffer = new StringBuffer();
-				buffer.append("select * from users_activity_log where act_done_on_user_id = "+objUserBean.getId()+" order by created_time desc limit 1 ");
-				Map<String,Object> recent_activity = jdbcTemplate.queryForMap(buffer.toString());
-				list.add(recent_activity);
 				return list;
 			}
 				
@@ -1971,7 +1967,7 @@ public class UsersDao extends BaseUsersDao
 		qryStrBuffer.append(" limit "+page_size+" offset "+(page_no*page_size)+" ");*/
 		UsersBean objUserBean = (UsersBean) session.getAttribute("cacheGuest");
 		StringBuffer buffer = new StringBuffer();
-		String inner_where_clause = " ei.user_id = u.id and ei.profile_id = "+userId+" and ei.interested = '1' and ei.status = '2' and u.role_id not in (1) and u.status in ('1') and u.gender not in  ('"+objUserBean.getGender()+"') and u.id not in  ("+userId+")";
+		String inner_where_clause = " ((ei.user_id = u.id and ei.profile_id = "+userId+") or ((ei.user_id = "+userId+" and ei.profile_id = u.id))) and ei.interested = '1' and ei.status = '2' and u.role_id not in (1) and u.status in ('1') and u.gender not in  ('"+objUserBean.getGender()+"') and u.id not in  ("+userId+")";
 		StringBuffer where_clause = new StringBuffer(" and u.role_id not in (1) and u.status in ('1') ");
 		buffer.append("select u.id,sta.name as currentStateName,cit.name as currentCityName,u.occupation,oc.name as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
 				+"u.firstName, u.lastName, u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName, u.currentCountry,co.name as currentCountryName, " 
@@ -2005,10 +2001,6 @@ public class UsersDao extends BaseUsersDao
 		try{
 			List<Map<String,Object>> list = jdbcTemplate.queryForList(buffer.toString());
 			if(list!=null){
-				buffer = new StringBuffer();
-				buffer.append("select * from users_activity_log where act_done_on_user_id = "+objUserBean.getId()+" order by created_time desc limit 1 ");
-				Map<String,Object> recent_activity = jdbcTemplate.queryForMap(buffer.toString());
-				list.add(recent_activity);
 				return list;
 			}
 		}catch(Exception e){
@@ -2016,6 +2008,22 @@ public class UsersDao extends BaseUsersDao
 			return null;
 		}
 		return null;
+	}
+	
+	public Map<String,Object> getRecentActivityOf(String userId,Integer profile_id){
+		jdbcTemplate = custom.getJdbcTemplate();
+		try{
+				StringBuffer buffer = new StringBuffer();
+				buffer.append("select * from users_activity_log where  find_in_set(act_done_on_user_id,('"+userId+","+profile_id+"'))>0 and find_in_set(act_done_by_user_id,('"+userId+","+profile_id+"'))>0 order by created_time desc limit 1 ");
+				List<Map<String,Object>> recent_activity = jdbcTemplate.queryForList(buffer.toString());
+				if(recent_activity != null && recent_activity.size()>0){
+					return recent_activity.get(0);
+				}
+				return null;
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 	/****   others accepted    ****/
@@ -2216,10 +2224,6 @@ public class UsersDao extends BaseUsersDao
 		try{
 			List<Map<String,Object>> list = jdbcTemplate.queryForList(buffer.toString());
 			if(list!=null){
-				buffer = new StringBuffer();
-				buffer.append("select * from users_activity_log where act_done_on_user_id = "+objUserBean.getId()+" order by created_time desc limit 1 ");
-				Map<String,Object> recent_activity = jdbcTemplate.queryForMap(buffer.toString());
-				list.add(recent_activity);
 				return list;
 			}
 		}catch(Exception e){

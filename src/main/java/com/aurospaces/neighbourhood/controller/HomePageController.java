@@ -3679,8 +3679,6 @@ public class HomePageController {
 					requests = objUsersDao.getRequestsRejectedByMe(sessionBean.getId()+"",0);
 				}
 				if(requests!=null && requests.size()>0){
-					Map<String,Object> tempMap =  requests.get(requests.size()-1);
-					requests.remove(requests.size()-1);
 					//get photos
 					for(Map<String,Object> reqObj:requests){
 						List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos((Integer)reqObj.get("id"));
@@ -3690,7 +3688,11 @@ public class HomePageController {
 							reqObj.put("photosList", photosList);
 							reqObj.put("photosListSize", photosList.size());
 							//add recent activity data
-							reqObj.put("recent_activity_map", tempMap);
+							Map<String,Object> recent_activity = objUsersDao.getRecentActivityOf(sessionBean.getId()+"",(Integer)reqObj.get("id"));
+							if(recent_activity!=null){
+								reqObj.put("recent_activity_map", recent_activity);
+							}
+							
 						}else{
 							reqObj.put("photosList", "");
 						}
@@ -3763,6 +3765,10 @@ public class HomePageController {
 							//sJson = objectMapper.writeValueAsString(photosList);
 							reqObj.put("photosList", photosList);
 							reqObj.put("photosListSize", photosList.size());
+							//add recent activity data
+							//add recent activity data
+							Map<String,Object> recent_activity = objUsersDao.getRecentActivityOf(sessionBean.getId()+"",(Integer)reqObj.get("id"));
+							reqObj.put("recent_activity_map", recent_activity);
 						}else{
 							reqObj.put("photosList", "");
 						}
