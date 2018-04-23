@@ -7,6 +7,8 @@
 .form-check {
 text-align:left;
 }
+.form-control {
+margin-bottom:10px;}
 </style>
 
 			<div class="col-md-9 products-grid-left">

@@ -1,6 +1,7 @@
 html, body{
     font-size: 100%;
-	background:	#ccc;
+	/* background:	url('images/body.jpg');
+	background-repeat: repeat-y; */
 	  font-family: 'Open Sans', sans-serif;
 }
 p{
@@ -912,7 +913,7 @@ p.non span{
 	line-height:1.8em;
 }
 .footer-grid ul{
-	padding:1.5em 0 0 2em;
+	padding:1.5em 0 0 0em;
 	margin:0;
 }
 .footer-grid ul li{
@@ -1168,7 +1169,7 @@ li.last_price span {
 /*--//checkout--*/
 /*-- products --*/
 .mid-grids{
-	padding:3em 0 0;
+	padding:1em 0 0;
 }
 .mid-grids h3 { color:#191a1f; margin-bottom:5px; font-size:22px; margin-top:0;}
 .mid-grids h4 { color:#1a1b20; marginpbottom:20px; font-size:15px;}
@@ -2695,7 +2696,7 @@ label.radio {
 	  margin: 3em 0 0;
 	}
 	.contact, .login, .reg-form, .check, .mid-grids, .single {
-	  padding: 3em 0 0;
+	  padding: 1em 0 0;
 	}
 	.details-left-info p {
 		font-size: 14px;

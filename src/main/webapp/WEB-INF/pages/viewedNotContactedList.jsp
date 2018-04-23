@@ -82,7 +82,7 @@ margin-left:10px;
 <h4>Viewed Not Contacted List</h4>
 <p>Listed below are the profiles that you viewed but not contacted.</p><p> <input type="checkbox" id="withphotos" onclick="filterProfiles()"/>  Show profiles with photo   
 </p>
-</div><br><br><br>
+</div><div class="clearfix" style="margin-bottom:5px;"></div>
 		<div class="mid-grids">
 		
 			  

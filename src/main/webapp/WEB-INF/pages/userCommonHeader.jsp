@@ -42,6 +42,12 @@
 padding-right:0px;
 padding-left:0px;
 }
+.notifications a{
+color:#000;
+}
+.notifications a:hover{
+color:#777;
+}
 #notification_li
 			{
 			position:relative
@@ -803,7 +809,7 @@ tooltip:hover:after {
 		            	+ '<a href="#no" type="button" class="btn btn-primary btn-sm " onclick="fullProfile('+orderObj.id+')">View Full Profile</a>'
 		            	+ '</div>'
 		            	+ '<div class="col-md-3">'
-		            	+ '<a href="#no" type="button" class="btn btn-danger btn-sm" id="sendMail'+orderObj.id+'" onclick="displayMailPopup('+orderObj.id+',\''+firstname+' '+lastname+'\')">Send Mail</a>'
+		            	+ '<a href="#no" type="button" class="btn btn-danger btn-sm" id="sendMail'+orderObj.id+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')">Send Mail</a>'
 		            	+ '</div>'
 		            	+ '<div class="col-md-3">'
 		            	+ interestStr
@@ -1099,6 +1105,93 @@ tooltip:hover:after {
 							}
 							
 						}
+						// to display recent activity details
+						var activity_str = "",act_short_str = "";
+						var recent_activity = orderObj.recent_activity_map;
+						if(recent_activity.activity_type=="interest_request"){
+							if(login_user_role_id==recent_activity.act_done_by_user_id){
+								act_short_str = "Interest Request Sent";
+								if(her_his_you=="his")
+									activity_str = "You sent an interest request to him";
+								else
+									activity_str = "You sent an interest request to "+her_his_you ;
+							}else{
+								act_short_str = "Interest Request Received";
+								activity_str = opp_gender_str +" sent an interest request to you" ;
+							}
+								
+						}
+						if(recent_activity.activity_type=="interest_accepted"){
+							act_short_str = "Request Accepted";
+							if(login_user_role_id==recent_activity.act_done_by_user_id){
+								activity_str = "You accepted "+her_his_you+" request";
+							}else{
+								activity_str = opp_gender_str+" accepted your request";
+							}
+						}
+						if(recent_activity.activity_type=="interest_rejected"){
+							act_short_str = "Request Rejected";
+							if(login_user_role_id==recent_activity.act_done_by_user_id){
+								activity_str = "You rejected "+her_his_you+" request";
+							}else{
+								activity_str = opp_gender_str+" rejected your request";
+							}
+						}
+						if(recent_activity.activity_type=="message"){
+							if(login_user_role_id==recent_activity.act_done_by_user_id){
+								act_short_str = "Message Sent";
+								if(her_his_you=="his")
+									activity_str = "You sent a message to him";
+								else
+									activity_str = "You sent a message to "+her_his_you ;
+							}else{
+								act_short_str = "Interest Request Received";
+								activity_str = opp_gender_str +" sent a message to you" ;
+							}
+							
+						}
+						if(recent_activity.activity_type=="message_accepted"){
+							act_short_str = "Message Accepted";
+							if(login_user_role_id==recent_activity.act_done_by_user_id){
+								activity_str = "You accepted "+her_his_you+" message";
+							}else{
+								activity_str = opp_gender_str+" rejected your message";
+							}
+						}
+						if(recent_activity.activity_type=="message_rejected"){
+							act_short_str = "Message Rejected";
+							if(login_user_role_id==recent_activity.act_done_by_user_id){
+								activity_str = "You rejected "+her_his_you+" message";
+							}else{
+								activity_str = opp_gender_str+" rejected your message";
+							}
+						}
+						if(recent_activity.activity_type=="message_replied"){
+							act_short_str = "Message Replied";
+							if(login_user_role_id==recent_activity.act_done_by_user_id){
+								activity_str = "You replied to "+her_his_you+" message";
+							}else{
+								activity_str = opp_gender_str+" replied to your message";
+							}
+						}
+						if(recent_activity.activity_type=="profile_viewed"){
+							act_short_str = "Profile Viewed";
+							if(login_user_role_id==recent_activity.act_done_by_user_id){
+								activity_str = "You viewed "+her_his_you+" profile";
+							}else{
+								activity_str = opp_gender_str+" viewed your profile";
+							}
+						}
+						if(recent_activity.activity_type=="mobile_no_viewed"){
+							act_short_str = "Number Viewed";
+							if(login_user_role_id==recent_activity.act_done_by_user_id){
+								activity_str = "You viewed "+her_his_you+" mobile number";
+							}else{
+								activity_str = opp_gender_str+" viewed your mobile number";
+							}
+						}
+						
+						/////
 						var tblRow = '<div class="panel panel-default">'
 							+ '<div class="panel-body">'
 							+ '<div class="col-md-2" >'
@@ -1114,14 +1207,14 @@ tooltip:hover:after {
 			            	+ 		orderObj.currentCityName+','+orderObj.currentStateName+','+orderObj.currentCountryName+','
 			            	+ 		orderObj.educationName+','+orderObj.occupationName+'.'
 			            	+'	</td></tr>'
-			            	+'<tr><td><button class="btn btn-default bt-block">Interest Received</button></td></tr>'
+			            	+'<tr><td><button class="btn btn-default bt-block">'+act_short_str+'</button></td></tr>'
 			            	/* + '	<tr><td>'
 			            	+ myMobileNumViewed_str 
 			            	+ message_sent_to_me_str 
 			            	+ shortListedMe_str 
 			            	+ myProfileViewed_str 
 			            	+ '</td></tr>'*/
-			            	+ '	<tr><td>'+opp_gender_str+' expressed interest. Would you like to take it further?</td></tr>' 
+			            	+ '	<tr><td>'+activity_str+'. Would you like to take it further?</td></tr>' 
 			            	+ '	<tr><td>'+acceptOptions+' <a href="moreConversations?pid='+orderObj.id+'"><span class="pull-right" style="color:#006699;">+ More Conversations</span></a></td></tr>'
 			            	+ '</table>'
 			            	+ '</div>'
@@ -1425,12 +1518,21 @@ tooltip:hover:after {
 			var option_selection = "${default_text_option}";
 			if(typeof option_selection != "undefined"){ 
 				if(option_selection=="1"){
-					$("#default_text_opt").attr("checked",true);
+					var texttt = "${mail_default_text}";
+					 texttt = texttt.replace(/##newline##/g,"\r\n");
+					 texttt = texttt.replace(/##tabspace##/g,"\t");
+					 $("#mail_content").val(texttt);
+					 
 				}else{
-					$("#default_text_opt").removeAttr("checked");
+					//$("#default_text_opt").removeAttr("checked");
 				}
 			}
-			
+			var current_selection = $("#default_text_opt").prop("checked");
+			 if(typeof current_selection != "undefined"){ 
+					if(current_selection=="1"){
+						$("#default_text_opt").removeAttr("checked");
+					}
+			 }
 			if(roleId==4 || roleId==12 || roleId==13){
 				document.searchForm2.action = "memberShipPage"
 				document.searchForm2.submit();
@@ -1450,6 +1552,8 @@ tooltip:hover:after {
 
 		function sendMail(){
 			var content = $("#mail_content").val();
+			//var textval = $("#mail_content").text();
+			//var htmlval = $("#mail_content").html();
 			if(content.trim() == ""){
 				alert("Please enter some content");
 				return false;
@@ -1470,7 +1574,12 @@ tooltip:hover:after {
 							alert("E-Mail has been sent successfully.");
 							$("#sendMailBtn").removeAttr("disabled");
 							$("#sendMailBtn").val("Send Mail");
-							$("#mail_content").val("");
+							var current_selection = $("#default_text_opt").prop("checked");
+							 if(typeof current_selection != "undefined"){ 
+									if(current_selection=="1"){
+										$("#default_text_opt").removeAttr("checked");
+									}
+							 }
 							$("#closeBtn").trigger("click");
 						}else{
 							alert("Some problem occured while sending e-mail!!! Please try again.");
@@ -2041,8 +2150,15 @@ overflow:hidden;
 
 } */
 body {
-background:#ccc !important;
-}
+/* background:url('images/body.jpg')  !important;
+ background-repeat: repeat-y; */
+ background:#f1f1f1 !important;
+ }
+ .products{
+/* background:url('images/body.jpg')  !important;
+ background-repeat: repeat-y; */
+  background:#f1f1f1 !important;
+ }
 .upgradeOption {
     color: #f35626;
     background-image: -webkit-linear-gradient(2deg, #fff, #fff);
@@ -2080,7 +2196,7 @@ background:#ccc !important;
 margin-bottom:5px;
 }
 .btn-sm {
-width:130px;
+width:120px;
 }
 .panel-title {
 	font-size: 16px;
@@ -2343,6 +2459,14 @@ header h1 {
 .logo img{
 margin:0 auto;
 height:auto;
+}
+.table-responsive {
+border:none !important;}
+.box_1 p {
+    margin: 0px 0 0px 8px;
+}
+.logo {
+    margin-bottom: 5px !important;
 }
 }
 /* -------------------------------- 
@@ -3015,7 +3139,7 @@ img.hover-shadow {
 									<c:if test="${not empty notificationsList}">
 											<div id="notificationsBody" class="notifications">
 												<c:forEach var="notification" items="${notificationsList}">
-													<div class="col-md-3 col-xs-3"  style="height:70px; overflow:hidden;padding-right:0px; padding-left:0px;" >
+													<div class="col-md-3 col-xs-3"  style="height:55px; overflow:hidden;padding-right:0px; padding-left:0px;" >
 														<c:if test="${not empty notification.profileImage}">
 															<img src="${notification.profileImage}" style="width: 100%;padding: 5px;">
 														</c:if>
@@ -3077,7 +3201,7 @@ img.hover-shadow {
                             
                             
 							<li class="dropdown settings pull-right">
-								<a href="#no" class="dropdown-toggle" data-toggle="dropdown">
+								<a href="#no" class="dropdown-toggle setpic" data-toggle="dropdown">
 									
 									
 <!-- 										<img id="profilepic" src="img/default.png" class="img-responsive thumbnail " style="margin-top:-10px;height: 40px;width: 40px;border-radius:15%;">  -->
@@ -3123,18 +3247,19 @@ img.hover-shadow {
         <label>Enter Your Message</label>
         	<input type="hidden" name="profile_id" id="profile_id">
         	<input type="hidden" id="memberName" name="memberName">
+        	<div id="content_div">
         	<c:if test="${default_text_option == '0' }">
-        		<textarea id="mail_content" placeholder="Enter Your Message..." onblur="this.placeholder='Enter Your Message'" onfocus="this.placeholder=''" name="mail_content" class="form-control" rows="10"style="margin-top:5px; resize:none; overflow:auto;" ></textarea>
+        		<textarea id="mail_content" placeholder="Enter Your Message..." onblur="this.placeholder='Enter Your Message'" onfocus="this.placeholder=''" name="mail_content" class="form-control" rows="10" style="white-space: pre-wrap; margin-top:5px; resize:none; overflow:auto;" ></textarea>
         	</c:if>
         	<%-- <c:if test="${default_text_option != '0' }">
         		<textarea id="mail_content" placeholder="Enter Your " onblur="this.placeholder='Enter Your Message'" onfocus="this.placeholder=''" name="mail_content" cols="70" rows="10"style="margin-top:5px;" ></textarea>
         	</c:if> --%>
          	 <c:if test="${default_text_option != '0' }">
-        		<textarea id="mail_content" placeholder="" onblur="this.placeholder='Enter Your Message'" onfocus="this.placeholder=''" name="mail_content" cols="70" rows="10"  style="white-space: pre-wrap;margin-top:5px;" ><c:out value="${mail_default_text}" />
+        		<textarea id="mail_content" placeholder="" onblur="this.placeholder='Enter Your Message'" onfocus="this.placeholder=''" name="mail_content"   style="width:100%; height:250px;white-space: pre-wrap;margin-top:5px;" ><c:out value="${mail_default_text}" />
         			
         		</textarea>
         	</c:if> 
-         	
+         	</div>
          	<br><div class="clearfix"></div>
           	
         </div>
@@ -3288,3 +3413,6 @@ img.hover-shadow {
 	</div> --%>
 
 <!-- body starts here-->
+<script>
+
+</script>
