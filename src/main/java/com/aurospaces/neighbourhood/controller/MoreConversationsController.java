@@ -33,6 +33,14 @@ public class MoreConversationsController {
 			String profile_id =request.getParameter("pid");
 			conversations = objUsersDao.getConversationsList(sessionBean, profile_id);
 			if(conversations!=null && conversations.size()>0){
+				for(Map<String,Object> conv:conversations){
+					if(((String)conv.get("activity_type")).equalsIgnoreCase("message")){
+						String temp = ((String)conv.get("activity_content")).replaceAll("##newline##", "\r\n");
+						temp = temp.replaceAll("##tabspace##", "\t");
+						conv.remove("activity_content");
+						conv.put("activity_content", temp);
+					}
+				}
 				request.setAttribute("conversationsList", conversations);
 			}else{
 				request.setAttribute("conversationsList", "''");

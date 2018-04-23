@@ -3600,6 +3600,7 @@ public class HomePageController {
 			}
 			String profile_id = request.getParameter("profile_id");
 			String mailContent = request.getParameter("mail_content");
+			String new_mailContent = "";
 			String default_text_option = request.getParameter("default_text_option");
 			if(StringUtils.isNotBlank(profile_id)){
 				UsersBean receipientUser = objUsersDao.loginChecking(Integer.parseInt(profile_id));
@@ -3610,10 +3611,15 @@ public class HomePageController {
 						 String retVal = EmailUtil.sendInterestMail(userBean, receipientUser, request, objContext);
 						 if(StringUtils.isNotBlank(retVal)){
 							 objJson.put("message", "success");
-							 objUsersDao.sendMailMessage(profile_id,receipientUser.getMail_content(),default_text_option.equalsIgnoreCase("true")?"1":"0");
+							 String excaped_text = receipientUser.getMail_content().replaceAll("\r\n", "##newline##");
+							 excaped_text = excaped_text.replaceAll("\t", "##tabspace##");
+							 objUsersDao.sendMailMessage(profile_id,excaped_text,default_text_option.equalsIgnoreCase("true")?"1":"0");
 							 session.setAttribute("default_text_option", default_text_option.equalsIgnoreCase("true")?"1":"0");
-							 session.setAttribute("mail_default_text", receipientUser.getMail_content());
-							 objJson.put("mail_default_text", receipientUser.getMail_content());
+							 if(default_text_option.equalsIgnoreCase("true")){
+								 session.setAttribute("mail_default_text", excaped_text);
+								 session.setAttribute("default_text_option", default_text_option.equalsIgnoreCase("true")?"1":"0");
+								 //objJson.put("mail_default_text", excaped_text);
+							 }
 							 // decrease the profile count
 							 int allowed_profiles_limit = objUsersDao.getAllowedProfilesLimit(userBean.getId());
 							 session.setAttribute("allowed_profiles_limit", allowed_profiles_limit);
@@ -3662,7 +3668,8 @@ public class HomePageController {
 					requests = objUsersDao.getRequestsRejectedByMe(sessionBean.getId()+"",0);
 				}
 				if(requests!=null && requests.size()>0){
-					
+					Map<String,Object> tempMap =  requests.get(requests.size()-1);
+					requests.remove(requests.size()-1);
 					//get photos
 					for(Map<String,Object> reqObj:requests){
 						List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos((Integer)reqObj.get("id"));
@@ -3671,6 +3678,8 @@ public class HomePageController {
 							//sJson = objectMapper.writeValueAsString(photosList);
 							reqObj.put("photosList", photosList);
 							reqObj.put("photosListSize", photosList.size());
+							//add recent activity data
+							reqObj.put("recent_activity_map", tempMap);
 						}else{
 							reqObj.put("photosList", "");
 						}

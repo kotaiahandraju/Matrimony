@@ -72,7 +72,7 @@ function notificationId(id){
 																</c:if>
 
 															</a></br>
-															<p>Last Viewed &nbsp;<c:out value="${notification.created_on}"/></p>
+															<p><c:out value="${notification.created_on}"/></p>
 														</p>
 														
 													
