@@ -1216,6 +1216,7 @@ tooltip:hover:after {
 			            	+ '</td></tr>'*/
 			            	+ '	<tr><td>'+activity_str+'. Would you like to take it further?</td></tr>' 
 			            	+ '	<tr><td>'+acceptOptions+' <a href="moreConversations?pid='+orderObj.id+'"><span class="pull-right" style="color:#006699;">+ More Conversations</span></a></td></tr>'
+			            	+ ' <tr><td><a class="btn btn-warning" data-toggle="modal" data-target="#reply"> Reply</a></td></tr>'
 			            	+ '</table>'
 			            	+ '</div>'
 			            	+ '</div>'
@@ -3387,6 +3388,28 @@ img.hover-shadow {
 
         </div>
        
+      </div>
+      
+    </div>
+  </div>
+  <div class="modal fade" id="reply" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <a style="margin:13px 15px 15px 20px; color:#fff; opacity:1;" type="button" class="close" data-dismiss="modal">&times;</a>
+          <h3 class="modal-title" style="font-size:17px;"><p>Reply To The </p></h3>
+        </div>
+        <div class="modal-body">
+          <p>Hello,<br><br>
+          I find that your profile closley matches with that of my member.I would like to discuss further on potentiol alliance and I am confident that this work out to a meeting" once we able to have a conversation. Please call me for more details .
+          Relationship manager--Assisted service  during all working days Monday to Saturd at 9:00am to 6:00pm<br><br>
+          Thanks and Regards </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-warning" data-dismiss="modal">Reply</button>
+        </div>
       </div>
       
     </div>
