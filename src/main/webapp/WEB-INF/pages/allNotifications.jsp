@@ -80,7 +80,7 @@ function notificationId(id){
 																</c:if>
 
 															</a></br>
-															<p> &nbsp;<c:out value="${notification.created_on}"/></p>
+															<p><c:out value="${notification.created_on}"/></p>
 														</p>
 														
 													

@@ -735,10 +735,79 @@ public class UsersDao extends BaseUsersDao
 			UsersBean objUserBean = null;
 			objUserBean = (UsersBean) session.getAttribute("cacheGuest");
 			String columnValue = acceptFlag.equals("1")?"2":"3";
+			String activity_type = acceptFlag.equals("1")?"interest_accepted":"interest_rejected";
 			if(objUserBean!=null){
 				try{
 					int updated_count = jdbcTemplate.update("update express_intrest set status = '"+columnValue+"' where find_in_set(id,'"+requestIds+"')>0");
 					if(updated_count>0){
+						buffer = new StringBuffer();
+						buffer.append("insert into users_activity_log(created_time,activity_type,act_done_by_user_id,act_done_on_user_id) "
+								+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','"+activity_type+"',"+objUserBean.getId()+",(select profile_id from express_intrest where id = "+requestIds+"))");
+						int inserted_count = jdbcTemplate.update(buffer.toString());
+						buffer = new StringBuffer();
+						buffer.append("insert into user_notifications(created_on,user_type,user_id,profile_id,notifi_type) "
+								+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','member',"+objUserBean.getId()+",(select profile_id from express_intrest where id = "+requestIds+"),'"+activity_type+"')");
+						inserted_count = jdbcTemplate.update(buffer.toString());
+						return true;
+					}
+					return false;
+				}catch(Exception e){
+					e.printStackTrace();
+					return false;
+				}
+			}
+			return false;
+	 }
+	 
+	 public boolean acceptMessage(String requestIds,String acceptFlag){
+			jdbcTemplate = custom.getJdbcTemplate();
+			StringBuffer buffer = new StringBuffer();
+			UsersBean objUserBean = null;
+			objUserBean = (UsersBean) session.getAttribute("cacheGuest");
+			String columnValue = acceptFlag.equals("1")?"1":"3"; // 1-accepted  2-replied  3-rejected
+			String activity_type = acceptFlag.equals("1")?"message_accepted":"message_rejected";
+			if(objUserBean!=null){
+				try{
+					int updated_count = jdbcTemplate.update("update express_intrest set message_status = '"+columnValue+"' where find_in_set(id,'"+requestIds+"')>0");
+					if(updated_count>0){
+						buffer = new StringBuffer();
+						buffer.append("insert into users_activity_log(created_time,activity_type,act_done_by_user_id,act_done_on_user_id) "
+								+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','"+activity_type+"',"+objUserBean.getId()+",(select profile_id from express_intrest where id = "+requestIds+"))");
+						int inserted_count = jdbcTemplate.update(buffer.toString());
+						buffer = new StringBuffer();
+						buffer.append("insert into user_notifications(created_on,user_type,user_id,profile_id,notifi_type) "
+								+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','member',"+objUserBean.getId()+",(select profile_id from express_intrest where id = "+requestIds+"),'"+activity_type+"')");
+						inserted_count = jdbcTemplate.update(buffer.toString());
+						return true;
+					}
+					return false;
+				}catch(Exception e){
+					e.printStackTrace();
+					return false;
+				}
+			}
+			return false;
+	 }
+	 
+	 public boolean replyToMessage(String requestIds,String mail_content,String default_text_option){
+			jdbcTemplate = custom.getJdbcTemplate();
+			StringBuffer buffer = new StringBuffer();
+			UsersBean objUserBean = null;
+			objUserBean = (UsersBean) session.getAttribute("cacheGuest");
+			String columnValue = "2"; // 1-accepted  2-replied  3-rejected
+			String activity_type = "message_replied";
+			if(objUserBean!=null){
+				try{
+					int updated_count = jdbcTemplate.update("update express_intrest set message_status = '"+columnValue+"' where find_in_set(id,'"+requestIds+"')>0");
+					if(updated_count>0){
+						buffer = new StringBuffer();
+						buffer.append("insert into users_activity_log(created_time,activity_type,act_done_by_user_id,act_done_on_user_id,activity_content) "
+								+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','"+activity_type+"',"+objUserBean.getId()+",(select profile_id from express_intrest where id = "+requestIds+"),"+mail_content.trim()+")");
+						int inserted_count = jdbcTemplate.update(buffer.toString());
+						buffer = new StringBuffer();
+						buffer.append("insert into user_notifications(created_on,user_type,user_id,profile_id,notifi_type) "
+								+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','member',"+objUserBean.getId()+",(select profile_id from express_intrest where id = "+requestIds+"),'"+activity_type+"')");
+						inserted_count = jdbcTemplate.update(buffer.toString());
 						return true;
 					}
 					return false;
@@ -827,7 +896,7 @@ public class UsersDao extends BaseUsersDao
 							String qry = "update express_intrest set default_text_option = '0' , mail_default_text = '' where user_id = "+objUserBean.getId();
 							jdbcTemplate.update(qry);
 							buffer.append("update express_intrest set message_sent_status = '1',created_on = ? , default_text_option = ?, mail_default_text = ? where user_id = ? and profile_id = ?");
-							updated_count = jdbcTemplate.update(buffer.toString(), new Object[]{new java.sql.Timestamp(new DateTime().getMillis()),default_text_option,mail_content.replace(' ', '\n'),objUserBean.getId(),profileId});
+							updated_count = jdbcTemplate.update(buffer.toString(), new Object[]{new java.sql.Timestamp(new DateTime().getMillis()),default_text_option,mail_content,objUserBean.getId(),profileId});
 						}else{
 							buffer.append("update express_intrest set message_sent_status = '1',created_on = ?  where user_id = ? and profile_id = ?");
 							updated_count = jdbcTemplate.update(buffer.toString(), new Object[]{new java.sql.Timestamp(new DateTime().getMillis()),objUserBean.getId(),profileId});
@@ -835,7 +904,7 @@ public class UsersDao extends BaseUsersDao
 					}
 					buffer = new StringBuffer();
 					buffer.append("insert into users_activity_log(created_time,activity_type,act_done_by_user_id,act_done_on_user_id,activity_content) "
-							+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','email',"+objUserBean.getId()+","+profileId+",'"+mail_content+"')");
+							+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','message',"+objUserBean.getId()+","+profileId+",'"+mail_content+"')");
 					int inserted_count = jdbcTemplate.update(buffer.toString());
 					buffer = new StringBuffer();
 					buffer.append("insert into user_notifications(created_on,user_type,user_id,profile_id,notifi_type) "
@@ -1422,7 +1491,7 @@ public class UsersDao extends BaseUsersDao
 								+" (select count(*) from  users u,express_intrest ei where u.id = ei.profile_id and ei.user_id = "+userId+" and ei.profile_viewed_status = '1' and "+subStr+" ) as profilesViewedByMeCount, "
 								+" (select count(*) from  users u,express_intrest  ei where u.id = ei.user_id and  ei.profile_id = "+userId+" and ei.mobile_no_viewed_status = '1' and "+subStr+" ) as mobileNumViewedCount, "
 								+" (select count(*) from  users u,express_intrest ei where u.id = ei.profile_id and ei.user_id = "+userId+" and ei.mobile_no_viewed_status = '1' and "+subStr+" ) as mobileNumViewedByMeCount, "
-								+" (select count(*) from  users u,express_intrest  ei where u.id = ei.user_id and ei.profile_id = "+userId+" and ei.interested = '1' and ei.status = '1' and "+subStr+" ) as pendingRequestsCount, "
+								+" (select count(*) from  users u,express_intrest  ei where u.id = ei.user_id and ei.profile_id = "+userId+" and ((ei.interested = '1' and ei.status = '1') or (message_sent_status = '1' and message_status = '0'))  and "+subStr+" ) as pendingRequestsCount, "
 								+" (select count(*) from  users u where u.id not in (select ei.profile_id from express_intrest ei where ei.user_id = "+userId+" and ei.profile_viewed_status = '1') "
 								+" 	 and "+subStr+"  ) as yetToBeViewedCount, "
 								+" (select count(*) from users u,express_intrest ei where u.id=ei.profile_id and ei.user_id = "+userId+" and ei.profile_viewed_status = '1' and ei.mobile_no_viewed_status = '0' and ei.interested='0' "
@@ -1597,7 +1666,7 @@ public class UsersDao extends BaseUsersDao
 		jdbcTemplate = custom.getJdbcTemplate();
 		UsersBean objUserBean = (UsersBean) session.getAttribute("cacheGuest");
 		StringBuffer buffer = new StringBuffer();
-		String inner_where_clause = " ei.user_id = u.id and ei.profile_id = "+userId+" and ei.interested = '1' and ei.status = '1' and u.role_id not in (1) and u.status in ('1')  and u.gender not in  ('"+objUserBean.getGender()+"') and u.id not in  ("+userId+") ";
+		String inner_where_clause = " ei.user_id = u.id and ei.profile_id = "+userId+" and ((ei.interested = '1' and ei.status = '1') or (message_sent_status = '1' and message_status = '0')) and u.role_id not in (1) and u.status in ('1')  and u.gender not in  ('"+objUserBean.getGender()+"') and u.id not in  ("+userId+") ";
 		StringBuffer where_clause = new StringBuffer(" and u.role_id not in (1) and u.status in ('1') ");
 		buffer.append("select ei.id as requestId,u.id,u.gender,sta.name as currentStateName,cit.name as currentCityName,u.occupation,ifnull(oc.name,'') as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
 				+"u.firstName, u.lastName, u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName, u.currentCountry,co.name as currentCountryName, " 
@@ -1634,8 +1703,14 @@ public class UsersDao extends BaseUsersDao
 		buffer.append(" order by u.package_id desc limit "+page_size+" offset "+(page_no*page_size)+" ");
 		try{
 			List<Map<String,Object>> list = jdbcTemplate.queryForList(buffer.toString());
-			if(list!=null)
+			if(list!=null){
+				buffer = new StringBuffer();
+				buffer.append("select * from users_activity_log where act_done_on_user_id = "+objUserBean.getId()+" order by created_time desc limit 1 ");
+				Map<String,Object> recent_activity = jdbcTemplate.queryForMap(buffer.toString());
+				list.add(recent_activity);
 				return list;
+			}
+				
 		}catch(Exception e){
 			e.printStackTrace();
 			return null;
@@ -1929,8 +2004,13 @@ public class UsersDao extends BaseUsersDao
 		buffer.append(" order by u.package_id desc limit "+page_size+" offset "+(page_no*page_size)+" ");
 		try{
 			List<Map<String,Object>> list = jdbcTemplate.queryForList(buffer.toString());
-			if(list!=null)
+			if(list!=null){
+				buffer = new StringBuffer();
+				buffer.append("select * from users_activity_log where act_done_on_user_id = "+objUserBean.getId()+" order by created_time desc limit 1 ");
+				Map<String,Object> recent_activity = jdbcTemplate.queryForMap(buffer.toString());
+				list.add(recent_activity);
 				return list;
+			}
 		}catch(Exception e){
 			e.printStackTrace();
 			return null;
@@ -2135,8 +2215,13 @@ public class UsersDao extends BaseUsersDao
 		buffer.append(" order by u.package_id desc limit "+page_size+" offset "+(page_no*page_size)+" ");
 		try{
 			List<Map<String,Object>> list = jdbcTemplate.queryForList(buffer.toString());
-			if(list!=null)
+			if(list!=null){
+				buffer = new StringBuffer();
+				buffer.append("select * from users_activity_log where act_done_on_user_id = "+objUserBean.getId()+" order by created_time desc limit 1 ");
+				Map<String,Object> recent_activity = jdbcTemplate.queryForMap(buffer.toString());
+				list.add(recent_activity);
 				return list;
+			}
 		}catch(Exception e){
 			e.printStackTrace();
 			return null;
