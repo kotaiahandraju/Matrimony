@@ -2979,7 +2979,7 @@ label.radio {
 	}
 	.box_1 {
 	  float: none;
-	  margin-top:-20px;
+	  margin-top:0px !important;
 	}
 	.header_right {
 	  float: none;

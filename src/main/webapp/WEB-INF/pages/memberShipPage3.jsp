@@ -313,7 +313,7 @@ border:none;}
 			                    </div>
 			                </c:if>
 			                 <c:if test = "${theCount.index=='3'}">
-			                <div class="pricingTable org org1" id="pricing_${pack.id}">
+			                <div class="pricingTable org" id="pricing_${pack.id}">
 			                    <div class="pricingTable-header">
 			                      
 			                        <div class="price-value "><li class="fa fa-inr"></li> <c:out value="${pack.price}"/> <span class="month"><c:out value="${pack.duration}"/> Months</span> </div>
