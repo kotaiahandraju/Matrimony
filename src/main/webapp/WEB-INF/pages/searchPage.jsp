@@ -77,16 +77,49 @@ margin-bottom:15px;}
 <%-- 										<form:input path="rAgeTo" class="form-control numericOnly u1" placeholder="To" />
  --%>	
  									<select id="rAgeTo" name="rAgeTo" class="form-control numericOnly u1">
-									<option value="" selected="">--To---</option>
+									<option value="" selected="">--To--</option>
+									<option value="19">19</option>
+									<option value="20">20</option>
+									<option value="21">21</option>
+									<option value="22">22</option>
+									<option value="23">23</option>
+									<option value="24">24</option>
+									<option value="25">25</option>
+									<option value="26">26</option>
+									<option value="27">27</option>
+									<option value="28">28</option>
+									<option value="29">29</option>
+									<option value="30">30</option>
+									<option value="31">31</option>
+									<option value="32">32</option>
+									<option value="33">33</option>
+									<option value="34">34</option>
+									<option value="35">35</option>
+									<option value="36">36</option>
+									<option value="37">37</option>
+									<option value="38">38</option>
+									<option value="39">39</option>
+									<option value="40">40</option>
+									<option value="41">41</option>
+									<option value="42">42</option>
+									<option value="43">43</option>
+									<option value="44">44</option>
+									<option value="45">45</option>
+									<option value="46">46</option>
+									<option value="47">47</option>
+									<option value="48">48</option>
+									<option value="49">49</option>
+									<option value="50">50</option>
 								
 								</select>
  								</div>
+ 								<span id="ageMsg" style="color:red;"></span>
 								</div>
 								<div class="form-group">
 									<label class="col-md-4 control-label" for="textinput">Height </label>
 									<div class="col-md-3">
 										<form:select path="rHeight" class="form-control u1">
-											<form:option value="">From</form:option>
+											<form:option value="">--From--</form:option>
 											<form:options items="${height}"></form:options>
 										</form:select>
 									</div>
@@ -95,10 +128,11 @@ margin-bottom:15px;}
                                     
 									<div class="col-md-3">
 										<form:select path="rHeightTo" class="form-control u1">
-											<form:option value="">To</form:option>
-											<form:options style="display:none" items="${height}"></form:options>
+											<form:option value="">--To--</form:option>
+											<form:options items="${height}"></form:options>
 										</form:select>
 									</div>
+										<span id="heightMsg" style="color:red;"></span>
                                     </div>
                                     
 									<div class="form-group prfic">
@@ -511,6 +545,13 @@ function submitSearch(){
 	var motherTongue = $("#rMotherTongue").val();
 	var country = $("#rCountry").val();
 	var state = $("#rState").val();
+	if(ageFrom > ageTo){
+		alert("Sorry, Invalid Age range");
+		return false;
+	}else if( parseInt(heightFrom) > parseInt(heightTo)){
+		alert("Sorry, Invalid Height range");
+		return false;
+	}
 	if(ageFrom=="" && ageTo=="" && maritalStatus==null && caste==null && motherTongue==null && country==null 
 			&& state==null && religion==null && heightFrom==""){
 		alert("Enter any input");
@@ -527,6 +568,7 @@ function modifySearch(event){
 	$('#searchResults').html('');
 	$("#searchresultsDiv").prop("hidden",true);
 	event.preventDefault();
+	
 	return false;
 }
 	//$("#searchForm2").submit();
@@ -930,7 +972,7 @@ $(document).ready(function(){
 $(".searchPage").addClass("active");
 
 
-$("#rHeight").change(function(){
+/* $("#rHeight").change(function(){
 	$('#rHeightTo').val('');
 	var val_from = $(this).val();
 	var val_to   = $("#rHeight option:last").val();
@@ -955,7 +997,7 @@ $('#rAgeFrom').change(function() {
 	}
 	}
 });
-
+ */
 /* /* $('#formId').onchange(finction(){
 	$('#rAgeTo').hide();
 	
