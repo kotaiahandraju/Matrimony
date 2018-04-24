@@ -70,6 +70,20 @@ $(function ($) {
 	<script type="text/javascript" id="sourcecode">
 		$(function(){$('.scroll-pane').jScrollPane();});
 	</script> -->
+<!-- <script>
+ $(document).ready(function(){
+        // Show hide popover
+        $(".navbar").click(function(){
+            $(this).find(".navbar-collapse").slideToggle("collapse");
+        });
+    });
 
+$(document).on("click", function(event){
+        var $trigger = $(".navbar");
+        if($trigger !== event.target && !$trigger.has(event.target).length){
+            $(".navbar-collapse").slideUp("collapse");
+        }            
+    });
+</script> -->
 </body>
 </html>
