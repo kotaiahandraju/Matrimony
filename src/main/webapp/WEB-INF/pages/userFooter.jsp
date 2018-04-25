@@ -14,9 +14,9 @@
 			<div class="col-md-3 footer-grid">
 				<h6>Search</h6>
 				<ul>
-					<li><a href="#">About Us</a></li>
+					<li><a href="aboutUs">About Us</a></li>
 					<li><a href="privacyAndPolicy">Privacy Policy</a></li>
-					<li><a href="#">Terms &amp; Conditions</a></li>
+					<li><a href="termsConditions">Terms &amp; Conditions</a></li>
 				</ul>
 			</div>
 			<div class="col-md-3 footer-grid">
@@ -70,6 +70,20 @@ $(function ($) {
 	<script type="text/javascript" id="sourcecode">
 		$(function(){$('.scroll-pane').jScrollPane();});
 	</script> -->
+<!-- <script>
+ $(document).ready(function(){
+        // Show hide popover
+        $(".navbar").click(function(){
+            $(this).find(".navbar-collapse").slideToggle("collapse");
+        });
+    });
 
+$(document).on("click", function(event){
+        var $trigger = $(".navbar");
+        if($trigger !== event.target && !$trigger.has(event.target).length){
+            $(".navbar-collapse").slideUp("collapse");
+        }            
+    });
+</script> -->
 </body>
 </html>

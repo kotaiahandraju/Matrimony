@@ -157,6 +157,17 @@ input[name=package_id]
 .pricingTable.green .heading{
     color: #40c952;
 }
+.pricingTable.org .price-value,
+.pricingTable.org .heading{
+    color: #ff9624 ;
+}
+.pricingTable.org:hover .pricingTable-header,
+.pricingTable.org .pricingTable-signup button{
+    background: #ff9624;
+}
+.pricingTable.org .pricingTable-signup button:hover{
+    box-shadow: 0 0 10px #ff9624;
+}
 .benefit {
 position: relative;
     background: rgb(244, 251, 254);
@@ -181,6 +192,7 @@ margin-left:20px;
 .pricingTable.blue:hover .price-value,
 .pricingTable.light:hover .price-value,
 .pricingTable.red:hover .price-value,
+.pricingTable.org:hover .price-value,
 .pricingTable.green:hover .price-value{
     color: #fff;
 }
@@ -238,10 +250,11 @@ color:#fff !important;
 {
 color: white !important
 }
-/* .org1 {
+
+ .org1 {
     transform: scale(1.05);
     z-index: 1;
-} */
+} 
 .org2 {
 background:#ff9624 !important;
 color:#fff !important;
@@ -300,7 +313,7 @@ border:none;}
 			                    </div>
 			                </c:if>
 			                 <c:if test = "${theCount.index=='3'}">
-			                <div class="pricingTable org org1" id="pricing_${pack.id}">
+			                <div class="pricingTable org" id="pricing_${pack.id}">
 			                    <div class="pricingTable-header">
 			                      
 			                        <div class="price-value "><li class="fa fa-inr"></li> <c:out value="${pack.price}"/> <span class="month"><c:out value="${pack.duration}"/> Months</span> </div>

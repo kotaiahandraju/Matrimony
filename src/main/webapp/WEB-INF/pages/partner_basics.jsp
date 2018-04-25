@@ -1,6 +1,22 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-
+<style>
+.partnerst {
+width: 188px; float: right; display: inline-flex;
+}
+@media only screen and (max-width: 640px) and (min-width: 320px) {
+.partnerst {
+width:100%;
+float:left;
+display:block;
+}
+.multiSelect {
+width:100%;
+float:left;
+display:block;
+}
+}
+</style>
 
 <div class="row">
 
@@ -8,7 +24,7 @@
 	<div class="col-md-6">    
 	<div class="form-group">
       <label class="control-label" for="textinput">Age From</label>  
-     <form:select path="rAgeFrom" class="form-control numericOnly u1" style='width: 188px; float: right; display: inline-flex;'>
+     <form:select path="rAgeFrom" class="form-control numericOnly u1 partnerst">
 			<form:option value="">-- Select Age From --</form:option>
 							
 								<form:option value="18">18</form:option>
@@ -97,7 +113,7 @@
     <div class="form-group">
       <label class="control-label" for="textinput">Height From</label>  
       
-      	<form:select path="rHeight" class="form-control u1" style='width: 188px; float: right; display: inline-flex;'>
+      	<form:select path="rHeight" class="form-control u1 partnerst">
 			<form:option value="">-- Choose Height --</form:option>
 			<form:options items="${height}"></form:options>
 		</form:select>
@@ -108,7 +124,7 @@
       <div class="form-group">
       <label class="control-label" style="text-align: -webkit-center;" for="textinput">To</label>
       
-      	<form:select path="rHeightTo" class="form-control u1" style='width: 188px; float: right; display: inline-flex;'>
+      	<form:select path="rHeightTo" class="form-control u1 partnerst">
 			<form:option value="">-- Choose Height --</form:option>
 			<form:options style="display:none" items="${height}"></form:options>
 		</form:select>

@@ -564,6 +564,7 @@ function submitSearch(){
 	
 }
 function modifySearch(event){
+	
 	$('#search_criteria').removeAttr("hidden");
 	$('#searchResults').html('');
 	$("#searchresultsDiv").prop("hidden",true);

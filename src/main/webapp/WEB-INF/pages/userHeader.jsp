@@ -100,7 +100,7 @@
 		            	
 		            		<b><c:out value="${membership_details.name}" /></b><br>
 			            	<c:out value="${membership_details.validity}" /> days remaining <br>
-			            	Balance Profiles Limit:<c:out value="${allowed_profiles_limit}" />/
+			            	Balance Profiles Limit : <c:out value="${allowed_profiles_limit}" />/
 			            	<c:out value="${membership_details.allowed_profiles_limit}" />
 		            	
 	            	</c:if>
