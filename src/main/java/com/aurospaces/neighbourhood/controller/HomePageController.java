@@ -2562,7 +2562,39 @@ public class HomePageController {
 			e.printStackTrace();
 			System.out.println(e);
 			logger.error(e);
-			logger.fatal("error forwardInterestRequests method  ");
+			logger.fatal("error in acceptRequest method  ");
+			return objJson.put("message", "error").toString();
+		}
+		return objJson.toString();
+	}
+   @RequestMapping(value = "/acceptMessage")
+	public  @ResponseBody String acceptMessage(@ModelAttribute("createProfile") UsersBean objUsersBean, ModelMap model,
+			HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
+	    JSONObject objJson =new JSONObject();
+		try {
+			UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
+			if(sessionBean == null){
+				return "redirect:HomePage";
+			}
+			String requestId = request.getParameter("requestId");
+			String accept_flag = request.getParameter("accept_flag");
+			boolean forwarded = objUsersDao.acceptMessage(requestId,accept_flag);
+			if (forwarded) {
+				objJson.put("message", "success");
+				// update pending req count
+				int pending = Integer.parseInt(sessionBean.getPendingRequestsCount());
+				sessionBean.setPendingRequestsCount(pending>0?(pending-1)+"":"0");
+				session.setAttribute("cacheGuest",sessionBean);
+			} else {
+				objJson.put("message", "failed");
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			logger.error(e);
+			logger.fatal("error in acceptMessage method  ");
 			return objJson.put("message", "error").toString();
 		}
 		return objJson.toString();
@@ -3688,7 +3720,7 @@ public class HomePageController {
 							reqObj.put("photosList", photosList);
 							reqObj.put("photosListSize", photosList.size());
 							//add recent activity data
-							Map<String,Object> recent_activity = objUsersDao.getRecentActivityOf(sessionBean.getId()+"",(Integer)reqObj.get("id"));
+							Map<String,Object> recent_activity = objUsersDao.getRecentActivityOf(sessionBean.getId()+"",(Integer)reqObj.get("id"),list_type);
 							if(recent_activity!=null){
 								reqObj.put("recent_activity_map", recent_activity);
 							}
@@ -3767,7 +3799,7 @@ public class HomePageController {
 							reqObj.put("photosListSize", photosList.size());
 							//add recent activity data
 							//add recent activity data
-							Map<String,Object> recent_activity = objUsersDao.getRecentActivityOf(sessionBean.getId()+"",(Integer)reqObj.get("id"));
+							Map<String,Object> recent_activity = objUsersDao.getRecentActivityOf(sessionBean.getId()+"",(Integer)reqObj.get("id"),list_type);
 							reqObj.put("recent_activity_map", recent_activity);
 						}else{
 							reqObj.put("photosList", "");

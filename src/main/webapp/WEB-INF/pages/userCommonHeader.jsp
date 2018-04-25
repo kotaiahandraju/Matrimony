@@ -1163,6 +1163,7 @@ tooltip:hover:after {
 								}else{
 									act_short_str = "Message Received";
 									activity_str = opp_gender_str +" sent a message to you" ;
+									acceptOptions = "<span id='accept"+orderObj.requestId+"'><a type='button' class='btn btn-primary btn-sm' onclick='acceptMessage("+orderObj.requestId+",\"1\")'>Yes</a><a type='button' class='btn btn-danger btn-sm' id='reject"+orderObj.requestId+"' href='#' onclick='acceptMessage("+orderObj.requestId+", \"0\")'>Not Interested</a></span>";
 								}
 								
 							}
@@ -1227,6 +1228,8 @@ tooltip:hover:after {
 			            	+ 		orderObj.currentCityName+','+orderObj.currentStateName+','+orderObj.currentCountryName+','
 			            	+ 		orderObj.educationName+','+orderObj.occupationName+'.'
 			            	+'	</td></tr>'
+			            	+ '</table>'
+			            	+ '<div id="padma">'
 			            	+'<tr><td><button class="btn btn-default bt-block">'+act_short_str+'</button></td></tr>'
 			            	/* + '	<tr><td>'
 			            	+ myMobileNumViewed_str 
@@ -1721,6 +1724,53 @@ tooltip:hover:after {
 			    					$("#accept"+requestId).html("<a type='button' class='btn btn-success btn-sm' disabled='true'>Accepted</a>");
 			    				}else{
 			    					alert("Request rejected successfully");
+			    					$("#accept"+requestId).html('');
+			    					$("#accept"+requestId).html("<a type='button' class='btn btn-danger btn-sm' disabled='true' >Ignored</a>");
+			    				}
+			    			}else if("failed"==msg || "exception"==msg){
+			    				alert("Some problem occured. Please try again.");
+			    			}
+			    		
+			    		
+						
+					});
+			}
+		}
+		
+		function acceptMessage(requestId,flag){
+			var roleId = ${cacheGuest.roleId};
+			$("#id").val(requestId);
+			 if(roleId==4){
+				document.searchForm2.action = "memberShipPage"
+				document.searchForm2.submit();
+				return true;
+			}else{
+				 /* if(allowed_limit<=0){
+					alert("Exceeded allowed profiles limit. Renew your membership plan and get more profiles");
+					return false;
+				}  */ 
+				var membershipStatus = ${cacheGuest.membership_status};
+				if(membershipStatus!="1"){
+					alert("Your membership validity period is over. Renew your membership plan and get more profiles");
+					return false;
+				}
+				var formData = new FormData();
+			
+				formData.append("requestId",requestId);
+				formData.append("accept_flag",flag);
+				
+				jQuery.fn.makeMultipartRequest('POST', 'acceptMessage', false,
+						formData, false, 'text', function(data){
+			    		var jsonobj = $.parseJSON(data);
+			    		var msg = jsonobj.message;
+			    		
+			    			if("success"==msg){
+			    				if(flag==1){
+			    					alert("Message accepted successfully");
+			    					$("#accept"+requestId).html('');
+			    					$("#accept"+requestId).html("<a type='button' class='btn btn-success btn-sm' disabled='true'>Accepted</a>");
+			    				}else{
+			    					alert("Message rejected successfully");
 			    					$("#accept"+requestId).html('');
 			    					$("#accept"+requestId).html("<a type='button' class='btn btn-danger btn-sm' disabled='true' >Ignored</a>");
 			    				}

@@ -742,11 +742,11 @@ public class UsersDao extends BaseUsersDao
 					if(updated_count>0){
 						buffer = new StringBuffer();
 						buffer.append("insert into users_activity_log(created_time,activity_type,act_done_by_user_id,act_done_on_user_id) "
-								+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','"+activity_type+"',"+objUserBean.getId()+",(select profile_id from express_intrest where id = "+requestIds+"))");
+								+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','"+activity_type+"',"+objUserBean.getId()+",(select user_id from express_intrest where id = "+requestIds+"))");
 						int inserted_count = jdbcTemplate.update(buffer.toString());
 						buffer = new StringBuffer();
 						buffer.append("insert into user_notifications(created_on,user_type,user_id,profile_id,notifi_type) "
-								+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','member',"+objUserBean.getId()+",(select profile_id from express_intrest where id = "+requestIds+"),'"+activity_type+"')");
+								+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','member',"+objUserBean.getId()+",(select user_id from express_intrest where id = "+requestIds+"),'"+activity_type+"')");
 						inserted_count = jdbcTemplate.update(buffer.toString());
 						return true;
 					}
@@ -772,11 +772,11 @@ public class UsersDao extends BaseUsersDao
 					if(updated_count>0){
 						buffer = new StringBuffer();
 						buffer.append("insert into users_activity_log(created_time,activity_type,act_done_by_user_id,act_done_on_user_id) "
-								+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','"+activity_type+"',"+objUserBean.getId()+",(select profile_id from express_intrest where id = "+requestIds+"))");
+								+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','"+activity_type+"',"+objUserBean.getId()+",(select user_id from express_intrest where id = "+requestIds+"))");
 						int inserted_count = jdbcTemplate.update(buffer.toString());
 						buffer = new StringBuffer();
 						buffer.append("insert into user_notifications(created_on,user_type,user_id,profile_id,notifi_type) "
-								+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','member',"+objUserBean.getId()+",(select profile_id from express_intrest where id = "+requestIds+"),'"+activity_type+"')");
+								+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','member',"+objUserBean.getId()+",(select user_id from express_intrest where id = "+requestIds+"),'"+activity_type+"')");
 						inserted_count = jdbcTemplate.update(buffer.toString());
 						return true;
 					}
@@ -1686,7 +1686,7 @@ public class UsersDao extends BaseUsersDao
 				+" ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 				//+" (select count(*) from users u "+where_clause+") as total_records, "
 				+" (select uimg.image from user_images uimg where uimg.user_id=u.id and  uimg.status = '1' and uimg.is_profile_picture='1') as profileImage, "
-				+" (select count(*) from users u,express_intrest ei where "+inner_where_clause+") as total_records, "
+				+" (select count(*) from users u,express_intrest ei where "+inner_where_clause+" group by u.id ) as total_records, "
 				+" (select ifnull((select short_listed from express_intrest where user_id = "+objUserBean.getId()+" and profile_id = u.id),0)) as short_listed "
 				+" from users u left join userrequirement ur on u.id=ur.userId "
 				+"left join religion re on re.id=u.religion left join language l on l.id=u.motherTongue left join countries co on co.id=u.currentCountry "
@@ -1967,7 +1967,7 @@ public class UsersDao extends BaseUsersDao
 		qryStrBuffer.append(" limit "+page_size+" offset "+(page_no*page_size)+" ");*/
 		UsersBean objUserBean = (UsersBean) session.getAttribute("cacheGuest");
 		StringBuffer buffer = new StringBuffer();
-		String inner_where_clause = " ((ei.user_id = u.id and ei.profile_id = "+userId+") or ((ei.user_id = "+userId+" and ei.profile_id = u.id))) and ei.interested = '1' and ei.status = '2' and u.role_id not in (1) and u.status in ('1') and u.gender not in  ('"+objUserBean.getGender()+"') and u.id not in  ("+userId+")";
+		String inner_where_clause = " ((ei.user_id = u.id and ei.profile_id = "+userId+") or ((ei.user_id = "+userId+" and ei.profile_id = u.id))) and ((ei.interested = '1' and ei.status = '2') or (message_sent_status = '1' and message_status = '1')) and u.role_id not in (1) and u.status in ('1') and u.gender not in  ('"+objUserBean.getGender()+"') and u.id not in  ("+userId+")";
 		StringBuffer where_clause = new StringBuffer(" and u.role_id not in (1) and u.status in ('1') ");
 		buffer.append("select u.id,sta.name as currentStateName,cit.name as currentCityName,u.occupation,oc.name as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
 				+"u.firstName, u.lastName, u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName, u.currentCountry,co.name as currentCountryName, " 
@@ -1983,7 +1983,7 @@ public class UsersDao extends BaseUsersDao
 				+" ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 				//+" (select count(*) from users u "+where_clause+") as total_records, "
 				+" (select uimg.image from user_images uimg where uimg.user_id=u.id and  uimg.status = '1' and uimg.is_profile_picture='1') as profileImage, "
-				+" (select count(*) from users u,express_intrest ei where "+inner_where_clause+") as total_records, "
+				+" (select count(*) from (select count(*) from users u,express_intrest ei where "+inner_where_clause+" group by u.id ) tc) as total_records, "
 				+" (select ifnull((select short_listed from express_intrest where user_id = "+objUserBean.getId()+" and profile_id = u.id),0)) as short_listed "
 				+" from users u left join userrequirement ur on u.id=ur.userId "
 				+"left join religion re on re.id=u.religion left join language l on l.id=u.motherTongue left join countries co on co.id=u.currentCountry "
@@ -2010,11 +2010,20 @@ public class UsersDao extends BaseUsersDao
 		return null;
 	}
 	
-	public Map<String,Object> getRecentActivityOf(String userId,Integer profile_id){
+	public Map<String,Object> getRecentActivityOf(String userId,Integer profile_id,String request_type){
 		jdbcTemplate = custom.getJdbcTemplate();
 		try{
 				StringBuffer buffer = new StringBuffer();
-				buffer.append("select * from users_activity_log where  find_in_set(act_done_on_user_id,('"+userId+","+profile_id+"'))>0 and find_in_set(act_done_by_user_id,('"+userId+","+profile_id+"'))>0 order by created_time desc limit 1 ");
+				if(request_type.equalsIgnoreCase("pending_requests")){
+					buffer.append("select * from users_activity_log where  act_done_on_user_id = "+userId+" order by created_time desc limit 1 ");
+				}
+				if(request_type.equalsIgnoreCase("accepted_requests")){
+					buffer.append("select * from users_activity_log where  find_in_set(act_done_on_user_id,('"+userId+","+profile_id+"'))>0 and find_in_set(act_done_by_user_id,('"+userId+","+profile_id+"'))>0 order by created_time desc limit 1 ");
+				}
+				if(request_type.equalsIgnoreCase("sent_requests")){
+					buffer.append("select * from users_activity_log where  act_done_by_user_id = "+userId+" order by created_time desc limit 1 ");
+				}
+				
 				List<Map<String,Object>> recent_activity = jdbcTemplate.queryForList(buffer.toString());
 				if(recent_activity != null && recent_activity.size()>0){
 					return recent_activity.get(0);
@@ -2190,7 +2199,7 @@ public class UsersDao extends BaseUsersDao
 		StringBuffer qryStrBuffer = new StringBuffer("select u.*,ei.*,(select count(*) from users u,express_intrest ei where "+where_clause+") as total_records from users u, express_intrest ei where "+where_clause+" order by ei.created_on desc  ");*/
 		UsersBean objUserBean = (UsersBean) session.getAttribute("cacheGuest");
 		StringBuffer buffer = new StringBuffer();
-		String inner_where_clause = " ei.profile_id = u.id and ei.user_id = "+userId+" and ei.interested = '1' and u.role_id not in (1) and u.status in ('1') and u.gender not in  ('"+objUserBean.getGender()+"') and u.id not in  ("+userId+")";
+		String inner_where_clause = " ei.profile_id = u.id and ei.user_id = "+userId+" and u.role_id not in (1) and u.status in ('1') and u.gender not in  ('"+objUserBean.getGender()+"') and u.id not in  ("+userId+")";
 		StringBuffer where_clause = new StringBuffer(" and u.role_id not in (1) and u.status in ('1') ");
 		buffer.append("select u.id,sta.name as currentStateName,cit.name as currentCityName,u.occupation,oc.name as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
 				+"u.firstName, u.lastName, u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName, u.currentCountry,co.name as currentCountryName, " 
@@ -2206,7 +2215,7 @@ public class UsersDao extends BaseUsersDao
 				+" ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 				//+" (select count(*) from users u "+where_clause+") as total_records, "
 				+" (select uimg.image from user_images uimg where uimg.user_id=u.id and  uimg.status = '1' and uimg.is_profile_picture='1') as profileImage, "
-				+" (select count(*) from users u,express_intrest ei where "+inner_where_clause+") as total_records, "
+				+" (select count(*) from users u,express_intrest ei where "+inner_where_clause+" group by u.id ) as total_records, "
 				+" (select ifnull((select short_listed from express_intrest where user_id = "+objUserBean.getId()+" and profile_id = u.id),0)) as short_listed "
 				+" from users u left join userrequirement ur on u.id=ur.userId "
 				+"left join religion re on re.id=u.religion left join language l on l.id=u.motherTongue left join countries co on co.id=u.currentCountry "
