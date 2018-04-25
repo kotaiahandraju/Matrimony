@@ -285,7 +285,6 @@
   </tr>
 </table>
 
-=======
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%> --%>
 
 
@@ -301,7 +300,6 @@
 						</div>
 						<p><span class="glyphicon glyphicon-envelope"></span> Verify your Email <a href="#"><u>Verify Email Address</u></a></p>
 					</div>
->>>>>>> e4476360267c874a840c5d228270923640584d8a
 				</div>
 				<div class="panel panel-success">
 					<div class="panel-heading">Preferred Profiles </div>
@@ -316,7 +314,6 @@
 					<div id="altLists"></div>
 					<div id="table_footer"></div>
 				</div>
-<<<<<<< HEAD
 				
 			</div>
             
@@ -336,8 +333,6 @@
 				<div id="altLists"></div>
 				<div id="table_footer"></div>
 				
-=======
->>>>>>> e4476360267c874a840c5d228270923640584d8a
 			</div>
 
 			<div class="col-md-3 products-grid-right">
