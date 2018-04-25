@@ -1172,7 +1172,7 @@ tooltip:hover:after {
 								if(login_user_id==recent_activity.act_done_by_user_id){
 									activity_str = "You accepted "+her_his_you+" message";
 									//acceptOptions = '<span id="reply'+orderObj.requestId+'"><a type="button" class="btn btn-primary btn-sm" onclick="replyMessage('+orderObj.requestId+',\''+recent_activity.activity_content+'\')">Reply</a></span>';
-									acceptOptions = '<span id="replyarea'+orderObj.requestId+'"><a type="button" class="btn btn-primary btn-sm" onclick="displayReplyArea()">Reply</a></span>';
+									acceptOptions = '<span id="replyBtn'+orderObj.requestId+'"><a type="button" class="btn btn-primary btn-sm" onclick="displayReplyArea()">Reply</a></span>';
 								}else{
 									activity_str = opp_gender_str+" rejected your message";
 									acceptOptions = '<span id="mail'+orderObj.requestId+'"><a type="button" class="btn btn-primary btn-sm" id="sendMail'+orderObj.id+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')">Reply</a></span>';
@@ -1230,6 +1230,7 @@ tooltip:hover:after {
 			            	+'	</td></tr>'
 			            	+ '</table>'
 			            	+ '<div id="padma">'
+			            	+ '<table>'
 			            	+'<tr><td><button class="btn btn-default bt-block">'+act_short_str+'</button></td></tr>'
 			            	/* + '	<tr><td>'
 			            	+ myMobileNumViewed_str 
@@ -1240,6 +1241,10 @@ tooltip:hover:after {
 			            	+ '	<tr><td>'+activity_str+'.</td></tr>' 
 			            	+ '	<tr><td>'+acceptOptions+' <a href="moreConversations?pid='+orderObj.id+'"><span class="pull-right" style="color:#006699;">+ More Conversations</span></a></td></tr>'
 			            	+ '</table>'
+			            	+ '</div>'
+			            	+ '<div id="replyArea" hidden="true">'
+			            	+ '<textarea >adbbfdssa'
+			            	+ '</textarea>'
 			            	+ '</div>'
 			            	+ '</div>'
 			            	+ '</div>';
@@ -1782,6 +1787,10 @@ tooltip:hover:after {
 						
 					});
 			}
+		}
+		function displayReplyArea(){
+			$("#padma").attr("hidden",true);
+			$("#replyArea").removeAttr("hidden");
 		}
 		function replyMessage(requestId,message_content){
 			var roleId = ${cacheGuest.roleId};
