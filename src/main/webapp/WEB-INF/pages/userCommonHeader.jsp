@@ -864,6 +864,7 @@ tooltip:hover:after {
 			}
 			$.each(listOrders,function(i, orderObj) 
 			{
+				console.log(orderObj);
 				serviceUnitArray[orderObj.id] = orderObj;
 				
 				var array = null;
@@ -1240,7 +1241,18 @@ tooltip:hover:after {
 			            	+ '</td></tr>'*/
 			            	+ '	<tr><td>'+activity_str+'.</td></tr>' 
 			            	+ '	<tr><td>'+acceptOptions+' <a href="moreConversations?pid='+orderObj.id+'"><span class="pull-right" style="color:#006699;">+ More Conversations</span></a></td></tr>'
+			            	+ '<tr><td><button type="button" onclick="myFunction1(this.id)" id="'+orderObj.userId+'reply"  class="btn btn-warning btn-sm">Reply</button><button type="button" class="btn btn-danger btn-sm" id="'+orderObj.userId+'sendmail" style="display:none">Send Mail</button></td></tr>'
 			            	+ '</table>'
+			            	+ '<!-- Reply start -->'
+			            	+ '<div class="panel panel-success" id="'+orderObj.userId+'myDIV"  style="display:none">'
+							+ '<div class="panel-heading">Reply To This Message </div>'
+      						+ '<div class="panel-body">'
+ 							+ '<textarea style="width:100%; height:150px; overflow-y:scroll;" >TO : AMBJK8568 Hello I Find That Your Profile Closely Matches'
+							+ '</textarea>'
+							+  ' <br><button type="button" class="btn btn-warning pull-right " onclick="myFunction2('+orderObj.userId+')">Reply</button>'
+							+ '</div>'
+							+'</div>'
+							+'<!-- Reply End -->'
 			            	+ '</div>'
 			            	+ '<div id="replyArea" hidden="true">'
 			            	+ '<textarea >adbbfdssa'
@@ -2586,7 +2598,7 @@ header h1 {
 	}
 }
 @media  (min-width: 320px) and (max-width:640px) {
-.dropdown:hover .dropdown-menu:after {
+.dropdown:hover .dropdown-menu {
 display:none !important;
 }
 .open .dropdown .dropdown-menu {
@@ -3207,7 +3219,7 @@ img.hover-shadow {
 				<div class="clearfix"> </div>
 			</div>				 
 		</div>
-		<div class="col-md-2 col-xs-2">
+		<div class="col-md-1 col-xs-1">
 		<div class="pull-right" style="width:80px;">
 		<ul class="nav navbar-nav navbar-right">
                             
@@ -3442,7 +3454,6 @@ img.hover-shadow {
       
     </div>
 </div>	
-
 <div id="myPhotoModal" class="modal">
   <span class="close cursor" onclick="closeModal()">&times;</span>
   <div class="modal-content">
@@ -3584,6 +3595,21 @@ img.hover-shadow {
 		</div>
 	</div> --%>
 <!-- body starts here-->
+<script>
+function myFunction1(id) {
+    var x = document.getElementById("myDIV");
+    var replay = document.getElementById("replay");
+    var sendmail = document.getElementById("sendmail");
+   
+       $("#"+id).hide();
+       var mydiv =id.replace("reply", "");
+      $("#"+mydiv+"myDIV").show();
+}
+function myFunction2(id) {
+	 $("#"+id+"sendmail").show();
+	 $("#"+id+"myDIV").hide();
+}
+</script>
 <script>
 
 </script>
