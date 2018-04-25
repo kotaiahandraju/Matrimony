@@ -461,19 +461,19 @@ tooltip:hover:after {
 					var memberRoleId = orderObj.role_id;
 					if(memberRoleId!=null && memberRoleId!="" && (typeof memberRoleId != "undefined")){
 						if(memberRoleId==12){
-							 premiumMember = "<span class='premium-member'>Classic Member</span>";
+							 premiumMember = "<p class='premium-member'>Classic Member</p>";
 						}
 						if(memberRoleId==13){
-							 premiumMember = "<span class='premium-member'>Classic Advantage Member</span>";
+							 premiumMember = "<p class='premium-member'>Classic Advantage Member</p>";
 						}
 						if(memberRoleId==6){
-							 premiumMember = "<span class='premium-member'>Premium Member</span>";
+							 premiumMember = "<p class='premium-member'>Premium Member</p>";
 						}
 						if(memberRoleId==11){
-							 premiumMember = "<span class='premium-member'>Premium Plus Member</span>";
+							 premiumMember = "<p class='premium-member'>Premium Plus Member</p>";
 						}
 						if(memberRoleId==14){
-							 premiumMember = "<span class='premium-member'>Aarna Family Member</span>";
+							 premiumMember = "<p class='premium-member'>Aarna Family Member</p>";
 						}
 						
 					}
@@ -2358,7 +2358,7 @@ transition:none !important;
 	padding: 2px 8px;
 	font-size: 11px !important;
 	border: none;
-	
+	display:inline;
 	border-radius: 1px;
 	
 	margin: 2px 2px;
@@ -2577,6 +2577,15 @@ header h1 {
 	}
 }
 @media  (min-width: 320px) and (max-width:640px) {
+.dropdown:hover .dropdown-menu:after {
+display:none !important;
+}
+.open .dropdown .dropdown-menu {
+    display: block !important;
+}
+.premium-member {
+display:inline-block;
+margin-left:0px;}
 .logo img{
 margin:0 auto;
 height:auto;
@@ -2584,7 +2593,7 @@ height:auto;
 .table-responsive {
 border:none !important;}
 .box_1 p {
-    margin: 0px 0 0px 8px;
+    margin: 20px 47px 37px 0px;
 }
 .logo {
     margin-bottom: 5px !important;
@@ -3171,7 +3180,7 @@ img.hover-shadow {
 			</div>
 			<div class="clearfix"></div>
 		</div>
-		<div class="col-md-4">
+		
 			<!-- <ul class="nav navbar-nav">
 				<li><a href="#no">Matches<span class="badge badge-notify">30</span></a></li>
 				<li><a href="#no">Search</a></li>
@@ -3182,13 +3191,42 @@ img.hover-shadow {
         		<a href="searchProfiles">Search</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
        			<a href="#no">Inbox</a><span class="badge badge-notify">0</span></p>
 			</div> -->
-		</div>
-		<div class="col-md-5">
+		<div class="col-md-9">
+		<div class="col-md-10 col-xs-10">
 			<div class="cart box_1">
 				<p>Dear <%= userBean.getFirstName() %> <%= userBean.getLastName() %></p>
 				<div class="clearfix"> </div>
 			</div>				 
 		</div>
+		<div class="col-md-2 col-xs-2">
+		<div class="pull-right" style="width:80px;">
+		<ul class="nav navbar-nav navbar-right">
+                            
+                            
+							<li class="dropdown settings pull-right" style="height:62px; width:96px; background:#fff; padding:0px;">
+								<a href="#no" class="dropdown-toggle setpic" data-toggle="dropdown" style="background:#fff;">
+									
+									
+<!-- 										<img id="profilepic" src="img/default.png" class="img-responsive thumbnail " style="margin-top:-10px;height: 40px;width: 40px;border-radius:15%;">  -->
+
+								<c:if test="${not empty cacheGuest.profileImage}">
+										<img id="profilepic" src="${cacheGuest.profileImage}" alt="profileImage" class="img img-responsive thumbnail watermark_text" style="border-radius:15%;"><!-- <span class="fa fa-angle-down" aria-hidden="true"></span> -->
+									</c:if>
+									<c:if test="${empty cacheGuest.profileImage}">
+										<img id="profilepic" src="img/default.png" alt="image" class="img-responsive thumbnail " style="border-radius:15%;"/><!-- <i class="fa fa-angle-down" aria-hidden="true"></i> -->
+									</c:if>
+
+									
+								</a>
+								<ul class="dropdown-menu" style="min-width:90px !important;">
+									<li><a href="settings">Settings</a></li>
+									<li><a href="logoutHome" >Sign out</a></li>
+								</ul>
+							</li>
+							
+						</ul></div>	</div>
+						
+						</div>
 	</div>
 
 	<div class="container">
@@ -3315,10 +3353,14 @@ img.hover-shadow {
 							
                             
                             </ul>
-                            
-                            
-                            
                             <ul class="nav navbar-nav navbar-right">
+                            <%-- <div class="cart box_1">
+				<p>Dear <%= userBean.getFirstName() %> <%= userBean.getLastName() %></p>
+				<div class="clearfix"> </div> --%>
+			</div>				
+			</ul> 
+                            
+                            <%-- <ul class="nav navbar-nav navbar-right">
                             
                             
 							<li class="dropdown settings pull-right">
@@ -3342,7 +3384,7 @@ img.hover-shadow {
 								</ul>
 							</li>
 							
-						</ul>	
+						</ul>	 --%>
 							
 						
 	        		</div>
@@ -3532,7 +3574,6 @@ img.hover-shadow {
 			</div>
 		</div>
 	</div> --%>
-
 <!-- body starts here-->
 <script>
 

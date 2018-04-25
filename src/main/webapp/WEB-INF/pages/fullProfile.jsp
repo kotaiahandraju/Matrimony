@@ -68,12 +68,20 @@
                 width: 300px;
                 height: 350px;
             }
+            .box_1 p {
+    margin: 45px 47px 37px 0px !important;
+}
         }
           @media screen and (max-width: 320px) {
             #mySlider {
                 width: 280px;
                 height: 250px;
             }
+              td:first-child{ width: 124px !important; }
+        td:fourth-child{ width: 124px !important; } 
+        }
+@media only screen and (max-width: 640px) and (min-width: 320px) {
+        
         }
     </style>
             	<style>
@@ -448,7 +456,7 @@ xpopup
 	<br>
 		<div class="panel panel-success">
 			<div class="panel-body table-responsive">
-			<div class="col-md-11">	<strong class="font">Basic Details </strong>
+			<div class="col-md-12">	<strong class="font">Basic Details </strong>
 				<div id="basic_details_view" class="all_visible_divs">
 					<table class="col-md-6 table-responsive">
 						<%-- <tr><td>Name</td>
@@ -561,7 +569,7 @@ xpopup
 <br> -->
 	<div class="panel panel-success">
 			<div class="panel-body table-responsive">
-		<div class="col-md-11">	
+		<div class="col-md-12">	
 			<strong class="font">Religion Information</strong>
 			<div id="religion_info_view" class="all_visible_divs">
 				<table class="col-md-6 table-responsive">
@@ -624,7 +632,7 @@ xpopup
 <br>
 	<div class="panel panel-success">
 			<div class="panel-body table-responsive">
-			<div class="col-md-11">	
+			<div class="col-md-12">	
 			<strong class="font">
 			<c:if test="${profileBean.gender == 'Female'}">Bride</c:if>
 			<c:if test="${profileBean.gender == 'Male'}">Groom</c:if>
@@ -662,7 +670,7 @@ xpopup
 <br>
 	<div class="panel panel-success">
 			<div class="panel-body table-responsive">	
-			<div class="col-md-11">	<strong class="font">Professional Information</strong>
+			<div class="col-md-12">	<strong class="font">Professional Information</strong>
 				
 	<div id="professional_info_view" class="all_visible_divs">
 	<table class="col-md-12 table-responsive">
@@ -695,7 +703,7 @@ xpopup
 <br>
 <div class="panel panel-success">
 			<div class="panel-body table-responsive">
-			<div class="col-md-11">	<strong class="font">Family Details</strong>
+			<div class="col-md-12">	<strong class="font">Family Details</strong>
 				
 	<div id="family_details_view" class="all_visible_divs">
 	<table class="col-md-6 table-responsive">
@@ -771,10 +779,10 @@ xpopup
 
 			<div class="panel-body table-responsive">
 			
-			<div class="col-md-11">	<strong class="font">Basic & Religion Preferences</strong>
+			<div class="col-md-12">	<strong class="font">Basic & Religion Preferences</strong>
 				
 	<div id="partner_basic_view" class="all_visible_divs">
-	<table class="col-md-12 table-responsive">
+	<table class="col-md-6 table-responsive">
 		<tr><td>
 				<c:if test="${profileBean.gender == 'Female'}">Groom</c:if>
 				<c:if test="${profileBean.gender == 'Male'}">Bride</c:if>
@@ -784,11 +792,7 @@ xpopup
 				<c:if test="${not empty profileBean.rAgeFrom}">${profileBean.rAgeFrom} - ${profileBean.rAgeTo} Years</c:if>
 				<c:if test="${empty profileBean.rAgeFrom}">Not Specified</c:if>
 			</td>
-			<td>Height</td><td>:</td>
-			<td>
-				<span id="rHeight_val"><c:if test="${not empty profileBean.rHeightInches}">${profileBean.rHeightInches} - </c:if></span> <span id="rHeightTo_val"><c:if test="${not empty profileBean.rHeightInches}">${profileBean.rHeightToInches}</c:if></span>
-				<span id="rHeight_outer_val"><c:if test="${empty profileBean.rHeightInches}">Not Specified</c:if></span>
-			</td>
+			
 		</tr>
 		<tr><td>Marital Status</td><td>:</td>
 			<td id="rMaritalStatus_val">
@@ -800,11 +804,7 @@ xpopup
 				<c:if test="${not empty profileBean.casteName}">${profileBean.casteName}</c:if>
 				<c:if test="${empty profileBean.casteName}">Not Specified</c:if>
 			</td> --%>
-			<td>Eating Habits</td><td>:</td>
-			<td id="rDiet_val">
-				<c:if test="${not empty profileBean.rDietName}">${profileBean.rDietName}</c:if>
-				<c:if test="${empty profileBean.rDietName}">Not Specified</c:if>
-			</td>
+			
 		</tr>
 		<tr>
 			<%-- <td>Smoking Habits</td><td>:</td>
@@ -824,11 +824,7 @@ xpopup
 				<c:if test="${not empty profileBean.rReligionName}">${profileBean.rReligionName}</c:if>
 				<c:if test="${empty profileBean.rReligionName}">Not Specified</c:if>
 			</td>
-			<td>Mothertongue</td><td>:</td>
-			<td id="rMotherTongue_val">
-				<c:if test="${not empty profileBean.rMotherTongueName}">${profileBean.rMotherTongueName}</c:if>
-				<c:if test="${empty profileBean.rMotherTongueName}">Not Specified</c:if>
-			</td>
+			
 		</tr>
 		<tr>
 			<td>Caste</td><td>:</td>
@@ -846,6 +842,31 @@ xpopup
 			
 		</tr> --%>
 	</table>
+	<table class="col-md-6">
+	<tr> 
+	<td>Height</td><td>:</td>
+			<td>
+				<span id="rHeight_val"><c:if test="${not empty profileBean.rHeightInches}">${profileBean.rHeightInches} - </c:if></span> <span id="rHeightTo_val"><c:if test="${not empty profileBean.rHeightInches}">${profileBean.rHeightToInches}</c:if></span>
+				<span id="rHeight_outer_val"><c:if test="${empty profileBean.rHeightInches}">Not Specified</c:if></span>
+			</td></tr>
+			<tr>
+			<td>Eating Habits</td><td>:</td>
+			<td id="rDiet_val">
+				<c:if test="${not empty profileBean.rDietName}">${profileBean.rDietName}</c:if>
+				<c:if test="${empty profileBean.rDietName}">Not Specified</c:if>
+			</td>
+			</tr>
+			<tr>
+			<td>Mothertongue</td><td>:</td>
+			<td id="rMotherTongue_val">
+				<c:if test="${not empty profileBean.rMotherTongueName}">${profileBean.rMotherTongueName}</c:if>
+				<c:if test="${empty profileBean.rMotherTongueName}">Not Specified</c:if>
+			</td>
+			</tr>
+	
+	</table>
+	
+	
 	</div>
 	
 	</div>
@@ -855,7 +876,7 @@ xpopup
 <br>
 <div class="panel panel-success">
 			<div class="panel-body table-responsive">
-			<div class="col-md-11">	<strong class="font">Professional Preferences</strong>
+			<div class="col-md-12">	<strong class="font">Professional Preferences</strong>
 				
 	<div id="partner_professional_view" class="all_visible_divs">
 	<table class="col-md-12 table-responsive">
@@ -896,7 +917,7 @@ xpopup
 <br>
 <div class="panel panel-success" >
 			<div class="panel-body table-responsive">
-			<div class="col-md-11">	<strong class="font">Location Preferences</strong>
+			<div class="col-md-12">	<strong class="font">Location Preferences</strong>
 				
 	<div id="partner_location_view" class="all_visible_divs">
 	<table class="col-md-12 table-responsive">

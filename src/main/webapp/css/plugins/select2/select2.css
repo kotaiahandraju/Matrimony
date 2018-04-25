@@ -495,8 +495,7 @@ disabled look for disabled choices in the results dropdown
     border: 1px solid #aaa;
     cursor: text;
     overflow: hidden;
-   /*  border-radius:5px; */
-
+   border-radius:5px;
     background-color: #fff;
     background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(1%, #eee), color-stop(15%, #fff));
     background-image: -webkit-linear-gradient(top, #eee 1%, #fff 15%);

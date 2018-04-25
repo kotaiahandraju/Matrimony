@@ -38,8 +38,6 @@
 		</div>
 	</div>
 </div>
-<br>
-<br>
 <div class="col-md-6">
 	<div class="form-group">
 		<label class="col-md-5 control-label required">City <span

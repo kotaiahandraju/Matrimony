@@ -72,6 +72,14 @@
                 height: 250px;
             }
         }
+        @media  (min-width: 320px) and (max-width:640px) {
+        .anin {
+        width:100%;}
+        .navbar-custom .dropdown:hover .dropdown-menu {
+    display: block;
+  }
+        }
+        
     </style>
 <style>
        .anin{
@@ -292,7 +300,7 @@ xpopup
 
 
 </style>
-<<script type="text/javascript">
+<script type="text/javascript">
 $(".onlyCharacters").on("keypress",	function(event) {
 
 	// Disallow anything not matching the regex pattern (A to Z
@@ -359,8 +367,8 @@ $(".onlyCharacters").on("keypress",	function(event) {
                 <c:if test="${empty cacheGuest.profileImage}">
                     <img src="img/default.png" class="img-responsive" style="margin-bottom:0;">
                 </c:if>
-                <div>
-                    <a href="myPhotos" style="font-size:12px; padding:12px 0; text-align:center; font-weight:600;"> Add / Edit  Photos</a>
+                <div align="center">
+                    <a href="myPhotos" style="font-size:12px; padding:12px 0; text-align:center; font-weight:600; color:#006699;"> Add / Edit  Photos</a>
                 </div>
              </div>
              <div class="col-md-6">
@@ -375,7 +383,7 @@ $(".onlyCharacters").on("keypress",	function(event) {
                 	<br><span class="hasError" id="mobileError" style="font-size: 13px;color:red"></span>
                 </div> 
                 <div id="mobileNoDiv"><span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px; font-weight:600;">&nbsp;<span id="mobileNoText">+91-${cacheGuest.mobile}</span>&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font>&nbsp;&nbsp;</span>&nbsp;</div>
-                <a href="#no" id="editMobileAnchor" style="color:blue; font-size:12px; text-decoration:underline;"  onclick="displayEditMobilenumberDiv(${profileBean.id},'${cacheGuest.mobile}')">Edit Mobile No.</a>
+                <a href="#no" id="editMobileAnchor" style="color:blue; font-size:12px; text-decoration:none;"  onclick="displayEditMobilenumberDiv(${profileBean.id},'${cacheGuest.mobile}')">Edit Mobile No.</a>
                  <br>
                 
                 </div>
