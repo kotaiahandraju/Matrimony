@@ -2598,7 +2598,6 @@ header h1 {
 	}
 }
 @media  (min-width: 320px) and (max-width:640px) {
-<<<<<<< HEAD
 .dropdown:hover .dropdown-menu {
 display:none !important;
 }
@@ -3220,7 +3219,6 @@ img.hover-shadow {
 				<div class="clearfix"> </div>
 			</div>				 
 		</div>
-<<<<<<< HEAD
 		<div class="col-md-1 col-xs-1">
 		<div class="pull-right" style="width:80px;">
 		<ul class="nav navbar-nav navbar-right">
