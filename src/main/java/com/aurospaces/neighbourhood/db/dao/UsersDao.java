@@ -250,7 +250,9 @@ public class UsersDao extends BaseUsersDao
 									buffer.append( " and u.status in( '2')" );
 								}
 								if(type.equals("inactive")){
-									buffer.append( " and u.status in( '0') and u.role_id not in (1)" );
+									buffer.append( " and u.status in( '0') and u.role_id not in (1) and "
+											+" if((select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) is null or "
+											+"    (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1)='0',0,1) ");
 								}
 								if(type.equals("admin")){
 									buffer.append( " and u.registerwith is not null " );
