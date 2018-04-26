@@ -27,71 +27,71 @@ display:block;
      <form:select path="rAgeFrom" class="form-control numericOnly u1 partnerst">
 			<form:option value="">-- Select Age From --</form:option>
 							
-								<option value="18">18</option>
+								<form:option value="18">18</form:option>
 
-								<option value="19">19</option>
+								<form:option value="19">19</form:option>
 
-								<option value="20">20</option>
+								<form:option value="20">20</form:option>
 
-								<option value="21">21</option>
+								<form:option value="21">21</form:option>
 
-								<option value="22">22</option>
+								<form:option value="22">22</form:option>
 
-								<option value="23">23</option>
+								<form:option value="23">23</form:option>
 
-								<option value="24">24</option>
+								<form:option value="24">24</form:option>
 
-								<option value="25">25</option>
+								<form:option value="25">25</form:option>
 
-								<option value="26">26</option>
+								<form:option value="26">26</form:option>
 
-								<option value="27">27</option>
+								<form:option value="27">27</form:option>
 
-								<option value="28">28</option>
+								<form:option value="28">28</form:option>
 
-								<option value="29">29</option>
+								<form:option value="29">29</form:option>
 
-								<option value="30">30</option>
+								<form:option value="30">30</form:option>
 
-								<option value="31">31</option>
+								<form:option value="31">31</form:option>
 
-								<option value="32">32</option>
+								<form:option value="32">32</form:option>
 
-								<option value="33">33</option>
+								<form:option value="33">33</form:option>
 
-								<option value="34">34</option>
+								<form:option value="34">34</form:option>
 
-								<option value="35">35</option>
+								<form:option value="35">35</form:option>
 
-								<option value="36">36</option>
+								<form:option value="36">36</form:option>
 
-								<option value="37">37</option>
+								<form:option value="37">37</form:option>
 
-								<option value="38">38</option>
+								<form:option value="38">38</form:option>
 
-								<option value="39">39</option>
+								<form:option value="39">39</form:option>
 
-								<option value="40">40</option>
+								<form:option value="40">40</form:option>
 
-								<option value="41">41</option>
+								<form:option value="41">41</form:option>
 
-								<option value="42">42</option>
+								<form:option value="42">42</form:option>
 
-								<option value="43">43</option>
+								<form:option value="43">43</form:option>
 
-								<option value="44">44</option>
+								<form:option value="44">44</form:option>
 
-								<option value="45">45</option>
+								<form:option value="45">45</form:option>
 
-								<option value="46">46</option>
+								<form:option value="46">46</form:option>
 
-								<option value="47">47</option>
+								<form:option value="47">47</form:option>
 
-								<option value="48">48</option>
+								<form:option value="48">48</form:option>
 
-								<option value="49">49</option>
+								<form:option value="49">49</form:option>
 
-								<option value="50">50</option>
+								<form:option value="50">50</form:option>
 		</form:select>
  <%--      	<form:input path="rAgeFrom" class="form-control numericOnly u1" placeholder="Enter Age From" style='width: 188px; float: right; display: inline-flex;' />
   --%>   
@@ -102,9 +102,9 @@ display:block;
       <div class="form-group">
       <label class="control-label" style="text-align: -webkit-center;" for="textinput">To</label>  
      
-      	<form:select path="rAgeTo" class="form-control numericOnly u1 partnerst" placeholder="Enter Age To" >
-      		 <option value="" selected="">--Select Age To--</option>
-      	</form:select>
+      	<form:select path="rAgeTo" class="form-control numericOnly u1" placeholder="Enter Age To" style='width: 188px; float: right; display: inline-flex;'>
+      		 <form:option value="" selected="">--Select Age To--</form:option>
+      		</form:select>
       </div>
     	</div>
     
@@ -215,8 +215,7 @@ display:block;
 				<input class="btn  btn-danger"  type="button" id="partner_basic_cancel" name="yt1" value="Cancel" onclick="toggleDiv('partner_basic');">
 		</div>
 	</div>
-</div>
-<script>$("#rHeight").change(function(){
+</div> <script>$("#rHeight").change(function(){
 	$('#rHeightTo').val('');
 	var val_from = $(this).val();
 	var val_to   = $("#rHeight option:last").val();
@@ -241,6 +240,6 @@ $('#rAgeFrom').change(function() {
 	}
 	}
 });
-	
+
 		
-</script>
+</script>	 

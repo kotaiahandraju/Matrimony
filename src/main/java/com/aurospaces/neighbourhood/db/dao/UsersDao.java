@@ -1102,7 +1102,7 @@ public class UsersDao extends BaseUsersDao
 				objUserBean = (UsersBean) session.getAttribute("cacheGuest");
 			if(objUserBean!=null){
 				if(StringUtils.isNotBlank(searchCriteriaBean.getUsername()) && !("undefined".equalsIgnoreCase(searchCriteriaBean.getUsername()))){
-					where_clause.append( " and upper(u.username) like upper('%"+searchCriteriaBean.getUsername()+"%')  ");
+					where_clause.append( " and upper(u.username) = upper('"+searchCriteriaBean.getUsername()+"')  ");
 				}else{
 					if(StringUtils.isNotBlank(searchCriteriaBean.getrAgeFrom())){
 						
@@ -3137,6 +3137,7 @@ public boolean deletePhoto(String photoId){
 					if(StringUtils.isNotBlank(objreReportsBean.getCaste())){
 						buffer.append( " and u.caste="+objreReportsBean.getCaste() );
 					}
+						buffer.append( " and u.role_id not in ('4' ) ");
 					
 							buffer.append(" group by u.id ");
 							buffer.append(" order by u.created_time desc ");

@@ -14,9 +14,9 @@
 			<div class="col-md-3 footer-grid">
 				<h6>Search</h6>
 				<ul>
-					<li><a href="#">About Us</a></li>
+					<li><a href="aboutUs">About Us</a></li>
 					<li><a href="privacyAndPolicy">Privacy Policy</a></li>
-					<li><a href="#">Terms &amp; Conditions</a></li>
+					<li><a href="termsConditions">Terms &amp; Conditions</a></li>
 				</ul>
 			</div>
 			<div class="col-md-3 footer-grid">

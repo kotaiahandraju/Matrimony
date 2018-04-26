@@ -461,19 +461,19 @@ tooltip:hover:after {
 					var memberRoleId = orderObj.role_id;
 					if(memberRoleId!=null && memberRoleId!="" && (typeof memberRoleId != "undefined")){
 						if(memberRoleId==12){
-							 premiumMember = "<p class='premium-member'>Classic Member</p>";
+							 premiumMember = "<span class='premium-member'>Classic Member</span>";
 						}
 						if(memberRoleId==13){
-							 premiumMember = "<p class='premium-member'>Classic Advantage Member</p>";
+							 premiumMember = "<span class='premium-member'>Classic Advantage Member</span>";
 						}
 						if(memberRoleId==6){
-							 premiumMember = "<p class='premium-member'>Premium Member</p>";
+							 premiumMember = "<span class='premium-member'>Premium Member</span>";
 						}
 						if(memberRoleId==11){
-							 premiumMember = "<p class='premium-member'>Premium Plus Member</p>";
+							 premiumMember = "<span class='premium-member'>Premium Plus Member</span>";
 						}
 						if(memberRoleId==14){
-							 premiumMember = "<p class='premium-member'>Aarna Family Member</p>";
+							 premiumMember = "<span class='premium-member'>Aarna Family Member</span>";
 						}
 						
 					}
@@ -864,6 +864,7 @@ tooltip:hover:after {
 			}
 			$.each(listOrders,function(i, orderObj) 
 			{
+				console.log(orderObj);
 				serviceUnitArray[orderObj.id] = orderObj;
 				
 				var array = null;
@@ -1247,7 +1248,18 @@ tooltip:hover:after {
 			            	+ '</td></tr>'*/
 			            	+ '	<tr><td>'+activity_str+'.</td></tr>' 
 			            	+ '	<tr><td>'+acceptOptions+' <a href="moreConversations?pid='+orderObj.id+'"><span class="pull-right" style="color:#006699;">+ More Conversations</span></a></td></tr>'
+			            	+ '<tr><td><button type="button" onclick="myFunction1(this.id)" id="'+orderObj.userId+'reply"  class="btn btn-warning btn-sm">Reply</button><button type="button" class="btn btn-danger btn-sm" id="'+orderObj.userId+'sendmail" style="display:none">Send Mail</button></td></tr>'
 			            	+ '</table>'
+			            	+ '<!-- Reply start -->'
+			            	+ '<div class="panel panel-success" id="'+orderObj.userId+'myDIV"  style="display:none">'
+							+ '<div class="panel-heading">Reply To This Message </div>'
+      						+ '<div class="panel-body">'
+ 							+ '<textarea style="width:100%; height:150px; overflow-y:scroll;" >TO : AMBJK8568 Hello I Find That Your Profile Closely Matches'
+							+ '</textarea>'
+							+  ' <br><button type="button" class="btn btn-warning pull-right " onclick="myFunction2('+orderObj.userId+')">Reply</button>'
+							+ '</div>'
+							+'</div>'
+							+'<!-- Reply End -->'
 			            	+ '</div>'
 			            	+ '<div id="replyArea" hidden="true">'
 			            	+ '<textarea rows="5" cols="50">'+reply_content
@@ -1259,7 +1271,7 @@ tooltip:hover:after {
 				}
 			});
 		}
-		
+		 
 		/* function displayMatches_inbox_bkp(listOrders,listType,tabType){
 			serviceUnitArray = {};
 			smallerSlideIndex = {};
@@ -2375,7 +2387,7 @@ transition:none !important;
 	padding: 2px 8px;
 	font-size: 11px !important;
 	border: none;
-	display:inline;
+	
 	border-radius: 1px;
 	
 	margin: 2px 2px;
@@ -2594,7 +2606,8 @@ header h1 {
 	}
 }
 @media  (min-width: 320px) and (max-width:640px) {
-.dropdown:hover .dropdown-menu:after {
+<<<<<<< HEAD
+.dropdown:hover .dropdown-menu {
 display:none !important;
 }
 .open .dropdown .dropdown-menu {
@@ -2610,7 +2623,7 @@ height:auto;
 .table-responsive {
 border:none !important;}
 .box_1 p {
-    margin: 20px 47px 37px 0px;
+    margin: 0px 0 0px 8px;
 }
 .logo {
     margin-bottom: 5px !important;
@@ -3197,7 +3210,7 @@ img.hover-shadow {
 			</div>
 			<div class="clearfix"></div>
 		</div>
-		
+		<div class="col-md-4">
 			<!-- <ul class="nav navbar-nav">
 				<li><a href="#no">Matches<span class="badge badge-notify">30</span></a></li>
 				<li><a href="#no">Search</a></li>
@@ -3208,14 +3221,15 @@ img.hover-shadow {
         		<a href="searchProfiles">Search</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
        			<a href="#no">Inbox</a><span class="badge badge-notify">0</span></p>
 			</div> -->
-		<div class="col-md-9">
-		<div class="col-md-10 col-xs-10">
+		</div>
+		<div class="col-md-5">
 			<div class="cart box_1">
 				<p>Dear <%= userBean.getFirstName() %> <%= userBean.getLastName() %></p>
 				<div class="clearfix"> </div>
 			</div>				 
 		</div>
-		<div class="col-md-2 col-xs-2">
+<<<<<<< HEAD
+		<div class="col-md-1 col-xs-1">
 		<div class="pull-right" style="width:80px;">
 		<ul class="nav navbar-nav navbar-right">
                             
@@ -3370,14 +3384,10 @@ img.hover-shadow {
 							
                             
                             </ul>
-                            <ul class="nav navbar-nav navbar-right">
-                            <%-- <div class="cart box_1">
-				<p>Dear <%= userBean.getFirstName() %> <%= userBean.getLastName() %></p>
-				<div class="clearfix"> </div> --%>
-			</div>				
-			</ul> 
                             
-                            <%-- <ul class="nav navbar-nav navbar-right">
+                            
+                            
+                            <ul class="nav navbar-nav navbar-right">
                             
                             
 							<li class="dropdown settings pull-right">
@@ -3401,7 +3411,7 @@ img.hover-shadow {
 								</ul>
 							</li>
 							
-						</ul>	 --%>
+						</ul>	
 							
 						
 	        		</div>
@@ -3450,7 +3460,6 @@ img.hover-shadow {
       
     </div>
 </div>	
-
 <div id="myPhotoModal" class="modal">
   <span class="close cursor" onclick="closeModal()">&times;</span>
   <div class="modal-content">
@@ -3571,6 +3580,7 @@ img.hover-shadow {
       
     </div>
   </div>
+
 	<%-- <div class="mega_nav">
 		<div class="container">
 			<div class="menu_sec">
@@ -3591,7 +3601,23 @@ img.hover-shadow {
 			</div>
 		</div>
 	</div> --%>
+
 <!-- body starts here-->
+<script>
+function myFunction1(id) {
+    var x = document.getElementById("myDIV");
+    var replay = document.getElementById("replay");
+    var sendmail = document.getElementById("sendmail");
+   
+       $("#"+id).hide();
+       var mydiv =id.replace("reply", "");
+      $("#"+mydiv+"myDIV").show();
+}
+function myFunction2(id) {
+	 $("#"+id+"sendmail").show();
+	 $("#"+id+"myDIV").hide();
+}
+</script>
 <script>
 
 </script>
