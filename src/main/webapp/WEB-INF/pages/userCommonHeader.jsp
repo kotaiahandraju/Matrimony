@@ -2621,8 +2621,12 @@ header h1 {
 	}
 }
 @media  (min-width: 320px) and (max-width:640px) {
+/* .dropdown:hover .dropdown-menu {
 .dropdown:hover .dropdown-menu {
 display:none !important;
+} */
+.dearb {
+display:none;
 }
 .open .dropdown .dropdown-menu {
     display: block !important;
@@ -2637,7 +2641,7 @@ height:auto;
 .table-responsive {
 border:none !important;}
 .box_1 p {
-    margin: 0px 0 0px 8px;
+    margin: 20px 50px 20px 15px;
 }
 .logo {
     margin-bottom: 5px !important;
@@ -3224,7 +3228,7 @@ img.hover-shadow {
 			</div>
 			<div class="clearfix"></div>
 		</div>
-		<div class="col-md-4">
+		
 			<!-- <ul class="nav navbar-nav">
 				<li><a href="#no">Matches<span class="badge badge-notify">30</span></a></li>
 				<li><a href="#no">Search</a></li>
@@ -3235,8 +3239,9 @@ img.hover-shadow {
         		<a href="searchProfiles">Search</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
        			<a href="#no">Inbox</a><span class="badge badge-notify">0</span></p>
 			</div> -->
-		</div>
-		<div class="col-md-5">
+		<div class="col-md-9">
+		<div class="col-md-1 dearb"></div>
+		<div class="col-md-10 col-xs-10">
 			<div class="cart box_1">
 				<p>Dear <%= userBean.getFirstName() %> <%= userBean.getLastName() %></p>
 				<div class="clearfix"> </div>
@@ -3254,10 +3259,10 @@ img.hover-shadow {
 <!-- 										<img id="profilepic" src="img/default.png" class="img-responsive thumbnail " style="margin-top:-10px;height: 40px;width: 40px;border-radius:15%;">  -->
 
 								<c:if test="${not empty cacheGuest.profileImage}">
-										<img id="profilepic" src="${cacheGuest.profileImage}" alt="profileImage" class="img img-responsive thumbnail watermark_text" style="border-radius:15%;"><!-- <span class="fa fa-angle-down" aria-hidden="true"></span> -->
+										<img id="profilepic" src="${cacheGuest.profileImage}" alt="profileImage" class="img img-responsive thumbnail watermark_text" style="border-radius:15%;"><i style="margin-right:-10px; margin-top:22px;" class="fa fa-angle-down" aria-hidden="true"></i>
 									</c:if>
 									<c:if test="${empty cacheGuest.profileImage}">
-										<img id="profilepic" src="img/default.png" alt="image" class="img-responsive thumbnail " style="border-radius:15%;"/><!-- <i class="fa fa-angle-down" aria-hidden="true"></i> -->
+										<img id="profilepic" src="img/default.png" alt="image" class="img-responsive thumbnail " style="border-radius:15%;"/><i style="margin-right:-10px; margin-top:22px;" class="fa fa-angle-down" aria-hidden="true"></i>
 									</c:if>
 
 									
@@ -3269,6 +3274,7 @@ img.hover-shadow {
 							</li>
 							
 						</ul></div>	</div>
+						</div>
 						
 						</div>
 	</div>
@@ -3400,15 +3406,11 @@ img.hover-shadow {
                             
                             
                             
-                            <ul class="nav navbar-nav navbar-right">
+                           <%--  <ul class="nav navbar-nav navbar-right">
                             
                             
 							<li class="dropdown settings pull-right">
 								<a href="#no" class="dropdown-toggle setpic" data-toggle="dropdown">
-									
-									
-<!-- 										<img id="profilepic" src="img/default.png" class="img-responsive thumbnail " style="margin-top:-10px;height: 40px;width: 40px;border-radius:15%;">  -->
-
 								<c:if test="${not empty cacheGuest.profileImage}">
 										<img id="profilepic" src="${cacheGuest.profileImage}" alt="profileImage" class="img img-responsive thumbnail watermark_text" style="margin-top:-10px;height: 40px;width: 40px;border-radius:15%;"><i class="fa fa-angle-down" aria-hidden="true"></i>
 									</c:if>
@@ -3424,7 +3426,7 @@ img.hover-shadow {
 								</ul>
 							</li>
 							
-						</ul>	
+						</ul>	 --%>
 							
 						
 	        		</div>
