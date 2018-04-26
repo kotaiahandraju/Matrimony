@@ -1107,6 +1107,7 @@ tooltip:hover:after {
 						}
 						// to display recent activity details
 						var activity_str = "",act_short_str = "";
+						var reply_content = "";
 						var login_user_id = ${cacheGuest.id};
 						var recent_activity = orderObj.recent_activity_map;
 						if(typeof recent_activity != "undefined"){
@@ -1171,10 +1172,16 @@ tooltip:hover:after {
 								act_short_str = "Message Accepted";
 								if(login_user_id==recent_activity.act_done_by_user_id){
 									activity_str = "You accepted "+her_his_you+" message";
+									reply_content = recent_activity.activity_content;
+									if(reply_content!=null && typeof reply_content != "undefined"){
+										reply_content = reply_content.replace(/##newline##/g," ");
+										reply_content = reply_content.replace(/##tabspace##/g," ");
+										reply_content = "---Original message---\r\nFrom:"+orderObj.username+"\r\nTo:${cacheGuest.username}\r\n"+reply_content;
+									}
 									//acceptOptions = '<span id="reply'+orderObj.requestId+'"><a type="button" class="btn btn-primary btn-sm" onclick="replyMessage('+orderObj.requestId+',\''+recent_activity.activity_content+'\')">Reply</a></span>';
 									acceptOptions = '<span id="replyBtn'+orderObj.requestId+'"><a type="button" class="btn btn-primary btn-sm" onclick="displayReplyArea()">Reply</a></span>';
 								}else{
-									activity_str = opp_gender_str+" rejected your message";
+									activity_str = opp_gender_str+" accepted your message";
 									acceptOptions = '<span id="mail'+orderObj.requestId+'"><a type="button" class="btn btn-primary btn-sm" id="sendMail'+orderObj.id+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')">Reply</a></span>';
 								}
 							}
@@ -1229,7 +1236,7 @@ tooltip:hover:after {
 			            	+ 		orderObj.educationName+','+orderObj.occupationName+'.'
 			            	+'	</td></tr>'
 			            	+ '</table>'
-			            	+ '<div id="padma">'
+			            	+ '<div id="detailsArea">'
 			            	+ '<table>'
 			            	+'<tr><td><button class="btn btn-default bt-block">'+act_short_str+'</button></td></tr>'
 			            	/* + '	<tr><td>'
@@ -1243,7 +1250,7 @@ tooltip:hover:after {
 			            	+ '</table>'
 			            	+ '</div>'
 			            	+ '<div id="replyArea" hidden="true">'
-			            	+ '<textarea >adbbfdssa'
+			            	+ '<textarea rows="5" cols="50">'+reply_content
 			            	+ '</textarea>'
 			            	+ '</div>'
 			            	+ '</div>'
@@ -1789,7 +1796,7 @@ tooltip:hover:after {
 			}
 		}
 		function displayReplyArea(){
-			$("#padma").attr("hidden",true);
+			$("#detailsArea").attr("hidden",true);
 			$("#replyArea").removeAttr("hidden");
 		}
 		function replyMessage(requestId,message_content){
@@ -1809,15 +1816,16 @@ tooltip:hover:after {
 					alert("Your membership validity period is over. Renew your membership plan and reply to the messages");
 					return false;
 				}
-				var texttt = message_content;
+				/* var texttt = message_content;
 				texttt = texttt.replace(/##newline##/g,"\r\n");
 				texttt = texttt.replace(/##tabspace##/g,"\t");
-				$("#reply_text_area").val(texttt);
-				$("#reply_text_area").removeAttr("hidden");
+				$("#replyArea").val(texttt);
+				$("#replyArea").removeAttr("hidden"); */ 
+				var reply_content = message_content.split("---Original message---")[0];
 				var formData = new FormData();
 			
 				formData.append("requestId",requestId);
-				
+				formData.append("reply_content",reply_content);
 				jQuery.fn.makeMultipartRequest('POST', 'replyMessage', false,
 						formData, false, 'text', function(data){
 			    		var jsonobj = $.parseJSON(data);
