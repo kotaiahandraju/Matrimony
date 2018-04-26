@@ -789,7 +789,7 @@ public class UsersDao extends BaseUsersDao
 			return false;
 	 }
 	 
-	 public boolean replyToMessage(String requestIds,String mail_content,String default_text_option){
+	 public boolean replyToMessage(String requestIds,String reply_content){
 			jdbcTemplate = custom.getJdbcTemplate();
 			StringBuffer buffer = new StringBuffer();
 			UsersBean objUserBean = null;
@@ -802,7 +802,7 @@ public class UsersDao extends BaseUsersDao
 					if(updated_count>0){
 						buffer = new StringBuffer();
 						buffer.append("insert into users_activity_log(created_time,activity_type,act_done_by_user_id,act_done_on_user_id,activity_content) "
-								+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','"+activity_type+"',"+objUserBean.getId()+",(select profile_id from express_intrest where id = "+requestIds+"),"+mail_content.trim()+")");
+								+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','"+activity_type+"',"+objUserBean.getId()+",(select profile_id from express_intrest where id = "+requestIds+"),"+reply_content.trim()+")");
 						int inserted_count = jdbcTemplate.update(buffer.toString());
 						buffer = new StringBuffer();
 						buffer.append("insert into user_notifications(created_on,user_type,user_id,profile_id,notifi_type) "
@@ -2018,7 +2018,8 @@ public class UsersDao extends BaseUsersDao
 					buffer.append("select * from users_activity_log where  act_done_on_user_id = "+userId+" order by created_time desc limit 1 ");
 				}
 				if(request_type.equalsIgnoreCase("accepted_requests")){
-					buffer.append("select * from users_activity_log where  find_in_set(act_done_on_user_id,('"+userId+","+profile_id+"'))>0 and find_in_set(act_done_by_user_id,('"+userId+","+profile_id+"'))>0 order by created_time desc limit 1 ");
+					buffer.append("select *, (select activity_content from users_activity_log where act_done_by_user_id = "+profile_id+" and act_done_on_user_id = "+userId+" and activity_type = 'message' order by created_time desc limit 1) as activity_content "
+								+" from users_activity_log where  find_in_set(act_done_on_user_id,('"+userId+","+profile_id+"'))>0 and find_in_set(act_done_by_user_id,('"+userId+","+profile_id+"'))>0 order by created_time desc limit 1 ");
 				}
 				if(request_type.equalsIgnoreCase("sent_requests")){
 					buffer.append("select * from users_activity_log where  act_done_by_user_id = "+userId+" order by created_time desc limit 1 ");
