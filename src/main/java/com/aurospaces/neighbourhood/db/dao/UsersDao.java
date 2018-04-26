@@ -250,7 +250,9 @@ public class UsersDao extends BaseUsersDao
 									buffer.append( " and u.status in( '2')" );
 								}
 								if(type.equals("inactive")){
-									buffer.append( " and u.status in( '0') and u.role_id not in (1) " );
+									buffer.append( " and u.status in( '0') and u.role_id not in (1) and "
+											+" if((select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) is null or "
+											+"    (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1)='0',0,1) ");
 								}
 								if(type.equals("admin")){
 									buffer.append( " and u.registerwith is not null " );
@@ -789,7 +791,7 @@ public class UsersDao extends BaseUsersDao
 			return false;
 	 }
 	 
-	 public boolean replyToMessage(String requestIds,String mail_content,String default_text_option){
+	 public boolean replyToMessage(String requestIds,String reply_content){
 			jdbcTemplate = custom.getJdbcTemplate();
 			StringBuffer buffer = new StringBuffer();
 			UsersBean objUserBean = null;
@@ -802,11 +804,11 @@ public class UsersDao extends BaseUsersDao
 					if(updated_count>0){
 						buffer = new StringBuffer();
 						buffer.append("insert into users_activity_log(created_time,activity_type,act_done_by_user_id,act_done_on_user_id,activity_content) "
-								+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','"+activity_type+"',"+objUserBean.getId()+",(select profile_id from express_intrest where id = "+requestIds+"),"+mail_content.trim()+")");
+								+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','"+activity_type+"',"+objUserBean.getId()+",(select user_id from express_intrest where id = "+requestIds+"),'"+reply_content.trim()+"')");
 						int inserted_count = jdbcTemplate.update(buffer.toString());
 						buffer = new StringBuffer();
 						buffer.append("insert into user_notifications(created_on,user_type,user_id,profile_id,notifi_type) "
-								+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','member',"+objUserBean.getId()+",(select profile_id from express_intrest where id = "+requestIds+"),'"+activity_type+"')");
+								+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','member',"+objUserBean.getId()+",(select user_id from express_intrest where id = "+requestIds+"),'"+activity_type+"')");
 						inserted_count = jdbcTemplate.update(buffer.toString());
 						return true;
 					}
@@ -1967,9 +1969,9 @@ public class UsersDao extends BaseUsersDao
 		qryStrBuffer.append(" limit "+page_size+" offset "+(page_no*page_size)+" ");*/
 		UsersBean objUserBean = (UsersBean) session.getAttribute("cacheGuest");
 		StringBuffer buffer = new StringBuffer();
-		String inner_where_clause = " ((ei.user_id = u.id and ei.profile_id = "+userId+") or ((ei.user_id = "+userId+" and ei.profile_id = u.id))) and ((ei.interested = '1' and ei.status = '2') or (message_sent_status = '1' and message_status = '1')) and u.role_id not in (1) and u.status in ('1') and u.gender not in  ('"+objUserBean.getGender()+"') and u.id not in  ("+userId+")";
+		String inner_where_clause = " ((ei.user_id = u.id and ei.profile_id = "+userId+") or ((ei.user_id = "+userId+" and ei.profile_id = u.id))) and ((ei.interested = '1' and ei.status = '2') or (message_sent_status = '1')) and u.role_id not in (1) and u.status in ('1') and u.gender not in  ('"+objUserBean.getGender()+"') and u.id not in  ("+userId+")";
 		StringBuffer where_clause = new StringBuffer(" and u.role_id not in (1) and u.status in ('1') ");
-		buffer.append("select u.id,sta.name as currentStateName,cit.name as currentCityName,u.occupation,oc.name as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
+		buffer.append("select ei.id as requestId,u.id,sta.name as currentStateName,cit.name as currentCityName,u.occupation,oc.name as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
 				+"u.firstName, u.lastName, u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName, u.currentCountry,co.name as currentCountryName, " 
 				+"u.currentState, u.currentCity, " 
 				+"u.maritalStatus, u.caste,c.name as casteName, u.gotram, u.star,s.name as starName, u.dosam, u.dosamName, u.education, u.workingWith, u.companyName, " 
@@ -2018,7 +2020,8 @@ public class UsersDao extends BaseUsersDao
 					buffer.append("select * from users_activity_log where  act_done_on_user_id = "+userId+" order by created_time desc limit 1 ");
 				}
 				if(request_type.equalsIgnoreCase("accepted_requests")){
-					buffer.append("select * from users_activity_log where  find_in_set(act_done_on_user_id,('"+userId+","+profile_id+"'))>0 and find_in_set(act_done_by_user_id,('"+userId+","+profile_id+"'))>0 order by created_time desc limit 1 ");
+					buffer.append("select *, (select activity_content from users_activity_log where act_done_by_user_id = "+profile_id+" and act_done_on_user_id = "+userId+" and activity_type = 'message' order by created_time desc limit 1) as activity_content "
+								+" from users_activity_log where  find_in_set(act_done_on_user_id,('"+userId+","+profile_id+"'))>0 and find_in_set(act_done_by_user_id,('"+userId+","+profile_id+"'))>0 order by created_time desc limit 1 ");
 				}
 				if(request_type.equalsIgnoreCase("sent_requests")){
 					buffer.append("select * from users_activity_log where  act_done_by_user_id = "+userId+" order by created_time desc limit 1 ");
