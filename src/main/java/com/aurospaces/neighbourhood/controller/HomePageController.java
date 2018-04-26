@@ -2600,6 +2600,39 @@ public class HomePageController {
 		return objJson.toString();
 	}
    
+   @RequestMapping(value = "/replyMessage")
+	public  @ResponseBody String replyMessage(@ModelAttribute("createProfile") UsersBean objUsersBean, ModelMap model,
+			HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
+	    JSONObject objJson =new JSONObject();
+		try {
+			UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
+			if(sessionBean == null){
+				return "redirect:HomePage";
+			}
+			String requestId = request.getParameter("requestId");
+			String reply_content = request.getParameter("reply_content");
+			boolean forwarded = objUsersDao.replyToMessage(requestId, reply_content);
+			if (forwarded) {
+				objJson.put("message", "success");
+				// update pending req count
+				int pending = Integer.parseInt(sessionBean.getPendingRequestsCount());
+				sessionBean.setPendingRequestsCount(pending>0?(pending-1)+"":"0");
+				session.setAttribute("cacheGuest",sessionBean);
+			} else {
+				objJson.put("message", "failed");
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			logger.error(e);
+			logger.fatal("error in replyMessage method  ");
+			return objJson.put("message", "error").toString();
+		}
+		return objJson.toString();
+	}
+   
    @RequestMapping(value = "/acceptedRequests")
 	 public String acceptedRequests(@ModelAttribute("createProfile") UsersBean objUserssBean, Model objeModel, HttpServletRequest request, HttpSession session) {
 	  List<Map<String, String>> listOrderBeans = null;
