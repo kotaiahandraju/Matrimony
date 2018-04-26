@@ -411,7 +411,7 @@ function searchSubmit(){
 	var Male=$("#id1");
 	var feMale=$('#id2');
 	if (rPeople.val()==""){
-		alert("Plese Select an Optopn..")
+		alert("Plese Select an Option..")
 	}	
 }
 
