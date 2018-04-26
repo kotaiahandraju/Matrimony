@@ -1,4 +1,9 @@
 <%@ include file="userCommonHeader.jsp"%>
+<style>
+.btn-sm {
+width:130px;
+}
+</style>
 <div class="products">
 	<div class="container" style="background: #FFF;">
 		<div class="mid-grids">

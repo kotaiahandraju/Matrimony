@@ -102,7 +102,7 @@ display:block;
       <div class="form-group">
       <label class="control-label" style="text-align: -webkit-center;" for="textinput">To</label>  
      
-      	<form:select path="rAgeTo" class="form-control numericOnly u1" placeholder="Enter Age To" style='width: 188px; float: right; display: inline-flex;'>
+      	<form:select path="rAgeTo" class="form-control numericOnly u1 partnerst" placeholder="Enter Age To">
       		 <form:option value="" selected="">--Select Age To--</form:option>
       		</form:select>
       </div>
