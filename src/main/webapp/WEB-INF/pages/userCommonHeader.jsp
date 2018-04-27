@@ -7,7 +7,7 @@
 <%
 	String baseurl =  request.getScheme() + "://" + request.getServerName() +      ":" +   request.getServerPort() +  request.getContextPath();
 	session.setAttribute("baseurl", baseurl);
-%>
+%>				
 
 <html>
 <head>
@@ -534,8 +534,12 @@ tooltip:hover:after {
 					}else{
 						slider = '<img src="'+image+'" class="img-responsive thumbnail" style="margin-bottom: 0px; ">';
 					}
-					
-					var tblRow = '<div class="row container-fluid">'
+					var profile_highlisht_str = '<div class="panel panel-default">';
+					var highlight_option = orderObj.profile_highlighter;
+					if(typeof highlight_option != "undefined" && highlight_option=='1'){
+						profile_highlisht_str = '<div class="panel panel-default" style="background-color:skyblue">';
+					}
+					var tblRow = profile_highlisht_str
 						+ '<div class="col-md-2" style="margin-right:0; padding-right:0;">'
 			            //+ 	"<img src="+image+" class='img-responsive thumbnail' style='margin-bottom: 0px;'>"
 			            + slider

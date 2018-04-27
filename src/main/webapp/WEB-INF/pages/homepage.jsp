@@ -851,7 +851,7 @@ $("#submit11").click(function(event){
 		if($('#email').val() ==  null || $('#email').val() == "" || $('#email').val()=="undefined") 
 		{
 			$("#email").css("border-color","#e73d4a");
-			$("#email").attr("placeholder","Enter EMail");
+			$("#email").attr("placeholder","Enter Email");
 			$('#email').addClass('your-class');
 			$('#email').css('color','red');
 		}
