@@ -2,7 +2,6 @@
 <%-- <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://displaytag.sf.net" prefix="display"%>
-<<<<<<< HEAD
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <!DOCTYPE html>
 <%@page import="com.aurospaces.neighbourhood.bean.UsersBean"%>
@@ -430,7 +429,7 @@
 			</div>
 		</div>
 	</div>
-<<<<<<< HEAD
+
 	<div class="footer-copy">
 		<p>a product by Aarna ASSOCIATES © 2017. All rights reserved.</p>
 	</div>
@@ -440,11 +439,9 @@
 <script src="js/ajax.js"></script>
 <script src="js/jquery-asPaginator.js"></script>
 
-=======
 	<!-- Modal Ends here-->
 
 
->>>>>>> e4476360267c874a840c5d228270923640584d8a
 <script type="text/javascript">
 
 /* $(window).load(function() {

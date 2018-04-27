@@ -2975,7 +2975,7 @@ label.radio {
 }
 @media (max-width:384px){
 	.header_top {
-	  padding: 1.5em 0;
+	  padding: 0em 0;
 	}
 	.box_1 {
 	  float: none;
