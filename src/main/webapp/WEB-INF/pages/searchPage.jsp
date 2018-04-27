@@ -365,12 +365,39 @@ function displayMatches(listOrders) {
 				
 			}
 			
-			var tblRow = '<div class="panel panel-default">'
+			var premiumMember = "";
+			var memberRoleId = orderObj.role_id;
+			if(memberRoleId!=null && memberRoleId!="" && (typeof memberRoleId != "undefined")){
+				if(memberRoleId==12){
+					 premiumMember = "<span class='premium-member'>Classic Member</span>";
+				}
+				if(memberRoleId==13){
+					 premiumMember = "<span class='premium-member'>Classic Advantage Member</span>";
+				}
+				if(memberRoleId==6){
+					 premiumMember = "<span class='premium-member'>Premium Member</span>";
+				}
+				if(memberRoleId==11){
+					 premiumMember = "<span class='premium-member'>Premium Plus Member</span>";
+				}
+				if(memberRoleId==14){
+					 premiumMember = "<span class='premium-member'>Aarna Family Member</span>";
+				}
+				
+			}
+			
+			var profile_highlisht_str = '<div class="panel panel-default">';
+			var highlight_option = orderObj.profile_highlighter;
+			if(typeof highlight_option != "undefined" && highlight_option=='1'){
+				profile_highlisht_str = '<div class="panel panel-default" style="background-color:skyblue">';
+			}
+			
+			var tblRow = profile_highlisht_str
 				+ '<div class="panel-heading">'
 				+ '<h5 class="panel-title">'
 				+ '<div class="form-check">'
 
-				+ '	<label class="form-check-label"> <input type="checkbox" class="form-check-input"> '+firstname+' '+lastname+'&nbsp;('+orderObj.username+')</label>'
+				+ '	<label class="form-check-label"> <input type="checkbox" class="form-check-input"> '+firstname+' '+lastname+'&nbsp;('+orderObj.username+')&nbsp;'+premiumMember+'</label>'
 				+ '	<span class="pull-right">Created by '+orderObj.createProfileFor+'</span>'
 				//+ '	<label class="form-check-label"> <input type="checkbox" class="form-check-input"> '+orderObj.firstName+' '+orderObj.lastName+'</label>'
 // 				+ '	<span class="pull-right">Created by '+orderObj.createProfileFor+'</span>'

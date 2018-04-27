@@ -7,7 +7,7 @@
 <%
 	String baseurl =  request.getScheme() + "://" + request.getServerName() +      ":" +   request.getServerPort() +  request.getContextPath();
 	session.setAttribute("baseurl", baseurl);
-%>
+%>				
 
 <html>
 <head>
@@ -231,6 +231,20 @@ tooltip:hover:after {
 					$(this).toggleClass('open');
 			});
 		});
+		
+		/* $(window).resize(function () {
+		    if ($(window).width() < 768) {
+		        var dropdown = $("body").find(".horizontal-menu");
+		        dropdown.find(".nav li.dropdown .dropdown-toggle").each(function (e) {
+		            $(this).removeAttr("data-hover");
+		        });
+		        $(".dropdown-menu").html(horizontalmenu.html());
+		    } else {
+		        $(".nav li.dropdown .dropdown-toggle").each(function (e) {
+		            $(this).dropdownHover();
+		        });
+		    };
+		}); */
 		/* function zoomImage(image){
 			$('#dial1').html('');
 			if(image == "" || image == null || image == "undefined"){
@@ -534,8 +548,12 @@ tooltip:hover:after {
 					}else{
 						slider = '<img src="'+image+'" class="img-responsive thumbnail" style="margin-bottom: 0px; ">';
 					}
-					
-					var tblRow = '<div class="row container-fluid">'
+					var profile_highlisht_str = '<div class="panel panel-default">';
+					var highlight_option = orderObj.profile_highlighter;
+					if(typeof highlight_option != "undefined" && highlight_option=='1'){
+						profile_highlisht_str = '<div class="panel panel-default" style="background-color:skyblue">';
+					}
+					var tblRow = profile_highlisht_str
 						+ '<div class="col-md-2" style="margin-right:0; padding-right:0;">'
 			            //+ 	"<img src="+image+" class='img-responsive thumbnail' style='margin-bottom: 0px;'>"
 			            + slider
@@ -2635,6 +2653,8 @@ header h1 {
 .dropdown:hover .dropdown-menu {
 display:none !important;
 } */
+.dropdown-menu:after {
+margin-top:20px;}
 .dearb {
 display:none;
 }
@@ -3642,6 +3662,4 @@ function myFunction2(id) {
 	 $("#"+id+"myDIV").hide();
 }
 </script>
-<script>
 
-</script>

@@ -14,6 +14,9 @@
     <!-- for documentation #end: you don't need them -->
 
     <style>
+    #mobileNoText {
+    font-size:13px;
+    }
         #mySlider {
             width: 580px;
             height: 520px;
@@ -24,6 +27,7 @@
             height: 50px;
         }
        td:first-child{ width: 150px; }
+       td:nth-child(2) {width:10px !important;}
         td:fourth-child{ width: 150px; } 
        /*  .modal-header .close {
     margin-top: -12px;
@@ -34,6 +38,9 @@
     margin: 30px 250px !important;
 }
 } */
+td, th {
+vertical-align:top;
+}
         /* for tablet */
         @media screen and (max-width: 980px) {
             #mySlider {

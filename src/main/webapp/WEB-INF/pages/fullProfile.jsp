@@ -35,6 +35,9 @@
     margin: 30px 250px !important;
 }
 } */
+td, th {
+vertical-align:top;
+}
         /* for tablet */
         @media screen and (max-width: 980px) {
             #mySlider {
@@ -43,6 +46,7 @@
             }
         }
          td:first-child{ width: 150px; }
+         td:nth-child(2) {width:10px !important;}
         td:fourth-child{ width: 150px; } 
         /* for mobile */
         @media screen and (max-width: 640px) {
