@@ -3634,5 +3634,17 @@ function myFunction2(id) {
 }
 </script>
 <script>
-
+$(window).resize(function () {
+    if ($(window).width() < 768) {
+        var dropdown = $("body").find(".horizontal-menu");
+        dropdown.find(".nav li.dropdown .dropdown-toggle").each(function (e) {
+            $(this).removeAttr("data-hover");
+        });
+        $(".dropdown-menu").html(horizontalmenu.html());
+    } else {
+        $(".nav li.dropdown .dropdown-toggle").each(function (e) {
+            $(this).dropdownHover();
+        });
+    };
+});
 </script>
