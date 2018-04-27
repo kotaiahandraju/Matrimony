@@ -3448,7 +3448,6 @@ img.hover-shadow {
 		</div>
 	</div>
 </div>
-
 <div class="modal fade" id="myModal" role="dialog" style="background: transparent;">
     <div class="modal-dialog">
     
