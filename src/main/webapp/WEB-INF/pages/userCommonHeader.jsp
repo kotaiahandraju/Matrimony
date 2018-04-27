@@ -231,6 +231,20 @@ tooltip:hover:after {
 					$(this).toggleClass('open');
 			});
 		});
+		
+		/* $(window).resize(function () {
+		    if ($(window).width() < 768) {
+		        var dropdown = $("body").find(".horizontal-menu");
+		        dropdown.find(".nav li.dropdown .dropdown-toggle").each(function (e) {
+		            $(this).removeAttr("data-hover");
+		        });
+		        $(".dropdown-menu").html(horizontalmenu.html());
+		    } else {
+		        $(".nav li.dropdown .dropdown-toggle").each(function (e) {
+		            $(this).dropdownHover();
+		        });
+		    };
+		}); */
 		/* function zoomImage(image){
 			$('#dial1').html('');
 			if(image == "" || image == null || image == "undefined"){
@@ -2635,6 +2649,8 @@ header h1 {
 .dropdown:hover .dropdown-menu {
 display:none !important;
 } */
+.dropdown-menu:after {
+margin-top:20px;}
 .dearb {
 display:none;
 }
@@ -3643,18 +3659,4 @@ function myFunction2(id) {
 	 $("#"+id+"myDIV").hide();
 }
 </script>
-<script>
-$(window).resize(function () {
-    if ($(window).width() < 768) {
-        var dropdown = $("body").find(".horizontal-menu");
-        dropdown.find(".nav li.dropdown .dropdown-toggle").each(function (e) {
-            $(this).removeAttr("data-hover");
-        });
-        $(".dropdown-menu").html(horizontalmenu.html());
-    } else {
-        $(".nav li.dropdown .dropdown-toggle").each(function (e) {
-            $(this).dropdownHover();
-        });
-    };
-});
-</script>
+
