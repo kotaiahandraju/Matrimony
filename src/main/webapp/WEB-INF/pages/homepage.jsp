@@ -308,27 +308,54 @@ window.setTimeout(function() {
 					<div class="row">
 					<div class="col-md-12">
 						<div class="form-group">
-							<select class="custom-select col-md-12 form-control">
-								<option selected>I am Looking for... &nbsp;&nbsp;</option>
-								<option value="Female">Bride</option>
-								<option value="Male">Groom</option>
+							<select id="rPeople" class="custom-select col-md-12 form-control">
+								<option value="" selected>I am Looking for... &nbsp;&nbsp;</option>
+								<option value="Female" id="id1">Bride</option>
+								<option value="Male" id="id2">Groom</option>
 							</select>
 						</div>
 						<div class="form-group">
-							<select class="custom-select col-md-12 form-control">
-								<option selected>Age from... &nbsp;&nbsp;</option>
-								<option value="1">21</option>
-								<option value="2">22</option>
-								<option value="3">23</option>
+							<select id="rAgeFrom" name="rAgeFrom" class="custom-select col-md-12 form-control">
+								<option value="" selected>Age from... &nbsp;&nbsp;</option>
+									<option value="18">18</option>
+									<option value="19">19</option>
+									<option value="20">20</option>
+									<option value="21">21</option>
+									<option value="22">22</option>
+									<option value="23">23</option>
+									<option value="24">24</option>
+									<option value="25">25</option>
+									<option value="26">26</option>
+									<option value="27">27</option>
+									<option value="28">28</option>
+									<option value="29">29</option>
+									<option value="30">30</option>
+									<option value="31">31</option>
+									<option value="32">32</option>
+									<option value="33">33</option>
+									<option value="34">34</option>
+									<option value="35">35</option>
+									<option value="36">36</option>
+									<option value="37">37</option>
+									<option value="38">38</option>
+									<option value="39">39</option>
+									<option value="40">40</option>
+									<option value="41">41</option>
+									<option value="42">42</option>
+									<option value="43">43</option>
+									<option value="44">44</option>
+									<option value="45">45</option>
+									<option value="46">46</option>
+									<option value="47">47</option>
+									<option value="48">48</option>
+									<option value="49">49</option>
+									<option value="50">50</option>
 							</select>
 						</div>
 						<div class="form-group">&nbsp;&nbsp; to &nbsp;&nbsp;</div>
 						<div class="form-group">
-							<select class="custom-select col-md-12 form-control">
-								<option selected>Age upto... &nbsp;&nbsp;</option>
-								<option value="1">31</option>
-								<option value="2">32</option>
-								<option value="3">33</option>
+							<select id="rAgeTo" name="rAgeTo" class="custom-select col-md-12 form-control">
+								<option value="" selected>Age upto... &nbsp;&nbsp;</option>
 							</select>
 						</div>
 						<div class="form-group">
@@ -356,7 +383,7 @@ window.setTimeout(function() {
 							</form:select>
 						</div>
 						<div class="form-group">
-							<button type="button" id="submit12" class="btn btn-danger">Search</button>
+							<button type="button" id="submit12" class="btn btn-danger" onclick="searchSubmit()">Search</button>
 						</div>
 					</div>
 					</div>
@@ -378,7 +405,15 @@ window.setTimeout(function() {
 							<h1>Login</h1>
 							<img src="user/images/line-01.jpg" alt="" />
 						</div>
-<script type="text/javascript">
+<script>
+function searchSubmit(){
+	var rPeople=$('#rPeople');
+	var Male=$("#id1");
+	var feMale=$('#id2');
+	if (rPeople.val()==""){
+		alert("Plese Select an Option..")
+	}	
+}
 
 
 
@@ -924,7 +959,17 @@ $("#secondButton").click(function(event)
 			  $("#"+el).css('color','black');
 			  $('#'+el).addClass('default-class');
 		}
-
+		$('#rAgeFrom').change(function() {
+			$('#rAgeFromTo').val('');
+			var val = $(this).val();
+			$('#rAgeTo').find('option').not(':first').remove();
+			if(val!=''){
+			val=(val-0)+1;
+			for (var i = val; i <= 50; i++) {
+				$("#rAgeTo").append('<option>' + i + '</option>');
+			}
+			}
+		});
 </script>
 </body>
 </html>

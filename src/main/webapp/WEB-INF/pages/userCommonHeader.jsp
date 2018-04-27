@@ -752,8 +752,13 @@ tooltip:hover:after {
 							slider = '<img src="'+image+'" class="img-responsive thumbnail" style="margin-bottom: 0px;">';
 						}
 					}
+					var profile_highlisht_str = '<div class="panel panel-default">';
+					var highlight_option = orderObj.profile_highlighter;
+					if(typeof highlight_option != "undefined" && highlight_option=='1'){
+						profile_highlisht_str = '<div class="panel panel-default" style="background-color:skyblue">';
+					}
 					
-					var tblRow = '<div class="panel panel-default">'
+					var tblRow = profile_highlisht_str
 						+ '<div class="panel-heading">'
 						+ '<h5 class="panel-title">'
 						+ '<div class="form-check">'
@@ -1231,7 +1236,12 @@ tooltip:hover:after {
 						}
 						
 						/////
-						var tblRow = '<div class="panel panel-default">'
+						var profile_highlisht_str = '<div class="panel panel-default">';
+						var highlight_option = orderObj.profile_highlighter;
+						if(typeof highlight_option != "undefined" && highlight_option=='1'){
+							profile_highlisht_str = '<div class="panel panel-default" style="background-color:skyblue">';
+						}
+						var tblRow = profile_highlisht_str
 							+ '<div class="panel-body">'
 							+ '<div class="col-md-2" >'
 							//+ ' <div class="smallSlides" style="display:block"> '
