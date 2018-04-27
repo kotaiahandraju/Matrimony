@@ -129,74 +129,106 @@ padding:10px;}
 									</c:if>
 									<c:if test="${act_done_by != cacheGuest.id }">
 										<c:set var="act_str" value="${opp_gender_str}" />
-										<c:set var="her_his_you" value="${'your'}" />
+										<%-- <c:set var="her_his_you" value="${'your'}" /> --%>
 									</c:if>
 									<c:if test="${act_type == 'profile_viewed' }">
-										<c:set var="act_str" value="${act_str} viewed ${her_his_you} profile" />
+										<c:if test="${act_done_by == cacheGuest.id }">
+											<c:set var="act_str" value="You viewed ${her_his_you} profile" />
+										</c:if>
+										<c:if test="${act_done_by != cacheGuest.id }">
+											<c:set var="act_str" value="${act_str} viewed your profile" />
+										</c:if>
 										<c:set var="short_str" value="${'Profile Viewed'}" />
 									</c:if>
 									<c:if test="${act_type == 'interest_request' }">
-										<c:choose>
-											<c:when test="${her_his_you == 'his'}">
-												<c:set var="act_str" value="${act_str} sent an interest request to him" />
-											</c:when>
-											<c:when test="${her_his_you == 'your'}">
-												<c:set var="act_str" value="${act_str} sent an interest request to you" />
-											</c:when>
-											<c:otherwise>
-												<c:set var="act_str" value="${act_str} sent an interest request to ${her_his_you}" />
-											</c:otherwise>
-										</c:choose>
-										
 										<c:if test="${act_done_by == cacheGuest.id }">
 											<c:set var="short_str" value="${'Interest Request Sent'}" />
+											<c:choose>
+											<c:when test="${her_his_you == 'his'}">
+												<c:set var="act_str" value="You sent an interest request to him" />
+											</c:when>
+											<c:otherwise>
+												<c:set var="act_str" value="You sent an interest request to ${her_his_you}" />
+											</c:otherwise>
+										</c:choose>
 										</c:if>
 										<c:if test="${act_done_by != cacheGuest.id }">
 											<c:set var="short_str" value="${'Interest Request Received'}" />
+											<c:set var="act_str" value="${act_str} sent an interest request to you" />
 										</c:if>
 									</c:if>
 									<c:if test="${act_type == 'interest_accepted' }">
-										<c:set var="act_str" value="${act_str} accepted ${her_his_you} interest request" />
+										<c:if test="${act_done_by == cacheGuest.id }">
+											<c:set var="act_str" value="You accepted ${her_his_you} interest request" />
+										</c:if>
+										<c:if test="${act_done_by != cacheGuest.id }">
+											<c:set var="act_str" value="${act_str} accepted you interest request" />
+										</c:if>
 										<c:set var="short_str" value="${'Interest Accepted '}" />
 									</c:if>
 									<c:if test="${act_type == 'interest_rejected' }">
-										<c:set var="act_str" value="${act_str} rejected ${her_his_you} interest request" />
+										<c:if test="${act_done_by == cacheGuest.id }">
+											<c:set var="act_str" value="You rejected ${her_his_you} interest request" />
+										</c:if>
+										<c:if test="${act_done_by != cacheGuest.id }">
+											<c:set var="act_str" value="${act_str} rejected your interest request" />
+										</c:if>
 										<c:set var="short_str" value="${'Interest Rejected '}" />
 									</c:if>
 									<c:if test="${act_type == 'message' }">
-										<c:choose>
-											<c:when test="${her_his_you == 'his'}">
-												<c:set var="act_str" value="${act_str} sent him a message" />
-											</c:when>
-											<c:when test="${her_his_you == 'your'}">
-												<c:set var="act_str" value="${act_str} sent you a message" />
-											</c:when>
-											<c:otherwise>
-												<c:set var="act_str" value="${act_str} sent ${her_his_you} a message" />
-											</c:otherwise>
-										</c:choose>
 										<c:if test="${act_done_by == cacheGuest.id }">
+											<c:choose>
+												<c:when test="${her_his_you == 'his'}">
+													<c:set var="act_str" value="You sent him a message" />
+												</c:when>
+												<c:otherwise>
+													<c:set var="act_str" value="You sent ${her_his_you} a message" />
+												</c:otherwise>
+											</c:choose>
+										
 											<c:set var="short_str" value="${'Message Sent'}" />
 										</c:if>
 										<c:if test="${act_done_by != cacheGuest.id }">
 											<c:set var="short_str" value="${'Message Received'}" />
+											<c:set var="act_str" value="${act_str} sent you a message" />
 										</c:if>
 										<c:set var="message_content" value="${conversation.activity_content}" />
 									</c:if>
 									<c:if test="${act_type == 'message_accepted' }">
-										<c:set var="act_str" value="${act_str} accepted ${her_his_you} message" />
+										<c:if test="${act_done_by == cacheGuest.id }">
+											<c:set var="act_str" value="You accepted ${her_his_you} message" />
+										</c:if>
+										<c:if test="${act_done_by != cacheGuest.id }">
+											<c:set var="act_str" value="${act_str} accepted your message" />
+										</c:if>
+										
 										<c:set var="short_str" value="${'Message Accepted'}" />
 									</c:if>
 									<c:if test="${act_type == 'message_rejected' }">
-										<c:set var="act_str" value="${act_str} rejected ${her_his_you} message" />
+										<c:if test="${act_done_by == cacheGuest.id }">
+											<c:set var="act_str" value="You rejected ${her_his_you} message" />
+										</c:if>
+										<c:if test="${act_done_by != cacheGuest.id }">
+											<c:set var="act_str" value="${act_str} rejected your message" />
+										</c:if>
 										<c:set var="short_str" value="${'Message Rejected'}" />
 									</c:if>
 									<c:if test="${act_type == 'message_replied' }">
-										<c:set var="act_str" value="${act_str} replied to ${her_his_you} message" />
+										<c:if test="${act_done_by == cacheGuest.id }">
+											<c:set var="act_str" value="You replied to ${her_his_you} message" />
+										</c:if>
+										<c:if test="${act_done_by != cacheGuest.id }">
+											<c:set var="act_str" value="${act_str} replied to your message" />
+										</c:if>
 										<c:set var="short_str" value="${'Message Replied'}" />
 									</c:if>
 									<c:if test="${act_type == 'mobile_no_viewed' }">
-										<c:set var="act_str" value="${act_str} viewed ${her_his_you} mobile number" />
+										<c:if test="${act_done_by == cacheGuest.id }">
+											<c:set var="act_str" value="You viewed ${her_his_you} mobile number" />
+										</c:if>
+										<c:if test="${act_done_by != cacheGuest.id }">
+											<c:set var="act_str" value="${act_str} viewed your mobile number" />
+										</c:if>
 										<c:set var="short_str" value="${'Mobilenumber Viewed'}" />
 									</c:if>
 								<p><span><img src="images/arrowaccepted.png"/> <c:out value="${short_str}" /> <span class="pull-right"><c:out value="${conversation.created_on}" /> <a href="#"><i data-toggle="tooltip" title="Delete" class="fa fa-trash-o" style="font-size:16px;"></i></a></span></p>
