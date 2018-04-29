@@ -2025,21 +2025,32 @@ public class UsersDao extends BaseUsersDao
 		try{
 				StringBuffer buffer = new StringBuffer();
 				if(request_type.equalsIgnoreCase("pending_requests")){
-					buffer.append("select * from users_activity_log where  act_done_on_user_id = "+userId+"  and act_done_by_user_id = "+profile_id+" and activity_type in ('interest_request','message') order by created_time desc limit 1 ");
+					String where_clause = " act_done_on_user_id = "+userId+"  and act_done_by_user_id = "+profile_id+" and activity_type in ('interest_request','message') ";
+					buffer.append("select *,(select count(*) from users_activity_log where "+where_clause+") as conversations_count from users_activity_log where  "+where_clause+" order by created_time desc limit 1 ");
 				}
 				if(request_type.equalsIgnoreCase("accepted_requests")){
-					buffer.append("select *, (select activity_content from users_activity_log where act_done_by_user_id = "+profile_id+" and act_done_on_user_id = "+userId+" and activity_type in ('message_accepted','message_replied','interest_accepted','message') order by created_time desc limit 1) as activity_content "
-								+" from users_activity_log where  find_in_set(act_done_on_user_id,('"+userId+","+profile_id+"'))>0 and find_in_set(act_done_by_user_id,('"+userId+","+profile_id+"'))>0 and activity_type in ('message_accepted','message_replied','interest_accepted') order by created_time desc limit 1 ");
+					String where_clause = " find_in_set(act_done_on_user_id,('"+userId+","+profile_id+"'))>0 and find_in_set(act_done_by_user_id,('"+userId+","+profile_id+"'))>0 and activity_type in ('message_accepted','message_replied','interest_accepted') ";
+					buffer.append("select *, (select activity_content from users_activity_log where act_done_by_user_id = "+profile_id+" and act_done_on_user_id = "+userId+" and activity_type in ('message_accepted','message_replied','interest_accepted','message') order by created_time desc limit 1) as activity_content, "
+								+" (select count(*) from users_activity_log where "+where_clause+") as  conversations_count "
+								+" from users_activity_log where "+where_clause+"  order by created_time desc limit 1 ");
 				}
 				if(request_type.equalsIgnoreCase("rejected_requests")){
-					buffer.append("select * "
-								+" from users_activity_log where  find_in_set(act_done_on_user_id,('"+userId+","+profile_id+"'))>0 and find_in_set(act_done_by_user_id,('"+userId+","+profile_id+"'))>0 and activity_type in ('message_rejected','interest_rejected') order by created_time desc limit 1 ");
+					String where_clause = " find_in_set(act_done_on_user_id,('"+userId+","+profile_id+"'))>0 and find_in_set(act_done_by_user_id,('"+userId+","+profile_id+"'))>0 and activity_type in ('message_rejected','interest_rejected') ";
+					buffer.append("select *, "
+								+" (select count(*) from users_activity_log where "+where_clause+") as  conversations_count "
+								+" from users_activity_log where "+where_clause+"  order by created_time desc limit 1 ");
 				}
 				if(request_type.equalsIgnoreCase("sent_requests")){
-					buffer.append("select * from users_activity_log where  act_done_by_user_id = "+userId+" and act_done_on_user_id = "+profile_id+" order by created_time desc limit 1 ");
+					String where_clause = " act_done_by_user_id = "+userId+" and act_done_on_user_id = "+profile_id+" ";
+					buffer.append("select *, "
+								+" (select count(*) from users_activity_log where "+where_clause+") as  conversations_count "
+								+"	from users_activity_log where "+where_clause+"  order by created_time desc limit 1 ");
 				}
 				if(request_type.equalsIgnoreCase("awaiting_requests")){
-					buffer.append("select * from users_activity_log where  act_done_by_user_id = "+userId+" and act_done_on_user_id = "+profile_id+" and activity_type in ('interest_request','message') order by created_time desc limit 1 ");
+					String where_clause = " act_done_by_user_id = "+userId+" and act_done_on_user_id = "+profile_id+" and activity_type in ('interest_request','message') ";
+					buffer.append("select *, "
+							+" (select count(*) from users_activity_log where "+where_clause+") as  conversations_count "
+							+" from users_activity_log where "+where_clause+"  order by created_time desc limit 1 ");
 				}
 				
 				List<Map<String,Object>> recent_activity = jdbcTemplate.queryForList(buffer.toString());

@@ -34,7 +34,7 @@ background:#f8f8f8;
 padding:10px;}
 </style>
 <div class="container" style="padding:15px;">
-<a type="button"  class="btn btn-success pull-right" > Back</a>
+<a type="button"   href="${back_link_val}" class="btn btn-success pull-right" > Back</a>
 <div class="clearfix"></div>
 <br>
 			<div class="col-md-3 products-grid-right">

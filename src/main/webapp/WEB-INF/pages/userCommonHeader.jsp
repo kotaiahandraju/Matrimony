@@ -1129,6 +1129,7 @@ tooltip:hover:after {
 							}
 							
 						}
+						var more_conversations_str = '';
 						// to display recent activity details
 						var activity_str = "",act_short_str = "";
 						var reply_content = "";
@@ -1251,14 +1252,20 @@ tooltip:hover:after {
 									activity_str = opp_gender_str+" viewed your mobile number";
 								}
 							}
+							var conversations_count = recent_activity.conversations_count;
+							if(typeof conversations_count != "undefined" && conversations_count>1){
+								more_conversations_str = ' <a href="moreConversations?pid='+orderObj.id+'&tab_type='+tabType+'&list_type='+listType+'"><span class="pull-right" style="color:#006699;">+ More Conversations</span></a> ';
+							}
 						}
 						
 						/////
+						
 						var profile_highlisht_str = '<div class="panel panel-default">';
 						var highlight_option = orderObj.profile_highlighter;
 						if(typeof highlight_option != "undefined" && highlight_option=='1'){
 							profile_highlisht_str = '<div class="panel panel-default" style="background-color:skyblue">';
 						}
+						
 						var tblRow = profile_highlisht_str
 							+ '<div class="panel-body">'
 							+ '<div class="col-md-2" >'
@@ -1286,7 +1293,10 @@ tooltip:hover:after {
 			            	+ '</td></tr>'*/
 			            	+ '	<tr><td>'+activity_str+'.</td></tr>' 
 			            	+ '	<tr><td>'+received_msg_str+'</td></tr>'
-			            	+ '	<tr><td>'+acceptOptions+' <a href="moreConversations?pid='+orderObj.id+'"><span class="pull-right" style="color:#006699;">+ More Conversations</span></a></td></tr>'
+			            	+ '	<tr><td>'+acceptOptions
+			            	+ 			more_conversations_str
+			            	+ '	</td></tr>'
+			            	//+' <a href="moreConversations?pid='+orderObj.id+'&tab_type='+tabType+'&list_type='+listType+'"><span class="pull-right" style="color:#006699;">+ More Conversations</span></a></td></tr>'
 			            	//+ '<tr><td><button type="button" class="btn btn-danger btn-sm" id="sendMail'+orderObj.requestId+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')" style="display:none">Send Mail</button></td></tr>'
 			            	+ '</table>'
 			            	+ '<!-- Reply start -->'
