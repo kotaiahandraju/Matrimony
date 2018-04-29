@@ -2025,7 +2025,7 @@ public class UsersDao extends BaseUsersDao
 		try{
 				StringBuffer buffer = new StringBuffer();
 				if(request_type.equalsIgnoreCase("pending_requests")){
-					buffer.append("select * from users_activity_log where  act_done_on_user_id = "+userId+"  and act_done_by_user_id = "+profile_id+" order by created_time desc limit 1 ");
+					buffer.append("select * from users_activity_log where  act_done_on_user_id = "+userId+"  and act_done_by_user_id = "+profile_id+" and activity_type in ('interest_request','message') order by created_time desc limit 1 ");
 				}
 				if(request_type.equalsIgnoreCase("accepted_requests")){
 					buffer.append("select *, (select activity_content from users_activity_log where act_done_by_user_id = "+profile_id+" and act_done_on_user_id = "+userId+" and activity_type in ('message_accepted','message_replied','interest_accepted','message') order by created_time desc limit 1) as activity_content "
@@ -2039,7 +2039,7 @@ public class UsersDao extends BaseUsersDao
 					buffer.append("select * from users_activity_log where  act_done_by_user_id = "+userId+" and act_done_on_user_id = "+profile_id+" order by created_time desc limit 1 ");
 				}
 				if(request_type.equalsIgnoreCase("awaiting_requests")){
-					buffer.append("select * from users_activity_log where  act_done_by_user_id = "+userId+" and activity_type in ('interest_request','message') order by created_time desc limit 1 ");
+					buffer.append("select * from users_activity_log where  act_done_by_user_id = "+userId+" and act_done_on_user_id = "+profile_id+" and activity_type in ('interest_request','message') order by created_time desc limit 1 ");
 				}
 				
 				List<Map<String,Object>> recent_activity = jdbcTemplate.queryForList(buffer.toString());
@@ -2845,8 +2845,8 @@ public boolean deletePhoto(String photoId){
 	
 	public Map<String,Object> getMembershipDetails(UsersBean objUserBean){
 		jdbcTemplate = custom.getJdbcTemplate();
-		String qryStr = "select *,(select (date_add(u.package_joined_date, interval pack.duration month))) as renewal_date, "
-				+" (select date(updated_time) from paymenthistory where memberId = "+objUserBean.getId()+" and paymentStatus = 'success' order by updated_time desc limit 1)  as last_renewed_date, "
+		String qryStr = "select *,date_format((select (date_add(date_add(u.package_joined_date, interval pack.duration month), interval -1 day))),'%d-%b-%Y') as renewal_date, "
+				+" date_format((select date(updated_time) from paymenthistory where memberId = "+objUserBean.getId()+" and paymentStatus = 'success' order by updated_time desc limit 1),'%d-%b-%Y')  as last_renewed_date, "
 				+" (select datediff(date_add(u.package_joined_date, interval pack.duration month),current_date())) as validity from users u, package pack where u.package_id = pack.id and u.id = "+objUserBean.getId();
 		try {
 			List<Map<String,Object>> list = jdbcTemplate.queryForList(qryStr);
