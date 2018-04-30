@@ -2649,6 +2649,16 @@ header h1 {
 .dropdown:hover .dropdown-menu {
 display:none !important;
 } */
+.mid-grids h5 {
+    color: #C00;
+    margin: 0;
+    font-size: 14px;
+    margin-top: -10px;
+}
+.panel-heading {
+    padding: 10px 3px;
+    }
+    
 .dropdown-menu:after {
 margin-top:20px;}
 .dearb {
@@ -2800,6 +2810,11 @@ xpopup
 	-o-transform: rotate(45deg);
 	transform: rotate(45deg);
 	left: 8px;
+}
+@media (min-width: 767px) {
+  .navbar-custom .dropdown:hover .dropdown-menu {
+    display: none;
+  }
 }
 
 .cd-popup-container .cd-popup-close::after {
@@ -3307,7 +3322,7 @@ img.hover-shadow {
 
 	<div class="container">
 		<div class="row">
-			<nav class="navbar navbar-inverse" role="navigation" >
+			<nav class="navbar navbar-custom navbar-inverse" role="navigation" >
 				<div >
 	        		<div class="navbar-header">
 						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">

@@ -1251,7 +1251,7 @@ span.valsa{
   vertical-align: middle;
 }
 .products-grid-left{
-	padding:0 !important;
+	/* padding:0 !important; */
 }
 .products-grid-lft:nth-child(2){
 	margin:1em 0;
