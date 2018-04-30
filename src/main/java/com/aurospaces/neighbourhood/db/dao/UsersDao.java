@@ -897,10 +897,10 @@ public class UsersDao extends BaseUsersDao
 						if(default_text_option.equals("1")){
 							String qry = "update express_intrest set default_text_option = '0' , mail_default_text = '' where user_id = "+objUserBean.getId();
 							jdbcTemplate.update(qry);
-							buffer.append("update express_intrest set message_sent_status = '1',created_on = ? , default_text_option = ?, mail_default_text = ? where user_id = ? and profile_id = ?");
+							buffer.append("update express_intrest set message_sent_status = '1', message_status = '0', created_on = ? , default_text_option = ?, mail_default_text = ? where user_id = ? and profile_id = ?");
 							updated_count = jdbcTemplate.update(buffer.toString(), new Object[]{new java.sql.Timestamp(new DateTime().getMillis()),default_text_option,mail_content,objUserBean.getId(),profileId});
 						}else{
-							buffer.append("update express_intrest set message_sent_status = '1',created_on = ?  where user_id = ? and profile_id = ?");
+							buffer.append("update express_intrest set message_sent_status = '1',message_status = '0', created_on = ?  where user_id = ? and profile_id = ?");
 							updated_count = jdbcTemplate.update(buffer.toString(), new Object[]{new java.sql.Timestamp(new DateTime().getMillis()),objUserBean.getId(),profileId});
 						}
 					}

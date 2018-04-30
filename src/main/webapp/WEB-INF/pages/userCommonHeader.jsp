@@ -1236,14 +1236,14 @@ tooltip:hover:after {
 								}
 								acceptOptions = '<span id="mail'+orderObj.id+'"><a type="button" class="btn btn-primary btn-sm" id="sendMail'+orderObj.id+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')">Send Mail</a></span>';
 							}
-							if(recent_activity.activity_type=="profile_viewed"){
+							/* if(recent_activity.activity_type=="profile_viewed"){
 								act_short_str = "Profile Viewed";
 								if(login_user_id==recent_activity.act_done_by_user_id){
 									activity_str = "You viewed "+her_his_you+" profile";
 								}else{
 									activity_str = opp_gender_str+" viewed your profile";
 								}
-							}
+							} */
 							if(recent_activity.activity_type=="mobile_no_viewed"){
 								act_short_str = "Number Viewed";
 								if(login_user_id==recent_activity.act_done_by_user_id){

@@ -123,6 +123,8 @@ padding:10px;}
 								<c:set var="act_done_by" value="${conversation.act_done_by_user_id}" />
 								<c:set var="act_str" value="${''}" />
 								<c:set var="message_content" value="${''}" />
+								<c:set var="short_str_symbol" value="${'images/arrowaccepted.png'}" />
+								
 								<div class="col-md-12">
 									<c:if test="${act_done_by == cacheGuest.id }">
 										<c:set var="act_str" value="${'You'}" />
@@ -154,6 +156,7 @@ padding:10px;}
 										</c:if>
 										<c:if test="${act_done_by != cacheGuest.id }">
 											<c:set var="short_str" value="${'Interest Request Received'}" />
+											<c:set var="short_str_symbol" value="${'images/arrowreceived.png'}" />
 											<c:set var="act_str" value="${act_str} sent an interest request to you" />
 										</c:if>
 									</c:if>
@@ -190,6 +193,7 @@ padding:10px;}
 										</c:if>
 										<c:if test="${act_done_by != cacheGuest.id }">
 											<c:set var="short_str" value="${'Message Received'}" />
+											<c:set var="short_str_symbol" value="${'images/arrowreceived.png'}" />
 											<c:set var="act_str" value="${act_str} sent you a message" />
 										</c:if>
 										<c:set var="message_content" value="${conversation.activity_content}" />
@@ -231,7 +235,7 @@ padding:10px;}
 										</c:if>
 										<c:set var="short_str" value="${'Mobilenumber Viewed'}" />
 									</c:if>
-								<p><span><img src="images/arrowaccepted.png"/> <c:out value="${short_str}" /> <span class="pull-right"><c:out value="${conversation.created_on}" /> <a href="#"><i data-toggle="tooltip" title="Delete" class="fa fa-trash-o" style="font-size:16px;"></i></a></span></p>
+								<p><span><img src="${short_str_symbol}"/> <c:out value="${short_str}" /> <span class="pull-right"><c:out value="${conversation.created_on}" /> <a href="#"><i data-toggle="tooltip" title="Delete" class="fa fa-trash-o" style="font-size:16px;"></i></a></span></p>
 								<p><strong> &nbsp; &nbsp; <c:out value="${act_str}" />.</strong></p>
 								<p><c:out value="${message_content}" /></p>
 								<a class="btn btn-danger" id="sendMail${profileBean.id}" onclick="displayMailPopup(${profileBean.id},'${profileBean.firstName} ${profileBean.lastName}')">Send mail</a> &nbsp; &nbsp;
@@ -239,7 +243,7 @@ padding:10px;}
 								<div class="clearfix"></div><br><hr>
 							</c:forEach>
 						</c:if>
-						<div class="col-md-12">
+						<!-- <div class="col-md-12">
 						<p><span><img src="images/arrowaccepted.png"/> Interest Accepted <span class="pull-right">21-mar-2018 <a href="#"><i data-toggle="tooltip" title="Delete" class="fa fa-trash-o" style="font-size:16px;"></i></a></span></p>
 						<p><strong> &nbsp; &nbsp; You have accepted her interest.</strong></p>
 						<a class="btn btn-danger">Send mail</a> &nbsp; &nbsp;	<a class="btn btn-success">Call Now</a>
@@ -255,7 +259,7 @@ padding:10px;}
 						<p><span><img src="images/arrowreceived.png"/> Interest Received <span class="pull-right">21-mar-2018 <a href="#"><i data-toggle="tooltip" title="Delete" class="fa fa-trash-o" style="font-size:16px;"></i></a></span></p>
 						<p><strong> &nbsp; &nbsp; She sent you an interest.</strong></p>
 						<a class="btn btn-danger">Send mail</a> &nbsp; &nbsp;	<a class="btn btn-success">Call Now</a>
-						</div>
+						</div> -->
 						<div class="clearfix"></div><br><hr>
 	</form:form>
 </div>
