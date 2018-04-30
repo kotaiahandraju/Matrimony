@@ -3812,7 +3812,7 @@ public class HomePageController {
 				}else if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("accepted_requests")){
 					requests = objUsersDao.getacceptedRequests(sessionBean.getId()+"",0);
 				}else if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("rejected_requests")){
-					requests = objUsersDao.getRequestsRejectedByMe(sessionBean.getId()+"",0);
+					requests = objUsersDao.getRejectedRequests(sessionBean.getId()+"",0);
 				}else if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("accepted_me_requests")){
 					requests = objUsersDao.getRequestsAcceptedMe(sessionBean.getId()+"",0);
 				}else if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("rejected_me_requests")){

@@ -31,6 +31,8 @@ public class MoreConversationsController {
 				return "redirect:HomePage";
 			}
 			String profile_id =request.getParameter("pid");
+			String tab_type =request.getParameter("tab_type");
+			String list_type =request.getParameter("list_type");
 			conversations = objUsersDao.getConversationsList(sessionBean, profile_id);
 			if(conversations!=null && conversations.size()>0){
 				for(Map<String,Object> conv:conversations){
@@ -42,6 +44,7 @@ public class MoreConversationsController {
 					}
 				}
 				request.setAttribute("conversationsList", conversations);
+				request.setAttribute("back_link_val", "inboxAction?tab_type="+tab_type+"&list_type="+list_type+"");
 			}else{
 				request.setAttribute("conversationsList", "''");
 			}

@@ -8,6 +8,11 @@
 		<%-- 	<div class="col-md-12">
 				<c:if test="${membership_details.validity <= 10}">
 				<h4>Your paid membership will expire in ${membership_details.validity} days</h4>
+			<div class="col-md-12">
+				<c:if test="${cacheGuest.roleId != '4'}">
+					<c:if test="${membership_details.validity <= 10}">
+						<h4>Your paid membership will expire in ${membership_details.validity} days</h4>
+					</c:if>
 				</c:if>
 			</div>  --%>
 			<div class="col-md-12">
