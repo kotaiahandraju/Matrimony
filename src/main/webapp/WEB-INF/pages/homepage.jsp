@@ -383,7 +383,7 @@ window.setTimeout(function() {
 							</form:select>
 						</div>
 						<div class="form-group">
-							<button type="button" id="submit12" class="btn btn-danger" onclick="searchSubmit('this.id')">Search</button>
+							<button type="button" id="submit12" class="btn btn-danger" onclick="searchSubmit()">Search</button>
 						</div>
 					</div>
 					</div>
@@ -411,17 +411,21 @@ function searchSubmit(){
 	var rAgeFrom= $('#rAgeFrom').val();
 	var religion= $('#religion').val();
 	var cast= $('#cast').val();
-	var Male= $('#id1').val();
-	var feMale= $('#id2').val();
+	var Female= $('#id1').val();
+	var Male= $('#id2').val();
 // 	if (rPeople.val()==""){
 // 		alert("Plese Select an Option..")
-if(rPeople == "" && rAgeFrom == "" && religion == "" && cast == undefined){
+    if(rPeople == "" && rAgeFrom == "" && religion == "" && cast == undefined){
 	alert("Enter any input...");
 	return false;
-	}else{
- 	 window.location.href =location+"/admin/searchSubmit/"+id+"/AllProfilesHome"; 
-	}
-	}
+	}else if(rPeople == 'Female'){
+			window.location.href ="${baseurl}"+"/searchByBride"; 
+		}else{
+			window.location.href ="${baseurl}"+"/searchByGroom"; 
+		}
+	
+} 
+	
 </script>
 						<div class="quote-form row">
 							<!-- contact form -->
