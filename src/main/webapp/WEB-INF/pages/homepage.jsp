@@ -365,7 +365,7 @@ window.setTimeout(function() {
 								<option value="2">Muslim</option>
 								<option value="3">Christian</option>
 							</select> -->
-							<form:select path="cast" class="custom-select col-md-12 form-control">
+							<form:select path="religion" class="custom-select col-md-12 form-control">
 								<form:option value="">of Religion.... &nbsp;&nbsp;</form:option>
 								<form:options items="${religion}"></form:options>
 							</form:select>
@@ -383,7 +383,7 @@ window.setTimeout(function() {
 							</form:select>
 						</div>
 						<div class="form-group">
-							<button type="button" id="submit12" class="btn btn-danger" onclick="searchSubmit()">Search</button>
+							<button type="button" id="submit12" class="btn btn-danger" onclick="searchSubmit('this.id')">Search</button>
 						</div>
 					</div>
 					</div>
@@ -407,16 +407,21 @@ window.setTimeout(function() {
 						</div>
 <script>
 function searchSubmit(){
-	var rPeople=$('#rPeople');
-	var Male=$("#id1");
-	var feMale=$('#id2');
-	if (rPeople.val()==""){
-		alert("Plese Select an Option..")
-	}	
-}
-
-
-
+	var rPeople= $('#rPeople').val();
+	var rAgeFrom= $('#rAgeFrom').val();
+	var religion= $('#religion').val();
+	var cast= $('#cast').val();
+	var Male= $('#id1').val();
+	var feMale= $('#id2').val();
+// 	if (rPeople.val()==""){
+// 		alert("Plese Select an Option..")
+if(rPeople == "" && rAgeFrom == "" && religion == "" && cast == undefined){
+	alert("Enter any input...");
+	return false;
+	}else{
+ 	 window.location.href =location+"/admin/searchSubmit/"+id+"/AllProfilesHome"; 
+	}
+	}
 </script>
 						<div class="quote-form row">
 							<!-- contact form -->

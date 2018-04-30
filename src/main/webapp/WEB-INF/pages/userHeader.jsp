@@ -5,14 +5,14 @@
 <div class="products">
 	<div class="container" style="background: #FFF;">
 		<div class="mid-grids">
-			<div class="col-md-12">
+		<%-- 	<div class="col-md-12">
 				<c:if test="${membership_details.validity <= 10}">
 				<h4>Your paid membership will expire in ${membership_details.validity} days</h4>
 				</c:if>
-			</div> 
+			</div>  --%>
 			<div class="col-md-12">
 				<h4>Hello <%= userBean.getFirstName() %> <%= userBean.getLastName() %> <span>(<%= userBean.getUsername() %>)</span></h4>
-			</div>   
+			</div>  
 			<div class="col-md-3 products-grid-right">
 				<div class="well">
 					<div class="row">
