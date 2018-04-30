@@ -7,7 +7,7 @@
 <%
 	String baseurl =  request.getScheme() + "://" + request.getServerName() +      ":" +   request.getServerPort() +  request.getContextPath();
 	session.setAttribute("baseurl", baseurl);
-%>
+%>				
 
 <html>
 <head>
@@ -548,8 +548,12 @@ tooltip:hover:after {
 					}else{
 						slider = '<img src="'+image+'" class="img-responsive thumbnail" style="margin-bottom: 0px; ">';
 					}
-					
-					var tblRow = '<div class="row container-fluid">'
+					var profile_highlisht_str = '<div class="panel panel-default">';
+					var highlight_option = orderObj.profile_highlighter;
+					if(typeof highlight_option != "undefined" && highlight_option=='1'){
+						profile_highlisht_str = '<div class="panel panel-default" style="background-color:skyblue">';
+					}
+					var tblRow = profile_highlisht_str
 						+ '<div class="col-md-2" style="margin-right:0; padding-right:0;">'
 			            //+ 	"<img src="+image+" class='img-responsive thumbnail' style='margin-bottom: 0px;'>"
 			            + slider
@@ -1125,6 +1129,7 @@ tooltip:hover:after {
 							}
 							
 						}
+						var more_conversations_str = '';
 						// to display recent activity details
 						var activity_str = "",act_short_str = "";
 						var reply_content = "";
@@ -1231,14 +1236,14 @@ tooltip:hover:after {
 								}
 								acceptOptions = '<span id="mail'+orderObj.id+'"><a type="button" class="btn btn-primary btn-sm" id="sendMail'+orderObj.id+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')">Send Mail</a></span>';
 							}
-							if(recent_activity.activity_type=="profile_viewed"){
+							/* if(recent_activity.activity_type=="profile_viewed"){
 								act_short_str = "Profile Viewed";
 								if(login_user_id==recent_activity.act_done_by_user_id){
 									activity_str = "You viewed "+her_his_you+" profile";
 								}else{
 									activity_str = opp_gender_str+" viewed your profile";
 								}
-							}
+							} */
 							if(recent_activity.activity_type=="mobile_no_viewed"){
 								act_short_str = "Number Viewed";
 								if(login_user_id==recent_activity.act_done_by_user_id){
@@ -1247,14 +1252,20 @@ tooltip:hover:after {
 									activity_str = opp_gender_str+" viewed your mobile number";
 								}
 							}
+							var conversations_count = recent_activity.conversations_count;
+							if(typeof conversations_count != "undefined" && conversations_count>1){
+								more_conversations_str = ' <a href="moreConversations?pid='+orderObj.id+'&tab_type='+tabType+'&list_type='+listType+'"><span class="pull-right" style="color:#006699;">+ More Conversations</span></a> ';
+							}
 						}
 						
 						/////
+						
 						var profile_highlisht_str = '<div class="panel panel-default">';
 						var highlight_option = orderObj.profile_highlighter;
 						if(typeof highlight_option != "undefined" && highlight_option=='1'){
 							profile_highlisht_str = '<div class="panel panel-default" style="background-color:skyblue">';
 						}
+						
 						var tblRow = profile_highlisht_str
 							+ '<div class="panel-body">'
 							+ '<div class="col-md-2" >'
@@ -1282,7 +1293,10 @@ tooltip:hover:after {
 			            	+ '</td></tr>'*/
 			            	+ '	<tr><td>'+activity_str+'.</td></tr>' 
 			            	+ '	<tr><td>'+received_msg_str+'</td></tr>'
-			            	+ '	<tr><td>'+acceptOptions+' <a href="moreConversations?pid='+orderObj.id+'"><span class="pull-right" style="color:#006699;">+ More Conversations</span></a></td></tr>'
+			            	+ '	<tr><td>'+acceptOptions
+			            	+ 			more_conversations_str
+			            	+ '	</td></tr>'
+			            	//+' <a href="moreConversations?pid='+orderObj.id+'&tab_type='+tabType+'&list_type='+listType+'"><span class="pull-right" style="color:#006699;">+ More Conversations</span></a></td></tr>'
 			            	//+ '<tr><td><button type="button" class="btn btn-danger btn-sm" id="sendMail'+orderObj.requestId+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')" style="display:none">Send Mail</button></td></tr>'
 			            	+ '</table>'
 			            	+ '<!-- Reply start -->'
@@ -3479,7 +3493,6 @@ img.hover-shadow {
 		</div>
 	</div>
 </div>
-
 <div class="modal fade" id="myModal" role="dialog" style="background: transparent;">
     <div class="modal-dialog">
     

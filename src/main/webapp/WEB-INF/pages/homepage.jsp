@@ -365,7 +365,7 @@ window.setTimeout(function() {
 								<option value="2">Muslim</option>
 								<option value="3">Christian</option>
 							</select> -->
-							<form:select path="cast" class="custom-select col-md-12 form-control">
+							<form:select path="religion" class="custom-select col-md-12 form-control">
 								<form:option value="">of Religion.... &nbsp;&nbsp;</form:option>
 								<form:options items="${religion}"></form:options>
 							</form:select>
@@ -407,16 +407,25 @@ window.setTimeout(function() {
 						</div>
 <script>
 function searchSubmit(){
-	var rPeople=$('#rPeople');
-	var Male=$("#id1");
-	var feMale=$('#id2');
-	if (rPeople.val()==""){
-		alert("Plese Select an Option..")
-	}	
-}
-
-
-
+	var rPeople= $('#rPeople').val();
+	var rAgeFrom= $('#rAgeFrom').val();
+	var religion= $('#religion').val();
+	var cast= $('#cast').val();
+	var Female= $('#id1').val();
+	var Male= $('#id2').val();
+// 	if (rPeople.val()==""){
+// 		alert("Plese Select an Option..")
+    if(rPeople == "" && rAgeFrom == "" && religion == "" && cast == undefined){
+	alert("Enter any input...");
+	return false;
+	}else if(rPeople == 'Female'){
+			window.location.href ="${baseurl}"+"/searchByBride"; 
+		}else{
+			window.location.href ="${baseurl}"+"/searchByGroom"; 
+		}
+	
+} 
+	
 </script>
 						<div class="quote-form row">
 							<!-- contact form -->
@@ -851,7 +860,7 @@ $("#submit11").click(function(event){
 		if($('#email').val() ==  null || $('#email').val() == "" || $('#email').val()=="undefined") 
 		{
 			$("#email").css("border-color","#e73d4a");
-			$("#email").attr("placeholder","Enter EMail");
+			$("#email").attr("placeholder","Enter Email");
 			$('#email').addClass('your-class');
 			$('#email').css('color','red');
 		}
