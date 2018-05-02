@@ -5,9 +5,6 @@
 canvas{
 display : none
 }
-#imageName {
-height:600px;
-}
 
 .ui-dialog-titlebar-close
 {

@@ -76,9 +76,22 @@ span.has-error,span.hasError
 }
 #navigation .main-nav > li > a {
     display: block;
-    padding: 20px 3.9px;
+    padding: 20px 6.5px;
     line-height: 21px;
-    color: #fff;
+    color: #e4d7d7;
+}
+@media (min-width:769px) and (max-width:1024px) { 
+#navigation .main-nav > li > a {
+    display: block;
+    padding: 20px 5.5px;
+    line-height: 21px;
+    color: #e4d7d7;
+    font-size:12px;
+}
+ }
+.dt-buttons {
+margin-top:10px;
+display:inline-block;
 }
 ::-webkit-scrollbar {
     width: 3px;
@@ -169,7 +182,7 @@ span.impColor{color: red;}
 			position: absolute;
 			top: 45px;
 			
-			width: 250px;
+			width: 213px;
 			z-index:999;
 			display: none; // Enable this after jquery implementation 
 			}
@@ -301,7 +314,7 @@ var role_id = ${cacheUserBean.roleId};
 			</a> -->
 			<ul class='main-nav'>
 				<li class="dashboard"><a href="dashboard"><span>Dashboard</span></a></li>
-				<li class="catalog1">
+				<li class="dropdown catalog1 ">
 					<a href="#" data-toggle="dropdown" class='dropdown-toggle'>
 						<span>Data List 1</span>
 						<span class="caret"></span>
@@ -316,7 +329,7 @@ var role_id = ${cacheUserBean.roleId};
 						<li class="height"><a href="${baseurl }/admin/HeightHome">Height</a></li>
 					</ul>
 				</li>
-				<li class="catalog2">
+				<li class="dropdown catalog2">
 					<a href="#" data-toggle="dropdown" class='dropdown-toggle'>
 						<span>Data List 2</span>
 						<span class="caret"></span>
@@ -491,3 +504,4 @@ var role_id = ${cacheUserBean.roleId};
 	    return true;
 	}
 </script> 
+

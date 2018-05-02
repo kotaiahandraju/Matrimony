@@ -223,15 +223,35 @@ tooltip:hover:after {
 		$(function(){
 			$(".dropdown").hover(            
 				function() {
-					$('.dropdown-menu', this).stop( true, true ).fadeIn("fast");
-					$(this).toggleClass('open');
+					if($(window).width() > 760){
+						$('.dropdown-menu', this).stop( true, true ).fadeIn("fast");
+						$(this).toggleClass('open');
+					}
 				},
 				function() {
-					$('.dropdown-menu', this).stop( true, true ).fadeOut("fast");
-					$(this).toggleClass('open');
+					if($(window).width() > 760){
+						$('.dropdown-menu', this).stop( true, true ).fadeOut("fast");
+						$(this).toggleClass('open');
+					}
 			});
 		});
 		
+		$(function(){
+			$(".dropdown1").hover(            
+				function() {
+					if($(window).width() < 760){
+						$('.dropdown-menu1', this).stop( true, true ).fadeIn("fast");
+						$(this).toggleClass('open');
+					}
+				},
+				function() {
+					if($(window).width() < 760){
+						$('.dropdown-menu1', this).stop( true, true ).fadeOut("fast");
+						$(this).toggleClass('open');
+					}
+			});
+		});
+
 		/* $(window).resize(function () {
 		    if ($(window).width() < 768) {
 		        var dropdown = $("body").find(".horizontal-menu");
@@ -802,7 +822,7 @@ tooltip:hover:after {
 		                + '<a href="#"><p style="float:right;">...more</p></a>'
 		                + '</blockquote>'
 		                + '</div>'
-		            	+ '<div class="col-md-5">'
+		            	+ '<div class="col-md-5 newma">'
 		            	+ '<table>'
 		            	+ '	<tr><td width="150px">Age/Height</td><td><span>: '+orderObj.age+' yrs, '+orderObj.inches+'</span></td></tr>'
 		            	+ '	<tr><td>Religion</td><td><span>: '+orderObj.religionName+'</span></td></tr>'
@@ -2663,6 +2683,16 @@ header h1 {
 .dropdown:hover .dropdown-menu {
 display:none !important;
 } */
+#searchResults .panel-heading {
+padding:18px 5px;
+}
+#searchResults .form-check-label {
+margin-top:-9px;
+}
+.newma td {
+width:107px !important;
+vertical-align:initial;
+}
 .mid-grids h5 {
     color: #C00;
     margin: 0;
@@ -2674,7 +2704,11 @@ display:none !important;
     }
     
 .dropdown-menu:after {
-margin-top:20px;}
+display:none !important;
+}
+.dropdown-menu1:after {
+bottom:100% !important;
+}
 .dearb {
 display:none;
 }
@@ -3307,7 +3341,7 @@ img.hover-shadow {
 		<ul class="nav navbar-nav navbar-right">
                             
                             
-							<li class="dropdown settings pull-right" style="height:62px; width:96px; background:#fff; padding:0px;">
+							<li class="dropdown dropdown1 settings pull-right" style="height:62px; width:96px; background:#fff; padding:0px;">
 								<a href="#no" class="dropdown-toggle setpic" data-toggle="dropdown" style="background:#fff;">
 									
 									
@@ -3322,7 +3356,7 @@ img.hover-shadow {
 
 									
 								</a>
-								<ul class="dropdown-menu" style="min-width:90px !important;">
+								<ul class="dropdown-menu dropdown-menu1" style="min-width:90px !important;">
 									<li><a href="settings">Settings</a></li>
 									<li><a href="logoutHome" >Sign out</a></li>
 								</ul>
@@ -3397,9 +3431,9 @@ img.hover-shadow {
 								</ul>
 							</li> -->
 							
-							<li class="dropdown notifications" id="notification_li">
+							<li class="dropdown dropdown1 notifications" id="notification_li">
 								<a href="#" id="notificationLink"> <span class="fa fa-bell"></span>Notifications <span id="matchcount">${notificationsCount}</span></a>
-								<div id="notificationContainer" class="dropdown-menu">
+								<div id="notificationContainer" class="dropdown-menu dropdown-menu1">
 									<c:if test="${not empty notificationsList}">
 											<div id="notificationsBody" class="notifications">
 												<c:forEach var="notification" items="${notificationsList}">

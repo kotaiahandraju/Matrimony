@@ -357,13 +357,13 @@ color: #cfcfcf !important;
 						
 						<p style="color: black;">Please choose a reason for profile deletion.</p><br><br>
 						<div class='row'>
-						<div class='col-md-3' style='width: 225px; background: #f1f1f1;border-radius: 12px;padding: 7px 10px;color: black;margin: 0px 0px 0px 14px;'>
+						<div class='col-md-3' style='width: 225px; background: #f1f1f1;border-radius: 12px;padding: 7px 10px;color: black;margin: 0px 0px 10px 14px;'>
 						<input type="radio" /> &nbsp;&nbsp;&nbsp;Marriage Fixed&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						</div>
-						<div class='col-md-3' style='background: #f1f1f1;border-radius: 12px;padding: 7px 10px;color: black;margin: 0px 0px 0px 14px;'>
+						<div class='col-md-3' style='width: 225px; background: #f1f1f1;border-radius: 12px;padding: 7px 10px;color: black;margin: 0px 0px 10px 14px;'>
 						<input type="radio" /> &nbsp;&nbsp;&nbsp;Married&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						</div>
-						<div class='col-md-3' style='background: #f1f1f1;border-radius: 12px;padding: 7px 10px;color: black;margin: 0px 0px 0px 14px;'>
+						<div class='col-md-3' style='width: 225px; background: #f1f1f1;border-radius: 12px;padding: 7px 10px;color: black;margin: 0px 0px 10px 14px;'>
 						<input type="radio" /> &nbsp;&nbsp;&nbsp;Other Reasons
 						</div>
 						</div><br><br>
