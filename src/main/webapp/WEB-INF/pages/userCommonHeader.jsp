@@ -797,8 +797,8 @@ tooltip:hover:after {
 		            	+ '<div class="col-md-4">'
 		  				+ mobile_num_Str
 		                + '<div class="clearfix"></div>'
-		            	+ '<blockquote style="min-height:100px; max-height:120px; "><p>'+abtMySelf+'</p><br>'
-		                + '<br>'
+		            	+ '<blockquote style="min-height:100px; max-height:120px; "><p>'+abtMySelf+'....</p><br>'
+		                //+ '<br>'
 		                + '<a href="#"><p style="float:right;">...more</p></a>'
 		                + '</blockquote>'
 		                + '</div>'
@@ -1601,7 +1601,7 @@ tooltip:hover:after {
 			}
 			
 		}
-		
+		var mail_default_textt = "${mail_default_text}";
 		function displayMailPopup(profile_id,memberName){
 			var roleId = ${cacheGuest.roleId};
 			$("#profile_id").val(profile_id);
@@ -1610,7 +1610,7 @@ tooltip:hover:after {
 			var option_selection = "${default_text_option}";
 			if(typeof option_selection != "undefined"){ 
 				if(option_selection=="1"){
-					var texttt = "${mail_default_text}";
+					var texttt = mail_default_textt; //"${mail_default_text}";
 					 texttt = texttt.replace(/##newline##/g,"\r\n");
 					 texttt = texttt.replace(/##tabspace##/g,"\t");
 					 $("#mail_content").val(texttt);
@@ -1672,7 +1672,10 @@ tooltip:hover:after {
 										$("#default_text_opt").removeAttr("checked");
 									}
 							 }
-							 //$("#mail_content").val("");
+							 var defaultText  = jsonobj.mail_default_text;
+							 if(typeof defaultText != "undefined"){
+								 mail_default_textt = defaultText;
+							 }
 							$("#closeBtn").trigger("click");
 						}else{
 							alert("Some problem occured while sending e-mail!! Please try again.");
