@@ -5,7 +5,7 @@
 <!-- body ends here-->
 <!-- footer -->
 <div class="container" style="background:#fff;">
-	<div class="row" style="margin:0px;">
+	<div class="row">
 		<div class="footer" style="font-size: 10px;">
 			<div class="col-md-3 footer-grid">
 				<h6>About us</h6>

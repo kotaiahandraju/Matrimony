@@ -5107,7 +5107,7 @@ label, input, button, select, textarea {
   color: #fff;
   font-size: 20px;
   margin-top: 5px;
-  padding-right: 69px;
+  padding-right: 19px;
  /*  padding-left: 35px; */
   padding-bottom: 10px;
   line-height: 20px;
@@ -5328,7 +5328,7 @@ label, input, button, select, textarea {
   text-decoration: none;
   color: #ffffff;
   border-bottom:3px solid #fff;
-  font-size:14px;
+/*   font-size:14px; */
 }
 #navigation .main-nav > li.active > a .caret {
   border-top-color: #ffffff;

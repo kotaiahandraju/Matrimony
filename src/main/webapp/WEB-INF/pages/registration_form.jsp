@@ -283,9 +283,11 @@
 					      <h3>One last thing! Describe yourself in a few words</h3>
 					    </div>
 					    <div class="form-group">
-					      <label class="col-md-4 control-label" for="textinput">About myself</label>  
+					      <label class="col-md-4 control-label" for="textinput">About myself</label>
+					     
 					      <div class="col-md-6">
-					      	<form:textarea rows="6" path="aboutMyself" class="form-control u"></form:textarea>
+					      	<form:textarea rows="6" path="aboutMyself" onkeyup="checkLen()" maxlength="70" onfocus="colorChange()" class="form-control u"></form:textarea>
+					      	 <span id="errorMsg" style="color:red"></span>  
 					      </div>
 					    </div>
 					    <div class="form-group">
@@ -302,9 +304,9 @@
 					    <div class="form-group">
 					      <label class="col-md-4 control-label" for="textinput"></label>  
 					      <div class="col-md-6">
-					      <button type="button" id="fourthButton" onclick="fourthForm(event);" value="Create Profile" class="btn4 btn btn-info">Create Profile</button>
+					      <button type="button" id="fourthButton" onclick="fourthForm(event);" value="Create Profile" class="btn4 btn btn-info">Continue Profile</button>
 					<!--       <button type="button" id="skipfourthButton" onclick="skipfourthForm(event);" value="Skip" class="btn4 btn btn-info">Skip</button> -->
-					      <a style="color: ;text-decoration: none;" class="btn btn-success " href="${baseurl}/family-details">&nbsp;&nbsp;Skip</a>
+<%-- 					      <a style="color: ;text-decoration: none;" class="btn btn-success " href="${baseurl}/family-details">&nbsp;&nbsp;Skip</a> --%>
 					      </div>
 					    </div>
 					</div>
@@ -479,6 +481,8 @@ function secondForm(event)
 	}
 }
 
+
+
 function thirdForm(event)
 {
 	mobileExists = false;
@@ -588,8 +592,24 @@ function fourthForm(event){
 		$('#fourthForm').hide();
 		return false;
 	}
+	
+	if($('#aboutMyself').val() ==  null || $('#aboutMyself').val() == "" || $('#aboutMyself').val()=="undefined"){
+		
+		$('#aboutMyself').css('border-color','red');
+		$('#aboutMyself').css('color','#cc0000');
+		$('#aboutMyself').addClass('your-class');
+		$('#errorMsg').text("Please enter some text..");
+		return false;
+	}
+	var abtMySelfLen =$("#aboutMyself").val().trim().length;
+	if(abtMySelfLen < 50){
+		$('#errorMsg').text("Please enter minimum 50 charectors...");
+		return false;
+	}
+	
 	else
 	{
+	
 	}
 		/* $("#fourthButton").attr("disabled",true);
 	    $("#fourthButton").val("Please wait...");
@@ -604,9 +624,25 @@ function fourthForm(event){
 			
 		}); */
 	    //
+	    
+		$("#fourthButton").val("Please wait..");
+	    $('#fourthButton').attr("disabled",true);
 		$('#profileRegistration').attr('action',"saveUserProfile");
 	    $("#profileRegistration").submit();
 		event.preventDefault();
+}
+function colorChange(){
+	
+	
+	$('#aboutMyself').css('border-color','black');
+ 	$('#aboutMyself').css('color','black');
+//  	$('#errorMsg').hide();
+}
+function checkLen(){
+	var abtMySelfLen =$("#aboutMyself").val().trim();
+	if(abtMySelfLen!=''){
+	$('#errorMsg').text("");
+		}
 }
 
 function skipfourthForm(){

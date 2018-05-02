@@ -4392,5 +4392,13 @@ public class HomePageController {
 	  }
 		return "allNotifications";
 	 }
+   @RequestMapping("/searchByBride")
+   public String searchBride() {
+	   return "searchByBride";
+   }
+   @RequestMapping("/searchByGroom")
+   public String searchGroom() {
+	   return "searchByGroom";
+   }
    
 }

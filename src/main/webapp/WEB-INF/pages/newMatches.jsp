@@ -24,6 +24,10 @@ blockquote:before {
 blockquote p {
   display: inline;
 }
+.col-md-5 {
+padding-left:0px;
+padding-right:0px;
+}
 p {
 font-size:13px;
 }

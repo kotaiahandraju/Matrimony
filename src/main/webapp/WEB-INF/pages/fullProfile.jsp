@@ -35,6 +35,9 @@
     margin: 30px 250px !important;
 }
 } */
+#imageName {
+height:600px;
+}
 td, th {
 vertical-align:top;
 }
@@ -72,9 +75,9 @@ vertical-align:top;
                 width: 300px;
                 height: 350px;
             }
-            .box_1 p {
+            /* .box_1 p {
     margin: 45px 47px 37px 0px !important;
-}
+} */
         }
           @media screen and (max-width: 320px) {
             #mySlider {

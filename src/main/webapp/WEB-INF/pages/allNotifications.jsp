@@ -38,7 +38,7 @@ function notificationId(id){
 
 <div class="container" style="background:#fff; padding:15px;">
 	<div class="col-md-12">
-									<h5>Your Notifications <span class="pull-right">Notification Settings</span></h5>
+									<h5>Your Notifications </h5>
 <hr>
 
 													<c:if test="${not empty notificationsList}">
@@ -53,7 +53,7 @@ function notificationId(id){
 															<img src="img/default.png" style="max-width: 100%; height:60px;padding: 5px;" class="img-responsive">
 														</c:if>
 													</div>
-													<div class="col-md-10" style="padding-right:0px; padding-left:0px;" >
+													<div class="col-md-10" style="padding-right:0px; padding-left:0px; width:91%;" >
 														<p>
 															<a  href="fullProfile?pid=${notification.user_id}&nid=${notification.id}&rfrm=notifications"  target="_blank" >
 															
@@ -79,8 +79,9 @@ function notificationId(id){
 																	shortlisted your profile
 																</c:if>
 
-															</a></br>
-															<p><c:out value="${notification.created_on}"/></p>
+															<span class="fa fa-trash pull-right" style="margin-top:5px;"></span></a></br>
+															<p><c:out value="${notification.created_on}"/> </p>
+															
 														</p>
 														
 													

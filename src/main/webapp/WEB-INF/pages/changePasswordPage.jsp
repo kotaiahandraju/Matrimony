@@ -72,7 +72,7 @@
 										</div> 
 										  	
 	                                    <div class="row">
-											<div class="col-md-offset-5 col-md-4">
+											<div class="col-md-offset-5 col-md-9">
 												<div class="form-group">
 												<div class=" col-md-offset-1 col-md-6">
 													<button class="btn btn btn-primary" type="button" id="submit11" name="yt0" onclick="changePassword()">Change Password</button>

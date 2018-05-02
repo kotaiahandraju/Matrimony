@@ -427,8 +427,9 @@ $(".onlyCharacters").on("keypress",	function(event) {
         </div>
        
         <div id="about_edit" class="all_hidden_divs onlyCharacters" hidden="true">
-            <form:textarea path="aboutMyself" cols="90" rows="6"/>
-            <div class="row">
+            <form:textarea path="aboutMyself" onfocus="colorChange()" onkeyup="checkLen()" cols="90" rows="6"/><br>
+      		<span id="errorMsg" style="color:red"></span>  
+      					 <div class="row">
                 <div class="col-md-4" style="float:right;">
                     <div class="form-group">
                             <input class="btn btn btn-success" type="button" id="about_submit" name="yt0" value="Save" onclick="saveChanges('about');">
@@ -1347,11 +1348,21 @@ function toggleDiv(divElem){
 	}
 	
 }
+
+function colorChange(){
+	$('#aboutMyself').css('border-color','black');
+ 	$('#aboutMyself').css('color','black');
+}	
+function checkLen(){
+	var abtMySelfLen =$("#aboutMyself").val().trim();
+	if(abtMySelfLen!=''){
+	$('#errorMsg').text("");
+		}
+}
+
+
   function saveChanges(data_type){
 	$("#pageName").val(data_type);
-	
-	
-	  
 	 var formData = new FormData();
    	formData.append("pageName",data_type);
    	formData.append("aboutMyself",$("#aboutMyself").val());
@@ -1409,6 +1420,20 @@ function toggleDiv(divElem){
    	formData.append("rOccupation",$("#rOccupation").val());
    	formData.append("rAnnualIncome",$("#rAnnualIncome").val());
    	formData.append("rDiet",$("#rDiet").val());
+   
+   	if($('#aboutMyself').val() ==  null || $('#aboutMyself').val() == "" || $('#aboutMyself').val()=="undefined"){
+		$('#aboutMyself').css('border-color','red');
+		$('#aboutMyself').css('color','#cc0000');
+		$('#aboutMyself').addClass('your-class');
+		$('#errorMsg').text("Please enter some text..");
+		return false;
+	}
+	var abtMySelfLen =$("#aboutMyself").val().trim().length;
+	if(abtMySelfLen < 50){
+		$('#errorMsg').text("Please enter minimum 50 charectors...");
+		return false;
+	}
+	
 	$.fn.makeMultipartRequest('POST', 'editProfile', false,
 			formData, false, 'text', function(data){
 		var jsonobj = $.parseJSON(data);
@@ -1449,7 +1474,9 @@ function toggleDiv(divElem){
 				$(".all_hidden_divs").attr("hidden",true);
 				$(".all_visible_divs").removeAttr("hidden");
 				$(".all_a").html("<i class='fa fa-edit'></i>Edit");
-			}else{
+			}
+			
+			else{
 				alert("Problem occured while saving the updates. Please try again");
 			}
 		}
