@@ -498,6 +498,9 @@ function paginationSetup(total_items_count) {
         	 formData.append("page_no",page);
         	 formData.append("request_from","yettobeviewed");
         	 //var tempData = $("#searchForm2").serialize();
+        	 var with_photo = $("#with_photo").prop("checked");
+        	 formData.append('withPhoto',with_photo);
+        	 
     		$.fn.makeMultipartRequest('POST', 'displayPage', false,
     				formData, false, 'text', function(data){
     			var jsonobj = $.parseJSON(data);
@@ -516,7 +519,7 @@ function paginationSetup(total_items_count) {
 	    		}else{
 	    			paginationSetup(total_items_count);
 	    			$("#altLists").asPaginator('enable');
-	    			displayMatches_matches(results);
+	    			displayMatches_matches(results,"yetToBeViewedList");
 	    			$("#table_footer").removeAttr("hidden");
 	    			$("#altLists").removeAttr("hidden");
 	    			displayTableFooter(page);
@@ -605,13 +608,13 @@ function filterProfiles(){
 	var with_photo = $("#with_photo").prop("checked");
 	var formData = new FormData();
 	formData.append('withPhoto',with_photo);
-	$.fn.makeMultipartRequest('POST', 'newMatchesAjaxAction', false,
+	$.fn.makeMultipartRequest('POST', 'yetToBeViewedAjaxAction', false,
 			formData, false, 'text', function(data){
     		var jsonobj = $.parseJSON(data);;
     		var total_records = jsonobj.total_records;
-    		var newMatches = jsonobj.new_matches;
+    		var yetToBeViewedList = jsonobj.yetToBeViewedList;
     		total_items_count = total_records;
-    		if(newMatches==""){
+    		if(yetToBeViewedList==""){
     			
     			var str = '<div class="alert alert-danger" style="margin-bottom: 0px;padding: 5px;"><h6>No matches found..!</h6></div>';
     			$('#searchResults').html('');
@@ -622,7 +625,7 @@ function filterProfiles(){
     			$("#altLists").asPaginator('destroy');
     			paginationSetup(total_records);
     			$("#altLists").asPaginator('enable');
-    			displayMatches_matches(newMatches,"newMatches");
+    			displayMatches_matches(yetToBeViewedList,"yetToBeViewedList");
     			$("#table_footer").removeAttr("hidden");
     			$("#altLists").removeAttr("hidden");
     			displayTableFooter(1);
