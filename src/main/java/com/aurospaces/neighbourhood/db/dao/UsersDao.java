@@ -889,9 +889,18 @@ public class UsersDao extends BaseUsersDao
 					int updated_count = 0;
 					int existing_count = jdbcTemplate.queryForInt("select count(*) from express_intrest ei where ei.user_id="+objUserBean.getId()+" and ei.profile_id="+profileId+"");
 					if(existing_count==0){
-						buffer.append("insert into express_intrest(user_id,profile_id,message_sent_status,created_on,default_text_option,mail_default_text) values(?,?,?,?,?,?)");
-						updated_count = jdbcTemplate.update(buffer.toString(), new Object[]{objUserBean.getId(),profileId,"1",
-								new java.sql.Timestamp(new DateTime().getMillis()),default_text_option,mail_content});
+						if(default_text_option.equals("1")){
+							String qry = "update express_intrest set default_text_option = '0' , mail_default_text = '' where user_id = "+objUserBean.getId();
+							jdbcTemplate.update(qry);
+							buffer.append("insert into express_intrest(user_id,profile_id,message_sent_status,created_on,default_text_option,mail_default_text) values(?,?,?,?,?,?)");
+							updated_count = jdbcTemplate.update(buffer.toString(), new Object[]{objUserBean.getId(),profileId,"1",
+									new java.sql.Timestamp(new DateTime().getMillis()),default_text_option,mail_content});
+						}else{
+							buffer.append("insert into express_intrest(user_id,profile_id,message_sent_status,created_on) values(?,?,?,?)");
+							updated_count = jdbcTemplate.update(buffer.toString(), new Object[]{objUserBean.getId(),profileId,"1",
+									new java.sql.Timestamp(new DateTime().getMillis())});
+						}
+						
 						
 					}else if(existing_count>0){
 						if(default_text_option.equals("1")){

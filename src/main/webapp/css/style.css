@@ -5328,7 +5328,7 @@ label, input, button, select, textarea {
   text-decoration: none;
   color: #ffffff;
   border-bottom:3px solid #fff;
-  font-size:14px;
+/*   font-size:14px; */
 }
 #navigation .main-nav > li.active > a .caret {
   border-top-color: #ffffff;

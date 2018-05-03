@@ -3795,11 +3795,11 @@ public class HomePageController {
 							 String excaped_text = receipientUser.getMail_content().replaceAll("\r\n", "##newline##");
 							 excaped_text = excaped_text.replaceAll("\t", "##tabspace##");
 							 objUsersDao.sendMailMessage(profile_id,excaped_text,default_text_option.equalsIgnoreCase("true")?"1":"0");
-							 session.setAttribute("default_text_option", default_text_option.equalsIgnoreCase("true")?"1":"0");
+							 //session.setAttribute("default_text_option", default_text_option.equalsIgnoreCase("true")?"1":"0");
 							 if(default_text_option.equalsIgnoreCase("true")){
 								 session.setAttribute("mail_default_text", excaped_text);
-								 session.setAttribute("default_text_option", default_text_option.equalsIgnoreCase("true")?"1":"0");
-								 //objJson.put("mail_default_text", excaped_text);
+								 session.setAttribute("default_text_option", "1");
+								 objJson.put("mail_default_text", excaped_text);
 							 }
 							 // decrease the profile count
 							 int allowed_profiles_limit = objUsersDao.getAllowedProfilesLimit(userBean.getId());
