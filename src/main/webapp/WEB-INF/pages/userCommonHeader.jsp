@@ -201,7 +201,41 @@ tooltip:hover:after {
 	margin-top:8px !important;
 	margin-bottom:8px !important;
 	}
-	</style>
+	.scrollup{
+			width:40px;
+			height:40px;			
+			text-indent:-9999px;
+			opacity:0.3;
+			position:fixed;
+			bottom:50px;
+			right:100px;
+			display:none;			
+			background: url('images/icon_top.png') no-repeat;
+		}
+	
+		
+
+		</style>
+		
+		<script type="text/javascript">
+			$(document).ready(function(){ 
+			
+			$(window).scroll(function(){
+				if ($(this).scrollTop() > 100) {
+					$('.scrollup').fadeIn();
+				} else {
+					$('.scrollup').fadeOut();
+				}
+			}); 
+			
+			$('.scrollup').click(function(){
+				$("html, body").animate({ scrollTop: 0 }, 600);
+				return false;
+			});
+ 
+		});
+		</script>
+		
 	<script type="text/javascript">
 	$(function(){
 		 //add text water mark;	

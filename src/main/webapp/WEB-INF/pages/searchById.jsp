@@ -237,7 +237,7 @@ function displayMatches(listOrders) {
 				//+ '<a href="#"> <img src='+image+' class="img img-responsive thumbnail watermark_text beir" ></a>'
 				+ slider
             	+ '</div>'
-            	+ '<div class="col-md-6">'
+            	+ '<div class="col-md-6 newma">'
             	+ '<table>'
             	+ '	<tr><td>Age/Height</td><td><span>: '+age+', '+orderObj.inches+'</span></td></tr>'
             	+ '	<tr><td>Religion</td><td><span>: '+orderObj.religionName+'</span></td></tr>'
