@@ -1,6 +1,31 @@
 <%@ include file="userHeader.jsp"%>
-
-
+<style>
+.grademember {
+background:#2da3de;
+color:#fff;
+padding:8px;
+font-size:19px;
+border-top-left-radius: 33px;
+    border-top-right-radius: 33px;
+}
+#newmodal .modal-header .close {
+    margin-top: -2px;
+    margin: 10px;
+    color: #fff;
+    opacity: 1;
+}
+.newbody {
+background:#2da3de;
+color:#fff;
+border-bottom-left-radius: 33px;
+    border-bottom-right-radius: 33px;
+}
+</style>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#newmodal").modal('show');
+	});
+</script>
 
 		<style>
 /* #slider {
@@ -213,7 +238,29 @@ background: none !important;
 				</div>
 				
 
-
+<div id="newmodal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content" style="margin-top:50px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h2 class="modal-title grademember">Upgrade Membership</h2>
+            </div>
+            <div class="modal-body newbody col-md-12">
+				<div class="col-md-5"><img src="images/up.png" class="img-responsive"/></div>
+				<div class="col-md-7">
+				<p style="color:#b7f528;">Start Contracting Matches</p>
+				<p><i class="fa fa-phone"></i> View Phone Numbers </p>
+				<p> <i class="fa fa-comment"></i> Chat Instantly</p>
+				 <div class="clearfix"></div>
+				 <p><i  class="fa fa-envelope"></i> Send Personalized Images</p>
+				 <p> &nbsp; &nbsp; &nbsp; Upto Rs.2000 off</p>
+				 <p> &nbsp; &nbsp; &nbsp; On Classic Packages</p><br>
+				 <span class="btn btn-warning" align="center"> Upgrade Now <i class="fa fa-chevron-right"></i></span>
+				 </div>
+            </div>
+        </div>
+    </div>
+</div>
            
            
             <!-- <div class="col-md-3">

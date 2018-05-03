@@ -9,6 +9,13 @@ text-align:left;
 }
 .form-control {
 margin-bottom:10px;}
+@media  (min-width: 320px) and (max-width:640px) {
+.newma td {
+min-width:94px !important;
+vertical-align:initial;
+max-width:50px;
+}
+}
 </style>
 
 			<div class="col-md-9 products-grid-left">

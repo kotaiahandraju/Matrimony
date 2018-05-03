@@ -205,7 +205,7 @@ tooltip:hover:after {
 			width:40px;
 			height:40px;			
 			text-indent:-9999px;
-			opacity:0.3;
+			
 			position:fixed;
 			bottom:50px;
 			right:100px;
@@ -2720,6 +2720,17 @@ header h1 {
 .dropdown:hover .dropdown-menu {
 display:none !important;
 } */
+.scrollup{
+			width:40px;
+			height:40px;			
+			text-indent:-9999px;
+			
+			position:fixed;
+			bottom:10px;
+			right:10px;
+			display:none;			
+			background: url('images/icon_top.png') no-repeat;
+		}
 #searchResults .panel-heading {
 padding:18px 5px;
 }
