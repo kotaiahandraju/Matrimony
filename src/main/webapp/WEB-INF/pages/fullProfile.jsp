@@ -329,7 +329,7 @@ xpopup
 <script src="js/plugins/jquery.ImageGallery.js"></script> 
 <script src="js/plugins/jquery.imagesloaded.min.js"></script> 
 
-<div class="container" style=' padding-left: 0px;'>
+<div class="container" id="printDiv" style=' padding-left: 0px;'>
 <div class="row">
 <div class="col-sm-8">
 <div class="products">
@@ -399,17 +399,17 @@ xpopup
 						${profileBean.currentCityName}, ${profileBean.currentStateName}, ${profileBean.currentCountryName}<br>
 						${profileBean.educationName}, ${profileBean.occupationName}</p>
 						<c:if test="${cacheGuest.id != profileBean.id}">
-						 	
+						 	<div class="noPrint">
 						<c:choose>
 							<c:when test="${profileBean.mobileNumViewed == '1' || profileBean.message_sent_status == '1' || profileBean.expressedInterest == '1'}">
 								<p><span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-${profileBean.mobile}&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span></p>
 							</c:when>
 							<c:otherwise>
 								<p id="mobileTD${profileBean.id}">
-							 		<a href="#" type="button" class="btn1 btn btn-info"  id="mobileBtn" onclick="displayMobileNum(${profileBean.id})">View Mobile Number</a>
+							 		<a href="#" type="button" class="btn1 btn btn-info noPrint"  id="mobileBtn" onclick="displayMobileNum(${profileBean.id})">View Mobile Number</a>
 							 	</p>
 							</c:otherwise>
-						</c:choose>
+						</c:choose></div>
 						
 					 	<div class="col-md-12 likeprofile noPrint">
 					 	<p>Like this profile? Take the next step by sending her a mail.</p>
@@ -426,7 +426,7 @@ xpopup
     <ul class="dropdown-menu">
       <li><a href="#" onclick="shortList_fullprofile(${profileBean.id})">Shortlist</a></li>
       <!-- <li><a href="#">Forward</a></li> -->
-      <li><a href="#" class="noPrint" onclick="PrintElem()">Print</a></li>
+      <li><a href="#" class="noPrint" onclick="PrintElem('#printDiv');">Print</a></li>
       <!-- <li><a href="#">Ignore</a></li> -->
       <!-- <li><a href="#" onclick="goBack();">Back</a></li> -->
     </ul>
@@ -970,7 +970,7 @@ xpopup
 </div></div>
 </div></div></div>
 </form:form>
-<div class="col-md-4">
+<div class="col-md-4 noPrint">
 <div class="col-sm-3" style='width: 100%; margin: 46px 0px 0px 0px;'>
 			<div class="col-md-11 products-grid-right">
 			<div class="panel panel-success">
@@ -1344,19 +1344,21 @@ function toggleDiv(divElem){
   function PrintElem(elem)
   {
   	$(".noPrint").hide();
-      Popup($("#printProfile").html());
-      
+  	$(".printbtn").hide();
+		 $("#printFooter").show();
+	    Popup($(elem).html());
   }
-
-
+  
   function Popup(data)
   {
   	var mywindow = window.open('','new div');
 
       var is_chrome = Boolean(mywindow.chrome);
       var isPrinting = false;
-      mywindow.document.write('<html><head> <link rel="stylesheet" type="text/css" href="../assets/css/img.css"><link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css"></head><body>');
+      mywindow.document.write('<html><head><link rel="stylesheet" type="text/css" href="user/css/printcss.css"> <link rel="stylesheet" type="text/css" href="user/css/bootstrap.css"></head><body>');
       mywindow.document.write(data);
+//       alert(data);
+      console.log(data);
      
       mywindow.document.write('</body></html>');
       mywindow.document.close(); // necessary for IE >= 10 and necessary before onload for chrome
@@ -1380,7 +1382,7 @@ function toggleDiv(divElem){
      }
     
       return true;
-  }
+  } 
   
 </script>
 

@@ -1,0 +1,90 @@
+.font {
+    color: #006699;
+    line-height: 2;
+    font-size: 18px;
+}
+.mid-grids h3 {
+    color: #191a1f;
+    margin-bottom: 5px;
+    font-size: 22px;
+    margin-top: 0;
+}
+#imageName {
+height:600px;
+}
+td, th {
+vertical-align:top;
+}
+        /* for tablet */
+        @media screen and (max-width: 980px) {
+            #mySlider {
+                width: 100%;
+                height: 450px;
+            }
+        }
+         td:first-child{ width: 150px; }
+         td:nth-child(2) {width:10px !important;}
+        td:fourth-child{ width: 150px; } 
+        /* for mobile */
+        @media screen and (max-width: 640px) {
+            #mySlider {
+                width: 570px;
+                height: 450px;
+            }
+        }
+         @media screen and (max-width: 480px) {
+            #mySlider {
+                width: 400px;
+                height: 380px;
+            }
+        }
+         @media screen and (max-width: 414px) {
+            #mySlider {
+                width: 350px;
+                height: 350px;
+            }
+        }
+          @media screen and (max-width: 360px) {
+            #mySlider {
+                width: 300px;
+                height: 350px;
+            }
+            /* .box_1 p {
+    margin: 45px 47px 37px 0px !important;
+} */
+        }
+          @media screen and (max-width: 320px) {
+            #mySlider {
+                width: 280px;
+                height: 250px;
+            }
+              td:first-child{ width: 124px !important; }
+        td:fourth-child{ width: 124px !important; } 
+        }
+@media only screen and (max-width: 640px) and (min-width: 320px) {
+        
+        }
+    </style>
+            	<style>
+.img-replace {
+  
+  display: inline-block;
+  overflow: hidden;
+  text-indent: 100%;
+  color: transparent;
+  white-space: nowrap;
+}
+.likeprofile {
+margin-top:5px;
+padding:15px;
+background:#ffb7458a;
+}
+.likeprofile p {
+color:#000;
+margin-bottom:5px;
+}
+.font {
+color: #006699;
+
+line-height: 2;
+font-size:18px;}
