@@ -1263,9 +1263,9 @@ public class HomePageController {
 			//membership details to display
 			Map<String,Object> membership_details = objUsersDao.getMembershipDetails(sessionBean);
 			if(membership_details!=null){
-				request.setAttribute("membership_details", membership_details);
+				session.setAttribute("membership_details", membership_details);
 			}else{
-				request.setAttribute("membership_details", "");
+				session.setAttribute("membership_details", "");
 			}
 			//to display pending requests block in dashboard
 			List<Map<String,Object>> pending_requests = objUsersDao.getPendingInterestRequests(sessionBean.getId()+"",0);
@@ -2344,11 +2344,12 @@ public class HomePageController {
 					}else{
 						Objresults = objUsersDao.getShortlistedByMeMembers(userSessionBean.getId()+"",page_no);
 					}
-					
 				}else if("viewednotcontacted".equalsIgnoreCase(request_coming_from)){
-					Objresults = objUsersDao.getViewedNotContactedList(userSessionBean.getId()+"",page_no);
+					String withPhoto = request.getParameter("withPhoto");
+					Objresults = objUsersDao.getViewedNotContactedList(userSessionBean.getId()+"",page_no,withPhoto);
 				}else if("yettobeviewed".equalsIgnoreCase(request_coming_from)){
-					Objresults = objUsersDao.getyetToBeViewedList(userSessionBean.getId()+"",page_no);
+					String withPhoto = request.getParameter("withPhoto");
+					Objresults = objUsersDao.getyetToBeViewedList(userSessionBean.getId()+"",page_no,withPhoto);
 				}else if("mobilenumviewedbyme".equalsIgnoreCase(request_coming_from)){
 					Objresults = objUsersDao.getMobileNumViewedByMeList(userSessionBean.getId()+"",page_no);
 				}else if("mymobilenumviews".equalsIgnoreCase(request_coming_from)){
@@ -3050,6 +3051,8 @@ public class HomePageController {
  
  }
    
+   
+   
    /*@RequestMapping(value = "/createOtp")
    public @ResponseBody String createOtp(
 						   @RequestParam("mobileNo") String mobileNo,
@@ -3503,8 +3506,9 @@ public class HomePageController {
 			if(sessionBean == null){
 				return "redirect:HomePage";
 			}
+			String withPhoto = request.getParameter("withPhoto");
 			long total_records = 0;
-			List<Map<String,Object>> pendingRequests = objUsersDao.getyetToBeViewedList(sessionBean.getId()+"",0);
+			List<Map<String,Object>> pendingRequests = objUsersDao.getyetToBeViewedList(sessionBean.getId()+"",0,null);
 			if(pendingRequests!=null && pendingRequests.size()>0){
 				//get photos
 				for(Map<String,Object> reqObj:pendingRequests){
@@ -3538,7 +3542,58 @@ public class HomePageController {
 	  }
 		return "yetToBeViewedList";
 	 }
-   
+   @RequestMapping(value = "/yetToBeViewedAjaxAction")
+	 public @ResponseBody String yetToBeViewedAjaxAction(@ModelAttribute("createProfile") UsersBean searchCriteriaBean, Model objeModel, HttpServletRequest request, HttpSession session) {
+		   List<Map<String, Object>> listOrderBeans = null;
+		   JSONObject jsOnObj = new JSONObject();
+		   try{
+			   UsersBean userBean = (UsersBean)session.getAttribute("cacheGuest");
+				if(userBean == null){
+					return "redirect:HomePage";
+				}
+
+				String withPhoto = request.getParameter("withPhoto");
+				
+				listOrderBeans = objUsersDao.getyetToBeViewedList(userBean.getId()+"",0,withPhoto);
+				int total_records = 0;//limit - viewed_count;
+				request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
+				if (listOrderBeans != null && listOrderBeans.size() > 0) {
+					//get photos
+					for(Map<String,Object> profileObj:listOrderBeans){
+						List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos(Integer.parseInt(String.valueOf(profileObj.get("id"))));
+						
+						if(photosList!=null && photosList.size()>0){
+							//objectMapper = new ObjectMapper();
+							//sJson = objectMapper.writeValueAsString(photosList);
+							profileObj.put("photosList", photosList);
+							profileObj.put("photosListSize", photosList.size());
+						}else{
+							profileObj.put("photosList", "");
+						}
+						
+					}
+					jsOnObj.put("yetToBeViewedList", listOrderBeans);
+					total_records = Integer.parseInt(String.valueOf(((Map<String, Object>)listOrderBeans.get(0)).get("total_records")));
+					jsOnObj.put("total_records", total_records);
+					//request.setAttribute("total_records", total_records);
+				} else {
+					/*request.setAttribute("allOrders1", "''");
+					request.setAttribute("total_records", "0");*/
+					jsOnObj.put("yetToBeViewedList", "");
+					jsOnObj.put("total_records", "0");
+				}
+		   } catch (Exception e) {
+				e.printStackTrace();
+				System.out.println(e);
+				logger.error(e);
+				logger.fatal("error in yetToBeViewedList method  ");
+				return null;
+			}
+		   
+		  return jsOnObj.toString(); 
+	 
+	 }
+
    @RequestMapping(value = "/viewedNotContacted")
 	 public String viewedNotContacted(@ModelAttribute("createProfile") UsersBean objUserssBean, Model objeModel, HttpServletRequest request, HttpSession session) {
 	  ObjectMapper objectMapper = null;
@@ -3549,7 +3604,7 @@ public class HomePageController {
 				return "redirect:HomePage";
 			}
 			long total_records = 0;
-			List<Map<String,Object>> pendingRequests = objUsersDao.getViewedNotContactedList(sessionBean.getId()+"",0);
+			List<Map<String,Object>> pendingRequests = objUsersDao.getViewedNotContactedList(sessionBean.getId()+"",0,null);
 			if(pendingRequests!=null && pendingRequests.size()>0){
 				//get photos
 				for(Map<String,Object> reqObj:pendingRequests){
@@ -3583,7 +3638,57 @@ public class HomePageController {
 	  }
 		return "viewedNotContactedList";
 	 }
-   
+   @RequestMapping(value = "/viewedNotContactedAjaxAction")
+	 public @ResponseBody String viewedNotContactedAjaxAction(@ModelAttribute("createProfile") UsersBean searchCriteriaBean, Model objeModel, HttpServletRequest request, HttpSession session) {
+		   List<Map<String, Object>> listOrderBeans = null;
+		   JSONObject jsOnObj = new JSONObject();
+		   try{
+			   UsersBean userBean = (UsersBean)session.getAttribute("cacheGuest");
+				if(userBean == null){
+					return "redirect:HomePage";
+				}
+
+				String withPhoto = request.getParameter("withPhoto");
+				
+				listOrderBeans = objUsersDao.getViewedNotContactedList(userBean.getId()+"",0,withPhoto);
+				int total_records = 0;//limit - viewed_count;
+				request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
+				if (listOrderBeans != null && listOrderBeans.size() > 0) {
+					//get photos
+					for(Map<String,Object> profileObj:listOrderBeans){
+						List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos(Integer.parseInt(String.valueOf(profileObj.get("id"))));
+						
+						if(photosList!=null && photosList.size()>0){
+							//objectMapper = new ObjectMapper();
+							//sJson = objectMapper.writeValueAsString(photosList);
+							profileObj.put("photosList", photosList);
+							profileObj.put("photosListSize", photosList.size());
+						}else{
+							profileObj.put("photosList", "");
+						}
+						
+					}
+					jsOnObj.put("viewedNotContactedList", listOrderBeans);
+					total_records = Integer.parseInt(String.valueOf(((Map<String, Object>)listOrderBeans.get(0)).get("total_records")));
+					jsOnObj.put("total_records", total_records);
+					//request.setAttribute("total_records", total_records);
+				} else {
+					/*request.setAttribute("allOrders1", "''");
+					request.setAttribute("total_records", "0");*/
+					jsOnObj.put("viewedNotContactedList", "");
+					jsOnObj.put("total_records", "0");
+				}
+		   } catch (Exception e) {
+				e.printStackTrace();
+				System.out.println(e);
+				logger.error(e);
+				logger.fatal("error in viewedNotContacted method  ");
+				return null;
+			}
+		   
+		  return jsOnObj.toString(); 
+	 
+	 }
    @RequestMapping(value = "/editProfile")
 	public @ResponseBody String editProfile(@ModelAttribute("editProfileForm") UsersBean modifiedUserBean,ModelMap model, HttpServletRequest request, HttpSession session)
 														throws JsonGenerationException, JsonMappingException, IOException {

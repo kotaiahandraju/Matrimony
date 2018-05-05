@@ -7,6 +7,13 @@ text-align:left;
 width:187px;
 border-radius:0px;
 margin-bottom:15px;}
+@media  (min-width: 320px) and (max-width:640px) {
+.newma td {
+min-width:94px !important;
+vertical-align:initial;
+max-width:50px;
+}
+}
 </style>
 <div class="products">
 	<div class="container" style="background: #FFF;">
@@ -414,7 +421,7 @@ function displayMatches(listOrders) {
 				//+ '<a href="#"> <img src='+image+' class="img img-responsive thumbnail watermark_text beir"></a>'
 				+ slider
             	+ '</div>'
-            	+ '<div class="col-md-6">'
+            	+ '<div class="col-md-6 newma">'
             	+ '<table>'
             	+ '	<tr><td>Age/Height</td><td><span>: '+age+', '+orderObj.inches+'</span></td></tr>'
             	+ '	<tr><td>Religion</td><td><span>: '+orderObj.religionName+'</span></td></tr>'
@@ -423,7 +430,7 @@ function displayMatches(listOrders) {
             	+ '	<tr><td>Location</td><td><span>: '+orderObj.currentCityName+'</span></td></tr>'
             	+ '	<tr><td>Education</td><td><span>: '+orderObj.educationName+'</span></td></tr>'
             	+ '	<tr><td>Profession</td><td><span>: '+occName+'</span></td></tr>'
-            	+ '<tr><td id="mobiletd'+orderObj.id+'"><a href="#" type="button" class="btn1 btn-sm btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</a></td><td></td></tr>'
+            	+ '<tr><td id="mobiletd'+orderObj.id+'"><a href="#" type="button" class="btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</a></td></tr>'
             	//+ '<td id="shortlisttd'+orderObj.id+'"><button type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">Shortlist</button></td></tr>'
             	//+ '	<tr><td>Age</td><td><span>: '+orderObj.age+'</span></td></tr>'
             	//+ '	<tr><td colspan="2">'+orderObj.aboutMyself+'... <a href="#" onclick="showMore('+orderObj.id+')"> read more..</a> </td></tr>'

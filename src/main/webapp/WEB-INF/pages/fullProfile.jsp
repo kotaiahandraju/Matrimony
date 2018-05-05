@@ -398,6 +398,8 @@ xpopup
 						${profileBean.religionName}, ${profileBean.casteName}<br>
 						${profileBean.currentCityName}, ${profileBean.currentStateName}, ${profileBean.currentCountryName}<br>
 						${profileBean.educationName}, ${profileBean.occupationName}</p>
+						<c:if test="${cacheGuest.id != profileBean.id}">
+						 	
 						<c:choose>
 							<c:when test="${profileBean.mobileNumViewed == '1' || profileBean.message_sent_status == '1' || profileBean.expressedInterest == '1'}">
 								<p><span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-${profileBean.mobile}&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span></p>
@@ -430,7 +432,7 @@ xpopup
     </ul>
   </div></div>
 					 	
-					 	</div>
+					 	</div></c:if>
 					 </div>
 						<div class="clearfix"></div>
 

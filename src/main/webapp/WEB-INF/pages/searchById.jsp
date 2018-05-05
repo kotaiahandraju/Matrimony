@@ -9,6 +9,13 @@ text-align:left;
 }
 .form-control {
 margin-bottom:10px;}
+@media  (min-width: 320px) and (max-width:640px) {
+.newma td {
+min-width:94px !important;
+vertical-align:initial;
+max-width:50px;
+}
+}
 </style>
 
 			<div class="col-md-9 products-grid-left">
@@ -237,7 +244,7 @@ function displayMatches(listOrders) {
 				//+ '<a href="#"> <img src='+image+' class="img img-responsive thumbnail watermark_text beir" ></a>'
 				+ slider
             	+ '</div>'
-            	+ '<div class="col-md-6">'
+            	+ '<div class="col-md-6 newma">'
             	+ '<table>'
             	+ '	<tr><td>Age/Height</td><td><span>: '+age+', '+orderObj.inches+'</span></td></tr>'
             	+ '	<tr><td>Religion</td><td><span>: '+orderObj.religionName+'</span></td></tr>'

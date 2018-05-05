@@ -201,7 +201,41 @@ tooltip:hover:after {
 	margin-top:8px !important;
 	margin-bottom:8px !important;
 	}
-	</style>
+	.scrollup{
+			width:40px;
+			height:40px;			
+			text-indent:-9999px;
+			
+			position:fixed;
+			bottom:50px;
+			right:100px;
+			display:none;			
+			background: url('images/icon_top.png') no-repeat;
+		}
+	
+		
+
+		</style>
+		
+		<script type="text/javascript">
+			$(document).ready(function(){ 
+			
+			$(window).scroll(function(){
+				if ($(this).scrollTop() > 100) {
+					$('.scrollup').fadeIn();
+				} else {
+					$('.scrollup').fadeOut();
+				}
+			}); 
+			
+			$('.scrollup').click(function(){
+				$("html, body").animate({ scrollTop: 0 }, 600);
+				return false;
+			});
+ 
+		});
+		</script>
+		
 	<script type="text/javascript">
 	$(function(){
 		 //add text water mark;	
@@ -2686,6 +2720,17 @@ header h1 {
 .dropdown:hover .dropdown-menu {
 display:none !important;
 } */
+.scrollup{
+			width:40px;
+			height:40px;			
+			text-indent:-9999px;
+			
+			position:fixed;
+			bottom:10px;
+			right:10px;
+			display:none;			
+			background: url('images/icon_top.png') no-repeat;
+		}
 #searchResults .panel-heading {
 padding:18px 5px;
 }
