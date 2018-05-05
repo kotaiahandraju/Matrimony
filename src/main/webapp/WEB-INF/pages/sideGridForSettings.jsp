@@ -34,7 +34,7 @@ color:#337ab7;}
 <h4><strong>Profile Settings</strong></h4>
 <div class="col-md-3 products-grid-right">
 				
-				<div class="panel panel-success" style="width:185px;" >
+				<div class="panel panel-success" style="width:195px;" >
 					<div class="panel-body"  style="padding:0px 0px !important;">
 						
 						<div class="tabbable" id="tabs-343694">
@@ -60,6 +60,15 @@ color:#337ab7;}
 										</tr>
 										<tr>
 											<td height="30"><a href="#" onclick="displaySettingsBlock('edit_emailaddress');" class="tablinks edit-emailaddress" >Edit Email Address</a></td>
+										</tr>
+										<tr>
+											<td height="30"><a href="#" onclick="displaySettingsBlock('manage_mailalerts');" class="tablinks manage-mailalerts" >Manage Mail Alerts</a></td>
+										</tr>
+										<tr>
+											<td height="30"><a href="#" onclick="displaySettingsBlock('contact_filters');" class="tablinks contact-filters" >Contact filters</a></td>
+										</tr>
+										<tr>
+											<td height="30"><a href="#" onclick="displaySettingsBlock('unsubscribe_callinglist');" class="tablinks unsubscribe-callinglist" >Unsubscribe from calling list</a></td>
 										</tr>
 									</table>
 									

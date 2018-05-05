@@ -33,12 +33,24 @@
 			  margin-left: 0;
 			  list-style: none;
 			}
+			.notepa {
+			font-size:13px;
+			text-align:justify;
+			}
 			.btnre {
 			margin-bottom:5px;
 			float: left;
-    margin: 5px;
+            margin: 5px;
 			}
-
+           .manage {
+           border:1px solid #f1f1f1;
+           margin-top:8px;
+             }
+             .fcheck {
+             vertical-align: -webkit-baseline-middle;
+             float:right;
+             margin-top:5px;
+             }
 			.nav > li > a {
 			  display: block;
 			}
@@ -391,8 +403,91 @@ color: #cfcfcf !important;
 									
 					</div></div></div></div></div>
 					</div>
+					<div id="manage_mailalerts" class="all_settings_divs" hidden="true">
+					<div class="panel panel-success">
+							<div class="panel-heading">
+							Manage Mail Alerts
+							</div>
+							<div class="panel-body">
+							<div class="row">
+							<div class="col-md-12">
+					<p style="color: black;">Listed below are the alerts you will receive from us through e-mail. If you wish to unsubscribe to any of the alerts, please de-select the alert.</p>
 					
-	
+					<div class="col-md-12 manage">
+					<div class="col-md-10">
+					<p><b>Product and feature promotions</b><br>
+Get updates on new products and features</p>
+					</div>
+					<div class="col-md-2"><input type="checkbox" class="fcheck"></div>
+					<div class="clearfix"></div><hr>
+					<div class="col-md-10">
+					<p><b>Daily MatchWatch mailer</b><br>
+Receive matches as per your criteria</p>
+					</div>
+					<div class="col-md-2"><input type="checkbox" class="fcheck" checked></div>
+					<div class="clearfix"></div><hr>
+					<div class="col-md-10">
+					<p><b>Weekly Photo MatchWatch mailer</b><br>
+Receive weekly matches with photos as per your criteria</p>
+					</div>
+					<div class="col-md-2"><input type="checkbox" class="fcheck" checked></div>
+					<div class="clearfix"></div><hr>
+					<div class="col-md-10">
+					<p><b>Weekly Horoscope MatchWatch mailer</b><br>
+Receive weekly matches with horoscope as per your criteria</p>
+					</div>
+					<div class="col-md-2"><input type="checkbox" class="fcheck" checked></div>
+					<div class="clearfix"></div><hr>
+					<div class="col-md-10">
+					<p><b>Auto Login</b><br>
+Auto-login saves you the process of logging into your account with your e-mail ID and password when you click the link on an e-mail from us</p>
+					</div>
+					<div class="col-md-2"><input type="checkbox" class="fcheck" checked></div>
+					<div class="clearfix"></div>
+						<div align="right"><button class="btn btn-warning"> Submit </button></div>
+						<hr>
+						<p class="notepa">Note: In addition to the above mailers, you will receive e-mail notifications whenever a member sends you an Interest or a Personalised Message, when a member accepts or declines your Interest or Personalised Message. You will also receive notifications on yet to be viewed profiles and recently updated profiles. You cannot unsubscribe from these e-mail notifications as long as you're a member of BharatMatrimony.</p>
+					</div>
+					
+					</div></div></div></div>
+					</div>
+					<div id="contact_filters" class="all_settings_divs" hidden="true">
+					<div class="panel panel-success">
+							<div class="panel-heading">
+							Contact Filters
+							</div>
+							<div class="panel-body">
+							<div class="row">
+							<div class="col-md-12">
+					<p style="color: black;"><b>Contact filters can help you control who contacts you.</b></p>
+					<p>For example, if your age range is set as 24 - 27 years in the filters, communication from a member whose age is 30 years will go into your filtered folder.</p>
+					<hr>
+					<p>With the help of filters you can choose who can contact you.</p>
+<p><b>Who can contact me:</b></p>
+  <p><input type="radio">  Anyone</p>
+<p><input type="radio">  Only members who meet my criteria.</p>
+<div align="right"><button class="btn btn-warning"> Update </button></div>
+					</div></div></div></div>
+					</div>
+	<div id="unsubscribe_callinglist" class="all_settings_divs" hidden="true">
+					<div class="panel panel-success">
+							<div class="panel-heading">
+							Unsubscribe from calling list
+							</div>
+							<div class="panel-body">
+							<div class="row">
+							<div class="col-md-12">
+					<p>Tell us when would you like to receive phone calls from our telemarketing executives.</p>
+<hr>
+<p><b>I'd like to get calls after:</b></p>
+  <p><input type="radio">  Call me once in 15 days</p>
+<p><input type="radio">  Call me once a month</p>
+ <p><input type="radio">  Call me once in two months</p>
+<p><input type="radio">  Do not call</p>
+
+<div align="right"><button class="btn btn-warning"> Submit </button></div>
+					</div></div></div></div>
+					</div>
 				</form:form>	
 			</div><div class="clearfix"></div><br><br>
 			
