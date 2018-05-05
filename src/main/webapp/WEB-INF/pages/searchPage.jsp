@@ -1,4 +1,4 @@
-<%@ include file="userHeader.jsp"%>
+<%@ include file="userCommonHeader.jsp"%>
 <style>
 .panel-title {
 text-align:left;
@@ -8,6 +8,10 @@ width:187px;
 border-radius:0px;
 margin-bottom:15px;}
 </style>
+<div class="products">
+	<div class="container" style="background: #FFF;">
+		<div class="mid-grids">
+			<jsp:include page="sideGridForResults.jsp" />
 			<div class="col-md-9 products-grid-left">
             	<div class="panel panel-default">
 					<div class="panel-heading">Search Profiles</div>
@@ -930,6 +934,40 @@ function getFilteredStatesMultiSelect(id){
 		});
 		
 	}
+}
+
+function filterResultsWithPhoto(){
+	var formData = new FormData();
+	 formData.append("page_no",1);
+	 formData.append("request_from","search");
+	 formData.append("with_photo","true");
+	 //var tempData = $("#searchForm2").serialize();
+	$.fn.makeMultipartRequest('POST', 'displayPage', false,
+			formData, false, 'text', function(data){
+		var jsonobj = $.parseJSON(data);
+		var results = jsonobj.results;
+		//$('#countId').html('');
+		$("#search_criteria").prop("hidden",true);
+		$('#searchresultsDiv').removeAttr("hidden");
+		if(results==""){
+			$('#countId').html('');
+			$('#countId').html('0');
+			var str = '<div class="alert alert-danger ban"><h6>No results found..!</h6></div>';
+			$('#searchResults').html('');
+			$(str).appendTo("#searchResults");
+			$("#table_footer").prop("hidden",true);
+			$("#altLists").prop("hidden",true);
+		}else{
+			paginationSetup(total_items_count);
+			$("#altLists").asPaginator('enable');
+			displayMatches(results);
+			$("#table_footer").removeAttr("hidden");
+			$("#altLists").removeAttr("hidden");
+			displayTableFooter(1);
+			addWaterMark();
+		}
+		
+	});
 }
 
 $(document).ready(function(){

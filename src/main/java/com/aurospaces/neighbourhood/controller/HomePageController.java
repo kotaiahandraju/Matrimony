@@ -2291,6 +2291,7 @@ public class HomePageController {
    }
    /*****     back-end jobs   end        ********/
    
+   /*****     pagination function call **********/
    @RequestMapping(value = "/displayPage")
 	public @ResponseBody String displayPage(@ModelAttribute("createProfile") UsersBean searchCriteriaBean,ModelMap model, HttpServletRequest request, HttpSession session)
 														throws JsonGenerationException, JsonMappingException, IOException {
@@ -2302,7 +2303,21 @@ public class HomePageController {
 			String request_coming_from = request.getParameter("request_from");
 			String list_type = request.getParameter("list_type");
 			String ageFrom = request.getParameter("rAgeFrom");
-			String page_num = request.getParameter("page_no");
+			// filter results options
+			String with_photo = request.getParameter("with_photo");
+			String with_in_day = request.getParameter("with_in_day");
+			String with_in_week = request.getParameter("with_in_week");
+			String with_in_month = request.getParameter("with_in_month");
+			String age_from = request.getParameter("age_from");
+			String age_to = request.getParameter("age_to");
+			
+			Map<String,String> filterOptions = new HashMap<String,String>();
+			filterOptions.put("with_photo", with_photo);
+			filterOptions.put("with_in_day", with_in_day);
+			filterOptions.put("with_in_week", with_in_week);
+			filterOptions.put("with_in_month", with_in_month);
+			filterOptions.put("age_from", age_from);
+			filterOptions.put("age_to", age_to);
 			
 			UsersBean userSessionBean = (UsersBean)session.getAttribute("cacheGuest");
 			if(userSessionBean == null){
@@ -2319,10 +2334,10 @@ public class HomePageController {
 					String withPhoto = request.getParameter("withPhoto");
 					String alreadyViewed = request.getParameter("alreadyViewed");
 					String alreadyContacted = request.getParameter("alreadyContacted");
-					results = objUsersDao.getSearchResults(searchCriteriaBean,page_no,"newmatches",withPhoto,alreadyViewed,alreadyContacted);
+					results = objUsersDao.getSearchResults(searchCriteriaBean,page_no,"newmatches",withPhoto,alreadyViewed,alreadyContacted,filterOptions);
 					
 				}else if("search".equalsIgnoreCase(request_coming_from)){
-					results = objUsersDao.getSearchResults(searchCriteriaBean,page_no,"");
+					results = objUsersDao.getSearchResults(searchCriteriaBean,page_no,"",filterOptions);
 				}else if("shortlisted".equalsIgnoreCase(request_coming_from)){
 					if("shortListedMe".equalsIgnoreCase(list_type)){
 						Objresults = objUsersDao.getShortlistedMeMembers(userSessionBean.getId()+"",page_no);
@@ -2991,7 +3006,7 @@ public class HomePageController {
 			String withPhoto = request.getParameter("withPhoto");
 			String alreadyViewed = request.getParameter("alreadyViewed");
 			String alreadyContacted = request.getParameter("alreadyContacted");
-			listOrderBeans = objUsersDao.getSearchResults(searchCriteriaBean,0,"newmatches",withPhoto,alreadyViewed,alreadyContacted);
+			listOrderBeans = objUsersDao.getSearchResults(searchCriteriaBean,0,"newmatches",withPhoto,alreadyViewed,alreadyContacted,null);
 			int total_records = 0;//limit - viewed_count;
 			request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
 			if (listOrderBeans != null && listOrderBeans.size() > 0) {
