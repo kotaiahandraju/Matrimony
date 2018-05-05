@@ -1096,11 +1096,15 @@ public class UsersDao extends BaseUsersDao
 			return new LinkedList<Map<String, String>>();
 	 }
 	 
-	 public List<Map<String, String>> getSearchResults(UsersBean searchCriteriaBean,int page_no,String listType){
-		 return this.getSearchResults(searchCriteriaBean, page_no, listType, null, null, null);
+	 public List<Map<String, String>> getSearchResults(UsersBean searchCriteriaBean,int page_no,String listType,Map<String,String> filterOptions){
+		 return this.getSearchResults(searchCriteriaBean, page_no, listType, null, null, null,filterOptions);
 	 }
 	 
-	 public List<Map<String, String>> getSearchResults(UsersBean searchCriteriaBean,int page_no,String listType,String withPhoto,String alreadyViewed,String alreadyContacted){
+	 public List<Map<String, String>> getSearchResults(UsersBean searchCriteriaBean,int page_no,String listType){
+		 return this.getSearchResults(searchCriteriaBean, page_no, listType, null, null, null,null);
+	 }
+	 
+	 public List<Map<String, String>> getSearchResults(UsersBean searchCriteriaBean,int page_no,String listType,String withPhoto,String alreadyViewed,String alreadyContacted,Map<String,String> filterOptions){
 			jdbcTemplate = custom.getJdbcTemplate();
 			StringBuffer buffer = new StringBuffer();
 			StringBuffer where_clause = new StringBuffer(" where u.role_id not in (1) and u.status in ('1') ");
@@ -1163,8 +1167,57 @@ public class UsersDao extends BaseUsersDao
 				if(StringUtils.isNotBlank(alreadyContacted) && alreadyContacted.equalsIgnoreCase("true")){
 					where_clause.append(" and u.id not in(select exp.profile_id from express_intrest exp where exp.user_id = "+objUserBean.getId()+" and (exp.mobile_no_viewed_status = '1' or exp.interested = '1')) ");
 				}
-				//
-				
+				// filter results options
+				if(filterOptions != null){
+					if(StringUtils.isNotBlank(filterOptions.get("with_photo")) && ((String)filterOptions.get("with_photo")).equalsIgnoreCase("true")){
+						where_clause.append(" and u.id in (select umg.user_id from user_images umg where umg.is_profile_picture = '1' and umg.approved_status = '1') ");
+					}
+					if(StringUtils.isNotBlank(filterOptions.get("with_in_day")) && ((String)filterOptions.get("with_in_day")).equalsIgnoreCase("true")){
+						where_clause.append(" and u.created_time between date_add(now(), interval -1 day) and now() ");
+					}
+					if(StringUtils.isNotBlank(filterOptions.get("with_in_week")) && ((String)filterOptions.get("with_in_week")).equalsIgnoreCase("true")){
+						where_clause.append(" and u.created_time between date_add(now(), interval -1 week) and now() ");
+					}
+					if(StringUtils.isNotBlank(filterOptions.get("with_in_month")) && ((String)filterOptions.get("with_in_month")).equalsIgnoreCase("true")){
+						where_clause.append(" and u.created_time between date_add(now(), interval -1 month) and now() ");
+					}
+					if(StringUtils.isNotBlank(filterOptions.get("age_from")) && ((String)filterOptions.get("age_from")).equalsIgnoreCase("true")){
+						where_clause.append( " and cast(floor((datediff(current_date(),u.dob))/365) as decimal(10,2)) >= "+filterOptions.get("age_from")+" ");
+						where_clause.append( " and cast(floor((datediff(current_date(),u.dob))/365) as decimal(10,2)) <= "+filterOptions.get("age_to")+" ");
+					}
+					if(StringUtils.isNotBlank(filterOptions.get("marital_status")) && ((String)filterOptions.get("marital_status")).equalsIgnoreCase("true")){
+						where_clause.append( " and  FIND_IN_SET(u.maritalStatus,'"+filterOptions.get("marital_status")+"')>0    ");
+					}
+					if(StringUtils.isNotBlank(filterOptions.get("height_from")) && ((String)filterOptions.get("height_from")).equalsIgnoreCase("true")){
+						where_clause.append( " and cast(u.height as unsigned) >= cast('"+filterOptions.get("height_from")+"' as unsigned ) ");
+						where_clause.append( " and cast(u.height as unsigned) <= cast('"+filterOptions.get("height_to")+"' as unsigned ) ");
+					}
+					if(StringUtils.isNotBlank(filterOptions.get("mother_tongue")) && ((String)filterOptions.get("mother_tongue")).equalsIgnoreCase("true")){
+						where_clause.append( " and FIND_IN_SET(u.motherTongue,'"+filterOptions.get("mother_tongue")+"' )>0  ");
+					}
+					if(StringUtils.isNotBlank(filterOptions.get("caste")) && ((String)filterOptions.get("caste")).equalsIgnoreCase("true")){
+						where_clause.append( " and FIND_IN_SET(u.caste,'"+filterOptions.get("caste")+"')>0  ");
+					}
+					if(StringUtils.isNotBlank(filterOptions.get("education")) && ((String)filterOptions.get("education")).equalsIgnoreCase("true")){
+						where_clause.append( " and FIND_IN_SET(u.education,'"+filterOptions.get("education")+"' )>0  ");
+					}
+					if(StringUtils.isNotBlank(filterOptions.get("occupation")) && ((String)filterOptions.get("occupation")).equalsIgnoreCase("true")){
+						where_clause.append( " and FIND_IN_SET(u.occupation,'"+filterOptions.get("occupation")+"' )>0  ");
+					}
+					if(StringUtils.isNotBlank(filterOptions.get("annual_income")) && ((String)filterOptions.get("annual_income")).equalsIgnoreCase("true")){
+						where_clause.append(" and FIND_IN_SET(u.annualIncome,'"+filterOptions.get("occupation")+"' )>0  ");
+					}
+					if(StringUtils.isNotBlank(filterOptions.get("country")) && ((String)filterOptions.get("country")).equalsIgnoreCase("true")){
+						where_clause.append( " and FIND_IN_SET(u.currentCountry,'"+filterOptions.get("country")+"' )>0  ");
+					}
+					if(StringUtils.isNotBlank(filterOptions.get("state")) && ((String)filterOptions.get("state")).equalsIgnoreCase("true")){
+						where_clause.append( " and FIND_IN_SET(u.currentState,'"+filterOptions.get("state")+"' )>0  ");
+					}
+					if(StringUtils.isNotBlank(filterOptions.get("city")) && ((String)filterOptions.get("city")).equalsIgnoreCase("true")){
+						where_clause.append( " and FIND_IN_SET(u.currentCity,'"+filterOptions.get("city")+"' )>0  ");
+					}
+				}
+				///
 				if(objUserBean.getRoleId()==MatrimonyConstants.AARNA_PREMIUM_USER_ROLE_ID 
 						|| objUserBean.getRoleId()==MatrimonyConstants.PREMIUM_USER_ROLE_ID
 						|| objUserBean.getRoleId()==MatrimonyConstants.PREMIUM_PLUS_USER_ROLE_ID 

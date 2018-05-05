@@ -30,12 +30,12 @@
       </tr>
       <tr>
         
-        <th>Payment done on:</th>
+        <th>Payment done on</th>
         <td id="createdDate">xxxxxx</td>
         </tr>
          <tr>
         
-        <th>Package Name:</th>
+        <th>Package Name</th>
         <td id="createdDate">xxxxxx</td>
         </tr>
         <tr>
@@ -61,13 +61,13 @@
 			</div><div class="clearfix"></div>
   <div class="col-md-3" style="text-align: center;"></div>
        <div class="col-md-2" style="text-align: center;">
-       <button class="btn btn-warning" onclick="PrintElem('#printDiv');" id="printpagebutton">Print</button>
+       <button class="btn btn-warning noPrint" onclick="PrintElem('#printDiv');" id="printpagebutton">Print</button>
        </div>
        <div class="col-md-2" style="text-align: center;">
-       		<a href="dashboard" type="button" class="btn btn-primary" id="myaccountBtn" >Goto My Account</a>
+       		<a href="dashboard" type="button" class="btn btn-primary noPrint" id="myaccountBtn" >Goto My Account</a>
        </div>
        <div class="col-md-2" style="text-align: center;">
-       		<p><a href="HomePage" type="button" class="btn btn-success" id="homepagBtn" >Goto HomePage</a></p>
+       		<p><a href="HomePage" type="button" class="btn btn-success noPrint" id="homepagBtn" >Goto HomePage</a></p>
        
        </div>
        <br><br>
@@ -117,7 +117,7 @@
 
   	    var is_chrome = Boolean(mywindow.chrome);
   	    var isPrinting = false;
-  	    mywindow.document.write('<html><head><title></title> </head><body>');
+  	    mywindow.document.write('<html><head><link rel="stylesheet" type="text/css" href="user/css/bootstrap.css"></head><body>');
   	    mywindow.document.write(data);
   	   
   	    mywindow.document.write('</body></html>');
