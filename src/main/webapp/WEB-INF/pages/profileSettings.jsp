@@ -464,9 +464,9 @@ Auto-login saves you the process of logging into your account with your e-mail I
 					<hr>
 					<p>With the help of filters you can choose who can contact you.</p>
 <p><b>Who can contact me:</b></p>
-  <p><input type="radio">  Anyone</p>
-<p><input type="radio">  Only members who meet my criteria.</p>
-<div align="right"><button class="btn btn-warning"> Update </button></div>
+  <p><input type="radio" name="contact_filter" value="anyone">  Anyone</p>
+<p><input type="radio" name="contact_filter" value="filter">  Only members who meet my criteria.</p>
+<div align="right"><button class="btn btn-warning" onclick="submitContactFilterSettings()"> Update </button></div>
 					</div></div></div></div>
 					</div>
 	<div id="unsubscribe_callinglist" class="all_settings_divs" hidden="true">
@@ -557,6 +557,26 @@ function displaySettingsBlock(divId){
 				}else{
 					$("#auto_login_chkbox").prop("checked",false);
 				}
+			}
+		});
+	}
+	if(divId=="contact_filters"){
+		var formData = new FormData();
+		$.fn.makeMultipartRequest('POST', 'getContactFilterSettings', false,
+				formData, false, 'text', function(data){
+			var jsonobj = $.parseJSON(data);
+			var msg = jsonobj.message;
+			var settingsMap = jsonobj.settings;
+			if(msg=="success"){
+				var selected_val = settingsMap.contact_filter;
+				$('[name="contact_filter"]').removeAttr('checked');
+				if(selected_val=="anyone"){
+					$("input[name=contact_filter][value=anyone]").prop('checked', true);
+				}else{
+					$("input[name=contact_filter][value=filter]").prop('checked', true);
+					//set other field values
+				}
+				
 			}
 		});
 	}
@@ -674,7 +694,33 @@ function submitEmailAlertsSettings(){
 		var jsonobj = $.parseJSON(data);
 		var msg = jsonobj.message;
 		if(msg=="success"){
-			alert("Profile status updated successfully");
+			alert("Mail alerts settings updated successfully");
+		}else{
+			alert("Some problem occured!! Please try again.");
+		}
+	});
+}
+function submitContactFilterSettings(){
+	var formData = new FormData();
+	var filter_value = $("input[name='contact_filter'] :checked").val();
+	formData.append("contact_filter",filter_value);
+	if(filter_value=="filter"){
+		//get other field values
+		formData.append("age_from",$("#age_from").val());
+		formData.append("age_to",$("#age_to").val());
+		formData.append("marital_status",$("#marital_status").val());
+		formData.append("religion",$("#religion").val());
+		formData.append("caste",$("#caste").val());
+		formData.append("mothertongue",$("#mothertongue").val());
+		formData.append("country",$("#country").val());
+	}
+	
+	$.fn.makeMultipartRequest('POST', 'saveContactFilterSettings', false,
+			formData, false, 'text', function(data){
+		var jsonobj = $.parseJSON(data);
+		var msg = jsonobj.message;
+		if(msg=="success"){
+			alert("Contact Filter settings updated successfully");
 		}else{
 			alert("Some problem occured!! Please try again.");
 		}

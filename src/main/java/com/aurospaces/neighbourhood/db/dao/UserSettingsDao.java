@@ -43,5 +43,50 @@ public class UserSettingsDao{
 			return null;
 		}
 	}
+	
+	public boolean saveContactFilterSettings(String user_id, String filter_option, Map<String,String> filter_criteria){
+		jdbcTemplate = custom.getJdbcTemplate();
+		StringBuffer buffer = new StringBuffer();
+		try {
+			buffer.append("update user_settings set updated_time = '"+new java.sql.Timestamp(new DateTime().getMillis())+"' contact_filter='"+filter_option+"', "
+							+" filter_age_from='"+filter_criteria.get("age_from")+"',filter_age_to='"+filter_criteria.get("age_to")+"',filter_marital_status='"+filter_criteria.get("marital_status")+"', "
+							+" filter_religion='"+filter_criteria.get("religion")+"',filter_caste='"+filter_criteria.get("caste")+"',filter_mothertongue='"+filter_criteria.get("mothertongue")+"', "
+							+" filter_country='"+filter_criteria.get("country")+"' "
+							+" where user_id="+user_id);
+			int updated_count = jdbcTemplate.update(buffer.toString());
+			if (updated_count == 1) {
+				return true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		return false;
+	}
 	 
+	public Map<String,Object> getContactFilterSettings(String user_id){
+		jdbcTemplate = custom.getJdbcTemplate();
+		StringBuffer buffer = new StringBuffer();
+		try {
+			buffer.append("select * from user_settings  where user_id="+user_id);
+			Map<String,Object> settingsMap = jdbcTemplate.queryForMap(buffer.toString());
+			return settingsMap;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public Map<String,Object> getUserSettings(String user_id){
+		jdbcTemplate = custom.getJdbcTemplate();
+		StringBuffer buffer = new StringBuffer();
+		try {
+			buffer.append("select * from user_settings  where user_id="+user_id);
+			Map<String,Object> settingsMap = jdbcTemplate.queryForMap(buffer.toString());
+			return settingsMap;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 }

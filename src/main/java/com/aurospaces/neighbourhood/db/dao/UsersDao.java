@@ -1744,8 +1744,31 @@ public class UsersDao extends BaseUsersDao
 	public List<Map<String,Object>> getPendingInterestRequests(String userId,int page_no){
 		jdbcTemplate = custom.getJdbcTemplate();
 		UsersBean objUserBean = (UsersBean) session.getAttribute("cacheGuest");
+		Map<String,Object> user_settings = (Map<String,Object>)session.getAttribute("user_settings");
 		StringBuffer buffer = new StringBuffer();
+		
 		String inner_where_clause = " ei.user_id = u.id and ei.profile_id = "+userId+" and ((ei.interested = '1' and ei.status = '1') or (message_sent_status = '1' and message_status = '0')) and u.role_id not in (1) and u.status in ('1')  and u.gender not in  ('"+objUserBean.getGender()+"') and u.id not in  ("+userId+") ";
+		
+		if(((String)user_settings.get("contact_filter")).equalsIgnoreCase("filter")){
+			if(user_settings.get("filter_age_from")!=null){
+				inner_where_clause += " and ifnull(floor((datediff(current_date(),u.dob))/365),0) between "+user_settings.get("filter_age_from")+" and "+user_settings.get("filter_age_to")+" ";
+			}
+			if(user_settings.get("filter_marital_status")!=null){
+				inner_where_clause += " and find_in_set(u.maritalStatus,'"+user_settings.get("filter_marital_status")+"')>0 ";
+			}
+			if(user_settings.get("filter_caste")!=null){
+				inner_where_clause += " and find_in_set(u.caste,'"+user_settings.get("filter_caste")+"')>0 ";
+			}
+			if(user_settings.get("filter_religion")!=null){
+				inner_where_clause += " and find_in_set(u.religion,'"+user_settings.get("filter_religion")+"')>0 ";
+			}
+			if(user_settings.get("filter_mothertongue")!=null){
+				inner_where_clause += " and find_in_set(u.motherTongue,'"+user_settings.get("filter_mothertongue")+"')>0 ";
+			}
+			if(user_settings.get("filter_country")!=null){
+				inner_where_clause += " and find_in_set(u.currentCountry,'"+user_settings.get("filter_country")+"')>0 ";
+			}
+		}
 		StringBuffer where_clause = new StringBuffer(" and u.role_id not in (1) and u.status in ('1') ");
 		buffer.append("select ei.id as requestId,u.id,u.gender,sta.name as currentStateName,cit.name as currentCityName,u.occupation,ifnull(oc.name,'') as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
 				+"u.firstName, u.lastName, u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName, u.currentCountry,co.name as currentCountryName, " 

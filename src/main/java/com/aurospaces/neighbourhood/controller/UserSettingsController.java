@@ -1,5 +1,6 @@
 package com.aurospaces.neighbourhood.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -66,6 +67,69 @@ public class UserSettingsController {
 			if(mail_settings!=null){
 				jsOnObj.put("message", "success");
 				jsOnObj.put("settings", mail_settings);
+			}else{
+				jsOnObj.put("message", "failed");
+				jsOnObj.put("settings", "");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			//logger.error(e);
+			//logger.fatal("error in CreateProfile class createProfile method  ");
+			jsOnObj.put("message", "failed");
+		}
+		return jsOnObj.toString();
+	}
+	/////////// pending task...methods to insert entries into user_settings for every user in users table
+	
+	@RequestMapping(value = "/saveContactFilterSettings")
+	public @ResponseBody String  saveContactFilterSettings(@ModelAttribute("createProfile") UsersBean objUsersBean, Model objeModel ,
+			HttpServletRequest request, HttpSession session) {
+		JSONObject jsonObj = new JSONObject();
+		try {
+			UsersBean objuserBean = (UsersBean) session.getAttribute("cacheGuest");
+			if(objuserBean == null){
+				return "redirect:HomePage";
+			}
+			String selected_contact_filter = request.getParameter("contact_filter");
+			Map<String,String> filter_criteria = new HashMap<String,String>();
+			filter_criteria.put("age_from", objUsersBean.getrAgeFrom());
+			filter_criteria.put("age_to", objUsersBean.getrAgeTo());
+			filter_criteria.put("marital_status", objUsersBean.getrMaritalStatus());
+			filter_criteria.put("religion", objUsersBean.getrReligion());
+			filter_criteria.put("caste", objUsersBean.getrCaste());
+			filter_criteria.put("mothertongue", objUsersBean.getrMotherTongue());
+			filter_criteria.put("country", objUsersBean.getrCountry());
+			boolean success = settingsDao.saveContactFilterSettings(objuserBean.getId()+"", selected_contact_filter, filter_criteria);
+			if(success){
+				jsonObj.put("message", "success");
+			}else{
+				jsonObj.put("message", "failed");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			logger.error(e);
+			logger.fatal("error in saveContactFilterSettings method  ");
+		}
+		return jsonObj.toString();
+	}
+	
+	@RequestMapping(value = "/getContactFilterSettings")
+	public  @ResponseBody String getContactFilterSettings(@ModelAttribute("settingsForm") UsersBean objUsersBean, Model objeModel ,
+			HttpServletRequest request, HttpSession session) {
+	   JSONObject jsOnObj = new JSONObject();
+	    
+		try {
+			UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
+			if(sessionBean == null){
+				return "redirect:HomePage";
+			}
+			Map<String,Object> contact_filter_settings = settingsDao.getContactFilterSettings(sessionBean.getId()+"");
+			if(contact_filter_settings!=null){
+				jsOnObj.put("message", "success");
+				jsOnObj.put("settings", contact_filter_settings);
 			}else{
 				jsOnObj.put("message", "failed");
 				jsOnObj.put("settings", "");
