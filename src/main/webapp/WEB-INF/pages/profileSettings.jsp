@@ -418,35 +418,35 @@ color: #cfcfcf !important;
 					<p><b>Product and feature promotions</b><br>
 Get updates on new products and features</p>
 					</div>
-					<div class="col-md-2"><input type="checkbox" class="fcheck"></div>
+					<div class="col-md-2"><input type="checkbox" id="promotions_chkbox" class="fcheck"></div>
 					<div class="clearfix"></div><hr>
 					<div class="col-md-10">
 					<p><b>Daily MatchWatch mailer</b><br>
 Receive matches as per your criteria</p>
 					</div>
-					<div class="col-md-2"><input type="checkbox" class="fcheck" checked></div>
+					<div class="col-md-2"><input type="checkbox"  id="daily_matches_chkbox"  class="fcheck" ></div>
 					<div class="clearfix"></div><hr>
 					<div class="col-md-10">
 					<p><b>Weekly Photo MatchWatch mailer</b><br>
 Receive weekly matches with photos as per your criteria</p>
 					</div>
-					<div class="col-md-2"><input type="checkbox" class="fcheck" checked></div>
+					<div class="col-md-2"><input type="checkbox" id="weekly_matches_chkbox" class="fcheck" ></div>
 					<div class="clearfix"></div><hr>
-					<div class="col-md-10">
+					<!-- <div class="col-md-10">
 					<p><b>Weekly Horoscope MatchWatch mailer</b><br>
 Receive weekly matches with horoscope as per your criteria</p>
 					</div>
-					<div class="col-md-2"><input type="checkbox" class="fcheck" checked></div>
-					<div class="clearfix"></div><hr>
+					<div class="col-md-2"><input type="checkbox"  class="fcheck" checked></div>
+					<div class="clearfix"></div><hr> -->
 					<div class="col-md-10">
 					<p><b>Auto Login</b><br>
 Auto-login saves you the process of logging into your account with your e-mail ID and password when you click the link on an e-mail from us</p>
 					</div>
-					<div class="col-md-2"><input type="checkbox" class="fcheck" checked></div>
+					<div class="col-md-2"><input type="checkbox" id="auto_login_chkbox" class="fcheck" ></div>
 					<div class="clearfix"></div>
-						<div align="right"><button class="btn btn-warning"> Submit </button></div>
+						<div align="right"><button class="btn btn-warning" onclick="submitEmailAlertsSettings()"> Submit </button></div>
 						<hr>
-						<p class="notepa">Note: In addition to the above mailers, you will receive e-mail notifications whenever a member sends you an Interest or a Personalised Message, when a member accepts or declines your Interest or Personalised Message. You will also receive notifications on yet to be viewed profiles and recently updated profiles. You cannot unsubscribe from these e-mail notifications as long as you're a member of BharatMatrimony.</p>
+						<p class="notepa">Note: In addition to the above mailers, you will receive e-mail notifications whenever a member sends you an Interest or a Personalised Message, when a member accepts or declines your Interest or Personalised Message. You cannot unsubscribe from these e-mail notifications as long as you're a member of AarnaMatrimony.</p>
 					</div>
 					
 					</div></div></div></div>
@@ -522,6 +522,42 @@ function displaySettingsBlock(divId){
 			
 			//displaySettingsBlock(actionStr); // actionStr and divid are same value.
 			
+		});
+	}
+	if(divId=="manage_mailalerts"){
+		var formData = new FormData();
+		$.fn.makeMultipartRequest('POST', 'getMailAlertsSettings', false,
+				formData, false, 'text', function(data){
+			var jsonobj = $.parseJSON(data);
+			var msg = jsonobj.message;
+			var settingsMap = jsonobj.settings;
+			if(msg=="success"){
+				
+				var checked_val = settingsMap.product_promotion_emails	;
+				if(checked_val=="1"){
+					$("#promotions_chkbox").prop("checked",true);
+				}else{
+					$("#promotions_chkbox").prop("checked",false);
+				}
+				checked_val = settingsMap.daily_matches_emails	;
+				if(checked_val=="1"){
+					$("#daily_matches_chkbox").prop("checked",true);
+				}else{
+					$("#daily_matches_chkbox").prop("checked",false);
+				}
+				checked_val = settingsMap.weekly_matches_emails	;
+				if(checked_val=="1"){
+					$("#weekly_matches_chkbox").prop("checked",true);
+				}else{
+					$("#weekly_matches_chkbox").prop("checked",false);
+				}
+				checked_val = settingsMap.auto_login	;
+				if(checked_val=="1"){
+					$("#auto_login_chkbox").prop("checked",true);
+				}else{
+					$("#auto_login_chkbox").prop("checked",false);
+				}
+			}
 		});
 	}
 	$(".all_settings_divs").attr("hidden",true);
@@ -622,6 +658,29 @@ function changeProfileStatus(status){
 		
 });
 }
+
+function submitEmailAlertsSettings(){
+	var promotion_chkbox = $("#promotions_chkbox").prop("checked");
+	var daily_matches_chkbox = $("#daily_matches_chkbox").prop("checked");
+	var weekly_matches_chkbox = $("#weekly_matches_chkbox").prop("checked");
+	var auto_login_chkbox = $("#auto_login_chkbox").prop("checked");
+	var formData = new FormData();
+	formData.append("product_promotions",promotion_chkbox);
+	formData.append("daily_match_alerts",daily_matches_chkbox);
+	formData.append("weekly_match_alerts",weekly_matches_chkbox);
+	formData.append("auto_login",auto_login_chkbox);
+	$.fn.makeMultipartRequest('POST', 'saveUserMailAlertsSettings', false,
+			formData, false, 'text', function(data){
+		var jsonobj = $.parseJSON(data);
+		var msg = jsonobj.message;
+		if(msg=="success"){
+			alert("Profile status updated successfully");
+		}else{
+			alert("Some problem occured!! Please try again.");
+		}
+	});
+}
+
 $(".dashboard").addClass("active");
 </script>
 

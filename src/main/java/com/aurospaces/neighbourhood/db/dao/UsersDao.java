@@ -1577,9 +1577,23 @@ public class UsersDao extends BaseUsersDao
 			return null;
 		}
 		
-		public List<Map<String,Object>> getAllActiveUsers(){
+		public List<Map<String,Object>> getAllSubscribedUsersForWeeklyMatchEmails(){
 			jdbcTemplate = custom.getJdbcTemplate();
-			String qryStr = "select * from users where status = '1' and role_id not in (1) ";
+			String qryStr = "select * from users where status = '1' and role_id not in (1) and id in (select us.user_id from user_settings us where us.weekly_matches_emails = '1') ";
+			try{
+				List<Map<String,Object>> list = jdbcTemplate.queryForList(qryStr);
+				if(list!=null)
+					return list;
+			}catch(Exception e){
+				e.printStackTrace();
+				return null;
+			}
+			return null;
+		}
+		
+		public List<Map<String,Object>> getAllSubscribedUsersForDailyMatchEmails(){
+			jdbcTemplate = custom.getJdbcTemplate();
+			String qryStr = "select * from users where status = '1' and role_id not in (1) and id in (select us.user_id from user_settings us where us.daily_matches_emails = '1') ";
 			try{
 				List<Map<String,Object>> list = jdbcTemplate.queryForList(qryStr);
 				if(list!=null)
@@ -2872,6 +2886,17 @@ public boolean deletePhoto(String photoId){
 				return list.get(0);
 			}
 			return null;
+		} catch (Exception ge) {
+			return null;
+		}
+	}
+	
+	public Map<String,Object> getUserMap(String inputVal){
+		jdbcTemplate = custom.getJdbcTemplate();
+		String qryStr = "select *,AES_DECRYPT(PASSWORD,'mykey') as password,(select us.auto_login from user_settings us where us.user_id=users.id) as auto_login from   users where email ='"+inputVal+"' or username='"+inputVal+"' or mobile='"+inputVal+"'";
+		try {
+			Map<String,Object> user = jdbcTemplate.queryForMap(qryStr);
+			return user;
 		} catch (Exception ge) {
 			return null;
 		}
