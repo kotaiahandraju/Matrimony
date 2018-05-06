@@ -143,4 +143,58 @@ public class UserSettingsController {
 		}
 		return jsOnObj.toString();
 	}
+	
+	@RequestMapping(value = "/saveUnsubscribeFromCallingList")
+	public @ResponseBody String  saveUnsubscribeFromCallingList(@ModelAttribute("createProfile") UsersBean objUsersBean, Model objeModel ,
+			HttpServletRequest request, HttpSession session) {
+		JSONObject jsonObj = new JSONObject();
+		try {
+			UsersBean objuserBean = (UsersBean) session.getAttribute("cacheGuest");
+			if(objuserBean == null){
+				return "redirect:HomePage";
+			}
+			String unsubscribe_from_val = request.getParameter("unsubscribe_from_val");
+			boolean success = settingsDao.saveUnsubscribeFromCallingList(objuserBean.getId()+"", unsubscribe_from_val);
+			if(success){
+				jsonObj.put("message", "success");
+			}else{
+				jsonObj.put("message", "failed");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			logger.error(e);
+			logger.fatal("error in saveUnsubscribeFromCallingList method  ");
+		}
+		return jsonObj.toString();
+	}
+	
+	@RequestMapping(value = "/getUnsubscribeFromCallingList")
+	public  @ResponseBody String getUnsubscribeFromCallingList(@ModelAttribute("settingsForm") UsersBean objUsersBean, Model objeModel ,
+			HttpServletRequest request, HttpSession session) {
+	   JSONObject jsOnObj = new JSONObject();
+	    
+		try {
+			UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
+			if(sessionBean == null){
+				return "redirect:HomePage";
+			}
+			Map<String,Object> settings = settingsDao.getUserSettings(sessionBean.getId()+"");
+			if(settings!=null){
+				jsOnObj.put("message", "success");
+				jsOnObj.put("settings", settings);
+			}else{
+				jsOnObj.put("message", "failed");
+				jsOnObj.put("settings", "");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			//logger.error(e);
+			//logger.fatal("error in CreateProfile class createProfile method  ");
+			jsOnObj.put("message", "failed");
+		}
+		return jsOnObj.toString();
+	}
 }

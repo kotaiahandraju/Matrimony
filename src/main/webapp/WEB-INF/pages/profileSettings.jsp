@@ -480,12 +480,12 @@ Auto-login saves you the process of logging into your account with your e-mail I
 					<p>Tell us when would you like to receive phone calls from our telemarketing executives.</p>
 <hr>
 <p><b>I'd like to get calls after:</b></p>
-  <p><input type="radio">  Call me once in 15 days</p>
-<p><input type="radio">  Call me once a month</p>
- <p><input type="radio">  Call me once in two months</p>
-<p><input type="radio">  Do not call</p>
+  <p><input type="radio" name="marketing_calls" value="15d">  Call me once in 15 days</p>
+<p><input type="radio" name="marketing_calls" value="1m">  Call me once a month</p>
+ <p><input type="radio" name="marketing_calls" value="2m">  Call me once in two months</p>
+<p><input type="radio" name="marketing_calls" value="do_not_call">  Do not call</p>
 
-<div align="right"><button class="btn btn-warning"> Submit </button></div>
+<div align="right"><button class="btn btn-warning" onclick="submitUnsubscribeFromCallingList()"> Submit </button></div>
 					</div></div></div></div>
 					</div>
 				</form:form>	
@@ -577,6 +577,20 @@ function displaySettingsBlock(divId){
 					//set other field values
 				}
 				
+			}
+		});
+	}
+	if(divId=="unsubscribe_callinglist"){
+		var formData = new FormData();
+		$.fn.makeMultipartRequest('POST', 'getUnsubscribeFromCallingList', false,
+				formData, false, 'text', function(data){
+			var jsonobj = $.parseJSON(data);
+			var msg = jsonobj.message;
+			var settingsMap = jsonobj.settings;
+			if(msg=="success"){
+				var selected_val = settingsMap.marketing_calls_permission;
+				$('[name="marketing_calls"]').removeAttr('checked');
+				$("input[name=marketing_calls][value="+selected_val+"]").prop('checked', true);
 			}
 		});
 	}
@@ -721,6 +735,23 @@ function submitContactFilterSettings(){
 		var msg = jsonobj.message;
 		if(msg=="success"){
 			alert("Contact Filter settings updated successfully");
+		}else{
+			alert("Some problem occured!! Please try again.");
+		}
+	});
+}
+
+function submitUnsubscribeFromCallingList(){
+	var formData = new FormData();
+	var unsubscribe_val = $("input[name='marketing_calls'] :checked").val();
+	formData.append("unsubscribe_from_val",unsubscribe_val);
+	
+	$.fn.makeMultipartRequest('POST', 'saveUnsubscribeFromCallingList', false,
+			formData, false, 'text', function(data){
+		var jsonobj = $.parseJSON(data);
+		var msg = jsonobj.message;
+		if(msg=="success"){
+			alert("Updates saved successfully");
 		}else{
 			alert("Some problem occured!! Please try again.");
 		}
