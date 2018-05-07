@@ -243,7 +243,7 @@ window.setTimeout(function() {
                                                 
                                                  <div class="form-group">
                                                     <label for="">Religion</label>
-                          				<form:select path="religion" onfocus="removeBorder(this.id)"  class="form-control" >
+                          				<form:select path="religion" onfocus="removeBorder(this.id)" onchange="getReliginCastAjax()" class="form-control" >
 														<form:option value="">-- Choose Religion --</form:option>
 														<form:options items="${religion}"></form:options>
 										</form:select>
@@ -406,6 +406,12 @@ window.setTimeout(function() {
 							<img src="user/images/line-01.jpg" alt="" />
 						</div>
 <script>
+
+
+
+
+
+
 function searchSubmit(){
 	var rPeople= $('#rPeople').val();
 	var rAgeFrom= $('#rAgeFrom').val();

@@ -166,8 +166,8 @@ margin-bottom:15px;}
 									    <div class="form-group">
 									      <label class="col-md-4 control-label" for="textinput">Religion</label>  
 									      <div class="col-md-6">
-									      	<form:select path="rReligion" class="multiSelect" multiple="true">
-												<form:option value="">-- Choose Religion --</form:option>
+									      	<form:select path="rReligion" onchange="getReliginCastAjax()" class="multiSelect" multiple="true">
+												<form:option value="0">-- Choose Religion --</form:option>
 												<form:options items="${religion}"></form:options>
 											</form:select>
 									      </div>
@@ -178,7 +178,7 @@ margin-bottom:15px;}
 									      <div class="col-md-6">
 									      	<form:select path="rCaste" class="multiSelect" multiple="true">
 												<form:option value="">-- Choose Community --</form:option>
-												<form:options items="${cast}"></form:options>
+											<%-- 	<form:options items="${cast}"></form:options> --%>
 											</form:select>
 									      </div>
 									    </div>
@@ -235,6 +235,33 @@ margin-bottom:15px;}
 			
 
 <script type="text/javascript">
+
+function getReliginCastAjax() {
+	var religionId = $("#rReligion").val();
+		var formData = new FormData();
+		formData.append("religionId",religionId);
+	$.fn.makeMultipartRequest('POST', 'castesBasedOnReligion', false,
+			formData, false, 'text', function(data){
+		$("#rCaste").select2('val','');
+		var jsonobj = $.parseJSON(data);
+		var alldata = jsonobj.allOrders1;
+		var optionsForClass = "";
+		optionsForClass = $("#rCaste").empty();
+		optionsForClass.append(new Option("-- Choose Community --", ""));
+		$.each(alldata, function(i, tests) {
+			var id=tests.id;
+			var casteName=tests.name;
+			optionsForClass.append(new Option(casteName, id));
+		});
+		
+	});
+}
+
+
+
+
+
+
 $(function(){
 	 //add text water mark;	
 	  addWaterMark();
@@ -599,6 +626,29 @@ function modifySearch(event){
 	$('#search_criteria').removeAttr("hidden");
 	$('#searchResults').html('');
 	$("#searchresultsDiv").prop("hidden",true);
+	
+	
+		var religionId = $("#rReligion").val();
+		if(religionId.length !=0){
+			var formData = new FormData();
+			formData.append("religionId",religionId);
+			
+		$.fn.makeMultipartRequest('POST', 'castesBasedOnReligion', false,
+				formData, false, 'text', function(data){
+			var jsonobj = $.parseJSON(data);
+			var alldata = jsonobj.allOrders1;
+			var optionsForClass = "";
+			optionsForClass = $("#rCaste").empty();
+			optionsForClass.append(new Option("-- Choose Community --", ""));
+			$.each(alldata, function(i, tests) {
+				var id=tests.id;
+				var casteName=tests.name;
+				optionsForClass.append(new Option(casteName, id));
+			});
+			
+		});
+	}
+	
 	event.preventDefault();
 	
 	return false;

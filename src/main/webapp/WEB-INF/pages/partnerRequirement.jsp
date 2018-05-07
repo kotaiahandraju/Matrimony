@@ -176,7 +176,7 @@ width:190px !important;
 				    <div class="form-group">
 				      <label class="col-md-4 control-label" for="textinput">Religion</label>  
 				      <div class="col-md-7">
-				      	<form:select path="rReligion" class="multiSelect" multiple="true">
+				      	<form:select path="rReligion" onchange="getReliginCastAjax()" class="multiSelect" multiple="true">
 							<form:options items="${religion}"></form:options>
 						</form:select>
 				      </div>
@@ -186,7 +186,8 @@ width:190px !important;
 				      <label class="col-md-4 control-label" for="textinput">Community</label>  
 				      <div class="col-md-7">
 				      	<form:select path="rCaste" class="multiSelect" multiple="true">
-							<form:options items="${cast}"></form:options>
+				      		<form:option value="" selected="">-- Choose Community --</form:option>
+<%-- 							<form:options items="${cast}"></form:options> --%>
 						</form:select>
 				      </div>
 				    </div>
@@ -346,6 +347,27 @@ width:190px !important;
 
 <script type="text/javascript">
 
+function getReliginCastAjax() {
+	var religionId = $("#rReligion").val();
+		var formData = new FormData();
+		formData.append("religionId",religionId);
+	
+	$.fn.makeMultipartRequest('POST', 'castesBasedOnReligion', false,
+			formData, false, 'text', function(data){
+		$("#rCaste").select2('val','');
+		var jsonobj = $.parseJSON(data);
+		var alldata = jsonobj.allOrders1;
+		var optionsForClass = "";
+		optionsForClass = $("#rCaste").empty();
+		optionsForClass.append(new Option("-- Choose Community --", ""));
+		$.each(alldata, function(i, tests) {
+			var id=tests.id;
+			var casteName=tests.name;
+			optionsForClass.append(new Option(casteName, id));
+		});
+		
+	});
+}
 
 $(document).ready(function(){
 	$('.multiSelect').select2();

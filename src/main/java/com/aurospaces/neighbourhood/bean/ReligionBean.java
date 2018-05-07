@@ -10,8 +10,15 @@ public class ReligionBean {
 	protected Date updatedTime ;
 	@NotEmpty
 	private String name;
-	private String status;
+	private String status,religionId;
 	
+	
+	public String getReligionId() {
+		return religionId;
+	}
+	public void setReligionId(String religionId) {
+		this.religionId = religionId;
+	}
 	public Date getCreatedTime() {
 		return createdTime;
 	}

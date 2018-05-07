@@ -17,7 +17,10 @@
 											<td height="30"><a href="#" onclick="displayBlock('sent','sent_requests');" class="tablinks" >Sent</a></td>
 											
 										</tr>
-										
+										<tr>
+											<td height="30"><a href="#" onclick="displayBlock('filtered','filtered_requests');" class="tablinks" >Filtered</a></td>
+											
+										</tr>
 									</table>
 									
 									

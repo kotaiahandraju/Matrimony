@@ -163,7 +163,7 @@ display:block;
     <div class="col-md-6">
     <div class="form-group">
       <label class="control-label" for="textinput">Religion</label>       
-      	<form:select path="rReligion" class="multiSelect pull-right" multiple="true">
+      	<form:select path="rReligion" onchange="getReliginCastAjax()" class="multiSelect pull-right" multiple="true">
 			<form:options items="${religion}"></form:options>
 		</form:select>
     </div>
@@ -174,7 +174,7 @@ display:block;
       <label class="control-label" for="textinput">Community</label>  
       
       	<form:select path="rCaste" class="multiSelect pull-right" multiple="true">
-			<form:options items="${cast}"></form:options>
+			<%-- <form:options items="${cast}"></form:options> --%>
 		</form:select>
     </div>
     </div>
@@ -215,7 +215,33 @@ display:block;
 				<input class="btn  btn-danger"  type="button" id="partner_basic_cancel" name="yt1" value="Cancel" onclick="toggleDiv('partner_basic');">
 		</div>
 	</div>
-</div> <script>$("#rHeight").change(function(){
+</div> <script>
+
+function getReliginCastAjax() {
+	var religionId = $("#rReligion").val();
+		var formData = new FormData();
+		formData.append("religionId",religionId);
+	$.fn.makeMultipartRequest('POST', 'castesBasedOnReligion', false,
+			formData, false, 'text', function(data){
+			$("#rCaste").select2('val','');
+		var jsonobj = $.parseJSON(data);
+		var alldata = jsonobj.allOrders1;
+		/* if(alldata == "" ){
+		$("#rCaste").select2('val','');
+	} */
+		var optionsForClass = "";
+		optionsForClass = $("#rCaste").empty();
+		optionsForClass.append(new Option("-- Choose Community --", ""));
+		$.each(alldata, function(i, tests) {
+			var id=tests.id;
+			var casteName=tests.name;
+			optionsForClass.append(new Option(casteName, id));
+		});
+		
+	});
+}
+
+$("#rHeight").change(function(){
 	$('#rHeightTo').val('');
 	var val_from = $(this).val();
 	var val_to   = $("#rHeight option:last").val();
