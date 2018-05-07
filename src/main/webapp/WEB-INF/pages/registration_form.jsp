@@ -90,7 +90,7 @@
 							<div class="col-md-6">
 								<form:select path="caste" class="form-control u" onblur="validate(this.id,'');" onfocus="removeBorder(this.id)">
 									<form:option value="">-- Choose Community --</form:option>
-									<form:options items="${cast}"></form:options>
+								<%-- 	<form:options items="${cast}"></form:options> --%>
 								</form:select>
 							</div>
 						</div>
@@ -286,7 +286,7 @@
 					      <label class="col-md-4 control-label" for="textinput">About myself</label>
 					     
 					      <div class="col-md-6">
-					      	<form:textarea rows="6" path="aboutMyself" onkeyup="checkLen()" maxlength="70" onfocus="colorChange()" class="form-control u"></form:textarea>
+					      	<form:textarea rows="6" path="aboutMyself" onkeyup="checkLen()"  onfocus="colorChange()" class="form-control u"></form:textarea>
 					      	 <span id="errorMsg" style="color:red"></span>  
 					      </div>
 					    </div>
@@ -325,7 +325,8 @@
 	    </c:otherwise>
 	</c:choose>
     
-
+ <script src="js/ajax.js"></script>
+<!--  <script src="js/jquery.blockUI.min.js"></script> -->
 <script>
 var mobileExists = false;
 $( document ).ready(function() {
@@ -603,7 +604,7 @@ function fourthForm(event){
 	}
 	var abtMySelfLen =$("#aboutMyself").val().trim().length;
 	if(abtMySelfLen < 50){
-		$('#errorMsg').text("Please enter minimum 50 charectors...");
+		$('#errorMsg').text("Please enter minimum 50 charecters...");
 		return false;
 	}
 	
@@ -796,8 +797,7 @@ function getCitys(id){
 		var formData = new FormData();
 	    formData.append('mobile', $("#mobile").val());
 	    formData.append('id', $("#id").val());
-		$.fn.makeMultipartRequest('POST', 'mobileNumChecking', false,
-				formData, false, 'text', function(data){
+		$.fn.makeMultipartRequest('POST', 'mobileNumChecking', false,formData, false, 'text', function(data){
 			var jsonobj = $.parseJSON(data);
 			if(jsonobj.msg =="exist"){
 				//error message write
@@ -834,7 +834,28 @@ function getCitys(id){
 			}
 		});
 	}
+	
+	var religionId =${cacheGuest.religion};
+	getReliginCastAjax(religionId);
 		
-
+	function getReliginCastAjax(religionId) {
+		var religionId1 = religionId;
+			var formData = new FormData();
+			formData.append("religionId",religionId1);
+			
+			$.fn.makeMultipartRequest1('POST', 'castesBasedOnReligion', false,formData, false, 'text', function(data){
+			var jsonobj = $.parseJSON(data);
+			var alldata = jsonobj.allOrders1;
+			var optionsForClass = "";
+			optionsForClass = $("#caste").empty();
+			optionsForClass.append(new Option("-- Choose Community --", ""));
+			$.each(alldata, function(i, tests) {
+				var id=tests.id;
+				var casteName=tests.name;
+				optionsForClass.append(new Option(casteName, id));
+			});
+			
+		});
+	}
 </script>
 <%@ include file="userStepsFooter.jsp"  %>

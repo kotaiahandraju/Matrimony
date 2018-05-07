@@ -246,6 +246,8 @@
     });
     return $applyButton.on('click', function() {
       saveCrop();
+      $('.awesome-cropper input').css('visibility','hidden');
+      $('#uploadCancel').css('display','inline-block');
       return $imagesContainer.modal('hide'); 
     });
   };

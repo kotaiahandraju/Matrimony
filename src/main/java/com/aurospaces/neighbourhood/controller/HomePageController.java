@@ -2,13 +2,10 @@ package com.aurospaces.neighbourhood.controller;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -36,9 +33,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -46,8 +41,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.aurospaces.neighbourhood.bean.AutoCompleteBean;
-import com.aurospaces.neighbourhood.bean.BodyTypeBean;
-import com.aurospaces.neighbourhood.bean.BranchBean;
 import com.aurospaces.neighbourhood.bean.CastBean;
 import com.aurospaces.neighbourhood.bean.CityBean;
 import com.aurospaces.neighbourhood.bean.ContriesBean;
@@ -61,6 +54,7 @@ import com.aurospaces.neighbourhood.bean.ReligionBean;
 import com.aurospaces.neighbourhood.bean.UserImagesBean;
 import com.aurospaces.neighbourhood.bean.UsersBean;
 import com.aurospaces.neighbourhood.db.dao.BranchDao;
+import com.aurospaces.neighbourhood.db.dao.CastDao;
 import com.aurospaces.neighbourhood.db.dao.CityDao;
 import com.aurospaces.neighbourhood.db.dao.CountriesDao;
 import com.aurospaces.neighbourhood.db.dao.PaymenthistoryDao;
@@ -90,6 +84,7 @@ public class HomePageController {
    @Autowired UserImageUploadDao objUserImageUploadDao;
    @Autowired PaymenthistoryDao paymenthistoryDao;
    @Autowired StateDao stateDao;
+   @Autowired CastDao objCastDao;
    
 	@RequestMapping(value = "/HomePage")
 	public String CreateProfile(@ModelAttribute("createProfile") UsersBean objUsersBean, Model objeModel ,
@@ -4521,4 +4516,28 @@ public class HomePageController {
 	   return "searchByGroom";
    }
    
+   @RequestMapping(value = "/castesBasedOnReligion")
+	public @ResponseBody String castesBasedOnReligion(ReligionBean religionBean,
+			HttpServletResponse response, HttpServletRequest request,
+			HttpSession objSession) throws JsonGenerationException, JsonMappingException, IOException 
+	{
+	   JSONObject objJson =new JSONObject();
+		List<Map<String, Object>> filterBean=null;
+		String json="";
+		String religionId =religionBean.getReligionId();
+		
+		ObjectMapper objmapper=new ObjectMapper();
+		filterBean =  objCastDao.getCastesBasedOnReligion(religionId);
+		if(filterBean.size()>0) {
+			json=objmapper.writeValueAsString(filterBean);
+			objJson.put("allOrders1", filterBean);
+		}else {
+			objJson.put("allOrders1", "");
+			System.out.println();
+		}
+		
+		
+	  return String.valueOf(objJson);
+
+	}
 }

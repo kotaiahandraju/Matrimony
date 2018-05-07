@@ -182,7 +182,7 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label required">Religion <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-									  	<form:select path="religion" onfocus="removeBorder(this.id)" class="form-control validate" >
+									  	<form:select path="religion" onchange="getReliginCastAjax()" onfocus="removeBorder(this.id)" class="form-control validate" >
 											<form:option value="">-- Choose Religion --</form:option>
 											<form:options items="${religion}"></form:options>
 										</form:select>
@@ -264,7 +264,7 @@
 									<div class="col-sm-8">
 									  	<form:select path="caste" class="form-control u validate" onfocus="removeBorder(this.id)">
 											<form:option value="">-- Choose Community --</form:option>
-											<form:options items="${cast}"></form:options>
+<%-- 											<form:options items="${cast}"></form:options> --%>
 										</form:select>
 								  		<div><form:errors path="caste" cssClass="error" /></div>
 									</div>
@@ -658,6 +658,30 @@
 
 <!-- <script type="text/javascript" src="js/custom.js"></script> -->
 <script type="text/javascript">
+$(document).ready(function(){
+	getReliginCastAjax()
+})
+function getReliginCastAjax() {
+	var religionId = $("#religion").val();
+		var formData = new FormData();
+		formData.append("religionId",religionId);
+		$('#caste').find('option').not(':first').remove();
+	$.fn.makeMultipartRequest('POST', '${baseurl}/castesBasedOnReligion', false,
+			formData, false, 'text', function(data){
+		var jsonobj = $.parseJSON(data);
+		var alldata = jsonobj.allOrders1;
+		var optionsForClass = "";
+		optionsForClass = $("#caste").empty();
+		optionsForClass.append(new Option("-- Choose Community --", ""));
+		$.each(alldata, function(i, tests) {
+			var id=tests.id;
+			var casteName=tests.name;
+			optionsForClass.append(new Option(casteName, id));
+		});
+		
+	});
+}
+
 var ss =new Date().getFullYear()-18;
 $("#dob").datepicker({
     dateFormat: "dd-MM-yy",
