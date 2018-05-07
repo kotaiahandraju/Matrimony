@@ -187,12 +187,12 @@
 							<li id="awaiting_requests_tab">
 								<a href="#" onclick="displayBlock('sent','awaiting_requests');">Awaiting Reply</a>
 							</li>
-							<li id="accepted_me_requests_tab">
+							<!-- <li id="accepted_me_requests_tab">
 								<a href="#" onclick="displayBlock('sent','accepted_me_requests');">Accepted Me</a>
 							</li>
 							<li id="rejected_me_requests_tab">
 								<a href="#" onclick="displayBlock('sent','rejected_me_requests');">Rejected Me</a>
-							</li>
+							</li> -->
 							
 						</ul>	
 					</div>
@@ -261,6 +261,34 @@
 			</div>
 		</section>
 		
+</div>
+<div id="filtered_div" class="tabcontent">
+  					<div>
+						<ul class="nav nav-tabs">
+							<li id="filtered_requests_tab">
+								<a href="#" onclick="displayBlock('filtered','filtered_requests');">Filtered Requests</a>
+							</li>
+						</ul>	
+					</div>
+		<section id="filtered_requests_section" class="tab-content_inbox active">
+			<div >
+				
+				
+				<div class="panel panel-success">
+					<div class="panel-heading" id="tbl_header">You are yet to respond to the following filtered requests. </div>
+		            
+	             		<form:hidden path="id" />
+						<div class="panel-body" id="filtered_requests">
+							
+						</div>
+					
+				</div>
+				
+
+				
+			
+			</div>
+		</section>
 </div>
 <div id="inbox_div" class="tabcontent">
   					<div>
