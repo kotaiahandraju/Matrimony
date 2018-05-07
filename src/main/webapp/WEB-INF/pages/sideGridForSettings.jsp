@@ -70,6 +70,9 @@ color:#337ab7;}
 										<tr>
 											<td height="30"><a href="#" onclick="displaySettingsBlock('unsubscribe_callinglist');" class="tablinks unsubscribe-callinglist" >Unsubscribe from calling list</a></td>
 										</tr>
+										<tr>
+											<td height="30"><a href="#" onclick="displaySettingsBlock('privacy');" class="tablinks privacy" >Privacy</a></td>
+										</tr>
 									</table>
 									
 									

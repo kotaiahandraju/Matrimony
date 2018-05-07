@@ -106,7 +106,15 @@
 				 -moz-border-radius: 4px 4px 0 0;
 					  border-radius: 4px 4px 0 0;
 			}
-
+			@media (min-width: 768px) {
+.form-horizontal .control-label {
+    padding-top: 7px;
+    margin-bottom: 0;
+    text-align: left;
+}
+}
+td:first-child {width:150px;}
+td:nth-child(2) { width:10px;}
 			.nav-tabs > li > a:hover {
 			  border-color: #eeeeee #eeeeee #dddddd;
 			}
@@ -143,7 +151,10 @@ color: #cfcfcf !important;
 color: #cfcfcf !important; 
 
 }
- 
+ td, th {
+    padding: 0;
+    vertical-align: text-bottom;
+}
 ::-moz-placeholder {  /* Firefox 19+ */
 color: #cfcfcf !important;  
 
@@ -159,7 +170,7 @@ color: #cfcfcf !important;
 	<div class="container" style="background: #FFF;">
 		<div class="mid-grids">
 			<jsp:include page="sideGridForSettings.jsp" />
-			<div class="col-md-8 products-grid-left">
+			<div class="col-md-9 products-grid-left">
 				<form:form commandName="createProfile"  class="form-horizontal" id="searchForm2" name="searchForm2" role="form"   method="post">
 	
     
@@ -187,19 +198,19 @@ color: #cfcfcf !important;
 					</div> -->
 					
 	<div class="form-group">
-     <label class="col-sm-5 control-label">Enter Current Password</label>
+     <label class="col-sm-3 control-label">Enter Current Password</label>
      <div class="col-sm-5">
      <input class="form-control" type="password" id="currentPassword" placeholder="Enter Current Password" onblur="this.placeholder='Enter Current Password'" onfocus="this.placeholder=''" required="required" >
     </div>
     </div>
     <div class="form-group">
-     <label class="col-sm-5 control-label">Enter New Password</label>
+     <label class="col-sm-3 control-label">Enter New Password</label>
      <div class="col-sm-5">
      <input class="form-control" type="password" id="newPassword1" placeholder="Enter New Password" onblur="this.placeholder='Enter New Password'" onfocus="this.placeholder=''" required="required" >
     </div>
     </div>
      <div class="form-group">
-     <label class="col-sm-5 control-label">Confirm New Password</label>
+     <label class="col-sm-3 control-label">Confirm New Password</label>
      <div class="col-sm-5">
      <input class="form-control" type="password" id="newPassword2" placeholder="Confirm New Password" onblur="this.placeholder='Confirm New Password'" onfocus="this.placeholder=''" required="required" >
     </div>
@@ -367,7 +378,7 @@ color: #cfcfcf !important;
 							<div class="row">
 							<div class="col-md-12">
 						
-						<p style="color: black;">Please choose a reason for profile deletion.</p><br><br>
+						<p style="color: black;">Please choose a reason for profile deletion.</p><br>
 						<div class='row'>
 						<div class='col-md-3' style='width: 225px; background: #f1f1f1;border-radius: 12px;padding: 7px 10px;color: black;margin: 0px 0px 10px 14px;'>
 						<input type="radio" /> &nbsp;&nbsp;&nbsp;Marriage Fixed&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -378,7 +389,7 @@ color: #cfcfcf !important;
 						<div class='col-md-3' style='width: 225px; background: #f1f1f1;border-radius: 12px;padding: 7px 10px;color: black;margin: 0px 0px 10px 14px;'>
 						<input type="radio" /> &nbsp;&nbsp;&nbsp;Other Reasons
 						</div>
-						</div><br><br>
+						</div><br>
 						<input type="button" class="btn btn-danger" type="button" value="Delete Account" onclick="deleteProfile('delete_profile')" />
 					</div></div></div></div></div>
 	
@@ -464,8 +475,107 @@ Auto-login saves you the process of logging into your account with your e-mail I
 					<hr>
 					<p>With the help of filters you can choose who can contact you.</p>
 <p><b>Who can contact me:</b></p>
-  <p><input type="radio" name="contact_filter" value="anyone">  Anyone</p>
-<p><input type="radio" name="contact_filter" value="filter">  Only members who meet my criteria.</p>
+  <p><input type="radio" name="contact_filter" value="anyone" onclick="show1();" />  Anyone</p>
+<p><input type="radio" name="contact_filter" value="filter" onclick="show2();" />  Only members who meet my criteria.</p>
+<div id="div1" style="display:none;">
+<hr>
+<p><b>Filter</b></p>
+<p>Select your preferences and click Update.</p>
+<div class="form-group">
+									<label class="col-md-1 control-label" for="textinput">Age</label>  
+									<div class="col-md-3">
+										<%-- <form:input path="rAgeFrom" class="form-control  numericOnly u1" placeholder="From" /> --%>
+										
+								<select id="rAgeFrom" name="rAgeFrom" class="form-control numericOnly u1" >
+									<option value="">--From--</option>
+									<option value="18">18</option>
+									<option value="19">19</option>
+									<option value="20">20</option>
+									<option value="21">21</option>
+									<option value="22">22</option>
+									<option value="23">23</option>
+									<option value="24">24</option>
+									<option value="25">25</option>
+									<option value="26">26</option>
+									<option value="27">27</option>
+									<option value="28">28</option>
+									<option value="29">29</option>
+									<option value="30">30</option>
+									<option value="31">31</option>
+									<option value="32">32</option>
+									<option value="33">33</option>
+									<option value="34">34</option>
+									<option value="35">35</option>
+									<option value="36">36</option>
+									<option value="37">37</option>
+									<option value="38">38</option>
+									<option value="39">39</option>
+									<option value="40">40</option>
+									<option value="41">41</option>
+									<option value="42">42</option>
+									<option value="43">43</option>
+									<option value="44">44</option>
+									<option value="45">45</option>
+									<option value="46">46</option>
+									<option value="47">47</option>
+									<option value="48">48</option>
+									<option value="49">49</option>
+									<option value="50">50</option>
+									
+								</select>
+									</div>
+									<label class="col-md-1 control-label" for="textinput">To</label>  
+									<div class="col-md-3">
+<%-- 										<form:input path="rAgeTo" class="form-control numericOnly u1" placeholder="To" />
+ --%>	
+ 									<select id="rAgeTo" name="rAgeTo" class="form-control numericOnly u1">
+									<option value="" selected="">--To--</option>
+									<option value="19">19</option>
+									<option value="20">20</option>
+									<option value="21">21</option>
+									<option value="22">22</option>
+									<option value="23">23</option>
+									<option value="24">24</option>
+									<option value="25">25</option>
+									<option value="26">26</option>
+									<option value="27">27</option>
+									<option value="28">28</option>
+									<option value="29">29</option>
+									<option value="30">30</option>
+									<option value="31">31</option>
+									<option value="32">32</option>
+									<option value="33">33</option>
+									<option value="34">34</option>
+									<option value="35">35</option>
+									<option value="36">36</option>
+									<option value="37">37</option>
+									<option value="38">38</option>
+									<option value="39">39</option>
+									<option value="40">40</option>
+									<option value="41">41</option>
+									<option value="42">42</option>
+									<option value="43">43</option>
+									<option value="44">44</option>
+									<option value="45">45</option>
+									<option value="46">46</option>
+									<option value="47">47</option>
+									<option value="48">48</option>
+									<option value="49">49</option>
+									<option value="50">50</option>
+								
+								</select>
+ 								</div>
+ 								<label class="col-md-1 control-label" for="textinput">Years</label>  
+ 							
+								</div>
+								<p>Martial Status</p>
+								
+								<label class="checkbox-inline"><input type="checkbox" value="">Awaiting divorce</label>
+<label class="checkbox-inline"><input type="checkbox" value="">Divorced</label>
+<label class="checkbox-inline"><input type="checkbox" value="">Never Married</label>
+<label class="checkbox-inline"><input type="checkbox" value="">Widowed</label>
+								</div>
+
 <div align="right"><button class="btn btn-warning" onclick="submitContactFilterSettings()"> Update </button></div>
 					</div></div></div></div>
 					</div>
@@ -488,13 +598,265 @@ Auto-login saves you the process of logging into your account with your e-mail I
 <div align="right"><button class="btn btn-warning" onclick="submitUnsubscribeFromCallingList()"> Submit </button></div>
 					</div></div></div></div>
 					</div>
+					<div id="privacy" class="all_settings_divs" hidden="true">
+					<div class="panel panel-success">
+							<div class="panel-heading">
+							Privacy
+							</div>
+							<div class="panel-body">
+							<div class="row">
+							<div class="col-md-12">
+							<ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#home">Mobile Privacy</a></li>
+    <li><a data-toggle="tab" href="#menu1">Photo Privacy</a></li>
+    <li><a data-toggle="tab" href="#menu2">Horoscope Privacy</a></li>
+   
+  </ul>
+
+  <div class="tab-content">
+    <div id="home" class="tab-pane fade in active">
+    <div class="panel-group" id="accordion">
+    <div class="panel panel-default">
+        <div class="panel-heading"><p>Verified Contact</p>
+<p>Change / Edit your mobile number and verify it.<span class="pull-right">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#panel1"><i class="fa fa-chevron-down"></i></a>
+            </span></p>
+             
+
+        </div>
+        <div id="panel1" class="panel-collapse collapse in" style="">
+            <div class="panel-body">
+<p>Given below are your contact details. In case, your mobile number has changed, please verify your mobile number to continue using our services. Profiles without verified mobile numbers cannot be part of our site anymore.
+</p><p>aarnaMatrimony is the world's only matrimony site to have 100% mobile verified profiles.</p><br>
+   <div class="panel panel-success">
+	<div class="panel-heading">Contact Details</div>
+							<div class="panel-body">
+							<p>Contact Number <a style="display:none" class="pull-right contactNumb" onclick="show3()" href="#">Edit</a></p>
+							<hr>
+							<div id="contactNumb">
+							<div class="form-group">
+     <label class="col-sm-4 control-label">Country</label>
+     <div class="col-sm-5">
+     <select class="form-control numericOnly u1">
+     <option>India</option>
+     <option>Australia</option>
+     <option>USA</option>
+     </select>
+       </div>
+    </div>
+    <div class="form-group">
+     <label class="col-sm-4 control-label">Primary Mobile Number</label>
+     <div class="col-sm-5">
+     <input class="form-control" type="text" id="" placeholder="Enter Number" onblur="this.placeholder='Enter Mobile Number'" onfocus="this.placeholder=''" required="required" >
+    </div>
+    </div>
+     <div class="form-group">
+     <label class="col-sm-4 control-label">Parent Contact Number</label>
+     <div class="col-sm-5">
+     <input class="form-control" type="text" id="" placeholder="Parent contact Number" onblur="this.placeholder='Parent Contact Number'" onfocus="this.placeholder=''" required="required" >
+    </div>
+    </div>
+      <div class="form-group ">
+         <div class="col-sm-4"></div>
+    <span class="btn btn-primary">Save</span> <span class="btn btn-danger">Cancel</span></div>
+							<p>Contact Preferences <a class="pull-right" onclick="show4()" href="#">Edit </a></p>
+							
+							<hr>
+							<table>
+							<tr><td>Whom to contact</td><td>:</td><td>Not Specified</td></tr>
+<tr><td>Contact person's name</td><td>:</td><td>Not Specified</td></tr>
+<tr><td>Convenient time to call</td><td>:</td><td>Not Specified</td></tr>
+<tr><td>Comments</td><td>:</td><td>Not Specified</td></tr>
+			</table>
+			</div>
+			<div id="contactRefer" style="display:none;">
+			<table><tr><td>Country Code</td><td>:<td>091</td></tr>
+<tr><td>Primary Mobile Number</td><td>:</td><td>9700088107</td></tr>
+<tr><td>Parents' Contact Number</td><td>:</td><td>9440414045</td></tr></table>
+<br>
+			<p>Contact Preferences <a class="pull-right contactRefer" onclick="show3()" href="#">Edit </a></p>
+			<hr>
+			<div class="form-group">
+     <label class="col-sm-4 control-label">Whom to contact </label>
+     <div class="col-sm-5">
+     <select  class="form-control numericOnly u1">
+     <option>--Select--</option>
+     <option>Parent</option>
+     <option>Self</option>
+     <option>brother</option>
+     <option>sister</option>
+     </select>
+      </div>
+    </div>
+			 <div class="form-group">
+     <label class="col-sm-4 control-label">Contact person's name </label>
+     <div class="col-sm-5">
+     <input class="form-control" type="text" id="" placeholder="Contact person's name" onblur="this.placeholder='Contact person's name'" onfocus="this.placeholder=''" required="required" >
+    </div>
+    </div>
+     <div class="form-group">
+     <label class="col-sm-4 control-label">Convenient time to call</label>
+     <div class="col-sm-5">
+     <input class="form-control" type="text" id="" placeholder="Convenient time to call" onblur="this.placeholder='Convenient time to call'" onfocus="this.placeholder=''" required="required" >
+    </div>
+    </div>
+    <div class="form-group">
+     <label class="col-sm-4 control-label">Comments</label>
+     <div class="col-sm-5">
+     <input class="form-control" type="textarea" id="" placeholder="comments" onblur="this.placeholder='comments'" onfocus="this.placeholder=''" required="required" >
+    </div>
+    </div>
+      <div class="form-group ">
+         <div class="col-sm-5"></div>
+    <span class="btn btn-primary">Save</span> <span class="btn btn-danger">Cancel</span></div>
+			</div><br>
+<p>By verifying your mobile number, members can contact you through mobile.	</p>			
+							
+							</div>
+							</div>
+						
+   
+    </div></div>
+     <div class="panel panel-default">
+        <div class="panel-heading"><p>Mobile Privacy</p>
+
+<p>Control who can view your mobile number.
+             <span class="pull-right">
+                <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#panel2"><i class="fa fa-chevron-down"></i></a>
+            </span></p>
+
+        </div>
+        <div id="panel2" class="panel-collapse collapse">
+            <div class="panel-body">
+<p><input type="radio"> Show mobile number to paid members</p>
+<p> &nbsp;<i class="fa fa-chevron-right"></i> Paid members can reach you directly or through SMS</p>
+<hr>
+<p><input type="radio"> Show mobile number only to paid members from my community</p>
+<p> &nbsp;<i class="fa fa-chevron-right"></i> Paid members from your community can reach you directly or through SMS</p>
+<hr>
+<p><input type="radio">  Show mobile number only to paid members whom I had contacted / responded</p>
+<p> &nbsp;<i class="fa fa-chevron-right"></i> Paid members whom you have contacted / responded can reach you directly or through SMS</p>
+<hr>
+<p><input type="radio">  Hide my mobile number</p>
+<p> &nbsp;<i class="fa fa-chevron-right"></i> Your mobile number will be hidden, however you can receive SMS from other paid members</p>
+<hr>
+<span class="btn btn-warning"> Submit</span>
+</div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading"><p>Mobile Alerts</p>
+<p>Choose if you want to receive Notifications through SMS.
+             <span class="pull-right">
+                <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#panel3"><i class="fa  fa-chevron-down"></i></a>
+            </span></p>
+
+        </div>
+        <div id="panel3" class="panel-collapse collapse">
+            <div class="panel-body">
+          <p>  You will get SMS notifications to 9700088107, when<br>
+ * You receive a new message<br>
+  * You get an interest<br>
+  * You get a reply for your message<br>
+  * Your interest gets accepted<br>
+  * Member requests you to add Photo<br>
+  * Member sends you a reminder for Interest<br>
+<b>*  Members using our app will be notified through instant push notifications instead of SMS.</b><br>
+As a member, you have the benefit of receiving mobile alerts. We recommend you to keep your mobile alerts on all the time for instant notifications. You may choose to turn off the alerts
+<br>
+* Sent only to members registered with Indian Mobile number<br>
+* To turn off App notifications go to BharatMatrimony App settings</p>
+            
+            </div>
+        </div>
+        </div></div></div></div>
+    <div id="menu1" class="tab-pane fade">
+     <p>Your Photo Privacy has been set to "Visible to All"</p>
+      <p><input type="radio" onclick="show5();"/> Visible to all </p>
+      <p><input type="radio" onclick="show6();"/> Protect Photo </p>
+      <p>* With this option, you can choose to share your photo when sending or receiving communication<p>
+       <div id="photoPrive" style="display:none;">
+    <span class="btn btn-primary">Submit</span>
+    </div>
+    </div>
+   
+    <div id="menu2" class="tab-pane fade">
+     <p>Your Horoscope Privacy has been set to "Visible to All".</p>
+       <p><input type="radio" onclick="show7();"/> Visible to all </p>
+      <p><input type="radio" onclick="show8();"/>  Visible only to members whom I had contacted / responded. </p>
+        <p><input type="radio" onclick="show9();"/> Protect with Horoscope Password </p>
+        <p> With this option you can</p>
+        <p> *  Share your Horoscope Password to a member of your choice.<br>
+   *  Grant access to your Horoscope at the time of contacting.</p>
+      <p> * Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+    <div id="horoscopeVis" style="display:none;">
+    
+    <span class="btn btn-primary"> Submit</span>
+    
+    </div>
+    <div id="horoscopePro" style="display:none;">
+    
+    <span class="btn btn-primary"> Hide</span>
+    
+    </div>
+    </div>
+  </div></div>
+        </div>
+    </div>
+   
+
+					</div></div></div></div>
+					</div>
 				</form:form>	
-			</div><div class="clearfix"></div><br><br>
+			</div>
+			<div class="clearfix"></div><br>
 			
 			
        <script>
-
+       function show1(){
+    	   document.getElementById('div1').style.display ='none';
+    	 }
+    	 function show2(){
+    	   document.getElementById('div1').style.display = 'block';
+    	 }
+    	  
+    	 function show3(){
+    	   $(".contactRefer").css('display','block');
+    	   $(".contactNumb").css('display','none');
+    	   $("#contactRefer").css('display','none');
+    	   $("#contactNumb").css('display','block');
+      	 }
+      	 function show4(){
+    	   $(".contactRefer").css('display','none');
+    	   $(".contactNumb").css('display','block');
+    	   $("#contactRefer").css('display','block');
+    	   $("#contactNumb").css('display','none');
+      	 }
+      	function show5(){
+        	   document.getElementById('photoPrive').style.display ='none';
+        	 }
+        	 function show6(){
+        	   document.getElementById('photoPrive').style.display = 'block';
+        	 }
+        		function show7(){
+        			$('#horoscopePro').hide();
+        			$('#horoscopeVis').hide();
+             	  $('#horoscopePro').attr('checked', false);
+             	 $('#horoscopeVis').attr('checked', false);
+             	 }
+             	 function show8(){
+             		$('#horoscopePro').hide();
+              	  $('#horoscopePro').attr('checked', false);
+              	 $('#horoscopeVis').show();
+             	 }
+             	function show9(){
+              	 $('#horoscopeVis').attr('checked', false);
+              	 $('#horoscopePro').show();
+              	$('#horoscopeVis').hide();
+              	 }
 </script>
+
+
 <script type="text/javascript">
 function displaySettingsBlock(divId){
 	if(divId=="membership_details"){
