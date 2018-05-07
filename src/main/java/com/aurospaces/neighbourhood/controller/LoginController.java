@@ -27,6 +27,7 @@ import com.aurospaces.neighbourhood.bean.EducationBean;
 import com.aurospaces.neighbourhood.bean.LoginBean;
 import com.aurospaces.neighbourhood.bean.UsersBean;
 import com.aurospaces.neighbourhood.db.dao.StateDao;
+import com.aurospaces.neighbourhood.db.dao.UserSettingsDao;
 import com.aurospaces.neighbourhood.db.dao.UserrequirementDao;
 import com.aurospaces.neighbourhood.db.dao.UsersDao;
 import com.aurospaces.neighbourhood.util.HRMSUtil;
@@ -42,7 +43,7 @@ public class LoginController {
 	UsersDao objUsersDao;
 	@Autowired UserrequirementDao objUserrequirementDao;
 	@Autowired StateDao stateDao;
-
+	@Autowired UserSettingsDao settingsDao;
 	
 	@RequestMapping(value = "/LoginHome")
 	public String LoginHome(Map<String, Object> model1, ModelMap model, HttpServletRequest request,
@@ -142,6 +143,8 @@ public class LoginController {
 			// get the logged in users's photos
 			List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos(objUserBean.getId());
 			session.setAttribute("logged_in_user_photosList", photosList);
+			Map<String,Object> user_settings = settingsDao.getUserSettings(objUserBean.getId()+"");
+			session.setAttribute("user_settings", user_settings);
 			if(objUserBean.getStatus().equals("1")){
 				session.setAttribute("notificationsCount", notificationsCount);
 				List<Map<String,Object>> notificationsList = objUsersDao.getNotifications(objUserBean,false);

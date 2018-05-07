@@ -418,35 +418,35 @@ color: #cfcfcf !important;
 					<p><b>Product and feature promotions</b><br>
 Get updates on new products and features</p>
 					</div>
-					<div class="col-md-2"><input type="checkbox" class="fcheck"></div>
+					<div class="col-md-2"><input type="checkbox" id="promotions_chkbox" class="fcheck"></div>
 					<div class="clearfix"></div><hr>
 					<div class="col-md-10">
 					<p><b>Daily MatchWatch mailer</b><br>
 Receive matches as per your criteria</p>
 					</div>
-					<div class="col-md-2"><input type="checkbox" class="fcheck" checked></div>
+					<div class="col-md-2"><input type="checkbox"  id="daily_matches_chkbox"  class="fcheck" ></div>
 					<div class="clearfix"></div><hr>
 					<div class="col-md-10">
 					<p><b>Weekly Photo MatchWatch mailer</b><br>
 Receive weekly matches with photos as per your criteria</p>
 					</div>
-					<div class="col-md-2"><input type="checkbox" class="fcheck" checked></div>
+					<div class="col-md-2"><input type="checkbox" id="weekly_matches_chkbox" class="fcheck" ></div>
 					<div class="clearfix"></div><hr>
-					<div class="col-md-10">
+					<!-- <div class="col-md-10">
 					<p><b>Weekly Horoscope MatchWatch mailer</b><br>
 Receive weekly matches with horoscope as per your criteria</p>
 					</div>
-					<div class="col-md-2"><input type="checkbox" class="fcheck" checked></div>
-					<div class="clearfix"></div><hr>
+					<div class="col-md-2"><input type="checkbox"  class="fcheck" checked></div>
+					<div class="clearfix"></div><hr> -->
 					<div class="col-md-10">
 					<p><b>Auto Login</b><br>
 Auto-login saves you the process of logging into your account with your e-mail ID and password when you click the link on an e-mail from us</p>
 					</div>
-					<div class="col-md-2"><input type="checkbox" class="fcheck" checked></div>
+					<div class="col-md-2"><input type="checkbox" id="auto_login_chkbox" class="fcheck" ></div>
 					<div class="clearfix"></div>
-						<div align="right"><button class="btn btn-warning"> Submit </button></div>
+						<div align="right"><button class="btn btn-warning" onclick="submitEmailAlertsSettings()"> Submit </button></div>
 						<hr>
-						<p class="notepa">Note: In addition to the above mailers, you will receive e-mail notifications whenever a member sends you an Interest or a Personalised Message, when a member accepts or declines your Interest or Personalised Message. You will also receive notifications on yet to be viewed profiles and recently updated profiles. You cannot unsubscribe from these e-mail notifications as long as you're a member of BharatMatrimony.</p>
+						<p class="notepa">Note: In addition to the above mailers, you will receive e-mail notifications whenever a member sends you an Interest or a Personalised Message, when a member accepts or declines your Interest or Personalised Message. You cannot unsubscribe from these e-mail notifications as long as you're a member of AarnaMatrimony.</p>
 					</div>
 					
 					</div></div></div></div>
@@ -464,9 +464,9 @@ Auto-login saves you the process of logging into your account with your e-mail I
 					<hr>
 					<p>With the help of filters you can choose who can contact you.</p>
 <p><b>Who can contact me:</b></p>
-  <p><input type="radio">  Anyone</p>
-<p><input type="radio">  Only members who meet my criteria.</p>
-<div align="right"><button class="btn btn-warning"> Update </button></div>
+  <p><input type="radio" name="contact_filter" value="anyone">  Anyone</p>
+<p><input type="radio" name="contact_filter" value="filter">  Only members who meet my criteria.</p>
+<div align="right"><button class="btn btn-warning" onclick="submitContactFilterSettings()"> Update </button></div>
 					</div></div></div></div>
 					</div>
 	<div id="unsubscribe_callinglist" class="all_settings_divs" hidden="true">
@@ -480,12 +480,12 @@ Auto-login saves you the process of logging into your account with your e-mail I
 					<p>Tell us when would you like to receive phone calls from our telemarketing executives.</p>
 <hr>
 <p><b>I'd like to get calls after:</b></p>
-  <p><input type="radio">  Call me once in 15 days</p>
-<p><input type="radio">  Call me once a month</p>
- <p><input type="radio">  Call me once in two months</p>
-<p><input type="radio">  Do not call</p>
+  <p><input type="radio" name="marketing_calls" value="15d">  Call me once in 15 days</p>
+<p><input type="radio" name="marketing_calls" value="1m">  Call me once a month</p>
+ <p><input type="radio" name="marketing_calls" value="2m">  Call me once in two months</p>
+<p><input type="radio" name="marketing_calls" value="do_not_call">  Do not call</p>
 
-<div align="right"><button class="btn btn-warning"> Submit </button></div>
+<div align="right"><button class="btn btn-warning" onclick="submitUnsubscribeFromCallingList()"> Submit </button></div>
 					</div></div></div></div>
 					</div>
 				</form:form>	
@@ -522,6 +522,76 @@ function displaySettingsBlock(divId){
 			
 			//displaySettingsBlock(actionStr); // actionStr and divid are same value.
 			
+		});
+	}
+	if(divId=="manage_mailalerts"){
+		var formData = new FormData();
+		$.fn.makeMultipartRequest('POST', 'getMailAlertsSettings', false,
+				formData, false, 'text', function(data){
+			var jsonobj = $.parseJSON(data);
+			var msg = jsonobj.message;
+			var settingsMap = jsonobj.settings;
+			if(msg=="success"){
+				
+				var checked_val = settingsMap.product_promotion_emails	;
+				if(checked_val=="1"){
+					$("#promotions_chkbox").prop("checked",true);
+				}else{
+					$("#promotions_chkbox").prop("checked",false);
+				}
+				checked_val = settingsMap.daily_matches_emails	;
+				if(checked_val=="1"){
+					$("#daily_matches_chkbox").prop("checked",true);
+				}else{
+					$("#daily_matches_chkbox").prop("checked",false);
+				}
+				checked_val = settingsMap.weekly_matches_emails	;
+				if(checked_val=="1"){
+					$("#weekly_matches_chkbox").prop("checked",true);
+				}else{
+					$("#weekly_matches_chkbox").prop("checked",false);
+				}
+				checked_val = settingsMap.auto_login	;
+				if(checked_val=="1"){
+					$("#auto_login_chkbox").prop("checked",true);
+				}else{
+					$("#auto_login_chkbox").prop("checked",false);
+				}
+			}
+		});
+	}
+	if(divId=="contact_filters"){
+		var formData = new FormData();
+		$.fn.makeMultipartRequest('POST', 'getContactFilterSettings', false,
+				formData, false, 'text', function(data){
+			var jsonobj = $.parseJSON(data);
+			var msg = jsonobj.message;
+			var settingsMap = jsonobj.settings;
+			if(msg=="success"){
+				var selected_val = settingsMap.contact_filter;
+				$('[name="contact_filter"]').removeAttr('checked');
+				if(selected_val=="anyone"){
+					$("input[name=contact_filter][value=anyone]").prop('checked', true);
+				}else{
+					$("input[name=contact_filter][value=filter]").prop('checked', true);
+					//set other field values
+				}
+				
+			}
+		});
+	}
+	if(divId=="unsubscribe_callinglist"){
+		var formData = new FormData();
+		$.fn.makeMultipartRequest('POST', 'getUnsubscribeFromCallingList', false,
+				formData, false, 'text', function(data){
+			var jsonobj = $.parseJSON(data);
+			var msg = jsonobj.message;
+			var settingsMap = jsonobj.settings;
+			if(msg=="success"){
+				var selected_val = settingsMap.marketing_calls_permission;
+				$('[name="marketing_calls"]').removeAttr('checked');
+				$("input[name=marketing_calls][value="+selected_val+"]").prop('checked', true);
+			}
 		});
 	}
 	$(".all_settings_divs").attr("hidden",true);
@@ -622,6 +692,72 @@ function changeProfileStatus(status){
 		
 });
 }
+
+function submitEmailAlertsSettings(){
+	var promotion_chkbox = $("#promotions_chkbox").prop("checked");
+	var daily_matches_chkbox = $("#daily_matches_chkbox").prop("checked");
+	var weekly_matches_chkbox = $("#weekly_matches_chkbox").prop("checked");
+	var auto_login_chkbox = $("#auto_login_chkbox").prop("checked");
+	var formData = new FormData();
+	formData.append("product_promotions",promotion_chkbox);
+	formData.append("daily_match_alerts",daily_matches_chkbox);
+	formData.append("weekly_match_alerts",weekly_matches_chkbox);
+	formData.append("auto_login",auto_login_chkbox);
+	$.fn.makeMultipartRequest('POST', 'saveUserMailAlertsSettings', false,
+			formData, false, 'text', function(data){
+		var jsonobj = $.parseJSON(data);
+		var msg = jsonobj.message;
+		if(msg=="success"){
+			alert("Mail alerts settings updated successfully");
+		}else{
+			alert("Some problem occured!! Please try again.");
+		}
+	});
+}
+function submitContactFilterSettings(){
+	var formData = new FormData();
+	var filter_value = $("input[name='contact_filter'] :checked").val();
+	formData.append("contact_filter",filter_value);
+	if(filter_value=="filter"){
+		//get other field values
+		formData.append("age_from",$("#age_from").val());
+		formData.append("age_to",$("#age_to").val());
+		formData.append("marital_status",$("#marital_status").val());
+		formData.append("religion",$("#religion").val());
+		formData.append("caste",$("#caste").val());
+		formData.append("mothertongue",$("#mothertongue").val());
+		formData.append("country",$("#country").val());
+	}
+	
+	$.fn.makeMultipartRequest('POST', 'saveContactFilterSettings', false,
+			formData, false, 'text', function(data){
+		var jsonobj = $.parseJSON(data);
+		var msg = jsonobj.message;
+		if(msg=="success"){
+			alert("Contact Filter settings updated successfully");
+		}else{
+			alert("Some problem occured!! Please try again.");
+		}
+	});
+}
+
+function submitUnsubscribeFromCallingList(){
+	var formData = new FormData();
+	var unsubscribe_val = $("input[name='marketing_calls'] :checked").val();
+	formData.append("unsubscribe_from_val",unsubscribe_val);
+	
+	$.fn.makeMultipartRequest('POST', 'saveUnsubscribeFromCallingList', false,
+			formData, false, 'text', function(data){
+		var jsonobj = $.parseJSON(data);
+		var msg = jsonobj.message;
+		if(msg=="success"){
+			alert("Updates saved successfully");
+		}else{
+			alert("Some problem occured!! Please try again.");
+		}
+	});
+}
+
 $(".dashboard").addClass("active");
 </script>
 
