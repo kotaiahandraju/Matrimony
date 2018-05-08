@@ -851,6 +851,7 @@ As a member, you have the benefit of receiving mobile alerts. We recommend you t
 			
 			
        <script>
+       $(window).scrollTop($('#contactNumb').offset().top);
        function show1(){
     	   document.getElementById('div1').style.display ='none';
     	 }
