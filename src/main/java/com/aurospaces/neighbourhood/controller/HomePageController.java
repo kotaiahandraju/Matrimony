@@ -3967,7 +3967,7 @@ public class HomePageController {
 						communicationTypeMap.put("messages", messages);
 						communicationTypeMap.put("mobile_no_viewed", mobile_no_viewed);
 						
-						//requests = objUsersDao.getRejectedRequestsByFilterCriteria(sessionBean.getId()+"", readStatusMap, communicationTypeMap, 0);	
+						requests = objUsersDao.getPendingRequestsByFilterCriteria(sessionBean.getId()+"", readStatusMap, communicationTypeMap, 0);	
 					}else{
 						requests = objUsersDao.getPendingInterestRequests(sessionBean.getId()+"",0);
 					}
