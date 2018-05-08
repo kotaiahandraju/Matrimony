@@ -1067,9 +1067,9 @@ public class HomePageController {
 			
 			UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
 			
-				String receiver_username = request.getParameter("un");
+				String sender_username = request.getParameter("un");
 				String profile_username = request.getParameter("pun");
-				String receiver_unique_code = request.getParameter("suc");
+				String sender_unique_code = request.getParameter("suc");
 				String profile_unique_code = request.getParameter("puc");
 				String request_from = request.getParameter("rfrm");
 				if(StringUtils.isNotBlank(request_from) && "notifications".equalsIgnoreCase(request_from)){
@@ -1078,13 +1078,13 @@ public class HomePageController {
 					objUserssBean.setId(Integer.parseInt(profile_id));// for local use
 					//update notification status as read
 					objUsersDao.updateNotificationStatus(notification_id);
-				}else if(StringUtils.isNotBlank(receiver_username) && StringUtils.isNotBlank(profile_username)){ // link clicked from email
-					Map<String,Object> receiverBean = objUsersDao.getUserMap(receiver_username.trim());
+				}else if(StringUtils.isNotBlank(sender_username) && StringUtils.isNotBlank(profile_username)){
+					UsersBean senderBean = objUsersDao.getUser(sender_username.trim());
 					UsersBean profileBean = objUsersDao.getUser(profile_username.trim());
-					if(((String)receiverBean.get("unique_code")).equals(receiver_unique_code) && profileBean.getUnique_code().equals(profile_unique_code) && ((String)receiverBean.get("auto_login")).equalsIgnoreCase("1")){
+					if(senderBean.getUnique_code().equals(sender_unique_code) && profileBean.getUnique_code().equals(profile_unique_code)){
 						LoginBean userObj = new LoginBean();
-						userObj.setUserName(receiver_username);
-						userObj.setPassword((String)receiverBean.get("password"));
+						userObj.setUserName(sender_username);
+						userObj.setPassword(senderBean.getPassword());
 						UsersBean objUserBean = objUsersDao.loginChecking(userObj);
 						this.setInitialData(objUserBean, session);
 						sessionBean = (UsersBean)session.getAttribute("cacheGuest");
@@ -2246,34 +2246,12 @@ public class HomePageController {
 	}
    
    /*****     back-end jobs    start       ********/
-   @RequestMapping(value="/weeklyMatchEmails")
-   public String weeklyMatchEmails(HttpSession session,HttpServletRequest request){
+   @RequestMapping(value="/emailProfilesList")
+   public String sendProfilesListEmail(HttpSession session,HttpServletRequest request){
 	   /*UsersBean userSessionBean = (UsersBean) session.getAttribute("cacheGuest");
 	   if(userSessionBean==null)
 		   return "redirect:HomePage";*/
-	   List<Map<String,Object>> activeProfilesList = objUsersDao.getAllSubscribedUsersForWeeklyMatchEmails();
-	   for(Map<String,Object> profile:activeProfilesList){
-		   UsersBean receiverBean = new UsersBean();
-		   receiverBean.setId((Integer)profile.get("id"));
-		   receiverBean.setUsername((String)profile.get("username"));
-		   receiverBean.setUnique_code((String)profile.get("unique_code"));
-		   Object emailId = profile.get("email");
-		   receiverBean.setEmail((String)emailId);
-		   List<Map<String,String>> preferredProfiles = objUsersDao.getProfilesFilteredByPreferences(profile);
-		   try{
-			   EmailUtil.sendProfilesListEmail(receiverBean,preferredProfiles, "profiles_list_email",objContext,request);
-		   }catch(Exception e){
-			   e.printStackTrace();
-		   }
-		   
-	   }
-	   
-	   return "";
-   }
-   
-   @RequestMapping(value="/dailyMatchEmails")
-   public String dailyMatchEmails(HttpSession session,HttpServletRequest request){
-	   List<Map<String,Object>> activeProfilesList = objUsersDao.getAllSubscribedUsersForDailyMatchEmails();
+	   List<Map<String,Object>> activeProfilesList = objUsersDao.getAllActiveUsers();
 	   for(Map<String,Object> profile:activeProfilesList){
 		   UsersBean receiverBean = new UsersBean();
 		   receiverBean.setId((Integer)profile.get("id"));
@@ -3954,8 +3932,6 @@ public class HomePageController {
 					requests = objUsersDao.getRequestsAcceptedMe(sessionBean.getId()+"",0);
 				}else if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("rejected_me_requests")){
 					requests = objUsersDao.getRejectedRequests(sessionBean.getId()+"",0);
-				}else if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("filtered_requests")){
-					requests = objUsersDao.getFilteredRequests(sessionBean.getId()+"",0);
 				}
 				else if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("profile_views")){
 					requests = objUsersDao.getProfileViewedMembers(sessionBean.getId()+"",0);
@@ -4111,10 +4087,7 @@ public class HomePageController {
 			HttpServletRequest request, HttpSession session) {
 
 		try {
-			UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
-			if(sessionBean == null){
-				return "redirect:HomePage";
-			}
+			
 			
 		} catch (Exception e) {
 			e.printStackTrace();

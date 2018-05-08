@@ -11,6 +11,21 @@ public class CastBean {
 	@NotEmpty
 	private String name;
 	private String status;
+	private String religionId,religionname;
+	
+	public String getReligionname() {
+		return religionname;
+	}
+	public void setReligionname(String religionname) {
+		this.religionname = religionname;
+	}
+	
+	public String getReligionId() {
+		return religionId;
+	}
+	public void setReligionId(String religionId) {
+		this.religionId = religionId;
+	}
 	public int getId() {
 		return id;
 	}

@@ -26,7 +26,7 @@ public class BaseCastDao{
 	JdbcTemplate jdbcTemplate;
 
 	 
-	public final String INSERT_SQL = "INSERT INTO cast ( created_time, updated_time, name, status) values (?, ?, ?,?)"; 
+	public final String INSERT_SQL = "INSERT INTO cast ( created_time, updated_time, name, status,religionId) values (?,?, ?, ?,?)"; 
 
 
 
@@ -65,6 +65,7 @@ public class BaseCastDao{
 	ps.setTimestamp(2, updatedTime);
 	ps.setString(3, objCAST.getName());
 	ps.setString(4, objCAST.getStatus());
+	ps.setString(5, objCAST.getReligionId());
 
 							return ps;
 						}
@@ -79,9 +80,9 @@ public class BaseCastDao{
 		else
 		{
 
-			String sql = "UPDATE cast set name = ?,status = ? where id = ? ";
+			String sql = "UPDATE cast set name = ?,religionId=?,status = ? where id = ? ";
 	
-			jdbcTemplate.update(sql, new Object[]{objCAST.getName(),objCAST.getStatus(),objCAST.getId()});
+			jdbcTemplate.update(sql, new Object[]{objCAST.getName(),objCAST.getReligionId(),objCAST.getStatus(),objCAST.getId()});
 		}
 	}
 		

@@ -182,12 +182,12 @@ window.setTimeout(function() {
 
 							<div class="form-group">
 								<label for="user_name">Enter Your Email-Id :</label> 
-								<form:input	path="email" onkeydown="removeBorder(this.id)" class="form-control" placeholder="Enter Email"/>
+								<form:input	path="email" onkeydown="removeBorder(this.id)" class="form-control" placeholder="Email"/>
 								<span class="hasError" id="emailError" style="font-size: 13px;"></span>
 							</div>
 							<div class="form-group">
 								<label for="user_password">Create Password :</label> 
-								<form:password path="password" class="form-control" onkeydown="removeBorder(this.id)"  placeholder=" Enter Password"/>
+								<form:password path="password" class="form-control" onkeydown="removeBorder(this.id)"  placeholder="Password"/>
 							</div>
 							<div class="form-group">
 								<label for="user_ssword">Create Profile for :</label> 
