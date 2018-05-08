@@ -483,7 +483,7 @@ Auto-login saves you the process of logging into your account with your e-mail I
 <p>Select your preferences and click Update.</p>
 <div class="form-group">
 									<label class="col-md-1 control-label" for="textinput">Age</label>  
-									<div class="col-md-3">
+									<div class="col-md-2">
 										<%-- <form:input path="rAgeFrom" class="form-control  numericOnly u1" placeholder="From" /> --%>
 										
 								<select id="rAgeFrom" name="rAgeFrom" class="form-control numericOnly u1" >
@@ -525,7 +525,7 @@ Auto-login saves you the process of logging into your account with your e-mail I
 								</select>
 									</div>
 									<label class="col-md-1 control-label" for="textinput">To</label>  
-									<div class="col-md-3">
+									<div class="col-md-2">
 <%-- 										<form:input path="rAgeTo" class="form-control numericOnly u1" placeholder="To" />
  --%>	
  									<select id="rAgeTo" name="rAgeTo" class="form-control numericOnly u1">
@@ -574,6 +574,44 @@ Auto-login saves you the process of logging into your account with your e-mail I
 <label class="checkbox-inline"><input type="checkbox" value="">Divorced</label>
 <label class="checkbox-inline"><input type="checkbox" value="">Never Married</label>
 <label class="checkbox-inline"><input type="checkbox" value="">Widowed</label>
+						<div class="form-group">
+									      <label class="col-md-3 control-label" for="textinput">Religion</label>  
+									      <div class="col-md-6">
+									      	<div class="select2-container select2-container-multi multiSelect" id="s2id_rReligion"><ul class="select2-choices">  <li class="select2-search-field">    <label for="s2id_autogen1" class="select2-offscreen"></label>    <input type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="select2-input select2-default" id="s2id_autogen1" style="width: 180px;" placeholder="">  </li></ul><div class="select2-drop select2-drop-multi select2-display-none select2-drop-active">   <ul class="select2-results">   <li class="select2-no-results">No matches found</li></ul></div></div><select id="rReligion" name="rReligion" class="multiSelect select2-offscreen" onchange="getReliginCastAjax()" multiple="multiple" tabindex="-1">
+												<option value="0">-- Choose Religion --</option>
+												<option value="3">Christian</option><option value="1">Hindu</option><option value="6">Islam</option><option value="4">Jain</option><option value="2">Muslim</option><option value="5">Sikh</option>
+											</select><input type="hidden" name="_rReligion" value="1">
+									      </div>
+									    </div>
+									    <div class="form-group">
+									      <label class="col-md-3 control-label" for="textinput">Caste</label>  
+									      <div class="col-md-6">
+									      	<div class="select2-container select2-container-multi multiSelect" id="s2id_rCaste"><ul class="select2-choices">  <li class="select2-search-field">    <label for="s2id_autogen3" class="select2-offscreen"></label>    <input type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="select2-input select2-default" id="s2id_autogen3" style="width: 180px;" placeholder="">  </li></ul><div class="select2-drop select2-drop-multi select2-display-none">   <ul class="select2-results">   <li class="select2-no-results">No matches found</li></ul></div></div><select id="rCaste" name="rCaste" class="multiSelect select2-offscreen" multiple="multiple" tabindex="-1">
+												<option value="">-- Choose Community --</option>
+											
+											</select><input type="hidden" name="_rCaste" value="1">
+									      </div>
+									    </div>
+									    
+									    <div class="form-group">
+									      <label class="col-md-3 control-label" for="textinput">Mother Tongue</label>  
+									      <div class="col-md-6">
+									      	<div class="select2-container select2-container-multi multiSelect" id="s2id_rMotherTongue"><ul class="select2-choices">  <li class="select2-search-field">    <label for="s2id_autogen4" class="select2-offscreen"></label>    <input type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="select2-input select2-default" id="s2id_autogen4" style="width: 180px;" placeholder="">  </li></ul><div class="select2-drop select2-drop-multi select2-display-none">   <ul class="select2-results">   <li class="select2-no-results">No matches found</li></ul></div></div><select id="rMotherTongue" name="rMotherTongue" class="multiSelect select2-offscreen" multiple="multiple" tabindex="-1">
+												<option value="">-- Choose Mother Tongue --</option>
+												<option value="14">Assamese/Asomiya</option><option value="8">Bengali</option><option value="16">Bodo</option><option value="17">Dogri</option><option value="6">English</option><option value="11">Gujarati</option><option value="2">Hindi</option><option value="4">Kannada</option><option value="18">Kashmiri</option><option value="19">Konkani</option><option value="15">Maithili</option><option value="5">Malayalam</option><option value="20">Manipuri</option><option value="9">Marathi</option><option value="21">Nepali</option><option value="12">Oriya</option><option value="13">Punjabi</option><option value="23">Santhali</option><option value="22">Sindhi</option><option value="3">Tamil</option><option value="1">Telugu</option><option value="10">Urdu</option>
+											</select><input type="hidden" name="_rMotherTongue" value="1">
+									      </div>
+									    </div>
+									    <div class="form-group">
+											<label class="col-md-3 control-label required">Country  </label>
+											<div class="col-md-6">
+												<div class="select2-container select2-container-multi multiSelect" id="s2id_rCountry"><ul class="select2-choices">  <li class="select2-search-field">    <label for="s2id_autogen5" class="select2-offscreen"></label>    <input type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="select2-input select2-default" id="s2id_autogen5" style="width: 180px;" placeholder="">  </li></ul><div class="select2-drop select2-drop-multi select2-display-none">   <ul class="select2-results">   <li class="select2-no-results">No matches found</li></ul></div></div><select id="rCountry" name="rCountry" class="multiSelect select2-offscreen" onchange="getFilteredStatesMultiSelect(this.id)" multiple="multiple" tabindex="-1">
+													<option value="">-- Choose Country --</option>
+													<option value="10">Africa</option><option value="3">Australia</option><option value="8">canada</option><option value="1">India</option><option value="9">Netherland</option><option value="11">Scotland</option><option value="5">Singapore</option><option value="7">Soudi Arabia</option><option value="6">Sweeden</option><option value="12">switzerland</option><option value="4">UK</option><option value="2">USA</option>
+												</select><input type="hidden" name="_rCountry" value="1">
+										  		<div></div>
+											</div>
+									  	</div>
 								</div>
 
 <div align="right"><button class="btn btn-warning" onclick="submitContactFilterSettings()"> Update </button></div>

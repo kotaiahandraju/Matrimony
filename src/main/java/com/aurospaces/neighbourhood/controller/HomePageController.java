@@ -3923,11 +3923,102 @@ public class HomePageController {
 				}else if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("awaiting_requests")){
 					requests = objUsersDao.getAwaitingRequests(sessionBean.getId()+"",0);
 				}else if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("pending_requests")){
-					requests = objUsersDao.getPendingInterestRequests(sessionBean.getId()+"",0);
+					
+					String filter_requests = request.getParameter("filter_requests");
+					if(StringUtils.isNotBlank(filter_requests) && filter_requests.equalsIgnoreCase("true")){
+						
+						String read = request.getParameter("read");
+						String un_read = request.getParameter("un_read");
+						
+						String all = request.getParameter("all");
+						String interests = request.getParameter("interests");
+						String messages = request.getParameter("messages");
+						String mobile_no_viewed = request.getParameter("mobile_no_viewed");
+						
+						Map<String,String> readStatusMap = new HashMap<String,String>();
+						readStatusMap.put("read", read);
+						readStatusMap.put("un_read", un_read);
+						
+						Map<String,String> communicationTypeMap = new HashMap<String,String>();
+						communicationTypeMap.put("all", all);
+						communicationTypeMap.put("interests", interests);
+						communicationTypeMap.put("messages", messages);
+						communicationTypeMap.put("mobile_no_viewed", mobile_no_viewed);
+						
+						requests = objUsersDao.getPendingRequestsByFilterCriteria(sessionBean.getId()+"", readStatusMap, communicationTypeMap, 0);	
+					}else{
+						requests = objUsersDao.getPendingInterestRequests(sessionBean.getId()+"",0);
+					}
+					
 				}else if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("accepted_requests")){
-					requests = objUsersDao.getacceptedRequests(sessionBean.getId()+"",0);
+					
+					String filter_requests = request.getParameter("filter_requests");
+					if(StringUtils.isNotBlank(filter_requests) && filter_requests.equalsIgnoreCase("true")){
+						
+						String accepted_by_me = request.getParameter("accepted_by_me");
+						String accepted_by_others = request.getParameter("accepted_by_others");
+						
+						String read = request.getParameter("read");
+						String un_read = request.getParameter("un_read");
+						
+						String all = request.getParameter("all");
+						String interests = request.getParameter("interests");
+						String messages = request.getParameter("messages");
+						String mobile_no_viewed = request.getParameter("mobile_no_viewed");
+						
+						Map<String,String> acceptedByMap = new HashMap<String,String>();
+						acceptedByMap.put("accepted_by_me", accepted_by_me);
+						acceptedByMap.put("accepted_by_others", accepted_by_others);
+						
+						Map<String,String> readStatusMap = new HashMap<String,String>();
+						readStatusMap.put("read", read);
+						readStatusMap.put("un_read", un_read);
+						
+						Map<String,String> communicationTypeMap = new HashMap<String,String>();
+						communicationTypeMap.put("all", all);
+						communicationTypeMap.put("interests", interests);
+						communicationTypeMap.put("messages", messages);
+						communicationTypeMap.put("mobile_no_viewed", mobile_no_viewed);
+						
+						requests = objUsersDao.getAcceptedRequestsByFilterCriteria(sessionBean.getId()+"", acceptedByMap, readStatusMap, communicationTypeMap, 0);	
+					}else{
+						requests = objUsersDao.getacceptedRequests(sessionBean.getId()+"",0);
+					}
 				}else if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("rejected_requests")){
-					requests = objUsersDao.getRejectedRequests(sessionBean.getId()+"",0);
+					
+					String filter_requests = request.getParameter("filter_requests");
+					if(StringUtils.isNotBlank(filter_requests) && filter_requests.equalsIgnoreCase("true")){
+						
+						String rejected_by_me = request.getParameter("rejected_by_me");
+						String rejected_by_others = request.getParameter("rejected_by_others");
+						
+						String read = request.getParameter("read");
+						String un_read = request.getParameter("un_read");
+						
+						String all = request.getParameter("all");
+						String interests = request.getParameter("interests");
+						String messages = request.getParameter("messages");
+						String mobile_no_viewed = request.getParameter("mobile_no_viewed");
+						
+						Map<String,String> rejectedByMap = new HashMap<String,String>();
+						rejectedByMap.put("rejected_by_me", rejected_by_me);
+						rejectedByMap.put("rejected_by_others", rejected_by_others);
+						
+						Map<String,String> readStatusMap = new HashMap<String,String>();
+						readStatusMap.put("read", read);
+						readStatusMap.put("un_read", un_read);
+						
+						Map<String,String> communicationTypeMap = new HashMap<String,String>();
+						communicationTypeMap.put("all", all);
+						communicationTypeMap.put("interests", interests);
+						communicationTypeMap.put("messages", messages);
+						communicationTypeMap.put("mobile_no_viewed", mobile_no_viewed);
+						
+						requests = objUsersDao.getRejectedRequestsByFilterCriteria(sessionBean.getId()+"", rejectedByMap, readStatusMap, communicationTypeMap, 0);	
+					}else{
+						requests = objUsersDao.getRejectedRequests(sessionBean.getId()+"",0);
+					}
+					
 				}else if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("accepted_me_requests")){
 					requests = objUsersDao.getRequestsAcceptedMe(sessionBean.getId()+"",0);
 				}else if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("rejected_me_requests")){
