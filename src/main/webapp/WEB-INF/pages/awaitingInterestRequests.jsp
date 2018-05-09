@@ -1,5 +1,13 @@
 <%@ include file="userCommonHeader.jsp"%>
- 	
+ 	<link href="css/fSelect.css" rel="stylesheet">
+<script src="js/fSelect.js"></script>
+<script>
+(function($) {
+    $(function() {
+        $('.mult-select-dd-opt-gtp').fSelect();
+    });
+})(jQuery);
+</script>
 		<script>
 			/* $(document).ready(function() {
 				$('.nav-tabs > li > a').click(function(event){
@@ -126,6 +134,22 @@
 							<li id="rejected_requests_tab">
 								<a href="#" onclick="displayBlock('inbox','rejected_requests');">Declined</a>
 							</li>
+							<li class="pull-right"><select class="mult-select-dd-opt-gtp" multiple="multiple">
+        <optgroup label="Read Status">
+            <option value="Read" >Read</option>
+            <option value="Unread" >Un Read</option>
+        </optgroup>
+        <optgroup label="Communication Type">
+            <option value="All" >All</option>
+            <option value="CSS">Interests</option>
+            <option value="Messages">Messages</option>
+            <option value="Photo Requests">Photo Requests</option>
+            <option value="Horoscope Requests" >Horoscope Requests</option>
+            <option value="Phone Numbers Viewed">Phone Numbers Viewed</option>
+            <option value="Other Requests">Other Requests</option>
+
+        </optgroup>
+    </select></li>
 						</ul>	
 					</div>
 		<section id="pending_requests_section" class="tab-content_inbox active">

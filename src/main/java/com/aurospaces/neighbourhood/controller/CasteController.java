@@ -1,6 +1,8 @@
 package com.aurospaces.neighbourhood.controller;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,7 +22,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.aurospaces.neighbourhood.bean.CastBean;
+import com.aurospaces.neighbourhood.bean.EducationBean;
 import com.aurospaces.neighbourhood.db.dao.CastDao;
+import com.aurospaces.neighbourhood.db.dao.UsersDao;
 
 @Controller
 @RequestMapping(value = "/admin")
@@ -28,6 +32,7 @@ public class CasteController {
 	private Logger logger = Logger.getLogger(CasteController.class);
 	@Autowired
 	CastDao objCastDao;
+	 @Autowired UsersDao objUsersDao;
 
 	@RequestMapping(value = "/CasteHome")
 	public String CasteHome(@ModelAttribute("casteForm") CastBean objCastBean, ModelMap model,
@@ -149,4 +154,22 @@ public class CasteController {
 		}
 		return String.valueOf(jsonObj);
 	}
+	
+	@ModelAttribute("religion")
+	public Map<Integer, String> populatereligion() {
+		Map<Integer, String> statesMap = new LinkedHashMap<Integer, String>();
+		try {
+			String sSql = "select id,name from religion  where status='1' order by name asc";
+			List<EducationBean> list = objUsersDao.populate(sSql);
+			for (EducationBean bean : list) {
+				statesMap.put(bean.getId(), bean.getName());
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+		}
+		return statesMap;
+	}
+	
 }

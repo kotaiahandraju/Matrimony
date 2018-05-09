@@ -345,10 +345,10 @@ border:none;}
 					</c:if>
 					<c:if test="${packName == 'Aarna Family' }">
 						<div class="col-md-2 col-sm-2 prit" onclick="displayDetails('infoDiv${pack.id}');">
-			                <div class="pricingTable blue blue1 ">
-			                    <div class="pricingTable-header blue2">
+			                <div class="pricingTable light  ">
+			                    <div class="pricingTable-header light1">
 			                      
-			                        <div class="price-value whitecolor "><li class="fa fa-inr"></li> <c:out value="${pack.price}"/> <span class="month whitecolor">Till Marriage</span> </div>
+			                        <div class="price-value  "><li class="fa fa-inr"></li> <c:out value="${pack.price}"/> <span class="month ">Till Marriage</span> </div>
 			                    </div>
 			                    <h3 class="heading"><c:out value="${pack.name}"/></h3>
 			                    <div class="pricing-content">

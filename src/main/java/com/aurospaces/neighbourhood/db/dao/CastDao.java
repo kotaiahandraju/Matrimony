@@ -9,7 +9,6 @@ import org.springframework.jdbc.core.simple.ParameterizedBeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.aurospaces.neighbourhood.bean.CastBean;
-import com.aurospaces.neighbourhood.bean.UsersBean;
 import com.aurospaces.neighbourhood.daosupport.CustomConnection;
 import com.aurospaces.neighbourhood.db.basedao.BaseCastDao;
 @Repository(value="CastDao")
@@ -19,7 +18,7 @@ public class CastDao extends BaseCastDao {
 	JdbcTemplate jdbcTemplate ; 
 	public List<CastBean> getAllCasts() {
 		jdbcTemplate = custom.getJdbcTemplate();
-		String sql = "SELECT * from cast where status= '1'  ";
+		String sql = "SELECT c.name,c.id,r.name as religionname ,c.religionId FROM cast c,religion r where c.religionId=r.id and c.status= '1'  ";
 		List<CastBean> retlist = jdbcTemplate.query(sql, new Object[] {  },
 				ParameterizedBeanPropertyRowMapper.newInstance(CastBean.class));
 		if (retlist.size() > 0)

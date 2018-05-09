@@ -32,6 +32,20 @@
 					<div class="portlet-content w3-animate-zoom">
 						<!-- Caste Form Starts Here-->
 						<form:form modelAttribute="casteForm" class="form-horizontal" role="form" id="cast-form" action="addCaste" method="post">
+						<div class="row">
+					  			<div class="col-md-12">
+									<div class="form-group">
+										<label class="col-sm-3 control-label required">Religion <span class="impColor">*</span></label>
+										<div class="col-sm-6">
+											<form:hidden path="id"/>
+											<form:select path="religionId" class="form-control validate" onfocus="removeBorder(this.id)"  >
+											    <form:option value="">-- Choose religion --</form:option>
+												<form:options items="${religion}"></form:options>
+											</form:select>
+										</div>
+								  	</div>
+						  		</div>
+						  	</div>
 							<div class="row">
 						  		<div class="col-md-12">
 									<div class="form-group">
@@ -71,8 +85,9 @@
 					<div class="box-content nopadding w3-animate-zoom" id="tableId">
 						<table class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,null">
 							<thead>
-							<tr>
-								<th>Name</th><th></th>
+							<tr><th>Religion</th>
+								<th>Cast</th>
+								<th></th>
 							</tr>
 							</thead>
 							<tbody></tbody>
@@ -94,7 +109,7 @@ if (listOrders1 != "") {
 function displayTable(listOrders) {
 	$('#tableId').html('');
 	var tableHead = '<table class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,null">'
-		+ '<thead><tr><th>Name</th><th style="text-align: center;"></th></tr></thead><tbody></tbody></table>';
+		+ '<thead><tr><th>Religion</th><th>Cast</th><th style="text-align: center;"></th></tr></thead><tbody></tbody></table>';
 	$('#tableId').html(tableHead);
 	serviceUnitArray = {};
 	$.each(listOrders,function(i, orderObj) {
@@ -105,6 +120,7 @@ function displayTable(listOrders) {
 		}
 		serviceUnitArray[orderObj.id] = orderObj;
 		var tblRow = "<tr >"
+			+ "<td title='"+orderObj.religionname+"'>" + orderObj.religionname + "</td>"
 			+ "<td title='"+orderObj.name+"'>" + orderObj.name + "</td>"
 			+ "<td style='text-align: center;'>" + edit + "&nbsp;|&nbsp;" + deleterow + "</td>" 
 			+ "</tr >";
@@ -170,6 +186,8 @@ function displayTable(listOrders) {
 function editCaste(id) {
 	$("#id").val(serviceUnitArray[id].id);
 	$("#name").val(serviceUnitArray[id].name);
+	$("#religionId").val(serviceUnitArray[id].religionId);
+	$("#religionId").trigger("chosen:updated");
 	$("#submit1").val("Update");
 	$(window).scrollTop($('body').offset().top);
 }
