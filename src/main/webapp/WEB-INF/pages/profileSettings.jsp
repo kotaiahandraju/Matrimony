@@ -206,8 +206,9 @@ color: #cfcfcf !important;
     <div class="form-group">
      <label class="col-sm-3 control-label">Enter New Password</label>
      <div class="col-sm-5">
-     <input class="form-control" type="password" id="newPassword1" placeholder="Enter New Password" onblur="this.placeholder='Enter New Password'" onfocus="this.placeholder=''" required="required" >
-    </div>
+     <input class="form-control" type="password" id="newPassword1" placeholder="Enter New Password" onchange="cheackOldAndNewPassword()" onblur="this.placeholder='Enter New Password'" onfocus="this.placeholder=''" required="required" >
+   </div>
+    <span class="col-sm-2" id="errMsg"></span> 
     </div>
      <div class="form-group">
      <label class="col-sm-3 control-label">Confirm New Password</label>
@@ -222,7 +223,7 @@ color: #cfcfcf !important;
 						<input  type="button" class="btn btn-primary btnre"  value="Submit" onclick="submitProfileSettings('change_password')" />
 						</div>
 						<div class="col-md-2 ">
-						<input  type="button" class="btn btn-danger btnre"  value="Reset" onclick="submitProfileSettings('change_password')" />
+						<input  type="button" class="btn btn-danger btnre"  value="Reset" onclick="resetProfileSettings()" />
 						</div>
 						</div>
 					</div></div></div></div></div>
@@ -1019,6 +1020,7 @@ function validate(id, errorMessage)
 	}
 	
 }
+
 function submitProfileSettings(actionStr){
 	var actionUrl = "";
 	var formData = new FormData();
@@ -1075,6 +1077,22 @@ function submitProfileSettings(actionStr){
 			
 	});
 }
+
+var oldPass= '${oldPassword}';
+ function cheackOldAndNewPassword(){
+	var newPassword = $("#newPassword1").val();
+	if(oldPass == newPassword){
+		alert("Password must differ from old password..");
+		 $("#newPassword1").val('').focus();
+		return false;
+	}
+} 
+ function resetProfileSettings(){
+	 $("#currentPassword").val('').css("border-color", "black");
+	 $("#newPassword1").val('').css("border-color", "black");
+	 $("#newPassword2").val('').css("border-color", "black");
+ }
+
 function changeProfileStatus(status){
 	var formData = new FormData();
 	formData.append("status",status);
