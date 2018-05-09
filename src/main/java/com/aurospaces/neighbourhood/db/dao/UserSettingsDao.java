@@ -1,5 +1,6 @@
 package com.aurospaces.neighbourhood.db.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import org.joda.time.DateTime;
@@ -105,5 +106,15 @@ public class UserSettingsDao{
 			return false;
 		}
 		return false;
+	}
+	public void insertSettings(){
+		jdbcTemplate = custom.getJdbcTemplate();
+		String qry = "select id from users";
+		List<Map<String,Object>> users = jdbcTemplate.queryForList(qry);
+		for(Map<String,Object> user:users){
+			String serrings_insert = "insert into user_settings(created_time,updated_time,user_id,product_promotion_emails,daily_matches_emails,weekly_matches_emails,auto_login,contact_filter,marketing_calls_permission) "
+					+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','"+new java.sql.Timestamp(new DateTime().getMillis())+"',"+user.get("id")+",'1','0','1','1','anyone','1m'  ) ";
+			jdbcTemplate.update(serrings_insert);
+		}
 	}
 }

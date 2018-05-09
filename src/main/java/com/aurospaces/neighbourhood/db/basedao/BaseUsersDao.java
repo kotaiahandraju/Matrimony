@@ -10,6 +10,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
+import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.joda.time.Period;
 import org.joda.time.PeriodType;
@@ -149,8 +150,9 @@ ps.setString(52, unique_code);
 					String sSql = "update users set username = concat('AM',(select city_code from city where id = "+users.getCurrentCity()+"),'"+MiscUtils.generateRandomNumber(6)+"') where id = "+users.getId();
 					int updated_count = jdbcTemplate.update(sSql);
 				}
-				
-
+				String settings_insert = "insert into user_settings(created_time,updated_time,user_id,product_promotion_emails,daily_matches_emails,weekly_matches_emails,auto_login,contact_filter,marketing_calls_permission) "
+						+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','"+new java.sql.Timestamp(new DateTime().getMillis())+"',"+users.getId()+",'1','0','1','1','anyone','1m'  ) "; 
+				jdbcTemplate.update(settings_insert);
 		}
 		else
 		{
