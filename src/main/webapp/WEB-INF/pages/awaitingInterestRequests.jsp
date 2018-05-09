@@ -479,53 +479,91 @@ function displayTableFooter(page){
 	}
 	$("#table_footer").html("Showing "+from_val+" to "+to_val+" of "+total_items_count+" records");
 }
-/* function paginationSetup(total_items_count) {
-	$('#altLists').asPaginator(total_items_count, {
-        currentPage: 1,
-        visibleNum: {
-          0: 5,
-          480: 3,
-          960: 5
-        },
-        tpl: function() {
-          return '<ul>{{first}}{{prev}}{{altLists}}{{next}}{{last}}</ul>';
-        },
-        components: {
-          first: true,
-          prev: true,
-          next: true,
-          last: true,
-          altLists: true
-        },
-        onChange: function(page) {
-           
-      	 var formData = new FormData();
-      	formData.append("page_no",page);
-      	formData.append("request_from","dashboard");
-  		$.fn.makeMultipartRequest('POST', 'displayPage', false,
-  				formData, false, 'text', function(data){
-  			var jsonobj = $.parseJSON(data);
-  			var results = jsonobj.results;
-  				if(results==""){
-	    			var str = '<div class="panel panel-default"><h6>No results found.</h6></div>';
-	    			$('#matches').html('');
-	    			$(str).appendTo("#matches");
-	    			$("#table_footer").prop("hidden",true);
-	    			$("#altLists").prop("hidden",true);
-	    		}else{
+var filter_requests_flag = false;
+function displayFilterRequestsBlock(){
+	var tabType = "", listType = "";
+	var active_tab_selector = $('section.active').attr('id');
+	var by_me = false, by_others = false;
+  	if(active_tab_selector.startsWith("pending_requests")){
+  		tabType = "inbox";
+  		listType = "pending_requests";
+  	}else if(active_tab_selector.startsWith("accepted_requests")){
+  		tabType = "inbox";
+  		listType = "accepted_requests";
+  		by_me = $("#by_me").prop("checked");
+  		by_others = $("#by_others").prop("checked");
+  	}else if(active_tab_selector.startsWith("rejected_requests")){
+  		tabType = "inbox";
+  		listType = "rejected_requests";
+  		by_me = $("#by_me").prop("checked");
+  		by_others = $("#by_others").prop("checked");
+  	}else if(active_tab_selector.startsWith("sent_requests")){
+  		tabType = "sent";
+  		listType = "sent_requests";
+  	}else if(active_tab_selector.startsWith("awaiting_requests")){
+  		tabType = "sent";
+  		listType = "awaiting_requests";
+  	}else if(active_tab_selector.startsWith("filtered_requests")){
+  		tabType = "filtered";
+  		listType = "filtered_requests";
+  	}
+
+  	var read = $("#read").prop("checked");
+  	var un_read = $("#un_read").prop("checked");
+  	
+  	var all = $("#all").prop("checked");
+  	var interests = $("#interests").prop("checked");
+  	var messages = $("#messages").prop("checked");
+  	var mobile_no_viewed = $("#mobile_no_viewed").prop("checked");
+
+	
+	var formData = new FormData();
+  	formData.append("tab_type",tabType);
+  	formData.append("list_type",listType);
+  	
+  	formData.append("by_me",by_me);
+  	formData.append("by_others",by_others);
+  	formData.append("read",read);
+  	formData.append("un_read",un_read);
+  	formData.append("all",all);
+  	formData.append("interests",interests);
+  	formData.append("messages",messages);
+  	formData.append("mobile_no_viewed",mobile_no_viewed);
+  	
+  	formData.append("filter_requests","true");
+  	
+		$.fn.makeMultipartRequest('POST', 'inboxAjaxAction', false,
+				formData, false, 'text', function(data){
+			var jsonobj = $.parseJSON(data);
+			var inboxRequests = jsonobj.inbox_requests;
+			var listType = jsonobj.listType;
+			var tabType = jsonobj.tabType;
+				total_items_count = jsonobj.total_records;
+				$("#"+listType).html('');
+				if(inboxRequests==""){
+					var tblRow = '<div class="alert alert-danger" style="margin-bottom: 0px;padding: 5px;"><h6>No requests found..!</h6></div>';
+					//var tblRow = "No data available";
+					$(tblRow).appendTo("#"+listType);
+					$("#table_footer").attr("hidden",true);
+	    			$("#altLists").attr("hidden",true);
+				}else{
+					filter_requests_flag = true;
+					$("#altLists").asPaginator('destroy');
 	    			paginationSetup(total_items_count);
-	    			displayMatches_myhome(results);
 	    			$("#altLists").asPaginator('enable');
+	    			displayMatches_inbox(inboxRequests,listType,tabType);
+	    			//$("#table_footer").removeAttr("hidden");
+	    			//$("#altLists").removeAttr("hidden");
+	    			$("#pagination_div").removeAttr("hidden");
 	    			$("#table_footer").removeAttr("hidden");
 	    			$("#altLists").removeAttr("hidden");
-	    			displayTableFooter(page);
-	    		}
-  			
-  		});
-          
-        }
-      });
-} */
+	    			displayTableFooter(1);
+				}
+				
+    		
+			
+		});
+}
 
 function paginationSetup(total_items_count) {
 	  $('#altLists').asPaginator(total_items_count, {
@@ -588,9 +626,36 @@ function paginationSetup(total_items_count) {
       	}else if(active_tab_selector.startsWith("awaiting_requests")){
       		tabType = "sent";
       		listType = "awaiting_requests";
+      	}else if(active_tab_selector.startsWith("filtered_requests")){
+      		tabType = "filtered";
+      		listType = "filtered_requests";
       	}
       	formData.append("tab_type",tabType);
       	formData.append("list_type",listType);
+      	
+      	formData.append("filter_requests_flag",filter_requests_flag);
+      	if(filter_requests_flag){
+      		var by_me = $("#by_me").prop("checked");
+      		var by_others = $("#by_others").prop("checked");
+      		var read = $("#read").prop("checked");
+      	  	var un_read = $("#un_read").prop("checked");
+      	  	
+      	  	var all = $("#all").prop("checked");
+      	  	var interests = $("#interests").prop("checked");
+      	  	var messages = $("#messages").prop("checked");
+      	  	var mobile_no_viewed = $("#mobile_no_viewed").prop("checked");
+      	  	
+      	  	formData.append("by_me",by_me);
+        	formData.append("by_others",by_others);
+        	formData.append("read",read);
+        	formData.append("un_read",un_read);
+        	formData.append("all",all);
+        	formData.append("interests",interests);
+        	formData.append("messages",messages);
+        	formData.append("mobile_no_viewed",mobile_no_viewed);
+      	}
+      	
+      	
   		$.fn.makeMultipartRequest('POST', 'displayPage', false,
   				formData, false, 'text', function(data){
   			var jsonobj = $.parseJSON(data);

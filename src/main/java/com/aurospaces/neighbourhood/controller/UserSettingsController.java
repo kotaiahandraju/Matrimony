@@ -197,4 +197,23 @@ public class UserSettingsController {
 		}
 		return jsOnObj.toString();
 	}
+	
+	@RequestMapping(value = "/insertUserSettings")
+	public  String insertUserSettings(Model objeModel ,
+			HttpServletRequest request, HttpSession session) {
+	   JSONObject jsOnObj = new JSONObject();
+	    
+		try {
+			
+			settingsDao.insertSettings();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			//logger.error(e);
+			//logger.fatal("error in CreateProfile class createProfile method  ");
+			jsOnObj.put("message", "failed");
+		}
+		return null;
+	}
 }

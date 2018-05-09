@@ -1765,6 +1765,9 @@ tooltip:hover:after {
 		}
 		
 		function displayBlock(tabType,listType){
+			
+			filter_requests_flag = false;
+			
 			$(".tabcontent").attr("hidden",true);
 			$("#"+tabType+"_div").removeAttr("hidden");
 			
