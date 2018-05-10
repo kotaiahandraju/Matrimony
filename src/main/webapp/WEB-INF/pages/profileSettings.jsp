@@ -108,7 +108,7 @@
 }
 }
 td:first-child {width:150px;}
-td:nth-child(2) { width:10px;}
+/* td:nth-child(2) { width:10px;} */
 			.nav-tabs > li > a:hover {
 			  border-color: #eeeeee #eeeeee #dddddd;
 			}
@@ -192,21 +192,22 @@ color: #cfcfcf !important;
 					</div> -->
 					
 	<div class="form-group">
-     <label class="col-sm-3 control-label">Enter Current Password</label>
+     <label class="col-sm-3 control-label">Current Password</label>
      <div class="col-sm-5">
-     <input class="form-control" type="password" id="currentPassword" placeholder="Enter Current Password" onblur="this.placeholder='Enter Current Password'" onfocus="this.placeholder=''" required="required" >
+     <input class="form-control" type="password" id="currentPassword" placeholder="Current Password" onkeypress="onKeyPress(this.id);" onblur="this.placeholder='Current Password'" onfocus="this.placeholder=''" required="required" >
     </div>
     </div>
     <div class="form-group">
-     <label class="col-sm-3 control-label">Enter New Password</label>
+     <label class="col-sm-3 control-label">New Password</label>
      <div class="col-sm-5">
-     <input class="form-control" type="password" id="newPassword1" placeholder="Enter New Password" onblur="this.placeholder='Enter New Password'" onfocus="this.placeholder=''" required="required" >
-    </div>
+     <input class="form-control" type="password" id="newPassword1" placeholder="New Password"  onkeypress="onKeyPress(this.id);" onchange="cheackOldAndNewPassword();" onblur="this.placeholder='New Password'" onfocus="this.placeholder=''" required="required" >
+   </div>
+    <span class="col-sm-2" id="errMsg"></span> 
     </div>
      <div class="form-group">
      <label class="col-sm-3 control-label">Confirm New Password</label>
      <div class="col-sm-5">
-     <input class="form-control" type="password" id="newPassword2" placeholder="Confirm New Password" onblur="this.placeholder='Confirm New Password'" onfocus="this.placeholder=''" required="required" >
+     <input class="form-control" type="password" id="newPassword2" placeholder="Confirm New Password"  onkeypress="onKeyPress(this.id);" onblur="this.placeholder='Confirm New Password'" onfocus="this.placeholder=''" required="required" >
     </div>
     </div>
 					<br>
@@ -216,7 +217,7 @@ color: #cfcfcf !important;
 						<input  type="button" class="btn btn-primary btnre"  value="Submit" onclick="submitProfileSettings('change_password')" />
 						</div>
 						<div class="col-md-2 ">
-						<input  type="button" class="btn btn-danger btnre"  value="Reset" onclick="submitProfileSettings('change_password')" />
+						<input  type="button" class="btn btn-danger btnre"  value="Reset" onclick="resetProfileSettings()" />
 						</div>
 						</div>
 					</div></div></div></div></div>
@@ -699,8 +700,8 @@ Auto-login saves you the process of logging into your account with your e-mail I
 							
 							<hr>
 							<table>
-							<tr><td>Whom to contact</td><td>:</td><td>Not Specified</td></tr>
-<tr><td>Contact person's name</td><td>:</td><td>Not Specified</td></tr>
+							<tr><td>Whom to contact</td><td>: </td><td> Not Specified</td></tr>
+<tr><td>Contact person's name</td><td>:</td><td> Not Specified</td></tr>
 <tr><td>Convenient time to call</td><td>:</td><td>Not Specified</td></tr>
 <tr><td>Comments</td><td>:</td><td>Not Specified</td></tr>
 			</table>
@@ -1085,6 +1086,7 @@ function validate(id, errorMessage)
 	}
 	
 }
+
 function submitProfileSettings(actionStr){
 	var actionUrl = "";
 	var formData = new FormData();
@@ -1092,9 +1094,9 @@ function submitProfileSettings(actionStr){
 		var currentPassword = $("#currentPassword").val().trim();
 		var newPassword = $("#newPassword1").val().trim();
 		var confirmedNewPassword = $("#newPassword2").val().trim();
-		var v1 = validate('currentPassword','Enter Current Password');
-		var v2 = validate('newPassword1','Enter New Password');
-		var v3 = validate('newPassword2','Enter Confirm New Password');
+		var v1 = validate('currentPassword','Current Password');
+		var v2 = validate('newPassword1','New Password');
+		var v3 = validate('newPassword2','Confirm New Password');
 		if(v1==false || v2==false || v3==false){
 			return false;
 		}
@@ -1140,6 +1142,28 @@ function submitProfileSettings(actionStr){
 			//displaySettingsBlock(actionStr); // actionStr and divid are same value.
 			
 	});
+}
+
+var oldPass= '${oldPassword}';
+ function cheackOldAndNewPassword(){
+	var newPassword = $("#newPassword1").val();
+	if(oldPass == newPassword){
+		alert("Password must differ from old password..");
+		 $("#newPassword1").val('').focus();
+		return false;
+	}
+} 
+ function resetProfileSettings(){
+	 $("#currentPassword").val('').css("border-color", "").css("color","black");
+	 $("#newPassword1").val('').css("border-color", "").css("color","black");
+	 $("#newPassword2").val('').css("border-color", "").css("color","black");
+ }
+function onKeyPress(id){
+	
+	 $("#currentPassword").css("border-color", "").css("color","black");
+	 $("#newPassword1").css("border-color", "").css("color","black");
+	 $("#newPassword2").css("border-color", "").css("color","black");
+	
 }
 function changeProfileStatus(status){
 	var formData = new FormData();

@@ -4293,7 +4293,11 @@ public class HomePageController {
 			HttpServletRequest request, HttpSession session) {
 
 		try {
+			UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
+			UsersBean currentUserBean = objUsersDao.getUser(sessionBean.getUsername());
+			String currentPassword = currentUserBean.getPassword();
 			
+			request.setAttribute("oldPassword", currentPassword);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
