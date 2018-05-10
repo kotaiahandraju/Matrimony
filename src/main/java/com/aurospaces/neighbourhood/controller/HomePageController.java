@@ -4132,6 +4132,8 @@ public class HomePageController {
 						requests = objUsersDao.getRejectedRequests(sessionBean.getId()+"",0);
 					}
 					
+				}else if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("filtered_requests")){
+					requests = objUsersDao.getFilteredRequests(sessionBean.getId()+"",0);
 				}else if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("accepted_me_requests")){
 					requests = objUsersDao.getRequestsAcceptedMe(sessionBean.getId()+"",0);
 				}else if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("rejected_me_requests")){

@@ -138,13 +138,13 @@ public class LoginController {
 		//update login time
 		objUsersDao.updateLoginTime(objUserBean,"1");
 		
+			Map<String,Object> user_settings = settingsDao.getUserSettings(objUserBean.getId()+"");
+			session.setAttribute("user_settings", user_settings);
 			Map<String,Object> interestCounts = objUsersDao.getInterestCounts(objUserBean);
 			long notificationsCount = (Long)interestCounts.get("notificationsCount");
 			// get the logged in users's photos
 			List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos(objUserBean.getId());
 			session.setAttribute("logged_in_user_photosList", photosList);
-			Map<String,Object> user_settings = settingsDao.getUserSettings(objUserBean.getId()+"");
-			session.setAttribute("user_settings", user_settings);
 			if(objUserBean.getStatus().equals("1")){
 				session.setAttribute("notificationsCount", notificationsCount);
 				List<Map<String,Object>> notificationsList = objUsersDao.getNotifications(objUserBean,false);
