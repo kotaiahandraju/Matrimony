@@ -1,30 +1,24 @@
 <%@ include file="userCommonHeader.jsp"%>
  	
 		<script>
-			/* $(document).ready(function() {
-				$('.nav-tabs > li > a').click(function(event){
-					event.preventDefault();//stop browser to take action for clicked anchor
-					
-					//get displaying tab content jQuery selector
-					var active_tab_selector = $('.nav-tabs > li.active > a').attr('href');					
-					
-					//find actived navigation and remove 'active' css
-					var actived_nav = $('.nav-tabs > li.active');
-					actived_nav.removeClass('active');
-					
-					//add 'active' css into clicked navigation
-					$(this).parents('li').addClass('active');
-					
-					//hide displaying tab content
-					$(active_tab_selector).removeClass('active');
-					$(active_tab_selector).addClass('hide');
-					
-					//show target tab content
-					var target_tab_selector = $(this).attr('href');
-					$(target_tab_selector).removeClass('hide');
-					$(target_tab_selector).addClass('active');
+			 $(document).ready(function() {
+				$('.multiSelect').select2();
+				$("#rMaritalStatus").select2({
+				    placeholder: "-- Choose Marital Status --"
 				});
-			}); */
+				$("#rReligion").select2({
+				    placeholder: "-- Choose Religion --"
+				});
+			    $("#rCaste").select2({
+				    placeholder: "-- Choose Community --"
+				});
+				$("#rMotherTongue").select2({
+				    placeholder: "-- Choose Mother Tongue --"
+				});
+				$("#rCountry").select2({
+				    placeholder: "-- Choose Country --",
+				});
+			}); 
 		</script>
 		<style>
 			/** Start: to style navigation tab **/
@@ -198,21 +192,22 @@ color: #cfcfcf !important;
 					</div> -->
 					
 	<div class="form-group">
-     <label class="col-sm-3 control-label">Enter Current Password</label>
+     <label class="col-sm-3 control-label">Current Password</label>
      <div class="col-sm-5">
-     <input class="form-control" type="password" id="currentPassword" placeholder="Enter Current Password" onblur="this.placeholder='Enter Current Password'" onfocus="this.placeholder=''" required="required" >
+     <input class="form-control" type="password" id="currentPassword" placeholder="Current Password" onkeypress="onKeyPress(this.id);" onblur="this.placeholder='Current Password'" onfocus="this.placeholder=''" required="required" >
     </div>
     </div>
     <div class="form-group">
-     <label class="col-sm-3 control-label">Enter New Password</label>
+     <label class="col-sm-3 control-label">New Password</label>
      <div class="col-sm-5">
-     <input class="form-control" type="password" id="newPassword1" placeholder="Enter New Password" onblur="this.placeholder='Enter New Password'" onfocus="this.placeholder=''" required="required" >
-    </div>
+     <input class="form-control" type="password" id="newPassword1" placeholder="New Password"  onkeypress="onKeyPress(this.id);" onchange="cheackOldAndNewPassword();" onblur="this.placeholder='New Password'" onfocus="this.placeholder=''" required="required" >
+   </div>
+    <span class="col-sm-2" id="errMsg"></span> 
     </div>
      <div class="form-group">
      <label class="col-sm-3 control-label">Confirm New Password</label>
      <div class="col-sm-5">
-     <input class="form-control" type="password" id="newPassword2" placeholder="Confirm New Password" onblur="this.placeholder='Confirm New Password'" onfocus="this.placeholder=''" required="required" >
+     <input class="form-control" type="password" id="newPassword2" placeholder="Confirm New Password"  onkeypress="onKeyPress(this.id);" onblur="this.placeholder='Confirm New Password'" onfocus="this.placeholder=''" required="required" >
     </div>
     </div>
 					<br>
@@ -222,7 +217,7 @@ color: #cfcfcf !important;
 						<input  type="button" class="btn btn-primary btnre"  value="Submit" onclick="submitProfileSettings('change_password')" />
 						</div>
 						<div class="col-md-2 ">
-						<input  type="button" class="btn btn-danger btnre"  value="Reset" onclick="submitProfileSettings('change_password')" />
+						<input  type="button" class="btn btn-danger btnre"  value="Reset" onclick="resetProfileSettings()" />
 						</div>
 						</div>
 					</div></div></div></div></div>
@@ -481,12 +476,14 @@ Auto-login saves you the process of logging into your account with your e-mail I
 <hr>
 <p><b>Filter</b></p>
 <p>Select your preferences and click Update.</p>
+					<form:form commandName="settingsForm"  class="form-horizontal" id="searchForm2" name="searchForm2" role="form" method="post">
+						<form:hidden path="id" />
 <div class="form-group">
 									<label class="col-md-1 control-label" for="textinput">Age</label>  
 									<div class="col-md-2">
 										<%-- <form:input path="rAgeFrom" class="form-control  numericOnly u1" placeholder="From" /> --%>
 										
-								<select id="rAgeFrom" name="rAgeFrom" class="form-control numericOnly u1" >
+								<select id="rAgeFrom" name="age_from" class="form-control numericOnly u1" >
 									<option value="">--From--</option>
 									<option value="18">18</option>
 									<option value="19">19</option>
@@ -528,7 +525,7 @@ Auto-login saves you the process of logging into your account with your e-mail I
 									<div class="col-md-2">
 <%-- 										<form:input path="rAgeTo" class="form-control numericOnly u1" placeholder="To" />
  --%>	
- 									<select id="rAgeTo" name="rAgeTo" class="form-control numericOnly u1">
+ 									<select id="rAgeTo" name="age_to" class="form-control numericOnly u1">
 									<option value="" selected="">--To--</option>
 									<option value="19">19</option>
 									<option value="20">20</option>
@@ -568,53 +565,55 @@ Auto-login saves you the process of logging into your account with your e-mail I
  								<label class="col-md-1 control-label" for="textinput">Years</label>  
  							
 								</div>
-								<p>Martial Status</p>
-								
-								<label class="checkbox-inline"><input type="checkbox" value="">Awaiting divorce</label>
-<label class="checkbox-inline"><input type="checkbox" value="">Divorced</label>
-<label class="checkbox-inline"><input type="checkbox" value="">Never Married</label>
-<label class="checkbox-inline"><input type="checkbox" value="">Widowed</label>
-						<div class="form-group">
-									      <label class="col-md-3 control-label" for="textinput">Religion</label>  
+									<div class="form-group prfic">
+									      <label class="col-md-4 control-label" for="textinput">Marital Status</label>  
 									      <div class="col-md-6">
-									      	<div class="select2-container select2-container-multi multiSelect" id="s2id_rReligion"><ul class="select2-choices">  <li class="select2-search-field">    <label for="s2id_autogen1" class="select2-offscreen"></label>    <input type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="select2-input select2-default" id="s2id_autogen1" style="width: 180px;" placeholder="">  </li></ul><div class="select2-drop select2-drop-multi select2-display-none select2-drop-active">   <ul class="select2-results">   <li class="select2-no-results">No matches found</li></ul></div></div><select id="rReligion" name="rReligion" class="multiSelect select2-offscreen" onchange="getReliginCastAjax()" multiple="multiple" tabindex="-1">
-												<option value="0">-- Choose Religion --</option>
-												<option value="3">Christian</option><option value="1">Hindu</option><option value="6">Islam</option><option value="4">Jain</option><option value="2">Muslim</option><option value="5">Sikh</option>
-											</select><input type="hidden" name="_rReligion" value="1">
+									      	<form:select path="rMaritalStatus" class="multiSelect" onchange="hideChildren();" multiple="true" >
+												<form:option value="">Doesn't Matter</form:option>
+												<form:option value="Married">Married</form:option>
+												<form:option value="Unmarried">Unmarried</form:option>
+												<form:option value="Widow/Divorced">Widow/Divorced</form:option>
+											</form:select>
 									      </div>
 									    </div>
+									      <div class="form-group">
+										      <label class="col-md-4 control-label" for="textinput">Religion</label>  
+										      <div class="col-md-6">
+										      	<form:select path="rReligion" onchange="getReliginCastAjax()" class="multiSelect" multiple="true">
+													<form:options items="${religion}"></form:options>
+												</form:select>
+										      </div>
+										    </div>
 									    <div class="form-group">
-									      <label class="col-md-3 control-label" for="textinput">Caste</label>  
+									      <label class="col-md-4 control-label" for="textinput">Community</label>  
 									      <div class="col-md-6">
-									      	<div class="select2-container select2-container-multi multiSelect" id="s2id_rCaste"><ul class="select2-choices">  <li class="select2-search-field">    <label for="s2id_autogen3" class="select2-offscreen"></label>    <input type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="select2-input select2-default" id="s2id_autogen3" style="width: 180px;" placeholder="">  </li></ul><div class="select2-drop select2-drop-multi select2-display-none">   <ul class="select2-results">   <li class="select2-no-results">No matches found</li></ul></div></div><select id="rCaste" name="rCaste" class="multiSelect select2-offscreen" multiple="multiple" tabindex="-1">
-												<option value="">-- Choose Community --</option>
-											
-											</select><input type="hidden" name="_rCaste" value="1">
+									      	<form:select path="rCaste" class="multiSelect" multiple="true">
+											<%-- 	<form:options items="${cast}"></form:options> --%>
+											</form:select>
+									      </div>
+									    </div>
+									
+									    <div class="form-group">
+									      <label class="col-md-4 control-label" for="textinput">Mother Tongue</label>  
+									      <div class="col-md-6">
+									      	<form:select path="rMotherTongue" class="multiSelect" multiple="true">
+												<form:options items="${language}"></form:options>
+											</form:select>
 									      </div>
 									    </div>
 									    
 									    <div class="form-group">
-									      <label class="col-md-3 control-label" for="textinput">Mother Tongue</label>  
-									      <div class="col-md-6">
-									      	<div class="select2-container select2-container-multi multiSelect" id="s2id_rMotherTongue"><ul class="select2-choices">  <li class="select2-search-field">    <label for="s2id_autogen4" class="select2-offscreen"></label>    <input type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="select2-input select2-default" id="s2id_autogen4" style="width: 180px;" placeholder="">  </li></ul><div class="select2-drop select2-drop-multi select2-display-none">   <ul class="select2-results">   <li class="select2-no-results">No matches found</li></ul></div></div><select id="rMotherTongue" name="rMotherTongue" class="multiSelect select2-offscreen" multiple="multiple" tabindex="-1">
-												<option value="">-- Choose Mother Tongue --</option>
-												<option value="14">Assamese/Asomiya</option><option value="8">Bengali</option><option value="16">Bodo</option><option value="17">Dogri</option><option value="6">English</option><option value="11">Gujarati</option><option value="2">Hindi</option><option value="4">Kannada</option><option value="18">Kashmiri</option><option value="19">Konkani</option><option value="15">Maithili</option><option value="5">Malayalam</option><option value="20">Manipuri</option><option value="9">Marathi</option><option value="21">Nepali</option><option value="12">Oriya</option><option value="13">Punjabi</option><option value="23">Santhali</option><option value="22">Sindhi</option><option value="3">Tamil</option><option value="1">Telugu</option><option value="10">Urdu</option>
-											</select><input type="hidden" name="_rMotherTongue" value="1">
-									      </div>
-									    </div>
-									    <div class="form-group">
-											<label class="col-md-3 control-label required">Country  </label>
+											<label class="col-md-4 control-label required">Country living in </label>
 											<div class="col-md-6">
-												<div class="select2-container select2-container-multi multiSelect" id="s2id_rCountry"><ul class="select2-choices">  <li class="select2-search-field">    <label for="s2id_autogen5" class="select2-offscreen"></label>    <input type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="select2-input select2-default" id="s2id_autogen5" style="width: 180px;" placeholder="">  </li></ul><div class="select2-drop select2-drop-multi select2-display-none">   <ul class="select2-results">   <li class="select2-no-results">No matches found</li></ul></div></div><select id="rCountry" name="rCountry" class="multiSelect select2-offscreen" onchange="getFilteredStatesMultiSelect(this.id)" multiple="multiple" tabindex="-1">
-													<option value="">-- Choose Country --</option>
-													<option value="10">Africa</option><option value="3">Australia</option><option value="8">canada</option><option value="1">India</option><option value="9">Netherland</option><option value="11">Scotland</option><option value="5">Singapore</option><option value="7">Soudi Arabia</option><option value="6">Sweeden</option><option value="12">switzerland</option><option value="4">UK</option><option value="2">USA</option>
-												</select><input type="hidden" name="_rCountry" value="1">
-										  		<div></div>
+												<form:select path="rCountry" class="multiSelect"  multiple="true" onchange="getFilteredStatesMultiSelect(this.id)">
+													<form:options items="${countries}"></form:options>
+												</form:select>
+										  		<div><form:errors path="rCountry" cssClass="error" /></div>
 											</div>
 									  	</div>
-								</div>
 
 <div align="right"><button class="btn btn-warning" onclick="submitContactFilterSettings()"> Update </button></div>
+</form:form>
 					</div></div></div></div>
 					</div>
 	<div id="unsubscribe_callinglist" class="all_settings_divs" hidden="true">
@@ -1019,6 +1018,7 @@ function validate(id, errorMessage)
 	}
 	
 }
+
 function submitProfileSettings(actionStr){
 	var actionUrl = "";
 	var formData = new FormData();
@@ -1026,9 +1026,9 @@ function submitProfileSettings(actionStr){
 		var currentPassword = $("#currentPassword").val().trim();
 		var newPassword = $("#newPassword1").val().trim();
 		var confirmedNewPassword = $("#newPassword2").val().trim();
-		var v1 = validate('currentPassword','Enter Current Password');
-		var v2 = validate('newPassword1','Enter New Password');
-		var v3 = validate('newPassword2','Enter Confirm New Password');
+		var v1 = validate('currentPassword','Current Password');
+		var v2 = validate('newPassword1','New Password');
+		var v3 = validate('newPassword2','Confirm New Password');
 		if(v1==false || v2==false || v3==false){
 			return false;
 		}
@@ -1074,6 +1074,28 @@ function submitProfileSettings(actionStr){
 			//displaySettingsBlock(actionStr); // actionStr and divid are same value.
 			
 	});
+}
+
+var oldPass= '${oldPassword}';
+ function cheackOldAndNewPassword(){
+	var newPassword = $("#newPassword1").val();
+	if(oldPass == newPassword){
+		alert("Password must differ from old password..");
+		 $("#newPassword1").val('').focus();
+		return false;
+	}
+} 
+ function resetProfileSettings(){
+	 $("#currentPassword").val('').css("border-color", "").css("color","black");
+	 $("#newPassword1").val('').css("border-color", "").css("color","black");
+	 $("#newPassword2").val('').css("border-color", "").css("color","black");
+ }
+function onKeyPress(id){
+	
+	 $("#currentPassword").css("border-color", "").css("color","black");
+	 $("#newPassword1").css("border-color", "").css("color","black");
+	 $("#newPassword2").css("border-color", "").css("color","black");
+	
 }
 function changeProfileStatus(status){
 	var formData = new FormData();
@@ -1123,11 +1145,11 @@ function submitContactFilterSettings(){
 		//get other field values
 		formData.append("age_from",$("#age_from").val());
 		formData.append("age_to",$("#age_to").val());
-		formData.append("marital_status",$("#marital_status").val());
-		formData.append("religion",$("#religion").val());
-		formData.append("caste",$("#caste").val());
-		formData.append("mothertongue",$("#mothertongue").val());
-		formData.append("country",$("#country").val());
+		formData.append("marital_status",$("#rMaritalStatus").val());
+		formData.append("religion",$("#rReligion").val());
+		formData.append("caste",$("#rCaste").val());
+		formData.append("mothertongue",$("#rMotherTongue").val());
+		formData.append("country",$("#rCountry").val());
 	}
 	
 	$.fn.makeMultipartRequest('POST', 'saveContactFilterSettings', false,
@@ -1156,6 +1178,25 @@ function submitUnsubscribeFromCallingList(){
 		}else{
 			alert("Some problem occured!! Please try again.");
 		}
+	});
+}
+function getReliginCastAjax() {
+	var religionId = $("#rReligion").val();
+		var formData = new FormData();
+		formData.append("religionId",religionId);
+	$.fn.makeMultipartRequest('POST', 'castesBasedOnReligion', false,
+			formData, false, 'text', function(data){
+		$("#rCaste").select2('val','');
+		var jsonobj = $.parseJSON(data);
+		var alldata = jsonobj.allOrders1;
+		var optionsForClass = "";
+		optionsForClass = $("#rCaste").empty();
+		$.each(alldata, function(i, tests) {
+			var id=tests.id;
+			var casteName=tests.name;
+			optionsForClass.append(new Option(casteName, id));
+		});
+		
 	});
 }
 
