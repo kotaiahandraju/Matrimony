@@ -20,6 +20,7 @@ color:#fff;
 border-bottom-left-radius: 33px;
     border-bottom-right-radius: 33px;
 }
+
 </style>
 
 		<style>
@@ -154,6 +155,14 @@ border-bottom-left-radius: 33px;
     width: 16.66666667% !important;
     padding-right:0px !important;
 }
+.prightc {
+margin:117px 0px 0px 13px !important;
+color:green;
+}
+.pleftc {
+margin:117px 98px 0px 0px !important;
+color:green;
+}
 
 }
  .modal-backdrop {
@@ -173,6 +182,32 @@ border-bottom-left-radius: 33px;
 {
 background: none !important;
 }
+
+/* add pendingrequest new */
+.pendingre {
+padding:20px;
+border:1px solid #dedede;
+}
+.pleftc {
+margin:51px 98px 0px 0px;
+color:green;
+}
+.prightc {
+margin:51px 0px 0px 98px;
+color:green;
+}
+.bgc {
+background:none !important;
+}
+.neewpendingr {
+padding-left:0px;
+padding-right:0px;
+}
+.pendingre p{
+font-size:13px;
+color:#000;
+}
+/* add pendingrequest new */
 </style>	
 
 
@@ -183,6 +218,68 @@ background: none !important;
 
 
 			<div class="col-md-9 products-grid-left">
+			<div class="col-md-12 neewpendingr">
+			<div id="myCarousel" data-interval="false" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+   <!--  <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+      <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+ -->
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner pendingre">
+      <div class="item active">
+        <div class="col-md-2">
+        <img class="thumbnail img-responsive" src="img/1050587.png"/>
+        </div>
+         <div class="col-md-8">
+      <p><b>Jangili mownika</b>, 23 Yrs, 5 Ft 2 In<br>
+Yadav, India<br>
+She could be a good match. Do you like her profile</p>
+       </div>
+       <div class="col-md-2"><span><i class="fa fa-check-circle" style="font-size:25px;color:green"></i> &nbsp; <i class="fa fa-times-circle-o" aria-hidden="true"  style="font-size:25px;color:red"></i>
+       </span></div></div>
+
+      <div class="item">
+        <div class="col-md-2">
+        <img class="thumbnail img-responsive" src="img/10323.png"/>
+        </div>
+         <div class="col-md-8">
+      <p><b>Jangili mownika</b>, 23 Yrs, 5 Ft 2 In<br>
+Yadav, India<br>
+She could be a good match. Do you like her profile</p>
+       </div>
+       <div class="col-md-2"><span><i class="fa fa-check-circle" style="font-size:25px;color:green"></i> &nbsp; <i class="fa fa-times-circle-o" aria-hidden="true"  style="font-size:25px;color:red"></i>
+       </span></div>
+      </div>
+    
+      <div class="item">
+       <div class="col-md-2">
+        <img class="thumbnail img-responsive" src="img/101727.png"/>
+        </div>
+         <div class="col-md-8">
+      <p><b>Jangili mownika</b>, 23 Yrs, 5 Ft 2 In<br>
+Yadav, India<br>
+She could be a good match. Do you like her profile</p>
+       </div>
+       <div class="col-md-2"><span><i class="fa fa-check-circle" style="font-size:25px;color:green"></i> &nbsp; <i class="fa fa-times-circle-o" aria-hidden="true"  style="font-size:25px;color:red"></i>
+       </span></div>
+      </div>
+    </div>
+
+    <!-- Left and right controls -->
+    <a class="left carousel-control bgc" href="#myCarousel" data-slide="prev">
+      <span class="fa fa-chevron-left pleftc" > </span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control bgc" href="#myCarousel" data-slide="next">
+      <span class="fa fa-chevron-right prightc" ></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+
+</div><div class="clearfix"></div><br>
 				<div class="panel panel-default">
 					<div class="panel-body">
 						<c:if test="${profile_filled_status != '100'}">
@@ -918,6 +1015,7 @@ $(function(){
   		});
 	}
 
-});</script>
+}); 
+</script>
 
 <%@ include file="userFooter.jsp"%>

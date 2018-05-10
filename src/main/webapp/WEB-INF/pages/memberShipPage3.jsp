@@ -264,8 +264,8 @@ color:#fff !important;
 color: white !important
 }
 .light1 {
-    transform: scale(1.05) !important;
-    z-index: 1 !important;
+    transform: scale(1.05) ;
+    z-index: 1 ;
 }
 .light2 {
 background:#006699 !important;
@@ -345,8 +345,8 @@ border:none;}
 					</c:if>
 					<c:if test="${packName == 'Aarna Family' }">
 						<div class="col-md-2 col-sm-2 prit" onclick="displayDetails('infoDiv${pack.id}');">
-			                <div class="pricingTable light">
-			                    <div class="pricingTable-header light1">
+			                <div class="pricingTable light light1 ">
+			                    <div class="pricingTable-header light2">
 			                      
 			                        <div class="price-value  "><li class="fa fa-inr"></li> <c:out value="${pack.price}"/> <span class="month ">Till Marriage</span> </div>
 			                    </div>
