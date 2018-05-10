@@ -2246,12 +2246,34 @@ public class HomePageController {
 	}
    
    /*****     back-end jobs    start       ********/
-   @RequestMapping(value="/emailProfilesList")
-   public String sendProfilesListEmail(HttpSession session,HttpServletRequest request){
+   @RequestMapping(value="/weeklyMatchEmails")
+   public String weeklyMatchEmails(HttpSession session,HttpServletRequest request){
 	   /*UsersBean userSessionBean = (UsersBean) session.getAttribute("cacheGuest");
 	   if(userSessionBean==null)
 		   return "redirect:HomePage";*/
-	   List<Map<String,Object>> activeProfilesList = objUsersDao.getAllActiveUsers();
+	   List<Map<String,Object>> activeProfilesList = objUsersDao.getAllSubscribedUsersForWeeklyMatchEmails();
+	   for(Map<String,Object> profile:activeProfilesList){
+		   UsersBean receiverBean = new UsersBean();
+		   receiverBean.setId((Integer)profile.get("id"));
+		   receiverBean.setUsername((String)profile.get("username"));
+		   receiverBean.setUnique_code((String)profile.get("unique_code"));
+		   Object emailId = profile.get("email");
+		   receiverBean.setEmail((String)emailId);
+		   List<Map<String,String>> preferredProfiles = objUsersDao.getProfilesFilteredByPreferences(profile);
+		   try{
+			   EmailUtil.sendProfilesListEmail(receiverBean,preferredProfiles, "profiles_list_email",objContext,request);
+		   }catch(Exception e){
+			   e.printStackTrace();
+		   }
+		   
+	   }
+	   
+	   return "";
+   }
+   
+   @RequestMapping(value="/dailyMatchEmails")
+   public String dailyMatchEmails(HttpSession session,HttpServletRequest request){
+	   List<Map<String,Object>> activeProfilesList = objUsersDao.getAllSubscribedUsersForDailyMatchEmails();
 	   for(Map<String,Object> profile:activeProfilesList){
 		   UsersBean receiverBean = new UsersBean();
 		   receiverBean.setId((Integer)profile.get("id"));

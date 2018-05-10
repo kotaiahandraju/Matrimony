@@ -198,22 +198,22 @@ color: #cfcfcf !important;
 					</div> -->
 					
 	<div class="form-group">
-     <label class="col-sm-3 control-label">Enter Current Password</label>
+     <label class="col-sm-3 control-label">Current Password</label>
      <div class="col-sm-5">
-     <input class="form-control" type="password" id="currentPassword" placeholder="Enter Current Password" onblur="this.placeholder='Enter Current Password'" onfocus="this.placeholder=''" required="required" >
+     <input class="form-control" type="password" id="currentPassword" placeholder="Current Password" onkeypress="onKeyPress(this.id);" onblur="this.placeholder='Current Password'" onfocus="this.placeholder=''" required="required" >
     </div>
     </div>
     <div class="form-group">
-     <label class="col-sm-3 control-label">Enter New Password</label>
+     <label class="col-sm-3 control-label">New Password</label>
      <div class="col-sm-5">
-     <input class="form-control" type="password" id="newPassword1" placeholder="Enter New Password" onchange="cheackOldAndNewPassword()" onblur="this.placeholder='Enter New Password'" onfocus="this.placeholder=''" required="required" >
+     <input class="form-control" type="password" id="newPassword1" placeholder="New Password"  onkeypress="onKeyPress(this.id);" onchange="cheackOldAndNewPassword();" onblur="this.placeholder='New Password'" onfocus="this.placeholder=''" required="required" >
    </div>
     <span class="col-sm-2" id="errMsg"></span> 
     </div>
      <div class="form-group">
      <label class="col-sm-3 control-label">Confirm New Password</label>
      <div class="col-sm-5">
-     <input class="form-control" type="password" id="newPassword2" placeholder="Confirm New Password" onblur="this.placeholder='Confirm New Password'" onfocus="this.placeholder=''" required="required" >
+     <input class="form-control" type="password" id="newPassword2" placeholder="Confirm New Password"  onkeypress="onKeyPress(this.id);" onblur="this.placeholder='Confirm New Password'" onfocus="this.placeholder=''" required="required" >
     </div>
     </div>
 					<br>
@@ -1028,9 +1028,9 @@ function submitProfileSettings(actionStr){
 		var currentPassword = $("#currentPassword").val().trim();
 		var newPassword = $("#newPassword1").val().trim();
 		var confirmedNewPassword = $("#newPassword2").val().trim();
-		var v1 = validate('currentPassword','Enter Current Password');
-		var v2 = validate('newPassword1','Enter New Password');
-		var v3 = validate('newPassword2','Enter Confirm New Password');
+		var v1 = validate('currentPassword','Current Password');
+		var v2 = validate('newPassword1','New Password');
+		var v3 = validate('newPassword2','Confirm New Password');
 		if(v1==false || v2==false || v3==false){
 			return false;
 		}
@@ -1088,11 +1088,17 @@ var oldPass= '${oldPassword}';
 	}
 } 
  function resetProfileSettings(){
-	 $("#currentPassword").val('').css("border-color", "black");
-	 $("#newPassword1").val('').css("border-color", "black");
-	 $("#newPassword2").val('').css("border-color", "black");
+	 $("#currentPassword").val('').css("border-color", "").css("color","black");
+	 $("#newPassword1").val('').css("border-color", "").css("color","black");
+	 $("#newPassword2").val('').css("border-color", "").css("color","black");
  }
-
+function onKeyPress(id){
+	
+	 $("#currentPassword").css("border-color", "").css("color","black");
+	 $("#newPassword1").css("border-color", "").css("color","black");
+	 $("#newPassword2").css("border-color", "").css("color","black");
+	
+}
 function changeProfileStatus(status){
 	var formData = new FormData();
 	formData.append("status",status);
