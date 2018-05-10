@@ -114,7 +114,7 @@
 }
 }
 td:first-child {width:150px;}
-td:nth-child(2) { width:10px;}
+/* td:nth-child(2) { width:10px;} */
 			.nav-tabs > li > a:hover {
 			  border-color: #eeeeee #eeeeee #dddddd;
 			}
@@ -701,8 +701,8 @@ Auto-login saves you the process of logging into your account with your e-mail I
 							
 							<hr>
 							<table>
-							<tr><td>Whom to contact</td><td>:</td><td>Not Specified</td></tr>
-<tr><td>Contact person's name</td><td>:</td><td>Not Specified</td></tr>
+							<tr><td>Whom to contact</td><td>: </td><td> Not Specified</td></tr>
+<tr><td>Contact person's name</td><td>:</td><td> Not Specified</td></tr>
 <tr><td>Convenient time to call</td><td>:</td><td>Not Specified</td></tr>
 <tr><td>Comments</td><td>:</td><td>Not Specified</td></tr>
 			</table>
