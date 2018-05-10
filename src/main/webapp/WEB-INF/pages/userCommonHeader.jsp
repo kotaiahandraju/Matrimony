@@ -1099,7 +1099,7 @@ tooltip:hover:after {
 						//
 						
 						var acceptOptions = '';
-						if(listType == "pending_requests"){
+						if(listType == "pending_requests" || listType == "filtered_requests"){
 							interestStr = '';
 							options =  '<div class="col-md-3">'
 				            	+ '<button class="btn btn-primary btn-sm" onclick="fullProfile('+orderObj.id+')">View Full Profile</button>'

@@ -1542,6 +1542,29 @@ public class UsersDao extends BaseUsersDao
 		public Map<String,Object> getInterestCounts(UsersBean objUserBean){
 			jdbcTemplate = custom.getJdbcTemplate();
 			int userId = objUserBean.getId();
+			Map<String,Object> user_settings = (Map<String,Object>)session.getAttribute("user_settings");
+			String inner_where_clause = " ei.user_id = u.id and ei.profile_id = "+userId+" and ((ei.interested = '1' and ei.status = '1') or (message_sent_status = '1' and message_status = '0')) and u.role_id not in (1) and u.status in ('1')  and u.gender not in  ('"+objUserBean.getGender()+"') and u.id not in  ("+userId+") ";
+			
+			if(((String)user_settings.get("contact_filter")).equalsIgnoreCase("filter")){
+				if(StringUtils.isNotBlank((String)user_settings.get("filter_age_from"))){
+					inner_where_clause += " and ifnull(floor((datediff(current_date(),u.dob))/365),0) between "+user_settings.get("filter_age_from")+" and "+user_settings.get("filter_age_to")+" ";
+				}
+				if(StringUtils.isNotBlank((String)user_settings.get("filter_marital_status"))){
+					inner_where_clause += " and find_in_set(u.maritalStatus,'"+user_settings.get("filter_marital_status")+"')>0 ";
+				}
+				if(StringUtils.isNotBlank((String)user_settings.get("filter_caste"))){
+					inner_where_clause += " and find_in_set(u.caste,'"+user_settings.get("filter_caste")+"')>0 ";
+				}
+				if(StringUtils.isNotBlank((String)user_settings.get("filter_religion"))){
+					inner_where_clause += " and find_in_set(u.religion,'"+user_settings.get("filter_religion")+"')>0 ";
+				}
+				if(StringUtils.isNotBlank((String)user_settings.get("filter_mothertongue"))){
+					inner_where_clause += " and find_in_set(u.motherTongue,'"+user_settings.get("filter_mothertongue")+"')>0 ";
+				}
+				if(StringUtils.isNotBlank((String)user_settings.get("filter_country"))){
+					inner_where_clause += " and find_in_set(u.currentCountry,'"+user_settings.get("filter_country")+"')>0 ";
+				}
+			}
 			/*String qryStr = "select (select count(*) from express_intrest where user_id = "+userId+" and interested = '1' and status in ('0','1')) as sentInterestCount, "
 						+"(select count(*) from express_intrest where profile_id = "+userId+" and interested = '1' and status = '1') as receivedInterestCount, "
 						+"(select count(*) from express_intrest where user_id = "+userId+" and status = '2') as acceptedInterestCount, "
@@ -1556,7 +1579,7 @@ public class UsersDao extends BaseUsersDao
 								+" (select count(*) from  users u,express_intrest ei where u.id = ei.profile_id and ei.user_id = "+userId+" and ei.profile_viewed_status = '1' and "+subStr+" ) as profilesViewedByMeCount, "
 								+" (select count(*) from  users u,express_intrest  ei where u.id = ei.user_id and  ei.profile_id = "+userId+" and ei.mobile_no_viewed_status = '1' and "+subStr+" ) as mobileNumViewedCount, "
 								+" (select count(*) from  users u,express_intrest ei where u.id = ei.profile_id and ei.user_id = "+userId+" and ei.mobile_no_viewed_status = '1' and "+subStr+" ) as mobileNumViewedByMeCount, "
-								+" (select count(*) from  users u,express_intrest  ei where u.id = ei.user_id and ei.profile_id = "+userId+" and ((ei.interested = '1' and ei.status = '1') or (message_sent_status = '1' and message_status = '0'))  and "+subStr+" ) as pendingRequestsCount, "
+								+" (select count(*) from  users u,express_intrest  ei where "+inner_where_clause+" ) as pendingRequestsCount, "
 								+" (select count(*) from  users u where u.id not in (select ei.profile_id from express_intrest ei where ei.user_id = "+userId+" and ei.profile_viewed_status = '1') "
 								+" 	 and "+subStr+"  ) as yetToBeViewedCount, "
 								+" (select count(*) from users u,express_intrest ei where u.id=ei.profile_id and ei.user_id = "+userId+" and ei.profile_viewed_status = '1' and ei.mobile_no_viewed_status = '0' and ei.interested='0' "
@@ -1750,22 +1773,22 @@ public class UsersDao extends BaseUsersDao
 		String inner_where_clause = " ei.user_id = u.id and ei.profile_id = "+userId+" and ((ei.interested = '1' and ei.status = '1') or (message_sent_status = '1' and message_status = '0')) and u.role_id not in (1) and u.status in ('1')  and u.gender not in  ('"+objUserBean.getGender()+"') and u.id not in  ("+userId+") ";
 		
 		if(((String)user_settings.get("contact_filter")).equalsIgnoreCase("filter")){
-			if(user_settings.get("filter_age_from")!=null){
+			if(StringUtils.isNotBlank((String)user_settings.get("filter_age_from"))){
 				inner_where_clause += " and ifnull(floor((datediff(current_date(),u.dob))/365),0) between "+user_settings.get("filter_age_from")+" and "+user_settings.get("filter_age_to")+" ";
 			}
-			if(user_settings.get("filter_marital_status")!=null){
+			if(StringUtils.isNotBlank((String)user_settings.get("filter_marital_status"))){
 				inner_where_clause += " and find_in_set(u.maritalStatus,'"+user_settings.get("filter_marital_status")+"')>0 ";
 			}
-			if(user_settings.get("filter_caste")!=null){
+			if(StringUtils.isNotBlank((String)user_settings.get("filter_caste"))){
 				inner_where_clause += " and find_in_set(u.caste,'"+user_settings.get("filter_caste")+"')>0 ";
 			}
-			if(user_settings.get("filter_religion")!=null){
+			if(StringUtils.isNotBlank((String)user_settings.get("filter_religion"))){
 				inner_where_clause += " and find_in_set(u.religion,'"+user_settings.get("filter_religion")+"')>0 ";
 			}
-			if(user_settings.get("filter_mothertongue")!=null){
+			if(StringUtils.isNotBlank((String)user_settings.get("filter_mothertongue"))){
 				inner_where_clause += " and find_in_set(u.motherTongue,'"+user_settings.get("filter_mothertongue")+"')>0 ";
 			}
-			if(user_settings.get("filter_country")!=null){
+			if(StringUtils.isNotBlank((String)user_settings.get("filter_country"))){
 				inner_where_clause += " and find_in_set(u.currentCountry,'"+user_settings.get("filter_country")+"')>0 ";
 			}
 		}
@@ -1828,25 +1851,31 @@ public class UsersDao extends BaseUsersDao
 			return new LinkedList<Map<String,Object>>();
 		}
 		if(((String)user_settings.get("contact_filter")).equalsIgnoreCase("filter")){
-			if(user_settings.get("filter_age_from")!=null){
-				inner_where_clause += " and (ifnull(floor((datediff(current_date(),u.dob))/365),0) < "+user_settings.get("filter_age_from")+" or ifnull(floor((datediff(current_date(),u.dob))/365),0) > "+user_settings.get("filter_age_to")+" ";
+			String inner_sub_str = "";
+			if(StringUtils.isNotBlank((String)user_settings.get("filter_age_from"))){
+				inner_sub_str += "or ifnull(floor((datediff(current_date(),u.dob))/365),0) < "+user_settings.get("filter_age_from")+" or ifnull(floor((datediff(current_date(),u.dob))/365),0) > "+user_settings.get("filter_age_to")+" ";
 			}
-			if(user_settings.get("filter_marital_status")!=null){
-				inner_where_clause += " or find_in_set(u.maritalStatus,'"+user_settings.get("filter_marital_status")+"')=0 ";
+			if(StringUtils.isNotBlank((String)user_settings.get("filter_marital_status"))){
+				inner_sub_str += "or find_in_set(u.maritalStatus,'"+user_settings.get("filter_marital_status")+"')=0 ";
 			}
-			if(user_settings.get("filter_caste")!=null){
-				inner_where_clause += " or find_in_set(u.caste,'"+user_settings.get("filter_caste")+"')=0 ";
+			if(StringUtils.isNotBlank((String)user_settings.get("filter_caste"))){
+				inner_sub_str += "or find_in_set(u.caste,'"+user_settings.get("filter_caste")+"')=0 ";
 			}
-			if(user_settings.get("filter_religion")!=null){
-				inner_where_clause += " or find_in_set(u.religion,'"+user_settings.get("filter_religion")+"')=0 ";
+			if(StringUtils.isNotBlank((String)user_settings.get("filter_religion"))){
+				inner_sub_str += "or find_in_set(u.religion,'"+user_settings.get("filter_religion")+"')=0 ";
 			}
-			if(user_settings.get("filter_mothertongue")!=null){
-				inner_where_clause += " or find_in_set(u.motherTongue,'"+user_settings.get("filter_mothertongue")+"')=0 ";
+			if(StringUtils.isNotBlank((String)user_settings.get("filter_mothertongue"))){
+				inner_sub_str += "or find_in_set(u.motherTongue,'"+user_settings.get("filter_mothertongue")+"')=0 ";
 			}
-			if(user_settings.get("filter_country")!=null){
-				inner_where_clause += " or find_in_set(u.currentCountry,'"+user_settings.get("filter_country")+"')=0) ";
+			if(StringUtils.isNotBlank((String)user_settings.get("filter_country"))){
+				inner_sub_str += "or find_in_set(u.currentCountry,'"+user_settings.get("filter_country")+"')=0 ";
+			}
+			if(StringUtils.isNotBlank(inner_sub_str)){
+				inner_sub_str = inner_sub_str.substring(2);// to remove un-necessary starting string 'or'
+				inner_where_clause += " and ("+inner_sub_str+")";
 			}
 		}
+		
 		StringBuffer where_clause = new StringBuffer(" and u.role_id not in (1) and u.status in ('1') ");
 		buffer.append("select ei.id as requestId,u.id,u.gender,sta.name as currentStateName,cit.name as currentCityName,u.occupation,ifnull(oc.name,'') as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
 				+"u.firstName, u.lastName, u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName, u.currentCountry,co.name as currentCountryName, " 
@@ -2496,6 +2525,10 @@ public class UsersDao extends BaseUsersDao
 		try{
 				StringBuffer buffer = new StringBuffer();
 				if(request_type.equalsIgnoreCase("pending_requests")){
+					String where_clause = " act_done_on_user_id = "+userId+"  and act_done_by_user_id = "+profile_id+" and activity_type in ('interest_request','message') ";
+					buffer.append("select *,(select count(*) from users_activity_log where "+where_clause+") as conversations_count from users_activity_log where  "+where_clause+" order by created_time desc limit 1 ");
+				}
+				if(request_type.equalsIgnoreCase("filtered_requests")){
 					String where_clause = " act_done_on_user_id = "+userId+"  and act_done_by_user_id = "+profile_id+" and activity_type in ('interest_request','message') ";
 					buffer.append("select *,(select count(*) from users_activity_log where "+where_clause+") as conversations_count from users_activity_log where  "+where_clause+" order by created_time desc limit 1 ");
 				}

@@ -93,13 +93,13 @@ public class UserSettingsController {
 			}
 			String selected_contact_filter = request.getParameter("contact_filter");
 			Map<String,String> filter_criteria = new HashMap<String,String>();
-			filter_criteria.put("age_from", objUsersBean.getrAgeFrom());
-			filter_criteria.put("age_to", objUsersBean.getrAgeTo());
-			filter_criteria.put("marital_status", objUsersBean.getrMaritalStatus());
-			filter_criteria.put("religion", objUsersBean.getrReligion());
-			filter_criteria.put("caste", objUsersBean.getrCaste());
-			filter_criteria.put("mothertongue", objUsersBean.getrMotherTongue());
-			filter_criteria.put("country", objUsersBean.getrCountry());
+			filter_criteria.put("age_from", request.getParameter("age_from"));
+			filter_criteria.put("age_to", request.getParameter("age_to"));
+			filter_criteria.put("marital_status", objUsersBean.getrMaritalStatus().equalsIgnoreCase("null")?"":objUsersBean.getrMaritalStatus());
+			filter_criteria.put("religion", objUsersBean.getrReligion().equalsIgnoreCase("null")?"":objUsersBean.getrReligion());
+			filter_criteria.put("caste", objUsersBean.getrCaste().equalsIgnoreCase("null")?"":objUsersBean.getrCaste());
+			filter_criteria.put("mothertongue", objUsersBean.getrMotherTongue().equalsIgnoreCase("null")?"":objUsersBean.getrMotherTongue());
+			filter_criteria.put("country", objUsersBean.getrCountry().equalsIgnoreCase("null")?"":objUsersBean.getrCountry());
 			boolean success = settingsDao.saveContactFilterSettings(objuserBean.getId()+"", selected_contact_filter, filter_criteria);
 			if(success){
 				jsonObj.put("message", "success");
