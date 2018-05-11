@@ -615,7 +615,7 @@ Auto-login saves you the process of logging into your account with your e-mail I
 <div align="right"><button class="btn btn-warning" onclick="submitContactFilterSettings()"> Update </button></div>
 </form:form>
 					</div></div></div></div>
-					</div>
+					</div></div>
 	<div id="unsubscribe_callinglist" class="all_settings_divs" hidden="true">
 					<div class="panel panel-success">
 							<div class="panel-heading">
@@ -1050,7 +1050,7 @@ function displaySettingsBlock(divId){
 	}
 	if(divId=="unsubscribe_callinglist"){
 		var formData = new FormData();
-		$.fn.makeMultipartRequest('POST', 'getUnsubscribeFromCallingList', false,
+		 $.fn.makeMultipartRequest('POST', 'getUnsubscribeFromCallingList', false,
 				formData, false, 'text', function(data){
 			var jsonobj = $.parseJSON(data);
 			var msg = jsonobj.message;
@@ -1060,7 +1060,7 @@ function displaySettingsBlock(divId){
 				$('[name="marketing_calls"]').removeAttr('checked');
 				$("input[name=marketing_calls][value="+selected_val+"]").prop('checked', true);
 			}
-		});
+		}); 
 	}
 	$(".all_settings_divs").attr("hidden",true);
 	var cls=divId.split('_');
@@ -1233,7 +1233,7 @@ function submitContactFilterSettings(){
 
 function submitUnsubscribeFromCallingList(){
 	var formData = new FormData();
-	var unsubscribe_val = $("input[name='marketing_calls'] :checked").val();
+	var unsubscribe_val = $("input[name=marketing_calls]:checked").val();
 	formData.append("unsubscribe_from_val",unsubscribe_val);
 	
 	$.fn.makeMultipartRequest('POST', 'saveUnsubscribeFromCallingList', false,
