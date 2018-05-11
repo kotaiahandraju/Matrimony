@@ -144,25 +144,43 @@ margin-right:5px;
     <button class="btn btn-default dropdown-toggle" id="menu1" type="button" data-toggle="dropdown"> All Communications &nbsp;
     <span class="caret"> </span></button>
     <ul class="dropdown-menu allcommunicationli" role="menu" aria-labelledby="menu1">
-<li role="presentation"><a role="menuitem" tabindex="-1" href="#"> <label class="checkbox-inline"><input type="checkbox" value="">Read
+    <div class="done_by_divs" id="accepted_by_div" hidden="true">
+	    <li role="presentation"><a role="menuitem" tabindex="-1" href="#"> <label>Accepted
+	    </label></a></li>
+	    	<li role="presentation"><a role="menuitem" tabindex="-1" href="#"> <label class="checkbox-inline"><input type="checkbox" id="accepted_by_me" value="read">Accepted by me
+	    	</label></a></li>
+	    	<li role="presentation"><a role="menuitem" tabindex="-1" href="#"> <label class="checkbox-inline"><input type="checkbox" id="accepted_by_others" value="read">Accepted by others
+	    	</label></a></li>
+    </div>
+    <div class="done_by_divs" id="rejected_by_div" hidden="true">
+	    <li role="presentation"><a role="menuitem" tabindex="-1" href="#"> <label>Declined
+	    </label></a></li>
+	    	<li role="presentation"><a role="menuitem" tabindex="-1" href="#"> <label class="checkbox-inline"><input type="checkbox" id="rejected_by_me" value="">Declined by me
+	    	</label></a></li>
+	    	<li role="presentation"><a role="menuitem" tabindex="-1" href="#"> <label class="checkbox-inline"><input type="checkbox" id="rejected_by_others" value="">Declined by others
+	    	</label></a></li>
+    </div>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#"> <label>Read Status
+	    </label></a></li>
+	<li role="presentation"><a role="menuitem" tabindex="-1" href="#"> <label class="checkbox-inline"><input type="checkbox" id="read" value="read">Read
     </label></a></li>
-      <li role="presentation"><a role="menuitem" tabindex="-1" href="#"> <label class="checkbox-inline"><input type="checkbox" value="">Un Read
+	<li role="presentation"><a role="menuitem" tabindex="-1" href="#"> <label class="checkbox-inline"><input type="checkbox" id="un_read" value="un_read">Un Read 
     </label></a></li>
     <li role="presentation"><a role="menuitem" tabindex="-1" href="#"> <label>Communication Type
     </label></a></li>
-    <li role="presentation"><a role="menuitem" tabindex="-1" href="#"> <label class="checkbox-inline"><input type="checkbox" value="">All
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#"> <label class="checkbox-inline"><input type="checkbox" id="all" value="all" onclick="selectAll();">All
     </label></a></li>
-    <li role="presentation"><a role="menuitem" tabindex="-1" href="#"> <label class="checkbox-inline"><input type="checkbox" value="">Interests
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#"> <label class="checkbox-inline"><input type="checkbox" id="interests" value="interests">Interests
     </label></a></li>
-    <li role="presentation"><a role="menuitem" tabindex="-1" href="#"> <label class="checkbox-inline"><input type="checkbox" value="">Messages
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#"> <label class="checkbox-inline"><input type="checkbox" id="messages" value="messages">Messages
     </label></a></li>
-    <li role="presentation"><a role="menuitem" tabindex="-1" href="#"> <label class="checkbox-inline"><input type="checkbox" value="">Photo Requests
+    <!-- <li role="presentation"><a role="menuitem" tabindex="-1" href="#"> <label class="checkbox-inline"><input type="checkbox" value="">Photo Requests
+    </label></a></li> -->
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#"> <label class="checkbox-inline"><input type="checkbox" id="mobile_no_viewed" value="mobile_no_viewed">Phone Number Viewed
     </label></a></li>
-    <li role="presentation"><a role="menuitem" tabindex="-1" href="#"> <label class="checkbox-inline"><input type="checkbox" value="">Phone Number Viewed
-    </label></a></li>
-    <li role="presentation"><a role="menuitem" tabindex="-1" href="#"> <label class="checkbox-inline"><input type="checkbox" value="">Other Requets
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#"> <label class="checkbox-inline"><input type="checkbox" id="other" value="other">Other Requets
     </label></a></li><br>
-    <a role="menuitem" tabindex="-1" href="#" class="btn btn-warning pull-right allsubmitc"> Submit </a>
+    <span id="filterSubmitDiv"><a role="menuitem" tabindex="-1" href="#" class="btn btn-warning pull-right allsubmitc" onclick="displayFilterRequestsBlock();" id="filterSubmitBtn"> Submit </a></span>
     </ul>
   
 
@@ -469,7 +487,7 @@ if(listOrders1 != null && listOrders1 != ""){
 	$("#altLists").removeAttr("hidden");
 	displayTableFooter(1);
 }
-
+chnageAllCommunications();
 function fullProfile(profile_id){
 	/* var roleId = ${cacheGuest.roleId};
 	$("#id").val(profile_id);
@@ -496,6 +514,45 @@ function displayTableFooter(page){
 	}
 	$("#table_footer").html("Showing "+from_val+" to "+to_val+" of "+total_items_count+" records");
 }
+
+function selectAll(){
+	var checked = $("#all").prop("checked");
+	if(checked){
+		$("#interests").prop("checked",true);
+		$("#messages").prop("checked",true);
+		$("#mobile_no_viewed").prop("checked",true);
+		$("#other").prop("checked",true);
+	}else{
+		$("#interests").prop("checked",false);
+		$("#messages").prop("checked",false);
+		$("#mobile_no_viewed").prop("checked",false);
+		$("#other").prop("checked",false);
+	}
+	
+}
+
+$(".checkbox-inline").click(function(){
+	var all_check_boxes = $(".allcommunicationli :checked");
+	if(all_check_boxes.length==0){
+		$("#filterSubmitDiv").attr("hidden",true);
+	}else{
+		$("#filterSubmitDiv").removeAttr("hidden");
+	}
+});
+
+function chnageAllCommunications(){
+	var active_tab_selector = $('section.active').attr('id');
+	if(active_tab_selector.startsWith("pending_requests")){
+  		$(".done_by_divs").attr("hidden",true);
+  	}else if(active_tab_selector.startsWith("accepted_requests")){
+  		$(".done_by_divs").attr("hidden",true);
+  		$("#accepted_by_div").removeAttr("hidden");
+  	}else if(active_tab_selector.startsWith("rejected_requests")){
+  		$(".done_by_divs").attr("hidden",true);
+  		$("#rejected_by_div").removeAttr("hidden");
+  	}
+}
+
 var filter_requests_flag = false;
 function displayFilterRequestsBlock(){
 	var tabType = "", listType = "";
@@ -507,13 +564,13 @@ function displayFilterRequestsBlock(){
   	}else if(active_tab_selector.startsWith("accepted_requests")){
   		tabType = "inbox";
   		listType = "accepted_requests";
-  		by_me = $("#by_me").prop("checked");
-  		by_others = $("#by_others").prop("checked");
+  		by_me = $("#accepted_by_me").prop("checked");
+  		by_others = $("#accepted_by_others").prop("checked");
   	}else if(active_tab_selector.startsWith("rejected_requests")){
   		tabType = "inbox";
   		listType = "rejected_requests";
-  		by_me = $("#by_me").prop("checked");
-  		by_others = $("#by_others").prop("checked");
+  		by_me = $("#rejected_by_me").prop("checked");
+  		by_others = $("#rejected_by_others").prop("checked");
   	}else if(active_tab_selector.startsWith("sent_requests")){
   		tabType = "sent";
   		listType = "sent_requests";
