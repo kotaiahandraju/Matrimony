@@ -1,6 +1,6 @@
 <%@ include file="userCommonHeader.jsp"%>
- 	<link href="css/fSelect.css" rel="stylesheet">
-<script src="js/fSelect.js"></script>
+ 	<!-- <link href="css/fSelect.css" rel="stylesheet">
+<script src="js/fSelect.js"></script> -->
 <script>
 (function($) {
     $(function() {
