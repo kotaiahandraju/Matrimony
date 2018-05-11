@@ -2182,22 +2182,26 @@ public class UsersDao extends BaseUsersDao
 				|| (((String)communicationTypeMap.get("interests")).equalsIgnoreCase("true") && ((String)communicationTypeMap.get("messages")).equalsIgnoreCase("true") && ((String)communicationTypeMap.get("mobile_no_viewed")).equalsIgnoreCase("true"))
 				|| (((String)communicationTypeMap.get("all")).equalsIgnoreCase("false")) && ((String)communicationTypeMap.get("interests")).equalsIgnoreCase("false") && ((String)communicationTypeMap.get("messages")).equalsIgnoreCase("false") && ((String)communicationTypeMap.get("mobile_no_viewed")).equalsIgnoreCase("false")){
 			
-			activity_type_str = " and activity.activity_type in ('interest_accepted','message_accepted','mobile_no_viewed') ";
+			activity_type_str = " and act.activity_type in ('interest_accepted','message_accepted','mobile_no_viewed') ";
 			
 		}else if(((String)communicationTypeMap.get("interests")).equalsIgnoreCase("true")
 				|| ((String)communicationTypeMap.get("messages")).equalsIgnoreCase("true")
 				|| ((String)communicationTypeMap.get("mobile_no_viewed")).equalsIgnoreCase("true")){
-						
+						String sub_str = "";
 						if(((String)communicationTypeMap.get("interests")).equalsIgnoreCase("true")){
-							activity_type_str += " or activity.activity_type in ('interest_accepted') ";
+							sub_str += " or act.activity_type in ('interest_accepted') ";
 						}
 						if(((String)communicationTypeMap.get("messages")).equalsIgnoreCase("true")){
-							activity_type_str += " or activity.activity_type in ('message_accepted') ";
+							sub_str += " or act.activity_type in ('message_accepted') ";
 						}
 						if(((String)communicationTypeMap.get("mobile_no_viewed")).equalsIgnoreCase("true")){
-							activity_type_str += " or activity.activity_type in ('mobile_no_viewed') ";
+							sub_str += " or act.activity_type in ('mobile_no_viewed') ";
 						}
-						activity_type_str = " and (0 "+activity_type_str+") ";
+						if(StringUtils.isNotBlank(sub_str)){
+							sub_str = sub_str.substring(3);
+							activity_type_str += " and ("+sub_str+") ";
+						}
+						
 		}
 		
 		StringBuffer where_clause = new StringBuffer("  ");
@@ -2227,7 +2231,7 @@ public class UsersDao extends BaseUsersDao
 		StringBuffer buffer = new StringBuffer();
 		String inner_where_clause = " ((ei.user_id = u.id and ei.profile_id = "+userId+") or ((ei.user_id = "+userId+" and ei.profile_id = u.id))) and ((ei.interested = '1' and ei.status = '2') or (message_sent_status = '1' and message_status in (1,2))) and u.role_id not in (1) and u.status in ('1') and u.gender not in  ('"+objUserBean.getGender()+"') and u.id not in  ("+userId+")";
 		//StringBuffer where_clause = new StringBuffer(" and u.role_id not in (1) and u.status in ('1') ");
-		buffer.append("select ei.id as requestId,u.id,sta.name as currentStateName,cit.name as currentCityName,u.occupation,oc.name as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
+		buffer.append("select (select ei.id from express_intrest ei where ei.user_id = u.id) as requestId, u.id,sta.name as currentStateName,cit.name as currentCityName,u.occupation,oc.name as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
 				+"u.firstName, u.lastName, u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName, u.currentCountry,co.name as currentCountryName, " 
 				+"u.currentState, u.currentCity, " 
 				+"u.maritalStatus, u.caste,c.name as casteName, u.gotram, u.star,s.name as starName, u.dosam, u.dosamName, u.education, u.workingWith, u.companyName, " 
@@ -2385,38 +2389,41 @@ public class UsersDao extends BaseUsersDao
 		}else if(((String)communicationTypeMap.get("interests")).equalsIgnoreCase("true")
 				|| ((String)communicationTypeMap.get("messages")).equalsIgnoreCase("true")
 				|| ((String)communicationTypeMap.get("mobile_no_viewed")).equalsIgnoreCase("true")){
-						
+						String sub_str = "";
 						if(((String)communicationTypeMap.get("interests")).equalsIgnoreCase("true")){
-							activity_type_str += " or (ei.interested = '1' and ei.status = '1') ";
+							sub_str += " or (ei.interested = '1' and ei.status = '1') ";
 						}
 						if(((String)communicationTypeMap.get("messages")).equalsIgnoreCase("true")){
-							activity_type_str += " or (message_sent_status = '1' and message_status = '0') ";
+							sub_str += " or (message_sent_status = '1' and message_status = '0') ";
 						}
 						if(((String)communicationTypeMap.get("mobile_no_viewed")).equalsIgnoreCase("true")){
-							activity_type_str += " or  mobile_no_viewed_status = '1' ";
+							sub_str += " or  mobile_no_viewed_status = '1' ";
 						}
-						activity_type_str = " (0 "+activity_type_str+") ";
+						if(StringUtils.isNotBlank(sub_str)){
+							sub_str = sub_str.substring(3);
+							activity_type_str += "("+sub_str+" )";
+						}
 		}
 		
 		String inner_where_clause = " ei.user_id = u.id and ei.profile_id = "+userId+" and "+activity_type_str+" and u.role_id not in (1) and u.status in ('1')  and u.gender not in  ('"+objUserBean.getGender()+"') and u.id not in  ("+userId+") ";
 		
 		if(((String)user_settings.get("contact_filter")).equalsIgnoreCase("filter")){
-			if(user_settings.get("filter_age_from")!=null){
+			if(StringUtils.isNotBlank((String)user_settings.get("filter_age_from"))){
 				inner_where_clause += " and ifnull(floor((datediff(current_date(),u.dob))/365),0) between "+user_settings.get("filter_age_from")+" and "+user_settings.get("filter_age_to")+" ";
 			}
-			if(user_settings.get("filter_marital_status")!=null){
+			if(StringUtils.isNotBlank((String)user_settings.get("filter_marital_status"))){
 				inner_where_clause += " and find_in_set(u.maritalStatus,'"+user_settings.get("filter_marital_status")+"')>0 ";
 			}
-			if(user_settings.get("filter_caste")!=null){
+			if(StringUtils.isNotBlank((String)user_settings.get("filter_caste"))){
 				inner_where_clause += " and find_in_set(u.caste,'"+user_settings.get("filter_caste")+"')>0 ";
 			}
-			if(user_settings.get("filter_religion")!=null){
+			if(StringUtils.isNotBlank((String)user_settings.get("filter_religion"))){
 				inner_where_clause += " and find_in_set(u.religion,'"+user_settings.get("filter_religion")+"')>0 ";
 			}
-			if(user_settings.get("filter_mothertongue")!=null){
+			if(StringUtils.isNotBlank((String)user_settings.get("filter_mothertongue"))){
 				inner_where_clause += " and find_in_set(u.motherTongue,'"+user_settings.get("filter_mothertongue")+"')>0 ";
 			}
-			if(user_settings.get("filter_country")!=null){
+			if(StringUtils.isNotBlank((String)user_settings.get("filter_country"))){
 				inner_where_clause += " and find_in_set(u.currentCountry,'"+user_settings.get("filter_country")+"')>0 ";
 			}
 		}

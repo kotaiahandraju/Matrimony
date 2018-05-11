@@ -1813,7 +1813,7 @@ tooltip:hover:after {
 			    			$("#altLists").removeAttr("hidden");
 			    			displayTableFooter(1);
 						}
-						
+						chnageAllCommunications();
 		    		
 					
 				});
