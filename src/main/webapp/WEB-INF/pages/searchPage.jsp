@@ -236,6 +236,31 @@ margin-bottom:15px;}
 
 <script type="text/javascript">
 
+
+function shortList(profileId){
+	$("#id").val(profileId);
+	//var profileObj = serviceUnitArray[profileId];
+	var formData = new FormData();
+	formData.append('profile_id',profileId);
+	jQuery.fn.makeMultipartRequest('POST', 'shortList', false,
+			formData, false, 'text', function(data){
+    		var jsonobj = $.parseJSON(data);
+    		var msg = jsonobj.message;
+    		if(typeof msg != "undefined"){
+    			if(msg=="success"){
+    				alert("Shortlist request has been sent successfully");
+    				$("#shortlistTD"+profileId).html('');
+    				$("#shortlistTD"+profileId).html('<a type="button" class="btn btn-warning btn-sm" disabled="true"> Shortlisted</a>');
+    				//$("#shortlistTD"+profileId).removeAttr("href");
+    				//$("#shortlistTD"+profileId).attr("disabled");
+    			}else{
+    				alert("Some problem occured. Please try again.");
+    			}
+    		}
+    		
+	});
+}
+
 function getReliginCastAjax() {
 	var religionId = $("#rReligion").val();
 		var formData = new FormData();
@@ -340,12 +365,24 @@ function displayMatches(listOrders) {
 			var expressed = orderObj.expressedInterest;
 			var firstname = '<img src="images/blurr.png"/>',lastname='';
 			mobile_no__str = '<tr id="row'+orderObj.id+'"><td><a href="#" type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</a></td></tr>';
-			insert_str = '<a href="#" id="expInterest'+orderObj.id+'" type="button" class="btn btn-success btn-sm" onclick="expressInterest('+orderObj.id+')">Yes I\'m interested</a>';
-			/* if(expressed==0){
-				insert_str = '<button id="expInterest'+orderObj.id+'" type="button" class="btn btn-primary btn-block" onclick="expressInterest('+orderObj.id+')">Yes I\'m interested</button>';
-			}else if(expressed>0){
-				insert_str = '<button class="btn btn-primary btn-block">Expressed Interest</button>';
-			} */
+// 			insert_str = '<a href="#" id="expInterest'+orderObj.id+'" type="button" class="btn btn-success btn-sm" onclick="expressInterest('+orderObj.id+')">Yes I\'m interested</a>';
+			 if(expressed==0){
+				 insert_str = '<span id="expInterest'+orderObj.id+'"><a   href="#no" type="button" class="btn btn-success btn-sm"  onclick="expressInterest('+orderObj.id+')">  Yes I\'m interested  </a></span>';
+				}else if(expressed>0){
+					insert_str = '<span><a type="button" class="btn btn-success btn-sm" disabled="true" style="text-size-adjust:auto">Expressed Interest</a></span>';
+				}
+			 
+			 var shortListedStr = '<span id="shortlistTD'+orderObj.id+'"><a href="#no" type="button" class="btn btn-warning btn-sm" onclick="shortList('+orderObj.id+')"> Shortlist</a></span>';
+				if(orderObj.short_listed == "1"){
+					shortListedStr = '<span><a type="button" class="btn btn-warning btn-sm" disabled="true"> Shortlisted</a></span>';
+				}
+				/* var mobNumViewed = orderObj.mobileNumViewed;
+				var mobile_num_Str = "";
+				if(mobNumViewed=="1" || expressed=="1" || message_sent_status=="1"){
+					mobile_num_Str = '<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;float:left;">&nbsp;+91-'+orderObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;float:left;color:#4baa26;">Verified </span>)</font></span>';
+				}else{
+					mobile_num_Str = '<span ><a href="#no" type="button" class="btn btn-info btn-sm" onclick="displayMobileNum('+orderObj.id+')">View Mobile Number</a></span>';
+				} */
 			/* if((login_user_role_id == 6) || (login_user_role_id == 11) || (login_user_role_id == 14)){ //means premium user
 				mobile_no__str = '<tr id="row'+orderObj.id+'"><td><button type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button></td></tr>';
 				//more_details_str = '<tr><td><span><a href="#" onclick="showMoreDetails(this)">read more...</a></span></td></tr>';
@@ -450,6 +487,7 @@ function displayMatches(listOrders) {
             	+ '	<tr><td>Location</td><td><span>: '+orderObj.currentCityName+'</span></td></tr>'
             	+ '	<tr><td>Education</td><td><span>: '+orderObj.educationName+'</span></td></tr>'
             	+ '	<tr><td>Profession</td><td><span>: '+occName+'</span></td></tr>'
+//             	+ '	<tr><td><span>: '+mobile_num_Str+'</span></td></tr>'
             	+ '<tr><td id="mobiletd'+orderObj.id+'"><a href="#" type="button" class="btn1 btn-sm btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</a></td><td></td></tr>'
             	//+ '<td id="shortlisttd'+orderObj.id+'"><button type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">Shortlist</button></td></tr>'
             	//+ '	<tr><td>Age</td><td><span>: '+orderObj.age+'</span></td></tr>'
@@ -471,7 +509,8 @@ function displayMatches(listOrders) {
             	+ insert_str
 				//+ '<button class="btn btn-danger btn-block btn-md" onclick="fullProfile('+orderObj.id+')">View Full Profile</button><br><br><br><br><br>'
 				+ '<a href="#" class="btn btn-warning  btn-sm" onclick="fullProfile('+orderObj.id+')">View Full Profile</a>'
-				+ '<a href="#" type="button" class="btn1 btn btn-primary btn-sm"  id="mobileBtn'+orderObj.id+'" onclick="shortList('+orderObj.id+')">Shortlist</a> '
+				+ shortListedStr
+// 				+ '<a href="#" type="button" class="btn1 btn btn-primary btn-sm"  id="mobileBtn'+orderObj.id+'" onclick="shortList('+orderObj.id+')">Shortlist</a> '
 				+ '<div class="clearfix"></div>'
             	+ '</div>'
             	+ '</div>'
@@ -629,7 +668,7 @@ function modifySearch(event){
 	
 	
 		var religionId = $("#rReligion").val();
-		if(religionId.length !=0){
+		if(religionId !=null){
 			var formData = new FormData();
 			formData.append("religionId",religionId);
 			
@@ -717,8 +756,8 @@ function expressInterest(profile_id){
 	    		//if(typeof msg != "undefined" ){
 	    			if("success"==msg){
 	    				alert("Interest request has been sent successfully");
-	    				$("#expInterest"+profile_id).html('Expressed Interest');
-	    				$("#expInterest"+profile_id).prop("disabled",true);
+	    				$("#expInterest"+profile_id).html('<a type="button" class="btn btn-success btn-sm" disabled="true">Expressed Interest</a>');
+	    				/* $("#expInterest"+profile_id).prop("disabled",true); */
 	    				allowed_limit = limit;
 	    			}else if("failed"==msg || "exception"==msg){
 	    				alert("Interest request is not successful. Please try again.");
