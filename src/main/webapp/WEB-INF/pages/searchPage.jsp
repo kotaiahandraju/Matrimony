@@ -217,7 +217,7 @@ margin-bottom:15px;}
 									      <label class="col-md-4 control-label" for="textinput"></label>  
 									      <div class="col-md-6">
 									     	<a href="#" type="button" id="searchBtn" class="btn1 btn btn-success" onclick="submitSearch()">Search</a> 
-									     	<a href="#" type="button" id="resetBtn" class="btn1 btn btn-danger" onclick="">Reset</a> 
+									     	<a href="#" type="button" id="resetBtn" class="btn1 btn btn-danger" onclick="resetBtnfunction()">Reset</a> 
 									      <!-- 	<a href="savePartnerProfile" class="btn1 btn btn-info">Save & Continue</a> -->
 									      </div>
 									    </div>
@@ -365,6 +365,7 @@ function displayMatches(listOrders) {
 			var expressed = orderObj.expressedInterest;
 			var firstname = '<img src="images/blurr.png"/>',lastname='';
 			mobile_no__str = '<tr id="row'+orderObj.id+'"><td><a href="#" type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</a></td></tr>';
+// 			mobile_no__str = '<tr id="row'+orderObj.id+'"><td><a href="#" type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</a></td></tr>';
 // 			insert_str = '<a href="#" id="expInterest'+orderObj.id+'" type="button" class="btn btn-success btn-sm" onclick="expressInterest('+orderObj.id+')">Yes I\'m interested</a>';
 			 if(expressed==0){
 				 insert_str = '<span id="expInterest'+orderObj.id+'"><a   href="#no" type="button" class="btn btn-success btn-sm"  onclick="expressInterest('+orderObj.id+')">  Yes I\'m interested  </a></span>';
@@ -487,8 +488,10 @@ function displayMatches(listOrders) {
             	+ '	<tr><td>Location</td><td><span>: '+orderObj.currentCityName+'</span></td></tr>'
             	+ '	<tr><td>Education</td><td><span>: '+orderObj.educationName+'</span></td></tr>'
             	+ '	<tr><td>Profession</td><td><span>: '+occName+'</span></td></tr>'
+            	+ mobile_no__str
+            	
 //             	+ '	<tr><td><span>: '+mobile_num_Str+'</span></td></tr>'
-            	+ '<tr><td id="mobiletd'+orderObj.id+'"><a href="#" type="button" class="btn1 btn-sm btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</a></td><td></td></tr>'
+//             	+ '<tr><td id="mobiletd'+orderObj.id+'"><a href="#" type="button" class="btn1 btn-sm btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</a></td><td></td></tr>'
             	//+ '<td id="shortlisttd'+orderObj.id+'"><button type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">Shortlist</button></td></tr>'
             	//+ '	<tr><td>Age</td><td><span>: '+orderObj.age+'</span></td></tr>'
             	//+ '	<tr><td colspan="2">'+orderObj.aboutMyself+'... <a href="#" onclick="showMore('+orderObj.id+')"> read more..</a> </td></tr>'
@@ -692,473 +695,566 @@ function modifySearch(event){
 	
 	return false;
 }
-	//$("#searchForm2").submit();
+
+function resetBtnfunction(){
 	
-//}
-
-   
-/* $("#castdiv input[name='caste']").click(function(){
-	var allVals = [];
-    $("#castdiv :checked").each(function () {
-        allVals.push($(this).val());
-    });
-   // if(allVals!=""){
-    	//alert(allVals);
-    	var formData = new FormData();
-
-    	formData.append('selected_casts',allVals);
-    	jQuery.fn.makeMultipartRequest('POST', 'updateProfilesList', false,
-    			formData, false, 'text', function(data){
-	    		var jsonobj = $.parseJSON(data);
-	    		var filtered_list = jsonobj.filtered_profiles;
-	    		$('#countId').html('');
-	    		if(filtered_list==""){
-	    			$('#countId').html('0');
-	    			var str = '<div class="panel panel-default"><h6>No results found..!</h6></div>';
-	    			$('#searchResults').html('');
-	    			$(str).appendTo("#searchResults");
-	    		}else{
-	    			$('#countId').html(filtered_list.length);
-	    			displayMatches(filtered_list);
-	    		}
-    			
-    		});
-   // }
-}); */
-
-function expressInterest(profile_id){
-	var roleId = ${cacheGuest.roleId};
-	$("#id").val(profile_id);
-	if(roleId==4){
-		document.searchForm2.action = "memberShipPage"
-		document.searchForm2.target = "_blank";    // Open in a new window
-		document.searchForm2.submit();
-		return true;
-	}else{
-		var membershipStatus = ${cacheGuest.membership_status};
-		if(membershipStatus!="1"){
-			alert("Your membership validity period is over. Renew your membership plan and get more profiles");
-			return false;
-		}
-		if(allowed_limit<=0){
-			alert("Exceeded allowed profiles limit. Renew your membership plan and get more profiles");
-			return false;
-		}
-		var formData = new FormData();
-	
-		formData.append('profile_id',profile_id);
-		jQuery.fn.makeMultipartRequest('POST', 'expressInterestTo', false,
-				formData, false, 'text', function(data){
-	    		var jsonobj = $.parseJSON(data);
-	    		var limit = jsonobj.allowed_limit;
-	    		var msg = jsonobj.message;
-	    		var profiles = jsonobj.allProfiles;
-	    		//if(typeof msg != "undefined" ){
-	    			if("success"==msg){
-	    				alert("Interest request has been sent successfully");
-	    				$("#expInterest"+profile_id).html('<a type="button" class="btn btn-success btn-sm" disabled="true">Expressed Interest</a>');
-	    				/* $("#expInterest"+profile_id).prop("disabled",true); */
-	    				allowed_limit = limit;
-	    			}else if("failed"==msg || "exception"==msg){
-	    				alert("Interest request is not successful. Please try again.");
-	    			}
-	    		//}
-	    		/* if(profiles==""){
-	    			$('#countId').html('0');
-	    			var str = '<div class="panel panel-default"><h6>No results found..!</h6></div>';
-	    			$('#searchResults').html('');
-	    			$(str).appendTo("#searchResults");
-	    		}else{
-	    			$('#countId').html(profiles.length);
-	    			displayMatches(profiles);
-	    		} */
-	    		/* var filtered_list = jsonobj.filtered_profiles;
-	    		$('#countId').html('');
-	    		if(filtered_list==""){
-	    			$('#countId').html('0');
-	    			var str = '<div class="panel panel-default"><h6>No results found..!</h6></div>';
-	    			$('#searchResults').html('');
-	    			$(str).appendTo("#searchResults");
-	    		}else{
-	    			$('#countId').html(filtered_list.length);
-	    			displayMatches(filtered_list);
-	    		} */
-				
-			});
-	}
-}
-
-/* $(".more").click(function(){
-	$(".hideMe").hide();
-	$(".ifMore").show();
-}); */
-
-function showMoreDetails(thisObj){
-	//$("#hideMe"+id).prop("hidden",true);
-	var isHidden = $(".showMore").prop("hidden");
-	if(isHidden){
-		$(".showMore").removeAttr("hidden");
-		thisObj.innerHTML="hide...";
-	}else{
-		$(".showMore").prop("hidden",true);
-		thisObj.innerHTML="read more...";
-	}
-	
-	
-}
-
-/* function viewMobileNumber(profile_id){
-	var formData = new FormData();
-	formData.append('profile_id',profile_id);
-	jQuery.fn.makeMultipartRequest('POST', 'viewMobileNumber', false,
-			formData, false, 'text', function(data){
-    		var jsonobj = $.parseJSON(data);
-    		
-    		
-	});
-} */
-
-function displayMobileNum(profileId,listType){
-	var roleId = ${cacheGuest.roleId};
-	$("#id").val(profileId);
-	if(roleId==4){
-		document.searchForm2.action = "memberShipPage"
-		document.searchForm2.target = "_blank";    // Open in a new window
-		document.searchForm2.submit();
-		return true;
-	}else{
-		var membershipStatus = ${cacheGuest.membership_status};
-		if(membershipStatus!="1"){
-			alert("Your membership validity period is over. Renew your membership plan and get more profiles");
-			return false;
-		}
-		if(allowed_limit<=0){
-			alert("Exceeded allowed profiles limit. Renew your membership plan and get more profiles");
-			return false;
-		}
-		var profileObj = serviceUnitArray[profileId];
-		var formData = new FormData();
-		formData.append('profile_id',profileId);
-		formData.append('list_type',listType);
-		jQuery.fn.makeMultipartRequest('POST', 'viewedMobileNumber', false,
-				formData, false, 'text', function(data){
-	    		var jsonobj = $.parseJSON(data);
-	    		var limit = jsonobj.allowed_limit;
-	    		var msg = jsonobj.message;
-	    		if(typeof msg != "undefined"){
-	    			if(msg=="success"){
-	    				$("#row"+profileId).html('<td>'+profileObj.mobile+'</td>');
-	    				allowed_limit = limit;
-	    			}else{
-	    				alert("Some problem occured. Please try again.");
-	    			}
-	    		}
-	    		
-		});
-	}
-	
-}
-
-function fullProfile(profile_id){
-	/* var roleId = ${cacheGuest.roleId};
-	$("#id").val(profile_id);
-	if(roleId==4){
-		document.searchForm2.action = "memberShipPage"
-	}else{
-		document.searchForm2.id = profile_id;
-		document.searchForm2.action = "fullProfile";
-	} */
-	
-	$("#id").val(profile_id);
-	document.searchForm2.action = "fullProfile"
-    document.searchForm2.target = "_blank";   // Open in a new window
-    document.searchForm2.submit();             // Submit the page
-    return true;
-}
-
-
-function paginationSetup(total_items_count) {
-	  $('#altLists').asPaginator(total_items_count, {
-          currentPage: 1,
-          visibleNum: {
-            0: 10,
-            480: 3,
-            960: 5
-          },
-          tpl: function() {
-            return '<ul>{{first}}{{prev}}{{altLists}}{{next}}{{last}}</ul>';
-          },
-          components: {
-            first: true,
-            prev: true,
-            next: true,
-            last: true,
-            altLists: true
-          },
-          onChange: function(page) {
-             //$("#page_no").val(page);
-             //var search_form = $("#searchForm2");
-        	 //var formData = $("#searchForm2 :input").serialize();
-        	 //var t = $("#rAgeFrom").val();
-        	 //var formData = $("#searchForm2").serialize();
-        	 var castVals = [];
-			var religionVals = [];
-			var educationVals = [];
-		    $("#castdiv :checked").each(function () {
-		    	castVals.push($(this).val());
-		    });
-		    $("#religiondiv :checked").each(function () {
-		    	religionVals.push($(this).val());
-		    });
-		    $("#educationdiv :checked").each(function () {
-		    	educationVals.push($(this).val());
-		    });
-        	 var formData = new FormData();
-        	 formData.append('selected_casts',castVals);
-         	formData.append('selected_religions',religionVals);
-         	formData.append('selected_educations',educationVals);
-        	 formData.append("rAgeFrom",$("select[name='rAgeFrom'] :selected").val());
-        	 formData.append("rAgeTo",$("select[name='rAgeTo'] :selected").val());
-        	 formData.append("rHeight",$("#rHeight").val());
-        	 formData.append("rHeightTo",$("#rHeightTo").val());
-        	 var t1 = $("#rMaritalStatus").val();
-        	 var t2 = $("#rCaste").val();
-        	 var t3 = $("#rReligion").val();
-        	 formData.append("rMaritalStatus",$("#rMaritalStatus").val());
-        	 formData.append("rReligion",$("#rReligion").val());
-        	 formData.append("rCaste",$("#rCaste").val());
-        	 formData.append("rMotherTongue",$("#rMotherTongue").val());
-        	 formData.append("rCountry",$("#rCountry").val());
-        	 formData.append("rState",$("#rState").val());
-        	 /* formData.append("rAgeFrom",$("#rAgeFrom").val());
-        	 formData.append("rAgeFrom",$("#rAgeFrom").val());
-        	 formData.append("rAgeFrom",$("#rAgeFrom").val());
-        	 formData.append("rAgeFrom",$("#rAgeFrom").val());
-        	 formData.append("rAgeFrom",$("#rAgeFrom").val()); */
-        	 formData.append("page_no",page);
-        	 formData.append("request_from","search");
-        	 //var tempData = $("#searchForm2").serialize();
-    		$.fn.makeMultipartRequest('POST', 'displayPage', false,
-    				formData, false, 'text', function(data){
-    			var jsonobj = $.parseJSON(data);
-    			var results = jsonobj.results;
-    			//$('#countId').html('');
-	    		$("#search_criteria").prop("hidden",true);
-	    		$('#searchresultsDiv').removeAttr("hidden");
-	    		if(results==""){
-	    			$('#countId').html('');
-	    			$('#countId').html('0');
-	    			var str = '<div class="alert alert-danger ban"><h6>No results found..!</h6></div>';
-	    			$('#searchResults').html('');
-	    			$(str).appendTo("#searchResults");
-	    			$("#table_footer").prop("hidden",true);
-	    			$("#altLists").prop("hidden",true);
-	    		}else{
-	    			paginationSetup(total_items_count);
-	    			$("#altLists").asPaginator('enable');
-	    			displayMatches(results);
-	    			$("#table_footer").removeAttr("hidden");
-	    			$("#altLists").removeAttr("hidden");
-	    			displayTableFooter(page);
-	    			addWaterMark();
-	    		}
-    			
-    		});
-            
-          }
-        });
-}
-//displayPagination();
-function displayTableFooter(page){
-	var from_val = ((parseInt(page)-1)*page_size)+1;
-	var to_val = parseInt(page)*page_size;
-	if(to_val > total_items_count){
-		to_val = total_items_count;
-	}
-	if(from_val>to_val){
-		from_val = to_val;
-	}
-	$("#table_footer").html("Showing "+from_val+" to "+to_val+" of "+total_items_count+" records");
-}
-
-function hideChildren() {
-	var maritalStatus=$("#rMaritalStatus").val();
-	var married_selected = "";
-	if(maritalStatus!=null){
-		$.each(maritalStatus,function(i){
-			if(maritalStatus[i]=="Married"){
-				married_selected = "true";
-			}
-		});
-	}
-	if(married_selected == "true"){
-		$("#haveChildrenId").show();
-	}else{
+	    $("#rAgeFrom").val('');
+		$("#rAgeTo").val('');
+		$("#rHeight").val('');
+		$("#rHeightTo").val('');
+		$("#rMaritalStatus").val('');
 		$("#haveChildrenId").hide();
-		$("#haveChildren").val();
-	}
-}
-	
-function getFilteredStatesMultiSelect(id){
-	if($("#"+id).val()== null   || $('#'+id).val() == "" || $('#'+id).val()=="undefined"){
-		$("#"+id).select2({
-		    placeholder: "-- Choose Country --"
-		});
+		$("#rMaritalStatus").select2("val", "-- Choose MaritalStatus --");
+		$("#rReligion").select2("val", "-- Choose Religion --");
+		$("#rCaste").select2("val", "-- Choose Community  --");
+		$("#rMotherTongue").select2("val", "-- Choose Mother Tongue --");
+		$("#rCountry").select2("val", "-- Choose Country --");
+		$("#rState").select2("val", "-- Choose State --");
 		
-	}else{
-		var countryIds =$("#"+id).val();
-		var formData = new FormData();
-	     formData.append('country_ids', countryIds);
-	    $.fn.makeMultipartRequest('POST', 'getFilteredStates', false,
-				formData, false, 'text', function(data){
-			var jsonobj = $.parseJSON(data);
-			var statesList = jsonobj.states_list;
-         $("#rState").empty();
-			$("#rState").append("<option value='' >-- Choose State --</option>");
-			
-			$.each(statesList, function(i, state) {
-				$("#rState").append("<option value="+state.id+" >"+ state.name+"</option>");
-			});
-			
-		});
-		
-	}
+// 	location.reload();
 }
+	//$("#searchForm2").submit();
 
-function filterResultsWithPhoto(){
-	var formData = new FormData();
-	 formData.append("page_no",1);
-	 formData.append("request_from","search");
-	 formData.append("with_photo","true");
-	 //var tempData = $("#searchForm2").serialize();
-	$.fn.makeMultipartRequest('POST', 'displayPage', false,
-			formData, false, 'text', function(data){
-		var jsonobj = $.parseJSON(data);
-		var results = jsonobj.results;
-		//$('#countId').html('');
-		$("#search_criteria").prop("hidden",true);
-		$('#searchresultsDiv').removeAttr("hidden");
-		if(results==""){
-			$('#countId').html('');
-			$('#countId').html('0');
-			var str = '<div class="alert alert-danger ban"><h6>No results found..!</h6></div>';
-			$('#searchResults').html('');
-			$(str).appendTo("#searchResults");
-			$("#table_footer").prop("hidden",true);
-			$("#altLists").prop("hidden",true);
-		}else{
-			paginationSetup(total_items_count);
-			$("#altLists").asPaginator('enable');
-			displayMatches(results);
-			$("#table_footer").removeAttr("hidden");
-			$("#altLists").removeAttr("hidden");
-			displayTableFooter(1);
-			addWaterMark();
-		}
-		
-	});
-}
+	//}
 
-$(document).ready(function(){
-	
-	$("#rReligion").select2({
-	    placeholder: "-- Choose Religion --"
-	});
-	$("#rMaritalStatus").select2({
-	    placeholder: "-- Choose MaritalStatus --"
-	});
-	$("#rCaste").select2({
-	    placeholder: "-- Choose Community --"
-	});
-	$("#rMotherTongue").select2({
-	    placeholder: "-- Choose Mother Tongue --"
-	});
-	$("#rCountry").select2({
-	    placeholder: "-- Choose Country --",
-	    allowClear: true
-	});
-	$("#rState").select2({
-	    placeholder: "-- Choose State --",
-	    allowClear: true
-	});
-	$("#rEducation").select2({
-	    placeholder: "-- Choose Education --"
-	});
-	/* var selected_values = "${createProfile.rMaritalStatus}";
-    $("#rMaritalStatus").val(selected_values.split(","));
-    
-    selected_values="";
-    selected_values = "${createProfile.rCaste}";
-    $("#rCaste").val(selected_values.split(","));
-    
-    selected_values="";
-    selected_values = "${createProfile.rState}";
-    $("#rState").val(selected_values.split(","));
-    
-    selected_values="";
-    selected_values = "${createProfile.rEducation}";
-    $("#rEducation").val(selected_values.split(","));
-    
-    selected_values="";
-	selected_values = "${createProfile.rReligion}";
-	$("#rReligion").val(selected_values.split(","));
-	
-	selected_values="";
-	selected_values = "${createProfile.rMotherTongue}";
-	$("#rMotherTongue").val(selected_values.split(","));
-	
-	selected_values="";
-	selected_values = "${createProfile.rCountry}";
-	$("#rCountry").val(selected_values.split(","));
-	
-	selected_values="";
-	selected_values = "${createProfile.rWorkingWith}";
-	$("#rWorkingWith").val(selected_values.split(","));
-	
-	selected_values="";
-	selected_values = "${createProfile.rOccupation}";
-	$("#rOccupation").val(selected_values.split(","));
-	
-	selected_values="";
-	selected_values = "${createProfile.rDiet}";
-	$("#rDiet").val(selected_values.split(",")); */
-});
+	/* $("#castdiv input[name='caste']").click(function(){
+	 var allVals = [];
+	 $("#castdiv :checked").each(function () {
+	 allVals.push($(this).val());
+	 });
+	 // if(allVals!=""){
+	 //alert(allVals);
+	 var formData = new FormData();
 
-$(".searchPage").addClass("active");
+	 formData.append('selected_casts',allVals);
+	 jQuery.fn.makeMultipartRequest('POST', 'updateProfilesList', false,
+	 formData, false, 'text', function(data){
+	 var jsonobj = $.parseJSON(data);
+	 var filtered_list = jsonobj.filtered_profiles;
+	 $('#countId').html('');
+	 if(filtered_list==""){
+	 $('#countId').html('0');
+	 var str = '<div class="panel panel-default"><h6>No results found..!</h6></div>';
+	 $('#searchResults').html('');
+	 $(str).appendTo("#searchResults");
+	 }else{
+	 $('#countId').html(filtered_list.length);
+	 displayMatches(filtered_list);
+	 }
+	
+	 });
+	 // }
+	 }); */
 
-
-/* $("#rHeight").change(function(){
-	$('#rHeightTo').val('');
-	var val_from = $(this).val();
-	var val_to   = $("#rHeight option:last").val();
-	$('#rHeightTo option').hide();
-	if(val_from!=''){
-		val_from = (val_from-0)+1;
-		for(var i=val_from;i<=val_to;i++)
+	function expressInterest(profile_id) {
+		var roleId = $
 		{
-			$('#rHeightTo option[value='+ i +']').show();
-		}		
-	}
-});
+			cacheGuest.roleId
+		}
+		;
+		$("#id").val(profile_id);
+		if (roleId == 4) {
+			document.searchForm2.action = "memberShipPage"
+			document.searchForm2.target = "_blank"; // Open in a new window
+			document.searchForm2.submit();
+			return true;
+		} else {
+			var membershipStatus = $
+			{
+				cacheGuest.membership_status
+			}
+			;
+			if (membershipStatus != "1") {
+				alert("Your membership validity period is over. Renew your membership plan and get more profiles");
+				return false;
+			}
+			if (allowed_limit <= 0) {
+				alert("Exceeded allowed profiles limit. Renew your membership plan and get more profiles");
+				return false;
+			}
+			var formData = new FormData();
 
-$('#rAgeFrom').change(function() {
-	$('#rAgeFromTo').val('');
-	var val = $(this).val();
-	$('#rAgeTo').find('option').not(':first').remove();
-	if(val!=''){
-	val=(val-0)+1;
-	for (var i = val; i <= 50; i++) {
-		$("#rAgeTo").append('<option>' + i + '</option>');
+			formData.append('profile_id', profile_id);
+			jQuery.fn
+					.makeMultipartRequest(
+							'POST',
+							'expressInterestTo',
+							false,
+							formData,
+							false,
+							'text',
+							function(data) {
+								var jsonobj = $.parseJSON(data);
+								var limit = jsonobj.allowed_limit;
+								var msg = jsonobj.message;
+								var profiles = jsonobj.allProfiles;
+								//if(typeof msg != "undefined" ){
+								if ("success" == msg) {
+									alert("Interest request has been sent successfully");
+									$("#expInterest" + profile_id)
+											.html(
+													'<a type="button" class="btn btn-success btn-sm" disabled="true">Expressed Interest</a>');
+									/* $("#expInterest"+profile_id).prop("disabled",true); */
+									allowed_limit = limit;
+								} else if ("failed" == msg
+										|| "exception" == msg) {
+									alert("Interest request is not successful. Please try again.");
+								}
+								//}
+								/* if(profiles==""){
+									$('#countId').html('0');
+									var str = '<div class="panel panel-default"><h6>No results found..!</h6></div>';
+									$('#searchResults').html('');
+									$(str).appendTo("#searchResults");
+								}else{
+									$('#countId').html(profiles.length);
+									displayMatches(profiles);
+								} */
+								/* var filtered_list = jsonobj.filtered_profiles;
+								$('#countId').html('');
+								if(filtered_list==""){
+									$('#countId').html('0');
+									var str = '<div class="panel panel-default"><h6>No results found..!</h6></div>';
+									$('#searchResults').html('');
+									$(str).appendTo("#searchResults");
+								}else{
+									$('#countId').html(filtered_list.length);
+									displayMatches(filtered_list);
+								} */
+
+							});
+		}
 	}
+
+	/* $(".more").click(function(){
+	 $(".hideMe").hide();
+	 $(".ifMore").show();
+	 }); */
+
+	function showMoreDetails(thisObj) {
+		//$("#hideMe"+id).prop("hidden",true);
+		var isHidden = $(".showMore").prop("hidden");
+		if (isHidden) {
+			$(".showMore").removeAttr("hidden");
+			thisObj.innerHTML = "hide...";
+		} else {
+			$(".showMore").prop("hidden", true);
+			thisObj.innerHTML = "read more...";
+		}
+
 	}
-});
- */
-/* /* $('#formId').onchange(finction(){
-	$('#rAgeTo').hide();
+
+	/* function viewMobileNumber(profile_id){
+	 var formData = new FormData();
+	 formData.append('profile_id',profile_id);
+	 jQuery.fn.makeMultipartRequest('POST', 'viewMobileNumber', false,
+	 formData, false, 'text', function(data){
+	 var jsonobj = $.parseJSON(data);
 	
-});
+	
+	 });
+	 } */
+
+	 function displayMobileNum(profileId,listType){
+			var roleId = ${cacheGuest.roleId};
+			$("#id").val(profileId);
+			if(roleId==4){
+				document.searchForm2.action = "memberShipPage"
+				document.searchForm2.target = "_blank";    // Open in a new window
+				document.searchForm2.submit();
+				return true;
+			}else{
+				var membershipStatus = ${cacheGuest.membership_status};
+				if(membershipStatus!="1"){
+					alert("Your membership validity period is over. Renew your membership plan and get more profiles");
+					return false;
+				}
+				if(allowed_limit<=0){
+					alert("Exceeded allowed profiles limit. Renew your membership plan and get more profiles");
+					return false;
+				}
+				var profileObj = serviceUnitArray[profileId];
+				var formData = new FormData();
+				formData.append('profile_id',profileId);
+				formData.append('list_type',listType);
+				jQuery.fn.makeMultipartRequest('POST', 'viewedMobileNumber', false,
+						formData, false, 'text', function(data){
+			    		var jsonobj = $.parseJSON(data);
+			    		var limit = jsonobj.allowed_limit;
+			    		var msg = jsonobj.message;
+			    		if(typeof msg != "undefined"){
+			    			if(msg=="success"){
+			    				$("#row"+profileId).html('<td>'+profileObj.mobile+'</td>');
+			    				allowed_limit = limit;
+			    			}else{
+			    				alert("Some problem occured. Please try again.");
+			    			}
+			    		}
+			    		
+				});
+			}
+			
+		}
+
+	function fullProfile(profile_id) {
+		/* var roleId = ${cacheGuest.roleId};
+		$("#id").val(profile_id);
+		if(roleId==4){
+			document.searchForm2.action = "memberShipPage"
+		}else{
+			document.searchForm2.id = profile_id;
+			document.searchForm2.action = "fullProfile";
+		} */
+
+		$("#id").val(profile_id);
+		document.searchForm2.action = "fullProfile"
+		document.searchForm2.target = "_blank"; // Open in a new window
+		document.searchForm2.submit(); // Submit the page
+		return true;
+	}
+
+	function paginationSetup(total_items_count) {
+		$('#altLists')
+				.asPaginator(
+						total_items_count,
+						{
+							currentPage : 1,
+							visibleNum : {
+								0 : 10,
+								480 : 3,
+								960 : 5
+							},
+							tpl : function() {
+								return '<ul>{{first}}{{prev}}{{altLists}}{{next}}{{last}}</ul>';
+							},
+							components : {
+								first : true,
+								prev : true,
+								next : true,
+								last : true,
+								altLists : true
+							},
+							onChange : function(page) {
+								//$("#page_no").val(page);
+								//var search_form = $("#searchForm2");
+								//var formData = $("#searchForm2 :input").serialize();
+								//var t = $("#rAgeFrom").val();
+								//var formData = $("#searchForm2").serialize();
+								var castVals = [];
+								var religionVals = [];
+								var educationVals = [];
+								$("#castdiv :checked").each(function() {
+									castVals.push($(this).val());
+								});
+								$("#religiondiv :checked").each(function() {
+									religionVals.push($(this).val());
+								});
+								$("#educationdiv :checked").each(function() {
+									educationVals.push($(this).val());
+								});
+								var formData = new FormData();
+								formData.append('selected_casts', castVals);
+								formData.append('selected_religions',
+										religionVals);
+								formData.append('selected_educations',
+										educationVals);
+								formData.append("rAgeFrom", $(
+										"select[name='rAgeFrom'] :selected")
+										.val());
+								formData.append("rAgeTo", $(
+										"select[name='rAgeTo'] :selected")
+										.val());
+								formData.append("rHeight", $("#rHeight").val());
+								formData.append("rHeightTo", $("#rHeightTo")
+										.val());
+								var t1 = $("#rMaritalStatus").val();
+								var t2 = $("#rCaste").val();
+								var t3 = $("#rReligion").val();
+								formData.append("rMaritalStatus", $(
+										"#rMaritalStatus").val());
+								formData.append("rReligion", $("#rReligion")
+										.val());
+								formData.append("rCaste", $("#rCaste").val());
+								formData.append("rMotherTongue", $(
+										"#rMotherTongue").val());
+								formData.append("rCountry", $("#rCountry")
+										.val());
+								formData.append("rState", $("#rState").val());
+								/* formData.append("rAgeFrom",$("#rAgeFrom").val());
+								formData.append("rAgeFrom",$("#rAgeFrom").val());
+								formData.append("rAgeFrom",$("#rAgeFrom").val());
+								formData.append("rAgeFrom",$("#rAgeFrom").val());
+								formData.append("rAgeFrom",$("#rAgeFrom").val()); */
+								formData.append("page_no", page);
+								formData.append("request_from", "search");
+								//var tempData = $("#searchForm2").serialize();
+								$.fn
+										.makeMultipartRequest(
+												'POST',
+												'displayPage',
+												false,
+												formData,
+												false,
+												'text',
+												function(data) {
+													var jsonobj = $
+															.parseJSON(data);
+													var results = jsonobj.results;
+													//$('#countId').html('');
+													$("#search_criteria").prop(
+															"hidden", true);
+													$('#searchresultsDiv')
+															.removeAttr(
+																	"hidden");
+													if (results == "") {
+														$('#countId').html('');
+														$('#countId').html('0');
+														var str = '<div class="alert alert-danger ban"><h6>No results found..!</h6></div>';
+														$('#searchResults')
+																.html('');
+														$(str)
+																.appendTo(
+																		"#searchResults");
+														$("#table_footer")
+																.prop("hidden",
+																		true);
+														$("#altLists").prop(
+																"hidden", true);
+													} else {
+														paginationSetup(total_items_count);
+														$("#altLists")
+																.asPaginator(
+																		'enable');
+														displayMatches(results);
+														$("#table_footer")
+																.removeAttr(
+																		"hidden");
+														$("#altLists")
+																.removeAttr(
+																		"hidden");
+														displayTableFooter(page);
+														addWaterMark();
+													}
+
+												});
+
+							}
+						});
+	}
+	//displayPagination();
+	function displayTableFooter(page) {
+		var from_val = ((parseInt(page) - 1) * page_size) + 1;
+		var to_val = parseInt(page) * page_size;
+		if (to_val > total_items_count) {
+			to_val = total_items_count;
+		}
+		if (from_val > to_val) {
+			from_val = to_val;
+		}
+		$("#table_footer").html(
+				"Showing " + from_val + " to " + to_val + " of "
+						+ total_items_count + " records");
+	}
+
+	function hideChildren() {
+		var maritalStatus = $("#rMaritalStatus").val();
+		var married_selected = "";
+		if (maritalStatus != null) {
+			$.each(maritalStatus, function(i) {
+				if (maritalStatus[i] == "Married") {
+					married_selected = "true";
+				}
+			});
+		}
+		if (married_selected == "true") {
+			$("#haveChildrenId").show();
+		} else {
+			$("#haveChildrenId").hide();
+			$("#haveChildren").val();
+		}
+	}
+
+	function getFilteredStatesMultiSelect(id) {
+		if ($("#" + id).val() == null || $('#' + id).val() == ""
+				|| $('#' + id).val() == "undefined") {
+			$("#" + id).select2({
+				placeholder : "-- Choose Country --"
+			});
+
+		} else {
+			var countryIds = $("#" + id).val();
+			var formData = new FormData();
+			formData.append('country_ids', countryIds);
+			$.fn
+					.makeMultipartRequest(
+							'POST',
+							'getFilteredStates',
+							false,
+							formData,
+							false,
+							'text',
+							function(data) {
+								var jsonobj = $.parseJSON(data);
+								var statesList = jsonobj.states_list;
+								$("#rState").empty();
+								$("#rState")
+										.append(
+												"<option value='' >-- Choose State --</option>");
+
+								$.each(statesList,
+										function(i, state) {
+											$("#rState").append(
+													"<option value="+state.id+" >"
+															+ state.name
+															+ "</option>");
+										});
+
+							});
+
+		}
+	}
+
+	function filterResultsWithPhoto() {
+		var formData = new FormData();
+		formData.append("page_no", 1);
+		formData.append("request_from", "search");
+		formData.append("with_photo", "true");
+		//var tempData = $("#searchForm2").serialize();
+		$.fn
+				.makeMultipartRequest(
+						'POST',
+						'displayPage',
+						false,
+						formData,
+						false,
+						'text',
+						function(data) {
+							var jsonobj = $.parseJSON(data);
+							var results = jsonobj.results;
+							//$('#countId').html('');
+							$("#search_criteria").prop("hidden", true);
+							$('#searchresultsDiv').removeAttr("hidden");
+							if (results == "") {
+								$('#countId').html('');
+								$('#countId').html('0');
+								var str = '<div class="alert alert-danger ban"><h6>No results found..!</h6></div>';
+								$('#searchResults').html('');
+								$(str).appendTo("#searchResults");
+								$("#table_footer").prop("hidden", true);
+								$("#altLists").prop("hidden", true);
+							} else {
+								paginationSetup(total_items_count);
+								$("#altLists").asPaginator('enable');
+								displayMatches(results);
+								$("#table_footer").removeAttr("hidden");
+								$("#altLists").removeAttr("hidden");
+								displayTableFooter(1);
+								addWaterMark();
+							}
+
+						});
+	}
+
+	$(document).ready(function() {
+
+		$("#rReligion").select2({
+			placeholder : "-- Choose Religion --"
+		});
+		$("#rMaritalStatus").select2({
+			placeholder : "-- Choose MaritalStatus --"
+		});
+		$("#rCaste").select2({
+			placeholder : "-- Choose Community --"
+		});
+		$("#rMotherTongue").select2({
+			placeholder : "-- Choose Mother Tongue --"
+		});
+		$("#rCountry").select2({
+			placeholder : "-- Choose Country --",
+			allowClear : true
+		});
+		$("#rState").select2({
+			placeholder : "-- Choose State --",
+			allowClear : true
+		});
+		$("#rEducation").select2({
+			placeholder : "-- Choose Education --"
+		});
+		/* var selected_values = "${createProfile.rMaritalStatus}";
+		$("#rMaritalStatus").val(selected_values.split(","));
+		
+		selected_values="";
+		selected_values = "${createProfile.rCaste}";
+		$("#rCaste").val(selected_values.split(","));
+		
+		selected_values="";
+		selected_values = "${createProfile.rState}";
+		$("#rState").val(selected_values.split(","));
+		
+		selected_values="";
+		selected_values = "${createProfile.rEducation}";
+		$("#rEducation").val(selected_values.split(","));
+		
+		selected_values="";
+		selected_values = "${createProfile.rReligion}";
+		$("#rReligion").val(selected_values.split(","));
+		
+		selected_values="";
+		selected_values = "${createProfile.rMotherTongue}";
+		$("#rMotherTongue").val(selected_values.split(","));
+		
+		selected_values="";
+		selected_values = "${createProfile.rCountry}";
+		$("#rCountry").val(selected_values.split(","));
+		
+		selected_values="";
+		selected_values = "${createProfile.rWorkingWith}";
+		$("#rWorkingWith").val(selected_values.split(","));
+		
+		selected_values="";
+		selected_values = "${createProfile.rOccupation}";
+		$("#rOccupation").val(selected_values.split(","));
+		
+		selected_values="";
+		selected_values = "${createProfile.rDiet}";
+		$("#rDiet").val(selected_values.split(",")); */
+	});
+
+	$(".searchPage").addClass("active");
+
+	/* $("#rHeight").change(function(){
+	 $('#rHeightTo').val('');
+	 var val_from = $(this).val();
+	 var val_to   = $("#rHeight option:last").val();
+	 $('#rHeightTo option').hide();
+	 if(val_from!=''){
+	 val_from = (val_from-0)+1;
+	 for(var i=val_from;i<=val_to;i++)
+	 {
+	 $('#rHeightTo option[value='+ i +']').show();
+	 }		
+	 }
+	 });
+
+	 $('#rAgeFrom').change(function() {
+	 $('#rAgeFromTo').val('');
+	 var val = $(this).val();
+	 $('#rAgeTo').find('option').not(':first').remove();
+	 if(val!=''){
+	 val=(val-0)+1;
+	 for (var i = val; i <= 50; i++) {
+	 $("#rAgeTo").append('<option>' + i + '</option>');
+	 }
+	 }
+	 });
+	 */
+	/* /* $('#formId').onchange(finction(){
+	 $('#rAgeTo').hide();
+	
+	 });
 
 
- */</script>
+	 */
+</script>
 
 <%@ include file="userFooter.jsp"%>

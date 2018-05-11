@@ -1,6 +1,6 @@
 <%@ include file="userCommonHeader.jsp"%>
- 	<link href="css/fSelect.css" rel="stylesheet">
-<script src="js/fSelect.js"></script>
+ 	<!-- <link href="css/fSelect.css" rel="stylesheet">
+<script src="js/fSelect.js"></script> -->
 <script>
 (function($) {
     $(function() {
@@ -40,7 +40,9 @@
 			  margin-left: 0;
 			  list-style: none;
 			}
-
+.allsubmitc {
+margin-right:5px;
+}
 			.nav > li > a {
 			  display: block;
 			}
@@ -53,6 +55,9 @@
 			.nav-tabs:after {
 			  display: table;
 			  content: "";
+			}
+			.allcommunicationli li a {
+			padding:5px 8px !important;
 			}
 
 			.nav-tabs:after {
@@ -134,22 +139,34 @@
 							<li id="rejected_requests_tab">
 								<a href="#" onclick="displayBlock('inbox','rejected_requests');">Declined</a>
 							</li>
-							<li class="pull-right"><select class="mult-select-dd-opt-gtp" multiple="multiple">
-        <optgroup label="Read Status">
-            <option value="Read" >Read</option>
-            <option value="Unread" >Un Read</option>
-        </optgroup>
-        <optgroup label="Communication Type">
-            <option value="All" >All</option>
-            <option value="CSS">Interests</option>
-            <option value="Messages">Messages</option>
-            <option value="Photo Requests">Photo Requests</option>
-            <option value="Horoscope Requests" >Horoscope Requests</option>
-            <option value="Phone Numbers Viewed">Phone Numbers Viewed</option>
-            <option value="Other Requests">Other Requests</option>
+							
+							<li class="dropdown pull-right" >
+    <button class="btn btn-default dropdown-toggle" id="menu1" type="button" data-toggle="dropdown"> All Communications &nbsp;
+    <span class="caret"> </span></button>
+    <ul class="dropdown-menu allcommunicationli" role="menu" aria-labelledby="menu1">
+<li role="presentation"><a role="menuitem" tabindex="-1" href="#"> <label class="checkbox-inline"><input type="checkbox" value="">Read
+    </label></a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#"> <label class="checkbox-inline"><input type="checkbox" value="">Un Read
+    </label></a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#"> <label>Communication Type
+    </label></a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#"> <label class="checkbox-inline"><input type="checkbox" value="">All
+    </label></a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#"> <label class="checkbox-inline"><input type="checkbox" value="">Interests
+    </label></a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#"> <label class="checkbox-inline"><input type="checkbox" value="">Messages
+    </label></a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#"> <label class="checkbox-inline"><input type="checkbox" value="">Photo Requests
+    </label></a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#"> <label class="checkbox-inline"><input type="checkbox" value="">Phone Number Viewed
+    </label></a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#"> <label class="checkbox-inline"><input type="checkbox" value="">Other Requets
+    </label></a></li><br>
+    <a role="menuitem" tabindex="-1" href="#" class="btn btn-warning pull-right allsubmitc"> Submit </a>
+    </ul>
+  
 
-        </optgroup>
-    </select></li>
+					</li>
 						</ul>	
 					</div>
 		<section id="pending_requests_section" class="tab-content_inbox active">

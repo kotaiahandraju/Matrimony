@@ -181,7 +181,7 @@ window.setTimeout(function() {
 						<div id="firstForm">
 
 							<div class="form-group">
-								<label for="user_name">Enter Your Email-Id :</label> 
+								<label for="user_name">Your Email-Id :</label> 
 								<form:input	path="email" onkeydown="removeBorder(this.id)" class="form-control" placeholder="Email"/>
 								<span class="hasError" id="emailError" style="font-size: 13px;"></span>
 							</div>
@@ -236,7 +236,7 @@ window.setTimeout(function() {
                                                <div class="form-group">
                                                <div  class="row">
                                                     <label for="" class="col-md-12" >Date of Birth</label>
-                           <div class="col-md-12"><input type="text" name="dob" onclick="removeBorder(this.id)" class="form-control" id="dob" placeholder="Enter Date of Birth" readonly="readonly"></div>
+                           <div class="col-md-12"><input type="text" name="dob" onclick="removeBorder(this.id)" class="form-control" id="dob" placeholder="Select Date of Birth" readonly="readonly"></div>
                                                 </div> 
                                                 </div>
                                                 
@@ -803,15 +803,15 @@ $('#email').blur(function() {
 	if(email == "" || email == null || email == "undefined")
 	{
 		$("#email").css("border-color","#e73d4a");
-    	$("#email").attr("placeholder","Enter Email");
+    	$("#email").attr("placeholder","Email");
     	$('#email').css('color','red');
 	}
 	if(email != "" && !email.match(expr)){
 // 		alert("Please Enter Valid Email");
     	$("#email").css("border-color","#e73d4a");
-    	$("#email").attr("title","Please Enter Email-ID");
+    	$("#email").attr("title","Email-ID");
     	$('#email').css('color','red');
-    	$('#emailError').text("Please Enter Valid Email-ID.");
+    	$('#emailError').text("Enter Valid Email-ID.");
 //     	$('#email').focus();
 		return false;
 	}
@@ -866,7 +866,7 @@ $("#submit11").click(function(event){
 		if($('#email').val() ==  null || $('#email').val() == "" || $('#email').val()=="undefined") 
 		{
 			$("#email").css("border-color","#e73d4a");
-			$("#email").attr("placeholder","Enter Email");
+			$("#email").attr("placeholder","Email");
 			$('#email').addClass('your-class');
 			$('#email').css('color','red');
 		}
@@ -880,7 +880,7 @@ $("#submit11").click(function(event){
 		if($('#password').val() ==  null || $('#password').val() == "" || $('#password').val()=="undefined" ) 
 		{
 			$("#password").css("border-color","#e73d4a");
-			$("#password").attr("placeholder","Enter Password");
+			$("#password").attr("placeholder","Password");
 			$('#password').addClass('your-class');
 			$('#password').css('color','red');
 		}		
@@ -889,7 +889,7 @@ $("#submit11").click(function(event){
 	if(email != "" && !email.match(expr)){
 // 		alert("Please Enter Valid Email");
     	$("#email").css("border-color","#e73d4a");
-    	$("#email").attr("title","Please Enter Email-ID");
+    	$("#email").attr("title","Email-ID");
     	$('#email').css('color','red');
     	$('#email').focus();
 		return false;
@@ -917,21 +917,21 @@ $("#secondButton").click(function(event)
 				if($('#firstName').val() ==  null || $('#firstName').val() == "" || $('#firstName').val()=="undefined") 
 				{
 					$("#firstName").css("border-color","#e73d4a");
-					$("#firstName").attr("placeholder","Enter First Name");
+					$("#firstName").attr("placeholder","First Name");
 					$('#firstName').addClass('your-class');
 					$('#firstName').css('color','red');
 				}
 				if($('#lastName').val() ==  null || $('#lastName').val() == "" || $('#lastName').val()=="undefined" ) 
 				{
 					$("#lastName").css("border-color","#e73d4a");
-					$("#lastName").attr("placeholder","Enter Last Name");
+					$("#lastName").attr("placeholder","Last Name");
 					$('#lastName').addClass('your-class');
 					$('#lastName').css('color','red');
 				}
 				if($('#dob').val() ==  null || $('#dob').val() == "" || $('#dob').val()=="undefined" ) 
 				{
 					$("#dob").css("border-color","#e73d4a");
-					$("#dob").attr("placeholder","Enter Date Of Birth");
+					$("#dob").attr("placeholder","Select Date Of Birth");
 					$('#dob').addClass('your-class');
 					$('#dob').css('color','red');
 				}

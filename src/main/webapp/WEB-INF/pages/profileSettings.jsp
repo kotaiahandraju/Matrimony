@@ -108,7 +108,7 @@
 }
 }
 td:first-child {width:150px;}
-td:nth-child(2) { width:10px;}
+/* td:nth-child(2) { width:10px;} */
 			.nav-tabs > li > a:hover {
 			  border-color: #eeeeee #eeeeee #dddddd;
 			}
@@ -483,7 +483,7 @@ Auto-login saves you the process of logging into your account with your e-mail I
 									<div class="col-md-2">
 										<%-- <form:input path="rAgeFrom" class="form-control  numericOnly u1" placeholder="From" /> --%>
 										
-								<select id="rAgeFrom" name="age_from" class="form-control numericOnly u1" >
+								<select id="age_from" name="age_from" class="form-control numericOnly u1" >
 									<option value="">--From--</option>
 									<option value="18">18</option>
 									<option value="19">19</option>
@@ -525,7 +525,7 @@ Auto-login saves you the process of logging into your account with your e-mail I
 									<div class="col-md-2">
 <%-- 										<form:input path="rAgeTo" class="form-control numericOnly u1" placeholder="To" />
  --%>	
- 									<select id="rAgeTo" name="age_to" class="form-control numericOnly u1">
+ 									<select id="age_to" name="age_to" class="form-control numericOnly u1">
 									<option value="" selected="">--To--</option>
 									<option value="19">19</option>
 									<option value="20">20</option>
@@ -568,7 +568,7 @@ Auto-login saves you the process of logging into your account with your e-mail I
 									<div class="form-group prfic">
 									      <label class="col-md-4 control-label" for="textinput">Marital Status</label>  
 									      <div class="col-md-6">
-									      	<form:select path="rMaritalStatus" class="multiSelect" onchange="hideChildren();" multiple="true" >
+									      	<form:select path="rMaritalStatus" class="multiSelect"  multiple="true" >
 												<form:option value="">Doesn't Matter</form:option>
 												<form:option value="Married">Married</form:option>
 												<form:option value="Unmarried">Unmarried</form:option>
@@ -700,8 +700,8 @@ Auto-login saves you the process of logging into your account with your e-mail I
 							
 							<hr>
 							<table>
-							<tr><td>Whom to contact</td><td>:</td><td>Not Specified</td></tr>
-<tr><td>Contact person's name</td><td>:</td><td>Not Specified</td></tr>
+							<tr><td>Whom to contact</td><td>: </td><td> Not Specified</td></tr>
+<tr><td>Contact person's name</td><td>:</td><td> Not Specified</td></tr>
 <tr><td>Convenient time to call</td><td>:</td><td>Not Specified</td></tr>
 <tr><td>Comments</td><td>:</td><td>Not Specified</td></tr>
 			</table>
@@ -971,10 +971,78 @@ function displaySettingsBlock(divId){
 				var selected_val = settingsMap.contact_filter;
 				$('[name="contact_filter"]').removeAttr('checked');
 				if(selected_val=="anyone"){
-					$("input[name=contact_filter][value=anyone]").prop('checked', true);
+						$("input[name=contact_filter][value=anyone]").prop('checked', true);
 				}else{
-					$("input[name=contact_filter][value=filter]").prop('checked', true);
-					//set other field values
+						$("input[name=contact_filter][value=filter]").prop('checked', true);
+						//set other field values
+						var age_from = settingsMap.filter_age_from;
+						var age_to = settingsMap.filter_age_to;
+						var marital_status = settingsMap.filter_marital_status;
+						var religion = settingsMap.filter_religion;
+						var caste = settingsMap.filter_caste;
+						var mothertongue = settingsMap.filter_mothertongue;
+						var country = settingsMap.filter_country;
+						$("#age_from").val(age_from);
+						$("#age_from").trigger("chosen:updated");
+						$("#age_to").val(age_to);
+						$("#age_to").trigger("chosen:updated");
+						
+						var selected_values = "";
+						selected_values = marital_status;
+					    if(selected_values == "" || selected_values==null){
+					    	$("#rMaritalStatus").select2({
+					    	    placeholder: "-- Choose MaritalStatus --"
+					    	});
+					    }else{
+					    	var tt = selected_values.split(",");
+					        $("#rMaritalStatus").val(selected_values.split(","));
+					    }
+					    
+					    selected_values="";
+					    selected_values = caste;
+					    if(selected_values == "" || selected_values==null){
+					    	$("#rCaste").select2({
+					    	    placeholder: "-- Choose Community --"
+					    	});
+					    }else{
+					    	var tt = selected_values.split(",");
+					        $("#rCaste").val(selected_values.split(","));
+					    }
+					    
+					    selected_values="";
+						selected_values = religion;
+					    if(selected_values == "" || selected_values==null){
+					    	$("#rReligion").select2({
+					    	    placeholder: "-- Choose Religion --"
+					    	});
+					    }else{
+					    	var tt = selected_values.split(",");
+					        $("#rReligion").val(selected_values.split(","));
+					    }
+					    
+					    selected_values="";
+						selected_values = mothertongue;
+						if(selected_values == "" || selected_values==null){
+					    	$("#rMotherTongue").select2({
+					    	    placeholder: "-- Choose MotherTongue --"
+					    	});
+					    }else{
+					    	var tt = selected_values.split(",");
+					        $("#rMotherTongue").val(selected_values.split(","));
+					    }
+						
+						selected_values="";
+						selected_values = country;
+						if(selected_values == "" || selected_values==null){
+					    	$("#rCountry").select2({
+					    	    placeholder: "-- Choose Country --"
+					    	});
+					    }else{
+					    	var tt = selected_values.split(",");
+					    	$("#rCountry").val(selected_values.split(","));
+					    } 
+						$('.multiSelect').trigger('change.select2');
+						show2();
 				}
 				
 			}
@@ -1138,20 +1206,35 @@ function submitEmailAlertsSettings(){
 	});
 }
 function submitContactFilterSettings(){
+var ageFrom = $('#age_from').val();
+var ageTo = $('#age_to').val();
+var maritalStatus =$("#rMaritalStatus").val();
+var religion = $("#rReligion").val();
+var caste = $('rCaste').val();
+var motherTongue = $('#rMotherTongue').val();
+var country = $('#rCountry').val();
+if(ageFrom=="" && ageTo=="" && maritalStatus==null && religion==null && caste==null && motherTongue==null && country==null)
+{
+	alert("Enter any input");
+	return false;
+}
+if(ageFrom > ageTo){
+	alert("Sorry, Invalid Age range");
+	return false;
+	}
 	var formData = new FormData();
-	var filter_value = $("input[name='contact_filter'] :checked").val();
+	var filter_value = $("input[name=contact_filter]:checked").val();
 	formData.append("contact_filter",filter_value);
 	if(filter_value=="filter"){
 		//get other field values
 		formData.append("age_from",$("#age_from").val());
 		formData.append("age_to",$("#age_to").val());
-		formData.append("marital_status",$("#rMaritalStatus").val());
-		formData.append("religion",$("#rReligion").val());
-		formData.append("caste",$("#rCaste").val());
-		formData.append("mothertongue",$("#rMotherTongue").val());
-		formData.append("country",$("#rCountry").val());
+		formData.append("rMaritalStatus",$("#rMaritalStatus").val());
+		formData.append("rReligion",$("#rReligion").val());
+		formData.append("rCaste",$("#rCaste").val());
+		formData.append("rMotherTongue",$("#rMotherTongue").val());
+		formData.append("rCountry",$("#rCountry").val());
 	}
-	
 	$.fn.makeMultipartRequest('POST', 'saveContactFilterSettings', false,
 			formData, false, 'text', function(data){
 		var jsonobj = $.parseJSON(data);
@@ -1162,6 +1245,7 @@ function submitContactFilterSettings(){
 			alert("Some problem occured!! Please try again.");
 		}
 	});
+	
 }
 
 function submitUnsubscribeFromCallingList(){
