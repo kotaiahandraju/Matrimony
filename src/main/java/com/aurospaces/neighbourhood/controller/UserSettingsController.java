@@ -103,6 +103,10 @@ public class UserSettingsController {
 			boolean success = settingsDao.saveContactFilterSettings(objuserBean.getId()+"", selected_contact_filter, filter_criteria);
 			if(success){
 				jsonObj.put("message", "success");
+				// put updated values back in session
+				Map<String,Object> user_settings = settingsDao.getUserSettings(objuserBean.getId()+"");
+				session.removeAttribute("user_settings");
+				session.setAttribute("user_settings", user_settings);
 			}else{
 				jsonObj.put("message", "failed");
 			}
