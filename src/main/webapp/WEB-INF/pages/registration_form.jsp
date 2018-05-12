@@ -97,7 +97,7 @@
 						<div class="form-group">
 							<label class="col-md-4 control-label" for="textinput">Gothram</label>  
 							<div class="col-md-6">
-								<form:input path="gotram" type="text" class="form-control onlyCharacters u" placeholder="Enter Gotram" maxlength="255"/>
+								<form:input path="gotram" type="text" class="form-control onlyCharacters u" placeholder="Gotram" maxlength="255"/>
 							</div>
 						</div>
 						<div class="form-group">
@@ -212,7 +212,7 @@
 					      </div>
 					    </div>
 					    <div class="form-group">
-					      <label class="col-md-4 control-label" for="textinput">Do you smoke? <span class='manditory'>*</span></label>  
+					      <label class="col-md-4 control-label" for="textinput">Do you Smoke? <span class='manditory'>*</span></label>  
 					      <div class="col-md-6">
 					      	<form:select path="smoking" class="form-control u" onblur="validate(this.id,'');" onfocus="removeBorder(this.id)">
 								<form:option value="">-- Do you Smoke --</form:option>
@@ -234,7 +234,7 @@
 					      </div>
 					    </div>
 					    <div class="form-group">
-					      <label class="col-md-4 control-label" for="textinput">Your height <span class='manditory'>*</span></label>  
+					      <label class="col-md-4 control-label" for="textinput">Your Height <span class='manditory'>*</span></label>  
 					      <div class="col-md-6">
 					      	<form:select path="height" class="form-control u" onblur="validate(this.id,'');" onfocus="removeBorder(this.id)">
 								<form:option value="">-- Choose Height --</form:option>
@@ -261,7 +261,7 @@
 					      </div>
 					    </div>
 					    <div class="form-group">
-					      <label class="col-md-4 control-label" for="textinput">Your Mobile number <span class='manditory'>*</span></label>  
+					      <label class="col-md-4 control-label" for="textinput">Your Mobile Number <span class='manditory'>*</span></label>  
 					      <div class="col-md-6">
 					      <form:input path="mobile" class="form-control numbersOnly u"  onblur="validate(this.id,'Enter Mobile');" onkeydown="removeBorder(this.id)" maxlength="10" placeholder="Mobile Number"/>
 					      <span class="hasError" id="mobileError" style="font-size: 13px;color:red"></span>
@@ -526,7 +526,7 @@ function thirdForm(event)
 	else
 	{
 		if($('#mobile').val().trim().length<10){
-			$('#mobileError').text("Please enter a valid mobile number.");
+			$('#mobileError').text("Enter a valid mobile number.");
 			event.preventDefault();
 			return false;
 		}
@@ -599,12 +599,12 @@ function fourthForm(event){
 		$('#aboutMyself').css('border-color','red');
 		$('#aboutMyself').css('color','#cc0000');
 		$('#aboutMyself').addClass('your-class');
-		$('#errorMsg').text("Please enter some text..");
+		$('#errorMsg').text("Enter some text..");
 		return false;
 	}
 	var abtMySelfLen =$("#aboutMyself").val().trim().length;
 	if(abtMySelfLen < 50){
-		$('#errorMsg').text("Please enter minimum 50 charecters...");
+		$('#errorMsg').text("Enter minimum 50 charecters...");
 		return false;
 	}
 	
@@ -801,7 +801,7 @@ function getCitys(id){
 			var jsonobj = $.parseJSON(data);
 			if(jsonobj.msg =="exist"){
 				//error message write
-				$('#mobileError').text("Mobile number already in Use. Please Try Another.");
+				$('#mobileError').text("Mobile number already in Use. Please try another.");
 				mobileExists = true;
 				$("#firstForm").hide();
 				$('#secondForm').hide();

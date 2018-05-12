@@ -45,7 +45,7 @@ margin-left:8px;
 	   					
 		             		
 		             			<div class="panel-body">
-		             				<input type="text" class="col-md-5 form-control" id="forgotPasswordInput" placeholder="Enter email-id/phone number/username" onkeyup="removeBorder(this.id)"  name="forgotPasswordInput"  /> 
+		             				<input type="text" class="col-md-5 form-control" id="forgotPasswordInput" placeholder="email-id/phone number/username" onkeyup="removeBorder(this.id)"  name="forgotPasswordInput"  /> 
 		             				<button name="fpNextBtn" type="button" id="fpNextBtn" class="btn btn-primary" onclick="displayFpNextPage()">Next</button>
 								</div>
 						
@@ -82,7 +82,7 @@ function displayFpNextPage(){
 	var formData = new FormData();
 	var inputVal = $("#forgotPasswordInput").val();
 	
-		var retVal = validateInput("forgotPasswordInput", "Enter email-id/phone number/username");
+		var retVal = validateInput("forgotPasswordInput", "email-id/phone number/username");
 		if(!retVal){
 			return false;
 		}else{

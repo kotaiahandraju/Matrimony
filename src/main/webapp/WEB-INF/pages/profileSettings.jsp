@@ -1206,6 +1206,22 @@ function submitEmailAlertsSettings(){
 	});
 }
 function submitContactFilterSettings(){
+var ageFrom = $('#age_from').val();
+var ageTo = $('#age_to').val();
+var maritalStatus =$("#rMaritalStatus").val();
+var religion = $("#rReligion").val();
+var caste = $('rCaste').val();
+var motherTongue = $('#rMotherTongue').val();
+var country = $('#rCountry').val();
+if(ageFrom=="" && ageTo=="" && maritalStatus==null && religion==null && caste==null && motherTongue==null && country==null)
+{
+	alert("Enter any input");
+	return false;
+}
+if(ageFrom > ageTo){
+	alert("Sorry, Invalid Age range");
+	return false;
+	}
 	var formData = new FormData();
 	var filter_value = $("input[name=contact_filter]:checked").val();
 	formData.append("contact_filter",filter_value);
@@ -1229,6 +1245,7 @@ function submitContactFilterSettings(){
 			alert("Some problem occured!! Please try again.");
 		}
 	});
+	
 }
 
 function submitUnsubscribeFromCallingList(){
