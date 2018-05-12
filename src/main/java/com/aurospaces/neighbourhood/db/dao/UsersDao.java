@@ -2284,22 +2284,26 @@ public class UsersDao extends BaseUsersDao
 				|| (((String)communicationTypeMap.get("interests")).equalsIgnoreCase("true") && ((String)communicationTypeMap.get("messages")).equalsIgnoreCase("true") && ((String)communicationTypeMap.get("mobile_no_viewed")).equalsIgnoreCase("true"))
 				|| (((String)communicationTypeMap.get("all")).equalsIgnoreCase("false")) && ((String)communicationTypeMap.get("interests")).equalsIgnoreCase("false") && ((String)communicationTypeMap.get("messages")).equalsIgnoreCase("false") && ((String)communicationTypeMap.get("mobile_no_viewed")).equalsIgnoreCase("false")){
 			
-			activity_type_str = " and activity.activity_type in ('interest_rejected','message_rejected','mobile_no_viewed') ";
+			activity_type_str = " and act.activity_type in ('interest_rejected','message_rejected','mobile_no_viewed') ";
 			
 		}else if(((String)communicationTypeMap.get("interests")).equalsIgnoreCase("true")
 				|| ((String)communicationTypeMap.get("messages")).equalsIgnoreCase("true")
 				|| ((String)communicationTypeMap.get("mobile_no_viewed")).equalsIgnoreCase("true")){
-						
+						String sub_str = "";
 						if(((String)communicationTypeMap.get("interests")).equalsIgnoreCase("true")){
-							activity_type_str += " or activity.activity_type in ('interest_rejected') ";
+							sub_str += " or act.activity_type in ('interest_rejected') ";
 						}
 						if(((String)communicationTypeMap.get("messages")).equalsIgnoreCase("true")){
-							activity_type_str += " or activity.activity_type in ('message_rejected') ";
+							sub_str += " or act.activity_type in ('message_rejected') ";
 						}
 						if(((String)communicationTypeMap.get("mobile_no_viewed")).equalsIgnoreCase("true")){
-							activity_type_str += " or activity.activity_type in ('mobile_no_viewed') ";
+							sub_str += " or act.activity_type in ('mobile_no_viewed') ";
 						}
-						activity_type_str = " and (0 "+activity_type_str+") ";
+						if(StringUtils.isNotBlank(sub_str)){
+							sub_str = sub_str.substring(3);
+							activity_type_str = " and ("+sub_str+") ";
+						}
+						
 		}
 		
 		StringBuffer where_clause = new StringBuffer("  ");
@@ -2329,7 +2333,7 @@ public class UsersDao extends BaseUsersDao
 		StringBuffer buffer = new StringBuffer();
 		String inner_where_clause = " ((ei.user_id = u.id and ei.profile_id = "+userId+") or ((ei.user_id = "+userId+" and ei.profile_id = u.id))) and ((ei.interested = '1' and ei.status = '2') or (message_sent_status = '1' and message_status in (1,2))) and u.role_id not in (1) and u.status in ('1') and u.gender not in  ('"+objUserBean.getGender()+"') and u.id not in  ("+userId+")";
 		//StringBuffer where_clause = new StringBuffer(" and u.role_id not in (1) and u.status in ('1') ");
-		buffer.append("select ei.id as requestId,u.id,sta.name as currentStateName,cit.name as currentCityName,u.occupation,oc.name as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
+		buffer.append("select (select ei.id from express_intrest ei where ei.user_id = u.id) as requestId,u.id,sta.name as currentStateName,cit.name as currentCityName,u.occupation,oc.name as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
 				+"u.firstName, u.lastName, u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName, u.currentCountry,co.name as currentCountryName, " 
 				+"u.currentState, u.currentCity, " 
 				+"u.maritalStatus, u.caste,c.name as casteName, u.gotram, u.star,s.name as starName, u.dosam, u.dosamName, u.education, u.workingWith, u.companyName, " 
@@ -2540,7 +2544,7 @@ public class UsersDao extends BaseUsersDao
 					buffer.append("select *,(select count(*) from users_activity_log where "+where_clause+") as conversations_count from users_activity_log where  "+where_clause+" order by created_time desc limit 1 ");
 				}
 				if(request_type.equalsIgnoreCase("accepted_requests")){
-					String where_clause = " find_in_set(act_done_on_user_id,('"+userId+","+profile_id+"'))>0 and find_in_set(act_done_by_user_id,('"+userId+","+profile_id+"'))>0 and activity_type in ('message_accepted','message_replied','interest_accepted') ";
+					String where_clause = " find_in_set(act_done_on_user_id,('"+userId+","+profile_id+"'))>0 and find_in_set(act_done_by_user_id,('"+userId+","+profile_id+"'))>0 and activity_type in ('message_accepted','message_replied','interest_accepted','mobile_no_viewed') ";
 					buffer.append("select *, (select activity_content from users_activity_log where act_done_by_user_id = "+profile_id+" and act_done_on_user_id = "+userId+" and activity_type in ('message_accepted','message_replied','interest_accepted','message') order by created_time desc limit 1) as activity_content, "
 								+" (select count(*) from users_activity_log where "+where_clause+") as  conversations_count "
 								+" from users_activity_log where "+where_clause+"  order by created_time desc limit 1 ");

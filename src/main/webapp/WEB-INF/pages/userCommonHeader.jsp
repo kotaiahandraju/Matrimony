@@ -1307,7 +1307,7 @@ tooltip:hover:after {
 								}
 							}
 							var conversations_count = recent_activity.conversations_count;
-							if(typeof conversations_count != "undefined" && conversations_count>1){
+							if(typeof conversations_count != "undefined" && conversations_count>=1){
 								more_conversations_str = ' <a href="moreConversations?pid='+orderObj.id+'&tab_type='+tabType+'&list_type='+listType+'"><span class="pull-right" style="color:#006699;">+ More Conversations</span></a> ';
 							}
 						}

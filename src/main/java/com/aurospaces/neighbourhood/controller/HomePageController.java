@@ -4102,8 +4102,8 @@ public class HomePageController {
 					String filter_requests = request.getParameter("filter_requests");
 					if(StringUtils.isNotBlank(filter_requests) && filter_requests.equalsIgnoreCase("true")){
 						
-						String rejected_by_me = request.getParameter("rejected_by_me");
-						String rejected_by_others = request.getParameter("rejected_by_others");
+						String rejected_by_me = request.getParameter("by_me");
+						String rejected_by_others = request.getParameter("by_others");
 						
 						String read = request.getParameter("read");
 						String un_read = request.getParameter("un_read");
