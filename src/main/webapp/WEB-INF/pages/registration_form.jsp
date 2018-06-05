@@ -338,7 +338,11 @@ $( document ).ready(function() {
 	   $("#secondForm").hide();
 	      $("#thirdForm").hide();
 	      $("#fourthForm").hide();
-
+	      
+	      var religionId =${cacheGuest.religion};
+		  getReliginCastAjax(religionId); 
+	      
+			
 	 var pagenum = "${pagenum}";
 	   if(pagenum ==1){
 		   $("#firstForm").show();
@@ -349,8 +353,6 @@ $( document ).ready(function() {
 			 $("#step2").removeClass("btn-primary");
 			 $("#step3").removeClass("btn-primary");
 			 $("#step4").removeClass("btn-primary");
-			
-			
 	   }
 	   if(pagenum ==2){
 		   $("#firstForm").hide();
@@ -835,8 +837,8 @@ function getCitys(id){
 		});
 	}
 	
-	var religionId =${cacheGuest.religion};
-	getReliginCastAjax(religionId);
+	/* var religionId =${cacheGuest.religion};
+	getReliginCastAjax(religionId); */
 		
 	function getReliginCastAjax(religionId) {
 		var religionId1 = religionId;
@@ -854,6 +856,9 @@ function getCitys(id){
 				var casteName=tests.name;
 				optionsForClass.append(new Option(casteName, id));
 			});
+			var saved_caste_id = "${cacheGuest.caste}";
+		      $("#caste").val(saved_caste_id);
+			  $("#caste").trigger("chosen:updated");
 			
 		});
 	}
