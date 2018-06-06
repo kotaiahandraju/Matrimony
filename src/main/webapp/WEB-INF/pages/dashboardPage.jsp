@@ -233,10 +233,10 @@ color:#000;
     		<c:set value="${0}" var="count" />
 			<c:forEach items="${pending_reqs}" var="pend_req">
 				<c:if test="${count == 0}">
-					<div class="item active">
+					<div class="item active" id="pending_div${pend_req.requestId}">
 				</c:if>
 				<c:if test="${count != 0}">
-					<div class="item">
+					<div class="item" id="pending_div${pend_req.requestId}">
 				</c:if>
 			        <div class="col-md-2">
 			        	<c:if test="${not empty pend_req.profileImage}">
@@ -258,8 +258,16 @@ color:#000;
 			      	 <c:out value="${pend_req.casteName}" />, <c:out value="${pend_req.currentCountryName}" /><br>
 			 			Do you like this profile?</p>
 			       </div>
+
 			       <div class="col-md-3"><span><i class="fa fa-check-circle" style="font-size:25px;color:green"></i> &nbsp; <i class="fa fa-times-circle-o" aria-hidden="true"  style="font-size:25px;color:red"></i>
 			       </span></div>
+
+			       <div class="col-md-2">
+			       		<span>
+			       			<a href="#" onclick="acceptRequest_pendingReq(${pend_req.requestId},'1')"><i class="fa fa-check-circle" style="font-size:25px;color:green"></i></a> &nbsp; <a href="#" onclick="acceptRequest_pendingReq(${pend_req.requestId},'0')"><i class="fa fa-times-circle-o" aria-hidden="true"  style="font-size:25px;color:red"></i></a>
+			       		</span>
+			       		
+			       	</div>
 			      </div>
 			      <c:set value="${count+1}" var="count" />
 			</c:forEach>
@@ -276,11 +284,11 @@ She could be a good match. Do you like her profile</p>
        </span></div></div>
 
     <!-- Left and right controls -->
-    <a class="left carousel-control bgc" href="#myCarousel" data-slide="prev">
+    <a class="left carousel-control bgc" href="#myCarousel" data-slide="prev" >
       <span class="fa fa-chevron-left pleftc" > </span>
       <span class="sr-only">Previous</span>
     </a>
-    <a class="right carousel-control bgc" href="#myCarousel" data-slide="next">
+    <a class="right carousel-control bgc" href="#myCarousel" data-slide="next" id="pending_next">
       <span class="fa fa-chevron-right prightc" ></span>
       <span class="sr-only">Next</span>
     </a>
@@ -893,6 +901,58 @@ function paginationSetup(total_items_count) {
           
         }
       });
+}
+
+function acceptRequest_pendingReq(requestId,flag){
+	$("#pending_div"+requestId).remove();
+	$("#pending_next").trigger("click");
+	
+	/* var roleId = ${cacheGuest.roleId};
+	$("#id").val(requestId);
+	 if(roleId==4){
+		document.searchForm2.action = "memberShipPage"
+		document.searchForm2.submit();
+		return true;
+	}else{
+		 /* if(allowed_limit<=0){
+			alert("Exceeded allowed profiles limit. Renew your membership plan and get more profiles");
+			return false;
+		}  */ 
+		/*var membershipStatus = ${cacheGuest.membership_status};
+		if(membershipStatus!="1"){
+			alert("Your membership validity period is over. Renew your membership plan and get more profiles");
+			return false;
+		}
+		var formData = new FormData();
+	
+		formData.append("requestId",requestId);
+		formData.append("accept_flag",flag);
+		
+		
+		
+		 jQuery.fn.makeMultipartRequest('POST', 'acceptRequest', false,
+				formData, false, 'text', function(data){
+	    		var jsonobj = $.parseJSON(data);
+	    		var msg = jsonobj.message;
+	    		
+	    			if("success"==msg){
+	    				if(flag==1){
+	    					alert("Request accepted successfully");
+	    					$("#accept"+requestId).html('');
+	    					$("#accept"+requestId).html("<a type='button' class='btn btn-success btn-sm' disabled='true'>Accepted</a>");
+	    				}else{
+	    					alert("Request rejected successfully");
+	    					$("#accept"+requestId).html('');
+	    					$("#accept"+requestId).html("<a type='button' class='btn btn-danger btn-sm' disabled='true' >Ignored</a>");
+	    				}
+	    			}else if("failed"==msg || "exception"==msg){
+	    				alert("Some problem occured. Please try again.");
+	    			}
+	    		
+	    		
+				
+			}); 
+	} */
 }
 /* function getNewMatches(){
 	document.searchForm2.action = "newMatches";
