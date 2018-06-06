@@ -247,7 +247,7 @@ color:#000;
 			        		<img class="thumbnail img-responsive" src="img/default.png"/>
 			        	</c:if>
 			        </div>
-			         <div class="col-md-8">
+			         <div class="col-md-7">
 			      <p><b>
 			      		<c:if test="${cacheGuest.roleId == '4'}">
 			      			<a href="inboxAction?tab_type=inbox&list_type=pending_requests">xxxxxxx</a>
@@ -261,6 +261,10 @@ color:#000;
 			      	 <br>
 			 			Do you like this profile?</p>
 			       </div>
+
+			       <div class="col-md-3"><span><i class="fa fa-check-circle" style="font-size:25px;color:green"></i> &nbsp; <i class="fa fa-times-circle-o" aria-hidden="true"  style="font-size:25px;color:red"></i>
+			       </span></div>
+
 			       <div class="col-md-2">
 			       		<span>
 			       			<a href="#" onclick="acceptRequest_pendingReq(${pend_req.requestId},'1')"><i class="fa fa-check-circle" style="font-size:25px;color:green"></i></a> &nbsp; <a href="#" onclick="acceptRequest_pendingReq(${pend_req.requestId},'0')"><i class="fa fa-times-circle-o" aria-hidden="true"  style="font-size:25px;color:red"></i></a>
