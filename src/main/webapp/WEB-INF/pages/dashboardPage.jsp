@@ -230,6 +230,7 @@ color:#000;
     <!-- Wrapper for slides -->
     <c:if test="${not empty pending_reqs}">
     <div class="carousel-inner pendingre">
+    		${cacheGuest.pendingRequestsCount} messages pending
     		<c:set value="${0}" var="count" />
 			<c:forEach items="${pending_reqs}" var="pend_req">
 				<c:if test="${count == 0}">
@@ -249,13 +250,15 @@ color:#000;
 			         <div class="col-md-8">
 			      <p><b>
 			      		<c:if test="${cacheGuest.roleId == '4'}">
-			      			xxxxxxx
+			      			<a href="inboxAction?tab_type=inbox&list_type=pending_requests">xxxxxxx</a>
 			      		</c:if> 
 			      		<c:if test="${cacheGuest.roleId != '4'}">
-			      			<c:out value="${pend_req.firstName}" />  <c:out value="${pend_req.lastName}" />
+			      			<a href="inboxAction?tab_type=inbox&list_type=pending_requests"><c:out value="${pend_req.firstName}" />  <c:out value="${pend_req.lastName}" /></a>
 			      		</c:if> 
-			      	</b>, <c:out value="${pend_req.age}" /> yrs, <c:out value="${pend_req.inches}" /><br>
-			      	 <c:out value="${pend_req.casteName}" />, <c:out value="${pend_req.currentCountryName}" /><br>
+			      	</b>,<br> 
+			      	<c:out value="${pend_req.age}" /> yrs, <c:out value="${pend_req.inches}" /><br>
+			      	 <c:out value="${pend_req.casteName}" />, <c:out value="${pend_req.currentCountryName}" /> 
+			      	 <br>
 			 			Do you like this profile?</p>
 			       </div>
 			       <div class="col-md-2">
