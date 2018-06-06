@@ -202,6 +202,7 @@ public class UserSettingsController {
 		return jsOnObj.toString();
 	}
 	
+	/***********   URL to run in the browser directly to intialise data in DB      ************/
 	@RequestMapping(value = "/insertUserSettings")
 	public  String insertUserSettings(Model objeModel ,
 			HttpServletRequest request, HttpSession session) {

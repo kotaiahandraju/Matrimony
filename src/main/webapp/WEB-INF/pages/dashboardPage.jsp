@@ -228,8 +228,42 @@ color:#000;
     </ol>
  -->
     <!-- Wrapper for slides -->
+    <c:if test="${not empty pending_reqs}">
     <div class="carousel-inner pendingre">
-      <div class="item active">
+    		<c:set value="${0}" var="count" />
+			<c:forEach items="${pending_reqs}" var="pend_req">
+				<c:if test="${count == 0}">
+					<div class="item active">
+				</c:if>
+				<c:if test="${count != 0}">
+					<div class="item">
+				</c:if>
+			        <div class="col-md-2">
+			        	<c:if test="${not empty pend_req.profileImage}">
+			        		<img class="thumbnail img-responsive" src="${pend_req.profileImage}"/>
+			        	</c:if>
+			        	<c:if test="${empty pend_req.profileImage}">
+			        		<img class="thumbnail img-responsive" src="img/default.png"/>
+			        	</c:if>
+			        </div>
+			         <div class="col-md-8">
+			      <p><b>
+			      		<c:if test="${cacheGuest.roleId == '4'}">
+			      			xxxxxxx
+			      		</c:if> 
+			      		<c:if test="${cacheGuest.roleId != '4'}">
+			      			<c:out value="${pend_req.firstName}" />  <c:out value="${pend_req.lastName}" />
+			      		</c:if> 
+			      	</b>, <c:out value="${pend_req.age}" /> yrs, <c:out value="${pend_req.inches}" /><br>
+			      	 <c:out value="${pend_req.casteName}" />, <c:out value="${pend_req.currentCountryName}" /><br>
+			 			Do you like this profile?</p>
+			       </div>
+			       <div class="col-md-2"><span><i class="fa fa-check-circle" style="font-size:25px;color:green"></i> &nbsp; <i class="fa fa-times-circle-o" aria-hidden="true"  style="font-size:25px;color:red"></i>
+			       </span></div>
+			      </div>
+			      <c:set value="${count+1}" var="count" />
+			</c:forEach>
+      <div class="item">
         <div class="col-md-2">
         <img class="thumbnail img-responsive" src="img/1050587.png"/>
         </div>
@@ -241,33 +275,6 @@ She could be a good match. Do you like her profile</p>
        <div class="col-md-2"><span><i class="fa fa-check-circle" style="font-size:25px;color:green"></i> &nbsp; <i class="fa fa-times-circle-o" aria-hidden="true"  style="font-size:25px;color:red"></i>
        </span></div></div>
 
-      <div class="item">
-        <div class="col-md-2">
-        <img class="thumbnail img-responsive" src="img/10323.png"/>
-        </div>
-         <div class="col-md-8">
-      <p><b>Jangili mownika</b>, 23 Yrs, 5 Ft 2 In<br>
-Yadav, India<br>
-She could be a good match. Do you like her profile</p>
-       </div>
-       <div class="col-md-2"><span><i class="fa fa-check-circle" style="font-size:25px;color:green"></i> &nbsp; <i class="fa fa-times-circle-o" aria-hidden="true"  style="font-size:25px;color:red"></i>
-       </span></div>
-      </div>
-    
-      <div class="item">
-       <div class="col-md-2">
-        <img class="thumbnail img-responsive" src="img/101727.png"/>
-        </div>
-         <div class="col-md-8">
-      <p><b>Jangili mownika</b>, 23 Yrs, 5 Ft 2 In<br>
-Yadav, India<br>
-She could be a good match. Do you like her profile</p>
-       </div>
-       <div class="col-md-2"><span><i class="fa fa-check-circle" style="font-size:25px;color:green"></i> &nbsp; <i class="fa fa-times-circle-o" aria-hidden="true"  style="font-size:25px;color:red"></i>
-       </span></div>
-      </div>
-    </div>
-
     <!-- Left and right controls -->
     <a class="left carousel-control bgc" href="#myCarousel" data-slide="prev">
       <span class="fa fa-chevron-left pleftc" > </span>
@@ -278,7 +285,7 @@ She could be a good match. Do you like her profile</p>
       <span class="sr-only">Next</span>
     </a>
   </div>
-
+	</c:if>
 </div><div class="clearfix"></div><br>
 				<div class="panel panel-default">
 					<div class="panel-body">

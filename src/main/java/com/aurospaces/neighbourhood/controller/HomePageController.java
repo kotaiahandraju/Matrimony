@@ -1267,7 +1267,7 @@ public class HomePageController {
 			if(pending_requests!=null && pending_requests.size()>0){
 				request.setAttribute("pending_reqs", pending_requests);
 			}else{
-				request.setAttribute("pending_reqs", "''");
+				request.setAttribute("pending_reqs", "");
 			}
 			
 		} catch (Exception e) {
@@ -2271,7 +2271,9 @@ public class HomePageController {
 	   return "";
    }
    
-   @RequestMapping(value="/dailyMatchEmails")
+   /*****     Not required in current release -- as per client      ************/
+   
+   /*@RequestMapping(value="/dailyMatchEmails")
    public String dailyMatchEmails(HttpSession session,HttpServletRequest request){
 	   List<Map<String,Object>> activeProfilesList = objUsersDao.getAllSubscribedUsersForDailyMatchEmails();
 	   for(Map<String,Object> profile:activeProfilesList){
@@ -2291,7 +2293,7 @@ public class HomePageController {
 	   }
 	   
 	   return "";
-   }
+   }*/
    
    /*
     * 
