@@ -246,7 +246,7 @@ color:#000;
 			        		<img class="thumbnail img-responsive" src="img/default.png"/>
 			        	</c:if>
 			        </div>
-			         <div class="col-md-8">
+			         <div class="col-md-7">
 			      <p><b>
 			      		<c:if test="${cacheGuest.roleId == '4'}">
 			      			xxxxxxx
@@ -258,7 +258,7 @@ color:#000;
 			      	 <c:out value="${pend_req.casteName}" />, <c:out value="${pend_req.currentCountryName}" /><br>
 			 			Do you like this profile?</p>
 			       </div>
-			       <div class="col-md-2"><span><i class="fa fa-check-circle" style="font-size:25px;color:green"></i> &nbsp; <i class="fa fa-times-circle-o" aria-hidden="true"  style="font-size:25px;color:red"></i>
+			       <div class="col-md-3"><span><i class="fa fa-check-circle" style="font-size:25px;color:green"></i> &nbsp; <i class="fa fa-times-circle-o" aria-hidden="true"  style="font-size:25px;color:red"></i>
 			       </span></div>
 			      </div>
 			      <c:set value="${count+1}" var="count" />
