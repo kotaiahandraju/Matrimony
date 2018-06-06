@@ -262,29 +262,19 @@ color:#000;
 			 			Do you like this profile?</p>
 			       </div>
 
-			       <div class="col-md-3"><span><i class="fa fa-check-circle" style="font-size:25px;color:green"></i> &nbsp; <i class="fa fa-times-circle-o" aria-hidden="true"  style="font-size:25px;color:red"></i>
+			       <div class="col-md-3"><span><a href="#" onclick="acceptRequest_pendingReq(${pend_req.requestId},'1')"><i class="fa fa-check-circle" style="font-size:25px;color:green"></i></a> &nbsp; <a href="#" onclick="acceptRequest_pendingReq(${pend_req.requestId},'0')"><i class="fa fa-times-circle-o" aria-hidden="true"  style="font-size:25px;color:red"></i></a>
 			       </span></div>
 
-			       <div class="col-md-2">
+			       <%-- <div class="col-md-2">
 			       		<span>
 			       			<a href="#" onclick="acceptRequest_pendingReq(${pend_req.requestId},'1')"><i class="fa fa-check-circle" style="font-size:25px;color:green"></i></a> &nbsp; <a href="#" onclick="acceptRequest_pendingReq(${pend_req.requestId},'0')"><i class="fa fa-times-circle-o" aria-hidden="true"  style="font-size:25px;color:red"></i></a>
 			       		</span>
 			       		
-			       	</div>
+			       	</div> --%>
 			      </div>
 			      <c:set value="${count+1}" var="count" />
 			</c:forEach>
-      <div class="item">
-        <div class="col-md-2">
-        <img class="thumbnail img-responsive" src="img/1050587.png"/>
-        </div>
-         <div class="col-md-8">
-      <p><b>Jangili mownika</b>, 23 Yrs, 5 Ft 2 In<br>
-Yadav, India<br>
-She could be a good match. Do you like her profile</p>
-       </div>
-       <div class="col-md-2"><span><i class="fa fa-check-circle" style="font-size:25px;color:green"></i> &nbsp; <i class="fa fa-times-circle-o" aria-hidden="true"  style="font-size:25px;color:red"></i>
-       </span></div></div>
+      
 
     <!-- Left and right controls -->
     <a class="left carousel-control bgc" href="#myCarousel" data-slide="prev" >
@@ -907,10 +897,9 @@ function paginationSetup(total_items_count) {
 }
 
 function acceptRequest_pendingReq(requestId,flag){
-	$("#pending_div"+requestId).remove();
-	$("#pending_next").trigger("click");
 	
-	/* var roleId = ${cacheGuest.roleId};
+	
+	 var roleId = ${cacheGuest.roleId};
 	$("#id").val(requestId);
 	 if(roleId==4){
 		document.searchForm2.action = "memberShipPage"
@@ -921,7 +910,7 @@ function acceptRequest_pendingReq(requestId,flag){
 			alert("Exceeded allowed profiles limit. Renew your membership plan and get more profiles");
 			return false;
 		}  */ 
-		/*var membershipStatus = ${cacheGuest.membership_status};
+		var membershipStatus = ${cacheGuest.membership_status};
 		if(membershipStatus!="1"){
 			alert("Your membership validity period is over. Renew your membership plan and get more profiles");
 			return false;
@@ -940,13 +929,13 @@ function acceptRequest_pendingReq(requestId,flag){
 	    		
 	    			if("success"==msg){
 	    				if(flag==1){
-	    					alert("Request accepted successfully");
-	    					$("#accept"+requestId).html('');
-	    					$("#accept"+requestId).html("<a type='button' class='btn btn-success btn-sm' disabled='true'>Accepted</a>");
+	    					alert("Request Accepted.");
+	    					$("#pending_div"+requestId).remove();
+	    					$("#pending_next").trigger("click");
 	    				}else{
-	    					alert("Request rejected successfully");
-	    					$("#accept"+requestId).html('');
-	    					$("#accept"+requestId).html("<a type='button' class='btn btn-danger btn-sm' disabled='true' >Ignored</a>");
+	    					alert("Request Rejected.");
+	    					$("#pending_div"+requestId).remove();
+	    					$("#pending_next").trigger("click");
 	    				}
 	    			}else if("failed"==msg || "exception"==msg){
 	    				alert("Some problem occured. Please try again.");
@@ -955,7 +944,7 @@ function acceptRequest_pendingReq(requestId,flag){
 	    		
 				
 			}); 
-	} */
+	} 
 }
 /* function getNewMatches(){
 	document.searchForm2.action = "newMatches";
