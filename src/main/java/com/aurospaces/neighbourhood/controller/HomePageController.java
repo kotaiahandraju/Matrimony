@@ -2679,6 +2679,7 @@ public class HomePageController {
 				int pending = Integer.parseInt(sessionBean.getPendingRequestsCount());
 				sessionBean.setPendingRequestsCount(pending>0?(pending-1)+"":"0");
 				session.setAttribute("cacheGuest",sessionBean);
+				objJson.put("req_count", pending>0?(pending-1)+"":"0");
 			} else {
 				objJson.put("message", "failed");
 			}

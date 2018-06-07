@@ -229,8 +229,8 @@ color:#000;
  -->
     <!-- Wrapper for slides -->
     <c:if test="${not empty pending_reqs}">
-    <div class="carousel-inner pendingre">
-    		${cacheGuest.pendingRequestsCount} messages pending
+    <div id="pending_req_div"  class="carousel-inner pendingre">
+    		<span id="pending_count">${cacheGuest.pendingRequestsCount} requests pending</span>
     		<c:set value="${0}" var="count" />
 			<c:forEach items="${pending_reqs}" var="pend_req">
 				<c:if test="${count == 0}">
@@ -936,6 +936,13 @@ function acceptRequest_pendingReq(requestId,flag){
 	    					alert("Request Rejected.");
 	    					$("#pending_div"+requestId).remove();
 	    					$("#pending_next").trigger("click");
+	    				}
+	    				var req_count = jsonobj.req_count;
+	    				if(req_count=="0"){
+	    					$("#pending_req_div").remove();
+	    				}else{
+	    					$("#pending_count").html('');
+		    				$("#pending_count").html(req_count+" requests pending.");
 	    				}
 	    			}else if("failed"==msg || "exception"==msg){
 	    				alert("Some problem occured. Please try again.");
