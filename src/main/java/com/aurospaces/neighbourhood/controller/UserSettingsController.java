@@ -174,6 +174,33 @@ public class UserSettingsController {
 		return jsonObj.toString();
 	}
 	
+	@RequestMapping(value = "/saveProfileSettings")
+	public @ResponseBody String  saveProfileSettings(@ModelAttribute("createProfile") UsersBean objUsersBean, Model objeModel ,
+			HttpServletRequest request, HttpSession session) {
+		JSONObject jsonObj = new JSONObject();
+		try {
+			UsersBean objuserBean = (UsersBean) session.getAttribute("cacheGuest");
+			if(objuserBean == null){
+				return "redirect:HomePage";
+			}
+			String show_profile_to = request.getParameter("show_profile_to");
+			String know_shortlisted_option = request.getParameter("know_shortlisted_option").equalsIgnoreCase("true")?"1":"0";
+			boolean success = settingsDao.saveProfileSettings(objuserBean.getId()+"", show_profile_to, know_shortlisted_option);
+			if(success){
+				jsonObj.put("message", "success");
+			}else{
+				jsonObj.put("message", "failed");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			logger.error(e);
+			logger.fatal("error in saveUnsubscribeFromCallingList method  ");
+		}
+		return jsonObj.toString();
+	}
+	
 	@RequestMapping(value = "/getUnsubscribeFromCallingList")
 	public  @ResponseBody String getUnsubscribeFromCallingList(@ModelAttribute("settingsForm") UsersBean objUsersBean, Model objeModel ,
 			HttpServletRequest request, HttpSession session) {
