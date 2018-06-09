@@ -230,9 +230,9 @@ color: #cfcfcf !important;
 							<div class="row">
 							<div class="col-md-12">
 								<h4 style='font-size: 16px; line-height: 31px; color: black;'>Your Profile Privacy has been set as "Show my Profile to all including visitors"</h4>
-						<p style='line-height: color: black; 41px; margin-bottom:5px; '><input type="radio" style='color: black;'> Show my Profile to all including visitors.
+						<p style='line-height: color: black; 41px; margin-bottom:5px; '><input type="radio" name="show_profile_to" value="all" style='color: black;'> Show my Profile to all including visitors.
 						<br>
-						<input type="radio" style='color: black; margin-bottom:5px;'> Show my Profile to registered members only.</p>
+						<input type="radio" name="show_profile_to" value="registered" style='color: black; margin-bottom:5px;'> Show my Profile to registered members only.</p>
 						<p style='color: black;'><input  style='color: black;' type="checkbox" id="know_ishortlisted">&nbsp;&nbsp;Let others know that I shortlisted their profile.</p></input><br>
 						<input type="button" class="btn btn-success" align='right' value="Submit" onclick="submitProfileSettings('profile_settings')" />
 					<br></div>
@@ -309,29 +309,7 @@ color: #cfcfcf !important;
 								</table><br>
 								</div>
 								</div>
-								<div class="row" style='border-top: 2px dashed; line-height: 31px;'>
-								<div class="col-md-6">
-								<table>
-								<h2><legend>ADD ON PACKAGES</legend></h2>
-								<h4>ASTROMATCH</h4>
-								<tr>
-								<td>Last Renewed &nbsp;</td>
-									<td>: &nbsp;</td>
-								<td>09 March 2018</td>
-								</tr>
-								<tr>
-								<td>Total Count &nbsp;</td>
-								<td>:</td>
-								<td>45</td>
-								</tr>
-								<tr>
-								<td>Count Left</td>
-								<td>:</td>
-								<td>12</td>
-								</tr>
-								</table>
-								</div>								
-								</div>								
+																
 							</div>
 						</div>
 					</div>
@@ -765,19 +743,19 @@ Auto-login saves you the process of logging into your account with your e-mail I
         </div>
         <div id="panel2" class="panel-collapse collapse">
             <div class="panel-body">
-<p><input type="radio"> Show mobile number to paid members</p>
+<p><input type="radio" name="show_mobileno_to" value="paid_members"> Show mobile number to paid members</p>
 <p> &nbsp;<i class="fa fa-chevron-right"></i> Paid members can reach you directly or through SMS</p>
 <hr>
-<p><input type="radio"> Show mobile number only to paid members from my community</p>
+<p><input type="radio" name="show_mobileno_to" value="paid_mycommunity_members"> Show mobile number only to paid members from my community</p>
 <p> &nbsp;<i class="fa fa-chevron-right"></i> Paid members from your community can reach you directly or through SMS</p>
 <hr>
-<p><input type="radio">  Show mobile number only to paid members whom I had contacted / responded</p>
+<p><input type="radio"cname="show_mobileno_to" value="paid_icontacted_members">  Show mobile number only to paid members whom I had contacted / responded</p>
 <p> &nbsp;<i class="fa fa-chevron-right"></i> Paid members whom you have contacted / responded can reach you directly or through SMS</p>
 <hr>
-<p><input type="radio">  Hide my mobile number</p>
+<p><input type="radio" name="show_mobileno_to" value="hide">  Hide my mobile number</p>
 <p> &nbsp;<i class="fa fa-chevron-right"></i> Your mobile number will be hidden, however you can receive SMS from other paid members</p>
 <hr>
-<span class="btn btn-warning"> Submit</span>
+<input type="button" class="btn btn-warning" value="Submit" onclick="submitProfileSettings('privacy')" />
 </div>
         </div>
     </div>
@@ -960,6 +938,40 @@ function displaySettingsBlock(divId){
 			}
 		});
 	}
+	if(divId=="profile_settings"){
+		var formData = new FormData();
+		$.fn.makeMultipartRequest('POST', 'getProfileSettings', false,
+				formData, false, 'text', function(data){
+			var jsonobj = $.parseJSON(data);
+			var msg = jsonobj.message;
+			var settingsMap = jsonobj.settings;
+			if(msg=="success"){
+				var show_profile_to = settingsMap.show_profile_to;
+				var know_shortlisted_option = settingsMap.know_shortlisted_option;
+				if(know_shortlisted_option=="1"){
+					$("#know_ishortlisted").prop("checked",true);
+				}else{
+					$("#know_ishortlisted").prop("checked",false);
+				}
+				$('[name="show_profile_to"]').removeAttr('checked');
+				$("input[name=show_profile_to][value="+show_profile_to+"]").prop('checked', true);
+			}
+		});
+	}
+	if(divId=="privacy"){
+		var formData = new FormData();
+		$.fn.makeMultipartRequest('POST', 'getPrivacySettings', false,
+				formData, false, 'text', function(data){
+			var jsonobj = $.parseJSON(data);
+			var msg = jsonobj.message;
+			var settingsMap = jsonobj.settings;
+			if(msg=="success"){
+				var show_mobile_no_to = settingsMap.show_mobile_no_to;
+				$('[name="show_mobileno_to"]').removeAttr('checked');
+				$("input[name=show_mobileno_to][value="+show_mobile_no_to+"]").prop('checked', true);
+			}
+		});
+	}
 	if(divId=="contact_filters"){
 		var formData = new FormData();
 		$.fn.makeMultipartRequest('POST', 'getContactFilterSettings', false,
@@ -1110,8 +1122,16 @@ function submitProfileSettings(actionStr){
 		formData.append("newPassword2",confirmedNewPassword);
 		actionUrl = "changePasswordAction";
 	}else if(actionStr=="profile_settings"){
-		formData.append("know_ishortlisted",$("#know_ishortlisted").val());
-		actionUrl = "profileSettingsAction";
+		var show_profile_to = $("input[type=radio][name=show_profile_to]:checked").val();
+		formData.append("show_profile_to",show_profile_to);
+		var short_list_option = $("#know_ishortlisted").prop("checked");
+		formData.append("know_shortlisted_option",short_list_option);
+		
+		actionUrl = "saveProfileSettings";
+	}else if(actionStr=="privacy"){
+		var show_mobileno_to = $("input[type=radio][name=show_mobileno_to]:checked").val();
+		formData.append("show_mobileno_to",show_mobileno_to);
+		actionUrl = "savePrivacySettings";
 	}else if(actionStr=="delete_profile"){
 		actionUrl = "deleteProfileAction";
 	}
@@ -1128,6 +1148,8 @@ function submitProfileSettings(actionStr){
 					$("#newPassword2").val("");
 				}else if(actionStr=="profile_settings"){
 					alert("Settings updated successfully");
+				}else if(actionStr=="privacy"){
+					alert("Profile settings updated successfully");
 				}else if(actionStr=="delete_profile"){
 					alert("Profile deleted successfully");
 				}

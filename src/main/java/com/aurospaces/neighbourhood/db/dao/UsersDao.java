@@ -279,7 +279,15 @@ public class UsersDao extends BaseUsersDao
 									buffer.append( " and u.status in( '3')" );
 								}
 								buffer.append(" group by u.id ");
-								buffer.append(" order by u.created_time desc ");
+								UsersBean objuserBean = (UsersBean) session.getAttribute("cacheUserBean");
+								if(objuserBean.getRoleId()==MatrimonyConstants.AARNA_EMPLOYEE_ROLE_ID){
+									String sub_qry = "select (profiles_start_index-1) as start_index,profiles_size from users where id = "+objuserBean.getId();
+									Map<String,Object> limit_values = jdbcTemplate.queryForMap(sub_qry);
+									buffer.append(" order by u.id  limit "+limit_values.get("profiles_size")+" offset "+limit_values.get("start_index")+" ");
+								}else{
+									buffer.append(" order by u.created_time desc ");
+								}
+								
 								String sql =buffer.toString();
 								System.out.println(sql);
 								
@@ -1612,6 +1620,60 @@ public class UsersDao extends BaseUsersDao
 				return null;
 			}
 			return null;
+		}
+		
+		public int getFreeMembersCount(){
+			jdbcTemplate = custom.getJdbcTemplate();
+			String qryStr = "select count(*) from users where role_id = "+MatrimonyConstants.FREE_USER_ROLE_ID+" and status = '1'";
+			try{
+				int free_users_count = jdbcTemplate.queryForInt(qryStr);
+				return free_users_count;
+			}catch(Exception e){
+				e.printStackTrace();
+				return 0;
+			}
+		}
+		
+		public List<Map<String,Object>> getEmployeesList(){
+			jdbcTemplate = custom.getJdbcTemplate();
+			String qryStr = "select * from users where role_id =  "+MatrimonyConstants.AARNA_EMPLOYEE_ROLE_ID+" and status = '1' order by profiles_start_index ";
+			try{
+				List<Map<String,Object>> list = jdbcTemplate.queryForList(qryStr);
+					return list;
+			}catch(Exception e){
+				e.printStackTrace();
+				return null;
+			}
+		}
+		
+		public boolean updateEmployeeProfilesSlot(int user_id, int start_index, int size){
+			jdbcTemplate = custom.getJdbcTemplate();
+			String updateQry = "update users set profiles_start_index = "+start_index+"  , profiles_size = "+size+"   where id = "+user_id;
+			try{
+				int updated_count = jdbcTemplate.update(updateQry);
+				if(updated_count == 1){
+					return true;
+				}
+			}catch(Exception e){
+				e.printStackTrace();
+				return false;
+			}
+			return false;
+		}
+		
+		public boolean rotateEmployeesProfilesSlot(int free_users_count){
+			jdbcTemplate = custom.getJdbcTemplate();
+			String updateQry = "update users set profiles_start_index = if((profiles_start_index+profiles_size)>"+free_users_count+",1,(profiles_start_index+profiles_size))  where  role_id =  "+MatrimonyConstants.AARNA_EMPLOYEE_ROLE_ID+" and status = '1'  ";
+			try{
+				int updated_count = jdbcTemplate.update(updateQry);
+				if(updated_count > 0){
+					return true;
+				}
+			}catch(Exception e){
+				e.printStackTrace();
+				return false;
+			}
+			return false;
 		}
 		
 		public List<Map<String,Object>> getAllSubscribedUsersForDailyMatchEmails(){

@@ -196,13 +196,95 @@ public class UserSettingsController {
 			e.printStackTrace();
 			System.out.println(e);
 			logger.error(e);
-			logger.fatal("error in saveUnsubscribeFromCallingList method  ");
+			logger.fatal("error in saveProfileSettings method  ");
+		}
+		return jsonObj.toString();
+	}
+	
+	@RequestMapping(value = "/savePrivacySettings")
+	public @ResponseBody String  savePrivacySettings(@ModelAttribute("createProfile") UsersBean objUsersBean, Model objeModel ,
+			HttpServletRequest request, HttpSession session) {
+		JSONObject jsonObj = new JSONObject();
+		try {
+			UsersBean objuserBean = (UsersBean) session.getAttribute("cacheGuest");
+			if(objuserBean == null){
+				return "redirect:HomePage";
+			}
+			String show_mobileno_to = request.getParameter("show_mobileno_to");
+			boolean success = settingsDao.savePrivacySettings(objuserBean.getId()+"", show_mobileno_to);
+			if(success){
+				jsonObj.put("message", "success");
+			}else{
+				jsonObj.put("message", "failed");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			logger.error(e);
+			logger.fatal("error in savePrivacySettings method  ");
 		}
 		return jsonObj.toString();
 	}
 	
 	@RequestMapping(value = "/getUnsubscribeFromCallingList")
 	public  @ResponseBody String getUnsubscribeFromCallingList(@ModelAttribute("settingsForm") UsersBean objUsersBean, Model objeModel ,
+			HttpServletRequest request, HttpSession session) {
+	   JSONObject jsOnObj = new JSONObject();
+	    
+		try {
+			UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
+			if(sessionBean == null){
+				return "redirect:HomePage";
+			}
+			Map<String,Object> settings = settingsDao.getUserSettings(sessionBean.getId()+"");
+			if(settings!=null){
+				jsOnObj.put("message", "success");
+				jsOnObj.put("settings", settings);
+			}else{
+				jsOnObj.put("message", "failed");
+				jsOnObj.put("settings", "");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			//logger.error(e);
+			//logger.fatal("error in CreateProfile class createProfile method  ");
+			jsOnObj.put("message", "failed");
+		}
+		return jsOnObj.toString();
+	}
+	
+	@RequestMapping(value = "/getProfileSettings")
+	public  @ResponseBody String getProfileSettings(@ModelAttribute("settingsForm") UsersBean objUsersBean, Model objeModel ,
+			HttpServletRequest request, HttpSession session) {
+	   JSONObject jsOnObj = new JSONObject();
+	    
+		try {
+			UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
+			if(sessionBean == null){
+				return "redirect:HomePage";
+			}
+			Map<String,Object> settings = settingsDao.getUserSettings(sessionBean.getId()+"");
+			if(settings!=null){
+				jsOnObj.put("message", "success");
+				jsOnObj.put("settings", settings);
+			}else{
+				jsOnObj.put("message", "failed");
+				jsOnObj.put("settings", "");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			//logger.error(e);
+			//logger.fatal("error in CreateProfile class createProfile method  ");
+			jsOnObj.put("message", "failed");
+		}
+		return jsOnObj.toString();
+	}
+	
+	@RequestMapping(value = "/getPrivacySettings")
+	public  @ResponseBody String getPrivacySettings(@ModelAttribute("settingsForm") UsersBean objUsersBean, Model objeModel ,
 			HttpServletRequest request, HttpSession session) {
 	   JSONObject jsOnObj = new JSONObject();
 	    

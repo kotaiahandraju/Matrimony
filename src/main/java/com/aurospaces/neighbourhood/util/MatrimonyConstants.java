@@ -28,6 +28,8 @@ public class MatrimonyConstants {
 	public static final int CLASSIC_PLUS_USER_ROLE_ID = 13;
 	public static final int AARNA_PREMIUM_USER_ROLE_ID = 14;
 	
+	public static final int AARNA_EMPLOYEE_ROLE_ID = 3;
+	
 	public static final int PAGINATION_SIZE = 10;
 	
 	public static final int EMAIL_PROFILES_LIMIT = 10;

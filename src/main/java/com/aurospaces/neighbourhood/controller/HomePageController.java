@@ -2308,6 +2308,48 @@ public class HomePageController {
 	   
 	   
    }
+   /*
+    * Total profiles list should be divided equally  among all the employees of aarna matrimony
+    */
+   @RequestMapping(value="/splitProfilesToEmployees")
+   public String splitProfilesToEmployees(HttpSession session,HttpServletRequest request){
+	   try{
+		   int free_users_count = 100;//objUsersDao.getFreeMembersCount();
+		   List<Map<String, Object>> emp_list = objUsersDao.getEmployeesList();
+		   int slot_size = 0;
+		   if(emp_list!=null && emp_list.size()>0){
+			   slot_size = free_users_count/emp_list.size();
+		   }
+		   int start_index = 1;
+		   for(Map<String,Object> emp:emp_list){
+			   objUsersDao.updateEmployeeProfilesSlot((Integer)emp.get("id"), start_index, slot_size);
+			   start_index += slot_size;
+		   }
+	   }catch(Exception e){
+		   e.printStackTrace();
+	   }
+	   
+	   
+	   return "";
+   }
+   
+   /*
+    * To rotate the profiles_slots  among the employees...this script runs every month end.
+    * Before running this URL..run 'splitProfilesToEmployees' URL
+    */
+   @RequestMapping(value="/rotateEmployeesProfilesSlot")
+   public String rotateEmployeesProfilesSlot(HttpSession session,HttpServletRequest request){
+	   try{
+		   int free_users_count = objUsersDao.getFreeMembersCount(); 
+		   objUsersDao.rotateEmployeesProfilesSlot(free_users_count);
+	   }catch(Exception e){
+		   e.printStackTrace();
+	   }
+	   
+	   
+	   return "";
+   }
+   
    /*****     back-end jobs   end        ********/
    
    /*****     pagination function call **********/

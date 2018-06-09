@@ -125,6 +125,23 @@ public class UserSettingsDao{
 		return false;
 	}
 	
+	public boolean savePrivacySettings(String user_id, String show_mobileno_to){
+		jdbcTemplate = custom.getJdbcTemplate();
+		StringBuffer buffer = new StringBuffer();
+		try {
+			buffer.append("update user_settings set updated_time = '"+new java.sql.Timestamp(new DateTime().getMillis())+"', show_mobile_no_to = '"+show_mobileno_to+"' "
+							+" where user_id="+user_id);
+			int updated_count = jdbcTemplate.update(buffer.toString());
+			if (updated_count == 1) {
+				return true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		return false;
+	}
+	
 	public void insertSettings(){
 		jdbcTemplate = custom.getJdbcTemplate();
 		String qry = "select id from users";
