@@ -50,6 +50,10 @@ JdbcTemplate jdbcTemplate;
 	public void save(final UsersBean users) 
 	{
 		jdbcTemplate = custom.getJdbcTemplate();
+		if(users.getDob1() == null)
+		{
+		users.setDob1( new Date());
+		}
 	if(users.getId() == 0)	{
 
 	KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -57,7 +61,6 @@ JdbcTemplate jdbcTemplate;
 			new PreparedStatementCreator() {
 					public PreparedStatement 
 					createPreparedStatement(Connection connection) throws SQLException {
-	
 					if(users.getCreatedTime() == null)
 					{
 					users.setCreatedTime( new Date());
@@ -158,6 +161,7 @@ ps.setString(52, unique_code);
 		{
 
 			try{
+				
 				UsersBean adminSessionBean =  (UsersBean) session.getAttribute("cacheUserBean");
 				String passwordStr = "";
 				if(adminSessionBean != null){
@@ -223,5 +227,13 @@ ps.setString(52, unique_code);
 				return true;
 			return false;
 		}
-
+	 @Transactional
+		public boolean updateEmployee(UsersBean objUsersBean) {
+			jdbcTemplate = custom.getJdbcTemplate();
+			String sql = "update users set firstName=?,lastName=?,email=?,username=?,password= AES_ENCRYPT(?,?)  where id = ?";
+			int updatedCount = jdbcTemplate.update(sql, new Object[]{objUsersBean.getFirstName(),objUsersBean.getLastName(),objUsersBean.getEmail(),objUsersBean.getUsername(),objUsersBean.getPassword(),"mykey",objUsersBean.getId()});
+			if(updatedCount==1)
+				return true;
+			return false;
+		}
 }
