@@ -46,14 +46,7 @@ public class UsersDao extends BaseUsersDao
 	
 	public UsersBean loginChecking(LoginBean objUsersBean) {
 		 jdbcTemplate = custom.getJdbcTemplate();
-			String sql = "SELECT u.*,ureq.*,ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,  GROUP_CONCAT(uimg.image) as image, (select uimg.image from user_images uimg where uimg.user_id=u.id and uimg.status = '1' and uimg.is_profile_picture='1') as profileImage, "
-							+" cst.name as casteName, rel.name as religionName, edu.name as educationName, curcity.name as currentCityName ,"
-							+" occ.name as occupationName,  "
-							+" DATE_FORMAT(u.dob, '%d-%M-%Y') as dob, DATE_FORMAT(u.created_time, '%d-%M-%Y') as createdTimeAsString, "
-							+" date_format(last_login_time,'%d-%b-%Y %r') as last_login_time "
-							+" FROM users u left join user_images uimg on uimg.user_id=u.id left join userrequirement ureq on ureq.userId=u.id  "
-							+" left join cast cst on cst.id=u.caste left join religion rel on rel.id=u.religion "
-							+" left join education edu on edu.id=u.education left join occupation occ on occ.id=u.occupation left join city curcity on curcity.id=u.currentCity "
+			String sql = "SELECT * from logincheckingview "
 							+" where  AES_DECRYPT(PASSWORD,'mykey')= ? and  (email =? or username=? or mobile=? )";
 		 	System.out.println(sql);
 			List<Map<String,Object>> list = jdbcTemplate.queryForList("select * from users where AES_DECRYPT(PASSWORD,'mykey')= ? and  (email =? or username=? or mobile=? )", new Object[]{objUsersBean.getPassword(),objUsersBean.getUserName(),objUsersBean.getUserName(),objUsersBean.getUserName()});
@@ -955,7 +948,7 @@ public class UsersDao extends BaseUsersDao
 	 public List<Map<String, String>> getProfilesFilteredByPreferences(int page_no){
 			jdbcTemplate = custom.getJdbcTemplate();
 			StringBuffer buffer = new StringBuffer();
-			StringBuffer where_clause = new StringBuffer(" where u.status in ('1') and u.role_id not in (1) ");
+			StringBuffer where_clause = new StringBuffer(" where 1 ");
 			String handlerObj[] = null;
 			UsersBean objUserBean = null;
 			objUserBean = (UsersBean) session.getAttribute("cacheUserBean");
@@ -964,22 +957,22 @@ public class UsersDao extends BaseUsersDao
 			if(objUserBean!=null){
 				
 				String tempQryStr = " from userrequirement ureq where ureq.userId = "+objUserBean.getId()+" ";
-				where_clause.append( " and cast(floor((datediff(current_date(),u.dob))/365) as decimal(10,2)) >= if((select ureq.rAgeFrom "+tempQryStr+")='' or (select ureq.rAgeFrom "+tempQryStr+") is null,floor((datediff(current_date(),u.dob))/365),(select ureq.rAgeFrom "+tempQryStr+"))");
-				where_clause.append( " and cast(floor((datediff(current_date(),u.dob))/365) as decimal(10,2)) <= if((select ureq.rAgeTo "+tempQryStr+")='' or (select ureq.rAgeTo "+tempQryStr+") is null,floor((datediff(current_date(),u.dob))/365),(select ureq.rAgeTo "+tempQryStr+"))");
-				//buffer.append( " and u.age between (select ureq.rAgeFrom "+tempQryStr+") and (select ureq.rAgeTo "+tempQryStr+")  ") ;
-				where_clause.append( " and cast(u.height as unsigned) >= cast(ifnull(if((select ureq.rHeight "+tempQryStr+" )='' or (select ureq.rHeight "+tempQryStr+" )='all' or (select ureq.rHeight  "+tempQryStr+" ) is null,null,(select ureq.rHeight  "+tempQryStr+" )),u.height) as unsigned ) ");
-				where_clause.append( " and cast(u.height as unsigned) <= cast(ifnull(if((select ureq.rHeightTo "+tempQryStr+" )='' or (select ureq.rHeightTo "+tempQryStr+" )='all' or (select ureq.rHeightTo  "+tempQryStr+" ) is null,null,(select ureq.rHeightTo  "+tempQryStr+" )),u.height) as unsigned ) ");
-				where_clause.append( " and  FIND_IN_SET(u.maritalStatus,if((select ureq.rMaritalStatus "+tempQryStr+" )='' or (select ureq.rMaritalStatus "+tempQryStr+" )='all' or (select ureq.rMaritalStatus  "+tempQryStr+" ) is null,u.maritalStatus,(select ureq.rMaritalStatus  "+tempQryStr+" ))) > 0    ");
-				where_clause.append( " and FIND_IN_SET(u.caste,if((select ureq.rCaste "+tempQryStr+" )='' or (select ureq.rCaste "+tempQryStr+" )='all' or (select ureq.rCaste  "+tempQryStr+" ) is null,u.caste,(select ureq.rCaste  "+tempQryStr+" )))>0  ");
-				where_clause.append( " and FIND_IN_SET(u.currentCountry,if((select ureq.rCountry "+tempQryStr+" )='' or (select ureq.rCountry "+tempQryStr+" )='all' or (select ureq.rCountry  "+tempQryStr+" ) is null,u.currentCountry,(select ureq.rCountry  "+tempQryStr+" ))) > 0 ");
-				where_clause.append( " and FIND_IN_SET(u.education,if((select ureq.rEducation "+tempQryStr+" )='' or (select ureq.rEducation "+tempQryStr+" )='all' or (select ureq.rEducation "+tempQryStr+" )='any'  or (select ureq.rEducation  "+tempQryStr+" ) is null,u.education,(select ureq.rEducation  "+tempQryStr+" ))) > 0  ");
-				where_clause.append( " and FIND_IN_SET(u.religion,if((select ureq.rReligion "+tempQryStr+" )='' or (select ureq.rReligion "+tempQryStr+" )='all' or (select ureq.rReligion "+tempQryStr+" )='any'  or (select ureq.rReligion  "+tempQryStr+" ) is null,u.religion,(select ureq.rReligion  "+tempQryStr+" ))) > 0  ");
-				//buffer.append( " and u.occupation = ifnull((select ureq.rOccupation "+tempQryStr+"),u.occupation) ");
+				where_clause.append( " and cast(floor((datediff(current_date(),dob))/365) as decimal(10,2)) >= if((select ureq.rAgeFrom "+tempQryStr+")='' or (select ureq.rAgeFrom "+tempQryStr+") is null,floor((datediff(current_date(),dob))/365),(select ureq.rAgeFrom "+tempQryStr+"))");
+				where_clause.append( " and cast(floor((datediff(current_date(),dob))/365) as decimal(10,2)) <= if((select ureq.rAgeTo "+tempQryStr+")='' or (select ureq.rAgeTo "+tempQryStr+") is null,floor((datediff(current_date(),dob))/365),(select ureq.rAgeTo "+tempQryStr+"))");
+				//buffer.append( " and age between (select ureq.rAgeFrom "+tempQryStr+") and (select ureq.rAgeTo "+tempQryStr+")  ") ;
+				where_clause.append( " and cast(height as unsigned) >= cast(ifnull(if((select ureq.rHeight "+tempQryStr+" )='' or (select ureq.rHeight "+tempQryStr+" )='all' or (select ureq.rHeight  "+tempQryStr+" ) is null,null,(select ureq.rHeight  "+tempQryStr+" )),height) as unsigned ) ");
+				where_clause.append( " and cast(height as unsigned) <= cast(ifnull(if((select ureq.rHeightTo "+tempQryStr+" )='' or (select ureq.rHeightTo "+tempQryStr+" )='all' or (select ureq.rHeightTo  "+tempQryStr+" ) is null,null,(select ureq.rHeightTo  "+tempQryStr+" )),height) as unsigned ) ");
+				where_clause.append( " and  FIND_IN_SET(maritalStatus,if((select ureq.rMaritalStatus "+tempQryStr+" )='' or (select ureq.rMaritalStatus "+tempQryStr+" )='all' or (select ureq.rMaritalStatus  "+tempQryStr+" ) is null,maritalStatus,(select ureq.rMaritalStatus  "+tempQryStr+" ))) > 0    ");
+				where_clause.append( " and FIND_IN_SET(caste,if((select ureq.rCaste "+tempQryStr+" )='' or (select ureq.rCaste "+tempQryStr+" )='all' or (select ureq.rCaste  "+tempQryStr+" ) is null,caste,(select ureq.rCaste  "+tempQryStr+" )))>0  ");
+				where_clause.append( " and FIND_IN_SET(currentCountry,if((select ureq.rCountry "+tempQryStr+" )='' or (select ureq.rCountry "+tempQryStr+" )='all' or (select ureq.rCountry  "+tempQryStr+" ) is null,currentCountry,(select ureq.rCountry  "+tempQryStr+" ))) > 0 ");
+				where_clause.append( " and FIND_IN_SET(education,if((select ureq.rEducation "+tempQryStr+" )='' or (select ureq.rEducation "+tempQryStr+" )='all' or (select ureq.rEducation "+tempQryStr+" )='any'  or (select ureq.rEducation  "+tempQryStr+" ) is null,education,(select ureq.rEducation  "+tempQryStr+" ))) > 0  ");
+				where_clause.append( " and FIND_IN_SET(religion,if((select ureq.rReligion "+tempQryStr+" )='' or (select ureq.rReligion "+tempQryStr+" )='all' or (select ureq.rReligion "+tempQryStr+" )='any'  or (select ureq.rReligion  "+tempQryStr+" ) is null,religion,(select ureq.rReligion  "+tempQryStr+" ))) > 0  ");
+				//buffer.append( " and occupation = ifnull((select ureq.rOccupation "+tempQryStr+"),occupation) ");
 				
 				if(objUserBean.getRoleId()!=1){
-					where_clause.append(" and u.gender not in  ('"+objUserBean.getGender()+"') ");
-					where_clause.append(" and u.id not in  ("+objUserBean.getId()+") ");
-					//buffer.append(" and u.status not in  ('0') ");
+					where_clause.append(" and gender not in  ('"+objUserBean.getGender()+"') "); // included in view
+					where_clause.append(" and id not in  ("+objUserBean.getId()+") ");
+					//buffer.append(" and status not in  ('0') ");
 				}
 				
 				if(objUserBean.getRoleId()==MatrimonyConstants.AARNA_PREMIUM_USER_ROLE_ID 
@@ -988,29 +981,17 @@ public class UsersDao extends BaseUsersDao
 						|| objUserBean.getRoleId()==MatrimonyConstants.CLASSIC_USER_ROLE_ID
 						|| objUserBean.getRoleId()==MatrimonyConstants.CLASSIC_PLUS_USER_ROLE_ID){
 					
-					buffer.append("select u.id,sta.name as currentStateName,cit.name as currentCityName,u.occupation,ifnull(oc.name,'') as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
-							+"u.firstName, u.lastName, u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName, u.currentCountry,co.name as currentCountryName, " 
-							+"u.currentState, u.currentCity, " 
-							+"u.maritalStatus, u.caste,c.name as casteName, u.gotram, u.star,s.name as starName, u.dosam, u.dosamName, u.education, u.workingWith, u.companyName, " 
-							+"u.annualIncome, u.monthlyIncome, u.diet, u.smoking, u.drinking, u.height ,h.inches,h.cm, u.bodyType,b.name as bodyTypeName, u.complexion,com.name as complexionName, u.mobile, " 
-							+"u.aboutMyself, u.disability, u.status, u.showall,ur.userId, rAgeFrom, rAgeTo, "
-							+"rHeight, rMaritalStatus, rReligion,re1.name as requiredReligionName, rCaste,c1.name as requiredCasteName, rMotherTongue,l1.name as requiredMotherTongue,haveChildren,rCountry , con1.name as requiredCountry,rState,rEducation,e1.name as requiredEducationName, "
-							+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,"
-							+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and interested='1') as expressedInterest, "
-							+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and message_sent_status='1') as message_sent_status, "
-							+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and mobile_no_viewed_status='1') as mobileNumViewed, "
-							//+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and interested='1') as expressedInterest, "
-							+" (select uimg.image from user_images uimg where uimg.user_id=u.id and  uimg.status = '1' and uimg.is_profile_picture='1') as profileImage, "
-							+" ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
-							+" (select count(*) from users u "+where_clause+") as total_records, u.createProfileFor,  "
-							+" (select ifnull((select short_listed from express_intrest where user_id = "+objUserBean.getId()+" and profile_id = u.id),0)) as short_listed "
-							//+" (select uimg.image from user_images uimg where uimg.user_id=u.id and uimg.is_profile_picture='1') as profileImage "
-							+" from users u left join userrequirement ur on u.id=ur.userId "
-							+"left join religion re on re.id=u.religion left join language l on l.id=u.motherTongue left join countries co on co.id=u.currentCountry "
-							+"left join cast c on c.id=u.caste left join star s on s.id =u.star left join height h on h.id=u.height left join body_type b on b.id=u.bodyType left join religion re1  on re1.id=rReligion "
-							+"left join complexion com on com.id =u.complexion left join cast c1 on c1.id=rCaste left join language l1 on l1.id=rMotherTongue "
-							+"left join countries con1 on con1.id=rCountry left join education e1 on e1.id=rEducation left join occupation oc1 on oc1.id=rOccupation  left join user_images uimg on uimg.user_id=u.id left join occupation oc on u.occupation=oc.id left join education ed on ed.id=u.education "
-							+ " left join state sta on sta.id=u.currentState left join city cit on cit.id=u.currentCity ");
+					buffer.append("select *, "
+							+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=id  and interested='1') as expressedInterest, "
+							+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=id  and message_sent_status='1') as message_sent_status, "
+							+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=id  and mobile_no_viewed_status='1') as mobileNumViewed, "
+							//+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=id  and interested='1') as expressedInterest, "
+							//+" (select uimg.image from user_images uimg where uimg.user_id=id and  uimg.status = '1' and uimg.is_profile_picture='1') as profileImage, "
+							//+" ifnull(floor((datediff(current_date(),dob))/365),'') as age,DATE_FORMAT(dob, '%d-%M-%Y') as dobString,  "
+							+" (select count(*) from users u "+where_clause+") as total_records, "
+							+" (select ifnull((select short_listed from express_intrest where user_id = "+objUserBean.getId()+" and profile_id = id),0)) as short_listed "
+							//+" (select uimg.image from user_images uimg where uimg.user_id=id and uimg.is_profile_picture='1') as profileImage "
+							+" from preferred_profiles_paid_members_view ");
 					handlerObj = new String[] {"id","currentStateName","currentCityName","occupation","occupationName","educationName","userrequirementId","image","created_time","updated_time",
 							"role_id","username","password","email","createProfileFor","gender","firstName","lastName","dob","religion","religionName","motherTongue","motherTongueName","currentCountry","currentCountryName",
 							"currentState","currentCity","maritalStatus",
@@ -1018,27 +999,18 @@ public class UsersDao extends BaseUsersDao
 							"monthlyIncome","diet","smoking","drinking","height","inches","cm",
 							"bodyType","bodyTypeName","complexion","complexionName","mobile","aboutMyself","disability",
 							"status","showall","userId","rAgeFrom","rAgeTo","rHeight","rMaritalStatus","rReligion","requiredReligionName","rCaste","requiredCasteName","rMotherTongue","requiredMotherTongue","haveChildren","rCountry","requiredCountry","rState","rEducation","requiredEducationName",
-							"rWorkingWith","rOccupation","requiredOccupationName","rAnnualIncome","rCreateProfileFor","rDiet","expressedInterest","message_sent_status","mobileNumViewed","age","dobString","total_records","profileImage","createProfileFor","short_listed"};
+							"rWorkingWith","rOccupation","requiredOccupationName","rAnnualIncome","rCreateProfileFor","rDiet","age","dobString","profileImage","expressedInterest","message_sent_status","mobileNumViewed","total_records","short_listed"};
 				}else{
-					buffer.append("select u.id,cit.name as currentCityName,u.occupation,ifnull(oc.name,'') as occupationName,ed.name as educationName,co.name as currentCountryName, u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.gender, "
-							//+"u.firstName, u.lastName, u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName,  " 
-							+" u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName,  "
-							+"u.maritalStatus, u.caste,c.name as casteName, u.education, " 
-							+" u.height ,h.inches,h.cm, ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
+					buffer.append("select *, "
 							+" (select count(*) from users u "+where_clause+") as total_records, "
-							+" (select uimg.image from user_images uimg where uimg.user_id=u.id and  uimg.status = '1' and uimg.is_profile_picture='1') as profileImage, u.createProfileFor,  "
-							+" (select ifnull((select short_listed from express_intrest where user_id = "+objUserBean.getId()+" and profile_id = u.id),0)) as short_listed, "
-							+" '0' as expressedInterest, '0' as message_sent_status, '0' as mobileNumViewed "
-							+" from users u left join "
-							+" religion re on re.id=u.religion left join language l on l.id=u.motherTongue left join  "
-							+" cast c on c.id=u.caste left join height h on h.id=u.height left join "
-							+"  occupation oc on u.occupation=oc.id left join education ed on ed.id=u.education "
-							+ " left join city cit on cit.id=u.currentCity left join countries co on co.id=u.currentCountry ");
-							//+" where u.status not in ('0')   ");
+							+" (select uimg.image from user_images uimg where uimg.user_id=id and  uimg.status = '1' and uimg.is_profile_picture='1') as profileImage,  "
+							+" (select ifnull((select short_listed from express_intrest where user_id = "+objUserBean.getId()+" and profile_id = id),0)) as short_listed "
+							+" from preferred_profiles_free_members_view ");
+							//+" where status not in ('0')   ");
 					handlerObj = new String[] {"id","currentCityName","occupation","occupationName","educationName","currentCountryName","created_time","updated_time",
 							"role_id","username","password","email","gender","dob","religion","religionName","motherTongue","motherTongueName",
 							"maritalStatus",
-							"caste","casteName","education","height","inches","cm","age","dobString","total_records","profileImage","createProfileFor","short_listed","expressedInterest","message_sent_status","mobileNumViewed"};
+							"caste","casteName","education","height","inches","cm","age","dobString","createProfileFor","expressedInterest","message_sent_status","mobileNumViewed","package_id","profileImage","total_records","status","currentCountry","short_listed"};
 				} 
 				
 				/*buffer.append("select u.id,sta.name as currentStateName,cit.name as currentCityName,u.occupation,oc.name as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
@@ -1060,10 +1032,11 @@ public class UsersDao extends BaseUsersDao
 			
 					buffer.append(where_clause.toString());
 					
-					buffer.append(" group by u.id ");
+					//buffer.append(" group by id ");
 					
 					int page_size = MatrimonyConstants.PAGINATION_SIZE;
-					buffer.append(" order by u.package_id desc limit "+page_size+" offset "+(page_no*page_size)+" ");
+					//buffer.append(" order by package_id desc limit "+page_size+" offset "+(page_no*page_size)+" ");
+					buffer.append("  limit "+page_size+" offset "+(page_no*page_size)+" ");
 					
 					
 					/*}
@@ -3217,6 +3190,22 @@ public boolean deletePhoto(String photoId){
 		try{
 			int inserted_count = jdbcTemplate.update(qryStr);
 			if(inserted_count==1)
+				return true;
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+		return false;
+	}
+	
+	public boolean updateOtpCount(String mobileNum,String otp){
+		jdbcTemplate = custom.getJdbcTemplate();
+		UsersBean userSessionBean =  (UsersBean) session.getAttribute("cacheGuest");
+		String qryStr = "update user_otps set count = (count+1), updated_time = '"+new java.sql.Timestamp(new DateTime().getMillis())+"' where mobile_no = "+mobileNum+" and user_id = "+userSessionBean.getId()+" and otp = "+otp+" and date(updated_time) = current_date() ";
+		try{
+			int updated_count = jdbcTemplate.update(qryStr);
+			if(updated_count==1)
 				return true;
 			
 		}catch(Exception e){

@@ -349,6 +349,9 @@ var role_id = ${cacheUserBean.roleId};
 						<li class="city"><a href="${baseurl }/admin/CityHome">City</a></li>
 						<li class="dosham"><a href="${baseurl }/admin/DoshamHome">Dosham</a></li>
 						<li class="Salary"><a href="${baseurl }/admin/SalaryHome">Salary</a></li>
+							<c:if test="${roleId1 == 1}">  
+				  		<li class="Salary"><a href="${baseurl }/admin/employeeCreation">Employee Creation</a></li>
+			         	</c:if>
 					</ul>
 				</li>
 				<li class="profiles">
