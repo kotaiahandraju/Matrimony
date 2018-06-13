@@ -3239,38 +3239,33 @@ public class HomePageController {
    HttpSession session,
    Model mod)
    {
-	   UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
-		if(sessionBean == null){
-			return "redirect:HomePage";
-		}
-	   UsersBean profile = (UsersBean)session.getAttribute("profileToBeCreated");
-	   objeModel.addAttribute("partnerProfile", profile);
-	   String mobileNum = profile.getMobile();
-	   String otp1 = request.getParameter("otp1");
-	   /*************
-		check OTP limit for the day
-		
-		*************/
-	   int count = objUsersDao.getOTPCount(mobileNum);
-	   if(count<=MatrimonyConstants.OTP_LIMIT){
-		   String otp = objUsersDao.getOtpOf(sessionBean.getId()+"",mobileNum)+"";
-		   if(StringUtils.isNotBlank(otp1)  &&  otp.equals(otp1)){
-			   objUsersDao.updateOtpStatus(mobileNum,otp);
-			   
-			   //return "redirect:saveUserProfile";
-			   return "redirect:dashboard";
-		   }else{
-			   request.setAttribute("message", "mismatched");//"OTP mismatched.Please try again.");
-			   return "otpPage";
-		   }
-	   }else{
-		   request.setAttribute("msg", "OTP limit for the day has been exceeded. Please try again later.");
-		   return "otpFailurePage";
-	   }
+	   try{
+		   UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
+			if(sessionBean == null){
+				return "redirect:HomePage";
+			}
+		   UsersBean profile = (UsersBean)session.getAttribute("profileToBeCreated");
+		   objeModel.addAttribute("partnerProfile", profile);
+		   String mobileNum = profile.getMobile();
+		   String otp1 = request.getParameter("otp1");
+			   String otp = objUsersDao.getOtpOf(sessionBean.getId()+"",mobileNum)+"";
+			   if(StringUtils.isNotBlank(otp1)  &&  otp.equals(otp1)){
+				   objUsersDao.updateOtpStatus(mobileNum,otp);
+				   
+				   //return "redirect:saveUserProfile";
+				   return "redirect:dashboard";
+			   }else{
+				   request.setAttribute("message", "mismatched");//"OTP mismatched.Please try again.");
+				   return "otpPage";
+			   }
 	   
-	   
-	   
-
+   		}catch (Exception e) {
+		   e.printStackTrace();
+		   System.out.println(e);
+		   logger.error(e);
+		   logger.fatal("error in sendOtp method");
+		 }
+	   return "otpPage";
    }
    
    
@@ -3344,29 +3339,44 @@ public class HomePageController {
 				UsersBean savedUserData = objUsersDao.getById(sessionBean.getId());
 				String mobileNum = savedUserData.getMobile();
 				objJson.put("mobileStr", mobileNum.substring(mobileNum.length()-3));
-				String otp = objUsersDao.getOtpOf(savedUserData.getId()+"",mobileNum);
-				//String otp = objUsersDao.genOtp();
-			   //insert into otp table
-			   //boolean success = objUsersDao.saveOtp(sessionBean.getId()+"",mobileNum,otp);
-			   if(StringUtils.isNotBlank(otp)){
-				   try{
-					   String response = SendSMS.sendSMS("Thanks for registering with Aarna Matrimony. OTP for your registration is: "+otp, mobileNum);
-					   
-					   if("OK".equalsIgnoreCase(response)){
-						   objJson.put("message", "success");
-					   }else{
+				
+				/*************
+				check OTP limit for the day
+				
+				*************/
+			   int count = objUsersDao.getOTPCount(mobileNum);
+			   if(count<MatrimonyConstants.OTP_LIMIT){
+				   String otp = objUsersDao.getOtpOf(savedUserData.getId()+"",mobileNum);
+					//String otp = objUsersDao.genOtp();
+				   //insert into otp table
+				   //boolean success = objUsersDao.saveOtp(sessionBean.getId()+"",mobileNum,otp);
+				   if(StringUtils.isNotBlank(otp)){
+					   try{
+						   String response = SendSMS.sendSMS("OTP for your registration is: "+otp, mobileNum);
+						   
+						   if("OK".equalsIgnoreCase(response)){
+							   objJson.put("message", "success");
+							   boolean updated = objUsersDao.updateOtpCount(mobileNum, otp);
+						   }else{
+							   objJson.put("message", "failed");
+						   }
+						   //throw new Exception();
+					   }catch(Exception e){
+						   e.printStackTrace();
 						   objJson.put("message", "failed");
 					   }
-					   //throw new Exception();
-				   }catch(Exception e){
-					   e.printStackTrace();
+					   
+					   
+				   }else{
 					   objJson.put("message", "failed");
 				   }
-				   
-				   
 			   }else{
-				   objJson.put("message", "failed");
+				   request.setAttribute("msg", "OTP limit for the day has been exceeded. Please try again later.");
+				   return "otpFailurePage";
 			   }
+			   
+				
+				
 			   
 			
 		} catch (Exception e) {
