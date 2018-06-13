@@ -209,6 +209,7 @@ public class LoginController {
 			session.setAttribute("cacheGuest", objUserBean);
 			session.setAttribute("rolId", objUserBean.getRoleId());
 			session.setAttribute("userName", objUserBean.getUsername());
+			session.setAttribute("otpStatus", otpStatus);
 			
 			int filled_status = objUsersDao.getProfileFilledStatus(objUserBean);
 			if(StringUtils.isBlank(objUserBean.getCurrentState()) ||
