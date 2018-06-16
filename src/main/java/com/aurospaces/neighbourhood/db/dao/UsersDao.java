@@ -219,7 +219,7 @@ public class UsersDao extends BaseUsersDao
 			jdbcTemplate.query(sql, handler);
 			List<Map<String, String>> result = handler.getResult();
 			return result;*/
-			buffer.append("select u.id,sta.name as currentStateName,cit.name as currentCityName,u.occupation,oc.name as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
+			buffer.append("select u.id,sta.name as currentStateName,cit.name as currentCityName,u.occupation,oc.name as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username,AES_DECRYPT( u.password,'mykey') as password, u.email, u.createProfileFor,u.gender, "
 					+"u.firstName, u.lastName, u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName, u.currentCountry,co.name as currentCountryName, " 
 					+"u.currentState, u.currentCity, " 
 					+"u.maritalStatus, u.caste,c.name as casteName, u.gotram, u.star,s.name as starName, u.dosam, u.dosamName, u.education, u.workingWith, u.companyName, " 
@@ -268,6 +268,9 @@ public class UsersDao extends BaseUsersDao
 								}
 								if(type.equals("aarna_premium")){
 									buffer.append( " and u.role_id in ('14') and u.status in ('1') " );
+								}
+								if(type.equals("employee")){
+									buffer.append( " and u.role_id in ('3') " );
 								}
 								if(type.equals("hidden")){
 									buffer.append( " and u.status in( '3')" );
@@ -3764,6 +3767,11 @@ public boolean deletePhoto(String photoId){
 		
 	
 	}
+	
+	
+	
+	
+	
 	
 }
 

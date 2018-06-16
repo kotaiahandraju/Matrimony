@@ -1,8 +1,6 @@
 package com.aurospaces.neighbourhood.controller;
 
 import java.io.IOException;
-import java.util.Date;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,28 +10,21 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.apache.commons.lang.StringUtils;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.aurospaces.neighbourhood.bean.EducationBean;
 import com.aurospaces.neighbourhood.bean.LoginBean;
 import com.aurospaces.neighbourhood.bean.UsersBean;
 import com.aurospaces.neighbourhood.db.dao.StateDao;
 import com.aurospaces.neighbourhood.db.dao.UserSettingsDao;
 import com.aurospaces.neighbourhood.db.dao.UserrequirementDao;
 import com.aurospaces.neighbourhood.db.dao.UsersDao;
-import com.aurospaces.neighbourhood.util.HRMSUtil;
-import com.aurospaces.neighbourhood.util.MatrimonyConstants;
-import com.aurospaces.neighbourhood.util.MiscUtils;
-import com.aurospaces.neighbourhood.util.SendSMS;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 

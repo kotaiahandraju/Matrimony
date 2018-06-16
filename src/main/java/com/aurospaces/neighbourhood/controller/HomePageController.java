@@ -361,6 +361,7 @@ public class HomePageController {
 		
 	}
 	
+	
 	 @RequestMapping(value = "/family-details")
 	 public String familyDetails(@ModelAttribute("familyDetails") UsersBean objUsersBean, Model objeModel ,
 	   HttpServletRequest request, HttpSession session) {
