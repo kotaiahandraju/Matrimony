@@ -1433,7 +1433,17 @@ function checkLen(){
 		$('#errorMsg').text("Please enter minimum 50 charectors...");
 		return false;
 	}
-	
+	var ageFrom = $("select[name='rAgeFrom']").val();
+	var ageTo = $("select[name='rAgeTo']").val();
+	var heightFrom = $("#rHeight").val();
+	var heightTo = $("#rHeightTo").val();
+	if(ageFrom > ageTo){
+		alert("Sorry, Invalid Age range");
+		return false;
+	}else if(heightFrom > heightTo){
+		alert("Sorry, Invalid Height range");
+		return false;
+	}
 	$.fn.makeMultipartRequest('POST', 'editProfile', false,
 			formData, false, 'text', function(data){
 		var jsonobj = $.parseJSON(data);
@@ -1444,6 +1454,8 @@ function checkLen(){
 				updateViewValues(data_type);
 				
 				if(data_type=="partner_basic"){
+					
+					
 					updateMultiDropDownValues("rMaritalStatus");
 					updateMultiDropDownValues("rReligion");
 					updateMultiDropDownValues("rCaste");

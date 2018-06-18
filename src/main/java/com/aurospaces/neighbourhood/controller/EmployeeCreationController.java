@@ -66,6 +66,7 @@ public class EmployeeCreationController {
 			try {
 				objUsersBean.setRoleId(3);
 				objUsersBean.setStatus("1");
+				System.out.println("dsadsa :"+objUsersBean.getId());
 				usersBean=employeeCreationDao.getByEmployee(objUsersBean.getUsername());
 				int dummyId = 0;
 				if (usersBean != null) {

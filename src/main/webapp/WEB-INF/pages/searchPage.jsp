@@ -272,7 +272,6 @@ function getReliginCastAjax() {
 		var alldata = jsonobj.allOrders1;
 		var optionsForClass = "";
 		optionsForClass = $("#rCaste").empty();
-		optionsForClass.append(new Option("-- Choose Community --", ""));
 		$.each(alldata, function(i, tests) {
 			var id=tests.id;
 			var casteName=tests.name;
@@ -681,7 +680,6 @@ function modifySearch(event){
 			var alldata = jsonobj.allOrders1;
 			var optionsForClass = "";
 			optionsForClass = $("#rCaste").empty();
-			optionsForClass.append(new Option("-- Choose Community --", ""));
 			$.each(alldata, function(i, tests) {
 				var id=tests.id;
 				var casteName=tests.name;

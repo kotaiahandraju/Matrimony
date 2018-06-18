@@ -84,7 +84,7 @@
   
   <filter>  
   <filter-name>f1</filter-name>  
-  <filter-class>com.aurospaces.neighbourhood.filter.MyFilter</filter-class>  
+  <filter-class>com.aurospaces.neighbourhood.filter.UserSessionFilter</filter-class>  
   </filter> 
    <filter-mapping>  
   <filter-name>f1</filter-name>  

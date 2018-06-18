@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;  
   
-public class MyFilter implements Filter{  
+public class UserSessionFilter implements Filter{  
   
 public void init(FilterConfig arg0) throws ServletException {}  
       

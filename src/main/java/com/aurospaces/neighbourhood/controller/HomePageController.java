@@ -4401,7 +4401,31 @@ public class HomePageController {
 		}
 		return jsOnObj.toString();
 	}
-  
+  @RequestMapping(value = "/changeEmailAction")
+ 	public  @ResponseBody String changeEmailAction(@RequestParam("email") String email, HttpServletRequest request, HttpSession session) {
+ 	   JSONObject jsOnObj = new JSONObject();
+ 	   
+ 		try {
+ 				UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
+ 				if(sessionBean == null){
+ 					return "redirect:HomePage";
+ 				}
+ 				System.out.println("Id:"+sessionBean.getId());
+ 					boolean success = objUsersDao.updateEmail(email,sessionBean.getId());
+ 			if(success) {
+ 				jsOnObj.put("message", "email updated successfully");
+ 			}else {
+ 				jsOnObj.put("message", "failed");
+ 			}
+ 		} catch (Exception e) {
+ 			e.printStackTrace();
+ 			System.out.println(e);
+ 			//logger.error(e);
+ 			//logger.fatal("error in CreateProfile class createProfile method  ");
+ 			jsOnObj.putOnce("message", "failed");
+ 		}
+ 		return jsOnObj.toString();
+ 	}
   @RequestMapping(value = "/profileSettingsAction")
 	public  @ResponseBody String profileSettingsAction(@ModelAttribute("settingsForm") UsersBean objUsersBean, Model objeModel ,
 			HttpServletRequest request, HttpSession session) {
