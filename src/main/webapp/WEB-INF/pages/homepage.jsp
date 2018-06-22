@@ -42,10 +42,18 @@
 <link rel="stylesheet" type="text/css" href="user/css/component.css" />
 
 <style>
+.modal-backdrop {
+    position: relative !important;
+    }
+    .modal-backdrop.in {
+    opacity: 0;
+    filter: alpha(opacity=50);
+}
+   
 .modal-dialog {
 	position: relative;
 	width: auto;
-	max-width: 600px;
+	max-width: 72%;
 	margin: 10px;
 }
 
@@ -241,13 +249,13 @@ window.setTimeout(function() {
                                                 </div>
                                                 
                                                 
-                                                 <div class="form-group">
+                                               <div class="form-group">
                                                     <label for="">Religion</label>
                           				<form:select path="religion" onfocus="removeBorder(this.id)" onchange="getReliginCastAjax()" class="form-control" >
 														<form:option value="">-- Choose Religion --</form:option>
 														<form:options items="${religion}"></form:options>
 										</form:select>
-                                                </div> 
+                                                </div>
                                                 
                                                  <div class="form-group">
                                                     <label for="">Mother Tongue</label>
@@ -365,7 +373,7 @@ window.setTimeout(function() {
 								<option value="2">Muslim</option>
 								<option value="3">Christian</option>
 							</select> -->
-							<form:select path="religion" class="custom-select col-md-12 form-control">
+							<form:select path="religion" id="religionId" onchange="getReliginCastAjax1();" class="custom-select col-md-12 form-control">
 								<form:option value="">of Religion.... &nbsp;&nbsp;</form:option>
 								<form:options items="${religion}"></form:options>
 							</form:select>
@@ -377,9 +385,9 @@ window.setTimeout(function() {
 								<option value="2">Kapu</option>
 								<option value="3">Brahmin</option>
 							</select> -->
-							<form:select path="cast" class="custom-select col-md-12 form-control">
+							<form:select path="cast" id="castId" class="custom-select col-md-12 form-control">
 								<form:option value="">of Caste.... &nbsp;&nbsp;</form:option>
-								<form:options items="${cast}"></form:options>
+<%-- 								<form:options items="${cast}"></form:options> --%>
 							</form:select>
 						</div>
 						<div class="form-group">
@@ -405,6 +413,37 @@ window.setTimeout(function() {
 							<h1>Login</h1>
 							<img src="user/images/line-01.jpg" alt="" />
 						</div>
+						
+						
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog" style="  margin-top:55px;">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">		
+      <div class="modal-header" style="background:#099cca; color:#fff;">
+        <button type="button" style="color:#fff !important; margin-right:10px; opacity:1;" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="searchresultsDiv" class="bare">
+								<div class="searchresults">
+								    <h3>Your Search Results</h3>
+								    <p><span id="countId">${count}</span> Profiles found</p>
+									<div id="searchResults">
+										
+
+									</div>
+								</div>           
+							    <div id="table_footer"></div>
+								<div id="altLists"></div>
+					</div>
+      </div>
+    </div>
+
+  </div>
+</div>				
+						
 <script>
 
 
@@ -424,14 +463,36 @@ function searchSubmit(){
     if(rPeople == "" && rAgeFrom == "" && religion == "" && cast == undefined){
 	alert("Enter any input...");
 	return false;
-	}else if(rPeople == 'Female'){
-			window.location.href ="${baseurl}"+"/searchByBride"; 
-		}else{
-			window.location.href ="${baseurl}"+"/searchByGroom"; 
-		}
+	}else{
 	
+	}
+//     myModal.open
+//     $('#dialog-modal').dialog('open');
+    $('#myModal').modal('show');
 } 
-	
+
+function getReliginCastAjax1() {
+	var religionId = $("#religionId").val();
+		var formData = new FormData();
+		formData.append("religionId",religionId);
+	$.fn.makeMultipartRequest('POST', 'castesBasedOnReligion', false,
+			formData, false, 'text', function(data){
+		var jsonobj = $.parseJSON(data);
+		var alldata = jsonobj.allOrders1;
+		/* if(alldata == "" ){
+		$("#rCaste").select2('val','');
+	} */
+		var optionsForClass = "";
+		optionsForClass = $("#castId").empty();
+		optionsForClass.append(new Option("of Caste....", ""));
+		$.each(alldata, function(i, tests) {
+			var id=tests.id;
+			var casteName=tests.name;
+			optionsForClass.append(new Option(casteName, id));
+		});
+		
+	});
+}
 </script>
 						<div class="quote-form row">
 							<!-- contact form -->

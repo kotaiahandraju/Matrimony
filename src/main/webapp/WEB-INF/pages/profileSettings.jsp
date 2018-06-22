@@ -377,13 +377,15 @@ color: #cfcfcf !important;
 					<p style="color: black;">A valid e-mail id will be used to send you partner search mailers, member to member communication mailers and special offers.</p>
 					<div class="form-group" style="margin: auto;">
   						<label class="control-label" style="color: black;">Enter Email ID</label>  							
-    							<div class="input-group mb-3">
-      								<input type="text" placeholder="Enter Email id" class="form-control" aria-label="Amount (to the nearest dollar)">      								     								
+    							<!-- 
+    							 --><div class="input-group mb-3">
+      								<input type="text" placeholder="Enter Email id"  id="changeEmail" onkeyup="borderColor()" class="form-control" aria-label="Amount (to the nearest dollar)">      								     								
+    							<span class="hasError" id="emailError1" style="color:red;"></span>
     							</div>
     							<br>
-      								<input type="button" class="btn btn-success" type="button" value="Save"  />
+      								<input type="Submit" class="btn btn-success" id="submitId" onclick="submitEmail()"  value="Save"  />
 									 
-									 <input type="button" class="btn btn-danger"  type="button" value="Reset"  />
+									 <input type="button" class="btn btn-danger" onclick="cancelEmail()" type="button" value="Reset"  />
 									
 					</div></div></div></div></div>
 					</div>
@@ -828,6 +830,58 @@ As a member, you have the benefit of receiving mobile alerts. We recommend you t
 			
 			
        <script>
+     
+       function submitEmail(){
+
+    	   var email=$("#changeEmail").val();
+    	   if (email == null || email == "" || email == "undefiend"){
+    		   $('#changeEmail').css('border-color','red');
+    			$('#changeEmail').css('color','#cc0000');
+    			$('#changeEmail').attr('placeholder','Enter Email Id');
+    			return false;
+    	   }
+    	   var formData = new FormData();
+    	   formData.append("email",email)
+   		$.fn.makeMultipartRequest('POST', 'changeEmailAction', false,
+   				formData, false, 'text', function(data){
+   			var jsonobj = $.parseJSON(data);
+   			var msg = jsonobj.message;
+   		   var email=$("#changeEmail").val('');
+   		   alert("email updated successfully");
+   			
+   		});
+    	   
+       }
+       var expr = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+       $('#changeEmail').blur(function() {
+       	var email = $('#changeEmail').val();
+       	if(email != "" && !email.match(expr)){
+//        		alert("Please Enter Valid Email");
+           	$("#changeEmail").css("border-color","red");
+           	$("#changeEmail").attr("title","Email-ID");
+           	$('#changeEmail').css('color','red');
+           	$('#emailError1').text("Valid Email-ID..");
+           	$('#submitId').attr("disabled","true");
+       		return false;
+       	}
+       	else{
+       		$('#emailError1').text("");
+       	  $('#submitId').removeAttr("disabled");
+       	}
+       });
+       
+       function borderColor(){
+    	   $('#changeEmail').css('border-color','');
+  			$('#changeEmail').css('color','');
+       }
+       function cancelEmail(){
+    	   $("#changeEmail").val('');
+    	   $('#changeEmail').css('border-color','');
+  			$('#changeEmail').css('color','');
+  		  	$('#emailError1').text('');
+  		  $('#submitId').removeAttr("disabled");
+       }
+       
        $(window).scrollTop($('#contactNumb').offset().top);
        function show1(){
     	   document.getElementById('div1').style.display ='none';

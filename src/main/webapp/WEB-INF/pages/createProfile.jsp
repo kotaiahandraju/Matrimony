@@ -640,7 +640,7 @@
 							<div class="col-md-offset-5 col-md-4">
 								<div class="form-group">
 									<div class=" col-md-offset-1 col-md-6">
-										<input class="btn btn-primary" type="submit" id="submit1" name="yt0" value="Submit">
+										<input class="btn btn-primary" type="submit" id="submit1" onclick="submitSearch();" name="yt0" value="Submit">
 										<input class="btn btn-danger cancel" type="reset" id="reset11" name="yt1" value="Reset">
 									</div>
 								</div>
@@ -719,6 +719,29 @@ $("#reset11").click(function(){
 	$("select.select2").select2('data', {}); // clear out values selected
 	$("select.select2").select2({ allowClear: true });
 });
+
+function submitSearch(){
+	
+	
+	var ageFrom = $("select[name='rAgeFrom']").val();
+	var ageTo = $("select[name='rAgeTo']").val();
+	var heightFrom = $("#rHeight").val();
+	var heightTo = $("#rHeightTo").val();
+	if(ageFrom > ageTo){
+		alert("Sorry, Invalid Age range");
+		return false;
+	}else if(heightFrom > heightTo){
+		alert("Sorry, Invalid Height range");
+		return false;
+	}else{
+		return true;
+	}
+	
+}
+
+
+
+
 $("#submit11").click(function()
 {
 						if($('#email').val() ==  null || $('#email').val() == "" || $('#email').val()=="undefined"||$('#createProfileFor').val() ==  null || $('#createProfileFor').val() == ""  || $('#createProfileFor').val()=="undefined"||$('#lastName').val() ==  null || $('#lastName').val() == ""  || $('#lastName').val()=="undefined"||$('#dob').val() ==  null || $('#dob').val() == ""  || $('#dob').val()=="undefined"||$('#religion').val() ==  null || $('#religion').val() == ""  || $('#religion').val()=="undefined"||$('#motherTongue').val() ==  null || $('#motherTongue').val() == ""  || $('#motherTongue').val()=="undefined"||$('#currentCountry').val() ==  null || $('#currentCountry').val() == ""  || $('#currentCountry').val()=="undefined"||$('#currentState').val() ==  null || $('#currentState').val() == ""  || $('#currentState').val()=="undefined"||$('#currentCity').val() ==  null || $('#currentCity').val() == ""  || $('#currentCity').val()=="undefined"||$('#maritalStatus').val() ==  null || $('#maritalStatus').val() == ""  || $('#maritalStatus').val()=="undefined"||$('#caste').val() ==  null || $('#caste').val() == ""  || $('#caste').val()=="undefined"||$('#education').val() ==  null || $('#education').val() == ""  || $('#education').val()=="undefined"||$('#smoking').val() ==  null || $('#smoking').val() == ""  || $('#smoking').val()=="undefined"||$('#drinking').val() ==  null || $('#drinking').val() == ""  || $('#drinking').val()=="undefined"||$('#height').val() ==  null || $('#height').val() == ""  || $('#height').val()=="undefined"||$('#mobile').val() ==  null || $('#mobile').val() == ""  || $('#mobile').val()=="undefined"||$("input[name='gender']").is(':checked') != true||$("#mobile").val().length<10)

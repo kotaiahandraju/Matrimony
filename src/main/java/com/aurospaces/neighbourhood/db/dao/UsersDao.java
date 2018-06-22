@@ -1390,7 +1390,23 @@ public class UsersDao extends BaseUsersDao
 				}
 				return updated;
 			}
-		
+		public boolean updateEmail(String email,int id) {
+			 jdbcTemplate = custom.getJdbcTemplate();
+				boolean updated = false;
+				try {
+					String sSql = "update users set email = ? where id = ?";
+					int updated_cnt = jdbcTemplate.update(sSql,email,id	);
+					if (updated_cnt != 0) {
+						updated = true;
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+					return updated;
+				} finally {
+
+				}
+				return updated;
+			}
 		public UsersBean emailExistOrNot(UsersBean  objUsersBean) {
 			 jdbcTemplate = custom.getJdbcTemplate();
 				String sql = "SELECT * FROM users where email= ? ";

@@ -590,9 +590,20 @@ function hideChildren() {
 }
 	
 function submitForm(){
-	$("#savePartnerProfile").submit();
 	
-}
+	var ageFrom = $("select[name='rAgeFrom']").val();
+	var ageTo = $("select[name='rAgeTo']").val();
+	var heightFrom = $("#rHeight").val();
+	var heightTo = $("#rHeightTo").val();
+	if(ageFrom > ageTo){
+		alert("Sorry, Invalid Age range");
+		return false;
+	}else if(heightFrom > heightTo){
+		alert("Sorry, Invalid Height range");
+		return false;
+	}
+	$("#savePartnerProfile").submit();
+	}
 
 function skip(){
 	var location = "${baseurl}";
@@ -603,7 +614,7 @@ $("#rHeight").change(function(){
 	$('#rHeightTo').val('');
 	var val_from = $(this).val();
 	var val_to   = $("#rHeight option:last").val();
-	$('#rHeightTo option').hide();
+// 	$('#rHeightTo option').hide();
 	if(val_from!=''){
 		val_from = (val_from-0)+1;
 		for(var i=val_from;i<=val_to;i++)
