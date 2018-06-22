@@ -549,6 +549,18 @@ $(document).ready(function(){
     	$("#rDiet").val(selected_values.split(","));
     }
 	
+	$("#rAgeFrom").val("${partnerProfile.rAgeFrom}");
+	$("#rAgeFrom").trigger("chosen:updated");
+	// set rAgeTo also
+	$('#rAgeFrom').trigger("change");
+	$("#rAgeTo").val("${partnerProfile.rAgeTo}");
+	$("#rAgeTo").trigger("chosen:updated");
+	$("#rHeight").val("${partnerProfile.rHeight}");
+	$("#rHeight").trigger("chosen:updated");
+	// set height to also
+	$('#rHeight').trigger("change");
+	$("#rHeightTo").val("${partnerProfile.rHeightTo}");
+	$("#rHeightTo").trigger("chosen:updated");
 	
 	$('.multiSelect').trigger('change.select2'); 
 });

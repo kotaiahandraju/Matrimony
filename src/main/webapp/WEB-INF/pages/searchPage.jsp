@@ -39,7 +39,9 @@ margin-bottom:15px;}
 									<div class="col-md-3">
 										<%-- <form:input path="rAgeFrom" class="form-control  numericOnly u1" placeholder="From" /> --%>
 										
-								<select id="rAgeFrom" name="rAgeFrom" class="form-control numericOnly u1" >
+								<!-- <select id="rAgeFrom" name="rAgeFrom" class="form-control numericOnly u1" > -->
+								<form:select path="rAgeFrom" class="form-control numericOnly u1"
+								>
 									<option value="">--From--</option>
 									<option value="18">18</option>
 									<option value="19">19</option>
@@ -75,12 +77,12 @@ margin-bottom:15px;}
 									<option value="49">49</option>
 									<option value="50">50</option>
 									
-								</select>
+								</form:select>
 									</div>
 									<div class="col-md-3">
 <%-- 										<form:input path="rAgeTo" class="form-control numericOnly u1" placeholder="To" />
  --%>	
- 									<select id="rAgeTo" name="rAgeTo" class="form-control numericOnly u1">
+ 									<form:select path="rAgeTo" class="form-control numericOnly u1">
 									<option value="" selected="">--To--</option>
 									<option value="19">19</option>
 									<option value="20">20</option>
@@ -115,7 +117,7 @@ margin-bottom:15px;}
 									<option value="49">49</option>
 									<option value="50">50</option>
 								
-								</select>
+								</form:select>
  								</div>
  								<span id="ageMsg" style="color:red;"></span>
 								</div>
@@ -167,7 +169,7 @@ margin-bottom:15px;}
 									      <label class="col-md-4 control-label" for="textinput">Religion</label>  
 									      <div class="col-md-6">
 									      	<form:select path="rReligion" onchange="getReliginCastAjax()" class="multiSelect" multiple="true">
-												<form:option value="0">-- Choose Religion --</form:option>
+												<%-- <form:option value="0">-- Choose Religion --</form:option> --%>
 												<form:options items="${religion}"></form:options>
 											</form:select>
 									      </div>
@@ -177,7 +179,7 @@ margin-bottom:15px;}
 									      <label class="col-md-4 control-label" for="textinput">Community</label>  
 									      <div class="col-md-6">
 									      	<form:select path="rCaste" class="multiSelect" multiple="true">
-												<form:option value="">-- Choose Community --</form:option>
+												<%-- <form:option value="">-- Choose Community --</form:option> --%>
 											<%-- 	<form:options items="${cast}"></form:options> --%>
 											</form:select>
 									      </div>
@@ -187,7 +189,7 @@ margin-bottom:15px;}
 									      <label class="col-md-4 control-label" for="textinput">Mother Tongue</label>  
 									      <div class="col-md-6">
 									      	<form:select path="rMotherTongue" class="multiSelect" multiple="true">
-												<form:option value="">-- Choose Mother Tongue --</form:option>
+												<%-- <form:option value="">-- Choose Mother Tongue --</form:option> --%>
 												<form:options items="${language}"></form:options>
 											</form:select>
 									      </div>
@@ -197,7 +199,7 @@ margin-bottom:15px;}
 											<label class="col-md-4 control-label required">Country living in </label>
 											<div class="col-md-6">
 												<form:select path="rCountry" class="multiSelect"  multiple="true" onchange="getFilteredStatesMultiSelect(this.id)">
-													<form:option value="">-- Choose Country --</form:option>
+													<%-- <form:option value="">-- Choose Country --</form:option> --%>
 													<form:options items="${countries}"></form:options>
 												</form:select>
 										  		<div><form:errors path="rCountry" cssClass="error" /></div>
@@ -207,8 +209,8 @@ margin-bottom:15px;}
 											<label class="col-md-4 control-label required">State living in</label>
 											<div class="col-md-6">
 												<form:select path="rState"  class="multiSelect" multiple="true">
-													<form:option value="">-- Choose State --</form:option>
-													<form:options items="${states }"></form:options>
+													<%-- <form:option value="">-- Choose State --</form:option> --%>
+													<form:options items="${states_list }"></form:options>
 												</form:select>
 												<div><form:errors path="rState" cssClass="error" /></div>
 											</div>
@@ -263,6 +265,10 @@ function shortList(profileId){
 
 function getReliginCastAjax() {
 	var religionId = $("#rReligion").val();
+	if(religionId==null){
+		$("#rCaste").empty();
+		return true;
+	}
 		var formData = new FormData();
 		formData.append("religionId",religionId);
 	$.fn.makeMultipartRequest('POST', 'castesBasedOnReligion', false,
@@ -272,6 +278,7 @@ function getReliginCastAjax() {
 		var alldata = jsonobj.allOrders1;
 		var optionsForClass = "";
 		optionsForClass = $("#rCaste").empty();
+		/* optionsForClass.append(new Option("-- Choose Community --", "")); */
 		$.each(alldata, function(i, tests) {
 			var id=tests.id;
 			var casteName=tests.name;
@@ -324,19 +331,19 @@ if (listOrders1 != "" && listOrders1 != null) {
 	var str = '<div class="alert alert-danger nixi"><h6>No results found..!</h6></div>';
 	$('#searchResults').html('');
 	$(str).appendTo("#searchResults");
-	$('#search_criteria').prop("hidden",true);
+	//$('#search_criteria').prop("hidden",true);
 	$("#searchresultsDiv").removeAttr("hidden");
 }
 
 function displayMatches(listOrders) {
 	$('#searchResults').html('');
-	$("#search_criteria").prop("hidden",true);
+	//$("#search_criteria").prop("hidden",true);
 	$('#searchresultsDiv').removeAttr("hidden");
 	serviceUnitArray = {};
-	var r_age_from = "${r_age_from}";
+	/* var r_age_from = "${r_age_from}";
 	var r_age_to = "${r_age_to}";
 	$("#rAgeFrom").val(r_age_from);
-	$("#rAgeTo").val(r_age_to);
+	$("#rAgeTo").val(r_age_to);  */
 	$.each(listOrders,function(i, orderObj) 
 	{
 		serviceUnitArray[orderObj.id] = orderObj;
@@ -632,10 +639,10 @@ function validateInput(id, errorMessage)
 }
 
 function submitSearch(){
-	//var ageFrom = $("#rAgeFrom").val();
-	//var ageTo = $("#rAgeTo").val();
-	var ageFrom = $("select[name='rAgeFrom']").val();
-	var ageTo = $("select[name='rAgeTo']").val();
+	var ageFrom = $("#rAgeFrom").val();
+	var ageTo = $("#rAgeTo").val();
+	//var ageFrom = $("select[name='rAgeFrom']").val();
+	//var ageTo = $("select[name='rAgeTo']").val();
 	var heightFrom = $("#rHeight").val();
 	var heightTo = $("#rHeightTo").val();
 	var maritalStatus = $("#rMaritalStatus").val();
@@ -669,7 +676,7 @@ function modifySearch(event){
 	$("#searchresultsDiv").prop("hidden",true);
 	
 	
-		var religionId = $("#rReligion").val();
+		/* var religionId = $("#rReligion").val();
 		if(religionId !=null){
 			var formData = new FormData();
 			formData.append("religionId",religionId);
@@ -686,8 +693,8 @@ function modifySearch(event){
 				optionsForClass.append(new Option(casteName, id));
 			});
 			
-		});
-	}
+		}); 
+	}*/
 	
 	event.preventDefault();
 	
@@ -1078,7 +1085,10 @@ function resetBtnfunction(){
 			$("#" + id).select2({
 				placeholder : "-- Choose Country --"
 			});
-
+			$("#rState").empty();
+			/* $("#rState").select2({
+				placeholder : "-- Choose State --"
+			}); */
 		} else {
 			var countryIds = $("#" + id).val();
 			var formData = new FormData();
@@ -1095,9 +1105,9 @@ function resetBtnfunction(){
 								var jsonobj = $.parseJSON(data);
 								var statesList = jsonobj.states_list;
 								$("#rState").empty();
-								$("#rState")
+								/* $("#rState")
 										.append(
-												"<option value='' >-- Choose State --</option>");
+												"<option value='' >-- Choose State --</option>"); */
 
 								$.each(statesList,
 										function(i, state) {
@@ -1155,7 +1165,7 @@ function resetBtnfunction(){
 
 	$(document).ready(function() {
 
-		$("#rReligion").select2({
+		 $("#rReligion").select2({
 			placeholder : "-- Choose Religion --"
 		});
 		$("#rMaritalStatus").select2({
@@ -1175,9 +1185,95 @@ function resetBtnfunction(){
 			placeholder : "-- Choose State --",
 			allowClear : true
 		});
-		$("#rEducation").select2({
+		/* $("#rEducation").select2({
 			placeholder : "-- Choose Education --"
-		});
+		}); */ 
+		
+		$("#rAgeFrom").val("${createProfile.rAgeFrom}");
+		$("#rAgeFrom").trigger("chosen:updated");
+		// set rAgeTo also
+		$('#rAgeFrom').trigger("change");
+		$("#rAgeTo").val("${createProfile.rAgeTo}");
+		$("#rAgeTo").trigger("chosen:updated");
+		
+		$("#rHeight").val("${createProfile.rHeight}");
+		$("#rHeight").trigger("chosen:updated");
+		// set height to also
+		$('#rHeight').trigger("change");
+		$("#rHeightTo").val("${createProfile.rHeightTo}");
+		$("#rHeightTo").trigger("chosen:updated");
+		
+		var selected_values="";
+		selected_values = "${createProfile.rReligion}";
+	    if(selected_values == "" || selected_values==null){
+	    	$("#rReligion").select2({
+	    	    placeholder: "-- Choose Religion --"
+	    	});
+	    }else{
+	    	var tt = selected_values.split(",");
+	        $("#rReligion").val(selected_values.split(","));
+	    }
+	    
+	    selected_values = "${createProfile.rCountry}";
+	    if(selected_values == "" || selected_values==null){
+	    	$("#rCountry").select2({
+	    	    placeholder: "-- Choose Country --"
+	    	});
+	    }else{
+	    	var tt = selected_values.split(",");
+	        $("#rCountry").val(selected_values.split(","));
+	    }
+	    //getFilteredStatesMultiSelect("rCountry");
+	    //$('#rState').trigger('change.select2');
+	    selected_values = "${createProfile.rState}";
+	    if(selected_values == "" || selected_values==null){
+	    	$("#rState").select2({
+	    	    placeholder: "-- Choose State --"
+	    	});
+	    }else{
+	    	var tt = selected_values.split(",");
+	        $("#rState").val(selected_values.split(","));
+	    }
+	    $('#rState').trigger('change.select2');
+	    
+	    selected_values = "${createProfile.rMaritalStatus}";
+	    if(selected_values == "" || selected_values==null){
+	    	$("#rMaritalStatus").select2({
+	    	    placeholder: "-- Choose Marital Status --"
+	    	});
+	    }else{
+	    	var tt = selected_values.split(",");
+	        $("#rMaritalStatus").val(selected_values.split(","));
+	    }
+	    
+	    selected_values = "${createProfile.rMotherTongue}";
+	    if(selected_values == "" || selected_values==null){
+	    	$("#rMotherTongue").select2({
+	    	    placeholder: "-- Choose Mothertongue --"
+	    	});
+	    }else{
+	    	var tt = selected_values.split(",");
+	        $("#rMotherTongue").val(selected_values.split(","));
+	    }
+	    
+	    $('.multiSelect').trigger('change.select2');
+		
+	    // set caste also
+		getReliginCastAjax();
+		selected_values="";
+		selected_values = "${createProfile.rCaste}";
+	    if(selected_values == "" || selected_values==null){
+	    	$("#rCaste").select2({
+	    	    placeholder: "-- Choose Community --"
+	    	});
+	    }else{
+	    	var tt = selected_values.split(",");
+	        $("#rCaste").val(selected_values.split(","));
+	    }
+		$('#rCaste').trigger('change.select2');
+		
+		
+		
 		/* var selected_values = "${createProfile.rMaritalStatus}";
 		$("#rMaritalStatus").val(selected_values.split(","));
 		

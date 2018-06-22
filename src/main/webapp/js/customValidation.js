@@ -120,11 +120,42 @@ $('#mobile').blur(function() {
 		event.preventDefault();
 		return false;
 	}else{
-		$('#mobileError111').text("");
-		var exists = isMobileNumDuplicate();
-		if(exists){
-			return false;
-		}
+		//$('#mobileError111').text("");
+		var formData = new FormData();
+	    formData.append('mobile', $("#mobile").val());
+	    formData.append('id', $("#id").val());
+		$.fn.makeMultipartRequest('POST', 'mobileNumChecking', false,formData, false, 'text', function(data){
+			var jsonobj = $.parseJSON(data);
+			if(jsonobj.msg =="exist"){
+				//error message write
+				$('#mobileError').text("Mobile number already in Use. Please try another.");
+				$("#firstForm").hide();
+				$('#secondForm').hide();
+				$("#thirdForm").show();
+				$('#fourthForm').hide();
+				ChangeUrl('page1', 'profile.htm?page=3');
+				event.preventDefault();
+				$("#step1").removeClass("btn-primary");
+				 $("#step2").removeClass("btn-primary");
+				 $("#step3").addClass("btn-primary");
+				 $("#step4").removeClass("btn-primary"); 
+			}else{
+				$('#mobileError').text("");
+				/*$("#firstForm").hide();
+				$('#secondForm').hide();
+				$("#thirdForm").hide();
+				$('#fourthForm').show();*/
+				//ChangeUrl('page1', 'profile.htm?page=4');
+				//event.preventDefault();
+				
+				/*$("#step1").removeClass("btn-primary");
+				 $("#step2").removeClass("btn-primary");
+				 $("#step3").removeClass("btn-primary");
+				 $("#step4").addClass("btn-primary");*/
+			}
+		});
+		//isMobileNumDuplicate();
+		 
 		
 	}
 });

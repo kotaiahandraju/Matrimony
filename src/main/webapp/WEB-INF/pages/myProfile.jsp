@@ -1284,6 +1284,20 @@ $(document).ready(function(){
 	 var genderVal = "${profileBean.gender}";
 	$('input[name=gender][value='+genderVal+']').prop("checked",true); 
 	
+	$("#rAgeFrom").val("${profileBean.rAgeFrom}");
+	$("#rAgeFrom").trigger("chosen:updated");
+	// set rAgeTo also
+	$('#rAgeFrom').trigger("change");
+	$("#rAgeTo").val("${profileBean.rAgeTo}");
+	$("#rAgeTo").trigger("chosen:updated");
+	
+	$("#rHeight").val("${profileBean.rHeight}");
+	$("#rHeight").trigger("chosen:updated");
+	// set height to also
+	$('#rHeight').trigger("change");
+	$("#rHeightTo").val("${profileBean.rHeightTo}");
+	$("#rHeightTo").trigger("chosen:updated");
+	
 	$('.multiSelect').trigger('change.select2');
 	
 });
