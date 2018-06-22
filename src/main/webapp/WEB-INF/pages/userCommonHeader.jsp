@@ -350,7 +350,7 @@ tooltip:hover:after {
 		    		if(typeof msg != "undefined"){
 		    			if(msg=="success"){
 		    				$("#shortlistTD"+profileId).html('');
-		    				$("#shortlistTD"+profileId).html('<><a type="button" class="btn btn-warning btn-sm" disabled="true"> Shortlisted</a>');
+		    				$("#shortlistTD"+profileId).html('<a type="button" class="btn btn-warning btn-sm" disabled="true"> Shortlisted</a>');
 		    				//$("#shortlistTD"+profileId).removeAttr("href");
 		    				//$("#shortlistTD"+profileId).attr("disabled");
 		    			}else{
