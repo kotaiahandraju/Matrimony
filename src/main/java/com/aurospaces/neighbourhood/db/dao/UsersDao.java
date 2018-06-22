@@ -1011,7 +1011,7 @@ public class UsersDao extends BaseUsersDao
 					handlerObj = new String[] {"id","currentCityName","occupation","occupationName","educationName","currentCountryName","created_time","updated_time",
 							"role_id","username","password","email","gender","dob","religion","religionName","motherTongue","motherTongueName",
 							"maritalStatus",
-							"caste","casteName","education","height","inches","cm","age","dobString","createProfileFor","expressedInterest","message_sent_status","mobileNumViewed","package_id","profileImage","status","currentCountry","profile_highlighter","aboutMyself","total_records","short_listed"};
+							"caste","casteName","education","height","inches","cm","age","dobString","createProfileFor","expressedInterest","message_sent_status","mobileNumViewed","package_id","profileImage","status","currentCountry","currentState","profile_highlighter","aboutMyself","total_records","short_listed"};
 				} 
 				
 				/*buffer.append("select u.id,sta.name as currentStateName,cit.name as currentCityName,u.occupation,oc.name as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
@@ -1237,7 +1237,7 @@ public class UsersDao extends BaseUsersDao
 					handlerObj = new String[] {"id","currentCityName","occupation","occupationName","educationName","currentCountryName","created_time","updated_time",
 							"role_id","username","password","email","gender","dob","religion","religionName","motherTongue","motherTongueName",
 							"maritalStatus",
-							"caste","casteName","education","height","inches","cm","age","dobString","createProfileFor","expressedInterest","message_sent_status","mobileNumViewed","package_id","profileImage","status","currentCountry","profile_highlighter","aboutMyself","total_records","short_listed"};
+							"caste","casteName","education","height","inches","cm","age","dobString","createProfileFor","expressedInterest","message_sent_status","mobileNumViewed","package_id","profileImage","status","currentCountry","currentState","profile_highlighter","aboutMyself","total_records","short_listed"};
 				} 
 				
 				/*buffer.append("select u.id,sta.name as currentStateName,cit.name as currentCityName,u.occupation,oc.name as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
@@ -2251,7 +2251,7 @@ public class UsersDao extends BaseUsersDao
 		StringBuffer buffer = new StringBuffer();
 		String inner_where_clause = " ((ei.user_id = u.id and ei.profile_id = "+userId+") or ((ei.user_id = "+userId+" and ei.profile_id = u.id))) and ((ei.interested = '1' and ei.status = '2') or (message_sent_status = '1' and message_status in (1,2))) and u.role_id not in (1) and u.status in ('1') and u.gender not in  ('"+objUserBean.getGender()+"') and u.id not in  ("+userId+")";
 		//StringBuffer where_clause = new StringBuffer(" and u.role_id not in (1) and u.status in ('1') ");
-		buffer.append("select (select ei.id from express_intrest ei where ei.user_id = u.id) as requestId, u.id,sta.name as currentStateName,cit.name as currentCityName,u.occupation,oc.name as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
+		buffer.append("select u.id,sta.name as currentStateName,cit.name as currentCityName,u.occupation,oc.name as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
 				+"u.firstName, u.lastName, u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName, u.currentCountry,co.name as currentCountryName, " 
 				+"u.currentState, u.currentCity, " 
 				+"u.maritalStatus, u.caste,c.name as casteName, u.gotram, u.star,s.name as starName, u.dosam, u.dosamName, u.education, u.workingWith, u.companyName, " 
@@ -2265,7 +2265,7 @@ public class UsersDao extends BaseUsersDao
 				+" ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 				//+" (select count(*) from users u "+where_clause+") as total_records, "
 				+" (select uimg.image from user_images uimg where uimg.user_id=u.id and  uimg.status = '1' and uimg.is_profile_picture='1') as profileImage, "
-				+" (select count(*) from (select count(*) from users u where "+where_clause+" GROUP BY u.id  ) tc ) as total_records, "
+				+" (select count(*) from (select count(*) from users u,express_intrest ei where "+where_clause+" and "+inner_where_clause+"  GROUP BY u.id  ) tc ) as total_records, "
 				+" (select ifnull((select short_listed from express_intrest where user_id = "+objUserBean.getId()+" and profile_id = u.id),0)) as short_listed, "
 				+" (select highlight_profile from package where id = u.package_id) as profile_highlighter "
 				//+" from users_activity_log activity left join users u on activity.act_done_on_user_id=u.id left join userrequirement ur on u.id=ur.userId "
@@ -2274,11 +2274,11 @@ public class UsersDao extends BaseUsersDao
 				+"left join cast c on c.id=u.caste left join star s on s.id =u.star left join height h on h.id=u.height left join body_type b on b.id=u.bodyType left join religion re1  on re1.id=rReligion "
 				+"left join complexion com on com.id =u.complexion left join cast c1 on c1.id=rCaste left join language l1 on l1.id=rMotherTongue "
 				+"left join countries con1 on con1.id=rCountry left join education e1 on e1.id=rEducation left join occupation oc1 on oc1.id=rOccupation  left join user_images uimg on uimg.user_id=u.id left join occupation oc on u.occupation=oc.id left join education ed on ed.id=u.education "
-				+ " left join state sta on sta.id=u.currentState left join city cit on cit.id=u.currentCity  ");
-				//+"  express_intrest ei  where "+inner_where_clause+" ");
+				+ " left join state sta on sta.id=u.currentState left join city cit on cit.id=u.currentCity,  "
+				+"  express_intrest ei ");
 		
 		//buffer.append(" WHERE "+accepted_by_str+" "+activity_type_str+" GROUP BY u.id  ");
-		buffer.append(" WHERE "+where_clause+" GROUP BY u.id  ");
+		buffer.append(" WHERE "+where_clause+" and "+inner_where_clause+" GROUP BY u.id  ");
 		
 		int page_size = MatrimonyConstants.PAGINATION_SIZE;
 		buffer.append(" order by u.package_id desc limit "+page_size+" offset "+(page_no*page_size)+" ");
