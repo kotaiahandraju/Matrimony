@@ -42,6 +42,40 @@
 <link rel="stylesheet" type="text/css" href="user/css/component.css" />
 
 <style>
+.modal {
+background:rgba(0,0,0,0.4);
+}
+.panel-heading {
+    padding: 6px 15px;
+    border-bottom: 1px solid transparent;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+}
+.about {
+    position: relative;
+    z-index: 0;
+    clear: both;
+    background-color: #f7f7f7;
+}
+.btn-danger {
+width: 135px;
+    padding: 8px;}
+.modal-header h3 {
+    color: #fff;
+    font-size: 20px;
+    font-weight: 400;
+    padding: 0px 15px;
+    text-transform: capitalize;
+    height: 26px;
+    line-height: 29px;
+    border: none!important;
+    width: 80%;
+    margin-top: 0px;
+    text-align: left;
+}
+.modal-header .close {
+    margin-top: -31px;
+}
 .modal-backdrop {
     position: relative !important;
     }
@@ -49,11 +83,14 @@
     opacity: 0;
     filter: alpha(opacity=50);
 }
-   
+   td, th {
+    padding: 0;
+    text-align: left;
+}
 .modal-dialog {
 	position: relative;
 	width: auto;
-	max-width: 72%;
+	max-width: 60%;
 	margin: 10px;
 }
 
@@ -318,7 +355,7 @@ window.setTimeout(function() {
 						<div class="form-group">
 							<select id="rPeople" class="custom-select col-md-12 form-control">
 								<option value="" selected>I am Looking for... &nbsp;&nbsp;</option>
-								<option value="Female" id="id1">Bride</option>
+								<option value="FeMale" id="id1">Bride</option>
 								<option value="Male" id="id2">Groom</option>
 							</select>
 						</div>
@@ -391,7 +428,7 @@ window.setTimeout(function() {
 							</form:select>
 						</div>
 						<div class="form-group">
-							<button type="button" id="submit12" class="btn btn-danger" onclick="searchSubmit()">Search</button>
+							<button type="button" id="submit12" class="btn btn-danger" onclick="searchSubmit();">Search</button>
 						</div>
 					</div>
 					</div>
@@ -422,22 +459,17 @@ window.setTimeout(function() {
 
     <!-- Modal content-->
     <div class="modal-content">		
-      <div class="modal-header" style="background:#099cca; color:#fff;">
+      <div class="modal-header" style="background:#099cca; color:#fff;"> <h3>Your Search Results</h3>
         <button type="button" style="color:#fff !important; margin-right:10px; opacity:1;" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
-        <div id="searchresultsDiv" class="bare">
-								<div class="searchresults">
-								    <h3>Your Search Results</h3>
-								    <p><span id="countId">${count}</span> Profiles found</p>
+      	<div class="searchresults">
+								   
+								    
 									<div id="searchResults">
-										
 
 									</div>
-								</div>           
-							    <div id="table_footer"></div>
-								<div id="altLists"></div>
-					</div>
+								</div>    
       </div>
     </div>
 
@@ -446,31 +478,115 @@ window.setTimeout(function() {
 						
 <script>
 
-
-
-
-
-
 function searchSubmit(){
 	var rPeople= $('#rPeople').val();
 	var rAgeFrom= $('#rAgeFrom').val();
-	var religion= $('#religion').val();
-	var cast= $('#cast').val();
-	var Female= $('#id1').val();
-	var Male= $('#id2').val();
-// 	if (rPeople.val()==""){
-// 		alert("Plese Select an Option..")
-    if(rPeople == "" && rAgeFrom == "" && religion == "" && cast == undefined){
-	alert("Enter any input...");
-	return false;
-	}else{
-	
+	var rAgeTo= $("#rAgeTo").val();
+	if(rAgeFrom > rAgeTo){
+		alert("Sorry, Invalid Age range");
+		return false;
 	}
-//     myModal.open
-//     $('#dialog-modal').dialog('open');
-    $('#myModal').modal('show');
+    if(rPeople == ""){
+	alert("Are You Looking For...");
+	return false;
+	}
+    else
+	{
+// 	var Female= $('#id1').val();
+// 	var Male= $('#id2').val();
+	var people= $('#rPeople').val();
+	var rAgeFrom= $('#rAgeFrom').val();
+	var rAgeTo= $("#rAgeTo").val();
+	var religion= $('#religionId').val();
+	var castId= $('#castId').val();
+	var gender="";
+       	if(people != $('#id2').val() ){
+       		gender="Female";
+	    }else
+	    {
+		   gender="Male";
+	   }
+	
+		var formData = new FormData();
+		formData.append("gender",gender);
+		formData.append("rAgeFrom",rAgeFrom);
+		formData.append("rAgeTo",rAgeTo);
+		formData.append("religionId",religion);
+		formData.append("castId",castId);
+	$.fn.makeMultipartRequest('POST', 'homePageSearchResults', false,
+			formData, false, 'text', function(data){
+		var jsonobj = $.parseJSON(data);
+		var alldata = jsonobj.searchListOrders;
+		displaydata(alldata);
+		$('#myModal').modal('show');
+	});
+		
+}
 } 
 
+
+function displaydata(data) {
+	
+      if(data == ""){
+         $('#searchResults').empty();	  
+              var tblHistory='<td colspan="7" style="text-align:center;">No History Found<span></span></td>';
+              $(tblHistory).appendTo("#searchResults");
+          	
+ 
+      }
+
+	$.each(data,function(i, orderObj) {
+		var profile_highlisht_str = '<div class="panel panel-default">';
+		var highlight_option = orderObj.profile_highlighter;
+		if(typeof highlight_option != "undefined" && highlight_option=='1'){
+			profile_highlisht_str = '<div class="panel panel-default" style="background-color:skyblue">';
+		}
+		var tblRow = profile_highlisht_str
+		+ '<div class="panel-heading">'
+		+ '<h5 class="panel-title" style="text-align:left;">'
+		+ '<div class="form-check">	<label class="form-check-label"> <input type="checkbox" class="form-check-input" placeholder=""> '+orderObj.firstName+'&nbsp;'+orderObj.lastName+'</label>	<span class="pull-right">Created by '+orderObj.createProfileFor+'</span></div>'
+		+ '</h5>'
+		+ '</div>'
+		+ '<div class="panel-body">'
+		+ '<div class="col-md-2">' 
+		+ '<a href="#" onclick="regFunction()">  <img src="img/default.png" class="img img-responsive thumbnail " style="margin-bottom:0;height: auto;width: 100%;"></a>'
+    	+ '</div>'
+    	 + '<div class="col-md-4">'
+     	 + '<h2 style="margin-top:10px;" class="pull-right"><a href="#" data-toggle="tooltip" data-placement="bottom" title="View Mobile Number" ><img style="margin-top:-10px;" > &nbsp;</a></h2></span><div class="clearfix"></div><blockquote style="min-height:100px; max-height:120px; "><p>'+orderObj.About+'</p><br><a href="#" onclick="regFunction()"><p style="float:right;">...more</p></a></blockquote>'
+     	+ '</div>' 
+     	+  '<div class="col-md-1"></div>'
+    	+ '<div class="col-md-5">'
+		+ '<table><tbody><tr><td width="150px">Age</td><td><span>: '+orderObj.age+'yrs</span></td></tr>'
+		+ '<tr><td>Religion</td><td><span>: '+orderObj.religionName+'</span></td></tr>'	
+		+ '<tr><td>Community</td><td><span>: '+orderObj.castName+'</span></td></tr>'
+		+ '<tr><td>Location</td><td><span>: '+orderObj.cityName+'</span></td></tr>'
+		+ '<tr><td>Education</td><td><span>: '+orderObj.Education+'</span></td></tr>'
+		+ '<tr><td>Profession</td><td><span>: '+orderObj.Profession+'</span></td></tr></tbody></table>'
+    	+ ' <a href="#" onclick="regFunction()"><button class="btn btn-warning">View Full Profile</button></a>'
+    	+ '</div>'
+    	+ '</div>' 
+    	+ '</div>' 
+    	+ '</div>'
+    	+ '</div>';
+			$(tblRow).appendTo("#searchResults");
+    	 
+
+		
+		
+		
+		
+	});
+}
+
+
+
+function regFunction(){
+	$('#myModal').modal('hide');
+	$('#register-info').modal('show');
+// 	$('#register-info').show();
+	
+	
+}
 function getReliginCastAjax1() {
 	var religionId = $("#religionId").val();
 		var formData = new FormData();

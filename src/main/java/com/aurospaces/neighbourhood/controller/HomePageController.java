@@ -1349,6 +1349,28 @@ public class HomePageController {
 	  }
 	  return "searchPage";
 	 }
+	 
+	 @RequestMapping(value = "/homePageSearchResults")
+	 public  @ResponseBody String getHomePageSearchResults( UsersBean searchCriteriaBean, Model objeModel, HttpServletRequest request, HttpSession session) {
+			List<Map<String,Object>> searchList=null;
+		 ObjectMapper objectMapper = null;
+		String sJson = null;
+		JSONObject objJson =new JSONObject();
+		try {
+			 searchList = objUsersDao.getHomeSearchResult(searchCriteriaBean);
+			 objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(searchList);
+				objJson.put("searchListOrders", searchList);
+			
+		} catch (Exception e) {
+	   e.printStackTrace();
+	   System.out.println(e);
+	   logger.error(e);
+	   logger.fatal("error in HomePageController class homePageSearch method");
+	  }
+		return String.valueOf(objJson);
+	 }
+	 
 	 @RequestMapping(value = "/getCitys")
 		public  @ResponseBody String getCitys( ModelMap model,
 				HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
