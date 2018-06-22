@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;  
   
-public class MyFilter implements Filter{  
+public class UserSessionFilter implements Filter{  
   
 public void init(FilterConfig arg0) throws ServletException {}  
       
@@ -23,8 +23,8 @@ public void doFilter(ServletRequest req, ServletResponse resp,
     HttpServletResponse response = (HttpServletResponse) resp;
     HttpSession session = request.getSession(false);
 
-    if (session == null || session.getAttribute("cacheUserBean") == null) {
-        response.sendRedirect(request.getContextPath() + "/HomePage.htm"); // No logged-in user found, so redirect to login page.
+    if (session == null || session.getAttribute("cacheGuest") == null) {
+        response.sendRedirect(request.getContextPath() + "/LoginHome.htm"); // No logged-in user found, so redirect to login page.
     } else {
         chain.doFilter(req, resp); // Logged-in user found, so just continue request.
     }
