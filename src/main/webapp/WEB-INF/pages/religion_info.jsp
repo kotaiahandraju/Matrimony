@@ -26,7 +26,7 @@
 				style="color: red;">*</span></label>
 				<form:select path="caste" class="form-control u" >
 					<form:option value="">-- Choose Community --</form:option>
-					<%-- <form:options items="${cast}"></form:options> --%>
+					<form:options items="${castes_list}"></form:options>
 				</form:select>
 				<div>
 <%-- 					<form:errors path="caste" cssClass="error" /> --%>

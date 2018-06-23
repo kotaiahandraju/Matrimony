@@ -25,6 +25,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.castor.util.Base64Decoder;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.joda.time.DateTime;
 import org.json.JSONObject;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapper;
@@ -873,6 +874,28 @@ public class HomePageController {
 			List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos(sessionBean.getId());
 			request.setAttribute("photosList", photosList);
 			request.setAttribute("photosListSize", photosList.size());
+			///////
+			List<Map<String,Object>> castes_list =  objCastDao.getCastesBasedOnReligion(sessionBean.getReligion());
+			Map<Integer, String> castesMap = new LinkedHashMap<Integer, String>();
+			for (Map<String,Object> caste : castes_list) {
+				castesMap.put((Integer)caste.get("id"),(String)caste.get("name"));
+			}
+			request.setAttribute("castes_list", castesMap);
+			/////
+			List<Map<String,Object>> results = stateDao.getFilteredStates(sessionBean.getCurrentCountry());
+			Map<Integer, String> statesMap = new LinkedHashMap<Integer, String>();
+			for (Map<String,Object> state : results) {
+				statesMap.put((Integer)state.get("id"),(String)state.get("name"));
+			}
+			request.setAttribute("states_map", statesMap);
+			//////
+			Map<Integer, String> citiesMap = new LinkedHashMap<Integer, String>();
+			List<CityBean> ojCityBean = objCityDao.filterByState(sessionBean.getCurrentState());
+			for (CityBean city : ojCityBean) {
+				citiesMap.put(city.getId(),city.getName());
+			}
+			request.setAttribute("cities_map", citiesMap);
+			
 		} catch (Exception e) {
 	   e.printStackTrace();
 	   System.out.println(e);
@@ -2199,6 +2222,13 @@ public class HomePageController {
 	            String paramValue = request.getParameter(paramName);
 	            params.put(paramName, paramValue);
 	        }
+	       String first_name = params.get("firstname");
+	       first_name = first_name.replaceAll("##", " ");
+	       String last_name = params.get("lastname");
+	       last_name = last_name.replaceAll("##", " ");
+	       params.put("firstname", first_name);
+	       params.put("lastname", last_name);
+	       
 	       request.setAttribute("params", params);
 	       Paymenthistory objPamenthistory = new Paymenthistory();
 			String unmappedstatus = request.getParameter("unmappedstatus");
@@ -2377,6 +2407,92 @@ public class HomePageController {
 	   try{
 		   int free_users_count = objUsersDao.getFreeMembersCount(); 
 		   objUsersDao.rotateEmployeesProfilesSlot(free_users_count);
+	   }catch(Exception e){
+		   e.printStackTrace();
+	   }
+	   
+	   
+	   return "";
+   }
+   
+   /*
+    * 
+    */
+   @RequestMapping(value="/createActivityLogDataForOldReqs")
+   public String createActivityLogDataForOldReqs(HttpSession session,HttpServletRequest request){
+	   try{
+		   List<Map<String,Object>> old_requests = objUsersDao.getOldRequests(); 
+		   for(Map<String,Object> req:old_requests){
+			   StringBuffer buffer = new StringBuffer("");
+				try{
+					String status = (String)req.get("status");
+					String mobile_no_viewed_status = (String)req.get("mobile_no_viewed_status");
+					String message_sent_status = (String)req.get("message_sent_status");
+					String message_status = (String)req.get("message_status");
+					if(status.equalsIgnoreCase("2")){
+						buffer.append("insert into users_activity_log(created_time,activity_type,act_done_by_user_id,act_done_on_user_id) "
+								+" values('"+req.get("created_on")+"','interest_request',"+req.get("user_id")+","+req.get("profile_id")+")");
+						objUsersDao.createActivityLogEntry(buffer.toString());
+						
+						buffer = new StringBuffer("");
+						buffer.append("insert into users_activity_log(created_time,activity_type,act_done_by_user_id,act_done_on_user_id) "
+								+" values('"+req.get("created_on")+"','interest_accepted',"+req.get("profile_id")+","+req.get("user_id")+")");
+						objUsersDao.createActivityLogEntry(buffer.toString());
+					}
+					if(status.equalsIgnoreCase("3")){
+						buffer.append("insert into users_activity_log(created_time,activity_type,act_done_by_user_id,act_done_on_user_id) "
+								+" values('"+req.get("created_on")+"','interest_request',"+req.get("user_id")+","+req.get("profile_id")+")");
+						objUsersDao.createActivityLogEntry(buffer.toString());
+						
+						buffer = new StringBuffer("");
+						buffer.append("insert into users_activity_log(created_time,activity_type,act_done_by_user_id,act_done_on_user_id) "
+								+" values('"+req.get("created_on")+"','interest_rejected',"+req.get("profile_id")+","+req.get("user_id")+")");
+						objUsersDao.createActivityLogEntry(buffer.toString());
+					}
+					if(mobile_no_viewed_status.equalsIgnoreCase("1")){
+						buffer.append("insert into users_activity_log(created_time,activity_type,act_done_by_user_id,act_done_on_user_id) "
+								+" values('"+req.get("created_on")+"','mobile_no_viewed',"+req.get("user_id")+","+req.get("profile_id")+")");
+						objUsersDao.createActivityLogEntry(buffer.toString());
+					}
+					if(message_sent_status.equalsIgnoreCase("1")){
+						buffer.append("insert into users_activity_log(created_time,activity_type,act_done_by_user_id,act_done_on_user_id) "
+								+" values('"+req.get("created_on")+"','email',"+req.get("user_id")+","+req.get("profile_id")+")");
+						objUsersDao.createActivityLogEntry(buffer.toString());
+					}
+					if(message_status.equalsIgnoreCase("1")){
+						buffer.append("insert into users_activity_log(created_time,activity_type,act_done_by_user_id,act_done_on_user_id) "
+								+" values('"+req.get("created_on")+"','email',"+req.get("user_id")+","+req.get("profile_id")+")");
+						objUsersDao.createActivityLogEntry(buffer.toString());
+						
+						buffer.append("insert into users_activity_log(created_time,activity_type,act_done_by_user_id,act_done_on_user_id) "
+								+" values('"+req.get("created_on")+"','message_accepted',"+req.get("user_id")+","+req.get("profile_id")+")");
+						objUsersDao.createActivityLogEntry(buffer.toString());
+					}
+					if(message_status.equalsIgnoreCase("2")){
+						buffer.append("insert into users_activity_log(created_time,activity_type,act_done_by_user_id,act_done_on_user_id) "
+								+" values('"+req.get("created_on")+"','email',"+req.get("user_id")+","+req.get("profile_id")+")");
+						objUsersDao.createActivityLogEntry(buffer.toString());
+						
+						buffer.append("insert into users_activity_log(created_time,activity_type,act_done_by_user_id,act_done_on_user_id) "
+								+" values('"+req.get("created_on")+"','message_replied',"+req.get("profile_id")+","+req.get("user_id")+")");
+						objUsersDao.createActivityLogEntry(buffer.toString());
+					}
+					if(message_status.equalsIgnoreCase("3")){
+						buffer.append("insert into users_activity_log(created_time,activity_type,act_done_by_user_id,act_done_on_user_id) "
+								+" values('"+req.get("created_on")+"','email',"+req.get("user_id")+","+req.get("profile_id")+")");
+						objUsersDao.createActivityLogEntry(buffer.toString());
+						
+						buffer.append("insert into users_activity_log(created_time,activity_type,act_done_by_user_id,act_done_on_user_id) "
+								+" values('"+req.get("created_on")+"','message_rejected',"+req.get("profile_id")+","+req.get("user_id")+")");
+						objUsersDao.createActivityLogEntry(buffer.toString());
+					}
+					
+					//boolean inserted = objUsersDao.createActivityLogEntry(buffer.toString());
+					
+				}catch(Exception e){
+					e.printStackTrace();
+				} 
+		   }
 	   }catch(Exception e){
 		   e.printStackTrace();
 	   }
