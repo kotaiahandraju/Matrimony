@@ -102,6 +102,8 @@ width: 135px;
 	max-width: 900px;
 }
 
+
+
 @media ( min-width : 768px) {
 	.modal-dialog {
 		margin: 30px auto;

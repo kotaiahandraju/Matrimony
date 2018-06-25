@@ -1331,18 +1331,6 @@ public class HomePageController {
 				request.setAttribute("total_records", total_records);
 				request.setAttribute("r_age_from", searchCriteriaBean.getrAgeFrom());
 				request.setAttribute("r_age_to", searchCriteriaBean.getrAgeTo());
-				
-				List<Map<String, Object>> results = null;
-				String country_ids = searchCriteriaBean.getrCountry();
-				if(StringUtils.isNotBlank(country_ids)){
-					results = stateDao.getFilteredStates(country_ids);
-				}
-				if (results != null && results.size() > 0) {
-					request.setAttribute("states_list", results);
-					
-				} else {
-					request.setAttribute("states_list", new LinkedList<Map<String, Object>>());
-				}
 				// System.out.println(sJson);
 			} else {
 				//objectMapper = new ObjectMapper();

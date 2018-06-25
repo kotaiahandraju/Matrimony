@@ -359,7 +359,7 @@ function getReliginCastAjax() {
 		var alldata = jsonobj.allOrders1;
 		var optionsForClass = "";
 		optionsForClass = $("#rCaste").empty();
-		optionsForClass.append(new Option("-- Choose Community --", ""));
+// 		optionsForClass.append(new Option("-- Choose Community --", ""));
 		$.each(alldata, function(i, tests) {
 			var id=tests.id;
 			var casteName=tests.name;
@@ -393,7 +393,7 @@ $(document).ready(function(){
         $(".ifMore").collapse('hide');
     }); */
     
-    /* $("#rMaritalStatus").select2({
+  $("#rMaritalStatus").select2({
 	    placeholder: "-- Choose MaritalStatus --"
 	});
     $("#rReligion").select2({
@@ -424,7 +424,7 @@ $(document).ready(function(){
 	});
 	$("#rDiet").select2({
 	    placeholder: "-- Choose Diet --"
-	}); */
+	});
 	
     
      var selected_values = "";

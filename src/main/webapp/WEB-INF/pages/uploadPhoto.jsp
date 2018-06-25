@@ -29,7 +29,7 @@ display:none;}
 					    <div class="form-group">
 					      <label class="col-md-4 control-label" for="textinput"></label>
 					      <div class="col-md-8">
-					      	<img src="${baseurl}/img/default.png" alt="Preview" id="previewImg" align="middle" style="border-style: solid;height: 100px;width: 100px;border-bottom-style: none;border-left-style: none;border-top-style: none;">
+<%-- 					      	<img src="${baseurl}/img/default.png" alt="Preview" id="previewImg" align="middle" style="border-style: solid;height: 100px;width: 100px;border-bottom-style: none;border-left-style: none;border-top-style: none;"> --%>
 					      	<!-- <input type="file" id='imageName'  onchange="checkImg(this)"> -->
 					      	<form role="form">
 						      <input id="imageName" type="hidden" name="test[image]">
@@ -88,6 +88,7 @@ function imageAjax(){
 		  	}
 		  	$("#uploadBtn").removeAttr("disabled");
 	   		$("#uploadBtn").val("Upload Photo");
+	   	 location.reload();
 		});
 	}
 }
