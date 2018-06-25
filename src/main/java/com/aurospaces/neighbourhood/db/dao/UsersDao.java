@@ -1641,6 +1641,34 @@ public class UsersDao extends BaseUsersDao
 			}
 		}
 		
+		public List<Map<String,Object>> getOldRequests(){
+			jdbcTemplate = custom.getJdbcTemplate();
+			String qryStr = "select * from express_intrest where date(created_on) < str_to_date('2018-04-03','%Y-%m-%d')";
+			try{
+				List<Map<String,Object>> list = jdbcTemplate.queryForList(qryStr);
+					return list;
+			}catch(Exception e){
+				e.printStackTrace();
+				return null;
+			}
+		}
+		
+		public boolean createActivityLogEntry(String query){
+			jdbcTemplate = custom.getJdbcTemplate();
+			
+			try{
+				
+				int updated_count = jdbcTemplate.update(query);
+				if(updated_count == 1){
+					return true;
+				}
+			}catch(Exception e){
+				e.printStackTrace();
+				return false;
+			}
+			return false;
+		}
+		
 		public boolean updateEmployeeProfilesSlot(int user_id, int start_index, int size){
 			jdbcTemplate = custom.getJdbcTemplate();
 			String updateQry = "update users set profiles_start_index = "+start_index+"  , profiles_size = "+size+"   where id = "+user_id;

@@ -201,6 +201,7 @@ public class LoginController {
 			session.setAttribute("rolId", objUserBean.getRoleId());
 			session.setAttribute("userName", objUserBean.getUsername());
 			session.setAttribute("otpStatus", otpStatus);
+			session.setAttribute("upgrade_msg_flag", "1");
 			
 			int filled_status = objUsersDao.getProfileFilledStatus(objUserBean);
 			if(StringUtils.isBlank(objUserBean.getCurrentState()) ||

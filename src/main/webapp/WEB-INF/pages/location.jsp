@@ -30,7 +30,7 @@
 				onchange="getCitys(this.id)" onblur="validate(this.id,'');"
 				class="form-control u">
 				<form:option value="">-- Choose State --</form:option>
-				<form:options items="${states }"></form:options>
+				<form:options items="${states_map }"></form:options>
 			</form:select>
 			<div>
 				<form:errors path="currentState" cssClass="error" />
@@ -46,7 +46,7 @@
 			<form:select path="currentCity" onfocus="removeBorder(this.id)"
 				class="form-control">
 				<form:option value="">-- Choose City --</form:option>
-				<form:options items="${citys }"></form:options>
+				<form:options items="${cities_map}"></form:options>
 			</form:select>
 			<div>
 				<form:errors path="currentCity" cssClass="error" />

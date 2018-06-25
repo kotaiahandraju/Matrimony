@@ -339,7 +339,8 @@ color:#000;
 				<% 
 				UsersBean userSessionBean = (UsersBean)session.getAttribute("cacheGuest");
 				 String packageId= userSessionBean.getPackageId();
-				if(packageId == null){
+				 String msg_flag = (String)session.getAttribute("upgrade_msg_flag");
+				if(packageId==null && msg_flag.equals("1")){
 					%>
 					
 					<div id="newmodal" class="modal fade">
@@ -373,6 +374,7 @@ color:#000;
  });
   </script>
 				<% }
+				session.setAttribute("upgrade_msg_flag","0");
 				%>
 
 
