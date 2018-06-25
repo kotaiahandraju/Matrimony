@@ -331,13 +331,13 @@ if (listOrders1 != "" && listOrders1 != null) {
 	var str = '<div class="alert alert-danger nixi"><h6>No results found..!</h6></div>';
 	$('#searchResults').html('');
 	$(str).appendTo("#searchResults");
-	//$('#search_criteria').prop("hidden",true);
+	$('#search_criteria').prop("hidden",true);
 	$("#searchresultsDiv").removeAttr("hidden");
 }
 
 function displayMatches(listOrders) {
 	$('#searchResults').html('');
-	//$("#search_criteria").prop("hidden",true);
+	$("#search_criteria").prop("hidden",true);
 	$('#searchresultsDiv').removeAttr("hidden");
 	serviceUnitArray = {};
 	/* var r_age_from = "${r_age_from}";

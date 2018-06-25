@@ -16,6 +16,12 @@
     <!-- for documentation #end: you don't need them -->
 
     <style>
+   @media only screen and (max-width: 640px) {
+    .pull-profile {
+    min-height:400px !important;
+    }
+    }
+    
         #mySlider {
             width: 580px;
             height: 520px;
@@ -47,16 +53,32 @@ vertical-align:top;
                 width: 100%;
                 height: 450px;
             }
+             .fullprofile {  
+    min-height:400px !important;
+    }
         }
          td:first-child{ width: 150px; }
          td:nth-child(2) {width:10px !important;}
         td:fourth-child{ width: 150px; } 
         /* for mobile */
+        
+         @media screen and (max-width: px) {
+            #mySlider {
+                width: 570px;
+                height: 450px;
+            }
+            .fullprofile {  
+    min-height:400px !important;
+    }
+        }
         @media screen and (max-width: 640px) {
             #mySlider {
                 width: 570px;
                 height: 450px;
             }
+            .fullprofile {  
+    min-height:400px !important;
+    }
         }
          @media screen and (max-width: 480px) {
             #mySlider {
