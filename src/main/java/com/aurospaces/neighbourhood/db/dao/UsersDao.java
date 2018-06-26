@@ -665,14 +665,14 @@ public class UsersDao extends BaseUsersDao
 							updated_count = jdbcTemplate.update(buffer.toString(), new Object[]{new java.sql.Timestamp(new DateTime().getMillis()),objUserBean.getId(),profileId});
 						}
 					}
-					buffer = new StringBuffer();
+					/*buffer = new StringBuffer();
 					buffer.append("insert into users_activity_log(created_time,activity_type,act_done_by_user_id,act_done_on_user_id) "
 							+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','profile_viewed',"+objUserBean.getId()+","+profileId+")");
-					int inserted_count = jdbcTemplate.update(buffer.toString());
+					int inserted_count = jdbcTemplate.update(buffer.toString());*/
 					buffer = new StringBuffer();
 					buffer.append("insert into user_notifications(created_on,user_type,user_id,profile_id,notifi_type) "
 							+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','member',"+objUserBean.getId()+","+profileId+",'profile_viewed')");
-					inserted_count = jdbcTemplate.update(buffer.toString());
+					int inserted_count = jdbcTemplate.update(buffer.toString());
 					if(updated_count > 0){
 						int to_be_viewed = Integer.parseInt(objUserBean.getYetToBeViewedCount());
 						objUserBean.setYetToBeViewedCount(to_be_viewed>0?(to_be_viewed-1)+"":"0");
