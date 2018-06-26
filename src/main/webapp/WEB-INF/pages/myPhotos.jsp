@@ -163,6 +163,7 @@ function imageAjax(){
 		  		addWaterMark();
 		  	}else{
 		  		alert("Photo upload failed. Please try again..!");
+		  		return false;
 		  	}
 		  	$("#uploadBtn").removeAttr("disabled");
 	   		$("#uploadBtn").val("Upload Photo");

@@ -768,6 +768,7 @@ $(".onlyCharacters").on("keypress",	function(event) {
 </div>
 
 <br>
+<div id="partnerPreferences" name="partnerPreferences">
 <h3>Partner Preferences</h3>
 <div class="panel panel-default" style="background:#FDFDFD;">
     <div class="panel-body table-responsive">
@@ -1048,6 +1049,7 @@ $(".onlyCharacters").on("keypress",	function(event) {
                 <input class="btn btn btn-danger"  type="button" id="partner_location_cancel" name="yt1" value="Cancel" onclick="toggleDiv('partner_location');">
         </div>
     </div>
+</div>
 </div>
 </div>
 </div>
