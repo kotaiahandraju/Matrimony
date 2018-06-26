@@ -1377,7 +1377,7 @@ function toggleDiv(divElem){
 
       var is_chrome = Boolean(mywindow.chrome);
       var isPrinting = false;
-      mywindow.document.write('<html><head><link rel="stylesheet" type="text/css" href="user/css/printcss.css"> <link rel="stylesheet" type="text/css" href="user/css/bootstrap.css"></head><body>');
+      mywindow.document.write('<html><head><link rel="stylesheet" type="text/css" href="${baseurl }/user/css/printcss.css"> <link rel="stylesheet" type="text/css" href="user/css/bootstrap.css"></head><body>');
       mywindow.document.write(data);
 //       alert(data);
       console.log(data);
