@@ -2417,6 +2417,11 @@ public class HomePageController {
 					String mobile_no_viewed_status = (String)req.get("mobile_no_viewed_status");
 					String message_sent_status = (String)req.get("message_sent_status");
 					String message_status = (String)req.get("message_status");
+					if(status.equalsIgnoreCase("1")){
+						buffer.append("insert into users_activity_log(created_time,activity_type,act_done_by_user_id,act_done_on_user_id) "
+								+" values('"+req.get("created_on")+"','interest_request',"+req.get("user_id")+","+req.get("profile_id")+")");
+						objUsersDao.createActivityLogEntry(buffer.toString());
+					}
 					if(status.equalsIgnoreCase("2")){
 						buffer.append("insert into users_activity_log(created_time,activity_type,act_done_by_user_id,act_done_on_user_id) "
 								+" values('"+req.get("created_on")+"','interest_request',"+req.get("user_id")+","+req.get("profile_id")+")");

@@ -1330,7 +1330,7 @@ tooltip:hover:after {
 			            	+ '</div>'
 			            	+ '<div class="col-md-10 table-responsive">'
 			            	+ '<table style="width:100%;" class="table-responsive pendinginbox">'
-			            	+ '	<tr><td>'+firstname+' '+lastname+'&nbsp;('+orderObj.username+')&nbsp;<a href="#" data-toggle="tooltip" data-placement="bottom" title="View Mobile Number"><img   src="images/micon.png"/></a>&nbsp;'+premiumMember+'<span class="pull-right"><img src="images/ar.png"/>24-03-2018<img style="margin-left:5px;" src="images/del.png"/></span></td></tr>'
+			            	+ '	<tr><td>'+firstname+' '+lastname+'&nbsp;('+orderObj.username+')&nbsp;<a href="#" data-toggle="tooltip" data-placement="bottom" title="View Mobile Number"><img   src="images/micon.png"/></a>&nbsp;'+premiumMember+'<span class="pull-right"><img src="images/ar.png"/>'+recent_activity.activity_done_on+'<img style="margin-left:5px;" src="images/del.png"/></span></td></tr>'
 			            	+ '	<tr><td>'+orderObj.age+'Yrs,'+orderObj.inches+','+orderObj.religionName+','+orderObj.casteName+','
 			            	+ 		orderObj.currentCityName+','+orderObj.currentStateName+','+orderObj.currentCountryName+','
 			            	+ 		orderObj.educationName+','+orderObj.occupationName+'.'
