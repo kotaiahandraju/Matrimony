@@ -133,7 +133,7 @@ $('#mobile').blur(function() {
 				$('#secondForm').hide();
 				$("#thirdForm").show();
 				$('#fourthForm').hide();
-				ChangeUrl('page1', 'profile.htm?page=3');
+//				ChangeUrl('page1', 'profile.htm?page=3');
 				event.preventDefault();
 				$("#step1").removeClass("btn-primary");
 				 $("#step2").removeClass("btn-primary");
