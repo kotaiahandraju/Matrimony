@@ -120,11 +120,13 @@ $('#mobile').blur(function() {
 		event.preventDefault();
 		return false;
 	}else{
+		event.preventDefault();
 		//$('#mobileError111').text("");
 		var formData = new FormData();
 	    formData.append('mobile', $("#mobile").val());
 	    formData.append('id', $("#id").val());
-		$.fn.makeMultipartRequest('POST', 'mobileNumChecking', false,formData, false, 'text', function(data){
+	    
+		$.fn.makeMultipartRequest('POST', '${baseurl}/mobileNumChecking', false,formData, false, 'text', function(data){
 			var jsonobj = $.parseJSON(data);
 			if(jsonobj.msg =="exist"){
 				//error message write
@@ -290,19 +292,56 @@ $('#submit1').click(function(event) {
 	if($('#mobile').val().trim().length<10){
 		$('#mobileError111').text("Please enter a valid mobile number.");
 		validation = false;
+		return false;
+		event.preventDefault();
 	}else{
 		$('#mobileError111').text("");
 	}
-	var exists = isMobileNumDuplicate();
-	if(exists){
-		validation = false;
-	}
-	if(mobileExists){
+	//mobile  number duplicate check
+	event.preventDefault();
+	var formData = new FormData();
+    formData.append('mobile', $("#mobile").val());
+    formData.append('id', $("#id").val());
+	$.fn.makeMultipartRequest('POST', '${baseurl}/mobileNumChecking', false,
+			formData, false, 'text', function(data){
+		var jsonobj = $.parseJSON(data);
+		if(jsonobj.msg =="exist"){
+			//error message write
+			$('#mobileError111').text("Mobile number already in Use. Please Try Another.");
+			mobileExists = true;
+			return false;
+		}else{
+			$('#mobileError111').text("");
+			mobileExists = false;
+		}
+	});
+	
+	//var exists = isMobileNumDuplicate();
+	/*if(mobileExists){
 		$('#mobileError111').text("Mobile number already in Use. Please Try Another.");
 		
 		validation = false;
+	}*/
+	
+	var ageFrom = $("select[name='rAgeFrom']").val();
+	var ageTo = $("select[name='rAgeTo']").val();
+	var heightFrom = $("#rHeight").val();
+	if(heightFrom!=""){
+		heightFrom = parseInt(heightFrom);
 	}
-	if(validation && emailExist && !mobileExists) {
+	var heightTo = $("#rHeightTo").val();
+	if(heightTo!=""){
+		heightTo = parseInt(heightTo);
+	}
+	if(ageFrom > ageTo){
+		alert("Sorry, Invalid Age range");
+		validation = false;
+	}else if(heightFrom > heightTo){
+		alert("Sorry, Invalid Height range");
+		validation = false;
+	}
+	
+	if(validation && emailExist) {
 		$("#submit1").attr("disabled",true);
 		$("#submit1").val("Please wait...");
 		$("form").submit();											
