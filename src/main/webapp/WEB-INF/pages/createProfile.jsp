@@ -223,7 +223,7 @@
 									<div class="col-sm-8">
 									  	<form:select path="currentState" onfocus="removeBorder(this.id)" onchange="getCitys(this.id)" onblur="validate(this.id,'');"    class="form-control" >
 											<form:option value="">-- Choose State --</form:option>
-												<form:options items="${states}" ></form:options>
+												<form:options items="${states_map}" ></form:options>
 										</form:select>
 								  		<div><form:errors path="currentState" cssClass="error" /></div>
 									</div>
@@ -235,7 +235,7 @@
 									<div class="col-sm-8">
 									  	<form:select path="currentCity" onfocus="removeBorder(this.id)" onchange="updateUserName(this.value)" class="form-control validate" >
 											<form:option value="">-- Choose City --</form:option>
-											<form:options items="${citys }"></form:options>
+											<form:options items="${cities_map }"></form:options>
 										</form:select>
 								  		<div><form:errors path="currentCity" cssClass="error" /></div>
 									</div>
@@ -264,7 +264,7 @@
 									<div class="col-sm-8">
 									  	<form:select path="caste" class="form-control u validate" onfocus="removeBorder(this.id)">
 											<form:option value="">-- Choose Community --</form:option>
-<%-- 											<form:options items="${cast}"></form:options> --%>
+ 											<form:options items="${castes_list}"></form:options> 
 										</form:select>
 								  		<div><form:errors path="caste" cssClass="error" /></div>
 									</div>
@@ -640,7 +640,7 @@
 							<div class="col-md-offset-5 col-md-4">
 								<div class="form-group">
 									<div class=" col-md-offset-1 col-md-6">
-										<input class="btn btn-primary" type="submit" id="submit1" onclick="submitSearch();" name="yt0" value="Submit">
+										<input class="btn btn-primary" type="submit" id="submit1"  name="yt0" value="Submit">
 										<input class="btn btn-danger cancel" type="reset" id="reset11" name="yt1" value="Reset">
 									</div>
 								</div>
@@ -658,9 +658,9 @@
 
 <!-- <script type="text/javascript" src="js/custom.js"></script> -->
 <script type="text/javascript">
-$(document).ready(function(){
+/* $(document).ready(function(){
 	getReliginCastAjax()
-})
+}) */
 function getReliginCastAjax() {
 	var religionId = $("#religion").val();
 		var formData = new FormData();
@@ -726,7 +726,13 @@ function submitSearch(){
 	var ageFrom = $("select[name='rAgeFrom']").val();
 	var ageTo = $("select[name='rAgeTo']").val();
 	var heightFrom = $("#rHeight").val();
+	if(heightFrom!=""){
+		heightFrom = parseInt(heightFrom);
+	}
 	var heightTo = $("#rHeightTo").val();
+	if(heightTo!=""){
+		heightTo = parseInt(heightTo);
+	}
 	if(ageFrom > ageTo){
 		alert("Sorry, Invalid Age range");
 		return false;
@@ -895,6 +901,23 @@ $("#submit11").click(function()
 								}
 								
 							}
+							var ageFrom = $("select[name='rAgeFrom']").val();
+							var ageTo = $("select[name='rAgeTo']").val();
+							var heightFrom = $("#rHeight").val();
+							if(heightFrom!=""){
+								heightFrom = parseInt(heightFrom);
+							}
+							var heightTo = $("#rHeightTo").val();
+							if(heightTo!=""){
+								heightTo = parseInt(heightTo);
+							}
+							if(ageFrom > ageTo){
+								alert("Sorry, Invalid Age range");
+								return false;
+							}else if(heightFrom > heightTo){
+								alert("Sorry, Invalid Height range");
+								return false;
+							}
 	}
 	$("#creteProfile").submit();
 });
@@ -1024,12 +1047,7 @@ function isMobileNumDuplicate(){
 	var formData = new FormData();
     formData.append('mobile', $("#mobile").val());
     formData.append('id', $("#id").val());
-    var actionStr = "../mobileNumChecking";
-    var nextPage = "${pageName}";
-    if(nextPage!=null && nextPage!="" && nextPage!="undefined"){
-   	 actionStr = "../../../mobileNumChecking";
-    }
-	$.fn.makeMultipartRequest('POST', actionStr, false,
+	$.fn.makeMultipartRequest('POST', '${baseurl}/mobileNumChecking', false,
 			formData, false, 'text', function(data){
 		var jsonobj = $.parseJSON(data);
 		if(jsonobj.msg =="exist"){

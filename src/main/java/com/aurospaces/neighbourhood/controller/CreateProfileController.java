@@ -32,13 +32,18 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.aurospaces.neighbourhood.bean.BranchBean;
+import com.aurospaces.neighbourhood.bean.CityBean;
 import com.aurospaces.neighbourhood.bean.ContriesBean;
 import com.aurospaces.neighbourhood.bean.EducationBean;
 import com.aurospaces.neighbourhood.bean.HeightBean;
 import com.aurospaces.neighbourhood.bean.UserImagesBean;
 import com.aurospaces.neighbourhood.bean.UsersBean;
 import com.aurospaces.neighbourhood.db.dao.BranchDao;
+import com.aurospaces.neighbourhood.db.dao.CastDao;
+import com.aurospaces.neighbourhood.db.dao.CityDao;
 import com.aurospaces.neighbourhood.db.dao.CountriesDao;
+import com.aurospaces.neighbourhood.db.dao.PaymenthistoryDao;
+import com.aurospaces.neighbourhood.db.dao.StateDao;
 import com.aurospaces.neighbourhood.db.dao.UserImageUploadDao;
 import com.aurospaces.neighbourhood.db.dao.UserrequirementDao;
 import com.aurospaces.neighbourhood.db.dao.UsersDao;
@@ -55,6 +60,9 @@ public class CreateProfileController {
 	 @Autowired BranchDao objBranchDao;
    @Autowired UsersDao objUsersDao;
    @Autowired UserrequirementDao objUserrequirementDao;
+   @Autowired CityDao objCityDao;
+   @Autowired StateDao stateDao;
+   @Autowired CastDao objCastDao;
    @Autowired
 	ServletContext objContext;
    @Autowired UserImageUploadDao objUserImageUploadDao;
@@ -116,6 +124,28 @@ public class CreateProfileController {
 		
 			 request.setAttribute("pageName", pageName);
 			 request.setAttribute("userBean", objUsersBean);
+			 
+			 	///////
+				List<Map<String,Object>> castes_list =  objCastDao.getCastesBasedOnReligion(objUsersBean.getReligion());
+				Map<Integer, String> castesMap = new LinkedHashMap<Integer, String>();
+				for (Map<String,Object> caste : castes_list) {
+					castesMap.put((Integer)caste.get("id"),(String)caste.get("name"));
+				}
+				request.setAttribute("castes_list", castesMap);
+				/////
+				List<Map<String,Object>> results = stateDao.getFilteredStates(objUsersBean.getCurrentCountry());
+				Map<Integer, String> statesMap = new LinkedHashMap<Integer, String>();
+				for (Map<String,Object> state : results) {
+					statesMap.put((Integer)state.get("id"),(String)state.get("name"));
+				}
+				request.setAttribute("states_map", statesMap);
+				//////
+				Map<Integer, String> citiesMap = new LinkedHashMap<Integer, String>();
+				List<CityBean> ojCityBean = objCityDao.filterByState(objUsersBean.getCurrentState());
+				for (CityBean city : ojCityBean) {
+					citiesMap.put(city.getId(),city.getName());
+				}
+				request.setAttribute("cities_map", citiesMap);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

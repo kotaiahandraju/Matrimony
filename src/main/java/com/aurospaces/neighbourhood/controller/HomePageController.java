@@ -4373,6 +4373,7 @@ public class HomePageController {
 	   System.out.println(e);
 	   logger.error(e);
 	   logger.fatal("error in inboxAjaxAction method");
+	   return jsOnObj.put("error", "error").toString();
 	  }
 		return jsOnObj.toString();
 	 }
