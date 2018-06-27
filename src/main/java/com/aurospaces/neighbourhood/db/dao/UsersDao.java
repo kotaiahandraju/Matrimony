@@ -2830,9 +2830,10 @@ public class UsersDao extends BaseUsersDao
 		StringBuffer qryStrBuffer = new StringBuffer("select u.*,ei.*,(select count(*) from users u,express_intrest ei where "+where_clause+") as total_records from users u, express_intrest ei where "+where_clause+" order by ei.created_on desc  ");*/
 		UsersBean objUserBean = (UsersBean) session.getAttribute("cacheGuest");
 		StringBuffer buffer = new StringBuffer();
-		String inner_where_clause = " ei.profile_id = u.id and ei.user_id = "+userId+" and u.role_id not in (1) and u.status in ('1') and u.gender not in  ('"+objUserBean.getGender()+"') and u.id not in  ("+userId+")";
-		StringBuffer where_clause = new StringBuffer(" and u.role_id not in (1) and u.status in ('1') ");
-		buffer.append("select u.id,sta.name as currentStateName,cit.name as currentCityName,u.occupation,oc.name as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
+		String inner_where_clause = " ei.profile_id = u.id and ei.user_id = "+userId+" and u.role_id not in (1) and u.status in ('1') and u.gender not in  ('"+objUserBean.getGender()+"') and u.id not in  ("+objUserBean.getId()+")";
+		StringBuffer where_clause = new StringBuffer(" temp.role_id not in (1) and temp.status in ('1') and temp.gender not in  ('"+objUserBean.getGender()+"') and temp.id not in  ("+userId+") ");
+		buffer.append("select temp.*,ifnull(activity.activity_content,'') as  activity_content  from " 
+				+" (select u.id,u.package_id,sta.name as currentStateName,cit.name as currentCityName,u.occupation,oc.name as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
 				+"u.firstName, u.lastName, u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName, u.currentCountry,co.name as currentCountryName, " 
 				+"u.currentState, u.currentCity, " 
 				+"u.maritalStatus, u.caste,c.name as casteName, u.gotram, u.star,s.name as starName, u.dosam, u.dosamName, u.education, u.workingWith, u.companyName, " 
@@ -2855,14 +2856,16 @@ public class UsersDao extends BaseUsersDao
 				+"left join cast c on c.id=u.caste left join star s on s.id =u.star left join height h on h.id=u.height left join body_type b on b.id=u.bodyType left join religion re1  on re1.id=rReligion "
 				+"left join complexion com on com.id =u.complexion left join cast c1 on c1.id=rCaste left join language l1 on l1.id=rMotherTongue "
 				+"left join countries con1 on con1.id=rCountry left join education e1 on e1.id=rEducation left join occupation oc1 on oc1.id=rOccupation  left join user_images uimg on uimg.user_id=u.id left join occupation oc on u.occupation=oc.id left join education ed on ed.id=u.education "
-				+ " left join state sta on sta.id=u.currentState left join city cit on cit.id=u.currentCity  ");
+				+ " left join state sta on sta.id=u.currentState left join city cit on cit.id=u.currentCity GROUP BY u.id  ) "
+				+" temp, "
+				+" users_activity_log activity where temp.id = activity.act_done_on_user_id ");
 				//+"  users_activity_log activity  where  activity.act_done_by_user_id=u.id and  activity.act_done_by_user_id = "+objUserBean.getId()+" ");
 		
 		//buffer.append(where_clause);
-		buffer.append(" WHERE activity.act_done_by_user_id = "+objUserBean.getId()+" GROUP BY u.id  ");
+		buffer.append(" and activity.act_done_by_user_id = "+objUserBean.getId()+" and "+where_clause+" GROUP BY temp.id  ");
 		
 		int page_size = MatrimonyConstants.PAGINATION_SIZE;
-		buffer.append(" order by u.package_id desc limit "+page_size+" offset "+(page_no*page_size)+" ");
+		buffer.append(" order by temp.package_id desc limit "+page_size+" offset "+(page_no*page_size)+" ");
 		try{
 			List<Map<String,Object>> list = jdbcTemplate.queryForList(buffer.toString());
 			if(list!=null){
