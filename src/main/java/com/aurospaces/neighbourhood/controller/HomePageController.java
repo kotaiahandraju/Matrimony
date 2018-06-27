@@ -61,6 +61,7 @@ import com.aurospaces.neighbourhood.db.dao.CountriesDao;
 import com.aurospaces.neighbourhood.db.dao.PaymenthistoryDao;
 import com.aurospaces.neighbourhood.db.dao.StateDao;
 import com.aurospaces.neighbourhood.db.dao.UserImageUploadDao;
+import com.aurospaces.neighbourhood.db.dao.UserSettingsDao;
 import com.aurospaces.neighbourhood.db.dao.UserrequirementDao;
 import com.aurospaces.neighbourhood.db.dao.UsersDao;
 import com.aurospaces.neighbourhood.filter.JavaIntegrationKit;
@@ -86,6 +87,7 @@ public class HomePageController {
    @Autowired PaymenthistoryDao paymenthistoryDao;
    @Autowired StateDao stateDao;
    @Autowired CastDao objCastDao;
+   @Autowired UserSettingsDao settingsDao;
    
 	@RequestMapping(value = "/HomePage")
 	public String CreateProfile(@ModelAttribute("createProfile") UsersBean objUsersBean, Model objeModel ,
@@ -218,6 +220,14 @@ public class HomePageController {
 					statesMap.put((Integer)map.get("id"), (String)map.get("name"));
 			}
 			 request.setAttribute("country_based_states", statesMap);
+			 ///
+			 List<Map<String,Object>> castes_list =  objCastDao.getCastesBasedOnReligion(sessionBean.getReligion());
+			Map<Integer, String> castesMap = new LinkedHashMap<Integer, String>();
+			for (Map<String,Object> caste : castes_list) {
+				castesMap.put((Integer)caste.get("id"),(String)caste.get("name"));
+			}
+			request.setAttribute("castes_list", castesMap);
+			///
 			 objeModel.addAttribute("createProfile", objUsersBean);
 			 }
 			}else{
@@ -268,6 +278,8 @@ public class HomePageController {
 				 if(StringUtils.isNotBlank(objUsersBean.getRedirectPage())){
 					if(!("dashboard".equalsIgnoreCase(objUsersBean.getRedirectPage()))){ // send email only on create.
 						session.setAttribute("profile_filled_status", 45);
+						Map<String,Object> user_settings = settingsDao.getUserSettings(objUsersBean1.getId()+"");
+						session.setAttribute("user_settings", user_settings);
 						Map<String,Object> interestCounts = objUsersDao.getInterestCounts(objUsersBean);
 						long notificationsCount = (Long)interestCounts.get("notificationsCount");
 						session.setAttribute("notificationsCount", notificationsCount);
@@ -3516,7 +3528,7 @@ public class HomePageController {
 				   }
 			   }else{
 				   request.setAttribute("msg", "OTP limit for the day has been exceeded. Please try again later.");
-				   return "otpFailurePage";
+				   objJson.put("message","limit_exceeded");
 			   }
 			   
 				

@@ -24,9 +24,11 @@
 	   		  <div class="form-group">
 		   			<c:if test="${message == msg}">
 			   			<span id="displayMsg">Enter OTP that has been sent on your mobile number xxxxxxx${mobileStr}</span> <br>
+			   			<span id="displayErrMsg" class="hasError" style="font-size: 13px;color:red"></span><br>
 			   		</c:if>
 			   		<c:if test="${message == msg3 }">
-			   			<span id="displayMsg" class="hasError" style="font-size: 13px;color:red">OTP mismatched!! Please try again.</span> <br>
+			   			<span id="displayMsg"></span><br>
+			   			<span id="displayErrMsg" class="hasError" style="font-size: 13px;color:red">OTP mismatched!! Please try again.</span> <br>
 			   		</c:if>
 			      <div class="col-md-3">
 			      	<input id="otp1" type="text" name="otp1" class="form-control numericOnly u1"/>
@@ -102,7 +104,11 @@ function resendOtp(){
 			var msg = jsonobj.message;
 			var mobileStr = jsonobj.mobileStr;
 			if(msg != "undefined" && "success"==msg){
+				$("#displayErrMsg").html('');
 				$("#displayMsg").html("OTP has been resent on your mobile no. xxxxxxx"+mobileStr);
+			}else if(msg != "undefined" && "limit_exceeded"==msg){
+				$("#displayMsg").html('');
+				$("#displayErrMsg").html("OTP limit for the day has been exceeded. Please try again later.");
 			}	
 			
 		});
