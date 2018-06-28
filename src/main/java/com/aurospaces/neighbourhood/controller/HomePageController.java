@@ -3527,7 +3527,7 @@ public class HomePageController {
 					   objJson.put("message", "failed");
 				   }
 			   }else{
-				   request.setAttribute("msg", "OTP limit for the day has been exceeded. Please try again later.");
+				   //request.setAttribute("msg", "OTP limit for the day has been exceeded. Please try again later.");
 				   objJson.put("message","limit_exceeded");
 			   }
 			   
