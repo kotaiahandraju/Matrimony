@@ -90,7 +90,7 @@
 							<div class="col-md-6">
 								<form:select path="caste" class="form-control u" onblur="validate(this.id,'');" onfocus="removeBorder(this.id)">
 									<form:option value="">-- Choose Community --</form:option>
-								<%-- 	<form:options items="${cast}"></form:options> --%>
+									<form:options items="${castes_list}"></form:options> 
 								</form:select>
 							</div>
 						</div>
