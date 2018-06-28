@@ -26,15 +26,16 @@ public class EmployeeCreationDao {
 		}
 		return false;
 	}
-	public UsersBean getByEmployee( String username) {
+	public UsersBean getByEmployee( String username,String email) {
 		 jdbcTemplate = custom.getJdbcTemplate();
-			String sql = "SELECT * from users where username = ?";  
+			String sql = "SELECT * from users where username = ? and email=?";  
 			List<UsersBean> retlist = jdbcTemplate.query(sql,
-			new Object[]{username},
+			new Object[]{username,email},
 			ParameterizedBeanPropertyRowMapper.newInstance(UsersBean.class));
 			if(retlist.size() > 0)
 				return retlist.get(0);
 			return null;
 		}
+	
 
 }
