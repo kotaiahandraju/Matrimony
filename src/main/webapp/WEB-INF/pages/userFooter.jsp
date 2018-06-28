@@ -57,7 +57,7 @@ $(function ($) {
 	<script src="js/jquery.blockUI.min.js"></script>
 	
 	<!-- start-smoth-scrolling -->
-	<script type="text/javascript" src="user/js/move-top.js"></script>
+	<!-- <script type="text/javascript" src="user/js/move-top.js"></script> -->
 	<!-- <script type="text/javascript" src="user/js/easing.js"></script> -->
 	
 	<!-- <script type="text/javascript" src="user/js/megamenu.js"></script>
@@ -86,5 +86,14 @@ $(document).on("click", function(event){
         }            
     });
 </script> -->
+<script type="text/javascript">
+
+$(window).on("load", function () {
+	    var urlHash = window.location.href.split("#")[1];
+	    $('html,body').animate({
+	        scrollTop: $('#' + urlHash).offset().top
+	    }, 100);
+	});
+</script>
 </body>
 </html>
