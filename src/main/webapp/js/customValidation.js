@@ -120,17 +120,23 @@ $('#mobile').blur(function() {
 		event.preventDefault();
 		return false;
 	}else{
+		$('#mobileError111').text('');
 		event.preventDefault();
 		//$('#mobileError111').text("");
 		var formData = new FormData();
 	    formData.append('mobile', $("#mobile").val());
 	    formData.append('id', $("#id").val());
+	    var actionStr = "../mobileNumChecking";
+	     var nextPage = "${pageName}";
+	     if(nextPage!=null && nextPage!="" && nextPage!="undefined"){
+	    	 actionStr = "../../../mobileNumChecking";
+	     }
 	    
-		$.fn.makeMultipartRequest('POST', '${baseurl}/mobileNumChecking', false,formData, false, 'text', function(data){
+		$.fn.makeMultipartRequest('POST', actionStr, false,formData, false, 'text', function(data){
 			var jsonobj = $.parseJSON(data);
 			if(jsonobj.msg =="exist"){
 				//error message write
-				$('#mobileError').text("Mobile number already in Use. Please try another.");
+				$('#mobileError111').text("Mobile number already in Use. Please try another.");
 				$("#firstForm").hide();
 				$('#secondForm').hide();
 				$("#thirdForm").show();
@@ -302,7 +308,12 @@ $('#submit1').click(function(event) {
 	var formData = new FormData();
     formData.append('mobile', $("#mobile").val());
     formData.append('id', $("#id").val());
-	$.fn.makeMultipartRequest('POST', '${baseurl}/mobileNumChecking', false,
+    var actionStr = "../mobileNumChecking";
+    var nextPage = "${pageName}";
+    if(nextPage!=null && nextPage!="" && nextPage!="undefined"){
+   	 actionStr = "../../../mobileNumChecking";
+    }
+	$.fn.makeMultipartRequest('POST', actionStr, false,
 			formData, false, 'text', function(data){
 		var jsonobj = $.parseJSON(data);
 		if(jsonobj.msg =="exist"){
