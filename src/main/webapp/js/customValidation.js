@@ -127,9 +127,13 @@ $('#mobile').blur(function() {
 	    formData.append('mobile', $("#mobile").val());
 	    formData.append('id', $("#id").val());
 	    var actionStr = "../mobileNumChecking";
-	     var nextPage = "${pageName}";
+	     var nextPage = nextPage1;
 	     if(nextPage!=null && nextPage!="" && nextPage!="undefined"){
 	    	 actionStr = "../../../mobileNumChecking";
+	     }
+	     var req_from = $("#req_from").val();
+	     if(typeof req_from != "undefined" && req_from=="user"){
+	    	 actionStr = "mobileNumChecking";
 	     }
 	    
 		$.fn.makeMultipartRequest('POST', actionStr, false,formData, false, 'text', function(data){
@@ -137,6 +141,7 @@ $('#mobile').blur(function() {
 			if(jsonobj.msg =="exist"){
 				//error message write
 				$('#mobileError111').text("Mobile number already in Use. Please try another.");
+				mobileExists = true;
 				$("#firstForm").hide();
 				$('#secondForm').hide();
 				$("#thirdForm").show();
@@ -148,7 +153,8 @@ $('#mobile').blur(function() {
 				 $("#step3").addClass("btn-primary");
 				 $("#step4").removeClass("btn-primary"); 
 			}else{
-				$('#mobileError').text("");
+				$('#mobileError111').text("");
+				mobileExists = false;
 				/*$("#firstForm").hide();
 				$('#secondForm').hide();
 				$("#thirdForm").hide();
@@ -304,7 +310,7 @@ $('#submit1').click(function(event) {
 		$('#mobileError111').text("");
 	}
 	//mobile  number duplicate check
-	event.preventDefault();
+	/*event.preventDefault();
 	var formData = new FormData();
     formData.append('mobile', $("#mobile").val());
     formData.append('id', $("#id").val());
@@ -320,12 +326,13 @@ $('#submit1').click(function(event) {
 			//error message write
 			$('#mobileError111').text("Mobile number already in Use. Please Try Another.");
 			mobileExists = true;
+			validation = false;
 			return false;
 		}else{
 			$('#mobileError111').text("");
 			mobileExists = false;
 		}
-	});
+	});*/
 	
 	//var exists = isMobileNumDuplicate();
 	/*if(mobileExists){
@@ -333,7 +340,11 @@ $('#submit1').click(function(event) {
 		
 		validation = false;
 	}*/
-	
+	if(mobileExists){
+		$('#mobileError111').text("Mobile number already in Use. Please Try Another.");
+	}else{
+		$('#mobileError111').text("");
+	}
 	var ageFrom = $("select[name='rAgeFrom']").val();
 	var ageTo = $("select[name='rAgeTo']").val();
 	var heightFrom = $("#rHeight").val();
@@ -352,7 +363,7 @@ $('#submit1').click(function(event) {
 		validation = false;
 	}
 	
-	if(validation && emailExist) {
+	if(validation && emailExist && !mobileExists) {
 		$("#submit1").attr("disabled",true);
 		$("#submit1").val("Please wait...");
 		$("form").submit();											

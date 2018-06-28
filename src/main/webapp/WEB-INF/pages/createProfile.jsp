@@ -551,7 +551,7 @@
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
-									<label class="col-sm-4 control-label">Fath er's Occupation </label>
+									<label class="col-sm-4 control-label">Father's Occupation </label>
 									<div class="col-sm-8">
 										<form:select path="fOccupation" class="form-control u1">
 											<form:options items="${maleOccupation}"></form:options>
@@ -1041,8 +1041,8 @@ function getFilteredStatesMultiSelect(id){
 		
 	}
 }
-
-var mobileExists = true;
+var nextPage1 = "${pageName}";
+var mobileExists = false;
 function isMobileNumDuplicate(){
 	var formData = new FormData();
     formData.append('mobile', $("#mobile").val());
