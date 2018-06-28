@@ -129,6 +129,16 @@ s.parentNode.insertBefore(ga, s);
 		serviceUnitArray = {};
 		$.each(listOrders,function(i, orderObj) {
 			var viewProfile = "<a data-toggle='tooltip' title='View' onclick='viewProfileNew("+ orderObj.id+ ")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-eye'></i></a>"
+			var uploadPhotos = "";
+			var moveToHidden = "";
+			var editProfile = "";
+			var sendMail = "";
+			var inactive = "";
+			var compareProfiles = "";
+			var deleteProfile = "";
+			var payment = "";
+			var resetPassword = "";
+			if (role_id == 1){
 			var uploadPhotos = "<a data-toggle='tooltip' title='Upload Photos' onclick='uploadPhotos("+ orderObj.id+ ")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-photo'></i></a>"
 			var moveToHidden = "<a data-toggle='tooltip' title='Move To Hidden' onclick='moveToHidden("+ orderObj.id+ ",\"classic_plus\")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-eye-slash'></i></a>"
 			var editProfile = "<a data-toggle='tooltip' title='Edit' onclick='editProfile("+ orderObj.id+ ")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-pencil'></i></a>"
@@ -138,6 +148,7 @@ s.parentNode.insertBefore(ga, s);
 			var deleteProfile = "<a data-toggle='tooltip' title='Delete' onclick='profileStatusChange("+ orderObj.id+ ",2)'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-trash'></i></a>"
 			var payment = "<a data-toggle='tooltip' title='Payment' onclick='payment("+ orderObj.id+ ",0)'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-usd'></i></a>"
 			var resetPassword = "<a data-toggle='tooltip' title='Reset Password' onclick='resetPassword("+ orderObj.id+ ",0)'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-repeat'></i></a>"
+			}
 			/* var viewProfile = "<a title='View Profile' onclick='viewProfile("+ orderObj.id+ ")'><i style='color: blue;' class='fa fa-eye'></i></a>"
 							var viewProfile = "<a title='View Profile' onclick='viewProfile("+ orderObj.id+ ")'><i style='color: blue;' class='fa fa-eye'></i></a>"
 							var viewProfile = "<a title='View Profile' onclick='viewProfile("+ orderObj.id+ ")'><i style='color: blue;' class='fa fa-eye'></i></a>" */

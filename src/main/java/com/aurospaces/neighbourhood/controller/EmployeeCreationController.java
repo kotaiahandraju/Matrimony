@@ -66,8 +66,7 @@ public class EmployeeCreationController {
 			try {
 				objUsersBean.setRoleId(3);
 				objUsersBean.setStatus("1");
-				System.out.println("dsadsa :"+objUsersBean.getId());
-				usersBean=employeeCreationDao.getByEmployee(objUsersBean.getUsername());
+				usersBean=employeeCreationDao.getByEmployee(objUsersBean.getUsername(),objUsersBean.getEmail());
 				int dummyId = 0;
 				if (usersBean != null) {
 					dummyId = usersBean.getId();
@@ -77,10 +76,10 @@ public class EmployeeCreationController {
 					if (id == dummyId || usersBean == null) {
 //						objUsersDao.save(objUsersBean);
 						objUsersDao.updateEmployee(objUsersBean);
-						redir.addFlashAttribute("msg", "Employee Updated Successfully");
+						redir.addFlashAttribute("msg", "employee updated successfully");
 						redir.addFlashAttribute("cssMsg", "warning");
 					} else {
-						redir.addFlashAttribute("msg", "Already Employee Exist");
+						redir.addFlashAttribute("msg", "already employee exist.");
 						redir.addFlashAttribute("cssMsg", "danger");
 					}
 				}
@@ -89,29 +88,14 @@ public class EmployeeCreationController {
 					objUsersBean.setUserId(objUsersBean.getId());
 					objUsersBean.setId(0);
 					userrequirementDao.save(objUsersBean);
-					redir.addFlashAttribute("msg", "Employee Added Successfully");
+					redir.addFlashAttribute("msg", "employee added successfully");
 					redir.addFlashAttribute("cssMsg", "success");
 				}
 				if (objUsersBean.getId() == 0 && usersBean != null) {
-					redir.addFlashAttribute("msg", "Already Employee Exist");
+					redir.addFlashAttribute("msg", "already employee exist");
 					redir.addFlashAttribute("cssMsg", "danger");
 				}
 				
-				
-				/*if(objUsersBean.getId() == 0) {
-					
-				objUsersBean.setRoleId(3);
-				objUsersDao.save(objUsersBean);
-				redir.addFlashAttribute("msg", "Employee Sucessfully Created");
-				redir.addFlashAttribute("Msg", "success");
-				return "redirect:employeeCreation";
-				}else {
-					objUsersBean.setRoleId(3);
-				objUsersDao.save(objUsersBean);
-				redir.addFlashAttribute("msg", "Employee Sucessfully Updated");
-				redir.addFlashAttribute("Msg", "warning");
-				return "redirect:employeeCreation";
-				}*/
 			}catch(Exception e)
 			{
 				e.printStackTrace();

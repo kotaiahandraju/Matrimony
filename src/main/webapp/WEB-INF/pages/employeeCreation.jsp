@@ -78,7 +78,7 @@
 						  			<div class="form-group">
 										<label class="col-sm-4 control-label required"><spring:message   text="Password" /><span style="color:red;">*</span></label>
 										<div class="col-sm-8">
-									  		<form:input path="password" type="text" class="form-control nospecialCharacter validate"  autocomplete="off" Placeholder="Password" maxlength="255"/>						
+									  		<form:input path="password" type="Password" class="form-control nospecialCharacter validate"  autocomplete="off" Placeholder="Password" maxlength="255"/>						
 									  		<span class="hasError" id="descriptionError"></span>
 <%-- 									  		<div><form:errors path="description" cssClass="error" /></div>										 --%>
 										</div>
@@ -134,7 +134,7 @@ if (listOrders1 != "") {
 function displayTable(listOrders) {
 	$('#tableId').html('');
 	var tableHead = '<table  class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,text,text,text,text,null">'
-		+ '<thead><tr><th>First Name</th><th>Last Name</th><th>Email</th><th>UserName</th><th>Password</th><th>Action</th></tr></thead><tbody></tbody></table>';
+		+ '<thead><tr><th>First Name</th><th>Last Name</th><th>Email</th><th>UserName</th><th>Action</th></tr></thead><tbody></tbody></table>';
 	$('#tableId').html(tableHead);
 	serviceUnitArray = {};
 	$.each(listOrders,function(i, orderObj) {
@@ -146,7 +146,7 @@ function displayTable(listOrders) {
 			+ "<td title='"+orderObj.duration+"'>" + orderObj.lastName + "</td>"
 			+ "<td title='"+orderObj.price+"'>" + orderObj.email + "</td>"
 			+ "<td title='"+orderObj.description+"'>" + orderObj.username + "</td>"
-			+ "<td title='"+orderObj.description+"'>" + orderObj.password + "</td>"
+// 			+ "<td title='"+orderObj.description+"'>" + orderObj.password + "</td>"
 			+ "<td style='text-align: center;white-space: nowrap;'>" + edit + "&nbsp;|&nbsp;" + deleterow + "</td>" 
 			+ "</tr >";
 		$(tblRow).appendTo("#tableId table tbody");
