@@ -768,7 +768,7 @@ $(".onlyCharacters").on("keypress",	function(event) {
 </div>
 
 <br>
-<div id="partnerPreferences" name="partnerPreferences">
+<div id="partnerPreferences">
 <h3>Partner Preferences</h3>
 <div class="panel panel-default" style="background:#FDFDFD;">
     <div class="panel-body table-responsive">
@@ -1063,14 +1063,7 @@ $(".onlyCharacters").on("keypress",	function(event) {
 </div>
 </div>
 
-	<c:choose>
-		<c:when test="${empty param.edit}">
-			<c:set var="editprofile" value=""/> 
-	    </c:when>
-	    <c:otherwise>
-			<c:set var="editprofile" value="${param.edit}"/> 
-	    </c:otherwise>
-	</c:choose>
+
 
 
 
@@ -1104,11 +1097,7 @@ $(".onlyCharacters").on("keypress",	function(event) {
 <link href="css/datepicker1.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
 $(document).ready(function(){
-	 var editprofile = "${editprofile}";
-	if(editprofile !=""){
-		$(window).scrollTop($('#partnerPreferences').offset().top);
-
-	}
+	
 	
 	$('.multiSelect').select2();
 	

@@ -150,6 +150,36 @@ public class AdminController {
 			} else {
 				request.setAttribute("classicPlusExpiredProfiles", "''");
 			}
+			packExpiredProfiles = null;
+			packExpiredProfiles = objUsersDao.getPackageExpiredProfiles(MatrimonyConstants.PREMIUM_PLUS_PACKAGE);
+			if (packExpiredProfiles != null && packExpiredProfiles.size() > 0) {
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(packExpiredProfiles);
+				request.setAttribute("PremiumPlusExpiredProfiles", sJson);
+				// System.out.println(sJson);
+			} else {
+				request.setAttribute("PremiumPlusExpiredProfiles", "''");
+			}
+			packExpiredProfiles = null;
+			packExpiredProfiles = objUsersDao.getPackageExpiredProfiles(MatrimonyConstants.CLASSIC_PACKAGE);
+			if (packExpiredProfiles != null && packExpiredProfiles.size() > 0) {
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(packExpiredProfiles);
+				request.setAttribute("classicExpiredProfiles", sJson);
+				// System.out.println(sJson);
+			} else {
+				request.setAttribute("classicExpiredProfiles", "''");
+			}
+			packExpiredProfiles = null;
+			packExpiredProfiles = objUsersDao.getPackageExpiredProfiles(MatrimonyConstants.AARNA_PREMIUM_PACKAGE);
+			if (packExpiredProfiles != null && packExpiredProfiles.size() > 0) {
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(packExpiredProfiles);
+				request.setAttribute("ArnaPremiumExpiredProfiles", sJson);
+				// System.out.println(sJson);
+			} else {
+				request.setAttribute("ArnaPremiumExpiredProfiles", "''");
+			}
 			//packages count getFreeUsersCount
 			listOfOrders  = objUsersDao.getPackageCount();
 			if (listOfOrders != null && listOfOrders.size() > 0) {

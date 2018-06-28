@@ -36,13 +36,13 @@
 			<div class="box-title">
 				<h3>
 					<i class="fa fa-table"></i>
-					Premium Expired Profiles
+					Classic Expired Profiles
 				</h3>
 			</div>
-			<div id="tableId">
+			<div id="tableIdClassic">
 			</div>
-			<div id="paginator"></div>
-			<div id="table_footer"></div>
+			<div id="paginatorClassic"></div>
+			<div id="table_footer_Classic"></div>
 		</div>
 	</div>
 	<div class="col-sm-6">
@@ -57,6 +57,48 @@
 			</div>
 			<div id="paginator1"></div>
 			<div id="table_footer1"></div>
+		</div>
+	</div>
+	<div class="col-sm-6">
+		<div class="box">
+			<div class="box-title">
+				<h3>
+					<i class="fa fa-table"></i>
+					Premium Expired Profiles
+				</h3>
+			</div>
+			<div id="tableId">
+			</div>
+			<div id="paginator"></div>
+			<div id="table_footer"></div>
+		</div>
+	</div>
+	<div class="col-sm-6">
+		<div class="box">
+			<div class="box-title">
+				<h3>
+					<i class="fa fa-table"></i>
+					Premium Plus Expired Profiles
+				</h3>
+			</div>
+			<div id="tableIdPremiumPlus">
+			</div>
+			<div id="paginatorPremiumPlus"></div>
+			<div id="table_footer_PremiumPlus"></div>
+		</div>
+	</div>
+	<div class="col-sm-6">
+		<div class="box">
+			<div class="box-title">
+				<h3>
+					<i class="fa fa-table"></i>
+					Arna Premium Expired Profiles
+				</h3>
+			</div>
+			<div id="tableIdArnaPremium">
+			</div>
+			<div id="paginatorArnaPremium"></div>
+			<div id="table_footer_ArnaPremium"></div>
 		</div>
 	</div>
 	</form:form>
@@ -110,6 +152,16 @@ var listOrders2 = ${classicPlusExpiredProfiles};
 	//$("#paginator").asPaginator('enable');
 	displayTable(listOrders2,"tableId1");
 	//displayTableFooter(1);	
+	
+	
+	 var listOrders3 = ${PremiumPlusExpiredProfiles};
+	displayTable(listOrders3,"tableIdPremiumPlus");
+	
+	var listOrders4 = ${classicExpiredProfiles};
+	displayTable(listOrders4,"tableIdClassic");
+	
+	var listOrders5 = ${ArnaPremiumExpiredProfiles};
+	displayTable(listOrders5,"tableIdArnaPremium");	 
 	
 	function paginationSetup(total_items_count) {
 		  $('#paginator').asPaginator(total_items_count, {
@@ -225,7 +277,7 @@ var listOrders2 = ${classicPlusExpiredProfiles};
  function displayTable3(listOfOrders1) {
 		$('#tableId2').html('');
 		var tableHead = '<table class="table table-hover table-nomargin table-bordered" >'
-			+ '<thead><tr><th>Package Name</th><th>Count</th></tr></thead><tbody></tbody></table>';
+			+ '<thead><tr><th>Package Name</th><th>Members Count</th></tr></thead><tbody></tbody></table>';
 		$('#tableId2').html(tableHead);
 		if(listOfOrders1!=""){
 			
