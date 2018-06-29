@@ -315,6 +315,7 @@ public class HomePageController {
 				 
 				 if(objUsersBean.getRoleId() == 4){
 					 session.setAttribute("allowed_profiles_limit", 0); 
+					 session.setAttribute("upgrade_msg_flag", "1");
 				 }else{
 					 int allowed_profiles_limit = objUsersDao.getAllowedProfilesLimit(objUsersBean.getId());
 					 session.setAttribute("allowed_profiles_limit", allowed_profiles_limit);
