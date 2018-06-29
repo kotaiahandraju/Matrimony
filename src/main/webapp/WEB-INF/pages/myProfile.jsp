@@ -637,13 +637,13 @@ $(".onlyCharacters").on("keypress",	function(event) {
 </tr>
 <tr>
     <td>City</td><td>:</td>
-    <td id="currentState_val">
+    <td id="currentCity_val">
         <c:if test="${not empty profileBean.currentCityName}">${profileBean.currentCityName}</c:if>
         <c:if test="${empty profileBean.currentCityName}">Not Specified</c:if>
     </td>
 </tr>
 <tr><td>State</td><td>:</td>
-    <td id="currentCity_val">
+    <td id="currentState_val">
         <c:if test="${not empty profileBean.currentStateName}">${profileBean.currentStateName}</c:if>
         <c:if test="${empty profileBean.currentStateName}">Not Specified</c:if>
     </td>
@@ -1456,7 +1456,13 @@ function checkLen(){
 	var ageFrom = $("select[name='rAgeFrom']").val();
 	var ageTo = $("select[name='rAgeTo']").val();
 	var heightFrom = $("#rHeight").val();
+	if(heightFrom!=""){
+		heightFrom = parseInt(heightFrom);
+	}
 	var heightTo = $("#rHeightTo").val();
+	if(heightTo!=""){
+		heightTo = parseInt(heightTo);
+	}
 	if(ageFrom > ageTo){
 		alert("Sorry, Invalid Age range");
 		return false;
@@ -1515,6 +1521,27 @@ function checkLen(){
 	});
 } 
  
+  function cancelChanges(block){
+	  if(block=="about"){
+		  var current_val = $("#aboutMyself_val").html().trim();
+		  $("#aboutMyself").val(current_val);
+	  }else if(block=="location"){
+		  var current_country_val = $("#currentCountry_val").html().trim();
+		  var current_state_val = $("#currentState_val").html().trim();
+		  var current_city_val = $("#currentCity_val").html().trim();
+		  var tem = $("#currentCountry option:selected").val();
+		  //$("#currentCountry").val(tem);
+		  var t1 = $("#currentCountry option:selected").text();
+		  var t2 = $("#currentCountry option").text();
+		  $("#currentState").val(current_state_val);
+		  $("#currentCity").val(current_city_val);
+		  $("#currentCountry").trigger("chosen:updated");
+		  $("#currentState").trigger("chosen:updated");
+		  $("#currentCity").trigger("chosen:updated");
+	  }
+	  toggleDiv(block);
+  }
+  
   function fullProfile(profile_id){
 		
 		$("#id").val(profile_id);

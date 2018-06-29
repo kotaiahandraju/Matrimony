@@ -644,7 +644,13 @@ function submitSearch(){
 	//var ageFrom = $("select[name='rAgeFrom']").val();
 	//var ageTo = $("select[name='rAgeTo']").val();
 	var heightFrom = $("#rHeight").val();
+	if(heightFrom!=""){
+		heightFrom = parseInt(heightFrom);
+	}
 	var heightTo = $("#rHeightTo").val();
+	if(heightTo!=""){
+		heightTo = parseInt(heightTo);
+	}
 	var maritalStatus = $("#rMaritalStatus").val();
 	var religion = $("#rReligion").val();
 	var caste = $("#rCaste").val();
