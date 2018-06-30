@@ -1,5 +1,8 @@
 <%@ include file="userCommonHeader.jsp"%>
-
+<style>
+p{
+text-align:justify;
+}</style>
 
 
    <div class="container" style="background:white;padding:25px;">
@@ -8,18 +11,16 @@
 					<div class="panel-heading">About Us </div>
 	             	<div class="panel-body">
 
-
-        ArnaMatrimony, India's leading provider of
-	online matchmaking services delivers matchmaking services to users in
-	India and the Indian diaspora through its websites, mobile sites and
-	mobile apps complemented by on-the-ground network of 140 retail centres
-	in India. It has been ranked as India's most trusted online matrimony
-	brand by The Brand Trust Report India Study 2014 (a study covering
-	20,000 brands across 16 cities). ArnaMatrimony.com comprises a
-	network of 15 regional portals. ArnaMatrimony has been featured in
-	the Limca Book of Records for "most number of documented marriages
-	online".</div>
-	</div>
+<p>Welcome to the profound world of Aarnamatrimony one of the most frequently visited and highly preferred matrimonial site. we are immensely known for the perfect matchmakings, handy navigation and commendable services. With the help of our unmatched quality services, we have been able to establish ourselves among the foremost players in the field of Indian Matrimonials. So feel free to search for prospective bride or bridegroom on the basis of mother tongue, country, religion, caste, occupation etc. from the immense database of profiles. 
+</p>
+<br>
+<p style="color:#006699;"><b>WHY CHOOSE US</b></p>
+<p>
+Aarnamatrimony.com is one of the foremost and vivid Indian Matrimonial Site, providing ample database of thousands of prospective brides and grooms profiles. Due to the sanguine and serviceable approach of its talented professionals. </p>
+<br>
+<p>Aarnamatrimony.com has successfully erected a vast list of satisfied clients across the boundaries. Its benchmark is thousands of hits per day which is incessantly increasing day by day and that too at a tremendous rate.</p></div>
+	
+	<br></div>
 	</div>
 	</div>
 	

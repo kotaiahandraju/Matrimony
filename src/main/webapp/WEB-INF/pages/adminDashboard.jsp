@@ -230,7 +230,7 @@ var listOrders2 = ${classicPlusExpiredProfiles};
 		$.each(listOrders,function(i, orderObj) {
 							serviceUnitArray[orderObj.id] = orderObj;
 							var tblRow = "<tr>"
-								+ "<td title='"+orderObj.username+"'><a href='#' onclick='fullProfile("+orderObj.id+")'>" + orderObj.username + "</a></td>"
+								+ "<td title='"+orderObj.username+"'><a href='#' onclick='fullProfile("+orderObj.userId+")'>" + orderObj.username + "</a></td>"
 								+ "<td title='"+orderObj.package_joined_date+"'>" + orderObj.package_joined_date + "</td>"
 								+ "<td title='"+orderObj.mobile+"'>" + orderObj.mobile + "</td>"
 								+ "</tr >";

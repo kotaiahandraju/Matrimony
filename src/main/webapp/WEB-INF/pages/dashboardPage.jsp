@@ -443,7 +443,7 @@ var newMatches = ${new_matches};
 
 //if (listOrders1 != "") {
 	displayMatches(listOrders1);
-	displayNewMatches(newMatches);
+	//displayNewMatches(newMatches);
 //}
 function displayMatches(listOrders) {
 	$('#matches').html('');
