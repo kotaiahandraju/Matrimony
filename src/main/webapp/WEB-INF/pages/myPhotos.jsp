@@ -1,6 +1,6 @@
 <%@ include file="userHeader.jsp"%>
-<link href="css/imgareaselect-default.css" rel="stylesheet" media="screen">
-<link rel="stylesheet" href="css/jquery.awesome-cropper.css">
+<link href="${baseurl}/css/imgareaselect-default.css" rel="stylesheet" media="screen">
+<link rel="stylesheet" href="${baseurl}/css/jquery.awesome-cropper.css">
 <style>
 canvas{
 display : none
@@ -243,8 +243,8 @@ function deletePhoto(photoId,divId){
 $(".dashboard").addClass("active");
 
 </script>
-<script src="js/jquery.imgareaselect.js"></script> 
-<script src="js/jquery.awesome-cropper.js"></script> 
+<script src="${baseurl}/js/jquery.imgareaselect.js"></script> 
+<script src="${baseurl}/js/jquery.awesome-cropper.js"></script> 
 <script>
     $(document).ready(function () {
         $('#imageName').awesomeCropper(

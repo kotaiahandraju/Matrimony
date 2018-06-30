@@ -16,8 +16,8 @@
 	<!-- //for-mobile-apps -->
 	
     <!-- for Raxus Slider -->
-    <link rel="stylesheet" href="css/raxus.css" media="screen" type="text/css">
-    <script type="text/javascript" src="js/raxus-slider.min.js"></script>
+    <link rel="stylesheet" href="${baseurl}/css/raxus.css" media="screen" type="text/css">
+    <script type="text/javascript" src="${baseurl}/js/raxus-slider.min.js"></script>
     <!-- for Raxus Slider #end -->
 
     <!-- for documentation: you don't need them -->

@@ -6,7 +6,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 <html>
 <head>
-<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="${baseurl}/css/bootstrap.min.css" rel="stylesheet">
 <script>
 $(document).on('click','.navbar-collapse.in',function(e) {
     if( $(e.target).is('a') ) {

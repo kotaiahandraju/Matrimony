@@ -1,52 +1,29 @@
 package com.aurospaces.neighbourhood.controller;
 
-import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.aurospaces.neighbourhood.bean.BodyTypeBean;
-import com.aurospaces.neighbourhood.bean.CityBean;
-import com.aurospaces.neighbourhood.bean.ContriesBean;
-import com.aurospaces.neighbourhood.bean.EducationBean;
-import com.aurospaces.neighbourhood.bean.Members;
-import com.aurospaces.neighbourhood.bean.Paymenthistory;
 import com.aurospaces.neighbourhood.bean.UsersBean;
-import com.aurospaces.neighbourhood.db.dao.BranchDao;
-import com.aurospaces.neighbourhood.db.dao.CityDao;
-import com.aurospaces.neighbourhood.db.dao.CountriesDao;
 import com.aurospaces.neighbourhood.db.dao.PaymentDao;
 import com.aurospaces.neighbourhood.db.dao.PaymenthistoryDao;
 import com.aurospaces.neighbourhood.db.dao.UsersDao;
-import com.aurospaces.neighbourhood.filter.JavaIntegrationKit;
 import com.aurospaces.neighbourhood.util.EmailUtil;
 import com.aurospaces.neighbourhood.util.MatrimonyConstants;
-import com.aurospaces.neighbourhood.util.MiscUtils;
 
 @Controller
 @RequestMapping(value="/admin")

@@ -389,7 +389,7 @@ $(".onlyCharacters").on("keypress",	function(event) {
                 	<input type="text" placeholder="+91-${cacheGuest.mobile}" id="mobile" class="numbersOnly" onblur="validate(this.id,'Enter Mobile Number');" maxlength="10" />
                 	<br><span class="hasError" id="mobileError111" style="font-size: 13px;color:red"></span>
                 </div> 
-                <div id="mobileNoDiv"><span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px; font-weight:600;">&nbsp;<span id="mobileNoText">+91-${cacheGuest.mobile}</span>&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font>&nbsp;&nbsp;</span>&nbsp;</div>
+                <div id="mobileNoDiv"><span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px; font-weight:600;">&nbsp;<span id="mobileNoText">+91-${cacheGuest.mobile}</span>&nbsp;<font class="mediumtxt">(&nbsp;<img src="${baseurl}/user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font>&nbsp;&nbsp;</span>&nbsp;</div>
                 <a href="#no" id="editMobileAnchor" style="color:blue; font-size:12px; text-decoration:none;"  onclick="displayEditMobilenumberDiv(${profileBean.id},'${cacheGuest.mobile}')">Edit Mobile No.</a>
                  <br>
                 
@@ -537,7 +537,7 @@ $(".onlyCharacters").on("keypress",	function(event) {
         <jsp:include page="basic_details.jsp" />
     </div></div></div>
 </div><br><div class="clearfix"></div>
-<!-- <div class="col-md-1"><img src="user/images/media.png"></div>
+<!-- <div class="col-md-1"><img src="${baseurl}/user/images/media.png"></div>
     <div class="col-md-11">	
     <strong class="font">Contact Details</strong>
 <p>
@@ -1074,7 +1074,7 @@ $(".onlyCharacters").on("keypress",	function(event) {
 <div class="panel-heading">Add Horoscope</div>
         <div class="panel-body table-responsive">
             <div class="col-md-3" style='width: 232px; display: -webkit-box;'>
-        <img src="user/images/edit-add-horoscope.gif" width="40" style='margin: 0px 0px 0px -25px;'>
+        <img src="${baseurl}/user/images/edit-add-horoscope.gif" width="40" style='margin: 0px 0px 0px -25px;'>
     <p style="margin-left: 29px;">It is simple and absolutely FREE!</p></div>
         </div>
     </div>
@@ -1083,7 +1083,7 @@ $(".onlyCharacters").on("keypress",	function(event) {
 <div class="panel-heading">Add Photos Now</div>
         <div class="panel-body table-responsive">
             <div class="col-md-3" style='width: 232px; display: -webkit-box;'>
-        <img src="user/images/add-photo-edit-avatar.png" width="40" style='margin: 0px 0px 0px -25px;'>
+        <img src="${baseurl}/user/images/add-photo-edit-avatar.png" width="40" style='margin: 0px 0px 0px -25px;'>
     <p style="margin-left: 29px;">Photos are the first things members look for in a profile.</p></div>
         </div>
     </div><div class="clearfix"></div>
@@ -1093,8 +1093,8 @@ $(".onlyCharacters").on("keypress",	function(event) {
  </div>           
 </div>           
 </div>
-<script src="js/jquery-ui.min.js"></script>
-<link href="css/datepicker1.css" rel="stylesheet" type="text/css" />
+<script src="${baseurl}/js/jquery-ui.min.js"></script>
+<link href="${baseurl}/css/datepicker1.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
 $(document).ready(function(){
 	

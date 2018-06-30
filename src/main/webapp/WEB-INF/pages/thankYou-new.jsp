@@ -19,13 +19,13 @@
     <!-- Bootstrap core CSS -->
     <link href="user/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
            
-    <script src="user/js/ie-emulation-modes-warning.js"></script>
+    <script src="${baseurl}/user/js/ie-emulation-modes-warning.js"></script>
     <link href="user/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="user/vendor/woocommerce-FlexSlider/flexslider.css" type="text/css" media="screen" />
     <link href="user/css/style.css" rel="stylesheet">
     <link href="user/css/custom.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="user/css/component.css" />
-    <script src="user/js/modernizr.custom.js"></script>
+    <script src="${baseurl}/user/js/modernizr.custom.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <style>
@@ -66,7 +66,7 @@ th,td {text-align: center;}
             <div class="row">
             <div class="ilogo">
             <div class="col-md-7 col-sm-7">
-              <img src="user/images/logo.jpg" class="img-responsive">
+              <img src="${baseurl}/user/images/logo.jpg" class="img-responsive">
             </div>
             <div class="col-md-5 col-sm-12">
             	
@@ -163,7 +163,7 @@ th,td {text-align: center;}
    </div>
    
    <div class="col-md-3">
-     <img src="user/images/pad.jpg" class="img-responsive">
+     <img src="${baseurl}/user/images/pad.jpg" class="img-responsive">
    </div>
     
    <div class="clearfix"></div>
@@ -180,7 +180,7 @@ th,td {text-align: center;}
     	<div class="row">
             	<div class="col-md-6 col-sm-6">
                 	<div class="logo-footer">
-                    	<img src="user/images/logo-b.png" alt="" class="img-responsive" />
+                    	<img src="${baseurl}/user/images/logo-b.png" alt="" class="img-responsive" />
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-6">
@@ -218,17 +218,17 @@ th,td {text-align: center;}
     
                
     
-    <script src="user/js/ie10-viewport-bug-workaround.js"></script>
-    <script src="user/vendor/jquery/jquery.min.js"></script>
-    <script src="user/vendor/bootstrap/js/bootstrap.min.js"></script>
-    <script src="user/vendor/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-    <script src="user/vendor/scrollreveal/scrollreveal.min.js"></script>
-    <script src="user/js/theme.js"></script>
-    <script src="user/js/custom.js"></script>
-    <script defer src="user/vendor/woocommerce-FlexSlider/jquery.flexslider.js"></script>
-    <script src="user/js/toucheffects.js"></script>
-    <script src="js/custemValidation.js"></script>
-    <script src="js/ajax.js"></script>
+    <script src="${baseurl}/user/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="${baseurl}/user/vendor/jquery/jquery.min.js"></script>
+    <script src="${baseurl}/user/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="${baseurl}/user/vendor/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+    <script src="${baseurl}/user/vendor/scrollreveal/scrollreveal.min.js"></script>
+    <script src="${baseurl}/user/js/theme.js"></script>
+    <script src="${baseurl}/user/js/custom.js"></script>
+    <script defer src="${baseurl}/user/vendor/woocommerce-FlexSlider/jquery.flexslider.js"></script>
+    <script src="${baseurl}/user/js/toucheffects.js"></script>
+    <script src="${baseurl}/js/custemValidation.js"></script>
+    <script src="${baseurl}/js/ajax.js"></script>
 
 </body>
 

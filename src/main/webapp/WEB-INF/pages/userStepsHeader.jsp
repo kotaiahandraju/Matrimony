@@ -16,17 +16,17 @@
     <link rel="shortcut icon" href="img/aarna-fav.png"/>
 
     <!-- Bootstrap core CSS -->
-    <link href="user/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="${baseurl }/user/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
            
-    <script src="user/js/ie-emulation-modes-warning.js"></script>
-    <link href="user/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-	<link rel="stylesheet" href="user/vendor/woocommerce-FlexSlider/flexslider.css" type="text/css" media="screen" />
-    <link href="user/css/style.css" rel="stylesheet">
-    <link href="user/css/custom.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="user/css/component.css" />
-    <link rel="stylesheet" href="css/plugins/select2/select2.css">
-    <script src="user/vendor/jquery/jquery.min.js"></script>
-    <script src="user/js/modernizr.custom.js"></script>
+    <script src="${baseurl }/user/js/ie-emulation-modes-warning.js"></script>
+    <link href="${baseurl }/user/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="${baseurl }/user/vendor/woocommerce-FlexSlider/flexslider.css" type="text/css" media="screen" />
+    <link href="${baseurl }/user/css/style.css" rel="stylesheet">
+    <link href="${baseurl }/user/css/custom.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="${baseurl }/user/css/component.css" />
+    <link rel="stylesheet" href="${baseurl }/css/plugins/select2/select2.css">
+    <script src="${baseurl }/user/vendor/jquery/jquery.min.js"></script>
+    <script src="${baseurl }/user/js/modernizr.custom.js"></script>
     
     <style type="text/css">
 .dispnone

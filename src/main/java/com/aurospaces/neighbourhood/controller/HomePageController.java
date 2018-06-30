@@ -74,6 +74,7 @@ import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
 @Controller
+@RequestMapping(value="/users")
 public class HomePageController {
 	private Logger logger = Logger.getLogger(HomePageController.class);
 	@Autowired
@@ -89,7 +90,7 @@ public class HomePageController {
    @Autowired CastDao objCastDao;
    @Autowired UserSettingsDao settingsDao;
    
-	@RequestMapping(value = "/HomePage")
+	/*@RequestMapping(value = "/HomePage")
 	public String CreateProfile(@ModelAttribute("createProfile") UsersBean objUsersBean, Model objeModel ,
 			HttpServletRequest request, HttpSession session) {
 //		System.out.println("Home Page");
@@ -135,7 +136,7 @@ public class HomePageController {
 			objJson.put("msg", e);
 		}
 		return String.valueOf(objJson);
-	}
+	}*/
 	
 	@RequestMapping(value = "/mobileNumChecking")
 	public @ResponseBody String mobileNumChecking(@ModelAttribute("createProfile") UsersBean objUsersBean, Model objeModel ,
@@ -160,7 +161,7 @@ public class HomePageController {
 		return String.valueOf(objJson);
 	}
 	
-	@RequestMapping(value = "/userRegistration")
+	/*@RequestMapping(value = "/userRegistration")
 	public String userRegistration(@ModelAttribute("createProfile") UsersBean objUsersBean, Model objeModel ,
 			HttpServletRequest request,HttpServletResponse response, HttpSession session) {
 //		System.out.println("userRegistration Page");
@@ -200,7 +201,7 @@ public class HomePageController {
 			logger.fatal("error in CreateProfile class createProfile method  ");
 		}
 		return "redirect:profile.htm?page=1";
-	}
+	}*/
 	@RequestMapping(value = "/profile")
 	public String profile(@ModelAttribute("createProfile") UsersBean objUsersBean, Model objeModel ,
 			HttpServletRequest request,HttpServletResponse response, HttpSession session) {

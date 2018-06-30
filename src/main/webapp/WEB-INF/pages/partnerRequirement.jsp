@@ -334,7 +334,7 @@ width:190px !important;
 				      <div class="col-md-7 text-center">
 				     	<button type="button" id="firstButton" class="btn1 btn btn-info" onclick="submitForm()">Save & Continue</button> 
 				<!--      	<button type="button" id="skipfirstButton" class="btn1 btn btn-info" onclick="skip()">Skip</button> -->
-				      	<a class="btn btn-success " href="${baseurl}/sendOtp">&nbsp;&nbsp;Skip</a>
+				      	<a class="btn btn-success " href="${baseurl}/users/sendOtp">&nbsp;&nbsp;Skip</a>
 				      </div>
 				    </div>
 				</div>
@@ -343,7 +343,7 @@ width:190px !important;
 			</div>
 
 
-<script src="js/plugins/select2/select2.min.js"></script>
+<script src="${baseurl}/js/plugins/select2/select2.min.js"></script>
 
 <script type="text/javascript">
 

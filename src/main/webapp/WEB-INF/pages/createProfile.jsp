@@ -14,7 +14,7 @@
 </style>
 <script src="${baseurl }/js/jquery-ui.min.js"></script>
 <script src="${baseurl }/js/mdtimepicker.js"></script>
-<script src="js/plugins/select2/select2.min.js"></script>
+<script src="${baseurl }/js/plugins/select2/select2.min.js"></script>
 <div id="main">
 <div class="container-fluid">
 	<div class="page-header">
@@ -656,7 +656,7 @@
 </div>
 </div>
 
-<!-- <script type="text/javascript" src="js/custom.js"></script> -->
+<!-- <script type="text/javascript" src="${baseurl }/js/custom.js"></script> -->
 <script type="text/javascript">
 /* $(document).ready(function(){
 	getReliginCastAjax()

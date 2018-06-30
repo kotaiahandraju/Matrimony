@@ -21,22 +21,22 @@
 		function hideURLbar(){ window.scrollTo(0,1); }
 	</script>
 	<!-- //for-mobile-apps -->
-	<link href="user/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-	<link href="user/css/style-profile.css" rel="stylesheet" type="text/css" media="all" />
-	<link href="user/css/megamenu.css" rel="stylesheet" type="text/css" media="all" />
-	<link rel="stylesheet" type="text/css" href="css/asPaginator.css">
+	<link href="${baseurl }/user/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="${baseurl }/user/css/style-profile.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="${baseurl }/user/css/megamenu.css" rel="stylesheet" type="text/css" media="all" />
+	<link rel="stylesheet" type="text/css" href="${baseurl }/css/asPaginator.css">
 	<link href="user/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="css/animate.min.css" />
+<link rel="stylesheet" href="${baseurl }/css/animate.min.css" />
 	<link href='http://fonts.googleapis.com/css?family=Monda:400,700' rel='stylesheet' type='text/css'>
-	<link href="css/thickbox.css" rel="stylesheet" type="text/css">
-	<link rel="stylesheet" href="css/plugins/select2/select2.css">
-	<link href="user/css/style.css" rel="stylesheet" type="text/css">
-	<link href="user/css/style-profile.css" rel="stylesheet" type="text/css">
-	<script src="user/js/jquery-1.11.1.min.js"></script>
-	<script src="js/plugins/select2/select2.min.js"></script>
-	<script src="js/jquery.watermark.js"></script>
-	<script src="js/jquery.littlelightbox.js"></script>
-	<link href="css/jquery.littlelightbox.css" rel="stylesheet" type="text/css">
+	<link href="${baseurl }/css/thickbox.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="${baseurl }/css/plugins/select2/select2.css">
+	<link href="${baseurl }/user/css/style.css" rel="stylesheet" type="text/css">
+	<link href="${baseurl }/user/css/style-profile.css" rel="stylesheet" type="text/css">
+	<script src="${baseurl }/user/js/jquery-1.11.1.min.js"></script>
+	<script src="${baseurl }/js/plugins/select2/select2.min.js"></script>
+	<script src="${baseurl }/js/jquery.watermark.js"></script>
+	<script src="${baseurl }/js/jquery.littlelightbox.js"></script>
+	<link href="${baseurl }/css/jquery.littlelightbox.css" rel="stylesheet" type="text/css">
 	<style type="text/css">
 .note {
 padding-right:0px;
@@ -461,7 +461,7 @@ tooltip:hover:after {
 			    		var msg = jsonobj.message;
 			    		if(typeof msg != "undefined"){
 			    			if(msg=="success"){
-			    				$("#mobileTD"+profileId).html('<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+profileObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>');
+			    				$("#mobileTD"+profileId).html('<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+profileObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="${baseurl}/user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>');
 			    				allowed_limit = limit;
 			    				$("#available_limit_span").html(allowed_limit);
 			    			}else{
@@ -509,7 +509,7 @@ tooltip:hover:after {
 				} */
 				
 					var login_user_role_id = ${cacheGuest.roleId};
-					var firstname = '<img src="images/blurr.png"/>',lastname='';
+					var firstname = '<img src="${baseurl}/images/blurr.png"/>',lastname='';
 					var ageStr = orderObj.age;
 					var age = ageStr.split(".")[0];
 					var occName = orderObj.occupationName;
@@ -570,7 +570,7 @@ tooltip:hover:after {
 					var mobNumViewed = orderObj.mobileNumViewed;
 					var mobile_num_Str = "";
 					if(mobNumViewed=="1" || expressed=="1" || message_sent_status=="1"){
-						mobile_num_Str = '<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;float:left;">&nbsp;+91-'+orderObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;float:left;color:#4baa26;">Verified </span>)</font></span>';
+						mobile_num_Str = '<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;float:left;">&nbsp;+91-'+orderObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="${baseurl}/user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;float:left;color:#4baa26;">Verified </span>)</font></span>';
 					}else{
 						mobile_num_Str = '<span ><a href="#no" type="button" class="btn btn-info" onclick="displayMobileNum('+orderObj.id+')">View Mobile Number</a></span>';
 					}
@@ -589,7 +589,7 @@ tooltip:hover:after {
 								displayStyle = ' style="display:none" ';
 							}
 							slider += '<div class="picstyle smallSlides'+orderObj.id+'" '+displayStyle+'>'
-									+'		<img src="'+photo.image+'" class="img img-responsive watermark_text" style="margin-bottom:0;height: auto;width: 100%;" >'
+									+'		<img src="${baseurl}/'+photo.image+'" class="img img-responsive watermark_text" style="margin-bottom:0;height: auto;width: 100%;" >'
 									+'</div>'
 						});
 						if(photos_list.length>1){
@@ -600,7 +600,7 @@ tooltip:hover:after {
 									+'</p>'
 						}
 					}else{
-						slider = '<img src="'+image+'" class="img-responsive thumbnail" style="margin-bottom: 0px; ">';
+						slider = '<img src="${baseurl}/'+image+'" class="img-responsive thumbnail" style="margin-bottom: 0px; ">';
 					}
 					var profile_highlisht_str = '<div class="panel panel-default">';
 					var highlight_option = orderObj.profile_highlighter;
@@ -692,7 +692,7 @@ tooltip:hover:after {
 					var mobile_no__str = '';
 					var more_details_str = '';
 					var expressed = orderObj.expressedInterest;
-					var firstname = '<img src="images/blurr.png"/>',lastname='';
+					var firstname = '<img src="${baseurl}/images/blurr.png"/>',lastname='';
 					//mobile_no__str = '<tr id="row'+orderObj.id+'"><td><a href="#no" type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</a></td></tr>';
 					//insert_str = '<a href="#no" id="expInterest'+orderObj.id+'" type="button" class="btn btn-primary btn-block" onclick="expressInterest('+orderObj.id+')">Yes I\'m interested</a>';
 					/* if(expressed==0){
@@ -761,10 +761,10 @@ tooltip:hover:after {
 					var mobNumViewed = orderObj.mobileNumViewed;
 					var mobile_num_Str = "";
 					if(mobNumViewed=="1" || expressed=="1" || message_sent_status=="1"){
-						mobile_num_Str = '<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;float:left;">&nbsp;+91-'+orderObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;float:left;color:#4baa26;">Verified </span>)</font></span>';
+						mobile_num_Str = '<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;float:left;">&nbsp;+91-'+orderObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="${baseurl}/user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;float:left;color:#4baa26;">Verified </span>)</font></span>';
 					}else{
 						//mobile_num_Str = '<span ><a href="#no" type="button" style="margin: 11px 0px 10px 0px;" class="btn btn-info btn-sm" onclick="displayMobileNum('+orderObj.id+')">View Mobile Number</a></span>';
-						mobile_num_Str = '<span id="mobileTD'+orderObj.id+'"><h2 style="margin-top:10px;" class="pull-right"><a href="#" data-toggle="tooltip" data-placement="bottom" title="View Mobile Number" onclick="displayMobileNum('+orderObj.id+')"><img style="margin-top:-10px;" src="images/Mobile_Icon.png"/> &nbsp;</a></h2></span>';
+						mobile_num_Str = '<span id="mobileTD'+orderObj.id+'"><h2 style="margin-top:10px;" class="pull-right"><a href="#" data-toggle="tooltip" data-placement="bottom" title="View Mobile Number" onclick="displayMobileNum('+orderObj.id+')"><img style="margin-top:-10px;" src="${baseurl}/images/Mobile_Icon.png"/> &nbsp;</a></h2></span>';
 					}
 					var profession = orderObj.occupationName;
 					if((profession == null) || profession == ""){
@@ -774,7 +774,7 @@ tooltip:hover:after {
 						var photos_list = orderObj.photosList;
 						var slider = "", displayStyle = ' ';
 						if(photos_list == "" || typeof photos_list == "undefined"){
-							slider = '<img src="img/default.png" class="img img-responsive thumbnail " style="margin-bottom:0;height: auto;width: 100%;" >';
+							slider = '<img src="${baseurl}/img/default.png" class="img img-responsive thumbnail " style="margin-bottom:0;height: auto;width: 100%;" >';
 						}else{
 							smallerSlideIndex[orderObj.id] = 0;
 							var slider = "", displayStyle = ' ';
@@ -786,7 +786,7 @@ tooltip:hover:after {
 									displayStyle = ' style="display:none;" ';
 								}
 								slider += '<div class="picstyle smallSlides'+orderObj.id+'" '+displayStyle+'>'
-										+'		<img src="'+photosArray[index]+'" class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: auto;width: 100%;" >'
+										+'		<img src="${baseurl}/'+photosArray[index]+'" class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: auto;width: 100%;" >'
 										+'</div>'
 							});
 							if(photosArray.length>1){
@@ -810,7 +810,7 @@ tooltip:hover:after {
 									displayStyle = ' style="display:none" ';
 								}
 								slider += '<div class=" picstyle smallSlides'+orderObj.id+'" '+displayStyle+'>'
-										+'		<img src="'+photo.image+'" class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: auto;width: 100%;" >'
+										+'		<img src="${baseurl}/'+photo.image+'" class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: auto;width: 100%;" >'
 										+'</div>'
 							});
 							if(photos_list.length>1){
@@ -821,7 +821,7 @@ tooltip:hover:after {
 										+'</p>'
 							}
 						}else{
-							slider = '<img src="'+image+'" class="img-responsive thumbnail" style="margin-bottom: 0px;">';
+							slider = '<img src="${baseurl}/'+image+'" class="img-responsive thumbnail" style="margin-bottom: 0px;">';
 						}
 					}
 					var profile_highlisht_str = '<div class="panel panel-default">';
@@ -836,7 +836,7 @@ tooltip:hover:after {
 						+ '<div class="form-check">'
 
 						+ '	<label class="form-check-label"> <input type="checkbox" class="form-check-input"> '+firstname+' '+lastname+'&nbsp;('+orderObj.username+')&nbsp;'+premiumMember+'</label>'
-						+ '	<span class="pull-right">Created by '+orderObj.createProfileFor+' <a href="#" data-toggle="tooltip" data-placement="bottom" title="Mark As Viewed"><img style="margin-left:15px;" src="images/eye.png"/></a><a href="#" data-toggle="tooltip" data-placement="bottom" title="Move this profile &#xa; to ignore  list"><img style="margin-left:15px;" src="images/ignore.png"/></a></span>'
+						+ '	<span class="pull-right">Created by '+orderObj.createProfileFor+' <a href="#" data-toggle="tooltip" data-placement="bottom" title="Mark As Viewed"><img style="margin-left:15px;" src="${baseurl}/images/eye.png"/></a><a href="#" data-toggle="tooltip" data-placement="bottom" title="Move this profile &#xa; to ignore  list"><img style="margin-left:15px;" src="${baseurl}/images/ignore.png"/></a></span>'
 						//+ '	<label class="form-check-label"> <input type="checkbox" class="form-check-input"> '+orderObj.firstName+' '+orderObj.lastName+'</label>'
 //		 				+ '	<span class="pull-right">Created by '+orderObj.createProfileFor+'</span>'
 
@@ -949,7 +949,7 @@ tooltip:hover:after {
 				
 				var image = null; image = orderObj.profileImage;
 				if(image == "" || image == null || image == "undefined"){
-					image = "img/default.png";
+					image = "${baseurl}/img/default.png";
 				}
 
 				if(orderObj.firstName !=null)
@@ -959,7 +959,7 @@ tooltip:hover:after {
 					var mobile_no__str = '';
 					var more_details_str = '';
 					var expressed = orderObj.expressedInterest;
-					var firstname = '<img src="images/blurr.png"/>',lastname='';
+					var firstname = '<img src="${baseurl}/images/blurr.png"/>',lastname='';
 					if((login_user_role_id == 6) || (login_user_role_id == 11) || (login_user_role_id == 12)
 							|| (login_user_role_id == 13) || (login_user_role_id == 14)){ //means premium,premium_plus,aarna premium users
 					
@@ -1003,7 +1003,7 @@ tooltip:hover:after {
 						var mobNumViewed = orderObj.mobileNumViewed;
 						var mobile_num_Str = "";
 						if(mobNumViewed=="1" || expressed=="1" || message_sent_status=="1"){
-							mobile_num_Str = '<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+orderObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="image" title="image" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>';
+							mobile_num_Str = '<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+orderObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="${baseurl}/user/images/tick.gif" alt="image" title="image" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>';
 						}else{
 							mobile_num_Str = '<span id="mobileTD'+orderObj.id+'"><a href="#no" type="button" class="btn btn-info btn-sm" onclick="displayMobileNum('+orderObj.id+')">View Mobile Number</a></span>';
 						}
@@ -1160,7 +1160,7 @@ tooltip:hover:after {
 						var photos_list = orderObj.photosList;
 						var slider = "", displayStyle = ' ';
 						if(photos_list == "" || typeof photos_list == "undefined"){
-							slider = '<img src="img/default.png" class="img img-responsive thumbnail " style="margin-bottom:0;height: 60px;width: 60px;" >';
+							slider = '<img src="${baseurl}/img/default.png" class="img img-responsive thumbnail " style="margin-bottom:0;height: 60px;width: 60px;" >';
 						}else{
 							smallerSlideIndex[orderObj.id] = 0;
 							var slider = "", displayStyle = ' ';
@@ -1171,7 +1171,7 @@ tooltip:hover:after {
 									displayStyle = ' style="display:none" ';
 								}
 								slider += '<div class="smallSlides'+orderObj.id+'" '+displayStyle+'>'
-										+'		<img src="'+photo.image+'" class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: auto;width: 100%;" >'
+										+'		<img src="${baseurl}/'+photo.image+'" class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: auto;width: 100%;" >'
 										+'</div>'
 							});
 							if(photos_list.length>1){
@@ -1330,7 +1330,7 @@ tooltip:hover:after {
 			            	+ '</div>'
 			            	+ '<div class="col-md-10 table-responsive">'
 			            	+ '<table style="width:100%;" class="table-responsive pendinginbox">'
-			            	+ '	<tr><td>'+firstname+' '+lastname+'&nbsp;('+orderObj.username+')&nbsp;<a href="#" data-toggle="tooltip" data-placement="bottom" title="View Mobile Number"><img   src="images/micon.png"/></a>&nbsp;'+premiumMember+'<span class="pull-right"><img src="images/ar.png"/>'+recent_activity.activity_done_on+'<img style="margin-left:5px;" src="images/del.png"/></span></td></tr>'
+			            	+ '	<tr><td>'+firstname+' '+lastname+'&nbsp;('+orderObj.username+')&nbsp;<a href="#" data-toggle="tooltip" data-placement="bottom" title="View Mobile Number"><img   src="${baseurl}/images/micon.png"/></a>&nbsp;'+premiumMember+'<span class="pull-right"><img src="${baseurl}/images/ar.png"/>'+recent_activity.activity_done_on+'<img style="margin-left:5px;" src="${baseurl}/images/del.png"/></span></td></tr>'
 			            	+ '	<tr><td>'+orderObj.age+'Yrs,'+orderObj.inches+','+orderObj.religionName+','+orderObj.casteName+','
 			            	+ 		orderObj.currentCityName+','+orderObj.currentStateName+','+orderObj.currentCountryName+','
 			            	+ 		orderObj.educationName+','+orderObj.occupationName+'.'
@@ -1466,8 +1466,8 @@ tooltip:hover:after {
 						var mobNumViewed = orderObj.mobileNumViewed;
 						var mobile_num_Str = "";
 						if(mobNumViewed==1 || expressed==1 || message_sent_status==1){
-							//mobile_num_Str = '<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+orderObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="image" title="image" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>';
-							mobile_num_Str = '<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+orderObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>';
+							//mobile_num_Str = '<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+orderObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="${baseurl}/user/images/tick.gif" alt="image" title="image" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>';
+							mobile_num_Str = '<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+orderObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="${baseurl}/user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>';
 						}else{
 							mobile_num_Str = '<span id="mobileTD'+orderObj.id+'"><a href="#no" type="button" class="btn btn-primary btn-sm" onclick="displayMobileNum('+orderObj.id+')">View Mobile Number</a></span>';
 						}
@@ -1537,7 +1537,7 @@ tooltip:hover:after {
 						var photos_list = orderObj.photosList;
 						var slider = "", displayStyle = ' ';
 						if(photos_list == "" || typeof photos_list == "undefined"){
-							slider = '<img src="img/default.png" class="img img-responsive thumbnail " style="margin-bottom:0;height: 60px;width: 60px;" >';
+							slider = '<img src="${baseurl}/img/default.png" class="img img-responsive thumbnail " style="margin-bottom:0;height: 60px;width: 60px;" >';
 						}else{
 							smallerSlideIndex[orderObj.id] = 0;
 							var slider = "", displayStyle = ' ';
@@ -1548,7 +1548,7 @@ tooltip:hover:after {
 									displayStyle = ' style="display:none" ';
 								}
 								slider += '<div class="smallSlides'+orderObj.id+'" '+displayStyle+'>'
-										+'		<img src="'+photo.image+'" class="img img-responsive thumbnail " style="margin-bottom:0;height: 60px;width: 60px;" >'
+										+'		<img src="${baseurl}/'+photo.image+'" class="img img-responsive thumbnail " style="margin-bottom:0;height: 60px;width: 60px;" >'
 										+'</div>'
 							});
 							if(photos_list.length>1){
@@ -1644,7 +1644,7 @@ tooltip:hover:after {
 			    		var msg = jsonobj.message;
 			    		if(typeof msg != "undefined"){
 			    			if(msg=="success"){
-			    				$("#mobileTD"+requestId).html('<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+profileObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>');
+			    				$("#mobileTD"+requestId).html('<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+profileObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="${baseurl}/user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>');
 			    				allowed_limit = limit;
 			    			}else{
 			    				alert("Some problem occured. Please try again.");
@@ -1995,7 +1995,7 @@ function currentSlide(n) {
 }
 
 function currentSlide_inpage(current_img){
-	var str = '<img id="profilepic" src="'+current_img+'" class="hover-shadow cursor img img-responsive thumbnail watermark_text" style="margin-bottom:0;height:auto;width: 100%;">';
+	var str = '<img id="profilepic" src="${baseurl}/'+current_img+'" class="hover-shadow cursor img img-responsive thumbnail watermark_text" style="margin-bottom:0;height:auto;width: 100%;">';
 	//$("#profilepic").prop("src",photoImage);
 	$("#fullProfilePicOuterTag").html('');
 	$("#fullProfilePicOuterTag").html(str);
@@ -2060,7 +2060,7 @@ function openPhotoModal(photos_list){
 		var j = i+1;
 		str1 = ' <div class="mySlides" style="height:400px; overflow:hidden;"> '
   		+' <div class="numbertext">'+j+' / '+len+'</div> '
-		+' <img src="'+photoObject.image+'"  class="myImg" style="height: auto;width:100%"> '
+		+' <img src="${baseurl}/'+photoObject.image+'"  class="myImg" style="height: auto;width:100%"> '
 		+' </div> ';
 		
 	});
@@ -2076,7 +2076,7 @@ function openPhotoModal(photos_list){
 			//+' <c:forEach items="${photosList}" var="photo" > '
 				//+' <c:set var="counter2" value="${counter2+1}" /> '
 				+' <div class="col-sm-2"> '
-			      +' <img class="demo cursor" src="img/default.png" style="width:100%;" onclick="currentSlide(1)" alt=""> '
+			      +' <img class="demo cursor" src="${baseurl}/img/default.png" style="width:100%;" onclick="currentSlide(1)" alt=""> '
 			    +' </div> '
 		   // +' </c:forEach> '
 		+' </div> '
@@ -2178,7 +2178,7 @@ function openPhotoModal(photos_list){
 		var j = i+1;
 		str1 = ' <div class="mySlides"> '
   		+' <div class="numbertext">'+j+' / '+len+'</div> '
-		+' <img src="'+photoObject.image+'"  class="myImg" style="height: auto;width:100%;"> '
+		+' <img src="${baseurl}/'+photoObject.image+'"  class="myImg" style="height: auto;width:100%;"> '
 		+' </div> ';
 		
 	});
@@ -2194,7 +2194,7 @@ function openPhotoModal(photos_list){
 			//+' <c:forEach items="${photosList}" var="photo" > '
 				//+' <c:set var="counter2" value="${counter2+1}" /> '
 				+' <div class="col-sm-2"> '
-			      +' <img class="demo cursor" src="img/default.png" style="width:100%" onclick="currentSlide(1)" alt=""> '
+			      +' <img class="demo cursor" src="${baseurl}/img/default.png" style="width:100%" onclick="currentSlide(1)" alt=""> '
 			    +' </div> '
 		   // +' </c:forEach> '
 		+' </div> '
@@ -2290,14 +2290,14 @@ function goBack() {
         });
     </script>
     
-	<script type="text/javascript" src="js/ajax.js"></script>
-	<script type="text/javascript" src="js/jquery-asPaginator.js"></script>
-	<script src="js/jquery.watermark.js"></script>
-	<script type="text/javascript" src="js/common.js"></script>
+	<script type="text/javascript" src="${baseurl }/js/ajax.js"></script>
+	<script type="text/javascript" src="${baseurl }/js/jquery-asPaginator.js"></script>
+	<script src="${baseurl }/js/jquery.watermark.js"></script>
+	<script type="text/javascript" src="${baseurl }/js/common.js"></script>
 	
-    <script type="text/javascript" src="js/jquery.nailthumb.1.1.js"></script>
+    <script type="text/javascript" src="${baseurl }/js/jquery.nailthumb.1.1.js"></script>
     
-    <link href="css/jquery.nailthumb.1.1.css" type="text/css" rel="stylesheet" />
+    <link href="${baseurl }/css/jquery.nailthumb.1.1.css" type="text/css" rel="stylesheet" />
     <style type="text/css" media="screen">
         .square-thumb {
             width: 100px;
@@ -2305,15 +2305,15 @@ function goBack() {
         }
     </style>
  <!-- for Raxus Slider -->
-    <link rel="stylesheet" href="css/raxus.css" media="screen" type="text/css">
-    <script type="text/javascript" src="js/raxus-slider.min.js"></script>
+    <link rel="stylesheet" href="${baseurl}/css/raxus.css" media="screen" type="text/css">
+    <script type="text/javascript" src="${baseurl}/js/raxus-slider.min.js"></script>
     <!-- for Raxus Slider #end -->
 
     <!-- for documentation: you don't need them -->
-    <link rel="stylesheet" href="documentation/css/documentation.css" media="screen" type="text/css">
+    <link rel="stylesheet" href="${baseurl }/documentation/css/documentation.css" media="screen" type="text/css">
     <link rel="stylesheet" href="../yandex.st/highlightjs/8.0/styles/default.min.css" media="screen" type="text/css">
-    <script type="text/javascript" src="documentation/js/document.js"></script>
-    <script src="documentation/js/highlight.pack.js"></script>
+    <script type="text/javascript" src="${baseurl }/documentation/js/document.js"></script>
+    <script src="${baseurl }/documentation/js/highlight.pack.js"></script>
      
     <script>hljs.initHighlightingOnLoad();</script>
     <!-- for documentation #end: you don't need them -->
@@ -3347,9 +3347,9 @@ img.hover-shadow {
 </head>
 <body style="background: ;">
 <%@ page import="com.aurospaces.neighbourhood.bean.UsersBean"%>
-<%
+ <%
 	UsersBean userBean = null;
-	if(session.getAttribute("cacheGuest") != null){
+	//if(session.getAttribute("cacheGuest") != null){
 		userBean= (UsersBean)session.getAttribute("cacheGuest");
 		String otpStatus = userBean.getOtpStatus();
 		if(org.apache.commons.lang.StringUtils.isBlank(otpStatus) || "0".equals(otpStatus)){
@@ -3357,14 +3357,14 @@ img.hover-shadow {
 			
 <%			
 		}
-	}
-%>
+	//}
+%> 
 <input type="hidden" name="loc" id="loc" value="${baseurl }" />
 <div class="header_top">
 	<div class="container" style="background: #FFF;">
     	<div class="col-md-3">
 			<div class="logo" style="margin-top:5px;">
-				<a href="dashboard"><img  src="images/logo.png" class="img img-responsive"></a>
+				<a href="dashboard"><img  src="${baseurl}/images/logo.png" class="img img-responsive"></a>
 			</div>
 			<div class="clearfix"></div>
 		</div>
@@ -3396,13 +3396,13 @@ img.hover-shadow {
 								<a href="#no" class="dropdown-toggle setpic" data-toggle="dropdown" style="background:#fff;">
 									
 									
-<!-- 										<img id="profilepic" src="img/default.png" class="img-responsive thumbnail " style="margin-top:-10px;height: 40px;width: 40px;border-radius:15%;">  -->
+<!-- 										<img id="profilepic" src="${baseurl}/img/default.png" class="img-responsive thumbnail " style="margin-top:-10px;height: 40px;width: 40px;border-radius:15%;">  -->
 
 								<c:if test="${not empty cacheGuest.profileImage}">
-										<img id="profilepic" src="${cacheGuest.profileImage}" alt="profileImage" class="img img-responsive thumbnail watermark_text" style="border-radius:15%;"><i style="margin-right:-10px; margin-top:22px;" class="fa fa-angle-down" aria-hidden="true"></i>
+										<img id="profilepic" src="${baseurl}/${cacheGuest.profileImage}" alt="profileImage" class="img img-responsive thumbnail watermark_text" style="border-radius:15%;"><i style="margin-right:-10px; margin-top:22px;" class="fa fa-angle-down" aria-hidden="true"></i>
 									</c:if>
 									<c:if test="${empty cacheGuest.profileImage}">
-										<img id="profilepic" src="img/default.png" alt="image" class="img-responsive thumbnail " style="border-radius:15%;"/><i style="margin-right:-10px; margin-top:22px;" class="fa fa-angle-down" aria-hidden="true"></i>
+										<img id="profilepic" src="${baseurl}/img/default.png" alt="image" class="img-responsive thumbnail " style="border-radius:15%;"/><i style="margin-right:-10px; margin-top:22px;" class="fa fa-angle-down" aria-hidden="true"></i>
 									</c:if>
 
 									
@@ -3490,10 +3490,10 @@ img.hover-shadow {
 												<c:forEach var="notification" items="${notificationsList}">
 													<div class="col-md-3 col-xs-3"  style="height:55px; overflow:hidden;padding-right:0px; padding-left:0px;" >
 														<c:if test="${not empty notification.profileImage}">
-															<img src="${notification.profileImage}" style="width: 100%;padding: 5px;">
+															<img src="${baseurl}/${notification.profileImage}" style="width: 100%;padding: 5px;">
 														</c:if>
 														<c:if test="${empty notification.profileImage}">
-															<img src="img/default.png" style="width: 100%;padding: 5px;">
+															<img src="${baseurl}/img/default.png" style="width: 100%;padding: 5px;">
 														</c:if>
 													</div>
 													<div class="col-md-9" style="padding-right:0px; padding-left:0px;" >
@@ -3555,7 +3555,7 @@ img.hover-shadow {
 										<img id="profilepic" src="${cacheGuest.profileImage}" alt="profileImage" class="img img-responsive thumbnail watermark_text" style="margin-top:-10px;height: 40px;width: 40px;border-radius:15%;"><i class="fa fa-angle-down" aria-hidden="true"></i>
 									</c:if>
 									<c:if test="${empty cacheGuest.profileImage}">
-										<img id="profilepic" src="img/default.png" alt="image" class="img-responsive thumbnail " style="margin-top:-10px;height: 40px;width: 40px;border-radius:15%;"><i class="fa fa-angle-down" aria-hidden="true"></i>
+										<img id="profilepic" src="${baseurl}/img/default.png" alt="image" class="img-responsive thumbnail " style="margin-top:-10px;height: 40px;width: 40px;border-radius:15%;"><i class="fa fa-angle-down" aria-hidden="true"></i>
 									</c:if>
 
 									
@@ -3622,7 +3622,7 @@ img.hover-shadow {
 		<c:set var="counter" value="${counter+1}" />
       	<div class="mySlides">
       		<div class="numbertext">${counter} / ${photosListSize}</div>
-	    		<img src="${photo.image}"  class="myImg" style="height:auto;width:100%">
+	    		<img src="${baseurl}/${photo.image}"  class="myImg" style="height:auto;width:100%">
 	    </div>
 	</c:forEach>
     <!--slider-->
@@ -3631,7 +3631,7 @@ img.hover-shadow {
 		<c:forEach items="${photosList}" var="photo" >
 			<c:set var="counter2" value="${counter2+1}" />
 			<div class="col-sm-2">
-		      <img class="demo cursor" src="${photo.image}" style="width:100%" onclick="currentSlide(${counter2})" alt="">
+		      <img class="demo cursor" src="${baseurl}/${photo.image}" style="width:100%" onclick="currentSlide(${counter2})" alt="">
 		    </div>
 	    </c:forEach>
 	</div>
@@ -3669,53 +3669,53 @@ img.hover-shadow {
                 	<ul class="slider-relative" id="relative">
 						<c:forEach items="${logged_in_user_photosList}" var="photo" >
 					      	<li class="slide fix-width">
-	                            <img src="${photo.image}" alt="" class="watermark_text">
+	                            <img src="${baseurl}/${photo.image}" alt="" class="watermark_text">
 	                        </li>
 						</c:forEach>
                     
                         <!-- <li class="slide fix-width">
-                            <img src="img/113510.png" alt="">
+                            <img src="${baseurl}/img/113510.png" alt="">
                             
                         </li>
                         
                         <li class="slide">
-                            <img src="img/100587.png" alt="" data-thumbnailurl="img/100587.png">
+                            <img src="${baseurl}/img/100587.png" alt="" data-thumbnailurl="img/100587.png">
                            
                         </li>
                         <li class="slide">
-                            <img src="img/74520.png" alt="">
+                            <img src="${baseurl}/img/74520.png" alt="">
                            
                         </li>
                        
                         <li class="slide">
-                            <img src="img/74564.png" alt="">
+                            <img src="${baseurl}/img/74564.png" alt="">
                         </li>
                         <li class="slide fix-width">
-                            <img src="img/101765.png" alt="">
+                            <img src="${baseurl}/img/101765.png" alt="">
                             
                         </li>
                         <li class="slide fix-width">
-                            <img src="img/102306.png" alt="">
+                            <img src="${baseurl}/img/102306.png" alt="">
                         </li>
                        
                         <li class="slide">
-                             <img src="img/102379.png" alt="">
+                             <img src="${baseurl}/img/102379.png" alt="">
                         </li>
                         <li class="slide">
-                            <img src="img/10323.png" alt="">
+                            <img src="${baseurl}/img/10323.png" alt="">
                         </li>
                         <li class="slide">
-                             <img src="img/10533.png" alt="">
+                             <img src="${baseurl}/img/10533.png" alt="">
                         </li>
                         <li class="slide">
-                            <img src="img/106234.png" alt="">
+                            <img src="${baseurl}/img/106234.png" alt="">
                             
                         </li>
                         <li class="slide">
-                           <img src="img/106967.png" alt="">
+                           <img src="${baseurl}/img/106967.png" alt="">
                         </li>
                         <li class="slide fix-width">
-                            <img src="img/106621.png" alt="">
+                            <img src="${baseurl}/img/106621.png" alt="">
                           
                         </li> -->
                     </ul>
@@ -3740,7 +3740,7 @@ img.hover-shadow {
 			<div class="menu_sec">
 				<!-- start header menu -->
 				<ul class="megamenu skyblue">
-					<!-- <li><a class="color1" href="" style="padding: 0px 15px;"><img src="img/aarna-fav.png" class="img img-responsive"></a></li> -->
+					<!-- <li><a class="color1" href="" style="padding: 0px 15px;"><img src="${baseurl}/img/aarna-fav.png" class="img img-responsive"></a></li> -->
 					<li class="active" ><a class="color1" href="dashboard">My Home</a></li>
 					<li><a class="color1" href="myProfile">My Profile</a></li>
 					<li><a class="color1" href="myPhotos">My Photos</a></li>

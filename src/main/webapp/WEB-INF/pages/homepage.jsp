@@ -4,7 +4,10 @@
 <%@ taglib uri="http://displaytag.sf.net" prefix="display"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
-
+<%
+	String baseurl =  request.getScheme() + "://" + request.getServerName() +      ":" +   request.getServerPort() +  request.getContextPath();
+	session.setAttribute("baseurl", baseurl);
+%>
 <%-- <html>
    <head>
    </head>
@@ -27,19 +30,19 @@
 <link rel="shortcut icon" href="img/aarna-fav.png"/>
 
 <!-- Bootstrap core CSS -->
-<link href="user/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
+<link href="${baseurl}/user/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
 
-<script src="user/js/ie-emulation-modes-warning.js"></script>
-<link href="user/vendor/font-awesome/css/font-awesome.min.css"
+<script src="${baseurl}/user/js/ie-emulation-modes-warning.js"></script>
+<link href="${baseurl}/user/vendor/font-awesome/css/font-awesome.min.css"
 	rel="stylesheet" type="text/css">
 <link rel="stylesheet"
-	href="user/vendor/woocommerce-FlexSlider/flexslider.css"
+	href="${baseurl}/user/vendor/woocommerce-FlexSlider/flexslider.css"
 	type="text/css" media="screen" />
-<link href="user/css/style.css" rel="stylesheet">
-<link href="user/css/custom.css" rel="stylesheet">
- <link href="css/datepicker1.css" rel="stylesheet" type="text/css" />
+<link href="${baseurl}/user/css/style.css" rel="stylesheet">
+<link href="${baseurl}/user/css/custom.css" rel="stylesheet">
+ <link href="${baseurl}/css/datepicker1.css" rel="stylesheet" type="text/css" />
  
-<link rel="stylesheet" type="text/css" href="user/css/component.css" />
+<link rel="stylesheet" type="text/css" href="${baseurl}/user/css/component.css" />
 
 <style>
 .modal {
@@ -929,20 +932,20 @@ function getReliginCastAjax1() {
 
 
 
-	<script src="user/vendor/jquery/jquery.min.js"></script>
-	<script src="user/js/ie10-viewport-bug-workaround.js"></script>
-	<script src="user/vendor/bootstrap/js/bootstrap.min.js"></script>
-	<script src="user/vendor/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-	<script src="user/vendor/scrollreveal/scrollreveal.min.js"></script>
-	<script src="user/js/theme.js"></script>
-	<script src="user/js/custom.js"></script>
-	 <script src="js/jquery.blockUI.min.js"></script>
-	<script src="user/vendor/woocommerce-FlexSlider/jquery.flexslider.js"></script>
-	<script src="user/js/modernizr.custom.js"></script>
-	<script src="user/js/toucheffects.js"></script>
-<script src="js/custemValidation1.js"></script>
-<script src="js/ajax.js"></script>
-<script src="js/jquery-ui.min.js"></script>
+	<script src="${baseurl}/user/vendor/jquery/jquery.min.js"></script>
+	<script src="${baseurl}/user/js/ie10-viewport-bug-workaround.js"></script>
+	<script src="${baseurl}/user/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script src="${baseurl}/user/vendor/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+	<script src="${baseurl}/user/vendor/scrollreveal/scrollreveal.min.js"></script>
+	<script src="${baseurl}/user/js/theme.js"></script>
+	<script src="${baseurl}/user/js/custom.js"></script>
+	 <script src="${baseurl}/js/jquery.blockUI.min.js"></script>
+	<script src="${baseurl}/user/vendor/woocommerce-FlexSlider/jquery.flexslider.js"></script>
+	<script src="${baseurl}/user/js/modernizr.custom.js"></script>
+	<script src="${baseurl}/user/js/toucheffects.js"></script>
+<script src="${baseurl}/js/custemValidation1.js"></script>
+<script src="${baseurl}/js/ajax.js"></script>
+<script src="${baseurl}/js/jquery-ui.min.js"></script>
 <script type="text/javascript">
 /* $( document ).ready(function() {
 	$("#dob").datepicker({

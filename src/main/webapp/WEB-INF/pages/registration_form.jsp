@@ -326,7 +326,7 @@
 	    </c:otherwise>
 	</c:choose>
     
- <script src="js/ajax.js"></script>
+ <script src="${baseurl}/js/ajax.js"></script>
 <!--  <script src="js/jquery.blockUI.min.js"></script> -->
 <script>
 var mobileExists = true;
@@ -340,8 +340,8 @@ $( document ).ready(function() {
 	      $("#thirdForm").hide();
 	      $("#fourthForm").hide();
 	      
-	      var religionId =${cacheGuest.religion};
-		  getReliginCastAjax(religionId); 
+	      //var religionId =${cacheGuest.religion};
+		  //getReliginCastAjax(religionId); 
 	      
 			
 	 var pagenum = "${pagenum}";

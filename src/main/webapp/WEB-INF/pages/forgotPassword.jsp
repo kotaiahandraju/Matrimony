@@ -75,7 +75,7 @@ margin-left:8px;
 						</form>
 					</div>
    				</div>
-<script src="js/jquery-ui.min.js"></script>
+<script src="${baseurl}/js/jquery-ui.min.js"></script>
 <script type="text/javascript">
 
 function displayFpNextPage(){

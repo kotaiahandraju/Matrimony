@@ -241,10 +241,10 @@ color:#000;
 				</c:if>
 			        <div class="col-md-2">
 			        	<c:if test="${not empty pend_req.profileImage}">
-			        		<img class="thumbnail img-responsive" src="${pend_req.profileImage}"/>
+			        		<img class="thumbnail img-responsive" src="${baseurl}/${pend_req.profileImage}"/>
 			        	</c:if>
 			        	<c:if test="${empty pend_req.profileImage}">
-			        		<img class="thumbnail img-responsive" src="img/default.png"/>
+			        		<img class="thumbnail img-responsive" src="${baseurl}/img/default.png"/>
 			        	</c:if>
 			        </div>
 			         <div class="col-md-7">
@@ -351,7 +351,7 @@ color:#000;
                 <h2 class="modal-title grademember">Upgrade Membership</h2>
             </div>
             <div class="modal-body newbody col-md-12">
-				<div class="col-md-5"><img src="images/up.png" class="img-responsive"/></div>
+				<div class="col-md-5"><img src="${baseurl}/images/up.png" class="img-responsive"/></div>
 				<div class="col-md-7">
 				<p style="color:#b7f528;">Start Contracting Matches</p>
 				<p><i class="fa fa-phone"></i> View Phone Numbers </p>
@@ -401,9 +401,9 @@ color:#000;
 
 <!-- //footer -->
 <input type="hidden" name="loc" id="loc" value="${baseurl }" />
-<script src="js/ajax.js"></script>
-<script src="js/jquery-asPaginator.js"></script>
-<script src="js/jquery.watermark.js"></script>
+<script src="${baseurl}/js/ajax.js"></script>
+<script src="${baseurl}/js/jquery-asPaginator.js"></script>
+<script src="${baseurl}/js/jquery.watermark.js"></script>
 
 
 <script type="text/javascript">
@@ -478,7 +478,7 @@ function displayMatches(listOrders) {
 		} */
 		
 			var login_user_role_id = ${cacheGuest.roleId};
-			var firstname = '<img src="images/blurr.png"/>',lastname='';
+			var firstname = '<img src="${baseurl}/images/blurr.png"/>',lastname='';
 			var ageStr = orderObj.age;
 			var age = ageStr.split(".")[0];
 			if((login_user_role_id == 6) || (login_user_role_id == 11) || (login_user_role_id == 12)
@@ -515,7 +515,7 @@ function displayMatches(listOrders) {
 			var mobNumViewed = orderObj.mobileNumViewed;
 			var mobile_num_Str = "";
 			if(mobNumViewed=="1" || expressed=="1" || message_sent_status=="1"){
-				mobile_num_Str = '<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+orderObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>';
+				mobile_num_Str = '<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+orderObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="${baseurl}/user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>';
 				
 			}else{
 				mobile_num_Str = '<span ><a href="#no" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="displayMobileNum('+orderObj.id+')"> View Mobile No..</a></span>';
@@ -586,7 +586,7 @@ function displayNewMatches(listOrders) {
 		} */
 		
 			var login_user_role_id = ${cacheGuest.roleId};
-			var firstname = '<img src="images/blurr.png"/>',lastname='';
+			var firstname = '<img src="${baseurl}/images/blurr.png"/>',lastname='';
 			var ageStr = orderObj.age;
 			var age = ageStr.split(".")[0];
 			if((login_user_role_id == 6) || (login_user_role_id == 11) || (login_user_role_id == 12)
@@ -683,7 +683,7 @@ function expressInterest_dashboard(profile_id){
 	    				alert("Interest request has been sent successfully");
 	    				$("#expInterest"+profile_id).html('Expressed Interest');
 	    				$("#expInterest"+profile_id).prop("disabled",true);
-	    				$("#mobileTD"+profile_id).html('<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+profileObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>');
+	    				$("#mobileTD"+profile_id).html('<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+profileObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="${baseurl}/user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>');
 	    				allowed_limit = limit;
 	    			}else if("failed"==msg || "exception"==msg){
 	    				alert("Interest request is not successful. Please try again.");
@@ -994,7 +994,7 @@ $(function(){
 	sliderImg.each(
 		function(){
 			$(this).attr('data-img',dataVal);
-			$('#pager').append('<a data-img="' + dataVal + '"><img src=' + $('img', this).attr('src') + ' width=' + thumbWidth + '></a>');
+			$('#pager').append('<a data-img="' + dataVal + '"><img src="${baseurl}/' + $('img', this).attr('src') + '"  width="' + thumbWidth + '"></a>');
 		dataVal++;
 	});
 	

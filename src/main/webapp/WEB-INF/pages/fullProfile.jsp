@@ -348,8 +348,8 @@ xpopup
 }
 </style>
 
-<script src="js/plugins/jquery.ImageGallery.js"></script> 
-<script src="js/plugins/jquery.imagesloaded.min.js"></script> 
+<script src="${baseurl}/js/plugins/jquery.ImageGallery.js"></script> 
+<script src="${baseurl}/js/plugins/jquery.imagesloaded.min.js"></script> 
 
 <div class="container" id="printDiv" style=' padding-left: 0px;'>
 <div class="row">
@@ -424,7 +424,7 @@ xpopup
 						 	<div class="noPrint">
 						<c:choose>
 							<c:when test="${profileBean.mobileNumViewed == '1' || profileBean.message_sent_status == '1' || profileBean.expressedInterest == '1'}">
-								<p><span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-${profileBean.mobile}&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span></p>
+								<p><span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-${profileBean.mobile}&nbsp;<font class="mediumtxt">(&nbsp;<img src="${baseurl}/user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span></p>
 							</c:when>
 							<c:otherwise>
 								<p id="mobileTD${profileBean.id}">
@@ -999,7 +999,7 @@ xpopup
 			<div class="panel-heading">Add Horoscope</div>
 					<div class="panel-body table-responsive">
 		            	<div class="col-md-3"">
-					<img src="user/images/edit-add-horoscope.gif" width="40">
+					<img src="${baseurl}/user/images/edit-add-horoscope.gif" width="40">
 				</div><div class="col-md-9"><p>It is simple and absolutely FREE!</p></div>
 	            	</div>
 	            </div>
@@ -1007,7 +1007,7 @@ xpopup
 			<div class="panel-heading">Add Photos Now</div>
 					<div class="panel-body table-responsive">
 		            	<div class="col-md-3">
-					<img src="user/images/add-photo-edit-avatar.png" width="40">
+					<img src="${baseurl}/user/images/add-photo-edit-avatar.png" width="40">
 				</div><div class="col-md-9"><p>Photos are the first
 things members look for
 in a profile. </p></div>
@@ -1193,7 +1193,7 @@ function displayMobileNum(profileId){
 	    		var msg = jsonobj.message;
 	    		if(typeof msg != "undefined"){
 	    			if(msg=="success"){
-	    				var mobStr = '<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-${profileBean.mobile}&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>';
+	    				var mobStr = '<span style="background:url(${baseurl}/user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-${profileBean.mobile}&nbsp;<font class="mediumtxt">(&nbsp;<img src="${baseurl}/user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>';
 	    				$("#mobileTD"+profileId).html(mobStr);
 	    				allowed_limit = limit;
 	    			}else{

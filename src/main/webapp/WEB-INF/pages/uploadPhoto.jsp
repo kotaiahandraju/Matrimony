@@ -12,8 +12,8 @@ margin:5px;
 canvas {
 display:none;}
 </style>
-<link href="css/imgareaselect-default.css" rel="stylesheet" media="screen">
-<link rel="stylesheet" href="css/jquery.awesome-cropper.css">
+<link href="${baseurl}/css/imgareaselect-default.css" rel="stylesheet" media="screen">
+<link rel="stylesheet" href="${baseurl}/css/jquery.awesome-cropper.css">
 				<div class="col-md-5 col-sm-12"></div>
 	            <div  class="clearfix"></div>    
 			</div>
@@ -46,7 +46,7 @@ display:none;}
 					    	<div class="col-md-offset-4 col-md-8">
 					    		<input type="button" class="btn btn-info" id="uploadBtn" value="Upload Photo" onclick="imageAjax()">
 			<!-- 		    		<button id="secondButton" class="btn2 btn btn-warning" onclick="goToNextPage()">Continue/Skip</button> -->
-					    		<a class="btn btn-success " href="${baseurl}/partner-profile">&nbsp;&nbsp;Continue</a>
+					    		<a class="btn btn-success " href="${baseurl}/users/partner-profile">&nbsp;&nbsp;Continue</a>
 					    	</div>
 					    </div>
 					    <div class="form-group">
@@ -99,8 +99,8 @@ function goToNextPage(){
 }
 
 </script>
-<script src="js/jquery.imgareaselect.js"></script> 
-<script src="js/jquery.awesome-cropper.js"></script> 
+<script src="${baseurl}/js/jquery.imgareaselect.js"></script> 
+<script src="${baseurl}/js/jquery.awesome-cropper.js"></script> 
 <script>
     $(document).ready(function () {
         $('#imageName').awesomeCropper(

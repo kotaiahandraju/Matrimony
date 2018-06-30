@@ -44,7 +44,7 @@
 </div>
 <a href="#" class="scrollup" style="display: none;">Scroll</a>
 <!-- //footer -->
-<script src="js/customValidation.js"></script>
+<script src="${baseurl }/js/customValidation.js"></script>
 <script>
 var selectIds = $('#panel1,#panel2,#panel3');
 $(function ($) {
@@ -53,8 +53,8 @@ $(function ($) {
     })
 });
 </script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/jquery.blockUI.min.js"></script>
+	<script src="${baseurl }/js/bootstrap.min.js"></script>
+	<script src="${baseurl }/js/jquery.blockUI.min.js"></script>
 	
 	<!-- start-smoth-scrolling -->
 	<!-- <script type="text/javascript" src="user/js/move-top.js"></script> -->
