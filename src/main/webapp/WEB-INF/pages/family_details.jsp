@@ -100,8 +100,63 @@
 	</div>
 </div>
 <script>
+function populateBrothersMarried() {
+
+	var val = $("#noOfBrothers").val();
+
+	if (val == 'None') {
+		$("#noOfBrothersMarried").val("");
+		$('#noOfBrothersMarried')
+				.attr("disabled", true);
+	} else {
+		$('#noOfBrothersMarried').find('option').not(
+				':first').remove();
+		$("#noOfBrothersMarried").append(
+				'<option>None</option>');
+		for (var i = 1; i <= val; i++) {
+			$("#noOfBrothersMarried").append(
+					'<option>' + i + '</option>');
+		}
+		$('#noOfBrothersMarried').attr("disabled",
+				false);
+	}
+}
+function populateSistersMarried() {
+
+	var val = $("#noOfSisters").val();
+
+	if (val == 'None') {
+		$("#noOfSistersMarried").val("");
+		$('#noOfSistersMarried')
+				.attr("disabled", true);
+	} else {
+		$('#noOfSistersMarried').find('option').not(
+				':first').remove();
+		$("#noOfSistersMarried").append(
+				'<option>None</option>');
+		for (var i = 1; i <= val; i++) {
+			$("#noOfSistersMarried").append(
+					'<option>' + i + '</option>');
+		}
+		$('#noOfSistersMarried').attr("disabled",
+				false);
+	}
+}
+
 	$(document).ready(
 			function() {
+				populateBrothersMarried();
+				var selected_value = "${profileBean.noOfBrothersMarried}";
+			    if(selected_value != "" && selected_value!=null){
+			    	$("#noOfBrothersMarried").val(selected_value);
+			    }
+			    
+			    populateSistersMarried();
+				selected_value = "${profileBean.noOfSistersMarried}";
+			    if(selected_value != "" && selected_value!=null){
+			    	$("#noOfSistersMarried").val(selected_value);
+			    }
+			    
 				$('#noOfBrothers').change(
 						function() {
 

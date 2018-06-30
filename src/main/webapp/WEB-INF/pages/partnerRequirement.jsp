@@ -594,7 +594,13 @@ function submitForm(){
 	var ageFrom = $("select[name='rAgeFrom']").val();
 	var ageTo = $("select[name='rAgeTo']").val();
 	var heightFrom = $("#rHeight").val();
+	if(heightFrom!=""){
+		heightFrom = parseInt(heightFrom);
+	}
 	var heightTo = $("#rHeightTo").val();
+	if(heightTo!=""){
+		heightTo = parseInt(heightTo);
+	}
 	if(ageFrom > ageTo){
 		alert("Sorry, Invalid Age range");
 		return false;
