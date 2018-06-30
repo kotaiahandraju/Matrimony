@@ -3398,8 +3398,8 @@ img.hover-shadow {
 									
 <!-- 										<img id="profilepic" src="${baseurl}/img/default.png" class="img-responsive thumbnail " style="margin-top:-10px;height: 40px;width: 40px;border-radius:15%;">  -->
 
-								<c:if test="${not empty cacheGuest.profileImage}">
-										<img id="profilepic" src="${baseurl}/${cacheGuest.profileImage}" alt="profileImage" class="img img-responsive thumbnail watermark_text" style="border-radius:15%;"><i style="margin-right:-10px; margin-top:22px;" class="fa fa-angle-down" aria-hidden="true"></i>
+									<c:if test="${not empty cacheGuest.profileImage}">
+										<img id="profilepic" src="${baseurl}/${cacheGuest.profileImage}" alt="" class="img img-responsive thumbnail watermark_text" style="border-radius:15%;"><i style="margin-right:-10px; margin-top:22px;" class="fa fa-angle-down" aria-hidden="true"></i>
 									</c:if>
 									<c:if test="${empty cacheGuest.profileImage}">
 										<img id="profilepic" src="${baseurl}/img/default.png" alt="image" class="img-responsive thumbnail " style="border-radius:15%;"/><i style="margin-right:-10px; margin-top:22px;" class="fa fa-angle-down" aria-hidden="true"></i>

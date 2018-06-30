@@ -88,7 +88,7 @@ function imageAjax(){
 		  	}
 		  	$("#uploadBtn").removeAttr("disabled");
 	   		$("#uploadBtn").val("Upload Photo");
-	   	 location.reload();
+	   	 window.location.href="${baseurl}/partner-profile";
 		});
 	}
 }
