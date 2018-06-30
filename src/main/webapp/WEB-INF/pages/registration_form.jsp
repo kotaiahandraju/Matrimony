@@ -284,7 +284,7 @@
 					      <h3>One last thing! Describe yourself in a few words</h3>
 					    </div>
 					    <div class="form-group">
-					      <label class="col-md-4 control-label" for="textinput">About myself</label>
+					      <label class="col-md-4 control-label" for="textinput">About myself<span style="color:red;">*</span></label>
 					     
 					      <div class="col-md-6">
 					      	<form:textarea rows="6" path="aboutMyself" onkeyup="checkLen()"  onfocus="colorChange()" class="form-control u"></form:textarea>
