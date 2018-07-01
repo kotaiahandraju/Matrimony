@@ -2674,7 +2674,7 @@ public class UsersDao extends BaseUsersDao
 				+" ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 				//+" (select count(*) from users u "+where_clause+") as total_records, "
 				+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and  uimg.status = '1' and uimg.is_profile_picture='1') as profileImage, "
-				+" (select count(*) from (select count(1) from users u,users_activity_log act where "+inner_where_clause+" and ((act.act_done_by_user_id  = u.id and act.act_done_on_user_id = "+objUserBean.getId()+") or (act.act_done_on_user_id  = u.id and act.act_done_by_user_id = "+objUserBean.getId()+")) and "+activity_type_str+"  group by u.id ) tc) as total_records, "
+				+" (select count(*) from (select count(1) from users u,users_activity_log act where "+inner_where_clause+" and ((act.act_done_by_user_id  = u.id and act.act_done_on_user_id = "+objUserBean.getId()+") or (act.act_done_on_user_id  = u.id and act.act_done_by_user_id = "+objUserBean.getId()+"))  "+activity_type_str+"  group by u.id ) tc) as total_records, "
 				+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+objUserBean.getId()+" and act_log.act_done_on_user_id=id and act_log.activity_type = 'short_listed') as short_listed,  "
 				+" (select highlight_profile from package where id = u.package_id) as profile_highlighter "
 				//+" from users_activity_log activity left join users u on activity.act_done_on_user_id=u.id left join userrequirement ur on u.id=ur.userId "
@@ -2687,7 +2687,7 @@ public class UsersDao extends BaseUsersDao
 				+ " where "+inner_where_clause 
 				+ " group by u.id) temp, "
 				+" users_activity_log activity where ((activity.act_done_by_user_id  = temp.id and activity.act_done_on_user_id = "+objUserBean.getId()+") or (activity.act_done_on_user_id  = temp.id and activity.act_done_by_user_id = "+objUserBean.getId()+")) "
-				+ "and "+activity_type_str+"  ");
+				+ " "+activity_type_str+"  ");
 
 				//+"  express_intrest ei  where "+inner_where_clause+" ");
 		
@@ -2783,7 +2783,7 @@ public class UsersDao extends BaseUsersDao
 				+" ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 				//+" (select count(*) from users u "+where_clause+") as total_records, "
 				+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and  uimg.status = '1' and uimg.is_profile_picture='1') as profileImage, "
-				+" (select count(*) from (select count(1) from users u,users_activity_log act where "+inner_where_clause+" and ((act.act_done_by_user_id  = u.id and act.act_done_on_user_id = "+objUserBean.getId()+") or (act.act_done_on_user_id  = u.id and act.act_done_by_user_id = "+objUserBean.getId()+")) and "+activity_type_str+"  group by u.id ) tc) as total_records, "
+				+" (select count(*) from (select count(1) from users u,users_activity_log act where "+inner_where_clause+" and ((act.act_done_by_user_id  = u.id and act.act_done_on_user_id = "+objUserBean.getId()+") or (act.act_done_on_user_id  = u.id and act.act_done_by_user_id = "+objUserBean.getId()+"))  "+activity_type_str+"  group by u.id ) tc) as total_records, "
 				+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+objUserBean.getId()+" and act_log.act_done_on_user_id=id and act_log.activity_type = 'short_listed') as short_listed,  "
 				+" (select highlight_profile from package where id = u.package_id) as profile_highlighter "
 				//+" from users_activity_log activity left join users u on activity.act_done_on_user_id=u.id left join userrequirement ur on u.id=ur.userId "
@@ -2795,7 +2795,7 @@ public class UsersDao extends BaseUsersDao
 				+ " left join state sta on sta.id=u.currentState left join city cit on cit.id=u.currentCity  "
 				+ " where "+inner_where_clause+" group by u.id) temp,  "
 				+" users_activity_log activity where ((activity.act_done_by_user_id  = temp.id and activity.act_done_on_user_id = "+objUserBean.getId()+") or (activity.act_done_on_user_id  = temp.id and activity.act_done_by_user_id = "+objUserBean.getId()+"))  "
-						+ "and "+activity_type_str+"  ");
+						+ " "+activity_type_str+"  ");
 
 		
 		//buffer.append(" WHERE "+rejected_by_str+" "+activity_type_str+" GROUP BY u.id  ");
