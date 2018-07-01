@@ -172,7 +172,7 @@ input[name=package_id]
 position: relative;
     background: rgb(244, 251, 254);
     margin-top: 25px;
-    
+        padding-bottom: 25px;
 }
 
 
@@ -397,14 +397,15 @@ border:none;}
 						    </div>
 					  	</c:if>
 					  	<c:if test="${pack.allowed_profiles_limit != null && pack.allowed_profiles_limit != '' && pack.allowed_profiles_limit != 0}">
-						    <div class="col-md-4">
+						    <div class="col-md-6">
 						    <p><img  src="${baseurl}/images/icon3.png"/> View mobile numbers of <c:out value="${pack.allowed_profiles_limit}"/> members
-							to contact </p>
+							to contact them directly </p>
 						    </div>
 			    		</c:if>
-			    		<div class="col-md-4">
+			    		<%-- <div class="col-md-4">
 			    			<p><img style="width:16px; heigth:16px;" src="${baseurl}/images/icon6.gif"/"/>  View Unlimited Horoscopes</p>
-			    		</div><div class="clearfix"></div>
+			    		</div> --%>
+			    		<div class="clearfix"></div>
 			    		<div class="col-md-4">
 			    			<p style="margin-top:10px;">Profile tagged with '<c:out value="${pack.name}"/> member'</p>
 			    		</div>
