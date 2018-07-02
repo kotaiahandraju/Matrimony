@@ -23,7 +23,7 @@ display : none
 				<div id="imagesDiv" class="row" style="margin-bottom: 0.4em;">
 			      	<c:forEach items="${photosList}" var="photo" >
 			      		<div id="div${photo.id}" class="col-md-3" style="text-align:center;">
- 			      			<a href="${photo.image}" data-littlelightbox-group="gallery" class="lightbox thumbnail watermark_text1"><img id="photo${photo.id}" src="${photo.image}" class="img-responsive thumbnail watermark_text" style="margin-bottom:0;"></a>
+ 			      			<a href="${photo.image}" data-littlelightbox-group="gallery" class="lightbox thumbnail watermark_text1"><img id="photo${photo.id}" src="${baseurl}/${photo.image}" class="img-responsive thumbnail watermark_text" style="margin-bottom:0;"></a>
 			      			<c:if test="${photo.approved_status == '0' }">
 			      					<span style="display:block;">Approval Pending</span>
 			      			</c:if>

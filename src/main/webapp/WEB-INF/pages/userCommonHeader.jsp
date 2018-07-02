@@ -3409,7 +3409,7 @@ img.hover-shadow {
 								</a>
 								<ul class="dropdown-menu dropdown-menu1" style="min-width:90px !important;">
 									<li><a href="settings">Settings</a></li>
-									<li><a href="logoutHome" >Sign out</a></li>
+									<li><a href="${baseurl}/logoutHome" >Sign out</a></li>
 								</ul>
 							</li>
 							

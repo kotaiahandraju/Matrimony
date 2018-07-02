@@ -347,17 +347,20 @@ $(".onlyCharacters").on("keypress",	function(event) {
         <div class="panel" style="background:#F7F6F7; padding:20px 15px;">
             <div class="col-md-3">
                 <c:if test="${not empty cacheGuest.profileImage}">
-                	<a href="#" id="fullProfilePicOuterTag" data-toggle="modal" data-target="#myModalNew"><img  src="${cacheGuest.profileImage}" class="hover-shadow cursor img img-responsive thumbnail watermark_text" style="margin-bottom:0;height:auto;width: 100%;" /></a>
+                	<a href="#" id="fullProfilePicOuterTag" data-toggle="modal" data-target="#myModalNew"><img  src="${baseurl}/${cacheGuest.profileImage}" class="hover-shadow cursor img img-responsive thumbnail watermark_text" style="margin-bottom:0;height:auto;width: 100%;" /></a>
 <%--                     <a href="#no" id="fullProfilePicOuterTag"><div  style="width:100%; max-height:195px; overflow:hidden;"><img src="${cacheGuest.profileImage}"   onclick="openModal();currentSlide(1)" class="cursor watermark_text" style="width:100%; height:auto;"></div></a> --%>
-                     <%-- <div id="gallery-wrapper">
+                      <div id="gallery-wrapper">
                         <!-- thumbnail images -->
                           <div id="thumbs-wrapper">
                             <div id="gallery" style="margin:-10px 8px 8px;width:200%">
                                 <c:set var="counter3" value="${0}" /> 
                                 <c:forEach items="${photosList}" var="photo" >
                                     <c:set var="counter3" value="${counter3+1}" />
-                                    <div class="thumbnail" style=""> 
-                                        <img src="${photo.image}" class="watermark_text" style="width:100%"  onclick="currentSlide_inpage('${photo.image}')"/> 
+                                    <div class="profilethumbnail" style="float: left;width: 69px;
+    height: 69px;
+    padding: 0px;
+    margin: 5px; "> 
+                                        <img src="${baseurl}/${photo.image}" class="watermark_text" style="width:100%;  onclick="currentSlide_inpage('${photo.image}')"/> 
                                     </div>
                                 </c:forEach>
                             </div> 
@@ -369,7 +372,7 @@ $(".onlyCharacters").on("keypress",	function(event) {
                             <a id="gallery-prev" style="margin-left:0px; margin-top:-80px;" href="#">previous</a>
                             <p id="gallery-pos" hidden="true">page 1 of 2</p>
                           </div>
-                    </div> --%>
+                    </div> 
                 </c:if>
                 <c:if test="${empty cacheGuest.profileImage}">
                     <img src="img/default.png" class="img-responsive" style="margin-bottom:0;">
