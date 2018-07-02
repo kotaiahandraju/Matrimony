@@ -1587,7 +1587,7 @@ public class UsersDao extends BaseUsersDao
 								+" (select count(*) from users u,express_intrest ei where u.id=ei.profile_id and ei.user_id = "+userId+" and ei.profile_viewed_status = '1' and ei.mobile_no_viewed_status = '0' and ei.interested='0' "
 								+"   and "+subStr+" ) as viewedNotContactedCount, "
 								+" (select count(*) from  users u,express_intrest  ei where u.id = ei.user_id and ei.profile_id = "+userId+" and ei.short_listed = '1' and "+subStr+" ) as shortListedCount, "
-								+" (select count(*) from user_notifications where profile_id = "+objUserBean.getId()+" and read_status = '0') as notificationsCount,"
+								+" (select count(*) from user_notifications where profile_id = "+objUserBean.getId()+" and read_status = '0' and user_id in (select u.id from users u where u.id = user_id and u.status = '1' )) as notificationsCount,"
 								+" (select count(*) from express_intrest_view ei where ei.user_id = "+objUserBean.getId()+" and ei.default_text_option = '1') as default_text_option, "
 								+" (select mail_default_text from express_intrest ei where ei.user_id = "+objUserBean.getId()+" and ei.default_text_option = '1' group by ei.user_id ) as mail_default_text ";
 					
@@ -3677,7 +3677,8 @@ public boolean deletePhoto(String photoId){
 		buffer.append("select *,(select concat(u.firstName,' ',u.lastName) from users u where u.id=user_notifications.user_id) as fullName, "
 				+" (select u.username from users u where u.id=user_notifications.user_id) as userName,date_format(user_notifications.created_on,'%d-%M-%Y %H:%i') as created_on, "
 				+" (select uimg.image from vuser_images uimg where uimg.user_id=user_notifications.user_id and  uimg.status = '1' and uimg.is_profile_picture='1') as profileImage "
-				+" from user_notifications where profile_id = "+objUserBean.getId()+" and user_type = 'member' order by user_notifications.created_on desc ");
+				+" from user_notifications where profile_id = "+objUserBean.getId()+" and user_type = 'member' "
+				+"  and user_id in (select u.id from users u where u.id = user_id and u.status = '1' ) order by user_notifications.created_on desc ");
 		if(!all_notifications){
 			buffer.append(" limit 10 offset 0");
 		}
