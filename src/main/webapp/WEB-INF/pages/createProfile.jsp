@@ -666,7 +666,7 @@ function getReliginCastAjax() {
 		var formData = new FormData();
 		formData.append("religionId",religionId);
 		$('#caste').find('option').not(':first').remove();
-	$.fn.makeMultipartRequest('POST', '${baseurl}/castesBasedOnReligion', false,
+	$.fn.makeMultipartRequest('POST', 'castesBasedOnReligion', false,
 			formData, false, 'text', function(data){
 		var jsonobj = $.parseJSON(data);
 		var alldata = jsonobj.allOrders1;
@@ -957,10 +957,10 @@ function getCitys(id){
 		var formData = new FormData();
 	     formData.append('id', stateId);
 	     formData.append('state_ids', stateId);
-	     var actionStr = "../getCitys";
+	     var actionStr = "getCitys";
 	     var nextPage = "${pageName}";
 	     if(nextPage!=null && nextPage!="" && nextPage!="undefined"){
-	    	 actionStr = "../../../getCitys";
+	    	 actionStr = "../../getCitys";
 	     }
 		$.fn.makeMultipartRequest('POST', actionStr, false,
 				formData, false, 'text', function(data){
@@ -985,16 +985,20 @@ function getFilteredStates(id){
 		$("#currentState").attr("readonly", true);
 		$("#currentState").attr("disabled" ,"disabled");
 		$("#currentState").val("");
+		
+		$("#currentCity").attr("readonly", true);
+		$("#currentCity").attr("disabled" ,"disabled");
+		$("#currentCity").val("");
 	}else{
 		$("#currentState").removeAttr("disabled");
 		$("#currentState").removeAttr("readonly");
 		var countryId =$("#"+id).val();
 		var formData = new FormData();
 	     formData.append('country_ids', countryId);
-	     var actionStr = "../getFilteredStates";
+	     var actionStr = "getFilteredStates";
 	     var nextPage = "${pageName}";
 	     if(nextPage!=null && nextPage!="" && nextPage!="undefined"){
-	    	 actionStr = "../../../getFilteredStates";
+	    	 actionStr = "../../getFilteredStates";
 	     }
 		$.fn.makeMultipartRequest('POST', actionStr, false,
 				formData, false, 'text', function(data){
@@ -1021,10 +1025,10 @@ function getFilteredStatesMultiSelect(id){
 		var countryIds =$("#"+id).val();
 		var formData = new FormData();
 	     formData.append('country_ids', countryIds);
-	     var actionStr = "../getFilteredStates";
+	     var actionStr = "getFilteredStates";
 	     var nextPage = "${pageName}";
 	     if(nextPage!=null && nextPage!="" && nextPage!="undefined"){
-	    	 actionStr = "../../../getFilteredStates";
+	    	 actionStr = "../../getFilteredStates";
 	     }
 	    $.fn.makeMultipartRequest('POST', actionStr, false,
 				formData, false, 'text', function(data){
