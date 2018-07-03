@@ -22,10 +22,10 @@
 
     <!-- for documentation: you don't need them -->
    
-    <link rel="stylesheet" href="documentation/css/documentation.css" media="screen" type="text/css">
+    <link rel="stylesheet" href="${baseurl}/documentation/css/documentation.css" media="screen" type="text/css">
     <link rel="stylesheet" href="../yandex.st/highlightjs/8.0/styles/default.min.css" media="screen" type="text/css">
     <script type="text/javascript" src="documentation/js/document.js"></script>
-    <script src="documentation/js/highlight.pack.js"></script>
+    <script src="${baseurl}/documentation/js/highlight.pack.js"></script>
      
   
 

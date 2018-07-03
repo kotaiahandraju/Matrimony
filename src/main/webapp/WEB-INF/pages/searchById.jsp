@@ -140,7 +140,7 @@ function displayMatches(listOrders) {
 			var mobile_no__str = '';
 			var more_details_str = '';
 			var expressed = orderObj.expressedInterest;
-			var firstname = '<img src="images/blurr.png"/>',lastname='';
+			var firstname = '<img src="${baseurl}/images/blurr.png"/>',lastname='';
 			mobile_no__str = '<tr id="row'+orderObj.id+'"><td><a href="#" type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</a></td></tr>';
 // 			insert_str = '<a href="#" id="expInterest'+orderObj.id+'" type="button" class="btn btn-primary btn-sm" onclick="expressInterest('+orderObj.id+')">Yes I\'m interested</a>';
 			
@@ -196,7 +196,7 @@ function displayMatches(listOrders) {
 						displayStyle = ' style="display:none;" ';
 					}
 					slider += '<div class="picstyle smallSlides'+orderObj.id+'" '+displayStyle+'>'
-							+'		<img src="'+photosArray[index]+'" class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: auto;width: 100%;" >'
+							+'		<img src="${baseurl}/'+photosArray[index]+'" class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: auto;width: 100%;" >'
 							+'</div>'
 				});
 				if(photosArray.length>1){

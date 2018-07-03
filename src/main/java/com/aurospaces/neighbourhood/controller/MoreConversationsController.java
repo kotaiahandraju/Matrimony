@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.aurospaces.neighbourhood.bean.UsersBean;
 import com.aurospaces.neighbourhood.db.dao.UsersDao;
 
+@RequestMapping(value="/users")
 @Controller
 public class MoreConversationsController {
 	private Logger logger = Logger.getLogger(MoreConversationsController.class);
