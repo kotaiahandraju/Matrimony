@@ -422,7 +422,7 @@ var role_id = ${cacheUserBean.roleId};
 										</div>
 										<div class="col-md-9 notsp" style="padding-right:0px; padding-left:0px;" >
 											<p>
-												<a href="fullProfile?pid=${notification.profile_id}&nid=${notification.id}&rfrm=notifications" target="_blank" >
+												<a href="fullProfile?id=${notification.profile_id}&nid=${notification.id}&rfrm=notifications" target="_blank" >
 													<b><c:out value="${notification.fullName}" /> (<c:out value="${notification.username}" />)</b> 
 													paid an amount of ${notification.amount}
 												</a>
@@ -520,7 +520,7 @@ var role_id = ${cacheUserBean.roleId};
 	
 	
 	function getAllNotifications(){
-		document.allNotificationsForm.action = "${baseurl}/allNotificationsInAdmin"
+		document.allNotificationsForm.action = "allNotificationsInAdmin"
 	    document.allNotificationsForm.target = "_blank";    // Open in a new window
 	    document.allNotificationsForm.submit();             // Submit the page
 	    return true;
