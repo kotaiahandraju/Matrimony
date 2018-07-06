@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.aurospaces.neighbourhood.bean.UsersBean;
 
 @Controller
+@RequestMapping(value="/admin")
 public class AllNotificationsInAdminController {
 	 @RequestMapping(value = "/allNotificationsInAdmin", method = RequestMethod.POST)
 	 public String allNotifications(@ModelAttribute("allNotificationsInAdmin") UsersBean objUserssBean, Model objeModel, HttpServletRequest request, HttpSession session) {
