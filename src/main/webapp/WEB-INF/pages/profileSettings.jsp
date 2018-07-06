@@ -568,7 +568,7 @@ Auto-login saves you the process of logging into your account with your e-mail I
 									      <label class="col-md-4 control-label" for="textinput">Community</label>  
 									      <div class="col-md-6">
 									      	<form:select path="rCaste" class="multiSelect" multiple="true">
-											<%-- 	<form:options items="${cast}"></form:options> --%>
+											<form:options items="${castes_list}"></form:options> 
 											</form:select>
 									      </div>
 									    </div>
@@ -592,9 +592,11 @@ Auto-login saves you the process of logging into your account with your e-mail I
 											</div>
 									  	</div>
 
-<div align="right"><button class="btn btn-warning" onclick="submitContactFilterSettings()"> Update </button></div>
+
 </form:form>
-					</div></div></div></div>
+					</div></div></div>
+		<div align="right"><button class="btn btn-warning" onclick="submitContactFilterSettings()"> Update </button></div>			
+					</div>
 					</div></div>
 	<div id="unsubscribe_callinglist" class="all_settings_divs" hidden="true">
 					<div class="panel panel-success">
@@ -616,7 +618,7 @@ Auto-login saves you the process of logging into your account with your e-mail I
 					</div></div></div></div>
 					</div>
 					<div id="privacy" class="all_settings_divs" hidden="true">
-					<div class="panel panel-success">
+					<!-- <div class="panel panel-success">
 							<div class="panel-heading">
 							Privacy
 							</div>
@@ -822,7 +824,8 @@ As a member, you have the benefit of receiving mobile alerts. We recommend you t
     </div>
    
 
-					</div></div></div></div>
+					</div> -->
+					</div></div></div>
 					</div>
 				</form:form>	
 			</div>
@@ -1033,6 +1036,7 @@ function displaySettingsBlock(divId){
 			var jsonobj = $.parseJSON(data);
 			var msg = jsonobj.message;
 			var settingsMap = jsonobj.settings;
+			var castesList = jsonobj.castes_list;
 			if(msg=="success"){
 				var selected_val = settingsMap.contact_filter;
 				$('[name="contact_filter"]').removeAttr('checked');
@@ -1065,17 +1069,6 @@ function displaySettingsBlock(divId){
 					    }
 					    
 					    selected_values="";
-					    selected_values = caste;
-					    if(selected_values == "" || selected_values==null){
-					    	$("#rCaste").select2({
-					    	    placeholder: "-- Choose Community --"
-					    	});
-					    }else{
-					    	var tt = selected_values.split(",");
-					        $("#rCaste").val(selected_values.split(","));
-					    }
-					    
-					    selected_values="";
 						selected_values = religion;
 					    if(selected_values == "" || selected_values==null){
 					    	$("#rReligion").select2({
@@ -1084,6 +1077,17 @@ function displaySettingsBlock(divId){
 					    }else{
 					    	var tt = selected_values.split(",");
 					        $("#rReligion").val(selected_values.split(","));
+					    }
+					    
+					    selected_values="";
+					    selected_values = caste;
+					    if(selected_values == "" || selected_values==null){
+					    	$("#rCaste").select2({
+					    	    placeholder: "-- Choose Community --"
+					    	});
+					    }else{
+					    	var tt = selected_values.split(",");
+					        $("#rCaste").val(selected_values.split(","));
 					    }
 					    
 					    selected_values="";
@@ -1306,7 +1310,7 @@ if(ageFrom > ageTo){
 		formData.append("age_from",$("#age_from").val());
 		formData.append("age_to",$("#age_to").val());
 		formData.append("rMaritalStatus",$("#rMaritalStatus").val());
-		formData.append("rReligion",$("#rReligion").val());
+		formData.append("rReligion",$("#rReligion").val());alert("submitting:"+$("#rCaste").val());
 		formData.append("rCaste",$("#rCaste").val());
 		formData.append("rMotherTongue",$("#rMotherTongue").val());
 		formData.append("rCountry",$("#rCountry").val());

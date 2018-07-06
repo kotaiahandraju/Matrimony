@@ -4513,6 +4513,15 @@ public class HomePageController {
 			
 			request.setAttribute("oldPassword", currentPassword);
 			
+			///////
+			List<Map<String,Object>> castes_list =  objCastDao.getCastesBasedOnReligion(sessionBean.getReligion());
+			Map<Integer, String> castesMap = new LinkedHashMap<Integer, String>();
+			for (Map<String,Object> caste : castes_list) {
+				castesMap.put((Integer)caste.get("id"),(String)caste.get("name"));
+			}
+			request.setAttribute("castes_list", castesMap);
+			/////
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e);

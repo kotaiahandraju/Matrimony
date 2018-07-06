@@ -347,7 +347,12 @@ $(".onlyCharacters").on("keypress",	function(event) {
         <div class="panel" style="background:#F7F6F7; padding:20px 15px;">
             <div class="col-md-3">
                 <c:if test="${not empty cacheGuest.profileImage}">
-                	<a href="#" id="fullProfilePicOuterTag" data-toggle="modal" data-target="#myModalNew"><img  src="${baseurl}/${cacheGuest.profileImage}" class="hover-shadow cursor img img-responsive thumbnail watermark_text" style="margin-bottom:0;height:auto;width: 100%;" /></a>
+                	<div class="fullprofile" style="height:220px; overflow:hidden;"">
+                		<a href="#" id="fullProfilePicOuterTag" data-toggle="modal" data-target="#myModalNew"><img  src="${baseurl}/${cacheGuest.profileImage}" class="hover-shadow cursor img img-responsive thumbnail watermark_text" style="margin-bottom:0;height:auto;width: 100%;" /></a>
+                	</div>
+                	<div align="center">
+	                    <a href="myPhotos" style="font-size:12px; padding:12px 0; text-align:center; font-weight:600; color:#006699;"> Add / Edit  Photos</a>
+	                </div>
 <%--                     <a href="#no" id="fullProfilePicOuterTag"><div  style="width:100%; max-height:195px; overflow:hidden;"><img src="${cacheGuest.profileImage}"   onclick="openModal();currentSlide(1)" class="cursor watermark_text" style="width:100%; height:auto;"></div></a> --%>
                       <div id="gallery-wrapper">
                         <!-- thumbnail images -->
@@ -377,9 +382,7 @@ $(".onlyCharacters").on("keypress",	function(event) {
                 <c:if test="${empty cacheGuest.profileImage}">
                     <img src="img/default.png" class="img-responsive" style="margin-bottom:0;">
                 </c:if>
-                <div align="center">
-                    <a href="myPhotos" style="font-size:12px; padding:12px 0; text-align:center; font-weight:600; color:#006699;"> Add / Edit  Photos</a>
-                </div>
+                
              </div>
              <div class="col-md-6">
                  <h3><p class="name_val">${profileBean.firstName} ${profileBean.lastName}</h3><h4> (${cacheGuest.username})</p></h4>
@@ -392,7 +395,7 @@ $(".onlyCharacters").on("keypress",	function(event) {
                 	<input type="text" placeholder="+91-${cacheGuest.mobile}" id="mobile" class="numbersOnly" onblur="validate(this.id,'Enter Mobile Number');" maxlength="10" />
                 	<br><span class="hasError" id="mobileError111" style="font-size: 13px;color:red"></span>
                 </div> 
-                <div id="mobileNoDiv"><span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px; font-weight:600;">&nbsp;<span id="mobileNoText">+91-${cacheGuest.mobile}</span>&nbsp;<font class="mediumtxt">(&nbsp;<img src="${baseurl}/user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font>&nbsp;&nbsp;</span>&nbsp;</div>
+                <div id="mobileNoDiv"><span style="background:url(${baseurl}/user/images/mobile.gif) no-repeat left top;padding-left:13px; font-weight:600;">&nbsp;<span id="mobileNoText">+91-${cacheGuest.mobile}</span>&nbsp;<font class="mediumtxt">(&nbsp;<img src="${baseurl}/user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font>&nbsp;&nbsp;</span>&nbsp;</div>
                 <a href="#no" id="editMobileAnchor" style="color:blue; font-size:12px; text-decoration:none;"  onclick="displayEditMobilenumberDiv(${profileBean.id},'${cacheGuest.mobile}')">Edit Mobile No.</a>
                  <br>
                 
@@ -400,7 +403,7 @@ $(".onlyCharacters").on("keypress",	function(event) {
                 <div class="col-md-3">
                
              <p style=" color:#000;font-size: 13px; text-align:center;">How your profile looks
-                to others <a href="#no" onclick="fullProfile(${profileBean.id})" class="" style=" width:auto; border:1px solid #cccccc;padding:7px 10px 7px 40px;display:inline-block;border-radius:5px;background:url(user/images/eye.gif) no-repeat 10px 8px;margin-top:5px;text-decoration:none;">Profile Preview</a>
+                to others <a href="#no" onclick="fullProfile(${profileBean.id})" class="" style=" width:auto; border:1px solid #cccccc;padding:7px 10px 7px 40px;display:inline-block;border-radius:5px;background:url(${baseurl}/user/images/eye.gif) no-repeat 10px 8px;margin-top:5px;text-decoration:none;">Profile Preview</a>
                 </p></div>
 
 <div class="clearfix"></div>

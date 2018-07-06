@@ -25,7 +25,7 @@
 	<link href="${baseurl }/user/css/style-profile.css" rel="stylesheet" type="text/css" media="all" />
 	<link href="${baseurl }/user/css/megamenu.css" rel="stylesheet" type="text/css" media="all" />
 	<link rel="stylesheet" type="text/css" href="${baseurl }/css/asPaginator.css">
-	<link href="user/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link href="${baseurl }/user/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="${baseurl }/css/animate.min.css" />
 	<link href='http://fonts.googleapis.com/css?family=Monda:400,700' rel='stylesheet' type='text/css'>
 	<link href="${baseurl }/css/thickbox.css" rel="stylesheet" type="text/css">
