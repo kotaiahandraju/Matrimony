@@ -180,7 +180,7 @@ function updateImagesList(photosList){
 		//var photoImage = ${photoObj.image};
 		 str += '<div class="col-md-2">'
 
-  			+'<a href=""><img src="'+photoObj.image+'" class="img-responsive thumbnail watermark_text" style="margin-bottom:0;"></a>'
+  			+'<a href=""><img src="${baseurl}/'+photoObj.image+'" class="img-responsive thumbnail watermark_text" style="margin-bottom:0;"></a>'
   			+' <span>Sent for approval</span> '
   			//+' <a href="#" onclick="sendForApproval('+photoId+')">Send for approval</a> '
   			//+' <a href="#" onclick="setAsProfilePicture('+photoImage+')">Set as Profile Picture</a> '
@@ -199,7 +199,7 @@ function setAsProfilePicture(photoId,photoImage){
 		  	var jsonobj = $.parseJSON(data);
 		  	var msg = jsonobj.message;
 		  	if("success" == msg){
-		  		var str = '<img id="profilepic" src="'+photoImage+'" class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: auto;width: 100%;">';
+		  		var str = '<img id="profilepic" src="${baseurl}/'+photoImage+'" class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: auto;width: 100%;">';
 		  		//$("#profilepic").prop("src",photoImage);
 		  		$("#profilePicOuterTag").html('');
 		  		$("#profilePicOuterTag").html(str);

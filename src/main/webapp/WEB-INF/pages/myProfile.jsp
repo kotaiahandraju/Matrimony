@@ -347,7 +347,12 @@ $(".onlyCharacters").on("keypress",	function(event) {
         <div class="panel" style="background:#F7F6F7; padding:20px 15px;">
             <div class="col-md-3">
                 <c:if test="${not empty cacheGuest.profileImage}">
-                	<a href="#" id="fullProfilePicOuterTag" data-toggle="modal" data-target="#myModalNew"><img  src="${baseurl}/${cacheGuest.profileImage}" class="hover-shadow cursor img img-responsive thumbnail watermark_text" style="margin-bottom:0;height:auto;width: 100%;" /></a>
+                	<div class="fullprofile" style="height:220px; overflow:hidden;"">
+                		<a href="#" id="fullProfilePicOuterTag" data-toggle="modal" data-target="#myModalNew"><img  src="${baseurl}/${cacheGuest.profileImage}" class="hover-shadow cursor img img-responsive thumbnail watermark_text" style="margin-bottom:0;height:auto;width: 100%;" /></a>
+                	</div>
+                	<div align="center">
+	                    <a href="myPhotos" style="font-size:12px; padding:12px 0; text-align:center; font-weight:600; color:#006699;"> Add / Edit  Photos</a>
+	                </div>
 <%--                     <a href="#no" id="fullProfilePicOuterTag"><div  style="width:100%; max-height:195px; overflow:hidden;"><img src="${cacheGuest.profileImage}"   onclick="openModal();currentSlide(1)" class="cursor watermark_text" style="width:100%; height:auto;"></div></a> --%>
                       <div id="gallery-wrapper">
                         <!-- thumbnail images -->
@@ -380,9 +385,7 @@ $(".onlyCharacters").on("keypress",	function(event) {
                 <c:if test="${empty cacheGuest.profileImage}">
                     <img src="img/default.png" class="img-responsive" style="margin-bottom:0;">
                 </c:if>
-                <div align="center">
-                    <a href="myPhotos" style="font-size:12px; padding:12px 0; text-align:center; font-weight:600; color:#006699;"> Add / Edit  Photos</a>
-                </div>
+                
              </div>
              <div class="col-md-6">
                  <h3><p class="name_val">${profileBean.firstName} ${profileBean.lastName}</h3><h4> (${cacheGuest.username})</p></h4>
