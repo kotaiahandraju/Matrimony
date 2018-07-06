@@ -47,7 +47,7 @@ width:190px !important;
 			   	<form:hidden path="userrequirementId"/>
 				<!-- 1st Step starts here-->
 				<div id="firstForm">
-				    <div class="col-md-12">
+				    <div class="col-md-1"></div> <div class="col-md-11">
 				      <h3>Tell us what you are looking for in a life partner</h3>
 				    </div>
 				    <!-- Text input-->

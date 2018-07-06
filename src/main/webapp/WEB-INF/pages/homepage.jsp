@@ -67,9 +67,9 @@ width: 135px;
     color: #fff;
     font-size: 20px;
     font-weight: 400;
-    padding: 0px 15px;
+    padding: 10px 15px;
     text-transform: capitalize;
-    height: 26px;
+  
     line-height: 29px;
     border: none!important;
     width: 80%;

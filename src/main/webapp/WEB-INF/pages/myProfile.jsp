@@ -5,10 +5,10 @@
     <!-- for Raxus Slider #end -->
 
     <!-- for documentation: you don't need them -->
-    <link rel="stylesheet" href="documentation/css/documentation.css" media="screen" type="text/css">
-    <link rel="stylesheet" href="../yandex.st/highlightjs/8.0/styles/default.min.css" media="screen" type="text/css">
-    <script type="text/javascript" src="documentation/js/document.js"></script>
-    <script src="documentation/js/highlight.pack.js"></script>
+    <link rel="stylesheet" href="${baseurl }/documentation/css/documentation.css" media="screen" type="text/css">
+    <link rel="stylesheet" href="http://yandex.st/highlightjs/8.0/styles/default.min.css" media="screen" type="text/css">
+    <script type="text/javascript" src="${baseurl }/documentation/js/document.js"></script>
+    <script src="${baseurl }/documentation/js/highlight.pack.js"></script>
      
     <script>hljs.initHighlightingOnLoad();</script>
     <!-- for documentation #end: you don't need them -->
@@ -352,7 +352,10 @@ $(".onlyCharacters").on("keypress",	function(event) {
                       <div id="gallery-wrapper">
                         <!-- thumbnail images -->
                           <div id="thumbs-wrapper">
-                            <div id="gallery" style="margin:-10px 8px 8px;width:200%">
+                            <div id="gallery" style="margin:-10px 8px 8px;width:100%;width: 100%;
+    overflow: hidden;
+    height: 81px;
+    display: block;">
                                 <c:set var="counter3" value="${0}" /> 
                                 <c:forEach items="${photosList}" var="photo" >
                                     <c:set var="counter3" value="${counter3+1}" />
@@ -392,7 +395,7 @@ $(".onlyCharacters").on("keypress",	function(event) {
                 	<input type="text" placeholder="+91-${cacheGuest.mobile}" id="mobile" class="numbersOnly" onblur="validate(this.id,'Enter Mobile Number');" maxlength="10" />
                 	<br><span class="hasError" id="mobileError111" style="font-size: 13px;color:red"></span>
                 </div> 
-                <div id="mobileNoDiv"><span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px; font-weight:600;">&nbsp;<span id="mobileNoText">+91-${cacheGuest.mobile}</span>&nbsp;<font class="mediumtxt">(&nbsp;<img src="${baseurl}/user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font>&nbsp;&nbsp;</span>&nbsp;</div>
+                <div id="mobileNoDiv"><span style="background:url(${baseurl}/user/images/mobile.gif) no-repeat left top;padding-left:13px; font-weight:600;">&nbsp;<span id="mobileNoText">+91-${cacheGuest.mobile}</span>&nbsp;<font class="mediumtxt">(&nbsp;<img src="${baseurl}/user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font>&nbsp;&nbsp;</span>&nbsp;</div>
                 <a href="#no" id="editMobileAnchor" style="color:blue; font-size:12px; text-decoration:none;"  onclick="displayEditMobilenumberDiv(${profileBean.id},'${cacheGuest.mobile}')">Edit Mobile No.</a>
                  <br>
                 
@@ -400,7 +403,7 @@ $(".onlyCharacters").on("keypress",	function(event) {
                 <div class="col-md-3">
                
              <p style=" color:#000;font-size: 13px; text-align:center;">How your profile looks
-                to others <br><a href="#no" onclick="fullProfile(${profileBean.id})" class="" style=" width:auto; border:1px solid #cccccc;padding:7px 40px 7px 40px;display:inline-block;border-radius:5px;background:url(user/images/eye.gif) no-repeat 10px 8px;margin-top:5px;text-decoration:none;">Profile Preview</a>
+                to others <br><a href="#no" onclick="fullProfile(${profileBean.id})" class="" style=" width:auto; border:1px solid #cccccc;padding:7px 40px 7px 40px;display:inline-block;border-radius:5px;background:url(${baseurl}/user/images/eye.gif) no-repeat 10px 8px;margin-top:5px;text-decoration:none;">Profile Preview</a>
                 </p></div>
 
 <div class="clearfix"></div>

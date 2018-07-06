@@ -9,6 +9,11 @@
 input[type="file"] {
 margin:5px;
 }
+.modal-footer .btn-group .btn + .btn {
+     margin-left: 5px; 
+}
+.imgareaselect-outer {
+height:0px !important}
 canvas {
 display:none;}
 </style>
@@ -23,7 +28,7 @@ display:none;}
 			<div class="midcontnet">
 				<div class="col-md-8">
    					<div id="secondForm">
-			   			<div class="col-md-12">
+			   			<div class="col-md-1"></div><div class="col-md-11">
 					      <h3>Upload Photo.</h3>
 					    </div>
 					    <div class="form-group">
@@ -57,7 +62,7 @@ display:none;}
 					    </div>
 					</div>
 				</div>
-   
+   <div class="clearfix"></div><br>
 <script src="${baseurl }/js/jquery-ui.min.js"></script>
 <script type="text/javascript">
 
@@ -88,7 +93,7 @@ function imageAjax(){
 		  	}
 		  	$("#uploadBtn").removeAttr("disabled");
 	   		$("#uploadBtn").val("Upload Photo");
-	   	 window.location.href="${baseurl}/partner-profile";
+	   	 window.location.href="${baseurl}/users/partner-profile";
 		});
 	}
 }

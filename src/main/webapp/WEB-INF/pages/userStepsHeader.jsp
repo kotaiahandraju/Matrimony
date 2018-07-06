@@ -41,7 +41,7 @@ body {
 	background:#F1F1F2;
 }
 .container { background:#FFF;}
-.ilogo { padding:15px 0; border-bottom:12px solid #F1F1F2 }
+.ilogo { padding:0px 5px; }
 .control-label { text-align:left;}
 .midcontnet { border-bottom:12px solid #F1F1F2; padding-bottom:40px; }
 
@@ -172,7 +172,7 @@ function getFilteredStatesMultiSelect(id){
 		<div class="ilogo">
 			<div class="col-md-7 col-sm-12">
 				<img src="../images/logo.png" class="img-responsive">
-				<img src="${baseurl}/images/logo.png" class="img-responsive">
+<%-- 				<img src="${baseurl}/images/logo.png" class="img-responsive"> --%>
 			</div>
 			</div>
 			</div>

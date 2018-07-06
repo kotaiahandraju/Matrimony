@@ -6,7 +6,8 @@
 	</div>
 
 	<footer class="footer" id="footer"><!-- Section id-->
-    	<div class="row">
+	<div class="container">
+    	<div class="row"  style="margin-left:15px !important; margin-right:15px !important;">
 			<div class="col-md-6 col-sm-6">
 				<div class="logo-footer">
 <!-- 					<img src="user/images/logo-b.png" alt="" class="img-responsive" /> -->
@@ -22,7 +23,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="row">
+		<div class="row"  style="margin-left:15px !important; margin-right:15px !important;">
 		    <div class="col-md-6 col-sm-6">
 		    	<div class="social">
 		        	<ul class="list-inline">
@@ -38,6 +39,7 @@
 		            <p class="email-add"><span>Email:</span> info@aarnamatrimony.com</p>
 		        </div>
 		    </div>                
+		</div>
 		</div>
 	</footer>
 </div>

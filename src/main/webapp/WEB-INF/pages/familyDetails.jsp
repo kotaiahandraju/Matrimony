@@ -19,7 +19,7 @@ width:120px;
 				<form:form commandName="familyDetails" action="saveImproveFamilyDetails" class="form-horizontal" id="saveImproveFamilyDetails"  method="post">
 					<!-- 2nd Step starts here-->
 					<div id="secondForm">
-					    <div class="col-md-12">
+					    <div class="col-md-1"></div><div class="col-md-11">
 					      <h3>Please share some details about Your Family</h3>
 					    </div>
 					    <div class="form-group">

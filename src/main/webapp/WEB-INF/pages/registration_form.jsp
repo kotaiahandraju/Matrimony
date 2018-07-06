@@ -5,7 +5,7 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 
-			<div class="col-md-5 col-sm-12">
+			<div class="col-md-5 col-sm-12" style="float:right; padding-top:8px;">
 				<div class="stepwizard">
 				    <div class="stepwizard-row">
 				        <div class="stepwizard-step">
@@ -46,7 +46,7 @@
 
 					<!-- 1st Step starts here-->
 					<div id="firstForm" class="dispnone">
-						<div class="col-md-12">
+						<div class="col-md-1"></div><div class="col-md-11">
 							<h3>Thanks for Registering. Now let's build your profile</h3>
 						</div>
 						<!-- Text inputs-->
@@ -131,7 +131,7 @@
 					
 					<!-- 2nd Step starts here-->
 					<div id="secondForm" class="dispnone">
-						<div class="col-md-12">
+						<div class="col-md-1"></div><div class="col-md-11">
 							<h3>Just A Few More Steps! Please Add Your Education & Career Details</h3>
 						</div>
 						<div class="form-group">
@@ -194,7 +194,7 @@
 
 					<!-- 3rd Step starts here-->
 					<div id="thirdForm" class="dispnone">
-					    <div class="col-md-12">
+					    <div class="col-md-1"></div><div class="col-md-11">
 					      <h3>Add your lifestyle details and we are almost done</h3>
 					    </div>
 					    <div class="form-group">
@@ -280,7 +280,7 @@
 
 					<!-- 4th Step starts here-->
 					<div id="fourthForm" class="dispnone">
-					    <div class="col-md-12">
+					    <div class="col-md-1"></div><div class="col-md-11">
 					      <h3>One last thing! Describe yourself in a few words</h3>
 					    </div>
 					    <div class="form-group">

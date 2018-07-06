@@ -5,7 +5,9 @@
 canvas{
 display : none
 }
-
+.progress  img {
+height:250px;
+}
 .ui-dialog-titlebar-close
 {
  width: 25px;
@@ -248,7 +250,7 @@ $(".dashboard").addClass("active");
 <script>
     $(document).ready(function () {
         $('#imageName').awesomeCropper(
-        { width: 800, height: 600, debug: true }
+        { width: 626, height: 417, debug: true }
         );
     });
     </script> 

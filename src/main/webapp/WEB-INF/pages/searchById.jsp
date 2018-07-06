@@ -7,6 +7,20 @@
 .form-check {
 text-align:left;
 }
+.panel-title {
+text-align:left;}
+.glyphicon {
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    float: right;
+    font-size:12px;
+}
 .form-control {
 margin-bottom:10px;}
 @media  (min-width: 320px) and (max-width:640px) {

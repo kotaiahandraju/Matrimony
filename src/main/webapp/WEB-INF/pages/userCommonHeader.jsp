@@ -37,6 +37,7 @@
 	<script src="${baseurl }/js/jquery.watermark.js"></script>
 	<script src="${baseurl }/js/jquery.littlelightbox.js"></script>
 	<link href="${baseurl }/css/jquery.littlelightbox.css" rel="stylesheet" type="text/css">
+
 	<style type="text/css">
 .note {
 padding-right:0px;
@@ -48,6 +49,8 @@ color:#000;
 .notifications a:hover{
 color:#777;
 }
+.imgareaselect-outer {
+height:0px !important;}
 #notification_li
 			{
 			position:relative
@@ -210,7 +213,7 @@ tooltip:hover:after {
 			bottom:50px;
 			right:100px;
 			display:none;			
-			background: url('images/icon_top.png') no-repeat;
+			background: url('${baseurl }/images/icon_top.png') no-repeat;
 		}
 	
 		
@@ -2311,10 +2314,9 @@ function goBack() {
 
     <!-- for documentation: you don't need them -->
     <link rel="stylesheet" href="${baseurl }/documentation/css/documentation.css" media="screen" type="text/css">
-    <link rel="stylesheet" href="../yandex.st/highlightjs/8.0/styles/default.min.css" media="screen" type="text/css">
+    <link rel="stylesheet" href="http://yandex.st/highlightjs/8.0/styles/default.min.css" media="screen" type="text/css">
     <script type="text/javascript" src="${baseurl }/documentation/js/document.js"></script>
     <script src="${baseurl }/documentation/js/highlight.pack.js"></script>
-     
     <script>hljs.initHighlightingOnLoad();</script>
     <!-- for documentation #end: you don't need them -->
 
@@ -2732,7 +2734,7 @@ display:none !important;
 			bottom:10px;
 			right:10px;
 			display:none;			
-			background: url('images/icon_top.png') no-repeat;
+			background: url('${baseurl }/images/icon_top.png') no-repeat;
 		}
 #searchResults .panel-heading {
 padding:18px 5px;
@@ -2983,7 +2985,7 @@ xpopup
 	margin: 6.5px 25px;
 	height: 17px;
 	width: 16px;
-	background-image: url('images/spt_arrows.png');
+	background-image: url('../images/spt_arrows.png');
 	background-repeat: no-repeat;
 }
 
