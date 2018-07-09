@@ -517,7 +517,7 @@ function displayMatches(listOrders) {
             	+ '<h4 class="bin">Like this Profile?</h4>'
             	+ insert_str
 				//+ '<button class="btn btn-danger btn-block btn-md" onclick="fullProfile('+orderObj.id+')">View Full Profile</button><br><br><br><br><br>'
-				+ '<a href="#" class="btn btn-warning  btn-sm" onclick="fullProfile('+orderObj.id+')">View Full Profile</a>'
+				+ '<a href="#" class="btn btn-primary  btn-sm" onclick="fullProfile('+orderObj.id+')">View Full Profile</a>'
 				+ shortListedStr
 // 				+ '<a href="#" type="button" class="btn1 btn btn-primary btn-sm"  id="mobileBtn'+orderObj.id+'" onclick="shortList('+orderObj.id+')">Shortlist</a> '
 				+ '<div class="clearfix"></div>'

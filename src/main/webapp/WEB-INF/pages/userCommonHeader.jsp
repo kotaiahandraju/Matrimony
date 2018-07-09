@@ -50,7 +50,7 @@ color:#000;
 color:#777;
 }
 .imgareaselect-outer {
-height:0px !important;}
+position:fixed !important;}
 #notification_li
 			{
 			position:relative
@@ -109,7 +109,7 @@ height:0px !important;}
 			}
 
 ::-webkit-scrollbar {
-    width: 3px;
+    width: 6px;
 }
 
 /* Track */
@@ -605,10 +605,10 @@ tooltip:hover:after {
 					}else{
 						slider = '<img src="${baseurl}/'+image+'" class="img-responsive thumbnail" style="margin-bottom: 0px; ">';
 					}
-					var profile_highlisht_str = '<div class="panel panel-default">';
+					var profile_highlisht_str = '<div class="panel panel-default" style="padding-top:5px;" >';
 					var highlight_option = orderObj.profile_highlighter;
 					if(typeof highlight_option != "undefined" && highlight_option=='1'){
-						profile_highlisht_str = '<div class="panel panel-default" style="background-color:skyblue">';
+						profile_highlisht_str = '<div class="panel panel-default" style="background-color:skyblue; padding-top:5px;">';
 					}
 					var tblRow = profile_highlisht_str
 						+ '<div class="col-md-2" style="margin-right:0; padding-right:0;">'
@@ -830,7 +830,7 @@ tooltip:hover:after {
 					var profile_highlisht_str = '<div class="panel panel-default">';
 					var highlight_option = orderObj.profile_highlighter;
 					if(typeof highlight_option != "undefined" && highlight_option=='1'){
-						profile_highlisht_str = '<div class="panel panel-default" style="background-color:skyblue">';
+						profile_highlisht_str = '<div class="panel panel-default" style="background-color:skyblue; padding-top:5px;">';
 					}
 					
 					var tblRow = profile_highlisht_str
@@ -1320,7 +1320,7 @@ tooltip:hover:after {
 						var profile_highlisht_str = '<div class="panel panel-default">';
 						var highlight_option = orderObj.profile_highlighter;
 						if(typeof highlight_option != "undefined" && highlight_option=='1'){
-							profile_highlisht_str = '<div class="panel panel-default" style="background-color:skyblue">';
+							profile_highlisht_str = '<div class="panel panel-default" style="background-color:skyblue; padding-top:5px;">';
 						}
 						
 						var tblRow = profile_highlisht_str
@@ -2399,8 +2399,10 @@ blockquote p {
 }
 .preprofile {
 	width:90px;
-	height:60px;
+	height:43px;
 	overflow:hidden;
+	padding-top:3px;
+	padding-bottom:3px;
 }
 #shortlistTD168 {
 margin-bottom:5px;

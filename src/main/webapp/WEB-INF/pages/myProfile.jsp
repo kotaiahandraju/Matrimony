@@ -347,7 +347,7 @@ $(".onlyCharacters").on("keypress",	function(event) {
         <div class="panel" style="background:#F7F6F7; padding:20px 15px;">
             <div class="col-md-3">
                 <c:if test="${not empty cacheGuest.profileImage}">
-                	<div class="fullprofile" style="height:220px; overflow:hidden;"">
+                	<div class="fullprofile" style="height:118px; overflow:hidden;"">
                 		<a href="#" id="fullProfilePicOuterTag" data-toggle="modal" data-target="#myModalNew"><img  src="${baseurl}/${cacheGuest.profileImage}" class="hover-shadow cursor img img-responsive thumbnail watermark_text" style="margin-bottom:0;height:auto;width: 100%;" /></a>
                 	</div>
                 	<div align="center">
@@ -376,8 +376,8 @@ $(".onlyCharacters").on("keypress",	function(event) {
                           
                           <!-- thumbnail navigation -->
                           <div id="thumbs-nav"> 
-                            <a id="gallery-next" style="margin-right:0px; margin-top:-80px;" href="#">next</a>
-                            <a id="gallery-prev" style="margin-left:0px; margin-top:-80px;" href="#">previous</a>
+                            <a id="gallery-next" style="margin-right:0px; margin-top:-92px;" href="#">next</a>
+                            <a id="gallery-prev" style="margin-left:0px; margin-top:-92px;" href="#">previous</a>
                             <p id="gallery-pos" hidden="true">page 1 of 2</p>
                           </div>
                     </div> 

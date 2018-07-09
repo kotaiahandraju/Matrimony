@@ -85,8 +85,8 @@ public class JavaIntegrationKit {
         }*/
         String email = userSessionBean.getEmail();
         String baseUrl = MiscUtils.getBaseUrl(request);
-        params.put("surl", baseUrl+"/success.htm");
-        params.put("furl", baseUrl+"/failed.htm");
+        params.put("surl", baseUrl+"/users/success.htm");
+        params.put("furl", baseUrl+"/users/failed.htm");
         params.put("key", "rk9oLSp9");
         params.put("service_provider", "payu_paisa");
         params.put("firstname", userSessionBean.getFirstName().replaceAll(" ", "#"+"#"+userSessionBean.getLastName().replaceAll(" ", "#")));//+userSessionBean.getLastName());

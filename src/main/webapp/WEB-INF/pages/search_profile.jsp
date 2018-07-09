@@ -17,6 +17,7 @@
 <link href="user/css/style-profile.css" rel="stylesheet" type="text/css" media="all" />
 <link href="user/css/megamenu.css" rel="stylesheet" type="text/css" media="all" />
 <!-- js -->
+<link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
 <script src="user/js/jquery-1.11.1.min.js"></script>
 
 <!-- //js -->
@@ -80,13 +81,13 @@
 }
 
 .panel-title .trigger:before {
-  content: '\e082';
-  font-family: 'Glyphicons Halflings';
+  content: '\f000' !important;
+  font-family: 'Font Awesome';
   vertical-align: text-bottom;
 }
 
 .panel-title .trigger.collapsed:before {
-  content: '\e081';
+  content: '\f000' !important;
 }
 .panel-group .panel {
     margin-bottom: 0;

@@ -31,8 +31,7 @@ margin-left:8px;
 </style>
 				<div class="col-md-5 col-sm-12"></div>
 	            <div  class="clearfix"></div>    
-			</div>
-		</div>
+			
      
 		<div class="col-md-12"><br><br>
 			<div class="midcontnet">

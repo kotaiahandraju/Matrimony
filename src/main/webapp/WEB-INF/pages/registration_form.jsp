@@ -5,7 +5,11 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 
-			<div class="col-md-5 col-sm-12" style="float:right; padding-top:8px;">
+			
+            <div class="clearfix"></div>    
+		</div>
+	</div>
+	<div class="col-md-5 col-sm-12" style="float:right; padding-top:8px;    margin-right: 42px;">
 				<div class="stepwizard">
 				    <div class="stepwizard-row">
 				        <div class="stepwizard-step">
@@ -23,10 +27,6 @@
 				    </div>
 				</div>
             </div>
-            <div class="clearfix"></div>    
-		</div>
-	</div>
-	
 	<div class="row">
 		<div class="midcontnet">
 			<div class="col-md-8">
