@@ -17,6 +17,7 @@ import com.aurospaces.neighbourhood.bean.UsersBean;
 import com.aurospaces.neighbourhood.db.dao.UsersDao;
 
 @Controller
+@RequestMapping(value="/users")
 public class MoreConversationsController {
 	private Logger logger = Logger.getLogger(MoreConversationsController.class);
 	

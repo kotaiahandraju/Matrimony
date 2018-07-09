@@ -1,7 +1,7 @@
 <%@ include file="userCommonHeader.jsp"%>
 
 <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
-<script src="js/jquery-ui.min.js"></script>
+<script src="${baseurl}/js/jquery-ui.min.js"></script>
 
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" />
 

@@ -14,7 +14,7 @@
 </style>
 <script src="${baseurl }/js/jquery-ui.min.js"></script>
 <script src="${baseurl }/js/mdtimepicker.js"></script>
-<script src="js/plugins/select2/select2.min.js"></script>
+<script src="${baseurl }/js/plugins/select2/select2.min.js"></script>
 <div id="main">
 <div class="container-fluid">
 	<div class="page-header">
@@ -223,7 +223,7 @@
 									<div class="col-sm-8">
 									  	<form:select path="currentState" onfocus="removeBorder(this.id)" onchange="getCitys(this.id)" onblur="validate(this.id,'');"    class="form-control" >
 											<form:option value="">-- Choose State --</form:option>
-												<form:options items="${states}" ></form:options>
+												<form:options items="${states_map}" ></form:options>
 										</form:select>
 								  		<div><form:errors path="currentState" cssClass="error" /></div>
 									</div>
@@ -235,7 +235,7 @@
 									<div class="col-sm-8">
 									  	<form:select path="currentCity" onfocus="removeBorder(this.id)" onchange="updateUserName(this.value)" class="form-control validate" >
 											<form:option value="">-- Choose City --</form:option>
-											<form:options items="${citys }"></form:options>
+											<form:options items="${cities_map }"></form:options>
 										</form:select>
 								  		<div><form:errors path="currentCity" cssClass="error" /></div>
 									</div>
@@ -264,7 +264,7 @@
 									<div class="col-sm-8">
 									  	<form:select path="caste" class="form-control u validate" onfocus="removeBorder(this.id)">
 											<form:option value="">-- Choose Community --</form:option>
-<%-- 											<form:options items="${cast}"></form:options> --%>
+ 											<form:options items="${castes_list}"></form:options> 
 										</form:select>
 								  		<div><form:errors path="caste" cssClass="error" /></div>
 									</div>
@@ -551,7 +551,7 @@
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
-									<label class="col-sm-4 control-label">Fath er's Occupation </label>
+									<label class="col-sm-4 control-label">Father's Occupation </label>
 									<div class="col-sm-8">
 										<form:select path="fOccupation" class="form-control u1">
 											<form:options items="${maleOccupation}"></form:options>
@@ -640,7 +640,7 @@
 							<div class="col-md-offset-5 col-md-4">
 								<div class="form-group">
 									<div class=" col-md-offset-1 col-md-6">
-										<input class="btn btn-primary" type="submit" id="submit1" name="yt0" value="Submit">
+										<input class="btn btn-primary" type="submit" id="submit1"  name="yt0" value="Submit">
 										<input class="btn btn-danger cancel" type="reset" id="reset11" name="yt1" value="Reset">
 									</div>
 								</div>
@@ -656,17 +656,17 @@
 </div>
 </div>
 
-<!-- <script type="text/javascript" src="js/custom.js"></script> -->
+<!-- <script type="text/javascript" src="${baseurl }/js/custom.js"></script> -->
 <script type="text/javascript">
-$(document).ready(function(){
+/* $(document).ready(function(){
 	getReliginCastAjax()
-})
+}) */
 function getReliginCastAjax() {
 	var religionId = $("#religion").val();
 		var formData = new FormData();
 		formData.append("religionId",religionId);
 		$('#caste').find('option').not(':first').remove();
-	$.fn.makeMultipartRequest('POST', '${baseurl}/castesBasedOnReligion', false,
+	$.fn.makeMultipartRequest('POST', 'castesBasedOnReligion', false,
 			formData, false, 'text', function(data){
 		var jsonobj = $.parseJSON(data);
 		var alldata = jsonobj.allOrders1;
@@ -719,6 +719,35 @@ $("#reset11").click(function(){
 	$("select.select2").select2('data', {}); // clear out values selected
 	$("select.select2").select2({ allowClear: true });
 });
+
+function submitSearch(){
+	
+	
+	var ageFrom = $("select[name='rAgeFrom']").val();
+	var ageTo = $("select[name='rAgeTo']").val();
+	var heightFrom = $("#rHeight").val();
+	if(heightFrom!=""){
+		heightFrom = parseInt(heightFrom);
+	}
+	var heightTo = $("#rHeightTo").val();
+	if(heightTo!=""){
+		heightTo = parseInt(heightTo);
+	}
+	if(ageFrom > ageTo){
+		alert("Sorry, Invalid Age range");
+		return false;
+	}else if(heightFrom > heightTo){
+		alert("Sorry, Invalid Height range");
+		return false;
+	}else{
+		return true;
+	}
+	
+}
+
+
+
+
 $("#submit11").click(function()
 {
 						if($('#email').val() ==  null || $('#email').val() == "" || $('#email').val()=="undefined"||$('#createProfileFor').val() ==  null || $('#createProfileFor').val() == ""  || $('#createProfileFor').val()=="undefined"||$('#lastName').val() ==  null || $('#lastName').val() == ""  || $('#lastName').val()=="undefined"||$('#dob').val() ==  null || $('#dob').val() == ""  || $('#dob').val()=="undefined"||$('#religion').val() ==  null || $('#religion').val() == ""  || $('#religion').val()=="undefined"||$('#motherTongue').val() ==  null || $('#motherTongue').val() == ""  || $('#motherTongue').val()=="undefined"||$('#currentCountry').val() ==  null || $('#currentCountry').val() == ""  || $('#currentCountry').val()=="undefined"||$('#currentState').val() ==  null || $('#currentState').val() == ""  || $('#currentState').val()=="undefined"||$('#currentCity').val() ==  null || $('#currentCity').val() == ""  || $('#currentCity').val()=="undefined"||$('#maritalStatus').val() ==  null || $('#maritalStatus').val() == ""  || $('#maritalStatus').val()=="undefined"||$('#caste').val() ==  null || $('#caste').val() == ""  || $('#caste').val()=="undefined"||$('#education').val() ==  null || $('#education').val() == ""  || $('#education').val()=="undefined"||$('#smoking').val() ==  null || $('#smoking').val() == ""  || $('#smoking').val()=="undefined"||$('#drinking').val() ==  null || $('#drinking').val() == ""  || $('#drinking').val()=="undefined"||$('#height').val() ==  null || $('#height').val() == ""  || $('#height').val()=="undefined"||$('#mobile').val() ==  null || $('#mobile').val() == ""  || $('#mobile').val()=="undefined"||$("input[name='gender']").is(':checked') != true||$("#mobile").val().length<10)
@@ -872,6 +901,23 @@ $("#submit11").click(function()
 								}
 								
 							}
+							var ageFrom = $("select[name='rAgeFrom']").val();
+							var ageTo = $("select[name='rAgeTo']").val();
+							var heightFrom = $("#rHeight").val();
+							if(heightFrom!=""){
+								heightFrom = parseInt(heightFrom);
+							}
+							var heightTo = $("#rHeightTo").val();
+							if(heightTo!=""){
+								heightTo = parseInt(heightTo);
+							}
+							if(ageFrom > ageTo){
+								alert("Sorry, Invalid Age range");
+								return false;
+							}else if(heightFrom > heightTo){
+								alert("Sorry, Invalid Height range");
+								return false;
+							}
 	}
 	$("#creteProfile").submit();
 });
@@ -911,10 +957,10 @@ function getCitys(id){
 		var formData = new FormData();
 	     formData.append('id', stateId);
 	     formData.append('state_ids', stateId);
-	     var actionStr = "../getCitys";
+	     var actionStr = "getCitys";
 	     var nextPage = "${pageName}";
 	     if(nextPage!=null && nextPage!="" && nextPage!="undefined"){
-	    	 actionStr = "../../../getCitys";
+	    	 actionStr = "../../getCitys";
 	     }
 		$.fn.makeMultipartRequest('POST', actionStr, false,
 				formData, false, 'text', function(data){
@@ -939,16 +985,20 @@ function getFilteredStates(id){
 		$("#currentState").attr("readonly", true);
 		$("#currentState").attr("disabled" ,"disabled");
 		$("#currentState").val("");
+		
+		$("#currentCity").attr("readonly", true);
+		$("#currentCity").attr("disabled" ,"disabled");
+		$("#currentCity").val("");
 	}else{
 		$("#currentState").removeAttr("disabled");
 		$("#currentState").removeAttr("readonly");
 		var countryId =$("#"+id).val();
 		var formData = new FormData();
 	     formData.append('country_ids', countryId);
-	     var actionStr = "../getFilteredStates";
+	     var actionStr = "getFilteredStates";
 	     var nextPage = "${pageName}";
 	     if(nextPage!=null && nextPage!="" && nextPage!="undefined"){
-	    	 actionStr = "../../../getFilteredStates";
+	    	 actionStr = "../../getFilteredStates";
 	     }
 		$.fn.makeMultipartRequest('POST', actionStr, false,
 				formData, false, 'text', function(data){
@@ -975,10 +1025,10 @@ function getFilteredStatesMultiSelect(id){
 		var countryIds =$("#"+id).val();
 		var formData = new FormData();
 	     formData.append('country_ids', countryIds);
-	     var actionStr = "../getFilteredStates";
+	     var actionStr = "getFilteredStates";
 	     var nextPage = "${pageName}";
 	     if(nextPage!=null && nextPage!="" && nextPage!="undefined"){
-	    	 actionStr = "../../../getFilteredStates";
+	    	 actionStr = "../../getFilteredStates";
 	     }
 	    $.fn.makeMultipartRequest('POST', actionStr, false,
 				formData, false, 'text', function(data){
@@ -995,18 +1045,13 @@ function getFilteredStatesMultiSelect(id){
 		
 	}
 }
-
-var mobileExists = true;
+var nextPage1 = "${pageName}";
+var mobileExists = false;
 function isMobileNumDuplicate(){
 	var formData = new FormData();
     formData.append('mobile', $("#mobile").val());
     formData.append('id', $("#id").val());
-    var actionStr = "../mobileNumChecking";
-    var nextPage = "${pageName}";
-    if(nextPage!=null && nextPage!="" && nextPage!="undefined"){
-   	 actionStr = "../../../mobileNumChecking";
-    }
-	$.fn.makeMultipartRequest('POST', actionStr, false,
+	$.fn.makeMultipartRequest('POST', '${baseurl}/mobileNumChecking', false,
 			formData, false, 'text', function(data){
 		var jsonobj = $.parseJSON(data);
 		if(jsonobj.msg =="exist"){
@@ -1104,8 +1149,64 @@ function updateUserName(cityId){
 	}
 }
 
+function populateBrothersMarried() {
+
+	var val = $("#noOfBrothers").val();
+
+	if (val == 'None') {
+		$("#noOfBrothersMarried").val("");
+		$('#noOfBrothersMarried')
+				.attr("disabled", true);
+	} else {
+		$('#noOfBrothersMarried').find('option').not(
+				':first').remove();
+		$("#noOfBrothersMarried").append(
+				'<option>None</option>');
+		for (var i = 1; i <= val; i++) {
+			$("#noOfBrothersMarried").append(
+					'<option>' + i + '</option>');
+		}
+		$('#noOfBrothersMarried').attr("disabled",
+				false);
+	}
+}
+function populateSistersMarried() {
+
+	var val = $("#noOfSisters").val();
+
+	if (val == 'None') {
+		$("#noOfSistersMarried").val("");
+		$('#noOfSistersMarried')
+				.attr("disabled", true);
+	} else {
+		$('#noOfSistersMarried').find('option').not(
+				':first').remove();
+		$("#noOfSistersMarried").append(
+				'<option>None</option>');
+		for (var i = 1; i <= val; i++) {
+			$("#noOfSistersMarried").append(
+					'<option>' + i + '</option>');
+		}
+		$('#noOfSistersMarried').attr("disabled",
+				false);
+	}
+}
+
+
 $(document).ready(
 		function() {
+			populateBrothersMarried();
+			var selected_value = "${userBean.noOfBrothersMarried}";
+		    if(selected_value != "" && selected_value!=null){
+		    	$("#noOfBrothersMarried").val(selected_value);
+		    }
+		    
+		    populateSistersMarried();
+			selected_value = "${userBean.noOfSistersMarried}";
+		    if(selected_value != "" && selected_value!=null){
+		    	$("#noOfSistersMarried").val(selected_value);
+		    }
+		    
 			$('#noOfBrothers').change(
 					function() {
 

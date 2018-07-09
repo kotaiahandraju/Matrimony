@@ -72,7 +72,7 @@ hr:hover {
 						>
 						<p>
 							<a
-								href="fullProfile?pid=${notification.profile_id}&nid=${notification.id}&rfrm=notifications"
+								href="fullProfile?id=${notification.profile_id}"
 								target="_blank"> <b><c:out
 										value="${notification.fullName}" /> (<c:out
 										value="${notification.username}" />)</b> paid an amount of

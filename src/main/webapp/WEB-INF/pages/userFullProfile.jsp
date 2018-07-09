@@ -17,17 +17,17 @@
 <link href="user/css/style-profile.css" rel="stylesheet" type="text/css" media="all" />
 <link href="user/css/megamenu.css" rel="stylesheet" type="text/css" media="all" />
 <!-- js -->
-<script src="user/js/jquery-1.11.1.min.js"></script>
+<script src="${baseurl}/user/js/jquery-1.11.1.min.js"></script>
 <!-- //js -->
 <!-- start-smoth-scrolling -->
-<!-- <script type="text/javascript" src="user/js/move-top.js"></script>
-<script type="text/javascript" src="user/js/easing.js"></script>
-<script type="text/javascript" src="user/js/megamenu.js"></script>
+<!-- <script type="text/javascript" src="${baseurl}/user/js/move-top.js"></script>
+<script type="text/javascript" src="${baseurl}/user/js/easing.js"></script>
+<script type="text/javascript" src="${baseurl}/user/js/megamenu.js"></script>
 <script>$(document).ready(function(){$(".megamenu").megamenu();});</script>
-<script src="user/js/menu_jquery.js"></script>
+<script src="${baseurl}/user/js/menu_jquery.js"></script>
 <link href='http://fonts.googleapis.com/css?family=Monda:400,700' rel='stylesheet' type='text/css'> -->
 <!-- the jScrollPane script -->
-<!-- <script type="text/javascript" src="js/jquery.jscrollpane.min.js"></script>
+<!-- <script type="text/javascript" src="${baseurl}/js/jquery.jscrollpane.min.js"></script>
 		<script type="text/javascript" id="sourcecode">
 			$(function()
 			{

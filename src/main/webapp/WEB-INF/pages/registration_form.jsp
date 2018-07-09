@@ -5,7 +5,7 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 
-			<div class="col-md-5 col-sm-12">
+			<div class="col-md-5 col-sm-12" style="float:right; padding-top:8px;">
 				<div class="stepwizard">
 				    <div class="stepwizard-row">
 				        <div class="stepwizard-step">
@@ -46,7 +46,7 @@
 
 					<!-- 1st Step starts here-->
 					<div id="firstForm" class="dispnone">
-						<div class="col-md-12">
+						<div class="col-md-1"></div><div class="col-md-11">
 							<h3>Thanks for Registering. Now let's build your profile</h3>
 						</div>
 						<!-- Text inputs-->
@@ -90,7 +90,7 @@
 							<div class="col-md-6">
 								<form:select path="caste" class="form-control u" onblur="validate(this.id,'');" onfocus="removeBorder(this.id)">
 									<form:option value="">-- Choose Community --</form:option>
-								<%-- 	<form:options items="${cast}"></form:options> --%>
+									<form:options items="${castes_list}"></form:options> 
 								</form:select>
 							</div>
 						</div>
@@ -131,7 +131,7 @@
 					
 					<!-- 2nd Step starts here-->
 					<div id="secondForm" class="dispnone">
-						<div class="col-md-12">
+						<div class="col-md-1"></div><div class="col-md-11">
 							<h3>Just A Few More Steps! Please Add Your Education & Career Details</h3>
 						</div>
 						<div class="form-group">
@@ -194,7 +194,7 @@
 
 					<!-- 3rd Step starts here-->
 					<div id="thirdForm" class="dispnone">
-					    <div class="col-md-12">
+					    <div class="col-md-1"></div><div class="col-md-11">
 					      <h3>Add your lifestyle details and we are almost done</h3>
 					    </div>
 					    <div class="form-group">
@@ -263,8 +263,9 @@
 					    <div class="form-group">
 					      <label class="col-md-4 control-label" for="textinput">Your Mobile Number <span class='manditory'>*</span></label>  
 					      <div class="col-md-6">
-					      <form:input path="mobile" class="form-control numbersOnly u"  onblur="validate(this.id,'Enter Mobile');" onkeydown="removeBorder(this.id)" maxlength="10" placeholder="Mobile Number"/>
-					      <span class="hasError" id="mobileError" style="font-size: 13px;color:red"></span>
+					      <form:input path="mobile" class="form-control numbersOnly u"  onkeydown="removeBorder(this.id)" maxlength="10" placeholder="Mobile Number"/>
+					      <span class="hasError" id="mobileError111" style="font-size: 13px;color:red"></span>
+					      <input type="hidden" id="req_from" value="user" >
 					      </div>
 					    </div>
 					
@@ -279,11 +280,11 @@
 
 					<!-- 4th Step starts here-->
 					<div id="fourthForm" class="dispnone">
-					    <div class="col-md-12">
+					    <div class="col-md-1"></div><div class="col-md-11">
 					      <h3>One last thing! Describe yourself in a few words</h3>
 					    </div>
 					    <div class="form-group">
-					      <label class="col-md-4 control-label" for="textinput">About myself</label>
+					      <label class="col-md-4 control-label" for="textinput">About myself<span style="color:red;">*</span></label>
 					     
 					      <div class="col-md-6">
 					      	<form:textarea rows="6" path="aboutMyself" onkeyup="checkLen()"  onfocus="colorChange()" class="form-control u"></form:textarea>
@@ -325,10 +326,10 @@
 	    </c:otherwise>
 	</c:choose>
     
- <script src="js/ajax.js"></script>
+ <script src="${baseurl}/js/ajax.js"></script>
 <!--  <script src="js/jquery.blockUI.min.js"></script> -->
 <script>
-var mobileExists = false;
+var mobileExists = true;
 $( document ).ready(function() {
 	if($("#currentState").val()== null   || $("#currentState").val() == "" || $("#currentState").val()=="undefined"){
 		$("#currentCity").attr("readonly", true);
@@ -339,8 +340,8 @@ $( document ).ready(function() {
 	      $("#thirdForm").hide();
 	      $("#fourthForm").hide();
 	      
-	      var religionId =${cacheGuest.religion};
-		  getReliginCastAjax(religionId); 
+	      //var religionId =${cacheGuest.religion};
+		  //getReliginCastAjax(religionId); 
 	      
 			
 	 var pagenum = "${pagenum}";
@@ -528,43 +529,53 @@ function thirdForm(event)
 	else
 	{
 		if($('#mobile').val().trim().length<10){
-			$('#mobileError').text("Enter a valid mobile number.");
+			$('#mobileError111').text("Enter a valid mobile number.");
 			event.preventDefault();
 			return false;
 		}
 		else{
-			isMobileNumDuplicate();
-		
-			/* if(mobileExists){
-				 $("#firstForm").hide();
-				$('#secondForm').hide();
-				$("#thirdForm").show();
-				$('#fourthForm').hide();
-				ChangeUrl('page1', 'profile.htm?page=4');
-				event.preventDefault();
-				
-				$("#step1").removeClass("btn-primary");
-				 $("#step2").removeClass("btn-primary");
-				 $("#step3").removeClass("btn-primary");
-				 $("#step4").addClass("btn-primary"); 
-				 event.preventDefault();
-				return false;
-			}else{
-				$("#firstForm").hide();
-				$('#secondForm').hide();
-				$("#thirdForm").hide();
-				$('#fourthForm').show();
-				ChangeUrl('page1', 'profile.htm?page=4');
-				event.preventDefault();
-				
-				$("#step1").removeClass("btn-primary");
-				 $("#step2").removeClass("btn-primary");
-				 $("#step3").removeClass("btn-primary");
-				 $("#step4").addClass("btn-primary");
-				return true;
-			} */
-			return true;
+			//isMobileNumDuplicate();
+			$('#mobileError111').text('');
+			var formData = new FormData();
+		    formData.append('mobile', $("#mobile").val());
+		    formData.append('id', $("#id").val());
+			$.fn.makeMultipartRequest('POST', 'mobileNumChecking', false,formData, false, 'text', function(data){
+				var jsonobj = $.parseJSON(data);
+				if(jsonobj.msg =="exist"){
+					mobileExists = true;
+					//error message write
+					$('#mobileError111').text("Mobile number already in Use. Please try another.");
+					$("#firstForm").hide();
+					$('#secondForm').hide();
+					$("#thirdForm").show();
+					$('#fourthForm').hide();
+					ChangeUrl('page1', 'profile.htm?page=3');
+					event.preventDefault();
+					$("#step1").removeClass("btn-primary");
+					 $("#step2").removeClass("btn-primary");
+					 $("#step3").addClass("btn-primary");
+					 $("#step4").removeClass("btn-primary"); 
+				}else{
+					mobileExists = false;
+					$('#mobileError111').text("");
+					$("#firstForm").hide();
+					$('#secondForm').hide();
+					$("#thirdForm").hide();
+					$('#fourthForm').show();
+					ChangeUrl('page1', 'profile.htm?page=4');
+					event.preventDefault();
+					
+					$("#step1").removeClass("btn-primary");
+					 $("#step2").removeClass("btn-primary");
+					 $("#step3").removeClass("btn-primary");
+					 $("#step4").addClass("btn-primary");
+					return true;
+				}
+			});
+			
+			//return true;
 		}
+		return true;
 	}
 }
 function fourthForm(event){
@@ -803,9 +814,10 @@ function getCitys(id){
 			var jsonobj = $.parseJSON(data);
 			if(jsonobj.msg =="exist"){
 				//error message write
-				$('#mobileError').text("Mobile number already in Use. Please try another.");
+				$('#mobileError111').text("Mobile number already in Use. Please try another.");
 				mobileExists = true;
-				$("#firstForm").hide();
+				return true;
+				/* $("#firstForm").hide();
 				$('#secondForm').hide();
 				$("#thirdForm").show();
 				$('#fourthForm').hide();
@@ -815,12 +827,13 @@ function getCitys(id){
 				 $("#step2").removeClass("btn-primary");
 				 $("#step3").addClass("btn-primary");
 				 $("#step4").removeClass("btn-primary");
-				return true;
+				return true; */
 				
 			}else{
-				$('#mobileError').text("");
+				$('#mobileError111').text("");
 				mobileExists = false;
-				$("#firstForm").hide();
+				return false;
+				/* $("#firstForm").hide();
 				$('#secondForm').hide();
 				$("#thirdForm").hide();
 				$('#fourthForm').show();
@@ -831,7 +844,7 @@ function getCitys(id){
 				 $("#step2").removeClass("btn-primary");
 				 $("#step3").removeClass("btn-primary");
 				 $("#step4").addClass("btn-primary");
-				return true;
+				return true; */
 				
 			}
 		});

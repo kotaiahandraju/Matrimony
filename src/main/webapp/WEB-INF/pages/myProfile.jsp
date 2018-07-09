@@ -5,10 +5,10 @@
     <!-- for Raxus Slider #end -->
 
     <!-- for documentation: you don't need them -->
-    <link rel="stylesheet" href="documentation/css/documentation.css" media="screen" type="text/css">
-    <link rel="stylesheet" href="../yandex.st/highlightjs/8.0/styles/default.min.css" media="screen" type="text/css">
-    <script type="text/javascript" src="documentation/js/document.js"></script>
-    <script src="documentation/js/highlight.pack.js"></script>
+    <link rel="stylesheet" href="${baseurl }/documentation/css/documentation.css" media="screen" type="text/css">
+    <link rel="stylesheet" href="http://yandex.st/highlightjs/8.0/styles/default.min.css" media="screen" type="text/css">
+    <script type="text/javascript" src="${baseurl }/documentation/js/document.js"></script>
+    <script src="${baseurl }/documentation/js/highlight.pack.js"></script>
      
     <script>hljs.initHighlightingOnLoad();</script>
     <!-- for documentation #end: you don't need them -->
@@ -340,24 +340,35 @@ $(".onlyCharacters").on("keypress",	function(event) {
     <form:hidden path="redirectPage" value="dashboard"></form:hidden>
     <form:hidden path="pageName"></form:hidden>
     <form:hidden path="id"></form:hidden>
-
+	<input type="hidden" id="req_from" value="user" >
 <div>
 <div>
 
         <div class="panel" style="background:#F7F6F7; padding:20px 15px;">
             <div class="col-md-3">
                 <c:if test="${not empty cacheGuest.profileImage}">
-                	<a href="#" id="fullProfilePicOuterTag" data-toggle="modal" data-target="#myModalNew"><img  src="${cacheGuest.profileImage}" class="hover-shadow cursor img img-responsive thumbnail watermark_text" style="margin-bottom:0;height:auto;width: 100%;" /></a>
+                	<div class="fullprofile" style="height:220px; overflow:hidden;"">
+                		<a href="#" id="fullProfilePicOuterTag" data-toggle="modal" data-target="#myModalNew"><img  src="${baseurl}/${cacheGuest.profileImage}" class="hover-shadow cursor img img-responsive thumbnail watermark_text" style="margin-bottom:0;height:auto;width: 100%;" /></a>
+                	</div>
+                	<div align="center">
+	                    <a href="myPhotos" style="font-size:12px; padding:12px 0; text-align:center; font-weight:600; color:#006699;"> Add / Edit  Photos</a>
+	                </div>
 <%--                     <a href="#no" id="fullProfilePicOuterTag"><div  style="width:100%; max-height:195px; overflow:hidden;"><img src="${cacheGuest.profileImage}"   onclick="openModal();currentSlide(1)" class="cursor watermark_text" style="width:100%; height:auto;"></div></a> --%>
-                     <%-- <div id="gallery-wrapper">
+                      <div id="gallery-wrapper">
                         <!-- thumbnail images -->
                           <div id="thumbs-wrapper">
-                            <div id="gallery" style="margin:-10px 8px 8px;width:200%">
+                            <div id="gallery" style="margin:-10px 8px 8px;width:100%;width: 100%;
+    overflow: hidden;
+    height: 81px;
+    display: block;">
                                 <c:set var="counter3" value="${0}" /> 
                                 <c:forEach items="${photosList}" var="photo" >
                                     <c:set var="counter3" value="${counter3+1}" />
-                                    <div class="thumbnail" style=""> 
-                                        <img src="${photo.image}" class="watermark_text" style="width:100%"  onclick="currentSlide_inpage('${photo.image}')"/> 
+                                    <div class="profilethumbnail" style="float: left;width: 69px;
+    height: 69px;
+    padding: 0px;
+    margin: 5px; "> 
+                                        <img src="${baseurl}/${photo.image}" class="watermark_text" style="width:100%;  onclick="currentSlide_inpage('${photo.image}')"/> 
                                     </div>
                                 </c:forEach>
                             </div> 
@@ -369,14 +380,12 @@ $(".onlyCharacters").on("keypress",	function(event) {
                             <a id="gallery-prev" style="margin-left:0px; margin-top:-80px;" href="#">previous</a>
                             <p id="gallery-pos" hidden="true">page 1 of 2</p>
                           </div>
-                    </div> --%>
+                    </div> 
                 </c:if>
                 <c:if test="${empty cacheGuest.profileImage}">
                     <img src="img/default.png" class="img-responsive" style="margin-bottom:0;">
                 </c:if>
-                <div align="center">
-                    <a href="myPhotos" style="font-size:12px; padding:12px 0; text-align:center; font-weight:600; color:#006699;"> Add / Edit  Photos</a>
-                </div>
+                
              </div>
              <div class="col-md-6">
                  <h3><p class="name_val">${profileBean.firstName} ${profileBean.lastName}</h3><h4> (${cacheGuest.username})</p></h4>
@@ -387,9 +396,9 @@ $(".onlyCharacters").on("keypress",	function(event) {
                 ${profileBean.educationName}, ${profileBean.occupationName}</p>
                 <div id="editMobileDiv" hidden="true">
                 	<input type="text" placeholder="+91-${cacheGuest.mobile}" id="mobile" class="numbersOnly" onblur="validate(this.id,'Enter Mobile Number');" maxlength="10" />
-                	<br><span class="hasError" id="mobileError" style="font-size: 13px;color:red"></span>
+                	<br><span class="hasError" id="mobileError111" style="font-size: 13px;color:red"></span>
                 </div> 
-                <div id="mobileNoDiv"><span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px; font-weight:600;">&nbsp;<span id="mobileNoText">+91-${cacheGuest.mobile}</span>&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font>&nbsp;&nbsp;</span>&nbsp;</div>
+                <div id="mobileNoDiv"><span style="background:url(${baseurl}/user/images/mobile.gif) no-repeat left top;padding-left:13px; font-weight:600;">&nbsp;<span id="mobileNoText">+91-${cacheGuest.mobile}</span>&nbsp;<font class="mediumtxt">(&nbsp;<img src="${baseurl}/user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font>&nbsp;&nbsp;</span>&nbsp;</div>
                 <a href="#no" id="editMobileAnchor" style="color:blue; font-size:12px; text-decoration:none;"  onclick="displayEditMobilenumberDiv(${profileBean.id},'${cacheGuest.mobile}')">Edit Mobile No.</a>
                  <br>
                 
@@ -397,7 +406,7 @@ $(".onlyCharacters").on("keypress",	function(event) {
                 <div class="col-md-3">
                
              <p style=" color:#000;font-size: 13px; text-align:center;">How your profile looks
-                to others <a href="#no" onclick="fullProfile(${profileBean.id})" class="" style=" width:auto; border:1px solid #cccccc;padding:7px 10px 7px 40px;display:inline-block;border-radius:5px;background:url(user/images/eye.gif) no-repeat 10px 8px;margin-top:5px;text-decoration:none;">Profile Preview</a>
+                to others <br><a href="#no" onclick="fullProfile(${profileBean.id})" class="" style=" width:auto; border:1px solid #cccccc;padding:7px 40px 7px 40px;display:inline-block;border-radius:5px;background:url(${baseurl}/user/images/eye.gif) no-repeat 10px 8px;margin-top:5px;text-decoration:none;">Profile Preview</a>
                 </p></div>
 
 <div class="clearfix"></div>
@@ -537,7 +546,7 @@ $(".onlyCharacters").on("keypress",	function(event) {
         <jsp:include page="basic_details.jsp" />
     </div></div></div>
 </div><br><div class="clearfix"></div>
-<!-- <div class="col-md-1"><img src="user/images/media.png"></div>
+<!-- <div class="col-md-1"><img src="${baseurl}/user/images/media.png"></div>
     <div class="col-md-11">	
     <strong class="font">Contact Details</strong>
 <p>
@@ -637,13 +646,13 @@ $(".onlyCharacters").on("keypress",	function(event) {
 </tr>
 <tr>
     <td>City</td><td>:</td>
-    <td id="currentState_val">
+    <td id="currentCity_val">
         <c:if test="${not empty profileBean.currentCityName}">${profileBean.currentCityName}</c:if>
         <c:if test="${empty profileBean.currentCityName}">Not Specified</c:if>
     </td>
 </tr>
 <tr><td>State</td><td>:</td>
-    <td id="currentCity_val">
+    <td id="currentState_val">
         <c:if test="${not empty profileBean.currentStateName}">${profileBean.currentStateName}</c:if>
         <c:if test="${empty profileBean.currentStateName}">Not Specified</c:if>
     </td>
@@ -768,6 +777,7 @@ $(".onlyCharacters").on("keypress",	function(event) {
 </div>
 
 <br>
+<div id="partnerPreferences">
 <h3>Partner Preferences</h3>
 <div class="panel panel-default" style="background:#FDFDFD;">
     <div class="panel-body table-responsive">
@@ -1053,7 +1063,10 @@ $(".onlyCharacters").on("keypress",	function(event) {
 </div>
 </div>
 </div>
+</div>
 </div></div>
+
+
 
 </form:form> 
 </div>
@@ -1070,7 +1083,7 @@ $(".onlyCharacters").on("keypress",	function(event) {
 <div class="panel-heading">Add Horoscope</div>
         <div class="panel-body table-responsive">
             <div class="col-md-3" style='width: 232px; display: -webkit-box;'>
-        <img src="user/images/edit-add-horoscope.gif" width="40" style='margin: 0px 0px 0px -25px;'>
+        <img src="${baseurl}/user/images/edit-add-horoscope.gif" width="40" style='margin: 0px 0px 0px -25px;'>
     <p style="margin-left: 29px;">It is simple and absolutely FREE!</p></div>
         </div>
     </div>
@@ -1079,7 +1092,7 @@ $(".onlyCharacters").on("keypress",	function(event) {
 <div class="panel-heading">Add Photos Now</div>
         <div class="panel-body table-responsive">
             <div class="col-md-3" style='width: 232px; display: -webkit-box;'>
-        <img src="user/images/add-photo-edit-avatar.png" width="40" style='margin: 0px 0px 0px -25px;'>
+        <img src="${baseurl}/user/images/add-photo-edit-avatar.png" width="40" style='margin: 0px 0px 0px -25px;'>
     <p style="margin-left: 29px;">Photos are the first things members look for in a profile.</p></div>
         </div>
     </div><div class="clearfix"></div>
@@ -1089,10 +1102,12 @@ $(".onlyCharacters").on("keypress",	function(event) {
  </div>           
 </div>           
 </div>
-<script src="js/jquery-ui.min.js"></script>
-<link href="css/datepicker1.css" rel="stylesheet" type="text/css" />
+<script src="${baseurl}/js/jquery-ui.min.js"></script>
+<link href="${baseurl}/css/datepicker1.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
 $(document).ready(function(){
+	
+	
 	$('.multiSelect').select2();
 	
 	/* $("#rReligion").select2({
@@ -1284,6 +1299,20 @@ $(document).ready(function(){
 	 var genderVal = "${profileBean.gender}";
 	$('input[name=gender][value='+genderVal+']').prop("checked",true); 
 	
+	$("#rAgeFrom").val("${profileBean.rAgeFrom}");
+	$("#rAgeFrom").trigger("chosen:updated");
+	// set rAgeTo also
+	$('#rAgeFrom').trigger("change");
+	$("#rAgeTo").val("${profileBean.rAgeTo}");
+	$("#rAgeTo").trigger("chosen:updated");
+	
+	$("#rHeight").val("${profileBean.rHeight}");
+	$("#rHeight").trigger("chosen:updated");
+	// set height to also
+	$('#rHeight').trigger("change");
+	$("#rHeightTo").val("${profileBean.rHeightTo}");
+	$("#rHeightTo").trigger("chosen:updated");
+	
 	$('.multiSelect').trigger('change.select2');
 	
 });
@@ -1433,7 +1462,23 @@ function checkLen(){
 		$('#errorMsg').text("Please enter minimum 50 charectors...");
 		return false;
 	}
-	
+	var ageFrom = $("select[name='rAgeFrom']").val();
+	var ageTo = $("select[name='rAgeTo']").val();
+	var heightFrom = $("#rHeight").val();
+	if(heightFrom!=""){
+		heightFrom = parseInt(heightFrom);
+	}
+	var heightTo = $("#rHeightTo").val();
+	if(heightTo!=""){
+		heightTo = parseInt(heightTo);
+	}
+	if(ageFrom > ageTo){
+		alert("Sorry, Invalid Age range");
+		return false;
+	}else if(heightFrom > heightTo){
+		alert("Sorry, Invalid Height range");
+		return false;
+	}
 	$.fn.makeMultipartRequest('POST', 'editProfile', false,
 			formData, false, 'text', function(data){
 		var jsonobj = $.parseJSON(data);
@@ -1444,6 +1489,8 @@ function checkLen(){
 				updateViewValues(data_type);
 				
 				if(data_type=="partner_basic"){
+					
+					
 					updateMultiDropDownValues("rMaritalStatus");
 					updateMultiDropDownValues("rReligion");
 					updateMultiDropDownValues("rCaste");
@@ -1483,6 +1530,27 @@ function checkLen(){
 	});
 } 
  
+  function cancelChanges(block){
+	  if(block=="about"){
+		  var current_val = $("#aboutMyself_val").html().trim();
+		  $("#aboutMyself").val(current_val);
+	  }else if(block=="location"){
+		  var current_country_val = $("#currentCountry_val").html().trim();
+		  var current_state_val = $("#currentState_val").html().trim();
+		  var current_city_val = $("#currentCity_val").html().trim();
+		  var tem = $("#currentCountry option:selected").val();
+		  //$("#currentCountry").val(tem);
+		  var t1 = $("#currentCountry option:selected").text();
+		  var t2 = $("#currentCountry option").text();
+		  $("#currentState").val(current_state_val);
+		  $("#currentCity").val(current_city_val);
+		  $("#currentCountry").trigger("chosen:updated");
+		  $("#currentState").trigger("chosen:updated");
+		  $("#currentCity").trigger("chosen:updated");
+	  }
+	  toggleDiv(block);
+  }
+  
   function fullProfile(profile_id){
 		
 		$("#id").val(profile_id);

@@ -47,7 +47,7 @@ function notificationId(id){
 													<div class="notifications1 col-md-12" id="notificationdiv${notification.id}" onclick="notificationId(this.id);">
 													<div class="col-md-2 preprofile"  >
 														<c:if test="${not empty notification.profileImage}">
-														<div align="center"><img src="${notification.profileImage}" style="max-width: 100%; height:auto;" class="img-responsive"></div>
+														<div align="center"><img src="${baseurl}/${notification.profileImage}" style="max-width: 100%; height:auto;" class="img-responsive"></div>
 														</c:if>
 														<c:if test="${empty notification.profileImage}">
 															<img src="img/default.png" style="max-width: 100%; height:60px;padding: 5px;" class="img-responsive">

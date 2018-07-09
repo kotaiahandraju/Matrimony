@@ -6,7 +6,8 @@
 	</div>
 
 	<footer class="footer" id="footer"><!-- Section id-->
-    	<div class="row">
+	<div class="container">
+    	<div class="row"  style="margin-left:15px !important; margin-right:15px !important;">
 			<div class="col-md-6 col-sm-6">
 				<div class="logo-footer">
 <!-- 					<img src="user/images/logo-b.png" alt="" class="img-responsive" /> -->
@@ -22,7 +23,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="row">
+		<div class="row"  style="margin-left:15px !important; margin-right:15px !important;">
 		    <div class="col-md-6 col-sm-6">
 		    	<div class="social">
 		        	<ul class="list-inline">
@@ -39,6 +40,7 @@
 		        </div>
 		    </div>                
 		</div>
+		</div>
 	</footer>
 </div>
 	
@@ -51,19 +53,19 @@
     
    
     
-    <script src="user/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="${baseurl}/user/js/ie10-viewport-bug-workaround.js"></script>
 <!--     <script src="user/vendor/jquery/jquery.min.js"></script> -->
-    <script src="user/vendor/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-    <script src="user/vendor/bootstrap/js/bootstrap.min.js"></script>
-    <script src="user/vendor/scrollreveal/scrollreveal.min.js"></script>
-    <script src="user/js/theme.js"></script>
-    <script src="user/js/custom.js"></script>
-    <script defer src="user/vendor/woocommerce-FlexSlider/jquery.flexslider.js"></script>
-    <script src="user/js/toucheffects.js"></script>
-    <script src="js/customValidation.js"></script>
-    <script src="js/ajax.js"></script>
-    <script src="js/common.js"></script>
-    <script src="js/jquery.blockUI.min.js"></script>
+    <script src="${baseurl}/user/vendor/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+    <script src="${baseurl}/user/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="${baseurl}/user/vendor/scrollreveal/scrollreveal.min.js"></script>
+    <script src="${baseurl}/user/js/theme.js"></script>
+    <script src="${baseurl}/user/js/custom.js"></script>
+    <script defer src="${baseurl}/user/vendor/woocommerce-FlexSlider/jquery.flexslider.js"></script>
+    <script src="${baseurl}/user/js/toucheffects.js"></script>
+    <script src="${baseurl}/js/customValidation.js"></script>
+    <script src="${baseurl}/js/ajax.js"></script>
+    <script src="${baseurl}/js/common.js"></script>
+    <script src="${baseurl}/js/jquery.blockUI.min.js"></script>
     
 </body>
 </html>

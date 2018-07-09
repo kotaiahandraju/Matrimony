@@ -16,16 +16,16 @@
 	<!-- //for-mobile-apps -->
 	
     <!-- for Raxus Slider -->
-    <link rel="stylesheet" href="css/raxus.css" media="screen" type="text/css">
-    <script type="text/javascript" src="js/raxus-slider.min.js"></script>
+    <link rel="stylesheet" href="${baseurl}/css/raxus.css" media="screen" type="text/css">
+    <script type="text/javascript" src="${baseurl}/js/raxus-slider.min.js"></script>
     <!-- for Raxus Slider #end -->
 
     <!-- for documentation: you don't need them -->
    
-    <link rel="stylesheet" href="documentation/css/documentation.css" media="screen" type="text/css">
+    <link rel="stylesheet" href="${baseurl}/documentation/css/documentation.css" media="screen" type="text/css">
     <link rel="stylesheet" href="../yandex.st/highlightjs/8.0/styles/default.min.css" media="screen" type="text/css">
     <script type="text/javascript" src="documentation/js/document.js"></script>
-    <script src="documentation/js/highlight.pack.js"></script>
+    <script src="${baseurl}/documentation/js/highlight.pack.js"></script>
      
   
 
@@ -381,18 +381,18 @@ border:none;}
 			    	<h4>Benefits of <c:out value="${pack.name}"/> - <c:out value="${pack.duration}"/> Months</h4>
 					    <c:if test="${pack.highlight_profile == '1' }">
 					    	<div class="col-md-4 benefit1">
-						    	<p><img  src="images/icon1.png"/> Profile Highlighter </p>
+						    	<p><img  src="${baseurl}/images/icon1.png"/> Profile Highlighter </p>
 						    </div>
 					    </c:if>
 						<c:if test="${pack.allowed_messages_limit != null && pack.allowed_messages_limit != ''}">    
 						    <div class="col-md-4">
-						    <p><img  src="images/icon2.png"/>  Send <c:out value="${pack.allowed_messages_limit}"/> Personalized 
+						    <p><img  src="${baseurl}/images/icon2.png"/>  Send <c:out value="${pack.allowed_messages_limit}"/> Personalized 
 							Messages *</p>
 						    </div>
 					  	</c:if>
 					  	<c:if test="${pack.allowed_profiles_limit != null && pack.allowed_profiles_limit != '' && pack.allowed_profiles_limit != 0}">
 						    <div class="col-md-4">
-						    <p><img  src="images/icon3.png"/> View mobile numbers of <c:out value="${pack.allowed_profiles_limit}"/> members
+						    <p><img  src="${baseurl}/images/icon3.png"/> View mobile numbers of <c:out value="${pack.allowed_profiles_limit}"/> members
 							to contact </p>
 						    </div>
 			    		</c:if>

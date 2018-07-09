@@ -7,15 +7,21 @@
     <!-- for Raxus Slider #end -->
 
     <!-- for documentation: you don't need them -->
-    <link rel="stylesheet" href="documentation/css/documentation.css" media="screen" type="text/css">
+    <link rel="stylesheet" href="${baseurl}/documentation/css/documentation.css" media="screen" type="text/css">
     <link rel="stylesheet" href="../yandex.st/highlightjs/8.0/styles/default.min.css" media="screen" type="text/css">
-    <script type="text/javascript" src="documentation/js/document.js"></script>
-    <script src="documentation/js/highlight.pack.js"></script>
+    <script type="text/javascript" src="${baseurl}/documentation/js/document.js"></script>
+    <script src="${baseurl}/documentation/js/highlight.pack.js"></script>
      
     <script>hljs.initHighlightingOnLoad();</script>
     <!-- for documentation #end: you don't need them -->
 
     <style>
+   @media only screen and (max-width: 640px) {
+    .pull-profile {
+    min-height:400px !important;
+    }
+    }
+    
         #mySlider {
             width: 580px;
             height: 520px;
@@ -47,16 +53,32 @@ vertical-align:top;
                 width: 100%;
                 height: 450px;
             }
+             .fullprofile {  
+    min-height:400px !important;
+    }
         }
          td:first-child{ width: 150px; }
          td:nth-child(2) {width:10px !important;}
         td:fourth-child{ width: 150px; } 
         /* for mobile */
+        
+         @media screen and (max-width: px) {
+            #mySlider {
+                width: 570px;
+                height: 450px;
+            }
+            .fullprofile {  
+    min-height:400px !important;
+    }
+        }
         @media screen and (max-width: 640px) {
             #mySlider {
                 width: 570px;
                 height: 450px;
             }
+            .fullprofile {  
+    min-height:400px !important;
+    }
         }
          @media screen and (max-width: 480px) {
             #mySlider {
@@ -326,8 +348,8 @@ xpopup
 }
 </style>
 
-<script src="js/plugins/jquery.ImageGallery.js"></script> 
-<script src="js/plugins/jquery.imagesloaded.min.js"></script> 
+<script src="${baseurl}/js/plugins/jquery.ImageGallery.js"></script> 
+<script src="${baseurl}/js/plugins/jquery.imagesloaded.min.js"></script> 
 
 <div class="container" id="printDiv" style=' padding-left: 0px;'>
 <div class="row">
@@ -351,7 +373,7 @@ xpopup
 						</c:if>
 						<c:if test="${not empty fullProfilePhotosList}">
 						<div class="fullprofile" style="height:220px; overflow:hidden;"">	
-							<a href="#" id="fullProfilePicOuterTag" data-toggle="modal" data-target="#myModalFullProfile"><img  src="${fullProfilePhotosList[0].image}" class="hover-shadow cursor img img-responsive thumbnail watermark_text" style="margin-bottom:0;height:auto;width: 100%;" /></a>
+							<a href="#" id="fullProfilePicOuterTag" data-toggle="modal" data-target="#myModalFullProfile"><img  src="${baseurl}/${fullProfilePhotosList[0].image}" class="hover-shadow cursor img img-responsive thumbnail watermark_text" style="margin-bottom:0;height:auto;width: 100%;" /></a>
 							<%-- <a href="#" id="fullProfilePicOuterTag"><img src="${photosList[0].image}" style="width:100%; height:auto;" onclick="openModal();currentSlide(1)" class="hover-shadow cursor watermark_text"></a> --%>
 						</div>	
 							<div id="gallery-wrapper" class="noPrint">
@@ -366,7 +388,7 @@ xpopup
     height: 69px;
     padding: 0px;
     margin: 5px; "> 
-										        <img src="${photo.image}" class="watermark_text" style="width:100%; height:auto;"  onclick="currentSlide_inpage('${photo.image}')"/> 
+										        <img src="${baseurl}/${photo.image}" class="watermark_text" style="width:100%; height:auto;"  onclick="currentSlide_inpage('${photo.image}')"/> 
 										    </div>
 										</c:forEach>
 								    </div> 
@@ -402,7 +424,7 @@ xpopup
 						 	<div class="noPrint">
 						<c:choose>
 							<c:when test="${profileBean.mobileNumViewed == '1' || profileBean.message_sent_status == '1' || profileBean.expressedInterest == '1'}">
-								<p><span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-${profileBean.mobile}&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span></p>
+								<p><span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-${profileBean.mobile}&nbsp;<font class="mediumtxt">(&nbsp;<img src="${baseurl}/user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span></p>
 							</c:when>
 							<c:otherwise>
 								<p id="mobileTD${profileBean.id}">
@@ -977,7 +999,7 @@ xpopup
 			<div class="panel-heading">Add Horoscope</div>
 					<div class="panel-body table-responsive">
 		            	<div class="col-md-3"">
-					<img src="user/images/edit-add-horoscope.gif" width="40">
+					<img src="${baseurl}/user/images/edit-add-horoscope.gif" width="40">
 				</div><div class="col-md-9"><p>It is simple and absolutely FREE!</p></div>
 	            	</div>
 	            </div>
@@ -985,7 +1007,7 @@ xpopup
 			<div class="panel-heading">Add Photos Now</div>
 					<div class="panel-body table-responsive">
 		            	<div class="col-md-3">
-					<img src="user/images/add-photo-edit-avatar.png" width="40">
+					<img src="${baseurl}/user/images/add-photo-edit-avatar.png" width="40">
 				</div><div class="col-md-9"><p>Photos are the first
 things members look for
 in a profile. </p></div>
@@ -1171,7 +1193,7 @@ function displayMobileNum(profileId){
 	    		var msg = jsonobj.message;
 	    		if(typeof msg != "undefined"){
 	    			if(msg=="success"){
-	    				var mobStr = '<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-${profileBean.mobile}&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>';
+	    				var mobStr = '<span style="background:url(${baseurl}/user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-${profileBean.mobile}&nbsp;<font class="mediumtxt">(&nbsp;<img src="${baseurl}/user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>';
 	    				$("#mobileTD"+profileId).html(mobStr);
 	    				allowed_limit = limit;
 	    			}else{
@@ -1355,7 +1377,7 @@ function toggleDiv(divElem){
 
       var is_chrome = Boolean(mywindow.chrome);
       var isPrinting = false;
-      mywindow.document.write('<html><head><link rel="stylesheet" type="text/css" href="user/css/printcss.css"> <link rel="stylesheet" type="text/css" href="user/css/bootstrap.css"></head><body>');
+      mywindow.document.write('<html><head><link rel="stylesheet" type="text/css" href="${baseurl }/user/css/printcss.css"> <link rel="stylesheet" type="text/css" href="user/css/bootstrap.css"></head><body>');
       mywindow.document.write(data);
 //       alert(data);
       console.log(data);

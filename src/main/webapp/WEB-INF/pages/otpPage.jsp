@@ -13,8 +13,8 @@
      </div>
      
    <div class="row">
-   <div class="midcontnet">
-   
+   <div class="midcontnet"><br>
+    <div class="col-md-1"></div>
    <div class="col-md-8">
    	<form:form commandName="createProfile" class="form-horizontal" id="otpForm" role="form"   method="post">
    		<c:set var="msg" value="success"/>
@@ -24,12 +24,14 @@
 	   		  <div class="form-group">
 		   			<c:if test="${message == msg}">
 			   			<span id="displayMsg">Enter OTP that has been sent on your mobile number xxxxxxx${mobileStr}</span> <br>
+			   			<span id="displayErrMsg" class="hasError" style="font-size: 13px;color:red"></span><br>
 			   		</c:if>
 			   		<c:if test="${message == msg3 }">
-			   			<span id="displayMsg" class="hasError" style="font-size: 13px;color:red">OTP mismatched!! Please try again.</span> <br>
+			   			<span id="displayMsg"></span><br>
+			   			<span id="displayErrMsg" class="hasError" style="font-size: 13px;color:red">OTP mismatched!! Please try again.</span> <br>
 			   		</c:if>
 			      <div class="col-md-3">
-			      	<input id="otp1" type="text" name="otp1" class="form-control numericOnly u1"/>
+			      	<input id="otp1" type="password" name="otp1" class="form-control numericOnly u1"/>
 			      </div>
 		      		<div class="col-md-3">
 			      		<button type="button" id="fourthButton" onclick="checkOTP();" value="Create Profile" class="btn4 btn btn-info">Continue</button>
@@ -102,7 +104,11 @@ function resendOtp(){
 			var msg = jsonobj.message;
 			var mobileStr = jsonobj.mobileStr;
 			if(msg != "undefined" && "success"==msg){
+				$("#displayErrMsg").html('');
 				$("#displayMsg").html("OTP has been resent on your mobile no. xxxxxxx"+mobileStr);
+			}else if(msg != "undefined" && "limit_exceeded"==msg){
+				$("#displayMsg").html('');
+				$("#displayErrMsg").html("OTP limit for the day has been exceeded. Please try again later.");
 			}	
 			
 		});

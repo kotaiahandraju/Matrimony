@@ -1,9 +1,14 @@
 <%@ include file="userHeader.jsp"%>
+<<<<<<< HEAD
 <link href="css/imgareaselect-default.css" rel="stylesheet" media="screen">
 <link rel="stylesheet" href="css/jquery.awesome-cropper.css">
 <script src="js/jquery.imgareaselect.js"></script> 
 <script src="js/jquery.awesome-cropper.js"></script> 
 
+=======
+<link href="${baseurl}/css/imgareaselect-default.css" rel="stylesheet" media="screen">
+<link rel="stylesheet" href="${baseurl}/css/jquery.awesome-cropper.css">
+>>>>>>> af24bfcce35e80910cb08a916392eded04b57641
 <style>
 .imgareaselect-outer {
 position:fixed !important;
@@ -14,13 +19,15 @@ height:150px !important;
 canvas{
 display : none
 }
-
+.progress  img {
+height:250px;
+}
 .ui-dialog-titlebar-close
 {
  width: 25px;
     height: 25px;
     left-padding: 100px;
-    background-image: url(img/close.png);
+    background-image: url(${baseurl }/img/close.png);
     background-repeat: no-repeat;
 }
 </style>
@@ -32,7 +39,7 @@ display : none
 				<div id="imagesDiv" class="row" style="margin-bottom: 0.4em;">
 			      	<c:forEach items="${photosList}" var="photo" >
 			      		<div id="div${photo.id}" class="col-md-3" style="text-align:center;">
- 			      			<a href="${photo.image}" data-littlelightbox-group="gallery" class="lightbox thumbnail watermark_text1"><img id="photo${photo.id}" src="${photo.image}" class="img-responsive thumbnail watermark_text" style="margin-bottom:0;"></a>
+ 			      			<a href="${baseurl}/${photo.image}" data-littlelightbox-group="gallery" class="lightbox thumbnail watermark_text1"><img id="photo${photo.id}" src="${baseurl}/${photo.image}" class="img-responsive thumbnail watermark_text" style="margin-bottom:0;"></a>
 			      			<c:if test="${photo.approved_status == '0' }">
 			      					<span style="display:block;">Approval Pending</span>
 			      			</c:if>
@@ -173,6 +180,7 @@ function imageAjax(){
 		  		addWaterMark();
 		  	}else{
 		  		alert("Photo upload failed. Please try again..!");
+		  		return false;
 		  	}
 		  	$("#uploadBtn").removeAttr("disabled");
 	   		$("#uploadBtn").val("Upload Photo");
@@ -187,7 +195,7 @@ function updateImagesList(photosList){
 		//var photoImage = ${photoObj.image};
 		 str += '<div class="col-md-2">'
 
-  			+'<a href=""><img src="'+photoObj.image+'" class="img-responsive thumbnail watermark_text" style="margin-bottom:0;"></a>'
+  			+'<a href=""><img src="${baseurl}/'+photoObj.image+'" class="img-responsive thumbnail watermark_text" style="margin-bottom:0;"></a>'
   			+' <span>Sent for approval</span> '
   			//+' <a href="#" onclick="sendForApproval('+photoId+')">Send for approval</a> '
   			//+' <a href="#" onclick="setAsProfilePicture('+photoImage+')">Set as Profile Picture</a> '
@@ -206,7 +214,7 @@ function setAsProfilePicture(photoId,photoImage){
 		  	var jsonobj = $.parseJSON(data);
 		  	var msg = jsonobj.message;
 		  	if("success" == msg){
-		  		var str = '<img id="profilepic" src="'+photoImage+'" class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: auto;width: 100%;">';
+		  		var str = '<img id="profilepic" src="${baseurl}/'+photoImage+'" class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: auto;width: 100%;">';
 		  		//$("#profilepic").prop("src",photoImage);
 		  		$("#profilePicOuterTag").html('');
 		  		$("#profilePicOuterTag").html(str);
@@ -253,10 +261,12 @@ $(".dashboard").addClass("active");
 
 </script>
 
+<script src="${baseurl}/js/jquery.imgareaselect.js"></script> 
+<script src="${baseurl}/js/jquery.awesome-cropper.js"></script> 
 <script>
     $(document).ready(function () {
         $('#imageName').awesomeCropper(
-        { width: 800, height: 600, debug: true }
+        { width: 626, height: 417, debug: true }
         );
     });
     </script> 

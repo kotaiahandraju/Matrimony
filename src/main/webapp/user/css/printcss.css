@@ -9,6 +9,10 @@
     font-size: 22px;
     margin-top: 0;
 }
+ .fullprofile {
+    min-height:500px !important;
+    
+    }
 #imageName {
 height:600px;
 }

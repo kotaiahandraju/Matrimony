@@ -47,7 +47,7 @@ width:190px !important;
 			   	<form:hidden path="userrequirementId"/>
 				<!-- 1st Step starts here-->
 				<div id="firstForm">
-				    <div class="col-md-12">
+				    <div class="col-md-1"></div> <div class="col-md-11">
 				      <h3>Tell us what you are looking for in a life partner</h3>
 				    </div>
 				    <!-- Text input-->
@@ -334,7 +334,7 @@ width:190px !important;
 				      <div class="col-md-7 text-center">
 				     	<button type="button" id="firstButton" class="btn1 btn btn-info" onclick="submitForm()">Save & Continue</button> 
 				<!--      	<button type="button" id="skipfirstButton" class="btn1 btn btn-info" onclick="skip()">Skip</button> -->
-				      	<a class="btn btn-success " href="${baseurl}/sendOtp">&nbsp;&nbsp;Skip</a>
+				      	<a class="btn btn-success " href="${baseurl}/users/sendOtp">&nbsp;&nbsp;Skip</a>
 				      </div>
 				    </div>
 				</div>
@@ -343,7 +343,7 @@ width:190px !important;
 			</div>
 
 
-<script src="js/plugins/select2/select2.min.js"></script>
+<script src="${baseurl}/js/plugins/select2/select2.min.js"></script>
 
 <script type="text/javascript">
 
@@ -359,7 +359,7 @@ function getReliginCastAjax() {
 		var alldata = jsonobj.allOrders1;
 		var optionsForClass = "";
 		optionsForClass = $("#rCaste").empty();
-		optionsForClass.append(new Option("-- Choose Community --", ""));
+// 		optionsForClass.append(new Option("-- Choose Community --", ""));
 		$.each(alldata, function(i, tests) {
 			var id=tests.id;
 			var casteName=tests.name;
@@ -393,7 +393,7 @@ $(document).ready(function(){
         $(".ifMore").collapse('hide');
     }); */
     
-    /* $("#rMaritalStatus").select2({
+  $("#rMaritalStatus").select2({
 	    placeholder: "-- Choose MaritalStatus --"
 	});
     $("#rReligion").select2({
@@ -424,7 +424,7 @@ $(document).ready(function(){
 	});
 	$("#rDiet").select2({
 	    placeholder: "-- Choose Diet --"
-	}); */
+	});
 	
     
      var selected_values = "";
@@ -549,6 +549,18 @@ $(document).ready(function(){
     	$("#rDiet").val(selected_values.split(","));
     }
 	
+	$("#rAgeFrom").val("${partnerProfile.rAgeFrom}");
+	$("#rAgeFrom").trigger("chosen:updated");
+	// set rAgeTo also
+	$('#rAgeFrom').trigger("change");
+	$("#rAgeTo").val("${partnerProfile.rAgeTo}");
+	$("#rAgeTo").trigger("chosen:updated");
+	$("#rHeight").val("${partnerProfile.rHeight}");
+	$("#rHeight").trigger("chosen:updated");
+	// set height to also
+	$('#rHeight').trigger("change");
+	$("#rHeightTo").val("${partnerProfile.rHeightTo}");
+	$("#rHeightTo").trigger("chosen:updated");
 	
 	$('.multiSelect').trigger('change.select2'); 
 });
@@ -578,9 +590,26 @@ function hideChildren() {
 }
 	
 function submitForm(){
-	$("#savePartnerProfile").submit();
 	
-}
+	var ageFrom = $("select[name='rAgeFrom']").val();
+	var ageTo = $("select[name='rAgeTo']").val();
+	var heightFrom = $("#rHeight").val();
+	if(heightFrom!=""){
+		heightFrom = parseInt(heightFrom);
+	}
+	var heightTo = $("#rHeightTo").val();
+	if(heightTo!=""){
+		heightTo = parseInt(heightTo);
+	}
+	if(ageFrom > ageTo){
+		alert("Sorry, Invalid Age range");
+		return false;
+	}else if(heightFrom > heightTo){
+		alert("Sorry, Invalid Height range");
+		return false;
+	}
+	$("#savePartnerProfile").submit();
+	}
 
 function skip(){
 	var location = "${baseurl}";
@@ -591,7 +620,7 @@ $("#rHeight").change(function(){
 	$('#rHeightTo').val('');
 	var val_from = $(this).val();
 	var val_to   = $("#rHeight option:last").val();
-	$('#rHeightTo option').hide();
+// 	$('#rHeightTo option').hide();
 	if(val_from!=''){
 		val_from = (val_from-0)+1;
 		for(var i=val_from;i<=val_to;i++)

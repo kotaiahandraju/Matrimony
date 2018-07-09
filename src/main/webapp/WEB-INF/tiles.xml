@@ -113,6 +113,9 @@
 	<definition name="SalaryHome" extends="base.definition">
 		<put-attribute name="body" value="/WEB-INF/pages/salary.jsp" />
 	</definition>
+	<definition name="employeeCreation" extends="base.definition">
+		<put-attribute name="body" value="/WEB-INF/pages/employeeCreation.jsp" />
+	</definition>
 	<definition name="interestRequests" extends="base.definition">
 		<put-attribute name="body" value="/WEB-INF/pages/interestRequests.jsp" />
 	</definition>

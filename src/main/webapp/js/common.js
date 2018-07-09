@@ -126,7 +126,7 @@ function displayMatches_messages(listOrders,divId,roleId,listType) {
 				if(mobNumViewed==0){
 					mobile_num_Str = '<span ><a href="#" type="button" class="btn btn-primary btn-block" onclick="displayMobileNum_messages('+orderObj.id+',\'preferences\','+orderObj.requestId+')">View Mobile Number</a></span>';
 				}else if(mobNumViewed>0){
-					mobile_num_Str = '<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+orderObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>';
+					mobile_num_Str = '<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+orderObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="${baseurl}/user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>';
 				}
 				//////////
 				if(listType == "pendingRequests"){

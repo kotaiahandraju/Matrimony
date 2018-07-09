@@ -14,7 +14,7 @@
 <!-- CSS reset -->
 <link rel="stylesheet" href="css/membership_style.css">
 <!-- Resource style -->
-<script src="js/modernizr.js"></script>
+<script src="${baseurl}/js/modernizr.js"></script>
 <!-- Modernizr -->
 
 

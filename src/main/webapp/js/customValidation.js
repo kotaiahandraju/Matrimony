@@ -120,11 +120,56 @@ $('#mobile').blur(function() {
 		event.preventDefault();
 		return false;
 	}else{
-		$('#mobileError111').text("");
-		var exists = isMobileNumDuplicate();
-		if(exists){
-			return false;
-		}
+		$('#mobileError111').text('');
+		event.preventDefault();
+		//$('#mobileError111').text("");
+		var formData = new FormData();
+	    formData.append('mobile', $("#mobile").val());
+	    formData.append('id', $("#id").val());
+	    var actionStr = "../mobileNumChecking";
+	     var nextPage = nextPage1;
+	     if(nextPage!=null && nextPage!="" && nextPage!="undefined"){
+	    	 actionStr = "../../../mobileNumChecking";
+	     }
+	     var req_from = $("#req_from").val();
+	     if(typeof req_from != "undefined" && req_from=="user"){
+	    	 actionStr = "mobileNumChecking";
+	     }
+	    
+		$.fn.makeMultipartRequest('POST', actionStr, false,formData, false, 'text', function(data){
+			var jsonobj = $.parseJSON(data);
+			if(jsonobj.msg =="exist"){
+				//error message write
+				$('#mobileError111').text("Mobile number already in Use. Please try another.");
+				mobileExists = true;
+				$("#firstForm").hide();
+				$('#secondForm').hide();
+				$("#thirdForm").show();
+				$('#fourthForm').hide();
+//				ChangeUrl('page1', 'profile.htm?page=3');
+				event.preventDefault();
+				$("#step1").removeClass("btn-primary");
+				 $("#step2").removeClass("btn-primary");
+				 $("#step3").addClass("btn-primary");
+				 $("#step4").removeClass("btn-primary"); 
+			}else{
+				$('#mobileError111').text("");
+				mobileExists = false;
+				/*$("#firstForm").hide();
+				$('#secondForm').hide();
+				$("#thirdForm").hide();
+				$('#fourthForm').show();*/
+				//ChangeUrl('page1', 'profile.htm?page=4');
+				//event.preventDefault();
+				
+				/*$("#step1").removeClass("btn-primary");
+				 $("#step2").removeClass("btn-primary");
+				 $("#step3").removeClass("btn-primary");
+				 $("#step4").addClass("btn-primary");*/
+			}
+		});
+		//isMobileNumDuplicate();
+		 
 		
 	}
 });
@@ -259,18 +304,65 @@ $('#submit1').click(function(event) {
 	if($('#mobile').val().trim().length<10){
 		$('#mobileError111').text("Please enter a valid mobile number.");
 		validation = false;
+		return false;
+		event.preventDefault();
 	}else{
 		$('#mobileError111').text("");
 	}
-	var exists = isMobileNumDuplicate();
-	if(exists){
-		validation = false;
-	}
-	if(mobileExists){
+	//mobile  number duplicate check
+	/*event.preventDefault();
+	var formData = new FormData();
+    formData.append('mobile', $("#mobile").val());
+    formData.append('id', $("#id").val());
+    var actionStr = "../mobileNumChecking";
+    var nextPage = "${pageName}";
+    if(nextPage!=null && nextPage!="" && nextPage!="undefined"){
+   	 actionStr = "../../../mobileNumChecking";
+    }
+	$.fn.makeMultipartRequest('POST', actionStr, false,
+			formData, false, 'text', function(data){
+		var jsonobj = $.parseJSON(data);
+		if(jsonobj.msg =="exist"){
+			//error message write
+			$('#mobileError111').text("Mobile number already in Use. Please Try Another.");
+			mobileExists = true;
+			validation = false;
+			return false;
+		}else{
+			$('#mobileError111').text("");
+			mobileExists = false;
+		}
+	});*/
+	
+	//var exists = isMobileNumDuplicate();
+	/*if(mobileExists){
 		$('#mobileError111').text("Mobile number already in Use. Please Try Another.");
 		
 		validation = false;
+	}*/
+	if(mobileExists){
+		$('#mobileError111').text("Mobile number already in Use. Please Try Another.");
+	}else{
+		$('#mobileError111').text("");
 	}
+	var ageFrom = $("select[name='rAgeFrom']").val();
+	var ageTo = $("select[name='rAgeTo']").val();
+	var heightFrom = $("#rHeight").val();
+	if(heightFrom!=""){
+		heightFrom = parseInt(heightFrom);
+	}
+	var heightTo = $("#rHeightTo").val();
+	if(heightTo!=""){
+		heightTo = parseInt(heightTo);
+	}
+	if(ageFrom > ageTo){
+		alert("Sorry, Invalid Age range");
+		validation = false;
+	}else if(heightFrom > heightTo){
+		alert("Sorry, Invalid Height range");
+		validation = false;
+	}
+	
 	if(validation && emailExist && !mobileExists) {
 		$("#submit1").attr("disabled",true);
 		$("#submit1").val("Please wait...");

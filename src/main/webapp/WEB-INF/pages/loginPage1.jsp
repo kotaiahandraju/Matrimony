@@ -110,76 +110,10 @@ span.has-error,span.hasError
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript">
-	function validate(id, errorMessage)
-	{
-		if($('#'+id).val() ==  null || $('#'+id).val() == ""  || $('#'+id).val()=="undefined" ) {
-			$('#'+id+'Error').text(errorMessage);
-		}else{
-			$('#'+id+'Error').text("");
-		}
-	}
-	
-	/* function validate1(id){
-		if($('#userName').val() ==  null || $('#userName').val() == ""  || $('#userName').val()=="undefined" ) {
-			$('#userNameError').css('color','red');
-		    $("#userNameError").text("UserName  cannot be blank.");
-		}else{
-			$("#userNameError").text("");
-		}
-		}
-	function validate2(id){
-		if($('#password').val() ==  null || $('#password').val() == ""  || $('#password').val()=="undefined" ) {
-			$('#passwordError').css('color','red');
-		    $("#passwordError").text("Password cannot be blank.");
-		}else{
-			$("#passwordError").text("");
-		}
-		} */
-	
-	
-	$("#submit1").click(function()
-			{			
-				if($('#userName').val() ==  null || $('#userName').val() == ""  || $('#userName').val()=="undefined")
-				{
-					if($('#userName').val() ==  null || $('#userName').val() == ""  || $('#userName').val()=="undefined" ) 
-					{
-					    $('#userNameError').css('color','red');
-					    $("#userNameError").text("UserName cannot be blank.");
-				    }
-					if($('#password').val() ==  null || $('#password').val() == ""  || $('#password').val()=="undefined" ) 
-					{
-					    $('#passwordError').css('color','red');
-					    $("#passwordError").text("Password cannot be blank.");
-				    }
-					return false;
-					 $("#loginform").submit();
-				}
-				});
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	var _gaq = _gaq || [];
-	_gaq.push(['_setAccount', 'UA-38620714-4']);
-	_gaq.push(['_trackPageview']);
-
-	(function() {
-		var ga = document.createElement('script');
-		ga.type = 'text/javascript';
-		ga.async = true;
-		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-		var s = document.getElementsByTagName('script')[0];
-		s.parentNode.insertBefore(ga, s);
-	})();
-	</script>
+<div class="clearfix"></div>
+<div class="lfotter ">
+<p> All Rights Reserved </p>
+</div>
+<script type='text/javascript' src='js/customValidation.js'></script> 
 </body>
-
-
-<!-- Mirrored from www.eakroko.de/flat/more-login.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 18 Sep 2017 09:51:36 GMT -->
 </html>

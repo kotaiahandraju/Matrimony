@@ -18,18 +18,18 @@
 <link href="user/css/megamenu.css" rel="stylesheet" type="text/css" media="all" />
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" />
 <!-- js -->
-<script src="user/js/jquery-1.11.1.min.js"></script>
-<script src="js/jquery-ui.min.js"></script>
+<script src="${baseurl}/user/js/jquery-1.11.1.min.js"></script>
+<script src="${baseurl}/js/jquery-ui.min.js"></script>
 <!-- //js -->
 <!-- start-smoth-scrolling -->
-<!-- <script type="text/javascript" src="user/js/move-top.js"></script>
-<script type="text/javascript" src="user/js/easing.js"></script>
-<script type="text/javascript" src="user/js/megamenu.js"></script>
+<!-- <script type="text/javascript" src="${baseurl}/user/js/move-top.js"></script>
+<script type="text/javascript" src="${baseurl}/user/js/easing.js"></script>
+<script type="text/javascript" src="${baseurl}/user/js/megamenu.js"></script>
 <script>$(document).ready(function(){$(".megamenu").megamenu();});</script>
-<script src="user/js/menu_jquery.js"></script>
+<script src="${baseurl}/user/js/menu_jquery.js"></script>
 <link href='http://fonts.googleapis.com/css?family=Monda:400,700' rel='stylesheet' type='text/css'> -->
 <!-- the jScrollPane script -->
-<!-- <script type="text/javascript" src="js/jquery.jscrollpane.min.js"></script>
+<!-- <script type="text/javascript" src="${baseurl}/js/jquery.jscrollpane.min.js"></script>
 		<script type="text/javascript" id="sourcecode">
 			$(function()
 			{
@@ -54,7 +54,7 @@ if(session.getAttribute("cacheGuest") != null){
 	<div class="container">
     <div class=" col-md-3">
 		<div class="logo">
-		 	<img src="user/images/logo1.jpg" class="img-responsive" >
+		 	<img src="${baseurl}/user/images/logo1.jpg" class="img-responsive" >
 	  </div>
       <div class="clearfix"></div>
       </div>
@@ -279,10 +279,10 @@ if(session.getAttribute("cacheGuest") != null){
 
 <!-- //footer -->
 <input type="hidden" name="loc" id="loc" value="${baseurl }" />
-<script src="js/ajax.js"></script>
-<script src="js/common.js"></script>
-<script src="js/jquery-asPaginator.js"></script>
-<link rel="stylesheet" type="text/css" href="css/asPaginator.css">
+<script src="${baseurl}/js/ajax.js"></script>
+<script src="${baseurl}/js/common.js"></script>
+<script src="${baseurl}/js/jquery-asPaginator.js"></script>
+<link rel="stylesheet" type="text/css" href="${baseurl}/css/asPaginator.css">
 <script type="text/javascript">
 var total_items_count = ${total_records};
 var page_size = ${page_size};

@@ -76,18 +76,18 @@ padding:10px;}
 						<div class="col-md-12 conver12">
 						<div class="col-md-2">
 							<c:if test="${empty fullProfilePhotosList}">
-								<img id="img_inpage" src="images/default.png" class="img-responsive" style="margin-bottom:0;">
+								<img id="img_inpage" src="${baseurl }/images/default.png" class="img-responsive" style="margin-bottom:0;">
 							</c:if>
 							<c:if test="${not empty fullProfilePhotosList}">
 								<c:forEach items="${fullProfilePhotosList}" var="photo">
 									<c:if test="${photo.image == profileBean.profileImage }">
 										<div class="picstyle smallSlides${profileBean.id}" style="display:block;">
-											<img src="${photo.image}" class="img img-responsive watermark_text" style="margin-bottom:0;height: auto;width: 100%;" >
+											<img src="${baseurl }/${photo.image}" class="img img-responsive watermark_text" style="margin-bottom:0;height: auto;width: 100%;" >
 										</div>
 									</c:if>
 									<c:if test="${photo.image != profileBean.profileImage }">
 										<div class="picstyle smallSlides${profileBean.id}" style="display:none;">
-											<img src="${photo.image}" class="img img-responsive watermark_text" style="margin-bottom:0;height: auto;width: 100%;" >
+											<img src="${baseurl }/${photo.image}" class="img img-responsive watermark_text" style="margin-bottom:0;height: auto;width: 100%;" >
 										</div>
 									</c:if>
 								</c:forEach>
@@ -100,7 +100,7 @@ padding:10px;}
 							</c:if>
 						</div>
 						<div class="col-md-10">
-						<h3>${profileBean.firstName} ${profileBean.lastName}<span><a href="#"><img  data-toggle="tooltip" title="Vie Mobile Number" src="images/micon.png"/></a></span> <span class="pull-right"><a href="#"><i data-toggle="tooltip" title="Delete" class="fa fa-trash-o" style="font-size:16px;"></i></a></span></h3>
+						<h3>${profileBean.firstName} ${profileBean.lastName}<span><a href="#"><img  data-toggle="tooltip" title="Vie Mobile Number" src="${baseurl }/images/micon.png"/></a></span> <span class="pull-right"><a href="#"><i data-toggle="tooltip" title="Delete" class="fa fa-trash-o" style="font-size:16px;"></i></a></span></h3>
 						<p>${profileBean.age} Yrs, ${profileBean.heightInches}, ${profileBean.religionName}: ${profileBean.casteName}, ${profileBean.currentCityName}, ${profileBean.currentStateName}, ${profileBean.currentCountryName}, ${profileBean.educationName}, ${profileBean.occupationName}</p>
 						</div>
 						</div>
@@ -123,7 +123,7 @@ padding:10px;}
 								<c:set var="act_done_by" value="${conversation.act_done_by_user_id}" />
 								<c:set var="act_str" value="${''}" />
 								<c:set var="message_content" value="${''}" />
-								<c:set var="short_str_symbol" value="${'images/arrowaccepted.png'}" />
+								<c:set var="short_str_symbol" value="${'${baseurl }/images/arrowaccepted.png'}" />
 								
 								<div class="col-md-12">
 									<c:if test="${act_done_by == cacheGuest.id }">
@@ -133,7 +133,7 @@ padding:10px;}
 										<c:set var="act_str" value="${opp_gender_str}" />
 										<%-- <c:set var="her_his_you" value="${'your'}" /> --%>
 									</c:if>
-									<c:if test="${act_type == 'profile_viewed' }">
+									<%-- <c:if test="${act_type == 'profile_viewed' }">
 										<c:if test="${act_done_by == cacheGuest.id }">
 											<c:set var="act_str" value="You viewed ${her_his_you} profile" />
 										</c:if>
@@ -141,7 +141,7 @@ padding:10px;}
 											<c:set var="act_str" value="${act_str} viewed your profile" />
 										</c:if>
 										<c:set var="short_str" value="${'Profile Viewed'}" />
-									</c:if>
+									</c:if> --%>
 									<c:if test="${act_type == 'interest_request' }">
 										<c:if test="${act_done_by == cacheGuest.id }">
 											<c:set var="short_str" value="${'Interest Request Sent'}" />
@@ -156,7 +156,7 @@ padding:10px;}
 										</c:if>
 										<c:if test="${act_done_by != cacheGuest.id }">
 											<c:set var="short_str" value="${'Interest Request Received'}" />
-											<c:set var="short_str_symbol" value="${'images/arrowreceived.png'}" />
+											<c:set var="short_str_symbol" value="${'${baseurl }/images/arrowreceived.png'}" />
 											<c:set var="act_str" value="${act_str} sent an interest request to you" />
 										</c:if>
 									</c:if>
@@ -165,7 +165,7 @@ padding:10px;}
 											<c:set var="act_str" value="You accepted ${her_his_you} interest request" />
 										</c:if>
 										<c:if test="${act_done_by != cacheGuest.id }">
-											<c:set var="act_str" value="${act_str} accepted you interest request" />
+											<c:set var="act_str" value="${act_str} accepted your interest request" />
 										</c:if>
 										<c:set var="short_str" value="${'Interest Accepted '}" />
 									</c:if>
@@ -193,7 +193,7 @@ padding:10px;}
 										</c:if>
 										<c:if test="${act_done_by != cacheGuest.id }">
 											<c:set var="short_str" value="${'Message Received'}" />
-											<c:set var="short_str_symbol" value="${'images/arrowreceived.png'}" />
+											<c:set var="short_str_symbol" value="${'${baseurl }/images/arrowreceived.png'}" />
 											<c:set var="act_str" value="${act_str} sent you a message" />
 										</c:if>
 										<c:set var="message_content" value="${conversation.activity_content}" />

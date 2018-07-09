@@ -105,10 +105,22 @@ protected String mOccupationName;
 protected String mail_content,rReligionName,rCasteName,rDietName,rMotherTongueName,rMaritalStatusName;
 protected String membership_status;
 protected String unique_code,emailverify,profileVerifyedBy;
-protected String rEducationName,rOccupationName,rCountryName,rStateName,rHeightInches,rHeightToInches;
+protected String rEducationName,rOccupationName,rCountryName,rStateName,rHeightInches,rHeightToInches,religionId,castId;
 protected int message_sent_status;
 
 
+public String getCastId() {
+	return castId;
+}
+public void setCastId(String castId) {
+	this.castId = castId;
+}
+public String getReligionId() {
+	return religionId;
+}
+public void setReligionId(String religionId) {
+	this.religionId = religionId;
+}
 public String getProfileVerifyedBy() {
 	return profileVerifyedBy;
 }

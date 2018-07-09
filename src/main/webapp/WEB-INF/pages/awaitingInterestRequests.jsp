@@ -157,12 +157,12 @@ margin-right:5px;
 	    	<li role="presentation"><a role="menuitem" tabindex="-1" href="#"> <label class="checkbox-inline"><input type="checkbox" id="rejected_by_others" value="">Declined by others
 	    	</label></a></li>
     </div>
-    <li role="presentation"><a role="menuitem" tabindex="-1" href="#"> <label>Read Status
+    <!-- <li role="presentation"><a role="menuitem" tabindex="-1" href="#"> <label>Read Status
 	    </label></a></li>
 	<li role="presentation"><a role="menuitem" tabindex="-1" href="#"> <label class="checkbox-inline"><input type="checkbox" id="read" value="read">Read
     </label></a></li>
 	<li role="presentation"><a role="menuitem" tabindex="-1" href="#"> <label class="checkbox-inline"><input type="checkbox" id="un_read" value="un_read">Un Read 
-    </label></a></li>
+    </label></a></li> -->
     <li role="presentation"><a role="menuitem" tabindex="-1" href="#"> <label>Communication Type
     </label></a></li>
     <li role="presentation"><a role="menuitem" tabindex="-1" href="#"> <label class="checkbox-inline"><input type="checkbox" id="all" value="all" onclick="selectAll();">All

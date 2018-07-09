@@ -304,6 +304,7 @@ var role_id = ${cacheUserBean.roleId};
 		</div>
 	</div>
 	
+						<c:set var="roleId1"  value="${cacheUserBean.roleId}"/>  
 	<div id="navigation">
 		<div class="container-fluid">
 			<a href="#" id="brand">
@@ -315,10 +316,12 @@ var role_id = ${cacheUserBean.roleId};
 			<ul class='main-nav'>
 				<li class="dashboard"><a href="dashboard"><span>Dashboard</span></a></li>
 				<li class="dropdown catalog1 ">
+				<c:if test="${roleId1 == 1}"> 
 					<a href="#" data-toggle="dropdown" class='dropdown-toggle'>
 						<span>Data List 1</span>
 						<span class="caret"></span>
 					</a>
+				</c:if>
 					<ul class="dropdown-menu">
 						<li class="bodyType"><a href="${baseurl }/admin/BodyTypeHome">Body Type</a></li>
 						<li class="branch"><a href="${baseurl }/admin/BranchHome">Branch</a></li>
@@ -330,15 +333,16 @@ var role_id = ${cacheUserBean.roleId};
 					</ul>
 				</li>
 				<li class="dropdown catalog2">
+					<c:if test="${roleId1 == 1}"> 
 					<a href="#" data-toggle="dropdown" class='dropdown-toggle'>
 						<span>Data List 2</span>
 						<span class="caret"></span>
 					</a>
+					</c:if>
 					<ul class="dropdown-menu">
 						<li class="languages"><a href="${baseurl }/admin/LanguagesHome">Languages</a></li>
 						<li class="occupation"><a href="${baseurl }/admin/OccupationHome">Occupation</a></li>
 						
-						<c:set var="roleId1"  value="${cacheUserBean.roleId}"/>  
 							<c:if test="${roleId1 != 3}">  
 						<li class="membership"><a href="${baseurl }/admin/MembershipHome">Membership</a></li>
 						</c:if> 
@@ -349,6 +353,9 @@ var role_id = ${cacheUserBean.roleId};
 						<li class="city"><a href="${baseurl }/admin/CityHome">City</a></li>
 						<li class="dosham"><a href="${baseurl }/admin/DoshamHome">Dosham</a></li>
 						<li class="Salary"><a href="${baseurl }/admin/SalaryHome">Salary</a></li>
+							<c:if test="${roleId1 == 1}">  
+				  		<li class="Salary"><a href="${baseurl }/admin/employeeCreation">Employee Creation</a></li>
+			         	</c:if>
 					</ul>
 				</li>
 				<li class="profiles">
@@ -357,38 +364,50 @@ var role_id = ${cacheUserBean.roleId};
 						<span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
+						<c:if test="${roleId1 == 1}"> 
 						<li class="createProfile"><a href="${baseurl }/admin/CreateProfile">Create Profile</a></li>
+						</c:if>
 						<li class="allProfiles"><a href="${baseurl }/admin/AllProfilesHome">Active Profiles</a></li>
+							<c:if test="${roleId1 == 1}"> 
 						<li class="inactiveProfiles"><a href="${baseurl }/admin/InactiveProfilesHome">Inactive Profiles</a></li>
 						<li class="deleteProfiles"><a href="${baseurl }/admin/DeleteProfilesHome">Delete Profiles</a></li>
 						<li class="adminProfiles"><a href="${baseurl }/admin/AdminRegisterProfiles">Admin Register Profiles</a></li>
 						<li class="freeProfiles"><a href="${baseurl }/admin/FreeRegisterProfile">Free Register Profiles</a></li>
+						</c:if>
 						<li class="classicProfiles"><a href="${baseurl }/admin/ClassicProfile">Classic Profiles</a></li>
 						<li class="classicPlusProfiles"><a href="${baseurl }/admin/ClassicPlusProfile">Classic Plus Profiles</a></li>
 						<li class="premiumProfiles"><a href="${baseurl }/admin/PremiumProfile">Premium Profiles</a></li>
 						<li class="premiumPlusProfiles"><a href="${baseurl }/admin/PremiumPlusProfile">Premium Plus Profiles</a></li>
 						<li class="aarnaPremiumProfiles"><a href="${baseurl }/admin/AarnaPremiumProfile">Aarna Premium Profiles</a></li>
+						<c:if test="${roleId1 == 1}"> 
 						<li class="hiddenProfiles"><a href="${baseurl }/admin/HiddenProfilesHome">Hidden Profiles</a></li>
-						 
+						 </c:if>
 					</ul>
 				</li>
-				
+					<c:if test="${roleId1 == 1}"> 
  				<li class="updatedProfiles"><a href="${baseurl }/admin/updatedProfiles"><span>Updated Profiles</span></a></li>
+ 				</c:if>
  				<li class="">
+ 					<c:if test="${roleId1 == 1}"> 
 					<a href="#" data-toggle="dropdown" class='dropdown-toggle'>
 						<span>Reports</span>
 						<span class="caret"></span>
 					</a>
+					</c:if>
 					<ul class="dropdown-menu">
 						<li class="reports"><a href="${baseurl }/admin/reportsHome"><span>Report</span></a></li> 
 						<li class="paymentreport"><a href="${baseurl }/admin/paymentreport">Payment Report</a></li>
 					</ul>
 				</li>
+					<c:if test="${roleId1 == 1}"> 
  				<li class="bulksmsmail"><a href="${baseurl }/admin/bulksmsmail"><span>Bulk SMS&Mail</span></a></li> 
  				<li class="loginProfiles"><a href="${baseurl }/admin/loginProfiles"><span>Today Login Profiles</span></a></li>
+ 				</c:if>
  				<%-- <li class="paymentNotifications"><a href="${baseurl }/admin/paymentNotifications"><span>Payment Notifications</span></a></li> --%>
  				<li class="dropdown notifications" id="notification_li">
+ 					<c:if test="${roleId1 == 1}"> 
 					<a href="#" id="notificationLink"> <span class="fa fa-bell"></span>Notifications</a>
+					</c:if>
 					<div id="notificationContainer" class="dropdown-menu">
 						<c:if test="${not empty paymentNotificationsList}">
 								<div id="notificationsBody" class="notifications">
@@ -403,7 +422,7 @@ var role_id = ${cacheUserBean.roleId};
 										</div>
 										<div class="col-md-9 notsp" style="padding-right:0px; padding-left:0px;" >
 											<p>
-												<a href="fullProfile?pid=${notification.profile_id}&nid=${notification.id}&rfrm=notifications" target="_blank" >
+												<a href="fullProfile?id=${notification.profile_id}&nid=${notification.id}&rfrm=notifications" target="_blank" >
 													<b><c:out value="${notification.fullName}" /> (<c:out value="${notification.username}" />)</b> 
 													paid an amount of ${notification.amount}
 												</a>
@@ -426,6 +445,8 @@ var role_id = ${cacheUserBean.roleId};
  				
  				
 			</ul>
+		
+			
 			<div class="user">
 				<ul class="icon-nav">
 					<%-- <li class='dropdown'>
@@ -494,11 +515,12 @@ var role_id = ${cacheUserBean.roleId};
 			</div>
 		</div>
 	</div>
+	
 	 <script>
 	
 	
 	function getAllNotifications(){
-		document.allNotificationsForm.action = "${baseurl}/allNotificationsInAdmin"
+		document.allNotificationsForm.action = "allNotificationsInAdmin"
 	    document.allNotificationsForm.target = "_blank";    // Open in a new window
 	    document.allNotificationsForm.submit();             // Submit the page
 	    return true;

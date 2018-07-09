@@ -1,4 +1,7 @@
 <%@ include file="userHeader.jsp"%>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
 <style>
 .grademember {
 background:#2da3de;
@@ -229,7 +232,8 @@ color:#000;
  -->
     <!-- Wrapper for slides -->
     <c:if test="${not empty pending_reqs}">
-    <div class="carousel-inner pendingre">
+    <div id="pending_req_div"  class="carousel-inner pendingre">
+    		<span id="pending_count">${cacheGuest.pendingRequestsCount} requests pending</span>
     		<c:set value="${0}" var="count" />
 			<c:forEach items="${pending_reqs}" var="pend_req">
 				<c:if test="${count == 0}">
@@ -240,48 +244,40 @@ color:#000;
 				</c:if>
 			        <div class="col-md-2">
 			        	<c:if test="${not empty pend_req.profileImage}">
-			        		<img class="thumbnail img-responsive" src="${pend_req.profileImage}"/>
+			        		<img class="thumbnail img-responsive" src="${baseurl}/${pend_req.profileImage}"/>
 			        	</c:if>
 			        	<c:if test="${empty pend_req.profileImage}">
-			        		<img class="thumbnail img-responsive" src="img/default.png"/>
+			        		<img class="thumbnail img-responsive" src="${baseurl}/img/default.png"/>
 			        	</c:if>
 			        </div>
 			         <div class="col-md-7">
 			      <p><b>
 			      		<c:if test="${cacheGuest.roleId == '4'}">
-			      			xxxxxxx
+			      			<a href="inboxAction?tab_type=inbox&list_type=pending_requests">xxxxxxx</a>
 			      		</c:if> 
 			      		<c:if test="${cacheGuest.roleId != '4'}">
-			      			<c:out value="${pend_req.firstName}" />  <c:out value="${pend_req.lastName}" />
+			      			<a href="inboxAction?tab_type=inbox&list_type=pending_requests"><c:out value="${pend_req.firstName}" />  <c:out value="${pend_req.lastName}" /></a>
 			      		</c:if> 
-			      	</b>, <c:out value="${pend_req.age}" /> yrs, <c:out value="${pend_req.inches}" /><br>
-			      	 <c:out value="${pend_req.casteName}" />, <c:out value="${pend_req.currentCountryName}" /><br>
+			      	</b>,<br> 
+			      	<c:out value="${pend_req.age}" /> yrs, <c:out value="${pend_req.inches}" /><br>
+			      	 <c:out value="${pend_req.casteName}" />, <c:out value="${pend_req.currentCountryName}" /> 
+			      	 <br>
 			 			Do you like this profile?</p>
 			       </div>
 
-			       <div class="col-md-3"><span><i class="fa fa-check-circle" style="font-size:25px;color:green"></i> &nbsp; <i class="fa fa-times-circle-o" aria-hidden="true"  style="font-size:25px;color:red"></i>
+			       <div class="col-md-3"><span><a href="#" onclick="acceptRequest_pendingReq(${pend_req.requestId},'1')"><i class="fa fa-check-circle" style="font-size:25px;color:green"></i></a> &nbsp; <a href="#" onclick="acceptRequest_pendingReq(${pend_req.requestId},'0')"><i class="fa fa-times-circle-o" aria-hidden="true"  style="font-size:25px;color:red"></i></a>
 			       </span></div>
 
-			       <div class="col-md-2">
+			       <%-- <div class="col-md-2">
 			       		<span>
 			       			<a href="#" onclick="acceptRequest_pendingReq(${pend_req.requestId},'1')"><i class="fa fa-check-circle" style="font-size:25px;color:green"></i></a> &nbsp; <a href="#" onclick="acceptRequest_pendingReq(${pend_req.requestId},'0')"><i class="fa fa-times-circle-o" aria-hidden="true"  style="font-size:25px;color:red"></i></a>
 			       		</span>
 			       		
-			       	</div>
+			       	</div> --%>
 			      </div>
 			      <c:set value="${count+1}" var="count" />
 			</c:forEach>
-      <div class="item">
-        <div class="col-md-2">
-        <img class="thumbnail img-responsive" src="img/1050587.png"/>
-        </div>
-         <div class="col-md-8">
-      <p><b>Jangili mownika</b>, 23 Yrs, 5 Ft 2 In<br>
-Yadav, India<br>
-She could be a good match. Do you like her profile</p>
-       </div>
-       <div class="col-md-2"><span><i class="fa fa-check-circle" style="font-size:25px;color:green"></i> &nbsp; <i class="fa fa-times-circle-o" aria-hidden="true"  style="font-size:25px;color:red"></i>
-       </span></div></div>
+      
 
     <!-- Left and right controls -->
     <a class="left carousel-control bgc" href="#myCarousel" data-slide="prev" >
@@ -346,7 +342,8 @@ She could be a good match. Do you like her profile</p>
 				<% 
 				UsersBean userSessionBean = (UsersBean)session.getAttribute("cacheGuest");
 				 String packageId= userSessionBean.getPackageId();
-				if(packageId == null){
+				 String msg_flag = (String)session.getAttribute("upgrade_msg_flag");
+				if(packageId==null && msg_flag.equals("1")){
 					%>
 					
 					<div id="newmodal" class="modal fade">
@@ -357,7 +354,7 @@ She could be a good match. Do you like her profile</p>
                 <h2 class="modal-title grademember">Upgrade Membership</h2>
             </div>
             <div class="modal-body newbody col-md-12">
-				<div class="col-md-5"><img src="images/up.png" class="img-responsive"/></div>
+				<div class="col-md-5"><img src="${baseurl}/images/up.png" class="img-responsive"/></div>
 				<div class="col-md-7">
 				<p style="color:#b7f528;">Start Contracting Matches</p>
 				<p><i class="fa fa-phone"></i> View Phone Numbers </p>
@@ -380,6 +377,7 @@ She could be a good match. Do you like her profile</p>
  });
   </script>
 				<% }
+				session.setAttribute("upgrade_msg_flag","0");
 				%>
 
 
@@ -406,9 +404,9 @@ She could be a good match. Do you like her profile</p>
 
 <!-- //footer -->
 <input type="hidden" name="loc" id="loc" value="${baseurl }" />
-<script src="js/ajax.js"></script>
-<script src="js/jquery-asPaginator.js"></script>
-<script src="js/jquery.watermark.js"></script>
+<script src="${baseurl}/js/ajax.js"></script>
+<script src="${baseurl}/js/jquery-asPaginator.js"></script>
+<script src="${baseurl}/js/jquery.watermark.js"></script>
 
 
 <script type="text/javascript">
@@ -483,7 +481,7 @@ function displayMatches(listOrders) {
 		} */
 		
 			var login_user_role_id = ${cacheGuest.roleId};
-			var firstname = '<img src="images/blurr.png"/>',lastname='';
+			var firstname = '<img src="${baseurl}/images/blurr.png"/>',lastname='';
 			var ageStr = orderObj.age;
 			var age = ageStr.split(".")[0];
 			if((login_user_role_id == 6) || (login_user_role_id == 11) || (login_user_role_id == 12)
@@ -520,14 +518,14 @@ function displayMatches(listOrders) {
 			var mobNumViewed = orderObj.mobileNumViewed;
 			var mobile_num_Str = "";
 			if(mobNumViewed=="1" || expressed=="1" || message_sent_status=="1"){
-				mobile_num_Str = '<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+orderObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>';
+				mobile_num_Str = '<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+orderObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="${baseurl}/user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>';
 				
 			}else{
 				mobile_num_Str = '<span ><a href="#no" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="displayMobileNum('+orderObj.id+')"> View Mobile No..</a></span>';
 			}
 			var tblRow = '<div class="row">'
 				+ '<div class=" col-md-2 col-xs-2 preprofile" >'
-	            + 	"<img src="+image+" class='watermark_text img-responsive thumbnail ' >"
+	            + 	"<img src='${baseurl}/"+image+"' class='watermark_text img-responsive thumbnail ' >"
 	            + '</div>'
 	            + '<div class="col-md-10 col-xs-10">'
 	            + ' <p>'+firstname+'&nbsp;'+lastname+'|'+orderObj.username+'&nbsp;'+premiumMember+'&nbsp; '+age+' yrs,&nbsp; '+orderObj.religionName+', '+orderObj.casteName+','+orderObj.inches+' , '+orderObj.occupationName+', '+orderObj.currentCityName+', '+orderObj.currentCountryName+'. </p> '
@@ -591,7 +589,7 @@ function displayNewMatches(listOrders) {
 		} */
 		
 			var login_user_role_id = ${cacheGuest.roleId};
-			var firstname = '<img src="images/blurr.png"/>',lastname='';
+			var firstname = '<img src="${baseurl}/images/blurr.png"/>',lastname='';
 			var ageStr = orderObj.age;
 			var age = ageStr.split(".")[0];
 			if((login_user_role_id == 6) || (login_user_role_id == 11) || (login_user_role_id == 12)
@@ -620,7 +618,7 @@ function displayNewMatches(listOrders) {
 				interestStr = '<p align="center" style="margin: 11px 0px 10px 0px;"><a   type="button" disabled="true"  class="btn btn-warning btn-sm "  >Request Sent</a></p>';
 			}
 			 item =     item + ' 	<div class="col-md-3 thumbnailgal">'
-				         +' 		<div class="thumbnailmain">	<a class="thumbnail thumbimg" href="#no" style="margin: 0px 0px 0px 0px; width:100%; height:auto;"><img alt="" src="'+image+'" class="watermark_text"></a></div>'
+				         +' 		<div class="thumbnailmain">	<a class="thumbnail thumbimg" href="#no" style="margin: 0px 0px 0px 0px; width:100%; height:auto;"><img alt="" src="${baseurl}/'+image+'" class="watermark_text"></a></div>'
 				         +' 			<p align="center" class="ptransition" style="margin: 10px 0px 0px 0px;"><span  class="ptransition" href="#no" onclick="fullProfile('+orderObj.id+')" style="transition: 0; padding:5px; color:blue; border-radius:5px;">'+orderObj.username+'</span></p>'
 				         +' 			<p align="center" style="margin: px 0px 0px -3px;">'+age+' yrs, '+orderObj.inches+'</p>'
 				         + 			    interestStr
@@ -688,7 +686,7 @@ function expressInterest_dashboard(profile_id){
 	    				alert("Interest request has been sent successfully");
 	    				$("#expInterest"+profile_id).html('Expressed Interest');
 	    				$("#expInterest"+profile_id).prop("disabled",true);
-	    				$("#mobileTD"+profile_id).html('<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+profileObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>');
+	    				$("#mobileTD"+profile_id).html('<span style="background:url(${baseurl}/user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+profileObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="${baseurl}/user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>');
 	    				allowed_limit = limit;
 	    			}else if("failed"==msg || "exception"==msg){
 	    				alert("Interest request is not successful. Please try again.");
@@ -904,10 +902,9 @@ function paginationSetup(total_items_count) {
 }
 
 function acceptRequest_pendingReq(requestId,flag){
-	$("#pending_div"+requestId).remove();
-	$("#pending_next").trigger("click");
 	
-	/* var roleId = ${cacheGuest.roleId};
+	
+	 var roleId = ${cacheGuest.roleId};
 	$("#id").val(requestId);
 	 if(roleId==4){
 		document.searchForm2.action = "memberShipPage"
@@ -918,7 +915,7 @@ function acceptRequest_pendingReq(requestId,flag){
 			alert("Exceeded allowed profiles limit. Renew your membership plan and get more profiles");
 			return false;
 		}  */ 
-		/*var membershipStatus = ${cacheGuest.membership_status};
+		var membershipStatus = ${cacheGuest.membership_status};
 		if(membershipStatus!="1"){
 			alert("Your membership validity period is over. Renew your membership plan and get more profiles");
 			return false;
@@ -937,13 +934,20 @@ function acceptRequest_pendingReq(requestId,flag){
 	    		
 	    			if("success"==msg){
 	    				if(flag==1){
-	    					alert("Request accepted successfully");
-	    					$("#accept"+requestId).html('');
-	    					$("#accept"+requestId).html("<a type='button' class='btn btn-success btn-sm' disabled='true'>Accepted</a>");
+	    					alert("Request Accepted.");
+	    					$("#pending_div"+requestId).remove();
+	    					$("#pending_next").trigger("click");
 	    				}else{
-	    					alert("Request rejected successfully");
-	    					$("#accept"+requestId).html('');
-	    					$("#accept"+requestId).html("<a type='button' class='btn btn-danger btn-sm' disabled='true' >Ignored</a>");
+	    					alert("Request Rejected.");
+	    					$("#pending_div"+requestId).remove();
+	    					$("#pending_next").trigger("click");
+	    				}
+	    				var req_count = jsonobj.req_count;
+	    				if(req_count=="0"){
+	    					$("#pending_req_div").remove();
+	    				}else{
+	    					$("#pending_count").html('');
+		    				$("#pending_count").html(req_count+" requests pending.");
 	    				}
 	    			}else if("failed"==msg || "exception"==msg){
 	    				alert("Some problem occured. Please try again.");
@@ -952,7 +956,7 @@ function acceptRequest_pendingReq(requestId,flag){
 	    		
 				
 			}); 
-	} */
+	} 
 }
 /* function getNewMatches(){
 	document.searchForm2.action = "newMatches";
@@ -993,7 +997,7 @@ $(function(){
 	sliderImg.each(
 		function(){
 			$(this).attr('data-img',dataVal);
-			$('#pager').append('<a data-img="' + dataVal + '"><img src=' + $('img', this).attr('src') + ' width=' + thumbWidth + '></a>');
+			$('#pager').append('<a data-img="' + dataVal + '"><img src="${baseurl}/' + $('img', this).attr('src') + '"  width="' + thumbWidth + '"></a>');
 		dataVal++;
 	});
 	

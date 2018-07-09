@@ -4,7 +4,10 @@
 <%@ taglib uri="http://displaytag.sf.net" prefix="display"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
-
+<%
+	String baseurl =  request.getScheme() + "://" + request.getServerName() +      ":" +   request.getServerPort() +  request.getContextPath();
+	session.setAttribute("baseurl", baseurl);
+%>
 <%-- <html>
    <head>
    </head>
@@ -27,25 +30,70 @@
 <link rel="shortcut icon" href="img/aarna-fav.png"/>
 
 <!-- Bootstrap core CSS -->
-<link href="user/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
+<link href="${baseurl}/user/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
 
-<script src="user/js/ie-emulation-modes-warning.js"></script>
-<link href="user/vendor/font-awesome/css/font-awesome.min.css"
+<script src="${baseurl}/user/js/ie-emulation-modes-warning.js"></script>
+<link href="${baseurl}/user/vendor/font-awesome/css/font-awesome.min.css"
 	rel="stylesheet" type="text/css">
 <link rel="stylesheet"
-	href="user/vendor/woocommerce-FlexSlider/flexslider.css"
+	href="${baseurl}/user/vendor/woocommerce-FlexSlider/flexslider.css"
 	type="text/css" media="screen" />
-<link href="user/css/style.css" rel="stylesheet">
-<link href="user/css/custom.css" rel="stylesheet">
- <link href="css/datepicker1.css" rel="stylesheet" type="text/css" />
+<link href="${baseurl}/user/css/style.css" rel="stylesheet">
+<link href="${baseurl}/user/css/custom.css" rel="stylesheet">
+ <link href="${baseurl}/css/datepicker1.css" rel="stylesheet" type="text/css" />
  
-<link rel="stylesheet" type="text/css" href="user/css/component.css" />
+<link rel="stylesheet" type="text/css" href="${baseurl}/user/css/component.css" />
 
 <style>
+.modal {
+background:rgba(0,0,0,0.4);
+}
+.panel-heading {
+    padding: 6px 15px;
+    border-bottom: 1px solid transparent;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+}
+.about {
+    position: relative;
+    z-index: 0;
+    clear: both;
+    background-color: #f7f7f7;
+}
+.btn-danger {
+width: 135px;
+    padding: 8px;}
+.modal-header h3 {
+    color: #fff;
+    font-size: 20px;
+    font-weight: 400;
+    padding: 10px 15px;
+    text-transform: capitalize;
+  
+    line-height: 29px;
+    border: none!important;
+    width: 80%;
+    margin-top: 0px;
+    text-align: left;
+}
+.modal-header .close {
+    margin-top: -31px;
+}
+.modal-backdrop {
+    position: relative !important;
+    }
+    .modal-backdrop.in {
+    opacity: 0;
+    filter: alpha(opacity=50);
+}
+   td, th {
+    padding: 0;
+    text-align: left;
+}
 .modal-dialog {
 	position: relative;
 	width: auto;
-	max-width: 600px;
+	max-width: 60%;
 	margin: 10px;
 }
 
@@ -56,6 +104,8 @@
 .modal-lg {
 	max-width: 900px;
 }
+
+
 
 @media ( min-width : 768px) {
 	.modal-dialog {
@@ -241,13 +291,13 @@ window.setTimeout(function() {
                                                 </div>
                                                 
                                                 
-                                                 <div class="form-group">
+                                               <div class="form-group">
                                                     <label for="">Religion</label>
                           				<form:select path="religion" onfocus="removeBorder(this.id)" onchange="getReliginCastAjax()" class="form-control" >
 														<form:option value="">-- Choose Religion --</form:option>
 														<form:options items="${religion}"></form:options>
 										</form:select>
-                                                </div> 
+                                                </div>
                                                 
                                                  <div class="form-group">
                                                     <label for="">Mother Tongue</label>
@@ -310,7 +360,7 @@ window.setTimeout(function() {
 						<div class="form-group">
 							<select id="rPeople" class="custom-select col-md-12 form-control">
 								<option value="" selected>I am Looking for... &nbsp;&nbsp;</option>
-								<option value="Female" id="id1">Bride</option>
+								<option value="FeMale" id="id1">Bride</option>
 								<option value="Male" id="id2">Groom</option>
 							</select>
 						</div>
@@ -365,7 +415,7 @@ window.setTimeout(function() {
 								<option value="2">Muslim</option>
 								<option value="3">Christian</option>
 							</select> -->
-							<form:select path="religion" class="custom-select col-md-12 form-control">
+							<form:select path="religion" id="religionId" onchange="getReliginCastAjax1();" class="custom-select col-md-12 form-control">
 								<form:option value="">of Religion.... &nbsp;&nbsp;</form:option>
 								<form:options items="${religion}"></form:options>
 							</form:select>
@@ -377,13 +427,13 @@ window.setTimeout(function() {
 								<option value="2">Kapu</option>
 								<option value="3">Brahmin</option>
 							</select> -->
-							<form:select path="cast" class="custom-select col-md-12 form-control">
+							<form:select path="cast" id="castId" class="custom-select col-md-12 form-control">
 								<form:option value="">of Caste.... &nbsp;&nbsp;</form:option>
-								<form:options items="${cast}"></form:options>
+<%-- 								<form:options items="${cast}"></form:options> --%>
 							</form:select>
 						</div>
 						<div class="form-group">
-							<button type="button" id="submit12" class="btn btn-danger" onclick="searchSubmit()">Search</button>
+							<button type="button" id="submit12" class="btn btn-danger" onclick="searchSubmit();">Search</button>
 						</div>
 					</div>
 					</div>
@@ -405,33 +455,165 @@ window.setTimeout(function() {
 							<h1>Login</h1>
 							<img src="user/images/line-01.jpg" alt="" />
 						</div>
+						
+						
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog" style="  margin-top:55px;">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">		
+      <div class="modal-header" style="background:#099cca; color:#fff;"> <h3>Your Search Results</h3>
+        <button type="button" style="color:#fff !important; margin-right:10px; opacity:1;" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+      	<div class="searchresults">
+								   
+								    
+									<div id="searchResults">
+
+									</div>
+								</div>    
+      </div>
+    </div>
+
+  </div>
+</div>				
+						
 <script>
-
-
-
-
-
 
 function searchSubmit(){
 	var rPeople= $('#rPeople').val();
 	var rAgeFrom= $('#rAgeFrom').val();
-	var religion= $('#religion').val();
-	var cast= $('#cast').val();
-	var Female= $('#id1').val();
-	var Male= $('#id2').val();
-// 	if (rPeople.val()==""){
-// 		alert("Plese Select an Option..")
-    if(rPeople == "" && rAgeFrom == "" && religion == "" && cast == undefined){
-	alert("Enter any input...");
+	var rAgeTo= $("#rAgeTo").val();
+	if(rAgeFrom > rAgeTo){
+		alert("Sorry, Invalid Age range");
+		return false;
+	}
+    if(rPeople == ""){
+	alert("Are You Looking For...");
 	return false;
-	}else if(rPeople == 'Female'){
-			window.location.href ="${baseurl}"+"/searchByBride"; 
-		}else{
-			window.location.href ="${baseurl}"+"/searchByGroom"; 
-		}
+	}
+    else
+	{
+// 	var Female= $('#id1').val();
+// 	var Male= $('#id2').val();
+	var people= $('#rPeople').val();
+	var rAgeFrom= $('#rAgeFrom').val();
+	var rAgeTo= $("#rAgeTo").val();
+	var religion= $('#religionId').val();
+	var castId= $('#castId').val();
+	var gender="";
+       	if(people != $('#id2').val() ){
+       		gender="Female";
+	    }else
+	    {
+		   gender="Male";
+	   }
 	
+		var formData = new FormData();
+		formData.append("gender",gender);
+		formData.append("rAgeFrom",rAgeFrom);
+		formData.append("rAgeTo",rAgeTo);
+		formData.append("religionId",religion);
+		formData.append("castId",castId);
+	$.fn.makeMultipartRequest('POST', 'homePageSearchResults', false,
+			formData, false, 'text', function(data){
+		var jsonobj = $.parseJSON(data);
+		var alldata = jsonobj.searchListOrders;
+		displaydata(alldata);
+		$('#myModal').modal('show');
+	});
+		
+}
 } 
+
+
+function displaydata(data) {
 	
+      if(data == ""){
+         $('#searchResults').empty();	  
+              var tblHistory='<td colspan="7" style="text-align:center;">No History Found<span></span></td>';
+              $(tblHistory).appendTo("#searchResults");
+          	
+ 
+      }
+
+	$.each(data,function(i, orderObj) {
+		var profile_highlisht_str = '<div class="panel panel-default">';
+		var highlight_option = orderObj.profile_highlighter;
+		if(typeof highlight_option != "undefined" && highlight_option=='1'){
+			profile_highlisht_str = '<div class="panel panel-default" style="background-color:skyblue">';
+		}
+		var tblRow = profile_highlisht_str
+		+ '<div class="panel-heading">'
+		+ '<h5 class="panel-title" style="text-align:left;">'
+		+ '<div class="form-check">	<label class="form-check-label"> <input type="checkbox" class="form-check-input" placeholder=""> '+orderObj.firstName+'&nbsp;'+orderObj.lastName+'</label>	<span class="pull-right">Created by '+orderObj.createProfileFor+'</span></div>'
+		+ '</h5>'
+		+ '</div>'
+		+ '<div class="panel-body">'
+		+ '<div class="col-md-2">' 
+		+ '<a href="#" onclick="regFunction()">  <img src="img/default.png" class="img img-responsive thumbnail " style="margin-bottom:0;height: auto;width: 100%;"></a>'
+    	+ '</div>'
+    	 + '<div class="col-md-4">'
+     	 + '<h2 style="margin-top:10px;" class="pull-right"><a href="#" data-toggle="tooltip" data-placement="bottom" title="View Mobile Number" ><img style="margin-top:-10px;" > &nbsp;</a></h2></span><div class="clearfix"></div><blockquote style="min-height:100px; max-height:120px; "><p>'+orderObj.About+'</p><br><a href="#" onclick="regFunction()"><p style="float:right;">...more</p></a></blockquote>'
+     	+ '</div>' 
+     	+  '<div class="col-md-1"></div>'
+    	+ '<div class="col-md-5">'
+		+ '<table><tbody><tr><td width="150px">Age</td><td><span>: '+orderObj.age+'yrs</span></td></tr>'
+		+ '<tr><td>Religion</td><td><span>: '+orderObj.religionName+'</span></td></tr>'	
+		+ '<tr><td>Community</td><td><span>: '+orderObj.castName+'</span></td></tr>'
+		+ '<tr><td>Location</td><td><span>: '+orderObj.cityName+'</span></td></tr>'
+		+ '<tr><td>Education</td><td><span>: '+orderObj.Education+'</span></td></tr>'
+		+ '<tr><td>Profession</td><td><span>: '+orderObj.Profession+'</span></td></tr></tbody></table>'
+    	+ ' <a href="#" onclick="regFunction()"><button class="btn btn-warning">View Full Profile</button></a>'
+    	+ '</div>'
+    	+ '</div>' 
+    	+ '</div>' 
+    	+ '</div>'
+    	+ '</div>';
+			$(tblRow).appendTo("#searchResults");
+    	 
+
+		
+		
+		
+		
+	});
+}
+
+
+
+function regFunction(){
+	$('#myModal').modal('hide');
+	$('#register-info').modal('show');
+// 	$('#register-info').show();
+	
+	
+}
+function getReliginCastAjax1() {
+	var religionId = $("#religionId").val();
+		var formData = new FormData();
+		formData.append("religionId",religionId);
+	$.fn.makeMultipartRequest('POST', 'castesBasedOnReligion', false,
+			formData, false, 'text', function(data){
+		var jsonobj = $.parseJSON(data);
+		var alldata = jsonobj.allOrders1;
+		/* if(alldata == "" ){
+		$("#rCaste").select2('val','');
+	} */
+		var optionsForClass = "";
+		optionsForClass = $("#castId").empty();
+		optionsForClass.append(new Option("of Caste....", ""));
+		$.each(alldata, function(i, tests) {
+			var id=tests.id;
+			var casteName=tests.name;
+			optionsForClass.append(new Option(casteName, id));
+		});
+		
+	});
+}
 </script>
 						<div class="quote-form row">
 							<!-- contact form -->
@@ -750,20 +932,20 @@ function searchSubmit(){
 
 
 
-	<script src="user/vendor/jquery/jquery.min.js"></script>
-	<script src="user/js/ie10-viewport-bug-workaround.js"></script>
-	<script src="user/vendor/bootstrap/js/bootstrap.min.js"></script>
-	<script src="user/vendor/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-	<script src="user/vendor/scrollreveal/scrollreveal.min.js"></script>
-	<script src="user/js/theme.js"></script>
-	<script src="user/js/custom.js"></script>
-	 <script src="js/jquery.blockUI.min.js"></script>
-	<script src="user/vendor/woocommerce-FlexSlider/jquery.flexslider.js"></script>
-	<script src="user/js/modernizr.custom.js"></script>
-	<script src="user/js/toucheffects.js"></script>
-<script src="js/custemValidation1.js"></script>
-<script src="js/ajax.js"></script>
-<script src="js/jquery-ui.min.js"></script>
+	<script src="${baseurl}/user/vendor/jquery/jquery.min.js"></script>
+	<script src="${baseurl}/user/js/ie10-viewport-bug-workaround.js"></script>
+	<script src="${baseurl}/user/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script src="${baseurl}/user/vendor/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+	<script src="${baseurl}/user/vendor/scrollreveal/scrollreveal.min.js"></script>
+	<script src="${baseurl}/user/js/theme.js"></script>
+	<script src="${baseurl}/user/js/custom.js"></script>
+	 <script src="${baseurl}/js/jquery.blockUI.min.js"></script>
+	<script src="${baseurl}/user/vendor/woocommerce-FlexSlider/jquery.flexslider.js"></script>
+	<script src="${baseurl}/user/js/modernizr.custom.js"></script>
+	<script src="${baseurl}/user/js/toucheffects.js"></script>
+<script src="${baseurl}/js/custemValidation1.js"></script>
+<script src="${baseurl}/js/ajax.js"></script>
+<script src="${baseurl}/js/jquery-ui.min.js"></script>
 <script type="text/javascript">
 /* $( document ).ready(function() {
 	$("#dob").datepicker({

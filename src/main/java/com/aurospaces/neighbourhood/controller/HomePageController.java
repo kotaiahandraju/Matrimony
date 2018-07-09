@@ -25,6 +25,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.castor.util.Base64Decoder;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.joda.time.DateTime;
 import org.json.JSONObject;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapper;
@@ -60,6 +61,7 @@ import com.aurospaces.neighbourhood.db.dao.CountriesDao;
 import com.aurospaces.neighbourhood.db.dao.PaymenthistoryDao;
 import com.aurospaces.neighbourhood.db.dao.StateDao;
 import com.aurospaces.neighbourhood.db.dao.UserImageUploadDao;
+import com.aurospaces.neighbourhood.db.dao.UserSettingsDao;
 import com.aurospaces.neighbourhood.db.dao.UserrequirementDao;
 import com.aurospaces.neighbourhood.db.dao.UsersDao;
 import com.aurospaces.neighbourhood.filter.JavaIntegrationKit;
@@ -72,6 +74,7 @@ import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
 @Controller
+@RequestMapping(value="/users")
 public class HomePageController {
 	private Logger logger = Logger.getLogger(HomePageController.class);
 	@Autowired
@@ -85,8 +88,9 @@ public class HomePageController {
    @Autowired PaymenthistoryDao paymenthistoryDao;
    @Autowired StateDao stateDao;
    @Autowired CastDao objCastDao;
+   @Autowired UserSettingsDao settingsDao;
    
-	@RequestMapping(value = "/HomePage")
+	/*@RequestMapping(value = "/HomePage")
 	public String CreateProfile(@ModelAttribute("createProfile") UsersBean objUsersBean, Model objeModel ,
 			HttpServletRequest request, HttpSession session) {
 //		System.out.println("Home Page");
@@ -132,7 +136,7 @@ public class HomePageController {
 			objJson.put("msg", e);
 		}
 		return String.valueOf(objJson);
-	}
+	}*/
 	
 	@RequestMapping(value = "/mobileNumChecking")
 	public @ResponseBody String mobileNumChecking(@ModelAttribute("createProfile") UsersBean objUsersBean, Model objeModel ,
@@ -157,7 +161,7 @@ public class HomePageController {
 		return String.valueOf(objJson);
 	}
 	
-	@RequestMapping(value = "/userRegistration")
+	/*@RequestMapping(value = "/userRegistration")
 	public String userRegistration(@ModelAttribute("createProfile") UsersBean objUsersBean, Model objeModel ,
 			HttpServletRequest request,HttpServletResponse response, HttpSession session) {
 //		System.out.println("userRegistration Page");
@@ -197,7 +201,7 @@ public class HomePageController {
 			logger.fatal("error in CreateProfile class createProfile method  ");
 		}
 		return "redirect:profile.htm?page=1";
-	}
+	}*/
 	@RequestMapping(value = "/profile")
 	public String profile(@ModelAttribute("createProfile") UsersBean objUsersBean, Model objeModel ,
 			HttpServletRequest request,HttpServletResponse response, HttpSession session) {
@@ -217,6 +221,14 @@ public class HomePageController {
 					statesMap.put((Integer)map.get("id"), (String)map.get("name"));
 			}
 			 request.setAttribute("country_based_states", statesMap);
+			 ///
+			 List<Map<String,Object>> castes_list =  objCastDao.getCastesBasedOnReligion(sessionBean.getReligion());
+			Map<Integer, String> castesMap = new LinkedHashMap<Integer, String>();
+			for (Map<String,Object> caste : castes_list) {
+				castesMap.put((Integer)caste.get("id"),(String)caste.get("name"));
+			}
+			request.setAttribute("castes_list", castesMap);
+			///
 			 objeModel.addAttribute("createProfile", objUsersBean);
 			 }
 			}else{
@@ -267,6 +279,8 @@ public class HomePageController {
 				 if(StringUtils.isNotBlank(objUsersBean.getRedirectPage())){
 					if(!("dashboard".equalsIgnoreCase(objUsersBean.getRedirectPage()))){ // send email only on create.
 						session.setAttribute("profile_filled_status", 45);
+						Map<String,Object> user_settings = settingsDao.getUserSettings(objUsersBean1.getId()+"");
+						session.setAttribute("user_settings", user_settings);
 						Map<String,Object> interestCounts = objUsersDao.getInterestCounts(objUsersBean);
 						long notificationsCount = (Long)interestCounts.get("notificationsCount");
 						session.setAttribute("notificationsCount", notificationsCount);
@@ -302,6 +316,7 @@ public class HomePageController {
 				 
 				 if(objUsersBean.getRoleId() == 4){
 					 session.setAttribute("allowed_profiles_limit", 0); 
+					 session.setAttribute("upgrade_msg_flag", "1");
 				 }else{
 					 int allowed_profiles_limit = objUsersDao.getAllowedProfilesLimit(objUsersBean.getId());
 					 session.setAttribute("allowed_profiles_limit", allowed_profiles_limit);
@@ -360,6 +375,7 @@ public class HomePageController {
 		return "redirect:dashboard";
 		
 	}
+	
 	
 	 @RequestMapping(value = "/family-details")
 	 public String familyDetails(@ModelAttribute("familyDetails") UsersBean objUsersBean, Model objeModel ,
@@ -872,6 +888,28 @@ public class HomePageController {
 			List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos(sessionBean.getId());
 			request.setAttribute("photosList", photosList);
 			request.setAttribute("photosListSize", photosList.size());
+			///////
+			List<Map<String,Object>> castes_list =  objCastDao.getCastesBasedOnReligion(sessionBean.getReligion());
+			Map<Integer, String> castesMap = new LinkedHashMap<Integer, String>();
+			for (Map<String,Object> caste : castes_list) {
+				castesMap.put((Integer)caste.get("id"),(String)caste.get("name"));
+			}
+			request.setAttribute("castes_list", castesMap);
+			/////
+			List<Map<String,Object>> results = stateDao.getFilteredStates(sessionBean.getCurrentCountry());
+			Map<Integer, String> statesMap = new LinkedHashMap<Integer, String>();
+			for (Map<String,Object> state : results) {
+				statesMap.put((Integer)state.get("id"),(String)state.get("name"));
+			}
+			request.setAttribute("states_map", statesMap);
+			//////
+			Map<Integer, String> citiesMap = new LinkedHashMap<Integer, String>();
+			List<CityBean> ojCityBean = objCityDao.filterByState(sessionBean.getCurrentState());
+			for (CityBean city : ojCityBean) {
+				citiesMap.put(city.getId(),city.getName());
+			}
+			request.setAttribute("cities_map", citiesMap);
+			
 		} catch (Exception e) {
 	   e.printStackTrace();
 	   System.out.println(e);
@@ -1348,6 +1386,9 @@ public class HomePageController {
 	  }
 	  return "searchPage";
 	 }
+	 
+	
+	 
 	 @RequestMapping(value = "/getCitys")
 		public  @ResponseBody String getCitys( ModelMap model,
 				HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
@@ -2164,6 +2205,13 @@ public class HomePageController {
 	            String paramValue = request.getParameter(paramName);
 	            params.put(paramName, paramValue);
 	        }
+	       String first_name = params.get("firstname");
+	       first_name = first_name.replaceAll("##", " ");
+	       String last_name = params.get("lastname");
+	       last_name = last_name.replaceAll("##", " ");
+	       params.put("firstname", first_name);
+	       params.put("lastname", last_name);
+	       
 	       request.setAttribute("params", params);
 	       Paymenthistory objPamenthistory = new Paymenthistory();
 			String unmappedstatus = request.getParameter("unmappedstatus");
@@ -2308,6 +2356,139 @@ public class HomePageController {
 	   
 	   
    }
+   /*
+    * Total profiles list should be divided equally  among all the employees of aarna matrimony
+    */
+   @RequestMapping(value="/splitProfilesToEmployees")
+   public String splitProfilesToEmployees(HttpSession session,HttpServletRequest request){
+	   try{
+		   int free_users_count = 100;//objUsersDao.getFreeMembersCount();
+		   List<Map<String, Object>> emp_list = objUsersDao.getEmployeesList();
+		   int slot_size = 0;
+		   if(emp_list!=null && emp_list.size()>0){
+			   slot_size = free_users_count/emp_list.size();
+		   }
+		   int start_index = 1;
+		   for(Map<String,Object> emp:emp_list){
+			   objUsersDao.updateEmployeeProfilesSlot((Integer)emp.get("id"), start_index, slot_size);
+			   start_index += slot_size;
+		   }
+	   }catch(Exception e){
+		   e.printStackTrace();
+	   }
+	   
+	   
+	   return "";
+   }
+   
+   /*
+    * To rotate the profiles_slots  among the employees...this script runs every month end.
+    * Before running this URL..run 'splitProfilesToEmployees' URL
+    */
+   @RequestMapping(value="/rotateEmployeesProfilesSlot")
+   public String rotateEmployeesProfilesSlot(HttpSession session,HttpServletRequest request){
+	   try{
+		   int free_users_count = objUsersDao.getFreeMembersCount(); 
+		   objUsersDao.rotateEmployeesProfilesSlot(free_users_count);
+	   }catch(Exception e){
+		   e.printStackTrace();
+	   }
+	   
+	   
+	   return "";
+   }
+   
+   /*
+    * 
+    */
+   @RequestMapping(value="/createActivityLogDataForOldReqs")
+   public String createActivityLogDataForOldReqs(HttpSession session,HttpServletRequest request){
+	   try{
+		   List<Map<String,Object>> old_requests = objUsersDao.getOldRequests(); 
+		   for(Map<String,Object> req:old_requests){
+			   StringBuffer buffer = new StringBuffer("");
+				try{
+					String status = (String)req.get("status");
+					String mobile_no_viewed_status = (String)req.get("mobile_no_viewed_status");
+					String message_sent_status = (String)req.get("message_sent_status");
+					String message_status = (String)req.get("message_status");
+					if(status.equalsIgnoreCase("1")){
+						buffer.append("insert into users_activity_log(created_time,activity_type,act_done_by_user_id,act_done_on_user_id) "
+								+" values('"+req.get("created_on")+"','interest_request',"+req.get("user_id")+","+req.get("profile_id")+")");
+						objUsersDao.createActivityLogEntry(buffer.toString());
+					}
+					if(status.equalsIgnoreCase("2")){
+						buffer.append("insert into users_activity_log(created_time,activity_type,act_done_by_user_id,act_done_on_user_id) "
+								+" values('"+req.get("created_on")+"','interest_request',"+req.get("user_id")+","+req.get("profile_id")+")");
+						objUsersDao.createActivityLogEntry(buffer.toString());
+						
+						buffer = new StringBuffer("");
+						buffer.append("insert into users_activity_log(created_time,activity_type,act_done_by_user_id,act_done_on_user_id) "
+								+" values('"+req.get("created_on")+"','interest_accepted',"+req.get("profile_id")+","+req.get("user_id")+")");
+						objUsersDao.createActivityLogEntry(buffer.toString());
+					}
+					if(status.equalsIgnoreCase("3")){
+						buffer.append("insert into users_activity_log(created_time,activity_type,act_done_by_user_id,act_done_on_user_id) "
+								+" values('"+req.get("created_on")+"','interest_request',"+req.get("user_id")+","+req.get("profile_id")+")");
+						objUsersDao.createActivityLogEntry(buffer.toString());
+						
+						buffer = new StringBuffer("");
+						buffer.append("insert into users_activity_log(created_time,activity_type,act_done_by_user_id,act_done_on_user_id) "
+								+" values('"+req.get("created_on")+"','interest_rejected',"+req.get("profile_id")+","+req.get("user_id")+")");
+						objUsersDao.createActivityLogEntry(buffer.toString());
+					}
+					if(mobile_no_viewed_status.equalsIgnoreCase("1")){
+						buffer.append("insert into users_activity_log(created_time,activity_type,act_done_by_user_id,act_done_on_user_id) "
+								+" values('"+req.get("created_on")+"','mobile_no_viewed',"+req.get("user_id")+","+req.get("profile_id")+")");
+						objUsersDao.createActivityLogEntry(buffer.toString());
+					}
+					if(message_sent_status.equalsIgnoreCase("1")){
+						buffer.append("insert into users_activity_log(created_time,activity_type,act_done_by_user_id,act_done_on_user_id) "
+								+" values('"+req.get("created_on")+"','email',"+req.get("user_id")+","+req.get("profile_id")+")");
+						objUsersDao.createActivityLogEntry(buffer.toString());
+					}
+					if(message_status.equalsIgnoreCase("1")){
+						buffer.append("insert into users_activity_log(created_time,activity_type,act_done_by_user_id,act_done_on_user_id) "
+								+" values('"+req.get("created_on")+"','email',"+req.get("user_id")+","+req.get("profile_id")+")");
+						objUsersDao.createActivityLogEntry(buffer.toString());
+						
+						buffer.append("insert into users_activity_log(created_time,activity_type,act_done_by_user_id,act_done_on_user_id) "
+								+" values('"+req.get("created_on")+"','message_accepted',"+req.get("user_id")+","+req.get("profile_id")+")");
+						objUsersDao.createActivityLogEntry(buffer.toString());
+					}
+					if(message_status.equalsIgnoreCase("2")){
+						buffer.append("insert into users_activity_log(created_time,activity_type,act_done_by_user_id,act_done_on_user_id) "
+								+" values('"+req.get("created_on")+"','email',"+req.get("user_id")+","+req.get("profile_id")+")");
+						objUsersDao.createActivityLogEntry(buffer.toString());
+						
+						buffer.append("insert into users_activity_log(created_time,activity_type,act_done_by_user_id,act_done_on_user_id) "
+								+" values('"+req.get("created_on")+"','message_replied',"+req.get("profile_id")+","+req.get("user_id")+")");
+						objUsersDao.createActivityLogEntry(buffer.toString());
+					}
+					if(message_status.equalsIgnoreCase("3")){
+						buffer.append("insert into users_activity_log(created_time,activity_type,act_done_by_user_id,act_done_on_user_id) "
+								+" values('"+req.get("created_on")+"','email',"+req.get("user_id")+","+req.get("profile_id")+")");
+						objUsersDao.createActivityLogEntry(buffer.toString());
+						
+						buffer.append("insert into users_activity_log(created_time,activity_type,act_done_by_user_id,act_done_on_user_id) "
+								+" values('"+req.get("created_on")+"','message_rejected',"+req.get("profile_id")+","+req.get("user_id")+")");
+						objUsersDao.createActivityLogEntry(buffer.toString());
+					}
+					
+					//boolean inserted = objUsersDao.createActivityLogEntry(buffer.toString());
+					
+				}catch(Exception e){
+					e.printStackTrace();
+				} 
+		   }
+	   }catch(Exception e){
+		   e.printStackTrace();
+	   }
+	   
+	   
+	   return "";
+   }
+   
    /*****     back-end jobs   end        ********/
    
    /*****     pagination function call **********/
@@ -2679,6 +2860,7 @@ public class HomePageController {
 				int pending = Integer.parseInt(sessionBean.getPendingRequestsCount());
 				sessionBean.setPendingRequestsCount(pending>0?(pending-1)+"":"0");
 				session.setAttribute("cacheGuest",sessionBean);
+				objJson.put("req_count", pending>0?(pending-1)+"":"0");
 			} else {
 				objJson.put("message", "failed");
 			}
@@ -3196,38 +3378,33 @@ public class HomePageController {
    HttpSession session,
    Model mod)
    {
-	   UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
-		if(sessionBean == null){
-			return "redirect:HomePage";
-		}
-	   UsersBean profile = (UsersBean)session.getAttribute("profileToBeCreated");
-	   objeModel.addAttribute("partnerProfile", profile);
-	   String mobileNum = profile.getMobile();
-	   String otp1 = request.getParameter("otp1");
-	   /*************
-		check OTP limit for the day
-		
-		*************/
-	   int count = objUsersDao.getOTPCount(mobileNum);
-	   if(count<=MatrimonyConstants.OTP_LIMIT){
-		   String otp = objUsersDao.getOtpOf(sessionBean.getId()+"",mobileNum)+"";
-		   if(StringUtils.isNotBlank(otp1)  &&  otp.equals(otp1)){
-			   objUsersDao.updateOtpStatus(mobileNum,otp);
-			   
-			   //return "redirect:saveUserProfile";
-			   return "redirect:dashboard";
-		   }else{
-			   request.setAttribute("message", "mismatched");//"OTP mismatched.Please try again.");
-			   return "otpPage";
-		   }
-	   }else{
-		   request.setAttribute("msg", "OTP limit for the day has been exceeded. Please try again later.");
-		   return "otpFailurePage";
-	   }
+	   try{
+		   UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
+			if(sessionBean == null){
+				return "redirect:HomePage";
+			}
+		   UsersBean profile = (UsersBean)session.getAttribute("profileToBeCreated");
+		   objeModel.addAttribute("partnerProfile", profile);
+		   String mobileNum = profile.getMobile();
+		   String otp1 = request.getParameter("otp1");
+			   String otp = objUsersDao.getOtpOf(sessionBean.getId()+"",mobileNum)+"";
+			   if(StringUtils.isNotBlank(otp1)  &&  otp.equals(otp1)){
+				   objUsersDao.updateOtpStatus(mobileNum,otp);
+				   
+				   //return "redirect:saveUserProfile";
+				   return "redirect:dashboard";
+			   }else{
+				   request.setAttribute("message", "mismatched");//"OTP mismatched.Please try again.");
+				   return "otpPage";
+			   }
 	   
-	   
-	   
-
+   		}catch (Exception e) {
+		   e.printStackTrace();
+		   System.out.println(e);
+		   logger.error(e);
+		   logger.fatal("error in sendOtp method");
+		 }
+	   return "otpPage";
    }
    
    
@@ -3301,29 +3478,44 @@ public class HomePageController {
 				UsersBean savedUserData = objUsersDao.getById(sessionBean.getId());
 				String mobileNum = savedUserData.getMobile();
 				objJson.put("mobileStr", mobileNum.substring(mobileNum.length()-3));
-				String otp = objUsersDao.getOtpOf(savedUserData.getId()+"",mobileNum);
-				//String otp = objUsersDao.genOtp();
-			   //insert into otp table
-			   //boolean success = objUsersDao.saveOtp(sessionBean.getId()+"",mobileNum,otp);
-			   if(StringUtils.isNotBlank(otp)){
-				   try{
-					   String response = SendSMS.sendSMS("Thanks for registering with Aarna Matrimony. OTP for your registration is: "+otp, mobileNum);
-					   
-					   if("OK".equalsIgnoreCase(response)){
-						   objJson.put("message", "success");
-					   }else{
+				
+				/*************
+				check OTP limit for the day
+				
+				*************/
+			   int count = objUsersDao.getOTPCount(mobileNum);
+			   if(count<MatrimonyConstants.OTP_LIMIT){
+				   String otp = objUsersDao.getOtpOf(savedUserData.getId()+"",mobileNum);
+					//String otp = objUsersDao.genOtp();
+				   //insert into otp table
+				   //boolean success = objUsersDao.saveOtp(sessionBean.getId()+"",mobileNum,otp);
+				   if(StringUtils.isNotBlank(otp)){
+					   try{
+						   String response = SendSMS.sendSMS("OTP for your registration is: "+otp, mobileNum);
+						   
+						   if("OK".equalsIgnoreCase(response)){
+							   objJson.put("message", "success");
+							   boolean updated = objUsersDao.updateOtpCount(mobileNum, otp);
+						   }else{
+							   objJson.put("message", "failed");
+						   }
+						   //throw new Exception();
+					   }catch(Exception e){
+						   e.printStackTrace();
 						   objJson.put("message", "failed");
 					   }
-					   //throw new Exception();
-				   }catch(Exception e){
-					   e.printStackTrace();
+					   
+					   
+				   }else{
 					   objJson.put("message", "failed");
 				   }
-				   
-				   
 			   }else{
-				   objJson.put("message", "failed");
+				   //request.setAttribute("msg", "OTP limit for the day has been exceeded. Please try again later.");
+				   objJson.put("message","limit_exceeded");
 			   }
+			   
+				
+				
 			   
 			
 		} catch (Exception e) {
@@ -4181,62 +4373,12 @@ public class HomePageController {
 	   System.out.println(e);
 	   logger.error(e);
 	   logger.fatal("error in inboxAjaxAction method");
+	   return jsOnObj.put("error", "error").toString();
 	  }
 		return jsOnObj.toString();
 	 }
    
-   @RequestMapping(value = "/forgotPassword")
-	public String forgotPassword(@ModelAttribute("forgotPassword") UsersBean objUsersBean, Model objeModel ,
-			HttpServletRequest request, HttpSession session) {
 
-		try {
-			
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println(e);
-			//logger.error(e);
-			//logger.fatal("error in CreateProfile class createProfile method  ");
-			return "redirect:HomePage.htm";
-		}
-		return "forgotPassword";
-	}
-   
-   @RequestMapping(value = "/forgotPasswordPreAction")
-	public  @ResponseBody String forgotPasswordPreAction(@ModelAttribute("forgotPassword") UsersBean objUsersBean, Model objeModel ,
-			HttpServletRequest request, HttpSession session) {
-	   JSONObject jsOnObj = new JSONObject();
-	   String emailStr = "",mobileStr=""; 
-		try {
-			String inputVal = request.getParameter("forgotPasswordInput");
-			if(StringUtils.isNotBlank(inputVal)){
-				UsersBean userBean = objUsersDao.getUser(inputVal.trim());
-				session.setAttribute("userBean", userBean);
-				if(userBean == null){
-					jsOnObj.put("message", "no-data");
-				}else{
-					String email = userBean.getEmail();
-					emailStr = email.substring(email.indexOf("@")-3);
-					String mobileNum = userBean.getMobile();
-					if(StringUtils.isNotBlank(mobileNum)){
-						mobileStr = mobileNum.substring(mobileNum.length()-3);
-					}
-					session.setAttribute("emailStr", emailStr);
-					session.setAttribute("mobileStr", mobileStr);
-				}
-			}
-			jsOnObj.put("emailStr", emailStr);
-			jsOnObj.put("mobileStr", mobileStr);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println(e);
-			//logger.error(e);
-			//logger.fatal("error in CreateProfile class createProfile method  ");
-			return "redirect:HomePage.htm";
-		}
-		return jsOnObj.toString();
-	}
    
    @RequestMapping(value = "/forgotPasswordAction")
 	public  String forgotPasswordAction(@ModelAttribute("forgotPassword") UsersBean objUsersBean, Model objeModel ,
@@ -4301,6 +4443,15 @@ public class HomePageController {
 			
 			request.setAttribute("oldPassword", currentPassword);
 			
+			///////
+			List<Map<String,Object>> castes_list =  objCastDao.getCastesBasedOnReligion(sessionBean.getReligion());
+			Map<Integer, String> castesMap = new LinkedHashMap<Integer, String>();
+			for (Map<String,Object> caste : castes_list) {
+				castesMap.put((Integer)caste.get("id"),(String)caste.get("name"));
+			}
+			request.setAttribute("castes_list", castesMap);
+			/////
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e);
@@ -4347,7 +4498,31 @@ public class HomePageController {
 		}
 		return jsOnObj.toString();
 	}
-  
+  @RequestMapping(value = "/changeEmailAction")
+ 	public  @ResponseBody String changeEmailAction(@RequestParam("email") String email, HttpServletRequest request, HttpSession session) {
+ 	   JSONObject jsOnObj = new JSONObject();
+ 	   
+ 		try {
+ 				UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
+ 				if(sessionBean == null){
+ 					return "redirect:HomePage";
+ 				}
+ 				System.out.println("Id:"+sessionBean.getId());
+ 					boolean success = objUsersDao.updateEmail(email,sessionBean.getId());
+ 			if(success) {
+ 				jsOnObj.put("message", "email updated successfully");
+ 			}else {
+ 				jsOnObj.put("message", "failed");
+ 			}
+ 		} catch (Exception e) {
+ 			e.printStackTrace();
+ 			System.out.println(e);
+ 			//logger.error(e);
+ 			//logger.fatal("error in CreateProfile class createProfile method  ");
+ 			jsOnObj.putOnce("message", "failed");
+ 		}
+ 		return jsOnObj.toString();
+ 	}
   @RequestMapping(value = "/profileSettingsAction")
 	public  @ResponseBody String profileSettingsAction(@ModelAttribute("settingsForm") UsersBean objUsersBean, Model objeModel ,
 			HttpServletRequest request, HttpSession session) {

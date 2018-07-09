@@ -4,6 +4,10 @@
 <%@ taglib uri="http://displaytag.sf.net" prefix="display"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
+<%
+	String baseurl =  request.getScheme() + "://" + request.getServerName() +      ":" +   request.getServerPort() +  request.getContextPath();
+	session.setAttribute("baseurl", baseurl);
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,19 +22,19 @@
 	<link rel="shortcut icon" href="img/aarna1.jpg"/>
 
 	<!-- Bootstrap -->
-	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="${baseurl}/css/bootstrap.min.css">
 	<!-- icheck -->
-	<link rel="stylesheet" href="css/plugins/icheck/all.css">
+	<link rel="stylesheet" href="${baseurl}/css/plugins/icheck/all.css">
 	<!-- Theme CSS -->
-	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="${baseurl}/css/style.css">
 	<!-- Color CSS -->
-	<link rel="stylesheet" href="css/themes.css">
+	<link rel="stylesheet" href="${baseurl}/css/themes.css">
 	<!-- Animate CSS -->
-	<link rel="stylesheet" href="css/animate.css">
+	<link rel="stylesheet" href="${baseurl}/css/animate.css">
 
 
 	<!-- jQuery -->
-	<script src="js/jquery.min.js"></script>
+	<script src="${baseurl}/js/jquery.min.js"></script>
 	
 
 	<!--[if lte IE 9]>
@@ -109,7 +113,7 @@ span.has-error,span.hasError
 		</div>
 	</div>
 	
-<script src="js/custemValidation.js"></script>
+<script src="${baseurl}/js/custemValidation.js"></script>
 <script type="text/javascript">
 
 	function validate(id, errorMessage)

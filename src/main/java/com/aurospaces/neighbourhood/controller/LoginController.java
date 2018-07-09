@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.aurospaces.neighbourhood.bean.EducationBean;
@@ -31,14 +33,13 @@ import com.aurospaces.neighbourhood.db.dao.UserSettingsDao;
 import com.aurospaces.neighbourhood.db.dao.UserrequirementDao;
 import com.aurospaces.neighbourhood.db.dao.UsersDao;
 import com.aurospaces.neighbourhood.util.HRMSUtil;
-import com.aurospaces.neighbourhood.util.MatrimonyConstants;
 import com.aurospaces.neighbourhood.util.MiscUtils;
-import com.aurospaces.neighbourhood.util.SendSMS;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
 @Controller
 public class LoginController {
+	private Logger logger = Logger.getLogger(LoginController.class);
 	@Autowired
 	UsersDao objUsersDao;
 	@Autowired UserrequirementDao objUserrequirementDao;
@@ -134,6 +135,163 @@ public class LoginController {
 		}
 		return "LoginHome";
 	}
+	
+	@RequestMapping(value = "/HomePage")
+	public String CreateProfile(@ModelAttribute("createProfile") UsersBean objUsersBean, Model objeModel ,
+			HttpServletRequest request, HttpSession session) {
+//		System.out.println("Home Page");
+		try {
+			UsersBean objuserBean = (UsersBean) session.getAttribute("cacheUserBean");
+			if (objuserBean != null) {
+				int rolId =objuserBean.getRoleId();
+				if(rolId == 1 ){
+					return "redirect:admin/BodyTypeHome";
+				}
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			logger.error(e);
+			logger.fatal("error in CreateProfile class createProfile method  ");
+		}
+		return "homepage";
+	}
+	
+	@RequestMapping(value = "/userRegistration")
+	public String userRegistration(@ModelAttribute("createProfile") UsersBean objUsersBean, Model objeModel ,
+			HttpServletRequest request,HttpServletResponse response, HttpSession session) {
+//		System.out.println("userRegistration Page");
+		String ipAddress = null;
+		try {
+			ipAddress =MiscUtils.getClientIpAddress(request);
+			if(StringUtils.isNotBlank(ipAddress)){
+				objUsersBean.setLast_ip(ipAddress);
+			}
+			Date dob1 = HRMSUtil.dateFormate(objUsersBean.getDob());
+			if(dob1 !=null){
+				objUsersBean.setDob1(dob1);
+			}
+			objUsersBean.setRoleId(4);
+			objUsersBean.setStatus("0");
+			objUsersBean.setUsername("AM"+MiscUtils.generateRandomNumber(6));
+			UsersBean userbean = objUsersDao.emailExistOrNot(objUsersBean);
+			if(userbean != null){	
+				request.setAttribute("msg", "Email Already Exist ");
+				return "homepage";
+			}
+			if(StringUtils.isNotBlank(objUsersBean.getEmail())){
+			objUsersDao.save(objUsersBean);
+			int id= objUsersBean.getId();
+			objUsersBean.setUserId(id);
+			objUserrequirementDao.save(objUsersBean);
+			objUsersBean.setId(id);
+//			objUserDetailsDao.save(objUsersBean);
+			session.setAttribute("cacheGuest", objUsersBean);
+//			response.sendRedirect("profile?gp=page_1");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			logger.error(e);
+			logger.fatal("error in CreateProfile class createProfile method  ");
+		}
+		return "redirect:users/profile.htm?page=1";
+	}
+	
+	@RequestMapping(value = "/emailChecking")
+	public @ResponseBody String emailChecking(@ModelAttribute("createProfile") UsersBean objUsersBean, Model objeModel ,
+			HttpServletRequest request,HttpServletResponse response, HttpSession session) {
+//		System.out.println("emailChecking Page");
+		JSONObject objJson = new JSONObject();
+		
+		try {
+			UsersBean userbean = objUsersDao.emailExistOrNot(objUsersBean);
+			if(userbean == null){
+				objJson.put("msg", "notexist");
+			}else{
+				objJson.put("msg", "exist");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			logger.error(e);
+			logger.fatal("error in CreateProfile class createProfile method  ");
+			objJson.put("msg", e);
+		}
+		return String.valueOf(objJson);
+	}
+	
+	@ModelAttribute("religion")
+	public Map<Integer, String> populatereligion() {
+		Map<Integer, String> statesMap = new LinkedHashMap<Integer, String>();
+		try {
+			String sSql = "select id,name from religion  where status='1' order by name asc";
+			List<EducationBean> list = objUsersDao.populate(sSql);
+			for (EducationBean bean : list) {
+				statesMap.put(bean.getId(), bean.getName());
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+		}
+		return statesMap;
+	}
+	
+	@ModelAttribute("cast")
+	public Map<Integer, String> populatecast() {
+		Map<Integer, String> statesMap = new LinkedHashMap<Integer, String>();
+		try {
+			String sSql = "select id,name from cast  where status='1' order by name asc";
+			List<EducationBean> list = objUsersDao.populate(sSql);
+			for (EducationBean bean : list) {
+				statesMap.put(bean.getId(), bean.getName());
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+		}
+		return statesMap;
+	}
+	
+	@ModelAttribute("language")
+	public Map<Integer, String> populatelanguage() {
+		Map<Integer, String> statesMap = new LinkedHashMap<Integer, String>();
+		try {
+			String sSql = "select id,name from language  where status='1' order by name asc";
+			List<EducationBean> list = objUsersDao.populate(sSql);
+			for (EducationBean bean : list) {
+				statesMap.put(bean.getId(), bean.getName());
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+		}
+		return statesMap;
+	}
+	
+	@ModelAttribute("countries")
+	public Map<Integer, String> populatecountries() {
+		Map<Integer, String> statesMap = new LinkedHashMap<Integer, String>();
+		try {
+			String sSql = "select id,name from countries  where status='1' order by name asc";
+			List<EducationBean> list = objUsersDao.populate(sSql);
+			for (EducationBean bean : list) {
+				statesMap.put(bean.getId(), bean.getName());
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+		}
+		return statesMap;
+	}
+	
 	public String setInitialData(UsersBean objUserBean,HttpSession session){
 		//update login time
 		objUsersDao.updateLoginTime(objUserBean,"1");
@@ -209,45 +367,47 @@ public class LoginController {
 			session.setAttribute("cacheGuest", objUserBean);
 			session.setAttribute("rolId", objUserBean.getRoleId());
 			session.setAttribute("userName", objUserBean.getUsername());
+			session.setAttribute("otpStatus", otpStatus);
+			session.setAttribute("upgrade_msg_flag", "1");
 			
 			int filled_status = objUsersDao.getProfileFilledStatus(objUserBean);
 			if(StringUtils.isBlank(objUserBean.getCurrentState()) ||
 			   StringUtils.isBlank(objUserBean.getMaritalStatus()) ||
 			   StringUtils.isBlank(objUserBean.getCaste())){
-				return "redirect:profile.htm?page=1";
+				return "redirect:users/profile.htm?page=1";
 			}
 			filled_status += 15;
 			if(StringUtils.isBlank(objUserBean.getEducation()) ||
 			   StringUtils.isBlank(objUserBean.getOccupation())){
-				return "redirect:profile.htm?page=2";
+				return "redirect:users/profile.htm?page=2";
 			}
 			filled_status += 15;
 			if(StringUtils.isBlank(objUserBean.getHeight()) ||
 					StringUtils.isBlank(objUserBean.getSmoking()) ||
 					StringUtils.isBlank(objUserBean.getDrinking()) ||
 					StringUtils.isBlank(objUserBean.getMobile())){
-				return "redirect:profile.htm?page=3";
+				return "redirect:users/profile.htm?page=3";
 			}
 			filled_status += 15;
 			session.setAttribute("profile_filled_status", filled_status);
 			if(StringUtils.isBlank(otpStatus) || "0".equals(otpStatus)){
 				if(StringUtils.isBlank(objUserBean.getAboutMyself())){
-					return "redirect:profile.htm?page=4";
+					return "redirect:users/profile.htm?page=4";
 				}
 				
 				if(StringUtils.isBlank(objUserBean.getFatherName())){
-					return "redirect:family-details";
+					return "redirect:users/family-details";
 				}
 				if(StringUtils.isBlank(objUserBean.getImage())){
-					return "redirect:uploadPhotos";
+					return "redirect:users/uploadPhotos";
 				}
 				if(StringUtils.isBlank(objUserBean.getrAgeFrom()) && StringUtils.isBlank(objUserBean.getrAgeTo()) &&
 						StringUtils.isBlank(objUserBean.getrMaritalStatus()) ){
-					return "redirect:partner-profile";
+					return "redirect:users/partner-profile";
 				}
-				return "redirect:sendOtp";
+				return "redirect:users/sendOtp";
 			}else
-				return "redirect:dashboard";
+				return "redirect:users/dashboard";
 			//}
 			
 		}else if(objUserBean.getRoleId() != 4){
@@ -260,15 +420,15 @@ public class LoginController {
 			int filled_status = objUsersDao.getProfileFilledStatus(objUserBean);
 			
 			if(StringUtils.isBlank(objUserBean.getMaritalStatus())){
-				return "redirect:profile.htm?page=1";
+				return "redirect:users/profile.htm?page=1";
 			}
 			filled_status += 15;
 			if(StringUtils.isBlank(objUserBean.getEducation())){
-				return "redirect:profile.htm?page=2";
+				return "redirect:users/profile.htm?page=2";
 			}
 			filled_status += 15;
 			if(StringUtils.isBlank(objUserBean.getHeight())){
-				return "redirect:profile.htm?page=3";
+				return "redirect:users/profile.htm?page=3";
 			}
 			filled_status += 15;
 			if(StringUtils.isBlank(objUserBean.getAboutMyself()) && StringUtils.isBlank(objUserBean.getDisability())){
@@ -277,14 +437,104 @@ public class LoginController {
 			session.setAttribute("profile_filled_status", filled_status);
 			String otpStatus = objUsersDao.getOtpStatus(objUserBean);
 			if(StringUtils.isBlank(otpStatus) || "0".equals(otpStatus)){
-				return "redirect:sendOtp";
+				return "redirect:users/sendOtp";
 			}else
-				return "redirect:dashboard";
+				return "redirect:users/dashboard";
 		}else{
 			session.setAttribute("cacheGuest", objUserBean);
 			session.setAttribute("rolId", objUserBean.getRoleId());
 			session.setAttribute("userName", objUserBean.getUsername());
-			return "redirect:profile.htm?page=1";
+			return "redirect:users/profile.htm?page=1";
 		}
 	}
+	@RequestMapping(value = "/insertUserSettings")
+	public  String insertUserSettings(Model objeModel ,
+			HttpServletRequest request, HttpSession session) {
+	   JSONObject jsOnObj = new JSONObject();
+	    
+		try {
+			
+			settingsDao.insertSettings();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			//logger.error(e);
+			//logger.fatal("error in CreateProfile class createProfile method  ");
+			jsOnObj.put("message", "failed");
+		}
+		return null;
+	}
+	 @RequestMapping(value = "/homePageSearchResults")
+	 public  @ResponseBody String getHomePageSearchResults( UsersBean searchCriteriaBean, Model objeModel, HttpServletRequest request, HttpSession session) {
+			List<Map<String,Object>> searchList=null;
+		 ObjectMapper objectMapper = null;
+		String sJson = null;
+		JSONObject objJson =new JSONObject();
+		try {
+			 searchList = objUsersDao.getHomeSearchResult(searchCriteriaBean);
+			 objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(searchList);
+				objJson.put("searchListOrders", searchList);
+			
+		} catch (Exception e) {
+	   e.printStackTrace();
+	   System.out.println(e);
+	   logger.error(e);
+	   logger.fatal("error in HomePageController class homePageSearch method");
+	  }
+		return String.valueOf(objJson);
+	 }
+	   @RequestMapping(value = "/forgotPassword")
+		public String forgotPassword(@ModelAttribute("forgotPassword") UsersBean objUsersBean, Model objeModel ,
+				HttpServletRequest request, HttpSession session) {
+
+			try {
+				
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println(e);
+				//logger.error(e);
+				//logger.fatal("error in CreateProfile class createProfile method  ");
+				return "redirect:HomePage.htm";
+			}
+			return "forgotPassword";
+		}
+	   
+	   @RequestMapping(value = "/forgotPasswordPreAction")
+		public  @ResponseBody String forgotPasswordPreAction(@ModelAttribute("forgotPassword") UsersBean objUsersBean, Model objeModel ,
+				HttpServletRequest request, HttpSession session) {
+		   JSONObject jsOnObj = new JSONObject();
+		   String emailStr = "",mobileStr=""; 
+			try {
+				String inputVal = request.getParameter("forgotPasswordInput");
+				if(StringUtils.isNotBlank(inputVal)){
+					UsersBean userBean = objUsersDao.getUser(inputVal.trim());
+					session.setAttribute("userBean", userBean);
+					if(userBean == null){
+						jsOnObj.put("message", "no-data");
+					}else{
+						String email = userBean.getEmail();
+						emailStr = email.substring(email.indexOf("@")-3);
+						String mobileNum = userBean.getMobile();
+						if(StringUtils.isNotBlank(mobileNum)){
+							mobileStr = mobileNum.substring(mobileNum.length()-3);
+						}
+						session.setAttribute("emailStr", emailStr);
+						session.setAttribute("mobileStr", mobileStr);
+					}
+				}
+				jsOnObj.put("emailStr", emailStr);
+				jsOnObj.put("mobileStr", mobileStr);
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println(e);
+				//logger.error(e);
+				//logger.fatal("error in CreateProfile class createProfile method  ");
+				return "redirect:HomePage.htm";
+			}
+			return jsOnObj.toString();
+		}
 }

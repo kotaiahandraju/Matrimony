@@ -9,11 +9,16 @@
 input[type="file"] {
 margin:5px;
 }
+.modal-footer .btn-group .btn + .btn {
+     margin-left: 5px; 
+}
+.imgareaselect-outer {
+height:0px !important}
 canvas {
 display:none;}
 </style>
-<link href="css/imgareaselect-default.css" rel="stylesheet" media="screen">
-<link rel="stylesheet" href="css/jquery.awesome-cropper.css">
+<link href="${baseurl}/css/imgareaselect-default.css" rel="stylesheet" media="screen">
+<link rel="stylesheet" href="${baseurl}/css/jquery.awesome-cropper.css">
 				<div class="col-md-5 col-sm-12"></div>
 	            <div  class="clearfix"></div>    
 			</div>
@@ -23,13 +28,13 @@ display:none;}
 			<div class="midcontnet">
 				<div class="col-md-8">
    					<div id="secondForm">
-			   			<div class="col-md-12">
+			   			<div class="col-md-1"></div><div class="col-md-11">
 					      <h3>Upload Photo.</h3>
 					    </div>
 					    <div class="form-group">
 					      <label class="col-md-4 control-label" for="textinput"></label>
 					      <div class="col-md-8">
-					      	<img src="${baseurl}/img/default.png" alt="Preview" id="previewImg" align="middle" style="border-style: solid;height: 100px;width: 100px;border-bottom-style: none;border-left-style: none;border-top-style: none;">
+<%-- 					      	<img src="${baseurl}/img/default.png" alt="Preview" id="previewImg" align="middle" style="border-style: solid;height: 100px;width: 100px;border-bottom-style: none;border-left-style: none;border-top-style: none;"> --%>
 					      	<!-- <input type="file" id='imageName'  onchange="checkImg(this)"> -->
 					      	<form role="form">
 						      <input id="imageName" type="hidden" name="test[image]">
@@ -46,7 +51,7 @@ display:none;}
 					    	<div class="col-md-offset-4 col-md-8">
 					    		<input type="button" class="btn btn-info" id="uploadBtn" value="Upload Photo" onclick="imageAjax()">
 			<!-- 		    		<button id="secondButton" class="btn2 btn btn-warning" onclick="goToNextPage()">Continue/Skip</button> -->
-					    		<a class="btn btn-success " href="${baseurl}/partner-profile">&nbsp;&nbsp;Continue</a>
+					    		<a class="btn btn-success " href="${baseurl}/users/partner-profile">&nbsp;&nbsp;Continue</a>
 					    	</div>
 					    </div>
 					    <div class="form-group">
@@ -57,7 +62,7 @@ display:none;}
 					    </div>
 					</div>
 				</div>
-   
+   <div class="clearfix"></div><br>
 <script src="${baseurl }/js/jquery-ui.min.js"></script>
 <script type="text/javascript">
 
@@ -88,6 +93,7 @@ function imageAjax(){
 		  	}
 		  	$("#uploadBtn").removeAttr("disabled");
 	   		$("#uploadBtn").val("Upload Photo");
+	   	 window.location.href="${baseurl}/users/partner-profile";
 		});
 	}
 }
@@ -98,8 +104,8 @@ function goToNextPage(){
 }
 
 </script>
-<script src="js/jquery.imgareaselect.js"></script> 
-<script src="js/jquery.awesome-cropper.js"></script> 
+<script src="${baseurl}/js/jquery.imgareaselect.js"></script> 
+<script src="${baseurl}/js/jquery.awesome-cropper.js"></script> 
 <script>
     $(document).ready(function () {
         $('#imageName').awesomeCropper(
