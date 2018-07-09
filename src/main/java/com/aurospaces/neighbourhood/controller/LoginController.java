@@ -13,6 +13,7 @@ import javax.validation.Valid;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -446,4 +447,94 @@ public class LoginController {
 			return "redirect:users/profile.htm?page=1";
 		}
 	}
+	@RequestMapping(value = "/insertUserSettings")
+	public  String insertUserSettings(Model objeModel ,
+			HttpServletRequest request, HttpSession session) {
+	   JSONObject jsOnObj = new JSONObject();
+	    
+		try {
+			
+			settingsDao.insertSettings();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			//logger.error(e);
+			//logger.fatal("error in CreateProfile class createProfile method  ");
+			jsOnObj.put("message", "failed");
+		}
+		return null;
+	}
+	 @RequestMapping(value = "/homePageSearchResults")
+	 public  @ResponseBody String getHomePageSearchResults( UsersBean searchCriteriaBean, Model objeModel, HttpServletRequest request, HttpSession session) {
+			List<Map<String,Object>> searchList=null;
+		 ObjectMapper objectMapper = null;
+		String sJson = null;
+		JSONObject objJson =new JSONObject();
+		try {
+			 searchList = objUsersDao.getHomeSearchResult(searchCriteriaBean);
+			 objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(searchList);
+				objJson.put("searchListOrders", searchList);
+			
+		} catch (Exception e) {
+	   e.printStackTrace();
+	   System.out.println(e);
+	   logger.error(e);
+	   logger.fatal("error in HomePageController class homePageSearch method");
+	  }
+		return String.valueOf(objJson);
+	 }
+	   @RequestMapping(value = "/forgotPassword")
+		public String forgotPassword(@ModelAttribute("forgotPassword") UsersBean objUsersBean, Model objeModel ,
+				HttpServletRequest request, HttpSession session) {
+
+			try {
+				
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println(e);
+				//logger.error(e);
+				//logger.fatal("error in CreateProfile class createProfile method  ");
+				return "redirect:HomePage.htm";
+			}
+			return "forgotPassword";
+		}
+	   
+	   @RequestMapping(value = "/forgotPasswordPreAction")
+		public  @ResponseBody String forgotPasswordPreAction(@ModelAttribute("forgotPassword") UsersBean objUsersBean, Model objeModel ,
+				HttpServletRequest request, HttpSession session) {
+		   JSONObject jsOnObj = new JSONObject();
+		   String emailStr = "",mobileStr=""; 
+			try {
+				String inputVal = request.getParameter("forgotPasswordInput");
+				if(StringUtils.isNotBlank(inputVal)){
+					UsersBean userBean = objUsersDao.getUser(inputVal.trim());
+					session.setAttribute("userBean", userBean);
+					if(userBean == null){
+						jsOnObj.put("message", "no-data");
+					}else{
+						String email = userBean.getEmail();
+						emailStr = email.substring(email.indexOf("@")-3);
+						String mobileNum = userBean.getMobile();
+						if(StringUtils.isNotBlank(mobileNum)){
+							mobileStr = mobileNum.substring(mobileNum.length()-3);
+						}
+						session.setAttribute("emailStr", emailStr);
+						session.setAttribute("mobileStr", mobileStr);
+					}
+				}
+				jsOnObj.put("emailStr", emailStr);
+				jsOnObj.put("mobileStr", mobileStr);
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println(e);
+				//logger.error(e);
+				//logger.fatal("error in CreateProfile class createProfile method  ");
+				return "redirect:HomePage.htm";
+			}
+			return jsOnObj.toString();
+		}
 }
