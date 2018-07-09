@@ -2002,7 +2002,7 @@ public class HomePageController {
 	         
 	         PrintWriter writer = response.getWriter();
 	         
-	         String htmlResponse = "<html> <body > <div align='center'><img src='images/load.gif'/></div><div style='display:none;'> \n"
+	         String htmlResponse = "<html> <body > <div align='center'><img src='../images/load.gif'/></div><div style='display:none;'> \n"
 	                 + "      \n"
 	                 + "  \n"
 	                 + "  <h1>PayUForm </h1>\n"
