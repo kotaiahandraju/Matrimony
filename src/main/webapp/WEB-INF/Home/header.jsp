@@ -94,7 +94,7 @@ margin-top:10px;
 display:inline-block;
 }
 ::-webkit-scrollbar {
-    width: 3px;
+    width: 6px;
 }
 .main-nav {
 margin-top:8px;

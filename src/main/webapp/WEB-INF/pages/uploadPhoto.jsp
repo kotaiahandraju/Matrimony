@@ -13,7 +13,7 @@ margin:5px;
      margin-left: 5px; 
 }
 .imgareaselect-outer {
-height:0px !important}
+position:fixed !important}
 canvas {
 display:none;}
 </style>

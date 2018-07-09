@@ -50,7 +50,7 @@ color:#000;
 color:#777;
 }
 .imgareaselect-outer {
-height:0px !important;}
+position:fixed !important;}
 #notification_li
 			{
 			position:relative
