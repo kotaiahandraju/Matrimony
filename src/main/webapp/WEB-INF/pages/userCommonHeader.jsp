@@ -3500,7 +3500,7 @@ img.hover-shadow {
 													</div>
 													<div class="col-md-9" style="padding-right:0px; padding-left:0px;" >
 														<p>
-															<a href="fullProfile?pid=${notification.user_id}&nid=${notification.id}&rfrm=notifications" target="_blank" >
+															<a href="fullProfile?pid=${notification.user_id}&nid=${notification.id}&rfrm=notifications" >
 															<c:if test="${ notification.read_status==0}">
 																<b><c:out value="${notification.fullName}" /> (<c:out value="${notification.username}" />)</b> 
 																</c:if>
