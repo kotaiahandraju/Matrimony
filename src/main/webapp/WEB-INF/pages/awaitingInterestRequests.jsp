@@ -50,20 +50,17 @@ margin-right:5px;
 			.nav-tabs{
 			  *zoom: 1;
 			}
-
 			.nav-tabs:before,
 			.nav-tabs:after {
 			  display: table;
 			  content: "";
 			}
 			.allcommunicationli li a {
-			padding:5px 8px !important;
+			padding:4px 8px !important;
 			}
-
 			.nav-tabs:after {
 			  clear: both;
 			}
-
 			.nav-tabs > li {
 			  float: left;
 			}

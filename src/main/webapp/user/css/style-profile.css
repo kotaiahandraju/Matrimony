@@ -1176,7 +1176,7 @@ li.last_price span {
 .mid-grids h4 { color:#1a1b20; marginpbottom:20px; font-size:15px;}
 .mid-grids h4 span{ color:#333;}
 .mid-grids h5 { color:#C00; margin:0; font-size:16px;}
-.mid-grids h5 span{ color:#000; font-size:13px;}
+.mid-grids h5 span{ color:#000; font-size:13px;padding-top:5px;}
 .mid-grids p{ margin-bottom:0px;}
 .products-grd{
 	float:left;
