@@ -434,7 +434,12 @@ xpopup
 						</c:choose></div>
 						
 					 	<div class="col-md-12 likeprofile noPrint">
-					 	<p>Like this profile? Take the next step by sending her a mail.</p>
+					 	<c:if test="${profileBean.gender == 'Female'}">
+					 		<p>Like this profile? Take the next step by sending her a mail.</p>
+					 	</c:if>
+					 	<c:if test="${profileBean.gender == 'Male'}">
+					 		<p>Like this profile? Take the next step by sending him a mail.</p>
+					 	</c:if>
 					 	<div class="col-md-4 profileskip">
 					 	<a href="#" class="btn btn-warning" onclick="displayMailPopup(${profileBean.id},'${profileBean.firstName}'+' '+'${profileBean.lastName}')"><li  class="fa fa-envelope" aria-hidden="true"></li> Send Mail</a>
 					 	</div>
