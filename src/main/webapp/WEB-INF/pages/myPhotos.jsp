@@ -1,14 +1,8 @@
 <%@ include file="userHeader.jsp"%>
-<<<<<<< HEAD
-<link href="css/imgareaselect-default.css" rel="stylesheet" media="screen">
-<link rel="stylesheet" href="css/jquery.awesome-cropper.css">
-<script src="js/jquery.imgareaselect.js"></script> 
-<script src="js/jquery.awesome-cropper.js"></script> 
-
-=======
 <link href="${baseurl}/css/imgareaselect-default.css" rel="stylesheet" media="screen">
 <link rel="stylesheet" href="${baseurl}/css/jquery.awesome-cropper.css">
->>>>>>> af24bfcce35e80910cb08a916392eded04b57641
+<script src="${baseurl}/js/jquery.imgareaselect.js"></script> 
+<script src="${baseurl}/js/jquery.awesome-cropper.js"></script> 
 <style>
 .imgareaselect-outer {
 position:fixed !important;

@@ -657,6 +657,11 @@ public class UsersDao extends BaseUsersDao
 						buffer.append("insert into express_intrest(user_id,profile_id,created_on,profile_viewed_status) values(?,?,?,?)");
 						updated_count = jdbcTemplate.update(buffer.toString(), new Object[]{objUserBean.getId(),profileId,
 												new java.sql.Timestamp(new DateTime().getMillis()),"1"});
+						// also make an entry in notifications table
+						buffer = new StringBuffer();
+						buffer.append("insert into user_notifications(created_on,user_type,user_id,profile_id,notifi_type) "
+								+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','member',"+objUserBean.getId()+","+profileId+",'profile_viewed')");
+						int inserted_count = jdbcTemplate.update(buffer.toString());
 					}else if(existing_count>0){
 						String selectQry = "select count(*) from express_intrest_view ei where ei.user_id="+objUserBean.getId()+" and ei.profile_id="+profileId+" and profile_viewed_status = '1'";
 						int viewed_count = jdbcTemplate.queryForInt(selectQry);
@@ -664,15 +669,21 @@ public class UsersDao extends BaseUsersDao
 							buffer.append("update express_intrest set profile_viewed_status = '1',created_on = ? where user_id = ? and profile_id = ?");
 							updated_count = jdbcTemplate.update(buffer.toString(), new Object[]{new java.sql.Timestamp(new DateTime().getMillis()),objUserBean.getId(),profileId});
 						}
+						// also make an entry in notifications table
+						String count_qry =  "select count(*) from user_notifications where  user_id = "+objUserBean.getId()+" and  profile_id = "+profileId+" and read_status = '0' and user_type = 'member' and  notifi_type = 'profile_viewed'";
+						int view_notifi_for_cnt = jdbcTemplate.queryForInt(count_qry);
+						if(view_notifi_for_cnt==0){
+							buffer = new StringBuffer();
+							buffer.append("insert into user_notifications(created_on,user_type,user_id,profile_id,notifi_type) "
+									+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','member',"+objUserBean.getId()+","+profileId+",'profile_viewed')");
+							int inserted_count = jdbcTemplate.update(buffer.toString());
+						}
 					}
 					/*buffer = new StringBuffer();
 					buffer.append("insert into users_activity_log(created_time,activity_type,act_done_by_user_id,act_done_on_user_id) "
 							+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','profile_viewed',"+objUserBean.getId()+","+profileId+")");
 					int inserted_count = jdbcTemplate.update(buffer.toString());*/
-					buffer = new StringBuffer();
-					buffer.append("insert into user_notifications(created_on,user_type,user_id,profile_id,notifi_type) "
-							+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','member',"+objUserBean.getId()+","+profileId+",'profile_viewed')");
-					int inserted_count = jdbcTemplate.update(buffer.toString());
+					
 					if(updated_count > 0){
 						int to_be_viewed = Integer.parseInt(objUserBean.getYetToBeViewedCount());
 						objUserBean.setYetToBeViewedCount(to_be_viewed>0?(to_be_viewed-1)+"":"0");
@@ -3678,7 +3689,7 @@ public boolean deletePhoto(String photoId){
 				+" (select u.username from users u where u.id=user_notifications.user_id) as userName,date_format(user_notifications.created_on,'%d-%M-%Y %H:%i') as created_on, "
 				+" (select uimg.image from vuser_images uimg where uimg.user_id=user_notifications.user_id and  uimg.status = '1' and uimg.is_profile_picture='1') as profileImage "
 				+" from user_notifications where profile_id = "+objUserBean.getId()+" and user_type = 'member' "
-				+"  and user_id in (select u.id from users u where u.id = user_id and u.status = '1' ) order by user_notifications.created_on desc ");
+				+"  and user_id in (select u.id from users u where u.id = user_id and u.status = '1' ) and user_notifications.read_status = '0'  order by user_notifications.created_on desc ");
 		if(!all_notifications){
 			buffer.append(" limit 10 offset 0");
 		}
