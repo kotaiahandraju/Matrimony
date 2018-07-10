@@ -6,6 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -27,13 +28,17 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.aurospaces.neighbourhood.bean.EducationBean;
 import com.aurospaces.neighbourhood.bean.LoginBean;
+import com.aurospaces.neighbourhood.bean.ReligionBean;
 import com.aurospaces.neighbourhood.bean.UsersBean;
+import com.aurospaces.neighbourhood.db.dao.CastDao;
 import com.aurospaces.neighbourhood.db.dao.StateDao;
 import com.aurospaces.neighbourhood.db.dao.UserSettingsDao;
 import com.aurospaces.neighbourhood.db.dao.UserrequirementDao;
 import com.aurospaces.neighbourhood.db.dao.UsersDao;
+import com.aurospaces.neighbourhood.util.EmailUtil;
 import com.aurospaces.neighbourhood.util.HRMSUtil;
 import com.aurospaces.neighbourhood.util.MiscUtils;
+import com.aurospaces.neighbourhood.util.SendSMS;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
@@ -44,7 +49,9 @@ public class LoginController {
 	UsersDao objUsersDao;
 	@Autowired UserrequirementDao objUserrequirementDao;
 	@Autowired StateDao stateDao;
+	 @Autowired CastDao objCastDao;
 	@Autowired UserSettingsDao settingsDao;
+	 @Autowired	ServletContext objContext;
 	
 	@RequestMapping(value = "/LoginHome")
 	public String LoginHome(Map<String, Object> model1, ModelMap model, HttpServletRequest request,
@@ -536,5 +543,80 @@ public class LoginController {
 				return "redirect:HomePage.htm";
 			}
 			return jsOnObj.toString();
+		}
+	   @RequestMapping(value = "/forgotPasswordAction")
+		public  String forgotPasswordAction(@ModelAttribute("forgotPassword") UsersBean objUsersBean, Model objeModel ,
+				HttpServletRequest request, HttpSession session) {
+		   JSONObject jsOnObj = new JSONObject();
+		   String emailStr = "",mobileStr=""; 
+			try {
+					String selectedOption = request.getParameter("sendTo");
+					UsersBean userBean = (UsersBean)session.getAttribute("userBean");
+					userBean.setPassword(MiscUtils.generateRandomString(6));
+					boolean updated = objUsersDao.updatePassword(userBean);
+					if("emailTo".equalsIgnoreCase(selectedOption)){
+						try {
+							EmailUtil emailUtil = new EmailUtil();
+							emailUtil.sendResetPasswordEmail(userBean, objContext, "forgot_password");
+							request.setAttribute("sentToStr", "email id xxxxxxxx"+session.getAttribute("emailStr"));
+							request.setAttribute("message", "success");
+						} catch (Exception e) {
+							e.printStackTrace();
+							request.setAttribute("message", "failed");
+						}
+						if (!updated) {
+							
+							request.setAttribute("message", "failed");
+						}
+					}else if("smsTo".equalsIgnoreCase(selectedOption)){
+						try{
+							   String response = SendSMS.sendSMS("New password has been generated for your Aarna Matrimony account "+userBean.getEmail()+". \n New password: "+userBean.getPassword(),userBean.getMobile());
+							   
+							   if("OK".equalsIgnoreCase(response)){
+								   request.setAttribute("sentToStr", "mobile number xxxxxxx"+session.getAttribute("mobileStr"));
+								   request.setAttribute("message", "success");
+							   }else{
+								   request.setAttribute("message", "failed"); 
+							   }
+							   //throw new Exception();
+						   }catch(Exception e){
+							   e.printStackTrace();
+							   request.setAttribute("message", "failed");
+							   //objUsersDao.delete(sessionBean.getId());
+						   }
+					}
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println(e);
+				//logger.error(e);
+				//logger.fatal("error in CreateProfile class createProfile method  ");
+				return "redirect:HomePage.htm";
+			}
+			return "forgotPasswordSuccess";
+		}
+	   @RequestMapping(value = "/castesBasedOnReligion")
+		public @ResponseBody String castesBasedOnReligion(ReligionBean religionBean,
+				HttpServletResponse response, HttpServletRequest request,
+				HttpSession objSession) throws JsonGenerationException, JsonMappingException, IOException 
+		{
+		   JSONObject objJson =new JSONObject();
+			List<Map<String, Object>> filterBean=null;
+			String json="";
+			String religionId =religionBean.getReligionId();
+			
+			ObjectMapper objmapper=new ObjectMapper();
+			filterBean =  objCastDao.getCastesBasedOnReligion(religionId);
+			if(filterBean.size()>0) {
+				json=objmapper.writeValueAsString(filterBean);
+				objJson.put("allOrders1", filterBean);
+			}else {
+				objJson.put("allOrders1", "");
+				System.out.println();
+			}
+			
+			
+		  return String.valueOf(objJson);
+
 		}
 }
