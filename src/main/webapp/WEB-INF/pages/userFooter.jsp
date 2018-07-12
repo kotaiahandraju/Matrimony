@@ -9,7 +9,7 @@
 		<div class="footer" style="font-size: 10px;">
 			<div class="col-md-3 footer-grid">
 				<h6>About us</h6>
-				<p>Suspendisse sed accumsan risus. Curabitur rhoncus, elit vel tincidunt elementum, nunc urna tristique nisi, in interdum libero magna .</p>
+				<p>Welcome to the profound world of Aarnamatrimony one of the most frequently visited and highly preferred matrimonial site..</p>
 			</div>
 			<div class="col-md-3 footer-grid">
 				<h6>Search</h6>

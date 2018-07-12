@@ -36,7 +36,7 @@
          <tr>
         
         <th>Package Name</th>
-        <td id="createdDate">xxxxxx</td>
+        <td id="packageName">xxxxxx</td>
         </tr>
         <tr>
        
@@ -90,6 +90,7 @@
   		$.each(listOrders1,function(i, orderObj) {
   			$("#createdDate").text(orderObj.paymentDate);
   			$("#txid").text(orderObj.transactionId);
+  			$("#packageName").text(orderObj.packageName);
   			$("#totalPrice").text(orderObj.price);
   			$("#email").text(orderObj.email);
   			$("#nameID").text(orderObj.firstName+" "+orderObj.lastName);
@@ -117,7 +118,7 @@
 
   	    var is_chrome = Boolean(mywindow.chrome);
   	    var isPrinting = false;
-  	    mywindow.document.write('<html><head><link rel="stylesheet" type="text/css" href="user/css/bootstrap.css"></head><body>');
+  	    mywindow.document.write('<html><head><link rel="stylesheet" type="text/css" href="${baseurl }/user/css/bootstrap.css"></head><body>');
   	    mywindow.document.write(data);
   	   
   	    mywindow.document.write('</body></html>');

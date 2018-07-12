@@ -383,6 +383,12 @@ border:none;}
 					    	<div class="col-md-4 benefit1">
 						    	<p><img  src="${baseurl}/images/icon1.png"/> Profile Highlighter </p>
 						    </div>
+						    <div class="col-md-4">
+						    	<p><img src="${baseurl}/images/icon4.png"/> Enhanced privacy settings</p>
+						    </div>
+						    <div class="col-md-4">
+						    	<p><span style="font-size:20px; color:#fc7a01;" class="fa fa-comments"></span> Chat with Prospects Directly</p>
+						    </div><div class="clearfix"></div>
 					    </c:if>
 						<c:if test="${pack.allowed_messages_limit != null && pack.allowed_messages_limit != ''}">    
 						    <div class="col-md-4">
@@ -397,7 +403,10 @@ border:none;}
 						    </div>
 			    		</c:if>
 			    		<div class="col-md-4">
-			    			<p>Profile tagged with '<c:out value="${pack.name}"/> member'</p>
+			    			<p><img style="width:16px; heigth:16px;" src="${baseurl}/images/icon6.gif"/"/>  View Unlimited Horoscopes</p>
+			    		</div><div class="clearfix"></div>
+			    		<div class="col-md-4">
+			    			<p style="margin-top:10px;">Profile tagged with '<c:out value="${pack.name}"/> member'</p>
 			    		</div>
 			    </div></div>	
 		</c:if>

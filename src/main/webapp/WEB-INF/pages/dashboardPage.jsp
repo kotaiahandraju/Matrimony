@@ -363,7 +363,7 @@ color:#000;
 				<p> <i class="fa fa-comment"></i> Chat Instantly</p>
 				 <div class="clearfix"></div>
 				 <p><i  class="fa fa-envelope"></i> Send Personalized Images</p>
-				 <p> &nbsp; &nbsp; &nbsp; Upto Rs.2000 off</p>
+				 <p> &nbsp; &nbsp; &nbsp; Upto <span class="fa fa-inr"></span> 2000 off</p>
 				 <p> &nbsp; &nbsp; &nbsp; On Classic Packages</p><br>
 				 <span class="btn btn-warning" align="center" h><a href="memberShipPage" >Upgrade Now </a><i class="fa fa-chevron-right"></i></span>
 				 </div>
