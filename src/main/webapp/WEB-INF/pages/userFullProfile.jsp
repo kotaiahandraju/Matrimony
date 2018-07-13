@@ -35,6 +35,17 @@
 			});
 		</script> -->
 <!-- //the jScrollPane script -->
+<style>
+@media only screen and (max-width: 640px) and (min-width: 320px) {
+.container .col-md-12 {
+padding:0px !important;
+}
+.container  {
+padding:5px !important;
+}
+.panel-body {
+padding:0px !important;}
+}</style>
 </head>
 	
 <body>
@@ -47,7 +58,7 @@
 <!-- products -->
 	<div class="products">
 		<div class="container">
-			<div class="col-md-12 products-grid-left">
+			<div class="col-md-12 products-grid-left" style="margin-top:10px;">
 					
 	            <div class="panel panel-default">
 	            

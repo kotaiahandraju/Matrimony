@@ -345,9 +345,9 @@ $(".onlyCharacters").on("keypress",	function(event) {
 <div>
 
         <div class="panel" style="background:#F7F6F7; padding:20px 15px;">
-            <div class="col-md-3">
+            <div class="col-md-5">
                 <c:if test="${not empty cacheGuest.profileImage}">
-                	<div class="fullprofile" style="height:118px; overflow:hidden;"">
+                	<div class="fullprofile" style=" overflow:hidden;"">
                 		<a href="#" id="fullProfilePicOuterTag" data-toggle="modal" data-target="#myModalNew"><img  src="${baseurl}/${cacheGuest.profileImage}" class="hover-shadow cursor img img-responsive thumbnail watermark_text" style="margin-bottom:0;height:auto;width: 100%;" /></a>
                 	</div>
                 	<div align="center">

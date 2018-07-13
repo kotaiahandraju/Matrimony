@@ -51,7 +51,7 @@
 				</h3>
 			</div>
 			<div id="tableId">
-			<div class="box-content nopadding w3-animate-zoom" id="tableIdd">
+			<div class="box-content nopadding w3-animate-zoom table-responsive" id="tableIdd">
 				
 				<table class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,null">
 					<thead><tr><th>created</th><th>UserName</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Mobile</th><th>Age</th><th>Caste</th><th>Package</th><th></th></tr></thead>
@@ -74,7 +74,7 @@
 	}
  function displayTable(listOrders) {
 		$('#tableId').html('');
-		var tableHead = '<div class="box-content nopadding w3-animate-zoom" id="tableIdd"><table  class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,text,text,null">'
+		var tableHead = '<div class="box-content nopadding w3-animate-zoom table-responsive" id="tableIdd"><table  class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,text,text,null">'
 				+ '<thead><tr><th>created</th><th>UserName</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Mobile</th><th>Age</th><th>Caste</th><th>Package</th><th></th></tr></thead><tbody id="tblbody"></tbody></table></div>';
 		$('#tableId').html(tableHead);
 		serviceUnitArray = {};

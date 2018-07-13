@@ -94,7 +94,7 @@
 					<div class="box-title">
 						<h3><i class="fa fa-table"></i> Cities List</h3>
 					</div>
-					<div class="box-content nopadding w3-animate-zoom" id="tableId">
+					<div class="box-content nopadding w3-animate-zoom table-responsive" id="tableId">
 						<table class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,text,text,null">
 							<thead>
 							<tr>

@@ -315,7 +315,7 @@ var role_id = ${cacheUserBean.roleId};
 			</a> -->
 			<ul class='main-nav'>
 				<li class="dashboard"><a href="dashboard"><span>Dashboard</span></a></li>
-				<li class="dropdown catalog1 ">
+				<li class="catalog1">
 				<c:if test="${roleId1 == 1}"> 
 					<a href="#" data-toggle="dropdown" class='dropdown-toggle'>
 						<span>Data List 1</span>
@@ -332,7 +332,7 @@ var role_id = ${cacheUserBean.roleId};
 						<li class="height"><a href="${baseurl }/admin/HeightHome">Height</a></li>
 					</ul>
 				</li>
-				<li class="dropdown catalog2">
+				<li class="catalog2">
 					<c:if test="${roleId1 == 1}"> 
 					<a href="#" data-toggle="dropdown" class='dropdown-toggle'>
 						<span>Data List 2</span>
