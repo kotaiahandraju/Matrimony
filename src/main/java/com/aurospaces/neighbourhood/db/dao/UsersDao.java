@@ -993,14 +993,14 @@ public class UsersDao extends BaseUsersDao
 						|| objUserBean.getRoleId()==MatrimonyConstants.CLASSIC_PLUS_USER_ROLE_ID){
 					
 					buffer.append("select vpreferred_profiles_paid_members.*,"
-							+" (select count(1) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=id  and interested='1') as expressedInterest, "
-							+" (select count(1) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=id  and message_sent_status='1') as message_sent_status, "
-							+" (select count(1) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=id  and mobile_no_viewed_status='1') as mobileNumViewed, "
+							+" (select count(1) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=vpreferred_profiles_paid_members.id  and interested='1') as expressedInterest, "
+							+" (select count(1) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=vpreferred_profiles_paid_members.id  and message_sent_status='1') as message_sent_status, "
+							+" (select count(1) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=vpreferred_profiles_paid_members.id  and mobile_no_viewed_status='1') as mobileNumViewed, "
 							//+" (select count(*) from express_intrest intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=id  and interested='1') as expressedInterest, "
 							+" (select uimg.image from vuser_images uimg where uimg.user_id=id and  uimg.status = '1' and uimg.is_profile_picture='1') as profileImage, "
 							+" ifnull(floor((datediff(current_date(),dob))/365),'') as age,DATE_FORMAT(dob, '%d-%M-%Y') as dobString,  "
 							+" (select count(1) from (select count(1) from vpreferred_profiles_paid_members vu, (select *  from userrequirement ur where ur.userId = "+objUserBean.getId()+") ur "+where_clause+") temp) as total_records, createProfileFor,  "
-							+" (select ifnull((select short_listed from express_intrest where user_id = "+objUserBean.getId()+" and profile_id = id),0)) as short_listed "
+							+" (select ifnull((select short_listed from express_intrest where user_id = "+objUserBean.getId()+" and profile_id = vpreferred_profiles_paid_members.id),0)) as short_listed "
 							//+" (select uimg.image from vuser_images uimg where uimg.user_id=id and uimg.is_profile_picture='1') as profileImage "
 							+" from vpreferred_profiles_paid_members,(select *  from userrequirement ur where ur.userId = "+objUserBean.getId()+") ur ");
 					handlerObj = new String[] {"id","currentStateName","currentCityName","occupation","occupationName","educationName","userrequirementId","image","created_time","updated_time",
@@ -1541,9 +1541,10 @@ public class UsersDao extends BaseUsersDao
 		public List<Map<String,Object>>  getPaymentDetailsForPrint(String transactionId){
 			jdbcTemplate = custom.getJdbcTemplate();
 			try{
-				String qryStr = "select u.firstName,u.lastName,u.email,ph.price,ph.paymentStatus,ph.remarks,DATE_FORMAT(ph.updated_time, '%d-%M-%Y') as paymentDate,ph.txid as transactionId "
-						+" from users u, paymenthistory ph where ph.memberId = u.id and ph.txid = '"+transactionId+"' ";
+				String qryStr = "select pa.name as packageName, u.firstName,u.lastName,u.email,ph.price,ph.paymentStatus,ph.remarks,DATE_FORMAT(ph.updated_time, '%d-%M-%Y') as paymentDate,ph.txid as transactionId "
+						+" from users u, paymenthistory ph,package pa  where ph.memberId = u.id and pa.price=ph.price and ph.txid = '"+transactionId+"' ";
 				List<Map<String,Object>> list = jdbcTemplate.queryForList(qryStr);
+				System.out.println("successPrint Query:"+qryStr);
 				return list;
 			}catch(Exception e){
 				e.printStackTrace();
