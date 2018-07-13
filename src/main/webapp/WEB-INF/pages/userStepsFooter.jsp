@@ -6,7 +6,7 @@
 	</div>
 
 	<footer class="footer" id="footer"><!-- Section id-->
-	<div class="container col-md-12">
+	<div class="container col-md-12" style="margin-bottom:10px;">
     	<div class="row"  style="margin-left:15px !important; margin-right:15px !important;">
 			<div class="col-md-6 col-sm-6">
 				<div class="logo-footer">

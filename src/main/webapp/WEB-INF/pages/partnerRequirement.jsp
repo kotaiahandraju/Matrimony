@@ -13,6 +13,20 @@ width:190px !important;
  width:100% !important;
  }
  }
+ /* .copyright {
+position:fixed;
+bottom:0;
+width:100%;
+} */
+
+.midcontnet {
+    border-bottom: 12px solid #F1F1F2;
+    padding-bottom: 40px;
+    margin: 0 33px;
+}
+.imgareaselect-outer {
+position:fixed !important;
+background:#fff !important;}
 </style>
             <div class="col-md-5 col-sm-12">
             	<!-- <div class="stepwizard">

@@ -76,7 +76,7 @@ span.has-error,span.hasError
 }
 #navigation .main-nav > li > a {
     display: block;
-    padding: 20px 6.5px;
+    padding: 20px 5.5px;
     line-height: 21px;
     color: #e4d7d7;
 }
