@@ -12,8 +12,20 @@ margin:5px;
 .modal-footer .btn-group .btn + .btn {
      margin-left: 5px; 
 }
+.copyright {
+position:fixed;
+bottom:0;
+width:100%;
+}
+
+.midcontnet {
+    border-bottom: 12px solid #F1F1F2;
+    padding-bottom: 40px;
+    margin: 0 33px;
+}
 .imgareaselect-outer {
-position:fixed !important}
+position:fixed !important;
+background:#fff !important;}
 canvas {
 display:none;}
 </style>

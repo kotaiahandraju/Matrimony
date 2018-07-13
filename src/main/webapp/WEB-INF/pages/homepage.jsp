@@ -45,6 +45,14 @@
 <link rel="stylesheet" type="text/css" href="${baseurl}/user/css/component.css" />
 
 <style>
+.regist {
+    color: #fff !important;
+    background: #05aada;
+    padding: 10px 15px !important;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-right: 15px;
+}
 .modal {
 background:rgba(0,0,0,0.4);
 }
@@ -206,7 +214,7 @@ window.setTimeout(function() {
 			<div class="collapse navbar-collapse"
 				id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-right">
-					<li ><a style="color:#fff !important;" href="#register-info" data-toggle="modal" >Register</a>
+					<li><a  class="regist"   href="#register-info" data-toggle="modal" >Register</a>
 					</li>
 				</ul>
 			</div>

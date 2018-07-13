@@ -119,7 +119,7 @@ margin-right:5px;
 			/** End: to style navigation tab **/
 		</style>
 <div class="products">
-	<div class="container" style="background: #FFF;">
+	<div class="container" style="background: #FFF; min-height:500px;">
 		<div class="mid-grids">
 			<jsp:include page="sideGrid1.jsp" />
 			<div class="col-md-9 products-grid-left">
