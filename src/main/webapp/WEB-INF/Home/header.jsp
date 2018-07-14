@@ -78,7 +78,7 @@ span.has-error,span.hasError
     display: block;
     padding: 20px 5.5px;
     line-height: 21px;
-    color: #e4d7d7;
+    color: #f5f5f5;
 }
 @media (min-width:769px) and (max-width:1024px) { 
 #navigation .main-nav > li > a {
@@ -446,7 +446,7 @@ var role_id = ${cacheUserBean.roleId};
  				
 			</ul>
 		
-			
+			<a href="#" class="toggle-mobile"><i class="fa fa-bars"></i></a>
 			<div class="user">
 				<ul class="icon-nav">
 					<%-- <li class='dropdown'>
