@@ -450,7 +450,7 @@ public class EmailUtil {
 			body = body.replace("_img_", "cid:image2");
 			
 	       String baseUrl =  MiscUtils.getBaseUrl(request);
-			String link = baseUrl+"/emailvarificationlink?email="+mailTo+"&code="+objUsersBean.getUnique_code();
+			String link = baseUrl+"/users/emailvarificationlink?email="+mailTo+"&code="+objUsersBean.getUnique_code();
 			System.out.println(link);
 	       body = body.replace("_link_", link);
 	       body = body.replace("_customer_", objUsersBean.getFirstName()+" "+objUsersBean.getLastName());
