@@ -7,9 +7,9 @@
 .imgareaselect-outer {
 position:fixed !important;
 }
-.awesome-cropper  img {
+/* .awesome-cropper  img {
 height:150px !important;
-}
+} */
 canvas{
 display : none
 }
