@@ -86,7 +86,7 @@ height:250px;
 					    </div>
 					    <div class="form-group">
 					    	<div class="col-md-8">
-					    		<input type="button" id="uploadBtn" value="Upload Photo" onclick="imageAjax()">
+					    		<input type="button" class="btn btn-primary" id="uploadBtn" value="Upload Photo" onclick="imageAjax()">
 					    	</div>
 					    </div>
 					    
