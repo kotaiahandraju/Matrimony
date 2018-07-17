@@ -7,9 +7,9 @@
 .imgareaselect-outer {
 position:fixed !important;
 }
-/* .awesome-cropper  img {
-height:150px !important;
-} */
+ /* .awesome-cropper  img {
+height:250px !important;
+}  */
 canvas{
 display : none
 }
@@ -110,7 +110,7 @@ height:250px;
                 
                 <div class="col-md-9 products-grid-left">
 					
-            <div class="panel panel-default">
+            <div class=" ">
             
             
    
