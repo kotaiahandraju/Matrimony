@@ -62,7 +62,7 @@ position:fixed !important;}
 			-webkit-box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
 			overflow: visible;
 			position: absolute;
-			top: 50px;
+			top: 35px;
 			
 			width: 250px;
 			z-index:999;
@@ -3284,7 +3284,7 @@ img.hover-shadow {
 			-webkit-box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
 			overflow: visible;
 			position: absolute;
-			top: 50px;
+			top: 35px;
 			
 			width: 250px;
 			z-index:999;
