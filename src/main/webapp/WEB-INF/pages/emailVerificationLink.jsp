@@ -15,16 +15,28 @@ $(document).on('click','.navbar-collapse.in',function(e) {
 });	
 </script>
 <style>
+.navbar-brand {
+    float: left;
+    height: 50px;
+    padding: 0px 15px;
+    font-size: 18px;
+    line-height: 20px;
+}
 body{background-color: lightgray;}
 .list-group-item{
 background: transparent;
 border: none;
 }
+.jumbotron p {
+    margin-bottom: 15px;
+    font-size: 12px;
+    font-weight: 200;
+}
 </style>
 </head>
 <body>
 <div class="container-fluid" style="line-height: 8px;">
-<nav class="navbar navbar-default" style="background-color: whitesmoke;">  
+<nav class="navbar navbar container" style="background:#fff;">  
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
         <span class="icon-bar"></span>
@@ -33,7 +45,8 @@ border: none;
       </button>
 	 <!-- <a class="pull-left"><img src="img/im.jpg" width="40" height="45"></a> -->
        
-      <a class="navbar-brand" href="HomePage">Aarna Matrimony</a>
+      <a class="navbar-brand" href="HomePage"><img src="../images/logo.png"
+					class="img-responsive" /></a>
     </div>
    
 </nav>
@@ -42,8 +55,8 @@ border: none;
 <div class='jumbotron'style="background-color: whitesmoke;">
 <p align="center" >${msg }.</p>
 <div class="col-md-4 col-md-offset-5">
-<a href="HomePage"><button type="button" class="btn btn-primary" style="width: 105px;font-size: large;">Login</button></a>
-  <a href="HomePage"><button type="button" class="btn btn-success" style="width: 105px;font-size: large;">New User</button></a>
+<a href="HomePage"><button type="button" class="btn btn-primary" style="width: 105px;">Login</button></a>
+  <a href="HomePage"><button type="button" class="btn btn-success" style="width: 105px;">New User</button></a>
   </div>
 </div>
 </div>

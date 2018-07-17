@@ -2253,14 +2253,14 @@ function editMobileNumber(user_id,old_mobile_no){
 	formData.append("userId",userId);
 	formData.append("mobileNum",mobileNum);
 	formData.append("oldMobileNum",old_mobile_no);
-	$.fn.makeMultipartRequest('POST', 'updateMobileNumber', false,
+	$.fn.makeMultipartRequest('POST', '${baseurl}/users/updateMobileNumber', false,
 		formData, false, 'text', function(data){
 	var jsonobj = $.parseJSON(data);
 	var msg = jsonobj.message;
 	
 	if("success"==msg){
 		var location = "${baseurl}";
-		window.location.href =location+"/sendOtp";
+		window.location.href =location+"/users/sendOtp";
 		//alert("Mobile Number Updated Successfully.");
 		/* $("#editMobileDiv").attr("hidden",true);
 		 $("#mobileNoDiv").removeAttr("hidden");
