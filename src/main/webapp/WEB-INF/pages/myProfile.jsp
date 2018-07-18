@@ -13,6 +13,8 @@
     <script>hljs.initHighlightingOnLoad();</script>
     <!-- for documentation #end: you don't need them -->
 
+<script src="${baseurl}/js/plugins/jquery.ImageGallery.js"></script> 
+<script src="${baseurl}/js/plugins/jquery.imagesloaded.min.js"></script> 
     <style>
     #mobileNoText {
     font-size:13px;
@@ -387,7 +389,7 @@ $(".onlyCharacters").on("keypress",	function(event) {
                 </c:if>
                 
              </div>
-             <div class="col-md-6">
+             <div class="col-md-4">
                  <h3><p class="name_val">${profileBean.firstName} ${profileBean.lastName}</h3><h4> (${cacheGuest.username})</p></h4>
                 <p style=" color:#000;font-size: 13px; line-height:19px;">Profile created for <span id="createProfileFor_val">${cacheGuest.createProfileFor}</span><br>
                 ${profileBean.age} Yrs, ${profileBean.heightInches}<Br>

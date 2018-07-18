@@ -12,7 +12,7 @@
 <html>
 <head>
 	<title>Aarna Matrimony</title>
-	<link rel="shortcut icon" href="img/aarna-fav.png"/>
+	<link rel="shortcut icon" href="${baseurl }/img/aarna-fav.png"/>
 	<!-- for-mobile-apps -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -2413,6 +2413,7 @@ blockquote p {
 	overflow:hidden;
 	padding-top:3px;
 	padding-bottom:3px;
+	    margin-bottom: 4px;
 }
 #shortlistTD168 {
 margin-bottom:5px;
