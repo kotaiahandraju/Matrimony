@@ -1607,7 +1607,11 @@ public class HomePageController {
 				success = objUsersDao.expressInterestTo(profileId);
 				if(success){
 					objJson.put("message", "success");
-					userBean.setSentInterestCount((Integer.parseInt(userBean.getSentInterestCount())+1)+"");
+					int sent_count = 0;
+					if(StringUtils.isNotEmpty(userBean.getSentInterestCount())){
+						sent_count = Integer.parseInt(userBean.getSentInterestCount());
+					}
+					userBean.setSentInterestCount((sent_count+1)+"");
 					session.setAttribute("cacheGuest",userBean);
 					int allowed_limit = (Integer)session.getAttribute("allowed_profiles_limit");
 					objJson.put("allowed_limit", allowed_limit);
@@ -4174,16 +4178,18 @@ public class HomePageController {
 							//sJson = objectMapper.writeValueAsString(photosList);
 							reqObj.put("photosList", photosList);
 							reqObj.put("photosListSize", photosList.size());
-							//add recent activity data
-							Map<String,Object> recent_activity = objUsersDao.getRecentActivityOf(sessionBean.getId()+"",(Integer)reqObj.get("id"),list_type);
-							if(recent_activity!=null){
-								reqObj.put("recent_activity_map", recent_activity);
-							}
+							
 							
 						}else{
 							reqObj.put("photosList", "");
 						}
-						
+						//add recent activity data
+						Map<String,Object> recent_activity = objUsersDao.getRecentActivityOf(sessionBean.getId()+"",(Integer)reqObj.get("id"),list_type);
+						if(recent_activity!=null){
+							reqObj.put("recent_activity_map", recent_activity);
+						}else{
+							reqObj.put("recent_activity_map", "");
+						}
 						
 					}
 					objectMapper = new ObjectMapper();

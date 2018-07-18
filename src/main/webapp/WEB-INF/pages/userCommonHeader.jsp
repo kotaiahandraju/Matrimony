@@ -1332,7 +1332,6 @@ tooltip:hover:after {
 						if(typeof highlight_option != "undefined" && highlight_option=='1'){
 							profile_highlisht_str = '<div class="panel panel-default" style="background-color:skyblue; padding-top:5px;">';
 						}
-						
 						var tblRow = profile_highlisht_str
 							+ '<div class="panel-body">'
 							+ '<div class="col-md-2" >'
@@ -3534,6 +3533,12 @@ img.hover-shadow {
 																</c:if>
 																<c:if test="${notification.notifi_type == 'short_listed'}">
 																	shortlisted your profile
+																</c:if>
+																<c:if test="${notification.notifi_type == 'message_replied'}">
+																	replied to your message
+																</c:if>
+																<c:if test="${notification.notifi_type == 'interest_accepted'}">
+																	accepted your interest request
 																</c:if>
 															</a>
 															<br>
