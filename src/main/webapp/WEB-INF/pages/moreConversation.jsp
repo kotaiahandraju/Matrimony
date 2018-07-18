@@ -225,6 +225,7 @@ padding:10px;}
 											<c:set var="act_str" value="${act_str} replied to your message" />
 										</c:if>
 										<c:set var="short_str" value="${'Message Replied'}" />
+										<c:set var="message_content" value="${conversation.activity_content}" />
 									</c:if>
 									<c:if test="${act_type == 'mobile_no_viewed' }">
 										<c:if test="${act_done_by == cacheGuest.id }">
