@@ -62,7 +62,7 @@ position:fixed !important;}
 			-webkit-box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
 			overflow: visible;
 			position: absolute;
-			top: 50px;
+			top: 35px;
 			
 			width: 250px;
 			z-index:999;
@@ -2264,14 +2264,14 @@ function editMobileNumber(user_id,old_mobile_no){
 	formData.append("userId",userId);
 	formData.append("mobileNum",mobileNum);
 	formData.append("oldMobileNum",old_mobile_no);
-	$.fn.makeMultipartRequest('POST', 'updateMobileNumber', false,
+	$.fn.makeMultipartRequest('POST', '${baseurl}/users/updateMobileNumber', false,
 		formData, false, 'text', function(data){
 	var jsonobj = $.parseJSON(data);
 	var msg = jsonobj.message;
 	
 	if("success"==msg){
 		var location = "${baseurl}";
-		window.location.href =location+"/sendOtp";
+		window.location.href =location+"/users/sendOtp";
 		//alert("Mobile Number Updated Successfully.");
 		/* $("#editMobileDiv").attr("hidden",true);
 		 $("#mobileNoDiv").removeAttr("hidden");
@@ -3295,7 +3295,7 @@ img.hover-shadow {
 			-webkit-box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
 			overflow: visible;
 			position: absolute;
-			top: 50px;
+			top: 35px;
 			
 			width: 250px;
 			z-index:999;

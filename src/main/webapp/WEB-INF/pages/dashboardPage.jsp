@@ -318,12 +318,14 @@ color:#000;
 	             		
 							
 							</div>
+							<div class=""panel-footer">	<div align="center" style="padding:5px;"><a class="btn btn-primary" href="allPreferredProfiles">View all</a></div></div>
 						</form:form>
 				</div>
-				<div id="pagination_div" style="font-size: 12px; margin-bottom:8px;">
+				<!-- <div id="pagination_div" style="font-size: 12px; margin-bottom:8px;">
 					<div id="altLists"></div>
 					<div id="table_footer"></div>
-				</div>
+				
+				</div> -->
 				<div class="panel panel-success">
 					<div class="panel-heading">New Matches</div>
 		            <div class="panel-body"> 
@@ -361,7 +363,7 @@ color:#000;
 				<p> <i class="fa fa-comment"></i> Chat Instantly</p>
 				 <div class="clearfix"></div>
 				 <p><i  class="fa fa-envelope"></i> Send Personalized Images</p>
-				 <p> &nbsp; &nbsp; &nbsp; Upto Rs.2000 off</p>
+				 <p> &nbsp; &nbsp; &nbsp; Upto <span class="fa fa-inr"></span> 2000 off</p>
 				 <p> &nbsp; &nbsp; &nbsp; On Classic Packages</p><br>
 				 <span class="btn btn-warning" align="center" h><a href="memberShipPage" >Upgrade Now </a><i class="fa fa-chevron-right"></i></span>
 				 </div>
@@ -469,7 +471,7 @@ function displayMatches(listOrders) {
 		
 		var image = null; image = orderObj.profileImage;
 		if(image == "" || image == null || image == "undefined"){
-			image = "img/default.png";
+			image = "${baseurl}/img/default.png";
 		}
 		/* else{
 		array = image.split(",");
@@ -863,7 +865,7 @@ function paginationSetup(total_items_count) {
           960: 5
         },
         tpl: function() {
-          return '<ul>{{first}}{{prev}}{{altLists}}{{next}}{{last}}</ul>';
+          return '<ul>{{first}}{{prev}}{{altLists}}{{next}}{{last}}</ul> ' ;
         },
         components: {
           first: true,

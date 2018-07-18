@@ -7,9 +7,9 @@
 .imgareaselect-outer {
 position:fixed !important;
 }
-.awesome-cropper  img {
-height:150px !important;
-}
+ /* .awesome-cropper  img {
+height:250px !important;
+}  */
 canvas{
 display : none
 }
@@ -86,7 +86,7 @@ height:250px;
 					    </div>
 					    <div class="form-group">
 					    	<div class="col-md-8">
-					    		<input type="button" id="uploadBtn" value="Upload Photo" onclick="imageAjax()">
+					    		<input type="button" class="btn btn-primary" id="uploadBtn" value="Upload Photo" onclick="imageAjax()">
 					    	</div>
 					    </div>
 					    
@@ -110,7 +110,7 @@ height:250px;
                 
                 <div class="col-md-9 products-grid-left">
 					
-            <div class="panel panel-default">
+            <div class=" ">
             
             
    

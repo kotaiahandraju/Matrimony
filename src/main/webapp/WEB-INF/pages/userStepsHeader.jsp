@@ -167,7 +167,7 @@ function getFilteredStatesMultiSelect(id){
 </head>
 <body>
 <input type="hidden" name="loc" id="loc" value="${baseurl }" />
-<div class="container">
+<div class="container" style="width:100%;">
 	<div class="row">
 		<div class="ilogo">
 			<div class="col-md-7 col-sm-12">

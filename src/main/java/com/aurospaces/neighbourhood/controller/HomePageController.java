@@ -4380,57 +4380,7 @@ public class HomePageController {
    
 
    
-   @RequestMapping(value = "/forgotPasswordAction")
-	public  String forgotPasswordAction(@ModelAttribute("forgotPassword") UsersBean objUsersBean, Model objeModel ,
-			HttpServletRequest request, HttpSession session) {
-	   JSONObject jsOnObj = new JSONObject();
-	   String emailStr = "",mobileStr=""; 
-		try {
-				String selectedOption = request.getParameter("sendTo");
-				UsersBean userBean = (UsersBean)session.getAttribute("userBean");
-				userBean.setPassword(MiscUtils.generateRandomString(6));
-				boolean updated = objUsersDao.updatePassword(userBean);
-				if("emailTo".equalsIgnoreCase(selectedOption)){
-					try {
-						EmailUtil emailUtil = new EmailUtil();
-						emailUtil.sendResetPasswordEmail(userBean, objContext, "forgot_password");
-						request.setAttribute("sentToStr", "email id xxxxxxxx"+session.getAttribute("emailStr"));
-						request.setAttribute("message", "success");
-					} catch (Exception e) {
-						e.printStackTrace();
-						request.setAttribute("message", "failed");
-					}
-					if (!updated) {
-						
-						request.setAttribute("message", "failed");
-					}
-				}else if("smsTo".equalsIgnoreCase(selectedOption)){
-					try{
-						   String response = SendSMS.sendSMS("New password has been generated for your Aarna Matrimony account "+userBean.getEmail()+". \n New password: "+userBean.getPassword(),userBean.getMobile());
-						   
-						   if("OK".equalsIgnoreCase(response)){
-							   request.setAttribute("sentToStr", "mobile number xxxxxxx"+session.getAttribute("mobileStr"));
-							   request.setAttribute("message", "success");
-						   }else{
-							   request.setAttribute("message", "failed"); 
-						   }
-						   //throw new Exception();
-					   }catch(Exception e){
-						   e.printStackTrace();
-						   request.setAttribute("message", "failed");
-						   //objUsersDao.delete(sessionBean.getId());
-					   }
-				}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println(e);
-			//logger.error(e);
-			//logger.fatal("error in CreateProfile class createProfile method  ");
-			return "redirect:HomePage.htm";
-		}
-		return "forgotPasswordSuccess";
-	}
+  
    
    @RequestMapping(value = "/settings")
 	public String settings(@ModelAttribute("settingsForm") UsersBean objUsersBean, Model objeModel ,
@@ -4894,37 +4844,40 @@ public class HomePageController {
 	  }
 		return "allNotifications";
 	 }
-   @RequestMapping("/searchByBride")
-   public String searchBride() {
-	   return "searchByBride";
-   }
-   @RequestMapping("/searchByGroom")
-   public String searchGroom() {
-	   return "searchByGroom";
-   }
-   
-   @RequestMapping(value = "/castesBasedOnReligion")
-	public @ResponseBody String castesBasedOnReligion(ReligionBean religionBean,
-			HttpServletResponse response, HttpServletRequest request,
-			HttpSession objSession) throws JsonGenerationException, JsonMappingException, IOException 
-	{
-	   JSONObject objJson =new JSONObject();
-		List<Map<String, Object>> filterBean=null;
-		String json="";
-		String religionId =religionBean.getReligionId();
-		
-		ObjectMapper objmapper=new ObjectMapper();
-		filterBean =  objCastDao.getCastesBasedOnReligion(religionId);
-		if(filterBean.size()>0) {
-			json=objmapper.writeValueAsString(filterBean);
-			objJson.put("allOrders1", filterBean);
-		}else {
-			objJson.put("allOrders1", "");
-			System.out.println();
-		}
-		
-		
-	  return String.valueOf(objJson);
-
-	}
+  
+   @RequestMapping(value = "/allPreferredProfiles")
+ public String PreferredProfiles( @ModelAttribute("createProfile") UsersBean objUsersBean, Model objeModel,HttpServletRequest request, HttpSession session){
+	   List<Map<String, String>> listOrderBeans = null;
+			ObjectMapper objectMapper = null;
+			String sJson = null;
+			try {
+				int page_no = 0;
+				/*String clicked_btn = request.getParameter("btn_id");
+				if(StringUtils.isNotBlank(clicked_btn))
+					page_no = (Integer.parseInt(clicked_btn))-1;*/
+				listOrderBeans = objUsersDao.getProfilesFilteredByPreferences(page_no);
+				int total_records = 0;//MatrimonyConstants.FREE_USER_PROFILES_LIMIT;
+				request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
+				if (listOrderBeans != null && listOrderBeans.size() > 0) {
+					
+					objectMapper = new ObjectMapper();
+					sJson = objectMapper.writeValueAsString(listOrderBeans);
+					request.setAttribute("allOrders1", sJson);
+					total_records =listOrderBeans.size();
+								
+					request.setAttribute("total_records", total_records);
+				} else {
+					request.setAttribute("allOrders1", "''");
+					request.setAttribute("total_records", "0");
+				}
+			}catch(Exception e){
+				 e.printStackTrace();
+				   System.out.println(e);
+				   logger.error(e);
+				   logger.fatal("error in HomePageController class familyDetails method");
+				  }
+			
+	 return "allPreferredProfiles";
+ }
+ 
 }

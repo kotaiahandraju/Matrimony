@@ -8,6 +8,11 @@
 .btn {
 margin-left:8px;
 }
+.copyright {
+position:fixed;
+bottom:0;
+width:100%;
+}
 .form-control {
     display: block;
     width: 30%;

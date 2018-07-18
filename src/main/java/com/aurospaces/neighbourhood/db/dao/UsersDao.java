@@ -1733,9 +1733,10 @@ public class UsersDao extends BaseUsersDao
 		public List<Map<String,Object>>  getPaymentDetailsForPrint(String transactionId){
 			jdbcTemplate = custom.getJdbcTemplate();
 			try{
-				String qryStr = "select u.firstName,u.lastName,u.email,ph.price,ph.paymentStatus,ph.remarks,DATE_FORMAT(ph.updated_time, '%d-%M-%Y') as paymentDate,ph.txid as transactionId "
-						+" from users u, paymenthistory ph where ph.memberId = u.id and ph.txid = '"+transactionId+"' ";
+				String qryStr = "select pa.name as packageName, u.firstName,u.lastName,u.email,ph.price,ph.paymentStatus,ph.remarks,DATE_FORMAT(ph.updated_time, '%d-%M-%Y') as paymentDate,ph.txid as transactionId "
+						+" from users u, paymenthistory ph,package pa  where ph.memberId = u.id and pa.price=ph.price and ph.txid = '"+transactionId+"' ";
 				List<Map<String,Object>> list = jdbcTemplate.queryForList(qryStr);
+				System.out.println("successPrint Query:"+qryStr);
 				return list;
 			}catch(Exception e){
 				e.printStackTrace();

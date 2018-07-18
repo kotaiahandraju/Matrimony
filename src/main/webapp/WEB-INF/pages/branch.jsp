@@ -121,8 +121,8 @@
 						Branch's List
 					</h3>
 				</div>
-				<div class="box-content nopadding w3-animate-zoom" id="tableId">
-					<table class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,text,null">
+				<div class="box-content nopadding w3-animate-zoom table-responsive" id="tableId">
+					<table class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter table-responsive" data-column_filter_types="text,text,null">
 						<thead>
 						<tr>
 							<th>Branch</th><th>Prefix</th><th>Admin Reg No.</th>
@@ -148,7 +148,7 @@ if (listOrders1 != "") {
 
 function displayTable(listOrders) {
 	$('#tableId').html('');
-	var tableHead = '<table  class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,text,text,text,text,text,text,null">'
+	var tableHead = '<table  class="table table-responsive table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,text,text,text,text,text,text,null">'
 		+ '<thead><tr><th>Branch</th><th>Prefix</th><th>Admin Reg No.</th><th>Premium Reg No.</th><th>Free Reg No.</th><th>Widow/Divorcee Reg No.</th><th>Sms Sender</th><th style="text-align: center;"></th></tr></thead><tbody></tbody></table>';
 	$('#tableId').html(tableHead);
 	serviceUnitArray = {};  

@@ -76,9 +76,9 @@ span.has-error,span.hasError
 }
 #navigation .main-nav > li > a {
     display: block;
-    padding: 20px 6.5px;
+    padding: 20px 5.5px;
     line-height: 21px;
-    color: #e4d7d7;
+    color: #f5f5f5;
 }
 @media (min-width:769px) and (max-width:1024px) { 
 #navigation .main-nav > li > a {
@@ -315,7 +315,7 @@ var role_id = ${cacheUserBean.roleId};
 			</a> -->
 			<ul class='main-nav'>
 				<li class="dashboard"><a href="dashboard"><span>Dashboard</span></a></li>
-				<li class="dropdown catalog1 ">
+				<li class="catalog1">
 				<c:if test="${roleId1 == 1}"> 
 					<a href="#" data-toggle="dropdown" class='dropdown-toggle'>
 						<span>Data List 1</span>
@@ -332,7 +332,7 @@ var role_id = ${cacheUserBean.roleId};
 						<li class="height"><a href="${baseurl }/admin/HeightHome">Height</a></li>
 					</ul>
 				</li>
-				<li class="dropdown catalog2">
+				<li class="catalog2">
 					<c:if test="${roleId1 == 1}"> 
 					<a href="#" data-toggle="dropdown" class='dropdown-toggle'>
 						<span>Data List 2</span>
@@ -446,7 +446,7 @@ var role_id = ${cacheUserBean.roleId};
  				
 			</ul>
 		
-			
+			<a href="#" class="toggle-mobile"><i class="fa fa-bars"></i></a>
 			<div class="user">
 				<ul class="icon-nav">
 					<%-- <li class='dropdown'>

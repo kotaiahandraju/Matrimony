@@ -758,11 +758,7 @@ function resetBtnfunction(){
 	 }); */
 
 	function expressInterest(profile_id) {
-		var roleId = $
-		{
-			cacheGuest.roleId
-		}
-		;
+		var roleId = ${cacheGuest.roleId};
 		$("#id").val(profile_id);
 		if (roleId == 4) {
 			document.searchForm2.action = "memberShipPage"
@@ -770,11 +766,7 @@ function resetBtnfunction(){
 			document.searchForm2.submit();
 			return true;
 		} else {
-			var membershipStatus = $
-			{
-				cacheGuest.membership_status
-			}
-			;
+			var membershipStatus = ${cacheGuest.membership_status};
 			if (membershipStatus != "1") {
 				alert("Your membership validity period is over. Renew your membership plan and get more profiles");
 				return false;

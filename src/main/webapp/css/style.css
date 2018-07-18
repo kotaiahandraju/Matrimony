@@ -4608,8 +4608,8 @@ label, input, button, select, textarea {
 }
 #main .page-header {
   border: 0;
-  margin: 15px 0 15px 0;
-  padding: 0 3px;
+  margin: 1px 0 1px 0;
+  padding: 0 1px;
   *zoom: 1;
 }
 #main .page-header:after {
@@ -5130,6 +5130,7 @@ label, input, button, select, textarea {
   padding: 11px 10px 9px 10px;
   text-decoration: none;
   float: right;
+  margin-top:10px;
 }
 #navigation .toggle-mobile i {
   font-size: 18px;
@@ -9342,9 +9343,22 @@ a:focus {
   height: 40px;
   display: block;
 }
-
+#navigation .toggle-mobile{
+	display:none !important;
+}
 .basic-margin > li, .basic-margin > a {
   margin: 0 5px 5px 0;
 }
-
+@media only screen and (max-width: 640px) and (min-width: 320px) {
+	#main .page-header .pull-left h1 {
+    font-size: 25px;
+    color: #2a2a2a;
+    line-height: 24px;
+    font-weight: 400;
+    margin: 6px 0;
+}
+#navigation .toggle-mobile {
+	display:block !important;
+}
+}
 /*# sourceMappingURL=style.css.map */

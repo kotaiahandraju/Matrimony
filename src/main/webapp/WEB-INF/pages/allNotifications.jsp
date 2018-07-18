@@ -36,7 +36,7 @@ function notificationId(id){
 
 
 
-<div class="container" style="background:#fff; padding:15px;">
+<div class="container" style="background:#fff; padding:15px; min-height:500px;">
 	<div class="col-md-12">
 									<h5>Your Notifications </h5>
 <hr>
