@@ -96,7 +96,7 @@
 			</div>
 		</div>
 
-		<div class="row">
+		<div class="row container-fluid">
 			<div class="col-sm-12">
 				<div class="box">
 					<div class="box-title">

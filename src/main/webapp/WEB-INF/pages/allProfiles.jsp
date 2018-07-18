@@ -107,7 +107,7 @@ $( document ).ready(function() {
 
 <div class="row" id="allProfilesId">
 	<div class="col-sm-12">
-		<div class="box">
+		<div class="box" style="min-height:500px;">
 			<div class="box-title">
 				<h3>
 					<i class="fa fa-table"></i>
