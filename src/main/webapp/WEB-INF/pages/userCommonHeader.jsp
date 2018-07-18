@@ -1073,18 +1073,18 @@ tooltip:hover:after {
 								act_str += " have sent an email to "+her_his_you;
 							}
 						}); */ 
-						var myMobileNumViewed_str = "";
+						/* var myMobileNumViewed_str = "";
 						var tempStr = orderObj.myMobileNumViewed;
 						if(tempStr!=null && tempStr!="" && (typeof tempStr != "undefined")){
 							myMobileNumViewed_str = opp_gender_str+" viewed your mobile number.<br>";
-						}
+						} */
 						
-						var message_sent_to_me_str = "";
+						/* var message_sent_to_me_str = "";
 						tempStr="";
 						tempStr = orderObj.message_sent_to_me;
 						if(tempStr!=null && tempStr!="" && (typeof tempStr != "undefined")){
 							message_sent_to_me_str = opp_gender_str+" sent you a personal mail.<br>";
-						}
+						} 
 						
 						var shortListedMe_str = "";
 						tempStr="";
@@ -1099,7 +1099,7 @@ tooltip:hover:after {
 						if(tempStr!=null && tempStr!="" && (typeof tempStr != "undefined")){
 							myProfileViewed_str = opp_gender_str+" viewed your profile.<br>";
 						}
-						//
+						*/
 						
 						var acceptOptions = '';
 						if(listType == "pending_requests" || listType == "filtered_requests"){
@@ -1246,10 +1246,15 @@ tooltip:hover:after {
 										activity_str = "You sent a message to him";
 									else
 										activity_str = "You sent a message to "+her_his_you ;
+									received_msg_str = recent_activity.activity_content;
+									if(received_msg_str!=null && typeof received_msg_str != "undefined"){
+										received_msg_str = received_msg_str.replace(/##newline##/g," ");
+										received_msg_str = received_msg_str.replace(/##tabspace##/g," ")+".";
+									}
 									acceptOptions = '<span id="mail'+orderObj.id+'"><a type="button" class="btn btn-primary btn-sm" id="sendMail'+orderObj.requestId+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')">Send Mail</a></span>';
 								}else{
 									act_short_str = "Message Received";
-									activity_str = opp_gender_str +" sent a message to you" ;
+									activity_str = opp_gender_str +" sent a message to you. Would you like to take it further?" ;
 									received_msg_str = recent_activity.activity_content;
 									if(received_msg_str!=null && typeof received_msg_str != "undefined"){
 										received_msg_str = received_msg_str.replace(/##newline##/g," ");
@@ -1290,6 +1295,11 @@ tooltip:hover:after {
 									activity_str = "You replied to "+her_his_you+" message";
 								}else{
 									activity_str = opp_gender_str+" replied to your message";
+								}
+								received_msg_str = recent_activity.activity_content;
+								if(received_msg_str!=null && typeof received_msg_str != "undefined"){
+									received_msg_str = received_msg_str.replace(/##newline##/g," ");
+									received_msg_str = received_msg_str.replace(/##tabspace##/g," ")+".";
 								}
 								acceptOptions = '<span id="mail'+orderObj.id+'"><a type="button" class="btn btn-primary btn-sm" id="sendMail'+orderObj.id+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')">Send Mail</a></span>';
 							}
@@ -1667,7 +1677,7 @@ tooltip:hover:after {
 			var option_selection = "${default_text_option}";
 			if(typeof option_selection != "undefined"){ 
 				if(option_selection=="1"){
-					var texttt = mail_default_textt; //"${mail_default_text}";
+					var texttt = mail_default_textt; 
 					 texttt = texttt.replace(/##newline##/g,"\r\n");
 					 texttt = texttt.replace(/##tabspace##/g,"\t");
 					 $("#mail_content").val(texttt);
@@ -1950,6 +1960,7 @@ tooltip:hover:after {
 				$("#replyArea").val(texttt);
 				$("#replyArea").removeAttr("hidden"); */ 
 				var message_content = $("#replyContent").val();
+				alert("message_content:"+message_content);
 				var reply_content = message_content.split("---Original message---")[0];
 				var formData = new FormData();
 			

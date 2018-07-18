@@ -4,7 +4,7 @@
 <script>
 (function($) {
     $(function() {
-        $('.mult-select-dd-opt-gtp').fSelect();
+        //$('.mult-select-dd-opt-gtp').fSelect();
     });
 })(jQuery);
 </script>
