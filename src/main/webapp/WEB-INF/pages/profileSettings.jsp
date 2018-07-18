@@ -1310,7 +1310,7 @@ if(ageFrom > ageTo){
 		formData.append("age_from",$("#age_from").val());
 		formData.append("age_to",$("#age_to").val());
 		formData.append("rMaritalStatus",$("#rMaritalStatus").val());
-		formData.append("rReligion",$("#rReligion").val());alert("submitting:"+$("#rCaste").val());
+		formData.append("rReligion",$("#rReligion").val());
 		formData.append("rCaste",$("#rCaste").val());
 		formData.append("rMotherTongue",$("#rMotherTongue").val());
 		formData.append("rCountry",$("#rCountry").val());
