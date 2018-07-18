@@ -2414,6 +2414,7 @@ blockquote p {
 	overflow:hidden;
 	padding-top:3px;
 	padding-bottom:3px;
+	    margin-bottom: 4px;
 }
 #shortlistTD168 {
 margin-bottom:5px;
