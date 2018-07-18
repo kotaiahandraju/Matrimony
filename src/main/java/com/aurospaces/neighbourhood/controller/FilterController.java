@@ -532,7 +532,7 @@ public class FilterController {
 		return "premiumPlusProfile";
 	}
 
-	@RequestMapping(value = "/interestRequests")
+	/*@RequestMapping(value = "/interestRequests")
 	public String interestRequests(@ModelAttribute("createProfile") UsersBean objUsersBean, ModelMap model,
 			HttpServletRequest request, HttpSession session, RedirectAttributes redir) {
 		// System.out.println("interestRequests Page");
@@ -562,35 +562,8 @@ public class FilterController {
 			return "CreateProfile";
 		}
 		return "interestRequests";
-	}
+	}*/
 
-   @RequestMapping(value = "/forwardInterestRequests")
-	public  @ResponseBody String forwardInterestRequests(@ModelAttribute("createProfile") UsersBean objUsersBean, ModelMap model,
-			HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
-	    JSONObject objJson =new JSONObject();
-		try {
-			UsersBean sessionBean = (UsersBean)session.getAttribute("cacheUserBean");
-			if(sessionBean == null){
-				return "redirect:HomePage";
-			}
-			String requestId = request.getParameter("requestId");
-			boolean forwarded = objUsersDao.forwardInterestRequestss(requestId);
-			if (forwarded) {
-				objJson.put("message", "success");
-			} else {
-				objJson.put("message", "failed");
-			}
-			
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println(e);
-			logger.error(e);
-			logger.fatal("error forwardInterestRequests method  ");
-			return objJson.put("message", "error").toString();
-		}
-		return objJson.toString();
-	}
    
     @RequestMapping(value = "/fullProfile")
 	public String fullProfile(@ModelAttribute("createProfile") UsersBean objUserssBean, Model objeModel,

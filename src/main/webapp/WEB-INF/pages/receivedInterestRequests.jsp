@@ -156,10 +156,10 @@ if(session.getAttribute("cacheGuest") != null){
 				<div class="panel-body">
 					
                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
-  <tr>
+  <%-- <tr>
     <td><a href="receivedRequests">Invitations</a></td>
     <td><div class="badge pull-right">${cacheGuest.receivedInterestCount}</div></td>
-  </tr>
+  </tr> --%>
 </table>
 
 				</div>
