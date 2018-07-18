@@ -13,9 +13,9 @@
 		<div class="row">
 			<div class="midcontnet">
 				<div id="fpStep1">
-					<div class="panel panel-success">
+					<div class="panel panel-success" style="padding:50px;">
 	   					<c:if test="${message == 'success' }">
-				    		<span>New password has been sent to your ${sentToStr}.</span><br>
+				    		<span>New password has been sent to your ${sentToStr}.</span><br><br>
 				    		<a href="HomePage" class="btn4 btn btn-info">Login</a> with new password.
 				    	</c:if>
 				    	<c:if test="${message == 'failed' }">
