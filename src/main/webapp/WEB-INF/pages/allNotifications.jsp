@@ -37,9 +37,10 @@ function notificationId(id){
 
 
 <div class="container" style="background:#fff; padding:15px; min-height:500px;">
-	<div class="col-md-12">
-									<h5>Your Notifications </h5>
-<hr>
+	<div class="col-md-9">
+		<h5>Your Notifications </h5></div><div class="col-md-3"><button type="button" class="btn btn-danger pull-right">Delete All</button></span></div>
+<div class="clearfix"></div>
+<hr><div class="col-md-12">
 
 													<c:if test="${not empty notificationsList}">
 											<div id="notificationsBody"  class="notifications allnoti">
