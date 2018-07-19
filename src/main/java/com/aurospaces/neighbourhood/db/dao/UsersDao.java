@@ -4285,7 +4285,21 @@ public boolean deletePhoto(String photoId){
 	
 	
 	
-	
+	@Transactional
+	public boolean deleteNotification(int id) {
+		jdbcTemplate = custom.getJdbcTemplate();
+		boolean delete = false;
+		try{
+			String sql = "delete from user_notifications where id=?";
+			int intDelete = jdbcTemplate.update(sql, new Object[]{id});
+			if(intDelete != 0){
+				delete = true;
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return delete;
+	}
 	
 	
 }

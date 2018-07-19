@@ -856,7 +856,7 @@ tooltip:hover:after {
 		                + '<div class="clearfix"></div>'
 		            	+ '<blockquote style="min-height:100px; max-height:120px; "><p>'+abtMySelf+'....</p><br>'
 		                //+ '<br>'
-		                + '<a href="#"><p style="float:right;">...more</p></a>'
+		                + '<a href="#" onclick="fullProfile('+orderObj.id+')"><p style="float:right;">...more</p></a>'
 		                + '</blockquote>'
 		                + '</div>'
 		            	+ '<div class="col-md-5 newma">'
@@ -3546,7 +3546,8 @@ img.hover-shadow {
 															<c:out value="${notification.created_on}" />
 														.</p>
 													</div>
-													<div class="col-md-2"><span class="fa fa-trash pull-right" style="margin-top:5px;"></span></div>
+													<div class="col-md-2">
+													<a  href="#" onclick="removeNotification(${notification.id});"><span class="fa fa-trash pull-right" style="margin-top:5px;"></span></a></div>
 													<div class="clearfix"></div><hr>
 												</c:forEach>
 											</div>
@@ -3793,5 +3794,16 @@ function myFunction2(id) {
 	 $("#"+id+"sendmail").show();
 	 $("#"+id+"myDIV").hide();
 }
+
+
+
+/* function removeNotification(id){
+	var formData = new FormData();
+    formData.append('id', id);
+	$.fn.makeMultipartRequest('POST', '${baseurl }/users/removeNotification?id='+id, false, formData, false, 'text', function(data){
+		var jsonobj = $.parseJSON(data);
+		location.reload();
+	});
+} */
 </script>
 

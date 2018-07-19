@@ -34,6 +34,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -4885,5 +4886,49 @@ public class HomePageController {
 			
 	 return "allPreferredProfiles";
  }
+   
+   @RequestMapping(value = "/removeNotification")
+	public @ResponseBody String deleteCaste( HttpServletRequest request, HttpSession session,UsersBean objUsersBean) {
+		 System.out.println("removeNotification page...");
+		 List<Map<String, Object>> notifications = null;
+		JSONObject jsonObj = new JSONObject();
+		boolean delete = false;
+		String idParam=request.getParameter("id");
+		
+		try {
+				delete = objUsersDao.deleteNotification(Integer.parseInt(idParam));
+				if (delete) {
+					jsonObj.put("delete", "delete");
+				} else {
+					jsonObj.put("delete", "");
+				}
+			
+				UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
+						if(sessionBean == null){
+							return "redirect:HomePage";
+						}
+						notifications = objUsersDao.getNotifications(sessionBean, true);
+						
+						if(notifications!=null && notifications.size()>0){
+							request.setAttribute("notificationsList", notifications);
+						}else{
+							request.setAttribute("notificationsList", "''");
+						}
+					int notificationsCount1 =	notifications.size();
+					session.setAttribute("notificationsCount1", notificationsCount1);
+					System.out.println("dfbshfjldshfajkdlsfads::ID"+notificationsCount1);
+						/*Map<String,Object> interestCounts = objUsersDao.getInterestCounts(objUsersBean);
+						long notificationsCount = (Long)interestCounts.get("notificationsCount");
+						session.setAttribute("notificationsCount", notificationsCount);*/
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			logger.error(e);
+			logger.fatal("error in userNotifications class removeNotification method");
+			jsonObj.put("message", "excetption" + e);
+			return String.valueOf(jsonObj);
+		}
+		return String.valueOf(jsonObj);
+	}
  
 }

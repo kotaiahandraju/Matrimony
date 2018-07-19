@@ -246,6 +246,7 @@ public class EmailUtil {
 	        Map<String, String> inlineImages = new HashMap<String, String>();
 //	        inlineImages.put("image1", objContext.getRealPath("images" +File.separator+"telugu.png"));
 	        inlineImages.put("image2", objContext.getRealPath("images" +File.separator+"logo.jpg"));
+	       
 	 
 	       
 	            EmbeddedImageEmailUtil.send(host, port, mailFrom, password, mailTo,
@@ -288,6 +289,7 @@ public class EmailUtil {
 			body = body.replace("_username_", objUsersBean.getEmail());
 			body = body.replace("_password_", objUsersBean.getPassword());*/
 			body = body.replace("_img_", "cid:image2");
+			body = body.replace("_bodyimage_", "cid:image3");
 	        
 			
 	        
@@ -297,7 +299,7 @@ public class EmailUtil {
 	        Map<String, String> inlineImages = new HashMap<String, String>();
 //	        inlineImages.put("image1", objContext.getRealPath("images" +File.separator+"telugu.png"));
 	        inlineImages.put("image2", objContext.getRealPath("images" +File.separator+"logo.jpg"));
-	 
+	        inlineImages.put("image3", objContext.getRealPath("images" +File.separator+"matri.jpg"));
 	       
 	            EmbeddedImageEmailUtil.send(host, port, mailFrom, password, mailTo,
 	                subject, body.toString(), inlineImages);
