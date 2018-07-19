@@ -31,6 +31,9 @@ function notificationId(id){
 	$("#id").css("background-color","red");
 }
 
+
+
+
 </script>
 
 
@@ -79,8 +82,8 @@ function notificationId(id){
 																<c:if test="${notification.notifi_type == 'short_listed'}">
 																	shortlisted your profile
 																</c:if>
-
-															<span class="fa fa-trash pull-right" style="margin-top:5px;"></span></a></br>
+																</a>
+															<a  href="#" onclick="removeNotification(${notification.id});"><span class="fa fa-trash pull-right" style="margin-top:5px;"></a></span></br>
 															<p><c:out value="${notification.created_on}"/> </p>
 															
 														</p>
