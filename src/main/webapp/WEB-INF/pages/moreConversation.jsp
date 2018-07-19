@@ -100,7 +100,7 @@ padding:10px;}
 							</c:if>
 						</div>
 						<div class="col-md-10">
-						<h3>${profileBean.firstName} ${profileBean.lastName}<span><a href="#"><img  data-toggle="tooltip" title="Vie Mobile Number" src="${baseurl }/images/micon.png"/></a></span> <span class="pull-right"><a href="#"><i data-toggle="tooltip" title="Delete" class="fa fa-trash-o" style="font-size:16px;"></i></a></span></h3>
+						<h3>${profileBean.firstName} ${profileBean.lastName}<span><a href="#"><img  data-toggle="tooltip" title="View Mobile Number" src="${baseurl }/images/micon.png"/></a></span> <span class="pull-right"><a href="#"><i data-toggle="tooltip" title="Delete" class="fa fa-trash-o" style="font-size:16px;"></i></a></span></h3>
 						<p>${profileBean.age} Yrs, ${profileBean.heightInches}, ${profileBean.religionName}: ${profileBean.casteName}, ${profileBean.currentCityName}, ${profileBean.currentStateName}, ${profileBean.currentCountryName}, ${profileBean.educationName}, ${profileBean.occupationName}</p>
 						</div>
 						</div>
