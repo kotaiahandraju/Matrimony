@@ -4886,8 +4886,6 @@ public class HomePageController {
 	 return "allPreferredProfiles";
  }
    
-<<<<<<< HEAD
-=======
    @RequestMapping(value = "/removeNotification")
 	public @ResponseBody String deleteCaste( HttpServletRequest request, HttpSession session,UsersBean objUsersBean) {
 		 System.out.println("removeNotification page...");
@@ -4932,6 +4930,5 @@ public class HomePageController {
 		return String.valueOf(jsonObj);
 	}
  
->>>>>>> 79b44c67b27ee259b32c68ae692c9cbaa6aa3a2e
 }
 
