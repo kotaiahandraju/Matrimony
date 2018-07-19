@@ -767,7 +767,8 @@ public class UsersDao extends BaseUsersDao
 					buffer.append("insert into user_notifications(created_on,user_type,user_id,profile_id,notifi_type) "
 							+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','member',"+objUserBean.getId()+","+profileId+",'short_listed')");
 					inserted_count = jdbcTemplate.update(buffer.toString());
-					
+					if(inserted_count==1)
+						return true;
 				}catch(Exception e){
 					e.printStackTrace();
 					return false;
@@ -1839,7 +1840,7 @@ public class UsersDao extends BaseUsersDao
 						+"(select count(*) from express_intrest_view where profile_id = "+userId+" and profile_viewed_status = '1') as profileViewedCount";*/
 			String subStr = "  u.status in ('1') and u.role_id not in (1) and u.gender not in  ('"+objUserBean.getGender()+"') and u.id not in  ("+userId+")";
 			String qryStr= "select "
-								//+ "select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+userId+" and act_log.act_done_on_user_id=u.id and "+subStr+" ) as sentInterestCount, " 
+								+ "(select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+userId+" and act_log.activity_type not in ('profile_viewed') ) as sentInterestCount, " 
 								//+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+userId+" and act_log.act_done_on_user_id=u.id and "+subStr+" ) as awaitingInterestCount, " 
 								//+" (select count(*) from  users u,express_intrest  ei where u.id = ei.user_id and  ei.profile_id = "+userId+" and ei.interested = '1' and ei.status in ('1','2','3') and "+subStr+" ) as receivedInterestCount, " 
 								//+" (select count(*) from  users u,express_intrest ei where u.id = ei.user_id and ei.profile_id = "+userId+" and ei.status = '2'  and "+subStr+" ) as acceptedInterestCount, "
@@ -2180,8 +2181,7 @@ public class UsersDao extends BaseUsersDao
 				//+"  express_intrest ei  where "+inner_where_clause+" ");
 */		
 		
-		buffer.append("select countqry.*,count(1) as total_records from "
-				+ "(select temp.*,activity.id as requestId,ifnull(activity.activity_content,'') as  activity_content,max(activity.created_time) "
+		buffer.append("select temp.*,activity.id as requestId,ifnull(activity.activity_content,'') as  activity_content,max(activity.created_time) "
 				+ "  from "
 				+ "(select u.id,u.gender,sta.name as currentStateName,cit.name as currentCityName,u.occupation,ifnull(oc.name,'') as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor, "
 				+"u.firstName, u.lastName, u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName, u.currentCountry,co.name as currentCountryName, " 
@@ -2197,7 +2197,7 @@ public class UsersDao extends BaseUsersDao
 				+" ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 				//+" (select count(*) from users u "+where_clause+") as total_records, "
 				+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and  uimg.status = '1' and uimg.is_profile_picture='1') as profileImage, "
-				//+" (select count(*) from (select count(1) from users u,users_activity_log act where "+inner_where_clause+" and act.act_done_by_user_id  = u.id and act.act_done_on_user_id = "+objUserBean.getId()+" and act.activity_type in ('interest_request','message') and act.activity_status in ('0')  group by u.id ) tc) as total_records, "
+				+" (select count(*) from (select count(1) from users u,users_activity_log act where "+inner_where_clause+" and act.act_done_by_user_id  = u.id and act.act_done_on_user_id = "+objUserBean.getId()+" and act.activity_type in ('interest_request','message') and act.activity_status in ('0')  group by u.id ) tc) as total_records, "
 				+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+objUserBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'short_listed') as short_listed, "
 				+" (select highlight_profile from package where id = u.package_id) as profile_highlighter "
 				+" from users u left join userrequirement ur on u.id=ur.userId "
@@ -2215,11 +2215,10 @@ public class UsersDao extends BaseUsersDao
 		buffer.append(" group by temp.id ");
 		
 		int page_size = MatrimonyConstants.PAGINATION_SIZE;
-		buffer.append(" order by max(activity.created_time) desc limit "+page_size+" offset "+(page_no*page_size)+" ) countqry");
+		buffer.append(" order by max(activity.created_time) desc limit "+page_size+" offset "+(page_no*page_size)+" ");
 		try{
 			List<Map<String,Object>> list = jdbcTemplate.queryForList(buffer.toString());
-			int records_cnt = ((Long)(list.get(0).get("total_records"))).intValue(); 
-			if(list!=null && records_cnt>0){
+			if(list!=null){
 				return list;
 			}
 				
@@ -2267,8 +2266,7 @@ public class UsersDao extends BaseUsersDao
 		}
 		
 		StringBuffer where_clause = new StringBuffer(" and u.role_id not in (1) and u.status in ('1') ");
-		buffer.append("select countqry.*,count(1) as total_records from "
-				+ "(select temp.*,activity.id as requestId,ifnull(activity.activity_content,'') as  activity_content,max(activity.created_time) "
+		buffer.append("select temp.*,activity.id as requestId,ifnull(activity.activity_content,'') as  activity_content,max(activity.created_time) "
 				+ "  from "
 				+" (select ei.id as requestId,u.id,u.gender,sta.name as currentStateName,cit.name as currentCityName,u.occupation,ifnull(oc.name,'') as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
 				+"u.firstName, u.lastName, u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName, u.currentCountry,co.name as currentCountryName, " 
@@ -2284,7 +2282,7 @@ public class UsersDao extends BaseUsersDao
 				+" ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 				//+" (select count(*) from users u "+where_clause+") as total_records, "
 				+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and  uimg.status = '1' and uimg.is_profile_picture='1') as profileImage, "
-				+" (select count(*) from (select count(*) from users u,express_intrest ei where "+inner_where_clause+" group by u.id ) tc) as total_records, "
+				+" (select count(*) from (select count(1) from users u,users_activity_log activity where activity.act_done_on_user_id  = "+objUserBean.getId()+" and activity.act_done_by_user_id = u.id and activity.activity_type in ('interest_request','message') and activity.activity_status in ('0') and "+inner_where_clause+" group by u.id ) tc) as total_records, "
 				+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+objUserBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'short_listed') as short_listed, "
 				+" (select highlight_profile from package where id = u.package_id) as profile_highlighter "
 				+" from users u left join userrequirement ur on u.id=ur.userId "
@@ -2303,11 +2301,10 @@ public class UsersDao extends BaseUsersDao
 		buffer.append(" group by temp.id  ");
 		
 		int page_size = MatrimonyConstants.PAGINATION_SIZE;
-		buffer.append(" order by max(activity.created_time)  desc limit "+page_size+" offset "+(page_no*page_size)+" ) countqry");
+		buffer.append(" order by max(activity.created_time)  desc limit "+page_size+" offset "+(page_no*page_size)+" ");
 		try{
 			List<Map<String,Object>> list = jdbcTemplate.queryForList(buffer.toString());
-			int records_cnt = ((Long)(list.get(0).get("total_records"))).intValue(); 
-			if(list!=null && records_cnt>0){
+			if(list!=null){
 				return list;
 			}
 				
@@ -2326,8 +2323,7 @@ public class UsersDao extends BaseUsersDao
 		StringBuffer buffer = new StringBuffer();
 		String inner_where_clause = "  u.role_id not in (1) and u.status in ('1')  and u.gender not in  ('"+objUserBean.getGender()+"') and u.id not in  ("+userId+")  ";
 		StringBuffer where_clause = new StringBuffer(" and u.role_id not in (1) and u.status in ('1') ");
-		buffer.append("select countqry.*,count(1) as total_records from "
-				+ "(select temp.*,activity.id as requestId,ifnull(activity.activity_content,'') as  activity_content,max(activity.created_time) "
+		buffer.append("select temp.*,activity.id as requestId,ifnull(activity.activity_content,'') as  activity_content,max(activity.created_time) "
 				+ "  from "
 				+" (select u.id,sta.name as currentStateName,cit.name as currentCityName,u.occupation,oc.name as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
 				+"u.firstName, u.lastName, u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName, u.currentCountry,co.name as currentCountryName, " 
@@ -2343,7 +2339,7 @@ public class UsersDao extends BaseUsersDao
 				+" ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 				//+" (select count(*) from users u "+where_clause+") as total_records, "
 				+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and  uimg.status = '1' and uimg.is_profile_picture='1') as profileImage, "
-				//+" (select count(*) from users u,express_intrest ei where "+inner_where_clause+") as total_records, "
+				+" (select count(*) from users u,users_activity_log activity where activity.act_done_on_user_id  = "+objUserBean.getId()+" and activity.act_done_by_user_id = u.id and activity.activity_type in ('profile_viewed') and  "+inner_where_clause+") as total_records, "
 				+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+objUserBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'short_listed') as short_listed, "
 				+" (select highlight_profile from package where id = u.package_id) as profile_highlighter "
 				+" from users u left join userrequirement ur on u.id=ur.userId "
@@ -2362,12 +2358,11 @@ public class UsersDao extends BaseUsersDao
 		buffer.append(" group by temp.id  ");
 		
 		int page_size = MatrimonyConstants.PAGINATION_SIZE;
-		buffer.append(" order by max(activity.created_time)  desc limit "+page_size+" offset "+(page_no*page_size)+" ) countqry");
+		buffer.append(" order by max(activity.created_time)  desc limit "+page_size+" offset "+(page_no*page_size)+" ");
 		
 		try{
 			List<Map<String,Object>> list = jdbcTemplate.queryForList(buffer.toString());
-			int records_cnt = ((Long)(list.get(0).get("total_records"))).intValue(); 
-			if(list!=null && records_cnt>0){
+			if(list!=null){
 				return list;
 			}
 		}catch(Exception e){
@@ -2386,8 +2381,7 @@ public class UsersDao extends BaseUsersDao
 		String inner_where_clause = " u.role_id not in (1) and u.status in ('1')  and u.gender not in  ('"+objUserBean.getGender()+"') and u.id not in  ("+userId+") "
 		 +" and ((select count(*) from user_settings us where us.user_id = u.id and us.know_shortlisted_option = '1')=1) ";
 		StringBuffer where_clause = new StringBuffer(" and u.role_id not in (1) and u.status in ('1') ");
-		buffer.append("select countqry.*,count(1) as total_records from "
-				+ "(select temp.*,activity.id as requestId,ifnull(activity.activity_content,'') as  activity_content,max(activity.created_time) "
+		buffer.append("select temp.*,activity.id as requestId,ifnull(activity.activity_content,'') as  activity_content,max(activity.created_time) "
 				+ "  from "
 				+"(select u.id,sta.name as currentStateName,cit.name as currentCityName,u.occupation,oc.name as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
 				+"u.firstName, u.lastName, u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName, u.currentCountry,co.name as currentCountryName, " 
@@ -2403,7 +2397,7 @@ public class UsersDao extends BaseUsersDao
 				+" ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 				//+" (select count(*) from users u "+where_clause+") as total_records, "
 				+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and  uimg.status = '1' and uimg.is_profile_picture='1') as profileImage, "
-				//+" (select count(*) from users u,express_intrest ei where "+inner_where_clause+") as total_records, "
+				+" (select count(*) from users u,users_activity_log activity where activity.act_done_on_user_id  = "+objUserBean.getId()+" and activity.act_done_by_user_id = u.id and activity.activity_type in ('short_listed') and "+inner_where_clause+") as total_records, "
 				+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+objUserBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'short_listed') as short_listed, "
 				+" (select highlight_profile from package where id = u.package_id) as profile_highlighter "
 				+" from users u left join userrequirement ur on u.id=ur.userId "
@@ -2422,12 +2416,11 @@ public class UsersDao extends BaseUsersDao
 		buffer.append(" group by temp.id ");
 		
 		int page_size = MatrimonyConstants.PAGINATION_SIZE;
-		buffer.append(" order by max(activity.created_time)  desc limit "+page_size+" offset "+(page_no*page_size)+" ) countqry");
+		buffer.append(" order by max(activity.created_time)  desc limit "+page_size+" offset "+(page_no*page_size)+" ");
 		
 		try{
 			List<Map<String,Object>> list = jdbcTemplate.queryForList(buffer.toString());
-			int records_cnt = ((Long)(list.get(0).get("total_records"))).intValue(); 
-			if(list!=null && records_cnt>0){
+			if(list!=null){
 				return list;
 			}
 		}catch(Exception e){
@@ -2445,8 +2438,7 @@ public class UsersDao extends BaseUsersDao
 		StringBuffer buffer = new StringBuffer();
 		String inner_where_clause = " u.role_id not in (1) and u.status in ('1')  and u.gender not in  ('"+objUserBean.getGender()+"') and u.id not in  ("+userId+")  ";
 		StringBuffer where_clause = new StringBuffer(" and u.role_id not in (1) and u.status in ('1') ");
-		buffer.append("select countqry.*,count(1) as total_records from "
-				+ "(select temp.*,activity.id as requestId,ifnull(activity.activity_content,'') as  activity_content,max(activity.created_time) "
+		buffer.append("select temp.*,activity.id as requestId,ifnull(activity.activity_content,'') as  activity_content,max(activity.created_time) "
 				+ "  from "
 				+"(select u.id,sta.name as currentStateName,cit.name as currentCityName,u.occupation,oc.name as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
 				+"u.firstName, u.lastName, u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName, u.currentCountry,co.name as currentCountryName, " 
@@ -2462,7 +2454,7 @@ public class UsersDao extends BaseUsersDao
 				+" ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 				//+" (select count(*) from users u "+where_clause+") as total_records, "
 				+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and  uimg.status = '1' and uimg.is_profile_picture='1') as profileImage, "
-				//+" (select count(*) from users u,express_intrest ei where "+inner_where_clause+") as total_records, "
+				+" (select count(*) from (select count(1) from users u,users_activity_log activity where activity.act_done_by_user_id  = "+objUserBean.getId()+" and activity.act_done_on_user_id = u.id and activity.activity_type in ('short_listed') and "+inner_where_clause+" group by u.id) tc) as total_records, "
 				+" (select highlight_profile from package where id = u.package_id) as profile_highlighter "
 				+" from users u left join userrequirement ur on u.id=ur.userId "
 				+"left join religion re on re.id=u.religion left join language l on l.id=u.motherTongue left join countries co on co.id=u.currentCountry "
@@ -2473,19 +2465,18 @@ public class UsersDao extends BaseUsersDao
 				+ " where "+inner_where_clause 
 				+ " group by u.id) temp, "
 				+" users_activity_log activity where activity.act_done_by_user_id  = "+objUserBean.getId()+" and activity.act_done_on_user_id = temp.id "
-				+ "and activity.activity_type in ('short_listed') ");
+				+ " and activity.activity_type in ('short_listed') ");
 
 		
 		//buffer.append(where_clause);
 		buffer.append(" group by temp.id  ");
 		
 		int page_size = MatrimonyConstants.PAGINATION_SIZE;
-		buffer.append(" order by max(activity.created_time)  desc limit "+page_size+" offset "+(page_no*page_size)+" ) countqry");
+		buffer.append(" order by max(activity.created_time)  desc limit "+page_size+" offset "+(page_no*page_size)+" ");
 		
 		try{
 			List<Map<String,Object>> list = jdbcTemplate.queryForList(buffer.toString());
-			int records_cnt = ((Long)(list.get(0).get("total_records"))).intValue(); 
-			if(list!=null && records_cnt>0){
+			if(list!=null){
 				return list;
 			}
 		}catch(Exception e){
@@ -2503,8 +2494,7 @@ public class UsersDao extends BaseUsersDao
 		StringBuffer buffer = new StringBuffer();
 		String inner_where_clause = "  u.role_id not in (1) and u.status in ('1')  and u.gender not in  ('"+objUserBean.getGender()+"') and u.id not in  ("+userId+")  ";
 		StringBuffer where_clause = new StringBuffer(" and u.role_id not in (1) and u.status in ('1') ");
-		buffer.append("select countqry.*,count(1) as total_records from "
-				+ "(select temp.*,activity.id as requestId,ifnull(activity.activity_content,'') as  activity_content,max(activity.created_time) "
+		buffer.append("select temp.*,activity.id as requestId,ifnull(activity.activity_content,'') as  activity_content,max(activity.created_time) "
 				+ "  from "
 				+"(select u.id,sta.name as currentStateName,cit.name as currentCityName,u.occupation,oc.name as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
 				+"u.firstName, u.lastName, u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName, u.currentCountry,co.name as currentCountryName, " 
@@ -2520,7 +2510,7 @@ public class UsersDao extends BaseUsersDao
 				+" ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 				//+" (select count(*) from users u "+where_clause+") as total_records, "
 				+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and  uimg.status = '1' and uimg.is_profile_picture='1') as profileImage, "
-				//+" (select count(*) from users u,express_intrest ei where "+inner_where_clause+") as total_records, "
+				+" (select count(*) from users u,express_intrest ei where "+inner_where_clause+") as total_records, "
 				+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+objUserBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'short_listed') as short_listed, "
 				+" (select highlight_profile from package where id = u.package_id) as profile_highlighter "
 				+" from users u left join userrequirement ur on u.id=ur.userId "
@@ -2539,12 +2529,11 @@ public class UsersDao extends BaseUsersDao
 		buffer.append(" group by temp.id  ");
 		
 		int page_size = MatrimonyConstants.PAGINATION_SIZE;
-		buffer.append(" order by max(activity.created_time)  desc limit "+page_size+" offset "+(page_no*page_size)+" ) countqry");
+		buffer.append(" order by max(activity.created_time)  desc limit "+page_size+" offset "+(page_no*page_size)+" ");
 		
 		try{
 			List<Map<String,Object>> list = jdbcTemplate.queryForList(buffer.toString());
-			int records_cnt = ((Long)(list.get(0).get("total_records"))).intValue(); 
-			if(list!=null && records_cnt>0){
+			if(list!=null){
 				return list;
 			}
 		}catch(Exception e){
@@ -2562,8 +2551,7 @@ public class UsersDao extends BaseUsersDao
 		StringBuffer buffer = new StringBuffer();
 		String inner_where_clause = "  u.role_id not in (1) and u.status in ('1') and u.gender not in  ('"+objUserBean.getGender()+"') and u.id not in  ("+userId+") ";
 		StringBuffer where_clause = new StringBuffer(" and u.role_id not in (1) and u.status in ('1') ");
-		buffer.append("select countqry.*,count(1) as total_records from "
-				+ "(select temp.*,activity.id as requestId,ifnull(activity.activity_content,'') as  activity_content,max(activity.created_time) "
+		buffer.append("select temp.*,activity.id as requestId,ifnull(activity.activity_content,'') as  activity_content,max(activity.created_time) "
 				+ "  from "
 				+"(select u.id,sta.name as currentStateName,cit.name as currentCityName,u.occupation,oc.name as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
 				+"u.firstName, u.lastName, u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName, u.currentCountry,co.name as currentCountryName, " 
@@ -2579,7 +2567,7 @@ public class UsersDao extends BaseUsersDao
 				+" ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 				//+" (select count(*) from users u "+where_clause+") as total_records, "
 				+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and  uimg.status = '1' and uimg.is_profile_picture='1') as profileImage, "
-				//+" (select count(*) from users u,express_intrest ei where "+inner_where_clause+") as total_records, "
+				+" (select count(*) from (select count(1) from users u,users_activity_log activity where activity.act_done_on_user_id  = u.id and activity.act_done_by_user_id = "+objUserBean.getId()+" and activity.activity_type in ('interest_request','message') and "+inner_where_clause+" group by u.id) tc) as total_records, "
 				+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+objUserBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'short_listed') as short_listed, "
 				+" (select highlight_profile from package where id = u.package_id) as profile_highlighter "
 				+" from users u left join userrequirement ur on u.id=ur.userId "
@@ -2591,19 +2579,18 @@ public class UsersDao extends BaseUsersDao
 				+ " where "+inner_where_clause 
 				+ " group by u.id) temp, "
 				+" users_activity_log activity where activity.act_done_on_user_id  = temp.id and activity.act_done_by_user_id = "+objUserBean.getId()+" and "
-						+ "activity.activity_type in ('interest_request','message') ");
+						+ " activity.activity_type in ('interest_request','message') ");
 
 		
 		//buffer.append(where_clause);
 		buffer.append(" group by temp.id  ");
 		
 		int page_size = MatrimonyConstants.PAGINATION_SIZE;
-		buffer.append(" order by max(activity.created_time)  desc limit "+page_size+" offset "+(page_no*page_size)+" ) countqry");
+		buffer.append(" order by max(activity.created_time)  desc limit "+page_size+" offset "+(page_no*page_size)+" ");
 		
 		try{
 			List<Map<String,Object>> list = jdbcTemplate.queryForList(buffer.toString());
-			int records_cnt = ((Long)(list.get(0).get("total_records"))).intValue(); 
-			if(list!=null && records_cnt>0){
+			if(list!=null){
 				return list;
 			}
 		}catch(Exception e){
@@ -2671,8 +2658,7 @@ public class UsersDao extends BaseUsersDao
 		StringBuffer buffer = new StringBuffer();
 		String inner_where_clause = " u.role_id not in (1) and u.status in ('1') and u.gender not in  ('"+objUserBean.getGender()+"') and u.id not in  ("+userId+")";
 		//StringBuffer where_clause = new StringBuffer(" and u.role_id not in (1) and u.status in ('1') ");
-		buffer.append("select countqry.*,count(1) as total_records from "
-				+ "(select temp.*,activity.id as requestId,ifnull(activity.activity_content,'') as  activity_content,max(activity.created_time) "
+		buffer.append("select temp.*,activity.id as requestId,ifnull(activity.activity_content,'') as  activity_content,max(activity.created_time) "
 				+ "  from "
 				+ "(select u.id,sta.name as currentStateName,cit.name as currentCityName,u.occupation,oc.name as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
 				+"u.firstName, u.lastName, u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName, u.currentCountry,co.name as currentCountryName, " 
@@ -2688,7 +2674,7 @@ public class UsersDao extends BaseUsersDao
 				+" ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 				//+" (select count(*) from users u "+where_clause+") as total_records, "
 				+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and  uimg.status = '1' and uimg.is_profile_picture='1') as profileImage, "
-				//+" (select count(*) from (select count(1) from users u,users_activity_log act where "+inner_where_clause+" and act.act_done_on_user_id  = u.id and act.act_done_by_user_id = "+objUserBean.getId()+" and "+activity_type_str+"  group by u.id ) tc) as total_records, "
+				+" (select count(*) from (select count(1) from users u,users_activity_log act where "+inner_where_clause+" and ((act.act_done_by_user_id  = u.id and act.act_done_on_user_id = "+objUserBean.getId()+") or (act.act_done_on_user_id  = u.id and act.act_done_by_user_id = "+objUserBean.getId()+")) and "+activity_type_str+"  group by u.id ) tc) as total_records, "
 				+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+objUserBean.getId()+" and act_log.act_done_on_user_id=id and act_log.activity_type = 'short_listed') as short_listed,  "
 				+" (select highlight_profile from package where id = u.package_id) as profile_highlighter "
 				//+" from users_activity_log activity left join users u on activity.act_done_on_user_id=u.id left join userrequirement ur on u.id=ur.userId "
@@ -2700,7 +2686,7 @@ public class UsersDao extends BaseUsersDao
 				+ " left join state sta on sta.id=u.currentState left join city cit on cit.id=u.currentCity "
 				+ " where "+inner_where_clause 
 				+ " group by u.id) temp, "
-				+" users_activity_log activity where activity.act_done_on_user_id  = temp.id and activity.act_done_by_user_id = "+objUserBean.getId()+" "
+				+" users_activity_log activity where ((activity.act_done_by_user_id  = temp.id and activity.act_done_on_user_id = "+objUserBean.getId()+") or (activity.act_done_on_user_id  = temp.id and activity.act_done_by_user_id = "+objUserBean.getId()+")) "
 				+ "and "+activity_type_str+"  ");
 
 				//+"  express_intrest ei  where "+inner_where_clause+" ");
@@ -2709,11 +2695,10 @@ public class UsersDao extends BaseUsersDao
 		buffer.append("  GROUP BY temp.id   ");
 		
 		int page_size = MatrimonyConstants.PAGINATION_SIZE;
-		buffer.append(" order by max(activity.created_time)  desc limit "+page_size+" offset "+(page_no*page_size)+" ) countqry");
+		buffer.append(" order by max(activity.created_time)  desc limit "+page_size+" offset "+(page_no*page_size)+" ");
 		try{
 			List<Map<String,Object>> list = jdbcTemplate.queryForList(buffer.toString());
-			int records_cnt = ((Long)(list.get(0).get("total_records"))).intValue(); 
-			if(list!=null && records_cnt>0){
+			if(list!=null){
 				return list;
 			}
 		}catch(Exception e){
@@ -2782,8 +2767,7 @@ public class UsersDao extends BaseUsersDao
 		StringBuffer buffer = new StringBuffer();
 		String inner_where_clause = "  u.role_id not in (1) and u.status in ('1') and u.gender not in  ('"+objUserBean.getGender()+"') and u.id not in  ("+userId+")";
 		//StringBuffer where_clause = new StringBuffer(" and u.role_id not in (1) and u.status in ('1') ");
-		buffer.append("select countqry.*,count(1) as total_records from "
-				+ "(select temp.*,activity.id as requestId "
+		buffer.append("select temp.*,activity.id as requestId "
 				+ "  from "
 				+ "(select u.id,sta.name as currentStateName,cit.name as currentCityName,u.occupation,oc.name as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
 				+"u.firstName, u.lastName, u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName, u.currentCountry,co.name as currentCountryName, " 
@@ -2799,7 +2783,7 @@ public class UsersDao extends BaseUsersDao
 				+" ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 				//+" (select count(*) from users u "+where_clause+") as total_records, "
 				+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and  uimg.status = '1' and uimg.is_profile_picture='1') as profileImage, "
-				//+" (select count(*) from (select count(1) from users u,users_activity_log act where "+inner_where_clause+" and act.act_done_on_user_id  = u.id and act.act_done_by_user_id = "+objUserBean.getId()+" and "+activity_type_str+"  group by u.id ) tc) as total_records, "
+				+" (select count(*) from (select count(1) from users u,users_activity_log act where "+inner_where_clause+" and ((act.act_done_by_user_id  = u.id and act.act_done_on_user_id = "+objUserBean.getId()+") or (act.act_done_on_user_id  = u.id and act.act_done_by_user_id = "+objUserBean.getId()+")) and "+activity_type_str+"  group by u.id ) tc) as total_records, "
 				+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+objUserBean.getId()+" and act_log.act_done_on_user_id=id and act_log.activity_type = 'short_listed') as short_listed,  "
 				+" (select highlight_profile from package where id = u.package_id) as profile_highlighter "
 				//+" from users_activity_log activity left join users u on activity.act_done_on_user_id=u.id left join userrequirement ur on u.id=ur.userId "
@@ -2810,7 +2794,7 @@ public class UsersDao extends BaseUsersDao
 				+"left join countries con1 on con1.id=rCountry left join education e1 on e1.id=rEducation left join occupation oc1 on oc1.id=rOccupation  left join user_images uimg on uimg.user_id=u.id left join occupation oc on u.occupation=oc.id left join education ed on ed.id=u.education "
 				+ " left join state sta on sta.id=u.currentState left join city cit on cit.id=u.currentCity  "
 				+ " where "+inner_where_clause+" group by u.id) temp,  "
-				+" users_activity_log activity where activity.act_done_on_user_id  = temp.id and activity.act_done_by_user_id = "+objUserBean.getId()+" "
+				+" users_activity_log activity where ((activity.act_done_by_user_id  = temp.id and activity.act_done_on_user_id = "+objUserBean.getId()+") or (activity.act_done_on_user_id  = temp.id and activity.act_done_by_user_id = "+objUserBean.getId()+"))  "
 						+ "and "+activity_type_str+"  ");
 
 		
@@ -2818,11 +2802,10 @@ public class UsersDao extends BaseUsersDao
 		buffer.append(" GROUP BY temp.id    ");
 		
 		int page_size = MatrimonyConstants.PAGINATION_SIZE;
-		buffer.append(" order by max(activity.created_time)  desc limit "+page_size+" offset "+(page_no*page_size)+" ) countqry");
+		buffer.append(" order by max(activity.created_time)  desc limit "+page_size+" offset "+(page_no*page_size)+" ");
 		try{
 			List<Map<String,Object>> list = jdbcTemplate.queryForList(buffer.toString());
-			int records_cnt = ((Long)(list.get(0).get("total_records"))).intValue(); 
-			if(list!=null && records_cnt>0){
+			if(list!=null){
 				return list;
 			}
 		}catch(Exception e){
@@ -2888,8 +2871,7 @@ public class UsersDao extends BaseUsersDao
 			}
 		}
 		//StringBuffer where_clause = new StringBuffer(" and u.role_id not in (1) and u.status in ('1') ");
-		buffer.append("select countqry.*,count(1) as total_records from "
-				+ "(select temp.*,activity.id as requestId,ifnull(activity.activity_content,'') as  activity_content,max(activity.created_time) "
+		buffer.append("select temp.*,activity.id as requestId,ifnull(activity.activity_content,'') as  activity_content,max(activity.created_time) "
 				+ "  from "
 				+ "(select u.id,u.gender,sta.name as currentStateName,cit.name as currentCityName,u.occupation,ifnull(oc.name,'') as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
 				+"u.firstName, u.lastName, u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName, u.currentCountry,co.name as currentCountryName, " 
@@ -2905,7 +2887,7 @@ public class UsersDao extends BaseUsersDao
 				+" ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 				//+" (select count(*) from users u "+where_clause+") as total_records, "
 				+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and  uimg.status = '1' and uimg.is_profile_picture='1') as profileImage, "
-				//+" (select count(*) from (select count(1) from users u,users_activity_log act where "+inner_where_clause+" and act.act_done_by_user_id  = u.id and act.act_done_on_user_id = "+objUserBean.getId()+" and "+activity_type_str+" and act.activity_status in ('0')  group by u.id ) tc) as total_records, "
+				+" (select count(*) from (select count(1) from users u,users_activity_log act where "+inner_where_clause+" and act.act_done_by_user_id  = u.id and act.act_done_on_user_id = "+objUserBean.getId()+" and "+activity_type_str+" and act.activity_status in ('0')  group by u.id ) tc) as total_records, "
 				+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+objUserBean.getId()+" and act_log.act_done_on_user_id=id and act_log.activity_type = 'short_listed') as short_listed,  "
 				+" (select highlight_profile from package where id = u.package_id) as profile_highlighter "
 				+" from users u left join userrequirement ur on u.id=ur.userId "
@@ -2926,11 +2908,10 @@ public class UsersDao extends BaseUsersDao
 		buffer.append(" group by temp.id  ");
 		
 		int page_size = MatrimonyConstants.PAGINATION_SIZE;
-		buffer.append(" order by max(activity.created_time)  desc limit "+page_size+" offset "+(page_no*page_size)+" ) countqry");
+		buffer.append(" order by max(activity.created_time)  desc limit "+page_size+" offset "+(page_no*page_size)+" ");
 		try{
 			List<Map<String,Object>> list = jdbcTemplate.queryForList(buffer.toString());
-			int records_cnt = ((Long)(list.get(0).get("total_records"))).intValue(); 
-			if(list!=null && records_cnt>0){
+			if(list!=null){
 				return list;
 			}
 		}catch(Exception e){
@@ -2952,9 +2933,8 @@ public class UsersDao extends BaseUsersDao
 		//String inner_where_clause = " ((ei.user_id = u.id and ei.profile_id = "+userId+") or ((ei.user_id = "+userId+" and ei.profile_id = u.id))) and ((ei.interested = '1' and ei.status = '2') or (message_sent_status = '1' and message_status in (1,2))) and u.role_id not in (1) and u.status in ('1') and u.gender not in  ('"+objUserBean.getGender()+"') and u.id not in  ("+userId+")";
 		String inner_where_clause = "  u.role_id not in (1) and u.status in ('1') and u.gender not in  ('"+objUserBean.getGender()+"') and u.id not in  ("+userId+") ";
 		StringBuffer where_clause = new StringBuffer(" and u.role_id not in (1) and u.status in ('1') ");
-		buffer.append("select countqry.*,count(1) as total_records from "
-				+ "(select temp.*,activity.id as requestId,"
-				+ " count(1) as total_records  from "
+		buffer.append("select temp.*,activity.id as requestId"
+				+ "   from "
 				+ "(select u.id,sta.name as currentStateName,cit.name as currentCityName,u.occupation,oc.name as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
 				+"u.firstName, u.lastName, u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName, u.currentCountry,co.name as currentCountryName, " 
 				+"u.currentState, u.currentCity, " 
@@ -2969,7 +2949,7 @@ public class UsersDao extends BaseUsersDao
 				+" ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 				//+" (select count(*) from users u "+where_clause+") as total_records, "
 				+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and  uimg.status = '1' and uimg.is_profile_picture='1') as profileImage, "
-				//+" (select count(*) from (select count(1) from users u,users_activity_log act where "+inner_where_clause+" and act.act_done_on_user_id  = u.id and act.act_done_by_user_id = "+objUserBean.getId()+" and act.activity_type in ('message_accepted','message_replied','interest_accepted')  group by u.id ) tc) as total_records, "
+				+" (select count(*) from (select count(1) from users u,users_activity_log act where "+inner_where_clause+" and ((act.act_done_by_user_id  = u.id and act.act_done_on_user_id = "+objUserBean.getId()+") or (act.act_done_on_user_id  = u.id and act.act_done_by_user_id = "+objUserBean.getId()+")) and act.activity_type in ('message_accepted','message_replied','interest_accepted')  group by u.id ) tc) as total_records, "
 				+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+objUserBean.getId()+" and act_log.act_done_on_user_id=id and act_log.activity_type = 'short_listed') as short_listed,  "
 				+" (select highlight_profile from package where id = u.package_id) as profile_highlighter "
 				+" from users u left join userrequirement ur on u.id=ur.userId "
@@ -2979,7 +2959,7 @@ public class UsersDao extends BaseUsersDao
 				+"left join countries con1 on con1.id=rCountry left join education e1 on e1.id=rEducation left join occupation oc1 on oc1.id=rOccupation  left join user_images uimg on uimg.user_id=u.id left join occupation oc on u.occupation=oc.id left join education ed on ed.id=u.education "
 				+ " left join state sta on sta.id=u.currentState left join city cit on cit.id=u.currentCity "
 				+ " where "+inner_where_clause+" group by u.id) temp,  "
-				+" users_activity_log activity where activity.act_done_on_user_id  = temp.id and activity.act_done_by_user_id = "+objUserBean.getId()+" and activity.activity_type in ('message_accepted','message_replied','interest_accepted') "
+				+" users_activity_log activity where ((activity.act_done_by_user_id  = temp.id and activity.act_done_on_user_id = "+objUserBean.getId()+") or (activity.act_done_on_user_id  = temp.id and activity.act_done_by_user_id = "+objUserBean.getId()+"))  and activity.activity_type in ('message_accepted','message_replied','interest_accepted') "
 				+ "");
 				//+"  express_intrest ei  where "+inner_where_clause+" ");
 		
@@ -2987,11 +2967,10 @@ public class UsersDao extends BaseUsersDao
 		buffer.append(" group by temp.id ");
 		
 		int page_size = MatrimonyConstants.PAGINATION_SIZE;
-		buffer.append(" order by max(activity.created_time) desc limit "+page_size+" offset "+(page_no*page_size)+" ) countqry");
+		buffer.append(" order by max(activity.created_time) desc limit "+page_size+" offset "+(page_no*page_size)+" ");
 		try{
 			List<Map<String,Object>> list = jdbcTemplate.queryForList(buffer.toString());
-			int records_cnt = ((Long)(list.get(0).get("total_records"))).intValue(); 
-			if(list!=null && records_cnt>0){
+			if(list!=null){
 				return list;
 			}
 		}catch(Exception e){
@@ -3163,8 +3142,7 @@ public class UsersDao extends BaseUsersDao
 		StringBuffer buffer = new StringBuffer();
 		String inner_where_clause = "  u.role_id not in (1) and u.status in ('1') and u.gender not in  ('"+objUserBean.getGender()+"') and u.id not in  ("+userId+")";
 		StringBuffer where_clause = new StringBuffer(" and u.role_id not in (1) and u.status in ('1') ");
-		buffer.append("select countqry.*,count(1) as total_records from "
-				+ "(select temp.*,activity.id as requestId "
+		buffer.append("select temp.*,activity.id as requestId "
 				+ "  from "
 				+"(select u.id,sta.name as currentStateName,cit.name as currentCityName,u.occupation,oc.name as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
 				+"u.firstName, u.lastName, u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName, u.currentCountry,co.name as currentCountryName, " 
@@ -3180,7 +3158,7 @@ public class UsersDao extends BaseUsersDao
 				+" ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 				//+" (select count(*) from users u "+where_clause+") as total_records, "
 				+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and  uimg.status = '1' and uimg.is_profile_picture='1') as profileImage, "
-				//+" (select count(*) from (select count(1) from users u,users_activity_log act where "+inner_where_clause+" and act.act_done_on_user_id  = u.id and act.act_done_by_user_id = "+objUserBean.getId()+" and act.activity_type in ('message_rejected','interest_rejected')  group by u.id ) tc) as total_records, "
+				+" (select count(*) from (select count(1) from users u,users_activity_log act where "+inner_where_clause+" and ((act.act_done_by_user_id  = u.id and act.act_done_on_user_id = "+objUserBean.getId()+") or (act.act_done_on_user_id  = u.id and act.act_done_by_user_id = "+objUserBean.getId()+")) and act.activity_type in ('message_rejected','interest_rejected')  group by u.id ) tc) as total_records, "
 				+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+objUserBean.getId()+" and act_log.act_done_on_user_id=id and act_log.activity_type = 'short_listed') as short_listed,  "
 				+" (select highlight_profile from package where id = u.package_id) as profile_highlighter "
 				+" from users u left join userrequirement ur on u.id=ur.userId "
@@ -3190,7 +3168,7 @@ public class UsersDao extends BaseUsersDao
 				+"left join countries con1 on con1.id=rCountry left join education e1 on e1.id=rEducation left join occupation oc1 on oc1.id=rOccupation  left join user_images uimg on uimg.user_id=u.id left join occupation oc on u.occupation=oc.id left join education ed on ed.id=u.education "
 				+ " left join state sta on sta.id=u.currentState left join city cit on cit.id=u.currentCity  "
 				+ " where "+inner_where_clause+" group by u.id) temp,  "
-				+" users_activity_log activity where activity.act_done_on_user_id  = temp.id and activity.act_done_by_user_id = "+objUserBean.getId()+" and "
+				+" users_activity_log activity where ((activity.act_done_by_user_id  = temp.id and activity.act_done_on_user_id = "+objUserBean.getId()+") or (activity.act_done_on_user_id  = temp.id and activity.act_done_by_user_id = "+objUserBean.getId()+"))  and "
 						+ "activity.activity_type in ('message_rejected','interest_rejected') ");
 
 		
@@ -3198,11 +3176,10 @@ public class UsersDao extends BaseUsersDao
 		buffer.append(" group by temp.id  ");
 		
 		int page_size = MatrimonyConstants.PAGINATION_SIZE;
-		buffer.append(" order by max(activity.created_time)  desc limit "+page_size+" offset "+(page_no*page_size)+" ) countqry");
+		buffer.append(" order by max(activity.created_time)  desc limit "+page_size+" offset "+(page_no*page_size)+" ");
 		try{
 			List<Map<String,Object>> list = jdbcTemplate.queryForList(buffer.toString());
-			int records_cnt = ((Long)(list.get(0).get("total_records"))).intValue(); 
-			if(list!=null && records_cnt>0){
+			if(list!=null){
 				return list;
 			}
 		}catch(Exception e){
@@ -3285,8 +3262,7 @@ public class UsersDao extends BaseUsersDao
 		StringBuffer buffer = new StringBuffer();
 		String inner_where_clause = "  u.role_id not in (1) and u.status in ('1') and u.gender not in  ('"+objUserBean.getGender()+"') and u.id not in  ("+userId+")";
 		StringBuffer where_clause = new StringBuffer(" and u.role_id not in (1) and u.status in ('1') ");
-		buffer.append("select countqry.*,count(1) as total_records from "
-				+ "(select temp.*,activity.id as requestId,ifnull(activity.activity_content,'') as  activity_content,max(activity.created_time) "
+		buffer.append("select temp.*,activity.id as requestId,ifnull(activity.activity_content,'') as  activity_content,max(activity.created_time) "
 				+ "  from "
 				+"(select u.id,sta.name as currentStateName,cit.name as currentCityName,u.occupation,oc.name as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
 				+"u.firstName, u.lastName, u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName, u.currentCountry,co.name as currentCountryName, " 
@@ -3302,7 +3278,7 @@ public class UsersDao extends BaseUsersDao
 				+" ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 				//+" (select count(*) from users u "+where_clause+") as total_records, "
 				+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and  uimg.status = '1' and uimg.is_profile_picture='1') as profileImage, "
-				//+" (select count(*) from (select count(*) from users u,express_intrest ei where "+inner_where_clause+") tc ) as total_records, "
+				+" (select count(*) from (select count(1) from users u,users_activity_log activity where activity.act_done_by_user_id  = "+objUserBean.getId()+" and activity.act_done_on_user_id = temp.id and activity.activity_type in ('interest_request','message') and activity.activity_status in ('0') and "+inner_where_clause+") tc ) as total_records, "
 				+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+objUserBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'short_listed') as short_listed, "
 				+" (select highlight_profile from package where id = u.package_id) as profile_highlighter "
 				+" from users u left join userrequirement ur on u.id=ur.userId "
@@ -3321,11 +3297,10 @@ public class UsersDao extends BaseUsersDao
 		buffer.append(" group by temp.id  ");
 		
 		int page_size = MatrimonyConstants.PAGINATION_SIZE;
-		buffer.append(" order by max(activity.created_time)  desc limit "+page_size+" offset "+(page_no*page_size)+" ) countqry");
+		buffer.append(" order by max(activity.created_time)  desc limit "+page_size+" offset "+(page_no*page_size)+" ");
 		try{
 			List<Map<String,Object>> list = jdbcTemplate.queryForList(buffer.toString());
-			int records_cnt = ((Long)(list.get(0).get("total_records"))).intValue(); 
-			if(list!=null && records_cnt>0){
+			if(list!=null){
 				return list;
 			}
 		}catch(Exception e){
