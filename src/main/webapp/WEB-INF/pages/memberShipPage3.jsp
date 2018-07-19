@@ -175,8 +175,9 @@ position: relative;
         padding-bottom: 25px;
 }
 p {
-font-size:12px; 
-color:#000;}
+font-size:13px; 
+color:#000;
+margin-bottom:5px;}
 .benefit  img {
 margin-right:10px;}
 .prit {
@@ -418,13 +419,13 @@ border:none;}
 			<div class="col-md-12 benefit pack_details" id="infoDiv${pack.id}" hidden="true">
     
 				<div class="benefit">
-					<h5>Familiar Package</h5>
+					<!-- <h5>Familiar Package</h5> -->
 					<h5><c:out value="${pack.name}"/> - <c:out value="${pack.price}"/></h5>
-					<p>Premium Benefits</p>
-					<p>High Responsive</p>
-					<p>Co-ordinate with Mutual Interests</p>
-					<p>Weekly Feedback</p>
-					<p>Relationship Manager</p>
+					<p><img  src="${baseurl}/images/aicon.png"/>Premium Benefits</p>
+					<p><img  src="${baseurl}/images/aicon.png"/>High Responsive</p>
+					<p><img  src="${baseurl}/images/aicon.png"/>Co-ordinate with Mutual Interests</p>
+					<p><img  src="${baseurl}/images/aicon.png"/>Weekly Feedback</p>
+					<p><img  src="${baseurl}/images/aicon.png"/>Relationship Manager</p>
 				</div>
 			</div>
 		</c:if>
