@@ -2609,7 +2609,7 @@ public class UsersDao extends BaseUsersDao
 				|| (((String)communicationTypeMap.get("interests")).equalsIgnoreCase("true") && ((String)communicationTypeMap.get("messages")).equalsIgnoreCase("true") && ((String)communicationTypeMap.get("mobile_no_viewed")).equalsIgnoreCase("true"))
 				|| (((String)communicationTypeMap.get("all")).equalsIgnoreCase("false")) && ((String)communicationTypeMap.get("interests")).equalsIgnoreCase("false") && ((String)communicationTypeMap.get("messages")).equalsIgnoreCase("false") && ((String)communicationTypeMap.get("mobile_no_viewed")).equalsIgnoreCase("false")){
 			
-			activity_type_str = " and activity_type in ('interest_accepted','message_accepted','mobile_no_viewed','message_replied') ";
+			activity_type_str = " and activity_type in ('interest_accepted','message_accepted','message_replied') ";
 			
 		}else if(((String)communicationTypeMap.get("interests")).equalsIgnoreCase("true")
 				|| ((String)communicationTypeMap.get("messages")).equalsIgnoreCase("true")
@@ -2621,9 +2621,9 @@ public class UsersDao extends BaseUsersDao
 						if(((String)communicationTypeMap.get("messages")).equalsIgnoreCase("true")){
 							sub_str += " or activity_type in ('message_accepted') ";
 						}
-						if(((String)communicationTypeMap.get("mobile_no_viewed")).equalsIgnoreCase("true")){
+						/*if(((String)communicationTypeMap.get("mobile_no_viewed")).equalsIgnoreCase("true")){
 							sub_str += " or activity_type in ('mobile_no_viewed') ";
-						}
+						}*/
 						if(StringUtils.isNotBlank(sub_str)){
 							sub_str = sub_str.substring(3);
 							activity_type_str += " and ("+sub_str+") ";
@@ -2631,26 +2631,26 @@ public class UsersDao extends BaseUsersDao
 						
 		}
 		
-		/*StringBuffer where_clause = new StringBuffer("  ");
+		StringBuffer act_done_by_clause = new StringBuffer("  ");
 		
-		String done_on_users = " select act.act_done_on_user_id from users_activity_log act where act.act_done_by_user_id = "+objUserBean.getId()+" "+activity_type_str+" ";
-		String done_by_users = " select act.act_done_by_user_id from users_activity_log act where act.act_done_on_user_id = "+objUserBean.getId()+" "+activity_type_str+" ";
+		//String done_on_users = " select act.act_done_on_user_id from users_activity_log act where act.act_done_by_user_id = "+objUserBean.getId()+" "+activity_type_str+" ";
+		//String done_by_users = " select act.act_done_by_user_id from users_activity_log act where act.act_done_on_user_id = "+objUserBean.getId()+" "+activity_type_str+" ";
 		
 		if(    (((String)acceptedByMap.get("accepted_by_me")).equalsIgnoreCase("true") && ((String)acceptedByMap.get("accepted_by_others")).equalsIgnoreCase("true"))
 			|| (((String)acceptedByMap.get("accepted_by_me")).equalsIgnoreCase("false") && ((String)acceptedByMap.get("accepted_by_others")).equalsIgnoreCase("false"))){
 			
-			where_clause.append(" (u.id in ("+done_on_users+") or u.id in ("+done_by_users+"))");
+			act_done_by_clause.append(" ((activity.act_done_by_user_id  = temp.id and activity.act_done_on_user_id = "+objUserBean.getId()+") or (activity.act_done_on_user_id  = temp.id and activity.act_done_by_user_id = "+objUserBean.getId()+")) ");
 			
 			//accepted_by_str = "  (activity.act_done_by_user_id = "+objUserBean.getId()+" or  activity.act_done_on_user_id = "+objUserBean.getId()+") ";
 		}else if(((String)acceptedByMap.get("accepted_by_me")).equalsIgnoreCase("true")){
 			
-			where_clause.append(" (u.id in ("+done_on_users+"))");
+			act_done_by_clause.append(" (activity.act_done_on_user_id  = temp.id and activity.act_done_by_user_id = "+objUserBean.getId()+")");
 			//accepted_by_str = "  activity.act_done_by_user_id = "+objUserBean.getId()+" ";
 		}else if(((String)acceptedByMap.get("accepted_by_others")).equalsIgnoreCase("true")){
 			
-			where_clause.append(" (u.id in ("+done_by_users+"))");
+			act_done_by_clause.append(" (activity.act_done_by_user_id  = temp.id and activity.act_done_on_user_id = "+objUserBean.getId()+")");
 			//accepted_by_str = "  activity.act_done_on_user_id = "+objUserBean.getId()+" ";
-		}*/
+		}
 		
 		
 		
@@ -2674,7 +2674,7 @@ public class UsersDao extends BaseUsersDao
 				+" ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 				//+" (select count(*) from users u "+where_clause+") as total_records, "
 				+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and  uimg.status = '1' and uimg.is_profile_picture='1') as profileImage, "
-				+" (select count(*) from (select count(1) from users u,users_activity_log act where "+inner_where_clause+" and ((act.act_done_by_user_id  = u.id and act.act_done_on_user_id = "+objUserBean.getId()+") or (act.act_done_on_user_id  = u.id and act.act_done_by_user_id = "+objUserBean.getId()+"))  "+activity_type_str+"  group by u.id ) tc) as total_records, "
+				+" (select count(*) from (select count(1) from users u,users_activity_log activity where "+inner_where_clause+" and "+act_done_by_clause.toString().replaceAll("temp.id", "u.id")+"  "+activity_type_str+"  group by u.id ) tc) as total_records, "
 				+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+objUserBean.getId()+" and act_log.act_done_on_user_id=id and act_log.activity_type = 'short_listed') as short_listed,  "
 				+" (select highlight_profile from package where id = u.package_id) as profile_highlighter "
 				//+" from users_activity_log activity left join users u on activity.act_done_on_user_id=u.id left join userrequirement ur on u.id=ur.userId "
@@ -2686,7 +2686,7 @@ public class UsersDao extends BaseUsersDao
 				+ " left join state sta on sta.id=u.currentState left join city cit on cit.id=u.currentCity "
 				+ " where "+inner_where_clause 
 				+ " group by u.id) temp, "
-				+" users_activity_log activity where ((activity.act_done_by_user_id  = temp.id and activity.act_done_on_user_id = "+objUserBean.getId()+") or (activity.act_done_on_user_id  = temp.id and activity.act_done_by_user_id = "+objUserBean.getId()+")) "
+				+" users_activity_log activity where "+act_done_by_clause+" "
 				+ " "+activity_type_str+"  ");
 
 				//+"  express_intrest ei  where "+inner_where_clause+" ");
@@ -2718,7 +2718,7 @@ public class UsersDao extends BaseUsersDao
 				|| (((String)communicationTypeMap.get("interests")).equalsIgnoreCase("true") && ((String)communicationTypeMap.get("messages")).equalsIgnoreCase("true") && ((String)communicationTypeMap.get("mobile_no_viewed")).equalsIgnoreCase("true"))
 				|| (((String)communicationTypeMap.get("all")).equalsIgnoreCase("false")) && ((String)communicationTypeMap.get("interests")).equalsIgnoreCase("false") && ((String)communicationTypeMap.get("messages")).equalsIgnoreCase("false") && ((String)communicationTypeMap.get("mobile_no_viewed")).equalsIgnoreCase("false")){
 			
-			activity_type_str = " and activity_type in ('interest_rejected','message_rejected','mobile_no_viewed') ";
+			activity_type_str = " and activity_type in ('interest_rejected','message_rejected') ";
 			
 		}else if(((String)communicationTypeMap.get("interests")).equalsIgnoreCase("true")
 				|| ((String)communicationTypeMap.get("messages")).equalsIgnoreCase("true")
@@ -2730,9 +2730,9 @@ public class UsersDao extends BaseUsersDao
 						if(((String)communicationTypeMap.get("messages")).equalsIgnoreCase("true")){
 							sub_str += " or activity_type in ('message_rejected') ";
 						}
-						if(((String)communicationTypeMap.get("mobile_no_viewed")).equalsIgnoreCase("true")){
+						/*if(((String)communicationTypeMap.get("mobile_no_viewed")).equalsIgnoreCase("true")){
 							sub_str += " or activity_type in ('mobile_no_viewed') ";
-						}
+						}*/
 						if(StringUtils.isNotBlank(sub_str)){
 							sub_str = sub_str.substring(3);
 							activity_type_str = " and ("+sub_str+") ";
@@ -2740,27 +2740,27 @@ public class UsersDao extends BaseUsersDao
 						
 		}
 		
-		/*StringBuffer where_clause = new StringBuffer("  ");
+		StringBuffer act_done_by_clause = new StringBuffer("  ");
 		
-		String done_on_users = " select act.act_done_on_user_id from users_activity_log act where act.act_done_by_user_id = "+objUserBean.getId()+" "+activity_type_str+" ";
-		String done_by_users = " select act.act_done_by_user_id from users_activity_log act where act.act_done_on_user_id = "+objUserBean.getId()+" "+activity_type_str+" ";
+		//String done_on_users = " select act.act_done_on_user_id from users_activity_log act where act.act_done_by_user_id = "+objUserBean.getId()+" "+activity_type_str+" ";
+		//String done_by_users = " select act.act_done_by_user_id from users_activity_log act where act.act_done_on_user_id = "+objUserBean.getId()+" "+activity_type_str+" ";
 		
-		if(    (((String)rejectedByMap.get("rejected_by_me")).equalsIgnoreCase("true") && ((String)rejectedByMap.get("rejected_by_others")).equalsIgnoreCase("true"))
-			|| (((String)rejectedByMap.get("rejected_by_me")).equalsIgnoreCase("false") && ((String)rejectedByMap.get("rejected_by_others")).equalsIgnoreCase("false"))){
-			
-			where_clause.append(" (u.id in ("+done_on_users+") or u.id in ("+done_by_users+"))");
-			
-			//rejected_by_str = "  (activity.act_done_by_user_id = "+objUserBean.getId()+" or  activity.act_done_on_user_id = "+objUserBean.getId()+") ";
-		}else if(((String)rejectedByMap.get("rejected_by_me")).equalsIgnoreCase("true")){
-			
-			where_clause.append(" (u.id in ("+done_on_users+"))");
-			//rejected_by_str = "  activity.act_done_by_user_id = "+objUserBean.getId()+" ";
-		}else if(((String)rejectedByMap.get("rejected_by_others")).equalsIgnoreCase("true")){
-			
-			where_clause.append(" (u.id in ("+done_by_users+"))");
-			//rejected_by_str = "  activity.act_done_on_user_id = "+objUserBean.getId()+" ";
-		}
-		*/
+		if(    (((String)rejectedByMap.get("accepted_by_me")).equalsIgnoreCase("true") && ((String)rejectedByMap.get("accepted_by_others")).equalsIgnoreCase("true"))
+				|| (((String)rejectedByMap.get("accepted_by_me")).equalsIgnoreCase("false") && ((String)rejectedByMap.get("accepted_by_others")).equalsIgnoreCase("false"))){
+				
+				act_done_by_clause.append(" ((activity.act_done_by_user_id  = temp.id and activity.act_done_on_user_id = "+objUserBean.getId()+") or (activity.act_done_on_user_id  = temp.id and activity.act_done_by_user_id = "+objUserBean.getId()+")) ");
+				
+				//accepted_by_str = "  (activity.act_done_by_user_id = "+objUserBean.getId()+" or  activity.act_done_on_user_id = "+objUserBean.getId()+") ";
+			}else if(((String)rejectedByMap.get("accepted_by_me")).equalsIgnoreCase("true")){
+				
+				act_done_by_clause.append(" (activity.act_done_on_user_id  = temp.id and activity.act_done_by_user_id = "+objUserBean.getId()+")");
+				//accepted_by_str = "  activity.act_done_by_user_id = "+objUserBean.getId()+" ";
+			}else if(((String)rejectedByMap.get("accepted_by_others")).equalsIgnoreCase("true")){
+				
+				act_done_by_clause.append(" (activity.act_done_by_user_id  = temp.id and activity.act_done_on_user_id = "+objUserBean.getId()+")");
+				//accepted_by_str = "  activity.act_done_on_user_id = "+objUserBean.getId()+" ";
+			}
+		
 		
 		
 		
@@ -2783,7 +2783,7 @@ public class UsersDao extends BaseUsersDao
 				+" ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 				//+" (select count(*) from users u "+where_clause+") as total_records, "
 				+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and  uimg.status = '1' and uimg.is_profile_picture='1') as profileImage, "
-				+" (select count(*) from (select count(1) from users u,users_activity_log act where "+inner_where_clause+" and ((act.act_done_by_user_id  = u.id and act.act_done_on_user_id = "+objUserBean.getId()+") or (act.act_done_on_user_id  = u.id and act.act_done_by_user_id = "+objUserBean.getId()+"))  "+activity_type_str+"  group by u.id ) tc) as total_records, "
+				+" (select count(*) from (select count(1) from users u,users_activity_log activity where "+inner_where_clause+" and "+act_done_by_clause.toString().replaceAll("temp.id", "u.id")+"  "+activity_type_str+"  group by u.id ) tc) as total_records, "
 				+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+objUserBean.getId()+" and act_log.act_done_on_user_id=id and act_log.activity_type = 'short_listed') as short_listed,  "
 				+" (select highlight_profile from package where id = u.package_id) as profile_highlighter "
 				//+" from users_activity_log activity left join users u on activity.act_done_on_user_id=u.id left join userrequirement ur on u.id=ur.userId "
@@ -2794,8 +2794,8 @@ public class UsersDao extends BaseUsersDao
 				+"left join countries con1 on con1.id=rCountry left join education e1 on e1.id=rEducation left join occupation oc1 on oc1.id=rOccupation  left join user_images uimg on uimg.user_id=u.id left join occupation oc on u.occupation=oc.id left join education ed on ed.id=u.education "
 				+ " left join state sta on sta.id=u.currentState left join city cit on cit.id=u.currentCity  "
 				+ " where "+inner_where_clause+" group by u.id) temp,  "
-				+" users_activity_log activity where ((activity.act_done_by_user_id  = temp.id and activity.act_done_on_user_id = "+objUserBean.getId()+") or (activity.act_done_on_user_id  = temp.id and activity.act_done_by_user_id = "+objUserBean.getId()+"))  "
-						+ " "+activity_type_str+"  ");
+				+" users_activity_log activity where "+act_done_by_clause+"  "
+				+activity_type_str+"  ");
 
 		
 		//buffer.append(" WHERE "+rejected_by_str+" "+activity_type_str+" GROUP BY u.id  ");

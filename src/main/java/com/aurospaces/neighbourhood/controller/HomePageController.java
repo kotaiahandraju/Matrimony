@@ -4351,14 +4351,13 @@ public class HomePageController {
 							//sJson = objectMapper.writeValueAsString(photosList);
 							reqObj.put("photosList", photosList);
 							reqObj.put("photosListSize", photosList.size());
-							//add recent activity data
-							//add recent activity data
-							Map<String,Object> recent_activity = objUsersDao.getRecentActivityOf(sessionBean.getId()+"",(Integer)reqObj.get("id"),list_type);
-							reqObj.put("recent_activity_map", recent_activity);
 						}else{
 							reqObj.put("photosList", "");
 						}
-						
+						reqObj.put("recent_activity_map", "");
+						//add recent activity data
+						Map<String,Object> recent_activity = objUsersDao.getRecentActivityOf(sessionBean.getId()+"",(Integer)reqObj.get("id"),list_type);
+						reqObj.put("recent_activity_map", recent_activity);
 						
 					}
 					jsOnObj.put("inbox_requests", requests);
