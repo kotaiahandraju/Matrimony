@@ -50,11 +50,14 @@
    video {
     width: 100% !important;
     height: auto !important ;
+     margin-top:0px !important;
 }
 }
  video {
-    width:527px ;
+    width:450px ;
     height: 245px ;
+    margin-top:-15px;
+    
 }
 
 
@@ -907,7 +910,7 @@ function getReliginCastAjax1() {
 					</div>
 				</div>
 				<div class="col-md-3 col-sm-3">
-				<video   controls src="user/images/Aarna Matrimony for Best Mate ,Together Forever.mp4" type="video/mp4">
+				<video poster="user/images/bgvideo.jpg"  controls src="user/images/Aarna Matrimony for Best Mate ,Together Forever.mp4" type="video/mp4">
 </video>
 				
 				</div>
