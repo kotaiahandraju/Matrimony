@@ -1042,6 +1042,7 @@ function displaySettingsBlock(divId){
 				$('[name="contact_filter"]').removeAttr('checked');
 				if(selected_val=="anyone"){
 						$("input[name=contact_filter][value=anyone]").prop('checked', true);
+						show1();
 				}else{
 						$("input[name=contact_filter][value=filter]").prop('checked', true);
 						//set other field values
@@ -1293,17 +1294,21 @@ var religion = $("#rReligion").val();
 var caste = $('rCaste').val();
 var motherTongue = $('#rMotherTongue').val();
 var country = $('#rCountry').val();
-if(ageFrom=="" && ageTo=="" && maritalStatus==null && religion==null && caste==null && motherTongue==null && country==null)
-{
-	alert("Enter any input");
-	return false;
-}
-if(ageFrom > ageTo){
-	alert("Sorry, Invalid Age range");
-	return false;
+var filter_value = $("input[name=contact_filter]:checked").val();
+if(filter_value=="filter"){
+	if(ageFrom=="" && ageTo=="" && maritalStatus==null && religion==null && caste==null && motherTongue==null && country==null)
+	{
+		alert("Enter any input");
+		return false;
 	}
+	if(ageFrom > ageTo){
+		alert("Sorry, Invalid Age range");
+		return false;
+		}
+}
+
 	var formData = new FormData();
-	var filter_value = $("input[name=contact_filter]:checked").val();
+	//var filter_value = $("input[name=contact_filter]:checked").val();
 	formData.append("contact_filter",filter_value);
 	if(filter_value=="filter"){
 		//get other field values

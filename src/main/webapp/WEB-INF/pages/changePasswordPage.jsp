@@ -38,10 +38,10 @@
 						<div class="quote-form row">
 							<form:form commandName="changePaddword" class="form-horizontal" id="change-password-form" role="form"   method="post">
 								<div class="row">
-									<div class="col-md-4">
+									<div class="col-md-8">
 										<div class="form-group">
 											<label class="col-sm-4 control-label required"><spring:message code="label.newPasswordName" text="default text" /><span style="color:red;">*</span></label>
-											<div class="col-sm-8">
+											<div class="col-sm-3">
 										  		<form:input path="password" onkeydown="removeBorder(this.id);" class="form-control form-control-solid placeholder-no-fix" type="password" required="true" autocomplete="off" placeholder="Enter New Password" />						
 										  		<span class="hasError" id="passwordError"></span>
 										  		<div><form:errors path="password" cssClass="error" /></div>										
@@ -50,10 +50,10 @@
 									  </div>
 									</div>
 									<div class="row">
-									  <div class="col-md-4">
+									  <div class="col-md-8">
 									  	<div class="form-group">
 											<label class="col-sm-4 control-label required"><spring:message code="label.confirmNewPasswordName" text="default text" /><span style="color:red;">*</span></label>
-											<div class="col-sm-8">
+											<div class="col-sm-3">
 										  		<form:input path="reTypedPassword" onkeydown="removeBorder(this.id);" class="form-control form-control-solid placeholder-no-fix" type="password" required="true" autocomplete="off" placeholder="Confirm New Password" />						
 											  		<span class="hasError" id="reTypedPasswordError"></span>
 											  		<div><form:errors path="reTypedPassword" cssClass="error" /></div>										
@@ -62,9 +62,9 @@
 										  </div>
 										</div>
 										<div class="row">
-										  <div class="col-md-4">
+										  <div class="col-md-8">
 										  	<div class="form-group">
-												<div class="col-sm-9 col-sm-offset-4">
+												<div class="col-sm-6 col-sm-offset-4">
 													<label><input type="checkbox" id="chkbox" onclick="showCharacters(this)" title="Show Characters"/> Show Characters</label>
 												</div>
 										  	</div>

@@ -10,6 +10,7 @@
 %>
 <%-- <html>
    <head>
+   
    </head>
 
    <body>
@@ -45,6 +46,21 @@
 <link rel="stylesheet" type="text/css" href="${baseurl}/user/css/component.css" />
 
 <style>
+@media only screen and (max-width: 640px) and (min-width: 320px) {
+   video {
+    width: 100% !important;
+    height: auto !important ;
+     margin-top:0px !important;
+}
+}
+ video {
+    width:450px ;
+    height: 245px ;
+    margin-top:-15px;
+    
+}
+
+
 .regist {
     color: #fff !important;
     background: #05aada;
@@ -179,10 +195,7 @@ span.has-error,span.hasError
 	display: block !important;
 }
 
-video {
-    width: 100%;
-    height: 400px;
-}
+
 
 </style>
 <script type="text/javascript">
@@ -891,10 +904,15 @@ function getReliginCastAjax1() {
 		<!-- Section id-->
 		<div class="container">
 			<div class="row">
-				<div class="col-md-6 col-sm-6">
+				<div class="col-md-3 col-sm-3">
 					<div class="logo-footer">
-						<img src="user/images/logo-b.png" alt="" class="img-responsive" />
+						<img src="images/logo01.png" alt="" class="img-responsive" />
 					</div>
+				</div>
+				<div class="col-md-3 col-sm-3">
+				<video poster="user/images/bgvideo.jpg"  controls src="user/images/Aarna Matrimony for Best Mate ,Together Forever.mp4" type="video/mp4">
+</video>
+				
 				</div>
 				<div class="col-md-6 col-sm-6">
 					<div class="contact-info">

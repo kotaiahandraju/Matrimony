@@ -1319,6 +1319,14 @@ tooltip:hover:after {
 									activity_str = opp_gender_str+" viewed your mobile number";
 								}
 							}
+							if(recent_activity.activity_type=="short_listed"){
+								act_short_str = "Shortlisted";
+								if(login_user_id==recent_activity.act_done_by_user_id){
+									activity_str = "You shortlisted "+her_his_you+" profile";
+								}else{
+									activity_str = opp_gender_str+" shortlisted your profile";
+								}
+							}
 							var conversations_count = recent_activity.conversations_count;
 							if(typeof conversations_count != "undefined" && conversations_count>=1){
 								more_conversations_str = ' <a href="moreConversations?pid='+orderObj.id+'&tab_type='+tabType+'&list_type='+listType+'"><span class="pull-right" style="color:#006699;">+ More Conversations</span></a> ';
@@ -3537,6 +3545,9 @@ img.hover-shadow {
 																</c:if>
 																<c:if test="${notification.notifi_type == 'message_replied'}">
 																	replied to your message
+																</c:if>
+																<c:if test="${notification.notifi_type == 'message_accepted'}">
+																	accepted your message
 																</c:if>
 																<c:if test="${notification.notifi_type == 'interest_accepted'}">
 																	accepted your interest request

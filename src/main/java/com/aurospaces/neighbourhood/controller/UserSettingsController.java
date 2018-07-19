@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,15 +93,18 @@ public class UserSettingsController {
 			if(objuserBean == null){
 				return "redirect:HomePage";
 			}
-			String selected_contact_filter = request.getParameter("contact_filter");
 			Map<String,String> filter_criteria = new HashMap<String,String>();
-			filter_criteria.put("age_from", request.getParameter("age_from"));
-			filter_criteria.put("age_to", request.getParameter("age_to"));
-			filter_criteria.put("marital_status", objUsersBean.getrMaritalStatus().equalsIgnoreCase("null")?"":objUsersBean.getrMaritalStatus());
-			filter_criteria.put("religion", objUsersBean.getrReligion().equalsIgnoreCase("null")?"":objUsersBean.getrReligion());
-			filter_criteria.put("caste", objUsersBean.getrCaste().equalsIgnoreCase("null")?"":objUsersBean.getrCaste());
-			filter_criteria.put("mothertongue", objUsersBean.getrMotherTongue().equalsIgnoreCase("null")?"":objUsersBean.getrMotherTongue());
-			filter_criteria.put("country", objUsersBean.getrCountry().equalsIgnoreCase("null")?"":objUsersBean.getrCountry());
+			String selected_contact_filter = request.getParameter("contact_filter");
+			if(StringUtils.isNotBlank(selected_contact_filter) && selected_contact_filter.equalsIgnoreCase("filter")){
+				filter_criteria.put("age_from", request.getParameter("age_from"));
+				filter_criteria.put("age_to", request.getParameter("age_to"));
+				String rMaritalStatus = objUsersBean.getrMaritalStatus();
+				filter_criteria.put("marital_status", objUsersBean.getrMaritalStatus()==null || objUsersBean.getrMaritalStatus().equalsIgnoreCase("null")?"":objUsersBean.getrMaritalStatus());
+				filter_criteria.put("religion", objUsersBean.getrReligion()==null || objUsersBean.getrReligion().equalsIgnoreCase("null")?"":objUsersBean.getrReligion());
+				filter_criteria.put("caste", objUsersBean.getrCaste()==null || objUsersBean.getrCaste().equalsIgnoreCase("null")?"":objUsersBean.getrCaste());
+				filter_criteria.put("mothertongue", objUsersBean.getrMotherTongue()==null || objUsersBean.getrMotherTongue().equalsIgnoreCase("null")?"":objUsersBean.getrMotherTongue());
+				filter_criteria.put("country", objUsersBean.getrCountry()==null || objUsersBean.getrCountry().equalsIgnoreCase("null")?"":objUsersBean.getrCountry());
+			}
 			boolean success = settingsDao.saveContactFilterSettings(objuserBean.getId()+"", selected_contact_filter, filter_criteria);
 			if(success){
 				jsonObj.put("message", "success");
