@@ -906,7 +906,7 @@ function getReliginCastAjax1() {
 			<div class="row">
 				<div class="col-md-3 col-sm-3">
 					<div class="logo-footer">
-						<img src="user/images/logo-b.png" alt="" class="img-responsive" />
+						<img src="images/logo01.png" alt="" class="img-responsive" />
 					</div>
 				</div>
 				<div class="col-md-3 col-sm-3">
