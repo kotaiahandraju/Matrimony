@@ -174,8 +174,12 @@ position: relative;
     margin-top: 25px;
         padding-bottom: 25px;
 }
-
-
+p {
+font-size:13px; 
+color:#000;
+margin-bottom:5px;}
+.benefit  img {
+margin-right:10px;}
 .prit {
 
 width:200px;
@@ -378,7 +382,7 @@ border:none;}
 			<div class="col-md-12 benefit pack_details" id="infoDiv${pack.id}" hidden="true">
     
 			    <div class="benefit">  
-			    	<h4>Benefits of <c:out value="${pack.name}"/> - <c:out value="${pack.duration}"/> Months</h4>
+			    	<h5>Benefits of <c:out value="${pack.name}"/> - <c:out value="${pack.duration}"/> Months</h5>
 					    <c:if test="${pack.highlight_profile == '1' }">
 					    	<div class="col-md-4 benefit1">
 						    	<p><img  src="${baseurl}/images/icon1.png"/> Profile Highlighter </p>
@@ -407,7 +411,7 @@ border:none;}
 			    		</div> --%>
 			    		<div class="clearfix"></div>
 			    		<div class="col-md-4">
-			    			<p style="margin-top:10px;">Profile tagged with '<c:out value="${pack.name}"/> member'</p>
+			    			<p style="margin-top:10px;"><img  src="${baseurl}/images/profiletag.png"/> Profile tagged with '<c:out value="${pack.name}"/> member'</p>
 			    		</div>
 			    </div></div>	
 		</c:if>
@@ -415,13 +419,13 @@ border:none;}
 			<div class="col-md-12 benefit pack_details" id="infoDiv${pack.id}" hidden="true">
     
 				<div class="benefit">
-					<h5>Familiar Package</h5><br>
-					<h4><c:out value="${pack.name}"/> - <c:out value="${pack.price}"/></h4>
-					<p>Premium Benefits</p>
-					<p>High Responsive</p>
-					<p>Co-ordinate with Mutual Interests</p>
-					<p>Weekly Feedback</p>
-					<p>Relationship Manager</p>
+					<!-- <h5>Familiar Package</h5> -->
+					<h5><c:out value="${pack.name}"/> - <c:out value="${pack.price}"/></h5>
+					<p><img  src="${baseurl}/images/aicon.png"/>Premium Benefits</p>
+					<p><img  src="${baseurl}/images/aicon.png"/>High Responsive</p>
+					<p><img  src="${baseurl}/images/aicon.png"/>Co-ordinate with Mutual Interests</p>
+					<p><img  src="${baseurl}/images/aicon.png"/>Weekly Feedback</p>
+					<p><img  src="${baseurl}/images/aicon.png"/>Relationship Manager</p>
 				</div>
 			</div>
 		</c:if>

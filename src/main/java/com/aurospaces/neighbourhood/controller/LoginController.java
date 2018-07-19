@@ -619,4 +619,9 @@ public class LoginController {
 		  return String.valueOf(objJson);
 
 		}
+	   @RequestMapping(value = "/successStory")
+		public String successStory() {
+			
+			return "successStory";
+		}
 }
