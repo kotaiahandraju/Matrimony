@@ -123,7 +123,7 @@ padding:10px;}
 								<c:set var="act_done_by" value="${conversation.act_done_by_user_id}" />
 								<c:set var="act_str" value="${''}" />
 								<c:set var="message_content" value="${''}" />
-								<c:set var="short_str_symbol" value="${'${baseurl }/images/arrowaccepted.png'}" />
+								<c:set var="short_str_symbol" value="${'../images/arrowaccepted.png'}" />
 								
 								<div class="col-md-12">
 									<c:if test="${act_done_by == cacheGuest.id }">
