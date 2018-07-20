@@ -32,6 +32,14 @@ function notificationId(id){
 }
 
 
+function removeALLNotification(){
+	 
+	 var formData = new FormData();
+		$.fn.makeMultipartRequest('POST', '${baseurl }/users/removeALLNotification', false, formData, false, 'text', function(data){
+			var jsonobj = $.parseJSON(data);
+			location.reload();
+		});
+	} 
 
 
 </script>
@@ -41,7 +49,7 @@ function notificationId(id){
 
 <div class="container" style="background:#fff; padding:15px; min-height:500px;">
 	<div class="col-md-9">
-		<h5>Your Notifications </h5></div><div class="col-md-3"><button type="button" class="btn btn-danger pull-right">Delete All</button></span></div>
+		<h5>Your Notifications </h5></div><div class="col-md-3"><button type="button" class="btn btn-danger pull-right"><a href="#" onclick="removeALLNotification();">Delete All</a></button></span></div>
 <div class="clearfix"></div>
 <hr><div class="col-md-12">
 

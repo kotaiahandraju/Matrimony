@@ -3808,13 +3808,17 @@ function myFunction2(id) {
 
 
 
-/* function removeNotification(id){
+ function removeNotification(id){
 	var formData = new FormData();
     formData.append('id', id);
 	$.fn.makeMultipartRequest('POST', '${baseurl }/users/removeNotification?id='+id, false, formData, false, 'text', function(data){
 		var jsonobj = $.parseJSON(data);
 		location.reload();
 	});
-} */
+} 
+ 
+
+  
+ 
 </script>
 
