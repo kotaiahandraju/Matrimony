@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.http.HttpRequest;
 import org.apache.log4j.Logger;
 import org.castor.util.Base64Decoder;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -284,7 +285,7 @@ public class HomePageController {
 						session.setAttribute("user_settings", user_settings);
 						Map<String,Object> interestCounts = objUsersDao.getInterestCounts(objUsersBean);
 						long notificationsCount = (Long)interestCounts.get("notificationsCount");
-						session.setAttribute("notificationsCount", notificationsCount);
+						request.setAttribute("notificationsCount", notificationsCount);
 						sessionBean.setYetToBeViewedCount((String.valueOf(interestCounts.get("yetToBeViewedCount"))));
 						sessionBean.setSentInterestCount("0");
 						sessionBean.setAwaitingInterestCount("0");
@@ -1125,7 +1126,7 @@ public class HomePageController {
 						userObj.setUserName(sender_username);
 						userObj.setPassword(senderBean.getPassword());
 						UsersBean objUserBean = objUsersDao.loginChecking(userObj);
-						this.setInitialData(objUserBean, session);
+						this.setInitialData(objUserBean, session, request);
 						sessionBean = (UsersBean)session.getAttribute("cacheGuest");
 						objUserssBean.setId(profileBean.getId());// for local use
 					}else{
@@ -1157,7 +1158,7 @@ public class HomePageController {
 			objUserssBean.setId(sessionBean.getId());
 			Map<String,Object> interestCounts = objUsersDao.getInterestCounts(objUserssBean);
 			long notificationsCount = (Long)interestCounts.get("notificationsCount");
-			session.setAttribute("notificationsCount", notificationsCount);
+			request.setAttribute("notificationsCount", notificationsCount);
 			List<Map<String,Object>> notificationsList = objUsersDao.getNotifications(objUserssBean,false);
 			if(notificationsList!=null && notificationsList.size()>0){
 				session.setAttribute("notificationsList", notificationsList);
@@ -4674,7 +4675,7 @@ public class HomePageController {
 	   return target;
    }
    
-   public String setInitialData(UsersBean objUserBean,HttpSession session){
+   public String setInitialData(UsersBean objUserBean,HttpSession session,HttpServletRequest request){
 		//update login time
 		objUsersDao.updateLoginTime(objUserBean,"1");
 		
@@ -4684,7 +4685,7 @@ public class HomePageController {
 									+ (Long)interestCounts.get("profileViewedCount")
 									+ (Long)interestCounts.get("shortListedCount");
 			if(objUserBean.getStatus().equals("1")){
-				session.setAttribute("notificationsCount", notificationsCount);
+				request.setAttribute("notificationsCount", notificationsCount);
 				objUserBean.setSentInterestCount((String.valueOf(interestCounts.get("sentInterestCount"))));
 				objUserBean.setAwaitingInterestCount((String.valueOf(interestCounts.get("awaitingInterestCount"))));
 				objUserBean.setReceivedInterestCount((String.valueOf(interestCounts.get("receivedInterestCount"))));
@@ -4701,7 +4702,7 @@ public class HomePageController {
 				objUserBean.setShortListedCount((String.valueOf(interestCounts.get("shortListedCount"))));
 			
 		}else{
-			session.setAttribute("notificationsCount", 0);
+			request.setAttribute("notificationsCount", 0);
 			objUserBean.setSentInterestCount("0");
 			objUserBean.setReceivedInterestCount("0");
 			objUserBean.setAcceptedInterestCount("0");
@@ -4840,8 +4841,12 @@ public class HomePageController {
 			if(notifications!=null && notifications.size()>0){
 				request.setAttribute("notificationsList", notifications);
 			}else{
-				request.setAttribute("notificationsList", "''");
+				request.setAttribute("notificationsList", notifications);
+				System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"+notifications.size());
 			}
+			Map<String,Object> interestCounts = objUsersDao.getInterestCounts(sessionBean);
+			long notificationsCount = (Long)interestCounts.get("notificationsCount");
+			request.setAttribute("notificationsCount", notificationsCount);
 		} catch (Exception e) {
 	   e.printStackTrace();
 	   System.out.println(e);
@@ -4887,7 +4892,7 @@ public class HomePageController {
  }
    
    @RequestMapping(value = "/removeNotification")
-	public @ResponseBody String deleteCaste( HttpServletRequest request, HttpSession session,UsersBean objUsersBean) {
+	public @ResponseBody String removeNotification( HttpServletRequest request, HttpSession session,UsersBean objUsersBean) {
 		 System.out.println("removeNotification page...");
 		 List<Map<String, Object>> notifications = null;
 		JSONObject jsonObj = new JSONObject();
@@ -4901,24 +4906,6 @@ public class HomePageController {
 				} else {
 					jsonObj.put("delete", "");
 				}
-			
-				UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
-						if(sessionBean == null){
-							return "redirect:HomePage";
-						}
-						notifications = objUsersDao.getNotifications(sessionBean, true);
-						
-						if(notifications!=null && notifications.size()>0){
-							request.setAttribute("notificationsList", notifications);
-						}else{
-							request.setAttribute("notificationsList", "''");
-						}
-					int notificationsCount1 =	notifications.size();
-					session.setAttribute("notificationsCount1", notificationsCount1);
-					System.out.println("dfbshfjldshfajkdlsfads::ID"+notificationsCount1);
-						/*Map<String,Object> interestCounts = objUsersDao.getInterestCounts(objUsersBean);
-						long notificationsCount = (Long)interestCounts.get("notificationsCount");
-						session.setAttribute("notificationsCount", notificationsCount);*/
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e);
@@ -4929,6 +4916,30 @@ public class HomePageController {
 		}
 		return String.valueOf(jsonObj);
 	}
- 
+   @RequestMapping(value = "/removeALLNotification")
+	public @ResponseBody String removeALLNotification( HttpServletRequest request, HttpSession session,UsersBean objUsersBean) {
+		 System.out.println("removeALLNotification page...");
+		 List<Map<String, Object>> notifications = null;
+		JSONObject jsonObj = new JSONObject();
+		boolean delete = false;
+		
+		try {
+				delete = objUsersDao.deleteALLNotification();
+				if (delete) {
+					jsonObj.put("delete", "delete");
+				} else {
+					jsonObj.put("delete", "");
+				}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			logger.error(e);
+			logger.fatal("error in userNotifications class removeAllNotification method");
+			jsonObj.put("message", "excetption" + e);
+			return String.valueOf(jsonObj);
+		}
+		return String.valueOf(jsonObj);
+	}
+
 }
 

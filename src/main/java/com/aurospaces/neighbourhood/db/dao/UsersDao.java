@@ -80,8 +80,8 @@ public class UsersDao extends BaseUsersDao
 							+" DATE_FORMAT(u.dob, '%d-%M-%Y') as dob, "
 							+" u.dob as dob1, "
 							+" date_format(last_login_time,'%d-%b-%Y %r') as last_login_time, "
-							+" (select occup.name from occupation occup where occup.id = u.fOccupation) fOccupationName, "
-							+" (select occup.name from occupation occup where occup.id = u.mOccupation) mOccupationName, "
+							+" (select occup.name from occupation occup where occup.id = u.fOccupation) as fOccupationName, "
+							+" (select occup.name from occupation occup where occup.id = u.mOccupation) as mOccupationName, "
 							+" (select GROUP_CONCAT(rMaritalStatus) from vuserrequirement where userId = "+id+") as rMaritalStatusName, "
 							+" (select GROUP_CONCAT(rel.name) from religion rel where find_in_set(rel.id,(select rReligion from vuserrequirement where userId = "+id+"))>0) as rReligionName, "
 							+" (select GROUP_CONCAT(name) from cast where find_in_set(id,(select rCaste from vuserrequirement where userId = "+id+"))>0) as rCasteName, "
@@ -4276,6 +4276,21 @@ public boolean deletePhoto(String photoId){
 		return delete;
 	}
 	
+	@Transactional
+	public boolean deleteALLNotification() {
+		jdbcTemplate = custom.getJdbcTemplate();
+		boolean delete = false;
+		try{
+			String sql = "delete from user_notifications";
+			int intDelete = jdbcTemplate.update(sql, new Object[] {});
+			if(intDelete != 0){
+				delete = true;
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return delete;
+	}
 	
 }
 
