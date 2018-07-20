@@ -1100,7 +1100,7 @@ tooltip:hover:after {
 							myProfileViewed_str = opp_gender_str+" viewed your profile.<br>";
 						}
 						*/
-						
+						var recent_activity = orderObj.recent_activity_map;
 						var acceptOptions = '';
 						if(listType == "pending_requests" || listType == "filtered_requests"){
 							interestStr = '';
@@ -1111,7 +1111,7 @@ tooltip:hover:after {
 				            	//+ '<button class="btn btn-danger btn-block" onclick="displayMobileNum_messages('+orderObj.id+',\'preferences\,'+orderObj.requestId+')">View Mobile Number</button>'
 				            	+ '<div class="clearfix"></div>'
 				            	+ '</div>';
-							acceptOptions = "<span id='accept"+orderObj.requestId+"'><a type='button' class='btn btn-primary btn-sm' onclick='acceptRequest("+orderObj.requestId+",\"1\")'>Yes</a><a type='button' class='btn btn-danger btn-sm' id='reject"+orderObj.requestId+"' href='#' onclick='acceptRequest("+orderObj.requestId+", \"0\")'>Not Interested</a></span>";
+							acceptOptions = "<span id='accept"+orderObj.requestId+"'><a type='button' class='btn btn-primary btn-sm' onclick='acceptRequest("+recent_activity.id+",\"1\")'>Yes</a><a type='button' class='btn btn-danger btn-sm' id='reject"+orderObj.requestId+"' href='#' onclick='acceptRequest("+recent_activity.id+", \"0\")'>Not Interested</a></span>";
 							
 						}else if(listType == "accepted_requests"){
 							interestStr = '';
@@ -1192,7 +1192,7 @@ tooltip:hover:after {
 						var reply_content = "";
 						var received_msg_str = "";
 						var login_user_id = ${cacheGuest.id};
-						var recent_activity = orderObj.recent_activity_map;
+						
 						if(typeof recent_activity != "undefined"){
 							if(recent_activity.activity_type=="interest_request"){
 								if(login_user_id==recent_activity.act_done_by_user_id){
@@ -1260,7 +1260,7 @@ tooltip:hover:after {
 										received_msg_str = received_msg_str.replace(/##newline##/g," ");
 										received_msg_str = received_msg_str.replace(/##tabspace##/g," ")+".";
 									}
-									acceptOptions = "<span id='accept"+orderObj.requestId+"'><a type='button' class='btn btn-primary btn-sm' onclick='acceptMessage("+orderObj.requestId+",\"1\")'>Yes</a><a type='button' class='btn btn-danger btn-sm' id='reject"+orderObj.requestId+"' href='#' onclick='acceptMessage("+orderObj.requestId+", \"0\")'>Not Interested</a></span>";
+									acceptOptions = "<span id='accept"+orderObj.requestId+"'><a type='button' class='btn btn-primary btn-sm' onclick='acceptMessage("+recent_activity.id+",\"1\")'>Yes</a><a type='button' class='btn btn-danger btn-sm' id='reject"+recent_activity.id+"' href='#' onclick='acceptMessage("+recent_activity.id+", \"0\")'>Not Interested</a></span>";
 								}
 								
 							}
@@ -1379,7 +1379,7 @@ tooltip:hover:after {
       						+ '<div class="panel-body">'
  							+ '<textarea id="replyContent" style="width:100%; height:150px; overflow-y:scroll;" >'+reply_content
 							+ '</textarea>'
-							+  ' <br><button type="button" class="btn btn-warning pull-right " onclick="replyMessage('+orderObj.requestId+')">Reply</button>'
+							+  ' <br><button type="button" class="btn btn-warning pull-right " onclick="replyMessage('+recent_activity.id+')">Reply</button>'
 							+ '</div>'
 							+'</div>'
 							+'<!-- Reply End -->'

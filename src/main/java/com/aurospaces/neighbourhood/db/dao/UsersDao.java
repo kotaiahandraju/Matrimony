@@ -1872,6 +1872,49 @@ public class UsersDao extends BaseUsersDao
 			return null;
 		}
 		
+		public int getPendingInterestsCount(UsersBean objUserBean){
+			jdbcTemplate = custom.getJdbcTemplate();
+			int userId = objUserBean.getId();
+			Map<String,Object> user_settings = (Map<String,Object>)session.getAttribute("user_settings");
+			String inner_where_clause = "  u.role_id not in (1) and u.status in ('1')  and u.gender not in  ('"+objUserBean.getGender()+"') and u.id not in  ("+userId+") ";
+			
+			if(((String)user_settings.get("contact_filter")).equalsIgnoreCase("filter")){
+				if(StringUtils.isNotBlank((String)user_settings.get("filter_age_from"))){
+					inner_where_clause += " and ifnull(floor((datediff(current_date(),u.dob))/365),0) between "+user_settings.get("filter_age_from")+" and "+user_settings.get("filter_age_to")+" ";
+				}
+				if(StringUtils.isNotBlank((String)user_settings.get("filter_marital_status"))){
+					inner_where_clause += " and find_in_set(u.maritalStatus,'"+user_settings.get("filter_marital_status")+"')>0 ";
+				}
+				if(StringUtils.isNotBlank((String)user_settings.get("filter_caste"))){
+					inner_where_clause += " and find_in_set(u.caste,'"+user_settings.get("filter_caste")+"')>0 ";
+				}
+				if(StringUtils.isNotBlank((String)user_settings.get("filter_religion"))){
+					inner_where_clause += " and find_in_set(u.religion,'"+user_settings.get("filter_religion")+"')>0 ";
+				}
+				if(StringUtils.isNotBlank((String)user_settings.get("filter_mothertongue"))){
+					inner_where_clause += " and find_in_set(u.motherTongue,'"+user_settings.get("filter_mothertongue")+"')>0 ";
+				}
+				if(StringUtils.isNotBlank((String)user_settings.get("filter_country"))){
+					inner_where_clause += " and find_in_set(u.currentCountry,'"+user_settings.get("filter_country")+"')>0 ";
+				}
+			}
+			/*String qryStr = "select (select count(*) from express_intrest_view where user_id = "+userId+" and interested = '1' and status in ('0','1')) as sentInterestCount, "
+						+"(select count(*) from express_intrest_view where profile_id = "+userId+" and interested = '1' and status = '1') as receivedInterestCount, "
+						+"(select count(*) from express_intrest_view where user_id = "+userId+" and status = '2') as acceptedInterestCount, "
+						+"(select count(*) from express_intrest_view where profile_id = "+userId+" and profile_viewed_status = '1') as profileViewedCount";*/
+			String subStr = "  u.status in ('1') and u.role_id not in (1) and u.gender not in  ('"+objUserBean.getGender()+"') and u.id not in  ("+userId+")";
+			String qryStr= "select  (select count(*) from (select count(1) from users_activity_log act_log, users u where act_log.act_done_by_user_id=u.id and act_log.act_done_on_user_id="+userId+" and act_log.activity_type in ('interest_request','message') and act_log.activity_status in ('0') and "+inner_where_clause+" group by u.id) tc) as  pendingRequestsCount ";
+					
+			try{
+				System.out.println(qryStr);
+				int count = jdbcTemplate.queryForInt(qryStr);
+				return count;
+			}catch(Exception e){
+				e.printStackTrace();
+				return 0;
+			}
+		}
+		
 		public List<Map<String,Object>> getAllSubscribedUsersForWeeklyMatchEmails(){
 			jdbcTemplate = custom.getJdbcTemplate();
 			String qryStr = "select * from users where status = '1' and role_id not in (1) and id in (select us.user_id from user_settings us where us.weekly_matches_emails = '1') ";
@@ -2873,7 +2916,7 @@ public class UsersDao extends BaseUsersDao
 		//StringBuffer where_clause = new StringBuffer(" and u.role_id not in (1) and u.status in ('1') ");
 		buffer.append("select temp.*,activity.id as requestId,ifnull(activity.activity_content,'') as  activity_content,max(activity.created_time) "
 				+ "  from "
-				+ "(select u.id,u.gender,sta.name as currentStateName,cit.name as currentCityName,u.occupation,ifnull(oc.name,'') as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
+				+ "(select u.id,u.gender,sta.name as currentStateName,cit.name as currentCityName,u.occupation,ifnull(oc.name,'') as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor, "
 				+"u.firstName, u.lastName, u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName, u.currentCountry,co.name as currentCountryName, " 
 				+"u.currentState, u.currentCity, " 
 				+"u.maritalStatus, u.caste,c.name as casteName, u.gotram, u.star,s.name as starName, u.dosam, u.dosamName, u.education, u.workingWith, u.companyName, " 
@@ -2985,7 +3028,7 @@ public class UsersDao extends BaseUsersDao
 		try{
 				StringBuffer buffer = new StringBuffer();
 				if(request_type.equalsIgnoreCase("pending_requests")){
-					String where_clause = " act_done_on_user_id = "+userId+"  and act_done_by_user_id = "+profile_id+" and activity_type in ('interest_request','message') ";
+					String where_clause = " act_done_on_user_id = "+userId+"  and act_done_by_user_id = "+profile_id+" and activity_type in ('interest_request','message') and activity_status in ('0')";
 					buffer.append("select *,date_format(created_time,'%d-%b-%Y') as activity_done_on,(select count(*) from users_activity_log where "+where_clause+") as conversations_count from users_activity_log where  "+where_clause+" order by created_time desc limit 1 ");
 				}
 				if(request_type.equalsIgnoreCase("filtered_requests")){
@@ -4225,7 +4268,8 @@ public boolean deletePhoto(String photoId){
 		jdbcTemplate = custom.getJdbcTemplate();
 		StringBuffer buffer = new StringBuffer();
 		buffer.append("select *,date_format(created_time,'%d-%b-%Y') as created_on from users_activity_log where (act_done_by_user_id = "+objUserBean.getId()+" and act_done_on_user_id = "+profile_id+") "
-				+" or (act_done_by_user_id = "+profile_id+" and act_done_on_user_id = "+objUserBean.getId()+") order by created_time desc ");
+				+" or (act_done_by_user_id = "+profile_id+" and act_done_on_user_id = "+objUserBean.getId()+") "
+				+ "and activity_type not in ('profile_viewed') order by created_time desc ");
 		String sql =buffer.toString();
 		
 		List<Map<String, Object>> notifications = jdbcTemplate.queryForList(sql);

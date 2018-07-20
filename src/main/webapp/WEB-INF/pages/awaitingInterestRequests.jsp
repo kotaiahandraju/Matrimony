@@ -175,8 +175,9 @@ margin-right:5px;
     </label></a></li> -->
     <li role="presentation"><a role="menuitem" tabindex="-1" href="#"> <label class="checkbox-inline"><input type="checkbox" id="mobile_no_viewed" value="mobile_no_viewed">Phone Number Viewed
     </label></a></li>
-    <li role="presentation"><a role="menuitem" tabindex="-1" href="#"> <label class="checkbox-inline"><input type="checkbox" id="other" value="other">Other Requets
-    </label></a></li><br>
+    <!-- <li role="presentation"><a role="menuitem" tabindex="-1" href="#"> <label class="checkbox-inline"><input type="checkbox" id="other" value="other">Other Requets
+    </label></a></li> -->
+    <br>
     <span id="filterSubmitDiv"><a role="menuitem" tabindex="-1" href="#" class="btn btn-warning pull-right allsubmitc" onclick="displayFilterRequestsBlock();" id="filterSubmitBtn"> Submit </a></span>
     </ul>
   

@@ -2863,10 +2863,11 @@ public class HomePageController {
 			if (forwarded) {
 				objJson.put("message", "success");
 				// update pending req count
-				int pending = Integer.parseInt(sessionBean.getPendingRequestsCount());
-				sessionBean.setPendingRequestsCount(pending>0?(pending-1)+"":"0");
+				// update pending req count
+				int pedingCount = objUsersDao.getPendingInterestsCount(sessionBean);
+				sessionBean.setPendingRequestsCount(pedingCount+"");
 				session.setAttribute("cacheGuest",sessionBean);
-				objJson.put("req_count", pending>0?(pending-1)+"":"0");
+				objJson.put("req_count", pedingCount+"");
 			} else {
 				objJson.put("message", "failed");
 			}
@@ -2896,8 +2897,8 @@ public class HomePageController {
 			if (forwarded) {
 				objJson.put("message", "success");
 				// update pending req count
-				int pending = Integer.parseInt(sessionBean.getPendingRequestsCount());
-				sessionBean.setPendingRequestsCount(pending>0?(pending-1)+"":"0");
+				int pedingCount = objUsersDao.getPendingInterestsCount(sessionBean);
+				sessionBean.setPendingRequestsCount(pedingCount+"");
 				session.setAttribute("cacheGuest",sessionBean);
 			} else {
 				objJson.put("message", "failed");
