@@ -3037,7 +3037,7 @@ public class UsersDao extends BaseUsersDao
 				}
 				if(request_type.equalsIgnoreCase("accepted_requests")){
 					String where_clause = " find_in_set(act_done_on_user_id,('"+userId+","+profile_id+"'))>0 and find_in_set(act_done_by_user_id,('"+userId+","+profile_id+"'))>0 and activity_type in ('message_accepted','message_replied','interest_accepted') ";
-					buffer.append("select *,date_format(created_time,'%d-%b-%Y') as activity_done_on, (select activity_content from users_activity_log where act_done_on_user_id = "+profile_id+" and act_done_by_user_id = "+userId+" and activity_type in ('message_accepted','message_replied','interest_accepted') order by created_time desc limit 1) as activity_content, "
+					buffer.append("select *,date_format(created_time,'%d-%b-%Y') as activity_done_on, (select activity_content from users_activity_log where act_done_on_user_id = "+userId+" and act_done_by_user_id = "+profile_id+" and activity_type in ('message') order by created_time desc limit 1) as activity_content, "
 								+" (select count(*) from users_activity_log where "+where_clause+") as  conversations_count "
 								+" from users_activity_log where "+where_clause+"  order by created_time desc limit 1 ");
 				}
