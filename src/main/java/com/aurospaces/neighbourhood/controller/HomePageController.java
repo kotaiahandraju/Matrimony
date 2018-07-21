@@ -4167,6 +4167,9 @@ public class HomePageController {
 					requests = objUsersDao.getAwaitingRequests(sessionBean.getId()+"",0);
 				}else if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("pending_requests")){
 					requests = objUsersDao.getPendingInterestRequests(sessionBean.getId()+"",0);
+					int pedingCount = objUsersDao.getPendingInterestsCount(sessionBean);
+					sessionBean.setPendingRequestsCount(pedingCount+"");
+					session.setAttribute("cacheGuest",sessionBean);
 				}else if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("accepted_requests")){
 					requests = objUsersDao.getacceptedRequests(sessionBean.getId()+"",0);
 				}else if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("rejected_requests")){
