@@ -1111,7 +1111,7 @@ tooltip:hover:after {
 				            	//+ '<button class="btn btn-danger btn-block" onclick="displayMobileNum_messages('+orderObj.id+',\'preferences\,'+orderObj.requestId+')">View Mobile Number</button>'
 				            	+ '<div class="clearfix"></div>'
 				            	+ '</div>';
-							acceptOptions = "<span id='accept"+orderObj.requestId+"'><a type='button' class='btn btn-primary btn-sm' onclick='acceptRequest("+recent_activity.id+",\"1\")'>Yes</a><a type='button' class='btn btn-danger btn-sm' id='reject"+orderObj.requestId+"' href='#' onclick='acceptRequest("+recent_activity.id+", \"0\")'>Not Interested</a></span>";
+							acceptOptions = "<span id='accept"+recent_activity.id+"'><a type='button' class='btn btn-primary btn-sm' onclick='acceptRequest("+recent_activity.id+",\"1\")'>Yes</a><a type='button' class='btn btn-danger btn-sm' id='reject"+recent_activity.id+"' href='#' onclick='acceptRequest("+recent_activity.id+", \"0\")'>Not Interested</a></span>";
 							
 						}else if(listType == "accepted_requests"){
 							interestStr = '';
@@ -1201,7 +1201,7 @@ tooltip:hover:after {
 										activity_str = "You sent an interest request to him";
 									else
 										activity_str = "You sent an interest request to "+her_his_you ;
-									acceptOptions = '<span id="mail'+orderObj.id+'"><a type="button" class="btn btn-primary btn-sm" id="sendMail'+orderObj.requestId+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')">Send Mail</a></span>';
+									acceptOptions = '<span id="mail'+orderObj.id+'"><a type="button" class="btn btn-primary btn-sm" id="sendMail'+recent_activity.id+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')">Send Mail</a></span>';
 								}else{
 									act_short_str = "Interest Request Received";
 									activity_str = opp_gender_str +" sent an interest request to you. Would you like to take it further?" ;
@@ -1216,7 +1216,7 @@ tooltip:hover:after {
 								}else{
 									activity_str = opp_gender_str+" accepted your request";
 								}
-								acceptOptions = '<span id="mail'+orderObj.requestId+'"><a type="button" class="btn btn-primary btn-sm" id="sendMail'+orderObj.id+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')">Send Mail</a></span>';
+								acceptOptions = '<span id="mail'+recent_activity.id+'"><a type="button" class="btn btn-primary btn-sm" id="sendMail'+orderObj.id+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')">Send Mail</a></span>';
 							}
 							if(recent_activity.activity_type=="interest_rejected"){
 								act_short_str = "Request Rejected";
@@ -1251,7 +1251,7 @@ tooltip:hover:after {
 										received_msg_str = received_msg_str.replace(/##newline##/g," ");
 										received_msg_str = received_msg_str.replace(/##tabspace##/g," ")+".";
 									}
-									acceptOptions = '<span id="mail'+orderObj.id+'"><a type="button" class="btn btn-primary btn-sm" id="sendMail'+orderObj.requestId+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')">Send Mail</a></span>';
+									acceptOptions = '<span id="mail'+orderObj.id+'"><a type="button" class="btn btn-primary btn-sm" id="sendMail'+recent_activity.id+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')">Send Mail</a></span>';
 								}else{
 									act_short_str = "Message Received";
 									activity_str = opp_gender_str +" sent a message to you. Would you like to take it further?" ;
@@ -1260,7 +1260,7 @@ tooltip:hover:after {
 										received_msg_str = received_msg_str.replace(/##newline##/g," ");
 										received_msg_str = received_msg_str.replace(/##tabspace##/g," ")+".";
 									}
-									acceptOptions = "<span id='accept"+orderObj.requestId+"'><a type='button' class='btn btn-primary btn-sm' onclick='acceptMessage("+recent_activity.id+",\"1\")'>Yes</a><a type='button' class='btn btn-danger btn-sm' id='reject"+recent_activity.id+"' href='#' onclick='acceptMessage("+recent_activity.id+", \"0\")'>Not Interested</a></span>";
+									acceptOptions = "<span id='accept"+recent_activity.id+"'><a type='button' class='btn btn-primary btn-sm' onclick='acceptMessage("+recent_activity.id+",\"1\")'>Yes</a><a type='button' class='btn btn-danger btn-sm' id='reject"+recent_activity.id+"' href='#' onclick='acceptMessage("+recent_activity.id+", \"0\")'>Not Interested</a></span>";
 								}
 								
 							}
@@ -1275,10 +1275,10 @@ tooltip:hover:after {
 										reply_content = "---Original message---\r\nFrom:"+orderObj.username+"\r\nTo:${cacheGuest.username}\r\n"+reply_content;
 									}
 									//acceptOptions = '<span id="reply'+orderObj.requestId+'"><a type="button" class="btn btn-primary btn-sm" onclick="replyMessage('+orderObj.requestId+',\''+recent_activity.activity_content+'\')">Reply</a></span>';
-									acceptOptions = '<span id="replyBtn'+orderObj.requestId+'"><button type="button" onclick="displayReplyArea(this.id)" id="'+orderObj.requestId+'reply"  class="btn btn-warning btn-sm">Reply</button><button type="button" class="btn btn-danger btn-sm" id="'+orderObj.requestId+'sendmail" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')" style="display:none">Send Mail</button></span>';
+									acceptOptions = '<span id="replyBtn'+recent_activity.id+'"><button type="button" onclick="displayReplyArea(this.id)" id="'+recent_activity.id+'reply"  class="btn btn-warning btn-sm">Reply</button><button type="button" class="btn btn-danger btn-sm" id="'+recent_activity.id+'sendmail" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')" style="display:none">Send Mail</button></span>';
 								}else{
 									activity_str = opp_gender_str+" accepted your message";
-									acceptOptions = '<span id="mail'+orderObj.id+'"><a type="button" class="btn btn-primary btn-sm" id="sendMail'+orderObj.requestId+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')">Send Mail</a></span>';
+									acceptOptions = '<span id="mail'+orderObj.id+'"><a type="button" class="btn btn-primary btn-sm" id="sendMail'+recent_activity.id+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')">Send Mail</a></span>';
 								}
 							}
 							if(recent_activity.activity_type=="message_rejected"){
@@ -1296,10 +1296,12 @@ tooltip:hover:after {
 								}else{
 									activity_str = opp_gender_str+" replied to your message";
 								}
-								received_msg_str = recent_activity.activity_content;
+								received_msg_str = recent_activity.replied_msg_content;
 								if(received_msg_str!=null && typeof received_msg_str != "undefined"){
 									received_msg_str = received_msg_str.replace(/##newline##/g," ");
 									received_msg_str = received_msg_str.replace(/##tabspace##/g," ")+".";
+								}else{
+									received_msg_str = "";
 								}
 								acceptOptions = '<span id="mail'+orderObj.id+'"><a type="button" class="btn btn-primary btn-sm" id="sendMail'+orderObj.id+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')">Send Mail</a></span>';
 							}
@@ -1374,7 +1376,7 @@ tooltip:hover:after {
 			            	//+ '<tr><td><button type="button" class="btn btn-danger btn-sm" id="sendMail'+orderObj.requestId+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')" style="display:none">Send Mail</button></td></tr>'
 			            	+ '</table>'
 			            	+ '<!-- Reply start -->'
-			            	+ '<div class="panel panel-success" id="'+orderObj.requestId+'myDIV"  style="display:none">'
+			            	+ '<div class="panel panel-success" id="'+recent_activity.id+'myDIV"  style="display:none">'
 							+ '<div class="panel-heading">Reply To This Message </div>'
       						+ '<div class="panel-body">'
  							+ '<textarea id="replyContent" style="width:100%; height:150px; overflow-y:scroll;" >'+reply_content
@@ -1967,7 +1969,7 @@ tooltip:hover:after {
 				$("#replyArea").val(texttt);
 				$("#replyArea").removeAttr("hidden"); */ 
 				var message_content = $("#replyContent").val();
-				alert("message_content:"+message_content);
+				//alert("message_content:"+message_content);
 				var reply_content = message_content.split("---Original message---")[0];
 				var formData = new FormData();
 			
