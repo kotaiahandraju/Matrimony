@@ -2780,7 +2780,7 @@ public class HomePageController {
 		return jsonObj.toString();
 	}
    
-   @RequestMapping(value = "/receivedRequests")
+   /*@RequestMapping(value = "/receivedRequests")
 	 public String receivedRequests(@ModelAttribute("createProfile") UsersBean objUserssBean, Model objeModel, HttpServletRequest request, HttpSession session) {
 	  List<Map<String, String>> listOrderBeans = null;
 	  UsersBean objUsersBean = null;
@@ -2814,7 +2814,7 @@ public class HomePageController {
 	   logger.fatal("error in receivedRequests method");
 	  }
 		return "receivedInterestRequests";
-	 }
+	 }*/
    
    @RequestMapping(value = "/profileViewedMembers")
 	 public String profileViewedMembers(@ModelAttribute("createProfile") UsersBean objUserssBean, Model objeModel, HttpServletRequest request, HttpSession session) {
@@ -2984,7 +2984,7 @@ public class HomePageController {
 		return "acceptedInterestRequests";
 	 }
    
-   @RequestMapping(value = "/rejectedByMeList")
+   /*@RequestMapping(value = "/rejectedByMeList")
 	 public String rejectedByMeList(@ModelAttribute("createProfile") UsersBean objUserssBean, Model objeModel, HttpServletRequest request, HttpSession session) {
 	  List<Map<String, String>> listOrderBeans = null;
 	  ObjectMapper objectMapper = null;
@@ -3018,7 +3018,7 @@ public class HomePageController {
 	   logger.fatal("error in acceptedRequests method");
 	  }
 		return "rejectedByMeList";
-	 }
+	 }*/
    
    @RequestMapping(value = "/sentRequests")
 	 public String sentRequests(@ModelAttribute("createProfile") UsersBean objUserssBean, Model objeModel, HttpServletRequest request, HttpSession session) {
@@ -3187,7 +3187,7 @@ public class HomePageController {
 		return "shortlistedList";
 	 }
    
-   @RequestMapping(value = "/interestRequestsPagination")
+   /*@RequestMapping(value = "/interestRequestsPagination")
 	public @ResponseBody String interestRequestsPagination(@ModelAttribute("createProfile") UsersBean searchCriteriaBean, ModelMap model,
 			HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
 		List<Map<String, Object>> requestsList = null;
@@ -3233,7 +3233,7 @@ public class HomePageController {
 			return null;
 		}
 		return objJson.toString();
-	}
+	}*/
    
    @RequestMapping(value = "/newMatches")
 	 public String getNewMatches(@ModelAttribute("createProfile") UsersBean searchCriteriaBean, Model objeModel, HttpServletRequest request, HttpSession session) {
@@ -4338,7 +4338,7 @@ public class HomePageController {
 				}else if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("filtered_requests")){
 					requests = objUsersDao.getFilteredRequests(sessionBean.getId()+"",0);
 				}else if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("accepted_me_requests")){
-					requests = objUsersDao.getRequestsAcceptedMe(sessionBean.getId()+"",0);
+					//requests = objUsersDao.getRequestsAcceptedMe(sessionBean.getId()+"",0);
 				}else if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("rejected_me_requests")){
 					requests = objUsersDao.getRejectedRequests(sessionBean.getId()+"",0);
 				}

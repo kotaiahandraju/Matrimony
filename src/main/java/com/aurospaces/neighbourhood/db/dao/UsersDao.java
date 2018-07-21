@@ -2113,13 +2113,13 @@ public class UsersDao extends BaseUsersDao
 		return null;
 	}*/
 	
-	public List<Map<String,Object>> getReceivedInterestRequests(String userId,int page_no){
+	/*public List<Map<String,Object>> getReceivedInterestRequests(String userId,int page_no){
 		jdbcTemplate = custom.getJdbcTemplate();
-		/*StringBuffer qryStrBuffer = new StringBuffer("select *,(select username from users where id=user_id) as fromName,date_format(created_on,'%d-%M-%Y') as receivedOn, "
+		StringBuffer qryStrBuffer = new StringBuffer("select *,(select username from users where id=user_id) as fromName,date_format(created_on,'%d-%M-%Y') as receivedOn, "
 				+" (select count(*) from express_intrest_view ei where ei.profile_id = "+userId+" and ei.interested = '1' and status = '1') as total_records "
 				+" from express_intrest where profile_id = "+userId+" and interested = '1' and status = '1' order by created_on desc  ");
 		int page_size = MatrimonyConstants.PAGINATION_SIZE;
-		qryStrBuffer.append(" limit "+page_size+" offset "+(page_no*page_size)+" ");*/
+		qryStrBuffer.append(" limit "+page_size+" offset "+(page_no*page_size)+" ");
 		UsersBean objUserBean = (UsersBean) session.getAttribute("cacheGuest");
 		StringBuffer buffer = new StringBuffer();
 		String inner_where_clause = " ei.user_id = u.id and ei.profile_id = "+userId+" and ei.interested = '1' and ei.status = '1' and u.role_id not in (1) and u.status in ('1')  and u.gender not in  ('"+objUserBean.getGender()+"') and u.id not in  ("+userId+") ";
@@ -2159,7 +2159,7 @@ public class UsersDao extends BaseUsersDao
 			return null;
 		}
 		return null;
-	}
+	}*/
 	
 	public List<Map<String,Object>> getPendingInterestRequests(String userId,int page_no){
 		jdbcTemplate = custom.getJdbcTemplate();
@@ -2553,7 +2553,7 @@ public class UsersDao extends BaseUsersDao
 				+" ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 				//+" (select count(*) from users u "+where_clause+") as total_records, "
 				+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and  uimg.status = '1' and uimg.is_profile_picture='1') as profileImage, "
-				+" (select count(*) from users u,express_intrest ei where "+inner_where_clause+") as total_records, "
+				+" (select count(*) from (select count(1) from users u,users_activity_log activity where "+inner_where_clause+" and activity.act_done_on_user_id  = "+objUserBean.getId()+" and activity.act_done_by_user_id = u.id and activity.activity_type in ('mobile_no_viewed') group by u.id) tc) as total_records, "
 				+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+objUserBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'short_listed') as short_listed, "
 				+" (select highlight_profile from package where id = u.package_id) as profile_highlighter "
 				+" from users u left join userrequirement ur on u.id=ur.userId "
@@ -3073,13 +3073,13 @@ public class UsersDao extends BaseUsersDao
 	}
 	
 	/****   others accepted    ****/
-	public List<Map<String,Object>> getRequestsAcceptedMe(String userId,int page_no){
+	/*public List<Map<String,Object>> getRequestsAcceptedMe(String userId,int page_no){
 		jdbcTemplate = custom.getJdbcTemplate();
-		/*StringBuffer qryStrBuffer = new StringBuffer("select *,(select username from users where id=user_id) as username,date_format(created_on,'%d-%M-%Y') as receivedOn, "
+		StringBuffer qryStrBuffer = new StringBuffer("select *,(select username from users where id=user_id) as username,date_format(created_on,'%d-%M-%Y') as receivedOn, "
 				+" (select count(*) from express_intrest_view ei where ei.user_id = "+userId+" and ei.interested = '1' and status = '2') as total_records "
 				+" from express_intrest where user_id = "+userId+" and interested = '1' and status = '2' order by created_on desc  ");
 		int page_size = MatrimonyConstants.PAGINATION_SIZE;
-		qryStrBuffer.append(" limit "+page_size+" offset "+(page_no*page_size)+" ");*/
+		qryStrBuffer.append(" limit "+page_size+" offset "+(page_no*page_size)+" ");
 		UsersBean objUserBean = (UsersBean) session.getAttribute("cacheGuest");
 		StringBuffer buffer = new StringBuffer();
 		String inner_where_clause = " ei.profile_id = u.id and ei.user_id = "+userId+" and ei.interested = '1' and ei.status = '2' and u.role_id not in (1) and u.status in ('1') and u.gender not in  ('"+objUserBean.getGender()+"') and u.id not in  ("+userId+")";
@@ -3122,15 +3122,15 @@ public class UsersDao extends BaseUsersDao
 			return null;
 		}
 		return null;
-	}
+	}*/
 	
-	public List<Map<String,Object>> getRequestsRejectedByMe(String userId,int page_no){
+	/*public List<Map<String,Object>> getRequestsRejectedByMe(String userId,int page_no){
 		jdbcTemplate = custom.getJdbcTemplate();
-		/*StringBuffer qryStrBuffer = new StringBuffer("select *,(select username from users where id=user_id) as username,date_format(created_on,'%d-%M-%Y') as receivedOn, "
+		StringBuffer qryStrBuffer = new StringBuffer("select *,(select username from users where id=user_id) as username,date_format(created_on,'%d-%M-%Y') as receivedOn, "
 				+" (select count(*) from express_intrest_view ei where ei.user_id = "+userId+" and ei.interested = '1' and status = '2') as total_records "
 				+" from express_intrest where user_id = "+userId+" and interested = '1' and status = '2' order by created_on desc  ");
 		int page_size = MatrimonyConstants.PAGINATION_SIZE;
-		qryStrBuffer.append(" limit "+page_size+" offset "+(page_no*page_size)+" ");*/
+		qryStrBuffer.append(" limit "+page_size+" offset "+(page_no*page_size)+" ");
 		UsersBean objUserBean = (UsersBean) session.getAttribute("cacheGuest");
 		StringBuffer buffer = new StringBuffer();
 		String inner_where_clause = " ei.user_id = u.id and ei.profile_id = "+userId+" and ei.interested = '1' and ei.status = '3' and u.role_id not in (1) and u.status in ('1') and u.gender not in  ('"+objUserBean.getGender()+"') and u.id not in  ("+userId+")";
@@ -3173,7 +3173,7 @@ public class UsersDao extends BaseUsersDao
 			return null;
 		}
 		return null;
-	}
+	}*/
 	
 	public List<Map<String,Object>> getRejectedRequests(String userId,int page_no){
 		jdbcTemplate = custom.getJdbcTemplate();
