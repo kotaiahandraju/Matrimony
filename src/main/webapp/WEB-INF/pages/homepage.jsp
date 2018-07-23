@@ -51,10 +51,10 @@ margin-bottom:0px;}
 .getquote .right-side { 
 padding-top:2px;
 }
-@media only screen and (max-width: 1280px) {
+/* @media only screen and (max-width: 1280px) {
 section.getquote {
     margin-top: 45px;
-}}
+}} */
 #myModal {
 padding-top: 55px !important;
     display: block;
