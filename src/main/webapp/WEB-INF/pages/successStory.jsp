@@ -11,7 +11,7 @@
 	</style><br>
 <div class="container-fluid">
 					<div class="panel panel-success">
-					<div class="panel-heading">Success Story </div>
+					<div class="panel-heading">Success Story <a class="pull-right" href="HomePage" style=" color:#000;">Back </a> </div>
 	             	<div class="panel-body">
 	             	<h5>(AMNLR278948) Avanigadda Sudha <span class="pull-right"><button type=""button" class="btn btn-default">Prev</button> &nbsp; <button type=""button" class="btn btn-primary">Next</button></span></h5><br>
 	             	<p>Location : India / Marriage Date 04-may-2018</p>
@@ -60,7 +60,7 @@
         </div>
       </section></div>
       <div class="col-md-7">
-     <p style="padding:20px; color:#000"> Both of us met through Aarna Matrimony. He expressed interest in my profile, my father visited his parents, we met and got hitched within a month's time.</p>
+     <p style="padding:20px; color:#000;font-family: 'Open Sans', sans-serif;"> Both of us met through Aarna Matrimony. He expressed interest in my profile, my father visited his parents, we met and got hitched within a month's time.</p>
       
       
       </div>
