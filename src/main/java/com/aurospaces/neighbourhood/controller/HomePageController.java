@@ -2780,7 +2780,7 @@ public class HomePageController {
 		return jsonObj.toString();
 	}
    
-   @RequestMapping(value = "/receivedRequests")
+   /*@RequestMapping(value = "/receivedRequests")
 	 public String receivedRequests(@ModelAttribute("createProfile") UsersBean objUserssBean, Model objeModel, HttpServletRequest request, HttpSession session) {
 	  List<Map<String, String>> listOrderBeans = null;
 	  UsersBean objUsersBean = null;
@@ -2814,7 +2814,7 @@ public class HomePageController {
 	   logger.fatal("error in receivedRequests method");
 	  }
 		return "receivedInterestRequests";
-	 }
+	 }*/
    
    @RequestMapping(value = "/profileViewedMembers")
 	 public String profileViewedMembers(@ModelAttribute("createProfile") UsersBean objUserssBean, Model objeModel, HttpServletRequest request, HttpSession session) {
@@ -2863,10 +2863,11 @@ public class HomePageController {
 			if (forwarded) {
 				objJson.put("message", "success");
 				// update pending req count
-				int pending = Integer.parseInt(sessionBean.getPendingRequestsCount());
-				sessionBean.setPendingRequestsCount(pending>0?(pending-1)+"":"0");
+				// update pending req count
+				int pedingCount = objUsersDao.getPendingInterestsCount(sessionBean);
+				sessionBean.setPendingRequestsCount(pedingCount+"");
 				session.setAttribute("cacheGuest",sessionBean);
-				objJson.put("req_count", pending>0?(pending-1)+"":"0");
+				objJson.put("req_count", pedingCount+"");
 			} else {
 				objJson.put("message", "failed");
 			}
@@ -2896,8 +2897,8 @@ public class HomePageController {
 			if (forwarded) {
 				objJson.put("message", "success");
 				// update pending req count
-				int pending = Integer.parseInt(sessionBean.getPendingRequestsCount());
-				sessionBean.setPendingRequestsCount(pending>0?(pending-1)+"":"0");
+				int pedingCount = objUsersDao.getPendingInterestsCount(sessionBean);
+				sessionBean.setPendingRequestsCount(pedingCount+"");
 				session.setAttribute("cacheGuest",sessionBean);
 			} else {
 				objJson.put("message", "failed");
@@ -2983,7 +2984,7 @@ public class HomePageController {
 		return "acceptedInterestRequests";
 	 }
    
-   @RequestMapping(value = "/rejectedByMeList")
+   /*@RequestMapping(value = "/rejectedByMeList")
 	 public String rejectedByMeList(@ModelAttribute("createProfile") UsersBean objUserssBean, Model objeModel, HttpServletRequest request, HttpSession session) {
 	  List<Map<String, String>> listOrderBeans = null;
 	  ObjectMapper objectMapper = null;
@@ -3017,7 +3018,7 @@ public class HomePageController {
 	   logger.fatal("error in acceptedRequests method");
 	  }
 		return "rejectedByMeList";
-	 }
+	 }*/
    
    @RequestMapping(value = "/sentRequests")
 	 public String sentRequests(@ModelAttribute("createProfile") UsersBean objUserssBean, Model objeModel, HttpServletRequest request, HttpSession session) {
@@ -3186,7 +3187,7 @@ public class HomePageController {
 		return "shortlistedList";
 	 }
    
-   @RequestMapping(value = "/interestRequestsPagination")
+   /*@RequestMapping(value = "/interestRequestsPagination")
 	public @ResponseBody String interestRequestsPagination(@ModelAttribute("createProfile") UsersBean searchCriteriaBean, ModelMap model,
 			HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
 		List<Map<String, Object>> requestsList = null;
@@ -3232,7 +3233,7 @@ public class HomePageController {
 			return null;
 		}
 		return objJson.toString();
-	}
+	}*/
    
    @RequestMapping(value = "/newMatches")
 	 public String getNewMatches(@ModelAttribute("createProfile") UsersBean searchCriteriaBean, Model objeModel, HttpServletRequest request, HttpSession session) {
@@ -4166,6 +4167,9 @@ public class HomePageController {
 					requests = objUsersDao.getAwaitingRequests(sessionBean.getId()+"",0);
 				}else if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("pending_requests")){
 					requests = objUsersDao.getPendingInterestRequests(sessionBean.getId()+"",0);
+					int pedingCount = objUsersDao.getPendingInterestsCount(sessionBean);
+					sessionBean.setPendingRequestsCount(pedingCount+"");
+					session.setAttribute("cacheGuest",sessionBean);
 				}else if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("accepted_requests")){
 					requests = objUsersDao.getacceptedRequests(sessionBean.getId()+"",0);
 				}else if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("rejected_requests")){
@@ -4337,7 +4341,7 @@ public class HomePageController {
 				}else if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("filtered_requests")){
 					requests = objUsersDao.getFilteredRequests(sessionBean.getId()+"",0);
 				}else if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("accepted_me_requests")){
-					requests = objUsersDao.getRequestsAcceptedMe(sessionBean.getId()+"",0);
+					//requests = objUsersDao.getRequestsAcceptedMe(sessionBean.getId()+"",0);
 				}else if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("rejected_me_requests")){
 					requests = objUsersDao.getRejectedRequests(sessionBean.getId()+"",0);
 				}

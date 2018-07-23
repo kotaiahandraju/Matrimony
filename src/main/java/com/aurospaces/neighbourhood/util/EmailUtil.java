@@ -300,6 +300,7 @@ public class EmailUtil {
 //	        inlineImages.put("image1", objContext.getRealPath("images" +File.separator+"telugu.png"));
 	        inlineImages.put("image2", objContext.getRealPath("images" +File.separator+"logo.jpg"));
 	        inlineImages.put("image3", objContext.getRealPath("images" +File.separator+"matri.jpg"));
+	        
 	       
 	            EmbeddedImageEmailUtil.send(host, port, mailFrom, password, mailTo,
 	                subject, body.toString(), inlineImages);
@@ -339,14 +340,16 @@ public class EmailUtil {
 			body = prop.getProperty("interest_mail_body");
 			body = body.replace("_senderphoto_", "cid:senderimage");
 			body = body.replace("_senderusername_", senderBean.getUsername());
+			body = body.replace("_sendename_", senderBean.getFirstName()+" "+senderBean.getLastName());
 			
 			// url formation
             String baseurl =  request.getScheme() + "://" + request.getServerName() +      ":" +   request.getServerPort() +  request.getContextPath();
-			String actionUrl = baseurl+"/fullProfile?un="+receiverBean.getUsername()+"&pun="+senderBean.getUsername()+"&suc="+receiverBean.getUnique_code()+"&puc="+senderBean.getUnique_code();
+			String actionUrl = baseurl+"/users/fullProfile?un="+receiverBean.getUsername()+"&pun="+senderBean.getUsername()+"&suc="+receiverBean.getUnique_code()+"&puc="+senderBean.getUnique_code();
 			///
 			body = body.replace("_fullprofileaction_", actionUrl);
 			body = body.replace("_content_", receiverBean.getMail_content());
 			body = body.replace("_img_", "cid:image2");
+			body = body.replace("_bodyimage_", "cid:image3");
 	        String str = body.toString();
 	        	
 	        // inline images
@@ -360,7 +363,7 @@ public class EmailUtil {
 	        }
 	        
 	        inlineImages.put("image2", objContext.getRealPath("images" +File.separator+"logo.jpg"));
-	 
+	        inlineImages.put("image3", objContext.getRealPath("images" +File.separator+"matri.jpg"));
 	       
 	            EmbeddedImageEmailUtil.send(host, port, mailFrom, password, mailTo,
 	                subject, body.toString(), inlineImages);
