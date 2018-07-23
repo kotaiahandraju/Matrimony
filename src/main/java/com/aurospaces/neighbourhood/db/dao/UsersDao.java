@@ -1915,6 +1915,18 @@ public class UsersDao extends BaseUsersDao
 			}
 		}
 		
+		public int getNotificationsCount(UsersBean objUserBean){
+			jdbcTemplate = custom.getJdbcTemplate();
+			int userId = objUserBean.getId();
+			try{
+				String qry = "select (select count(*) from user_notifications where profile_id = "+userId+" and read_status = '0' and user_id in (select u.id from users u where u.id = user_id and u.status = '1' )) as notificationsCount";
+				int count = jdbcTemplate.queryForInt(qry);
+				return count;
+			}catch(Exception e){
+				e.printStackTrace();
+				return 0;
+			}
+		}
 		public List<Map<String,Object>> getAllSubscribedUsersForWeeklyMatchEmails(){
 			jdbcTemplate = custom.getJdbcTemplate();
 			String qryStr = "select * from users where status = '1' and role_id not in (1) and id in (select us.user_id from user_settings us where us.weekly_matches_emails = '1') ";
