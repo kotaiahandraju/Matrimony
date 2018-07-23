@@ -3837,7 +3837,11 @@ function myFunction2(id) {
 } 
  
 
-  
+ $( document ).ready(function() {
+	    $("img").on("contextmenu",function(){
+	       return false;
+	    }); 
+	}); 
  
 </script>
 
