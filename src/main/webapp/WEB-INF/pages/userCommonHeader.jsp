@@ -3523,36 +3523,53 @@ img.hover-shadow {
 													</div>
 													<div class="col-md-7" style="padding-right:0px; padding-left:0px;" >
 														<p>
-															<a href="fullProfile?pid=${notification.user_id}&nid=${notification.id}&rfrm=notifications" >
-															<c:if test="${ notification.read_status==0}">
-																<b><c:out value="${notification.fullName}" /> (<c:out value="${notification.username}" />)</b> 
-																</c:if>
-																<c:if test="${ notification.read_status==1}">
-																<c:out value="${notification.fullName}" /> (<c:out value="${notification.username}" />)
-																</c:if>
+															
+															<!-- <a href="inboxAction?tab_type=inbox&list_type=rejected_requests"> -->
+															
+															
+															<%-- <a href="padma?pid=${notification.user_id}&nid=${notification.id}&rfrm=notifications" > --%>
+															
+																<%-- <c:out value="${notification.fullName}" /> (<c:out value="${notification.username}" />) --%>
+																<c:set var="name" value="${notification.fullName} (${notification.username})" />
 																<c:if test="${notification.notifi_type == 'interest'}">
-																	expressed interest in your profile
+																	<a href="inboxAction?tab_type=inbox&list_type=pending_requests">
+																		<c:out value="${name}" /> expressed interest in your profile
+																	</a>
 																</c:if>
 																<c:if test="${notification.notifi_type == 'mobile_num_viewed'}">
-																	viewed your mobile number
+																	<a href="myMobileNoViewsList">
+																		<c:out value="${name}" /> viewed your mobile number
+																	</a>
 																</c:if>
 																<c:if test="${notification.notifi_type == 'profile_viewed'}">
-																	viewed your profile
+																	<a href="myProfileViewsList">
+																		<c:out value="${name}" /> viewed your profile
+																	</a>
 																</c:if>
 																<c:if test="${notification.notifi_type == 'mail'}">
-																	sent you personal mail
+																	<a href="inboxAction?tab_type=inbox&list_type=pending_requests">
+																		<c:out value="${name}" /> sent you personal mail
+																	</a>
 																</c:if>
 																<c:if test="${notification.notifi_type == 'short_listed'}">
-																	shortlisted your profile
+																	<a href="shortListedMe">
+																		<c:out value="${name}" /> shortlisted your profile
+																	</a>
 																</c:if>
 																<c:if test="${notification.notifi_type == 'message_replied'}">
-																	replied to your message
+																	<a href="inboxAction?tab_type=inbox&list_type=accepted_requests" >
+																		<c:out value="${name}" /> replied to your message
+																	</a>
 																</c:if>
 																<c:if test="${notification.notifi_type == 'message_accepted'}">
-																	accepted your message
+																	<a href="inboxAction?tab_type=inbox&list_type=accepted_requests" >
+																		<c:out value="${name}" /> accepted your message
+																	</a>
 																</c:if>
 																<c:if test="${notification.notifi_type == 'interest_accepted'}">
-																	accepted your interest request
+																	<a href="inboxAction?tab_type=inbox&list_type=accepted_requests" >
+																		<c:out value="${name}" /> accepted your interest request
+																	</a>
 																</c:if>
 															</a>
 															<br>

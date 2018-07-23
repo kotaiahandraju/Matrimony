@@ -1156,8 +1156,7 @@ public class HomePageController {
 			request.setAttribute("photosListSize", photosList.size());
 			
 			objUserssBean.setId(sessionBean.getId());
-			Map<String,Object> interestCounts = objUsersDao.getInterestCounts(objUserssBean);
-			long notificationsCount = (Long)interestCounts.get("notificationsCount");
+			int notificationsCount = objUsersDao.getNotificationsCount(sessionBean);
 			request.setAttribute("notificationsCount", notificationsCount);
 			List<Map<String,Object>> notificationsList = objUsersDao.getNotifications(objUserssBean,false);
 			if(notificationsList!=null && notificationsList.size()>0){
@@ -1309,6 +1308,9 @@ public class HomePageController {
 			}else{
 				request.setAttribute("pending_reqs", "");
 			}
+			// update notifications count also
+			int notificationsCount = objUsersDao.getNotificationsCount(sessionBean);
+			request.setAttribute("notificationsCount", notificationsCount);
 			
 		} catch (Exception e) {
 	   e.printStackTrace();
@@ -4846,10 +4848,8 @@ public class HomePageController {
 				request.setAttribute("notificationsList", notifications);
 			}else{
 				request.setAttribute("notificationsList", notifications);
-				System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"+notifications.size());
 			}
-			Map<String,Object> interestCounts = objUsersDao.getInterestCounts(sessionBean);
-			long notificationsCount = (Long)interestCounts.get("notificationsCount");
+			int notificationsCount = objUsersDao.getNotificationsCount(sessionBean);
 			request.setAttribute("notificationsCount", notificationsCount);
 		} catch (Exception e) {
 	   e.printStackTrace();
