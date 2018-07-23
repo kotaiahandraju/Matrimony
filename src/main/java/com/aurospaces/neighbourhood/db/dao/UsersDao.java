@@ -3421,10 +3421,11 @@ public class UsersDao extends BaseUsersDao
 		StringBuffer qryStrBuffer = new StringBuffer("select u.*,ei.*,(select count(*) from users u,express_intrest ei where "+where_clause+") as total_records from users u, express_intrest ei where "+where_clause+" order by ei.created_on desc  ");*/
 		UsersBean objUserBean = (UsersBean) session.getAttribute("cacheGuest");
 		StringBuffer buffer = new StringBuffer();
-		String inner_where_clause = " u.id=act_log.act_done_on_user_id and act_log.act_done_by_user_id = "+userId+" and act_log.activity_type = 'profile_viewed' and  act_log.activity_type not in ('interest_request','message','mobile_no_viewed') and act_log.activity_status in ('0')   ";
+		String inner_where_clause = " u.id  in   (select act_log.act_done_on_user_id from users_activity_log act_log where u.id=act_log.act_done_on_user_id and act_log.act_done_by_user_id = "+userId+" and act_log.activity_type = 'profile_viewed') "
+				+ " and  u.id  not in  (select act_log.act_done_on_user_id from users_activity_log act_log where u.id=act_log.act_done_on_user_id and act_log.act_done_by_user_id = "+userId+" and act_log.activity_type in ('interest_request','message','mobile_no_viewed') )   ";
 		StringBuffer where_clause = new StringBuffer("  u.role_id not in (1) and u.status in ('1') and u.gender not in  ('"+objUserBean.getGender()+"') and u.id not in  ("+userId+") ");
 		if(StringUtils.isNotBlank(withPhoto) && withPhoto.equalsIgnoreCase("true")){
-			where_clause.append(" and u.id in (select umg.user_id from vuser_images umg where umg.is_profile_picture = '1' and umg.approved_status = '1') ");
+			where_clause.append(" and u.id in (select umg.user_id from vuser_images umg where umg.is_profile_picture = '1' and umg.approved_status = '1' and umg.status = '1') ");
 		}
 		buffer.append("select u.id,sta.name as currentStateName,cit.name as currentCityName,u.occupation,oc.name as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
 				+"u.firstName, u.lastName, u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName, u.currentCountry,co.name as currentCountryName, " 
@@ -3440,7 +3441,7 @@ public class UsersDao extends BaseUsersDao
 				+" ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 				//+" (select count(*) from users u "+where_clause+") as total_records, "
 				+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and  uimg.status = '1' and uimg.is_profile_picture='1') as profileImage, "
-				+" (select count(*) from users u,users_activity_log act_log where "+inner_where_clause+" and "+where_clause+ ") as total_records, "
+				+" (select count(*) from users u where  "+inner_where_clause+" and "+where_clause+ ") as total_records, "
 				+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+objUserBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'short_listed') as short_listed, "
 				+" (select highlight_profile from package where id = u.package_id) as profile_highlighter "
 				+" from users u left join userrequirement ur on u.id=ur.userId "
@@ -3448,8 +3449,8 @@ public class UsersDao extends BaseUsersDao
 				+"left join cast c on c.id=u.caste left join star s on s.id =u.star left join height h on h.id=u.height left join body_type b on b.id=u.bodyType left join religion re1  on re1.id=rReligion "
 				+"left join complexion com on com.id =u.complexion left join cast c1 on c1.id=rCaste left join language l1 on l1.id=rMotherTongue "
 				+"left join countries con1 on con1.id=rCountry left join education e1 on e1.id=rEducation left join occupation oc1 on oc1.id=rOccupation  left join user_images uimg on uimg.user_id=u.id left join occupation oc on u.occupation=oc.id left join education ed on ed.id=u.education "
-				+ " left join state sta on sta.id=u.currentState left join city cit on cit.id=u.currentCity,  "
-				+"  users_activity_log act_log   where "+where_clause+" and "+inner_where_clause+" ");
+				+ " left join state sta on sta.id=u.currentState left join city cit on cit.id=u.currentCity where "+where_clause
+				+"   and "+inner_where_clause+" ");
 		
 		
 		
