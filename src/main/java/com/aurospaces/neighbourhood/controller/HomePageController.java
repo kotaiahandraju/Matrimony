@@ -1156,14 +1156,14 @@ public class HomePageController {
 			request.setAttribute("photosListSize", photosList.size());
 			
 			objUserssBean.setId(sessionBean.getId());
-			int notificationsCount = objUsersDao.getNotificationsCount(sessionBean);
+			/*int notificationsCount = objUsersDao.getNotificationsCount(sessionBean);
 			request.setAttribute("notificationsCount", notificationsCount);
 			List<Map<String,Object>> notificationsList = objUsersDao.getNotifications(objUserssBean,false);
 			if(notificationsList!=null && notificationsList.size()>0){
 				session.setAttribute("notificationsList", notificationsList);
 			}else{
 				session.setAttribute("notificationsList", "");
-			}
+			}*/
 			
 		} catch (Exception e) {
 	   e.printStackTrace();
@@ -1311,7 +1311,12 @@ public class HomePageController {
 			// update notifications count also
 			int notificationsCount = objUsersDao.getNotificationsCount(sessionBean);
 			request.setAttribute("notificationsCount", notificationsCount);
-			
+			List<Map<String,Object>> notificationsList = objUsersDao.getNotifications(sessionBean,false);
+			if(notificationsList!=null && notificationsList.size()>0){
+				session.setAttribute("notificationsList", notificationsList);
+			}else{
+				session.setAttribute("notificationsList", "");
+			}
 		} catch (Exception e) {
 	   e.printStackTrace();
 	   System.out.println(e);
@@ -3102,7 +3107,13 @@ public class HomePageController {
 				return "redirect:HomePage";
 			}
 			long total_records = 0;
+			String notification_id = request.getParameter("nid");
 			if("1".equals(sessionBean.getStatus())){
+				
+				if(StringUtils.isNotBlank(notification_id)){
+					//update notification status as read
+					objUsersDao.updateNotificationStatus(notification_id);
+				}
 				List<Map<String,Object>> shortlistedMeList = objUsersDao.getShortlistedMeMembers(sessionBean.getId()+"",0);
 				if(shortlistedMeList!=null && shortlistedMeList.size()>0){
 					//get photos
@@ -3133,7 +3144,16 @@ public class HomePageController {
 			request.setAttribute("list_type", "shortListedMe");
 			request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
 			request.setAttribute("total_records", total_records);
-			
+			if(StringUtils.isNotBlank(notification_id)){
+				int notificationsCount = objUsersDao.getNotificationsCount(sessionBean);
+				request.setAttribute("notificationsCount", notificationsCount);
+				List<Map<String,Object>> notificationsList = objUsersDao.getNotifications(sessionBean,false);
+				if(notificationsList!=null && notificationsList.size()>0){
+					session.setAttribute("notificationsList", notificationsList);
+				}else{
+					session.setAttribute("notificationsList", "");
+				}
+			}
 		} catch (Exception e) {
 	   e.printStackTrace();
 	   System.out.println(e);
@@ -3719,7 +3739,14 @@ public class HomePageController {
 				return "redirect:HomePage";
 			}
 			long total_records = 0;
+			String notification_id = request.getParameter("nid");
 			if("1".equals(sessionBean.getStatus())){
+				if(StringUtils.isNotBlank(notification_id)){
+					//update notification status as read
+					objUsersDao.updateNotificationStatus(notification_id);
+				}
+				
+
 				List<Map<String,Object>> pendingRequests = objUsersDao.getProfileViewedMembers(sessionBean.getId()+"",0);
 				if(pendingRequests!=null && pendingRequests.size()>0){
 					//get photos
@@ -3749,6 +3776,16 @@ public class HomePageController {
 			
 			request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
 			request.setAttribute("total_records", total_records);
+			if(StringUtils.isNotBlank(notification_id)){
+				int notificationsCount = objUsersDao.getNotificationsCount(sessionBean);
+				request.setAttribute("notificationsCount", notificationsCount);
+				List<Map<String,Object>> notificationsList = objUsersDao.getNotifications(sessionBean,false);
+				if(notificationsList!=null && notificationsList.size()>0){
+					session.setAttribute("notificationsList", notificationsList);
+				}else{
+					session.setAttribute("notificationsList", "");
+				}
+			}
 			
 		} catch (Exception e) {
 	   e.printStackTrace();
@@ -3769,7 +3806,13 @@ public class HomePageController {
 				return "redirect:HomePage";
 			}
 			long total_records = 0;
+			String notification_id = request.getParameter("nid");
 			if("1".equals(sessionBean.getStatus())){
+				
+				if(StringUtils.isNotBlank(notification_id)){
+					//update notification status as read
+					objUsersDao.updateNotificationStatus(notification_id);
+				}
 				List<Map<String,Object>> pendingRequests = objUsersDao.getMyMobileNoViewedByMembers(sessionBean.getId()+"",0);
 				if(pendingRequests!=null && pendingRequests.size()>0){
 					//get photos
@@ -3798,7 +3841,16 @@ public class HomePageController {
 			}
 			request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
 			request.setAttribute("total_records", total_records);
-			
+			if(StringUtils.isNotBlank(notification_id)){
+				int notificationsCount = objUsersDao.getNotificationsCount(sessionBean);
+				request.setAttribute("notificationsCount", notificationsCount);
+				List<Map<String,Object>> notificationsList = objUsersDao.getNotifications(sessionBean,false);
+				if(notificationsList!=null && notificationsList.size()>0){
+					session.setAttribute("notificationsList", notificationsList);
+				}else{
+					session.setAttribute("notificationsList", "");
+				}
+			}
 		} catch (Exception e) {
 	   e.printStackTrace();
 	   System.out.println(e);
@@ -3934,9 +3986,11 @@ public class HomePageController {
 				objectMapper = new ObjectMapper();
 				sJson = objectMapper.writeValueAsString(pendingRequests);
 				request.setAttribute("viewedNotContactedList", sJson);
+				sessionBean.setViewedNotContactedCount(pendingRequests.size()+"");
 				total_records = (Long)pendingRequests.get(0).get("total_records");
 			}else{
 				request.setAttribute("viewedNotContactedList", "''");
+				sessionBean.setViewedNotContactedCount("0");
 			}
 			request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
 			request.setAttribute("total_records", total_records);
@@ -4162,7 +4216,13 @@ public class HomePageController {
 			String tab_type = request.getParameter("tab_type");
 			String list_type = request.getParameter("list_type");
 			long total_records = 0;
+			String notification_id = request.getParameter("nid");
 			if("1".equals(sessionBean.getStatus())){
+				
+				if(StringUtils.isNotBlank(notification_id)){
+					//update notification status as read
+					objUsersDao.updateNotificationStatus(notification_id);
+				}
 				if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("sent_requests")){
 					requests = objUsersDao.getsentRequests(sessionBean.getId()+"",0);
 				}else if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("awaiting_requests")){
@@ -4215,7 +4275,16 @@ public class HomePageController {
 			request.setAttribute("tabType", tab_type);
 			request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
 			request.setAttribute("total_records", total_records);
-			
+			if(StringUtils.isNotBlank(notification_id)){
+				int notificationsCount = objUsersDao.getNotificationsCount(sessionBean);
+				request.setAttribute("notificationsCount", notificationsCount);
+				List<Map<String,Object>> notificationsList = objUsersDao.getNotifications(sessionBean,false);
+				if(notificationsList!=null && notificationsList.size()>0){
+					session.setAttribute("notificationsList", notificationsList);
+				}else{
+					session.setAttribute("notificationsList", "");
+				}
+			}
 			
 		} catch (Exception e) {
 	   e.printStackTrace();

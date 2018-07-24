@@ -707,10 +707,10 @@ public class UsersDao extends BaseUsersDao
 						String qry = "select count(*) from  users u where u.id not in (select act_log.act_done_on_user_id from users_activity_log act_log where act_log.act_done_by_user_id = "+objUserBean.getId()+" and act_log.activity_type in ('profile_viewed')) "
 								+" 	 and u.status in ('1') and u.role_id not in (1) and u.gender not in  ('"+objUserBean.getGender()+"') and u.id not in  ("+objUserBean.getId()+") ";
 						int yet_to_view_cnt = jdbcTemplate.queryForInt(qry);
-						qry = "select count(*) from users u where u.id in (select act.act_done_on_user_id from users_activity_log act where act.act_done_by_user_id="+objUserBean.getId()+" and act.act_done_on_user_id=u.id and act.activity_type = 'profile_viewed' ) "
+						/*qry = "select count(*) from users u where u.id in (select act.act_done_on_user_id from users_activity_log act where act.act_done_by_user_id="+objUserBean.getId()+" and act.act_done_on_user_id=u.id and act.activity_type = 'profile_viewed' ) "
 								+" and u.id not in (select act.act_done_on_user_id from users_activity_log act where act.act_done_by_user_id="+objUserBean.getId()+" and act.act_done_on_user_id=u.id and act.activity_type in ('interest_request','message','mobile_no_viewed') ) "
-								+" 	 and u.status in ('1') and u.role_id not in (1) and u.gender not in  ('"+objUserBean.getGender()+"') and u.id not in  ("+objUserBean.getId()+") "; 
-						int viewed_not_contacted_cnt = jdbcTemplate.queryForInt(qry);
+								+" 	 and u.status in ('1') and u.role_id not in (1) and u.gender not in  ('"+objUserBean.getGender()+"') and u.id not in  ("+objUserBean.getId()+") ";*/ 
+						int viewed_not_contacted_cnt = this.getViewedNotContactedCount(objUserBean);
 						objUserBean.setYetToBeViewedCount(yet_to_view_cnt+"");
 						objUserBean.setViewedNotContactedCount(viewed_not_contacted_cnt+"");
 						session.setAttribute("cacheGuest",objUserBean);
@@ -1856,7 +1856,9 @@ public class UsersDao extends BaseUsersDao
 								+" and u.id not in (select act.act_done_on_user_id from users_activity_log act where act.act_done_by_user_id="+userId+" and act.act_done_on_user_id=u.id and act.activity_type in ('interest_request','message','mobile_no_viewed') ) "
 								+" and "+subStr+" ) as viewedNotContactedCount, "
 								//+" (select count(*) from  users u,express_intrest  ei where u.id = ei.user_id and ei.profile_id = "+userId+" and ei.short_listed = '1' and "+subStr+" ) as shortListedCount, "
-								+" (select count(*) from user_notifications where profile_id = "+userId+" and read_status = '0' and user_id in (select u.id from users u where u.id = user_id and u.status = '1' )) as notificationsCount,"
+								+" (select count(*) from user_notifications where profile_id = "+userId+" and read_status = '0' and user_id in (select u.id from users u where u.id = user_id and u.status = '1' )"
+										+ " and if(notifi_type='short_listed',((select count(*) from user_settings us where us.user_id =user_notifications.user_id and us.know_shortlisted_option = '1')=1),1) "
+										+" ) as notificationsCount,"
 								+" (select set_as_mail_default_text from users_activity_log act_log where act_log.act_done_by_user_id = "+userId+" and act_log.set_as_mail_default_text = '1') as default_text_option, "
 								+" (select activity_content from users_activity_log act_log where act_log.act_done_by_user_id = "+userId+" and act_log.set_as_mail_default_text = '1') as mail_default_text ";
 					
@@ -1919,7 +1921,9 @@ public class UsersDao extends BaseUsersDao
 			jdbcTemplate = custom.getJdbcTemplate();
 			int userId = objUserBean.getId();
 			try{
-				String qry = "select (select count(*) from user_notifications where profile_id = "+userId+" and read_status = '0' and user_id in (select u.id from users u where u.id = user_id and u.status = '1' )) as notificationsCount";
+				String qry = "select (select count(*) from user_notifications where profile_id = "+userId+" and read_status = '0' and user_id in (select u.id from users u where u.id = user_id and u.status = '1' ) "
+						+ " and if(notifi_type='short_listed',((select count(*) from user_settings us where us.user_id =user_notifications.user_id and us.know_shortlisted_option = '1')=1),1) "
+						+" ) as notificationsCount";
 				int count = jdbcTemplate.queryForInt(qry);
 				return count;
 			}catch(Exception e){
@@ -1927,6 +1931,22 @@ public class UsersDao extends BaseUsersDao
 				return 0;
 			}
 		}
+		
+		public int getViewedNotContactedCount(UsersBean objUserBean){
+			jdbcTemplate = custom.getJdbcTemplate();
+			int userId = objUserBean.getId();
+			try{
+				String qry = "select (select count(*) from users u where u.id in (select act.act_done_on_user_id from users_activity_log act where act.act_done_by_user_id="+userId+" and act.act_done_on_user_id=u.id and act.activity_type = 'profile_viewed' ) "
+								+" and u.id not in (select act.act_done_on_user_id from users_activity_log act where act.act_done_by_user_id="+userId+" and act.act_done_on_user_id=u.id and act.activity_type in ('interest_request','message','mobile_no_viewed') ) "
+								+" and u.status in ('1') and u.role_id not in (1) and u.gender not in  ('"+objUserBean.getGender()+"') and u.id not in  ("+userId+") ) as notificationsCount";
+				int count = jdbcTemplate.queryForInt(qry);
+				return count;
+			}catch(Exception e){
+				e.printStackTrace();
+				return 0;
+			}
+		}
+		
 		public List<Map<String,Object>> getAllSubscribedUsersForWeeklyMatchEmails(){
 			jdbcTemplate = custom.getJdbcTemplate();
 			String qryStr = "select * from users where status = '1' and role_id not in (1) and id in (select us.user_id from user_settings us where us.weekly_matches_emails = '1') ";

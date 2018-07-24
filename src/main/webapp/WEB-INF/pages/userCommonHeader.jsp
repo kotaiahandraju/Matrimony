@@ -3532,42 +3532,42 @@ img.hover-shadow {
 																<%-- <c:out value="${notification.fullName}" /> (<c:out value="${notification.username}" />) --%>
 																<c:set var="name" value="${notification.fullName} (${notification.username})" />
 																<c:if test="${notification.notifi_type == 'interest'}">
-																	<a href="inboxAction?tab_type=inbox&list_type=pending_requests">
+																	<a href="inboxAction?tab_type=inbox&list_type=pending_requests&nid=${notification.id}">
 																		<c:out value="${name}" /> expressed interest in your profile
 																	</a>
 																</c:if>
 																<c:if test="${notification.notifi_type == 'mobile_num_viewed'}">
-																	<a href="myMobileNoViewsList">
+																	<a href="myMobileNoViewsList?nid=${notification.id}">
 																		<c:out value="${name}" /> viewed your mobile number
 																	</a>
 																</c:if>
 																<c:if test="${notification.notifi_type == 'profile_viewed'}">
-																	<a href="myProfileViewsList">
+																	<a href="myProfileViewsList?nid=${notification.id}">
 																		<c:out value="${name}" /> viewed your profile
 																	</a>
 																</c:if>
 																<c:if test="${notification.notifi_type == 'mail'}">
-																	<a href="inboxAction?tab_type=inbox&list_type=pending_requests">
+																	<a href="inboxAction?tab_type=inbox&list_type=pending_requests&nid=${notification.id}">
 																		<c:out value="${name}" /> sent you personal mail
 																	</a>
 																</c:if>
 																<c:if test="${notification.notifi_type == 'short_listed'}">
-																	<a href="shortListedMe">
+																	<a href="shortListedMe?nid=${notification.id}">
 																		<c:out value="${name}" /> shortlisted your profile
 																	</a>
 																</c:if>
 																<c:if test="${notification.notifi_type == 'message_replied'}">
-																	<a href="inboxAction?tab_type=inbox&list_type=accepted_requests" >
+																	<a href="inboxAction?tab_type=inbox&list_type=accepted_requests&nid=${notification.id}" >
 																		<c:out value="${name}" /> replied to your message
 																	</a>
 																</c:if>
 																<c:if test="${notification.notifi_type == 'message_accepted'}">
-																	<a href="inboxAction?tab_type=inbox&list_type=accepted_requests" >
+																	<a href="inboxAction?tab_type=inbox&list_type=accepted_requests&nid=${notification.id}" >
 																		<c:out value="${name}" /> accepted your message
 																	</a>
 																</c:if>
 																<c:if test="${notification.notifi_type == 'interest_accepted'}">
-																	<a href="inboxAction?tab_type=inbox&list_type=accepted_requests" >
+																	<a href="inboxAction?tab_type=inbox&list_type=accepted_requests&nid=${notification.id}" >
 																		<c:out value="${name}" /> accepted your interest request
 																	</a>
 																</c:if>
