@@ -49,7 +49,7 @@ function removeALLNotification(){
 
 <div class="container" style="background:#fff; padding:15px; min-height:500px;">
 	<div class="col-md-9">
-		<h5>Your Notifications </h5></div><div class="col-md-3"><button type="button" class="btn btn-danger pull-right"><a href="#" onclick="removeALLNotification();">Delete All</a></button></span></div>
+		<h5>Your Notifications </h5></div><div class="col-md-3"><button type="button" class="btn btn-danger pull-right"><a href="#" onclick="removeALLNotification();" style="color:#fff;">Delete All</a></button></span></div>
 <div class="clearfix"></div>
 <hr><div class="col-md-12">
 

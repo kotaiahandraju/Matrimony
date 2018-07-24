@@ -8,6 +8,7 @@
 .modal-footer {
 text-align:left !important;}
 }
+}
 .imgareaselect-outer {
 position:fixed !important;
 }
