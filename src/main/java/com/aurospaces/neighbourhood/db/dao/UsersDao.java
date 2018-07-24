@@ -4131,7 +4131,9 @@ public boolean deletePhoto(String photoId){
 				+" (select u.username from users u where u.id=user_notifications.user_id) as userName,date_format(user_notifications.created_on,'%d-%M-%Y %H:%i') as created_on, "
 				+" (select uimg.image from vuser_images uimg where uimg.user_id=user_notifications.user_id and  uimg.status = '1' and uimg.is_profile_picture='1') as profileImage "
 				+" from user_notifications where profile_id = "+objUserBean.getId()+" and user_type = 'member' "
-				+"  and user_id in (select u.id from users u where u.id = user_id and u.status = '1' ) and user_notifications.read_status = '0'  order by user_notifications.created_on desc ");
+				+"  and user_id in (select u.id from users u where u.id = user_id and u.status = '1' ) and user_notifications.read_status = '0' "
+				+" and if(notifi_type='short_listed',((select count(*) from user_settings us where us.user_id =user_notifications.user_id and us.know_shortlisted_option = '1')=1),1) "
+				+ " order by user_notifications.created_on desc ");
 		if(!all_notifications){
 			buffer.append(" limit 10 offset 0");
 		}
