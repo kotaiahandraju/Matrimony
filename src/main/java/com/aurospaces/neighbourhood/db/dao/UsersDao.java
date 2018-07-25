@@ -1116,7 +1116,7 @@ public class UsersDao extends BaseUsersDao
 				try{
 					
 					if(default_text_option.equals("1")){
-						String qry = "update users_activity_log set set_as_mail_default_text = '0'  where act_done_by_user_id = "+objUserBean.getId();
+						String qry = "update users_activity_log set set_as_mail_default_text = '0'  where act_done_by_user_id = "+objUserBean.getId()+" and set_as_mail_default_text = '1' ";
 						jdbcTemplate.update(qry);
 						buffer.append("insert into users_activity_log(created_time,activity_type,act_done_by_user_id,act_done_on_user_id,activity_content,set_as_mail_default_text) "
 							+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','message',"+objUserBean.getId()+","+profileId+",'"+mail_content+"','1')");
@@ -3628,7 +3628,7 @@ public boolean deletePhoto(String photoId){
 	
 	public List<Map<String,Object>> getPackageExpiredProfiles(int package_id){
 		jdbcTemplate = custom.getJdbcTemplate();
-		String qryStr = "select u.*,u.id as userId,p.*,date_format(package_joined_date,'%d-%M-%Y') as package_joined_date from users u, package p  where u.package_id = p.id and p.id = "+package_id+" and current_date() > (select DATE_ADD((DATE_ADD(u.package_joined_date, INTERVAL p.duration MONTH)), INTERVAL -1 day)) group by u.package_id order by u.package_id desc";
+		String qryStr = "select u.*,u.id as userId,p.*,date_format(package_joined_date,'%d-%M-%Y') as package_joined_date from users u, package p  where u.package_id = p.id and p.id = "+package_id+" and p.status = '1' and current_date() > (select DATE_ADD((DATE_ADD(u.package_joined_date, INTERVAL p.duration MONTH)), INTERVAL -1 day)) group by u.package_id order by u.package_id desc";
 		try{
 			List<Map<String,Object>> list = jdbcTemplate.queryForList(qryStr);
 			if(list!=null)
