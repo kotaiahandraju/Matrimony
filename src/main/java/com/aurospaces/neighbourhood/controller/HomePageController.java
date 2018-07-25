@@ -4180,6 +4180,7 @@ public class HomePageController {
 								 session.setAttribute("mail_default_text", excaped_text);
 								 session.setAttribute("default_text_option", "1");
 								 objJson.put("mail_default_text", excaped_text);
+								 objJson.put("default_text_option", "1");
 							 }
 							 // decrease the profile count
 							 int allowed_profiles_limit = objUsersDao.getAllowedProfilesLimit(userBean.getId());

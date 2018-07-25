@@ -1678,30 +1678,49 @@ tooltip:hover:after {
 			
 		}
 		var mail_default_textt = "${mail_default_text}";
+		var option_selection = "${default_text_option}";
+		
 		function displayMailPopup(profile_id,memberName){
 			var roleId = ${cacheGuest.roleId};
-			$("#profile_id").val(profile_id);
-			$("#memberName").val(memberName);
-			$("#member_name_todisplay").html(" to "+memberName);
-			var option_selection = "${default_text_option}";
-			if(typeof option_selection != "undefined"){ 
-				if(option_selection=="1"){
-					var texttt = mail_default_textt; 
-					 texttt = texttt.replace(/##newline##/g,"\r\n");
-					 texttt = texttt.replace(/##tabspace##/g,"\t");
-					 $("#mail_content").val(texttt);
-					 
-				}else{
-					//$("#default_text_opt").removeAttr("checked");
+			if(roleId==4 || roleId==12 || roleId==13){
+				document.searchForm2.action = "memberShipPage"
+				document.searchForm2.submit();
+				return true;
+			}else{
+				var membershipStatus = ${cacheGuest.membership_status};
+				if(membershipStatus!="1"){
+					alert("Your membership validity period is over. Renew your membership plan and get more profiles");
+					return false;
 				}
+				$("#profile_id").val(profile_id);
+				$("#memberName").val(memberName);
+				$("#member_name_todisplay").html(" to "+memberName);
+				
+				if(typeof option_selection != "undefined"){ 
+					if(option_selection=="1"){
+						$("#default_text_opt").prop("checked",true);
+						var texttt = mail_default_textt; 
+						 texttt = texttt.replace(/##newline##/g,"\r\n");
+						 texttt = texttt.replace(/##tabspace##/g,"\t");
+						 $("#mail_content").val(texttt);
+						 
+					}else{
+						$("#default_text_opt").removeAttr("checked");
+						$("#mail_content").val("");
+					}
+				}
+				$('#myModal').show();
+				$('#myModal').modal();
+				
 			}
-			var current_selection = $("#default_text_opt").prop("checked");
+			
+			/* var current_selection = $("#default_text_opt").prop("checked");
 			 if(typeof current_selection != "undefined"){ 
 					if(current_selection=="1"){
 						$("#default_text_opt").removeAttr("checked");
 					}
-			 }
-			if(roleId==4 || roleId==12 || roleId==13){
+			 } */
+			/* if(roleId==4 || roleId==12 || roleId==13){
 				document.searchForm2.action = "memberShipPage"
 				document.searchForm2.submit();
 				return true;
@@ -1715,7 +1734,7 @@ tooltip:hover:after {
 				$('#myModal').show();
 				$('#myModal').modal();
 				
-			}
+			} */
 		}
 
 		function sendMail(){
@@ -1745,13 +1764,11 @@ tooltip:hover:after {
 							var current_selection = $("#default_text_opt").prop("checked");
 							 if(typeof current_selection != "undefined"){ 
 									if(current_selection=="1"){
-										$("#default_text_opt").removeAttr("checked");
+										option_selection = "1";
+										mail_default_textt = content;
 									}
 							 }
-							 var defaultText  = jsonobj.mail_default_text;
-							 if(typeof defaultText != "undefined"){
-								 mail_default_textt = defaultText;
-							 }
+							 
 							$("#closeBtn").trigger("click");
 						}else{
 							alert("Some problem occured while sending e-mail!! Please try again.");
