@@ -1,55 +1,9 @@
 <%@ include file="userHeader.jsp"%>
-<%-- <link href="${baseurl}/css/imgareaselect-default.css" rel="stylesheet" media="screen">
+<link href="${baseurl}/css/imgareaselect-default.css" rel="stylesheet" media="screen">
 <link rel="stylesheet" href="${baseurl}/css/jquery.awesome-cropper.css">
 <script src="${baseurl}/js/jquery.imgareaselect.js"></script> 
-<script src="${baseurl}/js/jquery.awesome-cropper.js"></script>  --%>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-
-  <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/cropper/2.3.4/cropper.min.css'>
-
+<script src="${baseurl}/js/jquery.awesome-cropper.js"></script> 
 <style>
-fieldset {
-border:none !important;
-}
-.box {
-	padding: 0.5em;
-	width: 100%;
-	margin:0.5em;
-}
-
-.box-2 {
-	padding: 0.5em;
-	width: calc(100%/2 - 1em);
-}
-
-.options label,
-.options input{
-	width:4em;
-	padding:0.5em 0em;
-}
-/* .btn{
-	background:white;
-	color:black;
-	border:1px solid black;
-	padding: 0.5em 1em;
-	text-decoration:none;
-	margin:0.8em 0.3em;
-	display:inline-block;
-	cursor:pointer;
-} */
-
-.hide {
-	display: none;
-}
-
-img {
-	max-width: 100%;
-}
-
-input[type="file"] {
-margin:5px;
-}
 @media screen and (max-width: 640px) and (min-width: 320px) {
 .modal-footer {
 text-align:left !important;}
@@ -76,7 +30,7 @@ height:250px;
     background-repeat: no-repeat;
 }
 </style>
-			<div class="col-md-9 products-grid-left">
+			<div class="col-md-8 products-grid-left">
 				<div class="panel panel-success">
 					<div class="panel-heading">My Photos</div>
 					<div class="panel-body">
@@ -115,7 +69,7 @@ height:250px;
 			    	
 			    </div>
    
-			   <div class="col-md-12">
+			   <div class="col-md-8">
 			   	<fieldset>
 			   		
 			   		<div id="secondForm">
@@ -123,33 +77,11 @@ height:250px;
 					      <h3>Upload photo.</h3>
 					    </div>
 					    <div class="form-group">
-					      <div class="col-md-12">
+					      <div class="col-md-8">
 					      	<!-- <input type="file" id='imageName1'  onchange="checkImg(this)"><br> -->
-					    	<!-- <form role="form">
+					    	<form role="form">
 						      <input id="imageName" type="hidden" name="test[image]">
-						    </form> -->
-						    <div class="box">
-		<input type="file" id="file-input">
-	</div>
-	<!-- leftbox -->
-	<div class="box-2">
-		<div class="result"></div>
-	</div>
-	<!--rightbox-->
-	<div class="box-2 img-result hide">
-		<!-- result of crop -->
-		<img class="cropped" src="" alt="">
-	</div>
-	<!-- input file -->
-	<div class="box">
-		<div class="options hide">
-			<label> Width</label>
-			<input type="number" class="img-w" value="600" min="100" max="600"  width="100"/>
-		</div>
-		<!-- save btn -->
-		<button class="btn save hide">Save</button>
-					      	<br>
-					      </div>
+						    </form>
 					      </div>
 					    </div>
 					    <div class="form-group">
@@ -327,63 +259,7 @@ function deletePhoto(photoId,divId){
 $(".dashboard").addClass("active");
 
 </script>
- <script src='https://cdnjs.cloudflare.com/ajax/libs/cropperjs/0.8.1/cropper.min.js'></script>
- <Script>
-//vars
- var result = document.querySelector('.result'),
-     img_result = document.querySelector('.img-result'),
-     img_w = document.querySelector('.img-w'),
-     img_h = document.querySelector('.img-h'),
-     options = document.querySelector('.options'),
-     save = document.querySelector('.save'),
-     cropped = document.querySelector('.cropped'),
-     dwn = document.querySelector('.download'),
-     upload = document.querySelector('#file-input'),
-     cropper = '';
 
- // on change show image with crop options
- upload.addEventListener('change', function (e) {
-   if (e.target.files.length) {
-     // start file reader
-     var reader = new FileReader();
-     reader.onload = function (e) {
-       if (e.target.result) {
-         // create new image
-         var img = document.createElement('img');
-         img.id = 'image';
-         img.src = e.target.result;
-         // clean result before
-         result.innerHTML = '';
-         // append new image
-         result.appendChild(img);
-         // show save btn and options
-         save.classList.remove('hide');
-         options.classList.remove('hide');
-         // init cropper
-         cropper = new Cropper(img);
-       }
-     };
-     reader.readAsDataURL(e.target.files[0]);
-   }
- });
-
- // save on click
- save.addEventListener('click', function (e) {
-   e.preventDefault();
-   // get result to data uri
-   var imgSrc = cropper.getCroppedCanvas({
-     width: img_w.value // input value
-   }).toDataURL();
-   // remove hide class of img
-   cropped.classList.remove('hide');
-   img_result.classList.remove('hide');
-   // show image cropped
-   cropped.src = imgSrc;
-   dwn.classList.remove('hide');
-   dwn.download = 'imagename.png';
-   dwn.setAttribute('href', imgSrc);
- });</Script>
-<%-- 
 <script src="${baseurl}/js/jquery.imgareaselect.js"></script> 
 <script src="${baseurl}/js/jquery.awesome-cropper.js"></script> 
 <script>
@@ -392,5 +268,5 @@ $(".dashboard").addClass("active");
         { width: 626, height: 417, debug: true }
         );
     });
-    </script>  --%>
+    </script> 
 <%@ include file="userFooter.jsp"%>
