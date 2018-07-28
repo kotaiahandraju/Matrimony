@@ -904,7 +904,7 @@ function getReliginCastAjax1() {
 											class="img-responsive img-thumbnail" alt="">
 										<figcaption>
 											<h3>Bride Name & Groom Name</h3>
-											<span>June 9, 2017</span> <a href="successStory">read more...</a>
+											<span>June 9, 2017</span> <a href="successStory&divId=1">read more...</a>
 										</figcaption>
 									</figure>
 								</li>
@@ -914,7 +914,7 @@ function getReliginCastAjax1() {
 											class="img-responsive img-thumbnail" alt="">
 										<figcaption>
 											<h3>Bride Name & Groom Name</h3>
-											<span>June 9, 2017</span> <a href="#">read more...</a>
+											<span>June 9, 2017</span> <a href="successStory&divId=2">read more...</a>
 										</figcaption>
 									</figure>
 								</li>
@@ -924,7 +924,7 @@ function getReliginCastAjax1() {
 											class="img-responsive img-thumbnail" alt="">
 										<figcaption>
 											<h3>Bride Name & Groom Name</h3>
-											<span>June 9, 2017</span> <a href="#">read more...</a>
+											<span>June 9, 2017</span> <a href="successStory&divId=3">read more...</a>
 										</figcaption>
 									</figure>
 								</li>
