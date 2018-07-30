@@ -284,8 +284,9 @@ public class HomePageController {
 						Map<String,Object> user_settings = settingsDao.getUserSettings(objUsersBean1.getId()+"");
 						session.setAttribute("user_settings", user_settings);
 						Map<String,Object> interestCounts = objUsersDao.getInterestCounts(objUsersBean);
-						long notificationsCount = (Long)interestCounts.get("notificationsCount");
-						request.setAttribute("notificationsCount", notificationsCount);
+						//long notificationsCount = (Long)interestCounts.get("notificationsCount");
+						int notificationsCount = objUsersDao.getNotificationsCount(objUsersBean);
+						session.setAttribute("notificationsCount", notificationsCount);
 						sessionBean.setYetToBeViewedCount((String.valueOf(interestCounts.get("yetToBeViewedCount"))));
 						sessionBean.setSentInterestCount("0");
 						sessionBean.setAwaitingInterestCount("0");
@@ -1310,7 +1311,7 @@ public class HomePageController {
 			}
 			// update notifications count also
 			int notificationsCount = objUsersDao.getNotificationsCount(sessionBean);
-			request.setAttribute("notificationsCount", notificationsCount);
+			session.setAttribute("notificationsCount", notificationsCount);
 			List<Map<String,Object>> notificationsList = objUsersDao.getNotifications(sessionBean,false);
 			if(notificationsList!=null && notificationsList.size()>0){
 				session.setAttribute("notificationsList", notificationsList);
@@ -2937,9 +2938,9 @@ public class HomePageController {
 			if (forwarded) {
 				objJson.put("message", "success");
 				// update pending req count
-				int pending = Integer.parseInt(sessionBean.getPendingRequestsCount());
+				/*int pending = Integer.parseInt(sessionBean.getPendingRequestsCount());
 				sessionBean.setPendingRequestsCount(pending>0?(pending-1)+"":"0");
-				session.setAttribute("cacheGuest",sessionBean);
+				session.setAttribute("cacheGuest",sessionBean);*/
 			} else {
 				objJson.put("message", "failed");
 			}
@@ -3146,7 +3147,7 @@ public class HomePageController {
 			request.setAttribute("total_records", total_records);
 			if(StringUtils.isNotBlank(notification_id)){
 				int notificationsCount = objUsersDao.getNotificationsCount(sessionBean);
-				request.setAttribute("notificationsCount", notificationsCount);
+				session.setAttribute("notificationsCount", notificationsCount);
 				List<Map<String,Object>> notificationsList = objUsersDao.getNotifications(sessionBean,false);
 				if(notificationsList!=null && notificationsList.size()>0){
 					session.setAttribute("notificationsList", notificationsList);
@@ -3778,7 +3779,7 @@ public class HomePageController {
 			request.setAttribute("total_records", total_records);
 			if(StringUtils.isNotBlank(notification_id)){
 				int notificationsCount = objUsersDao.getNotificationsCount(sessionBean);
-				request.setAttribute("notificationsCount", notificationsCount);
+				session.setAttribute("notificationsCount", notificationsCount);
 				List<Map<String,Object>> notificationsList = objUsersDao.getNotifications(sessionBean,false);
 				if(notificationsList!=null && notificationsList.size()>0){
 					session.setAttribute("notificationsList", notificationsList);
@@ -3843,7 +3844,7 @@ public class HomePageController {
 			request.setAttribute("total_records", total_records);
 			if(StringUtils.isNotBlank(notification_id)){
 				int notificationsCount = objUsersDao.getNotificationsCount(sessionBean);
-				request.setAttribute("notificationsCount", notificationsCount);
+				session.setAttribute("notificationsCount", notificationsCount);
 				List<Map<String,Object>> notificationsList = objUsersDao.getNotifications(sessionBean,false);
 				if(notificationsList!=null && notificationsList.size()>0){
 					session.setAttribute("notificationsList", notificationsList);
@@ -4223,6 +4224,7 @@ public class HomePageController {
 				if(StringUtils.isNotBlank(notification_id)){
 					//update notification status as read
 					objUsersDao.updateNotificationStatus(notification_id);
+					System.out.println("CALL FROM NOTIFICATION LINK....");
 				}
 				if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("sent_requests")){
 					requests = objUsersDao.getsentRequests(sessionBean.getId()+"",0);
@@ -4230,8 +4232,10 @@ public class HomePageController {
 					requests = objUsersDao.getAwaitingRequests(sessionBean.getId()+"",0);
 				}else if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("pending_requests")){
 					requests = objUsersDao.getPendingInterestRequests(sessionBean.getId()+"",0);
+					System.out.println("PENDING REQUESTS LIST:"+requests);
 					int pedingCount = objUsersDao.getPendingInterestsCount(sessionBean);
 					sessionBean.setPendingRequestsCount(pedingCount+"");
+					System.out.println("UPDATED SESSION BEAN WITH COUNT");
 					session.setAttribute("cacheGuest",sessionBean);
 				}else if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("accepted_requests")){
 					requests = objUsersDao.getacceptedRequests(sessionBean.getId()+"",0);
@@ -4254,6 +4258,7 @@ public class HomePageController {
 						}
 						//add recent activity data
 						Map<String,Object> recent_activity = objUsersDao.getRecentActivityOf(sessionBean.getId()+"",(Integer)reqObj.get("id"),list_type);
+						System.out.println("GOT RECENT ACTIVITY...");
 						if(recent_activity!=null){
 							reqObj.put("recent_activity_map", recent_activity);
 						}else{
@@ -4278,8 +4283,9 @@ public class HomePageController {
 			request.setAttribute("total_records", total_records);
 			if(StringUtils.isNotBlank(notification_id)){
 				int notificationsCount = objUsersDao.getNotificationsCount(sessionBean);
-				request.setAttribute("notificationsCount", notificationsCount);
+				session.setAttribute("notificationsCount", notificationsCount);
 				List<Map<String,Object>> notificationsList = objUsersDao.getNotifications(sessionBean,false);
+				System.out.println("UPDATED NOTIFICATIONS LIST");
 				if(notificationsList!=null && notificationsList.size()>0){
 					session.setAttribute("notificationsList", notificationsList);
 				}else{
@@ -4756,12 +4762,13 @@ public class HomePageController {
 		objUsersDao.updateLoginTime(objUserBean,"1");
 		
 			Map<String,Object> interestCounts = objUsersDao.getInterestCounts(objUserBean);
-			long notificationsCount = (Long)interestCounts.get("receivedInterestCount")
+			/*long notificationsCount = (Long)interestCounts.get("receivedInterestCount")
 									+ (Long)interestCounts.get("mobileNumViewedCount")
 									+ (Long)interestCounts.get("profileViewedCount")
-									+ (Long)interestCounts.get("shortListedCount");
+									+ (Long)interestCounts.get("shortListedCount");*/
 			if(objUserBean.getStatus().equals("1")){
-				request.setAttribute("notificationsCount", notificationsCount);
+				int notificationsCount = objUsersDao.getNotificationsCount(objUserBean);
+				session.setAttribute("notificationsCount", notificationsCount);
 				objUserBean.setSentInterestCount((String.valueOf(interestCounts.get("sentInterestCount"))));
 				objUserBean.setAwaitingInterestCount((String.valueOf(interestCounts.get("awaitingInterestCount"))));
 				objUserBean.setReceivedInterestCount((String.valueOf(interestCounts.get("receivedInterestCount"))));
@@ -4778,7 +4785,7 @@ public class HomePageController {
 				objUserBean.setShortListedCount((String.valueOf(interestCounts.get("shortListedCount"))));
 			
 		}else{
-			request.setAttribute("notificationsCount", 0);
+			session.setAttribute("notificationsCount", 0);
 			objUserBean.setSentInterestCount("0");
 			objUserBean.setReceivedInterestCount("0");
 			objUserBean.setAcceptedInterestCount("0");
@@ -4920,7 +4927,7 @@ public class HomePageController {
 				request.setAttribute("notificationsList", notifications);
 			}
 			int notificationsCount = objUsersDao.getNotificationsCount(sessionBean);
-			request.setAttribute("notificationsCount", notificationsCount);
+			session.setAttribute("notificationsCount", notificationsCount);
 		} catch (Exception e) {
 	   e.printStackTrace();
 	   System.out.println(e);
