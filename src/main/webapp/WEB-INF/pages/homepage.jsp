@@ -46,11 +46,36 @@
 <link rel="stylesheet" type="text/css" href="${baseurl}/user/css/component.css" />
 
 <style>
+.section-title {
+margin-bottom:0px;}
+.getquote .right-side { 
+padding-top:2px;
+}
+/* @media only screen and (max-width: 1280px) {
+section.getquote {
+    margin-top: 45px;
+}} */
+#myModal {
+padding-top: 55px !important;
+    display: block;
+    padding-right: 16px;
+    margin-top:0px !important;
+}
 @media only screen and (max-width: 640px) and (min-width: 320px) {
    video {
     width: 100% !important;
     height: auto !important ;
      margin-top:0px !important;
+}
+.bannerposter {
+display:block !important;
+    padding-top: 51px;
+}
+.bannerposter1 {
+display:none !important;
+}
+.slider-banner {
+    margin-top: 0px; 
 }
 }
  video {
@@ -83,6 +108,18 @@ background:rgba(0,0,0,0.4);
     z-index: 0;
     clear: both;
     background-color: #f7f7f7;
+}
+#newmodal .modal-header .close {
+    margin-top: -2px;
+    margin: 10px;
+    color: #fff;
+    opacity: 1;
+}
+.newbody {
+background:#2da3de;
+color:#fff;
+border-bottom-left-radius: 33px;
+    border-bottom-right-radius: 33px;
 }
 .btn-danger {
 width: 135px;
@@ -204,6 +241,8 @@ window.setTimeout(function() {
         $(this).remove(); 
     });
 }, 5000);
+
+ 
 </script>
 </head>
 
@@ -235,7 +274,6 @@ window.setTimeout(function() {
 		</div>
 		<!-- /.container-fluid -->
 	</nav>
-
 	<div id="register-info" class="modal modal fade" data-backdrop="static"
 		data-keyboard="false">
 		<div class="modal-dialog modal-sm">
@@ -352,7 +390,7 @@ window.setTimeout(function() {
 
 
 
-
+<div class="clearfix"></div><div class="bannerposter" style="display:none;"><img class="img-responsive" src="img/bannerposter1.jpg" style="width:100%;"  /></div>
 	<!-- Slider -->
 
 	<section class="slider-banner">
@@ -371,7 +409,7 @@ window.setTimeout(function() {
 			</div>
 		</div>
 	</section>
-
+<div class="clearfix"></div><div class="bannerposter1"><img class="img-responsive" src="img/bannerposter1.jpg" style="width:100%;"  /></div>
 	<section class="darkSection">
 		<div class="container">
 			<div class="searchbg">
@@ -480,10 +518,10 @@ window.setTimeout(function() {
 						
 
 <!-- Modal -->
-<div id="myModal" class="modal fade" role="dialog" style="  margin-top:55px;">
+<!-- <div id="myModal" class="modal fade" role="dialog" style="  margin-top:55px;">
   <div class="modal-dialog">
 
-    <!-- Modal content-->
+    Modal content
     <div class="modal-content">		
       <div class="modal-header" style="background:#099cca; color:#fff;"> <h3>Your Search Results</h3>
         <button type="button" style="color:#fff !important; margin-right:10px; opacity:1;" class="close" data-dismiss="modal">&times;</button>
@@ -500,7 +538,7 @@ window.setTimeout(function() {
     </div>
 
   </div>
-</div>				
+</div>		 -->		
 						
 <script>
 
@@ -635,6 +673,7 @@ function getReliginCastAjax1() {
 		
 	});
 }
+
 </script>
 						<div class="quote-form row">
 							<!-- contact form -->
@@ -662,6 +701,8 @@ function getReliginCastAjax1() {
 						</div>
 					</div>
 				</div>
+
+			
 			</div>
 		</div>
 	</section>
@@ -862,8 +903,10 @@ function getReliginCastAjax1() {
 										<img src="user/images/portfolio/01-thumbnail.jpg"
 											class="img-responsive img-thumbnail" alt="">
 										<figcaption>
+											<h3>Krishna& Gopika</h3>
+											<span>June 9, 2017</span> <a href="successStory#01-thumbnail.jpg">read more...</a>
 											<h3>Bride Name & Groom Name</h3>
-											<span>June 9, 2017</span> <a href="#">read more...</a>
+											<span>June 9, 2017</span> <a href="successStory&divId=1">read more...</a>
 										</figcaption>
 									</figure>
 								</li>
@@ -872,8 +915,10 @@ function getReliginCastAjax1() {
 										<img src="user/images/portfolio/02-thumbnail.jpg"
 											class="img-responsive img-thumbnail" alt="">
 										<figcaption>
+											<h3>Kishore & Vijaya</h3>
+											<span>April 28, 2017</span> <a href="successStory#02-thumbnail.jpg">read more...</a>
 											<h3>Bride Name & Groom Name</h3>
-											<span>June 9, 2017</span> <a href="#">read more...</a>
+											<span>June 9, 2017</span> <a href="successStory&divId=2">read more...</a>
 										</figcaption>
 									</figure>
 								</li>
@@ -882,8 +927,10 @@ function getReliginCastAjax1() {
 										<img src="user/images/portfolio/03-thumbnail.jpg"
 											class="img-responsive img-thumbnail" alt="">
 										<figcaption>
+											<h3>Srinivas&Lavanya</h3>
+											<span>May 2, 2017</span> <a href="successStory#03-thumbnail.jpg">read more...</a>
 											<h3>Bride Name & Groom Name</h3>
-											<span>June 9, 2017</span> <a href="#">read more...</a>
+											<span>June 9, 2017</span> <a href="successStory&divId=3">read more...</a>
 										</figcaption>
 									</figure>
 								</li>
@@ -954,9 +1001,38 @@ function getReliginCastAjax1() {
 			</div>
 		</div>
 	</footer>
+<div id="newmodal" class="modal fade">
+    		<div class="modal-dialog">
+        <div class="modal-content" style="margin-top:50px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h2 class="modal-title grademember">Upgrade Membership</h2>
+            </div>
+            <div class="modal-body newbody col-md-12">
+				<div class="col-md-5"><img src="${baseurl}/images/up.png" class="img-responsive"/></div>
+				<div class="col-md-7">
+				<p style="color:#b7f528;">Start Contracting Matches</p>
+				<p><i class="fa fa-phone"></i> View Phone Numbers </p>
+				<p> <i class="fa fa-comment"></i> Chat Instantly</p>
+				 <div class="clearfix"></div>
+				 <p><i  class="fa fa-envelope"></i> Send Personalized Images</p>
+				 <p> &nbsp; &nbsp; &nbsp; Upto <span class="fa fa-inr"></span> 2000 off</p>
+				 <p> &nbsp; &nbsp; &nbsp; On Classic Packages</p><br>
+				 <span class="btn btn-warning" align="center" h><a href="memberShipPage" >Upgrade Now </a><i class="fa fa-chevron-right"></i></span>
+				 </div>
+            </div>
+        </div>
+    		</div>
+				</div>
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'></script>
 
 
+<script>
 
+$(window).load(function(){        
+	   $('#myModal').modal();
+	    });</script>
 
 	<script src="${baseurl}/user/vendor/jquery/jquery.min.js"></script>
 	<script src="${baseurl}/user/js/ie10-viewport-bug-workaround.js"></script>
@@ -1193,6 +1269,13 @@ $("#secondButton").click(function(event)
 			}
 			}
 		});
+		
+		
+// 		$( document ).ready(function() {
+// 		    $("img").on("contextmenu",function(){
+// 		       return false;
+// 		    }); 
+// 		});
 </script>
 </body>
 </html>

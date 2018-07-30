@@ -236,6 +236,15 @@ padding:10px;}
 										</c:if>
 										<c:set var="short_str" value="${'Mobilenumber Viewed'}" />
 									</c:if>
+									<c:if test="${act_type == 'short_listed' }">
+										<c:if test="${act_done_by == cacheGuest.id }">
+											<c:set var="act_str" value="You shortlisted ${her_his_you} profile" />
+										</c:if>
+										<c:if test="${act_done_by != cacheGuest.id }">
+											<c:set var="act_str" value="${act_str} shortlisted your profile" />
+										</c:if>
+										<c:set var="short_str" value="${'Shortlisted'}" />
+									</c:if>
 								<p><span><img src="${short_str_symbol}"/> <c:out value="${short_str}" /> <span class="pull-right"><c:out value="${conversation.created_on}" /> <a href="#"><i data-toggle="tooltip" title="Delete" class="fa fa-trash-o" style="font-size:16px;"></i></a></span></p>
 								<p><strong> &nbsp; &nbsp; <c:out value="${act_str}" />.</strong></p>
 								<p><c:out value="${message_content}" /></p>

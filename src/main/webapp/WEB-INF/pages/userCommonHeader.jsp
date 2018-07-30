@@ -1160,7 +1160,7 @@ tooltip:hover:after {
 							myProfileViewed_str = opp_gender_str+" viewed your profile.<br>";
 						}
 						*/
-						
+						var recent_activity = orderObj.recent_activity_map;
 						var acceptOptions = '';
 						if(listType == "pending_requests" || listType == "filtered_requests"){
 							interestStr = '';
@@ -1171,7 +1171,7 @@ tooltip:hover:after {
 				            	//+ '<button class="btn btn-danger btn-block" onclick="displayMobileNum_messages('+orderObj.id+',\'preferences\,'+orderObj.requestId+')">View Mobile Number</button>'
 				            	+ '<div class="clearfix"></div>'
 				            	+ '</div>';
-							acceptOptions = "<span id='accept"+orderObj.requestId+"'><a type='button' class='btn btn-primary btn-sm' onclick='acceptRequest("+orderObj.requestId+",\"1\")'>Yes</a><a type='button' class='btn btn-danger btn-sm' id='reject"+orderObj.requestId+"' href='#' onclick='acceptRequest("+orderObj.requestId+", \"0\")'>Not Interested</a></span>";
+							acceptOptions = "<span id='accept"+recent_activity.id+"'><a type='button' class='btn btn-primary btn-sm' onclick='acceptRequest("+recent_activity.id+",\"1\")'>Yes</a><a type='button' class='btn btn-danger btn-sm' id='reject"+recent_activity.id+"' href='#' onclick='acceptRequest("+recent_activity.id+", \"0\")'>Not Interested</a></span>";
 							
 						}else if(listType == "accepted_requests"){
 							interestStr = '';
@@ -1252,7 +1252,7 @@ tooltip:hover:after {
 						var reply_content = "";
 						var received_msg_str = "";
 						var login_user_id = ${cacheGuest.id};
-						var recent_activity = orderObj.recent_activity_map;
+						
 						if(typeof recent_activity != "undefined"){
 							if(recent_activity.activity_type=="interest_request"){
 								if(login_user_id==recent_activity.act_done_by_user_id){
@@ -1261,7 +1261,7 @@ tooltip:hover:after {
 										activity_str = "You sent an interest request to him";
 									else
 										activity_str = "You sent an interest request to "+her_his_you ;
-									acceptOptions = '<span id="mail'+orderObj.id+'"><a type="button" class="btn btn-primary btn-sm" id="sendMail'+orderObj.requestId+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')">Send Mail</a></span>';
+									acceptOptions = '<span id="mail'+orderObj.id+'"><a type="button" class="btn btn-primary btn-sm" id="sendMail'+recent_activity.id+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')">Send Mail</a></span>';
 								}else{
 									act_short_str = "Interest Request Received";
 									activity_str = opp_gender_str +" sent an interest request to you. Would you like to take it further?" ;
@@ -1276,7 +1276,7 @@ tooltip:hover:after {
 								}else{
 									activity_str = opp_gender_str+" accepted your request";
 								}
-								acceptOptions = '<span id="mail'+orderObj.requestId+'"><a type="button" class="btn btn-primary btn-sm" id="sendMail'+orderObj.id+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')">Send Mail</a></span>';
+								acceptOptions = '<span id="mail'+recent_activity.id+'"><a type="button" class="btn btn-primary btn-sm" id="sendMail'+orderObj.id+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')">Send Mail</a></span>';
 							}
 							if(recent_activity.activity_type=="interest_rejected"){
 								act_short_str = "Request Rejected";
@@ -1311,7 +1311,7 @@ tooltip:hover:after {
 										received_msg_str = received_msg_str.replace(/##newline##/g," ");
 										received_msg_str = received_msg_str.replace(/##tabspace##/g," ")+".";
 									}
-									acceptOptions = '<span id="mail'+orderObj.id+'"><a type="button" class="btn btn-primary btn-sm" id="sendMail'+orderObj.requestId+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')">Send Mail</a></span>';
+									acceptOptions = '<span id="mail'+orderObj.id+'"><a type="button" class="btn btn-primary btn-sm" id="sendMail'+recent_activity.id+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')">Send Mail</a></span>';
 								}else{
 									act_short_str = "Message Received";
 									activity_str = opp_gender_str +" sent a message to you. Would you like to take it further?" ;
@@ -1320,7 +1320,7 @@ tooltip:hover:after {
 										received_msg_str = received_msg_str.replace(/##newline##/g," ");
 										received_msg_str = received_msg_str.replace(/##tabspace##/g," ")+".";
 									}
-									acceptOptions = "<span id='accept"+orderObj.requestId+"'><a type='button' class='btn btn-primary btn-sm' onclick='acceptMessage("+orderObj.requestId+",\"1\")'>Yes</a><a type='button' class='btn btn-danger btn-sm' id='reject"+orderObj.requestId+"' href='#' onclick='acceptMessage("+orderObj.requestId+", \"0\")'>Not Interested</a></span>";
+									acceptOptions = "<span id='accept"+recent_activity.id+"'><a type='button' class='btn btn-primary btn-sm' onclick='acceptMessage("+recent_activity.id+",\"1\")'>Yes</a><a type='button' class='btn btn-danger btn-sm' id='reject"+recent_activity.id+"' href='#' onclick='acceptMessage("+recent_activity.id+", \"0\")'>Not Interested</a></span>";
 								}
 								
 							}
@@ -1335,10 +1335,10 @@ tooltip:hover:after {
 										reply_content = "---Original message---\r\nFrom:"+orderObj.username+"\r\nTo:${cacheGuest.username}\r\n"+reply_content;
 									}
 									//acceptOptions = '<span id="reply'+orderObj.requestId+'"><a type="button" class="btn btn-primary btn-sm" onclick="replyMessage('+orderObj.requestId+',\''+recent_activity.activity_content+'\')">Reply</a></span>';
-									acceptOptions = '<span id="replyBtn'+orderObj.requestId+'"><button type="button" onclick="displayReplyArea(this.id)" id="'+orderObj.requestId+'reply"  class="btn btn-warning btn-sm">Reply</button><button type="button" class="btn btn-danger btn-sm" id="'+orderObj.requestId+'sendmail" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')" style="display:none">Send Mail</button></span>';
+									acceptOptions = '<span id="replyBtn'+recent_activity.id+'"><button type="button" onclick="displayReplyArea(this.id)" id="'+recent_activity.id+'reply"  class="btn btn-warning btn-sm">Reply</button><button type="button" class="btn btn-danger btn-sm" id="'+recent_activity.id+'sendmail" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')" style="display:none">Send Mail</button></span>';
 								}else{
 									activity_str = opp_gender_str+" accepted your message";
-									acceptOptions = '<span id="mail'+orderObj.id+'"><a type="button" class="btn btn-primary btn-sm" id="sendMail'+orderObj.requestId+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')">Send Mail</a></span>';
+									acceptOptions = '<span id="mail'+orderObj.id+'"><a type="button" class="btn btn-primary btn-sm" id="sendMail'+recent_activity.id+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')">Send Mail</a></span>';
 								}
 							}
 							if(recent_activity.activity_type=="message_rejected"){
@@ -1356,10 +1356,12 @@ tooltip:hover:after {
 								}else{
 									activity_str = opp_gender_str+" replied to your message";
 								}
-								received_msg_str = recent_activity.activity_content;
+								received_msg_str = recent_activity.replied_msg_content;
 								if(received_msg_str!=null && typeof received_msg_str != "undefined"){
 									received_msg_str = received_msg_str.replace(/##newline##/g," ");
 									received_msg_str = received_msg_str.replace(/##tabspace##/g," ")+".";
+								}else{
+									received_msg_str = "";
 								}
 								acceptOptions = '<span id="mail'+orderObj.id+'"><a type="button" class="btn btn-primary btn-sm" id="sendMail'+orderObj.id+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')">Send Mail</a></span>';
 							}
@@ -1434,12 +1436,12 @@ tooltip:hover:after {
 			            	//+ '<tr><td><button type="button" class="btn btn-danger btn-sm" id="sendMail'+orderObj.requestId+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')" style="display:none">Send Mail</button></td></tr>'
 			            	+ '</table>'
 			            	+ '<!-- Reply start -->'
-			            	+ '<div class="panel panel-success" id="'+orderObj.requestId+'myDIV"  style="display:none">'
+			            	+ '<div class="panel panel-success" id="'+recent_activity.id+'myDIV"  style="display:none">'
 							+ '<div class="panel-heading">Reply To This Message </div>'
       						+ '<div class="panel-body">'
  							+ '<textarea id="replyContent" style="width:100%; height:150px; overflow-y:scroll;" >'+reply_content
 							+ '</textarea>'
-							+  ' <br><button type="button" class="btn btn-warning pull-right " onclick="replyMessage('+orderObj.requestId+')">Reply</button>'
+							+  ' <br><button type="button" class="btn btn-warning pull-right " onclick="replyMessage('+recent_activity.id+')">Reply</button>'
 							+ '</div>'
 							+'</div>'
 							+'<!-- Reply End -->'
@@ -1736,30 +1738,49 @@ tooltip:hover:after {
 			
 		}
 		var mail_default_textt = "${mail_default_text}";
+		var option_selection = "${default_text_option}";
+		
 		function displayMailPopup(profile_id,memberName){
 			var roleId = ${cacheGuest.roleId};
-			$("#profile_id").val(profile_id);
-			$("#memberName").val(memberName);
-			$("#member_name_todisplay").html(" to "+memberName);
-			var option_selection = "${default_text_option}";
-			if(typeof option_selection != "undefined"){ 
-				if(option_selection=="1"){
-					var texttt = mail_default_textt; 
-					 texttt = texttt.replace(/##newline##/g,"\r\n");
-					 texttt = texttt.replace(/##tabspace##/g,"\t");
-					 $("#mail_content").val(texttt);
-					 
-				}else{
-					//$("#default_text_opt").removeAttr("checked");
+			if(roleId==4 || roleId==12 || roleId==13){
+				document.searchForm2.action = "memberShipPage"
+				document.searchForm2.submit();
+				return true;
+			}else{
+				var membershipStatus = ${cacheGuest.membership_status};
+				if(membershipStatus!="1"){
+					alert("Your membership validity period is over. Renew your membership plan and get more profiles");
+					return false;
 				}
+				$("#profile_id").val(profile_id);
+				$("#memberName").val(memberName);
+				$("#member_name_todisplay").html(" to "+memberName);
+				
+				if(typeof option_selection != "undefined"){ 
+					if(option_selection=="1"){
+						$("#default_text_opt").prop("checked",true);
+						var texttt = mail_default_textt; 
+						 texttt = texttt.replace(/##newline##/g,"\r\n");
+						 texttt = texttt.replace(/##tabspace##/g,"\t");
+						 $("#mail_content").val(texttt);
+						 
+					}else{
+						$("#default_text_opt").removeAttr("checked");
+						$("#mail_content").val("");
+					}
+				}
+				$('#myModal').show();
+				$('#myModal').modal();
+				
 			}
-			var current_selection = $("#default_text_opt").prop("checked");
+			
+			/* var current_selection = $("#default_text_opt").prop("checked");
 			 if(typeof current_selection != "undefined"){ 
 					if(current_selection=="1"){
 						$("#default_text_opt").removeAttr("checked");
 					}
-			 }
-			if(roleId==4 || roleId==12 || roleId==13){
+			 } */
+			/* if(roleId==4 || roleId==12 || roleId==13){
 				document.searchForm2.action = "memberShipPage"
 				document.searchForm2.submit();
 				return true;
@@ -1773,7 +1794,7 @@ tooltip:hover:after {
 				$('#myModal').show();
 				$('#myModal').modal();
 				
-			}
+			} */
 		}
 
 		function sendMail(){
@@ -1803,13 +1824,11 @@ tooltip:hover:after {
 							var current_selection = $("#default_text_opt").prop("checked");
 							 if(typeof current_selection != "undefined"){ 
 									if(current_selection=="1"){
-										$("#default_text_opt").removeAttr("checked");
+										option_selection = "1";
+										mail_default_textt = content;
 									}
 							 }
-							 var defaultText  = jsonobj.mail_default_text;
-							 if(typeof defaultText != "undefined"){
-								 mail_default_textt = defaultText;
-							 }
+							 
 							$("#closeBtn").trigger("click");
 						}else{
 							alert("Some problem occured while sending e-mail!! Please try again.");
@@ -2027,7 +2046,7 @@ tooltip:hover:after {
 				$("#replyArea").val(texttt);
 				$("#replyArea").removeAttr("hidden"); */ 
 				var message_content = $("#replyContent").val();
-				alert("message_content:"+message_content);
+				//alert("message_content:"+message_content);
 				var reply_content = message_content.split("---Original message---")[0];
 				var formData = new FormData();
 			
@@ -3535,7 +3554,7 @@ img.hover-shadow {
 								<ul class="dropdown-menu">
 									<li><a href="searchProfiles">Regular search</a></li>
 									<li><a href="searchById">Search by ID </a></li>
-									<li><a href="#no">Recently viewed profiles</a></li>
+									<li><a href="recentlyViewedProfiles">Recently viewed profiles</a></li>
 								</ul>
 							</li>
 							<li class="dropdown matches">
@@ -3566,7 +3585,7 @@ img.hover-shadow {
 							</li> -->
 							
 							<li class="dropdown dropdown1 notifications" id="notification_li">
-								<a href="#" id="notificationLink"> <span class="fa fa-bell"></span>Notifications <span id="matchcount">${notificationsCount}</span></a>
+								<a href="#" id="notificationLink"> <span class="fa fa-bell"></span>Notifications <c:if test="${not empty notificationsList}"><span id="matchcount">${notificationsCount}</span></c:if></a>
 								<div id="notificationContainer" class="dropdown-menu dropdown-menu1">
 									<c:if test="${not empty notificationsList}">
 											<div id="notificationsBody" class="notifications">
@@ -3581,36 +3600,53 @@ img.hover-shadow {
 													</div>
 													<div class="col-md-7" style="padding-right:0px; padding-left:0px;" >
 														<p>
-															<a href="fullProfile?pid=${notification.user_id}&nid=${notification.id}&rfrm=notifications" >
-															<c:if test="${ notification.read_status==0}">
-																<b><c:out value="${notification.fullName}" /> (<c:out value="${notification.username}" />)</b> 
-																</c:if>
-																<c:if test="${ notification.read_status==1}">
-																<c:out value="${notification.fullName}" /> (<c:out value="${notification.username}" />)
-																</c:if>
+															
+															<!-- <a href="inboxAction?tab_type=inbox&list_type=rejected_requests"> -->
+															
+															
+															<%-- <a href="padma?pid=${notification.user_id}&nid=${notification.id}&rfrm=notifications" > --%>
+															
+																<%-- <c:out value="${notification.fullName}" /> (<c:out value="${notification.username}" />) --%>
+																<c:set var="name" value="${notification.fullName} (${notification.username})" />
 																<c:if test="${notification.notifi_type == 'interest'}">
-																	expressed interest in your profile
+																	<a href="inboxAction?tab_type=inbox&list_type=pending_requests&nid=${notification.id}">
+																		<c:out value="${name}" /> expressed interest in your profile
+																	</a>
 																</c:if>
 																<c:if test="${notification.notifi_type == 'mobile_num_viewed'}">
-																	viewed your mobile number
+																	<a href="myMobileNoViewsList?nid=${notification.id}">
+																		<c:out value="${name}" /> viewed your mobile number
+																	</a>
 																</c:if>
 																<c:if test="${notification.notifi_type == 'profile_viewed'}">
-																	viewed your profile
+																	<a href="myProfileViewsList?nid=${notification.id}">
+																		<c:out value="${name}" /> viewed your profile
+																	</a>
 																</c:if>
 																<c:if test="${notification.notifi_type == 'mail'}">
-																	sent you personal mail
+																	<a href="inboxAction?tab_type=inbox&list_type=pending_requests&nid=${notification.id}">
+																		<c:out value="${name}" /> sent you personal mail
+																	</a>
 																</c:if>
 																<c:if test="${notification.notifi_type == 'short_listed'}">
-																	shortlisted your profile
+																	<a href="shortListedMe?nid=${notification.id}">
+																		<c:out value="${name}" /> shortlisted your profile
+																	</a>
 																</c:if>
 																<c:if test="${notification.notifi_type == 'message_replied'}">
-																	replied to your message
+																	<a href="inboxAction?tab_type=inbox&list_type=accepted_requests&nid=${notification.id}" >
+																		<c:out value="${name}" /> replied to your message
+																	</a>
 																</c:if>
 																<c:if test="${notification.notifi_type == 'message_accepted'}">
-																	accepted your message
+																	<a href="inboxAction?tab_type=inbox&list_type=accepted_requests&nid=${notification.id}" >
+																		<c:out value="${name}" /> accepted your message
+																	</a>
 																</c:if>
 																<c:if test="${notification.notifi_type == 'interest_accepted'}">
-																	accepted your interest request
+																	<a href="inboxAction?tab_type=inbox&list_type=accepted_requests&nid=${notification.id}" >
+																		<c:out value="${name}" /> accepted your interest request
+																	</a>
 																</c:if>
 															</a>
 															<br>
@@ -3878,7 +3914,11 @@ function myFunction2(id) {
 } 
  
 
-  
+ $( document ).ready(function() {
+	    $("img").on("contextmenu",function(){
+	       return false;
+	    }); 
+	}); 
  
 </script>
 

@@ -55,8 +55,8 @@ border: none;
 <div class='jumbotron'style="background-color: whitesmoke;">
 <p align="center" >${msg }.</p>
 <div class="col-md-4 col-md-offset-5">
-<a href="HomePage"><button type="button" class="btn btn-primary" style="width: 105px;">Login</button></a>
-  <a href="HomePage"><button type="button" class="btn btn-success" style="width: 105px;">New User</button></a>
+<a href="../HomePage"><button type="button" class="btn btn-primary" style="width: 105px;">Login</button></a>
+<!--   <a href="../HomePage"><button type="button" class="btn btn-success" style="width: 105px;">New User</button></a> -->
   </div>
 </div>
 </div>

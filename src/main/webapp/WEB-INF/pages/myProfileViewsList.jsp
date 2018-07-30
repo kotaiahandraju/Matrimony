@@ -126,9 +126,9 @@ margin-bottom:5px !important;
 							<li class="active">
 								<a href="#tab1">Members viewed my profile</a>
 							</li>
-							<li>
+							<!-- <li>
 								<a href="#tab2">Privacy Settings</a>
-							</li>
+							</li> -->
 				
 						</ul>	
 					</div>
