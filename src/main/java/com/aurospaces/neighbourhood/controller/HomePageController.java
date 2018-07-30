@@ -1589,6 +1589,58 @@ public class HomePageController {
 		}
 	 
 	 
+	 @RequestMapping(value = "/expressInterestAll")
+		public  @ResponseBody String expressInterestAll(ModelMap model,
+				HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
+			JSONObject objJson =new JSONObject();
+			//List<Map<String,String>> allProfiles = null;
+			boolean success = false;
+			int page_no = 0;
+			try {
+				UsersBean userBean = (UsersBean)session.getAttribute("cacheGuest");
+				if(userBean == null){
+					return "redirect:HomePage";
+				}
+				String clicked_btn = request.getParameter("btn_id");
+				if(StringUtils.isNotBlank(clicked_btn)){
+					page_no = (Integer.parseInt(clicked_btn))-1;
+				}
+				String profileId = request.getParameter("profile_id");
+				String profileArry[] =profileId.split(",");
+				for(int i=0;i<profileArry.length;i++) {
+					success = objUsersDao.expressInterestTo(profileArry[i]);
+				}
+				
+				if(success){
+					objJson.put("message", "success");
+					int sent_count = 0;
+					if(StringUtils.isNotEmpty(userBean.getSentInterestCount())){
+						sent_count = Integer.parseInt(userBean.getSentInterestCount());
+					}
+					userBean.setSentInterestCount((sent_count+1)+"");
+					session.setAttribute("cacheGuest",userBean);
+					int allowed_limit = (Integer)session.getAttribute("allowed_profiles_limit");
+					objJson.put("allowed_limit", allowed_limit);
+				}
+				else{
+					objJson.put("message", "failed");
+				}
+				//allProfiles = objUsersDao.getProfilesFilteredByPreferences(page_no);
+				/*if (allProfiles != null && allProfiles.size() > 0) {
+					objJson.put("allProfiles", allProfiles);
+				} else {
+					objJson.put("allProfiles", "");
+				}*/
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println(e);
+				logger.error(e);
+				objJson.put("message", "failed");
+			}
+			return String.valueOf(objJson);
+		}
+	 
+	 
 	 @RequestMapping(value = "/expressInterestTo")
 		public  @ResponseBody String expressInterestTo(ModelMap model,
 				HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
