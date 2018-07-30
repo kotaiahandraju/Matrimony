@@ -47,7 +47,7 @@
 									<div class="form-group">
 										<label class="col-sm-4 control-label required"><spring:message code="label.price" text="default text" /> <span class="impColor">*</span></label>
 										<div class="col-sm-8">
-											<form:input path="price" type="text" class="form-control numericOnly validate" autocomplete="off"  placeholder="Enter Price" maxlength="255"/>						
+											<form:input path="price" type="text" class="form-control mobile validate" autocomplete="off"  placeholder="Enter Price" maxlength="255"/>						
 									  		<span class="hasError" id="priceError"></span>
 									  		<div><form:errors path="price" cssClass="error" /></div>										
 										</div>
@@ -57,12 +57,28 @@
 						  			<div class="form-group">
 										<label class="col-sm-4 control-label required"><spring:message code="label.duration" text="default text" /> <span style="color:red;">*</span></label>
 										<div class="col-sm-8">
-									  		<form:input path="duration" type="text" class="form-control numericOnly validate"  autocomplete="off" Placeholder="Enter Duration" maxlength="255"/>						
-									  		<span class="hasError" id="durationError"></span>
-									  		<div><form:errors path="duration" cssClass="error" /></div>										
+										<form:input path="duration" type="text" class="form-control mobile validate" autocomplete="off"  placeholder="Enter Duration" maxlength="255"/>		
+								  		<span class="hasError" id="durationError"></span>
+									  	<div><form:errors path="duration" cssClass="error" /></div>										
 										</div>
+										
 								  	</div>
 						  		</div>
+						  		<div class="col-md-6">
+						  		<div class="form-group">
+										<label class="col-sm-4 control-label required"><spring:message code="" text="Duration Type" /> <span style="color:red;">*</span></label>
+										<div class="col-sm-8">
+									  		<select name="duration_type"   onchange="removeBorder(this.id);"  class="form-control validate default-class placeholder-style your-class" onfocus="">
+											<option value="">-- Select --</option>
+											<option value="Days">Days</option>
+											<option value="Months">Months</option>
+											<option value="Years">Years</option>
+										</select>						
+									  		<span class="hasError" id="durationtypeError"></span>
+									  		<div><form:errors path="duration_type" cssClass="error" /></div>										
+										</div></div></div>
+						  		
+						  		
 						  		<div class="col-md-6">
 						  			<div class="form-group">
 										<label class="col-sm-4 control-label required"><spring:message code="label.description" text="default text" /><span style="color:red;">*</span></label>
@@ -70,6 +86,78 @@
 									  		<form:textarea path="description" type="text" class="form-control nospecialCharacter validate"  autocomplete="off" Placeholder="Enter Description" maxlength="255"/>						
 									  		<span class="hasError" id="descriptionError"></span>
 									  		<div><form:errors path="description" cssClass="error" /></div>										
+										</div>
+								  	</div>
+						  		</div>
+						  		<div class="col-md-6">
+									<div class="form-group">
+										<label class="col-sm-4 control-label required"><spring:message code="label.status" text="Status" /> <span class="impColor">*</span></label>
+										<div class="col-sm-8">
+											<select path ="status" onchange="removeBorder(this.id);"  class="form-control validate default-class placeholder-style your-class" onfocus="">
+											<option value="">-- Select --</option>
+											<option value="0">0</option>
+											<option value="1">1</option>
+										</select>										
+										</div>
+								  	</div>
+						  		</div>
+						  		<div class="col-md-6">
+									<div class="form-group">
+										<label class="col-sm-4 control-label required"><spring:message code="" text="Allowed Messages Limit" /> <span class="impColor">*</span></label>
+										<div class="col-sm-8">
+											<form:input path="allowed_messages_limit" type="text" class="form-control mobile validate"  autocomplete="off" Placeholder="Enter Messages Limit" maxlength="25"/>						
+									  		<span class="hasError" id="allowedmessagesError"></span>
+									  		<div><form:errors path="allowed_messages_limit" cssClass="error" /></div>										
+										</div>
+								  	</div>
+						  		</div>
+						  		<div class="col-md-6">
+									<div class="form-group">
+										<label class="col-sm-4 control-label required"><spring:message code="" text="Allowed Profiles Limit" /> <span class="impColor">*</span></label>
+										<div class="col-sm-8">
+											<form:input path="allowed_profiles_limit" type="text" class="form-control mobile validate"  autocomplete="off" Placeholder="Enter Profiles Limit" maxlength="25"/>						
+									  		<span class="hasError" id="allowedprofilesError"></span>
+									  		<div><form:errors path="allowed_profiles_limit" cssClass="error" /></div>										
+										</div>
+								  	</div>
+						  		</div>
+						  		<div class="col-md-6">
+						  			<div class="form-group">
+										<label class="col-sm-4 control-label required"><spring:message code="label.highlightprofile" text="Highlight Profile" /> <span style="color:red;">*</span></label>
+										<div class="col-sm-8">
+									  		<form:input path="highlight_profile" type="text" class="form-control mobile validate"  autocomplete="off" Placeholder="Hilight Profile" maxlength="255"/>						
+									  		<span class="hasError" id="highlightError"></span>
+									  		<div><form:errors path="highlight_profile" cssClass="error" /></div>										
+										</div>
+								  	</div>
+						  		</div>
+						  		<div class="col-md-6">
+						  			<div class="form-group">
+										<label class="col-sm-4 control-label required"><spring:message code="label.chatallowed" text="Chat Allowed" /><span style="color:red;">*</span></label>
+										<div class="col-sm-8">
+									  		<form:input path="chat_allowed" type="text" class="form-control mobile validate"  autocomplete="off" Placeholder="Chat Allowed" maxlength="255"/>						
+									  		<span class="hasError" id="chatallowedError"></span>
+									  		<div><form:errors path="chat_allowed" cssClass="error" /></div>										
+										</div>
+								  	</div>
+						  		</div>
+						  		<div class="col-md-6">
+						  			<div class="form-group">
+										<label class="col-sm-4 control-label required"><spring:message code="label.horoscopeview" text="Horoscope View" /> <span style="color:red;">*</span></label>
+										<div class="col-sm-8">
+									  		<form:input path="horoscope_view" type="text" class="form-control mobile validate"  autocomplete="off" Placeholder="Horoscopeview" maxlength="255"/>						
+									  		<span class="hasError" id="horoscopeviewError"></span>
+									  		<div><form:errors path="horoscope_view" cssClass="error" /></div>										
+										</div>
+								  	</div>
+						  		</div>
+						  		  <div class="col-md-6">
+						  			<div class="form-group">
+										<label class="col-sm-4 control-label required"><spring:message code="label.astrologymatch" text="Astrology Match" /> <span style="color:red;">*</span></label>
+										<div class="col-sm-8">
+									  		<form:input path="Astrology_match" type="text" class="form-control mobile validate"  autocomplete="off" Placeholder="Enter Astrology Match" maxlength="255"/>						
+									  		<span class="hasError" id="astrologymatchError"></span>
+									  		<div><form:errors path="Astrology_match" cssClass="error" /></div>										
 										</div>
 								  	</div>
 						  		</div>
@@ -101,7 +189,7 @@
 						<table class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,text,text,text,null">
 							<thead>
 							<tr>
-								<th>Membership Name</th><th>Duration(In Days)</th><th>Price (In Rs)</th><th>Description</th><th></th>
+								<th>Membership Name</th><th>Duration(In Days)</th><th>Price (In Rs)</th><th>Description</th><th>Status</th><th>Allowed Messages Limit</th><th>Allowed Profiles Limit</th><th>Highlight Profile</th><th>Chat Allowed</th><th>Horoscope View</th><th>Astrology Match</th><th>Actions</th>
 							</tr>
 							</thead>
 							<tbody></tbody>
@@ -123,8 +211,8 @@ if (listOrders1 != "") {
 
 function displayTable(listOrders) {
 	$('#tableId').html('');
-	var tableHead = '<table  class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,text,text,text,null">'
-		+ '<thead><tr><th>Membership Name</th><th>Duration(In Days)</th><th>Price (In Rs)</th><th>Description</th><th style="text-align: center;"></th></tr></thead><tbody></tbody></table>';
+	var tableHead = '<table  class="table table-responsive table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,text,text,text,null">'
+		+ '<thead><tr><th>Membership Name</th><th>Duration(In Days)</th><th>Price (In Rs)</th><th>Description</th><th>Status</th><th>Allowed Messages Limit</th><th>Allowed Profiles Limit</th><th>Highlight Profile</th><th>Chat Allowed</th><th>Horoscope View</th><th>Astrology Match</th><th style="text-align: center;"></th></tr></thead><tbody></tbody></table>';
 	$('#tableId').html(tableHead);
 	serviceUnitArray = {};
 	$.each(listOrders,function(i, orderObj) {
@@ -133,10 +221,17 @@ function displayTable(listOrders) {
 		serviceUnitArray[orderObj.id] = orderObj;
 		var tblRow = "<tr >"
 			+ "<td title='"+orderObj.name+"'>" + orderObj.name + "</td>"
-			+ "<td title='"+orderObj.duration+"'>" + orderObj.duration + "</td>"
+			+ "<td title='"+orderObj.duration+"'>" + orderObj.duration +" "+orderObj.duration_type +"</td>"
 			+ "<td title='"+orderObj.price+"'>" + orderObj.price + "</td>"
 			+ "<td title='"+orderObj.description+"'>" + orderObj.description + "</td>"
-			+ "<td style='text-align: center;white-space: nowrap;'>" + edit + "&nbsp;|&nbsp;" + deleterow + "</td>" 
+			+ "<td title='"+orderObj.status+"'>" + orderObj.status + "</td>"
+			+ "<td title='"+orderObj.allowed_messages_limit+"'>" + orderObj.allowed_messages_limit + "</td>"
+			+ "<td title='"+orderObj.allowed_profiles_limit+"'>" + orderObj.allowed_profiles_limit + "</td>"
+			+ "<td title='"+orderObj.highlight_profile+"'>" + orderObj.highlight_profile + "</td>"
+			+ "<td title='"+orderObj.chat_allowed+"'>" + orderObj.chat_allowed + "</td>"
+			+ "<td title='"+orderObj.horoscope_view+"'>" + orderObj.horoscope_view + "</td>"
+			+ "<td title='"+orderObj.Astrology_match+"'>" + orderObj.Astrology_match + "</td>"
+			+ "<td style='text-align: center;'>" + edit + "&nbsp;|&nbsp;" + deleterow + "</td>" 
 			+ "</tr >";
 		$(tblRow).appendTo("#tableId table tbody");
 	});

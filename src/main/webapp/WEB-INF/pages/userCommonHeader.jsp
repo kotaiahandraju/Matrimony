@@ -3477,7 +3477,7 @@ img.hover-shadow {
 								<ul class="dropdown-menu">
 									<li><a href="searchProfiles">Regular search</a></li>
 									<li><a href="searchById">Search by ID </a></li>
-									<li><a href="#no">Recently viewed profiles</a></li>
+									<li><a href="recentlyViewedProfiles">Recently viewed profiles</a></li>
 								</ul>
 							</li>
 							<li class="dropdown matches">
