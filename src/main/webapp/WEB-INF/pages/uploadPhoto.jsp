@@ -6,6 +6,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 
 <style>
+@media screen and (max-width: 640px) and (min-width: 320px) {
+.modal-footer {
+text-align:left !important;}
+}
+}
 input[type="file"] {
 margin:5px;
 }

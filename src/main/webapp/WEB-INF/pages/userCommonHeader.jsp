@@ -1678,30 +1678,49 @@ tooltip:hover:after {
 			
 		}
 		var mail_default_textt = "${mail_default_text}";
+		var option_selection = "${default_text_option}";
+		
 		function displayMailPopup(profile_id,memberName){
 			var roleId = ${cacheGuest.roleId};
-			$("#profile_id").val(profile_id);
-			$("#memberName").val(memberName);
-			$("#member_name_todisplay").html(" to "+memberName);
-			var option_selection = "${default_text_option}";
-			if(typeof option_selection != "undefined"){ 
-				if(option_selection=="1"){
-					var texttt = mail_default_textt; 
-					 texttt = texttt.replace(/##newline##/g,"\r\n");
-					 texttt = texttt.replace(/##tabspace##/g,"\t");
-					 $("#mail_content").val(texttt);
-					 
-				}else{
-					//$("#default_text_opt").removeAttr("checked");
+			if(roleId==4 || roleId==12 || roleId==13){
+				document.searchForm2.action = "memberShipPage"
+				document.searchForm2.submit();
+				return true;
+			}else{
+				var membershipStatus = ${cacheGuest.membership_status};
+				if(membershipStatus!="1"){
+					alert("Your membership validity period is over. Renew your membership plan and get more profiles");
+					return false;
 				}
+				$("#profile_id").val(profile_id);
+				$("#memberName").val(memberName);
+				$("#member_name_todisplay").html(" to "+memberName);
+				
+				if(typeof option_selection != "undefined"){ 
+					if(option_selection=="1"){
+						$("#default_text_opt").prop("checked",true);
+						var texttt = mail_default_textt; 
+						 texttt = texttt.replace(/##newline##/g,"\r\n");
+						 texttt = texttt.replace(/##tabspace##/g,"\t");
+						 $("#mail_content").val(texttt);
+						 
+					}else{
+						$("#default_text_opt").removeAttr("checked");
+						$("#mail_content").val("");
+					}
+				}
+				$('#myModal').show();
+				$('#myModal').modal();
+				
 			}
-			var current_selection = $("#default_text_opt").prop("checked");
+			
+			/* var current_selection = $("#default_text_opt").prop("checked");
 			 if(typeof current_selection != "undefined"){ 
 					if(current_selection=="1"){
 						$("#default_text_opt").removeAttr("checked");
 					}
-			 }
-			if(roleId==4 || roleId==12 || roleId==13){
+			 } */
+			/* if(roleId==4 || roleId==12 || roleId==13){
 				document.searchForm2.action = "memberShipPage"
 				document.searchForm2.submit();
 				return true;
@@ -1715,7 +1734,7 @@ tooltip:hover:after {
 				$('#myModal').show();
 				$('#myModal').modal();
 				
-			}
+			} */
 		}
 
 		function sendMail(){
@@ -1745,13 +1764,11 @@ tooltip:hover:after {
 							var current_selection = $("#default_text_opt").prop("checked");
 							 if(typeof current_selection != "undefined"){ 
 									if(current_selection=="1"){
-										$("#default_text_opt").removeAttr("checked");
+										option_selection = "1";
+										mail_default_textt = content;
 									}
 							 }
-							 var defaultText  = jsonobj.mail_default_text;
-							 if(typeof defaultText != "undefined"){
-								 mail_default_textt = defaultText;
-							 }
+							 
 							$("#closeBtn").trigger("click");
 						}else{
 							alert("Some problem occured while sending e-mail!! Please try again.");
@@ -3508,7 +3525,7 @@ img.hover-shadow {
 							</li> -->
 							
 							<li class="dropdown dropdown1 notifications" id="notification_li">
-								<a href="#" id="notificationLink"> <span class="fa fa-bell"></span>Notifications <span id="matchcount">${notificationsCount}</span></a>
+								<a href="#" id="notificationLink"> <span class="fa fa-bell"></span>Notifications <c:if test="${not empty notificationsList}"><span id="matchcount">${notificationsCount}</span></c:if></a>
 								<div id="notificationContainer" class="dropdown-menu dropdown-menu1">
 									<c:if test="${not empty notificationsList}">
 											<div id="notificationsBody" class="notifications">
@@ -3532,42 +3549,42 @@ img.hover-shadow {
 																<%-- <c:out value="${notification.fullName}" /> (<c:out value="${notification.username}" />) --%>
 																<c:set var="name" value="${notification.fullName} (${notification.username})" />
 																<c:if test="${notification.notifi_type == 'interest'}">
-																	<a href="inboxAction?tab_type=inbox&list_type=pending_requests">
+																	<a href="inboxAction?tab_type=inbox&list_type=pending_requests&nid=${notification.id}">
 																		<c:out value="${name}" /> expressed interest in your profile
 																	</a>
 																</c:if>
 																<c:if test="${notification.notifi_type == 'mobile_num_viewed'}">
-																	<a href="myMobileNoViewsList">
+																	<a href="myMobileNoViewsList?nid=${notification.id}">
 																		<c:out value="${name}" /> viewed your mobile number
 																	</a>
 																</c:if>
 																<c:if test="${notification.notifi_type == 'profile_viewed'}">
-																	<a href="myProfileViewsList">
+																	<a href="myProfileViewsList?nid=${notification.id}">
 																		<c:out value="${name}" /> viewed your profile
 																	</a>
 																</c:if>
 																<c:if test="${notification.notifi_type == 'mail'}">
-																	<a href="inboxAction?tab_type=inbox&list_type=pending_requests">
+																	<a href="inboxAction?tab_type=inbox&list_type=pending_requests&nid=${notification.id}">
 																		<c:out value="${name}" /> sent you personal mail
 																	</a>
 																</c:if>
 																<c:if test="${notification.notifi_type == 'short_listed'}">
-																	<a href="shortListedMe">
+																	<a href="shortListedMe?nid=${notification.id}">
 																		<c:out value="${name}" /> shortlisted your profile
 																	</a>
 																</c:if>
 																<c:if test="${notification.notifi_type == 'message_replied'}">
-																	<a href="inboxAction?tab_type=inbox&list_type=accepted_requests" >
+																	<a href="inboxAction?tab_type=inbox&list_type=accepted_requests&nid=${notification.id}" >
 																		<c:out value="${name}" /> replied to your message
 																	</a>
 																</c:if>
 																<c:if test="${notification.notifi_type == 'message_accepted'}">
-																	<a href="inboxAction?tab_type=inbox&list_type=accepted_requests" >
+																	<a href="inboxAction?tab_type=inbox&list_type=accepted_requests&nid=${notification.id}" >
 																		<c:out value="${name}" /> accepted your message
 																	</a>
 																</c:if>
 																<c:if test="${notification.notifi_type == 'interest_accepted'}">
-																	<a href="inboxAction?tab_type=inbox&list_type=accepted_requests" >
+																	<a href="inboxAction?tab_type=inbox&list_type=accepted_requests&nid=${notification.id}" >
 																		<c:out value="${name}" /> accepted your interest request
 																	</a>
 																</c:if>
