@@ -3525,7 +3525,7 @@ img.hover-shadow {
 							</li> -->
 							
 							<li class="dropdown dropdown1 notifications" id="notification_li">
-								<a href="#" id="notificationLink"> <span class="fa fa-bell"></span>Notifications <span id="matchcount">${notificationsCount}</span></a>
+								<a href="#" id="notificationLink"> <span class="fa fa-bell"></span>Notifications <c:if test="${not empty notificationsList}"><span id="matchcount">${notificationsCount}</span></c:if></a>
 								<div id="notificationContainer" class="dropdown-menu dropdown-menu1">
 									<c:if test="${not empty notificationsList}">
 											<div id="notificationsBody" class="notifications">
