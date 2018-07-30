@@ -1560,6 +1560,11 @@ public class HomePageController {
 		public  @ResponseBody String shortList(ModelMap model,
 				HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
 			JSONObject objJson =new JSONObject();
+			String profile_id1 = request.getParameter("profile_id");
+			String mailContent = request.getParameter("mail_content");
+			if(StringUtils.isNotBlank(profile_id1)){
+				UsersBean receipientUser = objUsersDao.loginChecking(Integer.parseInt(profile_id1));
+				receipientUser.setMail_content(mailContent);
 			try {
 				UsersBean userBean = (UsersBean)session.getAttribute("cacheGuest");
 				if(userBean == null){
@@ -1570,6 +1575,7 @@ public class HomePageController {
 					boolean success = objUsersDao.shortlistProfile(profile_id);
 					if(success){
 						objJson.put("message", "success");
+						 EmailUtil.sendShortListToMail(userBean, receipientUser, request, objContext);
 					}else{
 						objJson.put("message", "failed");
 					}
@@ -1592,7 +1598,7 @@ public class HomePageController {
 				System.out.println(e);
 				logger.error(e);
 				logger.fatal("error in shortList method  ");
-			}
+			}}
 			return String.valueOf(objJson);
 		}
 	 
@@ -1604,6 +1610,11 @@ public class HomePageController {
 			//List<Map<String,String>> allProfiles = null;
 			boolean success = false;
 			int page_no = 0;
+			String profile_id = request.getParameter("profile_id");
+			String mailContent = request.getParameter("mail_content");
+			if(StringUtils.isNotBlank(profile_id)){
+				UsersBean receipientUser = objUsersDao.loginChecking(Integer.parseInt(profile_id));
+				receipientUser.setMail_content(mailContent);
 			try {
 				UsersBean userBean = (UsersBean)session.getAttribute("cacheGuest");
 				if(userBean == null){
@@ -1625,6 +1636,10 @@ public class HomePageController {
 					session.setAttribute("cacheGuest",userBean);
 					int allowed_limit = (Integer)session.getAttribute("allowed_profiles_limit");
 					objJson.put("allowed_limit", allowed_limit);
+					System.out.println("UserBean1111111111111111"+userBean  +"  "+receipientUser+"  "+request+"  "+objContext);
+					 EmailUtil.sendExpressInterestToMail(userBean, receipientUser, request, objContext);
+					 
+					
 				}
 				else{
 					objJson.put("message", "failed");
@@ -1640,7 +1655,7 @@ public class HomePageController {
 				System.out.println(e);
 				logger.error(e);
 				objJson.put("message", "failed");
-			}
+			}}
 			return String.valueOf(objJson);
 		}
 	@RequestMapping(value = "/autoCompleteSave")
