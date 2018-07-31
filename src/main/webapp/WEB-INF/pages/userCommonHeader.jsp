@@ -364,6 +364,86 @@ tooltip:hover:after {
 			});
 	}
 		
+		var profileObj = [];
+		var shortlistTD=[];
+		var profile_id=[];
+		function requetAllExpressInterest() {
+			
+			if ($('.form-check-input:checked').length == 0) {
+				
+				alert("Please select atleast one profile.");
+				return false;
+			}
+			
+			var roleId = ${cacheGuest.roleId};
+			
+			profileObj = [];  
+			shortlistTD=[];
+			$('span[name^=expInterest]').each(function(){
+				if($.trim($(this).text()) != ""){
+					var str = this.id; 
+					var res= str.replace("expInterest", "");
+					profile_id.push(res);
+				    var expInterest= serviceUnitArray[res];
+				    profileObj.push(expInterest);
+				}
+			});
+			console.log("-------------"+profileObj);
+			
+			
+			$('span[name^=shortlistTD]').each(function(){
+				if($.trim($(this).text()) != ""){
+					console.log("222222222  :"+this.id);
+					var str = this.id; 
+					var res= str.replace("shortlistTD", "");
+					shortlistTD.push(res);
+				    console.log("2222222222222  :"+res);
+				}
+			});
+			console.log("------2-------"+shortlistTD);
+		
+			if(roleId==4){
+				document.searchForm2.action = "memberShipPage"
+				document.searchForm2.submit();
+				return true;
+			}else{
+				var membershipStatus = ${cacheGuest.membership_status};
+				if(membershipStatus!="1"){
+					alert("Your membership validity period is over. Renew/Upgrade your membership plan and get more profiles");
+					return false;
+				}
+				if(profileObj.mobileNumViewed==0 && profileObj.message_sent_status==0){
+					if(allowed_limit<=0){
+						alert("Exceeded allowed profiles limit.");
+						return false;
+					}
+				}
+				var formData = new FormData();
+			
+				formData.append('profile_id',profile_id);
+				jQuery.fn.makeMultipartRequest('POST', 'expressInterestAll', false,
+						formData, false, 'text', function(data){
+			    		var jsonobj = $.parseJSON(data);
+			    		var limit = jsonobj.allowed_limit;
+			    		var msg = jsonobj.message;
+			    		var profiles = jsonobj.allProfiles;
+			    		//if(typeof msg != "undefined" ){
+			    			if("success"==msg){
+			    				$("#expInterest"+profile_id).html('<a type="button" class="btn btn-blue btn-sm" disabled="true">Expressed Interest</a>');
+			    				alert("Interest request has been sent successfully");
+			    				//$("#expInterest"+profile_id).html('You Expressed Interest');
+			    				//$("#expInterest"+profile_id).attr("disabled",true);
+			    				allowed_limit = limit;
+			    				$("#available_limit_span").html(allowed_limit);
+			    			}else if("failed"==msg || "exception"==msg){
+			    				alert("Interest request is not successful. Please try again.");
+			    			}
+			    		
+						
+					});
+			}
+		}
+		
 		function expressInterest(profile_id){
 			var roleId = ${cacheGuest.roleId};
 			$("#id").val(profile_id);
@@ -407,27 +487,7 @@ tooltip:hover:after {
 			    			}else if("failed"==msg || "exception"==msg){
 			    				alert("Interest request is not successful. Please try again.");
 			    			}
-			    		//}
-			    		/* if(profiles==""){
-			    			$('#countId').html('0');
-			    			var str = '<div class="panel panel-default"><h6>No results found.</h6></div>';
-			    			$('#searchResults').html('');
-			    			$(str).appendTo("#searchResults");
-			    		}else{
-			    			$('#countId').html(profiles.length);
-			    			displayMatches(profiles);
-			    		} */
-			    		/* var filtered_list = jsonobj.filtered_profiles;
-			    		$('#countId').html('');
-			    		if(filtered_list==""){
-			    			$('#countId').html('0');
-			    			var str = '<div class="panel panel-default"><h6>No results found.</h6></div>';
-			    			$('#searchResults').html('');
-			    			$(str).appendTo("#searchResults");
-			    		}else{
-			    			$('#countId').html(filtered_list.length);
-			    			displayMatches(filtered_list);
-			    		} */
+			    		
 						
 					});
 			}
@@ -500,7 +560,7 @@ tooltip:hover:after {
 				
 				var image = null; image = orderObj.profileImage;
 				if(image == "" || image == null || image == "undefined"){
-					image = "img/default.png";
+					image = "../img/default.png";
 				}
 				/* else{
 				array = image.split(",");
@@ -679,7 +739,7 @@ tooltip:hover:after {
 				
 				var image = null; image = orderObj.profileImage;
 				if(image == "" || image == null || image == "undefined"){
-					image = "img/default.png";
+					image = "../img/default.png";
 				}
 				/* else{
 				array = image.split(",");
@@ -745,14 +805,14 @@ tooltip:hover:after {
 						}
 						
 					}
-					var shortListedStr = '<span id="shortlistTD'+orderObj.id+'"><a href="#no" type="button" class="btn btn-warning btn-sm" onclick="shortList('+orderObj.id+')"> Shortlist</a></span>';
+					var shortListedStr = '<span id="shortlistTD'+orderObj.id+'" name="shortlistTD[]"><a href="#no" type="button" class="btn btn-warning btn-sm" onclick="shortList('+orderObj.id+')"> Shortlist</a></span>';
 					if(orderObj.short_listed == "1"){
 						shortListedStr = '<span><a type="button" class="btn btn-warning btn-sm" disabled="true"> Shortlisted</a></span>';
 					}
 					var expressed = orderObj.expressedInterest;
 					var interestStr = "";
 					if(expressed==0){
-						interestStr = '<span id="expInterest'+orderObj.id+'"><a   href="#no" type="button" class="btn btn-blue btn-sm"  onclick="expressInterest('+orderObj.id+')">  Express Interest  </a></span>';
+						interestStr = '<span id="expInterest'+orderObj.id+'" name="expInterest[]"><a   href="#no" type="button" class="btn btn-blue btn-sm"  onclick="expressInterest('+orderObj.id+')">  Express Interest  </a></span>';
 					}else if(expressed>0){
 						interestStr = '<span><a type="button" class="btn btn-blue btn-sm" disabled="true" style="text-size-adjust:auto">Expressed Interest</a></span>';
 					}
@@ -777,7 +837,7 @@ tooltip:hover:after {
 						var photos_list = orderObj.photosList;
 						var slider = "", displayStyle = ' ';
 						if(photos_list == "" || typeof photos_list == "undefined"){
-							slider = '<img src="img/default.png" class="img img-responsive thumbnail " style="margin-bottom:0;height: auto;width: 100%;" >';
+							slider = '<img src="../img/default.png" class="img img-responsive thumbnail " style="margin-bottom:0;height: auto;width: 100%;" >';
 						}else{
 							smallerSlideIndex[orderObj.id] = 0;
 							var slider = "", displayStyle = ' ';
@@ -987,14 +1047,14 @@ tooltip:hover:after {
 								memberRoleId==12 || memberRoleId==13 || memberRoleId==14)){
 							premiumMember = "<span class='premium-member'>Premium Member</span>";
 						} */
-						var shortListedStr = '<span id="shortlistTD'+orderObj.id+'"><a href="#no" type="button" class="btn btn-primary btn-sm" onclick="shortList('+orderObj.id+')"> Shortlist</a></span>';
+						var shortListedStr = '<span id="shortlistTD'+orderObj.id+'" name="shortlistTD[]"><a href="#no" type="button" class="btn btn-primary btn-sm" onclick="shortList('+orderObj.id+')"> Shortlist</a></span>';
 						if(orderObj.short_listed == "1"){
 							shortListedStr = '<span><a type="button" class="btn btn-warning btn-sm" disabled="true"> Shortlisted</a></span>';
 						}
 						var expressed = orderObj.expressedInterest;
 						var interestStr = "";
 						if(expressed==0){
-							interestStr = '<span id="expInterest'+orderObj.id+'"><a   href="#no" type="button" class="btn btn-success btn-sm"  onclick="expressInterest('+orderObj.id+')">  Express Interest  </a></span>';
+							interestStr = '<span id="expInterest'+orderObj.id+'" name="expInterest[]"><a   href="#no" type="button" class="btn btn-success btn-sm"  onclick="expressInterest('+orderObj.id+')">  Express Interest  </a></span>';
 						}else if(expressed>0){
 							interestStr = '<span><a type="button" class="btn btn-success btn-sm" disabled="true" style="text-size-adjust:auto">Expressed Interest</a></span>';
 						}
@@ -3494,7 +3554,7 @@ img.hover-shadow {
 								<ul class="dropdown-menu">
 									<li><a href="searchProfiles">Regular search</a></li>
 									<li><a href="searchById">Search by ID </a></li>
-									<li><a href="#no">Recently viewed profiles</a></li>
+									<li><a href="recentlyViewedProfiles">Recently viewed profiles</a></li>
 								</ul>
 							</li>
 							<li class="dropdown matches">
@@ -3525,7 +3585,7 @@ img.hover-shadow {
 							</li> -->
 							
 							<li class="dropdown dropdown1 notifications" id="notification_li">
-								<a href="#" id="notificationLink"> <span class="fa fa-bell"></span>Notifications <span id="matchcount">${notificationsCount}</span></a>
+								<a href="#" id="notificationLink"> <span class="fa fa-bell"></span>Notifications <c:if test="${not empty notificationsList}"><span id="matchcount">${notificationsCount}</span></c:if></a>
 								<div id="notificationContainer" class="dropdown-menu dropdown-menu1">
 									<c:if test="${not empty notificationsList}">
 											<div id="notificationsBody" class="notifications">

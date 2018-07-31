@@ -907,6 +907,8 @@ function getReliginCastAjax1() {
 										<img src="user/images/portfolio/01-thumbnail.jpg"
 											class="img-responsive img-thumbnail" alt="">
 										<figcaption>
+											<h3>Krishna& Gopika</h3>
+											<span>June 9, 2017</span> <a href="successStory#01-thumbnail.jpg">read more...</a>
 											<h3>Bride Name & Groom Name</h3>
 											<span>June 9, 2017</span> <a href="successStory&divId=1">read more...</a>
 										</figcaption>
@@ -917,6 +919,8 @@ function getReliginCastAjax1() {
 										<img src="user/images/portfolio/02-thumbnail.jpg"
 											class="img-responsive img-thumbnail" alt="">
 										<figcaption>
+											<h3>Kishore & Vijaya</h3>
+											<span>April 28, 2017</span> <a href="successStory#02-thumbnail.jpg">read more...</a>
 											<h3>Bride Name & Groom Name</h3>
 											<span>June 9, 2017</span> <a href="successStory&divId=2">read more...</a>
 										</figcaption>
@@ -927,6 +931,8 @@ function getReliginCastAjax1() {
 										<img src="user/images/portfolio/03-thumbnail.jpg"
 											class="img-responsive img-thumbnail" alt="">
 										<figcaption>
+											<h3>Srinivas&Lavanya</h3>
+											<span>May 2, 2017</span> <a href="successStory#03-thumbnail.jpg">read more...</a>
 											<h3>Bride Name & Groom Name</h3>
 											<span>June 9, 2017</span> <a href="successStory&divId=3">read more...</a>
 										</figcaption>
@@ -1269,11 +1275,11 @@ $("#secondButton").click(function(event)
 		});
 		
 		
-		$( document ).ready(function() {
-		    $("img").on("contextmenu",function(){
-		       return false;
-		    }); 
-		});
+// 		$( document ).ready(function() {
+// 		    $("img").on("contextmenu",function(){
+// 		       return false;
+// 		    }); 
+// 		});
 </script>
 </body>
 </html>

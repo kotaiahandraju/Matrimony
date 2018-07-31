@@ -400,10 +400,11 @@ border:none;}
 							Messages *</p>
 						    </div>
 					  	</c:if>
-					  	<c:if test="${pack.allowed_profiles_limit != null && pack.allowed_profiles_limit != '' && pack.allowed_profiles_limit != 0}">
+					  	<c:if test="${pack.allowed_profiles_limit != null && pack.allowed_profiles_limit != '' && pack.allowed_profiles_limit != 0 && pack.highlight_profile == '0'}">
 						    <div class="col-md-6">
-						    <p><img  src="${baseurl}/images/icon3.png"/> View mobile numbers of <c:out value="${pack.allowed_profiles_limit}"/> members
-							to contact them directly </p>
+						    <p><img  src="${baseurl}/images/icon3.png"/> View mobile numbers of <c:out value="${pack.allowed_profiles_limit}"/> members to contact them directly </p>
+						<p><img  src="${baseurl}/images/icon1.png"/> No Profile Highlighter</p>
+						 <p><img  src="${baseurl}/images/icon2.png"/>  No Personalized  Messages *</p>
 						    </div>
 			    		</c:if>
 			    		<%-- <div class="col-md-4">
@@ -411,7 +412,7 @@ border:none;}
 			    		</div> --%>
 			    		<div class="clearfix"></div>
 			    		<div class="col-md-4">
-			    			<p style="margin-top:10px;"><img  src="${baseurl}/images/profiletag.png"/> Profile tagged with '<c:out value="${pack.name}"/> member'</p>
+			    			<p style="margin-top:10px;"><img  src="${baseurl}/images/profiletag.png"/> Profile tagged with "<c:out value="${pack.name}"/>" member</p>
 			    		</div>
 			    </div></div>	
 		</c:if>

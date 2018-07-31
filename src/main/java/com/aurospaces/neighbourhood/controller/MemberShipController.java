@@ -62,7 +62,10 @@ public class MemberShipController {
 	public String addMemberShip(@Valid @ModelAttribute("membershipForm") MemberShipBean objMemberShipBean,
 			BindingResult result, ModelMap model, HttpServletRequest request, HttpSession session,
 			HttpServletResponse responses, RedirectAttributes redir) {
-//		System.out.println("addMemberShip page...");
+		String durationNumber =request.getParameter("duration");
+		String durationExt =request.getParameter("duration_type");
+		String durationTotal=durationNumber.concat(durationExt);
+		
 		int id = 0;
 		try {
 

@@ -284,8 +284,9 @@ public class HomePageController {
 						Map<String,Object> user_settings = settingsDao.getUserSettings(objUsersBean1.getId()+"");
 						session.setAttribute("user_settings", user_settings);
 						Map<String,Object> interestCounts = objUsersDao.getInterestCounts(objUsersBean);
-						long notificationsCount = (Long)interestCounts.get("notificationsCount");
-						request.setAttribute("notificationsCount", notificationsCount);
+						//long notificationsCount = (Long)interestCounts.get("notificationsCount");
+						int notificationsCount = objUsersDao.getNotificationsCount(objUsersBean);
+						session.setAttribute("notificationsCount", notificationsCount);
 						sessionBean.setYetToBeViewedCount((String.valueOf(interestCounts.get("yetToBeViewedCount"))));
 						sessionBean.setSentInterestCount("0");
 						sessionBean.setAwaitingInterestCount("0");
@@ -1310,7 +1311,7 @@ public class HomePageController {
 			}
 			// update notifications count also
 			int notificationsCount = objUsersDao.getNotificationsCount(sessionBean);
-			request.setAttribute("notificationsCount", notificationsCount);
+			session.setAttribute("notificationsCount", notificationsCount);
 			List<Map<String,Object>> notificationsList = objUsersDao.getNotifications(sessionBean,false);
 			if(notificationsList!=null && notificationsList.size()>0){
 				session.setAttribute("notificationsList", notificationsList);
@@ -1559,6 +1560,11 @@ public class HomePageController {
 		public  @ResponseBody String shortList(ModelMap model,
 				HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
 			JSONObject objJson =new JSONObject();
+			String profile_id1 = request.getParameter("profile_id");
+			String mailContent = request.getParameter("mail_content");
+			if(StringUtils.isNotBlank(profile_id1)){
+				UsersBean receipientUser = objUsersDao.loginChecking(Integer.parseInt(profile_id1));
+				receipientUser.setMail_content(mailContent);
 			try {
 				UsersBean userBean = (UsersBean)session.getAttribute("cacheGuest");
 				if(userBean == null){
@@ -1569,6 +1575,7 @@ public class HomePageController {
 					boolean success = objUsersDao.shortlistProfile(profile_id);
 					if(success){
 						objJson.put("message", "success");
+						 EmailUtil.sendShortListToMail(userBean, receipientUser, request, objContext);
 					}else{
 						objJson.put("message", "failed");
 					}
@@ -1591,13 +1598,13 @@ public class HomePageController {
 				System.out.println(e);
 				logger.error(e);
 				logger.fatal("error in shortList method  ");
-			}
+			}}
 			return String.valueOf(objJson);
 		}
 	 
 	 
-	 @RequestMapping(value = "/expressInterestTo")
-		public  @ResponseBody String expressInterestTo(ModelMap model,
+	 @RequestMapping(value = "/expressInterestAll")
+		public  @ResponseBody String expressInterestAll(ModelMap model,
 				HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
 			JSONObject objJson =new JSONObject();
 			//List<Map<String,String>> allProfiles = null;
@@ -1613,7 +1620,11 @@ public class HomePageController {
 					page_no = (Integer.parseInt(clicked_btn))-1;
 				}
 				String profileId = request.getParameter("profile_id");
-				success = objUsersDao.expressInterestTo(profileId);
+				String profileArry[] =profileId.split(",");
+				for(int i=0;i<profileArry.length;i++) {
+					success = objUsersDao.expressInterestTo(profileArry[i]);
+				}
+				
 				if(success){
 					objJson.put("message", "success");
 					int sent_count = 0;
@@ -1640,6 +1651,63 @@ public class HomePageController {
 				logger.error(e);
 				objJson.put("message", "failed");
 			}
+			return String.valueOf(objJson);
+		}
+	 
+	 
+	 @RequestMapping(value = "/expressInterestTo")
+		public  @ResponseBody String expressInterestTo(ModelMap model,
+				HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
+			JSONObject objJson =new JSONObject();
+			//List<Map<String,String>> allProfiles = null;
+			boolean success = false;
+			int page_no = 0;
+			String profile_id = request.getParameter("profile_id");
+			String mailContent = request.getParameter("mail_content");
+			if(StringUtils.isNotBlank(profile_id)){
+				UsersBean receipientUser = objUsersDao.loginChecking(Integer.parseInt(profile_id));
+				receipientUser.setMail_content(mailContent);
+			try {
+				UsersBean userBean = (UsersBean)session.getAttribute("cacheGuest");
+				if(userBean == null){
+					return "redirect:HomePage";
+				}
+				String clicked_btn = request.getParameter("btn_id");
+				if(StringUtils.isNotBlank(clicked_btn)){
+					page_no = (Integer.parseInt(clicked_btn))-1;
+				}
+				String profileId = request.getParameter("profile_id");
+				success = objUsersDao.expressInterestTo(profileId);
+				if(success){
+					objJson.put("message", "success");
+					int sent_count = 0;
+					if(StringUtils.isNotEmpty(userBean.getSentInterestCount())){
+						sent_count = Integer.parseInt(userBean.getSentInterestCount());
+					}
+					userBean.setSentInterestCount((sent_count+1)+"");
+					session.setAttribute("cacheGuest",userBean);
+					int allowed_limit = (Integer)session.getAttribute("allowed_profiles_limit");
+					objJson.put("allowed_limit", allowed_limit);
+					System.out.println("UserBean1111111111111111"+userBean  +"  "+receipientUser+"  "+request+"  "+objContext);
+					 EmailUtil.sendExpressInterestToMail(userBean, receipientUser, request, objContext);
+					 
+					
+				}
+				else{
+					objJson.put("message", "failed");
+				}
+				//allProfiles = objUsersDao.getProfilesFilteredByPreferences(page_no);
+				/*if (allProfiles != null && allProfiles.size() > 0) {
+					objJson.put("allProfiles", allProfiles);
+				} else {
+					objJson.put("allProfiles", "");
+				}*/
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println(e);
+				logger.error(e);
+				objJson.put("message", "failed");
+			}}
 			return String.valueOf(objJson);
 		}
 	@RequestMapping(value = "/autoCompleteSave")
@@ -2937,9 +3005,9 @@ public class HomePageController {
 			if (forwarded) {
 				objJson.put("message", "success");
 				// update pending req count
-				int pending = Integer.parseInt(sessionBean.getPendingRequestsCount());
+				/*int pending = Integer.parseInt(sessionBean.getPendingRequestsCount());
 				sessionBean.setPendingRequestsCount(pending>0?(pending-1)+"":"0");
-				session.setAttribute("cacheGuest",sessionBean);
+				session.setAttribute("cacheGuest",sessionBean);*/
 			} else {
 				objJson.put("message", "failed");
 			}
@@ -3146,7 +3214,7 @@ public class HomePageController {
 			request.setAttribute("total_records", total_records);
 			if(StringUtils.isNotBlank(notification_id)){
 				int notificationsCount = objUsersDao.getNotificationsCount(sessionBean);
-				request.setAttribute("notificationsCount", notificationsCount);
+				session.setAttribute("notificationsCount", notificationsCount);
 				List<Map<String,Object>> notificationsList = objUsersDao.getNotifications(sessionBean,false);
 				if(notificationsList!=null && notificationsList.size()>0){
 					session.setAttribute("notificationsList", notificationsList);
@@ -3778,7 +3846,7 @@ public class HomePageController {
 			request.setAttribute("total_records", total_records);
 			if(StringUtils.isNotBlank(notification_id)){
 				int notificationsCount = objUsersDao.getNotificationsCount(sessionBean);
-				request.setAttribute("notificationsCount", notificationsCount);
+				session.setAttribute("notificationsCount", notificationsCount);
 				List<Map<String,Object>> notificationsList = objUsersDao.getNotifications(sessionBean,false);
 				if(notificationsList!=null && notificationsList.size()>0){
 					session.setAttribute("notificationsList", notificationsList);
@@ -3843,7 +3911,7 @@ public class HomePageController {
 			request.setAttribute("total_records", total_records);
 			if(StringUtils.isNotBlank(notification_id)){
 				int notificationsCount = objUsersDao.getNotificationsCount(sessionBean);
-				request.setAttribute("notificationsCount", notificationsCount);
+				session.setAttribute("notificationsCount", notificationsCount);
 				List<Map<String,Object>> notificationsList = objUsersDao.getNotifications(sessionBean,false);
 				if(notificationsList!=null && notificationsList.size()>0){
 					session.setAttribute("notificationsList", notificationsList);
@@ -4223,6 +4291,7 @@ public class HomePageController {
 				if(StringUtils.isNotBlank(notification_id)){
 					//update notification status as read
 					objUsersDao.updateNotificationStatus(notification_id);
+					System.out.println("CALL FROM NOTIFICATION LINK....");
 				}
 				if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("sent_requests")){
 					requests = objUsersDao.getsentRequests(sessionBean.getId()+"",0);
@@ -4230,8 +4299,10 @@ public class HomePageController {
 					requests = objUsersDao.getAwaitingRequests(sessionBean.getId()+"",0);
 				}else if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("pending_requests")){
 					requests = objUsersDao.getPendingInterestRequests(sessionBean.getId()+"",0);
+					System.out.println("PENDING REQUESTS LIST:"+requests);
 					int pedingCount = objUsersDao.getPendingInterestsCount(sessionBean);
 					sessionBean.setPendingRequestsCount(pedingCount+"");
+					System.out.println("UPDATED SESSION BEAN WITH COUNT");
 					session.setAttribute("cacheGuest",sessionBean);
 				}else if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("accepted_requests")){
 					requests = objUsersDao.getacceptedRequests(sessionBean.getId()+"",0);
@@ -4254,6 +4325,7 @@ public class HomePageController {
 						}
 						//add recent activity data
 						Map<String,Object> recent_activity = objUsersDao.getRecentActivityOf(sessionBean.getId()+"",(Integer)reqObj.get("id"),list_type);
+						System.out.println("GOT RECENT ACTIVITY...");
 						if(recent_activity!=null){
 							reqObj.put("recent_activity_map", recent_activity);
 						}else{
@@ -4278,8 +4350,9 @@ public class HomePageController {
 			request.setAttribute("total_records", total_records);
 			if(StringUtils.isNotBlank(notification_id)){
 				int notificationsCount = objUsersDao.getNotificationsCount(sessionBean);
-				request.setAttribute("notificationsCount", notificationsCount);
+				session.setAttribute("notificationsCount", notificationsCount);
 				List<Map<String,Object>> notificationsList = objUsersDao.getNotifications(sessionBean,false);
+				System.out.println("UPDATED NOTIFICATIONS LIST");
 				if(notificationsList!=null && notificationsList.size()>0){
 					session.setAttribute("notificationsList", notificationsList);
 				}else{
@@ -4756,12 +4829,13 @@ public class HomePageController {
 		objUsersDao.updateLoginTime(objUserBean,"1");
 		
 			Map<String,Object> interestCounts = objUsersDao.getInterestCounts(objUserBean);
-			long notificationsCount = (Long)interestCounts.get("receivedInterestCount")
+			/*long notificationsCount = (Long)interestCounts.get("receivedInterestCount")
 									+ (Long)interestCounts.get("mobileNumViewedCount")
 									+ (Long)interestCounts.get("profileViewedCount")
-									+ (Long)interestCounts.get("shortListedCount");
+									+ (Long)interestCounts.get("shortListedCount");*/
 			if(objUserBean.getStatus().equals("1")){
-				request.setAttribute("notificationsCount", notificationsCount);
+				int notificationsCount = objUsersDao.getNotificationsCount(objUserBean);
+				session.setAttribute("notificationsCount", notificationsCount);
 				objUserBean.setSentInterestCount((String.valueOf(interestCounts.get("sentInterestCount"))));
 				objUserBean.setAwaitingInterestCount((String.valueOf(interestCounts.get("awaitingInterestCount"))));
 				objUserBean.setReceivedInterestCount((String.valueOf(interestCounts.get("receivedInterestCount"))));
@@ -4778,7 +4852,7 @@ public class HomePageController {
 				objUserBean.setShortListedCount((String.valueOf(interestCounts.get("shortListedCount"))));
 			
 		}else{
-			request.setAttribute("notificationsCount", 0);
+			session.setAttribute("notificationsCount", 0);
 			objUserBean.setSentInterestCount("0");
 			objUserBean.setReceivedInterestCount("0");
 			objUserBean.setAcceptedInterestCount("0");
@@ -4920,7 +4994,7 @@ public class HomePageController {
 				request.setAttribute("notificationsList", notifications);
 			}
 			int notificationsCount = objUsersDao.getNotificationsCount(sessionBean);
-			request.setAttribute("notificationsCount", notificationsCount);
+			session.setAttribute("notificationsCount", notificationsCount);
 		} catch (Exception e) {
 	   e.printStackTrace();
 	   System.out.println(e);
@@ -5016,5 +5090,26 @@ public class HomePageController {
 		return String.valueOf(jsonObj);
 	}
 
-}
 
+@RequestMapping(value = "/recentlyViewedProfiles")
+public String recentlyViewedProfiles(@ModelAttribute("createProfile") UsersBean objUserssBean, Model objeModel, HttpServletRequest request, HttpSession session) {
+ 
+	try {
+		UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
+		if(sessionBean == null){
+			return "redirect:HomePage";
+		}
+		request.setAttribute("allOrders1", "null");
+		request.setAttribute("total_records", MatrimonyConstants.FREE_USER_PROFILES_LIMIT);
+		request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
+
+		
+	} catch (Exception e) {
+  e.printStackTrace();
+  System.out.println(e);
+  logger.error(e);
+  logger.fatal("error in recentlyViewedProfiles method");
+ }
+ return "recentlyViewedProfiles";
+}
+}
