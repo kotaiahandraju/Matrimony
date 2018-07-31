@@ -46,6 +46,12 @@
 <link rel="stylesheet" type="text/css" href="${baseurl}/user/css/component.css" />
 
 <style>
+.modal {
+    background: rgba(0,0,0,0.6);
+}
+.modal-header .close {
+    margin-top: -25px !important;
+}
 .section-title {
 margin-bottom:0px;}
 .getquote .right-side { 
@@ -56,12 +62,18 @@ section.getquote {
     margin-top: 45px;
 }} */
 #myModal {
-padding-top: 55px !important;
+padding-top: 97px !important;
     display: block;
     padding-right: 16px;
     margin-top:0px !important;
 }
 @media only screen and (max-width: 640px) and (min-width: 320px) {
+#myModal {
+padding-top: 85px !important;
+    display: block;
+    padding-left: 66px !important;
+    margin-top:0px !important;
+}
    video {
     width: 100% !important;
     height: auto !important ;
@@ -390,7 +402,7 @@ window.setTimeout(function() {
 
 
 
-<div class="clearfix"></div><div class="bannerposter" style="display:none;"><img class="img-responsive" src="img/bannerposter1.jpg" style="width:100%;"  /></div>
+<div class="clearfix"></div><!-- <div class="bannerposter" style="display:none;"><img class="img-responsive" src="img/bannerposter1.jpg" style="width:100%;"  /></div> -->
 	<!-- Slider -->
 
 	<section class="slider-banner">
@@ -409,7 +421,7 @@ window.setTimeout(function() {
 			</div>
 		</div>
 	</section>
-<div class="clearfix"></div><div class="bannerposter1"><img class="img-responsive" src="img/bannerposter1.jpg" style="width:100%;"  /></div>
+<div class="clearfix"></div><!-- <div class="bannerposter1"><img class="img-responsive" src="img/bannerposter1.jpg" style="width:100%;"  /></div> -->
 	<section class="darkSection">
 		<div class="container">
 			<div class="searchbg">
@@ -518,27 +530,19 @@ window.setTimeout(function() {
 						
 
 <!-- Modal -->
-<!-- <div id="myModal" class="modal fade" role="dialog" style="  margin-top:55px;">
+ <div id="myModal" class="modal fade" role="dialog" style="  margin-top:55px;">
   <div class="modal-dialog">
-
-    Modal content
     <div class="modal-content">		
-      <div class="modal-header" style="background:#099cca; color:#fff;"> <h3>Your Search Results</h3>
+      <div class="modal-header" style="background:#099cca; color:#fff;">
         <button type="button" style="color:#fff !important; margin-right:10px; opacity:1;" class="close" data-dismiss="modal">&times;</button>
       </div>
-      <div class="modal-body">
-      	<div class="searchresults">
-								   
-								    
-									<div id="searchResults">
-
-									</div>
-								</div>    
+      <div class="modal-body" style="padding:0px !important;">
+      	<img src="img/bannerposter.jpg" class="img-responsive"/> 
       </div>
     </div>
 
   </div>
-</div>		 -->		
+</div>		 	
 						
 <script>
 
