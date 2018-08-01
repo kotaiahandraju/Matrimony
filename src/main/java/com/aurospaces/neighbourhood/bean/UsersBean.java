@@ -107,7 +107,7 @@ protected String membership_status;
 protected String unique_code,emailverify,profileVerifyedBy;
 protected String rEducationName,rOccupationName,rCountryName,rStateName,rHeightInches,rHeightToInches,religionId,castId;
 protected int message_sent_status;
-
+protected String  rCity;
 
 @Override
 public String toString() {
@@ -1077,6 +1077,12 @@ public int getMessage_sent_status() {
 }
 public void setMessage_sent_status(int message_sent_status) {
 	this.message_sent_status = message_sent_status;
+}
+public String getrCity() {
+	return rCity;
+}
+public void setrCity(String rCity) {
+	this.rCity = rCity;
 }
 
 

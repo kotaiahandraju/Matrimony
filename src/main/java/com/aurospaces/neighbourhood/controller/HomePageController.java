@@ -1376,8 +1376,27 @@ public class HomePageController {
 				total_records = Integer.parseInt(((Map<String, String>)listOrderBeans.get(0)).get("total_records"));
 					
 				request.setAttribute("total_records", total_records);
-				request.setAttribute("r_age_from", searchCriteriaBean.getrAgeFrom());
-				request.setAttribute("r_age_to", searchCriteriaBean.getrAgeTo());
+				
+				Map<Integer,String> filtered_states = new HashMap<Integer,String>();
+				if(StringUtils.isNotBlank(searchCriteriaBean.getrCountry())){
+					List<Map<String,Object>> results = stateDao.getFilteredStates(searchCriteriaBean.getrCountry());
+					
+					for(Map<String,Object> state:results){
+						filtered_states.put((Integer)state.get("id"), (String)state.get("name"));
+					}
+					request.setAttribute("filtered_states", results);
+				}
+				Map<Integer,String> filtered_cities = new HashMap<Integer,String>();
+				if(StringUtils.isNotBlank(searchCriteriaBean.getrCountry())){
+					List<Map<String,Object>> results = objCityDao.getFilteredCities(searchCriteriaBean.getrState());
+					
+					for(Map<String,Object> state:results){
+						filtered_cities.put((Integer)state.get("id"), (String)state.get("name"));
+					}
+					request.setAttribute("filtered_cities", results);
+				}
+				//request.setAttribute("r_age_from", searchCriteriaBean.getrAgeFrom());
+				//request.setAttribute("r_age_to", searchCriteriaBean.getrAgeTo());
 				// System.out.println(sJson);
 			} else {
 				//objectMapper = new ObjectMapper();
@@ -3624,6 +3643,37 @@ public class HomePageController {
 			
 		}catch(Exception e){
 			logger.fatal("error in getFilteredStates method");
+			logger.error(e);
+			e.printStackTrace();
+		}
+		return jsonObj.toString();
+	}
+   
+   @RequestMapping(value = "/getFilteredCities")
+	public @ResponseBody String getFilteredCities(@ModelAttribute("createProfile") UsersBean userBean,ModelMap model, HttpServletRequest request, HttpSession session)
+														throws JsonGenerationException, JsonMappingException, IOException {
+		JSONObject jsonObj = new JSONObject();
+		List<Map<String, Object>> results = null;
+		try{
+			UsersBean userSessionBean = (UsersBean)session.getAttribute("cacheUserBean");
+			if(userSessionBean == null){
+				userSessionBean = (UsersBean)session.getAttribute("cacheGuest");
+				if(userSessionBean == null)
+					return "redirect:HomePage";
+			}
+			String state_ids = request.getParameter("state_ids");
+			if(StringUtils.isNotBlank(state_ids)){
+				results = objCityDao.getFilteredCities(state_ids);
+			}
+			if (results != null && results.size() > 0) {
+				jsonObj.put("city_list", results);
+				
+			} else {
+				jsonObj.put("city_list", "");
+			}
+			
+		}catch(Exception e){
+			logger.fatal("error in getFilteredCities method");
 			logger.error(e);
 			e.printStackTrace();
 		}

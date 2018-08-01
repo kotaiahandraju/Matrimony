@@ -1339,6 +1339,9 @@ public class UsersDao extends BaseUsersDao
 					if(StringUtils.isNotBlank(searchCriteriaBean.getrState()) && !searchCriteriaBean.getrState().equalsIgnoreCase("null")){
 						where_clause.append( " and FIND_IN_SET(u.currentState,'"+searchCriteriaBean.getrState()+"' )>0  ");
 					}
+					if(StringUtils.isNotBlank(searchCriteriaBean.getrCity()) && !searchCriteriaBean.getrCity().equalsIgnoreCase("null")){
+						where_clause.append( " and FIND_IN_SET(u.currentCity,'"+searchCriteriaBean.getrCity()+"' )>0  ");
+					}
 				}
 				if(objUserBean.getRoleId()!=1){
 					where_clause.append(" and u.gender not in  ('"+objUserBean.getGender()+"') ");
