@@ -677,6 +677,7 @@ function submitSearch(){
 	var motherTongue = $("#rMotherTongue").val();
 	var country = $("#rCountry").val();
 	var state = $("#rState").val();
+	var city = $("#rCity").val();
 	if(ageFrom > ageTo){
 		alert("Sorry, Invalid Age range");
 		return false;
@@ -685,7 +686,7 @@ function submitSearch(){
 		return false;
 	}
 	if(ageFrom=="" && ageTo=="" && maritalStatus==null && caste==null && motherTongue==null && country==null 
-			&& state==null && religion==null && heightFrom==""){
+			&& state==null && religion==null && heightFrom=="" && city==null){
 		alert("Enter any input");
 		return false;
 	}else{
@@ -1003,6 +1004,7 @@ function resetBtnfunction(){
 								formData.append("rCountry", $("#rCountry")
 										.val());
 								formData.append("rState", $("#rState").val());
+								formData.append("rCity", $("#rCity").val());
 								/* formData.append("rAgeFrom",$("#rAgeFrom").val());
 								formData.append("rAgeFrom",$("#rAgeFrom").val());
 								formData.append("rAgeFrom",$("#rAgeFrom").val());
@@ -1045,6 +1047,89 @@ function resetBtnfunction(){
 																"hidden", true);
 													} else {
 														paginationSetup(total_items_count);
+														$("#altLists")
+																.asPaginator(
+																		'enable');
+														displayMatches(results);
+														$("#table_footer")
+																.removeAttr(
+																		"hidden");
+														$("#altLists")
+																.removeAttr(
+																		"hidden");
+														displayTableFooter(page);
+														addWaterMark();
+													}
+
+												});
+
+							}
+						});
+	}
+	
+	function paginationSetupForSideGrid(total_items_count) {
+		$('#altLists')
+				.asPaginator(
+						total_items_count,
+						{
+							currentPage : 1,
+							visibleNum : {
+								0 : 10,
+								480 : 3,
+								960 : 5
+							},
+							tpl : function() {
+								return '<ul>{{first}}{{prev}}{{altLists}}{{next}}{{last}}</ul>';
+							},
+							components : {
+								first : true,
+								prev : true,
+								next : true,
+								last : true,
+								altLists : true
+							},
+							onChange : function(page) {
+								var formData = new FormData();
+								formData.append("rCity", $("#city").val());
+								formData.append("rAgeFrom", $("#age_from").val());
+								formData.append("rAgeTo", $("#age_to").val());
+								formData.append("page_no", page);
+								formData.append("request_from", "search");
+								//var tempData = $("#searchForm2").serialize();
+								$.fn
+										.makeMultipartRequest(
+												'POST',
+												'displayPage',
+												false,
+												formData,
+												false,
+												'text',
+												function(data) {
+													var jsonobj = $
+															.parseJSON(data);
+													var results = jsonobj.results;
+													//$('#countId').html('');
+													$("#search_criteria").prop(
+															"hidden", true);
+													$('#searchresultsDiv')
+															.removeAttr(
+																	"hidden");
+													if (results == "") {
+														$('#countId').html('');
+														$('#countId').html('0');
+														var str = '<div class="alert alert-danger ban"><h6>No results found..!</h6></div>';
+														$('#searchResults')
+																.html('');
+														$(str)
+																.appendTo(
+																		"#searchResults");
+														$("#table_footer")
+																.prop("hidden",
+																		true);
+														$("#altLists").prop(
+																"hidden", true);
+													} else {
+														paginationSetupForSideGrid(total_items_count);
 														$("#altLists")
 																.asPaginator(
 																		'enable');
@@ -1432,6 +1517,54 @@ function resetBtnfunction(){
 		selected_values = "${createProfile.rDiet}";
 		$("#rDiet").val(selected_values.split(",")); */
 	});
+	
+	function submitMore(){
+		var page = 1;
+			var formData = new FormData();
+			formData.append("page_no", page);
+			formData.append("request_from", "search");
+			formData.append("rCity", $("#city").val());
+			formData.append("rAgeFrom", $("#age_from").val());
+			formData.append("rAgeTo", $("#age_to").val());
+			jQuery.fn.makeMultipartRequest('POST', 'displayPage', false,
+					formData, false, 'text', function(data){
+						var jsonobj = $.parseJSON(data);
+						var results = jsonobj.results;
+						total_items_count = jsonobj.total_records;
+						//$('#countId').html('');
+						$("#search_criteria").prop(
+								"hidden", true);
+						$('#searchresultsDiv')
+								.removeAttr(
+										"hidden");
+						if (results == "") {
+							$('#countId').html('');
+							$('#countId').html('0');
+							var str = '<div class="alert alert-danger ban"><h6>No results found..!</h6></div>';
+							$('#searchResults')
+									.html('');
+							$(str)
+									.appendTo(
+											"#searchResults");
+							$("#table_footer")
+									.prop("hidden",
+											true);
+							$("#altLists").prop(
+									"hidden", true);
+						} else {
+							$('#countId').html('');
+							$('#countId').html(total_items_count);
+							$("#altLists").asPaginator('destroy');
+							paginationSetupForSideGrid(total_items_count);
+			    			$("#altLists").asPaginator('enable');
+			    			displayMatches(results);
+			    			$("#table_footer").removeAttr("hidden");
+			    			$("#altLists").removeAttr("hidden");
+			    			displayTableFooter(1);
+			    			addWaterMark();
+						}
+			});
+	}
 
 	$(".searchPage").addClass("active");
 

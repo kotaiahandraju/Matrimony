@@ -1428,7 +1428,7 @@ public class UsersDao extends BaseUsersDao
 							+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+objUserBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'message') as message_sent_status, "
 							+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+objUserBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'mobile_no_viewed') as mobileNumViewed, "
 							+" ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
-							+" (select count(*) from (select count(*) from users u left join user_images uimg on u.id = uimg.user_id "+where_clause+" group by u.id) tmp) as total_records, "
+							//+" (select count(*) from (select count(*) from users u left join user_images uimg on u.id = uimg.user_id "+where_clause+" group by u.id) tmp) as total_records, "
 							+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and  uimg.status = '1' and uimg.is_profile_picture='1') as profileImage, u.createProfileFor, "
 							+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+objUserBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'short_listed') as short_listed, "
 							+" (select highlight_profile from package where id = u.package_id) as profile_highlighter "
@@ -1446,7 +1446,7 @@ public class UsersDao extends BaseUsersDao
 							"monthlyIncome","diet","smoking","drinking","height","inches","cm",
 							"bodyType","bodyTypeName","complexion","complexionName","mobile","aboutMyself","disability",
 							"status","showall","userId","rAgeFrom","rAgeTo","rHeight","rMaritalStatus","rReligion","requiredReligionName","rCaste","requiredCasteName","rMotherTongue","requiredMotherTongue","haveChildren","rCountry","requiredCountry","rState","rEducation","requiredEducationName",
-							"rWorkingWith","rOccupation","requiredOccupationName","rAnnualIncome","rCreateProfileFor","rDiet","expressedInterest","message_sent_status","mobileNumViewed","age","dobString","total_records","profileImage","createProfileFor","short_listed","profile_highlighter"};
+							"rWorkingWith","rOccupation","requiredOccupationName","rAnnualIncome","rCreateProfileFor","rDiet","expressedInterest","message_sent_status","mobileNumViewed","age","dobString","profileImage","createProfileFor","short_listed","profile_highlighter"};
 				}else{
 					where_clause.append(" and u.status in ('1')    ");
 					buffer.append("select u.id,cit.name as currentCityName,u.occupation,oc.name as occupationName,ed.name as educationName,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.gender, "
@@ -1454,7 +1454,7 @@ public class UsersDao extends BaseUsersDao
 							+" u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName,  "
 							+"u.maritalStatus, u.caste,c.name as casteName, u.education, u.aboutMyself, " 
 							+" u.height ,h.inches,h.cm, ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
-							+" (select count(*) from users u "+where_clause+") as total_records, "
+							//+" (select count(*) from users u "+where_clause+") as total_records, "
 							+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and  uimg.status = '1' and uimg.is_profile_picture='1') as profileImage, u.createProfileFor, "
 							+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+objUserBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'short_listed') as short_listed, "
 							+" '0' as expressedInterest, '0' as message_sent_status,'0' as mobileNumViewed, GROUP_CONCAT(uimg.image) as image "
@@ -1467,7 +1467,7 @@ public class UsersDao extends BaseUsersDao
 					handlerObj = new String[] {"id","currentCityName","occupation","occupationName","educationName","created_time","updated_time",
 							"role_id","username","password","email","gender","dob","religion","religionName","motherTongue","motherTongueName",
 							"maritalStatus",
-							"caste","casteName","education","aboutMyself","height","inches","cm","age","dobString","total_records","profileImage","createProfileFor","short_listed","expressedInterest","message_sent_status","mobileNumViewed","image"};
+							"caste","casteName","education","aboutMyself","height","inches","cm","age","dobString","profileImage","createProfileFor","short_listed","expressedInterest","message_sent_status","mobileNumViewed","image"};
 				} 
 				
 				/*buffer.append("select u.id,sta.name as currentStateName,cit.name as currentCityName,u.occupation,oc.name as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
@@ -1555,6 +1555,13 @@ public class UsersDao extends BaseUsersDao
 								RowValueCallbackHandler handler = new RowValueCallbackHandler(handlerObj);
 								jdbcTemplate.query(sql, handler);
 								List<Map<String, String>> result = handler.getResult();
+								int total_records = 0;
+								if(result.size()>0){
+									//get total records count
+									String count_qry = "select count(1) from (select count(1) from users u left join user_images uimg on u.id = uimg.user_id "+where_clause+" group by u.id) tmp ";
+									total_records = jdbcTemplate.queryForInt(count_qry);
+									result.get(0).put("total_records", total_records+"");
+								}
 								return result;
 			}
 			return new LinkedList<Map<String, String>>();

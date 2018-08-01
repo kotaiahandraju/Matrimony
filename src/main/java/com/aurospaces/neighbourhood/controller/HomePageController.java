@@ -2801,7 +2801,9 @@ public class HomePageController {
 			//int total_records = Integer.parseInt(((Map<String, String>)results.get(0)).get("total_records"));
 			//request.setAttribute("total_records", total_records);
 			//request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
+			int total_records = 0;
 			if (results != null && results.size() > 0) {
+				total_records = Integer.parseInt(((Map<String, String>)results.get(0)).get("total_records"));
 				//get photos
 				for(Map<String,String> profileObj:results){
 					List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos(Integer.parseInt(profileObj.get("id")));
@@ -2824,6 +2826,7 @@ public class HomePageController {
 				
 			} else {
 				if (Objresults != null && Objresults.size() > 0) {
+					total_records = Integer.parseInt((String)((Map<String, Object>)Objresults.get(0)).get("total_records"));
 					//get photos
 					for(Map<String,Object> reqObj:Objresults){
 						List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos((Integer)reqObj.get("id"));
@@ -2845,7 +2848,7 @@ public class HomePageController {
 				}
 				
 			}
-			
+			jsonObj.put("total_records", total_records);
 			
 		}catch(Exception e){
 			logger.fatal("error in displayPage method");
