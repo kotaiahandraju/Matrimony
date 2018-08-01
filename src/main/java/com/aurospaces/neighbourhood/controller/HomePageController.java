@@ -1622,6 +1622,70 @@ public class HomePageController {
 		}
 	 
 	 
+	 @RequestMapping(value = "/expressInterestAll")
+		public  @ResponseBody String expressInterestAll(ModelMap model,
+				HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
+			JSONObject objJson =new JSONObject();
+			//List<Map<String,String>> allProfiles = null;
+			boolean success = false;
+			int page_no = 0;
+			String profileId = request.getParameter("profile_id");
+			String mailContent = request.getParameter("mail_content");
+			if(StringUtils.isNotBlank(profileId)){
+				
+			
+			try {
+				UsersBean userBean = (UsersBean)session.getAttribute("cacheGuest");
+				if(userBean == null){
+					return "redirect:HomePage";
+				}
+				String clicked_btn = request.getParameter("btn_id");
+				if(StringUtils.isNotBlank(clicked_btn)){
+					page_no = (Integer.parseInt(clicked_btn))-1;
+				}
+				UsersBean receipientUser = new UsersBean();
+				String profileArry[] =profileId.split(",");
+				for (int i = 0; i < profileArry.length; i++) {
+					success = objUsersDao.expressInterestTo(profileArry[i]);
+					
+				}
+				
+				if(success){
+					objJson.put("message", "success");
+					int sent_count = 0;
+					if(StringUtils.isNotEmpty(userBean.getSentInterestCount())){
+						sent_count = Integer.parseInt(userBean.getSentInterestCount());
+					}
+					userBean.setSentInterestCount((sent_count+1)+"");
+					session.setAttribute("cacheGuest",userBean);
+					int allowed_limit = (Integer)session.getAttribute("allowed_profiles_limit");
+					objJson.put("allowed_limit", allowed_limit);
+					for (int j = 0; j < profileArry.length; j++) {
+				
+						receipientUser = objUsersDao.loginChecking(Integer.parseInt(profileArry[j]));
+						receipientUser.setMail_content(mailContent);
+					EmailUtil.sendExpressInterestToMail(userBean, receipientUser, request, objContext);
+					}
+				}
+				else{
+					objJson.put("message", "failed");
+				}
+				//allProfiles = objUsersDao.getProfilesFilteredByPreferences(page_no);
+				/*if (allProfiles != null && allProfiles.size() > 0) {
+					objJson.put("allProfiles", allProfiles);
+				} else {
+					objJson.put("allProfiles", "");
+				}*/
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println(e);
+				logger.error(e);
+				objJson.put("message", "failed");
+			}}
+			return String.valueOf(objJson);
+		}
+	 
+	 
 	 @RequestMapping(value = "/expressInterestTo")
 		public  @ResponseBody String expressInterestTo(ModelMap model,
 				HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
@@ -1655,7 +1719,6 @@ public class HomePageController {
 					session.setAttribute("cacheGuest",userBean);
 					int allowed_limit = (Integer)session.getAttribute("allowed_profiles_limit");
 					objJson.put("allowed_limit", allowed_limit);
-					System.out.println("UserBean1111111111111111"+userBean  +"  "+receipientUser+"  "+request+"  "+objContext);
 					 EmailUtil.sendExpressInterestToMail(userBean, receipientUser, request, objContext);
 					 
 					
@@ -5088,5 +5151,26 @@ public class HomePageController {
 		return String.valueOf(jsonObj);
 	}
 
-}
 
+@RequestMapping(value = "/recentlyViewedProfiles")
+public String recentlyViewedProfiles(@ModelAttribute("createProfile") UsersBean objUserssBean, Model objeModel, HttpServletRequest request, HttpSession session) {
+ 
+	try {
+		UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
+		if(sessionBean == null){
+			return "redirect:HomePage";
+		}
+		request.setAttribute("allOrders1", "null");
+		request.setAttribute("total_records", MatrimonyConstants.FREE_USER_PROFILES_LIMIT);
+		request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
+
+		
+	} catch (Exception e) {
+  e.printStackTrace();
+  System.out.println(e);
+  logger.error(e);
+  logger.fatal("error in recentlyViewedProfiles method");
+ }
+ return "recentlyViewedProfiles";
+}
+}

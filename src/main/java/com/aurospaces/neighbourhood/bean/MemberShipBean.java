@@ -12,6 +12,7 @@ public class MemberShipBean {
 	@NotEmpty
 	private String name;
 	private int duration;
+	private String duration_type;
 	@NotEmpty
 	private String description;
 	private String status;
@@ -46,12 +47,7 @@ public class MemberShipBean {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getDuration() {
-		return duration;
-	}
-	public void setDuration(int duration) {
-		this.duration = duration;
-	}
+	
 	public String getDescription() {
 		return description;
 	}
@@ -106,6 +102,19 @@ public class MemberShipBean {
 	public void setAstrology_match(String astrology_match) {
 		Astrology_match = astrology_match;
 	}
+	public int getDuration() {
+		return duration;
+	}
+	public void setDuration(int duration) {
+		this.duration = duration;
+	}
+	public String getDuration_type() {
+		return duration_type;
+	}
+	public void setDuration_type(String duration_type) {
+		this.duration_type = duration_type;
+	}
+	
 	
 	
 	
