@@ -32,7 +32,7 @@
 				<ul>
 					<li><a href="#">Login</a></li>
 					<li><a href="#">Register</a></li>
-					<li><a href="#">Help</a></li>
+					<li><a href="help">Help</a></li>
 				</ul>
 			</div>
 			<div class="clearfix"></div>
