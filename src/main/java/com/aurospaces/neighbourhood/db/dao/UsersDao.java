@@ -1284,6 +1284,7 @@ public class UsersDao extends BaseUsersDao
 			return new LinkedList<Map<String, String>>();
 	 }
 	 
+	 
 	 public List<Map<String, String>> getSearchResults(UsersBean searchCriteriaBean,int page_no,String listType,Map<String,String> filterOptions){
 		 return this.getSearchResults(searchCriteriaBean, page_no, listType, null, null, null,filterOptions);
 	 }

@@ -107,7 +107,7 @@ protected String membership_status;
 protected String unique_code,emailverify,profileVerifyedBy;
 protected String rEducationName,rOccupationName,rCountryName,rStateName,rHeightInches,rHeightToInches,religionId,castId;
 protected int message_sent_status;
-protected String  rCity;
+protected String  rCity; 
 
 @Override
 public String toString() {

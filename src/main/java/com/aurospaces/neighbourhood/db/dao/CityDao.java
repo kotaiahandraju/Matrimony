@@ -53,6 +53,7 @@ public class CityDao extends BaseCityDao {
 				return retlist;
 			return null;
 		}
+	 
 	 public List<Map<String,Object>> getFilteredCities(String stateIds){
 			jdbcTemplate = custom.getJdbcTemplate();
 			String qryStr = "select * from city  where find_in_set(state,'"+stateIds+"')>0 and status='1' order by name asc";
