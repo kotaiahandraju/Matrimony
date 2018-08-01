@@ -1376,8 +1376,27 @@ public class HomePageController {
 				total_records = Integer.parseInt(((Map<String, String>)listOrderBeans.get(0)).get("total_records"));
 					
 				request.setAttribute("total_records", total_records);
-				request.setAttribute("r_age_from", searchCriteriaBean.getrAgeFrom());
-				request.setAttribute("r_age_to", searchCriteriaBean.getrAgeTo());
+				
+				Map<Integer,String> filtered_states = new HashMap<Integer,String>();
+				if(StringUtils.isNotBlank(searchCriteriaBean.getrCountry())){
+					List<Map<String,Object>> results = stateDao.getFilteredStates(searchCriteriaBean.getrCountry());
+					
+					for(Map<String,Object> state:results){
+						filtered_states.put((Integer)state.get("id"), (String)state.get("name"));
+					}
+					request.setAttribute("filtered_states", results);
+				}
+				Map<Integer,String> filtered_cities = new HashMap<Integer,String>();
+				if(StringUtils.isNotBlank(searchCriteriaBean.getrCountry())){
+					List<Map<String,Object>> results = objCityDao.getFilteredCities(searchCriteriaBean.getrState());
+					
+					for(Map<String,Object> state:results){
+						filtered_cities.put((Integer)state.get("id"), (String)state.get("name"));
+					}
+					request.setAttribute("filtered_cities", results);
+				}
+				//request.setAttribute("r_age_from", searchCriteriaBean.getrAgeFrom());
+				//request.setAttribute("r_age_to", searchCriteriaBean.getrAgeTo());
 				// System.out.println(sJson);
 			} else {
 				//objectMapper = new ObjectMapper();
@@ -1610,6 +1629,11 @@ public class HomePageController {
 			//List<Map<String,String>> allProfiles = null;
 			boolean success = false;
 			int page_no = 0;
+			String profileId = request.getParameter("profile_id");
+			String mailContent = request.getParameter("mail_content");
+			if(StringUtils.isNotBlank(profileId)){
+				
+			
 			try {
 				UsersBean userBean = (UsersBean)session.getAttribute("cacheGuest");
 				if(userBean == null){
@@ -1619,10 +1643,11 @@ public class HomePageController {
 				if(StringUtils.isNotBlank(clicked_btn)){
 					page_no = (Integer.parseInt(clicked_btn))-1;
 				}
-				String profileId = request.getParameter("profile_id");
+				UsersBean receipientUser = new UsersBean();
 				String profileArry[] =profileId.split(",");
-				for(int i=0;i<profileArry.length;i++) {
+				for (int i = 0; i < profileArry.length; i++) {
 					success = objUsersDao.expressInterestTo(profileArry[i]);
+					
 				}
 				
 				if(success){
@@ -1635,6 +1660,12 @@ public class HomePageController {
 					session.setAttribute("cacheGuest",userBean);
 					int allowed_limit = (Integer)session.getAttribute("allowed_profiles_limit");
 					objJson.put("allowed_limit", allowed_limit);
+					for (int j = 0; j < profileArry.length; j++) {
+				
+						receipientUser = objUsersDao.loginChecking(Integer.parseInt(profileArry[j]));
+						receipientUser.setMail_content(mailContent);
+					EmailUtil.sendExpressInterestToMail(userBean, receipientUser, request, objContext);
+					}
 				}
 				else{
 					objJson.put("message", "failed");
@@ -1650,7 +1681,7 @@ public class HomePageController {
 				System.out.println(e);
 				logger.error(e);
 				objJson.put("message", "failed");
-			}
+			}}
 			return String.valueOf(objJson);
 		}
 	 
@@ -1688,7 +1719,6 @@ public class HomePageController {
 					session.setAttribute("cacheGuest",userBean);
 					int allowed_limit = (Integer)session.getAttribute("allowed_profiles_limit");
 					objJson.put("allowed_limit", allowed_limit);
-					System.out.println("UserBean1111111111111111"+userBean  +"  "+receipientUser+"  "+request+"  "+objContext);
 					 EmailUtil.sendExpressInterestToMail(userBean, receipientUser, request, objContext);
 					 
 					
@@ -1954,6 +1984,7 @@ public class HomePageController {
 		}
 		return statesMap;
 	}
+	
 	@ModelAttribute("countries")
 	public Map<Integer, String> populatecountries() {
 		Map<Integer, String> statesMap = new LinkedHashMap<Integer, String>();
@@ -2770,7 +2801,9 @@ public class HomePageController {
 			//int total_records = Integer.parseInt(((Map<String, String>)results.get(0)).get("total_records"));
 			//request.setAttribute("total_records", total_records);
 			//request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
+			int total_records = 0;
 			if (results != null && results.size() > 0) {
+				total_records = Integer.parseInt(((Map<String, String>)results.get(0)).get("total_records"));
 				//get photos
 				for(Map<String,String> profileObj:results){
 					List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos(Integer.parseInt(profileObj.get("id")));
@@ -2793,6 +2826,7 @@ public class HomePageController {
 				
 			} else {
 				if (Objresults != null && Objresults.size() > 0) {
+					total_records = Integer.parseInt((String)((Map<String, Object>)Objresults.get(0)).get("total_records"));
 					//get photos
 					for(Map<String,Object> reqObj:Objresults){
 						List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos((Integer)reqObj.get("id"));
@@ -2814,7 +2848,7 @@ public class HomePageController {
 				}
 				
 			}
-			
+			jsonObj.put("total_records", total_records);
 			
 		}catch(Exception e){
 			logger.fatal("error in displayPage method");
@@ -3676,6 +3710,37 @@ public class HomePageController {
 			
 		}catch(Exception e){
 			logger.fatal("error in getFilteredStates method");
+			logger.error(e);
+			e.printStackTrace();
+		}
+		return jsonObj.toString();
+	}
+   
+   @RequestMapping(value = "/getFilteredCities")
+	public @ResponseBody String getFilteredCities(@ModelAttribute("createProfile") UsersBean userBean,ModelMap model, HttpServletRequest request, HttpSession session)
+														throws JsonGenerationException, JsonMappingException, IOException {
+		JSONObject jsonObj = new JSONObject();
+		List<Map<String, Object>> results = null;
+		try{
+			UsersBean userSessionBean = (UsersBean)session.getAttribute("cacheUserBean");
+			if(userSessionBean == null){
+				userSessionBean = (UsersBean)session.getAttribute("cacheGuest");
+				if(userSessionBean == null)
+					return "redirect:HomePage";
+			}
+			String state_ids = request.getParameter("state_ids");
+			if(StringUtils.isNotBlank(state_ids)){
+				results = objCityDao.getFilteredCities(state_ids);
+			}
+			if (results != null && results.size() > 0) {
+				jsonObj.put("city_list", results);
+				
+			} else {
+				jsonObj.put("city_list", "");
+			}
+			
+		}catch(Exception e){
+			logger.fatal("error in getFilteredCities method");
 			logger.error(e);
 			e.printStackTrace();
 		}
