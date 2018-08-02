@@ -5179,4 +5179,29 @@ public String recentlyViewedProfiles(@ModelAttribute("createProfile") UsersBean 
  }
  return "recentlyViewedProfiles";
 }
+@RequestMapping(value = "/help")
+public String help(@ModelAttribute("createProfile") UsersBean objUserssBean, Model objeModel, HttpServletRequest request, HttpSession session) {
+ 
+	try {
+		UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
+		if(sessionBean == null){
+			return "redirect:HomePage";
+		}
+		request.setAttribute("allOrders1", "null");
+		request.setAttribute("total_records", MatrimonyConstants.FREE_USER_PROFILES_LIMIT);
+		request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
+
+		
+	} catch (Exception e) {
+  e.printStackTrace();
+  System.out.println(e);
+  logger.error(e);
+  logger.fatal("error in recentlyViewedProfiles method");
+ }
+ return "help";
 }
+}
+
+
+
+
