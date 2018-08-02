@@ -373,7 +373,7 @@ function displayMatches(listOrders) {
 		
 		var image = null; image = orderObj.profileImage;
 		if(image == "" || image == null || image == "undefined"){
-			image = "img/default.png";
+			image = "${baseurl}/img/default.png";
 		}
 		/* else{
 		array = image.split(",");
@@ -436,6 +436,7 @@ function displayMatches(listOrders) {
 			var slider = "", displayStyle = ' ';
 			if(photos_list == "" || typeof photos_list == "undefined"){
 				slider = '<a href="#" onclick="fullProfile('+orderObj.id+')"><img src="img/default.png" class="img img-responsive thumbnail " style="margin-bottom:0;height: auto;width: 100%;" ></a>';
+				slider = '<img src="${baseurl}/img/default.png" class="img img-responsive thumbnail " style="margin-bottom:0;height: auto;width: 100%;" >';
 			}else{
 				smallerSlideIndex[orderObj.id] = 0;
 				var slider = "", displayStyle = ' ';
@@ -539,6 +540,7 @@ function displayMatches(listOrders) {
 				//+ '<button class="btn btn-danger btn-block btn-md" onclick="fullProfile('+orderObj.id+')">View Full Profile</button><br><br><br><br><br>'
 				+ '<a href="#" class="btn btn-primary  btn-sm" onclick="fullProfile('+orderObj.id+')">View Full Profile</a>'
 				+ shortListedStr
+				+ '<a href="#no" type="button" class="btn btn-danger btn-sm" id="sendMail'+orderObj.id+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')">Send Mail</a>'
 // 				+ '<a href="#" type="button" class="btn1 btn btn-primary btn-sm"  id="mobileBtn'+orderObj.id+'" onclick="shortList('+orderObj.id+')">Shortlist</a> '
 				+ '<div class="clearfix"></div>'
             	+ '</div>'
@@ -1090,9 +1092,25 @@ function resetBtnfunction(){
 							},
 							onChange : function(page) {
 								var formData = new FormData();
+								
+								formData.append("rHeight", $("#rHeight").val());
+								formData.append("rHeightTo", $("#rHeightTo").val());
+								
+								formData.append("rMaritalStatus", $(
+										"#rMaritalStatus").val());
+								formData.append("rReligion", $("#rReligion")
+										.val());
+								formData.append("rCaste", $("#rCaste").val());
+								formData.append("rMotherTongue", $(
+										"#rMotherTongue").val());
+								formData.append("rCountry", $("#rCountry")
+										.val());
+								formData.append("rState", $("#rState").val());
+								
 								formData.append("rCity", $("#city").val());
 								formData.append("rAgeFrom", $("#age_from").val());
 								formData.append("rAgeTo", $("#age_to").val());
+								
 								formData.append("page_no", page);
 								formData.append("request_from", "search");
 								//var tempData = $("#searchForm2").serialize();
@@ -1298,7 +1316,27 @@ function resetBtnfunction(){
 	}
 
 	function filterResultsWithPhoto() {
+		var page = 1;
 		var formData = new FormData();
+		
+		formData.append("rHeight", $("#rHeight").val());
+		formData.append("rHeightTo", $("#rHeightTo").val());
+		
+		formData.append("rMaritalStatus", $(
+				"#rMaritalStatus").val());
+		formData.append("rReligion", $("#rReligion")
+				.val());
+		formData.append("rCaste", $("#rCaste").val());
+		formData.append("rMotherTongue", $(
+				"#rMotherTongue").val());
+		formData.append("rCountry", $("#rCountry")
+				.val());
+		formData.append("rState", $("#rState").val());
+		
+		formData.append("rCity", $("#city").val());
+		formData.append("rAgeFrom", $("#age_from").val());
+		formData.append("rAgeTo", $("#age_to").val());
+		
 		formData.append("page_no", 1);
 		formData.append("request_from", "search");
 		formData.append("with_photo", "true");
@@ -1314,6 +1352,7 @@ function resetBtnfunction(){
 						function(data) {
 							var jsonobj = $.parseJSON(data);
 							var results = jsonobj.results;
+							total_items_count = jsonobj.total_records;
 							//$('#countId').html('');
 							$("#search_criteria").prop("hidden", true);
 							$('#searchresultsDiv').removeAttr("hidden");
@@ -1326,13 +1365,16 @@ function resetBtnfunction(){
 								$("#table_footer").prop("hidden", true);
 								$("#altLists").prop("hidden", true);
 							} else {
-								paginationSetup(total_items_count);
-								$("#altLists").asPaginator('enable');
-								displayMatches(results);
-								$("#table_footer").removeAttr("hidden");
-								$("#altLists").removeAttr("hidden");
-								displayTableFooter(1);
-								addWaterMark();
+								$('#countId').html('');
+								$('#countId').html(total_items_count);
+								$("#altLists").asPaginator('destroy');
+								paginationSetupForSideGrid(total_items_count);
+				    			$("#altLists").asPaginator('enable');
+				    			displayMatches(results);
+				    			$("#table_footer").removeAttr("hidden");
+				    			$("#altLists").removeAttr("hidden");
+				    			displayTableFooter(1);
+				    			addWaterMark();
 							}
 
 						});
@@ -1518,14 +1560,44 @@ function resetBtnfunction(){
 		$("#rDiet").val(selected_values.split(",")); */
 	});
 	
-	function submitMore(){
+	function submitMore(option_str){
 		var page = 1;
 			var formData = new FormData();
+			
+			formData.append("rHeight", $("#rHeight").val());
+			formData.append("rHeightTo", $("#rHeightTo").val());
+			
+			formData.append("rMaritalStatus", $(
+					"#rMaritalStatus").val());
+			formData.append("rReligion", $("#rReligion")
+					.val());
+			formData.append("rCaste", $("#rCaste").val());
+			formData.append("rMotherTongue", $(
+					"#rMotherTongue").val());
+			formData.append("rCountry", $("#rCountry")
+					.val());
+			formData.append("rState", $("#rState").val());
+			
 			formData.append("page_no", page);
 			formData.append("request_from", "search");
+			
 			formData.append("rCity", $("#city").val());
 			formData.append("rAgeFrom", $("#age_from").val());
 			formData.append("rAgeTo", $("#age_to").val());
+			
+			if(option_str=="day"){
+				formData.append("with_in_day", "true");
+			}else if(option_str=="week"){
+				formData.append("with_in_week", "true");
+			}else if(option_str=="month"){
+				formData.append("with_in_month", "true");
+			}else if(option_str=="all"){
+				formData.append("all", "true");
+			}else if(option_str=="photo"){
+				formData.append("with_photo", "true");
+			}
+			
+			
 			jQuery.fn.makeMultipartRequest('POST', 'displayPage', false,
 					formData, false, 'text', function(data){
 						var jsonobj = $.parseJSON(data);

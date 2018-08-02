@@ -2620,14 +2620,16 @@ public class HomePageController {
 			String with_in_day = request.getParameter("with_in_day");
 			String with_in_week = request.getParameter("with_in_week");
 			String with_in_month = request.getParameter("with_in_month");
+			String all_created = request.getParameter("all");
 			String age_from = request.getParameter("age_from");
 			String age_to = request.getParameter("age_to");
 			
 			Map<String,String> filterOptions = new HashMap<String,String>();
-			filterOptions.put("with_photo", with_photo);
-			filterOptions.put("with_in_day", with_in_day);
-			filterOptions.put("with_in_week", with_in_week);
-			filterOptions.put("with_in_month", with_in_month);
+			filterOptions.put("with_photo", (StringUtils.isNotBlank(with_photo))?with_photo:"false");
+			filterOptions.put("with_in_day", (StringUtils.isNotBlank(with_in_day))?with_in_day:"false");
+			filterOptions.put("with_in_week", (StringUtils.isNotBlank(with_in_week))?with_in_week:"false");
+			filterOptions.put("with_in_month", (StringUtils.isNotBlank(with_in_month))?with_in_month:"false");
+			filterOptions.put("created_at_any_time", (StringUtils.isNotBlank(all_created))?all_created:"false");
 			filterOptions.put("age_from", age_from);
 			filterOptions.put("age_to", age_to);
 			

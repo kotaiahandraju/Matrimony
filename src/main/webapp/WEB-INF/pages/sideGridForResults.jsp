@@ -83,14 +83,14 @@ margin-left:10px;
 			<p class="on">New Matches</p>
 			<p class="new"><a href="" >Profiles yet to be viewed (${cacheGuest.yetToBeViewedCount})</a><br>
 
-<a href="">Extended Matches</a><br>
+<!-- <a href="">Extended Matches</a><br> -->
 
 <a href="">Profiles viewed & not</a><br>
 <a href="">contacted (${cacheGuest.viewedNotContactedCount})</a><br>
 
-<a href="">Members looking for me</a><br>
+<!-- <a href="">Members looking for me</a><br> -->
 
-<a href="">Mutual Matches</a><br>
+<!-- <a href="">Mutual Matches</a><br> -->
 
 <a href="">Premium Members</a></p><br>
 			</div></div>
@@ -110,13 +110,15 @@ margin-left:10px;
     </div>
     <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
       <div class="panel-body">
-         <p> <a href=""> Within a day (27)</a><br>
-    <a href=""> Within a week (181)</a><br>
-    <a href=""> Within a month (582)</a></p>   </div>
+         <p> <a href="#" onclick="submitMore('day')"> Within a day </a><br>
+    <a href="#" onclick="submitMore('week')"> Within a week </a><br>
+    <a href="#" onclick="submitMore('month')"> Within a month </a><br>
+    <a href="#" onclick="submitMore('all')"> All </a><br>
+    </p>   </div>
     </div>
   </div>
 
-  <div class="panel panel-default">
+  <!-- <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingTwo">
       <h4 class="panel-title">
         <a role="button" data-toggle="collapse" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo" class="trigger">
@@ -129,7 +131,7 @@ margin-left:10px;
         Active Tab
       </div>
     </div>
-  </div>
+  </div> -->
 </div>
 
 <div class="collapse-group">
@@ -145,9 +147,8 @@ margin-left:10px;
     </div>
     <div id="collapseThree" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree">
       <div class="panel-body">
-        <p> <a href="#" onclick="filterResultsWithPhoto()">  With Photo (323)
+        <p> <a href="#" onclick="submitMore('photo')">  With Photo 
     </a><br>
-    <a href=""> With Horoscope (225)</a><br>
     </p> 
       </div>
     </div>
@@ -196,7 +197,7 @@ margin-left:10px;
       <option value="59">59</option><option value="60">60</option><option value="61">61</option><option value="62">62</option>
       <option value="63">63</option><option value="64">64</option><option value="65">65</option><option value="66">66</option>
       <option value="67">67</option><option value="68">68</option><option value="69">69</option><option value="70">70</option>
-      </select>&nbsp;&nbsp;Yrs<span class="errortext" id="ageerr"></span>&nbsp;&nbsp;<input class="" style="background: rgb(255, 255, 255) none repeat scroll 0% 0%; border-radius: 3px; color: rgb(2, 116, 203); font-weight: normal; font-size: 12px; margin-left: 0px; padding: 5px; margin-top: -2px; border: 1px solid rgb(214, 214, 214); line-height: 16px;cursor:pointer !important;" value="Submit" onclick="submitMore()" type="button"></div>
+      </select>&nbsp;&nbsp;Yrs<span class="errortext" id="ageerr"></span>&nbsp;&nbsp;<input class="" style="background: rgb(255, 255, 255) none repeat scroll 0% 0%; border-radius: 3px; color: rgb(2, 116, 203); font-weight: normal; font-size: 12px; margin-left: 0px; padding: 5px; margin-top: -2px; border: 1px solid rgb(214, 214, 214); line-height: 16px;cursor:pointer !important;" value="Submit" onclick="submitMore('')" type="button"></div>
         </div>
     </div>
   </div>
@@ -214,7 +215,7 @@ margin-left:10px;
       <select name="city" id="city" style="width:;height:30px;" class="optiondiv multiselect" size="1" multiple="multiple">
       	<option value="all">--Select City--</option>
       
-      </select>&nbsp;&nbsp;<span class="errortext" id="cityerr"></span>&nbsp;&nbsp;<input class="" style="background: rgb(255, 255, 255) none repeat scroll 0% 0%; border-radius: 3px; color: rgb(2, 116, 203); font-weight: normal; font-size: 12px; margin-left: 0px; padding: 5px; margin-top: -2px; border: 1px solid rgb(214, 214, 214); line-height: 16px;cursor:pointer !important;" value="Submit" onclick="submitMore()" type="button"></div>
+      </select>&nbsp;&nbsp;<span class="errortext" id="cityerr"></span>&nbsp;&nbsp;<input class="" style="background: rgb(255, 255, 255) none repeat scroll 0% 0%; border-radius: 3px; color: rgb(2, 116, 203); font-weight: normal; font-size: 12px; margin-left: 0px; padding: 5px; margin-top: -2px; border: 1px solid rgb(214, 214, 214); line-height: 16px;cursor:pointer !important;" value="Submit" onclick="submitMore('')" type="button"></div>
         </div>
     </div>
   </div>

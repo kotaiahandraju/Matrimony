@@ -299,6 +299,7 @@ function displayMatches(listOrders) {
             	+ insert_str
 				+ '<a href="#" class="btn btn-primary btn-sm " onclick="fullProfile('+orderObj.id+')">View Full Profile</a><br>'
 				+ shortListedStr
+				+ '<a href="#no" type="button" class="btn btn-danger btn-sm" id="sendMail'+orderObj.id+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')">Send Mail</a>'
 	// 	        + '<a href="#" type="button" class="btn1 btn btn-info btn-sm"  id="mobileBtn'+orderObj.id+'" onclick="shortList('+orderObj.id+')">Shortlist</a> '
             	+ '<div class="clearfix"></div>'
             	+ '</div>'
