@@ -4452,8 +4452,8 @@ public class HomePageController {
 				}else if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("awaiting_requests")){
 					requests = objUsersDao.getAwaitingRequests(sessionBean.getId()+"",0);
 				}else if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("pending_requests")){
-					
 					String filter_requests = request.getParameter("filter_requests");
+					requests = objUsersDao.getFilteredRequests(sessionBean.getId()+"",0);
 					if(StringUtils.isNotBlank(filter_requests) && filter_requests.equalsIgnoreCase("true")){
 						
 						String read = request.getParameter("read");
@@ -5198,7 +5198,65 @@ public String help(@ModelAttribute("createProfile") UsersBean objUserssBean, Mod
  }
  return "help";
 }
+
+@RequestMapping(value = "/premiumMembers")
+public String premiumMembers(@ModelAttribute("createProfile") UsersBean searchCriteriaBean, Model objeModel, HttpServletRequest request, HttpSession session) {
+  List<Map<String, String>> listOrderBeans = null;
+  ObjectMapper objectMapper = null;
+	String sJson = null;
+  try{
+	   UsersBean userBean = (UsersBean)session.getAttribute("cacheGuest");
+		if(userBean == null){
+			return "redirect:HomePage";
+		}
+
+		String withPhoto = request.getParameter("withPhoto");
+		String alreadyViewed = request.getParameter("alreadyViewed");
+		String alreadyContacted = request.getParameter("alreadyContacted");
+		listOrderBeans = objUsersDao.getSearchResults(searchCriteriaBean,0,"newmatches");
+		int total_records = 0;//limit - viewed_count;
+		request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
+		
+		if (listOrderBeans != null && listOrderBeans.size() > 0) {
+			//get photos
+			for(Map<String,String> profileObj:listOrderBeans){
+				List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos(Integer.parseInt(profileObj.get("id")));
+				if(photosList!=null && photosList.size()>0){
+					String imgStr = "";
+					for(Map<String,Object> photo:photosList){
+						if(StringUtils.isBlank(imgStr)){
+							imgStr = (String)photo.get("image");
+						}else
+							imgStr += ","+photo.get("image");
+					}
+					profileObj.put("photosList", imgStr);
+				}else{
+					profileObj.put("photosList", "");
+				}
+				
+				
+			}
+			objectMapper = new ObjectMapper();
+			sJson = objectMapper.writeValueAsString(listOrderBeans);
+			request.setAttribute("allOrders1", sJson);
+			total_records = Integer.parseInt(((Map<String, String>)listOrderBeans.get(0)).get("total_records"));
+			request.setAttribute("total_records", total_records);
+		} else {
+			request.setAttribute("allOrders1", "''");
+			request.setAttribute("total_records", "0");
+		}
+  } catch (Exception e) {
+		e.printStackTrace();
+		System.out.println(e);
+		logger.error(e);
+		logger.fatal("error in interestRequestsPagination method  ");
+		return null;
+	}
+  
+ return "premiumMembers"; 
+
 }
+} 
 
 
 
