@@ -374,21 +374,20 @@ tooltip:hover:after {
 				return false;
 			}
 			
-			$(".form-check-input").each(function(){
-				
-			});
-			
 			var roleId = ${cacheGuest.roleId};
 			profileObj = [];  
 			shortlistTD=[];
-			$('span[name^=expInterest]').each(function(){
-				if($.trim($(this).text()) != ""){
+			
+// 				$('.form-check-input[type="checkbox"]:checked').each(function(){
+					$('span[name^=expInterest]').each(function(){
+						if($.trim($(this).text()) != ""){
 					var str = this.id; 
 					var res= str.replace("expInterest", "");
 					profile_id.push(res);
 				    var expInterest= serviceUnitArray[res];
 				    profileObj.push(expInterest);
-				}
+// 			     }); 
+}
 			});
 			
 			/* $('span[name^=shortlistTD]').each(function(){
@@ -417,9 +416,9 @@ tooltip:hover:after {
 					}
 				}
 				var formData = new FormData();
-			
-				formData.append('profile_id',profile_id);
-				jQuery.fn.makeMultipartRequest('POST', 'expressInterestAll', false,
+			console.log(profile_id);
+				 formData.append('profile_id',profile_id);
+				 jQuery.fn.makeMultipartRequest('POST', 'expressInterestAll', false,
 						formData, false, 'text', function(data){
 			    		var jsonobj = $.parseJSON(data);
 			    		var limit = jsonobj.allowed_limit;
@@ -428,7 +427,7 @@ tooltip:hover:after {
 			    		//if(typeof msg != "undefined" ){
 			    			if("success"==msg){
 			    				$("#expInterest"+profile_id).html('<a type="button" class="btn btn-blue btn-sm" disabled="true">Expressed Interest</a>');
-			    				alert("Interest request has been sent successfully");
+			    				alert("Interest requests have been sent successfully");
 			    				//$("#expInterest"+profile_id).html('You Expressed Interest');
 // 			    				$.each(profile_id,function(i,id){
 // 			    					$("#expInterest"+id).prop("disabled",true);
@@ -441,7 +440,7 @@ tooltip:hover:after {
 			    			}
 			    		
 						
-					});
+					}); 
 			}
 		}
 
@@ -697,6 +696,7 @@ tooltip:hover:after {
 			            + 	'<a href="#no"  type="button" class="btn btn-primary btn-sm view0" onclick="fullProfile('+orderObj.id+')">View Full Profile</a>'
 			               //+   '<button id="mobileBtn'+orderObj.id+'" type="button" class="btn btn-info" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button>'
 			            +   shortListedStr
+			            + '<a href="#no" type="button" class="btn btn-danger btn-sm" id="sendMail'+orderObj.id+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')">Send Mail</a>'
 			            + '</div>'
 			            //+ mobile_num_Str
 			            + '<div class="row container-fluid">'
@@ -812,12 +812,15 @@ tooltip:hover:after {
 					if(orderObj.short_listed == "1"){
 						shortListedStr = '<span><a type="button" class="btn btn-warning btn-sm" disabled="true"> Shortlisted</a></span>';
 					}
+					var status_str = "";
 					var expressed = orderObj.expressedInterest;
 					var interestStr = "";
 					if(expressed==0){
 						interestStr = '<span id="expInterest'+orderObj.id+'" name="expInterest[]"><a   href="#no" type="button" class="btn btn-blue btn-sm"  onclick="expressInterest('+orderObj.id+')">  Express Interest  </a></span>';
 					}else if(expressed>0){
 						interestStr = '<span><a type="button" class="btn btn-blue btn-sm" disabled="true" style="text-size-adjust:auto">Expressed Interest</a></span>';
+						status_str = 'disabled="true"  checked="checked"';
+// 						  $('.form-check-input').attr('checked', false);
 					}
 					var message_sent_status = orderObj.message_sent_status;
 					var messageStr = "";
@@ -901,7 +904,7 @@ tooltip:hover:after {
 						+ '<h5 class="panel-title">'
 						+ '<div class="form-check">'
 
-						+ '	<label class="form-check-label"> <input type="checkbox" class="form-check-input"> '+firstname+' '+lastname+'&nbsp;('+orderObj.username+')&nbsp;'+premiumMember+'</label>'
+						+ '	<label class="form-check-label"> <input type="checkbox"  '+status_str+' class="form-check-input"> '+firstname+' '+lastname+'&nbsp;('+orderObj.username+')&nbsp;'+premiumMember+'</label>'
 						+ '	<span class="pull-right">Created by '+orderObj.createProfileFor+' <a href="#" data-toggle="tooltip" data-placement="bottom" title="Mark As Viewed"><img style="margin-left:15px;" src="${baseurl}/images/eye.png"/></a><a href="#" data-toggle="tooltip" data-placement="bottom" title="Move this profile &#xa; to ignore  list"><img style="margin-left:15px;" src="${baseurl}/images/ignore.png"/></a></span>'
 						//+ '	<label class="form-check-label"> <input type="checkbox" class="form-check-input"> '+orderObj.firstName+' '+orderObj.lastName+'</label>'
 //		 				+ '	<span class="pull-right">Created by '+orderObj.createProfileFor+'</span>'

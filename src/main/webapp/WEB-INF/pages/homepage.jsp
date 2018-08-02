@@ -50,30 +50,30 @@
     background: rgba(0,0,0,0.6);
 }
 .modal-header .close {
-    margin-top: -25px !important;
+    margin-top: -40px !important;
 }
 .section-title {
 margin-bottom:0px;}
 .getquote .right-side { 
 padding-top:2px;
 }
-/* @media only screen and (max-width: 1280px) {
+ @media only screen and (max-width: 1280px) {
 section.getquote {
     margin-top: 45px;
-}} */
-#myModal {
+}} 
+/* #myModal {
 padding-top: 97px !important;
     display: block;
     padding-right: 16px;
     margin-top:0px !important;
-}
-@media only screen and (max-width: 640px) and (min-width: 320px) {
-#myModal {
+} */
+/* #myModal {
 padding-top: 85px !important;
     display: block;
     padding-left: 66px !important;
     margin-top:0px !important;
-}
+} */
+@media only screen and (max-width: 640px) and (min-width: 320px) {
    video {
     width: 100% !important;
     height: auto !important ;
@@ -142,7 +142,7 @@ width: 135px;
     font-weight: 400;
     padding: 10px 15px;
     text-transform: capitalize;
-  
+   margin-bottom:0px;
     line-height: 29px;
     border: none!important;
     width: 80%;
@@ -530,7 +530,7 @@ window.setTimeout(function() {
 						
 
 <!-- Modal -->
- <div id="myModal" class="modal fade" role="dialog" style="  margin-top:55px;">
+ <!-- <div id="myModal" class="modal fade" role="dialog" style="  margin-top:55px;">
   <div class="modal-dialog">
     <div class="modal-content">		
       <div class="modal-header" style="background:#099cca; color:#fff;">
@@ -542,7 +542,30 @@ window.setTimeout(function() {
     </div>
 
   </div>
-</div>		 	
+</div>		 	 -->
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog" style="  margin-top:55px;">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">		
+      <div class="modal-header" style="background:#099cca; color:#fff;"> <h3>Your Search Results</h3>
+        <button type="button" style="color:#fff !important; margin-right:10px; opacity:1;" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+      	<div class="searchresults">
+								   
+								    
+									<div id="searchResults">
+
+									</div>
+								</div>    
+      </div>
+    </div>
+
+  </div>
+</div>	
 						
 <script>
 
@@ -681,18 +704,18 @@ function getReliginCastAjax1() {
 </script>
 						<div class="quote-form row">
 							<!-- contact form -->
-							<form class="" action="loginAction" id="quote" name="quote" method="post">
+							<form class="" action="loginAction" id="quote" name="quote" method="post" onsubmit="return loginSubmit()">
 								<c:if test="${not empty msg}">
 									<div class="form-group col-md-12" style="margin-bottom: 0px;">
 										<div class="msgcss fadeIn animated alert alert-danger">${msg}</div>
 									</div>
 								</c:if>
 								<div class="form-group col-md-12">
-									<input type="text" class="form-control" onkeydown="removeBorder(this.id)" name="userName" id="userName" placeholder="Username" required>
+									<input type="text" class="form-control" onkeydown="removeBorder(this.id)" name="userName" id="userName" placeholder="Username">
 								</div>
 
 								<div class="form-group col-md-12">
-									<input type="password" class="form-control"  onkeydown="removeBorder(this.id)" name="password" id="password" placeholder="Password" required>
+									<input type="password" class="form-control"  onkeydown="removeBorder(this.id)" name="password" id="password" placeholder="Password" >
 								</div>
 
 								<div class="form-group col-md-12">
@@ -1034,9 +1057,28 @@ function getReliginCastAjax1() {
 
 <script>
 
-$(window).load(function(){        
+function loginSubmit(){
+	 var userName = $('#userName').val().trim();
+	 var password1 = $('#quote input[name="password"]').val().trim();
+	 if(userName==""){
+		$("#userName").attr("required", "true");	
+		return false;
+	} else if(password1==""){
+		$('#quote input[name="password"]').attr("required", "true");	
+		return false;
+	}
+	 else {
+		$("#userLoginButton").attr("disabled",true);
+		$("#userLoginButton").html("Please wait...");		
+		return true;
+	}
+
+}
+/* $(window).load(function(){        
 	   $('#myModal').modal();
-	    });</script>
+	    });
+	     */
+	    </script>
 
 	<script src="${baseurl}/user/vendor/jquery/jquery.min.js"></script>
 	<script src="${baseurl}/user/js/ie10-viewport-bug-workaround.js"></script>
