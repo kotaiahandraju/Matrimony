@@ -156,7 +156,7 @@ padding:10px;}
 										</c:if>
 										<c:if test="${act_done_by != cacheGuest.id }">
 											<c:set var="short_str" value="${'Interest Request Received'}" />
-											<c:set var="short_str_symbol" value="${'${baseurl }/images/arrowreceived.png'}" />
+											<c:set var="short_str_symbol" value="${baseurl }/images/arrowreceived.png}" />
 											<c:set var="act_str" value="${act_str} sent an interest request to you" />
 										</c:if>
 									</c:if>
@@ -193,7 +193,7 @@ padding:10px;}
 										</c:if>
 										<c:if test="${act_done_by != cacheGuest.id }">
 											<c:set var="short_str" value="${'Message Received'}" />
-											<c:set var="short_str_symbol" value="${'${baseurl }/images/arrowreceived.png'}" />
+											<c:set var="short_str_symbol" value="${baseurl }/images/arrowreceived.png}" />
 											<c:set var="act_str" value="${act_str} sent you a message" />
 										</c:if>
 										<c:set var="message_content" value="${conversation.activity_content}" />
