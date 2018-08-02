@@ -903,9 +903,13 @@ tooltip:hover:after {
 						+ '<div class="panel-heading">'
 						+ '<h5 class="panel-title">'
 						+ '<div class="form-check">'
-
 						+ '	<label class="form-check-label"> <input type="checkbox"  '+status_str+' class="form-check-input"> '+firstname+' '+lastname+'&nbsp;('+orderObj.username+')&nbsp;'+premiumMember+'</label>'
 						+ '	<span class="pull-right">Created by '+orderObj.createProfileFor+' <a href="#" data-toggle="tooltip" data-placement="bottom" title="Mark As Viewed"><img style="margin-left:15px;" src="${baseurl}/images/eye.png"/></a><a href="#" data-toggle="tooltip" data-placement="bottom" title="Move this profile &#xa; to ignore  list"><img style="margin-left:15px;" src="${baseurl}/images/ignore.png"/></a></span>'
+						+ '	<label class="form-check-label"> <input type="checkbox" class="form-check-input"> '+firstname+' '+lastname+'&nbsp;('+orderObj.username+')&nbsp;'+premiumMember+'</label>'
+						+ '	<span class="pull-right">Created by '+orderObj.createProfileFor+' </span>'
+						/* <a href="#" data-toggle="tooltip" data-placement="bottom" title="Mark As Viewed"><img style="margin-left:15px;" src="${baseurl}/images/eye.png"/></a>
+						<a href="#" data-toggle="tooltip" data-placement="bottom" title="Move this profile &#xa; to ignore  list"><img style="margin-left:15px;" src="${baseurl}/images/ignore.png"/></a>
+						 */
 						//+ '	<label class="form-check-label"> <input type="checkbox" class="form-check-input"> '+orderObj.firstName+' '+orderObj.lastName+'</label>'
 //		 				+ '	<span class="pull-right">Created by '+orderObj.createProfileFor+'</span>'
 
@@ -3673,7 +3677,7 @@ img.hover-shadow {
 									</c:if>
 								</div>	
 							</li>
-							<li><a href="#no" >Help</a></li>
+							<li><a href="help" >Help</a></li>
 							
 							<li><a class="upgradeOption animated flash infinite" href="memberShipPage" style="font-size: 18px; font-weight: bold; color: #fff;">Upgrade</a></li>
 							

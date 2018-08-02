@@ -1,6 +1,7 @@
 package com.aurospaces.neighbourhood.db.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -50,6 +51,20 @@ public class CityDao extends BaseCityDao {
 					ParameterizedBeanPropertyRowMapper.newInstance(CityBean.class));
 			if (retlist.size() > 0)
 				return retlist;
+			return null;
+		}
+	 
+	 public List<Map<String,Object>> getFilteredCities(String stateIds){
+			jdbcTemplate = custom.getJdbcTemplate();
+			String qryStr = "select * from city  where find_in_set(state,'"+stateIds+"')>0 and status='1' order by name asc";
+			try{
+				List<Map<String,Object>> list = jdbcTemplate.queryForList(qryStr);
+				if(list!=null)
+					return list;
+			}catch(Exception e){
+				e.printStackTrace();
+				return null;
+			}
 			return null;
 		}
 }

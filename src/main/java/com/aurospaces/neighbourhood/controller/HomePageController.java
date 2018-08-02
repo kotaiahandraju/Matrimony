@@ -1376,8 +1376,27 @@ public class HomePageController {
 				total_records = Integer.parseInt(((Map<String, String>)listOrderBeans.get(0)).get("total_records"));
 					
 				request.setAttribute("total_records", total_records);
-				request.setAttribute("r_age_from", searchCriteriaBean.getrAgeFrom());
-				request.setAttribute("r_age_to", searchCriteriaBean.getrAgeTo());
+				
+				Map<Integer,String> filtered_states = new HashMap<Integer,String>();
+				if(StringUtils.isNotBlank(searchCriteriaBean.getrCountry())){
+					List<Map<String,Object>> results = stateDao.getFilteredStates(searchCriteriaBean.getrCountry());
+					
+					for(Map<String,Object> state:results){
+						filtered_states.put((Integer)state.get("id"), (String)state.get("name"));
+					}
+					request.setAttribute("filtered_states", results);
+				}
+				Map<Integer,String> filtered_cities = new HashMap<Integer,String>();
+				if(StringUtils.isNotBlank(searchCriteriaBean.getrCountry())){
+					List<Map<String,Object>> results = objCityDao.getFilteredCities(searchCriteriaBean.getrState());
+					
+					for(Map<String,Object> state:results){
+						filtered_cities.put((Integer)state.get("id"), (String)state.get("name"));
+					}
+					request.setAttribute("filtered_cities", results);
+				}
+				//request.setAttribute("r_age_from", searchCriteriaBean.getrAgeFrom());
+				//request.setAttribute("r_age_to", searchCriteriaBean.getrAgeTo());
 				// System.out.println(sJson);
 			} else {
 				//objectMapper = new ObjectMapper();
@@ -1965,6 +1984,7 @@ public class HomePageController {
 		}
 		return statesMap;
 	}
+	
 	@ModelAttribute("countries")
 	public Map<Integer, String> populatecountries() {
 		Map<Integer, String> statesMap = new LinkedHashMap<Integer, String>();
@@ -2600,14 +2620,16 @@ public class HomePageController {
 			String with_in_day = request.getParameter("with_in_day");
 			String with_in_week = request.getParameter("with_in_week");
 			String with_in_month = request.getParameter("with_in_month");
+			String all_created = request.getParameter("all");
 			String age_from = request.getParameter("age_from");
 			String age_to = request.getParameter("age_to");
 			
 			Map<String,String> filterOptions = new HashMap<String,String>();
-			filterOptions.put("with_photo", with_photo);
-			filterOptions.put("with_in_day", with_in_day);
-			filterOptions.put("with_in_week", with_in_week);
-			filterOptions.put("with_in_month", with_in_month);
+			filterOptions.put("with_photo", (StringUtils.isNotBlank(with_photo))?with_photo:"false");
+			filterOptions.put("with_in_day", (StringUtils.isNotBlank(with_in_day))?with_in_day:"false");
+			filterOptions.put("with_in_week", (StringUtils.isNotBlank(with_in_week))?with_in_week:"false");
+			filterOptions.put("with_in_month", (StringUtils.isNotBlank(with_in_month))?with_in_month:"false");
+			filterOptions.put("created_at_any_time", (StringUtils.isNotBlank(all_created))?all_created:"false");
 			filterOptions.put("age_from", age_from);
 			filterOptions.put("age_to", age_to);
 			
@@ -2781,7 +2803,9 @@ public class HomePageController {
 			//int total_records = Integer.parseInt(((Map<String, String>)results.get(0)).get("total_records"));
 			//request.setAttribute("total_records", total_records);
 			//request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
+			int total_records = 0;
 			if (results != null && results.size() > 0) {
+				total_records = Integer.parseInt(((Map<String, String>)results.get(0)).get("total_records"));
 				//get photos
 				for(Map<String,String> profileObj:results){
 					List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos(Integer.parseInt(profileObj.get("id")));
@@ -2804,6 +2828,7 @@ public class HomePageController {
 				
 			} else {
 				if (Objresults != null && Objresults.size() > 0) {
+					total_records = Integer.parseInt((String)((Map<String, Object>)Objresults.get(0)).get("total_records"));
 					//get photos
 					for(Map<String,Object> reqObj:Objresults){
 						List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos((Integer)reqObj.get("id"));
@@ -2825,7 +2850,7 @@ public class HomePageController {
 				}
 				
 			}
-			
+			jsonObj.put("total_records", total_records);
 			
 		}catch(Exception e){
 			logger.fatal("error in displayPage method");
@@ -3687,6 +3712,37 @@ public class HomePageController {
 			
 		}catch(Exception e){
 			logger.fatal("error in getFilteredStates method");
+			logger.error(e);
+			e.printStackTrace();
+		}
+		return jsonObj.toString();
+	}
+   
+   @RequestMapping(value = "/getFilteredCities")
+	public @ResponseBody String getFilteredCities(@ModelAttribute("createProfile") UsersBean userBean,ModelMap model, HttpServletRequest request, HttpSession session)
+														throws JsonGenerationException, JsonMappingException, IOException {
+		JSONObject jsonObj = new JSONObject();
+		List<Map<String, Object>> results = null;
+		try{
+			UsersBean userSessionBean = (UsersBean)session.getAttribute("cacheUserBean");
+			if(userSessionBean == null){
+				userSessionBean = (UsersBean)session.getAttribute("cacheGuest");
+				if(userSessionBean == null)
+					return "redirect:HomePage";
+			}
+			String state_ids = request.getParameter("state_ids");
+			if(StringUtils.isNotBlank(state_ids)){
+				results = objCityDao.getFilteredCities(state_ids);
+			}
+			if (results != null && results.size() > 0) {
+				jsonObj.put("city_list", results);
+				
+			} else {
+				jsonObj.put("city_list", "");
+			}
+			
+		}catch(Exception e){
+			logger.fatal("error in getFilteredCities method");
 			logger.error(e);
 			e.printStackTrace();
 		}
@@ -5123,4 +5179,29 @@ public String recentlyViewedProfiles(@ModelAttribute("createProfile") UsersBean 
  }
  return "recentlyViewedProfiles";
 }
+@RequestMapping(value = "/help")
+public String help(@ModelAttribute("createProfile") UsersBean objUserssBean, Model objeModel, HttpServletRequest request, HttpSession session) {
+ 
+	try {
+		UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
+		if(sessionBean == null){
+			return "redirect:HomePage";
+		}
+		request.setAttribute("allOrders1", "null");
+		request.setAttribute("total_records", MatrimonyConstants.FREE_USER_PROFILES_LIMIT);
+		request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
+
+		
+	} catch (Exception e) {
+  e.printStackTrace();
+  System.out.println(e);
+  logger.error(e);
+  logger.fatal("error in recentlyViewedProfiles method");
+ }
+ return "help";
 }
+}
+
+
+
+

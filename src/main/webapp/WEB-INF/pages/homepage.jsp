@@ -931,9 +931,9 @@ function getReliginCastAjax1() {
 											class="img-responsive img-thumbnail" alt="">
 										<figcaption>
 											<h3>Krishna& Gopika</h3>
-											<span>June 9, 2017</span> <a href="successStory#01-thumbnail.jpg">read more...</a>
-											<h3>Bride Name & Groom Name</h3>
-											<span>June 9, 2017</span> <a href="successStory&divId=1">read more...</a>
+											<span>June 9, 2017</span> <!-- <a href="successStory#01-thumbnail.jpg">read more...</a> -->
+											<!-- <h3>Bride Name & Groom Name</h3>
+											<span>June 9, 2017</span> --> <a href="successStory&divId=1">read more...</a> 
 										</figcaption>
 									</figure>
 								</li>
@@ -943,9 +943,9 @@ function getReliginCastAjax1() {
 											class="img-responsive img-thumbnail" alt="">
 										<figcaption>
 											<h3>Kishore & Vijaya</h3>
-											<span>April 28, 2017</span> <a href="successStory#02-thumbnail.jpg">read more...</a>
-											<h3>Bride Name & Groom Name</h3>
-											<span>June 9, 2017</span> <a href="successStory&divId=2">read more...</a>
+											<span>April 28, 2017</span> <!-- <a href="successStory#02-thumbnail.jpg">read more...</a> -->
+											<!-- <h3>Bride Name & Groom Name</h3>
+											<span>June 9, 2017</span> --> <a href="successStory&divId=2">read more...</a>
 										</figcaption>
 									</figure>
 								</li>
@@ -955,9 +955,9 @@ function getReliginCastAjax1() {
 											class="img-responsive img-thumbnail" alt="">
 										<figcaption>
 											<h3>Srinivas&Lavanya</h3>
-											<span>May 2, 2017</span> <a href="successStory#03-thumbnail.jpg">read more...</a>
-											<h3>Bride Name & Groom Name</h3>
-											<span>June 9, 2017</span> <a href="successStory&divId=3">read more...</a>
+											<span>May 2, 2017</span> <!-- <a href="successStory#03-thumbnail.jpg">read more...</a> -->
+											<!-- <h3>Bride Name & Groom Name</h3>
+											<span>June 9, 2017</span> --> <a href="successStory&divId=3">read more...</a>
 										</figcaption>
 									</figure>
 								</li>
