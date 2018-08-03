@@ -4500,7 +4500,7 @@ public boolean deletePhoto(String photoId){
 						+ " left join city cit on cit.id=u.currentCity  left join user_images uimg on uimg.user_id=u.id ");
 						//+" where u.status not in ('0')  ");
 			} 
-			buffer.append(" where  "+where_clause+" and u.package_id is not null ");
+			buffer.append(" where  "+where_clause+" and u.package_id in (select id from package where status = '1' ) ");
 		List<Map<String,Object>> list = jdbcTemplate.queryForList(buffer.toString());
 		return list;
 		}catch (Exception e) {
