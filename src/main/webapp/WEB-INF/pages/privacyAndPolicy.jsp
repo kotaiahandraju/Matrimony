@@ -15,7 +15,7 @@ p {
 			committed to protecting your personal information and your right to
 			privacy. If you have any questions or concerns about our policy or
 			our practices, with respect to your personal information, please
-			contact us at <a href="#" style="color:blue;"> privacy@matrimony.com </a>. </p>
+			contact us at <a href="#" style="color:blue;">  info@aarnamatrimony.com </a>. </p>
 			
 			
 			

@@ -5241,7 +5241,7 @@ public String help(@ModelAttribute("createProfile") UsersBean objUserssBean, Mod
 
 @RequestMapping(value = "/premiumMembers")
 public String premiumMembers(@ModelAttribute("createProfile") UsersBean searchCriteriaBean, Model objeModel, HttpServletRequest request, HttpSession session) {
-  List<Map<String, String>> listOrderBeans = null;
+	List<Map<String, Object>>listOrderBeans = null;
   ObjectMapper objectMapper = null;
 	String sJson = null;
   try{
@@ -5253,14 +5253,14 @@ public String premiumMembers(@ModelAttribute("createProfile") UsersBean searchCr
 		String withPhoto = request.getParameter("withPhoto");
 		String alreadyViewed = request.getParameter("alreadyViewed");
 		String alreadyContacted = request.getParameter("alreadyContacted");
-		listOrderBeans = objUsersDao.getSearchResults(searchCriteriaBean,0,"newmatches");
+		listOrderBeans = objUsersDao.getPremiumMembers(userBean);
 		int total_records = 0;//limit - viewed_count;
 		request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
 		
 		if (listOrderBeans != null && listOrderBeans.size() > 0) {
 			//get photos
-			for(Map<String,String> profileObj:listOrderBeans){
-				List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos(Integer.parseInt(profileObj.get("id")));
+			for(Map<String,Object> profileObj:listOrderBeans){
+				List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos((int) profileObj.get("id"));
 				if(photosList!=null && photosList.size()>0){
 					String imgStr = "";
 					for(Map<String,Object> photo:photosList){
@@ -5279,7 +5279,7 @@ public String premiumMembers(@ModelAttribute("createProfile") UsersBean searchCr
 			objectMapper = new ObjectMapper();
 			sJson = objectMapper.writeValueAsString(listOrderBeans);
 			request.setAttribute("allOrders1", sJson);
-			total_records = Integer.parseInt(((Map<String, String>)listOrderBeans.get(0)).get("total_records"));
+			total_records = listOrderBeans.size();
 			request.setAttribute("total_records", total_records);
 		} else {
 			request.setAttribute("allOrders1", "''");
