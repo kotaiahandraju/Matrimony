@@ -3066,6 +3066,7 @@ public class UsersDao extends BaseUsersDao
 			e.printStackTrace();
 			return null;
 		}
+		
 		return null;
 	}
 	

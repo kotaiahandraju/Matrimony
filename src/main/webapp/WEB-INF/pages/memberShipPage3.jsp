@@ -287,7 +287,8 @@ border:none;}
 </style>
 <body>
  <div class="container" style="background:#fff; padding-top:25px; z-index:0;">
-<div class="demo1">
+  <a href="#"><img src="../images/launchingbanner.jpg" class="img-responsive"/></a>
+<%-- <div class="demo1">
    <form:form commandName="payment"  class="form-horizontal" id="payment-form" role="form" method="post">
         <div class="row">
         	<c:if test="${not empty packagesList}">
@@ -407,9 +408,9 @@ border:none;}
 						 <p><img  src="${baseurl}/images/icon2.png"/>  No Personalized  Messages *</p>
 						    </div>
 			    		</c:if>
-			    		<%-- <div class="col-md-4">
+			    		<div class="col-md-4">
 			    			<p><img style="width:16px; heigth:16px;" src="${baseurl}/images/icon6.gif"/"/>  View Unlimited Horoscopes</p>
-			    		</div> --%>
+			    		</div>
 			    		<div class="clearfix"></div>
 			    		<div class="col-md-4">
 			    			<p style="margin-top:10px;"><img  src="${baseurl}/images/profiletag.png"/> Profile tagged with "<c:out value="${pack.name}"/>" member</p>
@@ -433,8 +434,9 @@ border:none;}
 	</c:forEach>
 </c:if>
     
-    <div class="clearfix"></div>
+    <div class="clearfix"></div> --%>
     <br><br>
+   
     </div>
     <script>    
     $("input[name=package_id]").click(function(){
