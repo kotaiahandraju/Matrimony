@@ -4448,10 +4448,9 @@ public boolean deletePhoto(String photoId){
 		return null;
 	}
 	
-	public List<Map<String, Object>> getPremiumMembers(UsersBean userBean){
+	public List<Map<String, Object>> getPremiumMembers(UsersBean objUserBean){
 
 		jdbcTemplate = custom.getJdbcTemplate();
-		UsersBean objUserBean =  (UsersBean) session.getAttribute("cacheUserBean");
 		StringBuffer buffer = new StringBuffer();
 		StringBuffer where_clause = new StringBuffer(" u.role_id not in (1) and u.status in ('1') and u.gender not in  ('"+objUserBean.getGender()+"') and u.id not in  ("+objUserBean.getId()+")");
 		try{
