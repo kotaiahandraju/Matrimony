@@ -9,6 +9,9 @@
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="[%d][%p][%c][%m]%n" />
 		</layout>
+		
+		
+		
 
 	</appender>
 <!-- Appenders -->
@@ -34,14 +37,14 @@
 <logger name="org.springframework.web">
     <level value="debug" />
 </logger>
-	<appender name="ConsoleAppender" class="org.apache.log4j.ConsoleAppender">
+	<!-- <appender name="ConsoleAppender" class="org.apache.log4j.ConsoleAppender">
     <param name="Target" value="System.out" />
 		<param name="Encoding" value="Cp866" />
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="%-5p: %c:- %m%n" />
 		</layout>
 	</appender>
-
+ -->
 	<!-- 3rd Party Loggers -->
 
 	<logger name="org.springframework">
@@ -65,8 +68,8 @@
 	</logger> -->
 	<root>
 		<priority value="off"/>
-		<appender-ref ref="RollingFileAppender" />
-			 <appender-ref ref="ConsoleAppender" /> 
+		<!-- <appender-ref ref="RollingFileAppender" />
+			 <appender-ref ref="ConsoleAppender" />  -->
 	</root>
 
 </log4j:configuration>
