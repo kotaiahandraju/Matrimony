@@ -16,7 +16,7 @@ text-align:justify;
 <br>
 <p style="color:#006699;"><b>WHY CHOOSE US</b></p>
 <p>
-Aarnamatrimony.com is one of the foremost and vivid Indian Matrimonial Site, providing ample database of thousands of prospective brides and grooms profiles. Due to the sanguine and serviceable approach of its talented professionals. </p>
+Aarnamatrimony.com is one of the foremost and vivid Indian Matrimonial Site, providing sample database of thousands of prospective brides and grooms profiles. Due to the sanguine and serviceable approach of its talented professionals. </p>
 <br>
 <p>Aarnamatrimony.com has successfully erected a vast list of satisfied clients across the boundaries. Its benchmark is thousands of hits per day which is incessantly increasing day by day and that too at a tremendous rate.</p></div>
 	

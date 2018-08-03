@@ -700,7 +700,7 @@ window.setTimeout(function() {
 
   </div>
 </div>	
-		<div class="bts-popup" role="alert">
+		<div class="bts-popup" tabindex="-1" role="alert">
     <div class="bts-popup-container">
       <img src="images/bannerposter.jpg" alt="" width="80%" />
 				
@@ -1071,8 +1071,8 @@ function getReliginCastAjax1() {
 										<img src="user/images/portfolio/01-thumbnail.jpg"
 											class="img-responsive img-thumbnail" alt="">
 										<figcaption>
-											<h3>Krishna & Gopika</h3>
-											<span>June 9, 2017</span> <!-- <a href="successStory#01-thumbnail.jpg">read more...</a> -->
+											<h3>Vamsi Chowdary & Apoorva</h3>
+											<span>March 28, 2018</span> <!-- <a href="successStory#01-thumbnail.jpg">read more...</a> -->
 											<!-- <h3>Bride Name & Groom Name</h3>
 											<span>June 9, 2017</span> --> <a href="successStory&divId=1">read more...</a> 
 										</figcaption>
@@ -1083,8 +1083,8 @@ function getReliginCastAjax1() {
 										<img src="user/images/portfolio/02-thumbnail.jpg"
 											class="img-responsive img-thumbnail" alt="">
 										<figcaption>
-											<h3>Kishore & Vijaya</h3>
-											<span>April 28, 2017</span> <!-- <a href="successStory#02-thumbnail.jpg">read more...</a> -->
+											<h3>Sriram & Divya</h3>
+											<span>Auguest 15, 2017</span> <!-- <a href="successStory#02-thumbnail.jpg">read more...</a> -->
 											<!-- <h3>Bride Name & Groom Name</h3>
 											<span>June 9, 2017</span> --> <a href="successStory&divId=2">read more...</a>
 										</figcaption>

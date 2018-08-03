@@ -4,7 +4,12 @@
 <%@ taglib uri="http://displaytag.sf.net" prefix="display"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
-
+<Style>
+.table.dataTable .sorting, .table.dataTable .sorting_desc, .table.dataTable .sorting_asc {
+    padding-right: 30px;
+     white-space: initial; 
+}
+</Style>
 <div id="main">
 	<div class="container-fluid">
 		<div class="page-header">
@@ -231,7 +236,7 @@ function displayTable(listOrders) {
 			+ "<td title='"+orderObj.chat_allowed+"'>" + orderObj.chat_allowed + "</td>"
 			+ "<td title='"+orderObj.horoscope_view+"'>" + orderObj.horoscope_view + "</td>"
 			+ "<td title='"+orderObj.Astrology_match+"'>" + orderObj.Astrology_match + "</td>"
-			+ "<td style='text-align: center;'>" + edit + "&nbsp;|&nbsp;" + deleterow + "</td>" 
+			+ "<td style='text-align: center;display:inline-grid;'>" + edit + "&nbsp;|&nbsp;" + deleterow + "</td>" 
 			+ "</tr >";
 		$(tblRow).appendTo("#tableId table tbody");
 	});

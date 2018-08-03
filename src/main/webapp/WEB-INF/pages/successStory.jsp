@@ -21,10 +21,10 @@
 	             	<h5>(AMNLR278948) Avanigadda Sudha <span class="pull-right">    <button class="next btn btn-primary">Next</button>
 ======= -->
 	             	<div class="panel-body"  id="divId1"  style="display:none;">
-	             	<h5>(AMNLR278948) Krishna <span class="pull-right"><!-- <button class="back btn btn-primary">Back</button>  --> &nbsp;   <button class="next btn btn-primary">Next</button>
+	             	<h5>(AMNLR278948) Vamsi <span class="pull-right"><!-- <button class="back btn btn-primary">Back</button>  --> &nbsp;   <button class="next btn btn-primary">Next</button>
 </span></h5><br>
 	             	<p>Location : India / Marriage Date 09-june-2018</p>
-	             	<div class="col-md-5" style="margin-left:-15px;"><br>
+	             	<div class="col-md-4" style="margin-left:-15px;"><br>
 	             	 <img src="user/images/portfolio/01-thumbnail.jpg" class="img-responsive" />
 	             	<!-- <section class="slider">
         <div id="slider" class="flexslider">
@@ -70,7 +70,7 @@
           </ul>
         </div>
       </section> --></div>
-      <div class="col-md-7">
+      <div class="col-md-8">
      <p style="padding:20px; color:#000;font-family: 'Open Sans', sans-serif;"> Both of us met through Aarna Matrimony. He expressed interest in my profile, my father visited his parents, we met and got hitched within a month's time.</p>
       
       
@@ -80,11 +80,11 @@
 	             	</div>
 	            
 	             	<div class="panel-body"  id="divId2"  style="display:none;">
-	             	<h5>(AMNLR143948) Vijaya <span class="pull-right">
+	             	<h5>(AMNLR143948) Sriram <span class="pull-right">
 	             	<button class="btn btn-default back">Prev</button> &nbsp; <button class="btn btn-primary next">Next</button></span> 
 	             	</h5><br>
 	             	<p>Location : India / Marriage Date 28-apr-2018</p><br>
-	             	<div class="col-md-5" style="margin-left:-15px;">
+	             	<div class="col-md-4" style="margin-left:-15px;">
 	             	 <img src="user/images/portfolio/02-thumbnail.jpg" class="img-responsive" />
 	             	<!-- <section class="slider">
         <div id="slider" class="flexslider">
@@ -117,7 +117,7 @@
           </ul>
         </div> 
       </section> --></div>
-      <div class="col-md-7">
+      <div class="col-md-8">
      <p style="padding:20px; color:#000;font-family: 'Open Sans', sans-serif;"> I m feeling immense pleasure in sharing my successful love story here as Aarna Matrimony played important role in searching my soulmate.. heartily thankful to Aarna Matrimony group for helping us. Good luck and keep going .</p>
       
       
@@ -130,7 +130,7 @@
 	             	<button class="btn btn-default back">Prev</button> &nbsp; <!-- <button class="btn btn-primary next">Next</button> --></span>
 	             	</h5><br>
 	             	<p>Location : India / Marriage Date 02-may-2018</p><Br>
-	             	<div class="col-md-5" style="margin-left:-15px;">
+	             	<div class="col-md-4" style="margin-left:-15px;">
 	             	 <img src="user/images/portfolio/03-thumbnail.jpg" class="img-responsive" />
 	             	<section class="slider">
         <div id="slider" class="flexslider">
@@ -143,7 +143,7 @@
         </div>
       </section> 
       </div>
-      <div class="col-md-7">
+      <div class="col-md-8">
      <p style="padding:20px; color:#000;font-family: 'Open Sans', sans-serif;"> Both of us met through Aarna Matrimony. He expressed interest in my profile, my father visited his parents, we met and got hitched within a month's time.</p>
       
       
