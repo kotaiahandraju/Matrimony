@@ -639,7 +639,7 @@ function fourthForm(event){
 		}); */
 	    //
 	    
-		$("#fourthButton").val("Please wait..");
+		$("#fourthButton").html("Please wait..");
 	    $('#fourthButton').attr("disabled",true);
 		$('#profileRegistration').attr('action',"saveUserProfile");
 	    $("#profileRegistration").submit();
