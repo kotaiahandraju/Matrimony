@@ -2098,7 +2098,8 @@ public class HomePageController {
 				return null;
 			
 			int userId = userSessionBean.getId();
-			String packId = request.getParameter("package_id");
+			//String packId = request.getParameter("package_id"); commented temporarily
+			String packId = "6";
 			int price = objUsersDao.getPackagePriceById(Integer.parseInt(packId));
 			session.setAttribute("packageId", packId);
 			JavaIntegrationKit integrationKit = new JavaIntegrationKit();

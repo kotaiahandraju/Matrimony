@@ -287,7 +287,9 @@ border:none;}
 </style>
 <body>
  <div class="container" style="background:#fff; padding-top:25px; z-index:0;">
-  <a href="#"><img src="../images/launchingbanner.jpg" class="img-responsive"/></a>
+ 	<form:form commandName="payment"  class="form-horizontal" id="payment-form" role="form" method="post">
+  		<a href="#" onclick="makePayment(event)"><img src="../images/launchingbanner.jpg" class="img-responsive"/></a>
+  	</form:form>
 <%-- <div class="demo1">
    <form:form commandName="payment"  class="form-horizontal" id="payment-form" role="form" method="post">
         <div class="row">
@@ -458,7 +460,7 @@ border:none;}
     	$("#benifitDiv").css('display','block');
     });
     $(".pack_details").attr("hidden",true);
-    function makePayment(event){
+    /* function makePayment(event){
 		var selected_pack = $("input[name=package_id]:checked").val();
 		if((typeof(selected_pack) == "undefined") || (selected_pack=="")){
 			alert("Select any package");
@@ -470,6 +472,16 @@ border:none;}
 			$("#payment-form").submit();
 			event.preventDefault(); 
 		}
+		
+		
+	} */
+	function makePayment(event){
+		
+			$("#makePaymentBtn").attr("disabled",true);
+			$("#makePaymentBtn").val("Please wait...");
+			$("#payment-form").attr('action',"savePayment");
+			$("#payment-form").submit();
+			event.preventDefault(); 
 		
 		
 	}
