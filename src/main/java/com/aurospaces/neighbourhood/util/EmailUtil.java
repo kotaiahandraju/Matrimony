@@ -586,6 +586,97 @@ public class EmailUtil {
 			return subject;
 	}
 	
+	public static String viewFullProfileMail(UsersBean senderBean,UsersBean receiverBean,HttpServletRequest request,
+			ServletContext objContext) throws AddressException,
+			MessagingException, IOException {
+		String subject = null;
+		Properties prop = new Properties();
+		InputStream input = null;
+		String body = null;
+		try{
+	 
+	        String mailTo = receiverBean.getEmail();
+	        
+//	        -------------------------------------------------------------------------------------------
+			
+			
+	        String propertiespath = objContext.getRealPath("Resources" +File.separator+"DataBase.properties");
+			input = new FileInputStream(propertiespath);
+			prop.load(input);
+			String host = prop.getProperty("host");
+			String port = prop.getProperty("port");
+			String mailFrom = prop.getProperty("usermail");
+			String password = prop.getProperty("mailpassword");
+	        
+			subject = prop.getProperty("viewProfile_mail_subject");
+			subject = subject.replace("_username_", senderBean.getUsername());
+			
+			body = prop.getProperty("viewProfile_mail_body");
+			body = body.replace("_senderphoto_", "cid:senderimage");
+			body = body.replace("_receiverusername_", receiverBean.getUsername());
+			body = body.replace("_receivername_", receiverBean.getFirstName()+" "+receiverBean.getLastName());
+			body = body.replace("_senderusername_", senderBean.getUsername() );
+			body = body.replace("_sendername_", senderBean.getFirstName()+" "+senderBean.getLastName());
+			body = body.replace("_senderAge_", senderBean.getAge());
+			body = body.replace("_senderHeight_", senderBean.getHeight());
+			body = body.replace("_senderRegName_", senderBean.getReligionName());
+			body = body.replace("_senderCast_", senderBean.getCasteName());
+			body = body.replace("_senderCity_", senderBean.getCurrentCityName());
+			body = body.replace("_senderEducation_", senderBean.getEducationName());
+			body = body.replace("_senderOcupation_", senderBean.getOccupationName());
+			
+			// url formation
+            String baseurl =  request.getScheme() + "://" + request.getServerName() +      ":" +   request.getServerPort() +  request.getContextPath();
+			String actionUrl = baseurl+"/users/fullProfile?un="+receiverBean.getUsername()+"&pun="+senderBean.getUsername()+"&suc="+receiverBean.getUnique_code()+"&puc="+senderBean.getUnique_code();
+			///
+			body = body.replace("_fullprofileaction_", actionUrl);
+//			body = body.replace("_content_", receiverBean.getMail_content());
+			body = body.replace("_img_", "cid:image2");
+			body = body.replace("_bodyimage_", "cid:image3");
+	        String str = body.toString();
+	        	
+	        // inline images
+	        Map<String, String> inlineImages = new HashMap<String, String>();
+//	        inlineImages.put("image1", objContext.getRealPath("images" +File.separator+"telugu.png"));
+	        String sender_img = senderBean.getProfileImage();
+	        if(StringUtils.isNotBlank(sender_img)){
+	        	inlineImages.put("senderimage", objContext.getRealPath(sender_img));
+	        }else{
+	        	inlineImages.put("senderimage", objContext.getRealPath("img" +File.separator+"default.png"));
+	        }
+	        
+	        inlineImages.put("image2", objContext.getRealPath("images" +File.separator+"logo.jpg"));
+	        inlineImages.put("image3", objContext.getRealPath("images" +File.separator+"matri.jpg"));
+	       
+	            EmbeddedImageEmailUtil.send(host, port, mailFrom, password, mailTo,
+	                subject, body.toString(), inlineImages);
+	            System.out.println("Email sent.");
+	            
+	            String mobileNum = receiverBean.getMobile();
+	            try{
+					   String response = SendSMS.sendSMS("Dear "  +receiverBean.getFirstName()+ " "+receiverBean.getLastName() +","+"\n "+senderBean.getFirstName()+" "+senderBean.getLastName()+""+"("+senderBean.getUsername()+")"+" Viewed your profile..\n \n Wishing You the best life partner \n Team - AarnaMatrimony", mobileNum);
+					   
+					   if("OK".equalsIgnoreCase(response)){
+						   
+						   request.setAttribute("message", "success");
+					   }else{
+						   request.setAttribute("message", "failed"); 
+					   }
+					   //throw new Exception();
+				   }catch(Exception e){
+					   e.printStackTrace();
+					   request.setAttribute("message", "failed");
+					   //objUsersDao.delete(sessionBean.getId());
+				   }
+	            
+	        } catch (Exception ex) {
+	            System.out.println("Could not send email.");
+	            ex.printStackTrace();
+	            return null;
+	        }
+			return subject;
+	}
+	
 	public static String sendPostPaymentMail(UsersBean userBean, Map<String,Object> paymentDetails, HttpServletRequest request,
 			ServletContext objContext) throws AddressException,
 			MessagingException, IOException {
