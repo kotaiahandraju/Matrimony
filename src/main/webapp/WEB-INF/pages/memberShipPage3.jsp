@@ -287,6 +287,7 @@ border:none;}
 </style>
 <body>
  <div class="container" style="background:#fff; padding-top:25px; z-index:0;">
+ <!--  <img src="../images/launchingbanner.jpg" class="img-responsive"/> -->
 <div class="demo1">
    <form:form commandName="payment"  class="form-horizontal" id="payment-form" role="form" method="post">
         <div class="row">
@@ -435,6 +436,7 @@ border:none;}
     
     <div class="clearfix"></div>
     <br><br>
+   
     </div>
     <script>    
     $("input[name=package_id]").click(function(){

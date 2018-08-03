@@ -356,16 +356,18 @@ color:#000;
                 <h2 class="modal-title grademember">Upgrade Membership</h2>
             </div>
             <div class="modal-body newbody col-md-12">
-				<div class="col-md-5"><img src="${baseurl}/images/up.png" class="img-responsive"/></div>
-				<div class="col-md-7">
+				<div class="col-md-4"><img src="${baseurl}/images/up.png" class="img-responsive"/></div>
+				<div class="col-md-8">
 				<p style="color:#b7f528;">Start Contracting Matches</p>
-				<p><i class="fa fa-phone"></i> View Phone Numbers </p>
-				<p> <i class="fa fa-comment"></i> Chat Instantly</p>
+				<p><img style="color:#fff;" src="../images/icon1.png"/> Get Unlimited Profiles</p>
+				<!-- <p> <i class="fa fa-comment"></i> Chat Instantly</p> -->
 				 <div class="clearfix"></div>
-				 <p><i  class="fa fa-envelope"></i> Send Personalized Images</p>
-				 <p> &nbsp; &nbsp; &nbsp; Upto <span class="fa fa-inr"></span> 2000 off</p>
-				 <p> &nbsp; &nbsp; &nbsp; On Classic Packages</p><br>
-				 <span class="btn btn-warning" align="center" h><a href="memberShipPage" >Upgrade Now </a><i class="fa fa-chevron-right"></i></span>
+				 <p><img src="../images/icon2.png"/> Send Unlimited Personalized Messages</p>
+				 <p><img src="../images/profiletag.png"/> Valid Till Marriage</p>
+<!-- 				 <p style="padding:3px; font-size:15px;"> &nbsp; &nbsp; &nbsp;  <span class="fa fa-inr"></span> 999</p> -->
+				<!--  <p> &nbsp; &nbsp; &nbsp; On Classic Packages</p><br> --><br>
+				 <span class="btn btn-warning" align="center" h><a href="memberShipPage"  style="color:#fff;">Upgrade Now </a><i class="fa fa-chevron-right"></i></span>
+				<span class="pull-right"><img style="margin-top:-15px; height:65px;" src="../images/999.png"/></span>
 				 </div>
             </div>
         </div>

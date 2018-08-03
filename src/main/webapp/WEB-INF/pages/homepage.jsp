@@ -530,7 +530,7 @@ window.setTimeout(function() {
 						
 
 <!-- Modal -->
- <div id="myModal" class="modal fade" role="dialog" style="  margin-top:55px;">
+ <!-- <div id="myModal" class="modal fade" role="dialog" style="  margin-top:55px;">
   <div class="modal-dialog">
     <div class="modal-content">		
       <div class="modal-header" style="background:#099cca; color:#fff;">
@@ -542,7 +542,7 @@ window.setTimeout(function() {
     </div>
 
   </div>
-</div>		 	
+</div>	 -->	 	
 						
 <script>
 
