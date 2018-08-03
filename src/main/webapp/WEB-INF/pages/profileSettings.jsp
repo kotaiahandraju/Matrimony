@@ -591,6 +591,27 @@ Auto-login saves you the process of logging into your account with your e-mail I
 										  		<div><form:errors path="rCountry" cssClass="error" /></div>
 											</div>
 									  	</div>
+									  	<div class="form-group">
+											<label class="col-md-4 control-label required">State living in</label>
+											<div class="col-md-6">
+												<form:select path="rState"  class="multiSelect" multiple="true" onchange="getFilteredCitiesMultiSelect(this.id)">
+													<%-- <form:option value="">-- Choose State --</form:option> --%>
+													<form:options items="${filtered_states }"></form:options>
+													
+												</form:select>
+												<div><form:errors path="rState" cssClass="error" /></div>
+											</div>
+									  	</div>
+									  	<div class="form-group">
+											<label class="col-md-4 control-label required">Residing City</label>
+											<div class="col-md-6">
+												<form:select path="rCity"  class="multiSelect" multiple="true">
+													<%-- <form:option value="">-- Choose State --</form:option> --%>
+													<form:options items="${filtered_cities }"></form:options> 
+												</form:select>
+												<div><form:errors path="rState" cssClass="error" /></div>
+											</div>
+									  	</div>
 
 
 </form:form>
@@ -833,7 +854,94 @@ As a member, you have the benefit of receiving mobile alerts. We recommend you t
 			
 			
        <script>
-     
+       
+       function getFilteredStatesMultiSelect(id) {
+   		if ($("#" + id).val() == null || $('#' + id).val() == ""
+   				|| $('#' + id).val() == "undefined") {
+   			$("#" + id).select2({
+   				placeholder : "-- Choose Country --"
+   			});
+   			$("#rState").empty();
+   			/* $("#rState").select2({
+   				placeholder : "-- Choose State --"
+   			}); */
+   		} else {
+   			var countryIds = $("#" + id).val();
+   			var formData = new FormData();
+   			formData.append('country_ids', countryIds);
+   			$.fn.makeMultipartRequest('POST','getFilteredStates',false,formData,false,'text',function(data) {
+   								var jsonobj = $.parseJSON(data);
+   								var statesList = jsonobj.states_list;
+   								$("#rState").empty();
+   								/* $("#rState")
+   										.append(
+   												"<option value='' >-- Choose State --</option>"); */
+
+   								$.each(statesList,function(i, state) {
+   											$("#rState").append("<option value="+state.id+" >"+ state.name+ "</option>");});
+   								$("#rState").trigger('change.select2');
+   								var selected_values = "${settings.rState}";
+   							    if(selected_values == "" || selected_values==null){
+   							    	$("#rState").select2({
+   							    	    placeholder: "-- Choose State --"
+   							    	});
+   							    }else{
+   							    	
+   							        $("#rState").val(selected_values.split(","));
+   							    }
+   							    $("#rState").trigger('change.select2');
+   							});
+
+   		}
+   	}
+   	
+       function getFilteredCitiesMultiSelect(id) {
+   		if ($("#" + id).val() == null || $('#' + id).val() == ""
+   				|| $('#' + id).val() == "undefined") {
+   			$("#" + id).select2({
+   				placeholder : "-- Choose State --"
+   			});
+   			$("#rCity").empty();
+   			/* $("#rState").select2({
+   				placeholder : "-- Choose State --"
+   			}); */
+   		} else {
+   			var stateIds = $("#" + id).val();
+   			var formData = new FormData();
+   			formData.append('state_ids', stateIds);
+   			$.fn.makeMultipartRequest('POST','getFilteredCities',false,formData,false,'text',function(data) {
+   								var jsonobj = $.parseJSON(data);
+   								var citiesList = jsonobj.city_list;
+   								$("#rCity").empty();
+   								/* $("#rState")
+   										.append(
+   												"<option value='' >-- Choose State --</option>"); */
+
+   								$.each(citiesList,function(i, city) {
+   											$("#rCity").append("<option value="+city.id+" >"+ city.name+ "</option>");
+   											$("#city").append("<option value="+city.id+" >"+ city.name+ "</option>");
+   										});
+   								$("#rCity").trigger('change.select2');
+   								var selected_values = "${settings.rCity}";
+   							    if(selected_values == "" || selected_values==null){
+   							    	$("#rCity").select2({
+   							    	    placeholder: "-- Choose City --"
+   							    	});
+   							    	$("#city").select2({
+   							    	    placeholder: "-- Select City --"
+   							    	});
+   							    }else{
+   							    	
+   							        $("#rCity").val(selected_values.split(","));
+   							        $("#city").val(selected_values.split(","));
+   							    }
+   							    $("#rCity").trigger('change.select2');
+   							    $("#city").trigger('change.select2');
+   							});
+
+   		}
+   	}
+       
        function submitEmail(){
 
     	   var email=$("#changeEmail").val();
@@ -1053,6 +1161,8 @@ function displaySettingsBlock(divId){
 						var caste = settingsMap.filter_caste;
 						var mothertongue = settingsMap.filter_mothertongue;
 						var country = settingsMap.filter_country;
+						var state = settingsMap.filter_state;
+						var city = settingsMap.filter_city;
 						$("#age_from").val(age_from);
 						$("#age_from").trigger("chosen:updated");
 						$("#age_to").val(age_to);
@@ -1111,6 +1221,27 @@ function displaySettingsBlock(divId){
 					    }else{
 					    	var tt = selected_values.split(",");
 					    	$("#rCountry").val(selected_values.split(","));
+					    } 
+						$("#rCountry").trigger('change.select2');
+						selected_values="";
+						selected_values = state;
+						if(selected_values == "" || selected_values==null){
+					    	$("#rState").select2({
+					    	    placeholder: "-- Choose Country --"
+					    	});
+					    }else{
+					    	var tt = selected_values.split(",");
+					    	$("#rState").val(selected_values.split(","));
+					    } 
+						selected_values="";
+						selected_values = city;
+						if(selected_values == "" || selected_values==null){
+					    	$("#rCity").select2({
+					    	    placeholder: "-- Choose Country --"
+					    	});
+					    }else{
+					    	var tt = selected_values.split(",");
+					    	$("#rCity").val(selected_values.split(","));
 					    } 
 						$('.multiSelect').trigger('change.select2');
 						show2();
@@ -1319,6 +1450,8 @@ if(filter_value=="filter"){
 		formData.append("rCaste",$("#rCaste").val());
 		formData.append("rMotherTongue",$("#rMotherTongue").val());
 		formData.append("rCountry",$("#rCountry").val());
+		formData.append("rState",$("#rState").val());
+		formData.append("rCity",$("#rCity").val());
 	}
 	$.fn.makeMultipartRequest('POST', 'saveContactFilterSettings', false,
 			formData, false, 'text', function(data){

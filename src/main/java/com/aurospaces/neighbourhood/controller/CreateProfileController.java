@@ -722,6 +722,38 @@ public class CreateProfileController {
 		return jsonObj.toString();
 	}
 	
+	 @RequestMapping(value = "/getFilteredCities")
+		public @ResponseBody String getFilteredCities(@ModelAttribute("createProfile") UsersBean userBean,ModelMap model, HttpServletRequest request, HttpSession session)
+															throws JsonGenerationException, JsonMappingException, IOException {
+			JSONObject jsonObj = new JSONObject();
+			List<Map<String, Object>> results = null;
+			try{
+				UsersBean userSessionBean = (UsersBean)session.getAttribute("cacheUserBean");
+				if(userSessionBean == null){
+					userSessionBean = (UsersBean)session.getAttribute("cacheGuest");
+					if(userSessionBean == null)
+						return "redirect:HomePage";
+				}
+				String state_ids = request.getParameter("state_ids");
+				if(StringUtils.isNotBlank(state_ids)){
+					results = objCityDao.getFilteredCities(state_ids);
+				}
+				if (results != null && results.size() > 0) {
+					jsonObj.put("city_list", results);
+					
+				} else {
+					jsonObj.put("city_list", "");
+				}
+				
+			}catch(Exception e){
+				logger.fatal("error in getFilteredCities method");
+				logger.error(e);
+				e.printStackTrace();
+			}
+			return jsonObj.toString();
+		}
+	   
+	
 	@RequestMapping(value = "/getCitys")
 	public  @ResponseBody String getCitys( ModelMap model,
 			HttpServletRequest request, HttpSession session,RedirectAttributes redir) {

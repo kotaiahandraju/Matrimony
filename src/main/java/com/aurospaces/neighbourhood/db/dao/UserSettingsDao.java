@@ -53,13 +53,13 @@ public class UserSettingsDao{
 				buffer.append("update user_settings set updated_time = '"+new java.sql.Timestamp(new DateTime().getMillis())+"', contact_filter='"+filter_option+"', "
 						+" filter_age_from=null,filter_age_to=null,filter_marital_status=null, "
 						+" filter_religion=null,filter_caste=null,filter_mothertongue=null, "
-						+" filter_country=null "
+						+" filter_country=null,filter_state=null,filter_city=null "
 						+" where user_id="+user_id);
 			}else if(filter_option.equalsIgnoreCase("filter")){
 				buffer.append("update user_settings set updated_time = '"+new java.sql.Timestamp(new DateTime().getMillis())+"', contact_filter='"+filter_option+"', "
 						+" filter_age_from='"+filter_criteria.get("age_from")+"',filter_age_to='"+filter_criteria.get("age_to")+"',filter_marital_status='"+filter_criteria.get("marital_status")+"', "
 						+" filter_religion='"+filter_criteria.get("religion")+"',filter_caste='"+filter_criteria.get("caste")+"',filter_mothertongue='"+filter_criteria.get("mothertongue")+"', "
-						+" filter_country='"+filter_criteria.get("country")+"' "
+						+" filter_country='"+filter_criteria.get("country")+"',filter_state='"+filter_criteria.get("state")+"',filter_city='"+filter_criteria.get("city")+"' "
 						+" where user_id="+user_id);
 			}
 			

@@ -242,11 +242,22 @@ background:#fff !important;}
 				    <div class="form-group">
 				      <label class="col-md-4 control-label" for="textinput">State living in</label>  
 				      <div class="col-md-7">
-				      	<form:select path="rState" class="multiSelect" multiple="true">
+				      	<form:select path="rState" class="multiSelect" multiple="true" onchange="getFilteredCitiesMultiSelect(this.id)">
 							<form:options items="${states }"></form:options>
 						</form:select>
 				      </div>
 				    </div>
+				    
+				    <div class="form-group">
+						<label class="col-md-4 control-label required">Residing City</label>
+							<div class="col-md-7">
+							<form:select path="rCity"  class="multiSelect" multiple="true">
+								<%-- <form:option value="">-- Choose State --</form:option> --%>
+									<form:options items="${filtered_cities }"></form:options> 
+							</form:select>
+							<div><form:errors path="rState" cssClass="error" /></div>
+							</div>
+						</div>
 				    
 				    <div class="form-group">
 				      <label class="col-md-4 control-label" for="textinput"></label>
@@ -477,6 +488,17 @@ $(document).ready(function(){
     	$("#rState").val(selected_values.split(","));
     } 
     
+    
+    selected_values="";
+    selected_values = "${partnerProfile.rCity}";
+    if(selected_values == "" || selected_values==null){
+    	$("#rCity").select2({
+    	    placeholder: "-- Choose City --"
+    	});
+    }else{
+    	var tt = selected_values.split(",");
+    	$("#rCity").val(selected_values.split(","));
+    } 
     
     selected_values="";
     selected_values = "${partnerProfile.rEducation}";
