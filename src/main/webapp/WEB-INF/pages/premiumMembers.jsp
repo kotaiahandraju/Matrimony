@@ -457,9 +457,7 @@ $(".open-button").on("click", function() {
 	$("#selectAllRequest").on("click", function() {
 		
 // 		 $(".form-check-input").attr('checked', this.checked);
-		 $(".form-check-input").each(function(){
-// 			 alert($(this).attr('disabled'));
-		 });
+		 
 		 if ($(this).prop("checked")==true) {
 	          $('.form-check-input').prop('checked', true);
 	        } else {

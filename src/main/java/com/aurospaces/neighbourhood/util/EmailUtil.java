@@ -316,11 +316,7 @@ public class EmailUtil {
 			ServletContext objContext) throws AddressException,
 			MessagingException, IOException {
 		String subject = null;
-		System.out.println("senderBean:"+senderBean.getFirstName()+" "+senderBean.getLastName() );
-		System.out.println("receiverBean"+receiverBean.getFirstName()+" "+receiverBean.getLastName() );
 		
-		
-		System.out.println("senderBean:"+senderBean.toString());
 		Properties prop = new Properties();
 		InputStream input = null;
 		String body = null;
@@ -382,6 +378,24 @@ public class EmailUtil {
 	            EmbeddedImageEmailUtil.send(host, port, mailFrom, password, mailTo,
 	                subject, body.toString(), inlineImages);
 	            System.out.println("Email sent.");
+	            String mobileNum = receiverBean.getMobile();
+	            try{
+					   String response = SendSMS.sendSMS("Dear "  +receiverBean.getFirstName()+ " "+receiverBean.getLastName()+","+"\n"+senderBean.getFirstName()+" "+senderBean.getLastName()+""+"("+senderBean.getUsername()+")"+" send a Message..\n \n "+receiverBean.getMail_content()+""+" \n \n Wishing You the best life partner \n Team - AarnaMatrimony", mobileNum);
+					   
+					   if("OK".equalsIgnoreCase(response)){
+						   
+						   request.setAttribute("message", "success");
+					   }else{
+						   request.setAttribute("message", "failed"); 
+					   }
+					   //throw new Exception();
+				   }catch(Exception e){
+					   e.printStackTrace();
+					   request.setAttribute("message", "failed");
+					   //objUsersDao.delete(sessionBean.getId());
+				   }
+	            
+	            
 	        } catch (Exception ex) {
 	            System.out.println("Could not send email.");
 	            ex.printStackTrace();
@@ -394,11 +408,6 @@ public class EmailUtil {
 			ServletContext objContext) throws AddressException,
 			MessagingException, IOException {
 		String subject = null;
-		System.out.println("senderBean:"+senderBean.getFirstName()+" "+senderBean.getLastName() );
-		System.out.println("receiverBean"+receiverBean.getFirstName()+" "+receiverBean.getLastName() );
-		
-		
-		System.out.println("senderBean:"+senderBean.toString());
 		Properties prop = new Properties();
 		InputStream input = null;
 		String body = null;
@@ -460,6 +469,24 @@ public class EmailUtil {
 	            EmbeddedImageEmailUtil.send(host, port, mailFrom, password, mailTo,
 	                subject, body.toString(), inlineImages);
 	            System.out.println("Email sent.");
+	            
+	            String mobileNum = receiverBean.getMobile();
+	            try{
+					   String response = SendSMS.sendSMS("Dear "  +receiverBean.getFirstName()+ " "+receiverBean.getLastName() +","+"\n"+senderBean.getFirstName()+" "+senderBean.getLastName()+""+"("+senderBean.getUsername()+")"+" send an Interest request to you.. \n \n Wishing You the best life partner \n Team - AarnaMatrimony", mobileNum);
+					   
+					   if("OK".equalsIgnoreCase(response)){
+						   
+						   request.setAttribute("message", "success");
+					   }else{
+						   request.setAttribute("message", "failed"); 
+					   }
+					   //throw new Exception();
+				   }catch(Exception e){
+					   e.printStackTrace();
+					   request.setAttribute("message", "failed");
+					   //objUsersDao.delete(sessionBean.getId());
+				   }
+	            
 	        } catch (Exception ex) {
 	            System.out.println("Could not send email.");
 	            ex.printStackTrace();
@@ -472,11 +499,6 @@ public class EmailUtil {
 			ServletContext objContext) throws AddressException,
 			MessagingException, IOException {
 		String subject = null;
-		System.out.println("senderBean:"+senderBean.getFirstName()+" "+senderBean.getLastName() );
-		System.out.println("receiverBean"+receiverBean.getFirstName()+" "+receiverBean.getLastName() );
-		
-		
-		System.out.println("senderBean:"+senderBean.toString());
 		Properties prop = new Properties();
 		InputStream input = null;
 		String body = null;
@@ -538,6 +560,24 @@ public class EmailUtil {
 	            EmbeddedImageEmailUtil.send(host, port, mailFrom, password, mailTo,
 	                subject, body.toString(), inlineImages);
 	            System.out.println("Email sent.");
+	            
+	            String mobileNum = receiverBean.getMobile();
+	            try{
+					   String response = SendSMS.sendSMS("Dear "  +receiverBean.getFirstName()+ " "+receiverBean.getLastName() +","+"\n "+senderBean.getFirstName()+" "+senderBean.getLastName()+""+"("+senderBean.getUsername()+")"+" shortlisted your profile..\n \n Wishing You the best life partner \n Team - AarnaMatrimony", mobileNum);
+					   
+					   if("OK".equalsIgnoreCase(response)){
+						   
+						   request.setAttribute("message", "success");
+					   }else{
+						   request.setAttribute("message", "failed"); 
+					   }
+					   //throw new Exception();
+				   }catch(Exception e){
+					   e.printStackTrace();
+					   request.setAttribute("message", "failed");
+					   //objUsersDao.delete(sessionBean.getId());
+				   }
+	            
 	        } catch (Exception ex) {
 	            System.out.println("Could not send email.");
 	            ex.printStackTrace();

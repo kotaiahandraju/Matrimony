@@ -53,58 +53,82 @@ function removeALLNotification(){
 <div class="clearfix"></div>
 <hr><div class="col-md-12">
 
-													<c:if test="${not empty notificationsList}">
-											<div id="notificationsBody"  class="notifications allnoti">
+						<c:if test="${not empty notificationsList}">
+											<div id="notificationsBody" class="notifications">
 												<c:forEach var="notification" items="${notificationsList}">
-													<div class="notifications1 col-md-12" id="notificationdiv${notification.id}" onclick="notificationId(this.id);">
-													<div class="col-md-2 preprofile"  >
+													<div class="col-md-1 col-xs-1"  style="height:55px; overflow:hidden;padding-right:0px; padding-left:0px;" >
 														<c:if test="${not empty notification.profileImage}">
-														<div align="center"><img src="${baseurl}/${notification.profileImage}" style="max-width: 100%; height:auto;" class="img-responsive"></div>
+															<img src="${baseurl}/${notification.profileImage}" style="width: 100%;padding: 5px;">
 														</c:if>
 														<c:if test="${empty notification.profileImage}">
-															<img src="img/default.png" style="max-width: 100%; height:60px;padding: 5px;" class="img-responsive">
+															<img src="${baseurl}/img/default.png" style="width: 100%;padding: 5px;">
 														</c:if>
 													</div>
-													<div class="col-md-10" style="padding-right:0px; padding-left:0px; width:91%;" >
+													<div class="col-md-10" style="padding-right:0px; padding-left:0px;" >
 														<p>
-															<a  href="fullProfile?pid=${notification.user_id}&nid=${notification.id}&rfrm=notifications"  target="_blank" >
 															
-																<c:if test="${ notification.read_status==0}">
-																<b><c:out value="${notification.fullName}" /> (<c:out value="${notification.username}" />)</b> 
-																</c:if>
-																<c:if test="${ notification.read_status==1}">
-																<c:out value="${notification.fullName}" /> (<c:out value="${notification.username}" />)
-																</c:if>
+															<!-- <a href="inboxAction?tab_type=inbox&list_type=rejected_requests"> -->
+															
+															
+															<%-- <a href="padma?pid=${notification.user_id}&nid=${notification.id}&rfrm=notifications" > --%>
+															
+																<%-- <c:out value="${notification.fullName}" /> (<c:out value="${notification.username}" />) --%>
+																<c:set var="name" value="${notification.fullName} (${notification.username})" />
 																<c:if test="${notification.notifi_type == 'interest'}">
-																	expressed interest in your profile
+																	<a href="inboxAction?tab_type=inbox&list_type=pending_requests&nid=${notification.id}">
+																		<c:out value="${name}" /> expressed interest in your profile
+																	</a>
 																</c:if>
 																<c:if test="${notification.notifi_type == 'mobile_num_viewed'}">
-																	viewed your mobile number
+																	<a href="myMobileNoViewsList?nid=${notification.id}">
+																		<c:out value="${name}" /> viewed your mobile number
+																	</a>
 																</c:if>
 																<c:if test="${notification.notifi_type == 'profile_viewed'}">
-																	viewed your profile
+																	<a href="myProfileViewsList?nid=${notification.id}">
+																		<c:out value="${name}" /> viewed your profile
+																	</a>
 																</c:if>
 																<c:if test="${notification.notifi_type == 'mail'}">
-																	sent you personal mail
+																	<a href="inboxAction?tab_type=inbox&list_type=pending_requests&nid=${notification.id}">
+																		<c:out value="${name}" /> sent you personal mail
+																	</a>
 																</c:if>
 																<c:if test="${notification.notifi_type == 'short_listed'}">
-																	shortlisted your profile
+																	<a href="shortListedMe?nid=${notification.id}">
+																		<c:out value="${name}" /> shortlisted your profile
+																	</a>
 																</c:if>
-																</a>
-															<a  href="#" onclick="removeNotification(${notification.id});"><span class="fa fa-trash pull-right" style="margin-top:5px;"></a></span></br>
-															<p><c:out value="${notification.created_on}"/> </p>
-															
-														</p>
-														
-													
-													</div></div><hr>
+																<c:if test="${notification.notifi_type == 'message_replied'}">
+																	<a href="inboxAction?tab_type=inbox&list_type=accepted_requests&nid=${notification.id}" >
+																		<c:out value="${name}" /> replied to your message
+																	</a>
+																</c:if>
+																<c:if test="${notification.notifi_type == 'message_accepted'}">
+																	<a href="inboxAction?tab_type=inbox&list_type=accepted_requests&nid=${notification.id}" >
+																		<c:out value="${name}" /> accepted your message
+																	</a>
+																</c:if>
+																<c:if test="${notification.notifi_type == 'interest_accepted'}">
+																	<a href="inboxAction?tab_type=inbox&list_type=accepted_requests&nid=${notification.id}" >
+																		<c:out value="${name}" /> accepted your interest request
+																	</a>
+																</c:if>
+															</a>
+															<br>
+															<c:out value="${notification.created_on}" />
+														.</p>
+													</div>
+													<div class="col-md-1">
+													<a  href="#" onclick="removeNotification(${notification.id});"><span class="fa fa-trash pull-right" style="margin-top:5px;"></span></a></div>
 													<div class="clearfix"></div><hr>
 												</c:forEach>
 											</div>
-											<%-- <form:form commandName="notificationsForm"  class="form-horizontal" id="allNotificationsForm" name="allNotificationsForm" role="form"   method="post">
-												<div id="notificationFooter"><a href="#" onclick="getAllNotifications();">See All</a></div>
-											</form:form> --%>
+										
 									</c:if>
+									<c:if test="${empty notificationsList}">
+										<p>Currently, you have no notifications.</p>
+									</c:if>						
 								
 </div></div>
 <%@ include file="userFooter.jsp"%>

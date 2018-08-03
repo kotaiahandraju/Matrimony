@@ -208,9 +208,20 @@ margin-bottom:15px;}
 									    <div class="form-group">
 											<label class="col-md-4 control-label required">State living in</label>
 											<div class="col-md-6">
-												<form:select path="rState"  class="multiSelect" multiple="true">
+												<form:select path="rState"  class="multiSelect" multiple="true" onchange="getFilteredCitiesMultiSelect(this.id)">
 													<%-- <form:option value="">-- Choose State --</form:option> --%>
-													<form:options items="${states_list }"></form:options>
+													<form:options items="${filtered_states }"></form:options>
+													
+												</form:select>
+												<div><form:errors path="rState" cssClass="error" /></div>
+											</div>
+									  	</div>
+									  	<div class="form-group">
+											<label class="col-md-4 control-label required">Residing City</label>
+											<div class="col-md-6">
+												<form:select path="rCity"  class="multiSelect" multiple="true">
+													<%-- <form:option value="">-- Choose State --</form:option> --%>
+													<form:options items="${filtered_cities }"></form:options> 
 												</form:select>
 												<div><form:errors path="rState" cssClass="error" /></div>
 											</div>
@@ -284,6 +295,15 @@ function getReliginCastAjax() {
 			var casteName=tests.name;
 			optionsForClass.append(new Option(casteName, id));
 		});
+		var selected_values = "${createProfile.rCaste}";
+	    if(selected_values == "" || selected_values==null){
+	    	$("#rCaste").select2({
+	    	    placeholder: "-- Choose Community --"
+	    	});
+	    }else{
+	        $("#rCaste").val(selected_values.split(","));
+	    }
+		$('#rCaste').trigger('change.select2');
 		
 	});
 }
@@ -353,7 +373,7 @@ function displayMatches(listOrders) {
 		
 		var image = null; image = orderObj.profileImage;
 		if(image == "" || image == null || image == "undefined"){
-			image = "img/default.png";
+			image = "${baseurl}/img/default.png";
 		}
 		/* else{
 		array = image.split(",");
@@ -415,7 +435,8 @@ function displayMatches(listOrders) {
 			var photos_list = orderObj.photosList;
 			var slider = "", displayStyle = ' ';
 			if(photos_list == "" || typeof photos_list == "undefined"){
-				slider = '<img src="img/default.png" class="img img-responsive thumbnail " style="margin-bottom:0;height: auto;width: 100%;" >';
+				slider = '<a href="#" onclick="fullProfile('+orderObj.id+')"><img src="img/default.png" class="img img-responsive thumbnail " style="margin-bottom:0;height: auto;width: 100%;" ></a>';
+				slider = '<img src="${baseurl}/img/default.png" class="img img-responsive thumbnail " style="margin-bottom:0;height: auto;width: 100%;" >';
 			}else{
 				smallerSlideIndex[orderObj.id] = 0;
 				var slider = "", displayStyle = ' ';
@@ -427,7 +448,7 @@ function displayMatches(listOrders) {
 						displayStyle = ' style="display:none;" ';
 					}
 					slider += '<div class="picstyle smallSlides'+orderObj.id+'" '+displayStyle+'>'
-							+'		<img src="${baseurl}/'+photosArray[index]+'" class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: auto;width: 100%;" >'
+							+'<a href="#" onclick="fullProfile('+orderObj.id+')"><img src="${baseurl}/'+photosArray[index]+'" class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: auto;width: 100%;" ></a>'
 							+'</div>'
 				});
 				if(photosArray.length>1){
@@ -472,7 +493,7 @@ function displayMatches(listOrders) {
 				+ '<h5 class="panel-title">'
 				+ '<div class="form-check">'
 
-				+ '	<label class="form-check-label"> <input type="checkbox" class="form-check-input"> '+firstname+' '+lastname+'&nbsp;('+orderObj.username+')&nbsp;'+premiumMember+'</label>'
+				+ '	<label class="form-check-label"> <input type="checkbox" class="form-check-input"> <a href="#" onclick="fullProfile('+orderObj.id+')">'+firstname+' '+lastname+'&nbsp;('+orderObj.username+')</a>&nbsp;'+premiumMember+'</label>'
 				+ '	<span class="pull-right">Created by '+orderObj.createProfileFor+'</span>'
 				//+ '	<label class="form-check-label"> <input type="checkbox" class="form-check-input"> '+orderObj.firstName+' '+orderObj.lastName+'</label>'
 // 				+ '	<span class="pull-right">Created by '+orderObj.createProfileFor+'</span>'
@@ -519,6 +540,7 @@ function displayMatches(listOrders) {
 				//+ '<button class="btn btn-danger btn-block btn-md" onclick="fullProfile('+orderObj.id+')">View Full Profile</button><br><br><br><br><br>'
 				+ '<a href="#" class="btn btn-primary  btn-sm" onclick="fullProfile('+orderObj.id+')">View Full Profile</a>'
 				+ shortListedStr
+				+ '<a href="#no" type="button" class="btn btn-danger btn-sm" id="sendMail'+orderObj.id+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')">Send Mail</a>'
 // 				+ '<a href="#" type="button" class="btn1 btn btn-primary btn-sm"  id="mobileBtn'+orderObj.id+'" onclick="shortList('+orderObj.id+')">Shortlist</a> '
 				+ '<div class="clearfix"></div>'
             	+ '</div>'
@@ -657,6 +679,7 @@ function submitSearch(){
 	var motherTongue = $("#rMotherTongue").val();
 	var country = $("#rCountry").val();
 	var state = $("#rState").val();
+	var city = $("#rCity").val();
 	if(ageFrom > ageTo){
 		alert("Sorry, Invalid Age range");
 		return false;
@@ -665,7 +688,7 @@ function submitSearch(){
 		return false;
 	}
 	if(ageFrom=="" && ageTo=="" && maritalStatus==null && caste==null && motherTongue==null && country==null 
-			&& state==null && religion==null && heightFrom==""){
+			&& state==null && religion==null && heightFrom=="" && city==null){
 		alert("Enter any input");
 		return false;
 	}else{
@@ -983,6 +1006,7 @@ function resetBtnfunction(){
 								formData.append("rCountry", $("#rCountry")
 										.val());
 								formData.append("rState", $("#rState").val());
+								formData.append("rCity", $("#rCity").val());
 								/* formData.append("rAgeFrom",$("#rAgeFrom").val());
 								formData.append("rAgeFrom",$("#rAgeFrom").val());
 								formData.append("rAgeFrom",$("#rAgeFrom").val());
@@ -1025,6 +1049,105 @@ function resetBtnfunction(){
 																"hidden", true);
 													} else {
 														paginationSetup(total_items_count);
+														$("#altLists")
+																.asPaginator(
+																		'enable');
+														displayMatches(results);
+														$("#table_footer")
+																.removeAttr(
+																		"hidden");
+														$("#altLists")
+																.removeAttr(
+																		"hidden");
+														displayTableFooter(page);
+														addWaterMark();
+													}
+
+												});
+
+							}
+						});
+	}
+	
+	function paginationSetupForSideGrid(total_items_count) {
+		$('#altLists')
+				.asPaginator(
+						total_items_count,
+						{
+							currentPage : 1,
+							visibleNum : {
+								0 : 10,
+								480 : 3,
+								960 : 5
+							},
+							tpl : function() {
+								return '<ul>{{first}}{{prev}}{{altLists}}{{next}}{{last}}</ul>';
+							},
+							components : {
+								first : true,
+								prev : true,
+								next : true,
+								last : true,
+								altLists : true
+							},
+							onChange : function(page) {
+								var formData = new FormData();
+								
+								formData.append("rHeight", $("#rHeight").val());
+								formData.append("rHeightTo", $("#rHeightTo").val());
+								
+								formData.append("rMaritalStatus", $(
+										"#rMaritalStatus").val());
+								formData.append("rReligion", $("#rReligion")
+										.val());
+								formData.append("rCaste", $("#rCaste").val());
+								formData.append("rMotherTongue", $(
+										"#rMotherTongue").val());
+								formData.append("rCountry", $("#rCountry")
+										.val());
+								formData.append("rState", $("#rState").val());
+								
+								formData.append("rCity", $("#city").val());
+								formData.append("rAgeFrom", $("#age_from").val());
+								formData.append("rAgeTo", $("#age_to").val());
+								
+								formData.append("page_no", page);
+								formData.append("request_from", "search");
+								//var tempData = $("#searchForm2").serialize();
+								$.fn
+										.makeMultipartRequest(
+												'POST',
+												'displayPage',
+												false,
+												formData,
+												false,
+												'text',
+												function(data) {
+													var jsonobj = $
+															.parseJSON(data);
+													var results = jsonobj.results;
+													//$('#countId').html('');
+													$("#search_criteria").prop(
+															"hidden", true);
+													$('#searchresultsDiv')
+															.removeAttr(
+																	"hidden");
+													if (results == "") {
+														$('#countId').html('');
+														$('#countId').html('0');
+														var str = '<div class="alert alert-danger ban"><h6>No results found..!</h6></div>';
+														$('#searchResults')
+																.html('');
+														$(str)
+																.appendTo(
+																		"#searchResults");
+														$("#table_footer")
+																.prop("hidden",
+																		true);
+														$("#altLists").prop(
+																"hidden", true);
+													} else {
+														paginationSetupForSideGrid(total_items_count);
 														$("#altLists")
 																.asPaginator(
 																		'enable');
@@ -1114,14 +1237,106 @@ function resetBtnfunction(){
 															+ state.name
 															+ "</option>");
 										});
+								$("#rState").trigger('change.select2');
+								var selected_values = "${createProfile.rState}";
+							    if(selected_values == "" || selected_values==null){
+							    	$("#rState").select2({
+							    	    placeholder: "-- Choose State --"
+							    	});
+							    }else{
+							    	
+							        $("#rState").val(selected_values.split(","));
+							    }
+							    $("#rState").trigger('change.select2');
+							});
 
+		}
+	}
+	
+	function getFilteredCitiesMultiSelect(id) {
+		if ($("#" + id).val() == null || $('#' + id).val() == ""
+				|| $('#' + id).val() == "undefined") {
+			$("#" + id).select2({
+				placeholder : "-- Choose State --"
+			});
+			$("#rCity").empty();
+			/* $("#rState").select2({
+				placeholder : "-- Choose State --"
+			}); */
+		} else {
+			var stateIds = $("#" + id).val();
+			var formData = new FormData();
+			formData.append('state_ids', stateIds);
+			$.fn
+					.makeMultipartRequest(
+							'POST',
+							'getFilteredCities',
+							false,
+							formData,
+							false,
+							'text',
+							function(data) {
+								var jsonobj = $.parseJSON(data);
+								var citiesList = jsonobj.city_list;
+								$("#rCity").empty();
+								/* $("#rState")
+										.append(
+												"<option value='' >-- Choose State --</option>"); */
+
+								$.each(citiesList,
+										function(i, city) {
+											$("#rCity").append(
+													"<option value="+city.id+" >"
+															+ city.name
+															+ "</option>");
+											$("#city").append(
+													"<option value="+city.id+" >"
+															+ city.name
+															+ "</option>");
+										});
+								$("#rCity").trigger('change.select2');
+								var selected_values = "${createProfile.rCity}";
+							    if(selected_values == "" || selected_values==null){
+							    	$("#rCity").select2({
+							    	    placeholder: "-- Choose City --"
+							    	});
+							    	$("#city").select2({
+							    	    placeholder: "-- Select City --"
+							    	});
+							    }else{
+							    	
+							        $("#rCity").val(selected_values.split(","));
+							        $("#city").val(selected_values.split(","));
+							    }
+							    $("#rCity").trigger('change.select2');
+							    $("#city").trigger('change.select2');
 							});
 
 		}
 	}
 
 	function filterResultsWithPhoto() {
+		var page = 1;
 		var formData = new FormData();
+		
+		formData.append("rHeight", $("#rHeight").val());
+		formData.append("rHeightTo", $("#rHeightTo").val());
+		
+		formData.append("rMaritalStatus", $(
+				"#rMaritalStatus").val());
+		formData.append("rReligion", $("#rReligion")
+				.val());
+		formData.append("rCaste", $("#rCaste").val());
+		formData.append("rMotherTongue", $(
+				"#rMotherTongue").val());
+		formData.append("rCountry", $("#rCountry")
+				.val());
+		formData.append("rState", $("#rState").val());
+		
+		formData.append("rCity", $("#city").val());
+		formData.append("rAgeFrom", $("#age_from").val());
+		formData.append("rAgeTo", $("#age_to").val());
+		
 		formData.append("page_no", 1);
 		formData.append("request_from", "search");
 		formData.append("with_photo", "true");
@@ -1137,6 +1352,7 @@ function resetBtnfunction(){
 						function(data) {
 							var jsonobj = $.parseJSON(data);
 							var results = jsonobj.results;
+							total_items_count = jsonobj.total_records;
 							//$('#countId').html('');
 							$("#search_criteria").prop("hidden", true);
 							$('#searchresultsDiv').removeAttr("hidden");
@@ -1149,13 +1365,16 @@ function resetBtnfunction(){
 								$("#table_footer").prop("hidden", true);
 								$("#altLists").prop("hidden", true);
 							} else {
-								paginationSetup(total_items_count);
-								$("#altLists").asPaginator('enable');
-								displayMatches(results);
-								$("#table_footer").removeAttr("hidden");
-								$("#altLists").removeAttr("hidden");
-								displayTableFooter(1);
-								addWaterMark();
+								$('#countId').html('');
+								$('#countId').html(total_items_count);
+								$("#altLists").asPaginator('destroy');
+								paginationSetupForSideGrid(total_items_count);
+				    			$("#altLists").asPaginator('enable');
+				    			displayMatches(results);
+				    			$("#table_footer").removeAttr("hidden");
+				    			$("#altLists").removeAttr("hidden");
+				    			displayTableFooter(1);
+				    			addWaterMark();
 							}
 
 						});
@@ -1181,6 +1400,16 @@ function resetBtnfunction(){
 		});
 		$("#rState").select2({
 			placeholder : "-- Choose State --",
+			allowClear : true
+		});
+		
+		$("#rCity").select2({
+			placeholder : "-- Choose City --",
+			allowClear : true
+		});
+		
+		$("#city").select2({
+			placeholder : "-- Select City --",
 			allowClear : true
 		});
 		/* $("#rEducation").select2({
@@ -1221,18 +1450,35 @@ function resetBtnfunction(){
 	    	var tt = selected_values.split(",");
 	        $("#rCountry").val(selected_values.split(","));
 	    }
-	    //getFilteredStatesMultiSelect("rCountry");
-	    //$('#rState').trigger('change.select2');
+	    //$('#rCountry').trigger('change.select2');
+	    
 	    selected_values = "${createProfile.rState}";
 	    if(selected_values == "" || selected_values==null){
 	    	$("#rState").select2({
 	    	    placeholder: "-- Choose State --"
 	    	});
 	    }else{
+	    	
 	    	var tt = selected_values.split(",");
 	        $("#rState").val(selected_values.split(","));
 	    }
-	    $('#rState').trigger('change.select2');
+	    //$("#rState").trigger('change.select2');
+	    
+	    selected_values = "${createProfile.rCity}";
+	    if(selected_values == "" || selected_values==null){
+	    	$("#rCity").select2({
+	    	    placeholder: "-- Choose City --"
+	    	});
+	    	$("#city").select2({
+	    	    placeholder: "-- Select City --"
+	    	});
+	    }else{
+	    	var tt = selected_values.split(",");
+	        $("#rCity").val(selected_values.split(","));
+	        $("#city").val(selected_values.split(","));
+	    }
+	    //$('#rCity').trigger('change.select2');
+	    //$('#city').trigger('change.select2');
 	    
 	    selected_values = "${createProfile.rMaritalStatus}";
 	    if(selected_values == "" || selected_values==null){
@@ -1255,9 +1501,7 @@ function resetBtnfunction(){
 	    }
 	    
 	    $('.multiSelect').trigger('change.select2');
-		
 	    // set caste also
-		getReliginCastAjax();
 		selected_values="";
 		selected_values = "${createProfile.rCaste}";
 	    if(selected_values == "" || selected_values==null){
@@ -1270,7 +1514,11 @@ function resetBtnfunction(){
 	    }
 		$('#rCaste').trigger('change.select2');
 		
-		
+		// set side grid values based on the selected criteria
+		$("#age_from").val("${createProfile.rAgeFrom}");
+		$("#age_from").trigger("chosen:updated");
+		$("#age_to").val("${createProfile.rAgeTo}");
+		$("#age_to").trigger("chosen:updated");
 		
 		/* var selected_values = "${createProfile.rMaritalStatus}";
 		$("#rMaritalStatus").val(selected_values.split(","));
@@ -1311,6 +1559,84 @@ function resetBtnfunction(){
 		selected_values = "${createProfile.rDiet}";
 		$("#rDiet").val(selected_values.split(",")); */
 	});
+	
+	function submitMore(option_str){
+		var page = 1;
+			var formData = new FormData();
+			
+			formData.append("rHeight", $("#rHeight").val());
+			formData.append("rHeightTo", $("#rHeightTo").val());
+			
+			formData.append("rMaritalStatus", $(
+					"#rMaritalStatus").val());
+			formData.append("rReligion", $("#rReligion")
+					.val());
+			formData.append("rCaste", $("#rCaste").val());
+			formData.append("rMotherTongue", $(
+					"#rMotherTongue").val());
+			formData.append("rCountry", $("#rCountry")
+					.val());
+			formData.append("rState", $("#rState").val());
+			
+			formData.append("page_no", page);
+			formData.append("request_from", "search");
+			
+			formData.append("rCity", $("#city").val());
+			formData.append("rAgeFrom", $("#age_from").val());
+			formData.append("rAgeTo", $("#age_to").val());
+			
+			if(option_str=="day"){
+				formData.append("with_in_day", "true");
+			}else if(option_str=="week"){
+				formData.append("with_in_week", "true");
+			}else if(option_str=="month"){
+				formData.append("with_in_month", "true");
+			}else if(option_str=="all"){
+				formData.append("all", "true");
+			}else if(option_str=="photo"){
+				formData.append("with_photo", "true");
+			}
+			
+			
+			jQuery.fn.makeMultipartRequest('POST', 'displayPage', false,
+					formData, false, 'text', function(data){
+						var jsonobj = $.parseJSON(data);
+						var results = jsonobj.results;
+						total_items_count = jsonobj.total_records;
+						//$('#countId').html('');
+						$("#search_criteria").prop(
+								"hidden", true);
+						$('#searchresultsDiv')
+								.removeAttr(
+										"hidden");
+						if (results == "") {
+							$('#countId').html('');
+							$('#countId').html('0');
+							var str = '<div class="alert alert-danger ban"><h6>No results found..!</h6></div>';
+							$('#searchResults')
+									.html('');
+							$(str)
+									.appendTo(
+											"#searchResults");
+							$("#table_footer")
+									.prop("hidden",
+											true);
+							$("#altLists").prop(
+									"hidden", true);
+						} else {
+							$('#countId').html('');
+							$('#countId').html(total_items_count);
+							$("#altLists").asPaginator('destroy');
+							paginationSetupForSideGrid(total_items_count);
+			    			$("#altLists").asPaginator('enable');
+			    			displayMatches(results);
+			    			$("#table_footer").removeAttr("hidden");
+			    			$("#altLists").removeAttr("hidden");
+			    			displayTableFooter(1);
+			    			addWaterMark();
+						}
+			});
+	}
 
 	$(".searchPage").addClass("active");
 
