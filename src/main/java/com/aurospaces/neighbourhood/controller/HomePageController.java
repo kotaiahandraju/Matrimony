@@ -1142,6 +1142,7 @@ public class HomePageController {
 			int profile_id = objUserssBean.getId();
 			if((profile_id != 0) && (sessionBean.getId()!=profile_id)){
 				boolean success = objUsersDao.viewedProfile(profile_id+"");
+				
 				if(!success){
 					logger.fatal("error while updating profile viewed status in fullProfile method");
 				}else{
@@ -1157,6 +1158,7 @@ public class HomePageController {
 			request.setAttribute("photosListSize", photosList.size());
 			
 			objUserssBean.setId(sessionBean.getId());
+			EmailUtil.viewFullProfileMail(sessionBean, profileBean, request, objContext);
 			/*int notificationsCount = objUsersDao.getNotificationsCount(sessionBean);
 			request.setAttribute("notificationsCount", notificationsCount);
 			List<Map<String,Object>> notificationsList = objUsersDao.getNotifications(objUserssBean,false);
