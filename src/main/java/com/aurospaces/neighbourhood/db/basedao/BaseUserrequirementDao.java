@@ -28,7 +28,7 @@ public class BaseUserrequirementDao{
 	 
 
  
-	public final String INSERT_SQL = "INSERT INTO userrequirement( created_time, updated_time, userId, rAgeFrom, rAgeTo, rHeight, rMaritalStatus, rReligion, rCaste, rMotherTongue,rhaveChildren,rCountry,rState,rEducation,rWorkingWith,rOccupation,rAnnualIncome,rCreateProfileFor,rDiet,rHeightTo) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?,?,?,?,?)"; 
+	public final String INSERT_SQL = "INSERT INTO userrequirement( created_time, updated_time, userId, rAgeFrom, rAgeTo, rHeight, rMaritalStatus, rReligion, rCaste, rMotherTongue,rhaveChildren,rCountry,rState,rEducation,rWorkingWith,rOccupation,rAnnualIncome,rCreateProfileFor,rDiet,rHeightTo,rCity) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?,?,?,?,?,?)"; 
 
 
 
@@ -83,6 +83,7 @@ ps.setString(17, userrequirement.getrAnnualIncome());
 ps.setString(18, userrequirement.getrCreateProfileFor());
 ps.setString(19, userrequirement.getrDiet());
 ps.setString(20, userrequirement.getrHeightTo());
+ps.setString(21, userrequirement.getrCity());
 
 return ps;
 						}
@@ -98,11 +99,11 @@ return ps;
 		{
 
 			String sql = "UPDATE userrequirement  set updated_time = ? ,userId = ? ,rAgeFrom = ? ,rAgeTo = ? ,rHeight = ? ,rMaritalStatus = ? ,rReligion = ? ,rCaste = ? ,rMotherTongue = ?,rhaveChildren=?"
-					+ "  ,rCountry=?,rState=?,rEducation=?,rWorkingWith=?,rOccupation=?,rAnnualIncome=?,rCreateProfileFor=?,rDiet=?,rHeightTo=?  where userrequirementId = ? ";
+					+ "  ,rCountry=?,rState=?,rEducation=?,rWorkingWith=?,rOccupation=?,rAnnualIncome=?,rCreateProfileFor=?,rDiet=?,rHeightTo=?,rCity=?  where userrequirementId = ? ";
 	
 			int updated = jdbcTemplate.update(sql, new Object[]{userrequirement.getUpdatedTime(),userrequirement.getUserId(),userrequirement.getrAgeFrom(),userrequirement.getrAgeTo(),userrequirement.getrHeight(),userrequirement.getrMaritalStatus(),userrequirement.getrReligion(),
 					userrequirement.getrCaste(),userrequirement.getrMotherTongue(),userrequirement.getRhaveChildren()
-					,userrequirement.getrCountry(),userrequirement.getrState(),userrequirement.getrEducation(),userrequirement.getrWorkingWith(),userrequirement.getrOccupation(),userrequirement.getrAnnualIncome(),userrequirement.getrCreateProfileFor(),userrequirement.getrDiet(),userrequirement.getrHeightTo(),userrequirement.getUserrequirementId()});
+					,userrequirement.getrCountry(),userrequirement.getrState(),userrequirement.getrEducation(),userrequirement.getrWorkingWith(),userrequirement.getrOccupation(),userrequirement.getrAnnualIncome(),userrequirement.getrCreateProfileFor(),userrequirement.getrDiet(),userrequirement.getrHeightTo(),userrequirement.getrCity(),userrequirement.getUserrequirementId()});
 			if(updated==1)
 				;
 			

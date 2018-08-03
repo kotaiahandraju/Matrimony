@@ -174,12 +174,24 @@ width:100%;
 								<div class="form-group">
 									<label class="col-sm-4 control-label required">State living in</label>
 									<div class="col-sm-8">
-										<form:select path="rState" class="multiSelect" multiple="true" >
-											<form:options items="${states }"></form:options>
+										<form:select path="rState" class="multiSelect" multiple="true"  onchange="getFilteredCitiesMultiSelect(this.id)">
+<%-- 											<form:options items="${states }"></form:options> --%>
 										</form:select>
 										<div><form:errors path="rState" cssClass="error" /></div>
 									</div>
 							  	</div>
+							</div>
+							   <div class="col-md-4">
+							       <div class="form-group">
+											<label class="col-md-4 control-label required">Residing City</label>
+											<div class="col-md-8">
+												<form:select path="rCity"  class="multiSelect" multiple="true" style="max-height:27px; border-radious:8px;">
+													<%-- <form:option value="">-- Choose State --</form:option> --%>
+													<form:options items="${filtered_cities }"></form:options> 
+												</form:select>
+												<div><form:errors path="rCity" cssClass="error" /></div>
+											</div>
+								 	</div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
@@ -193,6 +205,8 @@ width:100%;
 									</div>
 							  	</div>
 							</div>
+						</div><div class="clearfix"></div><br>
+							<div class="row">
 							<div class="col-md-4">
 								<div class="form-group">
 									<label class="col-sm-4 control-label required">Working With </label>
@@ -209,9 +223,8 @@ width:100%;
 							  	</div>
 							</div>
 							
-						</div>
-						<div class="clearfix"></div>
-	<br>
+<!-- 						<div class="clearfix"></div> -->
+	
 <script>
 
 
@@ -369,7 +382,7 @@ $('#rAgeFrom').change(function() {
 });
 </script>   						
 </script>   				
-						<div class="row">
+					
 						<div class="col-md-4">
 								<div class="form-group">
 									<label class="col-sm-4 control-label required">Profession area</label>
@@ -400,6 +413,7 @@ $('#rAgeFrom').change(function() {
 									</div>
 							  	</div>
 							</div>
+							</div><div class="clearfix"></div><br>
 							<div class="col-md-4">
 								<div class="form-group">
 									<label class="col-sm-4 control-label required">Annual Income </label>

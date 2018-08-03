@@ -435,6 +435,7 @@ function displayMatches(listOrders) {
 			var photos_list = orderObj.photosList;
 			var slider = "", displayStyle = ' ';
 			if(photos_list == "" || typeof photos_list == "undefined"){
+				slider = '<a href="#" onclick="fullProfile('+orderObj.id+')"><img src="img/default.png" class="img img-responsive thumbnail " style="margin-bottom:0;height: auto;width: 100%;" ></a>';
 				slider = '<img src="${baseurl}/img/default.png" class="img img-responsive thumbnail " style="margin-bottom:0;height: auto;width: 100%;" >';
 			}else{
 				smallerSlideIndex[orderObj.id] = 0;
@@ -447,7 +448,7 @@ function displayMatches(listOrders) {
 						displayStyle = ' style="display:none;" ';
 					}
 					slider += '<div class="picstyle smallSlides'+orderObj.id+'" '+displayStyle+'>'
-							+'		<img src="${baseurl}/'+photosArray[index]+'" class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: auto;width: 100%;" >'
+							+'<a href="#" onclick="fullProfile('+orderObj.id+')"><img src="${baseurl}/'+photosArray[index]+'" class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: auto;width: 100%;" ></a>'
 							+'</div>'
 				});
 				if(photosArray.length>1){
@@ -492,7 +493,7 @@ function displayMatches(listOrders) {
 				+ '<h5 class="panel-title">'
 				+ '<div class="form-check">'
 
-				+ '	<label class="form-check-label"> <input type="checkbox" class="form-check-input"> '+firstname+' '+lastname+'&nbsp;('+orderObj.username+')&nbsp;'+premiumMember+'</label>'
+				+ '	<label class="form-check-label"> <input type="checkbox" class="form-check-input"> <a href="#" onclick="fullProfile('+orderObj.id+')">'+firstname+' '+lastname+'&nbsp;('+orderObj.username+')</a>&nbsp;'+premiumMember+'</label>'
 				+ '	<span class="pull-right">Created by '+orderObj.createProfileFor+'</span>'
 				//+ '	<label class="form-check-label"> <input type="checkbox" class="form-check-input"> '+orderObj.firstName+' '+orderObj.lastName+'</label>'
 // 				+ '	<span class="pull-right">Created by '+orderObj.createProfileFor+'</span>'
@@ -539,6 +540,7 @@ function displayMatches(listOrders) {
 				//+ '<button class="btn btn-danger btn-block btn-md" onclick="fullProfile('+orderObj.id+')">View Full Profile</button><br><br><br><br><br>'
 				+ '<a href="#" class="btn btn-primary  btn-sm" onclick="fullProfile('+orderObj.id+')">View Full Profile</a>'
 				+ shortListedStr
+				+ '<a href="#no" type="button" class="btn btn-danger btn-sm" id="sendMail'+orderObj.id+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')">Send Mail</a>'
 // 				+ '<a href="#" type="button" class="btn1 btn btn-primary btn-sm"  id="mobileBtn'+orderObj.id+'" onclick="shortList('+orderObj.id+')">Shortlist</a> '
 				+ '<div class="clearfix"></div>'
             	+ '</div>'

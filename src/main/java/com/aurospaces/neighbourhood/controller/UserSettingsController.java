@@ -104,6 +104,8 @@ public class UserSettingsController {
 				filter_criteria.put("caste", objUsersBean.getrCaste()==null || objUsersBean.getrCaste().equalsIgnoreCase("null")?"":objUsersBean.getrCaste());
 				filter_criteria.put("mothertongue", objUsersBean.getrMotherTongue()==null || objUsersBean.getrMotherTongue().equalsIgnoreCase("null")?"":objUsersBean.getrMotherTongue());
 				filter_criteria.put("country", objUsersBean.getrCountry()==null || objUsersBean.getrCountry().equalsIgnoreCase("null")?"":objUsersBean.getrCountry());
+				filter_criteria.put("state", objUsersBean.getrState()==null || objUsersBean.getrState().equalsIgnoreCase("null")?"":objUsersBean.getrState());
+				filter_criteria.put("city", objUsersBean.getrCity()==null || objUsersBean.getrCity().equalsIgnoreCase("null")?"":objUsersBean.getrCity());
 			}
 			boolean success = settingsDao.saveContactFilterSettings(objuserBean.getId()+"", selected_contact_filter, filter_criteria);
 			if(success){

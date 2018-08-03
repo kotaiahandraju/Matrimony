@@ -3066,6 +3066,7 @@ public class UsersDao extends BaseUsersDao
 			e.printStackTrace();
 			return null;
 		}
+		
 		return null;
 	}
 	
@@ -4384,10 +4385,9 @@ public boolean deletePhoto(String photoId){
 		return delete;
 	}
 	
-	public List<Map<String, Object>> getRecentlyViewedProfiles(UsersBean userBean){
+	public List<Map<String, Object>> getRecentlyViewedProfiles(UsersBean objUserBean){
 
 		jdbcTemplate = custom.getJdbcTemplate();
-		UsersBean objUserBean =  (UsersBean) session.getAttribute("cacheUserBean");
 		StringBuffer buffer = new StringBuffer();
 		StringBuffer where_clause = new StringBuffer(" u.role_id not in (1) and u.status in ('1') and u.gender not in  ('"+objUserBean.getGender()+"') and u.id not in  ("+objUserBean.getId()+")");
 		try{

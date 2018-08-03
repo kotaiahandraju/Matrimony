@@ -374,21 +374,20 @@ tooltip:hover:after {
 				return false;
 			}
 			
-			$(".form-check-input").each(function(){
-				
-			});
-			
 			var roleId = ${cacheGuest.roleId};
 			profileObj = [];  
 			shortlistTD=[];
-			$('span[name^=expInterest]').each(function(){
-				if($.trim($(this).text()) != ""){
+			
+// 				$('.form-check-input[type="checkbox"]:checked').each(function(){
+					$('span[name^=expInterest]').each(function(){
+						if($.trim($(this).text()) != ""){
 					var str = this.id; 
 					var res= str.replace("expInterest", "");
 					profile_id.push(res);
 				    var expInterest= serviceUnitArray[res];
 				    profileObj.push(expInterest);
-				}
+// 			     }); 
+}
 			});
 			
 			/* $('span[name^=shortlistTD]').each(function(){
@@ -417,9 +416,9 @@ tooltip:hover:after {
 					}
 				}
 				var formData = new FormData();
-			
-				formData.append('profile_id',profile_id);
-				jQuery.fn.makeMultipartRequest('POST', 'expressInterestAll', false,
+			console.log(profile_id);
+				 formData.append('profile_id',profile_id);
+				 jQuery.fn.makeMultipartRequest('POST', 'expressInterestAll', false,
 						formData, false, 'text', function(data){
 			    		var jsonobj = $.parseJSON(data);
 			    		var limit = jsonobj.allowed_limit;
@@ -428,7 +427,7 @@ tooltip:hover:after {
 			    		//if(typeof msg != "undefined" ){
 			    			if("success"==msg){
 			    				$("#expInterest"+profile_id).html('<a type="button" class="btn btn-blue btn-sm" disabled="true">Expressed Interest</a>');
-			    				alert("Interest request has been sent successfully");
+			    				alert("Interest requests have been sent successfully");
 			    				//$("#expInterest"+profile_id).html('You Expressed Interest');
 // 			    				$.each(profile_id,function(i,id){
 // 			    					$("#expInterest"+id).prop("disabled",true);
@@ -441,7 +440,7 @@ tooltip:hover:after {
 			    			}
 			    		
 						
-					});
+					}); 
 			}
 		}
 
@@ -655,7 +654,7 @@ tooltip:hover:after {
 								displayStyle = ' style="display:none" ';
 							}
 							slider += '<div class="picstyle smallSlides'+orderObj.id+'" '+displayStyle+'>'
-									+'		<img src="${baseurl}/'+photo.image+'" class="img img-responsive watermark_text" style="margin-bottom:0;height: auto;width: 100%;" >'
+									+'	<a href="#"	onclick="fullProfile('+orderObj.id+')"><img src="${baseurl}/'+photo.image+'" class="img img-responsive watermark_text" style="margin-bottom:0;height: auto;width: 100%;" ></a>'
 									+'</div>'
 						});
 						if(photos_list.length>1){
@@ -666,7 +665,7 @@ tooltip:hover:after {
 									+'</p>'
 						}
 					}else{
-						slider = '<img src="${baseurl}/'+image+'" class="img-responsive thumbnail" style="margin-bottom: 0px; ">';
+						slider = '<a href="#"	onclick="fullProfile('+orderObj.id+')"><img src="${baseurl}/'+image+'" class="img-responsive thumbnail" style="margin-bottom: 0px; "></a>';
 					}
 					var profile_highlisht_str = '<div class="panel panel-default" style="padding-top:5px;" >';
 					var highlight_option = orderObj.profile_highlighter;
@@ -681,7 +680,7 @@ tooltip:hover:after {
 			            + '<div class="col-md-6">'
 			            + 	'<div class="profilesimilar">'
 			            + 		'<table width="100%" border="0" cellspacing="0" cellpadding="0">'
-			            + 			'<tr><td><h4>'+firstname+'&nbsp;'+lastname+'</h4>&nbsp;('+orderObj.username+')&nbsp;'+premiumMember+'</td></tr>'
+			            + 			'<tr><td><h4><a href="#" onclick="fullProfile('+orderObj.id+')">'+firstname+'&nbsp;'+lastname+'</h4>&nbsp;('+orderObj.username+')</a>&nbsp;'+premiumMember+'</td></tr>'
 			            + 			'<tr><td><p>'+age+' yrs, '+orderObj.religionName+', '+orderObj.casteName+',</p></td></tr>'
 			            + 			'<tr><td><p>'+orderObj.inches+'&nbsp'+occName+', '+orderObj.currentCityName+', '+orderObj.currentCountryName+'.</p></td></tr>'
 			            //+			mobile_no__str
@@ -697,6 +696,7 @@ tooltip:hover:after {
 			            + 	'<a href="#no"  type="button" class="btn btn-primary btn-sm view0" onclick="fullProfile('+orderObj.id+')">View Full Profile</a>'
 			               //+   '<button id="mobileBtn'+orderObj.id+'" type="button" class="btn btn-info" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button>'
 			            +   shortListedStr
+			            + '<a href="#no" type="button" class="btn btn-danger btn-sm" id="sendMail'+orderObj.id+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')">Send Mail</a>'
 			            + '</div>'
 			            //+ mobile_num_Str
 			            + '<div class="row container-fluid">'
@@ -812,12 +812,15 @@ tooltip:hover:after {
 					if(orderObj.short_listed == "1"){
 						shortListedStr = '<span><a type="button" class="btn btn-warning btn-sm" disabled="true"> Shortlisted</a></span>';
 					}
+					var status_str = "";
 					var expressed = orderObj.expressedInterest;
 					var interestStr = "";
 					if(expressed==0){
 						interestStr = '<span id="expInterest'+orderObj.id+'" name="expInterest[]"><a   href="#no" type="button" class="btn btn-blue btn-sm"  onclick="expressInterest('+orderObj.id+')">  Express Interest  </a></span>';
 					}else if(expressed>0){
 						interestStr = '<span><a type="button" class="btn btn-blue btn-sm" disabled="true" style="text-size-adjust:auto">Expressed Interest</a></span>';
+						status_str = 'disabled="true"  checked="checked"';
+// 						  $('.form-check-input').attr('checked', false);
 					}
 					var message_sent_status = orderObj.message_sent_status;
 					var messageStr = "";
@@ -840,7 +843,7 @@ tooltip:hover:after {
 						var photos_list = orderObj.photosList;
 						var slider = "", displayStyle = ' ';
 						if(photos_list == "" || typeof photos_list == "undefined"){
-							slider = '<img src="../img/default.png" class="img img-responsive thumbnail " style="margin-bottom:0;height: auto;width: 100%;" >';
+							slider = '<a href="#" onclick="fullProfile('+orderObj.id+')"><img src="../img/default.png" class="img img-responsive thumbnail " style="margin-bottom:0;height: auto;width: 100%;" ></a>';
 						}else{
 							smallerSlideIndex[orderObj.id] = 0;
 							var slider = "", displayStyle = ' ';
@@ -852,7 +855,7 @@ tooltip:hover:after {
 									displayStyle = ' style="display:none;" ';
 								}
 								slider += '<div class="picstyle smallSlides'+orderObj.id+'" '+displayStyle+'>'
-										+'		<img src="${baseurl}/'+photosArray[index]+'" class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: auto;width: 100%;" >'
+										+'	<a href="#" onclick="fullProfile('+orderObj.id+')">	<img src="${baseurl}/'+photosArray[index]+'" class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: auto;width: 100%;" >'
 										+'</div>'
 							});
 							if(photosArray.length>1){
@@ -876,7 +879,7 @@ tooltip:hover:after {
 									displayStyle = ' style="display:none" ';
 								}
 								slider += '<div class=" picstyle smallSlides'+orderObj.id+'" '+displayStyle+'>'
-										+'		<img src="${baseurl}/'+photo.image+'" class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: auto;width: 100%;" >'
+										+	'<a href="#" onclick="fullProfile('+orderObj.id+')"> <img src="${baseurl}/'+photo.image+'" class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: auto;width: 100%;" ></a>'
 										+'</div>'
 							});
 							if(photos_list.length>1){
@@ -887,7 +890,7 @@ tooltip:hover:after {
 										+'</p>'
 							}
 						}else{
-							slider = '<img src="${baseurl}/'+image+'" class="img-responsive thumbnail" style="margin-bottom: 0px;">';
+							slider = '<a href="#" onclick="fullProfile('+orderObj.id+')"><img src="${baseurl}/'+image+'" class="img-responsive thumbnail" style="margin-bottom: 0px;"></a>';
 						}
 					}
 					var profile_highlisht_str = '<div class="panel panel-default">';
@@ -900,7 +903,6 @@ tooltip:hover:after {
 						+ '<div class="panel-heading">'
 						+ '<h5 class="panel-title">'
 						+ '<div class="form-check">'
-
 						+ '	<label class="form-check-label"> <input type="checkbox" class="form-check-input"> '+firstname+' '+lastname+'&nbsp;('+orderObj.username+')&nbsp;'+premiumMember+'</label>'
 						+ '	<span class="pull-right">Created by '+orderObj.createProfileFor+' </span>'
 						/* <a href="#" data-toggle="tooltip" data-placement="bottom" title="Mark As Viewed"><img style="margin-left:15px;" src="${baseurl}/images/eye.png"/></a>
@@ -1171,7 +1173,7 @@ tooltip:hover:after {
 						if(listType == "pending_requests" || listType == "filtered_requests"){
 							interestStr = '';
 							options =  '<div class="col-md-3">'
-				            	+ '<button class="btn btn-primary btn-sm" onclick="fullProfile('+orderObj.id+')">View Full Profile</button>'
+				            	+ '<button class="btn btn-primary btn-sm"<a href="#" onclick="fullProfile('+orderObj.id+')">View Full Profile</button></a>'
 				            	+ mobile_num_Str
 				            	+ shortListedStr
 				            	//+ '<button class="btn btn-danger btn-block" onclick="displayMobileNum_messages('+orderObj.id+',\'preferences\,'+orderObj.requestId+')">View Mobile Number</button>'
@@ -1182,7 +1184,7 @@ tooltip:hover:after {
 						}else if(listType == "accepted_requests"){
 							interestStr = '';
 							options =  '<div class="col-md-3">'
-				            	+ '<button class="btn btn-primary btn-block" onclick="fullProfile('+orderObj.id+')">View Full Profile</button><br>'
+				            	+ '<button class="btn btn-primary btn-block" <a href="#"  onclick="fullProfile('+orderObj.id+')">View Full Profile</button><br></a>'
 				            	+ mobile_num_Str
 				            	+ shortListedStr
 				            	//+ '<button class="btn1 btn btn-info" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button>'
@@ -1199,7 +1201,7 @@ tooltip:hover:after {
 						}else if(listType == "sent_requests"){
 							interestStr = '';
 							options =  '<div class="col-md-3">'
-				            	+ '<button class="btn btn-primary btn-block" onclick="fullProfile('+orderObj.id+')">View Full Profile</button>'
+				            	+ '<button class="btn btn-primary btn-block" <a href ="#" onclick="fullProfile('+orderObj.id+')">View Full Profile</button></a>'
 				            	+ mobile_num_Str
 				            	+ shortListedStr
 				            	//+ '<button class="btn btn-danger btn-block" onclick="displayMobileNum_messages('+orderObj.id+',\'preferences\,'+orderObj.requestId+')">View Mobile Number</button>'
@@ -1209,7 +1211,7 @@ tooltip:hover:after {
 						}else if(listType == "awaiting_requests"){
 							interestStr = '';
 							options =  '<div class="col-md-3">'
-				            	+ '<button class="btn btn-primary btn-block" onclick="fullProfile('+orderObj.id+')">View Full Profile</button><br>'
+				            	+ '<button class="btn btn-primary btn-block" <a href="#" onclick="fullProfile('+orderObj.id+')">View Full Profile</button><br></a>'
 				            	+ mobile_num_Str
 				            	+ shortListedStr
 				            	//+ '<button class="btn btn-danger btn-block" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button>'
@@ -1218,7 +1220,7 @@ tooltip:hover:after {
 				           //acceptOptions = "<tr><td title=''><div id='accept"+orderObj.requestId+"'><a href='#' onclick='acceptRequest("+orderObj.requestId+",\"1\")'>Accept</a>&nbsp;|&nbsp;<a id='reject"+orderObj.requestId+"' href='#' onclick='rejectRequest("+orderObj.requestId+" \"0\")'>Reject</a></td><tr>";
 						}else if(listType == "myProfileViews"){
 							options =  '<div class="col-md-3">'
-				            	+ '<button class="btn btn-primary btn-block" onclick="fullProfile('+orderObj.id+')">View Full Profile</button>'
+				            	+ '<button class="btn btn-primary btn-block" <a href="#" onclick="fullProfile('+orderObj.id+')">View Full Profile</button></a>'
 				            	+ mobile_num_Str
 				            	//+ '<button class="btn btn-danger btn-block" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button>'
 				            	+ '<div class="clearfix"></div>'
@@ -1229,7 +1231,7 @@ tooltip:hover:after {
 						var photos_list = orderObj.photosList;
 						var slider = "", displayStyle = ' ';
 						if(photos_list == "" || typeof photos_list == "undefined"){
-							slider = '<img src="${baseurl}/img/default.png" class="img img-responsive thumbnail " style="margin-bottom:0;height: 60px;width: 60px;" >';
+							slider = '<a href="#" onclick="fullProfile('+orderObj.id+')"><img src="${baseurl}/img/default.png" class="img img-responsive thumbnail " style="margin-bottom:0;height: 60px;width: 60px;" ></a>';
 						}else{
 							smallerSlideIndex[orderObj.id] = 0;
 							var slider = "", displayStyle = ' ';
@@ -1240,7 +1242,7 @@ tooltip:hover:after {
 									displayStyle = ' style="display:none" ';
 								}
 								slider += '<div class="smallSlides'+orderObj.id+'" '+displayStyle+'>'
-										+'		<img src="${baseurl}/'+photo.image+'" class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: auto;width: 100%;" >'
+										+'<a href="#" onclick="fullProfile('+orderObj.id+')"><img src="${baseurl}/'+photo.image+'" class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: auto;width: 100%;" ></a>'
 										+'</div>'
 							});
 							if(photos_list.length>1){
@@ -3561,6 +3563,7 @@ img.hover-shadow {
 									<li><a href="searchProfiles">Regular search</a></li>
 									<li><a href="searchById">Search by ID </a></li>
 									<li><a href="recentlyViewedProfiles">Recently viewed profiles</a></li>
+									<li><a href="premiumMembers">Premium Members</a></li>
 								</ul>
 							</li>
 							<li class="dropdown matches">

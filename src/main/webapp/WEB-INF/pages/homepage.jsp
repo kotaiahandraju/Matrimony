@@ -46,34 +46,167 @@
 <link rel="stylesheet" type="text/css" href="${baseurl}/user/css/component.css" />
 
 <style>
+.img-replace {
+  /* replace text with an image */
+  display: inline-block;
+  overflow: hidden;
+  text-indent: 100%; 
+  color: transparent;
+  white-space: nowrap;
+}
+.bts-popup {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: opacity 0.3s 0s, visibility 0s 0.3s;
+  -moz-transition: opacity 0.3s 0s, visibility 0s 0.3s;
+  transition: opacity 0.3s 0s, visibility 0s 0.3s;
+}
+.bts-popup.is-visible {
+  opacity: 1;
+  visibility: visible;
+  -webkit-transition: opacity 0.3s 0s, visibility 0s 0s;
+  -moz-transition: opacity 0.3s 0s, visibility 0s 0s;
+  transition: opacity 0.3s 0s, visibility 0s 0s;
+    z-index:999;
+}
+
+.bts-popup-container {
+  position: relative;
+  width: 80%;
+  margin: 4em auto;
+/*   background: rgba(255,255,255,0.7) !important; */
+  border-radius: none; 
+  text-align: center;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+  -webkit-transform: translateY(-40px);
+  -moz-transform: translateY(-40px);
+  -ms-transform: translateY(-40px);
+  -o-transform: translateY(-40px);
+  transform: translateY(-40px);
+  /* Force Hardware Acceleration in WebKit */
+  -webkit-backface-visibility: hidden;
+  -webkit-transition-property: -webkit-transform;
+  -moz-transition-property: -moz-transform;
+  transition-property: transform;
+  -webkit-transition-duration: 0.3s;
+  -moz-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+}
+.bts-popup-container img {
+  padding: 0px 0 0 0;
+}
+.bts-popup-container p {
+	color: white;
+  padding: 10px 40px;
+}
+.bts-popup-container .bts-popup-button {
+  padding: 5px 25px;
+  border: 2px solid white;
+	display: inline-block;
+  margin-bottom: 10px;
+}
+
+.bts-popup-container a {
+  color: white;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+
+
+
+
+
+.bts-popup-container .bts-popup-close {
+  position: absolute;
+ top: -25px;
+    right: 71px;
+  width: 30px;
+  height: 30px;
+}
+.bts-popup-container .bts-popup-close::before, .bts-popup-container .bts-popup-close::after {
+  content: '';
+  position: absolute;
+  top: 12px;
+  width: 16px;
+  height: 3px;
+  background-color: white;
+}
+.bts-popup-container .bts-popup-close::before {
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+  left: 8px;
+}
+.bts-popup-container .bts-popup-close::after {
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  right: 6px;
+  top: 13px;
+}
+.is-visible .bts-popup-container {
+  -webkit-transform: translateY(0);
+  -moz-transform: translateY(0);
+  -ms-transform: translateY(0);
+  -o-transform: translateY(0);
+  transform: translateY(0);
+}
+@media only screen and (min-width: 1170px) {
+  .bts-popup-container {
+    margin: 8em auto;
+  }
+}
 .modal {
     background: rgba(0,0,0,0.6);
 }
 .modal-header .close {
-    margin-top: -25px !important;
+    margin-top: -40px !important;
 }
 .section-title {
 margin-bottom:0px;}
 .getquote .right-side { 
 padding-top:2px;
 }
-/* @media only screen and (max-width: 1280px) {
+ @media only screen and (max-width: 1280px) {
 section.getquote {
     margin-top: 45px;
-}} */
-#myModal {
+}} 
+/* #myModal {
 padding-top: 97px !important;
     display: block;
     padding-right: 16px;
     margin-top:0px !important;
-}
-@media only screen and (max-width: 640px) and (min-width: 320px) {
-#myModal {
+} */
+/* #myModal {
 padding-top: 85px !important;
     display: block;
     padding-left: 66px !important;
     margin-top:0px !important;
+} */
+@media only screen and (max-width: 640px) and (min-width: 320px) {
+.bts-popup-container { 
+margin-top:80px;
 }
+.bts-popup-container .bts-popup-close {
+    position: absolute;
+    top: -25px;
+    right: 29px;
+    width: 30px;
+    height: 30px;
+}
+.flexslider {
+margin-top:51px;}
    video {
     width: 100% !important;
     height: auto !important ;
@@ -142,7 +275,7 @@ width: 135px;
     font-weight: 400;
     padding: 10px 15px;
     text-transform: capitalize;
-  
+   margin-bottom:0px;
     line-height: 29px;
     border: none!important;
     width: 80%;
@@ -530,7 +663,7 @@ window.setTimeout(function() {
 						
 
 <!-- Modal -->
- <div id="myModal" class="modal fade" role="dialog" style="  margin-top:55px;">
+ <!-- <div id="myModal" class="modal fade" role="dialog" style="  margin-top:55px;">
   <div class="modal-dialog">
     <div class="modal-content">		
       <div class="modal-header" style="background:#099cca; color:#fff;">
@@ -542,8 +675,39 @@ window.setTimeout(function() {
     </div>
 
   </div>
-</div>		 	
-						
+</div>	  	
+</div>		 	 -->
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog" style="  margin-top:55px;">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">		
+      <div class="modal-header" style="background:#099cca; color:#fff;"> <h3>Your Search Results</h3>
+        <button type="button" style="color:#fff !important; margin-right:10px; opacity:1;" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+      	<div class="searchresults">
+								   
+								    
+									<div id="searchResults">
+
+									</div>
+								</div>    
+      </div>
+    </div>
+
+  </div>
+</div>	
+		<div class="bts-popup" tabindex="-1" role="alert">
+    <div class="bts-popup-container">
+      <img src="images/bannerposter.jpg" alt="" width="80%" />
+				
+        <a href="#0" class="bts-popup-close img-replace">Close</a>
+    </div>
+</div>	
+			
 <script>
 
 function searchSubmit(){
@@ -681,18 +845,18 @@ function getReliginCastAjax1() {
 </script>
 						<div class="quote-form row">
 							<!-- contact form -->
-							<form class="" action="loginAction" id="quote" name="quote" method="post">
+							<form class="" action="loginAction" id="quote" name="quote" method="post" onsubmit="return loginSubmit()">
 								<c:if test="${not empty msg}">
 									<div class="form-group col-md-12" style="margin-bottom: 0px;">
 										<div class="msgcss fadeIn animated alert alert-danger">${msg}</div>
 									</div>
 								</c:if>
 								<div class="form-group col-md-12">
-									<input type="text" class="form-control" onkeydown="removeBorder(this.id)" name="userName" id="userName" placeholder="Username" required>
+									<input type="text" class="form-control" onkeydown="removeBorder(this.id)" name="userName" id="userName" placeholder="Username">
 								</div>
 
 								<div class="form-group col-md-12">
-									<input type="password" class="form-control"  onkeydown="removeBorder(this.id)" name="password" id="password" placeholder="Password" required>
+									<input type="password" class="form-control"  onkeydown="removeBorder(this.id)" name="password" id="password" placeholder="Password" >
 								</div>
 
 								<div class="form-group col-md-12">
@@ -907,8 +1071,8 @@ function getReliginCastAjax1() {
 										<img src="user/images/portfolio/01-thumbnail.jpg"
 											class="img-responsive img-thumbnail" alt="">
 										<figcaption>
-											<h3>Krishna& Gopika</h3>
-											<span>June 9, 2017</span> <!-- <a href="successStory#01-thumbnail.jpg">read more...</a> -->
+											<h3>Vamsi Chowdary & Apoorva</h3>
+											<span>March 28, 2018</span> <!-- <a href="successStory#01-thumbnail.jpg">read more...</a> -->
 											<!-- <h3>Bride Name & Groom Name</h3>
 											<span>June 9, 2017</span> --> <a href="successStory&divId=1">read more...</a> 
 										</figcaption>
@@ -919,8 +1083,8 @@ function getReliginCastAjax1() {
 										<img src="user/images/portfolio/02-thumbnail.jpg"
 											class="img-responsive img-thumbnail" alt="">
 										<figcaption>
-											<h3>Kishore & Vijaya</h3>
-											<span>April 28, 2017</span> <!-- <a href="successStory#02-thumbnail.jpg">read more...</a> -->
+											<h3>Sriram & Divya</h3>
+											<span>Auguest 15, 2017</span> <!-- <a href="successStory#02-thumbnail.jpg">read more...</a> -->
 											<!-- <h3>Bride Name & Groom Name</h3>
 											<span>June 9, 2017</span> --> <a href="successStory&divId=2">read more...</a>
 										</figcaption>
@@ -931,7 +1095,7 @@ function getReliginCastAjax1() {
 										<img src="user/images/portfolio/03-thumbnail.jpg"
 											class="img-responsive img-thumbnail" alt="">
 										<figcaption>
-											<h3>Srinivas&Lavanya</h3>
+											<h3>Srinivas & Lavanya</h3>
 											<span>May 2, 2017</span> <!-- <a href="successStory#03-thumbnail.jpg">read more...</a> -->
 											<!-- <h3>Bride Name & Groom Name</h3>
 											<span>June 9, 2017</span> --> <a href="successStory&divId=3">read more...</a>
@@ -1034,9 +1198,28 @@ function getReliginCastAjax1() {
 
 <script>
 
-$(window).load(function(){        
+function loginSubmit(){
+	 var userName = $('#userName').val().trim();
+	 var password1 = $('#quote input[name="password"]').val().trim();
+	 if(userName==""){
+		$("#userName").attr("required", "true");	
+		return false;
+	} else if(password1==""){
+		$('#quote input[name="password"]').attr("required", "true");	
+		return false;
+	}
+	 else {
+		$("#userLoginButton").attr("disabled",true);
+		$("#userLoginButton").html("Please wait...");		
+		return true;
+	}
+
+}
+/* $(window).load(function(){        
 	   $('#myModal').modal();
-	    });</script>
+	    });
+	     */
+	    </script>
 
 	<script src="${baseurl}/user/vendor/jquery/jquery.min.js"></script>
 	<script src="${baseurl}/user/js/ie10-viewport-bug-workaround.js"></script>
@@ -1280,6 +1463,36 @@ $("#secondButton").click(function(event)
 // 		       return false;
 // 		    }); 
 // 		});
+</script>
+
+
+<script>
+jQuery(document).ready(function($){
+	  
+	  window.onload = function (){
+	    $(".bts-popup").delay(1000).addClass('is-visible');
+		}
+	  
+		//open popup
+		$('.bts-popup-trigger').on('click', function(event){
+			event.preventDefault();
+			$('.bts-popup').addClass('is-visible');
+		});
+		
+		//close popup
+		$('.bts-popup').on('click', function(event){
+			if( $(event.target).is('.bts-popup-close') || $(event.target).is('.bts-popup') ) {
+				event.preventDefault();
+				$(this).removeClass('is-visible');
+			}
+		});
+		//close popup when clicking the esc keyboard button
+		$(document).keyup(function(event){
+	    	if(event.which=='27'){
+	    		$('.bts-popup').removeClass('is-visible');
+		    }
+	    });
+	});
 </script>
 </body>
 </html>

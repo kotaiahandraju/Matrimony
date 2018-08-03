@@ -444,65 +444,6 @@ $(document).ready(function(){
 	$("#rDiet").val(selected_values.split(","));
 });
 
-function submitMore(option_str){
-	var page = 1;
-		var formData = new FormData();
-		
-		if(option_str=="day"){
-			formData.append("with_in_day", "true");
-		}else if(option_str=="week"){
-			formData.append("with_in_week", "true");
-		}else if(option_str=="month"){
-			formData.append("with_in_month", "true");
-		}else if(option_str=="all"){
-			formData.append("all", "true");
-		}else if(option_str=="photo"){
-			formData.append("with_photo", "true");
-		}
-		
-		formData.append("page_no", page);
-		formData.append("request_from", "newmatches");
-		
-		jQuery.fn.makeMultipartRequest('POST', 'displayPage', false,
-				formData, false, 'text', function(data){
-					var jsonobj = $.parseJSON(data);
-					var results = jsonobj.results;
-					total_items_count = jsonobj.total_records;
-					//$('#countId').html('');
-					$("#search_criteria").prop(
-							"hidden", true);
-					$('#searchresultsDiv')
-							.removeAttr(
-									"hidden");
-					if (results == "") {
-						//$('#countId').html('');
-						//$('#countId').html('0');
-						var str = '<div class="alert alert-danger ban"><h6>No matches found..!</h6></div>';
-						$('#searchResults')
-								.html('');
-						$(str)
-								.appendTo(
-										"#searchResults");
-						$("#table_footer")
-								.prop("hidden",
-										true);
-						$("#altLists").prop(
-								"hidden", true);
-					} else {
-						//$('#countId').html('');
-						//$('#countId').html(total_items_count);
-						$("#altLists").asPaginator('destroy');
-						paginationSetupForSideGrid(total_items_count);
-		    			$("#altLists").asPaginator('enable');
-		    			displayMatches_matches(listOrders1,"newMatches");
-		    			$("#table_footer").removeAttr("hidden");
-		    			$("#altLists").removeAttr("hidden");
-		    			displayTableFooter(1);
-		    			addWaterMark();
-					}
-		});
-}
-
 $(".newMatches").addClass("active");
 </script>
 <script>
@@ -516,9 +457,7 @@ $(".open-button").on("click", function() {
 	$("#selectAllRequest").on("click", function() {
 		
 // 		 $(".form-check-input").attr('checked', this.checked);
-		 $(".form-check-input").each(function(){
-// 			 alert($(this).attr('disabled'));
-		 });
+		 
 		 if ($(this).prop("checked")==true) {
 	          $('.form-check-input').prop('checked', true);
 	        } else {
