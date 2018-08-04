@@ -903,7 +903,7 @@ tooltip:hover:after {
 						+ '<div class="panel-heading">'
 						+ '<h5 class="panel-title">'
 						+ '<div class="form-check">'
-						+ '	<label class="form-check-label"> <input type="checkbox" class="form-check-input"> '+firstname+' '+lastname+'&nbsp;('+orderObj.username+')&nbsp;'+premiumMember+'</label>'
+						+ '	<label class="form-check-label"> <input type="checkbox" class="form-check-input"><a href="#" onclick="fullProfile('+orderObj.id+')">'+firstname+' '+lastname+'&nbsp;('+orderObj.username+')</a>&nbsp;'+premiumMember+'</label>'
 						+ '	<span class="pull-right">Created by '+orderObj.createProfileFor+' </span>'
 						/* <a href="#" data-toggle="tooltip" data-placement="bottom" title="Mark As Viewed"><img style="margin-left:15px;" src="${baseurl}/images/eye.png"/></a>
 						<a href="#" data-toggle="tooltip" data-placement="bottom" title="Move this profile &#xa; to ignore  list"><img style="margin-left:15px;" src="${baseurl}/images/ignore.png"/></a>
