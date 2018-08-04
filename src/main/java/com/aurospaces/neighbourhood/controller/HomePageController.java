@@ -2284,6 +2284,9 @@ public class HomePageController {
 				}
 				else if(String.valueOf(MatrimonyConstants.AARNA_PREMIUM_PACKAGE).equals(packageId)){
 					roleId = MatrimonyConstants.AARNA_PREMIUM_USER_ROLE_ID;
+					
+				}else if(String.valueOf(MatrimonyConstants.LAUNCHING_OFFER_999_PACK).equals(packageId)){
+					roleId = MatrimonyConstants.LAUNCHING_OFFER_ROLE_ID;
 				}
 					
 				if(roleId!=0){
@@ -2831,7 +2834,8 @@ public class HomePageController {
 				
 			} else {
 				if (Objresults != null && Objresults.size() > 0) {
-					total_records = Integer.parseInt((String)((Map<String, Object>)Objresults.get(0)).get("total_records"));
+					String s =String.valueOf(((Map<String, Object>)Objresults.get(0)).get("total_records"));
+					total_records = Integer.parseInt(s);
 					//get photos
 					for(Map<String,Object> reqObj:Objresults){
 						List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos((Integer)reqObj.get("id"));
