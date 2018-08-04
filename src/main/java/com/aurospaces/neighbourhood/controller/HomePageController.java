@@ -2284,6 +2284,9 @@ public class HomePageController {
 				}
 				else if(String.valueOf(MatrimonyConstants.AARNA_PREMIUM_PACKAGE).equals(packageId)){
 					roleId = MatrimonyConstants.AARNA_PREMIUM_USER_ROLE_ID;
+					
+				}else if(String.valueOf(MatrimonyConstants.LAUNCHING_OFFER_999_PACK).equals(packageId)){
+					roleId = MatrimonyConstants.LAUNCHING_OFFER_ROLE_ID;
 				}
 					
 				if(roleId!=0){

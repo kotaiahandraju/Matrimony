@@ -421,7 +421,7 @@ function displayMatches(listOrders) {
 				}
 			} */
 			if((login_user_role_id == 6) || (login_user_role_id == 11) || (login_user_role_id == 12)
-					|| (login_user_role_id == 13) || (login_user_role_id == 14)){ //means premium,premium_plus,aarna premium users
+					|| (login_user_role_id == 13) || (login_user_role_id == 14) || (login_user_role_id == 15)){ //means premium,premium_plus,aarna premium users
 			
 				firstname = orderObj.firstName;
 				lastname = orderObj.lastName;
@@ -479,7 +479,9 @@ function displayMatches(listOrders) {
 				if(memberRoleId==14){
 					 premiumMember = "<span class='premium-member'>Aarna Family Member</span>";
 				}
-				
+				if(memberRoleId==15){
+					 premiumMember = "<span class='premium-member'>Premium Member</span>";
+				}
 			}
 			
 			var profile_highlisht_str = '<div class="panel panel-default">';
