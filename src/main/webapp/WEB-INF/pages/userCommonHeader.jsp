@@ -2833,6 +2833,10 @@ header h1 {
 .dropdown:hover .dropdown-menu {
 display:none !important;
 } */
+.modal-open .modal {
+    overflow-x: auto;
+    overflow-y: auto;
+}
 .scrollup{
 			width:40px;
 			height:40px;			
