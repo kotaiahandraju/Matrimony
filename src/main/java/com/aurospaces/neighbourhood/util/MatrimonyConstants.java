@@ -20,6 +20,7 @@ public class MatrimonyConstants {
 	public static final int PREMIUM_PACKAGE = 3;
 	public static final int PREMIUM_PLUS_PACKAGE = 4;
 	public static final int AARNA_PREMIUM_PACKAGE = 5;
+	public static final int LAUNCHING_OFFER_999_PACK = 6;
 	/*****    role id      ********/
 	public static final int FREE_USER_ROLE_ID = 4;
 	public static final int PREMIUM_USER_ROLE_ID = 6;
@@ -27,6 +28,7 @@ public class MatrimonyConstants {
 	public static final int CLASSIC_USER_ROLE_ID = 12;
 	public static final int CLASSIC_PLUS_USER_ROLE_ID = 13;
 	public static final int AARNA_PREMIUM_USER_ROLE_ID = 14;
+	public static final int LAUNCHING_OFFER_ROLE_ID = 15;
 	
 	public static final int AARNA_EMPLOYEE_ROLE_ID = 3;
 	

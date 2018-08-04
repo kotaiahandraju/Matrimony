@@ -581,7 +581,7 @@ tooltip:hover:after {
 					if(occName==null)
 						occName = "";
 					if((login_user_role_id == 6) || (login_user_role_id == 11) || (login_user_role_id == 12)
-							|| (login_user_role_id == 13) || (login_user_role_id == 14)){ //means premium,premium_plus,aarna premium users
+							|| (login_user_role_id == 13) || (login_user_role_id == 14) || (login_user_role_id == 15)){ //means premium,premium_plus,aarna premium users
 					
 						firstname = orderObj.firstName;
 						lastname = orderObj.lastName;
@@ -608,7 +608,9 @@ tooltip:hover:after {
 						if(memberRoleId==14){
 							 premiumMember = "<span class='premium-member'>Aarna Family Member</span>";
 						}
-						
+						if(memberRoleId==15){
+							 premiumMember = "<span class='premium-member'>Premium Member</span>";
+						}
 					}
 					var shortListType = "${list_type}";
 					var shortListedStr;
@@ -777,7 +779,7 @@ tooltip:hover:after {
 						}
 					} */
 					if((login_user_role_id == 6) || (login_user_role_id == 11) || (login_user_role_id == 12)
-							|| (login_user_role_id == 13) || (login_user_role_id == 14)){ //means premium,premium_plus,aarna premium users
+							|| (login_user_role_id == 13) || (login_user_role_id == 14) || (login_user_role_id == 15)){ //means premium,premium_plus,aarna premium users
 					
 						firstname = orderObj.firstName;
 						lastname = orderObj.lastName;
@@ -806,7 +808,9 @@ tooltip:hover:after {
 						if(memberRoleId==14){
 							 premiumMember = "<span class='premium-member'>Aarna Family Member</span>";
 						}
-						
+						if(memberRoleId==15){
+							 premiumMember = "<span class='premium-member'>Premium Member</span>";
+						}
 					}
 					var shortListedStr = '<span id="shortlistTD'+orderObj.id+'" name="shortlistTD[]"><a href="#no" type="button" class="btn btn-warning btn-sm" onclick="shortList('+orderObj.id+')"> Shortlist</a></span>';
 					if(orderObj.short_listed == "1"){
@@ -1032,7 +1036,7 @@ tooltip:hover:after {
 					var expressed = orderObj.expressedInterest;
 					var firstname = '<img src="${baseurl}/images/blurr.png"/>',lastname='';
 					if((login_user_role_id == 6) || (login_user_role_id == 11) || (login_user_role_id == 12)
-							|| (login_user_role_id == 13) || (login_user_role_id == 14)){ //means premium,premium_plus,aarna premium users
+							|| (login_user_role_id == 13) || (login_user_role_id == 14) || (login_user_role_id == 15)){ //means premium,premium_plus,aarna premium users
 					
 						firstname = orderObj.firstName;
 						lastname = orderObj.lastName;
@@ -1101,7 +1105,9 @@ tooltip:hover:after {
 							if(memberRoleId==14){
 								 premiumMember = "<span class='premium-member'>Aarna Family Member</span>";
 							}
-							
+							if(memberRoleId==15){
+								 premiumMember = "<span class='premium-member'>Premium Member</span>";
+							}
 						}
 						var user_gender = '${cacheGuest.gender}';
 						var opp_gender_str = "",her_his_you = "";
