@@ -39,6 +39,8 @@
 	<link href="${baseurl }/css/jquery.littlelightbox.css" rel="stylesheet" type="text/css">
 
 	<style type="text/css">
+	a {
+	cursor:pointer;}
 .note {
 padding-right:0px;
 padding-left:0px;

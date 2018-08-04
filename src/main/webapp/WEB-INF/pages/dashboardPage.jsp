@@ -360,7 +360,7 @@ color:#000;
             <div class="modal-body newbody col-md-12">
 				<div class="col-md-4"><img src="${baseurl}/images/up.png" class="img-responsive"/></div>
 				<div class="col-md-8">
-				<p style="color:#b7f528;">Start Contracting Matches</p>
+				<p style="color:#b7f528;">Start Contacting Matches</p>
 				<p><img style="color:#fff;" src="../images/icon1.png"/> Get Unlimited Profiles</p>
 				<!-- <p> <i class="fa fa-comment"></i> Chat Instantly</p> -->
 				 <div class="clearfix"></div>
