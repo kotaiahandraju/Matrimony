@@ -880,7 +880,7 @@ As a member, you have the benefit of receiving mobile alerts. We recommend you t
    								$.each(statesList,function(i, state) {
    											$("#rState").append("<option value="+state.id+" >"+ state.name+ "</option>");});
    								$("#rState").trigger('change.select2');
-   								var selected_values = "${settings.rState}";
+   								var selected_values = settings_map.filter_state;
    							    if(selected_values == "" || selected_values==null){
    							    	$("#rState").select2({
    							    	    placeholder: "-- Choose State --"
@@ -922,7 +922,7 @@ As a member, you have the benefit of receiving mobile alerts. We recommend you t
    											$("#city").append("<option value="+city.id+" >"+ city.name+ "</option>");
    										});
    								$("#rCity").trigger('change.select2');
-   								var selected_values = "${settings.rCity}";
+   								var selected_values = settings_map.filter_city;
    							    if(selected_values == "" || selected_values==null){
    							    	$("#rCity").select2({
    							    	    placeholder: "-- Choose City --"
@@ -1039,6 +1039,7 @@ As a member, you have the benefit of receiving mobile alerts. We recommend you t
 
 
 <script type="text/javascript">
+var settings_map;
 function displaySettingsBlock(divId){
 	if(divId=="membership_details"){
 		var formData = new FormData();
@@ -1144,6 +1145,7 @@ function displaySettingsBlock(divId){
 			var jsonobj = $.parseJSON(data);
 			var msg = jsonobj.message;
 			var settingsMap = jsonobj.settings;
+			settings_map = settingsMap;
 			var castesList = jsonobj.castes_list;
 			if(msg=="success"){
 				var selected_val = settingsMap.contact_filter;

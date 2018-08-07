@@ -59,7 +59,7 @@ function displayMatches(listOrders) {
 		var ageStr = orderObj.age;
 		var age = ageStr.split(".")[0];
 		if((login_user_role_id == 6) || (login_user_role_id == 11) || (login_user_role_id == 12)
-				|| (login_user_role_id == 13) || (login_user_role_id == 14)){ //means premium,premium_plus,aarna premium users
+				|| (login_user_role_id == 13) || (login_user_role_id == 14) || (login_user_role_id == 15)){ //means premium,premium_plus,aarna premium users
 		
 			firstname = orderObj.firstName;
 			lastname = orderObj.lastName;
@@ -69,9 +69,26 @@ function displayMatches(listOrders) {
 		}
 		var premiumMember = "";
 		var memberRoleId = orderObj.role_id;
-		if(memberRoleId!=null && memberRoleId!="" && (memberRoleId==6 || memberRoleId==11 ||
-				memberRoleId==12 || memberRoleId==13 || memberRoleId==14)){
-			premiumMember = "<span class='premium-member'>Premium Member</span>";
+		if(memberRoleId!=null && memberRoleId!="" && (typeof memberRoleId != "undefined")){
+			if(memberRoleId==12){
+				 premiumMember = "<span class='premium-member'>Classic Member</span>";
+			}
+			if(memberRoleId==13){
+				 premiumMember = "<span class='premium-member'>Classic Advantage Member</span>";
+			}
+			if(memberRoleId==6){
+				 premiumMember = "<span class='premium-member'>Premium Member</span>";
+			}
+			if(memberRoleId==11){
+				 premiumMember = "<span class='premium-member'>Premium Plus Member</span>";
+			}
+			if(memberRoleId==14){
+				 premiumMember = "<span class='premium-member'>Aarna Family Member</span>";
+			}
+			if(memberRoleId==15){
+				 premiumMember = "<span class='premium-member'>Premium Member</span>";
+			}
+			
 		}
 		var shortListedStr = '<span id="shortlistTD'+orderObj.id+'"><a href="#no" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="shortList_dashboard('+orderObj.id+')"> Shortlist</a></span>';
 		if(orderObj.short_listed == "1"){

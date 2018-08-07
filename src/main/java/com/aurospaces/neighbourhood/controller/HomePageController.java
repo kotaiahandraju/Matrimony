@@ -2284,6 +2284,9 @@ public class HomePageController {
 				}
 				else if(String.valueOf(MatrimonyConstants.AARNA_PREMIUM_PACKAGE).equals(packageId)){
 					roleId = MatrimonyConstants.AARNA_PREMIUM_USER_ROLE_ID;
+					
+				}else if(String.valueOf(MatrimonyConstants.LAUNCHING_OFFER_999_PACK).equals(packageId)){
+					roleId = MatrimonyConstants.LAUNCHING_OFFER_ROLE_ID;
 				}
 					
 				if(roleId!=0){
@@ -2831,7 +2834,8 @@ public class HomePageController {
 				
 			} else {
 				if (Objresults != null && Objresults.size() > 0) {
-					total_records = Integer.parseInt((String)((Map<String, Object>)Objresults.get(0)).get("total_records"));
+					String s =String.valueOf(((Map<String, Object>)Objresults.get(0)).get("total_records"));
+					total_records = Integer.parseInt(s);
 					//get photos
 					for(Map<String,Object> reqObj:Objresults){
 						List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos((Integer)reqObj.get("id"));
@@ -3406,6 +3410,19 @@ public class HomePageController {
 				request.setAttribute("allOrders1", sJson);
 				total_records = Integer.parseInt(((Map<String, String>)listOrderBeans.get(0)).get("total_records"));
 				request.setAttribute("total_records", total_records);
+				Map<Integer, String> cityMap = new LinkedHashMap<Integer, String>();
+				try {
+					List<CityBean> cities = objCityDao.getAllCities();
+					for (CityBean bean : cities) {
+						cityMap.put(bean.getId(), bean.getName());
+					}
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				} 
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(cityMap);
+				request.setAttribute("all_cities", sJson);
 			} else {
 				request.setAttribute("allOrders1", "''");
 				request.setAttribute("total_records", "0");
@@ -5243,7 +5260,7 @@ public String help(@ModelAttribute("createProfile") UsersBean objUserssBean, Mod
 
 @RequestMapping(value = "/premiumMembers")
 public String premiumMembers(@ModelAttribute("createProfile") UsersBean searchCriteriaBean, Model objeModel, HttpServletRequest request, HttpSession session) {
-  List<Map<String, String>> listOrderBeans = null;
+	List<Map<String, Object>>listOrderBeans = null;
   ObjectMapper objectMapper = null;
 	String sJson = null;
   try{
@@ -5255,14 +5272,14 @@ public String premiumMembers(@ModelAttribute("createProfile") UsersBean searchCr
 		String withPhoto = request.getParameter("withPhoto");
 		String alreadyViewed = request.getParameter("alreadyViewed");
 		String alreadyContacted = request.getParameter("alreadyContacted");
-		listOrderBeans = objUsersDao.getSearchResults(searchCriteriaBean,0,"newmatches");
+		listOrderBeans = objUsersDao.getPremiumMembers(userBean);
 		int total_records = 0;//limit - viewed_count;
 		request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
 		
 		if (listOrderBeans != null && listOrderBeans.size() > 0) {
 			//get photos
-			for(Map<String,String> profileObj:listOrderBeans){
-				List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos(Integer.parseInt(profileObj.get("id")));
+			for(Map<String,Object> profileObj:listOrderBeans){
+				List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos((int) profileObj.get("id"));
 				if(photosList!=null && photosList.size()>0){
 					String imgStr = "";
 					for(Map<String,Object> photo:photosList){
@@ -5281,7 +5298,7 @@ public String premiumMembers(@ModelAttribute("createProfile") UsersBean searchCr
 			objectMapper = new ObjectMapper();
 			sJson = objectMapper.writeValueAsString(listOrderBeans);
 			request.setAttribute("allOrders1", sJson);
-			total_records = Integer.parseInt(((Map<String, String>)listOrderBeans.get(0)).get("total_records"));
+			total_records = listOrderBeans.size();
 			request.setAttribute("total_records", total_records);
 		} else {
 			request.setAttribute("allOrders1", "''");

@@ -23,7 +23,9 @@ color:#fff;
 border-bottom-left-radius: 33px;
     border-bottom-right-radius: 33px;
 }
-
+#pending_count {
+padding-bottom:5px;
+}
 </style>
 
 		<style>
@@ -233,11 +235,11 @@ color:#000;
     <!-- Wrapper for slides -->
     <c:if test="${not empty pending_reqs}">
     <div id="pending_req_div"  class="carousel-inner pendingre">
-    		<span id="pending_count">${cacheGuest.pendingRequestsCount} requests pending</span>
+    		<span id="pending_count">${cacheGuest.pendingRequestsCount} requests pending</span><br>
     		<c:set value="${0}" var="count" />
 			<c:forEach items="${pending_reqs}" var="pend_req">
 				<c:if test="${count == 0}">
-					<div class="item active" id="pending_div${pend_req.requestId}">
+					<div class="item active" style="padding-top:5px;" id="pending_div${pend_req.requestId}">
 				</c:if>
 				<c:if test="${count != 0}">
 					<div class="item" id="pending_div${pend_req.requestId}">
@@ -358,7 +360,7 @@ color:#000;
             <div class="modal-body newbody col-md-12">
 				<div class="col-md-4"><img src="${baseurl}/images/up.png" class="img-responsive"/></div>
 				<div class="col-md-8">
-				<p style="color:#b7f528;">Start Contracting Matches</p>
+				<p style="color:#b7f528;">Start Contacting Matches</p>
 				<p><img style="color:#fff;" src="../images/icon1.png"/> Get Unlimited Profiles</p>
 				<!-- <p> <i class="fa fa-comment"></i> Chat Instantly</p> -->
 				 <div class="clearfix"></div>
@@ -489,7 +491,7 @@ function displayMatches(listOrders) {
 			var ageStr = orderObj.age;
 			var age = ageStr.split(".")[0];
 			if((login_user_role_id == 6) || (login_user_role_id == 11) || (login_user_role_id == 12)
-					|| (login_user_role_id == 13) || (login_user_role_id == 14)){ //means premium,premium_plus,aarna premium users
+					|| (login_user_role_id == 13) || (login_user_role_id == 14) || (login_user_role_id == 15)){ //means premium,premium_plus,aarna premium users
 			
 				firstname = orderObj.firstName;
 				lastname = orderObj.lastName;
@@ -499,9 +501,25 @@ function displayMatches(listOrders) {
 			}
 			var premiumMember = "";
 			var memberRoleId = orderObj.role_id;
-			if(memberRoleId!=null && memberRoleId!="" && (memberRoleId==6 || memberRoleId==11 ||
-					memberRoleId==12 || memberRoleId==13 || memberRoleId==14)){
-				premiumMember = "<span class='premium-member'>Premium Member</span>";
+			if(memberRoleId!=null && memberRoleId!="" && (typeof memberRoleId != "undefined")){
+				if(memberRoleId==12){
+					 premiumMember = "<span class='premium-member'>Classic Member</span>";
+				}
+				if(memberRoleId==13){
+					 premiumMember = "<span class='premium-member'>Classic Advantage Member</span>";
+				}
+				if(memberRoleId==6){
+					 premiumMember = "<span class='premium-member'>Premium Member</span>";
+				}
+				if(memberRoleId==11){
+					 premiumMember = "<span class='premium-member'>Premium Plus Member</span>";
+				}
+				if(memberRoleId==14){
+					 premiumMember = "<span class='premium-member'>Aarna Family Member</span>";
+				}
+				if(memberRoleId==15){
+					 premiumMember = "<span class='premium-member'>Premium Member</span>";
+				}
 			}
 			var shortListedStr = '<span id="shortlistTD'+orderObj.id+'"><a href="#no" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="shortList_dashboard('+orderObj.id+')"> Shortlist</a></span>';
 			if(orderObj.short_listed == "1"){
@@ -597,7 +615,7 @@ function displayNewMatches(listOrders) {
 			var ageStr = orderObj.age;
 			var age = ageStr.split(".")[0];
 			if((login_user_role_id == 6) || (login_user_role_id == 11) || (login_user_role_id == 12)
-					|| (login_user_role_id == 13) || (login_user_role_id == 14)){ //means premium,premium_plus,aarna premium users
+					|| (login_user_role_id == 13) || (login_user_role_id == 14) || (login_user_role_id == 15)){ //means premium,premium_plus,aarna premium users
 			
 				firstname = orderObj.firstName;
 				lastname = orderObj.lastName;

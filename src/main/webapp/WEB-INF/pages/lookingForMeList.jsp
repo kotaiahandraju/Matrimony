@@ -205,6 +205,7 @@ margin-left:10px;
     </div>
   </div>
 </div>
+
 			</div>
 			<div id="dial1"></div>
 			<div class="col-md-9 products-grid-left">

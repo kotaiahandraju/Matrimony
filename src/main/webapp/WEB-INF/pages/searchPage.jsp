@@ -421,7 +421,7 @@ function displayMatches(listOrders) {
 				}
 			} */
 			if((login_user_role_id == 6) || (login_user_role_id == 11) || (login_user_role_id == 12)
-					|| (login_user_role_id == 13) || (login_user_role_id == 14)){ //means premium,premium_plus,aarna premium users
+					|| (login_user_role_id == 13) || (login_user_role_id == 14) || (login_user_role_id == 15)){ //means premium,premium_plus,aarna premium users
 			
 				firstname = orderObj.firstName;
 				lastname = orderObj.lastName;
@@ -479,7 +479,9 @@ function displayMatches(listOrders) {
 				if(memberRoleId==14){
 					 premiumMember = "<span class='premium-member'>Aarna Family Member</span>";
 				}
-				
+				if(memberRoleId==15){
+					 premiumMember = "<span class='premium-member'>Premium Member</span>";
+				}
 			}
 			
 			var profile_highlisht_str = '<div class="panel panel-default">';
@@ -1070,6 +1072,7 @@ function resetBtnfunction(){
 						});
 	}
 	
+	var clicked_link;
 	function paginationSetupForSideGrid(total_items_count) {
 		$('#altLists')
 				.asPaginator(
@@ -1111,6 +1114,18 @@ function resetBtnfunction(){
 								formData.append("rCity", $("#city").val());
 								formData.append("rAgeFrom", $("#age_from").val());
 								formData.append("rAgeTo", $("#age_to").val());
+								
+								if(clicked_link=="day"){
+									formData.append("with_in_day", "true");
+								}else if(clicked_link=="week"){
+									formData.append("with_in_week", "true");
+								}else if(clicked_link=="month"){
+									formData.append("with_in_month", "true");
+								}else if(clicked_link=="all"){
+									formData.append("all", "true");
+								}else if(clicked_link=="photo"){
+									formData.append("with_photo", "true");
+								}
 								
 								formData.append("page_no", page);
 								formData.append("request_from", "search");
@@ -1588,14 +1603,19 @@ function resetBtnfunction(){
 			
 			if(option_str=="day"){
 				formData.append("with_in_day", "true");
+				clicked_link = "day";
 			}else if(option_str=="week"){
 				formData.append("with_in_week", "true");
+				clicked_link = "week";
 			}else if(option_str=="month"){
 				formData.append("with_in_month", "true");
+				clicked_link = "month";
 			}else if(option_str=="all"){
 				formData.append("all", "true");
+				clicked_link = "all";
 			}else if(option_str=="photo"){
 				formData.append("with_photo", "true");
+				clicked_link = "photo";
 			}
 			
 			

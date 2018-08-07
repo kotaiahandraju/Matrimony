@@ -83,7 +83,7 @@
 /*   background: rgba(255,255,255,0.7) !important; */
   border-radius: none; 
   text-align: center;
-  box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+/*   box-shadow: 0 0 2px rgba(0, 0, 0, 0.2); */
   -webkit-transform: translateY(-40px);
   -moz-transform: translateY(-40px);
   -ms-transform: translateY(-40px);
@@ -126,7 +126,7 @@
 .bts-popup-container .bts-popup-close {
   position: absolute;
  top: -25px;
-    right: 71px;
+    right: 83px;
   width: 30px;
   height: 30px;
 }
@@ -1072,7 +1072,7 @@ function getReliginCastAjax1() {
 											class="img-responsive img-thumbnail" alt="">
 										<figcaption>
 											<h3>Vamsi Chowdary & Apoorva</h3>
-											<span>March 28, 2018</span> <!-- <a href="successStory#01-thumbnail.jpg">read more...</a> -->
+											<span>June 9, 2018</span> <!-- <a href="successStory#01-thumbnail.jpg">read more...</a> -->
 											<!-- <h3>Bride Name & Groom Name</h3>
 											<span>June 9, 2017</span> --> <a href="successStory&divId=1">read more...</a> 
 										</figcaption>
@@ -1084,7 +1084,7 @@ function getReliginCastAjax1() {
 											class="img-responsive img-thumbnail" alt="">
 										<figcaption>
 											<h3>Sriram & Divya</h3>
-											<span>Auguest 15, 2017</span> <!-- <a href="successStory#02-thumbnail.jpg">read more...</a> -->
+											<span>April 28, 2018</span> <!-- <a href="successStory#02-thumbnail.jpg">read more...</a> -->
 											<!-- <h3>Bride Name & Groom Name</h3>
 											<span>June 9, 2017</span> --> <a href="successStory&divId=2">read more...</a>
 										</figcaption>
@@ -1095,7 +1095,7 @@ function getReliginCastAjax1() {
 										<img src="user/images/portfolio/03-thumbnail.jpg"
 											class="img-responsive img-thumbnail" alt="">
 										<figcaption>
-											<h3>Srinivas & Lavanya</h3>
+											<h3>Raghuram & Swapna</h3>
 											<span>May 2, 2017</span> <!-- <a href="successStory#03-thumbnail.jpg">read more...</a> -->
 											<!-- <h3>Bride Name & Groom Name</h3>
 											<span>June 9, 2017</span> --> <a href="successStory&divId=3">read more...</a>
