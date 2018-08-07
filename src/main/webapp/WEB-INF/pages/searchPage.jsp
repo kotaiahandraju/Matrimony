@@ -744,6 +744,7 @@ function resetBtnfunction(){
 		$("#rMotherTongue").select2("val", "-- Choose Mother Tongue --");
 		$("#rCountry").select2("val", "-- Choose Country --");
 		$("#rState").select2("val", "-- Choose State --");
+		$("#rCity").select2("val", "-- Choose City --");
 		
 // 	location.reload();
 }
