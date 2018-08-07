@@ -4396,6 +4396,9 @@ public class HomePageController {
 				}else if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("rejected_requests")){
 					requests = objUsersDao.getRejectedRequests(sessionBean.getId()+"",0);
 				}
+				else if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("filtered_requests")){
+					requests = objUsersDao.getFilteredRequests(sessionBean.getId()+"",0);
+				}
 				if(requests!=null && requests.size()>0){
 					//get photos
 					for(Map<String,Object> reqObj:requests){
