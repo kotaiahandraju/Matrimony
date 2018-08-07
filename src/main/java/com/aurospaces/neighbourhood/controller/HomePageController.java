@@ -2834,7 +2834,8 @@ public class HomePageController {
 				
 			} else {
 				if (Objresults != null && Objresults.size() > 0) {
-					total_records = Integer.parseInt((String)((Map<String, Object>)Objresults.get(0)).get("total_records"));
+					String s =String.valueOf(((Map<String, Object>)Objresults.get(0)).get("total_records"));
+					total_records = Integer.parseInt(s);
 					//get photos
 					for(Map<String,Object> reqObj:Objresults){
 						List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos((Integer)reqObj.get("id"));

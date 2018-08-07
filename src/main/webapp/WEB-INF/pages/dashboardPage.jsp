@@ -23,7 +23,9 @@ color:#fff;
 border-bottom-left-radius: 33px;
     border-bottom-right-radius: 33px;
 }
-
+#pending_count {
+padding-bottom:5px;
+}
 </style>
 
 		<style>
@@ -233,11 +235,11 @@ color:#000;
     <!-- Wrapper for slides -->
     <c:if test="${not empty pending_reqs}">
     <div id="pending_req_div"  class="carousel-inner pendingre">
-    		<span id="pending_count">${cacheGuest.pendingRequestsCount} requests pending</span>
+    		<span id="pending_count">${cacheGuest.pendingRequestsCount} requests pending</span><br>
     		<c:set value="${0}" var="count" />
 			<c:forEach items="${pending_reqs}" var="pend_req">
 				<c:if test="${count == 0}">
-					<div class="item active" id="pending_div${pend_req.requestId}">
+					<div class="item active" style="padding-top:5px;" id="pending_div${pend_req.requestId}">
 				</c:if>
 				<c:if test="${count != 0}">
 					<div class="item" id="pending_div${pend_req.requestId}">
@@ -358,7 +360,7 @@ color:#000;
             <div class="modal-body newbody col-md-12">
 				<div class="col-md-4"><img src="${baseurl}/images/up.png" class="img-responsive"/></div>
 				<div class="col-md-8">
-				<p style="color:#b7f528;">Start Contracting Matches</p>
+				<p style="color:#b7f528;">Start Contacting Matches</p>
 				<p><img style="color:#fff;" src="../images/icon1.png"/> Get Unlimited Profiles</p>
 				<!-- <p> <i class="fa fa-comment"></i> Chat Instantly</p> -->
 				 <div class="clearfix"></div>

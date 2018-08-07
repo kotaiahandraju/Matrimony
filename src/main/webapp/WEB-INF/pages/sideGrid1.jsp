@@ -29,7 +29,9 @@
 							</div>
 						</div>
 					</div>
-				</div><!-- <div class="panel-group" id="accordion">
+				</div>
+				<a href="#"><img style="border-radius:10px;" src="../images/upgra.jpg" class="img-responsive"/></a>
+				<!-- <div class="panel-group" id="accordion">
     <div class="panel panel-default">
         <div class="panel-heading">
              <h4 class="panel-title">
