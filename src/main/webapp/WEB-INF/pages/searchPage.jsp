@@ -1071,6 +1071,7 @@ function resetBtnfunction(){
 						});
 	}
 	
+	var clicked_link;
 	function paginationSetupForSideGrid(total_items_count) {
 		$('#altLists')
 				.asPaginator(
@@ -1112,6 +1113,18 @@ function resetBtnfunction(){
 								formData.append("rCity", $("#city").val());
 								formData.append("rAgeFrom", $("#age_from").val());
 								formData.append("rAgeTo", $("#age_to").val());
+								
+								if(clicked_link=="day"){
+									formData.append("with_in_day", "true");
+								}else if(clicked_link=="week"){
+									formData.append("with_in_week", "true");
+								}else if(clicked_link=="month"){
+									formData.append("with_in_month", "true");
+								}else if(clicked_link=="all"){
+									formData.append("all", "true");
+								}else if(clicked_link=="photo"){
+									formData.append("with_photo", "true");
+								}
 								
 								formData.append("page_no", page);
 								formData.append("request_from", "search");
@@ -1589,14 +1602,19 @@ function resetBtnfunction(){
 			
 			if(option_str=="day"){
 				formData.append("with_in_day", "true");
+				clicked_link = "day";
 			}else if(option_str=="week"){
 				formData.append("with_in_week", "true");
+				clicked_link = "week";
 			}else if(option_str=="month"){
 				formData.append("with_in_month", "true");
+				clicked_link = "month";
 			}else if(option_str=="all"){
 				formData.append("all", "true");
+				clicked_link = "all";
 			}else if(option_str=="photo"){
 				formData.append("with_photo", "true");
+				clicked_link = "photo";
 			}
 			
 			

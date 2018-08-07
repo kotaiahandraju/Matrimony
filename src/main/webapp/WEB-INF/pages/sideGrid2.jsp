@@ -9,10 +9,10 @@
 											<td height="30"><a href="shortListedByMe" class="tablinks" >Profiles shortlisted by me</a></td>
 											
 										</tr>
-										<tr>
+										<!-- <tr>
 											<td height="30"><a href="inboxAction?tab_type=inbox&list_type=rejected_requests" class="tablinks" >Profiles I have ignored</a></td>
 											
-										</tr>
+										</tr> -->
 										<%-- <tr>
 											<td height="30"><a href="#">Profiles I have blocked</a></td>
 											<td><span class="badge pull-right">${cacheGuest.acceptedInterestCount}</span></td>

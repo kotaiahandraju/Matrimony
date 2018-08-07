@@ -3409,6 +3409,19 @@ public class HomePageController {
 				request.setAttribute("allOrders1", sJson);
 				total_records = Integer.parseInt(((Map<String, String>)listOrderBeans.get(0)).get("total_records"));
 				request.setAttribute("total_records", total_records);
+				Map<Integer, String> cityMap = new LinkedHashMap<Integer, String>();
+				try {
+					List<CityBean> cities = objCityDao.getAllCities();
+					for (CityBean bean : cities) {
+						cityMap.put(bean.getId(), bean.getName());
+					}
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				} 
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(cityMap);
+				request.setAttribute("all_cities", sJson);
 			} else {
 				request.setAttribute("allOrders1", "''");
 				request.setAttribute("total_records", "0");
