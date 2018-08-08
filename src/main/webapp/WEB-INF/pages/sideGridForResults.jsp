@@ -93,7 +93,7 @@ contacted (${cacheGuest.viewedNotContactedCount})</a><br>
 
 <!-- <a href="">Mutual Matches</a><br> -->
 
-<a href="">Premium Members</a></p><br>
+<a href="premiumMembers">Premium Members</a></p><br>
 			</div></div>
 		<br>
 				
