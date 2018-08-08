@@ -2629,6 +2629,7 @@ public class HomePageController {
 			String all_created = request.getParameter("all");
 			String age_from = request.getParameter("age_from");
 			String age_to = request.getParameter("age_to");
+			String city = request.getParameter("rCity");
 			
 			Map<String,String> filterOptions = new HashMap<String,String>();
 			filterOptions.put("with_photo", (StringUtils.isNotBlank(with_photo))?with_photo:"false");
@@ -2638,6 +2639,7 @@ public class HomePageController {
 			filterOptions.put("created_at_any_time", (StringUtils.isNotBlank(all_created))?all_created:"false");
 			filterOptions.put("age_from", age_from);
 			filterOptions.put("age_to", age_to);
+			filterOptions.put("city", city);
 			
 			UsersBean userSessionBean = (UsersBean)session.getAttribute("cacheGuest");
 			if(userSessionBean == null){
@@ -2666,10 +2668,11 @@ public class HomePageController {
 					}
 				}else if("viewednotcontacted".equalsIgnoreCase(request_coming_from)){
 					String withPhoto = request.getParameter("withPhoto");
-					Objresults = objUsersDao.getViewedNotContactedList(userSessionBean.getId()+"",page_no,withPhoto);
+					Objresults = objUsersDao.getViewedNotContactedList(userSessionBean.getId()+"",page_no,withPhoto,filterOptions);
 				}else if("yettobeviewed".equalsIgnoreCase(request_coming_from)){
 					String withPhoto = request.getParameter("withPhoto");
-					Objresults = objUsersDao.getyetToBeViewedList(userSessionBean.getId()+"",page_no,withPhoto);
+					String alreadyContacted = request.getParameter("alreadyContacted");
+					Objresults = objUsersDao.getyetToBeViewedList(userSessionBean.getId()+"",page_no,withPhoto,alreadyContacted,filterOptions);
 				}else if("mobilenumviewedbyme".equalsIgnoreCase(request_coming_from)){
 					Objresults = objUsersDao.getMobileNumViewedByMeList(userSessionBean.getId()+"",page_no);
 				}else if("mymobilenumviews".equalsIgnoreCase(request_coming_from)){
@@ -2805,7 +2808,6 @@ public class HomePageController {
 				}
 			}
 				
-			
 			//int total_records = Integer.parseInt(((Map<String, String>)results.get(0)).get("total_records"));
 			//request.setAttribute("total_records", total_records);
 			//request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
@@ -2828,7 +2830,6 @@ public class HomePageController {
 						profileObj.put("photosList", "");
 					}
 					
-					
 				}
 				jsonObj.put("results", results);
 				
@@ -2848,6 +2849,16 @@ public class HomePageController {
 							reqObj.put("photosList", "");
 						}
 						
+						if("inbox".equalsIgnoreCase(request_coming_from)){
+							//add recent activity data
+							Map<String,Object> recent_activity = objUsersDao.getRecentActivityOf(userSessionBean.getId()+"",(Integer)reqObj.get("id"),list_type);
+							//System.out.println("GOT RECENT ACTIVITY...");
+							if(recent_activity!=null){
+								reqObj.put("recent_activity_map", recent_activity);
+							}else{
+								reqObj.put("recent_activity_map", "");
+							}
+						}
 						
 					}
 					jsonObj.put("results", Objresults);
@@ -4025,8 +4036,9 @@ public class HomePageController {
 				return "redirect:HomePage";
 			}
 			String withPhoto = request.getParameter("withPhoto");
+			String alreadyContacted = request.getParameter("alreadyContacted");
 			long total_records = 0;
-			List<Map<String,Object>> pendingRequests = objUsersDao.getyetToBeViewedList(sessionBean.getId()+"",0,null);
+			List<Map<String,Object>> pendingRequests = objUsersDao.getyetToBeViewedList(sessionBean.getId()+"",0,null,null,null);
 			if(pendingRequests!=null && pendingRequests.size()>0){
 				//get photos
 				for(Map<String,Object> reqObj:pendingRequests){
@@ -4051,7 +4063,19 @@ public class HomePageController {
 			}
 			request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
 			request.setAttribute("total_records", total_records);
-			
+			Map<Integer, String> cityMap = new LinkedHashMap<Integer, String>();
+			try {
+				List<CityBean> cities = objCityDao.getAllCities();
+				for (CityBean bean : cities) {
+					cityMap.put(bean.getId(), bean.getName());
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			} 
+			objectMapper = new ObjectMapper();
+			sJson = objectMapper.writeValueAsString(cityMap);
+			request.setAttribute("all_cities", sJson);
 		} catch (Exception e) {
 	   e.printStackTrace();
 	   System.out.println(e);
@@ -4071,8 +4095,8 @@ public class HomePageController {
 				}
 
 				String withPhoto = request.getParameter("withPhoto");
-				
-				listOrderBeans = objUsersDao.getyetToBeViewedList(userBean.getId()+"",0,withPhoto);
+				String alreadyContacted = request.getParameter("alreadyContacted");
+				listOrderBeans = objUsersDao.getyetToBeViewedList(userBean.getId()+"",0,withPhoto,alreadyContacted,null);
 				int total_records = 0;//limit - viewed_count;
 				request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
 				if (listOrderBeans != null && listOrderBeans.size() > 0) {
@@ -4122,7 +4146,7 @@ public class HomePageController {
 				return "redirect:HomePage";
 			}
 			long total_records = 0;
-			List<Map<String,Object>> pendingRequests = objUsersDao.getViewedNotContactedList(sessionBean.getId()+"",0,null);
+			List<Map<String,Object>> pendingRequests = objUsersDao.getViewedNotContactedList(sessionBean.getId()+"",0,null,null);
 			if(pendingRequests!=null && pendingRequests.size()>0){
 				//get photos
 				for(Map<String,Object> reqObj:pendingRequests){
@@ -4150,6 +4174,20 @@ public class HomePageController {
 			request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
 			request.setAttribute("total_records", total_records);
 			
+			Map<Integer, String> cityMap = new LinkedHashMap<Integer, String>();
+			try {
+				List<CityBean> cities = objCityDao.getAllCities();
+				for (CityBean bean : cities) {
+					cityMap.put(bean.getId(), bean.getName());
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			} 
+			objectMapper = new ObjectMapper();
+			sJson = objectMapper.writeValueAsString(cityMap);
+			request.setAttribute("all_cities", sJson);
+			
 		} catch (Exception e) {
 	   e.printStackTrace();
 	   System.out.println(e);
@@ -4170,7 +4208,7 @@ public class HomePageController {
 
 				String withPhoto = request.getParameter("withPhoto");
 				
-				listOrderBeans = objUsersDao.getViewedNotContactedList(userBean.getId()+"",0,withPhoto);
+				listOrderBeans = objUsersDao.getViewedNotContactedList(userBean.getId()+"",0,withPhoto,null);
 				int total_records = 0;//limit - viewed_count;
 				request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
 				if (listOrderBeans != null && listOrderBeans.size() > 0) {
@@ -4396,6 +4434,9 @@ public class HomePageController {
 				}else if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("rejected_requests")){
 					requests = objUsersDao.getRejectedRequests(sessionBean.getId()+"",0);
 				}
+				else if(StringUtils.isNotBlank(list_type) && list_type.equalsIgnoreCase("filtered_requests")){
+					requests = objUsersDao.getFilteredRequests(sessionBean.getId()+"",0);
+				}
 				if(requests!=null && requests.size()>0){
 					//get photos
 					for(Map<String,Object> reqObj:requests){
@@ -4412,7 +4453,7 @@ public class HomePageController {
 						}
 						//add recent activity data
 						Map<String,Object> recent_activity = objUsersDao.getRecentActivityOf(sessionBean.getId()+"",(Integer)reqObj.get("id"),list_type);
-						System.out.println("GOT RECENT ACTIVITY...");
+						//System.out.println("GOT RECENT ACTIVITY...");
 						if(recent_activity!=null){
 							reqObj.put("recent_activity_map", recent_activity);
 						}else{

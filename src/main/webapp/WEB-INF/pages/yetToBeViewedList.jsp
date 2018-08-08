@@ -411,6 +411,106 @@ function paginationSetup(total_items_count) {
           }
         });
 }
+var clicked_link;
+function paginationSetupForSideGrid(total_items_count) {
+	$('#altLists')
+			.asPaginator(
+					total_items_count,
+					{
+						currentPage : 1,
+						visibleNum : {
+							0 : 10,
+							480 : 3,
+							960 : 5
+						},
+						tpl : function() {
+							return '<ul>{{first}}{{prev}}{{altLists}}{{next}}{{last}}</ul>';
+						},
+						components : {
+							first : true,
+							prev : true,
+							next : true,
+							last : true,
+							altLists : true
+						},
+						onChange : function(page) {
+							var formData = new FormData();
+							
+							formData.append("page_no", page);
+							formData.append("request_from", "yettobeviewed");
+							
+							var with_photo = $("#withPhoto").prop("checked");
+							//var already_viewed = $("#alreadyViewed").prop("checked");
+							var already_contacted = $("#alreadyContacted").prop("checked");
+							
+							formData.append('withPhoto',with_photo);
+							//formData.append('alreadyViewed',already_viewed);
+							formData.append('alreadyContacted',already_contacted);
+							
+							formData.append("rCity", $("#city").val());
+							formData.append("rAgeFrom", $("#age_from").val());
+							formData.append("rAgeTo", $("#age_to").val());
+							
+							if(clicked_link=="day"){
+								formData.append("with_in_day", "true");
+							}else if(clicked_link=="week"){
+								formData.append("with_in_week", "true");
+							}else if(clicked_link=="month"){
+								formData.append("with_in_month", "true");
+							}else if(clicked_link=="all"){
+								formData.append("all", "true");
+							}else if(clicked_link=="photo"){
+								formData.append("with_photo", "true");
+							}
+							
+							$.fn
+									.makeMultipartRequest(
+											'POST',
+											'displayPage',
+											false,
+											formData,
+											false,
+											'text',
+											function(data) {
+												var jsonobj = $
+														.parseJSON(data);
+												var results = jsonobj.results;
+												//$('#countId').html('');
+												$("#search_criteria").prop(
+														"hidden", true);
+												$('#searchresultsDiv')
+														.removeAttr(
+																"hidden");
+												if (results == "") {
+													$('#countId').html('');
+													$('#countId').html('0');
+													var str = '<div class="alert alert-danger ban"><h6>No results found..!</h6></div>';
+													$('#searchResults')
+															.html('');
+													$(str)
+															.appendTo(
+																	"#searchResults");
+													$("#table_footer")
+															.prop("hidden",
+																	true);
+													$("#altLists").prop(
+															"hidden", true);
+												} else {
+													
+													paginationSetupForSideGrid(total_items_count);
+									    			$("#altLists").asPaginator('enable');
+									    			displayMatches_matches(results,"yetToBeViewedList");
+									    			$("#table_footer").removeAttr("hidden");
+									    			$("#altLists").removeAttr("hidden");
+									    			displayTableFooter(page);
+									    			addWaterMark();
+												}
+
+											});
+
+						}
+					});
+}
 //displayPagination();
 function displayTableFooter(page){
 	var from_val = ((parseInt(page)-1)*page_size)+1;
@@ -472,6 +572,16 @@ $(document).ready(function(){
 	selected_values="";
 	selected_values = "${createProfile.rDiet}";
 	$("#rDiet").val(selected_values.split(","));
+	
+	$("#city").select2({
+		placeholder : "-- Select City --",
+		allowClear : true
+	});
+	//populate city dropdown
+	var city_map = ${all_cities};
+	  $.each(city_map,function(key, value) {
+				$("#city").append("<option value="+key+" >"+ value+ "</option>");
+			}); 
 });
 
 $(".newMatches").addClass("active");
@@ -514,6 +624,82 @@ function filterProfiles(){
     		}
 	});
 	
+}
+
+function submitMore(option_str){
+	var page = 1;
+		var formData = new FormData();
+		
+		if(option_str=="day"){
+			formData.append("with_in_day", "true");
+			clicked_link = "day";
+		}else if(option_str=="week"){
+			formData.append("with_in_week", "true");
+			clicked_link = "week";
+		}else if(option_str=="month"){
+			formData.append("with_in_month", "true");
+			clicked_link = "month";
+		}else if(option_str=="all"){
+			formData.append("all", "true");
+			clicked_link = "all";
+		}else if(option_str=="photo"){
+			formData.append("with_photo", "true");
+			clicked_link = "photo";
+		}
+		
+		formData.append("rCity", $("#city").val());
+		formData.append("rAgeFrom", $("#age_from").val());
+		formData.append("rAgeTo", $("#age_to").val());
+		
+		formData.append("page_no", page);
+		formData.append("request_from", "yettobeviewed");
+		
+		var with_photo = $("#withPhoto").prop("checked");
+		//var already_viewed = $("#alreadyViewed").prop("checked");
+		var already_contacted = $("#alreadyContacted").prop("checked");
+		
+		formData.append('withPhoto',with_photo);
+		//formData.append('alreadyViewed',already_viewed);
+		formData.append('alreadyContacted',already_contacted);
+		
+		jQuery.fn.makeMultipartRequest('POST', 'displayPage', false,
+				formData, false, 'text', function(data){
+					var jsonobj = $.parseJSON(data);
+					var results = jsonobj.results;
+					total_items_count = jsonobj.total_records;
+					//$('#countId').html('');
+					$("#search_criteria").prop(
+							"hidden", true);
+					$('#searchresultsDiv')
+							.removeAttr(
+									"hidden");
+					if (results == "") {
+						//$('#countId').html('');
+						//$('#countId').html('0');
+						var str = '<div class="alert alert-danger ban"><h6>No profiles found..!</h6></div>';
+						$('#searchResults')
+								.html('');
+						$(str)
+								.appendTo(
+										"#searchResults");
+						$("#table_footer")
+								.prop("hidden",
+										true);
+						$("#altLists").prop(
+								"hidden", true);
+					} else {
+						//$('#countId').html('');
+						//$('#countId').html(total_items_count);
+						$("#altLists").asPaginator('destroy');
+						paginationSetupForSideGrid(total_items_count);
+		    			$("#altLists").asPaginator('enable');
+		    			displayMatches_matches(results,"yetToBeViewedList");
+		    			$("#table_footer").removeAttr("hidden");
+		    			$("#altLists").removeAttr("hidden");
+		    			displayTableFooter(1);
+		    			addWaterMark();
+					}
+		});
 }
 </script>
 <%@ include file="userFooter.jsp"%>
