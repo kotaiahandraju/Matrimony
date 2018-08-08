@@ -4496,10 +4496,10 @@ public boolean deletePhoto(String photoId){
 						+" cast c on c.id=u.caste left join height h on h.id=u.height left join "
 						+"  occupation oc on u.occupation=oc.id left join education ed on ed.id=u.education "
 						+ " left join city cit on cit.id=u.currentCity  left join user_images uimg on uimg.user_id=u.id,  "
-						+ "(select * from users_activity_log act where act.act_done_on_user_id = "+objUserBean.getId()+" and act.activity_type = 'profile_viewed') activity ");
+						+ "(select * from users_activity_log act where act.act_done_by_user_id = "+objUserBean.getId()+" and act.activity_type = 'profile_viewed') activity ");
 						//+" where u.status not in ('0')  ");
 			} 
-			buffer.append(" where  "+where_clause+" and u.id = activity.act_done_by_user_id group by u.id order by activity.created_time desc ");
+			buffer.append(" where  "+where_clause+" and u.id = activity.act_done_on_user_id group by u.id order by activity.created_time desc ");
 		List<Map<String,Object>> list = jdbcTemplate.queryForList(buffer.toString());
 		return list;
 		}catch (Exception e) {
