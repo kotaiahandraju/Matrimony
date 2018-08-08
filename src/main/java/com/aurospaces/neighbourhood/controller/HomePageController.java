@@ -2808,7 +2808,6 @@ public class HomePageController {
 				}
 			}
 				
-			
 			//int total_records = Integer.parseInt(((Map<String, String>)results.get(0)).get("total_records"));
 			//request.setAttribute("total_records", total_records);
 			//request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
@@ -2831,7 +2830,6 @@ public class HomePageController {
 						profileObj.put("photosList", "");
 					}
 					
-					
 				}
 				jsonObj.put("results", results);
 				
@@ -2851,6 +2849,16 @@ public class HomePageController {
 							reqObj.put("photosList", "");
 						}
 						
+						if("inbox".equalsIgnoreCase(request_coming_from)){
+							//add recent activity data
+							Map<String,Object> recent_activity = objUsersDao.getRecentActivityOf(userSessionBean.getId()+"",(Integer)reqObj.get("id"),list_type);
+							//System.out.println("GOT RECENT ACTIVITY...");
+							if(recent_activity!=null){
+								reqObj.put("recent_activity_map", recent_activity);
+							}else{
+								reqObj.put("recent_activity_map", "");
+							}
+						}
 						
 					}
 					jsonObj.put("results", Objresults);
@@ -4445,7 +4453,7 @@ public class HomePageController {
 						}
 						//add recent activity data
 						Map<String,Object> recent_activity = objUsersDao.getRecentActivityOf(sessionBean.getId()+"",(Integer)reqObj.get("id"),list_type);
-						System.out.println("GOT RECENT ACTIVITY...");
+						//System.out.println("GOT RECENT ACTIVITY...");
 						if(recent_activity!=null){
 							reqObj.put("recent_activity_map", recent_activity);
 						}else{
