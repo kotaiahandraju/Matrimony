@@ -764,16 +764,20 @@ public class EmailUtil {
 			subject = subject.replace("_name_", userBean.getFirstName()+" "+userBean.getLastName()+" ("+userBean.getUsername()+")");
 			
 			body = prop.getProperty("post_payment_body");
+			body = body.replace("_name_", userBean.getFirstName()+" "+userBean.getLastName()+" ("+userBean.getUsername()+")");
 			body = body.replace("_dateandtime_", (String)paymentDetails.get("paymentDate"));
+			
 			//body = body.replace("_plan_", "");
 			body = body.replace("_paidamount_", String.valueOf(paymentDetails.get("price")));
+			body = body.replace("_packageName_", String.valueOf(paymentDetails.get("packageName")));
 			body = body.replace("_img_", "cid:image2");
+			body = body.replace("_bodyimage_", "cid:image3");
 	        // inline images
 	        Map<String, String> inlineImages = new HashMap<String, String>();
 //	        inlineImages.put("image1", objContext.getRealPath("images" +File.separator+"telugu.png"));
 	        
 	        inlineImages.put("image2", objContext.getRealPath("images" +File.separator+"logo.jpg"));
-	 
+	        inlineImages.put("image3", objContext.getRealPath("images" +File.separator+"matri.jpg"));
 	       
 	            EmbeddedImageEmailUtil.send(host, port, mailFrom, password, mailTo,
 	                subject, body.toString(), inlineImages);
@@ -821,13 +825,14 @@ public class EmailUtil {
 			System.out.println(link);
 	       body = body.replace("_link_", link);
 	       body = body.replace("_customer_", objUsersBean.getFirstName()+" "+objUsersBean.getLastName());
-	       
+	       body = body.replace("_bodyimage_", "cid:image3");
 	       
 	 
 	        // inline images
 	        Map<String, String> inlineImages = new HashMap<String, String>();
 //	        inlineImages.put("image1", objContext.getRealPath("images" +File.separator+"telugu.png"));
 	        inlineImages.put("image2", objContext.getRealPath("images" +File.separator+"logo.jpg"));
+	        inlineImages.put("image3", objContext.getRealPath("images" +File.separator+"matri.jpg"));
 	 
 	       
 	            EmbeddedImageEmailUtil.send(host, port, mailFrom, password, mailTo,
