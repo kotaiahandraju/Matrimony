@@ -1377,39 +1377,39 @@ public class UsersDao extends BaseUsersDao
 					if(StringUtils.isNotBlank(filterOptions.get("created_at_any_time")) && ((String)filterOptions.get("created_at_any_time")).equalsIgnoreCase("true")){
 						//where_clause.append(" and u.created_time between date_add(now(), interval -1 month) and now() ");
 					}
-					if(StringUtils.isNotBlank(filterOptions.get("age_from")) && ((String)filterOptions.get("age_from")).equalsIgnoreCase("true")){
+					if(StringUtils.isNotBlank(filterOptions.get("age_from"))){
 						where_clause.append( " and cast(floor((datediff(current_date(),u.dob))/365) as decimal(10,2)) >= "+filterOptions.get("age_from")+" ");
 						where_clause.append( " and cast(floor((datediff(current_date(),u.dob))/365) as decimal(10,2)) <= "+filterOptions.get("age_to")+" ");
 					}
-					if(StringUtils.isNotBlank(filterOptions.get("marital_status")) && ((String)filterOptions.get("marital_status")).equalsIgnoreCase("true")){
+					if(StringUtils.isNotBlank(filterOptions.get("marital_status"))){
 						where_clause.append( " and  FIND_IN_SET(u.maritalStatus,'"+filterOptions.get("marital_status")+"')>0    ");
 					}
-					if(StringUtils.isNotBlank(filterOptions.get("height_from")) && ((String)filterOptions.get("height_from")).equalsIgnoreCase("true")){
+					if(StringUtils.isNotBlank(filterOptions.get("height_from"))){
 						where_clause.append( " and cast(u.height as unsigned) >= cast('"+filterOptions.get("height_from")+"' as unsigned ) ");
 						where_clause.append( " and cast(u.height as unsigned) <= cast('"+filterOptions.get("height_to")+"' as unsigned ) ");
 					}
-					if(StringUtils.isNotBlank(filterOptions.get("mother_tongue")) && ((String)filterOptions.get("mother_tongue")).equalsIgnoreCase("true")){
+					if(StringUtils.isNotBlank(filterOptions.get("mother_tongue"))){
 						where_clause.append( " and FIND_IN_SET(u.motherTongue,'"+filterOptions.get("mother_tongue")+"' )>0  ");
 					}
-					if(StringUtils.isNotBlank(filterOptions.get("caste")) && ((String)filterOptions.get("caste")).equalsIgnoreCase("true")){
+					if(StringUtils.isNotBlank(filterOptions.get("caste"))){
 						where_clause.append( " and FIND_IN_SET(u.caste,'"+filterOptions.get("caste")+"')>0  ");
 					}
-					if(StringUtils.isNotBlank(filterOptions.get("education")) && ((String)filterOptions.get("education")).equalsIgnoreCase("true")){
+					if(StringUtils.isNotBlank(filterOptions.get("education"))){
 						where_clause.append( " and FIND_IN_SET(u.education,'"+filterOptions.get("education")+"' )>0  ");
 					}
-					if(StringUtils.isNotBlank(filterOptions.get("occupation")) && ((String)filterOptions.get("occupation")).equalsIgnoreCase("true")){
+					if(StringUtils.isNotBlank(filterOptions.get("occupation"))){
 						where_clause.append( " and FIND_IN_SET(u.occupation,'"+filterOptions.get("occupation")+"' )>0  ");
 					}
-					if(StringUtils.isNotBlank(filterOptions.get("annual_income")) && ((String)filterOptions.get("annual_income")).equalsIgnoreCase("true")){
+					if(StringUtils.isNotBlank(filterOptions.get("annual_income"))){
 						where_clause.append(" and FIND_IN_SET(u.annualIncome,'"+filterOptions.get("occupation")+"' )>0  ");
 					}
-					if(StringUtils.isNotBlank(filterOptions.get("country")) && ((String)filterOptions.get("country")).equalsIgnoreCase("true")){
+					if(StringUtils.isNotBlank(filterOptions.get("country"))){
 						where_clause.append( " and FIND_IN_SET(u.currentCountry,'"+filterOptions.get("country")+"' )>0  ");
 					}
-					if(StringUtils.isNotBlank(filterOptions.get("state")) && ((String)filterOptions.get("state")).equalsIgnoreCase("true")){
+					if(StringUtils.isNotBlank(filterOptions.get("state"))){
 						where_clause.append( " and FIND_IN_SET(u.currentState,'"+filterOptions.get("state")+"' )>0  ");
 					}
-					if(StringUtils.isNotBlank(filterOptions.get("city")) && ((String)filterOptions.get("city")).equalsIgnoreCase("true")){
+					if(StringUtils.isNotBlank(filterOptions.get("city"))){
 						where_clause.append( " and FIND_IN_SET(u.currentCity,'"+filterOptions.get("city")+"' )>0  ");
 					}
 				}
@@ -3439,39 +3439,39 @@ public class UsersDao extends BaseUsersDao
 			if(StringUtils.isNotBlank(filterOptions.get("created_at_any_time")) && ((String)filterOptions.get("created_at_any_time")).equalsIgnoreCase("true")){
 				//where_clause.append(" and u.created_time between date_add(now(), interval -1 month) and now() ");
 			}
-			if(StringUtils.isNotBlank(filterOptions.get("age_from")) && ((String)filterOptions.get("age_from")).equalsIgnoreCase("true")){
+			if(StringUtils.isNotBlank(filterOptions.get("age_from"))){
 				where_clause.append( " and cast(floor((datediff(current_date(),u.dob))/365) as decimal(10,2)) >= "+filterOptions.get("age_from")+" ");
 				where_clause.append( " and cast(floor((datediff(current_date(),u.dob))/365) as decimal(10,2)) <= "+filterOptions.get("age_to")+" ");
 			}
-			if(StringUtils.isNotBlank(filterOptions.get("marital_status")) && ((String)filterOptions.get("marital_status")).equalsIgnoreCase("true")){
+			if(StringUtils.isNotBlank(filterOptions.get("marital_status"))){
 				where_clause.append( " and  FIND_IN_SET(u.maritalStatus,'"+filterOptions.get("marital_status")+"')>0    ");
 			}
-			if(StringUtils.isNotBlank(filterOptions.get("height_from")) && ((String)filterOptions.get("height_from")).equalsIgnoreCase("true")){
+			if(StringUtils.isNotBlank(filterOptions.get("height_from"))){
 				where_clause.append( " and cast(u.height as unsigned) >= cast('"+filterOptions.get("height_from")+"' as unsigned ) ");
 				where_clause.append( " and cast(u.height as unsigned) <= cast('"+filterOptions.get("height_to")+"' as unsigned ) ");
 			}
-			if(StringUtils.isNotBlank(filterOptions.get("mother_tongue")) && ((String)filterOptions.get("mother_tongue")).equalsIgnoreCase("true")){
+			if(StringUtils.isNotBlank(filterOptions.get("mother_tongue"))){
 				where_clause.append( " and FIND_IN_SET(u.motherTongue,'"+filterOptions.get("mother_tongue")+"' )>0  ");
 			}
-			if(StringUtils.isNotBlank(filterOptions.get("caste")) && ((String)filterOptions.get("caste")).equalsIgnoreCase("true")){
+			if(StringUtils.isNotBlank(filterOptions.get("caste"))){
 				where_clause.append( " and FIND_IN_SET(u.caste,'"+filterOptions.get("caste")+"')>0  ");
 			}
-			if(StringUtils.isNotBlank(filterOptions.get("education")) && ((String)filterOptions.get("education")).equalsIgnoreCase("true")){
+			if(StringUtils.isNotBlank(filterOptions.get("education"))){
 				where_clause.append( " and FIND_IN_SET(u.education,'"+filterOptions.get("education")+"' )>0  ");
 			}
-			if(StringUtils.isNotBlank(filterOptions.get("occupation")) && ((String)filterOptions.get("occupation")).equalsIgnoreCase("true")){
+			if(StringUtils.isNotBlank(filterOptions.get("occupation"))){
 				where_clause.append( " and FIND_IN_SET(u.occupation,'"+filterOptions.get("occupation")+"' )>0  ");
 			}
-			if(StringUtils.isNotBlank(filterOptions.get("annual_income")) && ((String)filterOptions.get("annual_income")).equalsIgnoreCase("true")){
+			if(StringUtils.isNotBlank(filterOptions.get("annual_income"))){
 				where_clause.append(" and FIND_IN_SET(u.annualIncome,'"+filterOptions.get("occupation")+"' )>0  ");
 			}
-			if(StringUtils.isNotBlank(filterOptions.get("country")) && ((String)filterOptions.get("country")).equalsIgnoreCase("true")){
+			if(StringUtils.isNotBlank(filterOptions.get("country"))){
 				where_clause.append( " and FIND_IN_SET(u.currentCountry,'"+filterOptions.get("country")+"' )>0  ");
 			}
-			if(StringUtils.isNotBlank(filterOptions.get("state")) && ((String)filterOptions.get("state")).equalsIgnoreCase("true")){
+			if(StringUtils.isNotBlank(filterOptions.get("state"))){
 				where_clause.append( " and FIND_IN_SET(u.currentState,'"+filterOptions.get("state")+"' )>0  ");
 			}
-			if(StringUtils.isNotBlank(filterOptions.get("city")) && ((String)filterOptions.get("city")).equalsIgnoreCase("true")){
+			if(StringUtils.isNotBlank(filterOptions.get("city"))){
 				where_clause.append( " and FIND_IN_SET(u.currentCity,'"+filterOptions.get("city")+"' )>0  ");
 			}
 		}
@@ -3517,7 +3517,7 @@ public class UsersDao extends BaseUsersDao
 		return null;
 	}
 	
-	public List<Map<String,Object>> getViewedNotContactedList(String userId,int page_no,String withPhoto){
+	public List<Map<String,Object>> getViewedNotContactedList(String userId,int page_no,String withPhoto,Map<String,String> filterOptions){
 		jdbcTemplate = custom.getJdbcTemplate();
 		/*StringBuffer qryStrBuffer = new StringBuffer("select *,(select username from users where id=user_id) as username,date_format(created_on,'%d-%M-%Y') as sentOn, "
 				+" (select count(*) from express_intrest_view ei where ei.profile_id = "+userId+" and ei.interested = '1' and status in ('0','1')) as total_records "
@@ -3532,6 +3532,59 @@ public class UsersDao extends BaseUsersDao
 		StringBuffer where_clause = new StringBuffer("  u.role_id not in (1) and u.status in ('1') and u.gender not in  ('"+objUserBean.getGender()+"') and u.id not in  ("+userId+") ");
 		if(StringUtils.isNotBlank(withPhoto) && withPhoto.equalsIgnoreCase("true")){
 			where_clause.append(" and u.id in (select umg.user_id from vuser_images umg where umg.is_profile_picture = '1' and umg.approved_status = '1' and umg.status = '1') ");
+		}
+		// filter results options
+		if(filterOptions != null){
+			if(StringUtils.isNotBlank(filterOptions.get("with_photo")) && ((String)filterOptions.get("with_photo")).equalsIgnoreCase("true")){
+				where_clause.append(" and u.id in (select umg.user_id from vuser_images umg where umg.is_profile_picture = '1' and umg.approved_status = '1') ");
+			}
+			if(StringUtils.isNotBlank(filterOptions.get("with_in_day")) && ((String)filterOptions.get("with_in_day")).equalsIgnoreCase("true")){
+				where_clause.append(" and u.created_time between date_add(now(), interval -1 day) and now() ");
+			}
+			if(StringUtils.isNotBlank(filterOptions.get("with_in_week")) && ((String)filterOptions.get("with_in_week")).equalsIgnoreCase("true")){
+				where_clause.append(" and u.created_time between date_add(now(), interval -1 week) and now() ");
+			}
+			if(StringUtils.isNotBlank(filterOptions.get("with_in_month")) && ((String)filterOptions.get("with_in_month")).equalsIgnoreCase("true")){
+				where_clause.append(" and u.created_time between date_add(now(), interval -1 month) and now() ");
+			}
+			if(StringUtils.isNotBlank(filterOptions.get("created_at_any_time")) && ((String)filterOptions.get("created_at_any_time")).equalsIgnoreCase("true")){
+				//where_clause.append(" and u.created_time between date_add(now(), interval -1 month) and now() ");
+			}
+			if(StringUtils.isNotBlank(filterOptions.get("age_from"))){
+				where_clause.append( " and cast(floor((datediff(current_date(),u.dob))/365) as decimal(10,2)) >= "+filterOptions.get("age_from")+" ");
+				where_clause.append( " and cast(floor((datediff(current_date(),u.dob))/365) as decimal(10,2)) <= "+filterOptions.get("age_to")+" ");
+			}
+			if(StringUtils.isNotBlank(filterOptions.get("marital_status"))){
+				where_clause.append( " and  FIND_IN_SET(u.maritalStatus,'"+filterOptions.get("marital_status")+"')>0    ");
+			}
+			if(StringUtils.isNotBlank(filterOptions.get("height_from"))){
+				where_clause.append( " and cast(u.height as unsigned) >= cast('"+filterOptions.get("height_from")+"' as unsigned ) ");
+				where_clause.append( " and cast(u.height as unsigned) <= cast('"+filterOptions.get("height_to")+"' as unsigned ) ");
+			}
+			if(StringUtils.isNotBlank(filterOptions.get("mother_tongue"))){
+				where_clause.append( " and FIND_IN_SET(u.motherTongue,'"+filterOptions.get("mother_tongue")+"' )>0  ");
+			}
+			if(StringUtils.isNotBlank(filterOptions.get("caste"))){
+				where_clause.append( " and FIND_IN_SET(u.caste,'"+filterOptions.get("caste")+"')>0  ");
+			}
+			if(StringUtils.isNotBlank(filterOptions.get("education"))){
+				where_clause.append( " and FIND_IN_SET(u.education,'"+filterOptions.get("education")+"' )>0  ");
+			}
+			if(StringUtils.isNotBlank(filterOptions.get("occupation"))){
+				where_clause.append( " and FIND_IN_SET(u.occupation,'"+filterOptions.get("occupation")+"' )>0  ");
+			}
+			if(StringUtils.isNotBlank(filterOptions.get("annual_income"))){
+				where_clause.append(" and FIND_IN_SET(u.annualIncome,'"+filterOptions.get("occupation")+"' )>0  ");
+			}
+			if(StringUtils.isNotBlank(filterOptions.get("country"))){
+				where_clause.append( " and FIND_IN_SET(u.currentCountry,'"+filterOptions.get("country")+"' )>0  ");
+			}
+			if(StringUtils.isNotBlank(filterOptions.get("state"))){
+				where_clause.append( " and FIND_IN_SET(u.currentState,'"+filterOptions.get("state")+"' )>0  ");
+			}
+			if(StringUtils.isNotBlank(filterOptions.get("city"))){
+				where_clause.append( " and FIND_IN_SET(u.currentCity,'"+filterOptions.get("city")+"' )>0  ");
+			}
 		}
 		buffer.append("select u.id,sta.name as currentStateName,cit.name as currentCityName,u.occupation,oc.name as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
 				+"u.firstName, u.lastName, u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName, u.currentCountry,co.name as currentCountryName, " 

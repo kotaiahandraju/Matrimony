@@ -572,6 +572,16 @@ $(document).ready(function(){
 	selected_values="";
 	selected_values = "${createProfile.rDiet}";
 	$("#rDiet").val(selected_values.split(","));
+	
+	$("#city").select2({
+		placeholder : "-- Select City --",
+		allowClear : true
+	});
+	//populate city dropdown
+	var city_map = ${all_cities};
+	  $.each(city_map,function(key, value) {
+				$("#city").append("<option value="+key+" >"+ value+ "</option>");
+			}); 
 });
 
 $(".newMatches").addClass("active");
