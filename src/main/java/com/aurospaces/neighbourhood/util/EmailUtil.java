@@ -356,7 +356,7 @@ public class EmailUtil {
             String baseurl =  request.getScheme() + "://" + request.getServerName() +      ":" +   request.getServerPort() +  request.getContextPath();
 			String actionUrl = baseurl+"/users/fullProfile?un="+receiverBean.getUsername()+"&pun="+senderBean.getUsername()+"&suc="+receiverBean.getUnique_code()+"&puc="+senderBean.getUnique_code();
 			///
-			body = body.replace("_fullprofileaction_", actionUrl);
+			body = body.replace("_fullprofilelink_", actionUrl);
 			body = body.replace("_content_", receiverBean.getMail_content());
 			body = body.replace("_img_", "cid:image2");
 			body = body.replace("_bodyimage_", "cid:image3");
