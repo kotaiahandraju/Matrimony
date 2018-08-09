@@ -235,8 +235,10 @@ color:#000;
     <!-- Wrapper for slides -->
     <c:if test="${not empty pending_reqs}">
     <div id="pending_req_div"  class="carousel-inner pendingre">
-    		<span id="pending_count">${cacheGuest.pendingRequestsCount} requests pending</span><br>
+    		<span id="pending_count"><span id="pend_req_count_span">${pending_reqs_count}</span> requests pending</span><br>
     		<c:set value="${0}" var="count" />
+    		<c:set value="${0}" var="counter" scope="page" />
+    		<c:set value="" var="reqId" scope="page" />
 			<c:forEach items="${pending_reqs}" var="pend_req">
 				<c:if test="${count == 0}">
 					<div class="item active" style="padding-top:5px;" id="pending_div${pend_req.requestId}">
@@ -244,6 +246,7 @@ color:#000;
 				<c:if test="${count != 0}">
 					<div class="item" id="pending_div${pend_req.requestId}">
 				</c:if>
+					<c:set value="${pend_req.requestId}" var="reqId" />
 			        <div class="col-md-2">
 			        	<c:if test="${not empty pend_req.profileImage}">
 			        		<img class="thumbnail img-responsive" src="${baseurl}/${pend_req.profileImage}"/>
@@ -282,14 +285,16 @@ color:#000;
       
 
     <!-- Left and right controls -->
-    <a class="left carousel-control bgc" href="#myCarousel" data-slide="prev" >
+    <a class="left carousel-control bgc active" href="#myCarousel" data-slide="prev" id="pending_prev" onclick="prevBtnClicked();">
       <span class="fa fa-chevron-left pleftc" > </span>
       <span class="sr-only">Previous</span>
     </a>
-    <a class="right carousel-control bgc" href="#myCarousel" data-slide="next" id="pending_next">
-      <span class="fa fa-chevron-right prightc" ></span>
-      <span class="sr-only">Next</span>
-    </a>
+    <c:if test="${count>1}">
+	    <a class="right carousel-control bgc" href="#myCarousel" data-slide="next" id="pending_next" onclick="nextBtnClicked();">
+	      <span class="fa fa-chevron-right prightc" ></span>
+	      <span class="sr-only">Next</span>
+	    </a>
+    </c:if>
   </div>
 	</c:if>
 </div><div class="clearfix"></div><br>
@@ -955,22 +960,39 @@ function acceptRequest_pendingReq(requestId,flag){
 	    		var msg = jsonobj.message;
 	    		
 	    			if("success"==msg){
+	    				//var pend_count = parseInt($("#pend_req_count_span").html());
+	    				total_item_count = total_item_count-1;
 	    				if(flag==1){
 	    					alert("Request Accepted.");
 	    					$("#pending_div"+requestId).remove();
-	    					$("#pending_next").trigger("click");
+	    					//pend_count = pend_count-1;
+	    					
+	    					
+	    					
 	    				}else{
 	    					alert("Request Rejected.");
 	    					$("#pending_div"+requestId).remove();
-	    					$("#pending_next").trigger("click");
+	    					//$("#pending_next").trigger("click");
 	    				}
-	    				var req_count = jsonobj.req_count;
+	    				if(total_item_count==0){
+	    					$("#myCarousel").remove();
+    					}else{
+    						$("#pend_req_count_span").html(total_item_count);
+    						if(item_count>total_item_count){
+    							item_count = total_item_count;
+    							$("#pending_prev").trigger("click");
+    						}else{
+    							$("#pending_next").trigger("click");
+    						}
+	    					
+    					}
+	    				/* var req_count = jsonobj.req_count;
 	    				if(req_count=="0"){
 	    					$("#pending_req_div").remove();
 	    				}else{
 	    					$("#pending_count").html('');
 		    				$("#pending_count").html(req_count+" requests pending.");
-	    				}
+	    				} */
 	    			}else if("failed"==msg || "exception"==msg){
 	    				alert("Some problem occured. Please try again.");
 	    			}
@@ -1109,6 +1131,50 @@ $(function(){
 	}
 
 }); 
+var item_count = 1;
+var total_item_count = ${pending_reqs_count};
+function nextBtnClicked(){
+	item_count = item_count +1;
+	$("#pending_next").addClass('active');
+	$("#pending_prev").addClass('active');
+	if(total_item_count>1){
+		if(item_count==1){
+			$("#pending_next").removeClass('active');
+		}else if(item_count==total_item_count){
+			$("#pending_prev").removeClass('active');
+		}else{
+			$("#pending_next").removeClass('active');
+			$("#pending_prev").removeClass('active');
+		}
+	}
+}
+
+function prevBtnClicked(){
+	item_count = item_count-1;
+	/* if(item_count==1){
+		$("#pending_next").removeClass('active');
+		if(total_item_count==1){
+			$("#pending_prev").addClass('active');
+		}else{
+			$("#pending_prev").removeClass('active');
+		}
+		
+		//$("#pending_div13").addClass('active');
+	} */
+	$("#pending_next").addClass('active');
+	$("#pending_prev").addClass('active');
+	if(total_item_count>1){
+		if(item_count==1){
+			$("#pending_next").removeClass('active');
+		}else if(item_count==total_item_count){
+			$("#pending_prev").removeClass('active');
+		}else{
+			$("#pending_next").removeClass('active');
+			$("#pending_prev").removeClass('active');
+		}
+	}
+}
+
 </script>
 
 <%@ include file="userFooter.jsp"%>
