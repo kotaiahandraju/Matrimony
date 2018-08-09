@@ -1083,6 +1083,13 @@ var ee =${profileBean.id};
 
 
 var slideIndex = 1;
+var short_listed =  ${profileBean.shortlisted};
+//alert("short_listed:"+short_listed);
+if(short_listed>0){
+	//alert("###");
+$("#sortlistdivId").html("");
+$("#sortlistdivId").append(' <li>Shortlisted</li>');
+}
 //showSlides(slideIndex);
 var allowed_limit = ${allowed_profiles_limit};
 $(document).ready(function(){
@@ -1101,21 +1108,12 @@ $(document).ready(function(){
 		  easing: 'swing'
 		  
 		});
-	var short_listed =  "${profileBean.shortlisted}";
+	
 	//alert("short_listed:"+short_listed);	
 	var listOrders1 = ${shortlistedList};
-	shortListData(listOrders1);
-	function shortListData(list){
-		$.each(list,function(i, orderObj){
-//	 		sortlistdivId
-	var ee =${profileBean.id};
-			if(orderObj.id == ee){
-				//alert('');
-				$("#sortlistdivId").html("");
-				$("#sortlistdivId").append(' <li><a href="#" >Shortlisted</a></li>');
-			}	
-	});
-	}
+	//shortListData(listOrders1);
+
+	
 	
 	$("#rReligion").select2({
 	    placeholder: "-- Choose Religion --"
