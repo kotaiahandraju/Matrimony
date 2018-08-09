@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -150,6 +151,25 @@ public class CreateProfileController {
 					citiesMap.put(city.getId(),city.getName());
 				}
 				request.setAttribute("cities_map", citiesMap);
+				
+				Map<Integer,String> filtered_states = new HashMap<Integer,String>();
+				if(StringUtils.isNotBlank(objUsersBean.getrCountry())){
+					List<Map<String,Object>> resultss = stateDao.getFilteredStates(objUsersBean.getrCountry());
+					
+					for(Map<String,Object> state:resultss){
+						filtered_states.put((Integer)state.get("id"), (String)state.get("name"));
+					}
+					request.setAttribute("filtered_states", filtered_states);
+				}
+				Map<Integer,String> filtered_cities = new HashMap<Integer,String>();
+				if(StringUtils.isNotBlank(objUsersBean.getrCountry())){
+					List<Map<String,Object>> resultss = objCityDao.getFilteredCities(objUsersBean.getrState());
+					
+					for(Map<String,Object> state:resultss){
+						filtered_cities.put((Integer)state.get("id"), (String)state.get("name"));
+					}
+					request.setAttribute("filtered_cities", filtered_cities);
+				}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
