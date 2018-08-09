@@ -913,6 +913,25 @@ public class HomePageController {
 			}
 			request.setAttribute("cities_map", citiesMap);
 			
+			Map<Integer,String> filtered_states = new HashMap<Integer,String>();
+			if(StringUtils.isNotBlank(sessionBean.getrCountry())){
+				List<Map<String,Object>> resultss = stateDao.getFilteredStates(sessionBean.getrCountry());
+				
+				for(Map<String,Object> state:resultss){
+					filtered_states.put((Integer)state.get("id"), (String)state.get("name"));
+				}
+				request.setAttribute("filtered_states", filtered_states);
+			}
+			Map<Integer,String> filtered_cities = new HashMap<Integer,String>();
+			if(StringUtils.isNotBlank(sessionBean.getrCountry())){
+				List<Map<String,Object>> resultss = objCityDao.getFilteredCities(sessionBean.getrState());
+				
+				for(Map<String,Object> state:resultss){
+					filtered_cities.put((Integer)state.get("id"), (String)state.get("name"));
+				}
+				request.setAttribute("filtered_cities", filtered_cities);
+			}
+			
 		} catch (Exception e) {
 	   e.printStackTrace();
 	   System.out.println(e);
@@ -1308,6 +1327,7 @@ public class HomePageController {
 			List<Map<String,Object>> pending_requests = objUsersDao.getPendingInterestRequests(sessionBean.getId()+"",0);
 			if(pending_requests!=null && pending_requests.size()>0){
 				request.setAttribute("pending_reqs", pending_requests);
+				request.setAttribute("pending_reqs_count", pending_requests.size());
 			}else{
 				request.setAttribute("pending_reqs", "");
 			}
@@ -1386,7 +1406,7 @@ public class HomePageController {
 					for(Map<String,Object> state:results){
 						filtered_states.put((Integer)state.get("id"), (String)state.get("name"));
 					}
-					request.setAttribute("filtered_states", results);
+					request.setAttribute("filtered_states", filtered_states);
 				}
 				Map<Integer,String> filtered_cities = new HashMap<Integer,String>();
 				if(StringUtils.isNotBlank(searchCriteriaBean.getrCountry())){
@@ -1395,7 +1415,7 @@ public class HomePageController {
 					for(Map<String,Object> state:results){
 						filtered_cities.put((Integer)state.get("id"), (String)state.get("name"));
 					}
-					request.setAttribute("filtered_cities", results);
+					request.setAttribute("filtered_cities", filtered_cities);
 				}
 				//request.setAttribute("r_age_from", searchCriteriaBean.getrAgeFrom());
 				//request.setAttribute("r_age_to", searchCriteriaBean.getrAgeTo());

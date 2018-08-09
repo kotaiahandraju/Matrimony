@@ -176,6 +176,7 @@ width:100%;
 									<div class="col-sm-8">
 										<form:select path="rState" class="multiSelect" multiple="true"  onchange="getFilteredCitiesMultiSelect(this.id)">
 <%-- 											<form:options items="${states }"></form:options> --%>
+											<form:options items="${filtered_states }"></form:options>
 										</form:select>
 										<div><form:errors path="rState" cssClass="error" /></div>
 									</div>
@@ -286,6 +287,10 @@ $(document).ready(function(){
 	    placeholder: "-- Choose State --",
 	    allowClear: true
 	});
+	$("#rCity").select2({
+	    placeholder: "-- Choose City --",
+	    allowClear: true
+	});
 	$("#rEducation").select2({
 	    placeholder: "-- Choose Education --"
 	});
@@ -313,9 +318,19 @@ $(document).ready(function(){
 	$("#rCaste").select2('val',selected_values.split(","));
 	
 	selected_values="";
+	selected_values = "${createProfile.rCountry}";
+	if(selected_values!="")
+	$("#rCountry").select2('val',selected_values.split(","));
+	
+	selected_values="";
 	selected_values = "${createProfile.rState}";
 	if(selected_values!="")
 	$("#rState").select2('val',selected_values.split(","));
+	
+	selected_values="";
+	selected_values = "${createProfile.rCity}";
+	if(selected_values!="")
+	$("#rCity").select2('val',selected_values.split(","));
 	
 	selected_values="";
 	selected_values = "${createProfile.rEducation}";
@@ -352,6 +367,7 @@ $(document).ready(function(){
 	if(selected_values!="")
 	$("#rDiet").select2('val',selected_values.split(","));  
     
+	$('.multiSelect').trigger('change.select2');
 });
 
 
