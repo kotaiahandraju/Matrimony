@@ -1070,7 +1070,7 @@ function getFilteredStatesMultiSelect(id) {
 								$.each(statesList,function(i, state) {
 											$("#rState").append("<option value="+state.id+" >"+ state.name+ "</option>");});
 								$("#rState").trigger('change.select2');
-								var selected_values = "${userBean.rState}";
+								var selected_values = "${createProfile.rState}";
 							    if(selected_values == "" || selected_values==null){
 							    	$("#rState").select2({
 							    	    placeholder: "-- Choose State --"

@@ -86,126 +86,7 @@ margin-left:10px;
 		<div class="mid-grids">
 		
 			  
-			<div class="col-md-3 products-grid-right">
-			<div class="matches1"><h4>Matches</h4><div class="Subl">
-			<p class="on">New Matches</p>
-			<p class="new"><a href="" >Profiles yet to be viewed (7,215)</a><br>
-
-<a href="">Extended Matches</a><br>
-
-<a href="">Profiles viewed & not</a><br>
-<a href="">contacted (58)</a><br>
-
-<a href="">Members looking for me</a><br>
-
-<a href="">Mutual Matches</a><br>
-
-<a href="">Premium Members</a></p><br>
-			</div></div>
-		
-				
-		<br>		
-				
-<div class="collapse-group">
-  
-
-  <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingOne">
-      <h4 class="panel-title">
-        <a role="button" data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" class="trigger collapsed">
-        Show Profiles Created</a>
-      </h4>
-    </div>
-    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-      <div class="panel-body">
-         <p> <a href=""> Within a day (27)</a><br>
-    <a href=""> Within a week (181)</a><br>
-    <a href=""> Within a month (582)</a></p>   </div>
-    </div>
-  </div>
-
-  <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingTwo">
-      <h4 class="panel-title">
-        <a role="button" data-toggle="collapse" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo" class="trigger">
-          Active
-        </a>
-      </h4>
-    </div>
-    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-      <div class="panel-body">
-        Active Tab
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="collapse-group">
-  
-
-  <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingThree">
-      <h4 class="panel-title">
-        <a role="button" data-toggle="collapse" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree" class="trigger">
-          Profile Type
-        </a>
-      </h4>
-    </div>
-    <div id="collapseThree" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree">
-      <div class="panel-body">
-        <p> <a href="">  With Photo (323)
-    </a><br>
-    <a href=""> With Horoscope (225)</a><br>
-    </p> 
-      </div>
-    </div>
-  </div>
-
-  <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingFour">
-      <h4 class="panel-title">
-        <a role="button" data-toggle="collapse" href="#collapseFour" aria-expanded="true" aria-controls="collapseFour" class="trigger">
-          Age
-        </a>
-      </h4>
-    </div>
-    <div id="collapseFour" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFour">
-      <div class="panel-body">
-      <div class="">
-      <select name="" id="" style="width:;height:30px;" class="optiondiv" size="1">
-      <option value="21">21</option><option value="22">22</option><option value="23" selected="selected">23</option>
-      <option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option>
-      <option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option>
-      <option value="32">32</option><option value="33">33</option><option value="34">34</option><option value="35">35</option>
-      <option value="36">36</option><option value="37">37</option><option value="38">38</option><option value="39">39</option>
-      <option value="40">40</option><option value="41">41</option><option value="42">42</option><option value="43">43</option>
-      <option value="44">44</option><option value="45">45</option><option value="46">46</option><option value="47">47</option>
-      <option value="48">48</option><option value="49">49</option><option value="50">50</option><option value="51">51</option>
-      <option value="52">52</option><option value="53">53</option><option value="54">54</option><option value="55">55</option>
-      <option value="56">56</option><option value="57">57</option><option value="58">58</option><option value="59">59</option>
-      <option value="60">60</option><option value="61">61</option><option value="62">62</option><option value="63">63</option>
-      <option value="64">64</option><option value="65">65</option><option value="66">66</option><option value="67">67</option>
-      <option value="68">68</option><option value="69">69</option><option value="70">70</option></select>&nbsp;&nbsp;to&nbsp;&nbsp;
-      <select name="" id="" style="width:;height:30px;" class="optiondiv" size="1"><option value="18">18</option><option value="19">19</option>
-      <option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option>
-      <option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option>
-      <option value="28">28</option><option value="29">29</option><option value="30" selected="selected">30</option>
-      <option value="31">31</option><option value="32">32</option><option value="33">33</option><option value="34">34</option>
-      <option value="35">35</option><option value="36">36</option><option value="37">37</option><option value="38">38</option>
-      <option value="39">39</option><option value="40">40</option><option value="41">41</option><option value="42">42</option>
-      <option value="43">43</option><option value="44">44</option><option value="45">45</option><option value="46">46</option>
-      <option value="47">47</option><option value="48">48</option><option value="49">49</option><option value="50">50</option>
-      <option value="51">51</option><option value="52">52</option><option value="53">53</option><option value="54">54</option>
-      <option value="55">55</option><option value="56">56</option><option value="57">57</option><option value="58">58</option>
-      <option value="59">59</option><option value="60">60</option><option value="61">61</option><option value="62">62</option>
-      <option value="63">63</option><option value="64">64</option><option value="65">65</option><option value="66">66</option>
-      <option value="67">67</option><option value="68">68</option><option value="69">69</option><option value="70">70</option>
-      </select>&nbsp;&nbsp;Yrs<span class="errortext" id="ageerr"></span>&nbsp;&nbsp;<input class="" style="background: rgb(255, 255, 255) none repeat scroll 0% 0%; border-radius: 3px; color: rgb(2, 116, 203); font-weight: normal; font-size: 12px; margin-left: 0px; padding: 5px; margin-top: -2px; border: 1px solid rgb(214, 214, 214); line-height: 16px;cursor:pointer !important;" value="Submit" onclick="submitMore('age','')" type="button"></div>
-        </div>
-    </div>
-  </div>
-</div>
-			</div>
+			<jsp:include page="sideGridForResults.jsp" />
 			<div id="dial1"></div>
 			<div class="col-md-9 products-grid-left">
             	<div class="panel panel-success">
@@ -528,6 +409,106 @@ function paginationSetup(total_items_count) {
           }
         });
 }
+var clicked_link;
+function paginationSetupForSideGrid(total_items_count) {
+	$('#altLists')
+			.asPaginator(
+					total_items_count,
+					{
+						currentPage : 1,
+						visibleNum : {
+							0 : 10,
+							480 : 3,
+							960 : 5
+						},
+						tpl : function() {
+							return '<ul>{{first}}{{prev}}{{altLists}}{{next}}{{last}}</ul>';
+						},
+						components : {
+							first : true,
+							prev : true,
+							next : true,
+							last : true,
+							altLists : true
+						},
+						onChange : function(page) {
+							var formData = new FormData();
+							
+							formData.append("page_no", page);
+							formData.append("request_from", "viewednotcontacted");
+							
+							var with_photo = $("#withPhoto").prop("checked");
+							//var already_viewed = $("#alreadyViewed").prop("checked");
+							//var already_contacted = $("#alreadyContacted").prop("checked");
+							
+							formData.append('withPhoto',with_photo);
+							//formData.append('alreadyViewed',already_viewed);
+							//formData.append('alreadyContacted',already_contacted);
+							
+							formData.append("rCity", $("#city").val());
+							formData.append("rAgeFrom", $("#age_from").val());
+							formData.append("rAgeTo", $("#age_to").val());
+							
+							if(clicked_link=="day"){
+								formData.append("with_in_day", "true");
+							}else if(clicked_link=="week"){
+								formData.append("with_in_week", "true");
+							}else if(clicked_link=="month"){
+								formData.append("with_in_month", "true");
+							}else if(clicked_link=="all"){
+								formData.append("all", "true");
+							}else if(clicked_link=="photo"){
+								formData.append("with_photo", "true");
+							}
+							
+							$.fn
+									.makeMultipartRequest(
+											'POST',
+											'displayPage',
+											false,
+											formData,
+											false,
+											'text',
+											function(data) {
+												var jsonobj = $
+														.parseJSON(data);
+												var results = jsonobj.results;
+												//$('#countId').html('');
+												$("#search_criteria").prop(
+														"hidden", true);
+												$('#searchresultsDiv')
+														.removeAttr(
+																"hidden");
+												if (results == "") {
+													$('#countId').html('');
+													$('#countId').html('0');
+													var str = '<div class="alert alert-danger ban"><h6>No results found..!</h6></div>';
+													$('#searchResults')
+															.html('');
+													$(str)
+															.appendTo(
+																	"#searchResults");
+													$("#table_footer")
+															.prop("hidden",
+																	true);
+													$("#altLists").prop(
+															"hidden", true);
+												} else {
+													
+													paginationSetupForSideGrid(total_items_count);
+									    			$("#altLists").asPaginator('enable');
+									    			displayMatches_matches(results,"viewedNotContactedList");
+									    			$("#table_footer").removeAttr("hidden");
+									    			$("#altLists").removeAttr("hidden");
+									    			displayTableFooter(page);
+									    			addWaterMark();
+												}
+
+											});
+
+						}
+					});
+}
 //displayPagination();
 function displayTableFooter(page){
 	var from_val = ((parseInt(page)-1)*page_size)+1;
@@ -589,6 +570,16 @@ $(document).ready(function(){
 	selected_values="";
 	selected_values = "${createProfile.rDiet}";
 	$("#rDiet").val(selected_values.split(","));
+	
+	$("#city").select2({
+		placeholder : "-- Select City --",
+		allowClear : true
+	});
+	//populate city dropdown
+	var city_map = ${all_cities};
+	  $.each(city_map,function(key, value) {
+				$("#city").append("<option value="+key+" >"+ value+ "</option>");
+			}); 
 });
 
 $(".newMatches").addClass("active");
@@ -631,6 +622,81 @@ $(".open-button").on("click", function() {
 	    			
 	    		}
 		});
+	}
+
+	function submitMore(option_str){
+		var page = 1;
+			var formData = new FormData();
+			
+			if(option_str=="day"){
+				formData.append("with_in_day", "true");
+				clicked_link = "day";
+			}else if(option_str=="week"){
+				formData.append("with_in_week", "true");
+				clicked_link = "week";
+			}else if(option_str=="month"){
+				formData.append("with_in_month", "true");
+				clicked_link = "month";
+			}else if(option_str=="all"){
+				formData.append("all", "true");
+				clicked_link = "all";
+			}else if(option_str=="photo"){
+				formData.append("with_photo", "true");
+				clicked_link = "photo";
+			}
+			formData.append("rCity", $("#city").val());
+			formData.append("rAgeFrom", $("#age_from").val());
+			formData.append("rAgeTo", $("#age_to").val());
+			
+			formData.append("page_no", page);
+			formData.append("request_from", "viewednotcontacted");
+			
+			var with_photo = $("#withPhoto").prop("checked");
+			//var already_viewed = $("#alreadyViewed").prop("checked");
+			//var already_contacted = $("#alreadyContacted").prop("checked");
+			
+			formData.append('withPhoto',with_photo);
+			//formData.append('alreadyViewed',already_viewed);
+			//formData.append('alreadyContacted',already_contacted);
+			
+			jQuery.fn.makeMultipartRequest('POST', 'displayPage', false,
+					formData, false, 'text', function(data){
+						var jsonobj = $.parseJSON(data);
+						var results = jsonobj.results;
+						total_items_count = jsonobj.total_records;
+						//$('#countId').html('');
+						$("#search_criteria").prop(
+								"hidden", true);
+						$('#searchresultsDiv')
+								.removeAttr(
+										"hidden");
+						if (results == "") {
+							//$('#countId').html('');
+							//$('#countId').html('0');
+							var str = '<div class="alert alert-danger ban"><h6>No profiles found..!</h6></div>';
+							$('#searchResults')
+									.html('');
+							$(str)
+									.appendTo(
+											"#searchResults");
+							$("#table_footer")
+									.prop("hidden",
+											true);
+							$("#altLists").prop(
+									"hidden", true);
+						} else {
+							//$('#countId').html('');
+							//$('#countId').html(total_items_count);
+							$("#altLists").asPaginator('destroy');
+							paginationSetupForSideGrid(total_items_count);
+			    			$("#altLists").asPaginator('enable');
+			    			displayMatches_matches(results,"viewedNotContactedList");
+			    			$("#table_footer").removeAttr("hidden");
+			    			$("#altLists").removeAttr("hidden");
+			    			displayTableFooter(1);
+			    			addWaterMark();
+						}
+			});
 	}
 	
 </script>

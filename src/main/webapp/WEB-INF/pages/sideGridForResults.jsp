@@ -93,7 +93,7 @@ contacted (${cacheGuest.viewedNotContactedCount})</a><br>
 
 <!-- <a href="">Mutual Matches</a><br> -->
 
-<a href="">Premium Members</a></p><br>
+<a href="premiumMembers">Premium Members</a></p><br>
 			</div></div>
 		<br>
 				
@@ -167,7 +167,7 @@ contacted (${cacheGuest.viewedNotContactedCount})</a><br>
       <div class="panel-body">
       <div class="">
       <select name="age_from" id="age_from" style="width:;height:30px;" class="optiondiv" size="1">
-      <option value="">-----</option>
+      <option value="">--From---</option>
       <option value="18">18</option><option value="19">19</option><option value="20">20</option>
       <option value="21">21</option><option value="22">22</option><option value="23">23</option>
       <option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option>
@@ -187,7 +187,7 @@ contacted (${cacheGuest.viewedNotContactedCount})</a><br>
       <option value="18">18</option><option value="19">19</option>
       <option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option>
       <option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option>
-      <option value="28">28</option><option value="29">29</option><option value="30" selected="selected">30</option>
+      <option value="28">28</option><option value="29">29</option><option value="30" >30</option>
       <option value="31">31</option><option value="32">32</option><option value="33">33</option><option value="34">34</option>
       <option value="35">35</option><option value="36">36</option><option value="37">37</option><option value="38">38</option>
       <option value="39">39</option><option value="40">40</option><option value="41">41</option><option value="42">42</option>
@@ -213,7 +213,7 @@ contacted (${cacheGuest.viewedNotContactedCount})</a><br>
     <div id="collapseFive" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFive">
       <div class="panel-body">
       <div class="" style="padding:5px;">
-      <select name="city" id="city" style="padding:5px;" class="optiondiv multiselect" size="1" multiple="multiple">
+      <select name="city" id="city" style="padding:5px;" class="optiondiv multiselect"  multiple="multiple">
       	<option value="all">--Select City--</option>
       
       </select>&nbsp;&nbsp;<span class="errortext" id="cityerr"></span>&nbsp;&nbsp;<input class="" style="background: rgb(255, 255, 255) none repeat scroll 0% 0%; border-radius: 3px; color: rgb(2, 116, 203); font-weight: normal; font-size: 12px; margin-left: 0px; padding: 5px; margin-top: -2px; border: 1px solid rgb(214, 214, 214); line-height: 16px;cursor:pointer !important;" value="Submit" onclick="submitMore('')" type="button"></div>
