@@ -676,7 +676,68 @@ public class EmailUtil {
 	        }
 			return subject;
 	}
-	
+	public String sendActiveProfileMail(UsersBean objUsersBean,
+			ServletContext objContext) throws AddressException,
+			MessagingException, IOException {
+		String subject = null;
+		Properties prop = new Properties();
+		InputStream input = null;
+		String body = null;
+		try{
+	 
+	        String mailTo = objUsersBean.getEmail();
+	        
+//	        -------------------------------------------------------------------------------------------
+			
+			
+	        String propertiespath = objContext.getRealPath("Resources" +File.separator+"DataBase.properties");
+			input = new FileInputStream(propertiespath);
+			prop.load(input);
+			String host = prop.getProperty("host");
+			String port = prop.getProperty("port");
+			String mailFrom = prop.getProperty("usermail");
+			String password = prop.getProperty("mailpassword");
+	        
+			subject = prop.getProperty("welcome_mailActivePrifile_subject");
+			
+			body = prop.getProperty("welcome_mailActivePrifile_body");
+			/*body = body.replace("_name_",objUsersBean.getFirstName());
+			//body = body.replace("_username_", objUsersBean.getUsername());
+			body = body.replace("_username_", objUsersBean.getEmail());
+			body = body.replace("_password_", objUsersBean.getPassword());*/
+			body = body.replace("_userName_", objUsersBean.getUsername());
+			body = body.replace("_fullName_", objUsersBean.getFirstName()+" "+objUsersBean.getLastName());
+			
+			body = body.replace("_img_", "cid:image2");
+			body = body.replace("_bodyimage_", "cid:image3");
+			body = body.replace("_img1_", "cid:img1");
+			body = body.replace("_img2_", "cid:img2");
+			body = body.replace("_img3_", "cid:img3");
+			body = body.replace("_img4_", "cid:img4");
+			body = body.replace("_img5_", "cid:img5");
+			
+	 
+	        // inline images
+	        Map<String, String> inlineImages = new HashMap<String, String>();
+//	        inlineImages.put("image1", objContext.getRealPath("images" +File.separator+"telugu.png"));
+	        inlineImages.put("image2", objContext.getRealPath("images" +File.separator+"logo.jpg"));
+	        
+	        inlineImages.put("img1", objContext.getRealPath("images" +File.separator+"img1.jpg"));
+	        inlineImages.put("img2", objContext.getRealPath("images" +File.separator+"img2.jpg"));
+	        inlineImages.put("img3", objContext.getRealPath("images" +File.separator+"img3.jpg"));
+	        inlineImages.put("img4", objContext.getRealPath("images" +File.separator+"img4.jpg"));
+	        inlineImages.put("img5", objContext.getRealPath("images" +File.separator+"img5.jpg"));
+	        
+	       
+	            EmbeddedImageEmailUtil.send(host, port, mailFrom, password, mailTo,
+	                subject, body.toString(), inlineImages);
+	            System.out.println("Email sent.");
+	        } catch (Exception ex) {
+	            System.out.println("Could not send email.");
+	            ex.printStackTrace();
+	        }
+			return subject;
+	}
 	public static String sendPostPaymentMail(UsersBean userBean, Map<String,Object> paymentDetails, HttpServletRequest request,
 			ServletContext objContext) throws AddressException,
 			MessagingException, IOException {
@@ -703,16 +764,20 @@ public class EmailUtil {
 			subject = subject.replace("_name_", userBean.getFirstName()+" "+userBean.getLastName()+" ("+userBean.getUsername()+")");
 			
 			body = prop.getProperty("post_payment_body");
+			body = body.replace("_name_", userBean.getFirstName()+" "+userBean.getLastName()+" ("+userBean.getUsername()+")");
 			body = body.replace("_dateandtime_", (String)paymentDetails.get("paymentDate"));
+			
 			//body = body.replace("_plan_", "");
 			body = body.replace("_paidamount_", String.valueOf(paymentDetails.get("price")));
+			body = body.replace("_packageName_", String.valueOf(paymentDetails.get("packageName")));
 			body = body.replace("_img_", "cid:image2");
+			body = body.replace("_bodyimage_", "cid:image3");
 	        // inline images
 	        Map<String, String> inlineImages = new HashMap<String, String>();
 //	        inlineImages.put("image1", objContext.getRealPath("images" +File.separator+"telugu.png"));
 	        
 	        inlineImages.put("image2", objContext.getRealPath("images" +File.separator+"logo.jpg"));
-	 
+	        inlineImages.put("image3", objContext.getRealPath("images" +File.separator+"matri.jpg"));
 	       
 	            EmbeddedImageEmailUtil.send(host, port, mailFrom, password, mailTo,
 	                subject, body.toString(), inlineImages);
@@ -760,13 +825,14 @@ public class EmailUtil {
 			System.out.println(link);
 	       body = body.replace("_link_", link);
 	       body = body.replace("_customer_", objUsersBean.getFirstName()+" "+objUsersBean.getLastName());
-	       
+	       body = body.replace("_bodyimage_", "cid:image3");
 	       
 	 
 	        // inline images
 	        Map<String, String> inlineImages = new HashMap<String, String>();
 //	        inlineImages.put("image1", objContext.getRealPath("images" +File.separator+"telugu.png"));
 	        inlineImages.put("image2", objContext.getRealPath("images" +File.separator+"logo.jpg"));
+	        inlineImages.put("image3", objContext.getRealPath("images" +File.separator+"matri.jpg"));
 	 
 	       
 	            EmbeddedImageEmailUtil.send(host, port, mailFrom, password, mailTo,

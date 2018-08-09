@@ -205,12 +205,16 @@ public class FilterController {
 		String sJson = null;
 		boolean delete = false;
 		String statusName = null;
+		
+		UsersBean  usersBean = objUsersDao.getById(objUsersBean.getId());
 		try {
 			if (objUsersBean.getStatus() != "0" && objUsersBean.getStatusName() != null) {
 				delete = objUsersDao.updateStatus(objUsersBean);
 				statusName = objUsersBean.getStatusName();
 				if (delete) {
 					jsonObj.put("message", "Success");
+					EmailUtil EmailUtil=new EmailUtil();
+					EmailUtil.sendActiveProfileMail(usersBean,objContext);
 				} else {
 					jsonObj.put("message", "Faile");
 				}
