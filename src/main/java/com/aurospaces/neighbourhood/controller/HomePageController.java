@@ -1308,6 +1308,7 @@ public class HomePageController {
 			List<Map<String,Object>> pending_requests = objUsersDao.getPendingInterestRequests(sessionBean.getId()+"",0);
 			if(pending_requests!=null && pending_requests.size()>0){
 				request.setAttribute("pending_reqs", pending_requests);
+				request.setAttribute("pending_reqs_count", pending_requests.size());
 			}else{
 				request.setAttribute("pending_reqs", "");
 			}
