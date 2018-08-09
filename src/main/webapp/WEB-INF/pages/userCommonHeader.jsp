@@ -565,7 +565,7 @@ tooltip:hover:after {
 				
 				var image = null; image = orderObj.profileImage;
 				if(image == "" || image == null || image == "undefined"){
-					image = "../img/default.png";
+					image = "img/default.png";
 				}
 				/* else{
 				array = image.split(",");
@@ -2166,6 +2166,68 @@ function showSlides(n) {
 				
 			});
 			
+		}
+	}
+	
+	function getFilteredCitiesMultiSelect(id) {
+		if ($("#" + id).val() == null || $('#' + id).val() == ""
+				|| $('#' + id).val() == "undefined") {
+			$("#" + id).select2({
+				placeholder : "-- Choose State --"
+			});
+			$("#rCity").empty();
+			/* $("#rState").select2({
+				placeholder : "-- Choose State --"
+			}); */
+		} else {
+			var stateIds = $("#" + id).val();
+			var formData = new FormData();
+			formData.append('state_ids', stateIds);
+			$.fn
+					.makeMultipartRequest(
+							'POST',
+							'getFilteredCities',
+							false,
+							formData,
+							false,
+							'text',
+							function(data) {
+								var jsonobj = $.parseJSON(data);
+								var citiesList = jsonobj.city_list;
+								$("#rCity").empty();
+								/* $("#rState")
+										.append(
+												"<option value='' >-- Choose State --</option>"); */
+
+								$.each(citiesList,
+										function(i, city) {
+											$("#rCity").append(
+													"<option value="+city.id+" >"
+															+ city.name
+															+ "</option>");
+											$("#city").append(
+													"<option value="+city.id+" >"
+															+ city.name
+															+ "</option>");
+										});
+								$("#rCity").trigger('change.select2');
+								var selected_values = "${createProfile.rCity}";
+							    if(selected_values == "" || selected_values==null){
+							    	$("#rCity").select2({
+							    	    placeholder: "-- Choose City --"
+							    	});
+							    	$("#city").select2({
+							    	    placeholder: "-- Select City --"
+							    	});
+							    }else{
+							    	
+							        $("#rCity").val(selected_values.split(","));
+							        $("#city").val(selected_values.split(","));
+							    }
+							    $("#rCity").trigger('change.select2');
+							    $("#city").trigger('change.select2');
+							});
+
 		}
 	}
 function openPhotoModal(photos_list){

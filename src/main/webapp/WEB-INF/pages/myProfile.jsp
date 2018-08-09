@@ -1016,21 +1016,23 @@ $(".onlyCharacters").on("keypress",	function(event) {
     
 </tr>
 
-<%-- <tr><td>Residing City</td><td>:</td>
-    <td>
+<tr>
+   <td>Residing City</td><td>:</td>
+   
+    <td id="rCity_val">
         <c:if test="${not empty profileBean.rCity}">${profileBean.rCity}</c:if>
         <c:if test="${empty profileBean.rCity}">Not Specified</c:if>
     </td>
     
     
 </tr>
-<tr><td>Citizenship</td><td>:</td>
+<%-- <tr><td>Citizenship</td><td>:</td>
     <td>
          <c:if test="${not empty profileBean.currentStateName}">${profileBean.currentStateName}</c:if>
         <c:if test="${empty profileBean.currentStateName}"><a>Add State</a></c:if> 
     </td>
     
-</tr> --%>
+</tr>  --%>
 </table>
 </div>
 <div id="partner_location_edit" class="all_hidden_divs" hidden="true">
@@ -1047,11 +1049,23 @@ $(".onlyCharacters").on("keypress",	function(event) {
 <div class="form-group">
   <label class="col-md-4 control-label" for="textinput">State living in</label>  
   <div class="col-md-7">
-    <form:select path="rState" class="multiSelect" multiple="true">
+    <form:select path="rState" class="multiSelect" multiple="true" onchange="getFilteredCitiesMultiSelect(this.id)">
         <form:options items="${filtered_states }"></form:options>
     </form:select>
   </div>
 </div>
+
+<div class="form-group">
+					<label class="col-md-4 control-label" for="textinput">City living in</label>
+											<div class="col-md-7">
+												<form:select path="rCity"  class="multiSelect" multiple="true">
+													<%-- <form:option value="">-- Choose State --</form:option> --%>
+													<form:options items="${filtered_cities }"></form:options> 
+												</form:select>
+												<div><form:errors path="rState" cssClass="error" /></div>
+											</div>
+									  	</div>
+
 <br>
 <div class="row">
     <div class="col-md-4 pull-right" style="float:right;">
@@ -1265,7 +1279,16 @@ $(document).ready(function(){
     	var tt = selected_values.split(",");
         $("#rCountry").val(selected_values.split(","));
     }
-	
+    selected_values = "";
+	selected_values = "${profileBean.rCity}";
+    if(selected_values == "" || selected_values==null){
+    	$("#rCity").select2({
+    	    placeholder: "-- Choose City --"
+    	});
+    }else{
+    	var tt = selected_values.split(",");
+        $("#rCity").val(selected_values.split(","));
+    }
 	/* selected_values="";
 	selected_values = "${createProfile.rWorkingWith}";
 	if(selected_values!="")
@@ -1446,6 +1469,7 @@ function checkLen(){
    	formData.append("rMotherTongue",$("#rMotherTongue").val());
    	formData.append("rCountry",$("#rCountry").val());
    	formData.append("rState",$("#rState").val());
+ 	formData.append("rCity",$("#rCity").val());
    	formData.append("rEducation",$("#rEducation").val());
    	formData.append("rWorkingWith",$("#rWorkingWith").val());
    	formData.append("rOccupation",$("#rOccupation").val());
@@ -1507,6 +1531,7 @@ function checkLen(){
 				if(data_type=="partner_location"){
 					updateMultiDropDownValues("rCountry");
 					updateMultiDropDownValues("rState");
+					updateMultiDropDownValues("rCity");
 				}
 					/* var updated_values = jsonobj.partner_updated_values;
 					$("#rMaritalStatus_val").html(updated_values.maritalStatus);
