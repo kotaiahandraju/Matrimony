@@ -369,7 +369,7 @@ xpopup
             	
 					<div class="col-md-5"> <h4></h4>
 						<c:if test="${empty fullProfilePhotosList}">
-							<img id="img_inpage" src="img/default.png" class="img-responsive" style="margin-bottom:0;">
+							<img id="img_inpage" src="../img/default.png" class="img-responsive" style="margin-bottom:0;">
 						</c:if>
 						<c:if test="${not empty fullProfilePhotosList}">
 						<div class="fullprofile" style="height:220px; overflow:hidden;"">	
@@ -407,6 +407,7 @@ xpopup
                      </div>
                      <div class="col-md-7"><h4></h4>
 						 <h3>
+<%-- 						 <c:out value="${cacheGuest }"></c:out> --%>
 						 	<c:if test="${cacheGuest.roleId == 4}">
 						 		xxxxxx&nbsp;xxxxxx
 						 	</c:if>
@@ -451,11 +452,8 @@ xpopup
     <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
     <span class="caret"></span></button>
     <ul class="dropdown-menu">
-      <li><a href="#" onclick="shortList_fullprofile(${profileBean.id})">Shortlist</a></li>
-      <!-- <li><a href="#">Forward</a></li> -->
+      <li id="sortlistdivId"><a href="#" onclick="shortList_fullprofile(${profileBean.id})">Shortlist</a></li>
       <li><a href="#" class="noPrint" onclick="PrintElem('#printDiv');">Print</a></li>
-      <!-- <li><a href="#">Ignore</a></li> -->
-      <!-- <li><a href="#" onclick="goBack();">Back</a></li> -->
     </ul>
   </div></div>
 					 	
@@ -1067,6 +1065,23 @@ in a profile. </p></div>
     </div>
   </div>
 <script type="text/javascript">
+/* var listOrders1 = ${shortlistedList};
+shortListData(listOrders1);
+function shortListData(list){
+	$.each(list,function(i, orderObj){
+// 		sortlistdivId
+var ee =${profileBean.id};
+		if(orderObj.id == ee){
+			alert('');
+			
+			$("#sortlistdivId").attr("shortlisted");
+		}	else{
+			$("#sortlistdivId").attr('');
+		}
+});
+} */
+
+
 var slideIndex = 1;
 //showSlides(slideIndex);
 var allowed_limit = ${allowed_profiles_limit};
@@ -1086,6 +1101,22 @@ $(document).ready(function(){
 		  easing: 'swing'
 		  
 		});
+	var short_listed =  "${profileBean.shortlisted}";
+	//alert("short_listed:"+short_listed);	
+	var listOrders1 = ${shortlistedList};
+	shortListData(listOrders1);
+	function shortListData(list){
+		$.each(list,function(i, orderObj){
+//	 		sortlistdivId
+	var ee =${profileBean.id};
+			if(orderObj.id == ee){
+				//alert('');
+				$("#sortlistdivId").html("");
+				$("#sortlistdivId").append(' <li><a href="#" >Shortlisted</a></li>');
+			}	
+	});
+	}
+	
 	$("#rReligion").select2({
 	    placeholder: "-- Choose Religion --"
 	});
@@ -1361,6 +1392,9 @@ function toggleDiv(divElem){
 	    		if(typeof msg != "undefined"){
 	    			if(msg=="success"){
 	    				alert("This profile has been shortlisted.");
+	    				//if($("#id").val(profileId)!=null&&$("#id").val(profileId)!="")
+	    					
+	    				
 	    			}else{
 	    				alert("Some problem occured. Please try again.");
 	    			}

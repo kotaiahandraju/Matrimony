@@ -564,7 +564,7 @@ tooltip:hover:after {
 				
 				var image = null; image = orderObj.profileImage;
 				if(image == "" || image == null || image == "undefined"){
-					image = "../img/default.png";
+					image = "img/default.png";
 				}
 				/* else{
 				array = image.split(",");

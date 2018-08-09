@@ -1167,8 +1167,15 @@ public class HomePageController {
 			}else{
 				session.setAttribute("notificationsList", "");
 			}*/
-			
-		} catch (Exception e) {
+			List<Map<String,Object>> shortlistedByMeList = objUsersDao.getShortlistedByMeMembers(sessionBean.getId()+"",0);
+			if(shortlistedByMeList!=null && shortlistedByMeList.size()>0){	
+				
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(shortlistedByMeList);
+				request.setAttribute("shortlistedList", sJson);
+		}
+		}
+		catch (Exception e) {
 	   e.printStackTrace();
 	   System.out.println(e);
 	   logger.error(e);
