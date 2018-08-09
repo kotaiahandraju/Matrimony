@@ -19,7 +19,7 @@
 			<div id="dial1"></div>
 			<div class="col-md-9 products-grid-left">
             	<div class="panel panel-success">
-					<div class="panel-heading">New Matches <span class="pull-right"><input type="checkbox" id="selectAllRequest"> Select All &nbsp; <a onclick="requetAllExpressInterest();" href="#">Send Interest to All</a></span></div>
+					<div class="panel-heading">New Matches <span class="pull-right"><input type="checkbox" id="selectAllRequest"> Select All &nbsp; <a onclick="requetAllExpressInterest();" href="#">Send Interest to selected</a></span></div>
 					<div class="panel-body table-responsive">
 						<form:form commandName="createProfile"  class="form-horizontal" id="searchForm2" name="searchForm2" role="form" method="post">
 						<form:hidden path="id" />

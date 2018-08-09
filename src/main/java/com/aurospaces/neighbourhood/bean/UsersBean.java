@@ -108,6 +108,7 @@ protected String unique_code,emailverify,profileVerifyedBy;
 protected String rEducationName,rOccupationName,rCountryName,rStateName,rHeightInches,rHeightToInches,religionId,castId;
 protected int message_sent_status;
 protected String  rCity,rCityName; 
+protected int shortlisted;
 
 public String getrCityName() {
 	return rCityName;
@@ -164,7 +165,7 @@ public String toString() {
 			+ rEducationName + ", rOccupationName=" + rOccupationName + ", rCountryName=" + rCountryName
 			+ ", rStateName=" + rStateName + ", rHeightInches=" + rHeightInches + ", rHeightToInches=" + rHeightToInches
 			+ ", religionId=" + religionId + ", castId=" + castId + ", message_sent_status=" + message_sent_status
-			+ ", rCity=" + rCity + ", rCityName=" + rCityName + "]";
+			+ ", rCity=" + rCity + ", rCityName=" + rCityName + ", shortlisted=" + shortlisted + "]";
 }
 public String getCastId() {
 	return castId;
@@ -1090,6 +1091,13 @@ public String getrCity() {
 public void setrCity(String rCity) {
 	this.rCity = rCity;
 }
+public int getShortlisted() {
+	return shortlisted;
+}
+public void setShortlisted(int shortlisted) {
+	this.shortlisted = shortlisted;
+}
+
 
 
 }
