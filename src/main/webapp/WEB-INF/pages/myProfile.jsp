@@ -1020,8 +1020,8 @@ $(".onlyCharacters").on("keypress",	function(event) {
    <td>Residing City</td><td>:</td>
    
     <td id="rCity_val">
-        <c:if test="${not empty profileBean.rCity}">${profileBean.rCity}</c:if>
-        <c:if test="${empty profileBean.rCity}">Not Specified</c:if>
+        <c:if test="${not empty profileBean.rCityName}">${profileBean.rCityName}</c:if>
+        <c:if test="${empty profileBean.rCityName}">Not Specified</c:if>
     </td>
     
     

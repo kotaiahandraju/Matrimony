@@ -107,8 +107,14 @@ protected String membership_status;
 protected String unique_code,emailverify,profileVerifyedBy;
 protected String rEducationName,rOccupationName,rCountryName,rStateName,rHeightInches,rHeightToInches,religionId,castId;
 protected int message_sent_status;
-protected String  rCity; 
+protected String  rCity,rCityName; 
 
+public String getrCityName() {
+	return rCityName;
+}
+public void setrCityName(String rCityName) {
+	this.rCityName = rCityName;
+}
 @Override
 public String toString() {
 	return "UsersBean [id=" + id + ", createdTime=" + createdTime + ", createdTimeAsString=" + createdTimeAsString
@@ -158,7 +164,7 @@ public String toString() {
 			+ rEducationName + ", rOccupationName=" + rOccupationName + ", rCountryName=" + rCountryName
 			+ ", rStateName=" + rStateName + ", rHeightInches=" + rHeightInches + ", rHeightToInches=" + rHeightToInches
 			+ ", religionId=" + religionId + ", castId=" + castId + ", message_sent_status=" + message_sent_status
-			+ "]";
+			+ ", rCity=" + rCity + ", rCityName=" + rCityName + "]";
 }
 public String getCastId() {
 	return castId;

@@ -4967,6 +4967,7 @@ public class HomePageController {
    private UsersBean copyPartnerLocationPreferences(UsersBean source,UsersBean target){
 	   target.setrCountry(source.getrCountry().equalsIgnoreCase("null")?null:source.getrCountry());
 	   target.setrState(source.getrState().equalsIgnoreCase("null")?null:source.getrState());
+	   target.setrCity(source.getrCity().equalsIgnoreCase("null")?null:source.getrCity());
 	   //target.setrCity(source.getrCity());
 	   
 	   return target;
