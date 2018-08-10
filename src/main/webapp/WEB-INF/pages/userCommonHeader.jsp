@@ -370,13 +370,15 @@ tooltip:hover:after {
 		function requetAllExpressInterest() {
 			
 			if ($('.form-check-input:checked').length == 0) {
-				
 				alert("Please select atleast one profile.");
 				return false;
 			}
 			
-			var roleId = ${cacheGuest.roleId};
+			$(".form-check-input").each(function(){
+				
+			});
 			
+			var roleId = ${cacheGuest.roleId};
 			profileObj = [];  
 			shortlistTD=[];
 			$('span[name^=expInterest]').each(function(){
@@ -388,19 +390,15 @@ tooltip:hover:after {
 				    profileObj.push(expInterest);
 				}
 			});
-			console.log("-------------"+profileObj);
 			
-			
-			$('span[name^=shortlistTD]').each(function(){
+			/* $('span[name^=shortlistTD]').each(function(){
 				if($.trim($(this).text()) != ""){
 					console.log("222222222  :"+this.id);
 					var str = this.id; 
 					var res= str.replace("shortlistTD", "");
 					shortlistTD.push(res);
-				    console.log("2222222222222  :"+res);
 				}
-			});
-			console.log("------2-------"+shortlistTD);
+			}); */
 		
 			if(roleId==4){
 				document.searchForm2.action = "memberShipPage"
@@ -432,7 +430,10 @@ tooltip:hover:after {
 			    				$("#expInterest"+profile_id).html('<a type="button" class="btn btn-blue btn-sm" disabled="true">Expressed Interest</a>');
 			    				alert("Interest request has been sent successfully");
 			    				//$("#expInterest"+profile_id).html('You Expressed Interest');
-			    				//$("#expInterest"+profile_id).attr("disabled",true);
+// 			    				$.each(profile_id,function(i,id){
+// 			    					$("#expInterest"+id).prop("disabled",true);
+// 			    				});
+										location.reload();
 			    				allowed_limit = limit;
 			    				$("#available_limit_span").html(allowed_limit);
 			    			}else if("failed"==msg || "exception"==msg){
@@ -443,7 +444,9 @@ tooltip:hover:after {
 					});
 			}
 		}
-		
+
+	
+	
 		function expressInterest(profile_id){
 			var roleId = ${cacheGuest.roleId};
 			$("#id").val(profile_id);

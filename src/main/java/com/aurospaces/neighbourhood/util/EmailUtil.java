@@ -380,7 +380,7 @@ public class EmailUtil {
 	            System.out.println("Email sent.");
 	            String mobileNum = receiverBean.getMobile();
 	            try{
-					   String response = SendSMS.sendSMS("Dear "  +receiverBean.getFirstName()+ " "+receiverBean.getLastName() +""+"("+receiverBean.getUsername()+")"+ ","+"\nYou have one Message from "+senderBean.getFirstName()+" "+senderBean.getLastName()+""+"("+senderBean.getUsername()+")"+".\n \n "+receiverBean.getMail_content()+""+" \n \n Wishing You the best life partner \n Team - AarnaMatrimony", mobileNum);
+					   String response = SendSMS.sendSMS("Dear "  +receiverBean.getFirstName()+ " "+receiverBean.getLastName() +""+"("+receiverBean.getUsername()+")"+ ","+"\nYou have a Message from "+senderBean.getFirstName()+" "+senderBean.getLastName()+""+"("+senderBean.getUsername()+")"+".\n \n "+receiverBean.getMail_content()+""+" \n \n Wishing You the best life partner \n Team - AarnaMatrimony", mobileNum);
 					   
 					   if("OK".equalsIgnoreCase(response)){
 						   
@@ -472,7 +472,7 @@ public class EmailUtil {
 	            
 	            String mobileNum = receiverBean.getMobile();
 	            try{
-					   String response = SendSMS.sendSMS("Dear "  +receiverBean.getFirstName()+ " "+receiverBean.getLastName() +""+"("+receiverBean.getUsername()+")"+ ","+"\nYou have one Intrest Request from "+senderBean.getFirstName()+" "+senderBean.getLastName()+""+"("+senderBean.getUsername()+")"+". "+" \n \n Wishing You the best life partner \n Team - AarnaMatrimony", mobileNum);
+					   String response = SendSMS.sendSMS("Dear "  +receiverBean.getFirstName()+ " "+receiverBean.getLastName() +""+"("+receiverBean.getUsername()+")"+ ","+"\nYou have an Interest Request from "+senderBean.getFirstName()+" "+senderBean.getLastName()+""+"("+senderBean.getUsername()+")"+". "+" \n \n Wishing You the best life partner \n Team - AarnaMatrimony", mobileNum);
 					   
 					   if("OK".equalsIgnoreCase(response)){
 						   

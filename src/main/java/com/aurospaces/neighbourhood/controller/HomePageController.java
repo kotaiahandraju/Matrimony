@@ -1610,6 +1610,11 @@ public class HomePageController {
 			//List<Map<String,String>> allProfiles = null;
 			boolean success = false;
 			int page_no = 0;
+			String profileId = request.getParameter("profile_id");
+			String mailContent = request.getParameter("mail_content");
+			if(StringUtils.isNotBlank(profileId)){
+				
+			
 			try {
 				UsersBean userBean = (UsersBean)session.getAttribute("cacheGuest");
 				if(userBean == null){
@@ -1619,10 +1624,11 @@ public class HomePageController {
 				if(StringUtils.isNotBlank(clicked_btn)){
 					page_no = (Integer.parseInt(clicked_btn))-1;
 				}
-				String profileId = request.getParameter("profile_id");
+				UsersBean receipientUser = new UsersBean();
 				String profileArry[] =profileId.split(",");
-				for(int i=0;i<profileArry.length;i++) {
+				for (int i = 0; i < profileArry.length; i++) {
 					success = objUsersDao.expressInterestTo(profileArry[i]);
+					
 				}
 				
 				if(success){
@@ -1635,6 +1641,12 @@ public class HomePageController {
 					session.setAttribute("cacheGuest",userBean);
 					int allowed_limit = (Integer)session.getAttribute("allowed_profiles_limit");
 					objJson.put("allowed_limit", allowed_limit);
+					for (int j = 0; j < profileArry.length; j++) {
+				
+						receipientUser = objUsersDao.loginChecking(Integer.parseInt(profileArry[j]));
+						receipientUser.setMail_content(mailContent);
+					EmailUtil.sendExpressInterestToMail(userBean, receipientUser, request, objContext);
+					}
 				}
 				else{
 					objJson.put("message", "failed");
@@ -1650,7 +1662,7 @@ public class HomePageController {
 				System.out.println(e);
 				logger.error(e);
 				objJson.put("message", "failed");
-			}
+			}}
 			return String.valueOf(objJson);
 		}
 	 
@@ -1688,7 +1700,6 @@ public class HomePageController {
 					session.setAttribute("cacheGuest",userBean);
 					int allowed_limit = (Integer)session.getAttribute("allowed_profiles_limit");
 					objJson.put("allowed_limit", allowed_limit);
-					System.out.println("UserBean1111111111111111"+userBean  +"  "+receipientUser+"  "+request+"  "+objContext);
 					 EmailUtil.sendExpressInterestToMail(userBean, receipientUser, request, objContext);
 					 
 					
