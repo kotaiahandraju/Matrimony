@@ -1410,7 +1410,7 @@ public class UsersDao extends BaseUsersDao
 					if(StringUtils.isNotBlank(filterOptions.get("state"))){
 						where_clause.append( " and FIND_IN_SET(u.currentState,'"+filterOptions.get("state")+"' )>0  ");
 					}
-					if(StringUtils.isNotBlank(filterOptions.get("city"))){
+					if(StringUtils.isNotBlank(filterOptions.get("city")) && !((String)filterOptions.get("city")).equalsIgnoreCase("null")){
 						where_clause.append( " and FIND_IN_SET(u.currentCity,'"+filterOptions.get("city")+"' )>0  ");
 					}
 				}
@@ -2431,7 +2431,7 @@ public class UsersDao extends BaseUsersDao
 				+" ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 				//+" (select count(*) from users u "+where_clause+") as total_records, "
 				+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and  uimg.status = '1' and uimg.is_profile_picture='1') as profileImage, "
-				+" (select count(*) from users u,users_activity_log activity where activity.act_done_on_user_id  = "+objUserBean.getId()+" and activity.act_done_by_user_id = u.id and activity.activity_type in ('profile_viewed') and  "+inner_where_clause+") as total_records, "
+				+" (select count(1) from users u,users_activity_log activity where activity.act_done_on_user_id  = "+objUserBean.getId()+" and activity.act_done_by_user_id = u.id and activity.activity_type in ('profile_viewed') and  "+inner_where_clause+") as total_records, "
 				+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+objUserBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'short_listed') as short_listed, "
 				+" (select highlight_profile from package where id = u.package_id) as profile_highlighter "
 				+" from users u left join userrequirement ur on u.id=ur.userId "
@@ -3472,7 +3472,7 @@ public class UsersDao extends BaseUsersDao
 			if(StringUtils.isNotBlank(filterOptions.get("state"))){
 				where_clause.append( " and FIND_IN_SET(u.currentState,'"+filterOptions.get("state")+"' )>0  ");
 			}
-			if(StringUtils.isNotBlank(filterOptions.get("city"))){
+			if(StringUtils.isNotBlank(filterOptions.get("city")) && !((String)filterOptions.get("city")).equalsIgnoreCase("null")){
 				where_clause.append( " and FIND_IN_SET(u.currentCity,'"+filterOptions.get("city")+"' )>0  ");
 			}
 		}
@@ -3583,7 +3583,7 @@ public class UsersDao extends BaseUsersDao
 			if(StringUtils.isNotBlank(filterOptions.get("state"))){
 				where_clause.append( " and FIND_IN_SET(u.currentState,'"+filterOptions.get("state")+"' )>0  ");
 			}
-			if(StringUtils.isNotBlank(filterOptions.get("city"))){
+			if(StringUtils.isNotBlank(filterOptions.get("city")) && !((String)filterOptions.get("city")).equalsIgnoreCase("null")){
 				where_clause.append( " and FIND_IN_SET(u.currentCity,'"+filterOptions.get("city")+"' )>0  ");
 			}
 		}
@@ -3698,7 +3698,7 @@ public boolean deletePhoto(String photoId){
 		String sSql  = null;
 		
 		try {
-			sSql = "update user_images set status = '0' where id =  "+photoId;
+			sSql = "update user_images set status = '0' , is_profile_picture = '0' where id =  "+photoId;
 			
 			int updated_count = jdbcTemplate.update(sSql);
 			if (updated_count == 1) {
@@ -3742,7 +3742,7 @@ public boolean deletePhoto(String photoId){
 		String sSql  = null;
 		
 		try {
-			sSql = "select image from vuser_images where user_id =  "+userId+" and is_profile_picture = '1'";
+			sSql = "select image from vuser_images where user_id =  "+userId+" and is_profile_picture = '1' and status = '1'";
 			
 			String image = jdbcTemplate.queryForObject(sSql, String.class);
 			return image;
@@ -4533,7 +4533,7 @@ public boolean deletePhoto(String photoId){
 						+"left join complexion com on com.id =u.complexion left join cast c1 on c1.id=rCaste left join language l1 on l1.id=rMotherTongue "
 						+"left join countries con1 on con1.id=rCountry left join education e1 on e1.id=rEducation left join occupation oc1 on oc1.id=rOccupation  left join user_images uimg on uimg.user_id=u.id left join occupation oc on u.occupation=oc.id left join education ed on ed.id=u.education "
 						+ " left join state sta on sta.id=u.currentState left join city cit on cit.id=u.currentCity, "
-						+ "(select * from users_activity_log act where act.act_done_on_user_id = "+objUserBean.getId()+" and act.activity_type = 'profile_viewed') activity ");
+						+ "(select * from users_activity_log act where act.act_done_by_user_id = "+objUserBean.getId()+" and act.activity_type = 'profile_viewed') activity ");
 						//+" where u.status not in ('0')   and u.id not in (select ei.profile_id from express_intrest ei where ei.user_id="+objUserBean.getId()+" and ei.mobile_no_viewed_status = '1')");
 			}else{
 				buffer.append("select u.id,cit.name as currentCityName,u.occupation,oc.name as occupationName,ed.name as educationName,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.gender, "
@@ -4555,6 +4555,13 @@ public boolean deletePhoto(String photoId){
 			} 
 			buffer.append(" where  "+where_clause+" and u.id = activity.act_done_on_user_id group by u.id order by activity.created_time desc ");
 		List<Map<String,Object>> list = jdbcTemplate.queryForList(buffer.toString());
+		/*int total_records = 0;
+		if(list.size()>0){
+			//get total records count
+			String count_qry = "select count(1) from (select count(1) from users u left join user_images uimg on u.id = uimg.user_id "+where_clause+" group by u.id) tmp ";
+			total_records = jdbcTemplate.queryForInt(count_qry);
+			list.get(0).put("total_records", total_records+"");
+		}*/
 		return list;
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -4615,13 +4622,72 @@ public boolean deletePhoto(String photoId){
 						+ " left join city cit on cit.id=u.currentCity  left join user_images uimg on uimg.user_id=u.id ");
 						//+" where u.status not in ('0')  ");
 			} 
-			buffer.append(" where  "+where_clause+" and u.package_id in (select id from package where status = '1' ) group by u.id");
+			where_clause.append(" and u.package_id in (select id from package where status = '1' ) ");
+			buffer.append(" where  "+where_clause+"  group by u.id");
 		List<Map<String,Object>> list = jdbcTemplate.queryForList(buffer.toString());
+		int total_records = 0;
+		if(list.size()>0){
+			//get total records count
+			String count_qry = "select count(1) from (select count(1) from users u left join user_images uimg on u.id = uimg.user_id  where "+where_clause+" group by u.id) tmp ";
+			total_records = jdbcTemplate.queryForInt(count_qry);
+			list.get(0).put("total_records", total_records+"");
+		}
 		return list;
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public boolean saveEmailData(UsersBean senderBean, UsersBean receiverBean,String baseurl,String mail_type){
+		jdbcTemplate = custom.getJdbcTemplate();
+		StringBuffer sender_details = new StringBuffer(senderBean.getAge()+" Yrs, "+senderBean.getHeight()+" Ft, "+senderBean.getReligionName()+", "+senderBean.getCasteName()+", <br> Location: "+senderBean.getCurrentCityName()+", <br> Education : "+senderBean.getEducationName()+", <br> Occupation : "+senderBean.getOccupationName()+" ");
+		// url formation
+		String actionUrl = baseurl+"/users/fullProfile?un="+receiverBean.getUsername()+"&pun="+senderBean.getUsername()+"&suc="+receiverBean.getUnique_code()+"&puc="+senderBean.getUnique_code();
+		String sender_image = this.getProfilePicture(senderBean.getId());
+		
+		try{
+			
+			StringBuffer buffer = new StringBuffer(" insert into emails_data(sender_user_id,receiver_user_id,sender_email,sender_details,sender_display_name,receiver_display_name,receiver_email,mail_content,status,type,full_profile_action_url,sender_image,created_on) "
+								+ "	values("+senderBean.getId()+","+receiverBean.getId()+",'"+senderBean.getEmail()+"','"+sender_details.toString()+"','"+senderBean.getFirstName()+" "+senderBean.getLastName()+" ("+senderBean.getUsername()+")','"+receiverBean.getFirstName()+" "+receiverBean.getLastName()+" ("+receiverBean.getUsername()+")','"+receiverBean.getEmail()+"','"+receiverBean.getMail_content()+"','0','"+mail_type+"','"+actionUrl+"','"+sender_image+"',current_timestamp())");
+			int inserted_count = jdbcTemplate.update(buffer.toString());
+			if(inserted_count==1){
+				return true;
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public List<Map<String,Object>> getEmailEntriesToSend(){
+		jdbcTemplate = custom.getJdbcTemplate();
+		List<Map<String,Object>> list = null;
+		try{
+			
+			String  qry = " select * from emails_data where status = '0' "; // 0 means yet to send email
+			list = jdbcTemplate.queryForList(qry);
+			return list;
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public boolean updateEmailDeliveryStatus(String id,String status){
+		jdbcTemplate = custom.getJdbcTemplate();
+		
+		try{
+			
+			StringBuffer buffer = new StringBuffer(" update emails_data set status = '"+status+"' where id = "+id);
+			int updated_count = jdbcTemplate.update(buffer.toString());
+			if(updated_count==1){
+				return true;
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 }
 

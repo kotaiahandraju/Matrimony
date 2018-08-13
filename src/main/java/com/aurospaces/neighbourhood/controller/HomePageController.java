@@ -2,6 +2,7 @@ package com.aurospaces.neighbourhood.controller;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,6 +15,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 
 import javax.servlet.ServletContext;
@@ -2350,10 +2352,10 @@ public class HomePageController {
 	            String paramValue = request.getParameter(paramName);
 	            params.put(paramName, paramValue);
 	        }
-	       String first_name = params.get("firstname");
-	       first_name = first_name.replaceAll("##", " ");
-	       String last_name = params.get("lastname");
-	       last_name = last_name.replaceAll("##", " ");
+	       String first_name = params.get("firstname").split("##")[0];
+	       first_name = first_name.replaceAll("#", " ");
+	       String last_name = params.get("firstname").split("##")[1];
+	       last_name = last_name.replaceAll("#", " ");
 	       params.put("firstname", first_name);
 	       params.put("lastname", last_name);
 	       
@@ -2464,6 +2466,7 @@ public class HomePageController {
 	   return "";
    }
    
+ 
    /*****     Not required in current release -- as per client      ************/
    
    /*@RequestMapping(value="/dailyMatchEmails")
@@ -2666,7 +2669,7 @@ public class HomePageController {
 			filterOptions.put("created_at_any_time", (StringUtils.isNotBlank(all_created))?all_created:"false");
 			filterOptions.put("age_from", age_from);
 			filterOptions.put("age_to", age_to);
-			filterOptions.put("city", city);
+			filterOptions.put("city", (StringUtils.isNotBlank(city))?city:null);
 			
 			UsersBean userSessionBean = (UsersBean)session.getAttribute("cacheGuest");
 			if(userSessionBean == null){
@@ -4389,8 +4392,10 @@ public class HomePageController {
 				try{
 					 // send personal message from user to user
 					 if(StringUtils.isNotBlank(receipientUser.getEmail())){
-						 String retVal = EmailUtil.sendInterestMail(userBean, receipientUser, request, objContext);
-						 if(StringUtils.isNotBlank(retVal)){
+						 String baseurl =  request.getScheme() + "://" + request.getServerName() +      ":" +   request.getServerPort() +  request.getContextPath();
+						 boolean saved = objUsersDao.saveEmailData(userBean, receipientUser,baseurl,"message_mail");
+						 //String retVal = EmailUtil.sendInterestMail(userBean, receipientUser, request, objContext);
+						 if(saved){
 							 objJson.put("message", "success");
 							 String excaped_text = receipientUser.getMail_content().replaceAll("\r\n", "##newline##");
 							 excaped_text = excaped_text.replaceAll("\t", "##tabspace##");
