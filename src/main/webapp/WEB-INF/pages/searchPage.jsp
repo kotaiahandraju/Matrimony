@@ -21,7 +21,7 @@ margin-bottom:15px;}
              			<div class="col-md-12">
 							<div id="searchresultsDiv" class="bare">
 								<div class="searchresults">
-								    <h3>Your Search Results</h3>
+								    <h4> <span style="font-size:18px;">Your Search Results</span> <span class="pull-right"><input type="checkbox" id="selectAllRequest"> Select All &nbsp; <a onclick="requetAllExpressInterest();" href="#">Send Interest to selected</a></span></h4>
 								    <p><span id="countId">${count}</span> Profiles found <a href="" onclick="modifySearch(event);" style="float:right; font-size:12px; color:#006699;">Modify Search</a></p>
 									<div id="searchResults">
 										
@@ -393,10 +393,12 @@ function displayMatches(listOrders) {
 			mobile_no__str = '<tr id="row'+orderObj.id+'"><td><a href="#" type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</a></td></tr>';
 // 			mobile_no__str = '<tr id="row'+orderObj.id+'"><td><a href="#" type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</a></td></tr>';
 // 			insert_str = '<a href="#" id="expInterest'+orderObj.id+'" type="button" class="btn btn-success btn-sm" onclick="expressInterest('+orderObj.id+')">Yes I\'m interested</a>';
-			 if(expressed==0){
+			var check_box_str = ' yet-to-send"';
+				if(expressed==0){
 				 insert_str = '<span id="expInterest'+orderObj.id+'"><a   href="#no" type="button" class="btn btn-success btn-sm"  onclick="expressInterest('+orderObj.id+')">  Yes I\'m interested  </a></span>';
 				}else if(expressed>0){
 					insert_str = '<span><a type="button" class="btn btn-success btn-sm" disabled="true" style="text-size-adjust:auto">Expressed Interest</a></span>';
+					check_box_str = '" disabled="true"  checked="checked"';
 				}
 			 
 			 var shortListedStr = '<span id="shortlistTD'+orderObj.id+'"><a href="#no" type="button" class="btn btn-warning btn-sm" onclick="shortList('+orderObj.id+')"> Shortlist</a></span>';
@@ -495,7 +497,7 @@ function displayMatches(listOrders) {
 				+ '<h5 class="panel-title">'
 				+ '<div class="form-check">'
 
-				+ '	<label class="form-check-label"> <input type="checkbox" class="form-check-input"> <a href="#" onclick="fullProfile('+orderObj.id+')">'+firstname+' '+lastname+'&nbsp;('+orderObj.username+')</a>&nbsp;'+premiumMember+'</label>'
+				+ '	<label class="form-check-label"> <input type="checkbox" id="chkbox'+orderObj.id+'" class="form-check-input '+check_box_str+'" value="'+orderObj.id+'"> <a href="#" onclick="fullProfile('+orderObj.id+')">'+firstname+' '+lastname+'&nbsp;('+orderObj.username+')</a>&nbsp;'+premiumMember+'</label>'
 				+ '	<span class="pull-right">Created by '+orderObj.createProfileFor+'</span>'
 				//+ '	<label class="form-check-label"> <input type="checkbox" class="form-check-input"> '+orderObj.firstName+' '+orderObj.lastName+'</label>'
 // 				+ '	<span class="pull-right">Created by '+orderObj.createProfileFor+'</span>'
@@ -1694,6 +1696,16 @@ function resetBtnfunction(){
 
 
 	 */
+	 $("#selectAllRequest").on("click", function() {
+			
+// 		 $(".form-check-input").attr('checked', this.checked);
+		 
+		 if ($(this).prop("checked")==true) {
+         $('.yet-to-send').prop('checked', true);
+       } else {
+         $('.yet-to-send').prop('checked', false);
+       }
+	});
 </script>
 
 <%@ include file="userFooter.jsp"%>

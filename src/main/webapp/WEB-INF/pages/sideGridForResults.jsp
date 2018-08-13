@@ -167,7 +167,7 @@ contacted (${cacheGuest.viewedNotContactedCount})</a><br>
       <div class="panel-body">
       <div class="">
       <select name="age_from" id="age_from" style="width:;height:30px;" class="optiondiv" size="1">
-      <option value="">--From---</option>
+      <option value="">-Fr-</option>
       <option value="18">18</option><option value="19">19</option><option value="20">20</option>
       <option value="21">21</option><option value="22">22</option><option value="23">23</option>
       <option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option>
@@ -183,7 +183,7 @@ contacted (${cacheGuest.viewedNotContactedCount})</a><br>
       <option value="64">64</option><option value="65">65</option><option value="66">66</option><option value="67">67</option>
       <option value="68">68</option><option value="69">69</option><option value="70">70</option></select>&nbsp;&nbsp;to&nbsp;&nbsp;
       <select name="age_to" id="age_to" style="width:;height:30px;" class="optiondiv" size="1">
-      <option value="">--To--</option>
+      <option value="">-To-</option>
       <option value="18">18</option><option value="19">19</option>
       <option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option>
       <option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option>
@@ -213,10 +213,10 @@ contacted (${cacheGuest.viewedNotContactedCount})</a><br>
     <div id="collapseFive" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFive">
       <div class="panel-body">
       <div class="" style="padding:5px;">
-      <select name="city" id="city" style="padding:5px;" class="optiondiv multiselect"  multiple="multiple">
-      	<option value="all">--Select City--</option>
+      <select name="city" id="city" style="padding:5px;" class="optiondiv multiselect"   multiple="multiple">
+      	<option value="all" >--Select City--</option>
       
-      </select>&nbsp;&nbsp;<span class="errortext" id="cityerr"></span>&nbsp;&nbsp;<input class="" style="background: rgb(255, 255, 255) none repeat scroll 0% 0%; border-radius: 3px; color: rgb(2, 116, 203); font-weight: normal; font-size: 12px; margin-left: 0px; padding: 5px; margin-top: -2px; border: 1px solid rgb(214, 214, 214); line-height: 16px;cursor:pointer !important;" value="Submit" onclick="submitMore('')" type="button"></div>
+      </select>&nbsp;&nbsp;<span class="errortext" id="cityerr"></span>&nbsp;&nbsp;<input class="" style="background: rgb(255, 255, 255) none repeat scroll 0% 0%; border-radius: 3px; color: rgb(2, 116, 203); font-weight: normal; font-size: 12px; margin:0 50px; margin-left: 0px; padding: 5px; margin-top: -2px; border: 1px solid rgb(214, 214, 214); line-height: 16px;cursor:pointer !important;" value="Submit" onclick="submitMore('')" type="button"></div>
         </div>
     </div>
   </div>

@@ -200,7 +200,7 @@ background:#fff !important;}
 				      <label class="col-md-4 control-label" for="textinput">Community</label>  
 				      <div class="col-md-7">
 				      	<form:select path="rCaste" class="multiSelect" multiple="true">
-				      		<form:option value="" selected="">-- Choose Community --</form:option>
+<%-- 				      		<form:option value="" selected="">-- Choose Community --</form:option> --%>
 <%-- 							<form:options items="${cast}"></form:options> --%>
 						</form:select>
 				      </div>
@@ -432,6 +432,10 @@ $(document).ready(function(){
 	});
 	$("#rCountry").select2({
 	    placeholder: "-- Choose Country --",
+	    allowClear: true
+	});
+	$("#rCity").select2({
+	    placeholder: "-- Choose City --",
 	    allowClear: true
 	});
 	$("#rState").select2({
