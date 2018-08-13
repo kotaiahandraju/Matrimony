@@ -646,13 +646,10 @@ $(".open-button").on("click", function() {
 // 		 $(".form-check-input").attr('checked', this.checked);
 		 
 		 if ($(this).prop("checked")==true) {
-	          $('.form-check-input').prop('checked', true);
-	        } else {
-	          $('.form-check-input').prop('checked', false);
-	        }
-
-
-		
+         $('.yet-to-send').prop('checked', true);
+       } else {
+         $('.yet-to-send').prop('checked', false);
+       }
 	});
 	
 	

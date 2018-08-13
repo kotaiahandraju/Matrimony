@@ -90,7 +90,7 @@ margin-left:10px;
 			<div id="dial1"></div>
 			<div class="col-md-9 products-grid-left">
             	<div class="panel panel-success">
-					<div class="panel-heading">Yet to be viewed profiles</div>
+					<div class="panel-heading">Yet to be viewed profiles<span class="pull-right"><input type="checkbox" id="selectAllRequest"> Select All &nbsp; <a onclick="requetAllExpressInterest();" href="#">Send Interest to selected</a></span></div>
 					<div class="panel-body table-responsive">
 						<form:form commandName="createProfile"  class="form-horizontal" id="searchForm2" name="searchForm2" role="form" method="post">
 						<form:hidden path="id" />
@@ -310,6 +310,19 @@ function showMoreDetails(thisObj){
 	
 	
 }
+
+$("#selectAllRequest").on("click", function() {
+	
+//	 $(".form-check-input").attr('checked', this.checked);
+	 if ($(this).prop("checked")==true) {
+         $('.yet-to-send').prop('checked', true);
+       } else {
+         $('.yet-to-send').prop('checked', false);
+       }
+
+
+	
+});
 
 /* function viewMobileNumber(profile_id){
 	var formData = new FormData();

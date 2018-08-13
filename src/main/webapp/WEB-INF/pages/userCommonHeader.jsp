@@ -434,6 +434,7 @@ tooltip:hover:after {
 									
 			    					$("#chkbox"+this.value).attr("disabled",true);
 			    					$("#expInterest"+this.value).html('<a type="button" class="btn btn-blue btn-sm" disabled="true">Expressed Interest</a>');
+			    					$(this).removeClass("yet-to-send");
 
 			    				});
 			    				allowed_limit = limit;

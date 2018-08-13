@@ -90,7 +90,7 @@ margin-left:10px;
 			<div id="dial1"></div>
 			<div class="col-md-9 products-grid-left">
             	<div class="panel panel-success">
-					<div class="panel-heading">Viewed Not Contacted Profiles</div>
+					<div class="panel-heading">Viewed Not Contacted Profiles <span class="pull-right"><input type="checkbox" id="selectAllRequest"> Select All &nbsp; <a onclick="requetAllExpressInterest();" href="#">Send Interest to selected</a></span> </div>
 					<div class="panel-body table-responsive">
 						<form:form commandName="createProfile"  class="form-horizontal" id="searchForm2" name="searchForm2" role="form" method="post">
 						<form:hidden path="id" />
@@ -698,6 +698,16 @@ $(".open-button").on("click", function() {
 						}
 			});
 	}
+	
+	$("#selectAllRequest").on("click", function() {
+//		 $(".form-check-input").attr('checked', this.checked);
+		 if ($(this).prop("checked")==true) {
+	         $('.yet-to-send').prop('checked', true);
+	       } else {
+	         $('.yet-to-send').prop('checked', false);
+	       }
+	});
+
 	
 </script>
 <%@ include file="userFooter.jsp"%>
