@@ -91,6 +91,7 @@ public class UsersDao extends BaseUsersDao
 							+" (select GROUP_CONCAT(name) from occupation where find_in_set(id,(select rOccupation from vuserrequirement where userId = "+id+"))>0) as rOccupationName, "
 							+" (select GROUP_CONCAT(name) from countries where find_in_set(id,(select rCountry from vuserrequirement where userId = "+id+"))>0) as rCountryName, "
 							+" (select GROUP_CONCAT(name) from state where find_in_set(id,(select rState from vuserrequirement where userId = "+id+"))>0) as rStateName, "
+							+" (select GROUP_CONCAT(name) from city where find_in_set(id,(select rCity from userrequirement where userId = "+id+"))>0) as rCityName, "
 							+" (select h.inches from height h where h.id = (select ur.rHeight from vuserrequirement ur where ur.userId = "+id+")) as rHeightInches, "
 							+" (select h.inches from height h where h.id = (select ur.rHeightTo from vuserrequirement ur where ur.userId = "+id+")) as rHeightToInches, "
 							+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+sessionBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'interest_request') as expressedInterest, "

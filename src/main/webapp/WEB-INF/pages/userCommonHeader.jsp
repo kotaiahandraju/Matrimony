@@ -2211,7 +2211,7 @@ function showSlides(n) {
 															+ "</option>");
 										});
 								$("#rCity").trigger('change.select2');
-								var selected_values = "${createProfile.rCity}";
+								var selected_values = "${profileBean.rCity}";
 							    if(selected_values == "" || selected_values==null){
 							    	$("#rCity").select2({
 							    	    placeholder: "-- Choose City --"
@@ -2343,6 +2343,17 @@ function plusSmallSlides(n,profile_id) {
 				$.each(statesList, function(i, state) {
 					$("#rState").append("<option value="+state.id+" >"+ state.name+"</option>");
 				});
+				$("#rState").trigger('change.select2');
+				var selected_values = "${profileBean.rState}";
+			    if(selected_values == "" || selected_values==null){
+			    	$("#rState").select2({
+			    	    placeholder: "-- Choose State --"
+			    	});
+			    }else{
+			    	
+			        $("#rState").val(selected_values.split(","));
+			    }
+			    $("#rState").trigger('change.select2');
 				
 			});
 			
