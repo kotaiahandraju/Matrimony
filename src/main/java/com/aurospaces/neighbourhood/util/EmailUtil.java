@@ -13,14 +13,21 @@ import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.aurospaces.neighbourhood.bean.ReportsBean;
 import com.aurospaces.neighbourhood.bean.UsersBean;
+import com.aurospaces.neighbourhood.db.dao.UsersDao;
 
 
 public class EmailUtil {
+	
+	@Autowired UsersDao objUsersDao;
+	
 	public String sendEmail(UsersBean objUsersBean,
 			ServletContext objContext, String sMailTo) throws AddressException,
 			MessagingException, IOException {
@@ -312,30 +319,10 @@ public class EmailUtil {
 			return subject;
 	}
 	
-	public static String sendInterestMail(UsersBean senderBean,UsersBean receiverBean,HttpServletRequest request,
+	/*public static String sendInterestMail(UsersBean senderBean,UsersBean receiverBean,HttpServletRequest request,
 			ServletContext objContext) throws AddressException,
 			MessagingException, IOException {
-		String subject = null;
 		
-		Properties prop = new Properties();
-		InputStream input = null;
-		String body = null;
-		try{
-	 
-	        String mailTo = receiverBean.getEmail();
-	        
-//	        -------------------------------------------------------------------------------------------
-			
-			
-	        String propertiespath = objContext.getRealPath("Resources" +File.separator+"DataBase.properties");
-			input = new FileInputStream(propertiespath);
-			prop.load(input);
-			String host = prop.getProperty("host");
-			String port = prop.getProperty("port");
-			String mailFrom = prop.getProperty("usermail");
-			String password = prop.getProperty("mailpassword");
-	        
-			subject = prop.getProperty("interest_mail_subject");
 			subject = subject.replace("_username_", senderBean.getUsername());
 			
 			body = prop.getProperty("interest_mail_body");
@@ -362,22 +349,7 @@ public class EmailUtil {
 			body = body.replace("_bodyimage_", "cid:image3");
 	        String str = body.toString();
 	        	
-	        // inline images
-	        Map<String, String> inlineImages = new HashMap<String, String>();
-//	        inlineImages.put("image1", objContext.getRealPath("images" +File.separator+"telugu.png"));
-	        String sender_img = senderBean.getProfileImage();
-	        if(StringUtils.isNotBlank(sender_img)){
-	        	inlineImages.put("senderimage", objContext.getRealPath(sender_img));
-	        }else{
-	        	inlineImages.put("senderimage", objContext.getRealPath("img" +File.separator+"default.png"));
-	        }
 	        
-	        inlineImages.put("image2", objContext.getRealPath("images" +File.separator+"logo.jpg"));
-	        inlineImages.put("image3", objContext.getRealPath("images" +File.separator+"matri.jpg"));
-	       
-	            EmbeddedImageEmailUtil.send(host, port, mailFrom, password, mailTo,
-	                subject, body.toString(), inlineImages);
-	            System.out.println("Email sent.");
 	            String mobileNum = receiverBean.getMobile();
 	            try{
 					   String response = SendSMS.sendSMS("Dear "  +receiverBean.getFirstName()+ " "+receiverBean.getLastName()+","+"\n"+senderBean.getFirstName()+" "+senderBean.getLastName()+""+"("+senderBean.getUsername()+")"+" send a Message..\n \n "+receiverBean.getMail_content()+""+" \n \n Wishing You the best life partner \n Team - AarnaMatrimony", mobileNum);
@@ -397,12 +369,11 @@ public class EmailUtil {
 	            
 	            
 	        } catch (Exception ex) {
-	            System.out.println("Could not send email.");
 	            ex.printStackTrace();
 	            return null;
 	        }
 			return subject;
-	}
+	}*/
 	
 	public static String sendExpressInterestToMail(UsersBean senderBean,UsersBean receiverBean,HttpServletRequest request,
 			ServletContext objContext) throws AddressException,
@@ -892,6 +863,79 @@ try{
         return "Mail sent filed";
     }
 }
-	
-}
+	   public String sendEmails(HttpSession session,HttpServletRequest request,ServletContext objContext,UsersDao objUsersDao){
+		    String subject = null;
+			Properties prop = new Properties();
+			InputStream input = null;
+			String body = null;
+			try{
+		    String propertiespath = objContext.getRealPath("Resources" +File.separator+"DataBase.properties");
+			input = new FileInputStream(propertiespath);
+			// load the properties file
+			prop.load(input);
+			String host = prop.getProperty("host");
+			String port = prop.getProperty("port");
+			String mailFrom = prop.getProperty("usermail");
+			String password = prop.getProperty("mailpassword");
 			
+				   List<Map<String,Object>> emailEntriesList = objUsersDao.getEmailEntriesToSend();//"select * from messages where status = '0'");
+				   for(Map<String,Object> emailEntry:emailEntriesList){
+					   try{
+					   String mailTo = (String)emailEntry.get("receiver_email");
+					   subject = prop.getProperty(emailEntry.get("type")+"_subject");
+					   subject = subject.replace("_username_", (String)emailEntry.get("sender_display_name"));
+		
+					   if(((String)emailEntry.get("type")).equalsIgnoreCase("message_mail")){
+						   body = prop.getProperty("message_mail_body"); 
+						   body = body.replace("_content_", (String)emailEntry.get("mail_content"));
+					   }else{
+						   body = prop.getProperty("mail_body");  
+					   }
+					   
+					   body = body.replace("_senderdisplayname_", (String)emailEntry.get("sender_display_name"));
+					   body = body.replace("_shortstr_", (String)emailEntry.get("shortstr"));
+					   
+					   body = body.replace("_receiverdisplayname_", (String)emailEntry.get("receiver_display_name"));
+					   body = body.replace("_senderdetails_", (String)emailEntry.get("sender_details"));
+					   
+					   body = body.replace("_fullprofilelink_", (String)emailEntry.get("full_profile_action_url"));
+					   
+					   body = body.replace("_senderphoto_", "cid:senderimage");
+					   body = body.replace("_img_", "cid:image2");
+						body = body.replace("_bodyimage_", "cid:image3");
+						String str = body.toString();
+			        	
+				        // inline images
+				        Map<String, String> inlineImages = new HashMap<String, String>();
+		//		        inlineImages.put("image1", objContext.getRealPath("images" +File.separator+"telugu.png"));
+				        String sender_img = (String)emailEntry.get("sender_image");
+				        if(StringUtils.isNotBlank(sender_img)){
+				        	inlineImages.put("senderimage", objContext.getRealPath(sender_img));
+				        }else{
+				        	inlineImages.put("senderimage", objContext.getRealPath("img" +File.separator+"default.png"));
+				        }
+				        
+				        inlineImages.put("image2", objContext.getRealPath("images" +File.separator+"logo.jpg"));
+				        inlineImages.put("image3", objContext.getRealPath("images" +File.separator+"matri.jpg"));
+				       
+				            EmbeddedImageEmailUtil.send(host, port, mailFrom, password, mailTo,
+				                subject, body.toString(), inlineImages);
+				            // update corresponding entry status in the mails table
+				            objUsersDao.updateEmailDeliveryStatus((Integer)emailEntry.get("id"),"1");
+		            		            
+		            
+		        }catch (Exception ex) {
+					objUsersDao.updateEmailDeliveryStatus((Integer)emailEntry.get("id"),"2");
+		           // System.out.println("Could not send email.");
+		            ex.printStackTrace();
+		            return null;
+		        }
+			}
+				return "";
+			}catch (Exception ex) {
+	            //System.out.println("Could not send email.");
+	            ex.printStackTrace();
+	            return null;
+	        }
+	   }
+}
