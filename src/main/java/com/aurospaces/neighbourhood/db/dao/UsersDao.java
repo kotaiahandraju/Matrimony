@@ -4646,11 +4646,20 @@ public boolean deletePhoto(String photoId){
 		// url formation
 		String actionUrl = baseurl+"/users/fullProfile?un="+receiverBean.getUsername()+"&pun="+senderBean.getUsername()+"&suc="+receiverBean.getUnique_code()+"&puc="+senderBean.getUnique_code();
 		String sender_image = this.getProfilePicture(senderBean.getId());
-		
+		String short_str = "";
+		if(mail_type.equalsIgnoreCase("shortlisted")){
+			short_str = " shortlisted your profile";
+		}else if(mail_type.equalsIgnoreCase("message_mail")){
+			short_str = " sent you a personal message";
+		}else if(mail_type.equalsIgnoreCase("profileviewed")){
+			short_str = " viewed your profile";
+		}else if(mail_type.equalsIgnoreCase("interestrequest")){
+			short_str = " sent you an interest";
+		}
 		try{
 			
-			StringBuffer buffer = new StringBuffer(" insert into emails_data(sender_user_id,receiver_user_id,sender_email,sender_details,sender_display_name,receiver_display_name,receiver_email,mail_content,status,type,full_profile_action_url,sender_image,created_on) "
-								+ "	values("+senderBean.getId()+","+receiverBean.getId()+",'"+senderBean.getEmail()+"','"+sender_details.toString()+"','"+senderBean.getFirstName()+" "+senderBean.getLastName()+" ("+senderBean.getUsername()+")','"+receiverBean.getFirstName()+" "+receiverBean.getLastName()+" ("+receiverBean.getUsername()+")','"+receiverBean.getEmail()+"','"+receiverBean.getMail_content()+"','0','"+mail_type+"','"+actionUrl+"','"+sender_image+"',current_timestamp())");
+			StringBuffer buffer = new StringBuffer(" insert into emails_data(sender_user_id,receiver_user_id,sender_email,sender_details,sender_display_name,receiver_display_name,receiver_email,mail_content,status,type,full_profile_action_url,sender_image,shortstr,created_on) "
+								+ "	values("+senderBean.getId()+","+receiverBean.getId()+",'"+senderBean.getEmail()+"','"+sender_details.toString()+"','"+senderBean.getFirstName()+" "+senderBean.getLastName()+" ("+senderBean.getUsername()+")','"+receiverBean.getFirstName()+" "+receiverBean.getLastName()+" ("+receiverBean.getUsername()+")','"+receiverBean.getEmail()+"','"+receiverBean.getMail_content()+"','0','"+mail_type+"','"+actionUrl+"','"+sender_image+"','"+short_str+"',current_timestamp())");
 			int inserted_count = jdbcTemplate.update(buffer.toString());
 			if(inserted_count==1){
 				return true;
@@ -4675,7 +4684,7 @@ public boolean deletePhoto(String photoId){
 		return list;
 	}
 	
-	public boolean updateEmailDeliveryStatus(String id,String status){
+	public boolean updateEmailDeliveryStatus(int id,String status){
 		jdbcTemplate = custom.getJdbcTemplate();
 		
 		try{
