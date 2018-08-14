@@ -714,12 +714,18 @@ function searchSubmit(){
 	var rPeople= $('#rPeople').val();
 	var rAgeFrom= $('#rAgeFrom').val();
 	var rAgeTo= $("#rAgeTo").val();
+	var religion= $('#religionId').val();
+	var castId= $('#castId').val();
+	if(rPeople == "" && rAgeFrom == "" && rAgeTo == "" && religion == "" && castId == ""){
+		alert("Please provide any input.");
+		return false;
+	}
 	if(rAgeFrom > rAgeTo){
 		alert("Sorry, Invalid Age range");
 		return false;
 	}
     if(rPeople == ""){
-	alert("Are You Looking For...");
+	alert("You are looking for?");
 	return false;
 	}
     else
@@ -729,8 +735,7 @@ function searchSubmit(){
 	var people= $('#rPeople').val();
 	var rAgeFrom= $('#rAgeFrom').val();
 	var rAgeTo= $("#rAgeTo").val();
-	var religion= $('#religionId').val();
-	var castId= $('#castId').val();
+	
 	var gender="";
        	if(people != $('#id2').val() ){
        		gender="Female";
@@ -749,6 +754,7 @@ function searchSubmit(){
 			formData, false, 'text', function(data){
 		var jsonobj = $.parseJSON(data);
 		var alldata = jsonobj.searchListOrders;
+		$("#searchResults").html('');
 		displaydata(alldata);
 		$('#myModal').modal('show');
 	});
@@ -773,6 +779,10 @@ function displaydata(data) {
 		if(typeof highlight_option != "undefined" && highlight_option=='1'){
 			profile_highlisht_str = '<div class="panel panel-default" style="background-color:skyblue">';
 		}
+		var image = orderObj.profileImage;
+		if(typeof image == "undefined" || image=="" || image==null){
+			image = "img/default.png";
+		}
 		var tblRow = profile_highlisht_str
 		+ '<div class="panel-heading">'
 		+ '<h5 class="panel-title" style="text-align:left;">'
@@ -781,19 +791,19 @@ function displaydata(data) {
 		+ '</div>'
 		+ '<div class="panel-body">'
 		+ '<div class="col-md-2">' 
-		+ '<a href="#" onclick="regFunction()">  <img src="img/default.png" class="img img-responsive thumbnail " style="margin-bottom:0;height: auto;width: 100%;"></a>'
+		+ '<a href="#" onclick="regFunction()">  <img src="'+image+'" class="img img-responsive thumbnail " style="margin-bottom:0;height: auto;width: 100%;"></a>'
     	+ '</div>'
     	 + '<div class="col-md-4">'
      	 + '<h2 style="margin-top:10px;" class="pull-right"><a href="#" data-toggle="tooltip" data-placement="bottom" title="View Mobile Number" ><img style="margin-top:-10px;" > &nbsp;</a></h2></span><div class="clearfix"></div><blockquote style="min-height:100px; max-height:120px; "><p>'+orderObj.About+'</p><br><a href="#" onclick="regFunction()"><p style="float:right;">...more</p></a></blockquote>'
      	+ '</div>' 
      	+  '<div class="col-md-1"></div>'
     	+ '<div class="col-md-5">'
-		+ '<table><tbody><tr><td width="150px">Age</td><td><span>: '+orderObj.age+'yrs</span></td></tr>'
+		+ '<table><tbody><tr><td width="150px">Age</td><td><span>: '+orderObj.age+' yrs</span></td></tr>'
 		+ '<tr><td>Religion</td><td><span>: '+orderObj.religionName+'</span></td></tr>'	
 		+ '<tr><td>Community</td><td><span>: '+orderObj.castName+'</span></td></tr>'
 		+ '<tr><td>Location</td><td><span>: '+orderObj.cityName+'</span></td></tr>'
 		+ '<tr><td>Education</td><td><span>: '+orderObj.Education+'</span></td></tr>'
-		+ '<tr><td>Profession</td><td><span>: '+orderObj.Profession+'</span></td></tr></tbody></table>'
+		+ '<tr><td>Profession</td><td><span>: '+orderObj.Proffession+'</span></td></tr></tbody></table>'
     	+ ' <a href="#" onclick="regFunction()"><button class="btn btn-warning">View Full Profile</button></a>'
     	+ '</div>'
     	+ '</div>' 
