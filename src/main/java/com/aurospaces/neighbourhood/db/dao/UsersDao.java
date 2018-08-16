@@ -4642,24 +4642,64 @@ public boolean deletePhoto(String photoId){
 	
 	public boolean saveEmailData(UsersBean senderBean, UsersBean receiverBean,String baseurl,String mail_type){
 		jdbcTemplate = custom.getJdbcTemplate();
-		StringBuffer sender_details = new StringBuffer(senderBean.getAge()+" Yrs, "+senderBean.getHeight()+" Ft, "+senderBean.getReligionName()+", "+senderBean.getCasteName()+", <br> Location: "+senderBean.getCurrentCityName()+", <br> Education : "+senderBean.getEducationName()+", <br> Occupation : "+senderBean.getOccupationName()+" ");
+		if(senderBean==null) {
+			senderBean = new UsersBean();
+		}
+		StringBuffer sender_details = new StringBuffer();//senderBean.getAge()+" Yrs, "+senderBean.getHeight()+" Ft, "+senderBean.getReligionName()+", "+senderBean.getCasteName()+", <br> Location: "+senderBean.getCurrentCityName()+", <br> Education : "+senderBean.getEducationName()+", <br> Occupation : "+senderBean.getOccupationName()+" ");
+		StringBuffer receiver_email = new StringBuffer();
+		StringBuffer receiver_password = new StringBuffer();
 		// url formation
-		String actionUrl = baseurl+"/users/fullProfile?un="+receiverBean.getUsername()+"&pun="+senderBean.getUsername()+"&suc="+receiverBean.getUnique_code()+"&puc="+senderBean.getUnique_code();
-		String sender_image = this.getProfilePicture(senderBean.getId());
+		String actionUrl = "";
+		String sender_image = "";
 		String short_str = "";
+		String emailVerifylink="";
 		if(mail_type.equalsIgnoreCase("shortlisted")){
 			short_str = " shortlisted your profile";
+			sender_details.append(senderBean.getAge()+" Yrs, "+senderBean.getHeight()+" Ft, "+senderBean.getReligionName()+", "+senderBean.getCasteName()+", <br> Location: "+senderBean.getCurrentCityName()+", <br> Education : "+senderBean.getEducationName()+", <br> Occupation : "+senderBean.getOccupationName()+" ");
+			actionUrl = baseurl+"/users/fullProfile?un="+receiverBean.getUsername()+"&pun="+senderBean.getUsername()+"&suc="+receiverBean.getUnique_code()+"&puc="+senderBean.getUnique_code();
+			sender_image = this.getProfilePicture(senderBean.getId());
 		}else if(mail_type.equalsIgnoreCase("message_mail")){
 			short_str = " sent you a personal message";
+			sender_details.append(senderBean.getAge()+" Yrs, "+senderBean.getHeight()+" Ft, "+senderBean.getReligionName()+", "+senderBean.getCasteName()+", <br> Location: "+senderBean.getCurrentCityName()+", <br> Education : "+senderBean.getEducationName()+", <br> Occupation : "+senderBean.getOccupationName()+" ");
+			actionUrl = baseurl+"/users/fullProfile?un="+receiverBean.getUsername()+"&pun="+senderBean.getUsername()+"&suc="+receiverBean.getUnique_code()+"&puc="+senderBean.getUnique_code();
+			sender_image = this.getProfilePicture(senderBean.getId());
 		}else if(mail_type.equalsIgnoreCase("profileviewed")){
 			short_str = " viewed your profile";
+			sender_details.append(senderBean.getAge()+" Yrs, "+senderBean.getHeight()+" Ft, "+senderBean.getReligionName()+", "+senderBean.getCasteName()+", <br> Location: "+senderBean.getCurrentCityName()+", <br> Education : "+senderBean.getEducationName()+", <br> Occupation : "+senderBean.getOccupationName()+" ");
+			actionUrl = baseurl+"/users/fullProfile?un="+receiverBean.getUsername()+"&pun="+senderBean.getUsername()+"&suc="+receiverBean.getUnique_code()+"&puc="+senderBean.getUnique_code();
+			sender_image = this.getProfilePicture(senderBean.getId());
 		}else if(mail_type.equalsIgnoreCase("interestrequest")){
-			short_str = " sent you an interest";
+			short_str = " sent you an interest";					////////
+			sender_details.append(senderBean.getAge()+" Yrs, "+senderBean.getHeight()+" Ft, "+senderBean.getReligionName()+", "+senderBean.getCasteName()+", <br> Location: "+senderBean.getCurrentCityName()+", <br> Education : "+senderBean.getEducationName()+", <br> Occupation : "+senderBean.getOccupationName()+" ");
+			actionUrl = baseurl+"/users/fullProfile?un="+receiverBean.getUsername()+"&pun="+senderBean.getUsername()+"&suc="+receiverBean.getUnique_code()+"&puc="+senderBean.getUnique_code();
+			sender_image = this.getProfilePicture(senderBean.getId());
+		
+		
+		}else if(mail_type.equalsIgnoreCase("welcome_mail")){
+			short_str = " Find Your Match Now";
+			
+		}else if(mail_type.equalsIgnoreCase("user_registered")){				
+			short_str = " Dear  Admin";
+		}else if(mail_type.equalsIgnoreCase("active_profile_mail")){
+			short_str = "Your Profile is Active Now";
+		}else if(mail_type.equalsIgnoreCase("admin_send_password")){
+			short_str = "admin send password";
+			receiver_password.append(receiverBean.getPassword());
+		}else if(mail_type.equalsIgnoreCase("admin_reset_password")){
+			short_str = "admin reset password";
+			receiver_password.append(receiverBean.getPassword());
+		}else if(mail_type.equalsIgnoreCase("change_password")){
+			short_str = "change password";
+		}else if(mail_type.equalsIgnoreCase("forgot_password")){
+			short_str = "forgot password";
+		}else if(mail_type.equalsIgnoreCase("emailVerify_mail")){
+			short_str = "emailVerify  mail";
+			emailVerifylink = baseurl+"/users/emailvarificationlink?email="+receiverBean.getEmail()+"&code="+receiverBean.getUnique_code();
 		}
 		try{
 			
-			StringBuffer buffer = new StringBuffer(" insert into emails_data(sender_user_id,receiver_user_id,sender_email,sender_details,sender_display_name,receiver_display_name,receiver_email,mail_content,status,type,full_profile_action_url,sender_image,shortstr,created_on) "
-								+ "	values("+senderBean.getId()+","+receiverBean.getId()+",'"+senderBean.getEmail()+"','"+sender_details.toString()+"','"+senderBean.getFirstName()+" "+senderBean.getLastName()+" ("+senderBean.getUsername()+")','"+receiverBean.getFirstName()+" "+receiverBean.getLastName()+" ("+receiverBean.getUsername()+")','"+receiverBean.getEmail()+"','"+receiverBean.getMail_content()+"','0','"+mail_type+"','"+actionUrl+"','"+sender_image+"','"+short_str+"',current_timestamp())");
+			StringBuffer buffer = new StringBuffer(" insert into emails_data(sender_user_id,receiver_user_id,sender_email,sender_details,sender_display_name,receiver_display_name,sender_user_name,receiver_user_name,receiver_email,mail_content,status,type,full_profile_action_url,sender_image,receiver_password,shortstr,emailVerifylink,created_on) "
+								+ "	values("+senderBean.getId()+","+receiverBean.getId()+",'"+senderBean.getEmail()+"','"+sender_details.toString()+"','"+senderBean.getFirstName()+" "+senderBean.getLastName()+" ("+senderBean.getUsername()+")','"+receiverBean.getFirstName()+" "+receiverBean.getLastName()+" ("+receiverBean.getUsername()+")','"+senderBean.getUsername()+"','"+receiverBean.getUsername()+"','"+receiverBean.getEmail()+"','"+receiverBean.getMail_content()+"','0','"+mail_type+"','"+actionUrl+"','"+sender_image+"','"+receiver_password+"','"+short_str+"','"+emailVerifylink+"',current_timestamp())");
 			int inserted_count = jdbcTemplate.update(buffer.toString());
 			if(inserted_count==1){
 				return true;
@@ -4675,7 +4715,7 @@ public boolean deletePhoto(String photoId){
 		List<Map<String,Object>> list = null;
 		try{
 			
-			String  qry = " select * from emails_data where status = '0' "; // 0 means yet to send email
+			String  qry = " select *,DATE_FORMAT(created_on, '%d-%M-%Y') as created_on from emails_data where status = '0' "; // 0 means yet to send email
 			list = jdbcTemplate.queryForList(qry);
 			return list;
 		}catch (Exception e) {

@@ -214,7 +214,10 @@ public class FilterController {
 				if (delete) {
 					jsonObj.put("message", "Success");
 					EmailUtil EmailUtil=new EmailUtil();
-					EmailUtil.sendActiveProfileMail(usersBean,objContext);
+//					EmailUtil.sendActiveProfileMail(usersBean,objContext);
+					String baseurl =  request.getScheme() + "://" + request.getServerName() +      ":" +   request.getServerPort() +  request.getContextPath();
+					objUsersDao.saveEmailData(null, usersBean, baseurl, "active_profile_mail");
+					
 				} else {
 					jsonObj.put("message", "Faile");
 				}
@@ -339,7 +342,9 @@ public class FilterController {
 			updated = objUsersDao.updatePassword(objUsersBean);
 			try {
 				EmailUtil emailUtil = new EmailUtil();
-				emailUtil.sendResetPasswordEmail(objUsersBean, objContext, "admin_reset_password");
+//				emailUtil.sendResetPasswordEmail(objUsersBean, objContext, "admin_reset_password");
+				String baseurl =  request.getScheme() + "://" + request.getServerName() +      ":" +   request.getServerPort() +  request.getContextPath();
+				objUsersDao.saveEmailData(null, objUsersBean, baseurl, "admin_reset_password");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

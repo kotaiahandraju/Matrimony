@@ -242,7 +242,10 @@ public class CreateProfileController {
 				try {
 					EmailUtil emailUtil = new EmailUtil();
 					if(StringUtils.isNotBlank(objUsersBean.getEmail())){
-						emailUtil.sendEmail(objUsersBean, objContext, "admin_send_password");
+//						emailUtil.sendEmail(objUsersBean, objContext, "admin_send_password");
+						
+						String baseurl =  request.getScheme() + "://" + request.getServerName() +      ":" +   request.getServerPort() +  request.getContextPath();
+						objUsersDao.saveEmailData(null, objUsersBean, baseurl, "admin_send_password");
 					}
 				} catch (Exception e) {
 					e.printStackTrace();

@@ -28,7 +28,7 @@ public class EmailUtil {
 	
 	@Autowired UsersDao objUsersDao;
 	
-	public String sendEmail(UsersBean objUsersBean,
+	/*public String sendEmail(UsersBean objUsersBean,
 			ServletContext objContext, String sMailTo) throws AddressException,
 			MessagingException, IOException {
 		String subject = null;
@@ -78,7 +78,7 @@ public class EmailUtil {
 	        }
 			return subject;
 	}
-	
+	*/
 	public String sendResetPasswordEmail(UsersBean objUsersBean,
 			ServletContext objContext, String mailType) throws AddressException,
 			MessagingException, IOException {
@@ -687,6 +687,8 @@ public class EmailUtil {
 			body = body.replace("_img4_", "cid:img4");
 			body = body.replace("_img5_", "cid:img5");
 			
+			
+			
 	 
 	        // inline images
 	        Map<String, String> inlineImages = new HashMap<String, String>();
@@ -888,7 +890,50 @@ try{
 					   if(((String)emailEntry.get("type")).equalsIgnoreCase("message_mail")){
 						   body = prop.getProperty("message_mail_body"); 
 						   body = body.replace("_content_", (String)emailEntry.get("mail_content"));
-					   }else{
+						   
+					   }else if (((String)emailEntry.get("type")).equalsIgnoreCase("welcome_mail")){
+						   body = prop.getProperty("welcome_mail_body"); 
+					   }/*else if(((String)emailEntry.get("type")).equalsIgnoreCase("user_registered")){
+						   body = prop.getProperty("user_registered_body"); 
+					   }*/else if(((String)emailEntry.get("type")).equalsIgnoreCase("active_profile_mail")) {
+						   body = prop.getProperty("active_profile_mail_body"); 
+					   }else if(((String)emailEntry.get("type")).equalsIgnoreCase("admin_send_password")) {
+						    body = prop.getProperty("admin_send_password");
+							body = body.replace("_useremail_",  (String)emailEntry.get("receiver_email"));
+							body = body.replace("_password_", (String)emailEntry.get("receiver_password"));
+					   }else if(((String)emailEntry.get("type")).equalsIgnoreCase("admin_reset_password")) {
+				        	subject = prop.getProperty("admin_reset_password_subject");
+							body = prop.getProperty("admin_reset_password_body");
+							
+//							body = body.replace("_username_",(String)emailEntry.get("receiver_user_name"));
+							body = body.replace("_password_",(String)emailEntry.get("receiver_password"));
+							
+				        }else if(((String)emailEntry.get("type")).equalsIgnoreCase("change_password")){
+				        	subject = prop.getProperty("change_password_subject");
+							body = prop.getProperty("change_password_body");
+							
+//							body = body.replace("_name_",objUsersBean.getFirstName()+" "+objUsersBean.getLastName());
+//							//body = body.replace("_username_", objUsersBean.getUsername());
+							body = body.replace("_email_",  (String)emailEntry.get("receiver_email"));
+							body = body.replace("_dateandtime_",(String)emailEntry.get("created_on"));    
+							
+				        }else if(((String)emailEntry.get("type")).equalsIgnoreCase("change_password")){
+				        	subject = prop.getProperty("change_password_subject");
+							body = prop.getProperty("change_password_body");
+							
+//							body = body.replace("_name_",objUsersBean.getFirstName()+" "+objUsersBean.getLastName());
+//							//body = body.replace("_username_", objUsersBean.getUsername());
+							body = body.replace("_email_",  (String)emailEntry.get("receiver_email"));
+							body = body.replace("_dateandtime_",(String)emailEntry.get("created_on"));    
+							
+				        }else if(((String)emailEntry.get("type")).equalsIgnoreCase("emailVerify_mail")){
+				        	subject = prop.getProperty("emailVerify_mail_subject");
+							body = prop.getProperty("forgot_password_body");
+							
+					       body = body.replace("_link_",(String)emailEntry.get("emailVerifylink"));  
+//					       body = body.replace("_customer_", objUsersBean.getFirstName()+" "+objUsersBean.getLastName());
+				       
+				        }else {
 						   body = prop.getProperty("mail_body");  
 					   }
 					   
@@ -897,12 +942,19 @@ try{
 					   
 					   body = body.replace("_receiverdisplayname_", (String)emailEntry.get("receiver_display_name"));
 					   body = body.replace("_senderdetails_", (String)emailEntry.get("sender_details"));
+					   body = body.replace("_dateandtime_", (String)emailEntry.get("created_on"));
+//					    
 					   
 					   body = body.replace("_fullprofilelink_", (String)emailEntry.get("full_profile_action_url"));
 					   
 					   body = body.replace("_senderphoto_", "cid:senderimage");
 					   body = body.replace("_img_", "cid:image2");
 						body = body.replace("_bodyimage_", "cid:image3");
+						body = body.replace("_img1_", "cid:img1");
+						body = body.replace("_img2_", "cid:img2");
+						body = body.replace("_img3_", "cid:img3");
+						body = body.replace("_img4_", "cid:img4");
+						body = body.replace("_img5_", "cid:img5");
 						String str = body.toString();
 			        	
 				        // inline images
@@ -914,10 +966,13 @@ try{
 				        }else{
 				        	inlineImages.put("senderimage", objContext.getRealPath("img" +File.separator+"default.png"));
 				        }
-				        
 				        inlineImages.put("image2", objContext.getRealPath("images" +File.separator+"logo.jpg"));
 				        inlineImages.put("image3", objContext.getRealPath("images" +File.separator+"matri.jpg"));
-				       
+				        inlineImages.put("img1", objContext.getRealPath("images" +File.separator+"img1.jpg"));
+				        inlineImages.put("img2", objContext.getRealPath("images" +File.separator+"img2.jpg"));
+				        inlineImages.put("img3", objContext.getRealPath("images" +File.separator+"img3.jpg"));
+				        inlineImages.put("img4", objContext.getRealPath("images" +File.separator+"img4.jpg"));
+				        inlineImages.put("img5", objContext.getRealPath("images" +File.separator+"img5.jpg"));
 				            EmbeddedImageEmailUtil.send(host, port, mailFrom, password, mailTo,
 				                subject, body.toString(), inlineImages);
 				            // update corresponding entry status in the mails table
