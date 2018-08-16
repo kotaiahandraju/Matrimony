@@ -323,7 +323,7 @@ color:#000;
 					</div>
 
 				</div>
-				<div class="panel panel-success">
+				<div class="panel panel-success" id="preferred_div">
 					<div class="panel-heading">Preferred Profiles </div>
 		            <form:form commandName="createProfile"  class="form-horizontal" id="searchForm2" name="searchForm2" role="form"   method="post">
 	             		<form:hidden path="id" />
@@ -331,7 +331,7 @@ color:#000;
 	             		
 							
 							</div>
-							<div class=""panel-footer">	<div align="center" style="padding:5px;"><a class="btn btn-primary" href="allPreferredProfiles">View all</a></div></div>
+							<div class=""panel-footer" id="preferred_viewall">	<div align="center" style="padding:5px;"><a class="btn btn-primary" href="allPreferredProfiles">View all</a></div></div>
 						</form:form>
 				</div>
 				<!-- <div id="pagination_div" style="font-size: 12px; margin-bottom:8px;">
@@ -469,12 +469,16 @@ function displayMatches(listOrders) {
 	$('#matches').html('');
 	serviceUnitArray = {};
 	if(listOrders==""){
-		var tblRow = '<div>No matches found.</div>';
-		$(tblRow).appendTo("#matches"); 
+		//var tblRow = '<div>No matches found.</div>';
+		//$(tblRow).appendTo("#matches"); 
+		$("#preferred_div").prop("hidden",true);
 		$("#pagination_div").prop("hidden",true);
+		$("#preferred_viewall").prop("hidden",true);
 	}
 	$.each(listOrders,function(i, orderObj) 
 	{
+		$("#preferred_div").removeAttr("hidden");
+		$("#preferred_viewall").removeAttr("hidden");
 		paginationSetup(total_items_count);
 		$("#altLists").asPaginator('enable');
 		$("#pagination_div").removeAttr("hidden");

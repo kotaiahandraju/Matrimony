@@ -863,11 +863,12 @@ try{
         return "Mail sent filed";
     }
 }
-	   public String sendEmails(HttpSession session,HttpServletRequest request,ServletContext objContext,UsersDao objUsersDao){
+	   public static String sendEmails(ServletContext objContext,UsersDao objUsersDao){
 		    String subject = null;
 			Properties prop = new Properties();
 			InputStream input = null;
 			String body = null;
+			System.out.println("##########.");
 			try{
 		    String propertiespath = objContext.getRealPath("Resources" +File.separator+"DataBase.properties");
 			input = new FileInputStream(propertiespath);
@@ -882,8 +883,9 @@ try{
 				   for(Map<String,Object> emailEntry:emailEntriesList){
 					   try{
 					   String mailTo = (String)emailEntry.get("receiver_email");
-					   subject = prop.getProperty(emailEntry.get("type")+"_subject");
-					   subject = subject.replace("_username_", (String)emailEntry.get("sender_display_name"));
+					   //subject = prop.getProperty(emailEntry.get("type")+"_subject");
+					   //subject = subject.replace("_username_", (String)emailEntry.get("sender_display_name"));
+					   subject =  (String)emailEntry.get("sender_display_name")+(String)emailEntry.get("shortstr");
 		
 					   if(((String)emailEntry.get("type")).equalsIgnoreCase("message_mail")){
 						   body = prop.getProperty("message_mail_body"); 
@@ -920,9 +922,10 @@ try{
 				       
 				            EmbeddedImageEmailUtil.send(host, port, mailFrom, password, mailTo,
 				                subject, body.toString(), inlineImages);
+				            System.out.println("Email sent.");
 				            // update corresponding entry status in the mails table
 				            objUsersDao.updateEmailDeliveryStatus((Integer)emailEntry.get("id"),"1");
-		            		            
+				            System.out.println("updated status.");        
 		            
 		        }catch (Exception ex) {
 					objUsersDao.updateEmailDeliveryStatus((Integer)emailEntry.get("id"),"2");

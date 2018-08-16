@@ -625,12 +625,12 @@ public class LoginController {
 			return "successStory";
 		}
 	   
-	   /*****     back-end jobs    start       ********/
+	   /*****     back-end jobs    start       ********//*
 	   @RequestMapping(value="/weeklyMatchEmails")
 	   public String weeklyMatchEmails(HttpSession session,HttpServletRequest request){
-		   /*UsersBean userSessionBean = (UsersBean) session.getAttribute("cacheGuest");
+		   UsersBean userSessionBean = (UsersBean) session.getAttribute("cacheGuest");
 		   if(userSessionBean==null)
-			   return "redirect:HomePage";*/
+			   return "redirect:HomePage";
 		   List<Map<String,Object>> activeProfilesList = objUsersDao.getAllSubscribedUsersForWeeklyMatchEmails();
 		   for(Map<String,Object> profile:activeProfilesList){
 			   UsersBean receiverBean = new UsersBean();
@@ -652,9 +652,9 @@ public class LoginController {
 	   }
 	   
 	 
-	   /*****     Not required in current release -- as per client      ************/
+	   *//*****     Not required in current release -- as per client      ************//*
 	   
-	   /*@RequestMapping(value="/dailyMatchEmails")
+	   @RequestMapping(value="/dailyMatchEmails")
 	   public String dailyMatchEmails(HttpSession session,HttpServletRequest request){
 		   List<Map<String,Object>> activeProfilesList = objUsersDao.getAllSubscribedUsersForDailyMatchEmails();
 		   for(Map<String,Object> profile:activeProfilesList){
@@ -674,12 +674,12 @@ public class LoginController {
 		   }
 		   
 		   return "";
-	   }*/
+	   }
 	   
-	   /*
+	   
 	    * 
 	    * checks the validity of each paid member and updates his status accordingly
-	    */
+	    
 	   @RequestMapping(value="/checkMembershipValidity")
 	   public void checkMembershipValidity(HttpSession session,HttpServletRequest request){
 		   
@@ -689,9 +689,9 @@ public class LoginController {
 		   
 		   
 	   }
-	   /*
+	   
 	    * Total profiles list should be divided equally  among all the employees of aarna matrimony
-	    */
+	    
 	   @RequestMapping(value="/splitProfilesToEmployees")
 	   public String splitProfilesToEmployees(HttpSession session,HttpServletRequest request){
 		   try{
@@ -714,10 +714,10 @@ public class LoginController {
 		   return "";
 	   }
 	   
-	   /*
+	   
 	    * To rotate the profiles_slots  among the employees...this script runs every month end.
 	    * Before running this URL..run 'splitProfilesToEmployees' URL
-	    */
+	    
 	   @RequestMapping(value="/rotateEmployeesProfilesSlot")
 	   public String rotateEmployeesProfilesSlot(HttpSession session,HttpServletRequest request){
 		   try{
@@ -731,9 +731,9 @@ public class LoginController {
 		   return "";
 	   }
 	   
-	   /*
+	   
 	    * 
-	    */
+	    
 	   @RequestMapping(value="/createActivityLogDataForOldReqs")
 	   public String createActivityLogDataForOldReqs(HttpSession session,HttpServletRequest request){
 		   try{
@@ -827,6 +827,6 @@ public class LoginController {
 		   new EmailUtil().sendEmails(session, request, objContext,objUsersDao);
 		   return "";
 	   }
-	   
+	   */
 	   /*****     back-end jobs   end        ********/
 }
