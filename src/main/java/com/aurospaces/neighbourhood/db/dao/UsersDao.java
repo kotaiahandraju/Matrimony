@@ -691,6 +691,8 @@ public class UsersDao extends BaseUsersDao
 						buffer.append("insert into users_activity_log(created_time,activity_type,act_done_by_user_id,act_done_on_user_id) "
 								+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','profile_viewed',"+objUserBean.getId()+","+profileId+")");
 						inserted_count = jdbcTemplate.update(buffer.toString());
+					}else{
+						inserted_count = 1;
 					}
 					
 						// also make an entry in notifications table
@@ -4447,7 +4449,15 @@ public boolean deletePhoto(String photoId){
 
 		jdbcTemplate = custom.getJdbcTemplate();
 		StringBuffer buffer = new StringBuffer();
-		buffer.append("select u.id ,u.gender,ur.rAgeFrom,ur.rAgeTo,u.firstName,u.lastName,u.age,u.aboutMyself as About,u.createProfileFor,c.name as castName,ct.name as cityName,rl.name as religionName,ed.name as Education,u. workingWith as Proffession, u.annualIncome as Income from users u,userrequirement ur,cast c,city ct,religion rl,education ed where u.gender='"+searchCriteriaBean.getGender()+"'  and u.id=ur.userId and c.id=ur.rCaste and ur.rReligion=rl.id And ct.id=u.currentCity  and ed.id=u.education ");
+		buffer.append("select u.id ,u.gender,ur.rAgeFrom,ur.rAgeTo,u.firstName,u.lastName,u.aboutMyself as About,u.createProfileFor,c.name as castName,"
+				+ "ct.name as cityName,rl.name as religionName,ed.name as Education,u.occupation as Proffession, u.annualIncome as Income, "
+				+" floor((datediff(current_date(),u.dob))/365) as age, "
+				+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and  uimg.status = '1' and uimg.is_profile_picture='1') as profileImage, "
+				+" occ.name as Proffession "
+				+" from users u,"
+				+ "userrequirement ur,cast c,city ct,religion rl,education ed, occupation occ "
+				+ " where u.gender='"+searchCriteriaBean.getGender()+"'  and u.id=ur.userId and c.id=ur.rCaste and occ.id=u.occupation "
+				+ "and ur.rReligion=rl.id And ct.id=u.currentCity  and ed.id=u.education ");
 		if(StringUtils.isNotEmpty(searchCriteriaBean.getrAgeFrom()) && StringUtils.isNotEmpty(searchCriteriaBean.getrAgeTo())) {
 			buffer.append( " and cast(floor((datediff(current_date(),u.dob))/365) as decimal(10,2)) >= "+searchCriteriaBean.getrAgeFrom()+" ");
 			buffer.append( " and cast(floor((datediff(current_date(),u.dob))/365) as decimal(10,2)) <= "+searchCriteriaBean.getrAgeTo()+" ");
@@ -4459,8 +4469,9 @@ public boolean deletePhoto(String photoId){
 		if(StringUtils.isNotEmpty(searchCriteriaBean.getCastId())) {
 			buffer.append(" and ur.rCaste='"+searchCriteriaBean.getCastId()+"'"); 
 		}
+		buffer.append(" and u.status = '1' and u.role_id not in ('1') group by u.id order by u.package_id desc limit 20");
 		String sql =buffer.toString();
-		System.out.println("-----sql----"+sql);
+		//System.out.println("-----sql----"+sql);
 		List<Map<String, Object>> searchList = jdbcTemplate.queryForList(sql);
 		return searchList;
 		

@@ -1390,6 +1390,8 @@ function toggleDiv(divElem){
 	    		if(typeof msg != "undefined"){
 	    			if(msg=="success"){
 	    				alert("This profile has been shortlisted.");
+	    				$("#sortlistdivId").html("");
+	    				$("#sortlistdivId").append(' <li>Shortlisted</li>');
 	    				//if($("#id").val(profileId)!=null&&$("#id").val(profileId)!="")
 	    					
 	    				
