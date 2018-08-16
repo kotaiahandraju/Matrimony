@@ -270,7 +270,13 @@ color:#000;
 			 			Do you like this profile?</p>
 			       </div>
 
-			       <div class="col-md-3"><span><a href="#" onclick="acceptRequest_pendingReq(${pend_req.requestId},'1')"><i class="fa fa-check-circle" style="font-size:25px;color:green"></i></a> &nbsp; <a href="#" onclick="acceptRequest_pendingReq(${pend_req.requestId},'0')"><i class="fa fa-times-circle-o" aria-hidden="true"  style="font-size:25px;color:red"></i></a>
+			       <div class="col-md-3"><span>
+			       		<c:if test="${not empty pend_req.activity_content}">
+			       			<a href="#" onclick="acceptMessage_pendingReq(${pend_req.requestId},'1')"><i class="fa fa-check-circle" style="font-size:25px;color:green"></i></a> &nbsp; <a href="#" onclick="acceptMessage_pendingReq(${pend_req.requestId},'0')"><i class="fa fa-times-circle-o" aria-hidden="true"  style="font-size:25px;color:red"></i></a>
+			       		</c:if>
+			       		<c:if test="${empty pend_req.activity_content}">
+				       		<a href="#" onclick="acceptRequest_pendingReq(${pend_req.requestId},'1')"><i class="fa fa-check-circle" style="font-size:25px;color:green"></i></a> &nbsp; <a href="#" onclick="acceptRequest_pendingReq(${pend_req.requestId},'0')"><i class="fa fa-times-circle-o" aria-hidden="true"  style="font-size:25px;color:red"></i></a>
+			       		</c:if>
 			       </span></div>
 
 			       <%-- <div class="col-md-2">
@@ -926,6 +932,82 @@ function paginationSetup(total_items_count) {
           
         }
       });
+}
+
+
+function acceptMessage_pendingReq(requestId,flag){
+	
+	
+	 var roleId = ${cacheGuest.roleId};
+	$("#id").val(requestId);
+	 if(roleId==4){
+		document.searchForm2.action = "memberShipPage"
+		document.searchForm2.submit();
+		return true;
+	}else{
+		 /* if(allowed_limit<=0){
+			alert("Exceeded allowed profiles limit. Renew your membership plan and get more profiles");
+			return false;
+		}  */ 
+		var membershipStatus = ${cacheGuest.membership_status};
+		if(membershipStatus!="1"){
+			alert("Your membership validity period is over. Renew your membership plan and get more profiles");
+			return false;
+		}
+		var formData = new FormData();
+	
+		formData.append("requestId",requestId);
+		formData.append("accept_flag",flag);
+		
+		
+		
+		 jQuery.fn.makeMultipartRequest('POST', 'acceptMessage', false,
+				formData, false, 'text', function(data){
+	    		var jsonobj = $.parseJSON(data);
+	    		var msg = jsonobj.message;
+	    		
+	    			if("success"==msg){
+	    				//var pend_count = parseInt($("#pend_req_count_span").html());
+	    				total_item_count = total_item_count-1;
+	    				if(flag==1){
+	    					alert("Message Accepted.");
+	    					$("#pending_div"+requestId).remove();
+	    					//pend_count = pend_count-1;
+	    					
+	    					
+	    					
+	    				}else{
+	    					alert("Message Rejected.");
+	    					$("#pending_div"+requestId).remove();
+	    					//$("#pending_next").trigger("click");
+	    				}
+	    				if(total_item_count==0){
+	    					$("#myCarousel").remove();
+   					}else{
+   						$("#pend_req_count_span").html(total_item_count);
+   						if(item_count>total_item_count){
+   							item_count = total_item_count;
+   							$("#pending_prev").trigger("click");
+   						}else{
+   							$("#pending_next").trigger("click");
+   						}
+	    					
+   					}
+	    				/* var req_count = jsonobj.req_count;
+	    				if(req_count=="0"){
+	    					$("#pending_req_div").remove();
+	    				}else{
+	    					$("#pending_count").html('');
+		    				$("#pending_count").html(req_count+" requests pending.");
+	    				} */
+	    			}else if("failed"==msg || "exception"==msg){
+	    				alert("Some problem occured. Please try again.");
+	    			}
+	    		
+	    		
+				
+			}); 
+	} 
 }
 
 function acceptRequest_pendingReq(requestId,flag){

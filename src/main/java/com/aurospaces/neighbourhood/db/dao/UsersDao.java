@@ -4469,7 +4469,7 @@ public boolean deletePhoto(String photoId){
 		}
 		buffer.append(" and u.status = '1' and u.role_id not in ('1') group by u.id order by u.package_id desc limit 20");
 		String sql =buffer.toString();
-		System.out.println("-----sql----"+sql);
+		//System.out.println("-----sql----"+sql);
 		List<Map<String, Object>> searchList = jdbcTemplate.queryForList(sql);
 		return searchList;
 		
