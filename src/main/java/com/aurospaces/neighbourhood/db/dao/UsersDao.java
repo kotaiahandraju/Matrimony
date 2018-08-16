@@ -691,6 +691,8 @@ public class UsersDao extends BaseUsersDao
 						buffer.append("insert into users_activity_log(created_time,activity_type,act_done_by_user_id,act_done_on_user_id) "
 								+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','profile_viewed',"+objUserBean.getId()+","+profileId+")");
 						inserted_count = jdbcTemplate.update(buffer.toString());
+					}else{
+						inserted_count = 1;
 					}
 					
 						// also make an entry in notifications table
