@@ -4102,7 +4102,13 @@ public boolean deletePhoto(String photoId){
 		jdbcTemplate = custom.getJdbcTemplate();
 		String qryStr = "select *,date_format((select (date_add(date_add(u.package_joined_date, interval pack.duration month), interval -1 day))),'%d-%b-%Y') as renewal_date, "
 				+" date_format((select date(updated_time) from paymenthistory where memberId = "+objUserBean.getId()+" and paymentStatus = 'success' order by updated_time desc limit 1),'%d-%b-%Y')  as last_renewed_date, "
-				+" (select datediff(date_add(u.package_joined_date, interval pack.duration month),current_date())) as validity from users u, package pack where u.package_id = pack.id and u.id = "+objUserBean.getId();
+				+" (case duration_type when 'day' then (select datediff(date_add(u.package_joined_date, interval pack.duration day),current_date())) " 
+                +"   	when 'month' then (select datediff(date_add(u.package_joined_date, interval pack.duration month),current_date())) "
+                +" 		when 'year' then (select datediff(date_add(u.package_joined_date, interval pack.duration year),current_date())) "
+                +" 		else 'notvalid'	"
+                + "end "
+                +") as validity  "
+				+ "from users u, package pack where u.package_id = pack.id and u.id = "+objUserBean.getId();
 		try {
 			List<Map<String,Object>> list = jdbcTemplate.queryForList(qryStr);
 			if(list!=null && list.size()>0){
