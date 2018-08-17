@@ -306,11 +306,16 @@ public class HomePageController {
 							 EmailUtil emailUtil = new EmailUtil();
 							 // email to user
 							 if(StringUtils.isNotBlank(objUsersBean.getEmail())){
-								emailUtil.sendWelcomeMail(objUsersBean1, objContext);
+//								emailUtil.sendWelcomeMail(objUsersBean1, objContext);
+								String baseurl =  request.getScheme() + "://" + request.getServerName() +      ":" +   request.getServerPort() +  request.getContextPath();
+								objUsersDao.saveEmailData(null, objUsersBean1, baseurl, "welcome_Mail");
 							 }
 							 //email to Admin
 							 emailUtil = new EmailUtil();
 							 emailUtil.sendUserRegisteredNotification(objUsersBean1, objContext);
+//							 String baseurl =  request.getScheme() + "://" + request.getServerName() +      ":" +   request.getServerPort() +  request.getContextPath();
+//								objUsersDao.saveEmailData(null, objUsersBean1, baseurl, "user_registered");
+//							 
 							 /// 
 						 }catch(Exception e){
 							 
@@ -1161,25 +1166,28 @@ public class HomePageController {
 				}
 			
 			int profile_id = objUserssBean.getId();
+			UsersBean profileBean = objUsersDao.loginChecking(profile_id);
 			if((profile_id != 0) && (sessionBean.getId()!=profile_id)){
 				boolean success = objUsersDao.viewedProfile(profile_id+"");
 				
 				if(!success){
 					logger.fatal("error while updating profile viewed status in fullProfile method");
 				}else{
+					String baseurl =  request.getScheme() + "://" + request.getServerName() +      ":" +   request.getServerPort() +  request.getContextPath();
+					objUsersDao.saveEmailData(sessionBean, profileBean, baseurl, "profileviewed");
 					
 				}
 			}else if(StringUtils.isNotBlank(request.getParameter("profileId"))){
 				profile_id = Integer.parseInt(request.getParameter("profileId"));
 			}
-			UsersBean profileBean = objUsersDao.loginChecking(profile_id);
+	
 			request.setAttribute("profileBean", profileBean);
 			List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos(profile_id);
 			request.setAttribute("fullProfilePhotosList", photosList);
 			request.setAttribute("photosListSize", photosList.size());
 			
 			objUserssBean.setId(sessionBean.getId());
-			EmailUtil.viewFullProfileMail(sessionBean, profileBean, request, objContext);
+//			EmailUtil.viewFullProfileMail(sessionBean, profileBean, request, objContext);
 			/*int notificationsCount = objUsersDao.getNotificationsCount(sessionBean);
 			request.setAttribute("notificationsCount", notificationsCount);
 			List<Map<String,Object>> notificationsList = objUsersDao.getNotifications(objUserssBean,false);
@@ -1697,7 +1705,9 @@ public class HomePageController {
 				
 						receipientUser = objUsersDao.loginChecking(Integer.parseInt(profileArry[j]));
 						receipientUser.setMail_content(mailContent);
-					EmailUtil.sendExpressInterestToMail(userBean, receipientUser, request, objContext);
+//					EmailUtil.sendExpressInterestToMail(userBean, receipientUser, request, objContext);
+					String baseurl =  request.getScheme() + "://" + request.getServerName() +      ":" +   request.getServerPort() +  request.getContextPath();
+					objUsersDao.saveEmailData(userBean, receipientUser, baseurl, "interestrequest");
 					}
 				}
 				else{
@@ -4890,7 +4900,7 @@ public class HomePageController {
 	}
    @RequestMapping(value = "/verifyEmail")
 	public @ResponseBody String verifyEmail( HttpSession session,HttpServletRequest request) {
-	   String response = "";
+	   boolean response;
 	   JSONObject joJsonObject = new JSONObject();
 		try{
 			
@@ -4899,7 +4909,9 @@ public class HomePageController {
 				if(objuserBean.getEmailverify().equals("0")){
 					 EmailUtil emailUtil = new EmailUtil();
 					 // email to user email verification link
-						 response = emailUtil.emailVerify(objuserBean, objContext,request);
+//						 response = emailUtil.emailVerify(objuserBean, objContext,request);
+						 String baseurl =  request.getScheme() + "://" + request.getServerName() +      ":" +   request.getServerPort() +  request.getContextPath();
+						 response =objUsersDao.saveEmailData(null, objuserBean, baseurl, "emailVerify_mail");
 						 joJsonObject.put("msg", response);
 				}else{
 					 joJsonObject.put("msg", "");
