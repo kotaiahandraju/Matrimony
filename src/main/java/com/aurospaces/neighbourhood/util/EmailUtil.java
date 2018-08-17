@@ -929,7 +929,7 @@ try{
 		            
 		        }catch (Exception ex) {
 					objUsersDao.updateEmailDeliveryStatus((Integer)emailEntry.get("id"),"2");
-		           // System.out.println("Could not send email.");
+		            System.out.println("Could not send email.");
 		            ex.printStackTrace();
 		            return null;
 		        }
