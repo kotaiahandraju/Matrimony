@@ -33,23 +33,25 @@ public class ScheduledJobs {
 		jobsController.weeklyMatchEmails(session, request);
 	 }*/
 	
-	@Scheduled(cron = "10 0 0 * * *") //daily at 12 am
+	@Scheduled(cron = "0 1 * * * *") //daily at 12 am
 	 public void sendEmails(){
+		System.out.println("#########  sendEmails ###########");
 		jobsController.sendEmails(session, request);
 	 }
 	
-	/*@Scheduled(cron = "0 0 24 * * *") //daily at 12 am
+	@Scheduled(cron = "0 0 13 * * *") //daily at 12 am
 	 public void checkMembershipValidity(){
+		System.out.println("#########  sendEmails ###########");
 		jobsController.checkMembershipValidity();
 	 }
 	
-	@Scheduled(cron = "0 0 24 * * *") //daily at 12 am
+	@Scheduled(cron = "0 0 12 * * *") //daily at 12 am
 	 public void splitProfilesToEmployees(){
 		jobsController.splitProfilesToEmployees();
 	 }
 	
-	@Scheduled(cron = "0 0 24 1 * *") //every month 1st at 12 am
+	@Scheduled(cron = "0 0 12 1 * ?") //every month 1st at 12 am
 	 public void rotateEmployeesProfilesSlot(){
 		jobsController.rotateEmployeesProfilesSlot();
-	 }*/
+	 }
 }
