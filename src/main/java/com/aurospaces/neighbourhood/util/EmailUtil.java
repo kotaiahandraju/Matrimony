@@ -145,7 +145,7 @@ public class EmailUtil {
 	}
 	
 	public static String sendProfilesListEmail(UsersBean receiverBean,List<Map<String,String>> profilesList,
-			String mailType, ServletContext objContext, HttpServletRequest request) throws AddressException,
+			String mailType, ServletContext objContext) throws AddressException,
 			MessagingException, IOException {
 		String subject = null;
 		Properties prop = new Properties();
@@ -183,7 +183,7 @@ public class EmailUtil {
 		            profile_format = profile_format.replace("_education_",StringUtils.isNotBlank(profile.get("educationName"))?profile.get("educationName"):" ");
 		            profile_format = profile_format.replace("_unnamedimage_","cid:defaultimage");
 		            // url formation
-		            String baseurl =  request.getScheme() + "://" + request.getServerName() +      ":" +   request.getServerPort() +  request.getContextPath();
+		            String baseurl =  "";//request.getScheme() + "://" + request.getServerName() +      ":" +   request.getServerPort() +  request.getContextPath();
 					String actionUrl = baseurl+"/fullProfile?un="+receiverBean.getUsername()+"&pun="+profile.get("username")+"&suc="+receiverBean.getUnique_code()+"&puc="+profile.get("unique_code");
 					///
 					profile_format = profile_format.replace("_actionurl_",actionUrl);
@@ -873,6 +873,7 @@ try{
 			System.out.println("##########.");
 			try{
 		    String propertiespath = objContext.getRealPath("Resources" +File.separator+"DataBase.properties");
+		    System.out.println("########## propertiespath:"+propertiespath);
 			input = new FileInputStream(propertiespath);
 			// load the properties file
 			prop.load(input);
@@ -882,9 +883,11 @@ try{
 			String password = prop.getProperty("mailpassword");
 			
 				   List<Map<String,Object>> emailEntriesList = objUsersDao.getEmailEntriesToSend();//"select * from messages where status = '0'");
+				   System.out.println("########## emailEntriesList:"+emailEntriesList);
 				   for(Map<String,Object> emailEntry:emailEntriesList){
 					   try{
 					   String mailTo = (String)emailEntry.get("receiver_email");
+					   System.out.println("########## mailTo:"+mailTo);
 					   //subject = prop.getProperty(emailEntry.get("type")+"_subject");
 					   //subject = subject.replace("_username_", (String)emailEntry.get("sender_display_name"));
 					   subject =  (String)emailEntry.get("sender_display_name")+(String)emailEntry.get("shortstr");
@@ -958,7 +961,7 @@ try{
 						body = body.replace("_img4_", "cid:img4");
 						body = body.replace("_img5_", "cid:img5");
 						String str = body.toString();
-			        	
+						System.out.println("########## body:"+str);
 				        // inline images
 				        Map<String, String> inlineImages = new HashMap<String, String>();
 		//		        inlineImages.put("image1", objContext.getRealPath("images" +File.separator+"telugu.png"));
@@ -975,6 +978,7 @@ try{
 				        inlineImages.put("img3", objContext.getRealPath("images" +File.separator+"img3.jpg"));
 				        inlineImages.put("img4", objContext.getRealPath("images" +File.separator+"img4.jpg"));
 				        inlineImages.put("img5", objContext.getRealPath("images" +File.separator+"img5.jpg"));
+				        System.out.println("########## before calling EmbeddedImageEmailUtil");
 				            EmbeddedImageEmailUtil.send(host, port, mailFrom, password, mailTo,
 				                subject, body.toString(), inlineImages);
 				            System.out.println("Email sent.");

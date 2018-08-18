@@ -56,10 +56,11 @@ public class JobsController {
 	   
 	   /*****     back-end jobs    start       ********/
 	   //@RequestMapping(value="/weeklyMatchEmails")
-	   public String weeklyMatchEmails(HttpSession session,HttpServletRequest request){
-		   UsersBean userSessionBean = (UsersBean) session.getAttribute("cacheGuest");
-		   if(userSessionBean==null)
-			   return "redirect:HomePage";
+	   public String weeklyMatchEmails(){
+		  // UsersBean userSessionBean = (UsersBean) session.getAttribute("cacheGuest");
+		   /*if(userSessionBean==null)
+			   return "redirect:HomePage";*/
+		   System.out.println("### in weeklyMatchEmails");
 		   List<Map<String,Object>> activeProfilesList = objUsersDao.getAllSubscribedUsersForWeeklyMatchEmails();
 		   for(Map<String,Object> profile:activeProfilesList){
 			   UsersBean receiverBean = new UsersBean();
@@ -70,7 +71,8 @@ public class JobsController {
 			   receiverBean.setEmail((String)emailId);
 			   List<Map<String,String>> preferredProfiles = objUsersDao.getProfilesFilteredByPreferences(profile);
 			   try{
-				   EmailUtil.sendProfilesListEmail(receiverBean,preferredProfiles, "profiles_list_email",objContext,request);
+				   EmailUtil.sendProfilesListEmail(receiverBean,preferredProfiles, "profiles_list_email",objContext);
+				   System.out.println("### matches sent");
 			   }catch(Exception e){
 				   e.printStackTrace();
 			   }
@@ -252,7 +254,7 @@ public class JobsController {
 	   }
 	   */
 	   //@RequestMapping(value="/sendEmails")
-	   public String sendEmails(HttpSession session,HttpServletRequest request){
+	   public String sendEmails(){
 		   EmailUtil.sendEmails(objContext,objUsersDao);
 		   return "";
 	   }
