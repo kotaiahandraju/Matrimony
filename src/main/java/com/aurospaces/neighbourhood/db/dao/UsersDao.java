@@ -4761,5 +4761,22 @@ public boolean deletePhoto(String photoId){
 		}
 		return false;
 	}
+	
+	public String getBaseUrl(){
+		jdbcTemplate = custom.getJdbcTemplate();
+		
+		try{
+			
+			StringBuffer buffer = new StringBuffer(" select base_url from emails_data where  base_url is not null and base_url <> '' limit 1");
+			String baseUrl = jdbcTemplate.queryForObject(buffer.toString(), String.class);
+			if(StringUtils.isNotBlank(baseUrl)){
+				return baseUrl.split("admin")[0];
+			}
+			return "";
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "";
+	}
 }
 
