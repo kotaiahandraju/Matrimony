@@ -30,8 +30,8 @@
 			<div class="col-md-3 footer-grid">
 				<h6>Extras</h6>
 				<ul>
-					<li><a href="#">Login</a></li>
-					<li><a href="#">Register</a></li>
+<!-- 					<li><a href="#">Login</a></li> -->
+<!-- 					<li><a href="#">Register</a></li> -->
 					<li><a href="help">Help</a></li>
 				</ul>
 			</div>

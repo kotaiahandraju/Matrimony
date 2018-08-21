@@ -385,7 +385,10 @@ $(".onlyCharacters").on("keypress",	function(event) {
                     </div> 
                 </c:if>
                 <c:if test="${empty cacheGuest.profileImage}">
-                    <img src="img/default.png" class="img-responsive" style="margin-bottom:0;">
+                    <img src="../img/default.png" class="img-responsive" style="margin-bottom:0;">
+                    <div align="center">
+	                    <a href="myPhotos" style="font-size:12px; padding:12px 0; text-align:center; font-weight:600; color:#006699;"> Add / Edit  Photos</a>
+	                </div>
                 </c:if>
                 
              </div>

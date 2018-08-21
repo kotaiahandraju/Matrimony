@@ -30,7 +30,6 @@ public class ScheduledJobs {
 		jobsController.weeklyMatchEmails();
 	 }
 	
-	
 	@Scheduled(cron = "0 */1 * * * *") //daily at 12 am
 	 public void sendEmails(){
 		System.out.println("#########  sendEmails ###########");

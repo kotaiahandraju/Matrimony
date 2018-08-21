@@ -60,8 +60,11 @@ padding:0px !important;}
 		<div class="container">
 			<div class="col-md-12 products-grid-left" style="margin-top:10px;">
 					
-	            <div class="panel panel-default">
-	            
+	            <div class="panel panel-success">
+	             <div class="panel-heading pull-right">
+	             <span class=""><input type="checkbox" id="selectAllCheackbox"/> Select All &nbsp; <a  onclick="requetAllCheckboxApprov(1);" href="#">Approve &nbsp; </a></span>
+				 <span class=""><a id="reject${photo1.id}" onclick="requetAllCheckboxApprov(2);" href="#">Reject </a></span>
+	            </div><div class="clearfix"></div>
 		            <div class="panel-body">
 		            	<div id="imagesDiv" class="row" style="margin-bottom: 0.4em;">
 					      	<c:forEach items="${photosList}" var="photo1" >
@@ -69,23 +72,23 @@ padding:0px !important;}
 					      			<img src="${baseurl }/${photo1.image}" class="img-responsive thumbnail watermark_text" style="margin-bottom:0;">
 					      			<c:if test="${photo1.approved_status == '1'}">
 										<span>Approved</span>
+										
 									</c:if>
 									<c:if test="${photo1.approved_status == '2'}">
 										<span>Rejected</span>
 									</c:if>
 									<c:if test="${photo1.approved_status == '0'}">
 										<div id="approveDiv${photo1.id}">
+										<input type="checkbox" class="check-box" id="${photo1.id}" value="${photo1.id}" />
 											<a id="approve${photo1.id}" href="#" onclick="approvePhoto(${photo1.id},1)">Approve</a>
-											<a id="reject${photo1.id}" href="#" onclick="approvePhoto(${photo1.id},2)">Reject</a>
+											<a id="reject${photo1.id}" href="#" style="padding-left:5px;" onclick="approvePhoto(${photo1.id},2)">Reject</a>
 										</div>
 									</c:if>
 					      			
 					      		</div>
 					      		
 							</c:forEach>
-							
-					    	
-					    </div>
+												    </div>
 						<div class="col-md-3">
 							 <c:if test="${not empty profileBean.profileImage}">
 								<img id="profImage" src="${baseurl }/${profileBean.profileImage}" class="img-responsive thumbnail watermark_text" style="margin-bottom:0;">
@@ -144,6 +147,82 @@ padding:0px !important;}
 <script src="${baseurl }/js/jquery.watermark.js"></script>
 <script type="text/javascript">
 
+$("#selectAllCheackbox").on("click", function() {
+	
+	if ($(this).prop("checked")==true) {
+    $('.check-box').prop('checked', true);
+  } else {
+    $('.check-box').prop('checked', false);
+  }
+}); 
+
+/* $("#selectAllCheackbox1").on("click", function() {
+	
+	 if ($(this).prop("checked")==true) {
+        $('.check-box').prop('checked', true);
+}else {
+  $('.check-box').prop('checked', false);
+}
+});
+
+
+// if($("#selectAllCheackbox").prop("checked",checked)){
+// 	$("#selectAllCheackbox1").prop("checked",false);
+// }else{
+// 	$("#selectAllCheackbox1").prop("checked",true);
+// }
+ */	
+	
+function requetAllCheckboxApprov(approvedStatus){
+	var selected_boxes = $('.check-box:checked');
+			var selected_boxes_length = selected_boxes.length;
+			if (selected_boxes_length == 0) {
+				alert("Please select atleast one profile.");
+				return false;
+			}
+			
+			profile_id = [];  
+			
+// 				$('.form-check-input[type="checkbox"]:checked').each(function(){
+					$('.check-box:checked').each(function(){
+					var res = this.value;
+					profile_id.push(res);
+			     });
+		 var formData = new FormData();
+		 formData.append('photoId',profile_id);
+		 formData.append("approvedStatus",approvedStatus);
+  	 jQuery.fn.makeMultipartRequest('POST', 'approvePhotoAll', false,
+			formData, false, 'text', function(data){
+  		var jsonobj = $.parseJSON(data);
+		var msg = jsonobj.message;
+		if(typeof msg != "undefined"){
+			if(msg=="success"){
+				if(approvedStatus==1){
+					alert("Photo approved successfully");
+					//$("#approve"+photoId).removeAttr("href");
+					//var t = $("#approve"+photoId).text();
+					$('.check-box:checked').each(function(){
+					$("#approveDiv"+this.value).html('');
+					$("#approveDiv"+this.value).html("Approved");
+			    });
+				}else{
+					$('.check-box:checked').each(function(){
+					$("#approveDiv"+this.value).html('');
+					$("#approveDiv"+this.value).html("Rejected");
+					});
+					alert("Photo rejected successfully");
+				}
+			}else{
+				alert("Some problem occured. Please try again.");
+			}
+		}
+	    		
+	        });  
+	  }
+  	 
+  	 
+
+
 $(function(){
 	 //add text water mark;	
 	 $('.watermark_text').watermark({
@@ -193,6 +272,7 @@ function approvePhoto(photoId,approvedStatus){
 		var msg = jsonobj.message;
 		if(typeof msg != "undefined"){
 			if(msg=="success"){
+				photoId=[];
 				if(approvedStatus==1){
 					alert("Photo approved successfully");
 					//$("#approve"+photoId).removeAttr("href");
@@ -212,6 +292,7 @@ function approvePhoto(photoId,approvedStatus){
 		
 	}); 
 }
+
 </script>
 
 </body>

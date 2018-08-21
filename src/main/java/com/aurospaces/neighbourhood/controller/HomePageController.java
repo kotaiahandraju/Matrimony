@@ -1762,8 +1762,9 @@ public class HomePageController {
 					session.setAttribute("cacheGuest",userBean);
 					int allowed_limit = (Integer)session.getAttribute("allowed_profiles_limit");
 					objJson.put("allowed_limit", allowed_limit);
-					 EmailUtil.sendExpressInterestToMail(userBean, receipientUser, request, objContext);
-					 
+//					 EmailUtil.sendExpressInterestToMail(userBean, receipientUser, request, objContext);
+					 String baseurl =  request.getScheme() + "://" + request.getServerName() +      ":" +   request.getServerPort() +  request.getContextPath();
+						objUsersDao.saveEmailData(userBean, receipientUser, baseurl, "interestrequest");
 					
 				}
 				else{
