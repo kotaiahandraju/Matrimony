@@ -700,6 +700,41 @@ public class FilterController {
 		}
 		return objJson.toString();
 	}
+	
+	@RequestMapping(value = "/approvePhotoAll")
+	public @ResponseBody String approvePhotoAll(@ModelAttribute("createProfile") UsersBean searchCriteriaBean,
+			ModelMap model, HttpServletRequest request, HttpSession session, RedirectAttributes redir) {
+		// System.out.println("approvePhoto Page");
+		JSONObject objJson = new JSONObject();
+		boolean success = false;
+		try {
+			UsersBean userBean = (UsersBean) session.getAttribute("cacheUserBean");
+			if (userBean == null) {
+				return "redirect:HomePage";
+			}
+			String photoId = request.getParameter("photoId");
+			String approvedStatus = request.getParameter("approvedStatus");
+		     	if (StringUtils.isNotBlank(photoId)) {
+		     	String profileArry[] =photoId.split(",");
+				for (int i = 0; i < profileArry.length; i++) {
+			         success = objUsersDao.approvePhotoAll(profileArry[i],approvedStatus);
+				}
+				if (success) {
+					objJson.put("message", "success");
+				} else {
+					objJson.put("message", "failed");
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			logger.error(e);
+			logger.fatal("error in FilterController class approvePhoto method");
+			return "updatedProfiles";
+		}
+		return objJson.toString();
+	}
+	
 	@RequestMapping(value = "/verifyProfile")
 	public @ResponseBody String verifyProfile(ModelMap model, HttpServletRequest request, HttpSession session, RedirectAttributes redir) {
 		// System.out.println("approvePhoto Page");

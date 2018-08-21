@@ -3695,6 +3695,34 @@ public class UsersDao extends BaseUsersDao
 		}
 		return false;
 	}
+public boolean approvePhotoAll(String photoId,String approvedStatus){
+		
+		jdbcTemplate = custom.getJdbcTemplate();
+		String sSql  = null;
+		
+		try {
+			String status = approvedStatus.equals("1")?"1":"2";
+			sSql = "update user_images set approved_status = '"+status+"' where id =  "+photoId;
+			
+			int updated_count = jdbcTemplate.update(sSql);
+			if (updated_count == 1) {
+				// set as profile pic if profile pic is not yet set 
+				String picQry = "select count(*) from vuser_images where user_id = (select uimg.user_id from vuser_images uimg where uimg.id = "+photoId+" limit 1) and status = '1' and is_profile_picture = '1'";
+				int profile_pic_count = jdbcTemplate.queryForInt(picQry);
+				if(profile_pic_count==0){
+					picQry = "update user_images set is_profile_picture = '1' where id = "+photoId;
+					int updated = jdbcTemplate.update(picQry);
+				}
+				return true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+
+		}
+		return false;
+	}
 public boolean deletePhoto(String photoId){
 		
 		jdbcTemplate = custom.getJdbcTemplate();
@@ -4105,7 +4133,7 @@ public boolean deletePhoto(String photoId){
 				+" (case duration_type when 'day' then (select datediff(date_add(u.package_joined_date, interval pack.duration day),current_date())) " 
                 +"   	when 'month' then (select datediff(date_add(u.package_joined_date, interval pack.duration month),current_date())) "
                 +" 		when 'year' then (select datediff(date_add(u.package_joined_date, interval pack.duration year),current_date())) "
-                +" 		else 'notvalid'	"
+                +" 		else -1	"
                 + "end "
                 +") as validity  "
 				+ "from users u, package pack where u.package_id = pack.id and u.id = "+objUserBean.getId();
@@ -4665,6 +4693,7 @@ public boolean deletePhoto(String photoId){
 		StringBuffer sender_details = new StringBuffer();//senderBean.getAge()+" Yrs, "+senderBean.getHeight()+" Ft, "+senderBean.getReligionName()+", "+senderBean.getCasteName()+", <br> Location: "+senderBean.getCurrentCityName()+", <br> Education : "+senderBean.getEducationName()+", <br> Occupation : "+senderBean.getOccupationName()+" ");
 		StringBuffer receiver_email = new StringBuffer();
 		StringBuffer receiver_password = new StringBuffer();
+		StringBuffer baseurllink = new StringBuffer(baseurl);
 		// url formation
 		String actionUrl = "";
 		String sender_image = "";
@@ -4715,8 +4744,8 @@ public boolean deletePhoto(String photoId){
 		}
 		try{
 			
-			StringBuffer buffer = new StringBuffer(" insert into emails_data(sender_user_id,receiver_user_id,sender_email,sender_details,sender_display_name,receiver_display_name,sender_user_name,receiver_user_name,receiver_email,mail_content,status,type,full_profile_action_url,sender_image,receiver_password,shortstr,emailVerifylink,created_on) "
-								+ "	values("+senderBean.getId()+","+receiverBean.getId()+",'"+senderBean.getEmail()+"','"+sender_details.toString()+"','"+senderBean.getFirstName()+" "+senderBean.getLastName()+" ("+senderBean.getUsername()+")','"+receiverBean.getFirstName()+" "+receiverBean.getLastName()+" ("+receiverBean.getUsername()+")','"+senderBean.getUsername()+"','"+receiverBean.getUsername()+"','"+receiverBean.getEmail()+"','"+receiverBean.getMail_content()+"','0','"+mail_type+"','"+actionUrl+"','"+sender_image+"','"+receiver_password+"','"+short_str+"','"+emailVerifylink+"',current_timestamp())");
+			StringBuffer buffer = new StringBuffer(" insert into emails_data(sender_user_id,receiver_user_id,sender_email,sender_details,sender_display_name,receiver_display_name,sender_user_name,receiver_user_name,receiver_email,mail_content,status,type,full_profile_action_url,sender_image,receiver_password,shortstr,emailVerifylink,baseurllink,created_on) "
+								+ "	values("+senderBean.getId()+","+receiverBean.getId()+",'"+senderBean.getEmail()+"','"+sender_details.toString()+"','"+senderBean.getFirstName()+" "+senderBean.getLastName()+" ("+senderBean.getUsername()+")','"+receiverBean.getFirstName()+" "+receiverBean.getLastName()+" ("+receiverBean.getUsername()+")','"+senderBean.getUsername()+"','"+receiverBean.getUsername()+"','"+receiverBean.getEmail()+"','"+receiverBean.getMail_content()+"','0','"+mail_type+"','"+actionUrl+"','"+sender_image+"','"+receiver_password+"','"+short_str+"','"+emailVerifylink+"','"+baseurllink+"',current_timestamp())");
 			int inserted_count = jdbcTemplate.update(buffer.toString());
 			if(inserted_count==1){
 				return true;

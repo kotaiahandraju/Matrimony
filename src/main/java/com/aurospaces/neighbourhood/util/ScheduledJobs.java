@@ -33,7 +33,7 @@ public class ScheduledJobs {
 		jobsController.weeklyMatchEmails(session, request);
 	 }*/
 	
-	@Scheduled(cron = "0 1 * * * *") //daily at 12 am
+	@Scheduled(cron = "10 * * * * *") //daily at 12 am
 	 public void sendEmails(){
 		System.out.println("#########  sendEmails ###########");
 		jobsController.sendEmails(session, request);
