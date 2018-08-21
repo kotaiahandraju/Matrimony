@@ -19,39 +19,38 @@ public class ScheduledJobs {
 
 	@Autowired
 	JobsController jobsController;
-	@Autowired
-	HttpSession session;
-	@Autowired
-	HttpServletRequest request;
 	
 	
 	@Autowired
 	private Environment env;
 	
-	/*@Scheduled(cron = "0 0 24 * * 1") //weekly, every monday at 12 am
+	@Scheduled(cron = "0 0/33 18 * * TUE") //weekly, every monday at 12 am
 	 public void sendWeeklyMatches(){
-		jobsController.weeklyMatchEmails(session, request);
-	 }*/
+		System.out.println("#########  sendWeeklyMatches ###########");
+		jobsController.weeklyMatchEmails();
+	 }
 	
-	@Scheduled(cron = "10 * * * * *") //daily at 12 am
+	@Scheduled(cron = "0 */1 * * * *") //daily at 12 am
 	 public void sendEmails(){
 		System.out.println("#########  sendEmails ###########");
-		jobsController.sendEmails(session, request);
+		jobsController.sendEmails();
 	 }
 	
 	@Scheduled(cron = "0 0 13 * * *") //daily at 12 am
 	 public void checkMembershipValidity(){
-		System.out.println("#########  sendEmails ###########");
+		System.out.println("#########  checkMembershipValidity ###########");
 		jobsController.checkMembershipValidity();
 	 }
 	
-	@Scheduled(cron = "0 0 12 * * *") //daily at 12 am
+	/*@Scheduled(cron = "0 0 12 * * *") //daily at 12 am
 	 public void splitProfilesToEmployees(){
+		System.out.println("#########  splitProfilesToEmployees ###########");
 		jobsController.splitProfilesToEmployees();
 	 }
 	
 	@Scheduled(cron = "0 0 12 1 * ?") //every month 1st at 12 am
 	 public void rotateEmployeesProfilesSlot(){
+		System.out.println("#########  rotateEmployeesProfilesSlot ###########");
 		jobsController.rotateEmployeesProfilesSlot();
-	 }
+	 }*/
 }

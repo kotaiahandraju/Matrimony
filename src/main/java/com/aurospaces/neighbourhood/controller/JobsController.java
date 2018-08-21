@@ -56,11 +56,15 @@ public class JobsController {
 	   
 	   /*****     back-end jobs    start       ********/
 	   //@RequestMapping(value="/weeklyMatchEmails")
-	   public String weeklyMatchEmails(HttpSession session,HttpServletRequest request){
-		   UsersBean userSessionBean = (UsersBean) session.getAttribute("cacheGuest");
-		   if(userSessionBean==null)
-			   return "redirect:HomePage";
+	   public String weeklyMatchEmails(){
+		  // UsersBean userSessionBean = (UsersBean) session.getAttribute("cacheGuest");
+		   /*if(userSessionBean==null)
+			   return "redirect:HomePage";*/
+		   System.out.println("### in weeklyMatchEmails");
 		   List<Map<String,Object>> activeProfilesList = objUsersDao.getAllSubscribedUsersForWeeklyMatchEmails();
+		   System.out.println("### activeProfilesList:"+activeProfilesList);
+		   String baseUrl = "http://localhost:8080/NBD/";//objUsersDao.getBaseUrl();
+		   baseUrl += "users";
 		   for(Map<String,Object> profile:activeProfilesList){
 			   UsersBean receiverBean = new UsersBean();
 			   receiverBean.setId((Integer)profile.get("id"));
@@ -69,8 +73,10 @@ public class JobsController {
 			   Object emailId = profile.get("email");
 			   receiverBean.setEmail((String)emailId);
 			   List<Map<String,String>> preferredProfiles = objUsersDao.getProfilesFilteredByPreferences(profile);
+			   System.out.println("### preferredProfiles size:"+preferredProfiles.size());
 			   try{
-				   EmailUtil.sendProfilesListEmail(receiverBean,preferredProfiles, "profiles_list_email",objContext,request);
+				   EmailUtil.sendProfilesListEmail(receiverBean,preferredProfiles, "profiles_list_email",objContext,baseUrl);
+				   System.out.println("### matches sent");
 			   }catch(Exception e){
 				   e.printStackTrace();
 			   }
@@ -252,7 +258,7 @@ public class JobsController {
 	   }
 	   */
 	   //@RequestMapping(value="/sendEmails")
-	   public String sendEmails(HttpSession session,HttpServletRequest request){
+	   public String sendEmails(){
 		   EmailUtil.sendEmails(objContext,objUsersDao);
 		   return "";
 	   }

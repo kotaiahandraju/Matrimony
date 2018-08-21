@@ -406,12 +406,12 @@ Get updates on new products and features</p>
 					</div>
 					<div class="col-md-2"><input type="checkbox" id="promotions_chkbox" class="fcheck"></div>
 					<div class="clearfix"></div><hr>
-					<div class="col-md-10">
+					<!-- <div class="col-md-10">
 					<p><b>Daily MatchWatch mailer</b><br>
 Receive matches as per your criteria</p>
 					</div>
 					<div class="col-md-2"><input type="checkbox"  id="daily_matches_chkbox"  class="fcheck" ></div>
-					<div class="clearfix"></div><hr>
+					<div class="clearfix"></div><hr> -->
 					<div class="col-md-10">
 					<p><b>Weekly Photo MatchWatch mailer</b><br>
 Receive weekly matches with photos as per your criteria</p>
