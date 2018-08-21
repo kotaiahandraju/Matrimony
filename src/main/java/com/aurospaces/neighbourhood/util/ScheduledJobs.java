@@ -24,11 +24,12 @@ public class ScheduledJobs {
 	@Autowired
 	private Environment env;
 	
-	@Scheduled(cron = "0 0 5 * * SAT") //weekly, every monday at 12 am
+	@Scheduled(cron = "0 0/33 18 * * TUE") //weekly, every monday at 12 am
 	 public void sendWeeklyMatches(){
 		System.out.println("#########  sendWeeklyMatches ###########");
 		jobsController.weeklyMatchEmails();
 	 }
+	
 	
 	@Scheduled(cron = "0 */1 * * * *") //daily at 12 am
 	 public void sendEmails(){

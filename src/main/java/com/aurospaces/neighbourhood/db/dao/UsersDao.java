@@ -2081,10 +2081,12 @@ public class UsersDao extends BaseUsersDao
 			jdbcTemplate = custom.getJdbcTemplate();
 			StringBuffer buffer = new StringBuffer();
 			String handlerObj[] = null;
+			try{
 			buffer.append("select u.id,cit.name as currentCityName,u.occupation,oc.name as occupationName,ed.name as educationName,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.gender, "
 					+"u.firstName, u.lastName, u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName,  " 
 					+"u.maritalStatus, u.caste,c.name as casteName, u.education, " 
-					+" u.height ,h.inches,h.cm,u.annualIncome,cntry.name as countryName, ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString, u.createProfileFor, u.unique_code   " 
+					+" u.height ,h.inches,h.cm,u.annualIncome,cntry.name as countryName, ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString, u.createProfileFor, u.unique_code ,  "
+					+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and  uimg.status = '1' and uimg.is_profile_picture='1') as profileImage "
 					+" from users u left join "
 					+" religion re on re.id=u.religion left join language l on l.id=u.motherTongue left join  "
 					+" cast c on c.id=u.caste left join height h on h.id=u.height left join "
@@ -2094,7 +2096,7 @@ public class UsersDao extends BaseUsersDao
 					handlerObj = new String[] {"id","currentCityName","occupation","occupationName","educationName","created_time","updated_time",
 							"role_id","username","password","email","gender","firstName","lastName","dob","religion","religionName","motherTongue","motherTongueName",
 							"maritalStatus",
-							"caste","casteName","education","height","inches","cm","annualIncome","countryName","age","dobString","createProfileFor","unique_code"};
+							"caste","casteName","education","height","inches","cm","annualIncome","countryName","age","dobString","createProfileFor","unique_code","profileImage"};
 			
 					String tempQryStr = " from vuserrequirement ureq where ureq.userId = "+profile.get("id")+" ";
 					buffer.append( " and cast(floor((datediff(current_date(),u.dob))/365) as decimal(10,2)) >= if((select ureq.rAgeFrom "+tempQryStr+")='' or (select ureq.rAgeFrom "+tempQryStr+") is null,floor((datediff(current_date(),u.dob))/365),(select ureq.rAgeFrom "+tempQryStr+"))");
@@ -2119,7 +2121,10 @@ public class UsersDao extends BaseUsersDao
 					jdbcTemplate.query(sql, handler);
 					List<Map<String, String>> result = handler.getResult();
 					return result;
-			
+			}catch(Exception e){
+					e.printStackTrace();
+					return null;
+				}
 			//return new LinkedList<Map<String, String>>();
 	 }
 		

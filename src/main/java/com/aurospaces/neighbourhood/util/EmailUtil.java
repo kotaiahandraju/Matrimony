@@ -145,12 +145,13 @@ public class EmailUtil {
 	}
 	
 	public static String sendProfilesListEmail(UsersBean receiverBean,List<Map<String,String>> profilesList,
-			String mailType, ServletContext objContext) throws AddressException,
+			String mailType, ServletContext objContext,String baseurl) throws AddressException,
 			MessagingException, IOException {
 		String subject = null;
 		Properties prop = new Properties();
 		InputStream input = null;
 		String body = null;
+		System.out.println("#### in emailutil.");
 		try{
 	 
 	        String mailTo = receiverBean.getEmail();
@@ -167,11 +168,24 @@ public class EmailUtil {
 			String port = prop.getProperty("port");
 			String mailFrom = prop.getProperty("usermail");
 			String password = prop.getProperty("mailpassword");
+			Map<String, String> inlineImages = new HashMap<String, String>();
 	        if("profiles_list_email".equalsIgnoreCase(mailType)){
+	        	
 	        	subject = prop.getProperty("profiles_list_subject");
 	            StringBuffer profiles_list = new StringBuffer("");
+	            System.out.println("#### preferred profilesList:"+profilesList);
 	            for(Map<String,String> profile:profilesList){
-	            	String profile_format = prop.getProperty("profile_format");
+	            	
+	            	String profile_format = prop.getProperty("profile_format_new");
+	            	profile_format = profile_format.replace("_senderdisplayname_", profile.get("firstName")+" "+profile.get("lastName")+" ("+profile.get("username")+")");
+					   //body = body.replace("_shortstr_", "");
+					   
+					   //body = body.replace("_receiverdisplayname_", (String)emailEntry.get("receiver_display_name"));
+	            	//profile_format = profile_format.replace("_senderdetails_", (String)emailEntry.get("sender_details"));
+//					    
+					   
+					   
+	            	
 		            profile_format = profile_format.replace("_name_",profile.get("firstName")+" "+profile.get("lastName"));
 		            profile_format = profile_format.replace("_username_",profile.get("username"));
 		            profile_format = profile_format.replace("_age_",StringUtils.isNotBlank(profile.get("age"))?profile.get("age"):" ");
@@ -181,29 +195,54 @@ public class EmailUtil {
 		            profile_format = profile_format.replace("_country_",StringUtils.isNotBlank(profile.get("countryName"))?profile.get("countryName"):" ");
 		            profile_format = profile_format.replace("_income_",StringUtils.isNotBlank(profile.get("annualIncome"))?profile.get("annualIncome"):" ");
 		            profile_format = profile_format.replace("_education_",StringUtils.isNotBlank(profile.get("educationName"))?profile.get("educationName"):" ");
-		            profile_format = profile_format.replace("_unnamedimage_","cid:defaultimage");
+		            //profile_format = profile_format.replace("_unnamedimage_","cid:defaultimage");
 		            // url formation
-		            String baseurl =  "";//request.getScheme() + "://" + request.getServerName() +      ":" +   request.getServerPort() +  request.getContextPath();
+		            //String baseurl =  "";//request.getScheme() + "://" + request.getServerName() +      ":" +   request.getServerPort() +  request.getContextPath();
 					String actionUrl = baseurl+"/fullProfile?un="+receiverBean.getUsername()+"&pun="+profile.get("username")+"&suc="+receiverBean.getUnique_code()+"&puc="+profile.get("unique_code");
-					///
-					profile_format = profile_format.replace("_actionurl_",actionUrl);
+					System.out.println("##### actionUrl:"+actionUrl);
+					//profile_format = profile_format.replace("_actionurl_",actionUrl);
+					profile_format = profile_format.replace("_fullprofilelink_", actionUrl);
+					profile_format = profile_format.replace("_senderphoto_", "cid:senderimage"+profile.get("id"));
+					String sender_img = (String)profile.get("profileImage");
+			        if(StringUtils.isNotBlank(sender_img)){
+			        	inlineImages.put("senderimage"+profile.get("id"), objContext.getRealPath(sender_img));
+			        }else{
+			        	inlineImages.put("senderimage"+profile.get("id"), objContext.getRealPath("img" +File.separator+"default.png"));
+			        }
 					
 		            profiles_list.append(profile_format);
 	            }
+	            body = prop.getProperty("profiles_list_format");
+	            body = body.replace("_profileslist_", profiles_list);
 	            
+				   body = body.replace("_img_", "cid:image2");
+					body = body.replace("_bodyimage_", "cid:image3");
+					body = body.replace("_img1_", "cid:img1");
+					body = body.replace("_img2_", "cid:img2");
+					body = body.replace("_img3_", "cid:img3");
+					body = body.replace("_img4_", "cid:img4");
+					body = body.replace("_img5_", "cid:img5");
 	            
-				body = prop.getProperty("profiles_list_format");
+				
 				body = body.replace("_logo_","cid:logo");
 				//body = body.replace("_username_", objUsersBean.getUsername());
-				body = body.replace("_profileslist_", profiles_list);
+				
+				inlineImages.put("image2", objContext.getRealPath("images" +File.separator+"logo.jpg"));
+		        inlineImages.put("image3", objContext.getRealPath("images" +File.separator+"matri.jpg"));
+		        inlineImages.put("img1", objContext.getRealPath("images" +File.separator+"img1.jpg"));
+		        inlineImages.put("img2", objContext.getRealPath("images" +File.separator+"img2.jpg"));
+		        inlineImages.put("img3", objContext.getRealPath("images" +File.separator+"img3.jpg"));
+		        inlineImages.put("img4", objContext.getRealPath("images" +File.separator+"img4.jpg"));
+		        inlineImages.put("img5", objContext.getRealPath("images" +File.separator+"img5.jpg"));
 	        }
 			//body = body.replace("_img_", "cid:image2");
 	        
 			// inline images
-	        Map<String, String> inlineImages = new HashMap<String, String>();
+	        
 //	        inlineImages.put("image1", objContext.getRealPath("images" +File.separator+"telugu.png"));
-	        inlineImages.put("defaultimage", objContext.getRealPath("images" +File.separator+"default.png"));
-	        inlineImages.put("logo", objContext.getRealPath("images" +File.separator+"logo.jpg"));
+	        //inlineImages.put("defaultimage", objContext.getRealPath("images" +File.separator+"default.png"));
+	        //inlineImages.put("logo", objContext.getRealPath("images" +File.separator+"logo.jpg"));
+	        
 	 
 	       
 	            EmbeddedImageEmailUtil.send(host, port, mailFrom, password, mailTo,

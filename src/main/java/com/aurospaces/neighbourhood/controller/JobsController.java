@@ -62,6 +62,9 @@ public class JobsController {
 			   return "redirect:HomePage";*/
 		   System.out.println("### in weeklyMatchEmails");
 		   List<Map<String,Object>> activeProfilesList = objUsersDao.getAllSubscribedUsersForWeeklyMatchEmails();
+		   System.out.println("### activeProfilesList:"+activeProfilesList);
+		   String baseUrl = "http://localhost:8080/NBD/";//objUsersDao.getBaseUrl();
+		   baseUrl += "users";
 		   for(Map<String,Object> profile:activeProfilesList){
 			   UsersBean receiverBean = new UsersBean();
 			   receiverBean.setId((Integer)profile.get("id"));
@@ -70,8 +73,9 @@ public class JobsController {
 			   Object emailId = profile.get("email");
 			   receiverBean.setEmail((String)emailId);
 			   List<Map<String,String>> preferredProfiles = objUsersDao.getProfilesFilteredByPreferences(profile);
+			   System.out.println("### preferredProfiles size:"+preferredProfiles.size());
 			   try{
-				   EmailUtil.sendProfilesListEmail(receiverBean,preferredProfiles, "profiles_list_email",objContext);
+				   EmailUtil.sendProfilesListEmail(receiverBean,preferredProfiles, "profiles_list_email",objContext,baseUrl);
 				   System.out.println("### matches sent");
 			   }catch(Exception e){
 				   e.printStackTrace();
