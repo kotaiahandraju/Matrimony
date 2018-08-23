@@ -1338,7 +1338,7 @@ public class HomePageController {
 			if(membership_details!=null){
 				session.setAttribute("membership_details", membership_details);
 			}else{
-				session.setAttribute("membership_details", "");
+				session.setAttribute("membership_details", null);
 			}
 			//to display pending requests block in dashboard
 			List<Map<String,Object>> pending_requests = objUsersDao.getPendingInterestRequests(sessionBean.getId()+"",0);

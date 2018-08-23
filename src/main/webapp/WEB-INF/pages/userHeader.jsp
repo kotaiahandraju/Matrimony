@@ -8,13 +8,19 @@
 		<%-- 	<div class="col-md-12">
 				<c:if test="${membership_details.validity <= 10}">
 				<h4>Your paid membership will expire in ${membership_details.validity} days</h4>
+				--%>
 			<div class="col-md-12">
 				<c:if test="${cacheGuest.roleId != '4'}">
-					<c:if test="${membership_details.validity <= 10}">
-						<h4>Your paid membership will expire in ${membership_details.validity} days</h4>
+					<c:if test="${not empty membership_details}">
+						<c:if test="${membership_details.validity>0 && membership_details.validity <= 10}">
+							<h4>Your paid membership will expire in ${membership_details.validity} day<c:if test="${membership_details.validity > 1}">s</c:if></h4>
+						</c:if>
+						<c:if test="${membership_details.validity == 0}">
+							<h4>Today is last day of your membership package!!  <a type="button" class="btn btn-primary btn-block" href="memberShipPage">Renew Membership</a></h4>
+						</c:if>
 					</c:if>
 				</c:if>
-			</div>  --%>
+			</div>   
 			<div class="col-md-12">
 				<h4>Hello <%= userBean.getFirstName() %> <%= userBean.getLastName() %> <span>(<%= userBean.getUsername() %>)</span></h4>
 			</div>  
@@ -102,17 +108,26 @@
             		Not a paid member.
             	</c:if>
             	<c:if test="${cacheGuest.roleId != '4'}">
-	            	<c:if test="${membership_details.validity < 0}">
-	            		Your membership validity is over on <c:out value="${membership_details.renewal_date}" /><br>
-	            		<a type="button" class="btn btn-primary btn-block" href="memberShipPage">Renew Membership</a>
+            		<c:if test="${not empty membership_details}">
+		            	<c:if test="${membership_details.validity < 0}">
+		            		Your membership validity is over on <c:out value="${membership_details.renewal_date}" /><br>
+		            		<a type="button" class="btn btn-primary btn-block" href="memberShipPage">Renew Membership</a>
+		            	</c:if>
+		            	<c:if test="${membership_details.validity == 0}">
+		            		Today is last day of your membership package!!<br>
+		            		<a type="button" class="btn btn-primary btn-block" href="memberShipPage">Renew Membership</a>
+		            	</c:if>
+		            	<c:if test="${membership_details.validity > 0}">
+			            	
+			            		<b><c:out value="${membership_details.name}" /></b><br>
+				            	<c:out value="${membership_details.validity}" /> day<c:if test="${membership_details.validity > 1}">s</c:if> remaining <br>
+				            	Balance Profiles Limit : <c:out value="${allowed_profiles_limit}" />/
+				            	<c:out value="${membership_details.allowed_profiles_limit}" />
+			            	
+		            	</c:if>
 	            	</c:if>
-	            	<c:if test="${membership_details.validity >= 0}">
-		            	
-		            		<b><c:out value="${membership_details.name}" /></b><br>
-			            	<c:out value="${membership_details.validity}" /> days remaining <br>
-			            	Balance Profiles Limit : <c:out value="${allowed_profiles_limit}" />/
-			            	<c:out value="${membership_details.allowed_profiles_limit}" />
-		            	
+	            	<c:if test="${empty membership_details}">
+	            		Not a paid member.
 	            	</c:if>
 	            </c:if>
             	

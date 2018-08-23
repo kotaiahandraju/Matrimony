@@ -63,7 +63,7 @@ public class JobsController {
 		   System.out.println("### in weeklyMatchEmails");
 		   List<Map<String,Object>> activeProfilesList = objUsersDao.getAllSubscribedUsersForWeeklyMatchEmails();
 		   System.out.println("### activeProfilesList:"+activeProfilesList);
-		   String baseUrl = "http://localhost:8080/NBD/";//objUsersDao.getBaseUrl();
+		   String baseUrl = objUsersDao.getBaseUrl(); //"http://localhost:8080/NBD/"
 		   baseUrl += "users";
 		   for(Map<String,Object> profile:activeProfilesList){
 			   UsersBean receiverBean = new UsersBean();
