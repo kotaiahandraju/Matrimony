@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.aurospaces.neighbourhood.bean.CastBean;
 import com.aurospaces.neighbourhood.bean.EducationBean;
 import com.aurospaces.neighbourhood.bean.LoginBean;
 import com.aurospaces.neighbourhood.bean.ReligionBean;
@@ -624,6 +625,27 @@ public class LoginController {
 			
 			return "successStory";
 		}
+	   
+	   @RequestMapping(value = "/fullProfile")
+		 public String fullProfile(@ModelAttribute("createProfile") UsersBean objUserssBean, Model objeModel, HttpServletRequest request, HttpSession session) {
+		   String sender_username = request.getParameter("un");
+			String profile_username = request.getParameter("pun");
+			String sender_unique_code = request.getParameter("suc");
+			String profile_unique_code = request.getParameter("puc");
+		   UsersBean senderBean = objUsersDao.getUser(sender_username.trim());
+			UsersBean profileBean = objUsersDao.getUser(profile_username.trim());
+			if(senderBean.getUnique_code().equals(sender_unique_code) && profileBean.getUnique_code().equals(profile_unique_code)){
+				LoginBean userObj = new LoginBean();
+				userObj.setUserName(sender_username);
+				userObj.setPassword(senderBean.getPassword());
+				UsersBean objUserBean = objUsersDao.loginChecking(userObj);
+				this.setInitialData(objUserBean, session);
+				objUserssBean.setId(profileBean.getId());// for local use
+			}else{
+				return "redirect:HomePage";
+			}
+		   return "redirect:users/fullProfile?un="+sender_username+"&pun="+profile_username+"&suc="+sender_unique_code+"&puc="+profile_unique_code+"";
+		 }
 	   
 	   /*****     back-end jobs    start       ********//*
 	   @RequestMapping(value="/weeklyMatchEmails")

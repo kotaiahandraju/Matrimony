@@ -31,6 +31,7 @@ import com.aurospaces.neighbourhood.db.basedao.BaseUsersDao;
 import com.aurospaces.neighbourhood.db.callback.RowValueCallbackHandler;
 import com.aurospaces.neighbourhood.util.MatrimonyConstants;
 import com.aurospaces.neighbourhood.util.MiscUtils;
+import com.aurospaces.neighbourhood.util.SendSMS;
 
 
 
@@ -4133,7 +4134,9 @@ public boolean deletePhoto(String photoId){
 	
 	public Map<String,Object> getMembershipDetails(UsersBean objUserBean){
 		jdbcTemplate = custom.getJdbcTemplate();
-		String qryStr = "select *,date_format((select (date_add(date_add(u.package_joined_date, interval pack.duration month), interval -1 day))),'%d-%b-%Y') as renewal_date, "
+		String qryStr = "select *,(case duration_type when 'day' then (date_format((select (date_add(u.package_joined_date, interval pack.duration DAY))),'%d-%b-%Y'))    	"
+				+ " when 'month' then (date_format((select (date_add(u.package_joined_date, interval pack.duration month))),'%d-%b-%Y'))  		"
+				+ " when 'year' then (date_format((select (date_add(u.package_joined_date, interval pack.duration YEAR))),'%d-%b-%Y'))  		else '---'	end )  as renewal_date, "
 				+" date_format((select date(updated_time) from paymenthistory where memberId = "+objUserBean.getId()+" and paymentStatus = 'success' order by updated_time desc limit 1),'%d-%b-%Y')  as last_renewed_date, "
 				+" (case duration_type when 'day' then (select datediff(date_add(u.package_joined_date, interval pack.duration day),current_date())) " 
                 +"   	when 'month' then (select datediff(date_add(u.package_joined_date, interval pack.duration month),current_date())) "
@@ -4141,7 +4144,7 @@ public boolean deletePhoto(String photoId){
                 +" 		else -1	"
                 + "end "
                 +") as validity  "
-				+ "from users u, package pack where u.package_id = pack.id and u.id = "+objUserBean.getId();
+				+ "from users u, package pack where u.package_id = pack.id and pack.status = '1' and  u.id = "+objUserBean.getId();
 		try {
 			List<Map<String,Object>> list = jdbcTemplate.queryForList(qryStr);
 			if(list!=null && list.size()>0){
@@ -4186,9 +4189,37 @@ public boolean deletePhoto(String photoId){
 	
 	public int updateMembershipStatusBasedOnValidity(){
 		jdbcTemplate = custom.getJdbcTemplate();
-		String sql = "update users set membership_status = '0' where datediff(date_add(package_joined_date, interval (select pack.duration from package pack where pack.id=package_id) month),current_date())<=0";
+		
+		
+		
 		try {
-			int updated_count = jdbcTemplate.update(sql);
+			// get all the members whose membership plan validity will expire 1 or 4 or 7 days and send sms&mails
+			String select_qry = "select * from (select u.id, "
+					+ "(case duration_type when 'day' then (select datediff(date_add(u.package_joined_date, interval pack.duration day),current_date()))    "
+					+ "	when 'month' then (select datediff(date_add(u.package_joined_date, interval pack.duration month),current_date()))  	"
+					+ "	when 'year' then (select datediff(date_add(u.package_joined_date, interval pack.duration year),current_date()))  	"
+					+ "	else -1	end ) as validity  from users u, package pack where u.package_id = pack.id and pack.status = '1' ) temp "
+					+ " where temp.validity in (1,4,7)";
+			List<Map<String,Object>> members_list = jdbcTemplate.queryForList(select_qry);
+			for(Map<String,Object> member:members_list){
+				//send bulk SMS and bulk email to all
+				try{
+					String days_str = ((Long)member.get("validity"))>1?"days":"day";
+					SendSMS.sendSMS(" Dear member, your membership plan will expire in "+member.get("validity")+" "+days_str, member.get("mobile")+"");
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				} 
+			}
+			// Now update the status of all members whose plan is expired today i.e. on current date.
+			String update_members = "select *,group_concat(temp.id) from (select u.id, "
+					+ "(case duration_type when 'day' then (select datediff(date_add(u.package_joined_date, interval pack.duration day),current_date()))    "
+					+ "	when 'month' then (select datediff(date_add(u.package_joined_date, interval pack.duration month),current_date()))  	"
+					+ "	when 'year' then (select datediff(date_add(u.package_joined_date, interval pack.duration year),current_date()))  	"
+					+ "	else -1	end ) as validity  from users u, package pack where u.package_id = pack.id and pack.status = '1' ) temp "
+					+ " where temp.validity = 0";
+			String members_ids = jdbcTemplate.queryForObject(update_members, String.class);
+			String update_qry = " update users set membership_status = '0' where find_in_set(id,'"+members_ids+"')>0 ";
+			int updated_count = jdbcTemplate.update(update_qry);
 			return updated_count;
 		} catch (Exception ge) {
 			return 0;
