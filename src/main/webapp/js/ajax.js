@@ -1,3 +1,4 @@
+$(function(){
 $.fn.makeMultipartRequest = function(method, url, processData, formData,
 		contentType, dataType, successFunction) {
 	$("#loadAjax").show();
@@ -18,7 +19,7 @@ $.fn.makeMultipartRequest = function(method, url, processData, formData,
 		success : successFunction,
 		complete: function () {
          
-         $.unblockUI();
+         //$.unblockUI();
     },
 		error :  function(e){$.unblockUI();console.log(e);}
 	});
@@ -70,3 +71,4 @@ $.fn.makeMultipartRequest1 = function(method, url, processData, formData,
 	});
 	$("#loadAjax").hide();
 };
+});
