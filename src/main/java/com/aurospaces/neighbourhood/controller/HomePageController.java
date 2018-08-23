@@ -1146,8 +1146,9 @@ public class HomePageController {
 					//update notification status as read
 					objUsersDao.updateNotificationStatus(notification_id);
 				}else if(StringUtils.isNotBlank(sender_username) && StringUtils.isNotBlank(profile_username)){
-					UsersBean senderBean = objUsersDao.getUser(sender_username.trim());
 					UsersBean profileBean = objUsersDao.getUser(profile_username.trim());
+					objUserssBean.setId(profileBean.getId());// for local use
+					/*UsersBean senderBean = objUsersDao.getUser(sender_username.trim());
 					if(senderBean.getUnique_code().equals(sender_unique_code) && profileBean.getUnique_code().equals(profile_unique_code)){
 						LoginBean userObj = new LoginBean();
 						userObj.setUserName(sender_username);
@@ -1158,7 +1159,7 @@ public class HomePageController {
 						objUserssBean.setId(profileBean.getId());// for local use
 					}else{
 						return "redirect:HomePage";
-					}
+					}*/
 				}else{
 					if(sessionBean == null){
 						return "redirect:HomePage";

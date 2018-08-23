@@ -31,6 +31,7 @@ import com.aurospaces.neighbourhood.db.basedao.BaseUsersDao;
 import com.aurospaces.neighbourhood.db.callback.RowValueCallbackHandler;
 import com.aurospaces.neighbourhood.util.MatrimonyConstants;
 import com.aurospaces.neighbourhood.util.MiscUtils;
+import com.aurospaces.neighbourhood.util.SendSMS;
 
 
 
@@ -4202,7 +4203,14 @@ public boolean deletePhoto(String photoId){
 			List<Map<String,Object>> members_list = jdbcTemplate.queryForList(select_qry);
 			for(Map<String,Object> member:members_list){
 				//send bulk SMS and bulk email to all
+				try{
+					String days_str = ((Long)member.get("validity"))>1?"days":"day";
+					SendSMS.sendSMS(" Dear member, your membership plan will expire in "+member.get("validity")+" "+days_str, member.get("mobile")+"");
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				} 
 			}
+			// Now update the status of all members whose plan is expired today i.e. on current date.
 			String update_members = "select *,group_concat(temp.id) from (select u.id, "
 					+ "(case duration_type when 'day' then (select datediff(date_add(u.package_joined_date, interval pack.duration day),current_date()))    "
 					+ "	when 'month' then (select datediff(date_add(u.package_joined_date, interval pack.duration month),current_date()))  	"
