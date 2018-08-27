@@ -92,7 +92,7 @@ JdbcTemplate jdbcTemplate;
 ps.setTimestamp(2, updatedTime);
 ps.setInt(3, users.getRoleId());
 ps.setString(4, users.getUsername());
-ps.setString(5, users.getPassword());
+ps.setString(5, users.getRegPassword());
 ps.setString(6, "mykey");
 ps.setString(7, users.getEmail());
 ps.setString(8, users.getCreateProfileFor());
@@ -165,7 +165,7 @@ ps.setString(52, unique_code);
 				UsersBean adminSessionBean =  (UsersBean) session.getAttribute("cacheUserBean");
 				String passwordStr = "";
 				if(adminSessionBean != null){
-					passwordStr = "password = AES_ENCRYPT('"+users.getPassword()+"','mykey'),";
+					passwordStr = "password = AES_ENCRYPT('"+users.getRegPassword()+"','mykey'),";
 				}
 				String sql = "UPDATE users  set "+passwordStr+" updated_time = ?  ,createProfileFor = ? ,gender = ? ,firstName = ? ,lastName = ? ,dob = ? ,religion = ? ,motherTongue = ? ,currentCountry = ? ,currentState = ? ,currentCity = ? ,maritalStatus = ? ,caste = ? ,gotram = ? ,star = ? ,dosam = ? ,dosamName = ? ,education = ? ,workingWith = ? ,companyName = ? ,annualIncome = ? ,monthlyIncome = ? ,diet = ? ,smoking = ? ,drinking = ? ,height = ? ,bodyType = ? ,complexion = ? ,mobile = ? ,aboutMyself = ? ,disability = ? ,fatherName=?, motherName=?, fOccupation=?, mOccupation=?, noOfBrothers=?, noOfSisters=?, noOfBrothersMarried=?, noOfSistersMarried=?,haveChildren=?,occupation=?  where id = ? ";
 				int updated_count = jdbcTemplate.update(sql, new Object[]{users.getUpdatedTime(),users.getCreateProfileFor(),users.getGender(),users.getFirstName(),users.getLastName(),new java.sql.Timestamp(users.getDob1().getTime()),users.getReligion(),users.getMotherTongue(),users.getCurrentCountry(),users.getCurrentState(),users.getCurrentCity(),users.getMaritalStatus(),users.getCaste(),users.getGotram(),users.getStar(),users.getDosam(),users.getDosamName(),users.getEducation(),users.getWorkingWith(),users.getCompanyName(),users.getAnnualIncome(),users.getMonthlyIncome(),users.getDiet(),users.getSmoking(),users.getDrinking(),users.getHeight(),users.getBodyType(),users.getComplexion(),users.getMobile(),users.getAboutMyself(),users.getDisability(),users.getFatherName(),users.getMotherName(),users.getfOccupation(),users.getmOccupation(), users.getNoOfBrothers(),users.getNoOfSisters(),users.getNoOfBrothersMarried(),users.getNoOfSistersMarried(),users.getHaveChildren(),users.getOccupation(),users.getId()});

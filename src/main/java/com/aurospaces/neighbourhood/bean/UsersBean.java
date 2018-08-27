@@ -14,7 +14,13 @@ protected Date updatedTime ;
 protected String last_ip;
 protected int roleId ;
 protected String username ;
-protected String password ;
+protected String password ,regPassword;
+public String getRegPassword() {
+	return regPassword;
+}
+public void setRegPassword(String regPassword) {
+	this.regPassword = regPassword;
+}
 protected String email ;
 protected String createProfileFor ;
 protected String gender ;
@@ -120,52 +126,53 @@ public void setrCityName(String rCityName) {
 public String toString() {
 	return "UsersBean [id=" + id + ", createdTime=" + createdTime + ", createdTimeAsString=" + createdTimeAsString
 			+ ", updatedTime=" + updatedTime + ", last_ip=" + last_ip + ", roleId=" + roleId + ", username=" + username
-			+ ", password=" + password + ", email=" + email + ", createProfileFor=" + createProfileFor + ", gender="
-			+ gender + ", firstName=" + firstName + ", lastName=" + lastName + ", dob=" + dob + ", dob1=" + dob1
-			+ ", religion=" + religion + ", motherTongue=" + motherTongue + ", currentCountry=" + currentCountry
-			+ ", currentState=" + currentState + ", currentCity=" + currentCity + ", maritalStatus=" + maritalStatus
-			+ ", caste=" + caste + ", gotram=" + gotram + ", star=" + star + ", dosam=" + dosam + ", dosamName="
-			+ dosamName + ", education=" + education + ", companyName=" + companyName + ", annualIncome=" + annualIncome
-			+ ", monthlyIncome=" + monthlyIncome + ", diet=" + diet + ", smoking=" + smoking + ", drinking=" + drinking
-			+ ", height=" + height + ", heightName=" + heightName + ", bodyType=" + bodyType + ", complexion="
-			+ complexion + ", mobile=" + mobile + ", aboutMyself=" + aboutMyself + ", disability=" + disability
-			+ ", status=" + status + ", showall=" + showall + ", workingWith=" + workingWith + ", userId=" + userId
-			+ ", pageName=" + pageName + ", registerwith=" + registerwith + ", branch=" + branch + ", statusName="
-			+ statusName + ", occupation=" + occupation + ", rAgeFrom=" + rAgeFrom + ", rAgeTo=" + rAgeTo + ", rHeight="
-			+ rHeight + ", rHeightTo=" + rHeightTo + ", rMaritalStatus=" + rMaritalStatus + ", rReligion=" + rReligion
-			+ ", rCaste=" + rCaste + ", rMotherTongue=" + rMotherTongue + ", haveChildren=" + haveChildren
-			+ ", rCountry=" + rCountry + ", rState=" + rState + ", rEducation=" + rEducation + ", rWorkingWith="
-			+ rWorkingWith + ", rOccupation=" + rOccupation + ", rAnnualIncome=" + rAnnualIncome
-			+ ", rCreateProfileFor=" + rCreateProfileFor + ", rDiet=" + rDiet + ", userrequirementId="
-			+ userrequirementId + ", reTypedPassword=" + reTypedPassword + ", fatherName=" + fatherName
-			+ ", motherName=" + motherName + ", fOccupation=" + fOccupation + ", mOccupation=" + mOccupation
-			+ ", noOfBrothers=" + noOfBrothers + ", noOfSisters=" + noOfSisters + ", noOfBrothersMarried="
-			+ noOfBrothersMarried + ", noOfSistersMarried=" + noOfSistersMarried + ", rhaveChildren=" + rhaveChildren
-			+ ", expressedInterest=" + expressedInterest + ", mobileNumViewed=" + mobileNumViewed + ", image=" + image
-			+ ", profileImage=" + profileImage + ", age=" + age + ", paymentObject=" + paymentObject + ", casteName="
-			+ casteName + ", religionName=" + religionName + ", educationName=" + educationName + ", occupationName="
-			+ occupationName + ", currentCityName=" + currentCityName + ", packageId=" + packageId + ", redirectPage="
-			+ redirectPage + ", sentInterestCount=" + sentInterestCount + ", receivedInterestCount="
-			+ receivedInterestCount + ", acceptedInterestCount=" + acceptedInterestCount + ", profileViewedCount="
-			+ profileViewedCount + ", pendingRequestsCount=" + pendingRequestsCount + ", yetToBeViewedCount="
-			+ yetToBeViewedCount + ", viewedNotContactedCount=" + viewedNotContactedCount + ", awaitingInterestCount="
-			+ awaitingInterestCount + ", rejectedInterestCount=" + rejectedInterestCount + ", profilesViewedByMeCount="
-			+ profilesViewedByMeCount + ", mobileNumViewedCount=" + mobileNumViewedCount + ", mobileNumViewedByMeCount="
-			+ mobileNumViewedByMeCount + ", shortListedCount=" + shortListedCount + ", forEmail=" + forEmail
-			+ ", currentStateName=" + currentStateName + ", currentCountryName=" + currentCountryName
-			+ ", motherTongueName=" + motherTongueName + ", starName=" + starName + ", heightInches=" + heightInches
-			+ ", complexionName=" + complexionName + ", bodyTypeName=" + bodyTypeName + ", page_no=" + page_no
-			+ ", total_records=" + total_records + ", OtpLimit=" + OtpLimit + ", OtpStatus=" + OtpStatus
-			+ ", country_ids=" + country_ids + ", state_ids=" + state_ids + ", last_login_time=" + last_login_time
-			+ ", weight=" + weight + ", fOccupationName=" + fOccupationName + ", mOccupationName=" + mOccupationName
-			+ ", mail_content=" + mail_content + ", rReligionName=" + rReligionName + ", rCasteName=" + rCasteName
-			+ ", rDietName=" + rDietName + ", rMotherTongueName=" + rMotherTongueName + ", rMaritalStatusName="
-			+ rMaritalStatusName + ", membership_status=" + membership_status + ", unique_code=" + unique_code
-			+ ", emailverify=" + emailverify + ", profileVerifyedBy=" + profileVerifyedBy + ", rEducationName="
-			+ rEducationName + ", rOccupationName=" + rOccupationName + ", rCountryName=" + rCountryName
-			+ ", rStateName=" + rStateName + ", rHeightInches=" + rHeightInches + ", rHeightToInches=" + rHeightToInches
-			+ ", religionId=" + religionId + ", castId=" + castId + ", message_sent_status=" + message_sent_status
-			+ ", rCity=" + rCity + ", rCityName=" + rCityName + ", shortlisted=" + shortlisted + "]";
+			+ ", password=" + password + ", regPassword=" + regPassword + ", email=" + email + ", createProfileFor="
+			+ createProfileFor + ", gender=" + gender + ", firstName=" + firstName + ", lastName=" + lastName + ", dob="
+			+ dob + ", dob1=" + dob1 + ", religion=" + religion + ", motherTongue=" + motherTongue + ", currentCountry="
+			+ currentCountry + ", currentState=" + currentState + ", currentCity=" + currentCity + ", maritalStatus="
+			+ maritalStatus + ", caste=" + caste + ", gotram=" + gotram + ", star=" + star + ", dosam=" + dosam
+			+ ", dosamName=" + dosamName + ", education=" + education + ", companyName=" + companyName
+			+ ", annualIncome=" + annualIncome + ", monthlyIncome=" + monthlyIncome + ", diet=" + diet + ", smoking="
+			+ smoking + ", drinking=" + drinking + ", height=" + height + ", heightName=" + heightName + ", bodyType="
+			+ bodyType + ", complexion=" + complexion + ", mobile=" + mobile + ", aboutMyself=" + aboutMyself
+			+ ", disability=" + disability + ", status=" + status + ", showall=" + showall + ", workingWith="
+			+ workingWith + ", userId=" + userId + ", pageName=" + pageName + ", registerwith=" + registerwith
+			+ ", branch=" + branch + ", statusName=" + statusName + ", occupation=" + occupation + ", rAgeFrom="
+			+ rAgeFrom + ", rAgeTo=" + rAgeTo + ", rHeight=" + rHeight + ", rHeightTo=" + rHeightTo
+			+ ", rMaritalStatus=" + rMaritalStatus + ", rReligion=" + rReligion + ", rCaste=" + rCaste
+			+ ", rMotherTongue=" + rMotherTongue + ", haveChildren=" + haveChildren + ", rCountry=" + rCountry
+			+ ", rState=" + rState + ", rEducation=" + rEducation + ", rWorkingWith=" + rWorkingWith + ", rOccupation="
+			+ rOccupation + ", rAnnualIncome=" + rAnnualIncome + ", rCreateProfileFor=" + rCreateProfileFor + ", rDiet="
+			+ rDiet + ", userrequirementId=" + userrequirementId + ", reTypedPassword=" + reTypedPassword
+			+ ", fatherName=" + fatherName + ", motherName=" + motherName + ", fOccupation=" + fOccupation
+			+ ", mOccupation=" + mOccupation + ", noOfBrothers=" + noOfBrothers + ", noOfSisters=" + noOfSisters
+			+ ", noOfBrothersMarried=" + noOfBrothersMarried + ", noOfSistersMarried=" + noOfSistersMarried
+			+ ", rhaveChildren=" + rhaveChildren + ", expressedInterest=" + expressedInterest + ", mobileNumViewed="
+			+ mobileNumViewed + ", image=" + image + ", profileImage=" + profileImage + ", age=" + age
+			+ ", paymentObject=" + paymentObject + ", casteName=" + casteName + ", religionName=" + religionName
+			+ ", educationName=" + educationName + ", occupationName=" + occupationName + ", currentCityName="
+			+ currentCityName + ", packageId=" + packageId + ", redirectPage=" + redirectPage + ", sentInterestCount="
+			+ sentInterestCount + ", receivedInterestCount=" + receivedInterestCount + ", acceptedInterestCount="
+			+ acceptedInterestCount + ", profileViewedCount=" + profileViewedCount + ", pendingRequestsCount="
+			+ pendingRequestsCount + ", yetToBeViewedCount=" + yetToBeViewedCount + ", viewedNotContactedCount="
+			+ viewedNotContactedCount + ", awaitingInterestCount=" + awaitingInterestCount + ", rejectedInterestCount="
+			+ rejectedInterestCount + ", profilesViewedByMeCount=" + profilesViewedByMeCount + ", mobileNumViewedCount="
+			+ mobileNumViewedCount + ", mobileNumViewedByMeCount=" + mobileNumViewedByMeCount + ", shortListedCount="
+			+ shortListedCount + ", forEmail=" + forEmail + ", currentStateName=" + currentStateName
+			+ ", currentCountryName=" + currentCountryName + ", motherTongueName=" + motherTongueName + ", starName="
+			+ starName + ", heightInches=" + heightInches + ", complexionName=" + complexionName + ", bodyTypeName="
+			+ bodyTypeName + ", page_no=" + page_no + ", total_records=" + total_records + ", OtpLimit=" + OtpLimit
+			+ ", OtpStatus=" + OtpStatus + ", country_ids=" + country_ids + ", state_ids=" + state_ids
+			+ ", last_login_time=" + last_login_time + ", weight=" + weight + ", fOccupationName=" + fOccupationName
+			+ ", mOccupationName=" + mOccupationName + ", mail_content=" + mail_content + ", rReligionName="
+			+ rReligionName + ", rCasteName=" + rCasteName + ", rDietName=" + rDietName + ", rMotherTongueName="
+			+ rMotherTongueName + ", rMaritalStatusName=" + rMaritalStatusName + ", membership_status="
+			+ membership_status + ", unique_code=" + unique_code + ", emailverify=" + emailverify
+			+ ", profileVerifyedBy=" + profileVerifyedBy + ", rEducationName=" + rEducationName + ", rOccupationName="
+			+ rOccupationName + ", rCountryName=" + rCountryName + ", rStateName=" + rStateName + ", rHeightInches="
+			+ rHeightInches + ", rHeightToInches=" + rHeightToInches + ", religionId=" + religionId + ", castId="
+			+ castId + ", message_sent_status=" + message_sent_status + ", rCity=" + rCity + ", rCityName=" + rCityName
+			+ ", shortlisted=" + shortlisted + "]";
 }
 public String getCastId() {
 	return castId;
