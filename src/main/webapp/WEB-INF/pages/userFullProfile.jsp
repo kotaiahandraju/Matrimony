@@ -62,8 +62,8 @@ padding:0px !important;}
 					
 	            <div class="panel panel-success">
 	             <div class="panel-heading pull-right">
-	             <span class=""><input type="checkbox" id="selectAllCheackbox"/> Select All &nbsp; <a  onclick="requetAllCheckboxApprov(1);" href="#">Approve &nbsp; </a></span>
-				 <span class=""><a id="reject${photo1.id}" onclick="requetAllCheckboxApprov(2);" href="#">Reject </a></span>
+	             <span class=""><input type="checkbox" id="selectAllCheackbox"/> Select All &nbsp; <a  onclick="requetAllCheckboxApprov(1,${photo1.user_id});" href="#">Approve &nbsp; </a></span>
+				 <span class=""><a id="reject${photo1.id}" onclick="requetAllCheckboxApprov(2,${photo1.user_id});" href="#">Reject </a></span>
 	            </div><div class="clearfix"></div>
 		            <div class="panel-body">
 		            	<div id="imagesDiv" class="row" style="margin-bottom: 0.4em;">
@@ -80,8 +80,8 @@ padding:0px !important;}
 									<c:if test="${photo1.approved_status == '0'}">
 										<div id="approveDiv${photo1.id}">
 										<input type="checkbox" class="check-box" id="${photo1.id}" value="${photo1.id}" />
-											<a id="approve${photo1.id}" href="#" onclick="approvePhoto(${photo1.id},1)">Approve</a>
-											<a id="reject${photo1.id}" href="#" style="padding-left:5px;" onclick="approvePhoto(${photo1.id},2)">Reject</a>
+											<a id="approve${photo1.id}" href="#" onclick="approvePhoto(${photo1.id},1,${photo1.user_id})">Approve</a>
+											<a id="reject${photo1.id}" href="#" style="padding-left:5px;" onclick="approvePhoto(${photo1.id},2,${photo1.user_id})">Reject</a>
 										</div>
 									</c:if>
 					      			
@@ -173,7 +173,7 @@ $("#selectAllCheackbox").on("click", function() {
 // }
  */	
 	
-function requetAllCheckboxApprov(approvedStatus){
+function requetAllCheckboxApprov(approvedStatus,user_id){
 	var selected_boxes = $('.check-box:checked');
 			var selected_boxes_length = selected_boxes.length;
 			if (selected_boxes_length == 0) {
@@ -191,6 +191,7 @@ function requetAllCheckboxApprov(approvedStatus){
 		 var formData = new FormData();
 		 formData.append('photoId',profile_id);
 		 formData.append("approvedStatus",approvedStatus);
+		 formData.append("user_id",user_id);
   	 jQuery.fn.makeMultipartRequest('POST', 'approvePhotoAll', false,
 			formData, false, 'text', function(data){
   		var jsonobj = $.parseJSON(data);
@@ -211,6 +212,12 @@ function requetAllCheckboxApprov(approvedStatus){
 					$("#approveDiv"+this.value).html("Rejected");
 					});
 					alert("Photo rejected successfully");
+				}
+				var pending_count = jsonobj.approval_pending_count;
+				if(pending_count==0){
+					var existing_count = $("#updated_cnt").html();
+					var new_count = parseInt(existing_count)-1;
+					$("#updated_cnt").html(new_count);
 				}
 			}else{
 				alert("Some problem occured. Please try again.");
@@ -262,17 +269,18 @@ function displayMobileNum(profileId,listType){
 function displayImage(imageName){
 	$("#profImage").prop("src",imageName);
 }
-function approvePhoto(photoId,approvedStatus){
+function approvePhoto(photoId,approvedStatus,user_id){
 	var formData = new FormData();
 	formData.append("photoId",photoId);
 	formData.append("approvedStatus",approvedStatus);
+	formData.append("user_id",user_id);
 	$.fn.makeMultipartRequest('POST', 'approvePhoto', false,
 			formData, false, 'text', function(data){
 		var jsonobj = $.parseJSON(data);
 		var msg = jsonobj.message;
 		if(typeof msg != "undefined"){
 			if(msg=="success"){
-				photoId=[];
+				//photoId=[];
 				if(approvedStatus==1){
 					alert("Photo approved successfully");
 					//$("#approve"+photoId).removeAttr("href");
@@ -284,7 +292,12 @@ function approvePhoto(photoId,approvedStatus){
 					$("#approveDiv"+photoId).html("Rejected");
 					alert("Photo rejected successfully");
 				}
-				
+				var pending_count = jsonobj.approval_pending_count;
+				if(pending_count==0){
+					var existing_count = $("#updated_cnt").html();
+					var new_count = parseInt(existing_count)-1;
+					$("#updated_cnt").html(new_count);
+				}
 			}else{
 				alert("Some problem occured. Please try again.");
 			}

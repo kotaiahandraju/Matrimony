@@ -89,7 +89,8 @@ public class JavaIntegrationKit {
         params.put("furl", baseUrl+"/users/failed.htm");
         params.put("key", "rk9oLSp9");
         params.put("service_provider", "payu_paisa");
-        params.put("firstname", userSessionBean.getFirstName().replaceAll(" ", "#"+"#"+userSessionBean.getLastName().replaceAll(" ", "#")));//+userSessionBean.getLastName());
+        //params.put("firstname", userSessionBean.getFirstName().replaceAll(" ", "#"+"#"+userSessionBean.getLastName().replaceAll(" ", "#")));//+userSessionBean.getLastName());
+        params.put("firstname", (userSessionBean.getFirstName().replaceAll(" ", "#")+"##"+userSessionBean.getLastName().replaceAll(" ", "#")));//+userSessionBean.getLastName());
         params.put("email", email);
         params.put("phone", userSessionBean.getMobile());
         params.put("productinfo", "productinfo");

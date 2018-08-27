@@ -179,8 +179,13 @@
 		$.fn.makeMultipartRequest('POST', 'updateStatus', false,
 				formData, false, 'text', function(data){
 			var jsonobj = $.parseJSON(data);
+			var msg = jsonobj.message;
 			alert(jsonobj.message);
-			
+			if(msg == "Success"){
+				var existing_count = $("#inactive_profiles_cnt").html();
+				var new_count = parseInt(existing_count)-1;
+				$(".inactive_cnt").html(new_count);
+			}
 			var alldata = jsonobj.allOrders1;
 			console.log(jsonobj.allOrders1);
 			displayTable(alldata);

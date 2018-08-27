@@ -2,6 +2,7 @@
 package com.aurospaces.neighbourhood.db.dao;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -3793,7 +3794,8 @@ public boolean deletePhoto(String photoId){
 	
 	public List<Map<String,Object>> getPackageExpiredProfiles(int package_id){
 		jdbcTemplate = custom.getJdbcTemplate();
-		String qryStr = "select u.*,u.id as userId,p.*,date_format(package_joined_date,'%d-%M-%Y') as package_joined_date from users u, package p  where u.package_id = p.id and p.id = "+package_id+" and p.status = '1' and current_date() > (select DATE_ADD((DATE_ADD(u.package_joined_date, INTERVAL p.duration MONTH)), INTERVAL -1 day)) group by u.package_id order by u.package_id desc";
+		String qryStr = "select u.*,u.id as userId,p.*,date_format(package_joined_date,'%d-%M-%Y') as package_joined_date from users u, package p  where u.package_id = p.id and p.id = "+package_id+" and p.status = '1' and current_date() > (select DATE_ADD(u.package_joined_date, INTERVAL p.duration MONTH)) and u.membership_status='0' group by u.package_id order by u.package_id desc";
+		//String qryStr = "select u.*,u.id as userId,p.*,date_format(package_joined_date,'%d-%M-%Y') as package_joined_date from users u, package p  where u.package_id = p.id and p.id = "+package_id+" and p.status = '1'  group by u.package_id order by u.package_id desc";
 		try{
 			List<Map<String,Object>> list = jdbcTemplate.queryForList(qryStr);
 			if(list!=null)
@@ -4837,6 +4839,46 @@ public boolean deletePhoto(String photoId){
 			e.printStackTrace();
 		}
 		return "";
+	}
+	public Map<String, Integer> getDisplayCounts(){
+		jdbcTemplate = custom.getJdbcTemplate();
+		StringBuffer buffer = new StringBuffer();
+		Map<String, Integer> countsMap = new HashMap<String, Integer>();
+		countsMap.put("inactive_count", 0);
+		countsMap.put("updated_count", 0);
+		try{
+				String inactiveQry = "select count(1) from users u"
+						+" where u.status in ('0') and u.role_id not in (1) and "
+						+" if((select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) is null or "
+						+"    (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1)='0',0,1) ";
+				
+				String updatedProfilesQry = "select count(1) from (select count(1) from vuser_images ui " 
+						+" where ui.user_id in (select u.id from users u where u.status='1') and ui.status = '1' and ui.approved_status = '0' group by user_id) temp  ";
+
+				int inactiveCount = jdbcTemplate.queryForInt(inactiveQry);
+				int updatedProfilesCount = jdbcTemplate.queryForInt(updatedProfilesQry);
+				
+				countsMap.put("inactive_count", inactiveCount);
+				countsMap.put("updated_count", updatedProfilesCount);
+				return countsMap;
+			}catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}
+	}
+	
+	public int getApprovalPendingPhotosOf(String user_id){
+		jdbcTemplate = custom.getJdbcTemplate();
+		
+		try{
+				StringBuffer buffer = new StringBuffer(" select count(1) from vuser_images ui where ui.user_id = "+user_id+" and ui.status = '1' and ui.approved_status = '0'");
+				int count = 0;
+				count = jdbcTemplate.queryForInt(buffer.toString());
+				return count;
+			}catch (Exception e) {
+				e.printStackTrace();
+				return 0;
+			}
 	}
 }
 

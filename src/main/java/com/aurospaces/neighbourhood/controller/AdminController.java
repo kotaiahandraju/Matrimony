@@ -180,6 +180,11 @@ public class AdminController {
 			
 			request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
 			request.setAttribute("total_records", 2);
+			
+			// display counts
+			Map<String,Integer> counts = objUsersDao.getDisplayCounts();
+			session.setAttribute("display_counts", counts);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e);

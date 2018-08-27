@@ -211,15 +211,23 @@ public class FilterController {
 			if (objUsersBean.getStatus() != "0" && objUsersBean.getStatusName() != null) {
 				delete = objUsersDao.updateStatus(objUsersBean);
 				statusName = objUsersBean.getStatusName();
-				if (delete) {
+				if (delete && objUsersBean.getStatus().equalsIgnoreCase("1")) { 
 					jsonObj.put("message", "Success");
-					EmailUtil EmailUtil=new EmailUtil();
+					
+					Map<String,Integer> counts_map = (Map<String,Integer>)session.getAttribute("display_counts");
+					int existing_count = (Integer)counts_map.get("inactive_count");
+					counts_map.put("inactive_count", existing_count-1);
+					session.setAttribute("display_counts",counts_map);
+					
+					//EmailUtil EmailUtil=new EmailUtil();
 //					EmailUtil.sendActiveProfileMail(usersBean,objContext);
 					String baseurl =  request.getScheme() + "://" + request.getServerName() +      ":" +   request.getServerPort() +  request.getContextPath();
 					objUsersDao.saveEmailData(null, usersBean, baseurl, "active_profile_mail");
 					
-				} else {
-					jsonObj.put("message", "Faile");
+				}else if (delete){
+					jsonObj.put("message", "Success");
+				}else {
+					jsonObj.put("message", "Failed");
 				}
 			}
 			listOrderBeans = objUsersDao.getAllProfiles1(objUsersBean, statusName);
@@ -683,10 +691,16 @@ public class FilterController {
 			}
 			String photoId = request.getParameter("photoId");
 			String approvedStatus = request.getParameter("approvedStatus");
+			String user_id = request.getParameter("user_id");
 			if (StringUtils.isNotBlank(photoId)) {
 				boolean success = objUsersDao.approvePhoto(photoId, approvedStatus);
 				if (success) {
+					int approval_pending_count = objUsersDao.getApprovalPendingPhotosOf(user_id);
+					Map<String,Integer> counts_map = (Map<String,Integer>)session.getAttribute("display_counts");
+					counts_map.put("updated_count", approval_pending_count);
+					session.setAttribute("display_counts",counts_map);
 					objJson.put("message", "success");
+					objJson.put("approval_pending_count", approval_pending_count);
 				} else {
 					objJson.put("message", "failed");
 				}
@@ -714,6 +728,7 @@ public class FilterController {
 			}
 			String photoId = request.getParameter("photoId");
 			String approvedStatus = request.getParameter("approvedStatus");
+			String user_id = request.getParameter("user_id");
 		     	if (StringUtils.isNotBlank(photoId)) {
 		     	String profileArry[] =photoId.split(",");
 				for (int i = 0; i < profileArry.length; i++) {
@@ -721,6 +736,11 @@ public class FilterController {
 				}
 				if (success) {
 					objJson.put("message", "success");
+					int approval_pending_count = objUsersDao.getApprovalPendingPhotosOf(user_id);
+					Map<String,Integer> counts_map = (Map<String,Integer>)session.getAttribute("display_counts");
+					counts_map.put("updated_count", approval_pending_count);
+					session.setAttribute("display_counts",counts_map);
+					objJson.put("approval_pending_count", approval_pending_count);
 				} else {
 					objJson.put("message", "failed");
 				}

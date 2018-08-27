@@ -13,22 +13,15 @@ import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.aurospaces.neighbourhood.bean.ReportsBean;
 import com.aurospaces.neighbourhood.bean.UsersBean;
-import com.aurospaces.neighbourhood.db.dao.UsersDao;
 
 
-public class EmailUtil {
-	
-	@Autowired UsersDao objUsersDao;
-	
-	/*public String sendEmail(UsersBean objUsersBean,
+public class EmailUtil_bkp {
+	public String sendEmail(UsersBean objUsersBean,
 			ServletContext objContext, String sMailTo) throws AddressException,
 			MessagingException, IOException {
 		String subject = null;
@@ -78,7 +71,7 @@ public class EmailUtil {
 	        }
 			return subject;
 	}
-	*/
+	
 	public String sendResetPasswordEmail(UsersBean objUsersBean,
 			ServletContext objContext, String mailType) throws AddressException,
 			MessagingException, IOException {
@@ -145,13 +138,12 @@ public class EmailUtil {
 	}
 	
 	public static String sendProfilesListEmail(UsersBean receiverBean,List<Map<String,String>> profilesList,
-			String mailType, ServletContext objContext,String baseurl) throws AddressException,
+			String mailType, ServletContext objContext, HttpServletRequest request) throws AddressException,
 			MessagingException, IOException {
 		String subject = null;
 		Properties prop = new Properties();
 		InputStream input = null;
 		String body = null;
-		System.out.println("#### in emailutil.");
 		try{
 	 
 	        String mailTo = receiverBean.getEmail();
@@ -168,24 +160,11 @@ public class EmailUtil {
 			String port = prop.getProperty("port");
 			String mailFrom = prop.getProperty("usermail");
 			String password = prop.getProperty("mailpassword");
-			Map<String, String> inlineImages = new HashMap<String, String>();
 	        if("profiles_list_email".equalsIgnoreCase(mailType)){
-	        	
 	        	subject = prop.getProperty("profiles_list_subject");
 	            StringBuffer profiles_list = new StringBuffer("");
-	            System.out.println("#### preferred profilesList:"+profilesList);
 	            for(Map<String,String> profile:profilesList){
-	            	
-	            	String profile_format = prop.getProperty("profile_format_new");
-	            	profile_format = profile_format.replace("_senderdisplayname_", profile.get("firstName")+" "+profile.get("lastName")+" ("+profile.get("username")+")");
-					   //body = body.replace("_shortstr_", "");
-					   
-					   //body = body.replace("_receiverdisplayname_", (String)emailEntry.get("receiver_display_name"));
-	            	//profile_format = profile_format.replace("_senderdetails_", (String)emailEntry.get("sender_details"));
-//					    
-					   
-					   
-	            	
+	            	String profile_format = prop.getProperty("profile_format");
 		            profile_format = profile_format.replace("_name_",profile.get("firstName")+" "+profile.get("lastName"));
 		            profile_format = profile_format.replace("_username_",profile.get("username"));
 		            profile_format = profile_format.replace("_age_",StringUtils.isNotBlank(profile.get("age"))?profile.get("age"):" ");
@@ -195,54 +174,29 @@ public class EmailUtil {
 		            profile_format = profile_format.replace("_country_",StringUtils.isNotBlank(profile.get("countryName"))?profile.get("countryName"):" ");
 		            profile_format = profile_format.replace("_income_",StringUtils.isNotBlank(profile.get("annualIncome"))?profile.get("annualIncome"):" ");
 		            profile_format = profile_format.replace("_education_",StringUtils.isNotBlank(profile.get("educationName"))?profile.get("educationName"):" ");
-		            //profile_format = profile_format.replace("_unnamedimage_","cid:defaultimage");
+		            profile_format = profile_format.replace("_unnamedimage_","cid:defaultimage");
 		            // url formation
-		            //String baseurl =  "";//request.getScheme() + "://" + request.getServerName() +      ":" +   request.getServerPort() +  request.getContextPath();
-					String actionUrl = baseurl+"fullProfile?un="+receiverBean.getUsername()+"&pun="+profile.get("username")+"&suc="+receiverBean.getUnique_code()+"&puc="+profile.get("unique_code");
-					System.out.println("##### actionUrl:"+actionUrl);
-					//profile_format = profile_format.replace("_actionurl_",actionUrl);
-					profile_format = profile_format.replace("_fullprofilelink_", actionUrl);
-					profile_format = profile_format.replace("_senderphoto_", "cid:senderimage"+profile.get("id"));
-					String sender_img = (String)profile.get("profileImage");
-			        if(StringUtils.isNotBlank(sender_img)){
-			        	inlineImages.put("senderimage"+profile.get("id"), objContext.getRealPath(sender_img));
-			        }else{
-			        	inlineImages.put("senderimage"+profile.get("id"), objContext.getRealPath("img" +File.separator+"default.png"));
-			        }
+		            String baseurl =  request.getScheme() + "://" + request.getServerName() +      ":" +   request.getServerPort() +  request.getContextPath();
+					String actionUrl = baseurl+"/fullProfile?un="+receiverBean.getUsername()+"&pun="+profile.get("username")+"&suc="+receiverBean.getUnique_code()+"&puc="+profile.get("unique_code");
+					///
+					profile_format = profile_format.replace("_actionurl_",actionUrl);
 					
 		            profiles_list.append(profile_format);
 	            }
-	            body = prop.getProperty("profiles_list_format");
-	            body = body.replace("_profileslist_", profiles_list);
 	            
-				   body = body.replace("_img_", "cid:image2");
-					body = body.replace("_bodyimage_", "cid:image3");
-					body = body.replace("_img1_", "cid:img1");
-					body = body.replace("_img2_", "cid:img2");
-					body = body.replace("_img3_", "cid:img3");
-					body = body.replace("_img4_", "cid:img4");
-					body = body.replace("_img5_", "cid:img5");
 	            
-				
+				body = prop.getProperty("profiles_list_format");
 				body = body.replace("_logo_","cid:logo");
 				//body = body.replace("_username_", objUsersBean.getUsername());
-				
-				inlineImages.put("image2", objContext.getRealPath("images" +File.separator+"logo.jpg"));
-		        inlineImages.put("image3", objContext.getRealPath("images" +File.separator+"matri.jpg"));
-		        inlineImages.put("img1", objContext.getRealPath("images" +File.separator+"img1.jpg"));
-		        inlineImages.put("img2", objContext.getRealPath("images" +File.separator+"img2.jpg"));
-		        inlineImages.put("img3", objContext.getRealPath("images" +File.separator+"img3.jpg"));
-		        inlineImages.put("img4", objContext.getRealPath("images" +File.separator+"img4.jpg"));
-		        inlineImages.put("img5", objContext.getRealPath("images" +File.separator+"img5.jpg"));
+				body = body.replace("_profileslist_", profiles_list);
 	        }
 			//body = body.replace("_img_", "cid:image2");
 	        
 			// inline images
-	        
+	        Map<String, String> inlineImages = new HashMap<String, String>();
 //	        inlineImages.put("image1", objContext.getRealPath("images" +File.separator+"telugu.png"));
-	        //inlineImages.put("defaultimage", objContext.getRealPath("images" +File.separator+"default.png"));
-	        //inlineImages.put("logo", objContext.getRealPath("images" +File.separator+"logo.jpg"));
-	        
+	        inlineImages.put("defaultimage", objContext.getRealPath("images" +File.separator+"default.png"));
+	        inlineImages.put("logo", objContext.getRealPath("images" +File.separator+"logo.jpg"));
 	 
 	       
 	            EmbeddedImageEmailUtil.send(host, port, mailFrom, password, mailTo,
@@ -358,10 +312,30 @@ public class EmailUtil {
 			return subject;
 	}
 	
-	/*public static String sendInterestMail(UsersBean senderBean,UsersBean receiverBean,HttpServletRequest request,
+	public static String sendInterestMail(UsersBean senderBean,UsersBean receiverBean,HttpServletRequest request,
 			ServletContext objContext) throws AddressException,
 			MessagingException, IOException {
+		String subject = null;
 		
+		Properties prop = new Properties();
+		InputStream input = null;
+		String body = null;
+		try{
+	 
+	        String mailTo = receiverBean.getEmail();
+	        
+//	        -------------------------------------------------------------------------------------------
+			
+			
+	        String propertiespath = objContext.getRealPath("Resources" +File.separator+"DataBase.properties");
+			input = new FileInputStream(propertiespath);
+			prop.load(input);
+			String host = prop.getProperty("host");
+			String port = prop.getProperty("port");
+			String mailFrom = prop.getProperty("usermail");
+			String password = prop.getProperty("mailpassword");
+	        
+			subject = prop.getProperty("interest_mail_subject");
 			subject = subject.replace("_username_", senderBean.getUsername());
 			
 			body = prop.getProperty("interest_mail_body");
@@ -388,7 +362,22 @@ public class EmailUtil {
 			body = body.replace("_bodyimage_", "cid:image3");
 	        String str = body.toString();
 	        	
+	        // inline images
+	        Map<String, String> inlineImages = new HashMap<String, String>();
+//	        inlineImages.put("image1", objContext.getRealPath("images" +File.separator+"telugu.png"));
+	        String sender_img = senderBean.getProfileImage();
+	        if(StringUtils.isNotBlank(sender_img)){
+	        	inlineImages.put("senderimage", objContext.getRealPath(sender_img));
+	        }else{
+	        	inlineImages.put("senderimage", objContext.getRealPath("img" +File.separator+"default.png"));
+	        }
 	        
+	        inlineImages.put("image2", objContext.getRealPath("images" +File.separator+"logo.jpg"));
+	        inlineImages.put("image3", objContext.getRealPath("images" +File.separator+"matri.jpg"));
+	       
+	            EmbeddedImageEmailUtil.send(host, port, mailFrom, password, mailTo,
+	                subject, body.toString(), inlineImages);
+	            System.out.println("Email sent.");
 	            String mobileNum = receiverBean.getMobile();
 	            try{
 					   String response = SendSMS.sendSMS("Dear "  +receiverBean.getFirstName()+ " "+receiverBean.getLastName()+","+"\n"+senderBean.getFirstName()+" "+senderBean.getLastName()+""+"("+senderBean.getUsername()+")"+" send a Message..\n \n "+receiverBean.getMail_content()+""+" \n \n Wishing You the best life partner \n Team - AarnaMatrimony", mobileNum);
@@ -408,11 +397,12 @@ public class EmailUtil {
 	            
 	            
 	        } catch (Exception ex) {
+	            System.out.println("Could not send email.");
 	            ex.printStackTrace();
 	            return null;
 	        }
 			return subject;
-	}*/
+	}
 	
 	public static String sendExpressInterestToMail(UsersBean senderBean,UsersBean receiverBean,HttpServletRequest request,
 			ServletContext objContext) throws AddressException,
@@ -726,8 +716,6 @@ public class EmailUtil {
 			body = body.replace("_img4_", "cid:img4");
 			body = body.replace("_img5_", "cid:img5");
 			
-			
-			
 	 
 	        // inline images
 	        Map<String, String> inlineImages = new HashMap<String, String>();
@@ -904,139 +892,6 @@ try{
         return "Mail sent filed";
     }
 }
-	   public static String sendEmails(ServletContext objContext,UsersDao objUsersDao){
-		    String subject = null;
-			Properties prop = new Properties();
-			InputStream input = null;
-			String body = null;
-			System.out.println("##########.");
-			try{
-		    String propertiespath = objContext.getRealPath("Resources" +File.separator+"DataBase.properties");
-		    System.out.println("########## propertiespath:"+propertiespath);
-			input = new FileInputStream(propertiespath);
-			// load the properties file
-			prop.load(input);
-			String host = prop.getProperty("host");
-			String port = prop.getProperty("port");
-			String mailFrom = prop.getProperty("usermail");
-			String password = prop.getProperty("mailpassword");
-			
-				   List<Map<String,Object>> emailEntriesList = objUsersDao.getEmailEntriesToSend();//"select * from messages where status = '0'");
-				   System.out.println("########## emailEntriesList:"+emailEntriesList);
-				   for(Map<String,Object> emailEntry:emailEntriesList){
-					   try{
-					   String mailTo = (String)emailEntry.get("receiver_email");
-					   System.out.println("########## mailTo:"+mailTo);
-					   //subject = prop.getProperty(emailEntry.get("type")+"_subject");
-					   //subject = subject.replace("_username_", (String)emailEntry.get("sender_display_name"));
-					   subject =  (String)emailEntry.get("sender_display_name")+(String)emailEntry.get("shortstr");
-		
-					   if(((String)emailEntry.get("type")).equalsIgnoreCase("message_mail")){
-						   body = prop.getProperty("message_mail_body"); 
-						   body = body.replace("_content_", (String)emailEntry.get("mail_content"));
-						   
-					   }else if (((String)emailEntry.get("type")).equalsIgnoreCase("welcome_mail")){
-						   body = prop.getProperty("welcome_mail_body"); 
-					   }/*else if(((String)emailEntry.get("type")).equalsIgnoreCase("user_registered")){
-						   body = prop.getProperty("user_registered_body"); 
-					   }*/else if(((String)emailEntry.get("type")).equalsIgnoreCase("active_profile_mail")) {
-						   body = prop.getProperty("active_profile_mail_body"); 
-					   }else if(((String)emailEntry.get("type")).equalsIgnoreCase("admin_send_password")) {
-						    body = prop.getProperty("admin_send_password");
-							body = body.replace("_useremail_",  (String)emailEntry.get("receiver_email"));
-							body = body.replace("_password_", (String)emailEntry.get("receiver_password"));
-					   }else if(((String)emailEntry.get("type")).equalsIgnoreCase("admin_reset_password")) {
-				        	subject = prop.getProperty("admin_reset_password_subject");
-							body = prop.getProperty("admin_reset_password_body");
-							
-//							body = body.replace("_username_",(String)emailEntry.get("receiver_user_name"));
-							body = body.replace("_password_",(String)emailEntry.get("receiver_password"));
-							
-				        }else if(((String)emailEntry.get("type")).equalsIgnoreCase("change_password")){
-				        	subject = prop.getProperty("change_password_subject");
-							body = prop.getProperty("change_password_body");
-							
-//							body = body.replace("_name_",objUsersBean.getFirstName()+" "+objUsersBean.getLastName());
-//							//body = body.replace("_username_", objUsersBean.getUsername());
-							body = body.replace("_email_",  (String)emailEntry.get("receiver_email"));
-							body = body.replace("_dateandtime_",(String)emailEntry.get("created_on"));    
-							
-				        }else if(((String)emailEntry.get("type")).equalsIgnoreCase("change_password")){
-				        	subject = prop.getProperty("change_password_subject");
-							body = prop.getProperty("change_password_body");
-							
-//							body = body.replace("_name_",objUsersBean.getFirstName()+" "+objUsersBean.getLastName());
-//							//body = body.replace("_username_", objUsersBean.getUsername());
-							body = body.replace("_email_",  (String)emailEntry.get("receiver_email"));
-							body = body.replace("_dateandtime_",(String)emailEntry.get("created_on"));    
-							
-				        }else if(((String)emailEntry.get("type")).equalsIgnoreCase("emailVerify_mail")){
-				        	subject = prop.getProperty("emailVerify_mail_subject");
-							body = prop.getProperty("forgot_password_body");
-							
-					       body = body.replace("_link_",(String)emailEntry.get("emailVerifylink"));  
-//					       body = body.replace("_customer_", objUsersBean.getFirstName()+" "+objUsersBean.getLastName());
-				       
-				        }else {
-						   body = prop.getProperty("mail_body");  
-					   }
-					   
-					   body = body.replace("_senderdisplayname_", (String)emailEntry.get("sender_display_name"));
-					   body = body.replace("_shortstr_", (String)emailEntry.get("shortstr"));
-					   
-					   body = body.replace("_receiverdisplayname_", (String)emailEntry.get("receiver_display_name"));
-					   body = body.replace("_senderdetails_", (String)emailEntry.get("sender_details"));
-					   body = body.replace("_dateandtime_", (String)emailEntry.get("created_on"));
-//					    
-					   
-					   body = body.replace("_fullprofilelink_", (String)emailEntry.get("full_profile_action_url"));
-					   
-					   body = body.replace("_senderphoto_", "cid:senderimage");
-					   body = body.replace("_img_", "cid:image2");
-						body = body.replace("_bodyimage_", "cid:image3");
-						body = body.replace("_img1_", "cid:img1");
-						body = body.replace("_img2_", "cid:img2");
-						body = body.replace("_img3_", "cid:img3");
-						body = body.replace("_img4_", "cid:img4");
-						body = body.replace("_img5_", "cid:img5");
-						String str = body.toString();
-						System.out.println("########## body:"+str);
-				        // inline images
-				        Map<String, String> inlineImages = new HashMap<String, String>();
-		//		        inlineImages.put("image1", objContext.getRealPath("images" +File.separator+"telugu.png"));
-				        String sender_img = (String)emailEntry.get("sender_image");
-				        if(StringUtils.isNotBlank(sender_img)){
-				        	inlineImages.put("senderimage", objContext.getRealPath(sender_img));
-				        }else{
-				        	inlineImages.put("senderimage", objContext.getRealPath("img" +File.separator+"default.png"));
-				        }
-				        inlineImages.put("image2", objContext.getRealPath("images" +File.separator+"logo.jpg"));
-				        inlineImages.put("image3", objContext.getRealPath("images" +File.separator+"matri.jpg"));
-				        inlineImages.put("img1", objContext.getRealPath("images" +File.separator+"img1.jpg"));
-				        inlineImages.put("img2", objContext.getRealPath("images" +File.separator+"img2.jpg"));
-				        inlineImages.put("img3", objContext.getRealPath("images" +File.separator+"img3.jpg"));
-				        inlineImages.put("img4", objContext.getRealPath("images" +File.separator+"img4.jpg"));
-				        inlineImages.put("img5", objContext.getRealPath("images" +File.separator+"img5.jpg"));
-				        System.out.println("########## before calling EmbeddedImageEmailUtil");
-				            EmbeddedImageEmailUtil.send(host, port, mailFrom, password, mailTo,
-				                subject, body.toString(), inlineImages);
-				            System.out.println("Email sent.");
-				            // update corresponding entry status in the mails table
-				            objUsersDao.updateEmailDeliveryStatus((Integer)emailEntry.get("id"),"1");
-				            System.out.println("updated status.");        
-		            
-		        }catch (Exception ex) {
-					objUsersDao.updateEmailDeliveryStatus((Integer)emailEntry.get("id"),"2");
-		            System.out.println("Could not send email.");
-		            ex.printStackTrace();
-		            return null;
-		        }
-			}
-				return "";
-			}catch (Exception ex) {
-	            //System.out.println("Could not send email.");
-	            ex.printStackTrace();
-	            return null;
-	        }
-	   }
+	
 }
+			
