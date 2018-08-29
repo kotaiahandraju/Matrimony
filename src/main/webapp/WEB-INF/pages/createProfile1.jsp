@@ -554,6 +554,7 @@
 									<div class="col-sm-8">
 										<form:select path="feducation" class="form-control"  onblur="validate16(this.id);" style="width:200px;" >
 											<form:option value="">-- Choose Father Education --</form:option>
+											 <form:option value="any">Doesn't Matter</form:option>
 											<form:options items="${education}"></form:options>
 										</form:select>
 									<span class="hasError" id="feducationError"></span>
@@ -647,6 +648,7 @@
 									<div class="col-sm-8">
 										<form:select path="meducation" class="form-control"  placeholder="Enter Mother Education"  onblur="validate23(this.id);" style="width:200px;" >
 											<form:option value="">-- Choose Mother Education --</form:option>
+											 <form:option value="any">Doesn't Matter</form:option>
 											<form:options items="${education}"></form:options>
 										</form:select>
 									<span class="hasError" id="meducationError"></span>
@@ -728,6 +730,7 @@
 									<div class="col-md-4">
 										<form:select path="education" class="form-control" onblur="validate29(this.id);"  style="width:200px;" >
 											<form:option value="">-- Choose education --</form:option>
+											 <form:option value="any">Doesn't Matter</form:option>
 											<form:options items="${education}"></form:options>
 										</form:select>
 									<span class="hasError" id="educationError"></span>

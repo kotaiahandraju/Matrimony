@@ -436,6 +436,7 @@ $(document).ready(function(){
       <div class="col-md-6">
       	<form:select path="rEducation" class="form-control u" multiple="true">
 			<form:option value="">Doesn't Matter</form:option>
+			 <form:option value="any">Doesn't Matter</form:option>
 			<form:options items="${education}"></form:options>
 		</form:select>
       </div>

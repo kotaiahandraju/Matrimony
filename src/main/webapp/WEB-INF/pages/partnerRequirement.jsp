@@ -369,6 +369,7 @@ background:#fff !important;}
 
 
 <script src="${baseurl}/js/plugins/select2/select2.min.js"></script>
+ <script src="${baseurl}/js/ajax.js"></script>
 
 <script type="text/javascript">
 
@@ -377,7 +378,7 @@ function getReliginCastAjax() {
 		var formData = new FormData();
 		formData.append("religionId",religionId);
 	
-	$.fn.makeMultipartRequest('POST', '../castesBasedOnReligion', false,
+	 $.fn.makeMultipartRequest('POST', '${baseurl}/castesBasedOnReligion', false,
 			formData, false, 'text', function(data){
 		$("#rCaste").select2('val','');
 		var jsonobj = $.parseJSON(data);
@@ -391,7 +392,7 @@ function getReliginCastAjax() {
 			optionsForClass.append(new Option(casteName, id));
 		});
 		
-	});
+	}); 
 }
 
 $(document).ready(function(){

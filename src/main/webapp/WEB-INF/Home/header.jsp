@@ -225,6 +225,18 @@ span.impColor{color: red;}
 			font-size: 12px;
 			border-top: 1px solid #dddddd;
 			}
+.matchcount {
+	background-color: #FFECD9;
+	color: #000;
+	padding: 2px 4px;
+	font-size: 11px;
+	border: none;
+	cursor: pointer;
+	border-radius: 5px;
+	vertical-align: top;
+	margin: 2px 2px;
+}
+			
 </style>
 
 <script type="text/javascript">
@@ -360,7 +372,7 @@ var role_id = ${cacheUserBean.roleId};
 				</li>
 				<li class="profiles">
 					<a href="#" data-toggle="dropdown" class='dropdown-toggle'>
-						<span>Profiles</span>
+						<span>Profiles<span class="matchcount inactive_cnt" id="inactive_profiles_cnt">${display_counts.inactive_count}</span></span>
 						<span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
@@ -369,7 +381,7 @@ var role_id = ${cacheUserBean.roleId};
 						</c:if>
 						<li class="allProfiles"><a href="${baseurl }/admin/AllProfilesHome">Active Profiles</a></li>
 							<c:if test="${roleId1 == 1}"> 
-						<li class="inactiveProfiles"><a href="${baseurl }/admin/InactiveProfilesHome">Inactive Profiles</a></li>
+						<li class="inactiveProfiles"><a href="${baseurl }/admin/InactiveProfilesHome">Inactive Profiles<span class="matchcount inactive_cnt">${display_counts.inactive_count}</span></a></li>
 						<li class="deleteProfiles"><a href="${baseurl }/admin/DeleteProfilesHome">Delete Profiles</a></li>
 						<li class="adminProfiles"><a href="${baseurl }/admin/AdminRegisterProfiles">Admin Register Profiles</a></li>
 						<li class="freeProfiles"><a href="${baseurl }/admin/FreeRegisterProfile">Free Register Profiles</a></li>
@@ -385,7 +397,7 @@ var role_id = ${cacheUserBean.roleId};
 					</ul>
 				</li>
 					<c:if test="${roleId1 == 1}"> 
- 				<li class="updatedProfiles"><a href="${baseurl }/admin/updatedProfiles"><span>Updated Profiles</span></a></li>
+ 				<li class="updatedProfiles"><a href="${baseurl }/admin/updatedProfiles"><span>Updated Profiles<span class="matchcount" id="updated_cnt">${display_counts.updated_count}</span></span></a></li>
  				</c:if>
  				<li class="">
  					<c:if test="${roleId1 == 1}"> 

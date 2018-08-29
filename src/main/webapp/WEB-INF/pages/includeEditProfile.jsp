@@ -133,6 +133,7 @@
 										<div class="col-md-7">
 											<form:select path="rEducation" class="multiSelect" multiple="true">
 												<form:option value="all">Doesn't Matter</form:option>
+												 <form:option value="any">Doesn't Matter</form:option>
 												<form:options items="${education}"></form:options>
 											</form:select>
 									  		<div><form:errors path="rEducation" cssClass="error" /></div>
