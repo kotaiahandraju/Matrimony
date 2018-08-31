@@ -210,6 +210,7 @@
 										<div class="col-md-7">
 											<form:select path="education" class="form-control u"  onblur="validate(this.id,'');" onfocus="removeBorder(this.id)">
 												<form:option value="">-- Choose Education --</form:option>
+												 <form:option value="any">Doesn't Matter</form:option>
 												<form:options items="${education}"></form:options>
 											</form:select>
 									  		<div><form:errors path="education" cssClass="error" /></div>

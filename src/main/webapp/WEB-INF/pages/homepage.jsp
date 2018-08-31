@@ -11,162 +11,241 @@
 <html lang="en">
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 <head>
-    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="keywords" content="">
+<script
+	src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="keywords" content="">
 <link href="${baseurl}/user/css/style.css" rel="stylesheet">
 <link href="${baseurl}/user/css/custom.css" rel="stylesheet">
- <link href="${baseurl}/css/datepicker1.css" rel="stylesheet" type="text/css" />
- 
-<link rel="stylesheet" type="text/css" href="${baseurl}/user/css/component.css" />
+<link href="${baseurl}/css/datepicker1.css" rel="stylesheet"
+	type="text/css" />
 
+<link rel="stylesheet" type="text/css"
+	href="${baseurl}/user/css/component.css" />
+<link
+	href="${baseurl }/user/vendor/font-awesome/css/font-awesome.min.css"
+	rel="stylesheet" type="text/css">
 <!-- <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/ncss/bootstrap-glyphicons.css" rel="stylesheet"> -->
-<link rel="shortcut icon" href="fav-icon.png" type="image/x-icon"/>
+<link rel="shortcut icon" href="fav-icon.png" type="image/x-icon" />
 <link rel="shortcut icon" href="fav-icon.png" type="image/x-icon">
 <link rel="icon" href="fav-icon.png" type="image/x-icon">
- <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<link
+	href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css"
+	rel="stylesheet" type="text/css" />
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 
 <style>
+h4 {
+	text-decoration: none;
+	list-style: none;
+}
+
+a h4:hover {
+	text-decoration: none;
+	list-style: none;
+}
+
+.dropbtn {
+	background-color: #4CAF50;
+	color: white;
+	padding: 7px;
+	font-size: 16px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.dropdown {
+	position: relative;
+	display: inline-block;
+}
+
+.dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: #f9f9f9;
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	z-index: 1;
+}
+
+.dropdown-content a {
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+}
+
+.dropdown-content a:hover {
+	background-color: #f1f1f1
+}
+
+.dropdown:hover .dropdown-content {
+	display: block;
+}
+
+.dropdown:hover .dropbtn {
+	background-color: #3e8e41;
+}
+
+.fa {
+	padding-top: 8px;
+}
+
 .img-replace {
-  /* replace text with an image */
-  display: inline-block;
-  overflow: hidden;
-  text-indent: 100%; 
-  color: transparent;
-  white-space: nowrap;
+	/* replace text with an image */
+	display: inline-block;
+	overflow: hidden;
+	text-indent: 100%;
+	color: transparent;
+	white-space: nowrap;
 }
+
 .bts-popup {
-  position: fixed;
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  opacity: 0;
-  visibility: hidden;
-  -webkit-transition: opacity 0.3s 0s, visibility 0s 0.3s;
-  -moz-transition: opacity 0.3s 0s, visibility 0s 0.3s;
-  transition: opacity 0.3s 0s, visibility 0s 0.3s;
+	position: fixed;
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	opacity: 0;
+	visibility: hidden;
+	-webkit-transition: opacity 0.3s 0s, visibility 0s 0.3s;
+	-moz-transition: opacity 0.3s 0s, visibility 0s 0.3s;
+	transition: opacity 0.3s 0s, visibility 0s 0.3s;
 }
+
 .bts-popup.is-visible {
-  opacity: 1;
-  visibility: visible;
-  -webkit-transition: opacity 0.3s 0s, visibility 0s 0s;
-  -moz-transition: opacity 0.3s 0s, visibility 0s 0s;
-  transition: opacity 0.3s 0s, visibility 0s 0s;
-    z-index:999;
+	opacity: 1;
+	visibility: visible;
+	-webkit-transition: opacity 0.3s 0s, visibility 0s 0s;
+	-moz-transition: opacity 0.3s 0s, visibility 0s 0s;
+	transition: opacity 0.3s 0s, visibility 0s 0s;
+	z-index: 999;
 }
 
 .bts-popup-container {
-  position: relative;
-  width: 80%;
-  margin: 4em auto;
-/*   background: rgba(255,255,255,0.7) !important; */
-  border-radius: none; 
-  text-align: center;
-/*   box-shadow: 0 0 2px rgba(0, 0, 0, 0.2); */
-  -webkit-transform: translateY(-40px);
-  -moz-transform: translateY(-40px);
-  -ms-transform: translateY(-40px);
-  -o-transform: translateY(-40px);
-  transform: translateY(-40px);
-  /* Force Hardware Acceleration in WebKit */
-  -webkit-backface-visibility: hidden;
-  -webkit-transition-property: -webkit-transform;
-  -moz-transition-property: -moz-transform;
-  transition-property: transform;
-  -webkit-transition-duration: 0.3s;
-  -moz-transition-duration: 0.3s;
-  transition-duration: 0.3s;
+	position: relative;
+	width: 80%;
+	margin: 4em auto;
+	/*   background: rgba(255,255,255,0.7) !important; */
+	border-radius: none;
+	text-align: center;
+	/*   box-shadow: 0 0 2px rgba(0, 0, 0, 0.2); */
+	-webkit-transform: translateY(-40px);
+	-moz-transform: translateY(-40px);
+	-ms-transform: translateY(-40px);
+	-o-transform: translateY(-40px);
+	transform: translateY(-40px);
+	/* Force Hardware Acceleration in WebKit */
+	-webkit-backface-visibility: hidden;
+	-webkit-transition-property: -webkit-transform;
+	-moz-transition-property: -moz-transform;
+	transition-property: transform;
+	-webkit-transition-duration: 0.3s;
+	-moz-transition-duration: 0.3s;
+	transition-duration: 0.3s;
 }
+
 .bts-popup-container img {
-  padding: 0px 0 0 0;
+	padding: 0px 0 0 0;
 }
+
 .bts-popup-container p {
 	color: white;
-  padding: 10px 40px;
+	padding: 10px 40px;
 }
+
 .bts-popup-container .bts-popup-button {
-  padding: 5px 25px;
-  border: 2px solid white;
+	padding: 5px 25px;
+	border: 2px solid white;
 	display: inline-block;
-  margin-bottom: 10px;
+	margin-bottom: 10px;
 }
 
 .bts-popup-container a {
-  color: white;
-  text-decoration: none;
-  text-transform: uppercase;
+	color: white;
+	text-decoration: none;
+	text-transform: uppercase;
 }
-
-
-
-
-
 
 .bts-popup-container .bts-popup-close {
-  position: absolute;
- top: -25px;
-    right: 83px;
-  width: 30px;
-  height: 30px;
+	position: absolute;
+	top: -25px;
+	right: 83px;
+	width: 30px;
+	height: 30px;
 }
-.bts-popup-container .bts-popup-close::before, .bts-popup-container .bts-popup-close::after {
-  content: '';
-  position: absolute;
-  top: 12px;
-  width: 16px;
-  height: 3px;
-  background-color: white;
+
+.bts-popup-container .bts-popup-close::before, .bts-popup-container .bts-popup-close::after
+	{
+	content: '';
+	position: absolute;
+	top: 12px;
+	width: 16px;
+	height: 3px;
+	background-color: white;
 }
+
 .bts-popup-container .bts-popup-close::before {
-  -webkit-transform: rotate(45deg);
-  -moz-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  -o-transform: rotate(45deg);
-  transform: rotate(45deg);
-  left: 8px;
+	-webkit-transform: rotate(45deg);
+	-moz-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	-o-transform: rotate(45deg);
+	transform: rotate(45deg);
+	left: 8px;
 }
+
 .bts-popup-container .bts-popup-close::after {
-  -webkit-transform: rotate(-45deg);
-  -moz-transform: rotate(-45deg);
-  -ms-transform: rotate(-45deg);
-  -o-transform: rotate(-45deg);
-  transform: rotate(-45deg);
-  right: 6px;
-  top: 13px;
+	-webkit-transform: rotate(-45deg);
+	-moz-transform: rotate(-45deg);
+	-ms-transform: rotate(-45deg);
+	-o-transform: rotate(-45deg);
+	transform: rotate(-45deg);
+	right: 6px;
+	top: 13px;
 }
+
 .is-visible .bts-popup-container {
-  -webkit-transform: translateY(0);
-  -moz-transform: translateY(0);
-  -ms-transform: translateY(0);
-  -o-transform: translateY(0);
-  transform: translateY(0);
+	-webkit-transform: translateY(0);
+	-moz-transform: translateY(0);
+	-ms-transform: translateY(0);
+	-o-transform: translateY(0);
+	transform: translateY(0);
 }
+
 @media only screen and (min-width: 1170px) {
-  .bts-popup-container {
-    margin: 8em auto;
-  }
+	.bts-popup-container {
+		margin: 8em auto;
+	}
 }
+
 .modal {
-    background: rgba(0,0,0,0.6);
+	background: rgba(0, 0, 0, 0.6);
 }
+
 .modal-header .close {
-    margin-top: -40px !important;
+	margin-top: -40px !important;
 }
+
 .section-title {
-margin-bottom:0px;}
-.getquote .right-side { 
-padding-top:2px;
+	margin-bottom: 0px;
 }
- @media only screen and (max-width: 1280px) {
-section.getquote {
-    margin-top: 45px;
-}} 
+
+.getquote .right-side {
+	padding-top: 2px;
+}
+
+@media only screen and (max-width: 1280px) {
+	section.getquote {
+		margin-top: 45px;
+	}
+}
 /* #myModal {
 padding-top: 97px !important;
     display: block;
@@ -180,107 +259,120 @@ padding-top: 85px !important;
     margin-top:0px !important;
 } */
 @media only screen and (max-width: 640px) and (min-width: 320px) {
-.bts-popup-container { 
-margin-top:80px;
-}
-.bts-popup-container .bts-popup-close {
-    position: absolute;
-    top: -25px;
-    right: 29px;
-    width: 30px;
-    height: 30px;
-}
-.flexslider {
-margin-top:51px;}
-   video {
-    width: 100% !important;
-    height: auto !important ;
-     margin-top:0px !important;
-}
-.bannerposter {
-display:block !important;
-    padding-top: 51px;
-}
-.bannerposter1 {
-display:none !important;
-}
-.slider-banner {
-    margin-top: 0px; 
-}
-}
- video {
-    width:450px ;
-    height: 245px ;
-    margin-top:-15px;
-    
+	.bts-popup-container {
+		margin-top: 80px;
+	}
+	.bts-popup-container .bts-popup-close {
+		position: absolute;
+		top: -25px;
+		right: 29px;
+		width: 30px;
+		height: 30px;
+	}
+	.flexslider {
+		margin-top: 51px;
+	}
+	video {
+		width: 100% !important;
+		height: auto !important;
+		margin-top: 0px !important;
+	}
+	.bannerposter {
+		display: block !important;
+		padding-top: 51px;
+	}
+	.bannerposter1 {
+		display: none !important;
+	}
+	.slider-banner {
+		margin-top: 0px;
+	}
 }
 
+video {
+	width: 450px;
+	height: 245px;
+	margin-top: -15px;
+}
 
 .regist {
-    color: #fff !important;
-    background: #05aada;
-    padding: 10px 15px !important;
-    border-radius: 10px;
-    margin-top: 10px;
-    margin-right: 15px;
+	color: #fff !important;
+	background: #05aada;
+	padding: 10px 15px !important;
+	border-radius: 10px;
+	margin-top: 10px;
+	margin-right: 15px;
 }
+
 .modal {
-background:rgba(0,0,0,0.4);
+	background: rgba(0, 0, 0, 0.4);
 }
+
 .panel-heading {
-    padding: 6px 15px;
-    border-bottom: 1px solid transparent;
-    border-top-right-radius: 3px;
-    border-top-left-radius: 3px;
+	padding: 6px 15px;
+	border-bottom: 1px solid transparent;
+	border-top-right-radius: 3px;
+	border-top-left-radius: 3px;
 }
+
 .about {
-    position: relative;
-    z-index: 0;
-    clear: both;
-    background-color: #f7f7f7;
+	position: relative;
+	z-index: 0;
+	clear: both;
+	background-color: #f7f7f7;
 }
+
 #newmodal .modal-header .close {
-    margin-top: -2px;
-    margin: 10px;
-    color: #fff;
-    opacity: 1;
+	margin-top: -2px;
+	margin: 10px;
+	color: #fff;
+	opacity: 1;
 }
+
 .newbody {
-background:#2da3de;
-color:#fff;
-border-bottom-left-radius: 33px;
-    border-bottom-right-radius: 33px;
+	background: #2da3de;
+	color: #fff;
+	border-bottom-left-radius: 33px;
+	border-bottom-right-radius: 33px;
 }
+
 .btn-danger {
-width: 135px;
-    padding: 8px;}
+	width: 135px;
+	padding: 8px;
+}
+
 .modal-header h3 {
-    color: #fff;
-    font-size: 20px;
-    font-weight: 400;
-    padding: 10px 15px;
-    text-transform: capitalize;
-   margin-bottom:0px;
-    line-height: 29px;
-    border: none!important;
-    width: 80%;
-    margin-top: 0px;
-    text-align: left;
+	color: #fff;
+	font-size: 20px;
+	font-weight: 400;
+	padding: 10px 15px;
+	text-transform: capitalize;
+	margin-bottom: 0px;
+	line-height: 29px;
+	border: none !important;
+	width: 80%;
+	margin-top: 0px;
+	text-align: left;
 }
+
 .modal-header .close {
-    margin-top: -31px;
+	margin-top: -31px;
 }
+
 .modal-backdrop {
-    position: relative !important;
-    }
-    .modal-backdrop.in {
-    opacity: 0;
-    filter: alpha(opacity=50);
+	position: relative !important;
 }
-   td, th {
-    padding: 0;
-    text-align: left;
+
+.modal-backdrop.in {
+	opacity: 0;
+	filter: alpha(opacity = 50);
 }
+
+td, th {
+	padding: 0;
+	text-align: left;
+}
+
 .modal-dialog {
 	position: relative;
 	width: auto;
@@ -295,8 +387,6 @@ width: 135px;
 .modal-lg {
 	max-width: 900px;
 }
-
-
 
 @media ( min-width : 768px) {
 	.modal-dialog {
@@ -329,51 +419,73 @@ width: 135px;
 	}
 }
 
-.alert-success, .alert-warning, .alert-danger{color: white !important;}
-.alert-success{background-color: #4CAF50 !important;}
-.alert-warning{background-color: #ff6600 !important;}
-.alert-danger{background-color: #d43f3a !important;}
-
-.your-class::-webkit-input-placeholder {color: #e73d4a !important;}
-.your-class::-moz-placeholder {color: #e73d4a !important;}
-
-.default-class::-webkit-input-placeholder {color: #e73d4a !important;}
-.default-class::-moz-placeholder {color: #e73d4a !important;}
-
-.impColor{color:red;}
-
-.edit, .delete, .active, .deactive {cursor: pointer;}
-
-span.has-error,span.hasError
-{
-  font-weight: normal;
-  border-color: #e73d4a;
-  color:red;
-  margin-top: -3px;
-  display: block !important;
-  position: absolute;
+.alert-success, .alert-warning, .alert-danger {
+	color: white !important;
 }
-.dispnone
-{
+
+.alert-success {
+	background-color: #4CAF50 !important;
+}
+
+.alert-warning {
+	background-color: #ff6600 !important;
+}
+
+.alert-danger {
+	background-color: #d43f3a !important;
+}
+
+.your-class::-webkit-input-placeholder {
+	color: #e73d4a !important;
+}
+
+.your-class::-moz-placeholder {
+	color: #e73d4a !important;
+}
+
+.default-class::-webkit-input-placeholder {
+	color: #e73d4a !important;
+}
+
+.default-class::-moz-placeholder {
+	color: #e73d4a !important;
+}
+
+.impColor {
+	color: red;
+}
+
+.edit, .delete, .active, .deactive {
+	cursor: pointer;
+}
+
+span.has-error, span.hasError {
+	font-weight: normal;
+	border-color: #e73d4a;
+	color: red;
+	margin-top: -3px;
+	display: block !important;
+	position: absolute;
+}
+
+.dispnone {
 	display: none !important;
 }
-.dispblock
-{
+
+.dispblock {
 	display: block !important;
 }
-
-
-
 </style>
-    <title>Aarna Matrimony</title>
+<title>Aarna Matrimony</title>
 
-    <!-- Styles -->
-    <link href="ncss/app.css" rel="stylesheet">
-	  
-	    <link rel="stylesheet" type="text/css" href="ncss/style.css"/>   
-<link rel="stylesheet" type="text/css" href="ncss/responsive.css"/>  		
-<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <!-- Scripts -->
+<!-- Styles -->
+<link href="ncss/app.css" rel="stylesheet">
+
+<link rel="stylesheet" type="text/css" href="ncss/style.css" />
+<link rel="stylesheet" type="text/css" href="ncss/responsive.css" />
+<link href="https://fonts.googleapis.com/css?family=Roboto"
+	rel="stylesheet">
+<!-- Scripts -->
 
 
 <!-- <script src="../code.jquery.com/jquery-1.11.3.min.js"></script> -->
@@ -384,7 +496,7 @@ $('img').bind('contextmenu', function(e) {
     return false;
 }); 
 </script>
-  
+
 
 <!--Start of Zendesk Chat Script-->
 <script type="text/javascript">
@@ -395,29 +507,30 @@ $.src="";z.t=+new Date;$.
 type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 </script>
 <!--End of Zendesk Chat Script-->
-	
+
 </head>
 <body>
 
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid welcome header">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#welcome">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#stayhere"><img src="nimages/logo (1).png" alt="Aarna Matrimony"></a>
-    </div>
-	
-	
-    <div class="collapse navbar-collapse" id="welcome">
-	
-     
-      <ul class="nav navbar-nav navbar-right">
-       
-       
-       <!-- 	<form class="" action="loginAction" id="quote" name="quote" method="post" onsubmit="return loginSubmit()">
+	<nav class="navbar navbar-inverse">
+		<div class="container-fluid welcome header">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target="#welcome">
+					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#stayhere"><img
+					src="nimages/logo (1).png" alt="Aarna Matrimony"></a>
+			</div>
+
+
+			<div class="collapse navbar-collapse" id="welcome">
+
+
+				<ul class="nav navbar-nav navbar-right">
+
+
+					<!-- 	<form class="" action="loginAction" id="quote" name="quote" method="post" onsubmit="return loginSubmit()">
 								<c:if test="${not empty msg}">
 									<div class="form-group col-md-12" style="margin-bottom: 0px;">
 										<div class="msgcss fadeIn animated alert alert-danger">${msg}</div>
@@ -442,7 +555,8 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 
 
 
-					<form class="form-inline" action="loginAction" id="quote" name="quote" method="post" onsubmit="return loginSubmit()">
+					<form class="form-inline" action="loginAction" id="quote"
+						name="quote" method="post" onsubmit="return loginSubmit()">
 						<c:if test="${not empty msg}">
 							<div class="form-group col-md-12" style="margin-bottom: 0px;">
 								<div class="msgcss fadeIn animated alert alert-danger">${msg}</div>
@@ -450,18 +564,71 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 						</c:if>
 
 						<input type="hidden" name="_token" value="">
-
 						<div class="form-group">
-<a  class="regist"   href="#register-info" data-toggle="modal" >Register</a></div>
-	<div class="form-group">
+							<div class="dropdown">
+								<button class="dropbtn">Search</button>
+								<div class="dropdown-content">
+
+									<a>
+										<h4>I'm looking for a</h4> <select id="country"
+										onchange="change_country(this.value)" class="form-control">
+											<option value="null">Bride</option>
+											<option value="null">Groom</option>
+									</select>
+
+										<h4>Aged</h4> <select id="country1"
+										onchange="change_country(this.value)" style=""
+										class="for-control">
+											<option value="null">20</option>
+											<option value="null">21</option>
+											<option value="null">22</option>
+											<option value="null">23</option>
+											<option value="null">24</option>
+											<option value="null">25</option>
+											<option value="null">- - -</option>
+									</select> <span>To </span> <select id="country2"
+										onchange="change_country(this.value)" class="formcontrol">
+											<option value="null">30</option>
+											<option value="null">31</option>
+											<option value="null">32</option>
+											<option value="null">33</option>
+											<option value="null">34</option>
+											<option value="null">35</option>
+											<option value="null">- - -</option>
+									</select>
+
+										<h4>Religion</h4> <select id="country3"
+										onchange="change_country(this.value)" class="form-control">
+											<option value="null">Hindu</option>
+											<option value="null">Muslim</option>
+											<option value="null">Christian</option>
+											<option value="null">Sikh</option>
+											<option value="null">Jain</option>
+											<option value="null">Buddhist</option>
+											<option value="null">No Religious Belief</option>
+									</select> <input value="Search" class="btn btn-success"
+										style="margin-top: 8px;" type="submit">
+
+									</a>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<a class="regist" href="#register-info" data-toggle="modal">Register</a>
+						</div>
+						<div class="form-group">
 							<!--                                 <input id="email" type="email" class="form-control" name="email" value="" required placeholder="Email Address"> -->
-							<input type="text" class="form-control" onkeydown="removeBorder(this.id)" name="userName" id="userName" placeholder="Username">
+							<input type="text" class="form-control"
+								onkeydown="removeBorder(this.id)" name="userName" id="userName"
+								placeholder="Username">
 						</div>
 						<div class="form-group">
 							<!--                                 <input id="password" type="password" class="form-control" name="password" required placeholder="Password"> -->
-							<input type="password" class="form-control" onkeydown="removeBorder(this.id)" name="password" id="password" placeholder="Password">
-						
-						
+							<input type="password" class="form-control"
+								onkeydown="removeBorder(this.id)" name="password" id="password"
+								placeholder="Password">
+
+
 						</div>
 
 
@@ -479,320 +646,215 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 
 
 						<div class="form-group">
-						<a href="forgotPassword" style="">Forgot Password</a>
-<!-- 						<a class="btn btn-link" href="#stayhere"> Forgot Password </a> -->
-						
+							<a href="forgotPassword" style="">Forgot Password</a>
+							<!-- 						<a class="btn btn-link" href="#stayhere"> Forgot Password </a> -->
+
 						</div>
 
 					</form>
 
 				</ul>
-	 <!--  <span class="header-phone">+91 9440585588</span> -->
-    </div>
-  </div>
-</nav>
-    <div id="slider">
+				<!--  <span class="header-phone">+91 9440585588</span> -->
+			</div>
+		</div>
+	</nav>
+	<div id="slider">
 
-<div class="container-fluid slider-container">
-<img src="nimages/ban1.jpg" alt="Aarna India">
+		<div class="container-fluid slider-container">
+			<img src="nimages/ban1.jpg" alt="Aarna India">
 
-</div>
- </div>
-</div>
+		</div>
+	</div>
+	</div>
 
-<div id="search">
-<div class="container">
-<div class="heading">
-<h3>Profile Search</h3>
-</div>
-<div class="row search-box">
-<div class="col-md-12 search search-link">
-<a href="#stayhere" class="btn btn-primary">SEARCH</a>
-</div>
-</div>
-</div>
-</div>
+	<div id="search">
+		<div class="container">
+			<div class="heading">
+				<h3>Profile Search</h3>
+			</div>
+			<div class="row search-box">
+				<div class="col-md-12 search search-link">
+					<a href="#stayhere" class="btn btn-primary">SEARCH</a>
+				</div>
+			</div>
+		</div>
+	</div>
 
-<div id="recent-profile">
-<div class="container">
-<div class="row">
+	<div id="recent-profile">
+		<div class="container">
+			<div class="row">
 
-<div class="heading">
-<h3> LASTEST BRIDES & GROOMS</h3>
-</div>
-
-
- <div class="col-md-2"> 
-<div class="pro_img">
-<a href="LoginHomeNew">
-
-	
-	<span class="hidden"> </span>
-
-    
- 	<div class="image_privacy">  </div>
-<image src="nimages/p1.png" width="250">
-	
-     
-	
-   
+				<div class="heading">
+					<h3>LASTEST BRIDES & GROOMS</h3>
+				</div>
 
 
-</a></div>
-<div class="pro_details">
-Matri ID : 21022 <br>
-<span>Hindu</span>
-<br>
-Tenali, Andhra Pradesh
-</div>
- 
-						
-						
-</div>
- <div class="col-md-2"> 
-<div class="pro_img">
-<a href="LoginHomeNew">
-
-	
-	<span class="hidden"> </span>
-
-    
- 	<div class="image_privacy">  </div>
-<image src="nimages/p2.png" width="250">
-	
-     
-	
-   
+				<div class="col-md-2">
+					<div class="pro_img">
+						<a href="#stayhere"> <span class="hidden"> </span>
 
 
-</a></div>
-<div class="pro_details">
-Matri ID : 21020 <br>
-<span>Hindu</span>
-<br>
-Tullur, Andhra Pradesh
-</div>
- 
-						
-						
-</div>
- <div class="col-md-2"> 
-<div class="pro_img">
-<a href="LoginHomeNew">
-
-	
-	<span class="hidden"> </span>
-
-    
- 	<div class="image_privacy">  </div>
-<image src="nimages/p3.png" width="250">
-	
-     
-	
-   
+							<div class="image_privacy"></div> <image src="nimages/p1.png"
+								width="250"></a>
+					</div>
+					<div class="pro_details">
+						Matri ID : 21022 <br> <span>Hindu</span> <br> Tenali,
+						Andhra Pradesh
+					</div>
 
 
-</a></div>
-<div class="pro_details">
-Matri ID : 21013 <br>
-<span>Hindu</span>
-<br>
-Mangalagiri, Andhra Pradesh
-</div>
- 
-						
-						
-</div>
- <div class="col-md-2"> 
-<div class="pro_img">
-<a href="LoginHomeNew">
 
-	
-	<span class="hidden"> </span>
-
-    
- 	<div class="image_privacy">  </div>
-<image src="nimages/p4.png" width="250">
-     
-	
-   
+				</div>
+				<div class="col-md-2">
+					<div class="pro_img">
+						<a href="#stayhere"> <span class="hidden"> </span>
 
 
-</a></div>
-<div class="pro_details">
-Matri ID : 21010 <br>
-<span>Hindu</span>
-<br>
-Vijayawada, Andhra Pradesh
-</div>
- 
-						
-						
-</div>
- <div class="col-md-2"> 
-<div class="pro_img">
-<a href="LoginHomeNew">
-
-	
-	<span class="hidden"> </span>
-
-    
- 	<div class="image_privacy">  </div>
-<image src="nimages/p5.png" width="250">	
-     
-	
-   
+							<div class="image_privacy"></div> <image src="nimages/p2.png"
+								width="250"></a>
+					</div>
+					<div class="pro_details">
+						Matri ID : 21020 <br> <span>Hindu</span> <br> Tullur,
+						Andhra Pradesh
+					</div>
 
 
-</a></div>
-<div class="pro_details">
-Matri ID : 21004 <br>
-<span>Hindu</span>
-<br>
-Rajamundry, Andhra Pradesh
-</div>
- 
-						
-						
-</div>
- <div class="col-md-2"> 
-<div class="pro_img">
-<a href="LoginHomeNew">
 
-	
-	<span class="hidden"> </span>
-
-    
- 	<div class="image_privacy">  </div>
-<image src="nimages/p5.png" width="250">	
-     
-	
-   
+				</div>
+				<div class="col-md-2">
+					<div class="pro_img">
+						<a href="#stayhere"> <span class="hidden"> </span>
 
 
-</a></div>
-<div class="pro_details">
-Matri ID : 21003 <br>
-<span>Hindu</span>
-<br>
-Guntur, Andhra Pradesh
-</div>
- 
-						
-						
-</div>
- <div class="col-md-2"> 
-<div class="pro_img">
-<a href="LoginHomeNew">
-
-	
-	<span class="hidden"> </span>
-
-    
- 	<div class="image_privacy">  </div>
-<image src="nimages/p6.png" width="250">
-	
-     
-	
-   
+							<div class="image_privacy"></div> <image src="nimages/p3.png"
+								width="250"></a>
+					</div>
+					<div class="pro_details">
+						Matri ID : 21013 <br> <span>Hindu</span> <br>
+						Mangalagiri, Andhra Pradesh
+					</div>
 
 
-</a></div>
-<div class="pro_details">
-Matri ID : 20998 <br>
-<span>Christian</span>
-<br>
-Gudivada, Andhra Pradesh
-</div>
- 
-						
-						
-</div>
- <div class="col-md-2"> 
-<div class="pro_img">
-<a href="LoginHomeNew">
 
-	
-	<span class="hidden"> </span>
-
-    
- 	<div class="image_privacy">  </div>
-<image src="nimages/p7.png" width="250">	
-     
-	
-   
+				</div>
+				<div class="col-md-2">
+					<div class="pro_img">
+						<a href="#stayhere"> <span class="hidden"> </span>
 
 
-</a></div>
-<div class="pro_details">
-Matri ID : 20993 <br>
-<span>Hindu</span>
-<br>
-Nellore, Andhra Pradesh
-</div>
- 
-						
-						
-</div>
- <div class="col-md-2"> 
-<div class="pro_img">
-<a href="LoginHomeNew">
-
-	
-	<span class="hidden"> </span>
-
-    
- 	<div class="image_privacy">  </div>
-<image src="nimages/p8.png" width="250">	
-     
-	
-   
+							<div class="image_privacy"></div> <image src="nimages/p4.png"
+								width="250"></a>
+					</div>
+					<div class="pro_details">
+						Matri ID : 21010 <br> <span>Hindu</span> <br>
+						Vijayawada, Andhra Pradesh
+					</div>
 
 
-</a></div>
-<div class="pro_details">
-Matri ID : 20988 <br>
-<span>Hindu</span>
-<br>
-Krishna, Andhra Pradesh
-</div>
- 
-						
-						
-</div>
- <div class="col-md-2"> 
-<div class="pro_img">
-<a href="LoginHomeNew">
 
-	
-	<span class="hidden"> </span>
-
-    
- 	<div class="image_privacy">  </div>
-<image src="nimages/p9.png" width="250">
-	
-     
-	
-   
+				</div>
+				<div class="col-md-2">
+					<div class="pro_img">
+						<a href="#stayhere"> <span class="hidden"> </span>
 
 
-</a></div>
-<div class="pro_details">
-Matri ID : 20982 <br>
-<span>Hindu</span>
-<br>
-Guntur, Andhra Pradesh
-</div>
- 
-						
-						
-</div>
- </div>
-</div>
-</div>
-</div>
+							<div class="image_privacy"></div> <image src="nimages/p5.png"
+								width="250"></a>
+					</div>
+					<div class="pro_details">
+						Matri ID : 21004 <br> <span>Hindu</span> <br>
+						Rajamundry, Andhra Pradesh
+					</div>
 
-<section class="testimonials" id="testimonials">
+
+
+				</div>
+				<div class="col-md-2">
+					<div class="pro_img">
+						<a href="#stayhere"> <span class="hidden"> </span>
+
+
+							<div class="image_privacy"></div> <image src="nimages/p5.png"
+								width="250"></a>
+					</div>
+					<div class="pro_details">
+						Matri ID : 21003 <br> <span>Hindu</span> <br> Guntur,
+						Andhra Pradesh
+					</div>
+
+
+
+				</div>
+				<div class="col-md-2">
+					<div class="pro_img">
+						<a href="#stayhere"> <span class="hidden"> </span>
+
+
+							<div class="image_privacy"></div> <image src="nimages/p6.png"
+								width="250"></a>
+					</div>
+					<div class="pro_details">
+						Matri ID : 20998 <br> <span>Christian</span> <br>
+						Gudivada, Andhra Pradesh
+					</div>
+
+
+
+				</div>
+				<div class="col-md-2">
+					<div class="pro_img">
+						<a href="#stayhere"> <span class="hidden"> </span>
+
+
+							<div class="image_privacy"></div> <image src="nimages/p7.png"
+								width="250"></a>
+					</div>
+					<div class="pro_details">
+						Matri ID : 20993 <br> <span>Hindu</span> <br> Nellore,
+						Andhra Pradesh
+					</div>
+
+
+
+				</div>
+				<div class="col-md-2">
+					<div class="pro_img">
+						<a href="#stayhere"> <span class="hidden"> </span>
+
+
+							<div class="image_privacy"></div> <image src="nimages/p8.png"
+								width="250"></a>
+					</div>
+					<div class="pro_details">
+						Matri ID : 20988 <br> <span>Hindu</span> <br> Krishna,
+						Andhra Pradesh
+					</div>
+
+
+
+				</div>
+				<div class="col-md-2">
+					<div class="pro_img">
+						<a href="#stayhere"> <span class="hidden"> </span>
+
+
+							<div class="image_privacy"></div> <image src="nimages/p9.png"
+								width="250"></a>
+					</div>
+					<div class="pro_details">
+						Matri ID : 20982 <br> <span>Hindu</span> <br> Guntur,
+						Andhra Pradesh
+					</div>
+
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+
+	<section class="testimonials" id="testimonials">
 		<!-- Section id-->
 		<div class="container-fluid">
 			<div class="row">
@@ -816,9 +878,11 @@ Guntur, Andhra Pradesh
 											class="img-responsive img-thumbnail" alt="">
 										<figcaption>
 											<h3>Vamsi Chowdary & Apoorva</h3>
-											<span>June 9, 2018</span> <!-- <a href="successStory#01-thumbnail.jpg">read more...</a> -->
+											<span>June 9, 2018</span>
+											<!-- <a href="successStory#01-thumbnail.jpg">read more...</a> -->
 											<!-- <h3>Bride Name & Groom Name</h3>
-											<span>June 9, 2017</span> --> <a href="successStory&divId=1">read more...</a> 
+											<span>June 9, 2017</span> -->
+											<a href="successStory&divId=1">read more...</a>
 										</figcaption>
 									</figure>
 								</li>
@@ -828,9 +892,11 @@ Guntur, Andhra Pradesh
 											class="img-responsive img-thumbnail" alt="">
 										<figcaption>
 											<h3>Sriram & Divya</h3>
-											<span>April 28, 2018</span> <!-- <a href="successStory#02-thumbnail.jpg">read more...</a> -->
+											<span>April 28, 2018</span>
+											<!-- <a href="successStory#02-thumbnail.jpg">read more...</a> -->
 											<!-- <h3>Bride Name & Groom Name</h3>
-											<span>June 9, 2017</span> --> <a href="successStory&divId=2">read more...</a>
+											<span>June 9, 2017</span> -->
+											<a href="successStory&divId=2">read more...</a>
 										</figcaption>
 									</figure>
 								</li>
@@ -840,9 +906,11 @@ Guntur, Andhra Pradesh
 											class="img-responsive img-thumbnail" alt="">
 										<figcaption>
 											<h3>Raghuram & Swapna</h3>
-											<span>May 2, 2017</span> <!-- <a href="successStory#03-thumbnail.jpg">read more...</a> -->
+											<span>May 2, 2017</span>
+											<!-- <a href="successStory#03-thumbnail.jpg">read more...</a> -->
 											<!-- <h3>Bride Name & Groom Name</h3>
-											<span>June 9, 2017</span> --> <a href="successStory&divId=3">read more...</a>
+											<span>June 9, 2017</span> -->
+											<a href="successStory&divId=3">read more...</a>
 										</figcaption>
 									</figure>
 								</li>
@@ -855,100 +923,100 @@ Guntur, Andhra Pradesh
 		</div>
 	</section>
 
-	
-	
-	
-<div class="container">
-	
-<footer class="footer" id="footer">
-		<!-- Section id-->
-		<div class="container">
-			<div class="row">
-				<div class="col-md-3 col-sm-3">
-					<div class="logo-footer">
-						<img src="images/logo01.png" alt="" class="img-responsive" />
+
+
+
+	<div class="container">
+
+		<footer class="footer" id="footer">
+			<!-- Section id-->
+			<div class="container">
+				<div class="row">
+					<div class="col-md-3 col-sm-3">
+						<div class="logo-footer">
+							<img src="images/logo01.png" alt="" class="img-responsive" />
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-3">
+						<video poster="user/images/bgvideo.jpg" controls
+							src="user/images/Aarna Matrimony for Best Mate ,Together Forever.mp4"
+							type="video/mp4">
+						</video>
+
+					</div>
+					<div class="col-md-6 col-sm-6">
+						<div class="contact-info">
+							<h5>Our Office</h5>
+							<p class="fs-12 address">
+								<i class="fa fa-map-marker"></i>D.No.35, Church Complex,<br>
+								Nirmala Convent Road, Benz Circle, VIJAYAWADA.
+							</p>
+							<p class="fs-12">
+								<i class="fa fa-phone"></i>+91 9440585588
+							</p>
+						</div>
 					</div>
 				</div>
-				<div class="col-md-3 col-sm-3">
-				<video poster="user/images/bgvideo.jpg"  controls src="user/images/Aarna Matrimony for Best Mate ,Together Forever.mp4" type="video/mp4">
-</video>
-				
-				</div>
-				<div class="col-md-6 col-sm-6">
-					<div class="contact-info">
-						<h5>Our Office</h5>
-						<p class="fs-12 address">
-							<i class="fa fa-map-marker"></i>D.No.35, Church Complex,<br>
-							                                Nirmala Convent Road,
-							                                Benz Circle, VIJAYAWADA.
-						</p>
-						<p class="fs-12">
-							<i class="fa fa-phone"></i>+91 9440585588
-						</p>
+				<div class="row">
+					<div class="col-md-6 col-sm-6">
+						<div class="social">
+							<ul class="list-inline">
+								<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+								<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+								<li><a href="#"><i class="fa fa-instagram"></i></a></li>
+								<li><a href="#"><i class="fa fa-pinterest-p"></i></a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-md-6 col-sm-6">
+						<div class="contact-info">
+							<p class="email-add">
+								<span>Email:</span> info@aarnamatrimony.com
+							</p>
+						</div>
 					</div>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-md-6 col-sm-6">
-					<div class="social">
-						<ul class="list-inline">
-							<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-							<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-							<li><a href="#"><i class="fa fa-instagram"></i></a></li>
-							<li><a href="#"><i class="fa fa-pinterest-p"></i></a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-md-6 col-sm-6">
-					<div class="contact-info">
-						<p class="email-add">
-							<span>Email:</span> info@aarnamatrimony.com
-						</p>
-					</div>
-				</div>
-			</div>
-		</div>
-		
-	</footer>
+
+		</footer>
 	</div>
 	<div class="clearfix"></div>
-<div id="bottom">
-<div class="container">
-<div class="row info">
-<div class="col-md-3">
-<h4>INFORMATION :</h4>
-</div>
-<div class="col-md-9">
-<a href="#stayhere">Register Free</a><a href="#stayhere">Partner Search</a><a href="#stayhere">Member login1</a><a href="#stayhere">About Us</a><a href="#stayhere">Payment Options</a><a href="#stayhere">Terms & Conditions</a><a href="#stayhere">Privacy Policy</a><a href="#stayhere">Contact</a>
+	<div id="bottom">
+		<div class="container">
+			<div class="row info">
+				<div class="col-md-3">
+					<h4>INFORMATION :</h4>
+				</div>
+				<div class="col-md-9">
+					<a href="#stayhere">Register Free</a><a href="#stayhere">Partner
+						Search</a><a href="#stayhere">Member login1</a><a href="#stayhere">About
+						Us</a><a href="#stayhere">Payment Options</a><a href="#stayhere">Terms
+						& Conditions</a><a href="#stayhere">Privacy Policy</a><a
+						href="#stayhere">Contact</a>
 
-</div>
-</div>
-<div class="row social-secure">
-<div class="col-md-6">
-Follow us on : 	<a href="#stayhere"><img src="nimages/fb.png" alt="facebook"> </a><a href="#stayhere"> <img src="nimages/twt.png" alt="twitter"> </a><a href="#stayhere">  <img src="nimages/linkdn.png" alt="linkdn"></a>
-</div>
-<div class="col-md-4">
-
-</div>
-</div>
-</div>
-</div>
-<footer>
-<div class="container">
-<div class="row">
-<div class="col-md-4 footer-left">
-All Rights Reserved
-</div>
-<div class="col-md-4 footer-center">
-
-</div>
-<div class="col-md-4 footer-right">
-
-</div>
-</div>
-</div>
-</footer>
-<div id="register-info" class="modal modal fade" data-backdrop="static"
+				</div>
+			</div>
+			<div class="row social-secure">
+				<div class="col-md-6">
+					Follow us on : <a href="#stayhere"><img src="nimages/fb.png"
+						alt="facebook"> </a><a href="#stayhere"> <img
+						src="nimages/twt.png" alt="twitter">
+					</a><a href="#stayhere"> <img src="nimages/linkdn.png" alt="linkdn"></a>
+				</div>
+				<div class="col-md-4"></div>
+			</div>
+		</div>
+	</div>
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4 footer-left">All Rights Reserved</div>
+				<div class="col-md-4 footer-center"></div>
+				<div class="col-md-4 footer-right"></div>
+			</div>
+		</div>
+	</footer>
+	<div id="register-info" class="modal modal fade" data-backdrop="static"
 		data-keyboard="false">
 		<div class="modal-dialog modal-sm">
 			<div class="modal-content">
@@ -959,22 +1027,26 @@ All Rights Reserved
 				</div>
 				<div class="modal-body">
 
-					<form:form commandName="createProfile" action="#"  id="registration"  method="post" class="login-form">
+					<form:form commandName="createProfile" action="#" id="registration"
+						method="post" class="login-form">
 
 						<div id="firstForm">
 
 							<div class="form-group">
-								<label for="user_name">Your Email-Id :</label> 
-								<form:input	path="email" onkeydown="removeBorder(this.id)" class="form-control" placeholder="Email"/>
+								<label for="user_name">Your Email-Id :</label>
+								<form:input path="email" onkeydown="removeBorder(this.id)"
+									class="form-control" placeholder="Email" />
 								<span class="hasError" id="emailError" style="font-size: 13px;"></span>
 							</div>
 							<div class="form-group">
-								<label for="user_password">Create Password :</label> 
-								<form:password path="regPassword" class="form-control" onkeydown="removeBorder(this.id)"  placeholder="Password"/>
+								<label for="user_password">Create Password :</label>
+								<form:password path="regPassword" class="form-control"
+									onkeydown="removeBorder(this.id)" placeholder="Password" />
 							</div>
 							<div class="form-group">
-								<label for="user_ssword">Create Profile for :</label> 
-								<select	id="createProfileFor" name="createProfileFor" onfocus="removeBorder(this.id)" class="form-control">
+								<label for="user_ssword">Create Profile for :</label> <select
+									id="createProfileFor" name="createProfileFor"
+									onfocus="removeBorder(this.id)" class="form-control">
 									<option value="">Select</option>
 									<option value="Self">Self</option>
 									<option value="Son">Son</option>
@@ -988,73 +1060,94 @@ All Rights Reserved
 
 							<div class="form-group">
 								<div>
-									<label class="radio-inline" for="radios-0">
-									 <input	name="gender" id="radios-0" value="Male" checked="checked" type="radio"> Male
-									</label>
-									<label class="radio-inline" for="radios-1"> 
-									 <input name="gender" id="radios-1" value="Female" type="radio"> Female
+									<label class="radio-inline" for="radios-0"> <input
+										name="gender" id="radios-0" value="Male" checked="checked"
+										type="radio"> Male
+									</label> <label class="radio-inline" for="radios-1"> <input
+										name="gender" id="radios-1" value="Female" type="radio">
+										Female
 									</label>
 
 								</div>
 							</div>
 
 							<div class="form-group">
-								<button type="submit" id="submit11" class="btn btn-info btn-block">CONTINUE...</button>
+								<button type="submit" id="submit11"
+									class="btn btn-info btn-block">CONTINUE...</button>
 							</div>
 						</div>
-						
-						 <!--second step form-->
-                                                
-                                                <div style="display:none" id="secondForm">
-                                                <h4 style="margin-bottom:20px;">Great, Now some basic details </h4>
-                                                 <div class="row">
-                                                 <div class="form-group">
-                                                    <label for="" class="col-md-12" >Your Name</label>
-                           <div class="col-md-6"><input type="text" name="firstName" onkeydown="removeBorder(this.id)" class="form-control onlyCharacters" id="firstName" placeholder="First Name"></div>
-                           <div class="col-md-6"><input type="text" name="lastName" onkeydown="removeBorder(this.id)" class="form-control onlyCharacters" id="lastName" placeholder="Last Name"></div>
-                           <div class="clearfix"></div>
-                                                </div>
-                                                </div>
-                                                
-                                               <div class="form-group">
-                                               <div  class="row">
-                                                    <label for="" class="col-md-12" >Date of Birth</label>
-                           <div class="col-md-12"><input type="text" name="dob" onclick="removeBorder(this.id)" class="form-control" id="dob" placeholder="Select Date of Birth" readonly="readonly"></div>
-                                                </div> 
-                                                </div>
-                                                
-                                                
-                                               <div class="form-group">
-                                                    <label for="">Religion</label>
-                          				<form:select path="religion" onfocus="removeBorder(this.id)" onchange="getReliginCastAjax()" class="form-control" >
-														<form:option value="">-- Choose Religion --</form:option>
-														<form:options items="${religion}"></form:options>
-										</form:select>
-                                                </div>
-                                                
-                                                 <div class="form-group">
-                                                    <label for="">Mother Tongue</label>
-                        				 <form:select path="motherTongue" onfocus="removeBorder(this.id)"  class="form-control" >
-														<form:option value="">-- Choose Mother Tongue --</form:option>
-														<form:options items="${language}"></form:options>
-										</form:select>
-                                                </div> 
-                                                
-                                                <div class="form-group">
-                                                    <label for="">Where do you live? </label>
-                          				 <form:select path="currentCountry" onfocus="removeBorder(this.id)"  class="form-control" >
-														<form:option value="">-- Choose Country --</form:option>
-														<form:options items="${countries}"></form:options>
-										</form:select>
-                                                </div> 
-                                                 <div class="form-group">
-                                                 <input type="button" id ="secondButton" value="SIGNUP..." class="btn btn-info btn-block" />
-<!--                                                     <button type="button"  id ="secondButton" onclick="submit();" class="btn btn-info btn-block">SIGNUP...</button> -->
-                                                </div>
-                                                
-                                                </div>
-                                                <!--second form end here-->
-						
+
+						<!--second step form-->
+
+						<div style="display: none" id="secondForm">
+							<h4 style="margin-bottom: 20px;">Great, Now some basic
+								details</h4>
+							<div class="row">
+								<div class="form-group">
+									<label for="" class="col-md-12">Your Name</label>
+									<div class="col-md-6">
+										<input type="text" name="firstName"
+											onkeydown="removeBorder(this.id)"
+											class="form-control onlyCharacters" id="firstName"
+											placeholder="First Name">
+									</div>
+									<div class="col-md-6">
+										<input type="text" name="lastName"
+											onkeydown="removeBorder(this.id)"
+											class="form-control onlyCharacters" id="lastName"
+											placeholder="Last Name">
+									</div>
+									<div class="clearfix"></div>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<div class="row">
+									<label for="" class="col-md-12">Date of Birth</label>
+									<div class="col-md-12">
+										<input type="text" name="dob" onclick="removeBorder(this.id)"
+											class="form-control" id="dob"
+											placeholder="Select Date of Birth" readonly="readonly">
+									</div>
+								</div>
+							</div>
+
+
+							<div class="form-group">
+								<label for="">Religion</label>
+								<form:select path="religion" onfocus="removeBorder(this.id)"
+									onchange="getReliginCastAjax()" class="form-control">
+									<form:option value="">-- Choose Religion --</form:option>
+									<form:options items="${religion}"></form:options>
+								</form:select>
+							</div>
+
+							<div class="form-group">
+								<label for="">Mother Tongue</label>
+								<form:select path="motherTongue" onfocus="removeBorder(this.id)"
+									class="form-control">
+									<form:option value="">-- Choose Mother Tongue --</form:option>
+									<form:options items="${language}"></form:options>
+								</form:select>
+							</div>
+
+							<div class="form-group">
+								<label for="">Where do you live? </label>
+								<form:select path="currentCountry"
+									onfocus="removeBorder(this.id)" class="form-control">
+									<form:option value="">-- Choose Country --</form:option>
+									<form:options items="${countries}"></form:options>
+								</form:select>
+							</div>
+							<div class="form-group">
+								<input type="button" id="secondButton" value="SIGNUP..."
+									class="btn btn-info btn-block" />
+								<!--                                                     <button type="button"  id ="secondButton" onclick="submit();" class="btn btn-info btn-block">SIGNUP...</button> -->
+							</div>
+
+						</div>
+						<!--second form end here-->
+
 					</form:form>
 					<div class="clearfix"></div>
 				</div>
@@ -1064,8 +1157,8 @@ All Rights Reserved
 
 
 
-<div class="clearfix"></div>
-  <%-- <div class="modal fade" id="contact_us" role="dialog">
+	<div class="clearfix"></div>
+	<%-- <div class="modal fade" id="contact_us" role="dialog">
     <div class="modal-dialog modal-md">
       <div class="modal-content">
       <div class="modal-header"> 
@@ -1178,24 +1271,27 @@ All Rights Reserved
       </div>
     </div>
   </div> --%>
-<script src='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'></script>
-  <script src="${baseurl}/user/js/ie-emulation-modes-warning.js"></script>
-<script src="${baseurl}/user/vendor/jquery/jquery.min.js"></script>
+	<script
+		src='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'></script>
+	<script src="${baseurl}/user/js/ie-emulation-modes-warning.js"></script>
+	<script src="${baseurl}/user/vendor/jquery/jquery.min.js"></script>
 	<script src="${baseurl}/user/js/ie10-viewport-bug-workaround.js"></script>
 	<script src="${baseurl}/user/vendor/bootstrap/js/bootstrap.min.js"></script>
-	<script src="${baseurl}/user/vendor/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+	<script
+		src="${baseurl}/user/vendor/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
 	<script src="${baseurl}/user/vendor/scrollreveal/scrollreveal.min.js"></script>
-<%-- 	<script src="${baseurl}/user/js/theme.js"></script> --%>
+	<%-- 	<script src="${baseurl}/user/js/theme.js"></script> --%>
 	<script src="${baseurl}/user/js/custom.js"></script>
-	 <script src="${baseurl}/js/jquery.blockUI.min.js"></script>
-	<script src="${baseurl}/user/vendor/woocommerce-FlexSlider/jquery.flexslider.js"></script>
+	<script src="${baseurl}/js/jquery.blockUI.min.js"></script>
+	<script
+		src="${baseurl}/user/vendor/woocommerce-FlexSlider/jquery.flexslider.js"></script>
 	<script src="${baseurl}/user/js/modernizr.custom.js"></script>
 	<script src="${baseurl}/user/js/toucheffects.js"></script>
-<script src="${baseurl}/js/custemValidation1.js"></script>
-<%-- <script src="${baseurl}/js/datepicker.js"></script> --%>
-<script src="${baseurl}/js/ajax.js"></script>
-<script src="${baseurl}/js/jquery-ui.min.js"></script>
-  <script>
+	<script src="${baseurl}/js/custemValidation1.js"></script>
+	<%-- <script src="${baseurl}/js/datepicker.js"></script> --%>
+	<script src="${baseurl}/js/ajax.js"></script>
+	<script src="${baseurl}/js/jquery-ui.min.js"></script>
+	<script>
   var ss =new Date().getFullYear()-18;
   $("#dob").datepicker({
      dateFormat: "dd-MM-yy",
@@ -1244,9 +1340,9 @@ return true;
 }
   
   </script>
-  
 
-<script type="text/javascript">
+
+	<script type="text/javascript">
 $(document).on('change','.checkbox',function(){
    var url = "";
    $.ajax({
@@ -1269,17 +1365,17 @@ $(document).on('change','.checkbox',function(){
 
 
 
-    <!-- Scripts -->
-    <script src="njs/app.js"></script>
-	    <script src="njs/customjs.js"></script>
-<script>
+	<!-- Scripts -->
+	<script src="njs/app.js"></script>
+	<script src="njs/customjs.js"></script>
+	<script>
 $(document).ready(function(){
     $('[data-toggle="popover"]').popover();
 });
 </script>
 
 
-<script>
+	<script>
 
 
 $('#uncheck').click(function(){
@@ -1290,7 +1386,7 @@ $('#check:checked').removeAttr('checked');
 
 </script>
 
-<!--
+	<!--
 <script>
 
 $('img').bind('contextmenu', function(e) {
@@ -1301,7 +1397,7 @@ $('img').bind('contextmenu', function(e) {
 -->
 
 
-<script type="text/javascript">
+	<script type="text/javascript">
     $(window).on('load',function(){
         $('#contact_us').modal('show');
     });
@@ -1519,7 +1615,7 @@ $('img').bind('contextmenu', function(e) {
     </script>
 
 
-    <script>
+	<script>
     jQuery(document).ready(function($){
     	  
     	  window.onload = function (){

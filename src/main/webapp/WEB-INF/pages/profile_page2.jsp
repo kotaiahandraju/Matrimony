@@ -290,6 +290,7 @@ if(session.getAttribute("cacheGuest") != null){
   <div class="col-md-8">
   	<form:select path="rEducation" class="form-control">
 		<form:option value="">-- Education --</form:option>
+		 <form:option value="any">Doesn't Matter</form:option>
 		<form:options items="${education}"></form:options>
 	</form:select>
 <!--   <input id="textinput" name="textinput" type="text" placeholder="Education" class="form-control input-md"> -->

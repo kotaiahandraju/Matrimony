@@ -129,6 +129,7 @@
 	      <label class="col-md-4 control-label" for="textinput">Education</label>  
 	      <div class="col-md-7">
 	      	<form:select path="rEducation" class="multiSelect" multiple="true">
+	      	 <form:option value="any">Doesn't Matter</form:option>
 	      		<form:options items="${education}"></form:options>
 			</form:select>
 	      </div>
