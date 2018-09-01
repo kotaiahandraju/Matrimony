@@ -19,8 +19,7 @@
 <meta name="keywords" content="">
 <link href="${baseurl}/user/css/style.css" rel="stylesheet">
 <link href="${baseurl}/user/css/custom.css" rel="stylesheet">
-<link href="${baseurl}/css/datepicker1.css" rel="stylesheet"
-	type="text/css" />
+<link href="${baseurl}/css/datepicker1.css" rel="stylesheet" type="text/css" />
 
 <link rel="stylesheet" type="text/css"
 	href="${baseurl}/user/css/component.css" />
@@ -576,43 +575,112 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 											<option value="null">Groom</option>
 									</select>
 
-										<h4>Aged</h4> <select id="country1"
-										onchange="change_country(this.value)" style=""
-										class="for-control">
-											<option value="null">20</option>
-											<option value="null">21</option>
-											<option value="null">22</option>
-											<option value="null">23</option>
-											<option value="null">24</option>
-											<option value="null">25</option>
-											<option value="null">- - -</option>
-									</select> <span>To </span> <select id="country2"
-										onchange="change_country(this.value)" class="formcontrol">
-											<option value="null">30</option>
-											<option value="null">31</option>
-											<option value="null">32</option>
-											<option value="null">33</option>
-											<option value="null">34</option>
-											<option value="null">35</option>
-											<option value="null">- - -</option>
-									</select>
+										<h4>Aged</h4> 
+										<select id="rAgeFrom" name="rAgeFrom"	class="for-control">
+											<option value="18">18</option>
+									<option value="19">19</option>
+									<option value="20">20</option>
+									<option value="21">21</option>
+									<option value="22">22</option>
+									<option value="23">23</option>
+									<option value="24">24</option>
+									<option value="25">25</option>
+									<option value="26">26</option>
+									<option value="27">27</option>
+									<option value="28">28</option>
+									<option value="29">29</option>
+									<option value="30">30</option>
+									<option value="31">31</option>
+									<option value="32">32</option>
+									<option value="33">33</option>
+									<option value="34">34</option>
+									<option value="35">35</option>
+									<option value="36">36</option>
+									<option value="37">37</option>
+									<option value="38">38</option>
+									<option value="39">39</option>
+									<option value="40">40</option>
+									<option value="41">41</option>
+									<option value="42">42</option>
+									<option value="43">43</option>
+									<option value="44">44</option>
+									<option value="45">45</option>
+									<option value="46">46</option>
+									<option value="47">47</option>
+									<option value="48">48</option>
+									<option value="49">49</option>
+									<option value="50">50</option>
 
-										<h4>Religion</h4> <select id="country3"
-										onchange="change_country(this.value)" class="form-control">
-											<option value="null">Hindu</option>
-											<option value="null">Muslim</option>
-											<option value="null">Christian</option>
-											<option value="null">Sikh</option>
-											<option value="null">Jain</option>
-											<option value="null">Buddhist</option>
-											<option value="null">No Religious Belief</option>
-									</select> <input value="Search" class="btn btn-success"
-										style="margin-top: 8px;" type="submit">
+
+									</select> <span>To </span> 
+									<select id="rAgeTo" name="rAgeTo"  onchange="change_country(this.value)" class="formcontrol">
+									<option value="19">19</option>
+									<option value="20">20</option>
+									<option value="21">21</option>
+									<option value="22">22</option>
+									<option value="23">23</option>
+									<option value="24">24</option>
+									<option value="25">25</option>
+									<option value="26">26</option>
+									<option value="27">27</option>
+									<option value="28">28</option>
+									<option value="29">29</option>
+									<option value="30">30</option>
+									<option value="31">31</option>
+									<option value="32">32</option>
+									<option value="33">33</option>
+									<option value="34">34</option>
+									<option value="35">35</option>
+									<option value="36">36</option>
+									<option value="37">37</option>
+									<option value="38">38</option>
+									<option value="39">39</option>
+									<option value="40">40</option>
+									<option value="41">41</option>
+									<option value="42">42</option>
+									<option value="43">43</option>
+									<option value="44">44</option>
+									<option value="45">45</option>
+									<option value="46">46</option>
+									<option value="47">47</option>
+									<option value="48">48</option>
+									<option value="49">49</option>
+									<option value="50">50</option>
+							</select>
+
+										<h4>Religion</h4>
+                          <form:select path="religion" id="religionId"  onchange="getReliginCastAjax1()">
+											<form:options items="${religion}"></form:options>
+											</form:select>
+									<h4>Cast</h4>
+									<form:select path="cast" id="castId" onchange="change_country(this.value)">
+								<form:option value="">of Caste.... &nbsp;&nbsp;</form:option>
+							</form:select>
+     <input value="Search" class="btn btn-success" style="margin-top: 8px;" type="submit" onclick="searchSubmit();">
 
 									</a>
 								</div>
 							</div>
 						</div>
+	<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog" style="  margin-top:55px;">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">		
+      <div class="modal-header" style="background:#099cca; color:#fff;"> <h3>Your Search Results</h3>
+        <button type="button" style="color:#fff !important; margin-right:10px; opacity:1;" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+      	<div class="searchresults">
+									<div id="searchResults">
+									</div>
+								</div>    
+      </div>
+    </div>
+  </div>
+</div>						
+						
 						<div class="form-group">
 							<a class="regist" href="#register-info" data-toggle="modal">Register</a>
 						</div>
@@ -1271,24 +1339,21 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
       </div>
     </div>
   </div> --%>
-	<script
-		src='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'></script>
+   <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+	<script src='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'></script>
 	<script src="${baseurl}/user/js/ie-emulation-modes-warning.js"></script>
 	<script src="${baseurl}/user/vendor/jquery/jquery.min.js"></script>
 	<script src="${baseurl}/user/js/ie10-viewport-bug-workaround.js"></script>
 	<script src="${baseurl}/user/vendor/bootstrap/js/bootstrap.min.js"></script>
-	<script
-		src="${baseurl}/user/vendor/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+<%-- 	<script src="${baseurl}/user/vendor/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script> --%>
 	<script src="${baseurl}/user/vendor/scrollreveal/scrollreveal.min.js"></script>
 	<%-- 	<script src="${baseurl}/user/js/theme.js"></script> --%>
 	<script src="${baseurl}/user/js/custom.js"></script>
 	<script src="${baseurl}/js/jquery.blockUI.min.js"></script>
-	<script
-		src="${baseurl}/user/vendor/woocommerce-FlexSlider/jquery.flexslider.js"></script>
+	<script src="${baseurl}/user/vendor/woocommerce-FlexSlider/jquery.flexslider.js"></script>
 	<script src="${baseurl}/user/js/modernizr.custom.js"></script>
 	<script src="${baseurl}/user/js/toucheffects.js"></script>
 	<script src="${baseurl}/js/custemValidation1.js"></script>
-	<%-- <script src="${baseurl}/js/datepicker.js"></script> --%>
 	<script src="${baseurl}/js/ajax.js"></script>
 	<script src="${baseurl}/js/jquery-ui.min.js"></script>
 	<script>
@@ -1579,7 +1644,7 @@ $('img').bind('contextmenu', function(e) {
     				return false;
     			}
     			
-//     		 	$("#firstForm").css({'display':'none'})
+//     		 	$("#firstForm").css({'display':'none'})`	
 //     			$('#secondForm').css({'display':'block'});
 //    		 		$("#registration").submit();
     		 $('#registration').attr('action',"userRegistration");
@@ -1642,6 +1707,138 @@ $('img').bind('contextmenu', function(e) {
     		    }
     	    });
     	});
+    function displaydata(data) {
+    	
+        if(data == ""){
+           $('#searchResults').empty();	  
+                var tblHistory='<td colspan="7" style="text-align:center;">No History Found<span></span></td>';
+                $(tblHistory).appendTo("#searchResults");
+            	
+   
+        }
+
+  	$.each(data,function(i, orderObj) {
+  		var profile_highlisht_str = '<div class="panel panel-default">';
+  		var highlight_option = orderObj.profile_highlighter;
+  		if(typeof highlight_option != "undefined" && highlight_option=='1'){
+  			profile_highlisht_str = '<div class="panel panel-default" style="background-color:skyblue">';
+  		}
+  		var image = orderObj.profileImage;
+  		if(typeof image == "undefined" || image=="" || image==null){
+  			image = "img/default.png";
+  		}
+  		var tblRow = profile_highlisht_str
+  		+ '<div class="panel-heading">'
+  		+ '<h5 class="panel-title" style="text-align:left;">'
+  		+ '<div class="form-check">	<label class="form-check-label"> <input type="checkbox" class="form-check-input" placeholder=""> '+orderObj.firstName+'&nbsp;'+orderObj.lastName+'</label>	<span class="pull-right">Created by '+orderObj.createProfileFor+'</span></div>'
+  		+ '</h5>'
+  		+ '</div>'
+  		+ '<div class="panel-body">'
+  		+ '<div class="col-md-2">' 
+  		+ '<a href="#" onclick="regFunction()">  <img src="'+image+'" class="img img-responsive thumbnail " style="margin-bottom:0;height: auto;width: 100%;"></a>'
+      	+ '</div>'
+      	 + '<div class="col-md-4">'
+       	 + '<h2 style="margin-top:10px;" class="pull-right"><a href="#" data-toggle="tooltip" data-placement="bottom" title="View Mobile Number" ><img style="margin-top:-10px;" > &nbsp;</a></h2></span><div class="clearfix"></div><blockquote style="min-height:100px; max-height:120px; "><p>'+orderObj.About+'</p><br><a href="#" onclick="regFunction()"><p style="float:right;">...more</p></a></blockquote>'
+       	+ '</div>' 
+       	+  '<div class="col-md-1"></div>'
+      	+ '<div class="col-md-5">'
+  		+ '<table><tbody><tr><td width="150px">Age</td><td><span>: '+orderObj.age+' yrs</span></td></tr>'
+  		+ '<tr><td>Religion</td><td><span>: '+orderObj.religionName+'</span></td></tr>'	
+  		+ '<tr><td>Community</td><td><span>: '+orderObj.castName+'</span></td></tr>'
+  		+ '<tr><td>Location</td><td><span>: '+orderObj.cityName+'</span></td></tr>'
+  		+ '<tr><td>Education</td><td><span>: '+orderObj.Education+'</span></td></tr>'
+  		+ '<tr><td>Profession</td><td><span>: '+orderObj.Proffession+'</span></td></tr></tbody></table>'
+      	+ ' <a href="#" onclick="regFunction()"><button class="btn btn-warning">View Full Profile</button></a>'
+      	+ '</div>'
+      	+ '</div>' 
+      	+ '</div>' 
+      	+ '</div>'
+      	+ '</div>';
+  			$(tblRow).appendTo("#searchResults");
+      	 
+
+  		
+  		
+  		
+  		
+  	});
+  }
+
+
+    
+    function getReliginCastAjax1() {
+    	var religionId = $("#religionId").val();
+    		var formData = new FormData();
+    		formData.append("religionId",religionId);
+    	$.fn.makeMultipartRequest('POST', 'castesBasedOnReligion', false,
+    			formData, false, 'text', function(data){
+    		var jsonobj = $.parseJSON(data);
+    		var alldata = jsonobj.allOrders1;
+    		/* if(alldata == "" ){
+    		$("#rCaste").select2('val','');
+    	} */
+    		var optionsForClass = "";
+    		optionsForClass = $("#castId").empty();
+//     		optionsForClass.append(new Option("of Caste....", ""));
+    		$.each(alldata, function(i, tests) {
+    			var id=tests.id;
+    			var casteName=tests.name;
+    			optionsForClass.append(new Option(casteName, id));
+    		});
+    		
+    	});
+    }
+    function searchSubmit(){
+    	var rPeople= $('#rPeople').val();
+    	var rAgeFrom= $('#rAgeFrom').val();
+    	var rAgeTo= $("#rAgeTo").val();
+    	var religion= $('#religionId').val();
+    	var castId= $('#castId').val();
+    	if(rPeople == "" && rAgeFrom == "" && rAgeTo == "" && religion == "" && castId == ""){
+    		alert("Please provide any input.");
+    		return false;
+    	}
+    	if(rAgeFrom > rAgeTo){
+    		alert("Sorry, Invalid Age range");
+    		return false;
+    	}
+        if(rPeople == ""){
+    	alert("You are looking for?");
+    	return false;
+    	}
+        else
+    	{
+//     	var Female= $('#id1').val();
+//     	var Male= $('#id2').val();
+    	var people= $('#rPeople').val();
+    	var rAgeFrom= $('#rAgeFrom').val();
+    	var rAgeTo= $("#rAgeTo").val();
+    	
+    	var gender="";
+           	if(people != $('#id2').val() ){
+           		gender="Female";
+    	    }else
+    	    {
+    		   gender="Male";
+    	   }
+    	
+    		var formData = new FormData();
+    		formData.append("gender",gender);
+    		formData.append("rAgeFrom",rAgeFrom);
+    		formData.append("rAgeTo",rAgeTo);
+    		formData.append("religionId",religion);
+    		formData.append("castId",castId);
+    	$.fn.makeMultipartRequest('POST', 'homePageSearchResults', false,
+    			formData, false, 'text', function(data){
+    		var jsonobj = $.parseJSON(data);
+    		var alldata = jsonobj.searchListOrders;
+    		$("#searchResults").html('');
+    		displaydata(alldata);
+    		$('#myModal').modal('show');
+    	});
+    		
+    }
+    } 
     </script>
 </body>
 
