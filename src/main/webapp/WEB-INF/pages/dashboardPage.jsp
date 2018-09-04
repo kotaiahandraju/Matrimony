@@ -457,7 +457,11 @@ color:#000;
   }
 var total_items_count = ${total_records};
 var page_size = ${page_size};
-var allowed_limit = ${allowed_profiles_limit};
+var allowed_limit = "${allowed_profiles_limit}";
+if(allowed_limit=="unlimited"){
+	allowed_limit = "1";
+	allowed_limit = parseInt(allowed_limit);
+}
 var listOrders1 = ${allOrders1};
 var newMatches = ${new_matches};
 
@@ -703,7 +707,7 @@ function expressInterest_dashboard(profile_id){
 		if(membershipStatus!="1"){
 			alert("Your membership validity period is over. Renew your membership plan and get more profiles");
 			return false;
-		}
+		} 
 		if(allowed_limit<=0){
 			alert("Exceeded allowed profiles limit. Renew your membership plan and get more profiles");
 			return false;
@@ -724,7 +728,15 @@ function expressInterest_dashboard(profile_id){
 	    				$("#expInterest"+profile_id).html('Expressed Interest');
 	    				$("#expInterest"+profile_id).prop("disabled",true);
 	    				$("#mobileTD"+profile_id).html('<span style="background:url(${baseurl}/user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+profileObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="${baseurl}/user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>');
-	    				allowed_limit = limit;
+	    				if(typeof limit != "undefined"){
+	    					if(limit=="unlimited"){
+	    						allowed_limit = "1";
+	    						allowed_limit = parseInt(allowed_limit);
+	    					}else{
+	    						allowed_limit = limit;
+	    					}
+	    				}
+	    				
 	    			}else if("failed"==msg || "exception"==msg){
 	    				alert("Interest request is not successful. Please try again.");
 	    			}
@@ -786,7 +798,14 @@ function expressInterest_dashboardnewmatches(profile_id){
 	    				alert("Interest request has been sent successfully");
 	    				$("#expInterest"+profile_id).html('<a   type="button" disabled="true"  class="btn btn-warning "  >Request Sent</a>');
 	    				$("#expInterest"+profile_id).prop("disabled",true);
-	    				allowed_limit = limit;
+	    				if(typeof limit != "undefined"){
+	    					if(limit=="unlimited"){
+	    						allowed_limit = "1";
+	    						allowed_limit = parseInt(allowed_limit);
+	    					}else{
+	    						allowed_limit = limit;
+	    					}
+	    				}
 	    			}else if("failed"==msg || "exception"==msg){
 	    				alert("Interest request is not successful. Please try again.");
 	    			}

@@ -325,10 +325,10 @@ public class HomePageController {
 				 
 				 
 				 if(objUsersBean.getRoleId() == 4){
-					 session.setAttribute("allowed_profiles_limit", 0); 
+					 session.setAttribute("allowed_profiles_limit", "0"); 
 					 session.setAttribute("upgrade_msg_flag", "1");
 				 }else{
-					 int allowed_profiles_limit = objUsersDao.getAllowedProfilesLimit(objUsersBean.getId());
+					 String allowed_profiles_limit = objUsersDao.getAllowedProfilesLimit(objUsersBean.getId());
 					 session.setAttribute("allowed_profiles_limit", allowed_profiles_limit);
 				 }
 				 
@@ -1587,7 +1587,7 @@ public class HomePageController {
 					boolean success = objUsersDao.viewMobileNumber(profile_id);
 					if(success){
 						objJson.put("message", "success");
-						int allowed_limit = (Integer)session.getAttribute("allowed_profiles_limit");
+						String allowed_limit = (String)session.getAttribute("allowed_profiles_limit");
 						objJson.put("allowed_limit", allowed_limit);
 					}else{
 						objJson.put("message", "failed");
@@ -1700,7 +1700,7 @@ public class HomePageController {
 					}
 					userBean.setSentInterestCount((sent_count+1)+"");
 					session.setAttribute("cacheGuest",userBean);
-					int allowed_limit = (Integer)session.getAttribute("allowed_profiles_limit");
+					String allowed_limit = (String)session.getAttribute("allowed_profiles_limit");
 					objJson.put("allowed_limit", allowed_limit);
 					for (int j = 0; j < profileArry.length; j++) {
 				
@@ -1761,7 +1761,7 @@ public class HomePageController {
 					}
 					userBean.setSentInterestCount((sent_count+1)+"");
 					session.setAttribute("cacheGuest",userBean);
-					int allowed_limit = (Integer)session.getAttribute("allowed_profiles_limit");
+					String allowed_limit = (String)session.getAttribute("allowed_profiles_limit");
 					objJson.put("allowed_limit", allowed_limit);
 //					 EmailUtil.sendExpressInterestToMail(userBean, receipientUser, request, objContext);
 					 String baseurl =  request.getScheme() + "://" + request.getServerName() +      ":" +   request.getServerPort() +  request.getContextPath();
@@ -4156,9 +4156,9 @@ public class HomePageController {
 				}
 				
 				if(userSessionBean.getRoleId() == 4){
-					 session.setAttribute("allowed_profiles_limit", 0); 
+					 session.setAttribute("allowed_profiles_limit", "0"); 
 				 }else{
-					 int allowed_profiles_limit = objUsersDao.getAllowedProfilesLimit(userSessionBean.getId());
+					 String allowed_profiles_limit = objUsersDao.getAllowedProfilesLimit(userSessionBean.getId());
 					 session.setAttribute("allowed_profiles_limit", allowed_profiles_limit);
 				 }
 				/*UsersBean objUserrequirementBean =  new UsersBean();
@@ -4227,7 +4227,7 @@ public class HomePageController {
 								 objJson.put("default_text_option", "1");
 							 }
 							 // decrease the profile count
-							 int allowed_profiles_limit = objUsersDao.getAllowedProfilesLimit(userBean.getId());
+							 String allowed_profiles_limit = objUsersDao.getAllowedProfilesLimit(userBean.getId());
 							 session.setAttribute("allowed_profiles_limit", allowed_profiles_limit);
 						 }else{
 							 objJson.put("message", "failed");
@@ -4857,7 +4857,7 @@ public class HomePageController {
 			String otpStatus = objUsersDao.getOtpStatus(objUserBean);
 			
 			objUserBean.setOtpStatus(otpStatus);
-			session.setAttribute("allowed_profiles_limit", 0);
+			session.setAttribute("allowed_profiles_limit", "0");
 			session.setAttribute("cacheGuest", objUserBean);
 			session.setAttribute("rolId", objUserBean.getRoleId());
 			session.setAttribute("userName", objUserBean.getUsername());
@@ -4880,7 +4880,7 @@ public class HomePageController {
 			}
 			
 		}else if(objUserBean.getRoleId() != 4){
-			int allowed_profiles_limit = objUsersDao.getAllowedProfilesLimit(objUserBean.getId());
+			String allowed_profiles_limit = objUsersDao.getAllowedProfilesLimit(objUserBean.getId());
 			session.setAttribute("allowed_profiles_limit", allowed_profiles_limit);
 			session.setAttribute("cacheGuest", objUserBean);
 			session.setAttribute("rolId", objUserBean.getRoleId());

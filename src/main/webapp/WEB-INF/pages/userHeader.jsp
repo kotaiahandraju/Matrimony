@@ -109,6 +109,37 @@
             	</c:if>
             	<c:if test="${cacheGuest.roleId != '4'}">
             		<c:if test="${not empty membership_details}">
+            			<c:choose>
+            				<c:when test="${membership_details.validity < 0}">
+            					<c:if test="${membership_details.validity == -1101}">
+            						<b><c:out value="${membership_details.name}" /></b><br>
+					            	Validity: Unlimited<br>
+					            	Balance Profiles Limit : Unlimited
+            					</c:if>
+            					<c:if test="${membership_details.validity != -1101}">
+	            					Your membership validity is over on <c:out value="${membership_details.renewal_date}" /><br>
+			            			<a type="button" class="btn btn-primary btn-block" href="memberShipPage">Renew Membership</a>
+		            			</c:if>
+            				</c:when>
+            				<c:when test="${membership_details.validity == 0}">
+            					Today is last day of your membership package!!<br>
+		            			<a type="button" class="btn btn-primary btn-block" href="memberShipPage">Renew Membership</a>
+            				</c:when>
+            				<c:when test="${membership_details.validity > 0}">
+            					<b><c:out value="${membership_details.name}" /></b><br>
+				            	<c:out value="${membership_details.validity}" /> day<c:if test="${membership_details.validity > 1}">s</c:if> remaining <br>
+				            	Balance Profiles Limit : <c:out value="${allowed_profiles_limit}" />/
+				            	<c:out value="${membership_details.allowed_profiles_limit}" />
+            				</c:when>
+            				<c:otherwise>
+            					<b><c:out value="${membership_details.name}" /></b><br>
+				            	Validity: Unlimited<br>
+				            	Balance Profiles Limit : Unlimited
+            				</c:otherwise>
+            			</c:choose>
+            			<%-- <c:if test="${membership_details.validity == 'unlimited'}">
+		            		
+		            	</c:if>
 		            	<c:if test="${membership_details.validity < 0}">
 		            		Your membership validity is over on <c:out value="${membership_details.renewal_date}" /><br>
 		            		<a type="button" class="btn btn-primary btn-block" href="memberShipPage">Renew Membership</a>
@@ -124,7 +155,7 @@
 				            	Balance Profiles Limit : <c:out value="${allowed_profiles_limit}" />/
 				            	<c:out value="${membership_details.allowed_profiles_limit}" />
 			            	
-		            	</c:if>
+		            	</c:if> --%>
 	            	</c:if>
 	            	<c:if test="${empty membership_details}">
 	            		Not a paid member.

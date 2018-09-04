@@ -475,7 +475,11 @@ margin-right:5px;
 <script type="text/javascript">
 var total_items_count = ${total_records};
 var page_size = ${page_size};
-var allowed_limit = ${allowed_profiles_limit};
+var allowed_limit = "${allowed_profiles_limit}";
+if(allowed_limit=="unlimited"){
+	allowed_limit = "1";
+	allowed_limit = parseInt(allowed_limit);
+}
 var listOrders1 = ${inbox_requests};
 displayMatches_inbox(listOrders1,"${listType}","${tabType}");
 paginationSetup(total_items_count);

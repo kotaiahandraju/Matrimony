@@ -50,7 +50,6 @@ public class UsersDao extends BaseUsersDao
 		 jdbcTemplate = custom.getJdbcTemplate();
 			String sql = "SELECT * from logincheckingview "
 							+" where  AES_DECRYPT(PASSWORD,'mykey')= ? and  (email =? or username=? or mobile=? )";
-		 	System.out.println(sql);
 			List<Map<String,Object>> list = jdbcTemplate.queryForList("select * from users where AES_DECRYPT(PASSWORD,'mykey')= ? and  (email =? or username=? or mobile=? )", new Object[]{objUsersBean.getPassword(),objUsersBean.getUserName(),objUsersBean.getUserName(),objUsersBean.getUserName()});
 			if(list.size()==0){
 				return null;
@@ -665,8 +664,13 @@ public class UsersDao extends BaseUsersDao
 							+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','member',"+objUserBean.getId()+","+profileId+",'interest')");
 					inserted_count = jdbcTemplate.update(buffer.toString());
 					if(inserted_count == 1){
-						int allowed_profiles_limit = this.getAllowedProfilesLimit(objUserBean.getId());
-						session.setAttribute("allowed_profiles_limit", allowed_profiles_limit);
+						String initial_profiles_limit = (String)session.getAttribute("allowed_profiles_limit");
+						if(StringUtils.isNotBlank(initial_profiles_limit)){
+							if(!"unlimited".equalsIgnoreCase(initial_profiles_limit)){
+								String allowed_profiles_limit = this.getAllowedProfilesLimit(objUserBean.getId());
+								session.setAttribute("allowed_profiles_limit", allowed_profiles_limit);
+							}
+						}
 						return true;
 					}
 					
@@ -1038,11 +1042,16 @@ public class UsersDao extends BaseUsersDao
 					inserted_count = jdbcTemplate.update(buffer.toString());
 					int updated_count = 0;
 					if(inserted_count == 1){
-						int allowed_profiles_limit = this.getAllowedProfilesLimit(objUserBean.getId());
-						//int allowed_profiles_limit = (Integer)session.getAttribute("allowed_profiles_limit");
-						//session.removeAttribute("allowed_profiles_limit");
-						session.setAttribute("allowed_profiles_limit", allowed_profiles_limit);
+						
+						String initial_profiles_limit = (String)session.getAttribute("allowed_profiles_limit");
+						if(StringUtils.isNotBlank(initial_profiles_limit)){
+							if(!"unlimited".equalsIgnoreCase(initial_profiles_limit)){
+								String allowed_profiles_limit = this.getAllowedProfilesLimit(objUserBean.getId());
+								session.setAttribute("allowed_profiles_limit", allowed_profiles_limit);
+							}
+						}
 						return true;
+						
 					}
 					
 				}catch(Exception e){
@@ -1136,10 +1145,13 @@ public class UsersDao extends BaseUsersDao
 							+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','member',"+objUserBean.getId()+","+profileId+",'mail')");
 					inserted_count = jdbcTemplate.update(buffer.toString());
 					if(inserted_count == 1){
-						int allowed_profiles_limit = this.getAllowedProfilesLimit(objUserBean.getId());
-						//int allowed_profiles_limit = (Integer)session.getAttribute("allowed_profiles_limit");
-						//session.removeAttribute("allowed_profiles_limit");
-						session.setAttribute("allowed_profiles_limit", allowed_profiles_limit);
+						String initial_profiles_limit = (String)session.getAttribute("allowed_profiles_limit");
+						if(StringUtils.isNotBlank(initial_profiles_limit)){
+							if(!"unlimited".equalsIgnoreCase(initial_profiles_limit)){
+								String allowed_profiles_limit = this.getAllowedProfilesLimit(objUserBean.getId());
+								session.setAttribute("allowed_profiles_limit", allowed_profiles_limit);
+							}
+						}
 						return true;
 					}
 					
@@ -3822,7 +3834,7 @@ public boolean deletePhoto(String photoId){
 		}
 	}*/
 	
-	public int getAllowedProfilesLimit(int userId){
+	/*public int getAllowedProfilesLimit(int userId){
 		jdbcTemplate = custom.getJdbcTemplate();
 		String qryStr = "select allowed_profiles_limit from package where id = (select u.package_id from users u where u.id="+userId+")";
 		try{
@@ -3835,6 +3847,25 @@ public boolean deletePhoto(String photoId){
 		}catch(Exception e){
 			e.printStackTrace();
 			return 0;
+		}
+	}*/
+	
+	public String getAllowedProfilesLimit(int userId){
+		jdbcTemplate = custom.getJdbcTemplate();
+		String qryStr = "select allowed_profiles_limit from package where id = (select u.package_id from users u where u.id="+userId+")";
+		try{
+			String allowed_profiles_limit = jdbcTemplate.queryForObject(qryStr,String.class);
+			if(StringUtils.isNotBlank(allowed_profiles_limit) && "unlimited".equalsIgnoreCase(allowed_profiles_limit)){
+				return "unlimited";
+			}
+			qryStr = "select count(1) from (select 1 from users_activity_log where act_done_by_user_id = "+userId+" and activity_type in ('interest_request','mobile_no_viewed','message') "
+					+" and date(created_time) >= (SELECT date(u.package_joined_date) from users u where u.id = "+userId+") "
+					+ " group by act_done_on_user_id) temp ";
+			int already_contacted_profiles = jdbcTemplate.queryForInt(qryStr);
+			return ((Integer.parseInt(allowed_profiles_limit)-already_contacted_profiles))+"";
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
 		}
 	}
 	
@@ -4138,12 +4169,12 @@ public boolean deletePhoto(String photoId){
 		jdbcTemplate = custom.getJdbcTemplate();
 		String qryStr = "select *,(case duration_type when 'day' then (date_format((select (date_add(u.package_joined_date, interval pack.duration DAY))),'%d-%b-%Y'))    	"
 				+ " when 'month' then (date_format((select (date_add(u.package_joined_date, interval pack.duration month))),'%d-%b-%Y'))  		"
-				+ " when 'year' then (date_format((select (date_add(u.package_joined_date, interval pack.duration YEAR))),'%d-%b-%Y'))  		else '---'	end )  as renewal_date, "
+				+ " when 'year' then (date_format((select (date_add(u.package_joined_date, interval pack.duration YEAR))),'%d-%b-%Y'))  		else 'Unlimited'	end )  as renewal_date, "
 				+" date_format((select date(updated_time) from paymenthistory where memberId = "+objUserBean.getId()+" and paymentStatus = 'success' order by updated_time desc limit 1),'%d-%b-%Y')  as last_renewed_date, "
 				+" (case duration_type when 'day' then (select datediff(date_add(u.package_joined_date, interval pack.duration day),current_date())) " 
                 +"   	when 'month' then (select datediff(date_add(u.package_joined_date, interval pack.duration month),current_date())) "
                 +" 		when 'year' then (select datediff(date_add(u.package_joined_date, interval pack.duration year),current_date())) "
-                +" 		else -1	"
+                +" 		else -1101	"
                 + "end "
                 +") as validity  "
 				+ "from users u, package pack where u.package_id = pack.id and pack.status = '1' and  u.id = "+objUserBean.getId();

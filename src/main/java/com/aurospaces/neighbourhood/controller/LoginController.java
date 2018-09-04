@@ -94,7 +94,6 @@ public class LoginController {
 			}
 			objUserBean = objUsersDao.loginChecking(userObj);
 			if (objUserBean != null ) {
-
 				
 				return this.setInitialData(objUserBean, session);
 					
@@ -371,7 +370,7 @@ public class LoginController {
 			String otpStatus = objUsersDao.getOtpStatus(objUserBean);
 			
 			objUserBean.setOtpStatus(otpStatus);
-			session.setAttribute("allowed_profiles_limit", 0);
+			session.setAttribute("allowed_profiles_limit", "0");
 			session.setAttribute("cacheGuest", objUserBean);
 			session.setAttribute("rolId", objUserBean.getRoleId());
 			session.setAttribute("userName", objUserBean.getUsername());
@@ -419,7 +418,7 @@ public class LoginController {
 			//}
 			
 		}else if(objUserBean.getRoleId() != 4){
-			int allowed_profiles_limit = objUsersDao.getAllowedProfilesLimit(objUserBean.getId());
+			String allowed_profiles_limit = objUsersDao.getAllowedProfilesLimit(objUserBean.getId());
 			session.setAttribute("allowed_profiles_limit", allowed_profiles_limit);
 			session.setAttribute("cacheGuest", objUserBean);
 			session.setAttribute("rolId", objUserBean.getRoleId());
