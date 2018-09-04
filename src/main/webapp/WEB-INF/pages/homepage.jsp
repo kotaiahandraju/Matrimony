@@ -26,6 +26,7 @@
 <link
 	href="${baseurl }/user/vendor/font-awesome/css/font-awesome.min.css"
 	rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="${baseurl}/css/plugins/select2/select2.css">
 <!-- <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/ncss/bootstrap-glyphicons.css" rel="stylesheet"> -->
 <link rel="shortcut icon" href="fav-icon.png" type="image/x-icon" />
 <link rel="shortcut icon" href="fav-icon.png" type="image/x-icon">
@@ -39,6 +40,26 @@
 	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 
 <style>
+.select2-choices:hover .dropdown-content {
+	display: block;
+}
+
+.dropdown-content a
+{
+padding: 0px 0px 0px 2px !imortant;
+}
+.select2-container-multi .select2-choices .select2-search-choice
+{
+padding: 3px 5px !important;
+}
+.select2-drop
+{
+z-index: 9999999999;
+}
+.select2-container
+{
+width:100%;
+}
 h4 {
 	text-decoration: none;
 	list-style: none;
@@ -649,11 +670,11 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 							</select>
 
 										<h4>Religion</h4>
-                          <form:select path="religion" id="religionId"  onchange="getReliginCastAjax1()">
+                          <form:select path="religion" id="religionId"  onchange="getReliginCastAjax1()" class="multiselect" multiple="true">
 											<form:options items="${religion}"></form:options>
 											</form:select>
 									<h4>Cast</h4>
-									<form:select path="cast" id="castId" onchange="change_country(this.value)">
+									<form:select path="cast" id="castId" onchange="change_country(this.value)" class="multiselect" multiple="true">
 								<form:option value="">of Caste.... &nbsp;&nbsp;</form:option>
 							</form:select>
      <input value="Search" class="btn btn-success" style="margin-top: 8px;" type="submit" onclick="searchSubmit();">
@@ -1679,10 +1700,17 @@ $('img').bind('contextmenu', function(e) {
 //     		});
     </script>
 
+	<script src="${baseurl}/js/plugins/select2/select2.min.js"></script>
 
 	<script>
     jQuery(document).ready(function($){
-    	  
+   		 $("#religionId").select2({
+   			placeholder : "-- Choose Religion --"
+   		});
+   		$("#cast").select2({
+   			placeholder : "-- Choose Cast --"
+   		});
+   
     	  window.onload = function (){
     	    $(".bts-popup").delay(1000).addClass('is-visible');
     		}
@@ -1839,6 +1867,9 @@ $('img').bind('contextmenu', function(e) {
     		
     }
     } 
+    /* $(".multiselect").click(function(){
+    	$(".dropdown-content").css("display", 'block');
+    }); */
     </script>
 </body>
 
