@@ -494,7 +494,7 @@ function displayMatches(listOrders) {
 		
 		var image = null; image = orderObj.profileImage;
 		if(image == "" || image == null || image == "undefined"){
-			image = "${baseurl}/img/default.png";
+			image = "${catalina_base}/img/default.png";
 		}
 		/* else{
 		array = image.split(",");
@@ -566,7 +566,7 @@ function displayMatches(listOrders) {
 			}
 			var tblRow = '<div class="row">'
 				+ '<div class=" col-md-2 col-xs-2 preprofile" >'
-	            + 	"<img src='${baseurl}/"+image+"' class='watermark_text img-responsive thumbnail ' >"
+	            + 	"<img src='${catalina_base}/"+image+"' class='watermark_text img-responsive thumbnail ' >"
 	            + '</div>'
 	            + '<div class="col-md-10 col-xs-10">'
 	            + ' <p>'+firstname+'&nbsp;'+lastname+'|'+orderObj.username+'&nbsp;'+premiumMember+'&nbsp; '+age+' yrs,&nbsp; '+orderObj.religionName+', '+orderObj.casteName+','+orderObj.inches+' , '+orderObj.occupationName+', '+orderObj.currentCityName+', '+orderObj.currentCountryName+'. </p> '

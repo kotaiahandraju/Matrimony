@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.net.InetAddress;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -503,7 +504,7 @@ public class HomePageController {
 	 }
 	 
 	 @RequestMapping(value = "/croppedPhotoUpload")
-		public @ResponseBody String photoUploadd( ModelMap model,
+		public @ResponseBody String croppedPhotoUpload( ModelMap model,
 					HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
 		 //String imgData = request.getParameter("imageData");
 		 String temp;
@@ -544,13 +545,15 @@ public class HomePageController {
 						
 						
 						 String latestUploadPhoto = "";
-					        String rootPath = request.getSession().getServletContext().getRealPath("/");
-					        File dir = new File(rootPath + File.separator + "img");
+					        //String rootPath = request.getSession().getServletContext().getRealPath("/");
+						 	String rootPath = System.getProperty("catalina.base");
+					        //File dir = new File(rootPath + File.separator + "img");
+						 	File dir = new File(rootPath + File.separator + "webapps"+ File.separator + "aarna-user-images");
 					        if (!dir.exists()) {
 					            dir.mkdirs();
 					        }
 					         
-					        File serverFile = new File(dir.getAbsolutePath() + File.separator + filepath);
+					        //File serverFile = new File(dir.getAbsolutePath() + File.separator + filepath);
 					      //  latestUploadPhoto = file.getOriginalFilename();
 	//				        file.transferTo(serverFile);
 					    //write uploaded image to disk
@@ -564,8 +567,8 @@ public class HomePageController {
 					            System.out.println("error : " + e);
 					        }
 						  
-						
-					        filepath= "img/"+filepath;
+					        //filepath= "img/"+filepath;
+					        filepath= "aarna-user-images/"+filepath;
 					        objUerImagesBean.setImage(filepath);
 					        objUerImagesBean.setStatus("1");
 					        
@@ -1358,6 +1361,7 @@ public class HomePageController {
 			}else{
 				session.setAttribute("notificationsList", "");
 			}
+			
 		} catch (Exception e) {
 	   e.printStackTrace();
 	   System.out.println(e);
