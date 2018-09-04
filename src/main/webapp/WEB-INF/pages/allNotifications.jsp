@@ -58,7 +58,7 @@ function removeALLNotification(){
 												<c:forEach var="notification" items="${notificationsList}">
 													<div class="col-md-1 col-xs-1"  style="height:55px; overflow:hidden;padding-right:0px; padding-left:0px;" >
 														<c:if test="${not empty notification.profileImage}">
-															<img src="${baseurl}/${notification.profileImage}" style="width: 100%;padding: 5px;">
+															<img src="${catalina_base}/${notification.profileImage}" style="width: 100%;padding: 5px;">
 														</c:if>
 														<c:if test="${empty notification.profileImage}">
 															<img src="${baseurl}/img/default.png" style="width: 100%;padding: 5px;">

@@ -683,7 +683,7 @@ tooltip:hover:after {
 								displayStyle = ' style="display:none" ';
 							}
 							slider += '<div class="picstyle smallSlides'+orderObj.id+'" '+displayStyle+'>'
-									+'	<a href="#"	onclick="fullProfile('+orderObj.id+')"><img src="${baseurl}/'+photo.image+'" class="img img-responsive watermark_text" style="margin-bottom:0;height: auto;width: 100%;" ></a>'
+									+'	<a href="#"	onclick="fullProfile('+orderObj.id+')"><img src="${catalina_base}/'+photo.image+'" class="img img-responsive watermark_text" style="margin-bottom:0;height: auto;width: 100%;" ></a>'
 									+'</div>'
 						});
 						if(photos_list.length>1){
@@ -694,7 +694,7 @@ tooltip:hover:after {
 									+'</p>'
 						}
 					}else{
-						slider = '<a href="#"	onclick="fullProfile('+orderObj.id+')"><img src="${baseurl}/'+image+'" class="img-responsive thumbnail" style="margin-bottom: 0px; "></a>';
+						slider = '<a href="#"	onclick="fullProfile('+orderObj.id+')"><img src="${catalina_base}/'+image+'" class="img-responsive thumbnail" style="margin-bottom: 0px; "></a>';
 					}
 					var profile_highlisht_str = '<div class="panel panel-default" style="padding-top:5px;" >';
 					var highlight_option = orderObj.profile_highlighter;
@@ -886,7 +886,7 @@ tooltip:hover:after {
 									displayStyle = ' style="display:none;" ';
 								}
 								slider += '<div class="picstyle smallSlides'+orderObj.id+'" '+displayStyle+'>'
-										+'	<a href="#" onclick="fullProfile('+orderObj.id+')">	<img src="${baseurl}/'+photosArray[index]+'" class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: auto;width: 100%;" >'
+										+'	<a href="#" onclick="fullProfile('+orderObj.id+')">	<img src="${catalina_base}/'+photosArray[index]+'" class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: auto;width: 100%;" >'
 										+'</div>'
 							});
 							if(photosArray.length>1){
@@ -910,7 +910,7 @@ tooltip:hover:after {
 									displayStyle = ' style="display:none" ';
 								}
 								slider += '<div class=" picstyle smallSlides'+orderObj.id+'" '+displayStyle+'>'
-										+	'<a href="#" onclick="fullProfile('+orderObj.id+')"> <img src="${baseurl}/'+photo.image+'" class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: auto;width: 100%;" ></a>'
+										+	'<a href="#" onclick="fullProfile('+orderObj.id+')"> <img src="${catalina_base}/'+photo.image+'" class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: auto;width: 100%;" ></a>'
 										+'</div>'
 							});
 							if(photos_list.length>1){
@@ -921,7 +921,7 @@ tooltip:hover:after {
 										+'</p>'
 							}
 						}else{
-							slider = '<a href="#" onclick="fullProfile('+orderObj.id+')"><img src="${baseurl}/'+image+'" class="img-responsive thumbnail" style="margin-bottom: 0px;"></a>';
+							slider = '<a href="#" onclick="fullProfile('+orderObj.id+')"><img src="${catalina_base}/'+image+'" class="img-responsive thumbnail" style="margin-bottom: 0px;"></a>';
 						}
 					}
 					var profile_highlisht_str = '<div class="panel panel-default">';
@@ -1275,7 +1275,7 @@ tooltip:hover:after {
 									displayStyle = ' style="display:none" ';
 								}
 								slider += '<div class="smallSlides'+orderObj.id+'" '+displayStyle+'>'
-										+'<a href="#" onclick="fullProfile('+orderObj.id+')"><img src="${baseurl}/'+photo.image+'" class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: auto;width: 100%;" ></a>'
+										+'<a href="#" onclick="fullProfile('+orderObj.id+')"><img src="${catalina_base}/'+photo.image+'" class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: auto;width: 100%;" ></a>'
 										+'</div>'
 							});
 							if(photos_list.length>1){
@@ -2144,7 +2144,7 @@ function currentSlide(n) {
 }
 
 function currentSlide_inpage(current_img){
-	var str = '<img id="profilepic" src="${baseurl}/'+current_img+'" class="hover-shadow cursor img img-responsive thumbnail watermark_text" style="margin-bottom:0;height:auto;width: 100%;">';
+	var str = '<img id="profilepic" src="${catalina_base}/'+current_img+'" class="hover-shadow cursor img img-responsive thumbnail watermark_text" style="margin-bottom:0;height:auto;width: 100%;">';
 	//$("#profilepic").prop("src",photoImage);
 	$("#fullProfilePicOuterTag").html('');
 	$("#fullProfilePicOuterTag").html(str);
@@ -3627,7 +3627,7 @@ img.hover-shadow {
 <!-- 										<img id="profilepic" src="${baseurl}/img/default.png" class="img-responsive thumbnail " style="margin-top:-10px;height: 40px;width: 40px;border-radius:15%;">  -->
 
 									<c:if test="${not empty cacheGuest.profileImage}">
-										<img id="profilepic" src="${baseurl}/${cacheGuest.profileImage}" alt="" class="img img-responsive thumbnail watermark_text" style="border-radius:15%;"><i style="margin-right:-10px; margin-top:22px;" class="fa fa-angle-down" aria-hidden="true"></i>
+										<img id="profilepic" src="${catalina_base}/${cacheGuest.profileImage}" alt="" class="img img-responsive thumbnail watermark_text" style="border-radius:15%;"><i style="margin-right:-10px; margin-top:22px;" class="fa fa-angle-down" aria-hidden="true"></i>
 									</c:if>
 									<c:if test="${empty cacheGuest.profileImage}">
 										<img id="profilepic" src="${baseurl}/img/default.png" alt="image" class="img-responsive thumbnail " style="border-radius:15%;"/><i style="margin-right:-10px; margin-top:22px;" class="fa fa-angle-down" aria-hidden="true"></i>
@@ -3719,7 +3719,7 @@ img.hover-shadow {
 												<c:forEach var="notification" items="${notificationsList}">
 													<div class="col-md-3 col-xs-3"  style="height:55px; overflow:hidden;padding-right:0px; padding-left:0px;" >
 														<c:if test="${not empty notification.profileImage}">
-															<img src="${baseurl}/${notification.profileImage}" style="width: 100%;padding: 5px;">
+															<img src="${catalina_base}/${notification.profileImage}" style="width: 100%;padding: 5px;">
 														</c:if>
 														<c:if test="${empty notification.profileImage}">
 															<img src="${baseurl}/img/default.png" style="width: 100%;padding: 5px;">

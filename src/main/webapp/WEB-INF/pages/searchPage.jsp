@@ -454,7 +454,7 @@ function displayMatches(listOrders) {
 						displayStyle = ' style="display:none;" ';
 					}
 					slider += '<div class="picstyle smallSlides'+orderObj.id+'" '+displayStyle+'>'
-							+'<a href="#" onclick="fullProfile('+orderObj.id+')"><img src="${baseurl}/'+photosArray[index]+'" class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: auto;width: 100%;" ></a>'
+							+'<a href="#" onclick="fullProfile('+orderObj.id+')"><img src="${catalina_base}/'+photosArray[index]+'" class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: auto;width: 100%;" ></a>'
 							+'</div>'
 				});
 				if(photosArray.length>1){

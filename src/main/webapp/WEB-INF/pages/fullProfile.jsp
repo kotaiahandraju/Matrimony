@@ -373,7 +373,7 @@ xpopup
 						</c:if>
 						<c:if test="${not empty fullProfilePhotosList}">
 						<div class="fullprofile" style="height:220px; overflow:hidden;"">	
-							<a href="#" id="fullProfilePicOuterTag" data-toggle="modal" data-target="#myModalFullProfile"><img  src="${baseurl}/${fullProfilePhotosList[0].image}" class="hover-shadow cursor img img-responsive thumbnail watermark_text" style="margin-bottom:0;height:auto;width: 100%;" /></a>
+							<a href="#" id="fullProfilePicOuterTag" data-toggle="modal" data-target="#myModalFullProfile"><img  src="${catalina_base}/${fullProfilePhotosList[0].image}" class="hover-shadow cursor img img-responsive thumbnail watermark_text" style="margin-bottom:0;height:auto;width: 100%;" /></a>
 							<%-- <a href="#" id="fullProfilePicOuterTag"><img src="${photosList[0].image}" style="width:100%; height:auto;" onclick="openModal();currentSlide(1)" class="hover-shadow cursor watermark_text"></a> --%>
 						</div>	
 							<div id="gallery-wrapper" class="noPrint">
@@ -388,7 +388,7 @@ xpopup
     height: 69px;
     padding: 0px;
     margin: 5px; "> 
-										        <img src="${baseurl}/${photo.image}" class="watermark_text" style="width:100%; height:auto;"  onclick="currentSlide_inpage('${photo.image}')"/> 
+										        <img src="${catalina_base}/${photo.image}" class="watermark_text" style="width:100%; height:auto;"  onclick="currentSlide_inpage('${photo.image}')"/> 
 										    </div>
 										</c:forEach>
 								    </div> 
@@ -1049,7 +1049,7 @@ in a profile. </p></div>
                 	<ul class="slider-relative" id="relative">
 						<c:forEach items="${fullProfilePhotosList}" var="photo" >
 					      	<li class="slide fix-width">
-	                            <img src="${baseurl}/${photo.image}" alt="" class="watermark_text">
+	                            <img src="${catalina_base}/${photo.image}" alt="" class="watermark_text">
 	                        </li>
 						</c:forEach>
                     </ul>
