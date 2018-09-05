@@ -168,6 +168,6 @@
     
     
 </div>
-<a href="#"><img  style="border-radius:10px;" src="../images/upgra.jpg" class="img-responsive"/></a>
+<a href="memberShipPage"><img  style="border-radius:10px;" src="../images/upgra.jpg" class="img-responsive"/></a>
 			</div>
 			<div id="dial1"></div>
