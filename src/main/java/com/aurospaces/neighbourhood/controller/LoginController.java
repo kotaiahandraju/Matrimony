@@ -154,6 +154,12 @@ public class LoginController {
 				if(rolId == 1 ){
 					return "redirect:admin/BodyTypeHome";
 				}
+			}else{
+				objuserBean = (UsersBean) session.getAttribute("cacheGuest");
+				if (objuserBean != null) {
+					
+						return "redirect:users/dashboard";
+				}
 			}
 			
 		} catch (Exception e) {
