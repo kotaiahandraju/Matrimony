@@ -35,7 +35,7 @@ session.setAttribute("baseurl", baseurl);
    		<a href="memberShipPage" type="button" class="btn btn-primary" id="paymentBtn" >Goto Payment Page</a>
    </div>
    <div class="col-md-3" style="text-align: center;">
-   		<p><a href="dashboard" type="button" class="btn btn-success" id="homepagBtn" >Goto MyAccount</a></p>
+   		<p><a href="dashboard" type="button" class="btn btn-success" id="homepagBtn" >Goto My Account</a></p>
    
    </div></div></div>
 <script type="text/javascript">

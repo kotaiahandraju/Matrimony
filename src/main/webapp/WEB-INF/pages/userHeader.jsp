@@ -29,7 +29,7 @@
 					<div class="row">
 						<div class="col-md-12 profileauto">
 							<c:if test="${not empty cacheGuest.profileImage}">
-								<div class="profilepic0"><a href="#" id="profilePicOuterTag" data-toggle="modal" data-target="#myModalNew"><img id="profilepic" src="${baseurl}/${cacheGuest.profileImage}" class="hover-shadow cursor img img-responsive thumbnail watermark_text" style="margin-bottom:0;height:auto;width: 100%;" /></a>
+								<div class="profilepic0"><a href="#" id="profilePicOuterTag" data-toggle="modal" data-target="#myModalNew"><img id="profilepic" src="${catalina_base}/${cacheGuest.profileImage}" class="hover-shadow cursor img img-responsive thumbnail watermark_text" style="margin-bottom:0;height:auto;width: 100%;" /></a>
 					</div>
 							</c:if>
 							<c:if test="${empty cacheGuest.profileImage}">
@@ -168,6 +168,6 @@
     
     
 </div>
-<a href="#"><img  style="border-radius:10px;" src="../images/upgra.jpg" class="img-responsive"/></a>
+<a href="memberShipPage"><img  style="border-radius:10px;" src="../images/upgra.jpg" class="img-responsive"/></a>
 			</div>
 			<div id="dial1"></div>

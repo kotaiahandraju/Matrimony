@@ -319,7 +319,7 @@ var role_id = ${cacheUserBean.roleId};
 						<c:set var="roleId1"  value="${cacheUserBean.roleId}"/>  
 	<div id="navigation">
 		<div class="container-fluid">
-			<a href="#" id="brand">
+			<a href="dashboard" id="brand">
 				<img  src="${baseurl}/images/logo.png" class="img img-responsive"></a>
 			
 			<!-- <a href="#" class="toggle-nav" rel="tooltip" data-placement="bottom" title="Toggle navigation">
