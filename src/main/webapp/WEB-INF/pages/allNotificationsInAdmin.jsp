@@ -64,7 +64,7 @@ hr:hover {
 					<div class="col-md-2 preprofile"
 						>
 						<c:if test="${not empty notification.profileImage}">
-							<img src="${baseurl }/${notification.profileImage}"
+							<img src="${catalina_base}/${notification.profileImage}"
 								style="max-width: 100%;height:auto; padding: 5px;">
 						</c:if>
 						<c:if test="${empty notification.profileImage}">

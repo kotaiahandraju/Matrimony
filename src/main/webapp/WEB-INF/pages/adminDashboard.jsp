@@ -101,6 +101,20 @@
 			<div id="table_footer_ArnaPremium"></div>
 		</div>
 	</div>
+	<div class="col-sm-6">
+		<div class="box">
+			<div class="box-title">
+				<h3>
+					<i class="fa fa-table"></i>
+					Arna LAUNCHING_OFFER Profiles
+				</h3>
+			</div>
+			<div id="tableIdSpecial">
+			</div>
+			<div id="paginatorArnaSpecialOffer"></div>
+			<div id="table_footer_ArnaPremium"></div>
+		</div>
+	</div>
 	</form:form>
 </div>
 
@@ -162,6 +176,9 @@ var listOrders2 = ${classicPlusExpiredProfiles};
 	
 	var listOrders5 = ${ArnaPremiumExpiredProfiles};
 	displayTable(listOrders5,"tableIdArnaPremium");	 
+	
+	var listOrders6 = ${ArnaSpecialofferProfiles};
+	displayTable(listOrders6,"tableIdSpecial");	 
 	
 	function paginationSetup(total_items_count) {
 		  $('#paginator').asPaginator(total_items_count, {

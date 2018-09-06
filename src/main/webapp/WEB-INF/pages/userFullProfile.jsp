@@ -69,7 +69,7 @@ padding:0px !important;}
 		            	<div id="imagesDiv" class="row" style="margin-bottom: 0.4em;">
 					      	<c:forEach items="${photosList}" var="photo1" >
 					      		<div class="col-md-2">
-					      			<img src="${baseurl }/${photo1.image}" class="img-responsive thumbnail watermark_text" style="margin-bottom:0;">
+					      			<img src="${catalina_base}/${photo1.image}" class="img-responsive thumbnail watermark_text" style="margin-bottom:0;">
 					      			<c:if test="${photo1.approved_status == '1'}">
 										<span>Approved</span>
 										
@@ -91,7 +91,7 @@ padding:0px !important;}
 												    </div>
 						<div class="col-md-3">
 							 <c:if test="${not empty profileBean.profileImage}">
-								<img id="profImage" src="${baseurl }/${profileBean.profileImage}" class="img-responsive thumbnail watermark_text" style="margin-bottom:0;">
+								<img id="profImage" src="${catalina_base}/${profileBean.profileImage}" class="img-responsive thumbnail watermark_text" style="margin-bottom:0;">
 							</c:if>
 							<c:if test="${empty profileBean.profileImage}">
 								<img src="${baseurl }/img/default.png" class="img-responsive thumbnail" style="margin-bottom:0;">

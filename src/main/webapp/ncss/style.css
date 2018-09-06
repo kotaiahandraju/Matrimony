@@ -204,7 +204,7 @@ margin-right:10px;
 }
 .filter {margin-bottom: 15px;}
 body ,p,li,h1,h2,h3,h4,h5,h6,div,span,label,input{
-font-family: 'Roboto', sans-serif;
+/* font-family: 'Roboto', sans-serif; */
 
 }
 body{
@@ -310,7 +310,7 @@ background-color:#ffffff;
 		padding:15px 15px;
 }
 #search{
-    padding: 10px 0 20px;
+/*     padding: 10px 0 20px; */
 }
 
 #search .heading

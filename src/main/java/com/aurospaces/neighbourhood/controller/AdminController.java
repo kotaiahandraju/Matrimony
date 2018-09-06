@@ -157,6 +157,16 @@ public class AdminController {
 			} else {
 				request.setAttribute("ArnaPremiumExpiredProfiles", "''");
 			}
+			packExpiredProfiles = null;
+			packExpiredProfiles = objUsersDao.getPackageExpiredProfiles(MatrimonyConstants.LAUNCHING_OFFER_999_PACK);
+			if (packExpiredProfiles != null && packExpiredProfiles.size() > 0) {
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(packExpiredProfiles);
+				request.setAttribute("ArnaSpecialofferProfiles", sJson);
+				// System.out.println(sJson);
+			} else {
+				request.setAttribute("ArnaSpecialofferProfiles", "''");
+			}
 			//packages count getFreeUsersCount
 			listOfOrders  = objUsersDao.getPackageCount();
 			if (listOfOrders != null && listOfOrders.size() > 0) {

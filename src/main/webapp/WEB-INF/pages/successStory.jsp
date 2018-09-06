@@ -15,7 +15,7 @@
 <div class="container-fluid">
     
     <div class="next-div panel panel-success" id="1">
-					<div class="panel-heading">Success Story <a class="pull-right" href="HomePage" style=" color:#000;">Back </a> </div>
+					<div class="panel-heading">Success Story <a class="pull-right" href="HomePage" style=" color:#000;">Go To HomePage </a> </div>
 <!-- <<<<<<< HEAD
 	             	<div class="panel-body">
 	             	<h5>(AMNLR278948) Avanigadda Sudha <span class="pull-right">    <button class="next btn btn-primary">Next</button>
@@ -132,16 +132,16 @@
 	             	<p>Location : India / Marriage Date 05-Feb-2017</p><Br>
 	             	<div class="col-md-4" style="margin-left:-15px;">
 	             	 <img src="user/images/portfolio/03-thumbnail.jpg" class="img-responsive" />
-	             	<section class="slider">
-        <div id="slider" class="flexslider">
-          <ul class="slides">
-            <li>
-  	    	  <img src="" id="successId"/>
-  	    		</li>
+<!-- 	             	<section class="slider"> -->
+<!--         <div id="slider" class="flexslider"> -->
+<!--           <ul class="slides"> -->
+<!--             <li> -->
+<!--   	    	  <img src="" id="successId"/> -->
+<!--   	    		</li> -->
   	    		
-          </ul>
-        </div>
-      </section> 
+<!--           </ul> -->
+<!--         </div> -->
+<!--       </section>  -->
       </div>
       <div class="col-md-8">
      <p style="padding:20px; color:#000;font-family: 'Open Sans', sans-serif;">After searching everywhere, we came to Aarna Matrimony and was impressed on getting a good match within two months. I'm sending a wedding card, please come with your team.</p>

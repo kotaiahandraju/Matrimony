@@ -222,8 +222,8 @@ float:left;
 		margin:0%;
 	}
 	.col-md-4{
-		width:100%;
-		text-align:center;
+		/* width:100%;
+		 text-align:center; */
 	}
 	.col-md-5,.search-your .col-md-7,
 	.search-text,.search-input,
@@ -503,6 +503,8 @@ display:none;
 	}
 	.footer-right {
 		text-align: center !important;right:0px;
+		    display: inline;
+		
 	}
 	
 	.row {
@@ -746,7 +748,7 @@ span.privacy{margin-bottom:10px;}
 	
 @media screen and (max-width: 568px){
 	.navbar-brand>img {
-		margin-top: 20px;
+		margin-top: 0px;
 	}
 	.col-md-3.search{
 		width: 30.5%;
@@ -790,7 +792,7 @@ span.privacy{margin-bottom:10px;}
 }
 @media screen and (max-width:510px){
 	.navbar-brand>img{
-		width:75%;
+		width:100%;
 	}
 	.footer-center img{
 		width:100%;

@@ -16,10 +16,8 @@
 			<div class="col-md-6 col-sm-6">
 				<div class="contact-info">
 					<h5>Our Office</h5>
-					<p class="fs-12 address"><i class="fa fa-map-marker"></i>D.No.35, Church Complex,<br>
-							                                Nirmala Convent Road,<br>
-							                                Benz Circle, VIJAYAWADA.</p>
-					<p class="fs-12"><i class="fa fa-phone"></i>+91 9440585588<br>9032456222</p>
+					<p class="fs-12 address">	<i class="fa fa-map-marker"></i>Door No 58-2-3/1 Bagaiah Street,<br> Opposite Tanusri Hospital, <br>Pantakalava Road,<br>Benzcircle Vijayawada<br></p>
+					<p class="fs-12"><i class="fa fa-phone"></i>+91 8466999991<br>9032456222</p>
 				</div>
 			</div>
 		</div>

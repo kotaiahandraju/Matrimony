@@ -219,7 +219,7 @@ function getFilteredCitiesMultiSelect(id) {
 	<div class="row">
 		<div class="ilogo">
 			<div class="col-md-7 col-sm-12">
-				<img src="${baseurl }/images/logo.png" class="img-responsive">
+				<a href="HomePage"><img src="${baseurl }/images/logo.png" class="img-responsive"></a>
 <%-- 				<img src="${baseurl}/images/logo.png" class="img-responsive"> --%>
 			</div>
 			</div>

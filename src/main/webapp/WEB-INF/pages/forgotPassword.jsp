@@ -8,11 +8,11 @@
 .btn {
 margin-left:8px;
 }
-/* .copyright {
+.copyright {
 position:fixed;
 bottom:0;
 width:100%;
-} */
+} 
 .form-control {
     display: block;
     width: 30%;
@@ -32,7 +32,16 @@ width:100%;
     -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
     transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
+@media only screen and (max-width: 640px) and (min-width: 320px) {
+.form-control {
+    display: block;
+    width: 100%;
+    margin-bottom:10px;
+}
+.copyright {
+position:relative;
 
+} }
 </style>
 				<div class="col-md-5 col-sm-12"></div>
 	            <div  class="clearfix"></div>    
@@ -45,6 +54,7 @@ width:100%;
 					<div class="panel panel-success">
 	   					<div class="panel-heading"> 
 	   						Enter your registered email-id/phone number/username
+	   						<a class="pull-right" href="HomePage" style=" color:#000;">Go To HomePage </a>
 	   					</div>
 	   					
 		             		
