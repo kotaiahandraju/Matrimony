@@ -2624,7 +2624,7 @@ public class UsersDao extends BaseUsersDao
 				+" ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 				//+" (select count(*) from users u "+where_clause+") as total_records, "
 				+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and  uimg.status = '1' and uimg.is_profile_picture='1') as profileImage, "
-				+" (select count(*) from (select count(1) from users u,users_activity_log activity where "+inner_where_clause+" and activity.act_done_on_user_id  = "+objUserBean.getId()+" and activity.act_done_by_user_id = u.id and activity.activity_type in ('mobile_no_viewed') group by u.id) tc) as total_records, "
+				+" (select count(*) from (select count(1) from users u,users_activity_log activity where "+inner_where_clause+" and activity.act_done_on_user_id  = "+objUserBean.getId()+" and activity.act_done_by_user_id = u.id and activity.activity_type in ('interest_request','message','mobile_no_viewed') group by u.id) tc) as total_records, "
 				+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+objUserBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'short_listed') as short_listed, "
 				+" (select highlight_profile from package where id = u.package_id) as profile_highlighter "
 				+" from users u left join userrequirement ur on u.id=ur.userId "
@@ -2636,7 +2636,7 @@ public class UsersDao extends BaseUsersDao
 				+ " where "+inner_where_clause 
 				+ " group by u.id) temp, "
 				+" users_activity_log activity where activity.act_done_on_user_id  = "+objUserBean.getId()+" and activity.act_done_by_user_id = temp.id "
-						+ "and activity.activity_type in ('mobile_no_viewed') ");
+				+ " activity.activity_type in ('interest_request','message','mobile_no_viewed') ");
 
 		
 		//buffer.append(where_clause);
@@ -2681,7 +2681,7 @@ public class UsersDao extends BaseUsersDao
 				+" ifnull(floor((datediff(current_date(),u.dob))/365),'') as age,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,  "
 				//+" (select count(*) from users u "+where_clause+") as total_records, "
 				+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and  uimg.status = '1' and uimg.is_profile_picture='1') as profileImage, "
-				+" (select count(*) from (select count(1) from users u,users_activity_log activity where activity.act_done_on_user_id  = u.id and activity.act_done_by_user_id = "+objUserBean.getId()+" and activity.activity_type in ('interest_request','message') and "+inner_where_clause+" group by u.id) tc) as total_records, "
+				+" (select count(*) from (select count(1) from users u,users_activity_log activity where activity.act_done_on_user_id  = u.id and activity.act_done_by_user_id = "+objUserBean.getId()+" and activity.activity_type in ('interest_request','message','mobile_no_viewed') and "+inner_where_clause+" group by u.id) tc) as total_records, "
 				+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+objUserBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'short_listed') as short_listed, "
 				+" (select highlight_profile from package where id = u.package_id) as profile_highlighter "
 				+" from users u left join userrequirement ur on u.id=ur.userId "
@@ -2693,7 +2693,7 @@ public class UsersDao extends BaseUsersDao
 				+ " where "+inner_where_clause 
 				+ " group by u.id) temp, "
 				+" users_activity_log activity where activity.act_done_on_user_id  = temp.id and activity.act_done_by_user_id = "+objUserBean.getId()+" and "
-						+ " activity.activity_type in ('interest_request','message') ");
+						+ " activity.activity_type in ('interest_request','message','mobile_no_viewed') ");
 
 		
 		//buffer.append(where_clause);
