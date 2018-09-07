@@ -40,6 +40,10 @@
 	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 
 <style>
+td, th {
+    padding: 0;
+    font-size: 14px;
+}
 .select2-choices:hover .dropdown-content {
 	display: block;
 }
@@ -750,7 +754,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 	<!-- Modal -->
 <div id="myModal" class="modal fade" role="dialog" style="  margin-top:55px;">
   <div class="modal-dialog">
-    Modal content
+    
     <div class="modal-content">		
       <div class="modal-header" style="background:#099cca; color:#fff;"> <h3>Your Search Results</h3>
         <button type="button" style="color:#fff !important; margin-right:10px; opacity:1;" class="close" data-dismiss="modal">&times;</button>
@@ -1031,7 +1035,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 
 				<div class="col-md-2">
 					<div class="pro_img">
-						<a href="#stayhere"> <span class="hidden"> </span>
+						<a href="#"> <span class="hidden"> </span>
 
 
 							<div class="image_privacy"></div> <image src="nimages/p1.png"
@@ -1047,7 +1051,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 				</div>
 				<div class="col-md-2">
 					<div class="pro_img">
-						<a href="#stayhere"> <span class="hidden"> </span>
+						<a href="#"> <span class="hidden"> </span>
 
 
 							<div class="image_privacy"></div> <image src="nimages/p2.png"
@@ -1063,7 +1067,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 				</div>
 				<div class="col-md-2">
 					<div class="pro_img">
-						<a href="#stayhere"> <span class="hidden"> </span>
+						<a href="#"> <span class="hidden"> </span>
 
 
 							<div class="image_privacy"></div> <image src="nimages/p3.png"
@@ -1079,7 +1083,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 				</div>
 				<div class="col-md-2">
 					<div class="pro_img">
-						<a href="#stayhere"> <span class="hidden"> </span>
+						<a href="#"> <span class="hidden"> </span>
 
 
 							<div class="image_privacy"></div> <image src="nimages/p4.png"
@@ -1095,7 +1099,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 				</div>
 				<div class="col-md-2">
 					<div class="pro_img">
-						<a href="#stayhere"> <span class="hidden"> </span>
+						<a href="#"> <span class="hidden"> </span>
 
 
 							<div class="image_privacy"></div> <image src="nimages/p5.png"
@@ -1111,7 +1115,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 				</div>
 				<div class="col-md-2">
 					<div class="pro_img">
-						<a href="#stayhere"> <span class="hidden"> </span>
+						<a href="#"> <span class="hidden"> </span>
 
 
 							<div class="image_privacy"></div> <image src="nimages/p5.png"
@@ -1127,7 +1131,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 				</div>
 				<div class="col-md-2">
 					<div class="pro_img">
-						<a href="#stayhere"> <span class="hidden"> </span>
+						<a href="#"> <span class="hidden"> </span>
 
 
 							<div class="image_privacy"></div> <image src="nimages/p6.png"
@@ -1143,7 +1147,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 				</div>
 				<div class="col-md-2">
 					<div class="pro_img">
-						<a href="#stayhere"> <span class="hidden"> </span>
+						<a href="#"> <span class="hidden"> </span>
 
 
 							<div class="image_privacy"></div> <image src="nimages/p7.png"
@@ -1159,7 +1163,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 				</div>
 				<div class="col-md-2">
 					<div class="pro_img">
-						<a href="#stayhere"> <span class="hidden"> </span>
+						<a href="#"> <span class="hidden"> </span>
 
 
 							<div class="image_privacy"></div> <image src="nimages/p8.png"
@@ -1175,7 +1179,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 				</div>
 				<div class="col-md-2">
 					<div class="pro_img">
-						<a href="#stayhere"> <span class="hidden"> </span>
+						<a href="#"> <span class="hidden"> </span>
 
 
 							<div class="image_privacy"></div> <image src="nimages/p9.png"
@@ -1751,7 +1755,7 @@ $('img').bind('contextmenu', function(e) {
   		+ '<a href="#" onclick="regFunction()">  <img src="'+image+'" class="img img-responsive thumbnail " style="margin-bottom:0;height: auto;width: 100%;"></a>'
       	+ '</div>'
       	 + '<div class="col-md-4">'
-       	 + '<h2 style="margin-top:10px;" class="pull-right"><a href="#" data-toggle="tooltip" data-placement="bottom" title="View Mobile Number" ><img style="margin-top:-10px;" > &nbsp;</a></h2></span><div class="clearfix"></div><blockquote style="min-height:100px; max-height:120px; "><p>'+orderObj.About+'</p><br><a href="#" onclick="regFunction()"><p style="float:right;">...more</p></a></blockquote>'
+       	 + '<h2 style="margin-top:10px;" class="pull-right"><a href="#" data-toggle="tooltip" data-placement="bottom" title="View Mobile Number" ><img style="margin-top:-10px;" src="images/Mobile_Icon.png"/></a></h2></span><div class="clearfix"></div><blockquote style="min-height:100px; max-height:120px; "><p>'+orderObj.About+'</p><br><a href="#" onclick="regFunction()"><p style="float:right;">...more</p></a></blockquote>'
        	+ '</div>' 
        	+  '<div class="col-md-1"></div>'
       	+ '<div class="col-md-5">'
