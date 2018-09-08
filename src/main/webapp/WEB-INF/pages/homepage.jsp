@@ -1492,8 +1492,6 @@ $('img').bind('contextmenu', function(e) {
     	$('#myModal').modal('hide');
     	$('#register-info').modal('show');
 //     	$('#register-info').show();
-    	
-    	
     }
 
     $(function(){
