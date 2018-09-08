@@ -1034,7 +1034,37 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 </div>
 </div>
 </div>
+<div id="strip">
+<div class="container">
+<h1> Welcome to Aarna Matrimony</h1>
+<p> Feel Free To Register, Easy To Use, Get membership</p>
 
+<div class="row">
+<div class="col-md-4 privacy">
+<div class="strip-content">
+<img src="nimages/privacy-icon.png" alt="Aarna Matrimony">
+<h2> Privacy</h2>
+<p> We dont sell your datas. We take care of your privacy first.</p>
+</div>
+</div>
+<div class="col-md-4 quality">
+<div class="strip-content">
+<img src="nimages/quality-icon.png" alt="Aarna Matrimony">
+<h2> Quality</h2>
+<p> Quality is our motto. Our profile are completely verified. 100% assured. </p>
+</div>
+</div>
+<div class="col-md-4 secure">
+<div class="strip-content">
+<img src="nimages/secure-icon.png" alt="Aarna Matrimony">
+<h2> Secure &amp; Safety</h2>
+<p> We never mark your details available publicly. Your details are seen only by our members. Your email &amp; phone number not visible to every one.</p>
+</div>
+
+</div>
+</div>
+</div>
+</div>
 	<div id="recent-profile">
 		<div class="container">
 			<div class="row">
