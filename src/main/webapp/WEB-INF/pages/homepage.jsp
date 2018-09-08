@@ -285,8 +285,19 @@ padding-top: 85px !important;
     margin-top:0px !important;
 } */
 @media only screen and (max-width: 640px) and (min-width: 320px) {
+.slider-container {
+    background: #becfd8 url(nimages/ban1.jpg) no-repeat;
+    width: 100%;
+    background-size: contain !important;
+    background-position: 60% 0px;}
 	.bts-popup-container {
 		margin-top: 80px;
+	}
+	.bannerform {
+	    float: right;
+    margin-top: 40% !important;
+    width: 100%;
+    margin-right: 0px !important;
 	}
 	.form-group .col-md-6 {
 padding-left:0px !important;
