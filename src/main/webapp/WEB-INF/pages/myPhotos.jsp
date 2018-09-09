@@ -150,6 +150,7 @@ function addWaterMark(){
 	   outputHeight: 'auto'
 	 });
 }
+var fullImg = "";
 function checkImg(objImg)
 {
 	console.log(window.URL.createObjectURL(objImg.files[0]));
@@ -168,6 +169,7 @@ function imageAjax(){
 		//var imgurl =  $("#imageName").getCroppedCanvas().toDataURL();
 		//formData.append("imageName", $("#imageName").val());
 		formData.append("imageData", $("#imageName").val());
+		formData.append("fullImg", fullImg);
 		//formData.append("id", id);
 	  	$.fn.makeMultipartRequest('POST', 'croppedPhotoUpload', false, formData, false, 'text', function(data){
 		  	var jsonobj = $.parseJSON(data);
@@ -177,10 +179,14 @@ function imageAjax(){
 		  		alert("Photo Uploaded Successfully.");
 		  		updateImagesList(photosList);
 		  		addWaterMark();
+		  		fullImg = "";
 		  	}else{
 		  		alert("Photo upload failed. Please try again..!");
+		  		$("#uploadBtn").removeAttr("disabled");
+		   		$("#uploadBtn").val("Upload Photo");
 		  		return false;
 		  	}
+		  	
 		  	$("#uploadBtn").removeAttr("disabled");
 	   		$("#uploadBtn").val("Upload Photo");
 	  		window.location.href="myPhotos";

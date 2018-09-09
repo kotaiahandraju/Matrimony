@@ -205,6 +205,7 @@
         if (!fileAllowed(evt.target.files[0].name)) {
           return;
         }
+        fullImg = evt.target.files[0];
         readFile(evt.target.files[0]);
         return evt.target.value = "";
       }

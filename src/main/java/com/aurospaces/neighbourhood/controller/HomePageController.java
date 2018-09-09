@@ -504,7 +504,7 @@ public class HomePageController {
 	 }
 	 
 	 @RequestMapping(value = "/croppedPhotoUpload")
-		public @ResponseBody String croppedPhotoUpload( ModelMap model,
+		public @ResponseBody String croppedPhotoUpload(@RequestParam("fullImg") MultipartFile fullImage, ModelMap model,
 					HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
 		 //String imgData = request.getParameter("imageData");
 		 String temp;
@@ -515,7 +515,7 @@ public class HomePageController {
 		String name=null;
 		String sTomcatRootPath = null;
 		String sDirPath = null;
-		String filepath = null;
+		String filepath = null,fullImgfilepath = null;
 		UserImagesBean objUerImagesBean = null;
 		JSONObject objJson =new JSONObject();
 		try {
@@ -531,9 +531,11 @@ public class HomePageController {
 						objUerImagesBean.setUserId(id);
 					}
 					String imgData = request.getParameter("imageData");
+					//String fullImage = request.getParameter("fullImg");
 					if (StringUtils.isNotBlank(imgData)) {
 						Base64Decoder decoder = new Base64Decoder(); 
 						 byte[] imgBytes = decoder.decode(imgData.split(",")[1]);
+						 byte[] fullImageBytes = fullImage.getBytes();
 						//byte[] bytes = file.getBytes();
 						//name = imgData.split(",")[0].split("")   //file.getOriginalFilename();
 						//int n=name.lastIndexOf(".");
@@ -541,6 +543,7 @@ public class HomePageController {
 						name=name+".png";*/
 						long millis = System.currentTimeMillis() % 1000;
 						filepath= id+millis+".png";
+						fullImgfilepath= "f"+id+millis+".png";
 						
 						
 						
@@ -552,6 +555,11 @@ public class HomePageController {
 					        if (!dir.exists()) {
 					            dir.mkdirs();
 					        }
+					        //for saving full image
+					        File fullImgdir = new File(rootPath + File.separator + "webapps"+ File.separator + "aarna-user-images"+ File.separator +"full-images");
+					        if (!fullImgdir.exists()) {
+					        	fullImgdir.mkdirs();
+					        }
 					         
 					        //File serverFile = new File(dir.getAbsolutePath() + File.separator + filepath);
 					      //  latestUploadPhoto = file.getOriginalFilename();
@@ -562,6 +570,16 @@ public class HomePageController {
 					            osf = new FileOutputStream(new File(dir.getAbsolutePath() + File.separator + filepath));
 					    		
 								 osf.write(imgBytes);
+								 osf.flush();
+					        } catch (IOException e) {
+					            System.out.println("error : " + e);
+					        }
+					        
+					        try {
+					            
+					            osf = new FileOutputStream(new File(fullImgdir.getAbsolutePath() + File.separator + fullImgfilepath));
+					    		
+								 osf.write(fullImageBytes);
 								 osf.flush();
 					        } catch (IOException e) {
 					            System.out.println("error : " + e);
