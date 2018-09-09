@@ -1049,7 +1049,7 @@ in a profile. </p></div>
                 	<ul class="slider-relative" id="relative">
 						<c:forEach items="${fullProfilePhotosList}" var="photo" >
 					      	<li class="slide fix-width">
-	                            <img src="${catalina_base}/${photo.image}" alt="" class="watermark_text">
+	                            <img src="${catalina_base}/${photo.folder_name}/full-images/${photo.image_name}" alt="" class="watermark_text">
 	                        </li>
 						</c:forEach>
                     </ul>

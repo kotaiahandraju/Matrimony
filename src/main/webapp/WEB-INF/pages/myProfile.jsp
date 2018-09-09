@@ -350,7 +350,7 @@ $(".onlyCharacters").on("keypress",	function(event) {
             <div class="col-md-5">
                 <c:if test="${not empty cacheGuest.profileImage}">
                 	<div class="fullprofile" style=" overflow:hidden;"">
-                		<a href="#" id="fullProfilePicOuterTag" data-toggle="modal" data-target="#myModalNew"><img  src="$${catalina_base}/${cacheGuest.profileImage}" class="hover-shadow cursor img img-responsive thumbnail watermark_text" style="margin-bottom:0;height:auto;width: 100%;" /></a>
+                		<a href="#" id="fullProfilePicOuterTag" data-toggle="modal" data-target="#myModalNew"><img  src="${catalina_base}/${cacheGuest.profileImage}" class="hover-shadow cursor img img-responsive thumbnail watermark_text" style="margin-bottom:0;height:auto;width: 100%;" /></a>
                 	</div>
                 	<div align="center">
 	                    <a href="myPhotos" style="font-size:12px; padding:12px 0; text-align:center; font-weight:600; color:#006699;"> Add / Edit  Photos</a>

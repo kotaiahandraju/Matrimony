@@ -543,7 +543,7 @@ public class HomePageController {
 						name=name+".png";*/
 						long millis = System.currentTimeMillis() % 1000;
 						filepath= id+millis+".png";
-						fullImgfilepath= "f"+id+millis+".png";
+						fullImgfilepath= id+millis+".png";
 						
 						
 						
