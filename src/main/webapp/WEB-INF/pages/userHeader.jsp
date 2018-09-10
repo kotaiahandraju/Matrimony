@@ -122,7 +122,7 @@
 		            			</c:if>
             				</c:when>
             				<c:when test="${membership_details.validity == 0}">
-            					Today is last day of your membership package!!<br>
+            					Today is the last day of your membership package!!<br>
 		            			<a type="button" class="btn btn-primary btn-block" href="memberShipPage">Renew Membership</a>
             				</c:when>
             				<c:when test="${membership_details.validity > 0}">
