@@ -252,7 +252,7 @@ height: auto;
 }
 
 .fa {
-	padding-top: 8px;
+	padding-top: 5px;
 }
 
 .img-replace {
@@ -311,6 +311,9 @@ height: auto;
 }
 .social {
     margin-top: -30px;
+}
+.footer-grids ul {
+    margin-inline-start: 14px;
 }
 .bts-popup-container img {
 	padding: 0px 0 0 0;
@@ -993,16 +996,20 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 						</div> -->
 						<div class="form-group">
 							<!--                                 <input id="email" type="email" class="form-control" name="email" value="" required placeholder="Email Address"> -->
+							<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-user"></i></span>
 							<input type="text" class="form-control"
 								onkeydown="removeBorder(this.id)" name="userName" id="userName"
-								placeholder="Username">
+								placeholder="Username"></div>
 						</div>
 						<div class="form-group">
 							<!--                                 <input id="password" type="password" class="form-control" name="password" required placeholder="Password"> -->
+							<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-lock"></i></span>
 							<input type="password" class="form-control"
 								onkeydown="removeBorder(this.id)" name="password" id="password"
 								placeholder="Password">
-
+</div>
 
 						</div>
 
@@ -1694,7 +1701,7 @@ Benzcircle Vijayawada</li>
 					<div class="col-md-4 footer-grids">
 					
 						 <h3>Company</h3>
-						<ul>
+						<ul style="margin-inline-start: 34px;">
 							<li><a href="#stayhere">About Us</a></li>
 							<li><a href="#stayhere">Feedback</a></li>  
 							<li><a href="#stayhere">Help</a></li>  
