@@ -1064,7 +1064,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 </div>
 </div>
 </div>
-</div>
+</div><div class="clearfix"></div>
 	<div id="recent-profile">
 		<div class="container">
 			<div class="row">
