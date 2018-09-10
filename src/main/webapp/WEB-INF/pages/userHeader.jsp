@@ -3,7 +3,7 @@
 
 <!-- body starts here-->
 <div class="products">
-	<div class="container" style="background: #FFF;">
+	<div class="container" style="background: #f1f1f1;">
 		<div class="mid-grids">
 		<%-- 	<div class="col-md-12">
 				<c:if test="${membership_details.validity <= 10}">
@@ -122,7 +122,7 @@
 		            			</c:if>
             				</c:when>
             				<c:when test="${membership_details.validity == 0}">
-            					Today is last day of your membership package!!<br>
+            					Today is the last day of your membership package!!<br>
 		            			<a type="button" class="btn btn-primary btn-block" href="memberShipPage">Renew Membership</a>
             				</c:when>
             				<c:when test="${membership_details.validity > 0}">

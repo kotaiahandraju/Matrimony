@@ -62,7 +62,8 @@ padding:0px !important;}
 					
 	            <div class="panel panel-success">
 	             <div class="panel-heading pull-right">
-	             <span class=""><input type="checkbox" id="selectAllCheackbox"/> Select All &nbsp; <a  onclick="requetAllCheckboxApprov(1,${photo1.user_id});" href="#">Approve &nbsp; </a></span>
+	             <c:set value="${photosList[0]}" var="photoFirstObj"/>
+	             <span class=""><input type="checkbox" id="selectAllCheackbox"/> Select All &nbsp; <a  onclick="requetAllCheckboxApprov(1,${photoFirstObj.photo1.user_id});" href="#">Approve &nbsp; </a></span>
 				 <span class=""><a id="reject${photo1.id}" onclick="requetAllCheckboxApprov(2,${photo1.user_id});" href="#">Reject </a></span>
 	            </div><div class="clearfix"></div>
 		            <div class="panel-body">
