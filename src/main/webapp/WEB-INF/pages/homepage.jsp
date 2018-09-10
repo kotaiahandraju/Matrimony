@@ -223,7 +223,7 @@ label {
     background: #BE0000;
     width: auto;
     float: none;
-    padding: 4px 40px;
+    padding: 2px 12px;
     font-size: 18px;
     border: 0px;
     border-top-left-radius: 10px;
@@ -749,7 +749,7 @@ padding:14px 15px !important;}
     text-align: left;
     margin: 0 5px 0 5px;
     display: inline-block;
-    box-shadow: inset 0 0 0 260px rgba(255,255,255,0.3);
+    box-shadow: inset 0 0 0 300px rgba(255,255,255,0.3);
     float: right;
     }
     form {
