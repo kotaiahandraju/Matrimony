@@ -339,7 +339,7 @@ color:#000;
 					<div id="table_footer"></div>
 				
 				</div> -->
-				<div class="panel panel-success col-md-7">
+				<div class="panel panel- col-md-7">
 					<div class="panel-heading">New Matches</div>
 		            <div class="panel-body"> 
 					  <div class='row'>
@@ -677,7 +677,7 @@ function displayNewMatches(listOrders) {
 			}else if(expressed>0){
 				interestStr = '<p align="center" style="margin: 11px 0px 10px 0px;"><a   type="button" disabled="true"  class="btn btn-warning btn-sm "  >Request Sent</a></p>';
 			}
-			 item =     item + ' 	<div class="col-md-4 thumbnailgal">'
+			 item =     item + ' 	<div class="col-md-6 thumbnailgal">'
 				         +' 		<div class="thumbnailmain">	<a class="thumbnail thumbimg" href="#no" style="margin: 0px 0px 0px 0px; width:100%; height:auto;"><img alt="" src="${catalina_base}/'+image+'" class="watermark_text"></a></div>'
 				         +' 			<p align="center" class="ptransition" style="margin: 10px 0px 0px 0px;"><span  class="ptransition" href="#no" onclick="fullProfile('+orderObj.id+')" style="transition: 0; padding:5px; color:blue; border-radius:5px;">'+orderObj.username+'</span></p>'
 				         +' 			<p align="center" style="margin: px 0px 0px -3px;">'+age+' yrs, '+orderObj.inches+'</p>'
