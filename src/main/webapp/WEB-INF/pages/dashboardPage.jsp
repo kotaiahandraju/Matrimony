@@ -304,7 +304,7 @@ color:#000;
   </div>
 	</c:if>
 </div><div class="clearfix"></div><br>
-				<div class="panel panel-default">
+				<div class="panel panel-default col-md-7">
 					<div class="panel-body">
 						<c:if test="${profile_filled_status != '100'}">
 							Complete the Remaining Profile
@@ -322,7 +322,7 @@ color:#000;
 						
 					</div>
 
-				</div>
+				</div><div class="clearfix"></div>
 				<div class="panel panel-success" id="preferred_div">
 					<div class="panel-heading">Preferred Profiles </div>
 		            <form:form commandName="createProfile"  class="form-horizontal" id="searchForm2" name="searchForm2" role="form"   method="post">
@@ -339,7 +339,7 @@ color:#000;
 					<div id="table_footer"></div>
 				
 				</div> -->
-				<div class="panel panel-success">
+				<div class="panel panel-success col-md-7">
 					<div class="panel-heading">New Matches</div>
 		            <div class="panel-body"> 
 					  <div class='row'>
@@ -353,7 +353,26 @@ color:#000;
         					<br><div align="center"><a class="btn btn-primary" href="newMatches">View all</a></div>
 					    </div>
 					</div></div></div></div>
-				</div>
+					<div class="col-md-2"><div class="products-grid-right">
+
+	<div class="panel panel-success" style="width: 250px;">
+<div class="panel-heading">Add Horoscope</div>
+        <div class="panel-body table-responsive">
+            <div class="col-md-3" style="width: 232px; display: -webkit-box;">
+        <img src="http://localhost:8080/NBD/user/images/edit-add-horoscope.gif" width="40" style="margin: 0px 0px 0px -25px;">
+    <p style="margin-left: 29px;">It is simple and absolutely FREE!</p></div>
+        </div>
+    </div>
+    
+<div class="panel panel-default" style="width: 250px;">
+<div class="panel-heading">Add Photos Now</div>
+        <div class="panel-body table-responsive">
+            <div class="col-md-3" style="width: 232px; display: -webkit-box;">
+        <img src="http://localhost:8080/NBD/user/images/add-photo-edit-avatar.png" width="40" style="margin: 0px 0px 0px -25px;">
+    <p style="margin-left: 29px;">Photos are the first things members look for in a profile.</p></div>
+        </div>
+    </div>
+</div></div></div><div class="clearfix"></div>
 				<% 
 				UsersBean userSessionBean = (UsersBean)session.getAttribute("cacheGuest");
 				 String packageId= userSessionBean.getPackageId();
@@ -658,7 +677,7 @@ function displayNewMatches(listOrders) {
 			}else if(expressed>0){
 				interestStr = '<p align="center" style="margin: 11px 0px 10px 0px;"><a   type="button" disabled="true"  class="btn btn-warning btn-sm "  >Request Sent</a></p>';
 			}
-			 item =     item + ' 	<div class="col-md-3 thumbnailgal">'
+			 item =     item + ' 	<div class="col-md-4 thumbnailgal">'
 				         +' 		<div class="thumbnailmain">	<a class="thumbnail thumbimg" href="#no" style="margin: 0px 0px 0px 0px; width:100%; height:auto;"><img alt="" src="${catalina_base}/'+image+'" class="watermark_text"></a></div>'
 				         +' 			<p align="center" class="ptransition" style="margin: 10px 0px 0px 0px;"><span  class="ptransition" href="#no" onclick="fullProfile('+orderObj.id+')" style="transition: 0; padding:5px; color:blue; border-radius:5px;">'+orderObj.username+'</span></p>'
 				         +' 			<p align="center" style="margin: px 0px 0px -3px;">'+age+' yrs, '+orderObj.inches+'</p>'

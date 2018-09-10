@@ -99,14 +99,38 @@ a h4:hover {
 	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 	z-index: 1;
 }
-
+label {
+    display: inline-block;
+    margin-bottom: 5px;
+    color: #fff;
+}
 .dropdown-content a {
 	color: black;
 	padding: 12px 16px;
 	text-decoration: none;
 	display: block;
 }
-
+#firstForm .btn-warning {
+    height: auto;
+    background: #BE0000;
+    width: auto;
+    float: none;
+    padding: 4px 40px;
+    font-size: 18px;
+    border: 0px;
+    border-top-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+.btn-warning {
+height: auto;
+    background: #BE0000 !imporatnt;
+    width: auto;
+    float: none;
+    padding: 14px 40px;
+    font-size: 18px;
+    border: 0px;
+    border-top-left-radius: 10px;
+    border-bottom-right-radius: 10px;}
 .dropdown-content a:hover {
 	background-color: #f1f1f1
 }
@@ -285,6 +309,17 @@ padding-top: 85px !important;
     margin-top:0px !important;
 } */
 @media only screen and (max-width: 640px) and (min-width: 320px) {
+#strip .privacy {
+    background: url(../nimages/privacy-bg.png) no-repeat center;
+    min-height: 266px;
+    margin-bottom: 37px;
+}
+#strip .quality {
+    margin-bottom: 37px;
+}
+#strip .secure {
+    margin-bottom: 37px;
+}
 .slider-container {
     background: #becfd8 url(nimages/ban1.jpg) no-repeat;
     width: 100%;
@@ -293,6 +328,8 @@ padding-top: 85px !important;
 	.bts-popup-container {
 		margin-top: 80px;
 	}
+	label {
+	color:#fff;}
 	.bannerform {
 	    float: right;
     margin-top: 40% !important;
@@ -528,17 +565,18 @@ span.has-error, span.hasError {
 .navbar-brand {
 padding:14px 15px !important;}
 .bannerform{
- background: rgba(255,255,255,0.7) !important;;
+ background: #cc !important;
     height: auto;
     padding: 10px 10px;
     border-radius: 5px;
     -webkit-box-shadow: 3px 4px 8px rgba(0,0,0,.21);
     -moz-box-shadow: 3px 4px 8px rgba(0,0,0,.21);
     box-shadow: 3px 4px 8px rgba(0,0,0,.21);
-    border: solid 1px rgba(220,220,220,.37);
+    border: solid 3px rgba(220,220,220,.37);
     text-align: left;
     margin: 0 5px 0 5px;
     display: inline-block;
+    box-shadow: inset 0 0 0 260px rgba(255,255,255,0.3);
     float: right;
     }
     form {
@@ -837,7 +875,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 
 <form:form commandName="createProfile" action="#"  id="registration"  method="post" class="login-form">
 <div id="firstForm">
-<h4 style="margin-top:-1px;color:#bf0304;";">Register</h4>
+<center><h4 style="margin-top:-1px;color:;" class="btn btn-warning"">Register</h4></center>
 							<div class="form-group">
 								<label for="user_name">Your Email-Id :</label> 
 								<form:input	path="email" onkeydown="removeBorder(this.id)" class="form-control" placeholder="Email"/>
@@ -1033,7 +1071,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 </div>
 </div>
 </div>
-</div>
+</div><div class="clearfix"></div>
 <div id="strip">
 <div class="container">
 <h1> Welcome to Aarna Matrimony</h1>
@@ -1058,13 +1096,13 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 <div class="strip-content">
 <img src="nimages/secure-icon.png" alt="Aarna Matrimony">
 <h2> Secure &amp; Safety</h2>
-<p> We never mark your details available publicly. Your details are seen only by our members. Your email &amp; phone number not visible to every one.</p>
+<p> We never mark your details available publicly. Your details are seen only </p>
 </div>
 
 </div>
 </div>
 </div>
-</div>
+</div><div class="clearfix"></div>
 	<div id="recent-profile">
 		<div class="container">
 			<div class="row">

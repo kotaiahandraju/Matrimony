@@ -41,6 +41,17 @@
 	<link href="${baseurl }/css/jquery.littlelightbox.css" rel="stylesheet" type="text/css">
 
 	<style type="text/css">
+	.btn-info {
+    color: #0f7cc1;
+    background-color: #e1f7e5;
+    border-color: #46b8da;
+}
+	.btn-default {
+    color: #ec1212;
+    background-color: #fffbfb;
+    border-color: #ccc;
+    width: 71px !important;
+}
 	a {
 	cursor:pointer;}
 .note {
@@ -839,7 +850,7 @@ tooltip:hover:after {
 							 premiumMember = "<span class='premium-member'>Premium Member</span>";
 						}
 					}
-					var shortListedStr = '<span id="shortlistTD'+orderObj.id+'" name="shortlistTD[]"><a href="#no" type="button" class="btn btn-warning btn-sm" onclick="shortList('+orderObj.id+')"> Shortlist</a></span>';
+					var shortListedStr = '<span id="shortlistTD'+orderObj.id+'" name="shortlistTD[]"><a href="#no" type="button" class="btn btn-info btn-sm" onclick="shortList('+orderObj.id+')"> Shortlist</a></span>';
 					if(orderObj.short_listed == "1"){
 						shortListedStr = '<span><a type="button" class="btn btn-warning btn-sm" disabled="true"> Shortlisted</a></span>';
 					}
@@ -848,7 +859,7 @@ tooltip:hover:after {
 					var interestStr = "";
 					var check_box_str = ' yet-to-send"';
 					if(expressed==0){
-						interestStr = '<span id="expInterest'+orderObj.id+'" name="expInterest[]"><a   href="#no" type="button" class="btn btn-blue btn-sm"  onclick="expressInterest('+orderObj.id+')">  Express Interest  </a></span>';
+						interestStr = '<span id="expInterest'+orderObj.id+'" name="expInterest[]"><a   href="#no" type="button" class="btn btn-warning btn-sm"  onclick="expressInterest('+orderObj.id+')">  Express Interest  </a></span>';
 					}else if(expressed>0){
 						interestStr = '<span><a type="button" class="btn btn-blue btn-sm" disabled="true" style="text-size-adjust:auto">Expressed Interest</a></span>';
 						check_box_str = '" disabled="true"  checked="checked"';
@@ -967,6 +978,7 @@ tooltip:hover:after {
 		            	+ '	<tr><td>Location</td><td><span>: '+orderObj.currentCityName+'</span></td></tr>'
 		            	+ '	<tr><td>Education</td><td><span>: '+orderObj.educationName+'</span></td></tr>'
 		            	+ '	<tr><td>Profession</td><td><span>: '+profession+'</span></td></tr>'
+		            	+ '<tr><td colspan="2"><a href="#no" type="button" class=" " onclick="fullProfile(293)">View Full Profile</a></td></tr>'
 		            	//+ '<tr><td colspan="2"><button type="button" style="background: transparent; margin: 0px 5px 05px 0px;border: none;" id="mobileTD'+orderObj.id+'">'+mobile_num_Str+'</button></td></tr>'
 		            	+'</td></tr>'
 		            	//+ '	<tr><td>Age</td><td><span>: '+orderObj.age+'</span></td></tr>'
@@ -977,7 +989,7 @@ tooltip:hover:after {
 		            	//+ '	<tr class="showMore" hidden="true"><td colspan="2">'+orderObj.aboutMyself+'... <a href="#no" > more detailssss</a> </td></tr>'
 		            	+ '</table>'
 		            	+ '</div>'
-		            	+ '<div class="clearfix"></div>'
+		            	+ '<div class="clearfix"></div><hr>'
 		            	/* + '<div id="hideMe'+orderObj.id+'" class="form-group hideMe">'
 		            	+ '    <label class="col-md-4 control-label" for="textinput"></label>'  
 		            	+ '    <div class="col-md-6 text-center">'
@@ -985,10 +997,10 @@ tooltip:hover:after {
 		            	+ '    </div>'
 		            	+ '</div>' */
 		            	+ '<div class="col-md-3">'
-		            	+ '<a href="#no" type="button" class="btn btn-primary btn-sm " onclick="fullProfile('+orderObj.id+')">View Full Profile</a>'
+		            	+ ' Profile Score <button type="button" class="btn btn-primary" style="padding: 0px 1px !important;"><span class="badge"  style="padding: 1px 7px !important;">90%</span></button>'
 		            	+ '</div>'
-		            	+ '<div class="col-md-3">'
-		            	+ '<a href="#no" type="button" class="btn btn-danger btn-sm" id="sendMail'+orderObj.id+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')">Send Mail</a>'
+		            	+ '<div class="col-md-2">'
+		            	+ '<a href="#no" type="button" class="btn btn-default btn-sm" id="sendMail'+orderObj.id+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')">Send Mail</a>'
 		            	+ '</div>'
 		            	+ '<div class="col-md-3">'
 		            	+ interestStr
@@ -3589,7 +3601,7 @@ img.hover-shadow {
 %> 
 <input type="hidden" name="loc" id="loc" value="${baseurl }" />
 <div class="header_top">
-	<div class="container" style="background: #FFF;">
+	<div class="container" style="background: #FFF;width:100%;">
     	<div class="col-md-3">
 			<div class="logo" style="margin-top:5px;">
 				<a href="dashboard"><img  src="${baseurl}/images/logo.png" class="img img-responsive"></a>
@@ -3647,7 +3659,7 @@ img.hover-shadow {
 						</div>
 	</div>
 
-	<div class="container">
+	<div class="container" style="width:100%;">
 		<div class="row">
 			<nav class="navbar navbar-custom navbar-inverse" role="navigation" >
 				<div >
