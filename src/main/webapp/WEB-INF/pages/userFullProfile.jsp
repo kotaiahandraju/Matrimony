@@ -69,6 +69,7 @@ padding:0px !important;}
 		            <div class="panel-body">
 		            	<div id="imagesDiv" class="row" style="margin-bottom: 0.4em;">
 					      	<c:forEach items="${photosList}" var="photo1" >
+					      		<c:set var="uId" value="${photo1.user_id}" scope="page" />
 					      		<div class="col-md-2">
 					      			<img src="${catalina_base}/${photo1.image}" class="img-responsive thumbnail watermark_text" style="margin-bottom:0;">
 					      			<c:if test="${photo1.approved_status == '1'}">
@@ -192,7 +193,7 @@ function requetAllCheckboxApprov(approvedStatus,user_id){
 		 var formData = new FormData();
 		 formData.append('photoId',profile_id);
 		 formData.append("approvedStatus",approvedStatus);
-		 formData.append("user_id",user_id);
+		 formData.append("user_id","${uId}"); 
   	 jQuery.fn.makeMultipartRequest('POST', 'approvePhotoAll', false,
 			formData, false, 'text', function(data){
   		var jsonobj = $.parseJSON(data);

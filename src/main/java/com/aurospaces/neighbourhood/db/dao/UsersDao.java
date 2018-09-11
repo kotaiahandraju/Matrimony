@@ -3714,33 +3714,21 @@ public class UsersDao extends BaseUsersDao
 		}
 		return false;
 	}
-public boolean approvePhotoAll(String photoId,String approvedStatus){
+public int approvePhotoAll(String photoIds,String approvedStatus){
 		
 		jdbcTemplate = custom.getJdbcTemplate();
 		String sSql  = null;
 		
 		try {
 			String status = approvedStatus.equals("1")?"1":"2";
-			sSql = "update user_images set approved_status = '"+status+"' where id =  "+photoId;
+			sSql = "update user_images set approved_status = '"+status+"' where find_in_set(id,'"+photoIds+"')>0";
 			
 			int updated_count = jdbcTemplate.update(sSql);
-			if (updated_count == 1) {
-				// set as profile pic if profile pic is not yet set 
-				String picQry = "select count(*) from vuser_images where user_id = (select uimg.user_id from vuser_images uimg where uimg.id = "+photoId+" limit 1) and status = '1' and is_profile_picture = '1'";
-				int profile_pic_count = jdbcTemplate.queryForInt(picQry);
-				if(profile_pic_count==0){
-					picQry = "update user_images set is_profile_picture = '1' where id = "+photoId;
-					int updated = jdbcTemplate.update(picQry);
-				}
-				return true;
-			}
+			return updated_count;	
 		} catch (Exception e) {
 			e.printStackTrace();
-			return false;
-		} finally {
-
+			return 0;
 		}
-		return false;
 	}
 public boolean deletePhoto(String photoId){
 		

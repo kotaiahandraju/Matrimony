@@ -720,21 +720,18 @@ public class FilterController {
 			ModelMap model, HttpServletRequest request, HttpSession session, RedirectAttributes redir) {
 		// System.out.println("approvePhoto Page");
 		JSONObject objJson = new JSONObject();
-		boolean success = false;
 		try {
 			UsersBean userBean = (UsersBean) session.getAttribute("cacheUserBean");
 			if (userBean == null) {
 				return "redirect:HomePage";
 			}
-			String photoId = request.getParameter("photoId");
+			String photoIds = request.getParameter("photoId");
 			String approvedStatus = request.getParameter("approvedStatus");
 			String user_id = request.getParameter("user_id");
-		     	if (StringUtils.isNotBlank(photoId)) {
-		     	String profileArry[] =photoId.split(",");
-				for (int i = 0; i < profileArry.length; i++) {
-			         success = objUsersDao.approvePhotoAll(profileArry[i],approvedStatus);
-				}
-				if (success) {
+		     	if (StringUtils.isNotBlank(photoIds)) {
+		     	String profileArry[] =photoIds.split(",");
+			    int updated_count = objUsersDao.approvePhotoAll(photoIds,approvedStatus);
+				if (updated_count == profileArry.length) {
 					objJson.put("message", "success");
 					int approval_pending_count = objUsersDao.getApprovalPendingPhotosOf(user_id);
 					Map<String,Integer> counts_map = (Map<String,Integer>)session.getAttribute("display_counts");
