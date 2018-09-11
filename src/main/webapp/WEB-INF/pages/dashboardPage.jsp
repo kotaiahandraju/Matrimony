@@ -3,6 +3,12 @@
 
 
 <style>
+.carousel-inner > .active.left {
+    left: 2%;
+}
+.carousel-inner > .active.right {
+    right: 2%;
+}
 b, strong {
     font-weight: bold;
     color: #000;
@@ -196,6 +202,7 @@ background: none !important;
 .pendingre {
 padding:20px;
 border:1px solid #dedede;
+background:#fff;
 }
 .pleftc {
 margin:51px 98px 0px 0px;
@@ -216,6 +223,30 @@ padding-right:0px;
 font-size:13px;
 color:#000;
 }
+.preprofile {
+    width: 120px;
+    height: 43px;
+    overflow: hidden;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    margin-bottom: 4px;
+}
+@media only screen and (max-width: 640px) and (min-width: 320px) {
+.pendingre {
+    padding: 20px;
+    border: 1px solid #dedede;
+    background: #fff;
+    margin-top: 8px;
+}
+.preprofile {
+    width: 68px;
+    height: 43px;
+    overflow: hidden;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    margin-bottom: 4px;
+}
+}
 /* add pendingrequest new */
 </style>	
 
@@ -227,6 +258,7 @@ color:#000;
 
 
 			<div class="col-md-9 products-grid-left">
+			<div class="col-md-8">                                                                           
 			<div class="col-md-12 neewpendingr">
 			<div id="myCarousel" data-interval="false" class="carousel slide" data-ride="carousel">
     <!-- Indicators -->
@@ -308,7 +340,7 @@ color:#000;
   </div>
 	</c:if>
 </div><div class="clearfix"></div><br>
-				<div class="panel panel-default col-md-7">
+				<div class="panel panel-default col-md-12">
 					<div class="panel-body">
 						<c:if test="${profile_filled_status != '100'}">
 							Complete the Remaining Profile
@@ -343,7 +375,7 @@ color:#000;
 					<div id="table_footer"></div>
 				
 				</div> -->
-				<div class="panel col-md-7">
+				<div class="panel col-md-12">
 					<div class="panel-heading"><b>New Matches</b></div>
 		            <div class="panel-body"> 
 					  <div class='row'>
@@ -357,7 +389,7 @@ color:#000;
         					<br><div align="center"><a class="btn btn-primary" href="newMatches">View all</a></div>
 					    </div>
 					</div></div></div></div>
-					<div class="col-md-2"><div class="products-grid-right">
+					</div></div><div class="col-md-2"><div class="products-grid-right">
 
 	<div class="panel " style="width: 250px;">
 <div class="panel-heading"><b>Search</b></div>
@@ -462,7 +494,7 @@ color:#000;
     <p style="margin-left: 29px;">Photos are the first things members look for in a profile.</p></div>
         </div>
     </div>
-</div></div></div><div class="clearfix"></div>
+</div></div><div class="clearfix"></div>
 				<% 
 				UsersBean userSessionBean = (UsersBean)session.getAttribute("cacheGuest");
 				 String packageId= userSessionBean.getPackageId();
@@ -674,12 +706,12 @@ function displayMatches(listOrders) {
 				mobile_num_Str = '<span ><a href="#no" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="displayMobileNum('+orderObj.id+')"> View Mobile No..</a></span>';
 			}
 			var tblRow = '<div class="row">'
-				+ '<div class=" col-md-2 col-xs-2 preprofile" >'
+				+ '<div class=" col-md-3 col-xs-3 preprofile" >'
 	            + 	"<img src='${catalina_base}/"+image+"' class='watermark_text img-responsive thumbnail ' >"
 	            + '</div>'
-	            + '<div class="col-md-10 col-xs-10">'
+	            + '<div class="col-md-9 col-xs-9">'
 	            + ' <p>'+firstname+'&nbsp;'+lastname+'|'+orderObj.username+'&nbsp;'+premiumMember+'&nbsp; '+age+' yrs,&nbsp; '+orderObj.religionName+', '+orderObj.casteName+','+orderObj.inches+' , '+orderObj.occupationName+', '+orderObj.currentCityName+', '+orderObj.currentCountryName+'. </p> '
-	            + ' <p> '+interestStr+'| <a href="#no" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" id="sendMail'+orderObj.id+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')">Send Mail</a> | <a href="#no" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="fullProfile('+orderObj.id+')"> Full Profile</a> '
+	            + ' <p> '+interestStr+'| <a href="#no" type="button" class="btn" style="padding:; color:blue; border-radius:5px;" id="sendMail'+orderObj.id+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')">Send Mail</a> | <a href="#no" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="fullProfile('+orderObj.id+')"> Full Profile</a> '
 	            + ' | <span id="mobileTD'+orderObj.id+'">'+mobile_num_Str+'</span> | '+shortListedStr+'</p> '
 	            
 	            + '</div>'
