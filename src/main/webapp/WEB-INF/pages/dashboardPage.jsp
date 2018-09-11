@@ -340,7 +340,7 @@ color:#000;
   </div>
 	</c:if>
 </div><div class="clearfix"></div><br>
-				<div class="panel panel-default col-md-12">
+				<div class="panel panel-default col-md-8">
 					<div class="panel-body">
 						<c:if test="${profile_filled_status != '100'}">
 							Complete the Remaining Profile

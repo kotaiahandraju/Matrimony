@@ -41,6 +41,12 @@
 	<link href="${baseurl }/css/jquery.littlelightbox.css" rel="stylesheet" type="text/css">
 
 	<style type="text/css">
+	.products .container {
+	background:#f1f1f1 !important;
+	}
+	.container {
+	background:#f1f1f1 !important;
+	}
 	.btn-info {
     color: #0f7cc1;
     background-color: #e1f7e5;
