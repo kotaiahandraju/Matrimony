@@ -17,7 +17,7 @@
 		
  			  <jsp:include page="sideGridForResults.jsp" />
 			<div id="dial1"></div>
-			<div class="col-md-9 products-grid-left">
+			<div class="col-md-7 products-grid-left">
             	<div class="panel panel-success">
 					<div class="panel-heading">New Matches <span class="pull-right"><input type="checkbox" id="selectAllRequest"> Select All &nbsp; <a onclick="requetAllExpressInterest();" href="#">Send Interest to selected</a></span></div>
 					<div class="panel-body table-responsive">
@@ -39,6 +39,7 @@
 				</div></div>
                          
 					</div>
+					<div class="col-md-3"></div>
 			
 <script type="text/javascript">
 

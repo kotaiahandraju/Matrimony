@@ -27,7 +27,7 @@ public class ScheduledJobs {
 	//@Scheduled(cron = "0 0/15 6-16 * * *") //weekly, every monday at 12 am
 //	@Scheduled(cron = "0 0/3 * * * *") //weekly, every monday at 12 am
 //	@Scheduled(cron = "0 0 13 * * TUE") //weekly, every monday at 12 am
-	@Scheduled(cron = "0 0 1 * * WED") //weekly, every monday at 12 am
+	@Scheduled(cron = "0 0 1 * * MON-FRI") //weekly, every monday at 12 am
 	 public void sendWeeklyMatches(){
 		System.out.println("#########  sendWeeklyMatches ###########");
 		jobsController.weeklyMatchEmails();

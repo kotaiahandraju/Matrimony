@@ -3,6 +3,10 @@
 
 
 <style>
+b, strong {
+    font-weight: bold;
+    color: #000;
+}
 .grademember {
 background:#2da3de;
 color:#fff;
@@ -304,7 +308,7 @@ color:#000;
   </div>
 	</c:if>
 </div><div class="clearfix"></div><br>
-				<div class="panel panel-default">
+				<div class="panel panel-default col-md-7">
 					<div class="panel-body">
 						<c:if test="${profile_filled_status != '100'}">
 							Complete the Remaining Profile
@@ -322,7 +326,7 @@ color:#000;
 						
 					</div>
 
-				</div>
+				</div><div class="clearfix"></div>
 				<div class="panel panel-success" id="preferred_div">
 					<div class="panel-heading">Preferred Profiles </div>
 		            <form:form commandName="createProfile"  class="form-horizontal" id="searchForm2" name="searchForm2" role="form"   method="post">
@@ -339,8 +343,8 @@ color:#000;
 					<div id="table_footer"></div>
 				
 				</div> -->
-				<div class="panel panel-success">
-					<div class="panel-heading">New Matches</div>
+				<div class="panel col-md-7">
+					<div class="panel-heading"><b>New Matches</b></div>
 		            <div class="panel-body"> 
 					  <div class='row'>
 					    <div class='col-md-12'>
@@ -353,7 +357,112 @@ color:#000;
         					<br><div align="center"><a class="btn btn-primary" href="newMatches">View all</a></div>
 					    </div>
 					</div></div></div></div>
-				</div>
+					<div class="col-md-2"><div class="products-grid-right">
+
+	<div class="panel " style="width: 250px;">
+<div class="panel-heading"><b>Search</b></div>
+        <div class="panel-body table-responsive">
+            <h4> I am Looking for</h4>
+            <select  style="margin-bottom:5px;" id="rPeople" class="custom-select col-md-12 form-control">
+								<option value="FeMale" id="id1">Bride</option>
+								<option value="Male" id="id2">Groom</option>
+							</select>
+							<h4>Aged  </h4>   
+<span>From </span> <select id="rAgeFrom" name="rAgeFrom"   class="for-control"  style="width:60px;">
+						            <option value="18">18</option>
+									<option value="19">19</option>
+									<option value="20">20</option>
+									<option value="21">21</option>
+									<option value="22">22</option>
+									<option value="23">23</option>
+									<option value="24">24</option>
+									<option value="25">25</option>
+									<option value="26">26</option>
+									<option value="27">27</option>
+									<option value="28">28</option>
+									<option value="29">29</option>
+									<option value="30">30</option>
+									<option value="31">31</option>
+									<option value="32">32</option>
+									<option value="33">33</option>
+									<option value="34">34</option>
+									<option value="35">35</option>
+									<option value="36">36</option>
+									<option value="37">37</option>
+									<option value="38">38</option>
+									<option value="39">39</option>
+									<option value="40">40</option>
+									<option value="41">41</option>
+									<option value="42">42</option>
+									<option value="43">43</option>
+									<option value="44">44</option>
+									<option value="45">45</option>
+									<option value="46">46</option>
+									<option value="47">47</option>
+									<option value="48">48</option>
+									<option value="49">49</option>
+									<option value="50">50</option>					
+					</select>
+					<span>To </span>
+					<select id="rAgeTo" name="rAgeTo"  class="formcontrol" style="width:60px;">
+									<option value="19">19</option>
+									<option value="20">20</option>
+									<option value="21">21</option>
+									<option value="22">22</option>
+									<option value="23">23</option>
+									<option value="24">24</option>
+									<option value="25">25</option>
+									<option value="26">26</option>
+									<option value="27">27</option>
+									<option value="28">28</option>
+									<option value="29">29</option>
+									<option value="30">30</option>
+									<option value="31">31</option>
+									<option value="32">32</option>
+									<option value="33">33</option>
+									<option value="34">34</option>
+									<option value="35">35</option>
+									<option value="36">36</option>
+									<option value="37">37</option>
+									<option value="38">38</option>
+									<option value="39">39</option>
+									<option value="40">40</option>
+									<option value="41">41</option>
+									<option value="42">42</option>
+									<option value="43">43</option>
+									<option value="44">44</option>
+									<option value="45">45</option>
+									<option value="46">46</option>
+									<option value="47">47</option>
+									<option value="48">48</option>
+									<option value="49">49</option>
+									<option value="50">50</option> 					
+					</select>
+					<h4> Religion </h4> 
+          <form:select path="religion" id="religionId" onchange="getReliginCastAjax1();" class=" form-control" >
+<%-- 								<form:option value="">of Religion.... &nbsp;&nbsp;</form:option> --%>
+								<form:options items="${religion}"></form:options>
+							</form:select>
+							
+							<h4> Caste </h4>
+					 <form:select path="cast" id="castId" class="custom-select col-md-12 form-control">
+								<form:option value="">of Caste.... &nbsp;&nbsp;</form:option>
+<%-- 								<form:options items="${cast}"></form:options> --%>
+							</form:select>
+							<h4>&nbsp;</h4> <button type="button" id="submit12" class="btn btn-primary" onclick="searchSubmit();">Search</button>
+							
+        </div>
+    </div>
+    
+<div class="panel panel-default" style="width: 250px;">
+<div class="panel-heading">Add Photos Now</div>
+        <div class="panel-body table-responsive">
+            <div class="col-md-3" style="width: 232px; display: -webkit-box;">
+        <img src="http://localhost:8080/NBD/user/images/add-photo-edit-avatar.png" width="40" style="margin: 0px 0px 0px -25px;">
+    <p style="margin-left: 29px;">Photos are the first things members look for in a profile.</p></div>
+        </div>
+    </div>
+</div></div></div><div class="clearfix"></div>
 				<% 
 				UsersBean userSessionBean = (UsersBean)session.getAttribute("cacheGuest");
 				 String packageId= userSessionBean.getPackageId();
@@ -658,7 +767,7 @@ function displayNewMatches(listOrders) {
 			}else if(expressed>0){
 				interestStr = '<p align="center" style="margin: 11px 0px 10px 0px;"><a   type="button" disabled="true"  class="btn btn-warning btn-sm "  >Request Sent</a></p>';
 			}
-			 item =     item + ' 	<div class="col-md-3 thumbnailgal">'
+			 item =     item + ' 	<div class="col-md-6 thumbnailgal">'
 				         +' 		<div class="thumbnailmain">	<a class="thumbnail thumbimg" href="#no" style="margin: 0px 0px 0px 0px; width:100%; height:auto;"><img alt="" src="${catalina_base}/'+image+'" class="watermark_text"></a></div>'
 				         +' 			<p align="center" class="ptransition" style="margin: 10px 0px 0px 0px;"><span  class="ptransition" href="#no" onclick="fullProfile('+orderObj.id+')" style="transition: 0; padding:5px; color:blue; border-radius:5px;">'+orderObj.username+'</span></p>'
 				         +' 			<p align="center" style="margin: px 0px 0px -3px;">'+age+' yrs, '+orderObj.inches+'</p>'

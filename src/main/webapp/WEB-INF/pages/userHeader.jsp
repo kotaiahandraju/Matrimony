@@ -3,7 +3,7 @@
 
 <!-- body starts here-->
 <div class="products">
-	<div class="container" style="background: #FFF;">
+	<div class="container" style="background: #f1f1f1;">
 		<div class="mid-grids">
 		<%-- 	<div class="col-md-12">
 				<c:if test="${membership_details.validity <= 10}">

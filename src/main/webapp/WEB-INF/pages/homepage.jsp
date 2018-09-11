@@ -40,6 +40,65 @@
 	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 
 <style>
+video {
+	width: 350px ;
+	height: 245px;
+	margin-top: -5px;
+}
+.grid figcaption h3 {
+    margin: 0;
+    padding: 0;
+    color: #fff;
+    font-size: 18px;
+    text-align: left;
+}
+#return-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: rgb(0, 0, 0);
+    background: rgba(0, 0, 0, 0.7);
+    width: 50px;
+    height: 50px;
+    display: block;
+    text-decoration: none;
+    -webkit-border-radius: 35px;
+    -moz-border-radius: 35px;
+    border-radius: 35px;
+    display: none;
+    -webkit-transition: all 0.3s linear;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+#return-to-top i {
+    color: #fff;
+    margin: 0;
+    position: relative;
+    left: 16px;
+    top: 5px;
+    font-size: 19px;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+#return-to-top:hover {
+    background: rgba(0, 0, 0, 0.9);
+}
+#return-to-top:hover i {
+    color: #fff;
+    top: 5px;
+}
+
+
+/* Extra Things */
+body{background: #eee ;font-family: 'Open Sans', sans-serif;}h3{font-size: 30px; font-weight: 400;text-align: center;margin-top: 50px;}h3 i{color: #444;}
+.agileinfo ul {
+padding:0;
+}
 td, th {
     padding: 0;
     font-size: 14px;
@@ -99,14 +158,99 @@ a h4:hover {
 	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 	z-index: 1;
 }
+.address-left {
+    background: #c1f0f5;
+    padding: 1em;
+    z-index: 9;
+    margin-bottom: 10px;
+    
+}
+.footer h3 {
+    font-size: 18px;
+    color: #c01314;
+    letter-spacing: 1px;
+    margin-bottom: 25px;
+    text-transform: uppercase;
+}
+.footer-grids ul li {
+    display: block;
+    font-size: 13px;
+    margin: 15px 0 0;
+    color: #000000;
+}
+.footer-grids ul li a {
+    color: #656565;
+    -webkit-transition: .5s all;
+    -moz-transition: .5s all;
+    -o-transition: .5s all;
+    -ms-transition: .5s all;
+    transition: .5s all;
+}
 
+.social .fb {
+    background: #6788ce;
+}
+.social .tw {
+    background: #00ACEE;
+}
+.social .gp {
+    background: #DD4B39;
+}
+.social ul li a i {
+    color: #fff;
+    
+}
+.footer-logo.header-logo {
+    float: none;
+    text-align: center;
+}
+.footer-logo.header-logo h6 {
+    text-transform: uppercase;
+    font-size: 20px;
+    letter-spacing: 1px;
+    color: #ec3434;
+}
+.address-left ul li {
+    display: block;
+    margin: 20px 0;
+    font-size: 14px;
+    color: #4c4c4c;
+    border-top: 1px solid #ffffff;
+    padding-top: 20px;
+    text-align: center;
+}
+label {
+    display: inline-block;
+    margin-bottom: 5px;
+    color: #fff;
+}
 .dropdown-content a {
 	color: black;
 	padding: 12px 16px;
 	text-decoration: none;
 	display: block;
 }
-
+#firstForm .btn-warning {
+    height: auto;
+    background: #BE0000;
+    width: auto;
+    float: none;
+    padding: 2px 12px;
+    font-size: 18px;
+    border: 0px;
+    border-top-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+.btn-warning {
+height: auto;
+    background: #BE0000 !imporatnt;
+    width: auto;
+    float: none;
+    padding: 14px 40px;
+    font-size: 18px;
+    border: 0px;
+    border-top-left-radius: 10px;
+    border-bottom-right-radius: 10px;}
 .dropdown-content a:hover {
 	background-color: #f1f1f1
 }
@@ -120,7 +264,7 @@ a h4:hover {
 }
 
 .fa {
-	padding-top: 8px;
+	padding-top: 5px;
 }
 
 .img-replace {
@@ -177,7 +321,12 @@ a h4:hover {
 	-moz-transition-duration: 0.3s;
 	transition-duration: 0.3s;
 }
-
+.social {
+    margin-top: -30px;
+}
+.footer-grids ul {
+    margin-inline-start: 14px;
+}
 .bts-popup-container img {
 	padding: 0px 0 0 0;
 }
@@ -217,7 +366,37 @@ a h4:hover {
 	height: 3px;
 	background-color: white;
 }
-
+.agile-assisted-service {
+    background: url(nimages/servicebg.jpg) no-repeat 0px 0px;
+    background-size: cover;
+    min-height: 400px;
+    background-attachment: fixed;
+    padding-top: 65px;
+}
+.agile-assisted-service h4 {
+    font-size: 35px;
+    color: #fff;
+    margin-bottom: 35px;
+    letter-spacing: 1px;
+}
+.agile-assisted-service p {
+    font-size: 20px;
+    color: #e0e0e0;
+    letter-spacing: 1px;
+    font-weight: 300;
+    margin: 0 auto 50px;
+    width: 45%;
+    line-height: 40px;
+}
+.agile-assisted-service a {
+    font-size: 14px;
+    color: #e0e0e0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-decoration: none;
+    background: rgba(236, 52, 52, 0.81);
+    padding: 10px 25px;
+}
 .bts-popup-container .bts-popup-close::before {
 	-webkit-transform: rotate(45deg);
 	-moz-transform: rotate(45deg);
@@ -284,7 +463,67 @@ padding-top: 85px !important;
     padding-left: 66px !important;
     margin-top:0px !important;
 } */
+@media only screen and (max-width: 1600px) and (min-width: 980px) {
+.navbar>.container-fluid .navbar-brand {
+   margin-left: 39px; 
+   margin-top:0px !important;
+}
+}
 @media only screen and (max-width: 640px) and (min-width: 320px) {
+.search {
+    font-size: 16px;
+    width: 65%;
+    margin: 0 auto;
+}
+.footer-grids ul {
+    margin-inline-start: -14px !important;
+}
+video {
+    width: 297px !important;
+    height: 245px;
+    margin-top: -5px;
+}
+.agile-assisted-service p {
+    font-size: 13px;
+    color: #e0e0e0;
+    letter-spacing: 1px;
+    font-weight: 300;
+    margin: 0 auto 50px;
+    width: 70%;
+    line-height: 31px;
+}
+.agile-assisted-service h4 {
+    font-size: 35px;
+    color: #fff;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+.bannerform{
+ background:  rgba(0, 0, 0, 0.3) !important;
+    height: auto;
+    padding: 10px 10px;
+    border-radius: 5px;
+    -webkit-box-shadow: 3px 4px 8px rgba(0,0,0,.21);
+    -moz-box-shadow: 3px 4px 8px rgba(0,0,0,.21);
+    box-shadow: 3px 4px 8px rgba(0,0,0,.21);
+    border: solid 3px rgba(220,220,220,.37);
+    text-align: left;
+    margin: 0 5px 0 5px;
+    display: inline-block;
+   
+    float: right;
+    }
+#strip .privacy {
+    background: url(../nimages/privacy-bg.png) no-repeat center;
+    min-height: 266px;
+    margin-bottom: 37px;
+}
+#strip .quality {
+    margin-bottom: 37px;
+}
+#strip .secure {
+    margin-bottom: 37px;
+}
 .slider-container {
     background: #becfd8 url(nimages/ban1.jpg) no-repeat;
     width: 100%;
@@ -293,6 +532,8 @@ padding-top: 85px !important;
 	.bts-popup-container {
 		margin-top: 80px;
 	}
+	label {
+	color:#fff;}
 	.bannerform {
 	    float: right;
     margin-top: 40% !important;
@@ -320,7 +561,7 @@ padding-right:0px !important;
 		margin-top: 51px;
 	}
 	video {
-		width: 100% !important;
+		
 		height: auto !important;
 		margin-top: 0px !important;
 	}
@@ -336,11 +577,7 @@ padding-right:0px !important;
 	}
 }
 
-video {
-	width: 450px;
-	height: 245px;
-	margin-top: -15px;
-}
+
 
 .regist {
 	color: #fff !important;
@@ -458,7 +695,33 @@ td, th {
 		margin-left: 10px;
 	}
 }
-
+@media ( min-width : 980px) {
+#strip .col-md-4 {
+    text-align: center;
+    width: 33%;
+    float: left;
+}
+.firstnam {
+width:120px;
+float:left;}
+.search-link {
+    text-align: center;
+    padding: 0px;
+    display: inline-flex;
+}
+#welcome .navbar-right {
+    padding: 10px 0 0px !important;
+}
+.navbar-header {
+    width: 28% !important;
+}
+.navbar>.container-fluid .navbar-brand {
+   margin-left: 39px; 
+   margin-top:10px;
+}
+.header {
+   margin-top: 0px; 
+}}
 @media ( min-width : 920px) {
 	.modal-lg {
 		margin-right: auto;
@@ -528,17 +791,18 @@ span.has-error, span.hasError {
 .navbar-brand {
 padding:14px 15px !important;}
 .bannerform{
- background: rgba(255,255,255,0.7) !important;;
+ background: #cc !important;
     height: auto;
     padding: 10px 10px;
     border-radius: 5px;
     -webkit-box-shadow: 3px 4px 8px rgba(0,0,0,.21);
     -moz-box-shadow: 3px 4px 8px rgba(0,0,0,.21);
     box-shadow: 3px 4px 8px rgba(0,0,0,.21);
-    border: solid 1px rgba(220,220,220,.37);
+    border: solid 3px rgba(220,220,220,.37);
     text-align: left;
     margin: 0 5px 0 5px;
     display: inline-block;
+    box-shadow: inset 0 0 0 300px rgba(255,255,255,0.3);
     float: right;
     }
     form {
@@ -574,6 +838,7 @@ padding-left:0px !important;}
     height: 32px !important;
     padding: 7px 6px !important;
 }
+
 </style>
 <title>Aarna Matrimony</title>
 
@@ -785,16 +1050,20 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 						</div> -->
 						<div class="form-group">
 							<!--                                 <input id="email" type="email" class="form-control" name="email" value="" required placeholder="Email Address"> -->
+							<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-user"></i></span>
 							<input type="text" class="form-control"
 								onkeydown="removeBorder(this.id)" name="userName" id="userName"
-								placeholder="Username">
+								placeholder="Username"></div>
 						</div>
 						<div class="form-group">
 							<!--                                 <input id="password" type="password" class="form-control" name="password" required placeholder="Password"> -->
+							<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-lock"></i></span>
 							<input type="password" class="form-control"
 								onkeydown="removeBorder(this.id)" name="password" id="password"
 								placeholder="Password">
-
+</div>
 
 						</div>
 
@@ -833,11 +1102,11 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
     background-position: 60% 0px;
 ">
 <div class="col-md-8"></div>
-<div class="col-md-4 bannerform" style="float: right;">
+<div class="col-md-3 bannerform" style="float: right;">
 
 <form:form commandName="createProfile" action="#"  id="registration"  method="post" class="login-form">
 <div id="firstForm">
-<h4 style="margin-top:-1px;color:#bf0304;";">Register</h4>
+<center><h4 style="margin-top:-1px;color:;" class="btn btn-warning"">Register</h4></center>
 							<div class="form-group">
 								<label for="user_name">Your Email-Id :</label> 
 								<form:input	path="email" onkeydown="removeBorder(this.id)" class="form-control" placeholder="Email"/>
@@ -877,12 +1146,13 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 							<div class="row">
 								<div class="form-group">
 									<label for="" class="col-md-12">Your Name</label>
-									<div class="col-md-6">
+									<div class="">
+									<div class="col-md-6 firstnam" >
 										<input type="text" name="firstName" onkeydown="removeBorder(this.id)" class="form-control onlyCharacters" id="firstName" placeholder="First Name">
 									</div>
-									<div class="col-md-6">
+									<div class="col-md-6 firstnam">
 										<input type="text" name="lastName" onkeydown="removeBorder(this.id)" class="form-control onlyCharacters" id="lastName" placeholder="Last Name">
-									</div>
+									</div></div>
 									<div class="clearfix"></div>
 								</div>
 							</div>
@@ -1033,7 +1303,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 </div>
 </div>
 </div>
-</div>
+</div><div class="clearfix"></div>
 <div id="strip">
 <div class="container">
 <h1> Welcome to Aarna Matrimony</h1>
@@ -1058,19 +1328,19 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 <div class="strip-content">
 <img src="nimages/secure-icon.png" alt="Aarna Matrimony">
 <h2> Secure &amp; Safety</h2>
-<p> We never mark your details available publicly. Your details are seen only by our members. Your email &amp; phone number not visible to every one.</p>
+<p> We never mark your details available publicly. Your details are seen only </p>
 </div>
 
 </div>
 </div>
 </div>
-</div>
+</div><div class="clearfix"></div>
 	<div id="recent-profile">
 		<div class="container">
 			<div class="row">
 
 				<div class="heading">
-					<h3>LASTEST BRIDES & GROOMS</h3>
+					<h3>LATEST BRIDES & GROOMS</h3>
 				</div>
 
 
@@ -1237,7 +1507,94 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 			</div>
 		</div>
 	</div>
-	</div>
+	</div><section class="about clearfix" id="about">
+		<!-- Section id-->
+		<div class="container">
+			<div class="row">
+
+				<div class="col-md-12 col-sm-12">
+					<div class="section-title">
+						<h1>SEARCH PROFILES BY</h1>
+						<img src="user/images/line-02.jpg" alt="">
+					</div>
+					<div class="row">
+						<div class="about-content linkss">
+
+							<div class="col-md-3">
+
+								<table class="table table-bordered table-hover table-condensed">
+									<tbody><tr>
+										<td><a href="#">Hindu<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
+									</tr>
+									<tr>
+										<td><a href="#">Muslim <span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
+									</tr>
+									<tr>
+										<td><a href="#">Christian<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
+									</tr>
+									<tr>
+										<td><a href="#">Jains<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
+									</tr>
+								</tbody></table>
+
+							</div>
+							<div class="col-md-3">
+								<table class="table table-bordered table-hover table-condensed">
+									<tbody><tr>
+										<td><a href="#">Brahmin<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
+									</tr>
+									<tr>
+										<td><a href="#">Vasya <span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
+									</tr>
+									<tr>
+										<td><a href="#">Kamma<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
+									</tr>
+									<tr>
+										<td><a href="#">Kaapu<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
+									</tr>
+								</tbody></table>
+
+							</div>
+							<div class="col-md-3">
+								<table class="table table-bordered table-hover table-condensed">
+									<tbody><tr>
+										<td><a href="#">Hindu<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
+									</tr>
+									<tr>
+										<td><a href="#">Muslim <span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
+									</tr>
+									<tr>
+										<td><a href="#">Christian<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
+									</tr>
+									<tr>
+										<td><a href="#">Jains<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
+									</tr>
+								</tbody></table>
+
+							</div>
+							<div class="col-md-3">
+								<table class="table table-bordered table-hover table-condensed">
+									<tbody><tr>
+										<td><a href="#">Hindu<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
+									</tr>
+									<tr>
+										<td><a href="#">Muslim <span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
+									</tr>
+									<tr>
+										<td><a href="#">Christian<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
+									</tr>
+									<tr>
+										<td><a href="#">Jains<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
+									</tr>
+								</tbody></table>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 
 	<section class="testimonials" id="testimonials">
 		<!-- Section id-->
@@ -1308,13 +1665,17 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 		</div>
 	</section>
 
-
+<div class="agile-assisted-service text-center">
+		<h4>Assisted Service</h4>
+		<p>Our Relationship Managers have helped thousands of members find their life partners.</p>
+		<a href="">Know More</a>
+	</div>
 
 
 	<div class="container">
 
-		<footer class="footer" id="footer">
-			<!-- Section id-->
+		<!-- <footer class="footer" id="footer">
+			
 			<div class="container">
 				<div class="row">
 					<div class="col-md-3 col-sm-3">
@@ -1338,10 +1699,10 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 							<p class="fs-12">
 								<i class="fa fa-phone"></i>+91 8466999991
 							</p>
-						</div>
+						</div> 
 					</div>
 				</div>
-				<div class="row">
+				 <div class="row">
 					<div class="col-md-6 col-sm-6">
 						<div class="social">
 							<ul class="list-inline">
@@ -1359,36 +1720,82 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 							</p>
 						</div>
 					</div>
-				</div>
+				</div> 
 			</div>
 
-		</footer>
+		</footer> -->
 	</div>
-	<div class="clearfix"></div>
-	<div id="bottom">
-<div class="container">
-<div class="row info">
-<div class="col-md-3">
-<h4 style="margin-top:2px;">INFORMATION :</h4>
-</div>
-<div class="col-md-9">
-<a href="#stayhere">Register Free</a><a href="#stayhere">About Us</a><a href="#stayhere">Payment Options</a><a href="#stayhere">Terms & Conditions</a><a href="#stayhere">Privacy Policy</a><a href="#stayhere">Contact</a>
-
-</div>
-</div>
-
-</div>
-</div>
+	<div class="clearfix"></div><a href="javascript:" id="return-to-top"><i class="fa fa-chevron-up"></i></a>
+	<div class="footer">
+		<div class="container">
+			<div class="footer-info w3-agileits-info">
+				<div class="col-md-3 address-left agileinfo">
+					<div class="footer-logo header-logo">
+						<h6>Get in Touch.</h6>
+					</div>
+					<ul>
+						<li><i class="fa fa-map-marker"></i> Door No 58-2-3/1 Bagaiah Street,
+Opposite Tanusri Hospital, <br>
+Pantakalava Road,
+Benzcircle Vijayawada</li>
+<!-- 						<li><i class="fa fa-mobile"></i> 333 222 3333 </li> -->
+						<li><i class="fa fa-phone"></i> +91 8466999991 </li>
+						<li><i class="fa fa-envelope-o"></i> <a href="#stayhere"> info@aarnamatrimony.com</a></li>
+					</ul> 
+				</div>
+				<div class="col-md-8 address-right">
+				<div class="col-md-4 footer-grids">
+						<h3>Quick links</h3>
+						<ul>
+							<li><a href="#stayhere">Terms of use</a></li>
+							<li><a href="#stayhere">Privacy Policy</a></li>
+							<li><a href="#stayhere">Contact Us</a></li>
+							<li><a href="#stayhere">FAQ</a></li>
+							<li><a href="#stayhere">Sitemap</a></li>
+						</ul> 					</div>
+					<div class="col-md-4 footer-grids">
+					
+						 <h3>Company</h3>
+						<ul style="margin-inline-start: 34px;">
+							<li><a href="#stayhere">About Us</a></li>
+							<li><a href="#stayhere">Feedback</a></li>  
+							<li><a href="#stayhere">Help</a></li>  
+							<li><a href="#stayhere">Register Free</a></li>
+							<li><a href="#stayhere">Payment Options</a></li>
+						</ul>
+					</div>
+					<div class="col-md-4 footer-grids">
+					<a href="HomePage"><img src="images/logo01.png" alt="" class="img-responsive" /></a>
+						<video poster="user/images/bgvideo.jpg" controls
+							src="user/images/Aarna Matrimony for Best Mate ,Together Forever.mp4"
+							type="video/mp4">
+						</video>
+						<!-- <h3>Follow Us on</h3>
+						<section class="social">
+                        <ul>
+							<li><a class="icon fb" href="#"><i class="fa fa-facebook"></i></a></li>
+							<li><a class="icon tw" href="#"><i class="fa fa-twitter"></i></a></li>	
+							<li><a class="icon gp" href="#"><i class="fa fa-google-plus"></i></a></li>
+						</ul>
+						</section> -->
+					</div>
+					
+					<div class="clearfix"></div><br>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
 <footer>
 <div class="container">
 <div class="row">
-<div class="col-md-4 footer-left" style="padding-top:8px;">
-All Rights Reserved
+<div class="col-md-8 footer-left" style="padding-top:8px;">
+All Rights Reserved | Design & Develop by Charvikent Ites Pvt Ltd.
 </div>
-<div class="col-md-4 footer-center">
+<!-- <div class="col-md-4 footer-center">
 
-</div>
-<div class="col-md-8 footer-right">
+</div> -->
+<div class="col-md-4 footer-right">
 <div class="row social-secure">
 
 Follow us on : 	<a href="#stayhere"><img src="nimages/fb.png" style="height:30px;" alt="facebook"> </a><a href="#stayhere"> <img src="nimages/twt.png" style="height:30px;" alt="twitter"> </a><a href="#stayhere">  <img src="nimages/linkdn.png" style="height:30px;" alt="linkdn"></a>
@@ -1399,7 +1806,21 @@ Follow us on : 	<a href="#stayhere"><img src="nimages/fb.png" style="height:30px
 </div>
 </div>
 </footer>
-	
+	<script>
+	// ===== Scroll to Top ==== 
+	$(window).scroll(function() {
+	    if ($(this).scrollTop() >= 50) {        // If page is scrolled more than 50px
+	        $('#return-to-top').fadeIn(200);    // Fade in the arrow
+	    } else {
+	        $('#return-to-top').fadeOut(200);   // Else fade out the arrow
+	    }
+	});
+	$('#return-to-top').click(function() {      // When arrow is clicked
+	    $('body,html').animate({
+	        scrollTop : 0                       // Scroll to top of body
+	    }, 500);
+	});
+	</script>
    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 	<script src='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'></script>
 	<script src="${baseurl}/user/js/ie-emulation-modes-warning.js"></script>
