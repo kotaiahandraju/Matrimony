@@ -359,8 +359,8 @@ color:#000;
 					</div>
 
 				</div><div class="clearfix"></div>
-				<div class="panel panel-success" id="preferred_div">
-					<div class="panel-heading">Preferred Profiles </div>
+				<div class="panel" id="preferred_div">
+					<div class="panel-heading"><b>Preferred Profiles</b> </div>
 		            <form:form commandName="createProfile"  class="form-horizontal" id="searchForm2" name="searchForm2" role="form"   method="post">
 	             		<form:hidden path="id" />
 	             			<div class="panel-body" id="matches" style="overflow-y:scroll; max-height: 350px">
