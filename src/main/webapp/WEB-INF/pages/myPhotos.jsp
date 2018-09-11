@@ -178,6 +178,13 @@ function imageAjax(){
 		  	if("success" == msg){
 		  		alert("Photo Uploaded Successfully.");
 		  		updateImagesList(photosList);
+		  		var profile_picc = "${cacheGuest.profileImage}";
+		  		if(typeof profile_picc == "undefined" || profile_picc=="" || profile_picc==null){
+		  			var image_path = jsonobj.image_path;
+			  		 var str = '<img id="profilepic" src="${catalina_base}/'+image_path+'" class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: auto;width: 100%;">';
+			  		$("#profilePicOuterTag").html('');
+			  		$("#profilePicOuterTag").html(str); 
+		  		}
 		  		addWaterMark();
 		  		fullImg = "";
 		  	}else{

@@ -587,6 +587,7 @@ public class HomePageController {
 						  
 					        //filepath= "img/"+filepath;
 					        filepath= "aarna-user-images/"+filepath;
+					        objJson.put("image_path", filepath);
 					        objUerImagesBean.setImage(filepath);
 					        objUerImagesBean.setStatus("1");
 					        

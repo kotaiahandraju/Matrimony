@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.poi.util.SystemOutLogger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -18,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.aurospaces.neighbourhood.bean.BranchBean;
 import com.aurospaces.neighbourhood.bean.UserImagesBean;
+import com.aurospaces.neighbourhood.bean.UsersBean;
 import com.aurospaces.neighbourhood.daosupport.CustomConnection;
 
 
@@ -27,6 +30,7 @@ public class BaseUserImageUploadDao{
 	CustomConnection custom;
 	JdbcTemplate jdbcTemplate;
 
+	@Autowired HttpSession session;
 	 
 	public final String INSERT_SQL = "INSERT INTO user_images ( user_id, image,  updated_on, status) VALUES (?, ?, ?, ? )"; 
 
@@ -76,6 +80,21 @@ public class BaseUserImageUploadDao{
 				
 				Number unId = keyHolder.getKey();
 				objUserImagesBean.setId(unId.intValue());
+				
+				// set as profile pic if profile pic is not yet set 
+				String picQry = "select count(*) from vuser_images where user_id = "+objUserImagesBean.getUserId()+" and status = '1' and is_profile_picture = '1'";
+				int profile_pic_count = jdbcTemplate.queryForInt(picQry);
+				if(profile_pic_count==0){
+					picQry = "update user_images set is_profile_picture = '1' where id = "+objUserImagesBean.getId();
+					int updated = jdbcTemplate.update(picQry);
+					if(updated==1){
+						picQry = "select image from vuser_images where user_id =  "+objUserImagesBean.getUserId()+" and is_profile_picture = '1' and status = '1'";
+						String image = jdbcTemplate.queryForObject(picQry, String.class);
+						UsersBean userSessionBean = (UsersBean)session.getAttribute("cacheGuest");
+						userSessionBean.setProfileImage(image);
+			    		session.setAttribute("cacheGuest",userSessionBean);
+					}
+				}
 				
 		}
 		else
