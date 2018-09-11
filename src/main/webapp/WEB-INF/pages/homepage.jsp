@@ -40,6 +40,18 @@
 	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 
 <style>
+video {
+	width: 350px ;
+	height: 245px;
+	margin-top: -5px;
+}
+.grid figcaption h3 {
+    margin: 0;
+    padding: 0;
+    color: #fff;
+    font-size: 18px;
+    text-align: left;
+}
 #return-to-top {
     position: fixed;
     bottom: 20px;
@@ -223,7 +235,7 @@ label {
     background: #BE0000;
     width: auto;
     float: none;
-    padding: 4px 40px;
+    padding: 2px 12px;
     font-size: 18px;
     border: 0px;
     border-top-left-radius: 10px;
@@ -252,7 +264,7 @@ height: auto;
 }
 
 .fa {
-	padding-top: 8px;
+	padding-top: 5px;
 }
 
 .img-replace {
@@ -311,6 +323,9 @@ height: auto;
 }
 .social {
     margin-top: -30px;
+}
+.footer-grids ul {
+    margin-inline-start: 14px;
 }
 .bts-popup-container img {
 	padding: 0px 0 0 0;
@@ -448,7 +463,26 @@ padding-top: 85px !important;
     padding-left: 66px !important;
     margin-top:0px !important;
 } */
+@media only screen and (max-width: 1600px) and (min-width: 980px) {
+.navbar>.container-fluid .navbar-brand {
+   margin-left: 39px; 
+   margin-top:0px !important;
+}
+}
 @media only screen and (max-width: 640px) and (min-width: 320px) {
+.search {
+    font-size: 16px;
+    width: 65%;
+    margin: 0 auto;
+}
+.footer-grids ul {
+    margin-inline-start: -14px !important;
+}
+video {
+    width: 297px !important;
+    height: 245px;
+    margin-top: -5px;
+}
 .agile-assisted-service p {
     font-size: 13px;
     color: #e0e0e0;
@@ -465,7 +499,7 @@ padding-top: 85px !important;
     letter-spacing: 1px;
 }
 .bannerform{
- background: #ccc !important;
+ background:  rgba(0, 0, 0, 0.3) !important;
     height: auto;
     padding: 10px 10px;
     border-radius: 5px;
@@ -476,7 +510,7 @@ padding-top: 85px !important;
     text-align: left;
     margin: 0 5px 0 5px;
     display: inline-block;
-    box-shadow:none !important;
+   
     float: right;
     }
 #strip .privacy {
@@ -527,7 +561,7 @@ padding-right:0px !important;
 		margin-top: 51px;
 	}
 	video {
-		width: 100% !important;
+		
 		height: auto !important;
 		margin-top: 0px !important;
 	}
@@ -543,11 +577,7 @@ padding-right:0px !important;
 	}
 }
 
-video {
-	width: 350px !important;
-	height: 245px;
-	margin-top: -5px;
-}
+
 
 .regist {
 	color: #fff !important;
@@ -665,7 +695,33 @@ td, th {
 		margin-left: 10px;
 	}
 }
-
+@media ( min-width : 980px) {
+#strip .col-md-4 {
+    text-align: center;
+    width: 33%;
+    float: left;
+}
+.firstnam {
+width:120px;
+float:left;}
+.search-link {
+    text-align: center;
+    padding: 0px;
+    display: inline-flex;
+}
+#welcome .navbar-right {
+    padding: 10px 0 0px !important;
+}
+.navbar-header {
+    width: 28% !important;
+}
+.navbar>.container-fluid .navbar-brand {
+   margin-left: 39px; 
+   margin-top:10px;
+}
+.header {
+   margin-top: 0px; 
+}}
 @media ( min-width : 920px) {
 	.modal-lg {
 		margin-right: auto;
@@ -746,7 +802,7 @@ padding:14px 15px !important;}
     text-align: left;
     margin: 0 5px 0 5px;
     display: inline-block;
-    box-shadow: inset 0 0 0 260px rgba(255,255,255,0.3);
+    box-shadow: inset 0 0 0 300px rgba(255,255,255,0.3);
     float: right;
     }
     form {
@@ -782,6 +838,7 @@ padding-left:0px !important;}
     height: 32px !important;
     padding: 7px 6px !important;
 }
+
 </style>
 <title>Aarna Matrimony</title>
 
@@ -993,16 +1050,20 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 						</div> -->
 						<div class="form-group">
 							<!--                                 <input id="email" type="email" class="form-control" name="email" value="" required placeholder="Email Address"> -->
+							<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-user"></i></span>
 							<input type="text" class="form-control"
 								onkeydown="removeBorder(this.id)" name="userName" id="userName"
-								placeholder="Username">
+								placeholder="Username"></div>
 						</div>
 						<div class="form-group">
 							<!--                                 <input id="password" type="password" class="form-control" name="password" required placeholder="Password"> -->
+							<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-lock"></i></span>
 							<input type="password" class="form-control"
 								onkeydown="removeBorder(this.id)" name="password" id="password"
 								placeholder="Password">
-
+</div>
 
 						</div>
 
@@ -1041,7 +1102,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
     background-position: 60% 0px;
 ">
 <div class="col-md-8"></div>
-<div class="col-md-4 bannerform" style="float: right;">
+<div class="col-md-3 bannerform" style="float: right;">
 
 <form:form commandName="createProfile" action="#"  id="registration"  method="post" class="login-form">
 <div id="firstForm">
@@ -1085,12 +1146,13 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 							<div class="row">
 								<div class="form-group">
 									<label for="" class="col-md-12">Your Name</label>
-									<div class="col-md-6">
+									<div class="">
+									<div class="col-md-6 firstnam" >
 										<input type="text" name="firstName" onkeydown="removeBorder(this.id)" class="form-control onlyCharacters" id="firstName" placeholder="First Name">
 									</div>
-									<div class="col-md-6">
+									<div class="col-md-6 firstnam">
 										<input type="text" name="lastName" onkeydown="removeBorder(this.id)" class="form-control onlyCharacters" id="lastName" placeholder="Last Name">
-									</div>
+									</div></div>
 									<div class="clearfix"></div>
 								</div>
 							</div>
@@ -1719,7 +1781,7 @@ Benzcircle Vijayawada</li>
 					<div class="col-md-4 footer-grids">
 					
 						 <h3>Company</h3>
-						<ul>
+						<ul style="margin-inline-start: 34px;">
 							<li><a href="#stayhere">About Us</a></li>
 							<li><a href="#stayhere">Feedback</a></li>  
 							<li><a href="#stayhere">Help</a></li>  
