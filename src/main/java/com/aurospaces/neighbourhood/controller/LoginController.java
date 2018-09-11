@@ -152,7 +152,7 @@ public class LoginController {
 			if (objuserBean != null) {
 				int rolId =objuserBean.getRoleId();
 				if(rolId == 1 ){
-					return "redirect:admin/BodyTypeHome";
+					return "redirect:admin/dashboard";
 				}
 			}else{
 				objuserBean = (UsersBean) session.getAttribute("cacheGuest");
@@ -254,6 +254,40 @@ public class LoginController {
 		return statesMap;
 	}
 	
+	@ModelAttribute("religionList")
+	public Map<String,Integer> homePageReligion(HttpServletRequest request) {
+		Map<String, Integer> statesMap = new LinkedHashMap<String,Integer>();
+		try {
+			String sSql = "select id,name from religion  where status='1' order by name asc";
+			List<EducationBean> list = objUsersDao.populate(sSql);
+			for (EducationBean bean : list) {
+				statesMap.put( bean.getName(),bean.getId());
+				request.setAttribute("religionList", statesMap);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+		}
+		return statesMap;
+	}
+	@ModelAttribute("castList")
+	public Map<String,Integer> homePageCast(HttpServletRequest request) {
+		Map<String,Integer> statesMap = new LinkedHashMap<String,Integer>();
+		try {
+			String sSql = "select id,name from cast  where status='1' order by name asc";
+			List<EducationBean> list = objUsersDao.populate(sSql);
+			for (EducationBean bean : list) {
+				statesMap.put(bean.getName(),bean.getId());
+				request.setAttribute("castList", statesMap);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+		}
+		return statesMap;
+	}
 	@ModelAttribute("cast")
 	public Map<Integer, String> populatecast() {
 		Map<Integer, String> statesMap = new LinkedHashMap<Integer, String>();
@@ -485,11 +519,43 @@ public class LoginController {
 		String sJson = null;
 		JSONObject objJson =new JSONObject();
 		try {
+			
 			 searchList = objUsersDao.getHomeSearchResult(searchCriteriaBean);
+			 if(searchList != null && searchList.size()>0) {
 			 objectMapper = new ObjectMapper();
 				sJson = objectMapper.writeValueAsString(searchList);
 				objJson.put("searchListOrders", searchList);
+			 }else {
+				 objJson.put("searchListOrders", "");
+			 }
+			 
+		} catch (Exception e) {
+	   e.printStackTrace();
+	   System.out.println(e);
+	   logger.error(e);
+	   logger.fatal("error in HomePageController class homePageSearch method");
+	  }
+		return String.valueOf(objJson);
+	 }
+	 
+	 @RequestMapping(value = "/homePageReligionAndCast")
+	 public  @ResponseBody String getHomePageSearchResults1( UsersBean searchCriteriaBean, Model objeModel, HttpServletRequest request, HttpSession session) {
+			List<Map<String,Object>> searchList=null;
+		 ObjectMapper objectMapper = null;
+		String sJson = null;
+		JSONObject objJson =new JSONObject();
+		String inputVal = request.getParameter("list_type");
+		try {
 			
+			 searchList = objUsersDao.getHomeSearchResult1(searchCriteriaBean,inputVal);
+			 if(searchList != null && searchList.size()>0) {
+			 objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(searchList);
+				objJson.put("searchListOrders", searchList);
+			 }else {
+				 objJson.put("searchListOrders", "");
+			 }
+			 
 		} catch (Exception e) {
 	   e.printStackTrace();
 	   System.out.println(e);

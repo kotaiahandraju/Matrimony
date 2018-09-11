@@ -1507,6 +1507,31 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript">
+	var religionList="${religionList}";
+	
+	var hindu='${religionList.Hindu}';
+	var muslim='${religionList.Muslim}';
+	var chiristian='${religionList.Christian}';
+	var jain='${religionList.Jain}';
+	
+	var castList="${castList}";
+	
+	var reddy="${castList.Reddi}";
+	var vaishya ="${castList.Vaishya}";
+    var kamma ="${castList.Kamma}";
+    var kapu ="${castList.Kapu}";
+    var brahmin ="${castList.Brahmin}";
+    var yadav ="${castList.Yadav}";
+    var naidu ="${castList.Naidu}";
+    var christian ="${castList.Christian}";
+    var noorBasha = "${castList.NoorBasha}";
+    var syed ="${castList.Syed}";
+    var shaik ="${castList.Shaik}";
+    var pathan ="${castList.Pathan}";
+	
+	</script>
+	
 	</div><section class="about clearfix" id="about">
 		<!-- Section id-->
 		<div class="container">
@@ -1524,16 +1549,16 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 
 								<table class="table table-bordered table-hover table-condensed">
 									<tbody><tr>
-										<td><a href="#">Hindu<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
+										<td><a href="#" onclick="religionSearch(hindu,'religion');">Hindu<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
 									</tr>
 									<tr>
-										<td><a href="#">Muslim <span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
+										<td><a href="#" onclick="religionSearch(muslim,'religion')";>Muslim <span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
 									</tr>
 									<tr>
-										<td><a href="#">Christian<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
+										<td><a href="#" onclick="religionSearch(chiristian,'religion')";>Christian<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
 									</tr>
 									<tr>
-										<td><a href="#">Jains<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
+										<td><a href="#" onclick="religionSearch(jain,'religion')";>Jains<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
 									</tr>
 								</tbody></table>
 
@@ -1541,16 +1566,16 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 							<div class="col-md-3">
 								<table class="table table-bordered table-hover table-condensed">
 									<tbody><tr>
-										<td><a href="#">Brahmin<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
+										<td><a href="#" onclick="castSearch(reddy,'cast');">Reddy<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
 									</tr>
 									<tr>
-										<td><a href="#">Vasya <span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
+										<td><a href="#" onclick="castSearch(vaishya,'cast');">Vaishya <span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
 									</tr>
 									<tr>
-										<td><a href="#">Kamma<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
+										<td><a href="#" onclick="castSearch(Kamma,'cast');">Kamma<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
 									</tr>
 									<tr>
-										<td><a href="#">Kaapu<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
+										<td><a href="#" onclick="castSearch(kapu,'cast');">Kapu<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
 									</tr>
 								</tbody></table>
 
@@ -1558,16 +1583,16 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 							<div class="col-md-3">
 								<table class="table table-bordered table-hover table-condensed">
 									<tbody><tr>
-										<td><a href="#">Hindu<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
+										<td><a href="#" onclick="castSearch(brahmin,'cast');">Brahmin<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
 									</tr>
 									<tr>
-										<td><a href="#">Muslim <span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
+										<td><a href="#" onclick="castSearch(yadav,'cast');">Yadav <span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
 									</tr>
 									<tr>
-										<td><a href="#">Christian<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
+										<td><a href="#" onclick="castSearch(naidu,'cast');">Naidu<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
 									</tr>
 									<tr>
-										<td><a href="#">Jains<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
+										<td><a href="#" onclick="castSearch(christian,'cast');">Christian<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
 									</tr>
 								</tbody></table>
 
@@ -1575,16 +1600,16 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 							<div class="col-md-3">
 								<table class="table table-bordered table-hover table-condensed">
 									<tbody><tr>
-										<td><a href="#">Hindu<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
+										<td><a href="#" onclick="castSearch(noorBasha,'cast');">NoorBasha<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
 									</tr>
 									<tr>
-										<td><a href="#">Muslim <span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
+										<td><a href="#" onclick="castSearch(syed,'cast');">Syed<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
 									</tr>
 									<tr>
-										<td><a href="#">Christian<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
+										<td><a href="#" onclick="castSearch(shaik,'cast');">Shaik<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
 									</tr>
 									<tr>
-										<td><a href="#">Jains<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
+										<td><a href="#" onclick="castSearch(pathan,'cast');">Pathan<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
 									</tr>
 								</tbody></table>
 
@@ -1848,7 +1873,7 @@ Follow us on : 	<a href="#stayhere"><img src="nimages/fb.png" style="height:30px
  	changeYear : true,
 //  	maxDate :0,
  	yearRange: "-50:-18",
-//  	 defaultDate: '-50'
+//  	 defaultDate: '01-01-1970'
  }); 
   window.setTimeout(function() {
 	    $(".msgcss").fadeTo(500, 0).slideUp(500, function(){
@@ -2259,6 +2284,42 @@ $('img').bind('contextmenu', function(e) {
     		
     	});
     }
+    
+    function religionSearch(id,name){
+    	var religion= id;
+    	var name=name;
+    		var formData = new FormData();
+    		formData.append("religionId",religion);
+    		formData.append("list_type",name);
+    	$.fn.makeMultipartRequest('POST', 'homePageReligionAndCast', false,
+    			formData, false, 'text', function(data){
+    		var jsonobj = $.parseJSON(data);
+    		var alldata = jsonobj.searchListOrders;
+    		$("#searchResults").html('');
+    		displaydata(alldata);
+    		$('#myModal').modal('show');
+    	});
+    		
+    }
+    
+    function castSearch(id,name){
+    	var castId= id;
+    	var name=name;
+    		var formData = new FormData();
+    		formData.append("castId",castId);
+		    formData.append("list_type",name);
+    	$.fn.makeMultipartRequest('POST', 'homePageReligionAndCast', false,
+    			formData, false, 'text', function(data){
+    		var jsonobj = $.parseJSON(data);
+    		var alldata = jsonobj.searchListOrders;
+    		$("#searchResults").html('');
+    		displaydata(alldata);
+    		$('#myModal').modal('show');
+    	});
+    		
+    } 
+    
+    
     function searchSubmit(){
     	var rPeople= $('#rPeople').val();
     	var rAgeFrom= $('#rAgeFrom').val();

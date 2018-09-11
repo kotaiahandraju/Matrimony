@@ -3714,33 +3714,21 @@ public class UsersDao extends BaseUsersDao
 		}
 		return false;
 	}
-public boolean approvePhotoAll(String photoId,String approvedStatus){
+public int approvePhotoAll(String photoIds,String approvedStatus){
 		
 		jdbcTemplate = custom.getJdbcTemplate();
 		String sSql  = null;
 		
 		try {
 			String status = approvedStatus.equals("1")?"1":"2";
-			sSql = "update user_images set approved_status = '"+status+"' where id =  "+photoId;
+			sSql = "update user_images set approved_status = '"+status+"' where find_in_set(id,'"+photoIds+"')>0";
 			
 			int updated_count = jdbcTemplate.update(sSql);
-			if (updated_count == 1) {
-				// set as profile pic if profile pic is not yet set 
-				String picQry = "select count(*) from vuser_images where user_id = (select uimg.user_id from vuser_images uimg where uimg.id = "+photoId+" limit 1) and status = '1' and is_profile_picture = '1'";
-				int profile_pic_count = jdbcTemplate.queryForInt(picQry);
-				if(profile_pic_count==0){
-					picQry = "update user_images set is_profile_picture = '1' where id = "+photoId;
-					int updated = jdbcTemplate.update(picQry);
-				}
-				return true;
-			}
+			return updated_count;	
 		} catch (Exception e) {
 			e.printStackTrace();
-			return false;
-		} finally {
-
+			return 0;
 		}
-		return false;
 	}
 public boolean deletePhoto(String photoId){
 		
@@ -4559,18 +4547,51 @@ public boolean deletePhoto(String photoId){
 				+" occ.name as Proffession "
 				+" from users u,"
 				+ "userrequirement ur,cast c,city ct,religion rl,education ed, occupation occ "
-				+ " where u.gender='"+searchCriteriaBean.getGender()+"'  and u.id=ur.userId and c.id=ur.rCaste and occ.id=u.occupation "
+				+ " where u.id=ur.userId and c.id=ur.rCaste and occ.id=u.occupation "
 				+ "and ur.rReligion=rl.id And ct.id=u.currentCity  and ed.id=u.education ");
-		if(StringUtils.isNotEmpty(searchCriteriaBean.getrAgeFrom()) && StringUtils.isNotEmpty(searchCriteriaBean.getrAgeTo())) {
+		if(StringUtils.isNotBlank(searchCriteriaBean.getGender())) {
+			buffer.append(" and   u.gender = '"+searchCriteriaBean.getGender()+"'"); 
+		}
+		if(StringUtils.isNotBlank(searchCriteriaBean.getrAgeFrom()) && StringUtils.isNotBlank(searchCriteriaBean.getrAgeTo())) {
 			buffer.append( " and cast(floor((datediff(current_date(),u.dob))/365) as decimal(10,2)) >= "+searchCriteriaBean.getrAgeFrom()+" ");
 			buffer.append( " and cast(floor((datediff(current_date(),u.dob))/365) as decimal(10,2)) <= "+searchCriteriaBean.getrAgeTo()+" ");
 //			buffer.append(" and   ur.rAgeFrom='"+searchCriteriaBean.getrAgeFrom()+"' and ur.rAgeTo='"+searchCriteriaBean.getrAgeTo()+"'"); 
 		}
-		if(StringUtils.isNotEmpty(searchCriteriaBean.getReligionId())) {
+		if(StringUtils.isNotBlank(searchCriteriaBean.getReligionId())) {
 			buffer.append(" and   ur.rReligion='"+searchCriteriaBean.getReligionId()+"'"); 
 		}
-		if(StringUtils.isNotEmpty(searchCriteriaBean.getCastId())) {
+		if(StringUtils.isNotBlank(searchCriteriaBean.getCastId())) {
 			buffer.append(" and ur.rCaste='"+searchCriteriaBean.getCastId()+"'"); 
+		}
+		buffer.append(" and u.status = '1' and u.role_id not in ('1') group by u.id order by u.package_id desc limit 20");
+		String sql =buffer.toString();
+		//System.out.println("-----sql----"+sql);
+		List<Map<String, Object>> searchList = jdbcTemplate.queryForList(sql);
+		return searchList;
+		
+	
+	}
+	
+	public List<Map<String, Object>> getHomeSearchResult1( UsersBean searchCriteriaBean,String list_type){
+
+		jdbcTemplate = custom.getJdbcTemplate();
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("select u.id ,u.gender,ur.rAgeFrom,ur.rAgeTo,u.firstName,u.lastName,u.aboutMyself as About,u.createProfileFor,c.name as castName,"
+				+ "ct.name as cityName,rl.name as religionName,ed.name as Education,u.occupation as Proffession, u.annualIncome as Income, "
+				+" floor((datediff(current_date(),u.dob))/365) as age, "
+				+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and  uimg.status = '1' and uimg.is_profile_picture='1') as profileImage, "
+				+" occ.name as Proffession "
+				+" from users u,"
+				+ "userrequirement ur,cast c,city ct,religion rl,education ed, occupation occ "
+				+ " where u.id=ur.userId and c.id=ur.rCaste and occ.id=u.occupation "
+				+ "and ur.rReligion=rl.id And ct.id=u.currentCity  and ed.id=u.education ");
+		if(list_type.equals("religion")) {
+//			buffer.append (ur.rReligion = searchCriteriaBean.getReligionId() );
+			buffer.append("and ur.rReligion='"+searchCriteriaBean.getReligionId()+"'"); 
+		}
+		if(list_type.equals("cast")) {
+//			buffer.append (ur.rReligion = searchCriteriaBean.getReligionId() );
+			buffer.append("and ur.rCaste='"+searchCriteriaBean.getCastId()+"'"); 
 		}
 		buffer.append(" and u.status = '1' and u.role_id not in ('1') group by u.id order by u.package_id desc limit 20");
 		String sql =buffer.toString();
