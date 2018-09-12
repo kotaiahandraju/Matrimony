@@ -381,7 +381,7 @@ height: auto;
 }
 .agile-assisted-service p {
     font-size: 20px;
-    color: #e0e0e0;
+    color: #fff;
     letter-spacing: 1px;
     font-weight: 300;
     margin: 0 auto 50px;
@@ -485,7 +485,7 @@ video {
 }
 .agile-assisted-service p {
     font-size: 13px;
-    color: #e0e0e0;
+    color: #fff;
     letter-spacing: 1px;
     font-weight: 300;
     margin: 0 auto 50px;
@@ -2369,6 +2369,9 @@ $('img').bind('contextmenu', function(e) {
     /* $(".multiselect").click(function(){
     	$(".dropdown-content").css("display", 'block');
     }); */
+    $(".navbar-toggle").click(function(e){
+    	  $(this).toggleClass("open");
+    	});
     </script>
 </body>
 
