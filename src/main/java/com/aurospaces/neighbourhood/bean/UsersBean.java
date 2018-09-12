@@ -113,9 +113,29 @@ protected String membership_status;
 protected String unique_code,emailverify,profileVerifyedBy;
 protected String rEducationName,rOccupationName,rCountryName,rStateName,rHeightInches,rHeightToInches,religionId,castId;
 protected int message_sent_status;
-protected String  rCity,rCityName; 
+protected String  rCity,rCityName,country,state ,city; 
+
+public String getCity() {
+	return city;
+}
+public void setCity(String city) {
+	this.city = city;
+}
+public String getState() {
+	return state;
+}
+public void setState(String state) {
+	this.state = state;
+}
 protected int shortlisted;
 
+
+public String getCountry() {
+	return country;
+}
+public void setCountry(String country) {
+	this.country = country;
+}
 public String getrCityName() {
 	return rCityName;
 }
@@ -172,7 +192,74 @@ public String toString() {
 			+ rOccupationName + ", rCountryName=" + rCountryName + ", rStateName=" + rStateName + ", rHeightInches="
 			+ rHeightInches + ", rHeightToInches=" + rHeightToInches + ", religionId=" + religionId + ", castId="
 			+ castId + ", message_sent_status=" + message_sent_status + ", rCity=" + rCity + ", rCityName=" + rCityName
-			+ ", shortlisted=" + shortlisted + "]";
+			+ ", country=" + country + ", state=" + state + ", city=" + city + ", shortlisted=" + shortlisted
+			+ ", getRegPassword()=" + getRegPassword() + ", getCity()=" + getCity() + ", getState()=" + getState()
+			+ ", getCountry()=" + getCountry() + ", getrCityName()=" + getrCityName() + ", getCastId()=" + getCastId()
+			+ ", getReligionId()=" + getReligionId() + ", getProfileVerifyedBy()=" + getProfileVerifyedBy()
+			+ ", getEmailverify()=" + getEmailverify() + ", getRhaveChildren()=" + getRhaveChildren()
+			+ ", getFatherName()=" + getFatherName() + ", getMotherName()=" + getMotherName() + ", getfOccupation()="
+			+ getfOccupation() + ", getmOccupation()=" + getmOccupation() + ", getNoOfBrothers()=" + getNoOfBrothers()
+			+ ", getNoOfSisters()=" + getNoOfSisters() + ", getNoOfBrothersMarried()=" + getNoOfBrothersMarried()
+			+ ", getNoOfSistersMarried()=" + getNoOfSistersMarried() + ", getUserrequirementId()="
+			+ getUserrequirementId() + ", getrAgeFrom()=" + getrAgeFrom() + ", getrAgeTo()=" + getrAgeTo()
+			+ ", getrHeight()=" + getrHeight() + ", getrMaritalStatus()=" + getrMaritalStatus() + ", getrReligion()="
+			+ getrReligion() + ", getrCaste()=" + getrCaste() + ", getrMotherTongue()=" + getrMotherTongue()
+			+ ", getHaveChildren()=" + getHaveChildren() + ", getrCountry()=" + getrCountry() + ", getrState()="
+			+ getrState() + ", getrEducation()=" + getrEducation() + ", getrWorkingWith()=" + getrWorkingWith()
+			+ ", getrOccupation()=" + getrOccupation() + ", getrAnnualIncome()=" + getrAnnualIncome()
+			+ ", getrCreateProfileFor()=" + getrCreateProfileFor() + ", getrDiet()=" + getrDiet() + ", getOccupation()="
+			+ getOccupation() + ", getStatusName()=" + getStatusName() + ", getBranch()=" + getBranch()
+			+ ", getRegisterwith()=" + getRegisterwith() + ", getPageName()=" + getPageName() + ", getUserId()="
+			+ getUserId() + ", getDob1()=" + getDob1() + ", getLast_ip()=" + getLast_ip() + ", getId()=" + getId()
+			+ ", getCreatedTime()=" + getCreatedTime() + ", getUpdatedTime()=" + getUpdatedTime() + ", getRoleId()="
+			+ getRoleId() + ", getUsername()=" + getUsername() + ", getPassword()=" + getPassword() + ", getEmail()="
+			+ getEmail() + ", getCreateProfileFor()=" + getCreateProfileFor() + ", getGender()=" + getGender()
+			+ ", getFirstName()=" + getFirstName() + ", getLastName()=" + getLastName() + ", getDob()=" + getDob()
+			+ ", getReligion()=" + getReligion() + ", getMotherTongue()=" + getMotherTongue() + ", getCurrentCountry()="
+			+ getCurrentCountry() + ", getCurrentState()=" + getCurrentState() + ", getCurrentCity()="
+			+ getCurrentCity() + ", getMaritalStatus()=" + getMaritalStatus() + ", getCaste()=" + getCaste()
+			+ ", getGotram()=" + getGotram() + ", getStar()=" + getStar() + ", getDosam()=" + getDosam()
+			+ ", getDosamName()=" + getDosamName() + ", getEducation()=" + getEducation() + ", getWorkingWith()="
+			+ getWorkingWith() + ", getCompanyName()=" + getCompanyName() + ", getAnnualIncome()=" + getAnnualIncome()
+			+ ", getMonthlyIncome()=" + getMonthlyIncome() + ", getDiet()=" + getDiet() + ", getSmoking()="
+			+ getSmoking() + ", getDrinking()=" + getDrinking() + ", getHeight()=" + getHeight() + ", getBodyType()="
+			+ getBodyType() + ", getComplexion()=" + getComplexion() + ", getMobile()=" + getMobile()
+			+ ", getAboutMyself()=" + getAboutMyself() + ", getDisability()=" + getDisability() + ", getStatus()="
+			+ getStatus() + ", getShowall()=" + getShowall() + ", getReTypedPassword()=" + getReTypedPassword()
+			+ ", getExpressedInterest()=" + getExpressedInterest() + ", getImage()=" + getImage()
+			+ ", getProfileImage()=" + getProfileImage() + ", getAge()=" + getAge() + ", getrHeightTo()="
+			+ getrHeightTo() + ", getHeightName()=" + getHeightName() + ", getCasteName()=" + getCasteName()
+			+ ", getReligionName()=" + getReligionName() + ", getEducationName()=" + getEducationName()
+			+ ", getOccupationName()=" + getOccupationName() + ", getCurrentCityName()=" + getCurrentCityName()
+			+ ", getPaymentObject()=" + getPaymentObject() + ", getPackageId()=" + getPackageId()
+			+ ", getRedirectPage()=" + getRedirectPage() + ", getSentInterestCount()=" + getSentInterestCount()
+			+ ", getReceivedInterestCount()=" + getReceivedInterestCount() + ", getAcceptedInterestCount()="
+			+ getAcceptedInterestCount() + ", isForEmail()=" + isForEmail() + ", getCurrentStateName()="
+			+ getCurrentStateName() + ", getCurrentCountryName()=" + getCurrentCountryName()
+			+ ", getMotherTongueName()=" + getMotherTongueName() + ", getStarName()=" + getStarName()
+			+ ", getHeightInches()=" + getHeightInches() + ", getComplexionName()=" + getComplexionName()
+			+ ", getBodyTypeName()=" + getBodyTypeName() + ", getPage_no()=" + getPage_no() + ", getTotal_records()="
+			+ getTotal_records() + ", getProfileViewedCount()=" + getProfileViewedCount()
+			+ ", getRejectedInterestCount()=" + getRejectedInterestCount() + ", getProfilesViewedByMeCount()="
+			+ getProfilesViewedByMeCount() + ", getMobileNumViewedCount()=" + getMobileNumViewedCount()
+			+ ", getMobileNumViewedByMeCount()=" + getMobileNumViewedByMeCount() + ", getCreatedTimeAsString()="
+			+ getCreatedTimeAsString() + ", getOtpLimit()=" + getOtpLimit() + ", getCountry_ids()=" + getCountry_ids()
+			+ ", getState_ids()=" + getState_ids() + ", getLast_login_time()=" + getLast_login_time()
+			+ ", getPendingRequestsCount()=" + getPendingRequestsCount() + ", getYetToBeViewedCount()="
+			+ getYetToBeViewedCount() + ", getViewedNotContactedCount()=" + getViewedNotContactedCount()
+			+ ", getWeight()=" + getWeight() + ", getfOccupationName()=" + getfOccupationName()
+			+ ", getmOccupationName()=" + getmOccupationName() + ", getOtpStatus()=" + getOtpStatus()
+			+ ", getShortListedCount()=" + getShortListedCount() + ", getMail_content()=" + getMail_content()
+			+ ", getrReligionName()=" + getrReligionName() + ", getrCasteName()=" + getrCasteName()
+			+ ", getrDietName()=" + getrDietName() + ", getrMotherTongueName()=" + getrMotherTongueName()
+			+ ", getrMaritalStatusName()=" + getrMaritalStatusName() + ", getMobileNumViewed()=" + getMobileNumViewed()
+			+ ", getAwaitingInterestCount()=" + getAwaitingInterestCount() + ", getUnique_code()=" + getUnique_code()
+			+ ", getMembership_status()=" + getMembership_status() + ", getrEducationName()=" + getrEducationName()
+			+ ", getrOccupationName()=" + getrOccupationName() + ", getrCountryName()=" + getrCountryName()
+			+ ", getrStateName()=" + getrStateName() + ", getrHeightInches()=" + getrHeightInches()
+			+ ", getrHeightToInches()=" + getrHeightToInches() + ", getMessage_sent_status()="
+			+ getMessage_sent_status() + ", getrCity()=" + getrCity() + ", getShortlisted()=" + getShortlisted()
+			+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 }
 public String getCastId() {
 	return castId;

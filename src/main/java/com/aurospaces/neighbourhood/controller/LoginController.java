@@ -966,4 +966,30 @@ public class LoginController {
 	   }
 	   */
 	   /*****     back-end jobs   end        ********/
+	   
+//Home Page footer links
+		@RequestMapping(value="/privacyAndPolicyHomePage")
+		public String privacyAndPolicyData() {
+			
+			return "privacyAndPolicyHomePage";
+		}
+
+		@RequestMapping(value="/termsConditionsHomepage")
+		public String termsConditionsData() {
+			
+			return "termsConditionsHomepage";
+		}
+		
+		@RequestMapping(value="/aboutUsHomePage")
+		public String aboutUsData() {
+			
+			return "aboutUsHomePage";
+		}
+
+		@RequestMapping(value="/helpHomePage")
+		public String help() {
+			
+			return "helpHomePage";
+		}
+	   
 }

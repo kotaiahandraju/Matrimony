@@ -2308,7 +2308,7 @@ height:350px;
 
 @media screen and (max-width:1024px)
 {
-	#recent-profile .col-md-2 {width: 31.33%;margin: 10px 1% !important;float: left !important;}
+	#recent-profile .col-md-2 {/* width: 31.33%; */margin: 10px 1% !important;float: left !important;}
 }
 
 @media screen and (max-width:800px)

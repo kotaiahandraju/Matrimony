@@ -1155,7 +1155,7 @@ public class HomePageController {
 		try {
 			
 			UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
-			
+			request.setAttribute("sessionBeanList", sessionBean);
 				String sender_username = request.getParameter("un");
 				String profile_username = request.getParameter("pun");
 				String sender_unique_code = request.getParameter("suc");

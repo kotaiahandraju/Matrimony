@@ -381,7 +381,7 @@ height: auto;
 }
 .agile-assisted-service p {
     font-size: 20px;
-    color: #e0e0e0;
+    color: #fff;
     letter-spacing: 1px;
     font-weight: 300;
     margin: 0 auto 50px;
@@ -485,7 +485,7 @@ video {
 }
 .agile-assisted-service p {
     font-size: 13px;
-    color: #e0e0e0;
+    color: #fff;
     letter-spacing: 1px;
     font-weight: 300;
     margin: 0 auto 50px;
@@ -1738,21 +1738,16 @@ Benzcircle Vijayawada</li>
 				<div class="col-md-4 footer-grids">
 						<h3>Quick links</h3>
 						<ul>
-							<li><a href="#stayhere">Terms of use</a></li>
-							<li><a href="#stayhere">Privacy Policy</a></li>
-							<li><a href="#stayhere">Contact Us</a></li>
-							<li><a href="#stayhere">FAQ</a></li>
-							<li><a href="#stayhere">Sitemap</a></li>
+							<li><a href="termsConditionsHomepage">Terms of use</a></li>
+							<li><a href="privacyAndPolicyHomePage">Privacy Policy</a></li>
+							<li><a href="helpHomePage">Help</a></li>
 						</ul> 					</div>
 					<div class="col-md-4 footer-grids">
 					
 						 <h3>Company</h3>
 						<ul style="margin-inline-start: 34px;">
-							<li><a href="#stayhere">About Us</a></li>
-							<li><a href="#stayhere">Feedback</a></li>  
-							<li><a href="#stayhere">Help</a></li>  
-							<li><a href="#stayhere">Register Free</a></li>
-							<li><a href="#stayhere">Payment Options</a></li>
+							<li><a href="aboutUsHomePage">About Us</a></li>
+							<li><a href="#">Register Free</a></li>
 						</ul>
 					</div>
 					<div class="col-md-4 footer-grids">
@@ -2340,6 +2335,9 @@ $('img').bind('contextmenu', function(e) {
     /* $(".multiselect").click(function(){
     	$(".dropdown-content").css("display", 'block');
     }); */
+    $(".navbar-toggle").click(function(e){
+    	  $(this).toggleClass("open");
+    	});
     </script>
 </body>
 

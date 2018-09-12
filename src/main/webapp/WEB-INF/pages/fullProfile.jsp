@@ -810,14 +810,32 @@ xpopup
 </c:if>
 <br>
 		<h4   style="padding: 10px;"></h4><h3>Partner Preferences</h3><hr>
-<div class="panel panel-success">
+<div class="panel " style="border:none;">
 
 			<div class="panel-body table-responsive">
 			
-			<div class="col-md-12">	<strong class="font">Basic & Religion Preferences</strong>
+			<div class="col-md-12">	
+			<div style="width:700px; margin:0px auto 25px auto;">
+			<div class="col-md-2">
+				<div class="txt-center mediumtxt1">You</div>
+				<div class="fleft" style="border-radius:50%; border:1px solid #d6d6d6; width:98px; height:98px;"><img src="../nimages/mic.jpg" width="98" height="98" border="0" alt="" style="border-radius:50%;"></div>
+			</div>
+			<div class="col-md-4" style="width:390px; margin:55px 20px 0px 20px;">
+				
+				<div class="fleft"><div class="hdtxt paddl5 paddr5 txt-center" style="width:382px;">----- Your profile matches 19  / 21 of Sruthi's preferences -----</div></div>
+				
+			</div>
+			<div class="col-md-2">
+				<div class="txt-center mediumtxt1">Her</div>
+				
+				<div style="border-radius:50%; border:1px solid #d6d6d6; width:98px; height:98px;" id="imgsroundpp"><img src="../nimages/pre.jpg" width="98" height="98" border="0" alt="" style="border-radius:50%;"></div>
+			</div>
+			
+			<div class="clearfix"><!--  --></div>
+		</div><strong class="font">Basic & Religion Preferences</strong>
 				
 	<div id="partner_basic_view" class="all_visible_divs">
-	<table class="col-md-6 table-responsive">
+	<table class="col-md-12 table-responsive">
 		<tr><td>
 				<c:if test="${profileBean.gender == 'Female'}">Groom</c:if>
 				<c:if test="${profileBean.gender == 'Male'}">Bride</c:if>
@@ -827,7 +845,8 @@ xpopup
 				<c:if test="${not empty profileBean.rAgeFrom}">${profileBean.rAgeFrom} - ${profileBean.rAgeTo} Years</c:if>
 				<c:if test="${empty profileBean.rAgeFrom}">Not Specified</c:if>
 			</td>
-			
+			<td></td>
+			<td align="right" style="padding-right:20px">---- <img src="../nimages/Yes.png"/> ----</td>
 		</tr>
 		<tr><td>Marital Status</td><td>:</td>
 			<td id="rMaritalStatus_val">
@@ -839,6 +858,8 @@ xpopup
 				<c:if test="${not empty profileBean.casteName}">${profileBean.casteName}</c:if>
 				<c:if test="${empty profileBean.casteName}">Not Specified</c:if>
 			</td> --%>
+			<td></td>
+			<td align="right" style="padding-right:20px">---- <img src="../nimages/Yes.png"/> ----</td>
 			
 		</tr>
 		<tr>
@@ -859,6 +880,8 @@ xpopup
 				<c:if test="${not empty profileBean.rReligionName}">${profileBean.rReligionName}</c:if>
 				<c:if test="${empty profileBean.rReligionName}">Not Specified</c:if>
 			</td>
+			<td></td>
+			<td align="right" style="padding-right:20px">---- <img src="../nimages/Yes.png"/> ----</td>
 			
 		</tr>
 		<tr>
@@ -867,6 +890,9 @@ xpopup
 				<c:if test="${not empty profileBean.rCasteName}">${profileBean.rCasteName}</c:if>
 				<c:if test="${empty profileBean.rCasteName}">Not Specified</c:if>
 			</td>
+			<td></td>
+			<td align="right" style="padding-right:20px">---- <img src="../nimages/Yes.png"/> ----</td>
+			
 		</tr>
 		<%-- <tr>
 			<td>Star</td><td>:</td>
@@ -877,19 +903,25 @@ xpopup
 			
 		</tr> --%>
 	</table>
-	<table class="col-md-6">
+	<table class="col-md-12">
 	<tr> 
 	<td>Height</td><td>:</td>
 			<td>
 				<span id="rHeight_val"><c:if test="${not empty profileBean.rHeightInches}">${profileBean.rHeightInches} - </c:if></span> <span id="rHeightTo_val"><c:if test="${not empty profileBean.rHeightInches}">${profileBean.rHeightToInches}</c:if></span>
 				<span id="rHeight_outer_val"><c:if test="${empty profileBean.rHeightInches}">Not Specified</c:if></span>
-			</td></tr>
+			</td>
+			<td></td>
+			<td align="right" style="padding-right:20px">---- <img src="../nimages/Yes.png"/> ----</td>
+			</tr>
 			<tr>
 			<td>Eating Habits</td><td>:</td>
 			<td id="rDiet_val">
 				<c:if test="${not empty profileBean.rDietName}">${profileBean.rDietName}</c:if>
 				<c:if test="${empty profileBean.rDietName}">Not Specified</c:if>
 			</td>
+			<td></td>
+			<td align="right" style="padding-right:20px">---- <img src="../nimages/Yes.png"/> ----</td>
+			
 			</tr>
 			<tr>
 			<td>Mothertongue</td><td>:</td>
@@ -897,6 +929,9 @@ xpopup
 				<c:if test="${not empty profileBean.rMotherTongueName}">${profileBean.rMotherTongueName}</c:if>
 				<c:if test="${empty profileBean.rMotherTongueName}">Not Specified</c:if>
 			</td>
+			<td></td>
+			<td align="right" style="padding-right:20px">---- <img src="../nimages/Yes.png"/> ----</td>
+			
 			</tr>
 	
 	</table>
@@ -1457,6 +1492,161 @@ function toggleDiv(divElem){
       return true;
   } 
   
-</script>
+ </script> 
+<script type="text/javascript"> 
+ var sessionBeanList="${sessionBeanList}";
+var profileBeanList="${profileBean}";
+
+//session Bean
+var ageFrom="${sessionBeanList.rAgeFrom}";
+var ageTo="${sessionBeanList.rAgeTo}";
+var heightFrom="${sessionBeanList.rHeight}";
+var heightTo="${sessionBeanList.rHeightTo}";
+var rMarrege="${sessionBeanList.rMaritalStatus}";
+var rbodyType="${sessionBeanList.bodyType}";
+var rMotherTongue="${sessionBeanList.rMotherTongue}";
+var rdiet="${sessionBeanList.rDiet}";
+var rsmoking="${sessionBeanList.smoking}";
+var rdrinking="${sessionBeanList.drinking}";
+var rReligion="${sessionBeanList.rReligion}";
+var rCaste="${sessionBeanList.rCaste}";
+var rgotram="${sessionBeanList.gotram}";
+var rstar="${sessionBeanList.star}";
+var rdosam="${sessionBeanList.dosam}";
+var rEducation="${sessionBeanList.rEducation}";
+var rOccupation="${sessionBeanList.rOccupation}";
+var rAnnualIncome="${sessionBeanList.rAnnualIncome}";
+var rWorkingWith="${sessionBeanList.rWorkingWith}";
+var rCountry="${sessionBeanList.rCountry}";
+var rState="${sessionBeanList.rState}";
+var rCity="${sessionBeanList.rCity}"; 
+
+//profileBean
+var age="${profileBean.age}";
+var height="${profileBean.heightInches}";
+var marrege="${profileBean.maritalStatus}";
+var bodyType="${profileBean.bodyType}";
+var motherTongue="${sessionBeanList.motherTongue}";
+var diet="${profileBean.diet}";
+var smoking="${profileBean.smoking}";
+var drinking="${profileBean.drinking}";
+var religion="${profileBean.religion}";
+var caste="${profileBean.caste}";
+var gotram="${profileBean.gotram}";
+var star="${profileBean.star}";
+var dosam="${profileBean.dosam}";
+var education="${profileBean.education}";
+var occupation="${profileBean.occupation}";
+var annualIncome="${profileBean.annualIncome}";
+var workingWith="${profileBean.workingWith}";
+var country="${profileBean.country}";
+var state="${profileBean.state}";
+var city="${profileBean.city}"; 
+
+
+/* if((age >= ageFrom)&&(age<=ageTo)){
+alert("sucess age");
+ }else
+{
+alert("No succes age");	 
+ } 
+if((height >= heightFrom) && (height <= heightTo)){
+alert("sucess Height");
+}else{
+	alert("No success height");
+}
+ if(rMarrege == marrege){
+	 alert("success Marrege");
+ }else{
+	 alert("No sucess Marrege");
+ }
+ if(rbodyType == bodyType){
+	 alert("sucess body Type");
+ }else{
+	 alert("no sucess body Type");
+ }
+ if(rMotherTongue == motherTongue){
+	 alert("sucess MotherTongue");
+ }else{
+	 alert("no sucess MotherTongue");
+ }
+ if(rdiet == diet){
+	 alert("sucess diet");
+ }else{
+	 alert("no sucess diet");
+ }
+ if(rsmoking == smoking){
+	 alert("sucess smoking");
+ }else{
+	 alert("no sucess smoking");
+ }
+ if(rdrinking == drinking){
+	 alert("sucess drinking");
+ }else{
+	 alert("no sucess drinking");
+ }
+ if(rReligion == religion){
+	 alert("sucess Religion");
+ }else{
+	 alert("no sucess Religion");
+ }
+ if(rCaste == caste){
+	 alert("sucess Caste");
+ }else{
+	 alert("no sucess Caste");
+ }
+ if(rgotram == gotram){
+	 alert("sucess gotram");
+ }else{
+	 alert("no sucess gotram");
+ }
+ if(rstar == star){
+	 alert("sucess star");
+ }else{
+	 alert("no sucess star");
+ }
+ if(rdosam == dosam){
+	 alert("sucess dosam");
+ }else{
+	 alert("no sucess dosam");
+ }
+ if(rEducation == education){
+	 alert("sucess Education");
+ }else{
+	 alert("no sucess Education");
+ }
+ if(rOccupation == occupation){
+	 alert("sucess Occupation");
+ }else{
+	 alert("no sucess Occupation");
+ }
+ if(rAnnualIncome == annualIncome){
+	 alert("sucess AnnualIncome");
+ }else{
+	 alert("no sucess AnnualIncome");
+ }
+ if(rWorkingWith == workingWith){
+	 alert("sucess WorkingWith");
+ }else{
+	 alert("no sucess WorkingWith");
+ }
+ if(rCountry == country){
+	 alert("sucess Country");
+ }else{
+	 alert("no sucess Country");
+ }
+ if(rState == state){
+	 alert("sucess rState");
+ }else{
+	 alert("no sucess rState");
+ }
+ if(rCity == city){
+	 alert("sucess rCity");
+ }else{
+	 alert("no sucess rCity");
+ } */
+</script> 
+
+
 
 <%@ include file="userFooter.jsp"%>
