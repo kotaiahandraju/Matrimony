@@ -1492,6 +1492,161 @@ function toggleDiv(divElem){
       return true;
   } 
   
-</script>
+ </script> 
+<script type="text/javascript"> 
+ var sessionBeanList="${sessionBeanList}";
+var profileBeanList="${profileBean}";
+
+//session Bean
+var ageFrom="${sessionBeanList.rAgeFrom}";
+var ageTo="${sessionBeanList.rAgeTo}";
+var heightFrom="${sessionBeanList.rHeight}";
+var heightTo="${sessionBeanList.rHeightTo}";
+var rMarrege="${sessionBeanList.rMaritalStatus}";
+var rbodyType="${sessionBeanList.bodyType}";
+var rMotherTongue="${sessionBeanList.rMotherTongue}";
+var rdiet="${sessionBeanList.rDiet}";
+var rsmoking="${sessionBeanList.smoking}";
+var rdrinking="${sessionBeanList.drinking}";
+var rReligion="${sessionBeanList.rReligion}";
+var rCaste="${sessionBeanList.rCaste}";
+var rgotram="${sessionBeanList.gotram}";
+var rstar="${sessionBeanList.star}";
+var rdosam="${sessionBeanList.dosam}";
+var rEducation="${sessionBeanList.rEducation}";
+var rOccupation="${sessionBeanList.rOccupation}";
+var rAnnualIncome="${sessionBeanList.rAnnualIncome}";
+var rWorkingWith="${sessionBeanList.rWorkingWith}";
+var rCountry="${sessionBeanList.rCountry}";
+var rState="${sessionBeanList.rState}";
+var rCity="${sessionBeanList.rCity}"; 
+
+//profileBean
+var age="${profileBean.age}";
+var height="${profileBean.heightInches}";
+var marrege="${profileBean.maritalStatus}";
+var bodyType="${profileBean.bodyType}";
+var motherTongue="${sessionBeanList.motherTongue}";
+var diet="${profileBean.diet}";
+var smoking="${profileBean.smoking}";
+var drinking="${profileBean.drinking}";
+var religion="${profileBean.religion}";
+var caste="${profileBean.caste}";
+var gotram="${profileBean.gotram}";
+var star="${profileBean.star}";
+var dosam="${profileBean.dosam}";
+var education="${profileBean.education}";
+var occupation="${profileBean.occupation}";
+var annualIncome="${profileBean.annualIncome}";
+var workingWith="${profileBean.workingWith}";
+var country="${profileBean.country}";
+var state="${profileBean.state}";
+var city="${profileBean.city}"; 
+
+
+/* if((age >= ageFrom)&&(age<=ageTo)){
+alert("sucess age");
+ }else
+{
+alert("No succes age");	 
+ } 
+if((height >= heightFrom) && (height <= heightTo)){
+alert("sucess Height");
+}else{
+	alert("No success height");
+}
+ if(rMarrege == marrege){
+	 alert("success Marrege");
+ }else{
+	 alert("No sucess Marrege");
+ }
+ if(rbodyType == bodyType){
+	 alert("sucess body Type");
+ }else{
+	 alert("no sucess body Type");
+ }
+ if(rMotherTongue == motherTongue){
+	 alert("sucess MotherTongue");
+ }else{
+	 alert("no sucess MotherTongue");
+ }
+ if(rdiet == diet){
+	 alert("sucess diet");
+ }else{
+	 alert("no sucess diet");
+ }
+ if(rsmoking == smoking){
+	 alert("sucess smoking");
+ }else{
+	 alert("no sucess smoking");
+ }
+ if(rdrinking == drinking){
+	 alert("sucess drinking");
+ }else{
+	 alert("no sucess drinking");
+ }
+ if(rReligion == religion){
+	 alert("sucess Religion");
+ }else{
+	 alert("no sucess Religion");
+ }
+ if(rCaste == caste){
+	 alert("sucess Caste");
+ }else{
+	 alert("no sucess Caste");
+ }
+ if(rgotram == gotram){
+	 alert("sucess gotram");
+ }else{
+	 alert("no sucess gotram");
+ }
+ if(rstar == star){
+	 alert("sucess star");
+ }else{
+	 alert("no sucess star");
+ }
+ if(rdosam == dosam){
+	 alert("sucess dosam");
+ }else{
+	 alert("no sucess dosam");
+ }
+ if(rEducation == education){
+	 alert("sucess Education");
+ }else{
+	 alert("no sucess Education");
+ }
+ if(rOccupation == occupation){
+	 alert("sucess Occupation");
+ }else{
+	 alert("no sucess Occupation");
+ }
+ if(rAnnualIncome == annualIncome){
+	 alert("sucess AnnualIncome");
+ }else{
+	 alert("no sucess AnnualIncome");
+ }
+ if(rWorkingWith == workingWith){
+	 alert("sucess WorkingWith");
+ }else{
+	 alert("no sucess WorkingWith");
+ }
+ if(rCountry == country){
+	 alert("sucess Country");
+ }else{
+	 alert("no sucess Country");
+ }
+ if(rState == state){
+	 alert("sucess rState");
+ }else{
+	 alert("no sucess rState");
+ }
+ if(rCity == city){
+	 alert("sucess rCity");
+ }else{
+	 alert("no sucess rCity");
+ } */
+</script> 
+
+
 
 <%@ include file="userFooter.jsp"%>
