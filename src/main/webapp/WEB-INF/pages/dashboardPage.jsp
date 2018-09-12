@@ -490,11 +490,11 @@ padding-right:0px;
 	<div class="panel " style="width: 250px;">
 <div class="panel-heading"><b>Search</b></div>
         <div class="panel-body table-responsive">
-            <h4> I am Looking for</h4>
+            <!-- <h4> I am Looking for</h4>
             <select  style="margin-bottom:5px;" id="rPeople" class="custom-select col-md-12 form-control">
 								<option value="FeMale" id="id1">Bride</option>
 								<option value="Male" id="id2">Groom</option>
-							</select>
+							</select> -->
 							<h4>Aged  </h4>   
 <span>From </span> <select id="rAgeFrom" name="rAgeFrom"   class="for-control"  style="width:60px;">
 						            <option value="18">18</option>

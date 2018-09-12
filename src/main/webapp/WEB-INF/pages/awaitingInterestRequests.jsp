@@ -35,6 +35,7 @@
 			}); */
 		</script>
 		<style>
+		
 			/** Start: to style navigation tab **/
 			.nav {
 			  margin-left: 0;
@@ -138,7 +139,7 @@ margin-right:5px;
 							</li>
 							
 							<li class="dropdown pull-right" >
-    <button class="btn btn-default dropdown-toggle" id="menu1" type="button" data-toggle="dropdown"> All Communications &nbsp;
+    <button class="btn  dropdown-toggle" id="menu1" type="button" data-toggle="dropdown"> All Communications &nbsp;
     <span class="caret"> </span></button>
     <ul class="dropdown-menu allcommunicationli" role="menu" aria-labelledby="menu1">
     <div class="done_by_divs" id="accepted_by_div" hidden="true">
