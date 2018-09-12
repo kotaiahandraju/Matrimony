@@ -1572,7 +1572,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 										<td><a href="#" onclick="castSearch(vaishya,'cast');">Vaishya <span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
 									</tr>
 									<tr>
-										<td><a href="#" onclick="castSearch(Kamma,'cast');">Kamma<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
+										<td><a href="#" onclick="castSearch(kamma,'cast');">Kamma<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
 									</tr>
 									<tr>
 										<td><a href="#" onclick="castSearch(kapu,'cast');">Kapu<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
@@ -1772,21 +1772,16 @@ Benzcircle Vijayawada</li>
 				<div class="col-md-4 footer-grids">
 						<h3>Quick links</h3>
 						<ul>
-							<li><a href="#stayhere">Terms of use</a></li>
-							<li><a href="#stayhere">Privacy Policy</a></li>
-							<li><a href="#stayhere">Contact Us</a></li>
-							<li><a href="#stayhere">FAQ</a></li>
-							<li><a href="#stayhere">Sitemap</a></li>
+							<li><a href="termsConditionsHomepage">Terms of use</a></li>
+							<li><a href="privacyAndPolicyHomePage">Privacy Policy</a></li>
+							<li><a href="helpHomePage">Help</a></li>
 						</ul> 					</div>
 					<div class="col-md-4 footer-grids">
 					
 						 <h3>Company</h3>
 						<ul style="margin-inline-start: 34px;">
-							<li><a href="#stayhere">About Us</a></li>
-							<li><a href="#stayhere">Feedback</a></li>  
-							<li><a href="#stayhere">Help</a></li>  
-							<li><a href="#stayhere">Register Free</a></li>
-							<li><a href="#stayhere">Payment Options</a></li>
+							<li><a href="aboutUsHomePage">About Us</a></li>
+							<li><a href="#">Register Free</a></li>
 						</ul>
 					</div>
 					<div class="col-md-4 footer-grids">
