@@ -810,14 +810,32 @@ xpopup
 </c:if>
 <br>
 		<h4   style="padding: 10px;"></h4><h3>Partner Preferences</h3><hr>
-<div class="panel panel-success">
+<div class="panel " style="border:none;">
 
 			<div class="panel-body table-responsive">
 			
-			<div class="col-md-12">	<strong class="font">Basic & Religion Preferences</strong>
+			<div class="col-md-12">	
+			<div style="width:700px; margin:0px auto 25px auto;">
+			<div class="col-md-2">
+				<div class="txt-center mediumtxt1">You</div>
+				<div class="fleft" style="border-radius:50%; border:1px solid #d6d6d6; width:98px; height:98px;"><img src="../nimages/mic.jpg" width="98" height="98" border="0" alt="" style="border-radius:50%;"></div>
+			</div>
+			<div class="col-md-4" style="width:390px; margin:55px 20px 0px 20px;">
+				
+				<div class="fleft"><div class="hdtxt paddl5 paddr5 txt-center" style="width:382px;">----- Your profile matches 19  / 21 of Sruthi's preferences -----</div></div>
+				
+			</div>
+			<div class="col-md-2">
+				<div class="txt-center mediumtxt1">Her</div>
+				
+				<div style="border-radius:50%; border:1px solid #d6d6d6; width:98px; height:98px;" id="imgsroundpp"><img src="../nimages/pre.jpg" width="98" height="98" border="0" alt="" style="border-radius:50%;"></div>
+			</div>
+			
+			<div class="clearfix"><!--  --></div>
+		</div><strong class="font">Basic & Religion Preferences</strong>
 				
 	<div id="partner_basic_view" class="all_visible_divs">
-	<table class="col-md-6 table-responsive">
+	<table class="col-md-12 table-responsive">
 		<tr><td>
 				<c:if test="${profileBean.gender == 'Female'}">Groom</c:if>
 				<c:if test="${profileBean.gender == 'Male'}">Bride</c:if>
@@ -827,7 +845,8 @@ xpopup
 				<c:if test="${not empty profileBean.rAgeFrom}">${profileBean.rAgeFrom} - ${profileBean.rAgeTo} Years</c:if>
 				<c:if test="${empty profileBean.rAgeFrom}">Not Specified</c:if>
 			</td>
-			
+			<td></td>
+			<td align="right" style="padding-right:20px">---- <img src="../nimages/Yes.png"/> ----</td>
 		</tr>
 		<tr><td>Marital Status</td><td>:</td>
 			<td id="rMaritalStatus_val">
@@ -839,6 +858,8 @@ xpopup
 				<c:if test="${not empty profileBean.casteName}">${profileBean.casteName}</c:if>
 				<c:if test="${empty profileBean.casteName}">Not Specified</c:if>
 			</td> --%>
+			<td></td>
+			<td align="right" style="padding-right:20px">---- <img src="../nimages/Yes.png"/> ----</td>
 			
 		</tr>
 		<tr>
@@ -859,6 +880,8 @@ xpopup
 				<c:if test="${not empty profileBean.rReligionName}">${profileBean.rReligionName}</c:if>
 				<c:if test="${empty profileBean.rReligionName}">Not Specified</c:if>
 			</td>
+			<td></td>
+			<td align="right" style="padding-right:20px">---- <img src="../nimages/Yes.png"/> ----</td>
 			
 		</tr>
 		<tr>
@@ -867,6 +890,9 @@ xpopup
 				<c:if test="${not empty profileBean.rCasteName}">${profileBean.rCasteName}</c:if>
 				<c:if test="${empty profileBean.rCasteName}">Not Specified</c:if>
 			</td>
+			<td></td>
+			<td align="right" style="padding-right:20px">---- <img src="../nimages/Yes.png"/> ----</td>
+			
 		</tr>
 		<%-- <tr>
 			<td>Star</td><td>:</td>
@@ -877,19 +903,25 @@ xpopup
 			
 		</tr> --%>
 	</table>
-	<table class="col-md-6">
+	<table class="col-md-12">
 	<tr> 
 	<td>Height</td><td>:</td>
 			<td>
 				<span id="rHeight_val"><c:if test="${not empty profileBean.rHeightInches}">${profileBean.rHeightInches} - </c:if></span> <span id="rHeightTo_val"><c:if test="${not empty profileBean.rHeightInches}">${profileBean.rHeightToInches}</c:if></span>
 				<span id="rHeight_outer_val"><c:if test="${empty profileBean.rHeightInches}">Not Specified</c:if></span>
-			</td></tr>
+			</td>
+			<td></td>
+			<td align="right" style="padding-right:20px">---- <img src="../nimages/Yes.png"/> ----</td>
+			</tr>
 			<tr>
 			<td>Eating Habits</td><td>:</td>
 			<td id="rDiet_val">
 				<c:if test="${not empty profileBean.rDietName}">${profileBean.rDietName}</c:if>
 				<c:if test="${empty profileBean.rDietName}">Not Specified</c:if>
 			</td>
+			<td></td>
+			<td align="right" style="padding-right:20px">---- <img src="../nimages/Yes.png"/> ----</td>
+			
 			</tr>
 			<tr>
 			<td>Mothertongue</td><td>:</td>
@@ -897,6 +929,9 @@ xpopup
 				<c:if test="${not empty profileBean.rMotherTongueName}">${profileBean.rMotherTongueName}</c:if>
 				<c:if test="${empty profileBean.rMotherTongueName}">Not Specified</c:if>
 			</td>
+			<td></td>
+			<td align="right" style="padding-right:20px">---- <img src="../nimages/Yes.png"/> ----</td>
+			
 			</tr>
 	
 	</table>
