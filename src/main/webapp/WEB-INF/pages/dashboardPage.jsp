@@ -586,8 +586,8 @@ padding-right:0px;
 <div class="panel-heading"><b>Add Photos Now</b></div>
         <div class="panel-body table-responsive">
             <div class="col-md-3" style="width: 232px; display: -webkit-box;">
-        <img src="http://localhost:8080/NBD/user/images/add-photo-edit-avatar.png" width="40" style="margin: 0px 0px 0px -25px;">
-    <p style="margin-left: 29px;">Photos are the first things members look for in a profile.</p></div>
+         <a href="myPhotos" style="display: -webkit-inline-box;"><img src="http://localhost:8080/NBD/user/images/add-photo-edit-avatar.png" width="40" style="margin: 0px 0px 0px -25px;">
+    <p style="margin-left: 10px;">Photos are the first things members look for in a profile.</p></a></div>
         </div>
     </div>
 </div></div><div class="clearfix"></div>
