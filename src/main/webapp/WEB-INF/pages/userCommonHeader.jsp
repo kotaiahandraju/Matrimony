@@ -3607,7 +3607,7 @@ img.hover-shadow {
 %> 
 <input type="hidden" name="loc" id="loc" value="${baseurl }" />
 <div class="header_top">
-	<div class="container" style="background: #FFF;width:100%;">
+	<div class="container" style="background: #FFF;width:;">
     	<div class="col-md-3">
 			<div class="logo" style="margin-top:5px;">
 				<a href="dashboard"><img  src="${baseurl}/images/logo.png" class="img img-responsive"></a>
@@ -3664,8 +3664,8 @@ img.hover-shadow {
 						
 						</div>
 	</div>
-
-	<div class="container" style="width:100%;">
+<div class="nav"  style="width:100%;background:#006699;">
+	<div class="container">
 		<div class="row">
 			<nav class="navbar navbar-custom navbar-inverse" role="navigation" >
 				<div >
@@ -3851,7 +3851,7 @@ img.hover-shadow {
 	    	</nav>
 			
 		</div>
-	</div>
+	</div></div>
 </div>
 <div class="modal fade" id="myModal" role="dialog" style="background: transparent;">
     <div class="modal-dialog">

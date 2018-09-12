@@ -3,6 +3,27 @@
 
 
 <style>
+@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css");
+.panel-title > a:before {
+    float: right !important;
+    font-family: FontAwesome;
+    content:"\f068";
+    padding-right: 5px;
+    font-size: 13px;
+    color: #777;
+}
+.panel-title > a.collapsed:before {
+    float: right !important;
+    content:"\f067";
+}
+.panel-title > a:hover, 
+.panel-title > a:active, 
+.panel-title > a:focus  {
+    text-decoration:none;
+}
+.panel-title {
+
+text-align:left !important;}
 .carousel-inner > .active.left {
     left: 2%;
 }
@@ -248,6 +269,10 @@ color:#000;
 }
 }
 /* add pendingrequest new */
+.products-grid-left {
+padding-left:0px;
+padding-right:0px;
+}
 </style>	
 
 
@@ -390,6 +415,75 @@ color:#000;
 					    </div>
 					</div></div></div></div>
 					</div></div><div class="col-md-2"><div class="products-grid-right">
+					<p style="width:250px; font-weight:bold; padding-bottom:4px;color:#000;">Discover Matches</p>
+					<div class="panel" style="width:250px;">
+<div class="panel-body" style="padding:10px 5px;">
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+    <div class="panel ">
+        <div class="panel-heading" role="tab" id="headingOne">
+             <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" class="collapsed">
+          Preferred Location
+        </a>
+      </h4>
+
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne" style="height: 0px;">
+            <div class="panel-body" style="padding:10px 0px;">
+            <div class="col-md-3" style="padding-right:0px; padding-left:0px;">
+            <img src="../nimages/preicon.jpg" style="cursor: pointer;border-radius: 50%;no-repeat;width: 45px;height: 45px;display: block;border: 1px solid #e1e1e1;border-radius: 50%;background-size: 75px 75px;">
+   </div><div class="col-md-7" style="padding-right:0px; padding-left:0px;">   <p><a href="#">T4135943 </a><br>
+<a href="#">27 Yrs, 5 Ft 6 In</a><br>
+<a href="#">Hyderabad</a><br>
+<a href="#"><img src="../nimages/heart-icon.png" /> Send Interest</a></p></div>
+<div class="col-md-1"><i class="fa fa-close"></i></div>
+        </div></div>
+    </div><div class="clearfix"></div><hr>
+    <div class="panel ">
+        <div class="panel-heading" role="tab" id="headingTwo">
+             <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+       Preferred Profession
+        </a>
+      </h4>
+
+        </div>
+        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo" style="height: 0px;">
+<div class="panel-body" style="padding:10px 0px;">
+            <div class="col-md-3" style="padding-right:0px; padding-left:0px;">
+            <img src="../nimages/preicon.jpg" style="cursor: pointer;border-radius: 50%;no-repeat;width: 45px;height: 45px;display: block;border: 1px solid #e1e1e1;border-radius: 50%;background-size: 75px 75px;">
+   </div><div class="col-md-7" style="padding-right:0px; padding-left:0px;">   <p><a href="#">T4135943 </a><br>
+<a href="#">27 Yrs, 5 Ft 6 In</a><br>
+<a href="#">Hyderabad</a><br>
+<a href="#"><img src="..//nimages/heart-icon.png">Send Interest</a></p></div><div class="col-md-1"><i class="fa fa-close"></i></div>
+        </div>        </div>
+    </div>
+    <div class="panel ">
+        <div class="panel-heading" role="tab" id="headingThree">
+             <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+      Preferred Education        </a>
+      </h4>
+
+        </div>
+        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+<div class="panel-body" style="padding:10px 0px;">
+            <div class="col-md-3" style="padding-right:0px; padding-left:0px;">
+            <img src="../nimages/preicon.jpg" style="cursor: pointer;border-radius: 50%;no-repeat;width: 45px;height: 45px;display: block;border: 1px solid #e1e1e1;border-radius: 50%;background-size: 75px 75px;">
+   </div><div class="col-md-7" style="padding-right:0px; padding-left:0px;">   <p><a href="#">T4135943 </a><br>
+<a href="#">27 Yrs, 5 Ft 6 In</a><br>
+<a href="#">Hyderabad</a><br>
+<a href="#"><img src="../nimages/heart-icon.png">Send Interest</a></p></div>
+<div class="col-md-1"><i class="fa fa-close"></i></div>
+        </div>        </div>
+        
+       
+    </div>
+    
+     
+     
+</div>
+</div></div>
 
 	<div class="panel " style="width: 250px;">
 <div class="panel-heading"><b>Search</b></div>
@@ -486,8 +580,8 @@ color:#000;
         </div>
     </div>
     
-<div class="panel panel-default" style="width: 250px;">
-<div class="panel-heading">Add Photos Now</div>
+<div class="panel " style="width: 250px;">
+<div class="panel-heading"><b>Add Photos Now</b></div>
         <div class="panel-body table-responsive">
             <div class="col-md-3" style="width: 232px; display: -webkit-box;">
         <img src="http://localhost:8080/NBD/user/images/add-photo-edit-avatar.png" width="40" style="margin: 0px 0px 0px -25px;">
@@ -808,7 +902,7 @@ function displayNewMatches(listOrders) {
 	
 	
 			        
-		    if(count==4){
+		    if(count==2){
 			 count = 1;
 			 //item = item + itemEnd;
 			 //rowStr = rowStr + item;
@@ -1422,5 +1516,7 @@ function prevBtnClicked(){
 }
 
 </script>
+<script>
 
+</script>
 <%@ include file="userFooter.jsp"%>
