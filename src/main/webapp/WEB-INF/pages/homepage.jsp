@@ -2374,6 +2374,9 @@ $('img').bind('contextmenu', function(e) {
     /* $(".multiselect").click(function(){
     	$(".dropdown-content").css("display", 'block');
     }); */
+    $(".navbar-toggle").click(function(e){
+    	  $(this).toggleClass("open");
+    	});
     </script>
 </body>
 

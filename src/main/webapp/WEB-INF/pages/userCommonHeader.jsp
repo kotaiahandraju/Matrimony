@@ -3636,8 +3636,6 @@ img.hover-shadow {
 		<div class="col-md-1 col-xs-1">
 		<div class="pull-right" style="width:80px;">
 		<ul class="nav navbar-nav navbar-right">
-                            
-                            
 							<li class="dropdown dropdown1 settings pull-right" style="height:62px; width:96px; background:#fff; padding:0px;">
 								<a href="#no" class="dropdown-toggle setpic" data-toggle="dropdown" style="background:#fff;">
 									
@@ -4064,6 +4062,9 @@ function myFunction2(id) {
 	       return false;
 	    }); 
 	}); 
- 
+
+ $(.navbar-toggle").click(function(){
+	 
+ })
 </script>
 
