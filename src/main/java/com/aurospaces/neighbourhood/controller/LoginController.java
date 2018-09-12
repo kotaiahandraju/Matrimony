@@ -3,6 +3,7 @@ package com.aurospaces.neighbourhood.controller;
 import java.io.IOException;
 import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -168,6 +169,42 @@ public class LoginController {
 			logger.error(e);
 			logger.fatal("error in CreateProfile class createProfile method  ");
 		}
+		
+		List<Map<String, String>> list = new LinkedList<Map<String, String>>();
+		Map<String, String> statesMap;
+		ObjectMapper objectMapper = null;
+		String sJson = null;
+		try {
+			String sSql = "select id,name from religion  where status='1' order by name asc";
+			List<EducationBean> elist = objUsersDao.populate(sSql);
+			for (EducationBean bean : elist) {
+				statesMap = new LinkedHashMap<String,String>();
+				statesMap.put( "id",bean.getId()+"");
+				statesMap.put( "name",bean.getName());
+				statesMap.put( "list_type","religion");
+				list.add(statesMap);
+			}
+			sSql = "select id,name from cast  where status='1' order by name asc";
+			elist = objUsersDao.populate(sSql);
+			for (EducationBean bean : elist) {
+				if(list.size()<=16){
+					statesMap = new LinkedHashMap<String,String>();
+					statesMap.put( "id",bean.getId()+"");
+					statesMap.put( "name",bean.getName());
+					statesMap.put( "list_type","cast");
+					list.add(statesMap);
+				}else{
+					break;
+				}
+				
+			}
+			//objectMapper = new ObjectMapper();
+			//sJson = objectMapper.writeValueAsString(list);
+			request.setAttribute("religionCasteList", list);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+		}
 		return "homepage";
 	}
 	
@@ -254,24 +291,31 @@ public class LoginController {
 		return statesMap;
 	}
 	
-	@ModelAttribute("religionList")
-	public Map<String,Integer> homePageReligion(HttpServletRequest request) {
-		Map<String, Integer> statesMap = new LinkedHashMap<String,Integer>();
+	/*@ModelAttribute("religionList")
+	public List<Map<String, String>> homePageReligion(HttpServletRequest request) {
+		List<Map<String, String>> list = new LinkedList<Map<String, String>>();
+		Map<String, String> statesMap;
+		ObjectMapper objectMapper = null;
+		String sJson = null;
 		try {
 			String sSql = "select id,name from religion  where status='1' order by name asc";
-			List<EducationBean> list = objUsersDao.populate(sSql);
-			for (EducationBean bean : list) {
-				statesMap.put( bean.getName(),bean.getId());
-				request.setAttribute("religionList", statesMap);
+			List<EducationBean> elist = objUsersDao.populate(sSql);
+			for (EducationBean bean : elist) {
+				statesMap = new LinkedHashMap<String,String>();
+				statesMap.put( "id",bean.getId()+"");
+				statesMap.put( "name",bean.getName());
+				list.add(statesMap);
 			}
-
+			objectMapper = new ObjectMapper();
+			sJson = objectMapper.writeValueAsString(list);
+			request.setAttribute("religionList", sJson);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 		}
-		return statesMap;
-	}
-	@ModelAttribute("castList")
+		return list;
+	}*/
+	/*@ModelAttribute("castList")
 	public Map<String,Integer> homePageCast(HttpServletRequest request) {
 		Map<String,Integer> statesMap = new LinkedHashMap<String,Integer>();
 		try {
@@ -287,7 +331,7 @@ public class LoginController {
 		} finally {
 		}
 		return statesMap;
-	}
+	}*/
 	@ModelAttribute("cast")
 	public Map<Integer, String> populatecast() {
 		Map<Integer, String> statesMap = new LinkedHashMap<Integer, String>();

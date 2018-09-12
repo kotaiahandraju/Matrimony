@@ -2646,7 +2646,7 @@ blockquote p {
 margin-bottom:5px;
 }
 .thumbnailmain {
-height:120px;
+height:88px;
 overflow:hidden;
 }
 /* .profilepic0 {

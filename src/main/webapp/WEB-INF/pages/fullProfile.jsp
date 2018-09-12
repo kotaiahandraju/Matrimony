@@ -930,7 +930,7 @@ xpopup
 				<c:if test="${empty profileBean.rMotherTongueName}">Not Specified</c:if>
 			</td>
 			<td></td>
-			<td align="right" style="padding-right:20px">---- <img src="../nimages/Yes.png"/> ----</td>
+			<td align="right" style="padding-right:20px">---- <img src="../nimages/Yes (1).png"/> ----</td>
 			
 			</tr>
 	

@@ -406,7 +406,7 @@ padding-right:0px;
 					<div class="panel-heading"><b>New Matches</b></div>
 		            <div class="panel-body"> 
 					  <div class='row'>
-					    <div class='col-md-12'>
+					    <div class='col-md-12' style="padding-left:0px; padding-right:0px;">
 					      <div class="carousel slide media-carousel" id="media">
 					        <div class="carousel-inner" id="new_matches">
 						    	
@@ -490,11 +490,11 @@ padding-right:0px;
 	<div class="panel " style="width: 250px;">
 <div class="panel-heading"><b>Search</b></div>
         <div class="panel-body table-responsive">
-            <h4> I am Looking for</h4>
+            <!-- <h4> I am Looking for</h4>
             <select  style="margin-bottom:5px;" id="rPeople" class="custom-select col-md-12 form-control">
 								<option value="FeMale" id="id1">Bride</option>
 								<option value="Male" id="id2">Groom</option>
-							</select>
+							</select> -->
 							<h4>Aged  </h4>   
 <span>From </span> <select id="rAgeFrom" name="rAgeFrom"   class="for-control"  style="width:60px;">
 						            <option value="18">18</option>
@@ -895,7 +895,7 @@ function displayNewMatches(listOrders) {
 			}else if(expressed>0){
 				interestStr = '<p align="center" style="margin: 11px 0px 10px 0px;"><a   type="button" disabled="true"  class="btn btn-warning btn-sm "  >Request Sent</a></p>';
 			}
-			 item =     item + ' 	<div class="col-md-6 thumbnailgal">'
+			 item =     item + ' 	<div class="col-md-4 thumbnailgal">'
 				         +' 		<div class="thumbnailmain">	<a class="thumbnail thumbimg" href="#no" style="margin: 0px 0px 0px 0px; width:100%; height:auto;"><img alt="" src="${catalina_base}/'+image+'" class="watermark_text"></a></div>'
 				         +' 			<p align="center" class="ptransition" style="margin: 10px 0px 0px 0px;"><span  class="ptransition" href="#no" onclick="fullProfile('+orderObj.id+')" style="transition: 0; padding:5px; color:blue; border-radius:5px;">'+orderObj.username+'</span></p>'
 				         +' 			<p align="center" style="margin: px 0px 0px -3px;">'+age+' yrs, '+orderObj.inches+'</p>'
@@ -904,7 +904,7 @@ function displayNewMatches(listOrders) {
 	
 	
 			        
-		    if(count==2){
+		    if(count==3){
 			 count = 1;
 			 //item = item + itemEnd;
 			 //rowStr = rowStr + item;
