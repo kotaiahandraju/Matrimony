@@ -475,6 +475,19 @@ padding-top: 85px !important;
     width: 65%;
     margin: 0 auto;
 }
+.grid figcaption {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 7px;
+    background: #2c3f52;
+    color: #ed4e6e;
+}
+.cs-style-5 figure a {
+    position: absolute;
+    bottom: 8px;
+    right: 20px;
+}
 .footer-grids ul {
     margin-inline-start: -14px !important;
 }
@@ -700,6 +713,13 @@ td, th {
     text-align: center;
     width: 33%;
     float: left;
+}
+.grid figcaption h3 {
+    margin: 0;
+    padding: 0;
+    color: #fff;
+    font-size: 13px;
+    text-align: left;
 }
 .firstnam {
 width:120px;
