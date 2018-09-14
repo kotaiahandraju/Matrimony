@@ -590,6 +590,9 @@ padding-right:0px;
     <p style="margin-left: 10px;">Photos are the first things members look for in a profile.</p></a></div>
         </div>
     </div>
+    <div class="panel " style="width: 250px;">
+    <img src="../nimages/couple.jpg" class="img-responsive"/>
+    </div>
 </div></div><div class="clearfix"></div>
 				<% 
 				UsersBean userSessionBean = (UsersBean)session.getAttribute("cacheGuest");
