@@ -27,10 +27,11 @@ font-size:13px;
 }
 .matches1 {
 border: 1px solid #d6d6d6;
-background: #f1f1f1;
+ background: #fff; 
+
 }
  .matches1 h4 {
-background: #f1f1f1;
+/* background: #f1f1f1; */
 margin-left:15px;
 font: bold 15px arial;
 }
@@ -39,7 +40,7 @@ background-color: #FFF;
 padding: 1px;
 }
 .on {
-background-color: #F1F1F1;
+/* background-color: #F1F1F1; */
 margin: 3px;
 padding: 6px 4px;
 font-weight: bold;
@@ -81,8 +82,8 @@ margin-left:10px;
 
 <div class="col-md-3 products-grid-right">
 			<div class="matches1"><h4>Matches</h4><div class="Subl">
-			<p class="on">New Matches</p>
-			<p class="new"><a href="yetToBeViewed" >Profiles yet to be viewed (${cacheGuest.yetToBeViewedCount})</a><br>
+<!-- 			<p class="on"></p> -->
+			<p class="new"><a href="yetToBeViewed" >Profiles yet to be viewed (${cacheGuest.yetToBeViewedCount})</a>
 
 <!-- <a href="">Extended Matches</a><br> -->
 
@@ -102,11 +103,11 @@ contacted (${cacheGuest.viewedNotContactedCount})</a><br>
 <div class="collapse-group">
   
 
-  <div class="panel panel-default">
+  <div class="panel ">
     <div class="panel-heading" role="tab" id="headingOne">
       <h4 class="panel-title">
         <a role="button" data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" class="trigger collapsed">
-        Show Profiles Created</a>
+       <b> Show Profiles Created</b> </a>
       </h4>
     </div>
     <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
@@ -138,11 +139,11 @@ contacted (${cacheGuest.viewedNotContactedCount})</a><br>
 <div class="collapse-group">
   
 
-  <div class="panel panel-default">
+  <div class="panel ">
     <div class="panel-heading" role="tab" id="headingThree">
       <h4 class="panel-title">
         <a role="button" data-toggle="collapse" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree" class="trigger">
-          Profile Type
+         <b> Profile Type</b>
         </a>
       </h4>
     </div>
@@ -155,11 +156,11 @@ contacted (${cacheGuest.viewedNotContactedCount})</a><br>
     </div>
   </div>
 
-  <div class="panel panel-default">
+  <div class="panel ">
     <div class="panel-heading" role="tab" id="headingFour">
       <h4 class="panel-title">
         <a role="button" data-toggle="collapse" href="#collapseFour" aria-expanded="true" aria-controls="collapseFour" class="trigger">
-          Age
+         <b> Age</b> 
         </a>
       </h4>
     </div>
@@ -202,11 +203,11 @@ contacted (${cacheGuest.viewedNotContactedCount})</a><br>
         </div>
     </div>
   </div>
-  <div class="panel panel-default">
+  <div class="panel ">
     <div class="panel-heading" role="tab" id="headingFive">
       <h4 class="panel-title">
         <a role="button" data-toggle="collapse" href="#collapseFive" aria-expanded="true" aria-controls="collapseFive" class="trigger">
-          City
+         <b> City</b> 
         </a>
       </h4>
     </div>
@@ -216,7 +217,7 @@ contacted (${cacheGuest.viewedNotContactedCount})</a><br>
       <select name="city" id="city" style="padding:5px;" class="optiondiv multiselect"   multiple="multiple">
       	<option value="all" >--Select City--</option>
       
-      </select>&nbsp;&nbsp;<span class="errortext" id="cityerr"></span>&nbsp;&nbsp;<input class="" style="background: rgb(255, 255, 255) none repeat scroll 0% 0%; border-radius: 3px; color: rgb(2, 116, 203); font-weight: normal; font-size: 12px; margin:0 50px; margin-left: 0px; padding: 5px; margin-top: -2px; border: 1px solid rgb(214, 214, 214); line-height: 16px;cursor:pointer !important;" value="Submit" onclick="submitMore('')" type="button"></div>
+      </select>&nbsp;&nbsp;<span class="errortext" id="cityerr"></span>&nbsp;&nbsp;<input class="" style="background: rgb(255, 255, 255) none repeat scroll 0% 0%; border-radius: 3px; color: rgb(2, 116, 203); font-weight: normal; font-size: 12px; margin:0 50px; margin-left: 0px; float:right; padding: 5px; margin-top: -2px; border: 1px solid rgb(214, 214, 214); line-height: 16px;cursor:pointer !important;" value="Submit" onclick="submitMore('')" type="button"></div>
         </div>
     </div>
   </div>
