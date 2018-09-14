@@ -984,7 +984,7 @@ tooltip:hover:after {
 		            	+ '	<tr><td>Location</td><td><span>: '+orderObj.currentCityName+'</span></td></tr>'
 		            	+ '	<tr><td>Education</td><td><span>: '+orderObj.educationName+'</span></td></tr>'
 		            	+ '	<tr><td>Profession</td><td><span>: '+profession+'</span></td></tr>'
-		            	+ '<tr><td colspan="2"><a href="#no" type="button" class=" " onclick="fullProfile(293)">View Full Profile</a></td></tr>'
+		            	+ '<tr><td colspan="2"><a href="#no" type="button" class=" " onclick="fullProfile('+orderObj.id+')">View Full Profile</a></td></tr>'
 		            	//+ '<tr><td colspan="2"><button type="button" style="background: transparent; margin: 0px 5px 05px 0px;border: none;" id="mobileTD'+orderObj.id+'">'+mobile_num_Str+'</button></td></tr>'
 		            	+'</td></tr>'
 		            	//+ '	<tr><td>Age</td><td><span>: '+orderObj.age+'</span></td></tr>'

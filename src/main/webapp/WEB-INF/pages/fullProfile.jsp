@@ -807,35 +807,20 @@ xpopup
 	</div>
 	</div>
 </div>
-</c:if>
+
 <br>
+<!-- partner pref static -->
+
 		<h4   style="padding: 10px;"></h4><h3>Partner Preferences</h3><hr>
 <div class="panel " style="border:none;">
 
 			<div class="panel-body table-responsive">
 			
 			<div class="col-md-12">	
-			<div style="width:700px; margin:0px auto 25px auto;">
-			<div class="col-md-2">
-				<div class="txt-center mediumtxt1">You</div>
-				<div class="fleft" style="border-radius:50%; border:1px solid #d6d6d6; width:98px; height:98px;"><img src="../nimages/mic.jpg" width="98" height="98" border="0" alt="" style="border-radius:50%;"></div>
-			</div>
-			<div class="col-md-4" style="width:390px; margin:55px 20px 0px 20px;">
-				
-				<div class="fleft"><div class="hdtxt paddl5 paddr5 txt-center" style="width:382px;">----- Your profile matches 19  / 21 of Sruthi's preferences -----</div></div>
-				
-			</div>
-			<div class="col-md-2">
-				<div class="txt-center mediumtxt1">Her</div>
-				
-				<div style="border-radius:50%; border:1px solid #d6d6d6; width:98px; height:98px;" id="imgsroundpp"><img src="../nimages/pre.jpg" width="98" height="98" border="0" alt="" style="border-radius:50%;"></div>
-			</div>
-			
-			<div class="clearfix"><!--  --></div>
-		</div><strong class="font">Basic & Religion Preferences</strong>
+			<strong class="font">Basic & Religion Preferences</strong>
 				
 	<div id="partner_basic_view" class="all_visible_divs">
-	<table class="col-md-12 table-responsive">
+	<table class="col-md-6 table-responsive">
 		<tr><td>
 				<c:if test="${profileBean.gender == 'Female'}">Groom</c:if>
 				<c:if test="${profileBean.gender == 'Male'}">Bride</c:if>
@@ -846,12 +831,11 @@ xpopup
 				<c:if test="${empty profileBean.rAgeFrom}">Not Specified</c:if>
 			</td>
 			<td></td>
-			<td align="right" style="padding-right:20px">---- <img src="../nimages/Yes.png"/> ----</td>
 		</tr>
 		<tr><td>Marital Status</td><td>:</td>
 			<td id="rMaritalStatus_val">
 				<c:if test="${not empty profileBean.rMaritalStatusName}">${profileBean.rMaritalStatusName}</c:if>
-				<c:if test="${empty profileBean.rMaritalStatusName}">Not Specified</c:if>
+				<c:if test="${empty profileBean.rMaritalStatusName}">Not Specified </c:if>
 			</td>
 			<%-- <td>Physical Status</td><td>:</td>
 			<td>
@@ -859,7 +843,6 @@ xpopup
 				<c:if test="${empty profileBean.casteName}">Not Specified</c:if>
 			</td> --%>
 			<td></td>
-			<td align="right" style="padding-right:20px">---- <img src="../nimages/Yes.png"/> ----</td>
 			
 		</tr>
 		<tr>
@@ -881,7 +864,6 @@ xpopup
 				<c:if test="${empty profileBean.rReligionName}">Not Specified</c:if>
 			</td>
 			<td></td>
-			<td align="right" style="padding-right:20px">---- <img src="../nimages/Yes.png"/> ----</td>
 			
 		</tr>
 		<tr>
@@ -891,7 +873,6 @@ xpopup
 				<c:if test="${empty profileBean.rCasteName}">Not Specified</c:if>
 			</td>
 			<td></td>
-			<td align="right" style="padding-right:20px">---- <img src="../nimages/Yes.png"/> ----</td>
 			
 		</tr>
 		<%-- <tr>
@@ -903,7 +884,7 @@ xpopup
 			
 		</tr> --%>
 	</table>
-	<table class="col-md-12">
+	<table class="col-md-6">
 	<tr> 
 	<td>Height</td><td>:</td>
 			<td>
@@ -911,7 +892,6 @@ xpopup
 				<span id="rHeight_outer_val"><c:if test="${empty profileBean.rHeightInches}">Not Specified</c:if></span>
 			</td>
 			<td></td>
-			<td align="right" style="padding-right:20px">---- <img src="../nimages/Yes.png"/> ----</td>
 			</tr>
 			<tr>
 			<td>Eating Habits</td><td>:</td>
@@ -920,7 +900,6 @@ xpopup
 				<c:if test="${empty profileBean.rDietName}">Not Specified</c:if>
 			</td>
 			<td></td>
-			<td align="right" style="padding-right:20px">---- <img src="../nimages/Yes.png"/> ----</td>
 			
 			</tr>
 			<tr>
@@ -930,7 +909,6 @@ xpopup
 				<c:if test="${empty profileBean.rMotherTongueName}">Not Specified</c:if>
 			</td>
 			<td></td>
-			<td align="right" style="padding-right:20px">---- <img src="../nimages/Yes (1).png"/> ----</td>
 			
 			</tr>
 	
@@ -955,28 +933,28 @@ xpopup
 				<c:if test="${not empty profileBean.rEducationName}">${profileBean.rEducationName}</c:if>
 				<c:if test="${empty profileBean.rEducationName}">Not Specified</c:if>
 			</td>
-			
+			<td></td>
 		</tr>
 		<tr><td>Working With</td><td>:</td>
 			<td id="rWorkingWith_val">
 				<c:if test="${not empty profileBean.rWorkingWith}">${profileBean.rWorkingWith}</c:if>
 				<c:if test="${empty profileBean.rWorkingWith}">Not Specified</c:if>
 			</td>
-			
+			<td></td>
 		</tr>
 		<tr><td>Occupation</td><td>:</td>
 			<td id="rOccupation_val">
 				<c:if test="${not empty profileBean.rOccupationName}">${profileBean.rOccupationName}</c:if>
 				<c:if test="${empty profileBean.rOccupationName}">Not Specified</c:if>
 			</td>
-			
+			<td></td>
 		</tr>
 		<tr><td>Annual Income</td><td>:</td>
 			<td id="rAnnualIncome_val">
 				<c:if test="${not empty profileBean.rAnnualIncome}">${profileBean.rAnnualIncome}</c:if>
 				<c:if test="${empty profileBean.rAnnualIncome}">Not Specified</c:if>
 			</td>
-			
+			<td></td>
 		</tr>
 	</table>
 	</div>
@@ -996,6 +974,7 @@ xpopup
 				<c:if test="${not empty profileBean.rCountryName}">${profileBean.rCountryName}</c:if>
 				<c:if test="${empty profileBean.rCountryName}">Not Specified</c:if>
 			</td>
+			<td></td>
 		</tr>
 		<tr>
 			<td>Residing State</td><td>:</td>
@@ -1003,10 +982,19 @@ xpopup
 				<c:if test="${not empty profileBean.rStateName}">${profileBean.rStateName}</c:if>
 				<c:if test="${empty profileBean.rStateName}">Not Specified</c:if>
 			</td>
+			<td></td>
 			<!-- <td>City</td><td>:</td> -->
 			
 		</tr>
-		
+		<tr>
+   <td>Residing City</td><td>:</td>
+   
+    <td id="rCity_val">
+        <c:if test="${not empty profileBean.rCityName}">${profileBean.rCityName}</c:if>
+        <c:if test="${empty profileBean.rCityName}">Not Specified</c:if>
+    </td>
+    
+    
 		<%-- <tr><td>Residing City</td><td>:</td>
 			<td>
 				<c:if test="${not empty profileBean.rCity}">${profileBean.rCity}</c:if>
@@ -1027,7 +1015,248 @@ xpopup
 	
 	</div>
 	</div>
+</div></c:if>
+<!-- partner pref static -->
+
+
+<c:if test="${cacheGuest.id != profileBean.id}">
+		<h4   style="padding: 10px;"></h4><h3>Partner Preferences</h3><hr>
+<div class="panel " style="border:none;">
+
+			<div class="panel-body table-responsive">
+			
+			<div class="col-md-12">	
+			<div style="width:700px; margin:0px auto 25px auto;">
+			<div class="col-md-2">
+				<div class="txt-center mediumtxt1">You</div>
+				<div class="fleft" style="border-radius:50%; border:1px solid #d6d6d6; width:98px; height:98px;"><img src="${catalina_base}/${cacheGuest.profileImage}"  width="98" height="98" border="0" alt="" style="border-radius:50%;"></div>
+			</div>
+			<div class="col-md-4" style="width:390px; margin:55px 20px 0px 20px;">
+				
+				<div class="fleft"><div class="hdtxt paddl5 paddr5 txt-center" style="width:382px;">----- Your profile matches 19  / 21 of Sruthi's preferences -----</div></div>
+				
+			</div>
+			<div class="col-md-2">
+				<div class="txt-center mediumtxt1"><c:if test="${profileBean.gender == 'Female'}">Her</c:if>
+				<c:if test="${profileBean.gender == 'Male'}">He</c:if></div>
+				
+				<div style="border-radius:50%; border:1px solid #d6d6d6; width:98px; height:98px;" id="imgsroundpp"><img src="${catalina_base}/${profileBean.profileImage}" width="98" height="98" border="0" alt="" style="border-radius:50%;"></div>
+			</div>
+			
+			<div class="clearfix"><!--  --></div>
+		</div><strong class="font">Basic & Religion Preferences</strong>
+				
+	<div id="partner_basic_view" class="all_visible_divs">
+	<table class="col-md-12 table-responsive">
+		<tr><td>
+				<c:if test="${profileBean.gender == 'Female'}">Groom</c:if>
+				<c:if test="${profileBean.gender == 'Male'}">Bride</c:if>
+				's Age
+			</td><td>:</td>
+			<td id="rAgeFrom_val">
+				<c:if test="${not empty profileBean.rAgeFrom}">${profileBean.rAgeFrom} - ${profileBean.rAgeTo} Years</c:if>
+				<c:if test="${empty profileBean.rAgeFrom}">Not Specified</c:if>
+			</td>
+			<td></td>
+			<td align="right" style="padding-right:20px" id="rAgeFrom_img">---- <img src=""/> ----</td>
+		</tr>
+		<tr><td>Marital Status</td><td>:</td>
+			<td id="rMaritalStatus_val">
+				<c:if test="${not empty profileBean.rMaritalStatusName}">${profileBean.rMaritalStatusName}</c:if>
+				<c:if test="${empty profileBean.rMaritalStatusName}">Not Specified </c:if>
+			</td>
+			<%-- <td>Physical Status</td><td>:</td>
+			<td>
+				<c:if test="${not empty profileBean.casteName}">${profileBean.casteName}</c:if>
+				<c:if test="${empty profileBean.casteName}">Not Specified</c:if>
+			</td> --%>
+			<td></td>
+			<td align="right" style="padding-right:20px"  id="Marital_img">---- <img src=""/> ----</td>
+			
+		</tr>
+		<tr>
+			<%-- <td>Smoking Habits</td><td>:</td>
+			<td>
+				<c:if test="${not empty profileBean.casteName}">${profileBean.casteName}</c:if>
+				<c:if test="${empty profileBean.casteName}">Not Specified</c:if> 
+			</td>  --%>
+		</tr>
+		<tr>
+			<%-- <td>Drinking Habits</td><td>:</td>
+			<td>
+				<c:if test="${not empty profileBean.currentStateName}">${profileBean.currentStateName}</c:if>
+				<c:if test="${empty profileBean.currentStateName}">Not Specified</c:if> 
+			</td> --%>
+			<td>Religion</td><td>:</td>
+			<td id="rReligion_val">
+				<c:if test="${not empty profileBean.rReligionName}">${profileBean.rReligionName}</c:if>
+				<c:if test="${empty profileBean.rReligionName}">Not Specified</c:if>
+			</td>
+			<td></td>
+			<td align="right" style="padding-right:20px" id="religion_img">---- <img src=""/> ----</td>
+			
+		</tr>
+		<tr>
+			<td>Caste</td><td>:</td>
+			<td id="rCaste_val">
+				<c:if test="${not empty profileBean.rCasteName}">${profileBean.rCasteName}</c:if>
+				<c:if test="${empty profileBean.rCasteName}">Not Specified</c:if>
+			</td>
+			<td></td>
+			<td align="right" style="padding-right:20px" id="cast_img">---- <img src=""/> ----</td>
+			
+		</tr>
+		<%-- <tr>
+			<td>Star</td><td>:</td>
+			 <td>
+				<c:if test="${not empty profileBean.currentStateName}">${profileBean.currentStateName}</c:if>
+				<c:if test="${empty profileBean.currentStateName}">Not Specified</c:if>
+			</td> 
+			
+		</tr> --%>
+	</table>
+	<table class="col-md-12">
+	<tr> 
+	<td>Height</td><td>:</td>
+			<td>
+				<span id="rHeight_val"><c:if test="${not empty profileBean.rHeightInches}">${profileBean.rHeightInches} - </c:if></span> <span id="rHeightTo_val"><c:if test="${not empty profileBean.rHeightInches}">${profileBean.rHeightToInches}</c:if></span>
+				<span id="rHeight_outer_val"><c:if test="${empty profileBean.rHeightInches}">Not Specified</c:if></span>
+			</td>
+			<td></td>
+			<td align="right" style="padding-right:20px" id="heightTo_img">---- <img src=""/> ----</td>
+			</tr>
+			<tr>
+			<td>Eating Habits</td><td>:</td>
+			<td id="rDiet_val">
+				<c:if test="${not empty profileBean.rDietName}">${profileBean.rDietName}</c:if>
+				<c:if test="${empty profileBean.rDietName}">Not Specified</c:if>
+			</td>
+			<td></td>
+			<td align="right" style="padding-right:20px" id="Eating_img">---- <img src=""/> ----</td>
+			
+			</tr>
+			<tr>
+			<td>Mothertongue</td><td>:</td>
+			<td id="rMotherTongue_val">
+				<c:if test="${not empty profileBean.rMotherTongueName}">${profileBean.rMotherTongueName}</c:if>
+				<c:if test="${empty profileBean.rMotherTongueName}">Not Specified</c:if>
+			</td>
+			<td></td>
+			<td align="right" style="padding-right:20px" id="Mothertongue_img">---- <img src=""/> ----</td>
+			
+			</tr>
+	
+	</table>
+	
+	
+	</div>
+	
+	</div>
+	</div>
 </div>
+
+<br>
+<div class="panel panel-success">
+			<div class="panel-body table-responsive">
+			<div class="col-md-12">	<strong class="font">Professional Preferences</strong>
+				
+	<div id="partner_professional_view" class="all_visible_divs">
+	<table class="col-md-12 table-responsive">
+		<tr><td>Education</td><td>:</td>
+			<td id="rEducation_val">
+				<c:if test="${not empty profileBean.rEducationName}">${profileBean.rEducationName}</c:if>
+				<c:if test="${empty profileBean.rEducationName}">Not Specified</c:if>
+			</td>
+			<td></td>
+			<td align="right" style="padding-right:20px" id="Education_img">---- <img src=""/> ----</td>
+		</tr>
+		<tr><td>Working With</td><td>:</td>
+			<td id="rWorkingWith_val">
+				<c:if test="${not empty profileBean.rWorkingWith}">${profileBean.rWorkingWith}</c:if>
+				<c:if test="${empty profileBean.rWorkingWith}">Not Specified</c:if>
+			</td>
+			<td></td>
+			<td align="right" style="padding-right:20px" id="Working_img">---- <img src=""/> ----</td>
+		</tr>
+		<tr><td>Occupation</td><td>:</td>
+			<td id="rOccupation_val">
+				<c:if test="${not empty profileBean.rOccupationName}">${profileBean.rOccupationName}</c:if>
+				<c:if test="${empty profileBean.rOccupationName}">Not Specified</c:if>
+			</td>
+			<td></td>
+			<td align="right" style="padding-right:20px" id="Occupation_img">---- <img src=""/> ----</td>
+		</tr>
+		<tr><td>Annual Income</td><td>:</td>
+			<td id="rAnnualIncome_val">
+				<c:if test="${not empty profileBean.rAnnualIncome}">${profileBean.rAnnualIncome}</c:if>
+				<c:if test="${empty profileBean.rAnnualIncome}">Not Specified</c:if>
+			</td>
+			<td></td>
+			<td align="right" style="padding-right:20px" id="AnnualIncome_img">---- <img src=""/> ----</td>
+		</tr>
+	</table>
+	</div>
+	
+	</div>
+</div>
+</div>
+<br>
+<div class="panel panel-success" >
+			<div class="panel-body table-responsive">
+			<div class="col-md-12">	<strong class="font">Location Preferences</strong>
+				
+	<div id="partner_location_view" class="all_visible_divs">
+	<table class="col-md-12 table-responsive">
+		<tr><td>Country</td><td>:</td>
+			<td id="rCountry_val">
+				<c:if test="${not empty profileBean.rCountryName}">${profileBean.rCountryName}</c:if>
+				<c:if test="${empty profileBean.rCountryName}">Not Specified</c:if>
+			</td>
+			<td></td>
+			<td align="right" style="padding-right:20px" id="Country_img">---- <img src=""/> ----</td>
+		</tr>
+		<tr>
+			<td>Residing State</td><td>:</td>
+			<td id="rState_val">
+				<c:if test="${not empty profileBean.rStateName}">${profileBean.rStateName}</c:if>
+				<c:if test="${empty profileBean.rStateName}">Not Specified</c:if>
+			</td>
+			<td></td>
+			<td align="right" style="padding-right:20px" id="ResidingState_img">---- <img src=""/> ----</td>
+			<!-- <td>City</td><td>:</td> -->
+			
+		</tr>
+			<tr>
+		<td>Residing City</td><td>:</td>
+   
+    <td id="rCity_val">
+        <c:if test="${not empty profileBean.rCityName}">${profileBean.rCityName}</c:if>
+        <c:if test="${empty profileBean.rCityName}">Not Specified</c:if>
+    </td>
+    <td></td>
+			<td align="right" style="padding-right:20px" id="ResidingCity_img">---- <img src=""/> ----</td>
+    </tr>
+		<%-- <tr><td>Residing City</td><td>:</td>
+			<td>
+				<c:if test="${not empty profileBean.rCity}">${profileBean.rCity}</c:if>
+				<c:if test="${empty profileBean.rCity}">Not Specified</c:if>
+			</td>
+			
+			
+		</tr>
+		<tr><td>Citizenship</td><td>:</td>
+			<td>
+				 <c:if test="${not empty profileBean.currentStateName}">${profileBean.currentStateName}</c:if>
+				<c:if test="${empty profileBean.currentStateName}"><a>Add State</a></c:if> 
+			</td>
+			
+		</tr> --%>
+	</table>
+	</div>
+	
+	</div>
+	</div>
+</div></c:if>
 </div></div>
 </div></div></div>
 </form:form>
@@ -1497,85 +1726,88 @@ function toggleDiv(divElem){
  var sessionBeanList="${sessionBeanList}";
 var profileBeanList="${profileBean}";
 
-//session Bean
-var ageFrom="${sessionBeanList.rAgeFrom}";
-var ageTo="${sessionBeanList.rAgeTo}";
-var heightFrom="${sessionBeanList.rHeight}";
-var heightTo="${sessionBeanList.rHeightTo}";
-var rMarrege="${sessionBeanList.rMaritalStatus}";
-var rbodyType="${sessionBeanList.bodyType}";
-var rMotherTongue="${sessionBeanList.rMotherTongue}";
-var rdiet="${sessionBeanList.rDiet}";
-var rsmoking="${sessionBeanList.smoking}";
-var rdrinking="${sessionBeanList.drinking}";
-var rReligion="${sessionBeanList.rReligion}";
-var rCaste="${sessionBeanList.rCaste}";
-var rgotram="${sessionBeanList.gotram}";
-var rstar="${sessionBeanList.star}";
-var rdosam="${sessionBeanList.dosam}";
-var rEducation="${sessionBeanList.rEducation}";
-var rOccupation="${sessionBeanList.rOccupation}";
-var rAnnualIncome="${sessionBeanList.rAnnualIncome}";
-var rWorkingWith="${sessionBeanList.rWorkingWith}";
-var rCountry="${sessionBeanList.rCountry}";
-var rState="${sessionBeanList.rState}";
-var rCity="${sessionBeanList.rCity}"; 
+//profile Bean
+var ageFrom="${profileBean.rAgeFrom}";
+var ageTo="${profileBean.rAgeTo}";
+var heightFrom="${profileBean.rHeightInches}";
+var heightTo="${profileBean.rHeightToInches}";
+var rMarrege="${profileBean.rMaritalStatus}";
+var rbodyType="${profileBean.bodyType}";
+var rMotherTongue="${profileBean.rMotherTongue}";
+var rdiet="${profileBean.rDiet}";
+var rsmoking="${profileBean.smoking}";
+var rdrinking="${profileBean.drinking}";
+var rReligion="${profileBean.rReligion}";
+var rCaste="${profileBean.rCaste}";
+var rgotram="${profileBean.gotram}";
+var rstar="${profileBean.star}";
+var rdosam="${profileBean.dosam}";
+var rEducation="${profileBean.rEducation}";
+var rOccupation="${profileBean.rOccupation}";
+var rAnnualIncome="${profileBean.rAnnualIncome}";
+var rWorkingWith="${profileBean.rWorkingWith}";
+var rCountry="${profileBean.rCountry}";
+var rState="${profileBean.rState}";
+var rCity="${profileBean.rCity}"; 
 
-//profileBean
-var age="${profileBean.age}";
-var height="${profileBean.heightInches}";
-var marrege="${profileBean.maritalStatus}";
-var bodyType="${profileBean.bodyType}";
+//Session Bean
+var age="${sessionBeanList.age}";
+var height="${sessionBeanList.heightInches}";
+var marrege="${sessionBeanList.maritalStatus}";
+var bodyType="${sessionBeanList.bodyType}";
 var motherTongue="${sessionBeanList.motherTongue}";
-var diet="${profileBean.diet}";
-var smoking="${profileBean.smoking}";
-var drinking="${profileBean.drinking}";
-var religion="${profileBean.religion}";
-var caste="${profileBean.caste}";
-var gotram="${profileBean.gotram}";
-var star="${profileBean.star}";
-var dosam="${profileBean.dosam}";
-var education="${profileBean.education}";
-var occupation="${profileBean.occupation}";
-var annualIncome="${profileBean.annualIncome}";
-var workingWith="${profileBean.workingWith}";
-var country="${profileBean.country}";
-var state="${profileBean.state}";
-var city="${profileBean.city}"; 
+var diet="${sessionBeanList.diet}";
+var smoking="${sessionBeanList.smoking}";
+var drinking="${sessionBeanList.drinking}";
+var religion="${sessionBeanList.religion}";
+var caste="${sessionBeanList.caste}";
+var gotram="${sessionBeanList.gotram}";
+var star="${sessionBeanList.star}";
+var dosam="${sessionBeanList.dosam}";
+var education="${sessionBeanList.education}";
+var occupation="${sessionBeanList.occupation}";
+var annualIncome="${sessionBeanList.annualIncome}";
+var workingWith="${sessionBeanList.workingWith}";
+var country="${sessionBeanList.country}";
+var state="${sessionBeanList.state}";
+var city="${sessionBeanList.city}"; 
 
-
-/* if((age >= ageFrom)&&(age<=ageTo)){
-alert("sucess age");
+if((age >= ageFrom)&&(age<=ageTo)){
+$("#rAgeFrom_img img").attr("src","../nimages/Yes.png");
  }else
 {
-alert("No succes age");	 
+	 $("#rAgeFrom_img img").attr("src","../nimages/No.png");	 
  } 
 if((height >= heightFrom) && (height <= heightTo)){
-alert("sucess Height");
-}else{
-	alert("No success height");
-}
+	$("#heightTo_img img").attr("src","../nimages/Yes.png");
+	 }else
+	{
+		 $("#heightTo_img img").attr("src","../nimages/No.png");	 
+	 } 
  if(rMarrege == marrege){
-	 alert("success Marrege");
- }else{
-	 alert("No sucess Marrege");
- }
- if(rbodyType == bodyType){
+	 $("#Marital_img img").attr("src","../nimages/Yes.png");
+ }else
+{
+	 $("#Marital_img img").attr("src","../nimages/No.png");	 
+ } 
+/*  if(rbodyType == bodyType){
 	 alert("sucess body Type");
  }else{
 	 alert("no sucess body Type");
- }
+ } */
  if(rMotherTongue == motherTongue){
-	 alert("sucess MotherTongue");
- }else{
-	 alert("no sucess MotherTongue");
- }
+	 $("#Mothertongue_img img").attr("src","../nimages/Yes.png");
+ }else
+{
+	 $("#Mothertongue_img img").attr("src","../nimages/No.png");	 
+ } 
  if(rdiet == diet){
-	 alert("sucess diet");
- }else{
-	 alert("no sucess diet");
- }
- if(rsmoking == smoking){
+	 $("#Eating_img img").attr("src","../nimages/Yes.png");
+ }else
+{
+	 $("#Eating_img img").attr("src","../nimages/No.png");	 
+ } 
+/*  if(rsmoking == smoking){
 	 alert("sucess smoking");
  }else{
 	 alert("no sucess smoking");
@@ -1584,18 +1816,20 @@ alert("sucess Height");
 	 alert("sucess drinking");
  }else{
 	 alert("no sucess drinking");
- }
+ } */
  if(rReligion == religion){
-	 alert("sucess Religion");
- }else{
-	 alert("no sucess Religion");
- }
+	 $("#religion_img img").attr("src","../nimages/Yes.png");
+ }else
+{
+	 $("#religion_img img").attr("src","../nimages/No.png");	 
+ } 
  if(rCaste == caste){
-	 alert("sucess Caste");
- }else{
-	 alert("no sucess Caste");
- }
- if(rgotram == gotram){
+	 $("#cast_img img").attr("src","../nimages/Yes.png");
+ }else
+{
+	 $("#cast_img img").attr("src","../nimages/No.png");	 
+ } 
+/*  if(rgotram == gotram){
 	 alert("sucess gotram");
  }else{
 	 alert("no sucess gotram");
@@ -1609,42 +1843,53 @@ alert("sucess Height");
 	 alert("sucess dosam");
  }else{
 	 alert("no sucess dosam");
- }
- if(rEducation == education){
-	 alert("sucess Education");
- }else{
-	 alert("no sucess Education");
- }
- if(rOccupation == occupation){
-	 alert("sucess Occupation");
- }else{
-	 alert("no sucess Occupation");
- }
- if(rAnnualIncome == annualIncome){
-	 alert("sucess AnnualIncome");
- }else{
-	 alert("no sucess AnnualIncome");
- }
- if(rWorkingWith == workingWith){
-	 alert("sucess WorkingWith");
- }else{
-	 alert("no sucess WorkingWith");
- }
- if(rCountry == country){
-	 alert("sucess Country");
- }else{
-	 alert("no sucess Country");
- }
- if(rState == state){
-	 alert("sucess rState");
- }else{
-	 alert("no sucess rState");
- }
- if(rCity == city){
-	 alert("sucess rCity");
- }else{
-	 alert("no sucess rCity");
  } */
+//  var educationarry = {};
+var  educationarry=rEducation.split(",");
+console.log(educationarry);
+for (var i=0;i<educationarry.length; i++){
+ if(parseInt(educationarry[i]) == education){
+	 $("#Education_img img").attr("src","../nimages/Yes.png");
+ }else
+ {
+ 	 $("#Education_img img").attr("src","../nimages/No.png");	 
+  } }
+ if(rOccupation == occupation){
+	 $("#Occupation_img img").attr("src","../nimages/Yes.png");
+ }else
+ {
+ 	 $("#Occupation_img img").attr("src","../nimages/No.png");	 
+  } 
+ if(rAnnualIncome == annualIncome){
+	 $("#AnnualIncome_img img").attr("src","../nimages/Yes.png");
+ }else
+ {
+ 	 $("#AnnualIncome_img img").attr("src","../nimages/No.png");	 
+  }
+ if(rWorkingWith == workingWith){
+	 $("#Working_img img").attr("src","../nimages/Yes.png");
+ }else
+ {
+ 	 $("#Working_img img").attr("src","../nimages/No.png");	 
+  } 
+ if(rCountry == country){
+	 $("#Country_img img").attr("src","../nimages/Yes.png");
+ }else
+ {
+ 	 $("#Country_img img").attr("src","../nimages/No.png");	 
+  } 
+ if(rState == state){
+	 $("#ResidingState_img img").attr("src","../nimages/Yes.png");
+ }else
+ {
+ 	 $("#ResidingState_img img").attr("src","../nimages/No.png");	 
+  } 
+ if(rCity == city){
+	  $("#ResidingCity_img img").attr("src","../nimages/Yes.png");
+ }else
+ {
+ 	 $("#ResidingCity_img img").attr("src","../nimages/No.png");	 
+  } 
 </script> 
 
 

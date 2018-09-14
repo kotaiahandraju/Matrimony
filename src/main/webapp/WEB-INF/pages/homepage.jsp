@@ -381,7 +381,7 @@ height: auto;
 }
 .agile-assisted-service p {
     font-size: 20px;
-    color: #fff;
+    color: #e0e0e0;
     letter-spacing: 1px;
     font-weight: 300;
     margin: 0 auto 50px;
@@ -485,7 +485,7 @@ video {
 }
 .agile-assisted-service p {
     font-size: 13px;
-    color: #fff;
+    color: #e0e0e0;
     letter-spacing: 1px;
     font-weight: 300;
     margin: 0 auto 50px;
@@ -1508,7 +1508,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 		</div>
 	</div>
 	<script type="text/javascript">
-	/* var religionList="${religionList}";
+	var religionList="${religionList}";
 	
 	var hindu='${religionList.Hindu}';
 	var muslim='${religionList.Muslim}';
@@ -1528,7 +1528,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
     var noorBasha = "${castList.NoorBasha}";
     var syed ="${castList.Syed}";
     var shaik ="${castList.Shaik}";
-    var pathan ="${castList.Pathan}"; */
+    var pathan ="${castList.Pathan}";
 	
 	</script>
 	
@@ -1544,42 +1544,76 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 					</div>
 					<div class="row">
 						<div class="about-content linkss">
-							<c:set var="lineCounter" value="${1}" />
-							<c:forEach items="${religionCasteList}" var="mapp">
-								<c:if test="${lineCounter==1  }">
-								<div class="col-md-3">
-								
-									<table class="table table-bordered table-hover table-condensed">
-										<tbody>
-								</c:if>
-										<tr>
-											<td><a href="#" onclick="religionSearch(${mapp.id},'${mapp.list_type}');"><c:out value="${mapp.name}" /><span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
-										</tr>
-										<!-- <tr>
-											<td><a href="#" onclick="religionSearch(muslim,'religion')";>Muslim <span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
-										</tr>
-										<tr>
-											<td><a href="#" onclick="religionSearch(chiristian,'religion')";>Christian<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
-										</tr>
-										<tr>
-											<td><a href="#" onclick="religionSearch(jain,'religion')";>Jains<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
-										</tr> -->
-								
-								<c:if test="${lineCounter==4  }">
-									
-									</tbody></table>
-	
-								</div>
-								</c:if>
-								<c:if test="${lineCounter<=4}">
-								<c:set var="lineCounter" value="${lineCounter+1}" />
-								</c:if>
-								<c:if test="${lineCounter>4}">
-									<c:set var="lineCounter" value="${1}" />
-								</c:if>
-								<%-- <p><c:out value="${mapp.id}" />:<c:out value="${mapp.name}" /></p> --%>
-							</c:forEach>
-							
+
+							<div class="col-md-3">
+
+								<table class="table table-bordered table-hover table-condensed">
+									<tbody><tr>
+										<td><a href="#" onclick="religionSearch(hindu,'religion');">Hindu<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
+									</tr>
+									<tr>
+										<td><a href="#" onclick="religionSearch(muslim,'religion')";>Muslim <span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
+									</tr>
+									<tr>
+										<td><a href="#" onclick="religionSearch(chiristian,'religion')";>Christian<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
+									</tr>
+									<tr>
+										<td><a href="#" onclick="religionSearch(jain,'religion')";>Jains<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
+									</tr>
+								</tbody></table>
+
+							</div>
+							<div class="col-md-3">
+								<table class="table table-bordered table-hover table-condensed">
+									<tbody><tr>
+										<td><a href="#" onclick="castSearch(reddy,'cast');">Reddy<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
+									</tr>
+									<tr>
+										<td><a href="#" onclick="castSearch(vaishya,'cast');">Vaishya <span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
+									</tr>
+									<tr>
+										<td><a href="#" onclick="castSearch(kamma,'cast');">Kamma<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
+									</tr>
+									<tr>
+										<td><a href="#" onclick="castSearch(kapu,'cast');">Kapu<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
+									</tr>
+								</tbody></table>
+
+							</div>
+							<div class="col-md-3">
+								<table class="table table-bordered table-hover table-condensed">
+									<tbody><tr>
+										<td><a href="#" onclick="castSearch(brahmin,'cast');">Brahmin<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
+									</tr>
+									<tr>
+										<td><a href="#" onclick="castSearch(yadav,'cast');">Yadav <span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
+									</tr>
+									<tr>
+										<td><a href="#" onclick="castSearch(naidu,'cast');">Naidu<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
+									</tr>
+									<tr>
+										<td><a href="#" onclick="castSearch(christian,'cast');">Christian<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
+									</tr>
+								</tbody></table>
+
+							</div>
+							<div class="col-md-3">
+								<table class="table table-bordered table-hover table-condensed">
+									<tbody><tr>
+										<td><a href="#" onclick="castSearch(noorBasha,'cast');">NoorBasha<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
+									</tr>
+									<tr>
+										<td><a href="#" onclick="castSearch(syed,'cast');">Syed<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
+									</tr>
+									<tr>
+										<td><a href="#" onclick="castSearch(shaik,'cast');">Shaik<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
+									</tr>
+									<tr>
+										<td><a href="#" onclick="castSearch(pathan,'cast');">Pathan<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
+									</tr>
+								</tbody></table>
+
+							</div>
 						</div>
 					</div>
 				</div>
@@ -2335,9 +2369,6 @@ $('img').bind('contextmenu', function(e) {
     /* $(".multiselect").click(function(){
     	$(".dropdown-content").css("display", 'block');
     }); */
-    $(".navbar-toggle").click(function(e){
-    	  $(this).toggleClass("open");
-    	});
     </script>
 </body>
 
