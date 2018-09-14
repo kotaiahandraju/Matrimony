@@ -1099,17 +1099,17 @@ $(".onlyCharacters").on("keypress",	function(event) {
 <div class="col-md-3" >
 <div class="products-grid-right">
 
-	<div class="panel panel-success" style="width: 250px;">
+	<%-- <div class="panel panel-success" style="width: 250px;">
 <div class="panel-heading">Add Horoscope</div>
         <div class="panel-body table-responsive">
             <div class="col-md-3" style='width: 232px; display: -webkit-box;'>
         <img src="${baseurl}/user/images/edit-add-horoscope.gif" width="40" style='margin: 0px 0px 0px -25px;'>
     <p style="margin-left: 29px;">It is simple and absolutely FREE!</p></div>
         </div>
-    </div>
+    </div> --%>
     
-<div class="panel panel-default" style="width: 250px;">
-<div class="panel-heading">Add Photos Now</div>
+<div class="panel " style="width: 250px;">
+<div class="panel-heading"><b> Add Photos Now</b></div>
         <div class="panel-body table-responsive">
             <div class="col-md-3" style='width: 232px; display: -webkit-box;'>
         <img src="${baseurl}/user/images/add-photo-edit-avatar.png" width="40" style='margin: 0px 0px 0px -25px;'>

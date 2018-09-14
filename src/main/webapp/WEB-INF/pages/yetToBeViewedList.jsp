@@ -31,7 +31,7 @@ border: 1px solid #d6d6d6;
 background: #f1f1f1;
 }
  .matches1 h4 {
-background: #f1f1f1;
+/* background: #f1f1f1; */
 margin-left:15px;
 font: bold 15px arial;
 }

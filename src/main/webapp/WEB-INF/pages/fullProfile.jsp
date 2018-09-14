@@ -1263,16 +1263,16 @@ xpopup
 <div class="col-md-4 noPrint">
 <div class="col-sm-3" style='width: 100%; margin: 46px 0px 0px 0px;'>
 			<div class="col-md-11 products-grid-right">
-			<div class="panel panel-success">
+			<%-- <div class="panel panel-success">
 			<div class="panel-heading">Add Horoscope</div>
 					<div class="panel-body table-responsive">
 		            	<div class="col-md-3"">
 					<img src="${baseurl}/user/images/edit-add-horoscope.gif" width="40">
 				</div><div class="col-md-9"><p>It is simple and absolutely FREE!</p></div>
 	            	</div>
-	            </div>
-			<div class="panel panel-success">
-			<div class="panel-heading">Add Photos Now</div>
+	            </div> --%>
+			<div class="panel ">
+			<div class="panel-heading"><b> Add Photos Now</b></div>
 					<div class="panel-body table-responsive">
 		            	<div class="col-md-3">
 					<img src="${baseurl}/user/images/add-photo-edit-avatar.png" width="40">

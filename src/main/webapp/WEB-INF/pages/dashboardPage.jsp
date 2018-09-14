@@ -367,13 +367,13 @@ padding-right:0px;
   </div>
 	</c:if>
 </div><div class="clearfix"></div><br>
-				<div class="panel panel-default col-md-8">
+				<div class="panel panel-default col-md-12">
 					<div class="panel-body">
 						<c:if test="${profile_filled_status != '100'}">
 							Complete the Remaining Profile
 						</c:if>
 						
-						<div class="progress">
+						<div class="progress" style="width:300px;">
 							<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: ${profile_filled_status}%;">
 								<%= session.getAttribute("profile_filled_status") %>% Complete 
 							</div>
@@ -430,11 +430,11 @@ padding-right:0px;
       </h4>
 
         </div>
-        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne" style="height: 0px;">
+        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne" style="">
             <div class="panel-body" style="padding:10px 0px;">
-            <div class="col-md-3" style="padding-right:0px; padding-left:0px;">
+            <div class="col-md-3 col-xs-3" style="padding-right:0px; padding-left:0px;">
             <img src="../nimages/preicon.jpg" style="cursor: pointer;border-radius: 50%;no-repeat;width: 45px;height: 45px;display: block;border: 1px solid #e1e1e1;border-radius: 50%;background-size: 75px 75px;">
-   </div><div class="col-md-7" style="padding-right:0px; padding-left:0px;">   <p><a href="#">T4135943 </a><br>
+   </div><div class="col-md-7 col-xs-7" style="padding-right:0px; padding-left:0px;">   <p><a href="#">T4135943 </a><br>
 <a href="#">27 Yrs, 5 Ft 6 In</a><br>
 <a href="#">Hyderabad</a><br>
 <a href="#"><img src="../nimages/heart-icon.png" /> Send Interest</a></p></div>
@@ -589,6 +589,9 @@ padding-right:0px;
          <a href="myPhotos" style="display: -webkit-inline-box;"><img src="http://localhost:8080/NBD/user/images/add-photo-edit-avatar.png" width="40" style="margin: 0px 0px 0px -25px;">
     <p style="margin-left: 10px;">Photos are the first things members look for in a profile.</p></a></div>
         </div>
+    </div>
+    <div class="panel " style="width: 250px;">
+    <img src="../nimages/couple.jpg" class="img-responsive"/>
     </div>
 </div></div><div class="clearfix"></div>
 				<% 

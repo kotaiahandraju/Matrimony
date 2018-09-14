@@ -95,10 +95,10 @@
 						</div>
 					</div>
 				</div><div class="panel-group" id="accordion">
-    <div class="panel panel-default">
+    <div class="panel ">
         <div class="panel-heading">
              <h4 class="panel-title">
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#panel1"><i class="glyphicon glyphicon-minus"></i>Membership Details</a>
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#panel1"><i class="glyphicon glyphicon-minus"></i><b>Membership Details</b></a>
             </h4>
 
         </div>

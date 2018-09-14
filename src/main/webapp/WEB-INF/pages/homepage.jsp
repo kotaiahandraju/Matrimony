@@ -475,6 +475,19 @@ padding-top: 85px !important;
     width: 65%;
     margin: 0 auto;
 }
+.grid figcaption {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 7px;
+    background: #2c3f52;
+    color: #ed4e6e;
+}
+.cs-style-5 figure a {
+    position: absolute;
+    bottom: 8px;
+    right: 20px;
+}
 .footer-grids ul {
     margin-inline-start: -14px !important;
 }
@@ -700,6 +713,13 @@ td, th {
     text-align: center;
     width: 33%;
     float: left;
+}
+.grid figcaption h3 {
+    margin: 0;
+    padding: 0;
+    color: #fff;
+    font-size: 13px;
+    text-align: left;
 }
 .firstnam {
 width:120px;
@@ -1572,7 +1592,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 										<td><a href="#" onclick="castSearch(vaishya,'cast');">Vaishya <span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
 									</tr>
 									<tr>
-										<td><a href="#" onclick="castSearch(kamma,'cast');">Kamma<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
+										<td><a href="#" onclick="castSearch(Kamma,'cast');">kamma<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
 									</tr>
 									<tr>
 										<td><a href="#" onclick="castSearch(kapu,'cast');">Kapu<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
@@ -1772,16 +1792,21 @@ Benzcircle Vijayawada</li>
 				<div class="col-md-4 footer-grids">
 						<h3>Quick links</h3>
 						<ul>
-							<li><a href="termsConditionsHomepage">Terms of use</a></li>
-							<li><a href="privacyAndPolicyHomePage">Privacy Policy</a></li>
-							<li><a href="helpHomePage">Help</a></li>
+							<li><a href="#stayhere">Terms of use</a></li>
+							<li><a href="#stayhere">Privacy Policy</a></li>
+							<li><a href="#stayhere">Contact Us</a></li>
+							<li><a href="#stayhere">FAQ</a></li>
+							<li><a href="#stayhere">Sitemap</a></li>
 						</ul> 					</div>
 					<div class="col-md-4 footer-grids">
 					
 						 <h3>Company</h3>
 						<ul style="margin-inline-start: 34px;">
-							<li><a href="aboutUsHomePage">About Us</a></li>
-							<li><a href="#">Register Free</a></li>
+							<li><a href="#stayhere">About Us</a></li>
+							<li><a href="#stayhere">Feedback</a></li>  
+							<li><a href="#stayhere">Help</a></li>  
+							<li><a href="#stayhere">Register Free</a></li>
+							<li><a href="#stayhere">Payment Options</a></li>
 						</ul>
 					</div>
 					<div class="col-md-4 footer-grids">
@@ -2369,6 +2394,9 @@ $('img').bind('contextmenu', function(e) {
     /* $(".multiselect").click(function(){
     	$(".dropdown-content").css("display", 'block');
     }); */
+    $("navbar-toggle").click(function(e){
+    	  $(this).toggleClass("open");
+    	});
     </script>
 </body>
 

@@ -115,7 +115,8 @@ margin-right:5px;
 			.tab-content.hide{
 				display: none;
 			}
-			
+			.btn-default{
+			width:auto !important;}
 			
 			/** End: to style navigation tab **/
 		</style>
