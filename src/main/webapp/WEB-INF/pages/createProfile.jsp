@@ -103,8 +103,8 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label required">Create Password <span style="color:red;"></span></label>
 									<div class="col-sm-8">
-									  	<form:password path="password" class="form-control" placeholder="Enter Password"/> 
-								  		<div><form:errors path="password" cssClass="error" /></div>
+									  	<form:password path="regPassword" class="form-control" placeholder="Enter Password"/> 
+								  		<div><form:errors path="regPassword" cssClass="error" /></div>
 									</div>
 							  	</div>
 							</div>

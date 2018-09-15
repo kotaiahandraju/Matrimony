@@ -496,6 +496,7 @@ font-size:18px;
     width: 65%;
     margin: 0 auto;
 }
+<<<<<<< HEAD
 .grid figcaption h3{
 font-size:13px;
 }
@@ -1551,7 +1552,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 		</div>
 	</div>
 	<script type="text/javascript">
-	var religionList="${religionList}";
+	/* var religionList="${religionList}";
 	
 	var hindu='${religionList.Hindu}';
 	var muslim='${religionList.Muslim}';
@@ -1571,7 +1572,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
     var noorBasha = "${castList.NoorBasha}";
     var syed ="${castList.Syed}";
     var shaik ="${castList.Shaik}";
-    var pathan ="${castList.Pathan}";
+    var pathan ="${castList.Pathan}"; */
 	
 	</script>
 	
@@ -1587,76 +1588,47 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 					</div>
 					<div class="row">
 						<div class="about-content linkss">
-
-							<div class="col-md-3">
-
-								<table class="table table-bordered table-hover table-condensed">
-									<tbody><tr>
-										<td><a href="#" onclick="religionSearch(hindu,'religion');">Hindu<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
-									</tr>
-									<tr>
-										<td><a href="#" onclick="religionSearch(muslim,'religion')";>Muslim <span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
-									</tr>
-									<tr>
-										<td><a href="#" onclick="religionSearch(chiristian,'religion')";>Christian<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
-									</tr>
-									<tr>
-										<td><a href="#" onclick="religionSearch(jain,'religion')";>Jains<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
-									</tr>
-								</tbody></table>
-
-							</div>
-							<div class="col-md-3">
-								<table class="table table-bordered table-hover table-condensed">
-									<tbody><tr>
-										<td><a href="#" onclick="castSearch(reddy,'cast');">Reddy<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
-									</tr>
-									<tr>
-										<td><a href="#" onclick="castSearch(vaishya,'cast');">Vaishya <span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
-									</tr>
-									<tr>
-										<td><a href="#" onclick="castSearch(Kamma,'cast');">Kamma<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
-									</tr>
-									<tr>
-										<td><a href="#" onclick="castSearch(kapu,'cast');">Kapu<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
-									</tr>
-								</tbody></table>
-
-							</div>
-							<div class="col-md-3">
-								<table class="table table-bordered table-hover table-condensed">
-									<tbody><tr>
-										<td><a href="#" onclick="castSearch(brahmin,'cast');">Brahmin<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
-									</tr>
-									<tr>
-										<td><a href="#" onclick="castSearch(yadav,'cast');">Yadav <span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
-									</tr>
-									<tr>
-										<td><a href="#" onclick="castSearch(naidu,'cast');">Naidu<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
-									</tr>
-									<tr>
-										<td><a href="#" onclick="castSearch(christian,'cast');">Christian<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
-									</tr>
-								</tbody></table>
-
-							</div>
-							<div class="col-md-3">
-								<table class="table table-bordered table-hover table-condensed">
-									<tbody><tr>
-										<td><a href="#" onclick="castSearch(noorBasha,'cast');">NoorBasha<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
-									</tr>
-									<tr>
-										<td><a href="#" onclick="castSearch(syed,'cast');">Syed<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
-									</tr>
-									<tr>
-										<td><a href="#" onclick="castSearch(shaik,'cast');">Shaik<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
-									</tr>
-									<tr>
-										<td><a href="#" onclick="castSearch(pathan,'cast');">Pathan<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
-									</tr>
-								</tbody></table>
-
-							</div>
+							<c:set var="lineCounter" value="${1}" />
+							<c:set var="itemsCounter" value="${1}" />
+							<c:forEach items="${religionCasteList}" var="mapp">
+								<c:if test="${itemsCounter<=16}">
+								<c:if test="${lineCounter==1}">
+								<div class="col-md-3">
+								
+									<table class="table table-bordered table-hover table-condensed">
+										<tbody>
+								</c:if>
+										<tr>
+											<td><a href="#" onclick="religionSearch(${mapp.id},'${mapp.list_type}');"><c:out value="${mapp.name}" /><span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
+										</tr>
+										<!-- <tr>
+											<td><a href="#" onclick="religionSearch(muslim,'religion')";>Muslim <span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
+										</tr>
+										<tr>
+											<td><a href="#" onclick="religionSearch(chiristian,'religion')";>Christian<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
+										</tr>
+										<tr>
+											<td><a href="#" onclick="religionSearch(jain,'religion')";>Jains<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
+										</tr> -->
+								
+								<c:if test="${lineCounter==4}">
+									</tbody></table></div>
+								</c:if>
+									
+									
+								
+								
+								<c:if test="${lineCounter<=4}">
+								<c:set var="lineCounter" value="${lineCounter+1}" />
+								</c:if>
+								<c:if test="${lineCounter>4}">
+									<c:set var="lineCounter" value="${1}" />
+								</c:if>
+								</c:if>
+								<c:set var="itemsCounter" value="${itemsCounter+1}" />
+								<%-- <p><c:out value="${mapp.id}" />:<c:out value="${mapp.name}" /></p> --%>
+							</c:forEach>
+							
 						</div>
 					</div>
 				</div>
@@ -1815,21 +1787,16 @@ Benzcircle Vijayawada</li>
 				<div class="col-md-4 footer-grids">
 						<h3>Quick links</h3>
 						<ul>
-							<li><a href="#stayhere">Terms of use</a></li>
-							<li><a href="#stayhere">Privacy Policy</a></li>
-							<li><a href="#stayhere">Contact Us</a></li>
-							<li><a href="#stayhere">FAQ</a></li>
-							<li><a href="#stayhere">Sitemap</a></li>
+							<li><a href="termsConditionsHomepage">Terms of use</a></li>
+							<li><a href="privacyAndPolicyHomePage">Privacy Policy</a></li>
+							<li><a href="helpHomePage">Help</a></li>
 						</ul> 					</div>
 					<div class="col-md-4 footer-grids">
 					
 						 <h3>Company</h3>
 						<ul style="margin-inline-start: 34px;">
-							<li><a href="#stayhere">About Us</a></li>
-							<li><a href="#stayhere">Feedback</a></li>  
-							<li><a href="#stayhere">Help</a></li>  
-							<li><a href="#stayhere">Register Free</a></li>
-							<li><a href="#stayhere">Payment Options</a></li>
+							<li><a href="aboutUsHomePage">About Us</a></li>
+							<li><a href="#">Register Free</a></li>
 						</ul>
 					</div>
 					<div class="col-md-4 footer-grids">
@@ -2428,7 +2395,7 @@ $('img').bind('contextmenu', function(e) {
     /* $(".multiselect").click(function(){
     	$(".dropdown-content").css("display", 'block');
     }); */
-    $("navbar-toggle").click(function(e){
+    $(".navbar-toggle").click(function(e){
     	  $(this).toggleClass("open");
     	});
     </script>
