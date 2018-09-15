@@ -44,6 +44,9 @@
 	.products .container {
 	background:#f1f1f1 !important;
 	}
+	b, strong {
+    font-weight: 600 !important;
+}
 	.container {
 	background:#f1f1f1 !important;
 	}
@@ -51,6 +54,14 @@
     color: #0f7cc1;
     background-color: #e1f7e5;
     border-color: #46b8da;
+}
+.btn.disabled, .btn[disabled], fieldset[disabled] .btn {
+    pointer-events: none;
+    cursor: not-allowed;
+    filter: alpha(opacity=65);
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    opacity: 1 !important;
 }
 	.btn-default {
     color: #ec1212;
@@ -858,7 +869,7 @@ tooltip:hover:after {
 					}
 					var shortListedStr = '<span id="shortlistTD'+orderObj.id+'" name="shortlistTD[]"><a href="#no" type="button" class="btn btn-info btn-sm" onclick="shortList('+orderObj.id+')"> Shortlist</a></span>';
 					if(orderObj.short_listed == "1"){
-						shortListedStr = '<span><a type="button" class="btn btn-warning btn-sm" disabled="true"> Shortlisted</a></span>';
+						shortListedStr = '<span><a type="button" class="btn btn-info btn-sm" disabled="true"> Shortlisted</a></span>';
 					}
 					var status_str = "";
 					var expressed = orderObj.expressedInterest;
@@ -867,7 +878,7 @@ tooltip:hover:after {
 					if(expressed==0){
 						interestStr = '<span id="expInterest'+orderObj.id+'" name="expInterest[]"><a   href="#no" type="button" class="btn btn-warning btn-sm"  onclick="expressInterest('+orderObj.id+')">  Express Interest  </a></span>';
 					}else if(expressed>0){
-						interestStr = '<span><a type="button" class="btn btn-blue btn-sm" disabled="true" style="text-size-adjust:auto">Expressed Interest</a></span>';
+						interestStr = '<span><a type="button" class="btn btn-warning btn-sm" disabled="true" style="text-size-adjust:auto">Expressed Interest</a></span>';
 						check_box_str = '" disabled="true"  checked="checked"';
 					}
 					var message_sent_status = orderObj.message_sent_status;
@@ -891,7 +902,7 @@ tooltip:hover:after {
 						var photos_list = orderObj.photosList;
 						var slider = "", displayStyle = ' ';
 						if(photos_list == "" || typeof photos_list == "undefined"){
-							slider = '<a href="#" onclick="fullProfile('+orderObj.id+')"><img src="../img/default.png" class="img img-responsive thumbnail " style="margin-bottom:0;height: auto;width: 100%;" ></a>';
+							slider = '<a href="#" onclick="fullProfile('+orderObj.id+')"><img src="../img/default.png" class="img img-responsive thumbnail " style="margin-bottom:0;height: 140px;width: 100%;" ></a>';
 						}else{
 							smallerSlideIndex[orderObj.id] = 0;
 							var slider = "", displayStyle = ' ';
@@ -903,7 +914,7 @@ tooltip:hover:after {
 									displayStyle = ' style="display:none;" ';
 								}
 								slider += '<div class="picstyle smallSlides'+orderObj.id+'" '+displayStyle+'>'
-										+'	<a href="#" onclick="fullProfile('+orderObj.id+')">	<img src="${catalina_base}/'+photosArray[index]+'" class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: auto;width: 100%;" >'
+										+'	<a href="#" onclick="fullProfile('+orderObj.id+')">	<img src="${catalina_base}/'+photosArray[index]+'" class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: 140px;width: 100%;" >'
 										+'</div>'
 							});
 							if(photosArray.length>1){
@@ -963,7 +974,7 @@ tooltip:hover:after {
 						+ '</h5>'
 						+ '</div>'
 						+ '<div class="panel-body">'
-						+ '<div class="col-md-3 picstyle">'
+						+ '<div class="col-md-3 picstyle" style="padding-left:0px; padding-right:0px;">'
 						//+ '<a href="#no"> <img src='+image+' class="img img-responsive thumbnail" style="width: 150px; height: 120px;"></a>'
 						+ slider
 		            	+ '</div>'
@@ -3636,17 +3647,17 @@ img.hover-shadow {
 		<div class="col-md-1 col-xs-1">
 		<div class="pull-right" style="width:80px;">
 		<ul class="nav navbar-nav navbar-right">
-							<li class="dropdown dropdown1 settings pull-right" style="height:62px; width:96px; background:#fff; padding:0px;">
-								<a href="#no" class="dropdown-toggle setpic" data-toggle="dropdown" style="background:#fff;">
+							<li class="dropdown dropdown1 settings pull-right" style="height:62px; width:96px; background:#f1f1f1; padding:0px;">
+								<a href="#no" class="dropdown-toggle setpic" data-toggle="dropdown" style="background:#f1f1f1;">
 									
 									
 <!-- 										<img id="profilepic" src="${baseurl}/img/default.png" class="img-responsive thumbnail " style="margin-top:-10px;height: 40px;width: 40px;border-radius:15%;">  -->
 
 									<c:if test="${not empty cacheGuest.profileImage}">
-										<img id="profilepic" src="${catalina_base}/${cacheGuest.profileImage}" alt="" class="img img-responsive thumbnail watermark_text" style="border-radius:15%;"><i style="margin-right:-10px; margin-top:22px;" class="fa fa-angle-down" aria-hidden="true"></i>
+										<img id="profilepic" src="${catalina_base}/${cacheGuest.profileImage}" alt="" class="img img-responsive thumbnail watermark_text" style="border-radius:15%;"><i style="margin-right:-18px; margin-top:17px;font-size:22px;" class="fa fa-angle-down" aria-hidden="true"></i>
 									</c:if>
 									<c:if test="${empty cacheGuest.profileImage}">
-										<img id="profilepic" src="${baseurl}/img/default.png" alt="image" class="img-responsive thumbnail " style="border-radius:15%;"/><i style="margin-right:-10px; margin-top:22px;" class="fa fa-angle-down" aria-hidden="true"></i>
+										<img id="profilepic" src="${baseurl}/img/default.png" alt="image" class="img-responsive thumbnail " style="border-radius:15%;"/><i style="margin-right: -18px;margin-top: 17px;font-size: 22px;" class="fa fa-angle-down" aria-hidden="true"></i>
 									</c:if>
 
 									

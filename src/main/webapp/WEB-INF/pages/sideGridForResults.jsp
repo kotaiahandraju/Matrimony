@@ -60,7 +60,7 @@ text-align:left;
 }
 .collapse-group {
   
-  border: 1px solid darkgrey;
+  border: 1px solid #d6d6d6;
   margin-bottom: 10px;
 }
 
@@ -214,7 +214,7 @@ contacted (${cacheGuest.viewedNotContactedCount})</a><br>
     <div id="collapseFive" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFive">
       <div class="panel-body">
       <div class="" style="padding:5px;">
-      <select name="city" id="city" style="padding:5px;" class="optiondiv multiselect"   multiple="multiple">
+      <select name="city" id="city" style="padding:5px;width: 196px;height:32px;" class="optiondiv multiselect"   multiple="multiple">
       	<option value="all" >--Select City--</option>
       
       </select>&nbsp;&nbsp;<span class="errortext" id="cityerr"></span>&nbsp;&nbsp;<input class="" style="background: rgb(255, 255, 255) none repeat scroll 0% 0%; border-radius: 3px; color: rgb(2, 116, 203); font-weight: normal; font-size: 12px; margin:0 50px; margin-left: 0px; float:right; padding: 5px; margin-top: -2px; border: 1px solid rgb(214, 214, 214); line-height: 16px;cursor:pointer !important;" value="Submit" onclick="submitMore('')" type="button"></div>

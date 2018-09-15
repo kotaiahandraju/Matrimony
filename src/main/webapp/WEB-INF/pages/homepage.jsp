@@ -45,13 +45,13 @@ video {
 	height: 245px;
 	margin-top: -5px;
 }
-.grid figcaption h3 {
+/* .grid figcaption h3 {
     margin: 0;
     padding: 0;
     color: #fff;
     font-size: 18px;
     text-align: left;
-}
+} */
 #return-to-top {
     position: fixed;
     bottom: 20px;
@@ -212,7 +212,7 @@ a h4:hover {
 }
 .address-left ul li {
     display: block;
-    margin: 20px 0;
+    margin: 10px 0;
     font-size: 14px;
     color: #4c4c4c;
     border-top: 1px solid #ffffff;
@@ -463,17 +463,41 @@ padding-top: 85px !important;
     padding-left: 66px !important;
     margin-top:0px !important;
 } */
+@media only screen and (max-width: 1600px) and (min-width: 1024px) {
+
+.grid figcaption h3 {
+    margin: 0;
+    padding: 0;
+    color: #fff;
+    font-size: 19px ;
+    text-align: left;
+}
+}
 @media only screen and (max-width: 1600px) and (min-width: 980px) {
 .navbar>.container-fluid .navbar-brand {
    margin-left: 39px; 
    margin-top:0px !important;
 }
+.grid figcaption h3 {
+    margin: 0;
+    padding: 0;
+    color: #fff;
+    font-size: 13px;
+    text-align: left;
 }
+}
+@media only screen and (max-width: 1900px) and (min-width: 1024px) {
+.grid figcaption h3{
+font-size:18px;
+}}
 @media only screen and (max-width: 640px) and (min-width: 320px) {
 .search {
     font-size: 16px;
     width: 65%;
     margin: 0 auto;
+}
+.grid figcaption h3{
+font-size:13px;
 }
 .grid figcaption {
     position: absolute;
@@ -483,6 +507,7 @@ padding-top: 85px !important;
     background: #2c3f52;
     color: #ed4e6e;
 }
+
 .cs-style-5 figure a {
     position: absolute;
     bottom: 8px;
@@ -714,13 +739,7 @@ td, th {
     width: 33%;
     float: left;
 }
-.grid figcaption h3 {
-    margin: 0;
-    padding: 0;
-    color: #fff;
-    font-size: 13px;
-    text-align: left;
-}
+
 .firstnam {
 width:120px;
 float:left;}
@@ -1122,7 +1141,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
     background-position: 60% 0px;
 ">
 <div class="col-md-8"></div>
-<div class="col-md-3 bannerform" style="float: right;">
+<div class="col-md-3 bannerform" style="float: right;    margin-right: 4%;">
 
 <form:form commandName="createProfile" action="#"  id="registration"  method="post" class="login-form">
 <div id="firstForm">
@@ -1230,13 +1249,15 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 <div class="row search-box">
 <div class="col-md-12 search search-link">
 <div class="col-md-2"><h4> I am Looking for</h4>
-<select id="rPeople" class="custom-select col-md-12 form-control">
+ <form:form commandName="createProfile"  class="form-horizontal" id="searchForm" name="searchForm" role="form"   method="post">
+<%-- <form:hidden path="gender"/> --%>
+<form:select id="rPeople" path="gender" class="custom-select col-md-12 form-control">
 								<option value="FeMale" id="id1">Bride</option>
 								<option value="Male" id="id2">Groom</option>
-							</select>
+							</form:select>
 </div>
 <div class="col-md-3"><h4>Aged  </h4>   
-<span>From </span> <select id="rAgeFrom" name="rAgeFrom"   class="for-control"  style="width:60px;">
+<span>From </span> <form:select path="rAgeFrom" id="rAgeFrom" name="rAgeFrom"   class="for-control"  style="width:60px;">
 						            <option value="18">18</option>
 									<option value="19">19</option>
 									<option value="20">20</option>
@@ -1270,9 +1291,9 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 									<option value="48">48</option>
 									<option value="49">49</option>
 									<option value="50">50</option>					
-					</select>
+					</form:select>
 					<span>To </span>
-					<select id="rAgeTo" name="rAgeTo"  class="formcontrol" style="width:60px;">
+					<form:select path="rAgeTo" id="rAgeTo" name="rAgeTo"  class="formcontrol" style="width:60px;">
 									<option value="19">19</option>
 									<option value="20">20</option>
 									<option value="21">21</option>
@@ -1305,7 +1326,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 									<option value="48">48</option>
 									<option value="49">49</option>
 									<option value="50">50</option> 					
-					</select></div>
+					</form:select></div>
            <div class="col-md-2"><h4> Religion </h4> 
           <form:select path="religion" id="religionId" onchange="getReliginCastAjax1();" class=" form-control" >
 <%-- 								<form:option value="">of Religion.... &nbsp;&nbsp;</form:option> --%>
@@ -1313,16 +1334,18 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 							</form:select>
 					</div>
 					<div class="col-md-2"><h4> Caste </h4>
-					 <form:select path="cast" id="castId" class="custom-select col-md-12 form-control">
+					 <form:select path="caste" id="castId" class="custom-select col-md-12 form-control">
 								<form:option value="">of Caste.... &nbsp;&nbsp;</form:option>
 <%-- 								<form:options items="${cast}"></form:options> --%>
 							</form:select>
 					 </div>
-<div class="col-md-2"><h4>&nbsp;</h4> <button type="button" id="submit12" class="btn btn-primary" onclick="searchSubmit();">Search</button>
+					 
+<div class="col-md-2"><h4>&nbsp;</h4> <button type="submit" id="submit12" class="btn btn-primary" onclick="searchSubmit();">Search</button>
+	</form:form>				
 </div>
 </div>
 </div>
-</div>
+</div>	
 </div><div class="clearfix"></div>
 <div id="strip">
 <div class="container">
@@ -2229,7 +2252,7 @@ $('img').bind('contextmenu', function(e) {
     		    }
     	    });
     	});
-    function displaydata(data) {
+   /*  function displaydata(data) {
     	
         if(data == ""){
            $('#searchResults').empty();	  
@@ -2278,7 +2301,7 @@ $('img').bind('contextmenu', function(e) {
       	+ '</div>';
   			$(tblRow).appendTo("#searchResults");
   	});
-  }
+  } */
 
 
     
@@ -2358,23 +2381,32 @@ $('img').bind('contextmenu', function(e) {
     	alert("You are looking for?");
     	return false;
     	}
-        else
-    	{
+        else{
+        	
+        	
+        	document.searchForm.action = "homePageSearchResults"
+        		document.searchForm.submit();
+        	
+        }
+    	/* {
 //     	var Female= $('#id1').val();
 //     	var Male= $('#id2').val();
     	var people= $('#rPeople').val();
     	var rAgeFrom= $('#rAgeFrom').val();
     	var rAgeTo= $("#rAgeTo").val();
-    	
-    	var gender="";
+    	$("#gender").val(people); */
+    	/* var gender="";
            	if(people != $('#id2').val() ){
            		gender="Female";
+           		$("#gender").val("Female");
     	    }else
     	    {
     		   gender="Male";
-    	   }
-    	
-    		var formData = new FormData();
+    		   $("#gender").val("Male");
+    	   } */
+         
+       
+    		/* var formData = new FormData();
     		formData.append("gender",gender);
     		formData.append("rAgeFrom",rAgeFrom);
     		formData.append("rAgeTo",rAgeTo);
@@ -2384,12 +2416,14 @@ $('img').bind('contextmenu', function(e) {
     			formData, false, 'text', function(data){
     		var jsonobj = $.parseJSON(data);
     		var alldata = jsonobj.searchListOrders;
-    		$("#searchResults").html('');
-    		displaydata(alldata);
-    		$('#myModal').modal('show');
-    	});
+    		 window.location.href="${baseurl}/homePageSearch";
+//     		$("#searchResults").html('');
+//     		displaydata(alldata);
+    		 
+//     		$('#myModal').modal('show');
+    	});	 */
     		
-    }
+   
     } 
     /* $(".multiselect").click(function(){
     	$(".dropdown-content").css("display", 'block');

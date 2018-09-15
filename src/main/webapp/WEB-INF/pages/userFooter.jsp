@@ -4,9 +4,10 @@
 </div>
 <!-- body ends here-->
 <!-- footer -->
-<div class="container" style="background:#fff;">
+<div class="" style="background:;">
 	<div class="row">
 		<div class="footer" style="font-size: 10px;">
+		<div class="container" style="background: #333333 !important;">
 			<div class="col-md-3 footer-grid">
 				<h6>About us</h6>
 				<p>Welcome to the profound world of Aarnamatrimony one of the most frequently visited and highly preferred matrimonial site..</p>
@@ -36,6 +37,7 @@
 				</ul>
 			</div>
 			<div class="clearfix"></div>
+			</div>
 		</div>
 		<div class="footer-copy">
 			<p>A product of Aarna Associates © 2017. All rights reserved.</p>

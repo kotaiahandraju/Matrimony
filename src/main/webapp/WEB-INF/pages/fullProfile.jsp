@@ -477,7 +477,7 @@ xpopup
 			<h4   style="padding="10px;"></h4><h3>Personal Information</h3><hr>
 			<div class="panel panel-success" >
 			<div class="panel-body table-responsive">			
-			<div class="col-md-11">	<strong class="font">About My ${profileBean.createProfileFor}</strong>
+			<div class="col-md-11">	<strong class="font"><img style="margin-left:-25px; padding-right:8px;" src="../nimages/self.png"/>About My ${profileBean.createProfileFor}</strong>
 				<div id="about_view" class="all_visible_divs">
 					<p id="aboutMyself_val">
 						<c:if test="${not empty profileBean.aboutMyself}">${profileBean.aboutMyself}</c:if>
@@ -490,7 +490,7 @@ xpopup
 	<br>
 		<div class="panel panel-success">
 			<div class="panel-body table-responsive">
-			<div class="col-md-12">	<strong class="font">Basic Details </strong>
+			<div class="col-md-12">	<strong class="font"><img style="margin-left:-25px; padding-right:8px;" src="../nimages/deta.png"/>Basic Details </strong>
 				<div id="basic_details_view" class="all_visible_divs">
 					<table class="col-md-6 table-responsive">
 						<%-- <tr><td>Name</td>
@@ -604,7 +604,7 @@ xpopup
 	<div class="panel panel-success">
 			<div class="panel-body table-responsive">
 		<div class="col-md-12">	
-			<strong class="font">Religion Information</strong>
+			<strong class="font"><img style="margin-left:-25px; padding-right:8px;" src="../nimages/reli.png"/>Religion Information</strong>
 			<div id="religion_info_view" class="all_visible_divs">
 				<table class="col-md-6 table-responsive">
 				<tr><td>Religion</td><td>:</td>
@@ -667,7 +667,7 @@ xpopup
 	<div class="panel panel-success">
 			<div class="panel-body table-responsive">
 			<div class="col-md-12">	
-			<strong class="font">
+			<strong class="font"><img style="margin-left:-25px; padding-right:8px;" src="../nimages/loca.png"/>
 			<c:if test="${profileBean.gender == 'Female'}">Bride</c:if>
 			<c:if test="${profileBean.gender == 'Male'}">Groom</c:if>
 			's Location</strong> 
@@ -704,7 +704,7 @@ xpopup
 <br>
 	<div class="panel panel-success">
 			<div class="panel-body table-responsive">	
-			<div class="col-md-12">	<strong class="font">Professional Information</strong>
+			<div class="col-md-12">	<strong class="font"><img style="margin-left:-25px; padding-right:8px;" src="../nimages/prof.png"/>Professional Information</strong>
 				
 	<div id="professional_info_view" class="all_visible_divs">
 	<table class="col-md-12 table-responsive">
@@ -738,7 +738,7 @@ xpopup
 <c:if test="${cacheGuest.roleId != 4 || cacheGuest.id == profileBean.id}">
 <div class="panel panel-success">
 			<div class="panel-body table-responsive">
-			<div class="col-md-12">	<strong class="font">Family Details</strong>
+			<div class="col-md-12">	<strong class="font"><img style="margin-left:-25px; padding-right:8px;" src="../nimages/family.png"/>Family Details</strong>
 				
 	<div id="family_details_view" class="all_visible_divs">
 	<table class="col-md-6 table-responsive">

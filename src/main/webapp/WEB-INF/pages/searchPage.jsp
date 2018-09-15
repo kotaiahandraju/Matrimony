@@ -1,7 +1,32 @@
 <%@ include file="userCommonHeader.jsp"%>
 <style>
+@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css");
+.panel-title > a:before {
+    float: right !important;
+    font-family: FontAwesome;
+    content:"\f068";
+    padding-right: 5px;
+    font-size: 13px;
+    color: #777;
+}
+.panel-title > a.collapsed:before {
+    float: right !important;
+    content:"\f067";
+}
+.panel-title > a:hover, 
+.panel-title > a:active, 
+.panel-title > a:focus  {
+    text-decoration:none;
+}
+.panel-title {
+
+text-align:left !important;}
 .panel-title {
 text-align:left;
+}
+.panel-title > a.collapsed:before {
+    float: right !important;
+    content: "\f067";
 }
 .form-control {
 width:187px;
@@ -13,8 +38,8 @@ margin-bottom:15px;}
 		<div class="mid-grids">
 			<jsp:include page="sideGridForResults.jsp" />
 			<div class="col-md-9 products-grid-left">
-            	<div class="panel panel-default">
-					<div class="panel-heading">Search Profiles</div>
+            	<div class="panel ">
+					<div class="panel-heading"><b>Search Profiles</b></div>
 					<div class="panel-body table-responsive">
 						<form:form commandName="createProfile"  class="form-horizontal" id="searchForm2" name="searchForm2" role="form" method="post">
 						<form:hidden path="id" />
