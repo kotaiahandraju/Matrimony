@@ -1033,7 +1033,7 @@ xpopup
 			</div>
 			<div class="col-md-4" style="width:390px; margin:55px 20px 0px 20px;">
 				
-				<div class="fleft"><div class="hdtxt paddl5 paddr5 txt-center" style="width:382px;">----- Your profile matches 19  / 21 of Sruthi's preferences -----</div></div>
+				<div class="fleft"><div class="hdtxt paddl5 paddr5 txt-center" style="width:382px;">----- Your profile matches 14  / 14 of ${profileBean.lastName}'s preferences -----</div></div>
 				
 			</div>
 			<div class="col-md-2">
@@ -1723,14 +1723,14 @@ function toggleDiv(divElem){
   
  </script> 
 <script type="text/javascript"> 
+ var profileBeanList="${profileBean}";
  var sessionBeanList="${sessionBeanList}";
-var profileBeanList="${profileBean}";
 
 //profile Bean
 var ageFrom="${profileBean.rAgeFrom}";
 var ageTo="${profileBean.rAgeTo}";
-var heightFrom="${profileBean.rHeightInches}";
-var heightTo="${profileBean.rHeightToInches}";
+var heightFrom="${profileBean.rHeight}";
+var heightTo="${profileBean.rHeightTo}";
 var rMarrege="${profileBean.rMaritalStatus}";
 var rbodyType="${profileBean.bodyType}";
 var rMotherTongue="${profileBean.rMotherTongue}";
@@ -1752,7 +1752,7 @@ var rCity="${profileBean.rCity}";
 
 //Session Bean
 var age="${sessionBeanList.age}";
-var height="${sessionBeanList.heightInches}";
+var height="${sessionBeanList.height}";
 var marrege="${sessionBeanList.maritalStatus}";
 var bodyType="${sessionBeanList.bodyType}";
 var motherTongue="${sessionBeanList.motherTongue}";
@@ -1768,9 +1768,9 @@ var education="${sessionBeanList.education}";
 var occupation="${sessionBeanList.occupation}";
 var annualIncome="${sessionBeanList.annualIncome}";
 var workingWith="${sessionBeanList.workingWith}";
-var country="${sessionBeanList.country}";
-var state="${sessionBeanList.state}";
-var city="${sessionBeanList.city}"; 
+var country="${sessionBeanList.currentCountry}";
+var state="${sessionBeanList.currentState}";
+var city="${sessionBeanList.currentCity}"; 
 
 if((age >= ageFrom)&&(age<=ageTo)){
 $("#rAgeFrom_img img").attr("src","../nimages/Yes.png");
@@ -1795,18 +1795,25 @@ if((height >= heightFrom) && (height <= heightTo)){
  }else{
 	 alert("no sucess body Type");
  } */
- if(rMotherTongue == motherTongue){
+ var motherToungArry=rMotherTongue.split(",");
+ for (var i=0;i<motherToungArry.length; i++){
+ if(parseInt(motherToungArry[i]) == motherTongue){
 	 $("#Mothertongue_img img").attr("src","../nimages/Yes.png");
+	 break;
  }else
 {
 	 $("#Mothertongue_img img").attr("src","../nimages/No.png");	 
  } 
- if(rdiet == diet){
+ }
+ var  dietArry=rdiet.split(",");
+ for (var i=0;i<dietArry.length; i++){
+ if(dietArry[i] == diet){
 	 $("#Eating_img img").attr("src","../nimages/Yes.png");
+	 break;
  }else
 {
 	 $("#Eating_img img").attr("src","../nimages/No.png");	 
- } 
+ } }
 /*  if(rsmoking == smoking){
 	 alert("sucess smoking");
  }else{
@@ -1817,18 +1824,25 @@ if((height >= heightFrom) && (height <= heightTo)){
  }else{
 	 alert("no sucess drinking");
  } */
- if(rReligion == religion){
+ var  regArry=rReligion.split(",");
+ for (var i=0;i<regArry.length; i++){
+ if(parseInt(regArry[i]) == religion){
 	 $("#religion_img img").attr("src","../nimages/Yes.png");
+	 break;
  }else
 {
 	 $("#religion_img img").attr("src","../nimages/No.png");	 
  } 
- if(rCaste == caste){
+ }
+ var  castArray=rCaste.split(",");
+ for (var i=0;i<castArray.length; i++){
+ if(parseInt(castArray[i]) == caste){
 	 $("#cast_img img").attr("src","../nimages/Yes.png");
+	 break;
  }else
 {
 	 $("#cast_img img").attr("src","../nimages/No.png");	 
- } 
+ } }
 /*  if(rgotram == gotram){
 	 alert("sucess gotram");
  }else{
@@ -1846,50 +1860,67 @@ if((height >= heightFrom) && (height <= heightTo)){
  } */
 //  var educationarry = {};
 var  educationarry=rEducation.split(",");
-console.log(educationarry);
 for (var i=0;i<educationarry.length; i++){
  if(parseInt(educationarry[i]) == education){
 	 $("#Education_img img").attr("src","../nimages/Yes.png");
+	 break;
  }else
  {
  	 $("#Education_img img").attr("src","../nimages/No.png");	 
   } }
- if(rOccupation == occupation){
+  
+var Occupationarry=rOccupation.split(",");
+for (var i=0;i<Occupationarry.length; i++){
+ if(parseInt(Occupationarry[i]) == occupation){
 	 $("#Occupation_img img").attr("src","../nimages/Yes.png");
+	 break;
  }else
  {
  	 $("#Occupation_img img").attr("src","../nimages/No.png");	 
-  } 
+  } }
  if(rAnnualIncome == annualIncome){
 	 $("#AnnualIncome_img img").attr("src","../nimages/Yes.png");
  }else
  {
  	 $("#AnnualIncome_img img").attr("src","../nimages/No.png");	 
   }
- if(rWorkingWith == workingWith){
+ var  workingWithArry=rWorkingWith.split(",");
+ for (var i=0;i<workingWithArry.length; i++){
+ if(workingWithArry[i] == workingWith){
 	 $("#Working_img img").attr("src","../nimages/Yes.png");
+	 break;
  }else
  {
  	 $("#Working_img img").attr("src","../nimages/No.png");	 
-  } 
- if(rCountry == country){
+  } }
+ var  rCountryArry=rCountry.split(",");
+ for (var i=0;i<rCountryArry.length; i++){
+ if(parseInt(rCountryArry[i]) == country){
 	 $("#Country_img img").attr("src","../nimages/Yes.png");
+	 break;
  }else
  {
  	 $("#Country_img img").attr("src","../nimages/No.png");	 
-  } 
- if(rState == state){
+  } }
+ 
+ var  rStateArry=rState.split(",");
+ for (var i=0;i<rStateArry.length; i++){
+ if(parseInt(rStateArry[i]) == state){
 	 $("#ResidingState_img img").attr("src","../nimages/Yes.png");
+	 break;
  }else
  {
  	 $("#ResidingState_img img").attr("src","../nimages/No.png");	 
-  } 
- if(rCity == city){
+  } }
+ var  rCityArry=rCity.split(",");
+ for (var i=0;i<rCityArry.length; i++){
+ if(parseInt(rCityArry[i]) == city){
 	  $("#ResidingCity_img img").attr("src","../nimages/Yes.png");
+	  break;
  }else
  {
  	 $("#ResidingCity_img img").attr("src","../nimages/No.png");	 
-  } 
+  } }
 </script> 
 
 
