@@ -2990,7 +2990,7 @@ select[multiple].form-group-lg .form-control {
 }
 .btn {
   display: inline-block;
-  padding: 0px 0px;
+  padding: 4px 9px;
   margin-bottom: 0;
   font-size: 12px;
   font-weight: normal;
