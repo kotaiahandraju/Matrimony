@@ -178,11 +178,15 @@ public class LoginController {
 			String sSql = "select id,name from religion  where status='1' order by name asc";
 			List<EducationBean> elist = objUsersDao.populate(sSql);
 			for (EducationBean bean : elist) {
-				statesMap = new LinkedHashMap<String,String>();
-				statesMap.put( "id",bean.getId()+"");
-				statesMap.put( "name",bean.getName());
-				statesMap.put( "list_type","religion");
-				list.add(statesMap);
+				if(list.size()<=8){
+					statesMap = new LinkedHashMap<String,String>();
+					statesMap.put( "id",bean.getId()+"");
+					statesMap.put( "name",bean.getName());
+					statesMap.put( "list_type","religion");
+					list.add(statesMap);
+				}else{
+					break;
+				}
 			}
 			sSql = "select id,name from cast  where status='1' order by name asc";
 			elist = objUsersDao.populate(sSql);
@@ -315,7 +319,7 @@ public class LoginController {
 		}
 		return list;
 	}*/
-	@ModelAttribute("religionList")
+	/*@ModelAttribute("religionList")
 	public Map<String,Integer> homePageReligion(HttpServletRequest request) {
 		Map<String, Integer> statesMap = new LinkedHashMap<String,Integer>();
 		try {
@@ -348,7 +352,7 @@ public class LoginController {
 		} finally {
 		}
 		return statesMap;
-	}
+	}*/
 	@ModelAttribute("cast")
 	public Map<Integer, String> populatecast() {
 		Map<Integer, String> statesMap = new LinkedHashMap<Integer, String>();
