@@ -39,7 +39,8 @@
 				</div></div>
                          
 					</div>
-					<div class="col-md-3"></div>
+					<div class="col-md-2">
+					 <jsp:include page="sideGridForMatches.jsp" /></div>
 			
 <script type="text/javascript">
 

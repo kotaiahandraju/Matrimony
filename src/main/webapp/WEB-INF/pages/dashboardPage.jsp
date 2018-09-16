@@ -3,6 +3,9 @@
 
 
 <style>
+.mobilenum {
+display: -webkit-inline-box;
+}
 .media-carousel {
 margin-top:15px !important;}
 @import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css");
@@ -430,7 +433,7 @@ padding-right:0px;
       </h4>
 
         </div>
-        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne" style="">
+        <div id="collapseOne" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingOne" style="">
             <div class="panel-body" style="padding:10px 0px;">
             <div class="col-md-3 col-xs-3" style="padding-right:0px; padding-left:0px;">
             <img src="../nimages/preicon.jpg" style="cursor: pointer;border-radius: 50%;no-repeat;width: 45px;height: 45px;display: block;border: 1px solid #e1e1e1;border-radius: 50%;background-size: 75px 75px;">
@@ -495,8 +498,10 @@ padding-right:0px;
 								<option value="FeMale" id="id1">Bride</option>
 								<option value="Male" id="id2">Groom</option>
 							</select> -->
+							<form:form commandName="createProfile"  class="form-horizontal" id="searchForm2" name="searchForm2" role="form" method="post">
+						<form:hidden path="id" />
 							<h4>Aged  </h4>   
-<span>From </span> <select id="rAgeFrom" name="rAgeFrom"   class="for-control"  style="width:60px;">
+       <span>From </span> <form:select path="rAgeFrom"    class="for-control"  style="width:60px;">
 						            <option value="18">18</option>
 									<option value="19">19</option>
 									<option value="20">20</option>
@@ -530,9 +535,9 @@ padding-right:0px;
 									<option value="48">48</option>
 									<option value="49">49</option>
 									<option value="50">50</option>					
-					</select>
+					</form:select>
 					<span>To </span>
-					<select id="rAgeTo" name="rAgeTo"  class="formcontrol" style="width:60px;">
+					<form:select path="rAgeTo"  class="formcontrol" style="width:60px;">
 									<option value="19">19</option>
 									<option value="20">20</option>
 									<option value="21">21</option>
@@ -565,19 +570,20 @@ padding-right:0px;
 									<option value="48">48</option>
 									<option value="49">49</option>
 									<option value="50">50</option> 					
-					</select>
+					</form:select>
 					<h4> Religion </h4> 
-          <form:select path="religion" id="religionId" onchange="getReliginCastAjax1();" class=" form-control" >
+          <form:select path="religion" id="religionId" onchange="getReliginCastAjaxSearch();" class=" form-control" >
 <%-- 								<form:option value="">of Religion.... &nbsp;&nbsp;</form:option> --%>
 								<form:options items="${religion}"></form:options>
 							</form:select>
 							
 							<h4> Caste </h4>
-					 <form:select path="cast" id="castId" class="custom-select col-md-12 form-control">
+					 <form:select path="rCaste" id="castId" class="custom-select col-md-12 form-control">
 								<form:option value="">of Caste.... &nbsp;&nbsp;</form:option>
 <%-- 								<form:options items="${cast}"></form:options> --%>
 							</form:select>
-							<h4>&nbsp;</h4> <button type="button" id="submit12" class="btn btn-primary" onclick="searchSubmit();">Search</button>
+							</form:form>
+							<h4>&nbsp;</h4> <button type="button" id="submit12" class="btn btn-primary" onclick="searchResult();">Search</button>
 							
         </div>
     </div>
@@ -668,6 +674,47 @@ padding-right:0px;
 
 <script type="text/javascript">
 
+
+function getReliginCastAjaxSearch() {
+   	var religionId = $("#religionId").val();
+   		var formData = new FormData();
+   		formData.append("religionId",religionId);
+   	$.fn.makeMultipartRequest('POST', '../castesBasedOnReligion', false,
+   			formData, false, 'text', function(data){
+   		var jsonobj = $.parseJSON(data);
+   		var alldata = jsonobj.allOrders1;
+   		/* if(alldata == "" ){
+   		$("#rCaste").select2('val','');
+   	} */
+   		var optionsForClass = "";
+   		optionsForClass = $("#castId").empty();
+   		optionsForClass.append(new Option("of Caste....", ""));
+   		$.each(alldata, function(i, tests) {
+   			var id=tests.id;
+   			var casteName=tests.name;
+   			optionsForClass.append(new Option(casteName, id));
+   		});
+   		
+   	});
+   }
+
+function searchResult(){
+	var ageFrom = $("#rAgeFrom").val();
+	var ageTo = $("#rAgeTo").val();
+	var maritalStatus = $("#rMaritalStatus").val();
+	var religion = $("#rReligion").val();
+	var caste = $("#rCaste").val();
+	if(ageFrom > ageTo){
+		alert("Sorry, Invalid Age range");
+		return false;
+	}
+	else{
+		document.searchForm2.action = "SearchResults";
+	    document.searchForm2.submit();            
+	    return true;
+	}
+	
+}
 /* $(window).load(function() {
 	$('#myModal').modal();
 });
@@ -799,7 +846,7 @@ function displayMatches(listOrders) {
 			var mobNumViewed = orderObj.mobileNumViewed;
 			var mobile_num_Str = "";
 			if(mobNumViewed=="1" || expressed=="1" || message_sent_status=="1"){
-				mobile_num_Str = '<span style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+orderObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="${baseurl}/user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>';
+				mobile_num_Str = '<span class="mobilenum" style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+orderObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="${baseurl}/user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>';
 				
 			}else{
 				mobile_num_Str = '<span ><a href="#no" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="displayMobileNum('+orderObj.id+')"> View Mobile No..</a></span>';

@@ -578,20 +578,22 @@ public class LoginController {
 		return null;
 	}
 	 @RequestMapping(value = "/homePageSearchResults")
-	 public  @ResponseBody String getHomePageSearchResults( UsersBean searchCriteriaBean, Model objeModel, HttpServletRequest request, HttpSession session) {
+	 public String getHomePageSearchResults( @ModelAttribute("createProfile")UsersBean searchCriteriaBean, Model objeModel, HttpServletRequest request, HttpSession session) {
 			List<Map<String,Object>> searchList=null;
 		 ObjectMapper objectMapper = null;
-		String sJson = null;
+		String sJson1 = null;
 		JSONObject objJson =new JSONObject();
 		try {
 			
 			 searchList = objUsersDao.getHomeSearchResult(searchCriteriaBean);
 			 if(searchList != null && searchList.size()>0) {
 			 objectMapper = new ObjectMapper();
-				sJson = objectMapper.writeValueAsString(searchList);
-				objJson.put("searchListOrders", searchList);
+				sJson1 = objectMapper.writeValueAsString(searchList);
+				//objJson.put("searchListOrders", sJson1);
+				//session.setAttribute("searchListOrders", sJson1);
+				request.setAttribute("searchListOrders", sJson1);
 			 }else {
-				 objJson.put("searchListOrders", "");
+				 request.setAttribute("searchListOrders", "''");
 			 }
 			 
 		} catch (Exception e) {
@@ -600,7 +602,7 @@ public class LoginController {
 	   logger.error(e);
 	   logger.fatal("error in HomePageController class homePageSearch method");
 	  }
-		return String.valueOf(objJson);
+		return "homePageSearch";
 	 }
 	 
 	 @RequestMapping(value = "/homePageReligionAndCast")
@@ -1012,5 +1014,9 @@ public class LoginController {
 			
 			return "helpHomePage";
 		}
-	   
+	/*	@RequestMapping(value="/homePageSearch")
+		public String homePageSearch() {
+			
+			return "homePageSearch";
+		} */
 }

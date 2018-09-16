@@ -57,7 +57,7 @@ text-align:left;
 }
 .collapse-group {
   padding: 10px;
-  border: 1px solid darkgrey;
+  border: 1px solid #d6d6d6;
   margin-bottom: 10px;
 }
 
