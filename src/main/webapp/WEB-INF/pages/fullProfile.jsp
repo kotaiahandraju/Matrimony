@@ -807,8 +807,9 @@ xpopup
 	</div>
 	</div>
 </div>
-
+</c:if>
 <br>
+<c:if test="${cacheGuest.id == profileBean.id}">
 <!-- partner pref static -->
 
 		<h4   style="padding: 10px;"></h4><h3>Partner Preferences</h3><hr>
@@ -920,7 +921,6 @@ xpopup
 	</div>
 	</div>
 </div>
-
 <br>
 <div class="panel panel-success">
 			<div class="panel-body table-responsive">
@@ -1015,9 +1015,9 @@ xpopup
 	
 	</div>
 	</div>
-</div></c:if>
+</div>
 <!-- partner pref static -->
-
+</c:if>
 
 <c:if test="${cacheGuest.id != profileBean.id}">
 		<h4   style="padding: 10px;"></h4><h3>Partner Preferences</h3><hr>

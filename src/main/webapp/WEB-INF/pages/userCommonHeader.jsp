@@ -4063,7 +4063,7 @@ function myFunction2(id) {
 	    }); 
 	}); 
 
- $(.navbar-toggle").click(function(){
+ $(".navbar-toggle").click(function(){
 	 
  })
 </script>
