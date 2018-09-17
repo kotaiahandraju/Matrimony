@@ -1067,7 +1067,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 							</div>
 						</div> --%>
 	<!-- Modal -->
-<div id="myModal" class="modal fade" role="dialog" style="  margin-top:55px;">
+<div id="myModal" class="modal fade" role="dialog" style="margin-top:55px;" tabindex='-1'>
   <div class="modal-dialog">
     
     <div class="modal-content">		
@@ -1601,7 +1601,8 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 											<td><a href="#" onclick="religionSearch(${mapp.id},'${mapp.list_type}');"><c:out value="${mapp.name}" /><span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
 										</tr>
 										<!-- <tr>
-											<td><a href="#" onclick="religionSearch(muslim,'religion')";>Muslim <span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
+											<td><a href="#" onclick="relig
+											ionSearch(muslim,'religion')";>Muslim <span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
 										</tr>
 										<tr>
 											<td><a href="#" onclick="religionSearch(chiristian,'religion')";>Christian<span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></a></td>
@@ -2224,7 +2225,7 @@ $('img').bind('contextmenu', function(e) {
     		    }
     	    });
     	});
-   /*  function displaydata(data) {
+ function displaydata(data) {
     	
         if(data == ""){
            $('#searchResults').empty();	  
@@ -2247,7 +2248,7 @@ $('img').bind('contextmenu', function(e) {
   		var tblRow = profile_highlisht_str
   		+ '<div class="panel-heading">'
   		+ '<h5 class="panel-title" style="text-align:left;">'
-  		+ '<div class="form-check">	<label class="form-check-label"> <input type="checkbox" class="form-check-input" placeholder=""> '+orderObj.firstName+'&nbsp;'+orderObj.lastName+'</label>	<span class="pull-right">Created by '+orderObj.createProfileFor+'</span></div>'
+  		+ '<div class="form-check">	<label class="form-check-label" style="color:#000;">  '+orderObj.firstName+'&nbsp;'+orderObj.lastName+'</label>	<span class="pull-right">Created by '+orderObj.createProfileFor+'</span></div>'
   		+ '</h5>'
   		+ '</div>'
   		+ '<div class="panel-body">'
@@ -2273,7 +2274,7 @@ $('img').bind('contextmenu', function(e) {
       	+ '</div>';
   			$(tblRow).appendTo("#searchResults");
   	});
-  } */
+  } 
 
 
     

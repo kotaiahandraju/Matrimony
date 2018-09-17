@@ -1380,6 +1380,25 @@ public class HomePageController {
 			}else{
 				session.setAttribute("notificationsList", "");
 			}
+			// get preferred location profiles
+			List<Map<String,Object>> pref_loc_profiles = objUsersDao.getPreferredLocationProfiles(sessionBean);
+			if(pref_loc_profiles!=null && pref_loc_profiles.size()>0){
+				request.setAttribute("pref_loc_profiles", pref_loc_profiles);
+				request.setAttribute("pref_loc_profiles_size", pref_loc_profiles.get(0).get("list_size"));
+			}else{
+				request.setAttribute("pref_loc_profiles", "");
+				request.setAttribute("pref_loc_profiles_size", "0");
+			}
+			
+			// get preferred profession profiles
+			List<Map<String,Object>> pref_prof_profiles = objUsersDao.getPreferredProfessionProfiles(sessionBean);
+			if(pref_prof_profiles!=null && pref_prof_profiles.size()>0){
+				request.setAttribute("pref_prof_profiles", pref_prof_profiles);
+				request.setAttribute("pref_prof_profiles_size", pref_prof_profiles.get(0).get("list_size"));
+			}else{
+				request.setAttribute("pref_prof_profiles", "");
+				request.setAttribute("pref_prof_profiles_size", "0");
+			}
 			
 		} catch (Exception e) {
 	   e.printStackTrace();
@@ -2701,7 +2720,9 @@ public class HomePageController {
 					}else{
 						profileObj.put("photosList", "");
 					}
-					
+					//get profile match score
+					int match_score = this.getProfileMatchScore(userSessionBean, profileObj);
+					profileObj.put("match_score", match_score+"");
 				}
 				jsonObj.put("results", results);
 				
@@ -2720,6 +2741,10 @@ public class HomePageController {
 						}else{
 							reqObj.put("photosList", "");
 						}
+						
+						//get profile match score
+						int match_score = this.getProfileMatchScore2(userSessionBean, reqObj);
+						reqObj.put("match_score", match_score+"");
 						
 						if("inbox".equalsIgnoreCase(request_coming_from)){
 							//add recent activity data
@@ -3286,99 +3311,10 @@ public class HomePageController {
 						profileObj.put("photosList", "");
 					}
 					//get profile match score
-					int match_score = 0;
-					
-					String r_age_from = profileObj.get("rAgeFrom");
-					String r_age_to = profileObj.get("rAgeTo");
-					if(StringUtils.isNotBlank(r_age_from) && StringUtils.isNotBlank(r_age_to)){
-						int age_from = Integer.parseInt(r_age_from);
-						int age_to = Integer.parseInt(r_age_to);
-						int user_age = Integer.parseInt(userBean.getAge());
-						if(age_from<=user_age && user_age<=age_to){
-							match_score += 8;
-						}
-					}
-					
-					
-					String r_height_from = profileObj.get("rHeight");
-					String r_height_to = profileObj.get("rHeightTo");
-					if(StringUtils.isNotBlank(r_height_from) && StringUtils.isNotBlank(r_height_to)){
-						int height_from = Integer.parseInt(r_height_from);
-						int height_to = Integer.parseInt(r_height_to);
-						int user_height = Integer.parseInt(userBean.getHeight());
-						if(height_from<=user_height && user_height<=height_to){
-							match_score += 8;
-						}
-					}
-					
-					
-					String r_val = profileObj.get("rMaritalStatus");
-					String user_val = userBean.getMaritalStatus();
-					int addedScore = this.getMatchScoreOf(r_val, user_val);
-					match_score += addedScore;
-					
-					r_val = profileObj.get("rCaste");
-					user_val = userBean.getCaste();
-					addedScore = this.getMatchScoreOf(r_val, user_val);
-					match_score += addedScore;
-					
-					r_val = profileObj.get("rReligion");
-					user_val = userBean.getReligion();
-					addedScore = this.getMatchScoreOf(r_val, user_val);
-					match_score += addedScore;
-					
-					r_val = profileObj.get("rMotherTongue");
-					user_val = userBean.getMotherTongue();
-					addedScore = this.getMatchScoreOf(r_val, user_val);
-					match_score += addedScore;
-					
-					r_val = profileObj.get("rEducation");
-					user_val = userBean.getEducation();
-					addedScore = this.getMatchScoreOf(r_val, user_val);
-					match_score += addedScore;
-					
-					r_val = profileObj.get("rWorkingWith");
-					user_val = userBean.getWorkingWith();
-					addedScore = this.getMatchScoreOf(r_val, user_val);
-					match_score += addedScore;
-					
-					r_val = profileObj.get("rOccupation");
-					user_val = userBean.getOccupation();
-					addedScore = this.getMatchScoreOf(r_val, user_val);
-					match_score += addedScore;
-					
-					r_val = profileObj.get("rAnnualIncome");
-					user_val = userBean.getAnnualIncome();
-					addedScore = this.getMatchScoreOf(r_val, user_val);
-					match_score += addedScore;
-					
-					r_val = profileObj.get("rCity");
-					user_val = userBean.getCurrentCity();
-					addedScore = this.getMatchScoreOf(r_val, user_val);
-					match_score += addedScore;
-					
-					r_val = profileObj.get("rCountry");
-					user_val = userBean.getCurrentCountry();
-					addedScore = this.getMatchScoreOf(r_val, user_val);
-					match_score += addedScore;
-					
-					r_val = profileObj.get("rState");
-					user_val = userBean.getCurrentState();
-					addedScore = this.getMatchScoreOf(r_val, user_val);
-					match_score += addedScore;
-					
-					r_val = profileObj.get("rCity");
-					user_val = userBean.getCurrentCity();
-					addedScore = this.getMatchScoreOf(r_val, user_val);
-					match_score += addedScore;
-					
-					r_val = profileObj.get("rDiet");
-					user_val = userBean.getDiet();
-					addedScore = this.getMatchScoreOf(r_val, user_val);
-					match_score += addedScore;
-					
+					int match_score = this.getProfileMatchScore(userBean, profileObj);
 					profileObj.put("match_score", match_score+"");
 				}
+				
 				objectMapper = new ObjectMapper();
 				sJson = objectMapper.writeValueAsString(listOrderBeans);
 				request.setAttribute("allOrders1", sJson);
@@ -5326,15 +5262,193 @@ public String premiumMembers(@ModelAttribute("createProfile") UsersBean searchCr
 }
 	private int getMatchScoreOf(String r_vals,String u_val){
 		if(StringUtils.isNotBlank(r_vals)){
-			String[] strArr = r_vals.split(",");
-			for(String rVal:strArr){
-				if(u_val.equalsIgnoreCase(rVal)){
-					return 7;
+			if(StringUtils.isNotBlank(u_val)){
+				String[] strArr = r_vals.split(",");
+				for(String rVal:strArr){
+					if(u_val.equalsIgnoreCase(rVal)){
+						return 7;
+					}
 				}
 			}
 			return 0;
+		}else{
+			return 7;
 		}
-		return 0;
+	}
+	private int getMatchScoreOf2(Object r_vals,String u_val){
+		if(r_vals != null && StringUtils.isNotBlank((String)r_vals)){
+			if(StringUtils.isNotBlank(u_val)){
+				String[] strArr = ((String)r_vals).split(",");
+				for(String rVal:strArr){
+					if(u_val.equalsIgnoreCase(rVal)){
+						return 7;
+					}
+				}
+			}
+			return 0;
+		}else{
+			return 7;
+		}
+	}
+	private int getProfileMatchScore(UsersBean userBean, Map<String,String> profileObj){
+		int match_score = 0;
+		String r_age_from = profileObj.get("rAgeFrom");
+		String r_age_to = profileObj.get("rAgeTo");
+		if(StringUtils.isNotBlank(r_age_from) && StringUtils.isNotBlank(r_age_to)){
+			int age_from = Integer.parseInt(r_age_from);
+			int age_to = Integer.parseInt(r_age_to);
+			int user_age = Integer.parseInt(userBean.getAge());
+			if(age_from<=user_age && user_age<=age_to){
+				match_score += 8;
+			}
+		}
+		
+		String r_height_from = profileObj.get("rHeight");
+		String r_height_to = profileObj.get("rHeightTo");
+		if(StringUtils.isNotBlank(r_height_from) && StringUtils.isNotBlank(r_height_to)){
+			int height_from = Integer.parseInt(r_height_from);
+			int height_to = Integer.parseInt(r_height_to);
+			int user_height = Integer.parseInt(userBean.getHeight());
+			if(height_from<=user_height && user_height<=height_to){
+				match_score += 8;
+			}
+		}
+		
+		String r_val = profileObj.get("rMaritalStatus");
+		String user_val = userBean.getMaritalStatus();
+		int addedScore = this.getMatchScoreOf(r_val, user_val);
+		match_score += addedScore;
+		
+		r_val = profileObj.get("rCaste");
+		user_val = userBean.getCaste();
+		addedScore = this.getMatchScoreOf(r_val, user_val);
+		match_score += addedScore;
+		r_val = profileObj.get("rReligion");
+		user_val = userBean.getReligion();
+		addedScore = this.getMatchScoreOf(r_val, user_val);
+		match_score += addedScore;
+		r_val = profileObj.get("rMotherTongue");
+		user_val = userBean.getMotherTongue();
+		addedScore = this.getMatchScoreOf(r_val, user_val);
+		match_score += addedScore;
+		r_val = profileObj.get("rEducation");
+		user_val = userBean.getEducation();
+		addedScore = this.getMatchScoreOf(r_val, user_val);
+		match_score += addedScore;
+		r_val = profileObj.get("rWorkingWith");
+		user_val = userBean.getWorkingWith();
+		addedScore = this.getMatchScoreOf(r_val, user_val);
+		match_score += addedScore;
+		r_val = profileObj.get("rOccupation");
+		user_val = userBean.getOccupation();
+		addedScore = this.getMatchScoreOf(r_val, user_val);
+		match_score += addedScore;
+		r_val = profileObj.get("rAnnualIncome");
+		user_val = userBean.getAnnualIncome();
+		addedScore = this.getMatchScoreOf(r_val, user_val);
+		match_score += addedScore;
+		r_val = profileObj.get("rCity");
+		user_val = userBean.getCurrentCity();
+		addedScore = this.getMatchScoreOf(r_val, user_val);
+		match_score += addedScore;
+		r_val = profileObj.get("rCountry");
+		user_val = userBean.getCurrentCountry();
+		addedScore = this.getMatchScoreOf(r_val, user_val);
+		match_score += addedScore;
+		r_val = profileObj.get("rState");
+		user_val = userBean.getCurrentState();
+		addedScore = this.getMatchScoreOf(r_val, user_val);
+		match_score += addedScore;
+		r_val = profileObj.get("rCity");
+		user_val = userBean.getCurrentCity();
+		addedScore = this.getMatchScoreOf(r_val, user_val);
+		match_score += addedScore;
+		r_val = profileObj.get("rDiet");
+		user_val = userBean.getDiet();
+		addedScore = this.getMatchScoreOf(r_val, user_val);
+		match_score += addedScore;
+		
+		return match_score;
+	}
+	private int getProfileMatchScore2(UsersBean userBean, Map<String,Object> profileObj){
+		int match_score = 0;
+		Object r_age_from = profileObj.get("rAgeFrom");
+		Object r_age_to = profileObj.get("rAgeTo");
+		if(r_age_from!=null && r_age_to!=null && StringUtils.isNotBlank((String)r_age_from) && StringUtils.isNotBlank((String)r_age_to)){
+			int age_from = Integer.parseInt((String)r_age_from);
+			int age_to = Integer.parseInt((String)r_age_to);
+			int user_age = Integer.parseInt(userBean.getAge());
+			if(age_from<=user_age && user_age<=age_to){
+				match_score += 8;
+			}
+		}
+		
+		Object r_height_from = profileObj.get("rHeight");
+		Object r_height_to = profileObj.get("rHeightTo");
+		if(r_height_from!=null && r_height_to!=null && StringUtils.isNotBlank((String)r_height_from) && StringUtils.isNotBlank((String)r_height_to)){
+			int height_from = Integer.parseInt((String)r_height_from);
+			int height_to = Integer.parseInt((String)r_height_to);
+			int user_height = Integer.parseInt(userBean.getHeight());
+			if(height_from<=user_height && user_height<=height_to){
+				match_score += 8;
+			}
+		}
+		
+		Object r_val = profileObj.get("rMaritalStatus");
+		String user_val = userBean.getMaritalStatus();
+		int addedScore = this.getMatchScoreOf2(r_val, user_val);
+		match_score += addedScore;
+		
+		r_val = profileObj.get("rCaste");
+		user_val = userBean.getCaste();
+		addedScore = this.getMatchScoreOf2(r_val, user_val);
+		match_score += addedScore;
+		r_val = profileObj.get("rReligion");
+		user_val = userBean.getReligion();
+		addedScore = this.getMatchScoreOf2(r_val, user_val);
+		match_score += addedScore;
+		r_val = profileObj.get("rMotherTongue");
+		user_val = userBean.getMotherTongue();
+		addedScore = this.getMatchScoreOf2(r_val, user_val);
+		match_score += addedScore;
+		r_val = profileObj.get("rEducation");
+		user_val = userBean.getEducation();
+		addedScore = this.getMatchScoreOf2(r_val, user_val);
+		match_score += addedScore;
+		r_val = profileObj.get("rWorkingWith");
+		user_val = userBean.getWorkingWith();
+		addedScore = this.getMatchScoreOf2(r_val, user_val);
+		match_score += addedScore;
+		r_val = profileObj.get("rOccupation");
+		user_val = userBean.getOccupation();
+		addedScore = this.getMatchScoreOf2(r_val, user_val);
+		match_score += addedScore;
+		r_val = profileObj.get("rAnnualIncome");
+		user_val = userBean.getAnnualIncome();
+		addedScore = this.getMatchScoreOf2(r_val, user_val);
+		match_score += addedScore;
+		r_val = profileObj.get("rCity");
+		user_val = userBean.getCurrentCity();
+		addedScore = this.getMatchScoreOf2(r_val, user_val);
+		match_score += addedScore;
+		r_val = profileObj.get("rCountry");
+		user_val = userBean.getCurrentCountry();
+		addedScore = this.getMatchScoreOf2(r_val, user_val);
+		match_score += addedScore;
+		r_val = profileObj.get("rState");
+		user_val = userBean.getCurrentState();
+		addedScore = this.getMatchScoreOf2(r_val, user_val);
+		match_score += addedScore;
+		r_val = profileObj.get("rCity");
+		user_val = userBean.getCurrentCity();
+		addedScore = this.getMatchScoreOf2(r_val, user_val);
+		match_score += addedScore;
+		r_val = profileObj.get("rDiet");
+		user_val = userBean.getDiet();
+		addedScore = this.getMatchScoreOf2(r_val, user_val);
+		match_score += addedScore;
+		
+		return match_score;
 	}
 } 
 

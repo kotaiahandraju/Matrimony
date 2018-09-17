@@ -1480,8 +1480,11 @@ public class UsersDao extends BaseUsersDao
 							//+" (select count(*) from users u "+where_clause+") as total_records, "
 							+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and  uimg.status = '1' and uimg.is_profile_picture='1') as profileImage, u.createProfileFor, "
 							+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+objUserBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'short_listed') as short_listed, "
-							+" '0' as expressedInterest, '0' as message_sent_status,'0' as mobileNumViewed, GROUP_CONCAT(uimg.image) as image "
-							+" from users u left join "
+							+" '0' as expressedInterest, '0' as message_sent_status,'0' as mobileNumViewed, GROUP_CONCAT(uimg.image) as image,"
+							+ " rAgeFrom, rAgeTo, "
+							+"rHeight, rMaritalStatus, rReligion, rCaste, rMotherTongue,rCountry , rState,rEducation, "
+							+"rWorkingWith,rOccupation,rAnnualIncome,rCreateProfileFor,rDiet"
+							+" from users u left join userrequirement ur on u.id=ur.userId left join "
 							+" religion re on re.id=u.religion left join language l on l.id=u.motherTongue left join  "
 							+" cast c on c.id=u.caste left join height h on h.id=u.height left join "
 							+"  occupation oc on u.occupation=oc.id left join education ed on ed.id=u.education "
@@ -1490,7 +1493,9 @@ public class UsersDao extends BaseUsersDao
 					handlerObj = new String[] {"id","currentCityName","occupation","occupationName","educationName","created_time","updated_time",
 							"role_id","username","password","email","gender","dob","religion","religionName","motherTongue","motherTongueName",
 							"maritalStatus",
-							"caste","casteName","education","aboutMyself","height","inches","cm","age","dobString","profileImage","createProfileFor","short_listed","expressedInterest","message_sent_status","mobileNumViewed","image"};
+							"caste","casteName","education","aboutMyself","height","inches","cm","age","dobString","profileImage","createProfileFor","short_listed","expressedInterest","message_sent_status","mobileNumViewed","image",
+							"rAgeFrom","rAgeTo","rHeight","rMaritalStatus","rReligion","rCaste","rMotherTongue","rCountry","rState","rEducation",
+							"rWorkingWith","rOccupation","rAnnualIncome","rCreateProfileFor","rDiet"};
 				} 
 				
 				/*buffer.append("select u.id,sta.name as currentStateName,cit.name as currentCityName,u.occupation,oc.name as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
@@ -4931,6 +4936,54 @@ public boolean deletePhoto(String photoId){
 				e.printStackTrace();
 				return 0;
 			}
+	}
+	
+	public List<Map<String,Object>> getPreferredLocationProfiles(UsersBean userBean){
+		jdbcTemplate = custom.getJdbcTemplate();
+		List<Map<String,Object>> list = null;
+		try{
+			
+			String  qry = " select *,"
+					+ " ifnull(floor((datediff(current_date(),dob))/365),'') as age,"
+					+ " (select inches from height where id=u.height ) as heightInches ,"
+					+ " (select name from city where id=u.currentCity) as currentCityName, "
+					+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and uimg.status = '1' and uimg.is_profile_picture='1') as profileImage "
+					+ " from users u, userrequirement ureq where ureq.userId = u.id and u.status = '1' and u.gender not in ('"+userBean.getGender()+"') and if("+userBean.getrCity()+" is null or '"+userBean.getrCity()+"' = '',1,find_in_set(u.currentCity,'"+userBean.getrCity()+"')>0) limit 2";
+			list = jdbcTemplate.queryForList(qry);
+			qry = " select count(1) from users u, userrequirement ureq where ureq.userId = u.id and u.status = '1' and u.gender not in ('"+userBean.getGender()+"') and if("+userBean.getrCity()+" is null or '"+userBean.getrCity()+"' = '',1,find_in_set(u.currentCity,'"+userBean.getrCity()+"')>0) ";
+			int count = jdbcTemplate.queryForInt(qry);
+			if(count>0){
+				list.get(0).put("list_size", count);
+			}
+			return list;
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public List<Map<String,Object>> getPreferredProfessionProfiles(UsersBean userBean){
+		jdbcTemplate = custom.getJdbcTemplate();
+		List<Map<String,Object>> list = null;
+		try{
+			
+			String  qry = " select *,"
+					+ " ifnull(floor((datediff(current_date(),dob))/365),'') as age,"
+					+ " (select inches from height where id=u.height ) as heightInches ,"
+					+ " (select name from city where id=u.currentCity) as currentCityName, "
+					+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and uimg.status = '1' and uimg.is_profile_picture='1') as profileImage "
+					+ " from users u, userrequirement ureq where ureq.userId = u.id and u.status = '1' and u.gender not in ('"+userBean.getGender()+"') and if("+userBean.getrOccupation()+" is null or '"+userBean.getrOccupation()+"' = '',1,find_in_set(u.occupation,'"+userBean.getrOccupation()+"')>0) limit 2";
+			list = jdbcTemplate.queryForList(qry);
+			qry = " select count(1) from users u, userrequirement ureq where ureq.userId = u.id and u.status = '1' and u.gender not in ('"+userBean.getGender()+"') and if("+userBean.getrOccupation()+" is null or '"+userBean.getrOccupation()+"' = '',1,find_in_set(u.occupation,'"+userBean.getrOccupation()+"')>0) ";
+			int count = jdbcTemplate.queryForInt(qry);
+			if(count>0){
+				list.get(0).put("list_size", count);
+			}
+			return list;
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 }
 
