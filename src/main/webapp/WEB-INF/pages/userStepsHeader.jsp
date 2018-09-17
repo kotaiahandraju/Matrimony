@@ -29,6 +29,9 @@
     <script src="${baseurl }/user/js/modernizr.custom.js"></script>
     
     <style type="text/css">
+    .home {
+        padding-top: 20px;
+    margin-right: 12%;}
 .dispnone
 {
 	display: none !important;
@@ -222,6 +225,8 @@ function getFilteredCitiesMultiSelect(id) {
 				<a href="HomePage"><img src="${baseurl }/images/logo.png" class="img-responsive"></a>
 <%-- 				<img src="${baseurl}/images/logo.png" class="img-responsive"> --%>
 			</div>
-			</div>
+			<div class="col-md-5">
+			<span class="pull-right home"><a class="pull-right" href="HomePage" style=" color:;">Go To HomePage </a></span>
+			</div></div>
 			</div>
 			
