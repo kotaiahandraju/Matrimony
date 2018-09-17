@@ -4961,5 +4961,29 @@ public boolean deletePhoto(String photoId){
 		}
 		return list;
 	}
+	
+	public List<Map<String,Object>> getPreferredProfessionProfiles(UsersBean userBean){
+		jdbcTemplate = custom.getJdbcTemplate();
+		List<Map<String,Object>> list = null;
+		try{
+			
+			String  qry = " select *,"
+					+ " ifnull(floor((datediff(current_date(),dob))/365),'') as age,"
+					+ " (select inches from height where id=u.height ) as heightInches ,"
+					+ " (select name from city where id=u.currentCity) as currentCityName, "
+					+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and uimg.status = '1' and uimg.is_profile_picture='1') as profileImage "
+					+ " from users u, userrequirement ureq where ureq.userId = u.id and u.status = '1' and u.gender not in ('"+userBean.getGender()+"') and if("+userBean.getrOccupation()+" is null or '"+userBean.getrOccupation()+"' = '',1,find_in_set(u.occupation,'"+userBean.getrOccupation()+"')>0) limit 2";
+			list = jdbcTemplate.queryForList(qry);
+			qry = " select count(1) from users u, userrequirement ureq where ureq.userId = u.id and u.status = '1' and u.gender not in ('"+userBean.getGender()+"') and if("+userBean.getrOccupation()+" is null or '"+userBean.getrOccupation()+"' = '',1,find_in_set(u.occupation,'"+userBean.getrOccupation()+"')>0) ";
+			int count = jdbcTemplate.queryForInt(qry);
+			if(count>0){
+				list.get(0).put("list_size", count);
+			}
+			return list;
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 }
 
