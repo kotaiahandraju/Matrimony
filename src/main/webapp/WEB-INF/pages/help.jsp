@@ -1,4 +1,5 @@
 <%@ include file="userCommonHeader.jsp"%>
+<div class="products">
 <div class="container" style="background: white; padding: 25px;">
 	<div class="container-fluid">
 		<div class="panel panel-success">
@@ -12,8 +13,8 @@
 				
 				
 				
-				<b>Our Office :</b> D.No.35, Church Complex,<br>
-				Nirmala Convent Road, Benz Circle, VIJAYAWADA. +91 9440585588 <br>Email:
+				<b>Our Office :</b> Door No 58-2-3/1 Bagaiah Street,<br> Opposite Tanusri Hospital, <br>
+Pantakalava Road, Benzcircle Vijayawada <br>+91 8466999991 <br>Email:
 				<a href="" style="color:blue;">info@aarnamatrimony.com</a>
 
 
@@ -21,6 +22,6 @@
 
 
 
-
+</div>
 
 				<%@ include file="userFooter.jsp"%>

@@ -333,7 +333,7 @@ $(".onlyCharacters").on("keypress",	function(event) {
 });
 </script>
 
-<div class="container" style="background:#FFF;">
+<div class="container products" style="background:#FFF;">
 <div class="row">
 <div  class="mid-grids">
 <div class="col-md-9">

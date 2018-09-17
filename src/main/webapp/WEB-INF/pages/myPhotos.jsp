@@ -4,6 +4,9 @@
 <script src="${baseurl}/js/jquery.imgareaselect.js"></script> 
 <script src="${baseurl}/js/jquery.awesome-cropper.js"></script> 
 <style>
+.progress img {
+height:250px;
+}
 @media screen and (max-width: 640px) and (min-width: 320px) {
 .modal-footer {
 text-align:left !important;}
