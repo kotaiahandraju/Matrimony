@@ -4946,7 +4946,8 @@ public boolean deletePhoto(String photoId){
 			String  qry = " select *,"
 					+ " ifnull(floor((datediff(current_date(),dob))/365),'') as age,"
 					+ " (select inches from height where id=u.height ) as heightInches ,"
-					+ " (select name from city where id=u.currentCity) as currentCityName "
+					+ " (select name from city where id=u.currentCity) as currentCityName, "
+					+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and uimg.status = '1' and uimg.is_profile_picture='1') as profileImage "
 					+ " from users u, userrequirement ureq where ureq.userId = u.id and u.status = '1' and u.gender not in ('"+userBean.getGender()+"') and if("+userBean.getrCity()+" is null or '"+userBean.getrCity()+"' = '',1,find_in_set(u.currentCity,'"+userBean.getrCity()+"')>0) limit 2";
 			list = jdbcTemplate.queryForList(qry);
 			qry = " select count(1) from users u, userrequirement ureq where ureq.userId = u.id and u.status = '1' and u.gender not in ('"+userBean.getGender()+"') and if("+userBean.getrCity()+" is null or '"+userBean.getrCity()+"' = '',1,find_in_set(u.currentCity,'"+userBean.getrCity()+"')>0) ";
