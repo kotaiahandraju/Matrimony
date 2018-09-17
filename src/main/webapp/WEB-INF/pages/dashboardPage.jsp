@@ -451,7 +451,7 @@ padding-right:0px;
 				<div class="col-md-1"><i class="fa fa-close"></i></div>
 	        </div></div>
         </c:forEach>
-        <br><a>View All (${pref_loc_profiles_size})</a>
+        <br><a href="preferredLocation">View All (${pref_loc_profiles_size})</a>
     </div><div class="clearfix"></div><hr>
     <div class="panel ">
         <div class="panel-heading" role="tab" id="headingTwo">

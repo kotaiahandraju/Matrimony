@@ -1587,6 +1587,9 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 						<img src="user/images/line-02.jpg" alt="">
 					</div>
 					<div class="row">
+						<form:form id="linkSearchForm" name="linkSearchForm" action="#"  commandName="createProfile"  method="post">
+						<form:hidden path="id"/>
+						<form:hidden path="dosamName"/>
 						<div class="about-content linkss">
 							<c:set var="lineCounter" value="${1}" />
 							<c:set var="itemsCounter" value="${1}" />
@@ -1631,6 +1634,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 							</c:forEach>
 							
 						</div>
+						</form:form>
 					</div>
 				</div>
 			</div>
@@ -2297,6 +2301,11 @@ $('img').bind('contextmenu', function(e) {
     }
     
     function religionSearch(id,name){
+    	$("#id").val(id);
+    	$("#dosamName").val(name);
+    	document.linkSearchForm.action = "homePageReligionAndCast"
+    	document.linkSearchForm.submit();
+    	/* 
     	var religion= id;
     	var name=name;
     		var formData = new FormData();
@@ -2309,7 +2318,7 @@ $('img').bind('contextmenu', function(e) {
     		$("#searchResults").html('');
     		displaydata(alldata);
     		$('#myModal').modal('show');
-    	});
+    	}); */
     		
     }
     

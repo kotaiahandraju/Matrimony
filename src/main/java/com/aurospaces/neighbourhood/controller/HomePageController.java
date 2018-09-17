@@ -1399,6 +1399,35 @@ public class HomePageController {
 	  return "dashboardPage";
 	 }
 	 
+	 @RequestMapping(value = "/preferredLocation")
+	 public String getPreferredLocation(@ModelAttribute("createProfile") UsersBean objUsersBean, Model objeModel, HttpServletRequest request, HttpSession session) {
+		 
+ObjectMapper objectMapper=null;
+String sJson="";
+		 try {
+			 UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
+				if(sessionBean == null){
+					return "redirect:HomePage";
+				}
+			 
+		List<Map<String,Object>>   pref_loc_profiles = objUsersDao.getPreferredLocationProfilesAll(sessionBean);
+			if(pref_loc_profiles!=null && pref_loc_profiles.size()>0){
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(pref_loc_profiles);
+				request.setAttribute("pref_loc_profiles", sJson);
+			}else{
+				request.setAttribute("pref_loc_profiles", "");
+			}
+		
+	 } catch (Exception e) {
+		   e.printStackTrace();
+		   System.out.println(e);
+		   logger.error(e);
+		   logger.fatal("error in preferredProfiles method");
+		  }
+		 
+	 return "preferredLocation";
+	 }
 	 @RequestMapping(value = "/SearchResults")
 	 public String getSearchResults(@ModelAttribute("createProfile") UsersBean searchCriteriaBean, Model objeModel, HttpServletRequest request, HttpSession session) {
 //	  System.out.println("SearchResults Page");
