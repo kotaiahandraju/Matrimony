@@ -5261,8 +5261,9 @@ public String premiumMembers(@ModelAttribute("createProfile") UsersBean searchCr
 				}
 			}
 			return 0;
+		}else{
+			return 7;
 		}
-		return 0;
 	}
 	private int getMatchScoreOf2(Object r_vals,String u_val){
 		if(r_vals != null && StringUtils.isNotBlank((String)r_vals)){
@@ -5275,8 +5276,9 @@ public String premiumMembers(@ModelAttribute("createProfile") UsersBean searchCr
 				}
 			}
 			return 0;
+		}else{
+			return 7;
 		}
-		return 0;
 	}
 	private int getProfileMatchScore(UsersBean userBean, Map<String,String> profileObj){
 		int match_score = 0;
