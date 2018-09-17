@@ -963,7 +963,7 @@ tooltip:hover:after {
 						+ '<h5 class="panel-title">'
 						+ '<div class="form-check">'
 						+ '	<label class="form-check-label"> <input type="checkbox" id="chkbox'+orderObj.id+'" class="form-check-input '+check_box_str+' value="'+orderObj.id+'"><a href="#" onclick="fullProfile('+orderObj.id+')">'+firstname+' '+lastname+'&nbsp;('+orderObj.username+')</a>&nbsp;'+premiumMember+'</label>'
-						+ '	<span class="pull-right">Created by '+orderObj.createProfileFor+' </span>'
+						+ '	<span class="pull-right">Created for '+orderObj.createProfileFor+' </span>'
 						/* <a href="#" data-toggle="tooltip" data-placement="bottom" title="Mark As Viewed"><img style="margin-left:15px;" src="${baseurl}/images/eye.png"/></a>
 						<a href="#" data-toggle="tooltip" data-placement="bottom" title="Move this profile &#xa; to ignore  list"><img style="margin-left:15px;" src="${baseurl}/images/ignore.png"/></a>
 						 */
@@ -4074,7 +4074,7 @@ function myFunction2(id) {
 	    }); 
 	}); 
 
- $(.navbar-toggle").click(function(){
+ $(".navbar-toggle").click(function(){
 	 
  })
 </script>
