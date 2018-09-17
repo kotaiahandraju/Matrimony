@@ -498,7 +498,7 @@ padding-right:0px;
 								<option value="FeMale" id="id1">Bride</option>
 								<option value="Male" id="id2">Groom</option>
 							</select> -->
-							<form:form commandName="createProfile"  class="form-horizontal" id="searchForm2" name="searchForm2" role="form" method="post">
+							<form:form commandName="createProfile"  class="form-horizontal" id="quickSearchForm" name="quickSearchForm" role="form" method="post">
 						<form:hidden path="id" />
 							<h4>Aged  </h4>   
        <span>From </span> <form:select path="rAgeFrom"    class="for-control"  style="width:60px;">
@@ -709,8 +709,8 @@ function searchResult(){
 		return false;
 	}
 	else{
-		document.searchForm2.action = "SearchResults";
-	    document.searchForm2.submit();            
+		document.quickSearchForm.action = "SearchResults";
+	    document.quickSearchForm.submit();            
 	    return true;
 	}
 	
