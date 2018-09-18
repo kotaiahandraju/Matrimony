@@ -1400,6 +1400,16 @@ public class HomePageController {
 				request.setAttribute("pref_prof_profiles_size", "0");
 			}
 			
+			// get preferred education profiles
+			List<Map<String,Object>> pref_edu_profiles = objUsersDao.getPreferredEducationProfiles(sessionBean);
+			if(pref_edu_profiles!=null && pref_edu_profiles.size()>0){
+				request.setAttribute("pref_edu_profiles", pref_edu_profiles);
+				request.setAttribute("pref_edu_profiles_size", pref_edu_profiles.get(0).get("list_size"));
+			}else{
+				request.setAttribute("pref_edu_profiles", "");
+				request.setAttribute("pref_edu_profiles_size", "0");
+			}
+			
 		} catch (Exception e) {
 	   e.printStackTrace();
 	   System.out.println(e);

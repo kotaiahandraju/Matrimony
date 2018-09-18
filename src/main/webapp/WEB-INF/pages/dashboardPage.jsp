@@ -449,9 +449,11 @@ padding-right:0px;
 				<a href="#">${loc_prof.currentCityName}</a><br>
 				<a href="#"><img src="../nimages/heart-icon.png" /> Send Interest</a></p></div>
 				<div class="col-md-1"><i class="fa fa-close"></i></div>
-	        </div></div>
+	        </div>
+	        <br><a>View All (${pref_loc_profiles_size})</a>
+	        </div>
         </c:forEach>
-        <br><a>View All (${pref_loc_profiles_size})</a>
+        
     </div><div class="clearfix"></div><hr>
     <div class="panel ">
         <div class="panel-heading" role="tab" id="headingTwo">
@@ -463,7 +465,7 @@ padding-right:0px;
 
         </div>
         <c:forEach var="pref_prof" items="${pref_prof_profiles}">
-	        <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo" style="height: 0px;">
+	        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo" style="height: 0px;">
 	<div class="panel-body" style="padding:10px 0px;">
 	            <div class="col-md-3" style="padding-right:0px; padding-left:0px;">
 	            <c:if test="${not empty pref_prof.profileImage}">
@@ -475,11 +477,11 @@ padding-right:0px;
 	   </div><div class="col-md-7" style="padding-right:0px; padding-left:0px;">   <p><a href="#">${pref_prof.username} </a><br>
 	<a href="#">${pref_prof.age} Yrs, ${pref_prof.heightInches}</a><br>
 	<a href="#">${pref_prof.currentCityName}</a><br>
-	<a href="#"><img src="..//nimages/heart-icon.png">Send Interest</a></p></div><div class="col-md-1"><i class="fa fa-close"></i></div>
+	<a href="#"><img src="../nimages/heart-icon.png">Send Interest</a></p></div><div class="col-md-1"><i class="fa fa-close"></i></div>
 	        </div>        </div>
         </c:forEach>
         <br><a>View All (${pref_prof_profiles_size})</a>
-    </div>
+    </div><div class="clearfix"></div>
     <div class="panel ">
         <div class="panel-heading" role="tab" id="headingThree">
              <h4 class="panel-title">
@@ -488,18 +490,24 @@ padding-right:0px;
       </h4>
 
         </div>
-        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-<div class="panel-body" style="padding:10px 0px;">
-            <div class="col-md-3" style="padding-right:0px; padding-left:0px;">
-            <img src="../nimages/preicon.jpg" style="cursor: pointer;border-radius: 50%;no-repeat;width: 45px;height: 45px;display: block;border: 1px solid #e1e1e1;border-radius: 50%;background-size: 75px 75px;">
-   </div><div class="col-md-7" style="padding-right:0px; padding-left:0px;">   <p><a href="#">T4135943 </a><br>
-<a href="#">27 Yrs, 5 Ft 6 In</a><br>
-<a href="#">Hyderabad</a><br>
-<a href="#"><img src="../nimages/heart-icon.png">Send Interest</a></p></div>
-<div class="col-md-1"><i class="fa fa-close"></i></div>
-        </div>        </div>
-        
-       
+        <c:forEach var="pref_edu" items="${pref_edu_profiles}">
+	        <div id="collapseThree" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingThree">
+			<div class="panel-body" style="padding:10px 0px;">
+	            <div class="col-md-3" style="padding-right:0px; padding-left:0px;">
+	            <c:if test="${not empty pref_edu.profileImage}">
+	            	<img src="${catalina_base}/${pref_edu.profileImage}" style="cursor: pointer;border-radius: 50%;no-repeat;width: 45px;height: 45px;display: block;border: 1px solid #e1e1e1;border-radius: 50%;background-size: 75px 75px;">
+	            </c:if>
+	            <c:if test="${empty pref_edu.profileImage}">
+	            	<img src="${baseurl}/img/default.png" style="cursor: pointer;border-radius: 50%;no-repeat;width: 45px;height: 45px;display: block;border: 1px solid #e1e1e1;border-radius: 50%;background-size: 75px 75px;">
+	            </c:if>
+	   </div><div class="col-md-7" style="padding-right:0px; padding-left:0px;">   <p><a href="#">${pref_edu.username} </a><br>
+	<a href="#">${pref_edu.age} Yrs, ${pref_edu.heightInches}</a><br>
+	<a href="#">${pref_edu.currentCityName}</a><br>
+	<a href="#"><img src="../nimages/heart-icon.png">Send Interest</a></p></div>
+	<div class="col-md-1"><i class="fa fa-close"></i></div>
+	        </div>        </div>
+        </c:forEach>
+       <br><a>View All (${pref_edu_profiles_size})</a>
     </div>
     
      
