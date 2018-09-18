@@ -450,9 +450,9 @@ padding-right:0px;
 				<a href="#"><img src="../nimages/heart-icon.png" /> Send Interest</a></p></div>
 				<div class="col-md-1"><i class="fa fa-close"></i></div>
 	        </div>
-	        <br><a>View All (${pref_loc_profiles_size})</a>
 	        </div>
         </c:forEach>
+         <br><a href="preferredLocation">View All (${pref_loc_profiles_size})</a>
     </div><div class="clearfix"></div><hr>
     <div class="panel ">
         <div class="panel-heading" role="tab" id="headingTwo">
@@ -476,7 +476,7 @@ padding-right:0px;
 	   </div><div class="col-md-7" style="padding-right:0px; padding-left:0px;">   <p><a href="#">${pref_prof.username} </a><br>
 	<a href="#">${pref_prof.age} Yrs, ${pref_prof.heightInches}</a><br>
 	<a href="#">${pref_prof.currentCityName}</a><br>
-	<a href="#"><img src="../nimages/heart-icon.png">Send Interest</a></p></div><div class="col-md-1"><i class="fa fa-close"></i></div>
+	<a href="#"><img src="../nimages/heart-icon.png">Send Interest</a></p></div><!-- <div class="col-md-1"><i class="fa fa-close"></i></div> -->
 	        </div> <br><a>View All (${pref_prof_profiles_size})</a>       </div>
         </c:forEach>
         
