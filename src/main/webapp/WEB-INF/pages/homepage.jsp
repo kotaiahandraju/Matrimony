@@ -325,7 +325,7 @@ height: auto;
     margin-top: -30px;
 }
 .footer-grids ul {
-    margin-inline-start: 14px;
+    margin-inline-start: 44px;
 }
 .bts-popup-container img {
 	padding: 0px 0 0 0;
@@ -496,7 +496,6 @@ font-size:18px;
     width: 65%;
     margin: 0 auto;
 }
-<<<<<<< HEAD
 .grid figcaption h3{
 font-size:13px;
 }
@@ -1587,6 +1586,9 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 						<img src="user/images/line-02.jpg" alt="">
 					</div>
 					<div class="row">
+						<form:form id="linkSearchForm" name="linkSearchForm" action="#"  commandName="createProfile"  method="post">
+						<form:hidden path="id"/>
+						<form:hidden path="dosamName"/>
 						<div class="about-content linkss">
 							<c:set var="lineCounter" value="${1}" />
 							<c:set var="itemsCounter" value="${1}" />
@@ -1631,6 +1633,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 							</c:forEach>
 							
 						</div>
+						</form:form>
 					</div>
 				</div>
 			</div>
@@ -1784,22 +1787,23 @@ Benzcircle Vijayawada</li>
 						<li><i class="fa fa-envelope-o"></i> <a href="#stayhere"> info@aarnamatrimony.com</a></li>
 					</ul> 
 				</div>
-				<div class="col-md-8 address-right">
-				<div class="col-md-4 footer-grids">
+<!-- 				<div class="col-md-4 address-right"> -->
+				<div class="col-md-3 footer-grids">
 						<h3>Quick links</h3>
 						<ul>
 							<li><a href="termsConditionsHomepage">Terms of use</a></li>
 							<li><a href="privacyAndPolicyHomePage">Privacy Policy</a></li>
 							<li><a href="helpHomePage">Help</a></li>
+							<li><a href="aboutUsHomePage">About Us</a></li>
+							<li><a href="#">Register Free</a></li>
 						</ul> 					</div>
-					<div class="col-md-4 footer-grids">
+					<!-- <div class="col-md-4 footer-grids">
 					
 						 <h3>Company</h3>
 						<ul style="margin-inline-start: 34px;">
-							<li><a href="aboutUsHomePage">About Us</a></li>
-							<li><a href="#">Register Free</a></li>
+							
 						</ul>
-					</div>
+					</div> -->
 					<div class="col-md-4 footer-grids">
 					<a href="HomePage"><img src="images/logo01.png" alt="" class="img-responsive" /></a>
 						<video poster="user/images/bgvideo.jpg" controls
@@ -1815,9 +1819,14 @@ Benzcircle Vijayawada</li>
 						</ul>
 						</section> -->
 					</div>
+					<div class="col-md-2 footer-grids">
+					<img style="margin-top:70px;" class="img-responsive" src="nimages/satisfaction.png"/>
+<!-- 					<img class="img-responsive" src="nimages/secure11.gif"/>		 -->
+								</div>
+<!-- 					</div> -->
 					
 					<div class="clearfix"></div><br>
-				</div>
+				
 				<div class="clearfix"></div>
 			</div>
 		</div>
@@ -2297,6 +2306,11 @@ $('img').bind('contextmenu', function(e) {
     }
     
     function religionSearch(id,name){
+    	$("#id").val(id);
+    	$("#dosamName").val(name);
+    	document.linkSearchForm.action = "homePageReligionAndCast"
+    	document.linkSearchForm.submit();
+    	/* 
     	var religion= id;
     	var name=name;
     		var formData = new FormData();
@@ -2309,7 +2323,7 @@ $('img').bind('contextmenu', function(e) {
     		$("#searchResults").html('');
     		displaydata(alldata);
     		$('#myModal').modal('show');
-    	});
+    	}); */
     		
     }
     

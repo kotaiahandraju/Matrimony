@@ -1022,7 +1022,7 @@ Follow us on : 	<a href="#stayhere"><img src="nimages/fb.png" style="height:30px
 			    	
 			        if(data == ""){
 			           $('#searchResults').empty();	  
-			                var tblHistory='<td colspan="7" style="text-align:center;">No History Found<span></span></td>';
+			                var tblHistory='<td colspan="7" style="text-align:center; padding:10px;border:1px solid #777;"><h2>Search Result Not Found...</h2><span></span></td>';
 			                $(tblHistory).appendTo("#searchResults");
 			        }
 

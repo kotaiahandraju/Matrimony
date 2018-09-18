@@ -18,9 +18,9 @@
 
 
 
+<br>
+
+<img  src="nimages/secure.png" class="img-responsive"/>
 
 
-
-
-
-<%-- 				<%@ include file="userFooter.jsp"%> --%>
+				<%@ include file="userStepsFooter.jsp"%> 

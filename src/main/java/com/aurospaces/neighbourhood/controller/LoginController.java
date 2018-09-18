@@ -24,6 +24,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -606,21 +607,21 @@ public class LoginController {
 	 }
 	 
 	 @RequestMapping(value = "/homePageReligionAndCast")
-	 public  @ResponseBody String getHomePageSearchResults1( UsersBean searchCriteriaBean, Model objeModel, HttpServletRequest request, HttpSession session) {
+	 public   String getHomePageSearchResults1(@ModelAttribute("createProfile")UsersBean searchCriteriaBean, Model objeModel, HttpServletRequest request, HttpSession session) {
 			List<Map<String,Object>> searchList=null;
 		 ObjectMapper objectMapper = null;
 		String sJson = null;
 		JSONObject objJson =new JSONObject();
 		String inputVal = request.getParameter("list_type");
 		try {
-			
-			 searchList = objUsersDao.getHomeSearchResult1(searchCriteriaBean,inputVal);
+	
+			 searchList = objUsersDao.getHomeSearchResult1(searchCriteriaBean,searchCriteriaBean.getDosamName());
 			 if(searchList != null && searchList.size()>0) {
 			 objectMapper = new ObjectMapper();
 				sJson = objectMapper.writeValueAsString(searchList);
-				objJson.put("searchListOrders", searchList);
+				request.setAttribute("searchListOrders", sJson);
 			 }else {
-				 objJson.put("searchListOrders", "");
+				 request.setAttribute("searchListOrders", "''");
 			 }
 			 
 		} catch (Exception e) {
@@ -629,7 +630,7 @@ public class LoginController {
 	   logger.error(e);
 	   logger.fatal("error in HomePageController class homePageSearch method");
 	  }
-		return String.valueOf(objJson);
+		return "homePageSearch";
 	 }
 	   @RequestMapping(value = "/forgotPassword")
 		public String forgotPassword(@ModelAttribute("forgotPassword") UsersBean objUsersBean, Model objeModel ,

@@ -17,9 +17,9 @@
 
     <style>
    @media only screen and (max-width: 640px) {
-    .pull-profile {
+   .pull-profile {
     min-height:400px !important;
-    }
+    } 
     }
     
         #mySlider {
@@ -53,9 +53,9 @@ vertical-align:top;
                 width: 100%;
                 height: 450px;
             }
-             .fullprofile {  
+            /*  .fullprofile {  
     min-height:400px !important;
-    }
+    } */
         }
          td:first-child{ width: 150px; }
          td:nth-child(2) {width:10px !important;}
@@ -76,9 +76,9 @@ vertical-align:top;
                 width: 570px;
                 height: 450px;
             }
-            .fullprofile {  
+           /*  .fullprofile {  
     min-height:400px !important;
-    }
+    } */
         }
          @media screen and (max-width: 480px) {
             #mySlider {
@@ -351,7 +351,7 @@ xpopup
 <script src="${baseurl}/js/plugins/jquery.ImageGallery.js"></script> 
 <script src="${baseurl}/js/plugins/jquery.imagesloaded.min.js"></script> 
 
-<div class="container" id="printDiv" style=' padding-left: 0px;'>
+<div class="container " id="printDiv" style=' padding-left: 0px;'>
 <div class="row">
 <div class="col-sm-8">
 <div class="products">
@@ -1261,7 +1261,7 @@ xpopup
 </div></div></div>
 </form:form>
 <div class="col-md-4 noPrint">
-<div class="col-sm-3" style='width: 100%; margin: 46px 0px 0px 0px;'>
+<div class="col-sm-3" style='width: 100%; margin: 46px 0px 0px 0px; padding-top:70px'>
 			<div class="col-md-11 products-grid-right">
 			<%-- <div class="panel panel-success">
 			<div class="panel-heading">Add Horoscope</div>

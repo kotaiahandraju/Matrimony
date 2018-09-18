@@ -41,6 +41,8 @@
 	<link href="${baseurl }/css/jquery.littlelightbox.css" rel="stylesheet" type="text/css">
 
 	<style type="text/css">
+	.products {
+	margin-top:100px;}
 	.products .container {
 	background:#f1f1f1 !important;
 	}
@@ -2647,7 +2649,7 @@ blockquote p {
 }
 .preprofile {
 	width:90px;
-	height:43px;
+	height:65px;
 	overflow:hidden;
 	padding-top:3px;
 	padding-bottom:3px;
@@ -2979,6 +2981,9 @@ display:none !important;
 .modal-open .modal {
     overflow-x: auto;
     overflow-y: auto;
+}
+.products {
+    margin-top: 182px;
 }
 .scrollup{
 			width:40px;
@@ -3617,6 +3622,7 @@ img.hover-shadow {
 	//}
 %> 
 <input type="hidden" name="loc" id="loc" value="${baseurl }" />
+<div class="header">
 <div class="header_top">
 	<div class="container" style="background: #FFF;width:;">
     	<div class="col-md-3">
@@ -3860,7 +3866,7 @@ img.hover-shadow {
 	    	</nav>
 			
 		</div>
-	</div></div>
+	</div></div></div><div class="clearfix"></div>
 </div>
 <div class="modal fade" id="myModal" role="dialog" style="background: transparent;">
     <div class="modal-dialog">

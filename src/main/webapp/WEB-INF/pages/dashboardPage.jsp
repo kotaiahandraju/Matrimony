@@ -3,7 +3,7 @@
 
 
 <style>
-.mobilenum {
+.mobilenum 
 display: -webkit-inline-box;
 }
 .media-carousel {
@@ -453,7 +453,6 @@ padding-right:0px;
 	        <br><a>View All (${pref_loc_profiles_size})</a>
 	        </div>
         </c:forEach>
-        
     </div><div class="clearfix"></div><hr>
     <div class="panel ">
         <div class="panel-heading" role="tab" id="headingTwo">
@@ -478,9 +477,9 @@ padding-right:0px;
 	<a href="#">${pref_prof.age} Yrs, ${pref_prof.heightInches}</a><br>
 	<a href="#">${pref_prof.currentCityName}</a><br>
 	<a href="#"><img src="../nimages/heart-icon.png">Send Interest</a></p></div><div class="col-md-1"><i class="fa fa-close"></i></div>
-	        </div>        </div>
+	        </div> <br><a>View All (${pref_prof_profiles_size})</a>       </div>
         </c:forEach>
-        <br><a>View All (${pref_prof_profiles_size})</a>
+        
     </div><div class="clearfix"></div>
     <div class="panel ">
         <div class="panel-heading" role="tab" id="headingThree">
@@ -505,9 +504,9 @@ padding-right:0px;
 	<a href="#">${pref_edu.currentCityName}</a><br>
 	<a href="#"><img src="../nimages/heart-icon.png">Send Interest</a></p></div>
 	<div class="col-md-1"><i class="fa fa-close"></i></div>
-	        </div>        </div>
+	        </div>  <br><a>View All (${pref_edu_profiles_size})</a>      </div>
         </c:forEach>
-       <br><a>View All (${pref_edu_profiles_size})</a>
+       
     </div>
     
      
