@@ -433,7 +433,7 @@ xpopup
 							 	</p>
 							</c:otherwise>
 						</c:choose></div>
-						
+						<span>MATCH SCORE:<div id="match_score_div"></div></span>
 					 	<div class="col-md-12 likeprofile noPrint">
 					 	<c:if test="${profileBean.gender == 'Female'}">
 					 		<p>Like this profile? Take the next step by sending her a mail.</p>
@@ -1033,7 +1033,7 @@ xpopup
 			</div>
 			<div class="col-md-4" style="width:390px; margin:55px 20px 0px 20px;">
 				
-				<div class="fleft"><div class="hdtxt paddl5 paddr5 txt-center" style="width:382px;">----- Your profile matches 14  / 14 of ${profileBean.lastName}'s preferences -----</div></div>
+				<div class="fleft"><div class="hdtxt paddl5 paddr5 txt-center" style="width:382px;">----- Your profile matches <div id=noOfProfileMatch></div>  / 14 of ${profileBean.lastName}'s preferences -----</div></div>
 				
 			</div>
 			<div class="col-md-2">
@@ -1772,48 +1772,91 @@ var country="${sessionBeanList.currentCountry}";
 var state="${sessionBeanList.currentState}";
 var city="${sessionBeanList.currentCity}"; 
 
-if((age >= ageFrom)&&(age<=ageTo)){
-$("#rAgeFrom_img img").attr("src","../nimages/Yes.png");
- }else
-{
-	 $("#rAgeFrom_img img").attr("src","../nimages/No.png");	 
- } 
+var match_score = 0;
+var no_of_match=0;
+if((ageFrom!=null && ageFrom!='') && (ageTo!=null && ageTo!='' )){
+	if((age >= ageFrom)&&(age<=ageTo)){
+		$("#rAgeFrom_img img").attr("src","../nimages/Yes.png");
+		match_score += 8;
+		no_of_match +=1;
+		 }else
+		{
+			 $("#rAgeFrom_img img").attr("src","../nimages/No.png");	 
+		 } 
+}else{
+	$("#rAgeFrom_img img").attr("src","../nimages/Yes.png");
+	match_score += 8;
+	no_of_match +=1;
+}
+if(heightFrom!=null && heightFrom!="" && heightTo!=null && heightTo!=""){
 if((height >= heightFrom) && (height <= heightTo)){
 	$("#heightTo_img img").attr("src","../nimages/Yes.png");
+	match_score += 8;
+	no_of_match +=1;
 	 }else
 	{
 		 $("#heightTo_img img").attr("src","../nimages/No.png");	 
 	 } 
+}else{
+	
+	$("#heightTo_img img").attr("src","../nimages/Yes.png");
+	match_score += 8;
+	no_of_match +=1;
+}
+if(rMarrege!=null && rMarrege!=''){
  if(rMarrege == marrege){
 	 $("#Marital_img img").attr("src","../nimages/Yes.png");
+	 match_score += 7;
+	 no_of_match +=1;
  }else
 {
 	 $("#Marital_img img").attr("src","../nimages/No.png");	 
- } 
+ } }
+else{
+	
+	 $("#Marital_img img").attr("src","../nimages/Yes.png");
+	 match_score += 7;
+	 no_of_match +=1;
+}
 /*  if(rbodyType == bodyType){
 	 alert("sucess body Type");
  }else{
 	 alert("no sucess body Type");
  } */
  var motherToungArry=rMotherTongue.split(",");
+ if(rMotherTongue!=null && rMotherTongue!=''){
  for (var i=0;i<motherToungArry.length; i++){
  if(parseInt(motherToungArry[i]) == motherTongue){
 	 $("#Mothertongue_img img").attr("src","../nimages/Yes.png");
+	 match_score += 7;
+	 no_of_match +=1;
 	 break;
  }else
 {
 	 $("#Mothertongue_img img").attr("src","../nimages/No.png");	 
  } 
+ }}else{
+	 $("#Mothertongue_img img").attr("src","../nimages/Yes.png");
+	 match_score += 7;
+	 no_of_match +=1; 
+	 
  }
  var  dietArry=rdiet.split(",");
+ if(rdiet!=null && rdiet!=''){
  for (var i=0;i<dietArry.length; i++){
  if(dietArry[i] == diet){
 	 $("#Eating_img img").attr("src","../nimages/Yes.png");
+	 match_score += 7;
+	 no_of_match +=1;
 	 break;
  }else
 {
 	 $("#Eating_img img").attr("src","../nimages/No.png");	 
- } }
+ } }}else{
+	 $("#Eating_img img").attr("src","../nimages/Yes.png");
+	 match_score += 7;
+	 no_of_match +=1;
+ }
 /*  if(rsmoking == smoking){
 	 alert("sucess smoking");
  }else{
@@ -1825,24 +1868,40 @@ if((height >= heightFrom) && (height <= heightTo)){
 	 alert("no sucess drinking");
  } */
  var  regArry=rReligion.split(",");
+ if(rReligion!=null && rReligion!=''){
  for (var i=0;i<regArry.length; i++){
  if(parseInt(regArry[i]) == religion){
 	 $("#religion_img img").attr("src","../nimages/Yes.png");
+	 match_score += 7;
+	 no_of_match +=1;
 	 break;
  }else
 {
 	 $("#religion_img img").attr("src","../nimages/No.png");	 
  } 
+ }}
+ else{
+	 $("#religion_img img").attr("src","../nimages/Yes.png");
+	 match_score += 7;
+	 no_of_match +=1; 
  }
  var  castArray=rCaste.split(",");
+ if(rCaste!=null && rCaste!=''){
  for (var i=0;i<castArray.length; i++){
  if(parseInt(castArray[i]) == caste){
 	 $("#cast_img img").attr("src","../nimages/Yes.png");
+	 match_score += 7;
+	 no_of_match +=1;
 	 break;
  }else
 {
 	 $("#cast_img img").attr("src","../nimages/No.png");	 
- } }
+ } }}else{
+	 $("#cast_img img").attr("src","../nimages/Yes.png");
+	 match_score += 7;
+	 no_of_match +=1;
+	 
+ }
 /*  if(rgotram == gotram){
 	 alert("sucess gotram");
  }else{
@@ -1860,67 +1919,125 @@ if((height >= heightFrom) && (height <= heightTo)){
  } */
 //  var educationarry = {};
 var  educationarry=rEducation.split(",");
+if(rEducation!=null && rEducation!=''){
 for (var i=0;i<educationarry.length; i++){
  if(parseInt(educationarry[i]) == education){
 	 $("#Education_img img").attr("src","../nimages/Yes.png");
+	 match_score += 7;
+	 no_of_match +=1;
 	 break;
  }else
  {
  	 $("#Education_img img").attr("src","../nimages/No.png");	 
   } }
-  
+}else{
+	
+	$("#Education_img img").attr("src","../nimages/Yes.png");
+	 match_score += 7;
+	 no_of_match +=1;
+}
 var Occupationarry=rOccupation.split(",");
+if(rOccupation!=null && rOccupation!=''){
 for (var i=0;i<Occupationarry.length; i++){
  if(parseInt(Occupationarry[i]) == occupation){
 	 $("#Occupation_img img").attr("src","../nimages/Yes.png");
+	 match_score += 7;
+	 no_of_match +=1;
 	 break;
  }else
  {
  	 $("#Occupation_img img").attr("src","../nimages/No.png");	 
-  } }
+  } }}
+else{
+	$("#Occupation_img img").attr("src","../nimages/Yes.png");
+	 match_score += 7;
+	 no_of_match +=1;
+}
+if(rAnnualIncome!=null && rAnnualIncome!=''){
  if(rAnnualIncome == annualIncome){
 	 $("#AnnualIncome_img img").attr("src","../nimages/Yes.png");
+	 match_score += 7;
+	 no_of_match +=1;
  }else
  {
  	 $("#AnnualIncome_img img").attr("src","../nimages/No.png");	 
-  }
+  }}
+else{
+	 $("#AnnualIncome_img img").attr("src","../nimages/Yes.png");
+	 match_score += 7;
+	 no_of_match +=1;
+}
  var  workingWithArry=rWorkingWith.split(",");
+ if(rWorkingWith!=null && rWorkingWith!=''){
  for (var i=0;i<workingWithArry.length; i++){
  if(workingWithArry[i] == workingWith){
 	 $("#Working_img img").attr("src","../nimages/Yes.png");
+	 match_score += 7;
+	 no_of_match +=1;
 	 break;
  }else
  {
  	 $("#Working_img img").attr("src","../nimages/No.png");	 
-  } }
+  } }}else{
+	  $("#Working_img img").attr("src","../nimages/Yes.png");
+		 match_score += 7;
+		 no_of_match +=1; 
+  }
  var  rCountryArry=rCountry.split(",");
+ if(rCountry!=null && rCountry!=''){
  for (var i=0;i<rCountryArry.length; i++){
  if(parseInt(rCountryArry[i]) == country){
 	 $("#Country_img img").attr("src","../nimages/Yes.png");
+	 match_score += 7;
+	 no_of_match +=1;
 	 break;
  }else
  {
  	 $("#Country_img img").attr("src","../nimages/No.png");	 
   } }
- 
+ }else{
+	 $("#Country_img img").attr("src","../nimages/Yes.png");
+	 match_score += 7;
+	 no_of_match +=1;
+ }
  var  rStateArry=rState.split(",");
+ if(rState!=null && rState!=''){
  for (var i=0;i<rStateArry.length; i++){
  if(parseInt(rStateArry[i]) == state){
 	 $("#ResidingState_img img").attr("src","../nimages/Yes.png");
+	 match_score += 7;
+	 no_of_match +=1;
 	 break;
  }else
  {
  	 $("#ResidingState_img img").attr("src","../nimages/No.png");	 
-  } }
+  } }}
+ else{
+	 $("#ResidingState_img img").attr("src","../nimages/Yes.png");
+	 match_score += 7;
+	 no_of_match +=1;	 
+ }
  var  rCityArry=rCity.split(",");
+ if(rCity!=null && rCity!=''){
  for (var i=0;i<rCityArry.length; i++){
  if(parseInt(rCityArry[i]) == city){
 	  $("#ResidingCity_img img").attr("src","../nimages/Yes.png");
+	  match_score += 7;
+	  no_of_match +=1;
 	  break;
  }else
  {
  	 $("#ResidingCity_img img").attr("src","../nimages/No.png");	 
-  } }
+  } }}
+ else{
+	 $("#ResidingCity_img img").attr("src","../nimages/Yes.png");
+	  match_score += 7;
+	  no_of_match +=1;
+ }
+ //$(no_of_match).appendTo("#noOfProfileMatch");
+ $("#noOfProfileMatch").html(no_of_match);
+ //$(match_score).appendTo("#match_score_div");
+ $("#match_score_div").html(match_score);
 </script> 
 
 
