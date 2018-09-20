@@ -4914,7 +4914,6 @@ public boolean deletePhoto(String photoId){
 
 				int inactiveCount = jdbcTemplate.queryForInt(inactiveQry);
 				int updatedProfilesCount = jdbcTemplate.queryForInt(updatedProfilesQry);
-				
 				countsMap.put("inactive_count", inactiveCount);
 				countsMap.put("updated_count", updatedProfilesCount);
 				return countsMap;

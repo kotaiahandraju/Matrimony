@@ -5489,6 +5489,24 @@ public String premiumMembers(@ModelAttribute("createProfile") UsersBean searchCr
 		
 		return match_score;
 	}
+	
+	@RequestMapping(value = "/refreshCounts")
+	public  @ResponseBody String getNotificationsCount( ModelMap model,
+			HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
+		JSONObject objJson =new JSONObject();
+		List<CityBean> ojCityBean = null;
+		try {
+			UsersBean userBean = (UsersBean)session.getAttribute("cacheGuest");
+			Map<String,Object> all_counts = this.objUsersDao.getInterestCounts(userBean);
+			objJson.put("all_counts", all_counts);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			logger.error(e);
+			logger.fatal("error in CountriesController class CountriesHome method  ");
+		}
+		return objJson.toString();
+	}
 } 
 
 

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.aurospaces.neighbourhood.bean.CityBean;
 import com.aurospaces.neighbourhood.bean.UsersBean;
 import com.aurospaces.neighbourhood.db.dao.PaymentDao;
 import com.aurospaces.neighbourhood.db.dao.PaymenthistoryDao;
@@ -205,6 +206,23 @@ public class AdminController {
 		return "adminDashboard";
 	}
 
+   @RequestMapping(value = "/refreshhCounts")
+	public  @ResponseBody String refreshhCounts( ModelMap model,
+			HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
+		JSONObject objJson =new JSONObject();
+		List<CityBean> ojCityBean = null;
+		try {
+			UsersBean userBean = (UsersBean)session.getAttribute("cacheGuest");
+			Map<String,Integer> counts = objUsersDao.getDisplayCounts();
+			objJson.put("display_counts", counts);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			logger.error(e);
+			logger.fatal("error in CountriesController class CountriesHome method  ");
+		}
+		return objJson.toString();
+	}
    
   /* @RequestMapping(value = "/paymentDetails/{id}/{page}")
 	public String paymentDetails(@ModelAttribute("payment") UsersBean objUsersBean, Model objeModel ,

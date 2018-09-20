@@ -293,6 +293,23 @@ var role_id = ${cacheUserBean.roleId};
 	{
 	return false;
 	});
+	
+	var auto_refresh = setInterval(
+		     function ()
+		     {
+		     	//$('#load_me').load('${baseurl}/sample.jsp').fadeIn("slow");
+		     	var formData = new FormData();
+		    	 jQuery.fn.makeMultipartRequest('POST', 'refreshhCounts', false,
+							formData, false, 'text', function(data){
+				    		var jsonobj = $.parseJSON(data);
+				    		var all_counts = jsonobj.display_counts;
+				    		$("#updated_cnt").html(all_counts.updated_count);
+				    		$("#inactive_profiles_count").html(all_counts.inactive_count);
+				    		$("#inactive_profiles_cnt").html(all_counts.inactive_count);
+						});
+	
+		     }, 1000); // autorefresh the content of the div after
+		                //every 1000 milliseconds(1sec)
 
 	});</script>
 
@@ -381,7 +398,7 @@ var role_id = ${cacheUserBean.roleId};
 						</c:if>
 						<li class="allProfiles"><a href="${baseurl }/admin/AllProfilesHome">Active Profiles</a></li>
 							<c:if test="${roleId1 == 1}"> 
-						<li class="inactiveProfiles"><a href="${baseurl }/admin/InactiveProfilesHome">Inactive Profiles<span class="matchcount inactive_cnt">${display_counts.inactive_count}</span></a></li>
+						<li class="inactiveProfiles"><a href="${baseurl }/admin/InactiveProfilesHome">Inactive Profiles<span class="matchcount inactive_cnt" id="inactive_profiles_count">${display_counts.inactive_count}</span></a></li>
 						<li class="deleteProfiles"><a href="${baseurl }/admin/DeleteProfilesHome">Delete Profiles</a></li>
 						<li class="adminProfiles"><a href="${baseurl }/admin/AdminRegisterProfiles">Admin Register Profiles</a></li>
 						<li class="freeProfiles"><a href="${baseurl }/admin/FreeRegisterProfile">Free Register Profiles</a></li>
