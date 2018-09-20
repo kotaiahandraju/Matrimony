@@ -1054,7 +1054,10 @@ public class HomePageController {
 					}else{
 						profileObj.put("photosList", "");
 					}
-					
+
+					//get profile match score
+					int match_score = this.getProfileMatchScore(sessionBean, profileObj);
+					profileObj.put("match_score", match_score+"");	
 					
 				}
 				objJson.put("results", listOrderBeans);
@@ -1210,6 +1213,9 @@ public class HomePageController {
 			request.setAttribute("photosListSize", photosList.size());
 			
 			objUserssBean.setId(sessionBean.getId());
+			
+			List<Map<String,Object>> similarProfiles = objUsersDao.getSimilarProfiles(profileBean);
+			
 //			EmailUtil.viewFullProfileMail(sessionBean, profileBean, request, objContext);
 			/*int notificationsCount = objUsersDao.getNotificationsCount(sessionBean);
 			request.setAttribute("notificationsCount", notificationsCount);
@@ -1219,13 +1225,13 @@ public class HomePageController {
 			}else{
 				session.setAttribute("notificationsList", "");
 			}*/
-			List<Map<String,Object>> shortlistedByMeList = objUsersDao.getShortlistedByMeMembers(sessionBean.getId()+"",0);
+			/*List<Map<String,Object>> shortlistedByMeList = objUsersDao.getShortlistedByMeMembers(sessionBean.getId()+"",0);
 			if(shortlistedByMeList!=null && shortlistedByMeList.size()>0){	
 				
 				objectMapper = new ObjectMapper();
 				sJson = objectMapper.writeValueAsString(shortlistedByMeList);
 				request.setAttribute("shortlistedList", sJson);
-		}
+		}*/
 		}
 		catch (Exception e) {
 	   e.printStackTrace();
@@ -1448,6 +1454,69 @@ String sJson="";
 		 
 	 return "preferredLocation";
 	 }
+	 
+	 
+	 @RequestMapping(value = "/preferredProfession")
+	 public String getPreferredProfessionProfiles(@ModelAttribute("createProfile") UsersBean objUsersBean, Model objeModel, HttpServletRequest request, HttpSession session) {
+		 
+ObjectMapper objectMapper=null;
+String sJson="";
+		 try {
+			 UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
+				if(sessionBean == null){
+					return "redirect:HomePage";
+				}
+			 
+		List<Map<String,Object>>   pref_profession_profiles = objUsersDao.getpreferredProfessionProfilesAll(sessionBean);
+			if(pref_profession_profiles!=null && pref_profession_profiles.size()>0){
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(pref_profession_profiles);
+				request.setAttribute("pref_profession_profiles", sJson);
+			}else{
+				request.setAttribute("pref_profession_profiles", "");
+			}
+		
+	 } catch (Exception e) {
+		   e.printStackTrace();
+		   System.out.println(e);
+		   logger.error(e);
+		   logger.fatal("error in preferredProfiles method");
+		  }
+		 
+	 return "preferredProfession";
+	 }
+	 
+	 @RequestMapping(value = "/preferredEducation")
+	 public String getPreferredEducationProfiles(@ModelAttribute("createProfile") UsersBean objUsersBean, Model objeModel, HttpServletRequest request, HttpSession session) {
+		 
+ObjectMapper objectMapper=null;
+String sJson="";
+		 try {
+			 UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
+				if(sessionBean == null){
+					return "redirect:HomePage";
+				}
+			 
+		List<Map<String,Object>>   pref_education_profiles = objUsersDao.getPreferredEducationProfilesAll(sessionBean);
+			if(pref_education_profiles!=null && pref_education_profiles.size()>0){
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(pref_education_profiles);
+				request.setAttribute("pref_education_profiles", sJson);
+			}else{
+				request.setAttribute("pref_education_profiles", "");
+			}
+		
+	 } catch (Exception e) {
+		   e.printStackTrace();
+		   System.out.println(e);
+		   logger.error(e);
+		   logger.fatal("error in preferredProfiles method");
+		  }
+		 
+	 return "preferredEducation";
+	 }
+	 
+	 
 	 @RequestMapping(value = "/SearchResults")
 	 public String getSearchResults(@ModelAttribute("createProfile") UsersBean searchCriteriaBean, Model objeModel, HttpServletRequest request, HttpSession session) {
 //	  System.out.println("SearchResults Page");
@@ -1489,7 +1558,10 @@ String sJson="";
 						profileObj.put("photosList", "");
 					}
 					
-					
+
+					//get profile match score
+					int match_score = this.getProfileMatchScore(sessionBean, profileObj);
+					profileObj.put("match_score", match_score+"");	
 				}
 				objectMapper = new ObjectMapper();
 				sJson = objectMapper.writeValueAsString(listOrderBeans);
@@ -3990,7 +4062,9 @@ String sJson="";
 						reqObj.put("photosList", "");
 					}
 					
-					
+					//get profile match score
+					int match_score = this.getProfileMatchScore2(sessionBean, reqObj);
+					reqObj.put("match_score", match_score+"");
 				}
 				objectMapper = new ObjectMapper();
 				sJson = objectMapper.writeValueAsString(pendingRequests);
@@ -4050,7 +4124,9 @@ String sJson="";
 						}else{
 							profileObj.put("photosList", "");
 						}
-						
+						//get profile match score
+						int match_score = this.getProfileMatchScore2(userBean, profileObj);
+						profileObj.put("match_score", match_score+"");
 					}
 					jsOnObj.put("yetToBeViewedList", listOrderBeans);
 					total_records = Integer.parseInt(String.valueOf(((Map<String, Object>)listOrderBeans.get(0)).get("total_records")));
@@ -4097,7 +4173,9 @@ String sJson="";
 					}else{
 						reqObj.put("photosList", "");
 					}
-					
+					//get profile match score
+					int match_score = this.getProfileMatchScore2(sessionBean, reqObj);
+					reqObj.put("match_score", match_score+"");
 					
 				}
 				objectMapper = new ObjectMapper();
@@ -4162,6 +4240,9 @@ String sJson="";
 						}else{
 							profileObj.put("photosList", "");
 						}
+						//get profile match score
+						int match_score = this.getProfileMatchScore2(userBean, profileObj);
+						profileObj.put("match_score", match_score+"");
 						
 					}
 					jsOnObj.put("viewedNotContactedList", listOrderBeans);
@@ -5276,7 +5357,9 @@ public String premiumMembers(@ModelAttribute("createProfile") UsersBean searchCr
 				}else{
 					profileObj.put("photosList", "");
 				}
-				
+				//get profile match score
+				int match_score = this.getProfileMatchScore2(userBean, profileObj);
+				profileObj.put("match_score", match_score+"");	
 				
 			}
 			objectMapper = new ObjectMapper();
@@ -5488,6 +5571,24 @@ public String premiumMembers(@ModelAttribute("createProfile") UsersBean searchCr
 		match_score += addedScore;
 		
 		return match_score;
+	}
+	
+	@RequestMapping(value = "/refreshCounts")
+	public  @ResponseBody String getNotificationsCount( ModelMap model,
+			HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
+		JSONObject objJson =new JSONObject();
+		List<CityBean> ojCityBean = null;
+		try {
+			UsersBean userBean = (UsersBean)session.getAttribute("cacheGuest");
+			Map<String,Object> all_counts = this.objUsersDao.getInterestCounts(userBean);
+			objJson.put("all_counts", all_counts);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			logger.error(e);
+			logger.fatal("error in CountriesController class CountriesHome method  ");
+		}
+		return objJson.toString();
 	}
 } 
 

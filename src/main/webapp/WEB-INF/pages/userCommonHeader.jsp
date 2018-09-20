@@ -21,7 +21,28 @@
 	<script type="application/x-javascript">
 		addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 		function hideURLbar(){ window.scrollTo(0,1); }
-	</script>
+	
+	     var auto_refresh = setInterval(
+							     function ()
+							     {
+							     	//$('#load_me').load('${baseurl}/sample.jsp').fadeIn("slow");
+							     	var formData = new FormData();
+							    	 jQuery.fn.makeMultipartRequest('POST', 'refreshCounts', false,
+												formData, false, 'text', function(data){
+									    		var jsonobj = $.parseJSON(data);
+									    		var all_counts = jsonobj.all_counts;
+									    		$("#matches_count").html(all_counts.yetToBeViewedCount);
+									    		$("#yet_to_count").html(all_counts.yetToBeViewedCount);
+									    		$("#viewed_not_contacted_count").html(all_counts.viewedNotContactedCount);
+									    		$("#messages_count").html(all_counts.pendingRequestsCount);
+									    		$("#pend_req_count").html(all_counts.pendingRequestsCount);
+									    		$("#notifications_count").html(all_counts.notificationsCount);
+									    		$("#inbox_count").html(all_counts.pendingRequestsCount);
+											});
+						
+							     }, 1000); // autorefresh the content of the div after
+							                //every 1000 milliseconds(1sec)
+    </script>
 	<!-- //for-mobile-apps -->
 	<link href="${baseurl }/user/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 	<link href="${baseurl }/user/css/style-profile.css" rel="stylesheet" type="text/css" media="all" />
@@ -2728,7 +2749,7 @@ h4.panel-title a {
 	color: #000;
 }
 
-#matchcount {
+.matchcount {
 	background-color: #FFECD9;
 	color: #000;
 	padding: 2px 4px;
@@ -3718,7 +3739,7 @@ img.hover-shadow {
 								</ul>
 							</li>
 							<li class="dropdown matches">
-								<a href="#no" class="dropdown-toggle" data-toggle="dropdown">Matches <span id="matchcount">${cacheGuest.yetToBeViewedCount}</span></a>
+								<a href="#no" class="dropdown-toggle" data-toggle="dropdown">Matches <span class="matchcount">${cacheGuest.yetToBeViewedCount}</span></a>
 								<ul class="dropdown-menu">
 									<li><a href="newMatches">New Matches</a></li>
 									<li><a href="yetToBeViewed">Yet to be viewed(${cacheGuest.yetToBeViewedCount}) </a></li>
@@ -3728,7 +3749,7 @@ img.hover-shadow {
 								</ul>
 							</li>
 							<li class="dropdown messages">
-								<a href="#no" class="dropdown-toggle" data-toggle="dropdown">Messages <span id="matchcount">${cacheGuest.pendingRequestsCount}</span></a>
+								<a href="#no" class="dropdown-toggle" data-toggle="dropdown">Messages <span class="matchcount" id="pend_req_count">${cacheGuest.pendingRequestsCount}</span></a>
 								<ul class="dropdown-menu">
 									<li><a href="inboxAction?tab_type=inbox&list_type=pending_requests">Inbox - Pending ${cacheGuest.pendingRequestsCount}</a></li>
 									<li><a href="inboxAction?tab_type=inbox&list_type=accepted_requests" >Inbox - Accepted </a></li>
@@ -3745,7 +3766,7 @@ img.hover-shadow {
 							</li> -->
 							
 							<li class="dropdown dropdown1 notifications" id="notification_li">
-								<a href="#" id="notificationLink"> <span class="fa fa-bell"></span>Notifications <c:if test="${not empty notificationsList}"><span id="matchcount">${notificationsCount}</span></c:if></a>
+								<a href="#" id="notificationLink"> <span class="fa fa-bell"></span>Notifications <c:if test="${not empty notificationsList}"><span class="matchcount">${notificationsCount}</span></c:if></a>
 								<div id="notificationContainer" class="dropdown-menu dropdown-menu1">
 									<c:if test="${not empty notificationsList}">
 											<div id="notificationsBody" class="notifications">
@@ -3827,7 +3848,10 @@ img.hover-shadow {
 									</c:if>
 								</div>	
 							</li>
-							<li><a href="help" >Help</a></li>
+							<li><a href="help" >Help <%-- <div id="load_me">
+							<%@ include file="sample.jsp" %>
+							</div> --%>
+							</a></li>
 							
 							<li><a class="upgradeOption animated flash infinite" href="memberShipPage" style="font-size: 18px; font-weight: bold; color: #fff;">Upgrade</a></li>
 							
@@ -3921,7 +3945,7 @@ img.hover-shadow {
 		<c:forEach items="${photosList}" var="photo" >
 			<c:set var="counter2" value="${counter2+1}" />
 			<div class="col-sm-2">
-		      <img class="demo cursor" src="${baseurl}/${photo.image}" style="width:100%" onclick="currentSlide(${counter2})" alt="">
+		      <img class="demo cursor" src="${baseurl}/${photo.image}" style="width:100%" onclick="currentSlide(${counter2})" alt=""/>
 		    </div>
 	    </c:forEach>
 	</div>
