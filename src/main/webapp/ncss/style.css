@@ -2025,7 +2025,7 @@ font-style:bold;
 }
 
 .navbar-brand{padding:20px 15px;}
-.navbar{margin-bottom:8px;}
+.navbar{margin-bottom:0px;}
 .header-phone{background: url(../nimages/phone-num.png) no-repeat left;
     color: #fff;
     float: right;

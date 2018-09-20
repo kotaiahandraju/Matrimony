@@ -1213,6 +1213,9 @@ public class HomePageController {
 			request.setAttribute("photosListSize", photosList.size());
 			
 			objUserssBean.setId(sessionBean.getId());
+			
+			List<Map<String,Object>> similarProfiles = objUsersDao.getSimilarProfiles(profileBean);
+			
 //			EmailUtil.viewFullProfileMail(sessionBean, profileBean, request, objContext);
 			/*int notificationsCount = objUsersDao.getNotificationsCount(sessionBean);
 			request.setAttribute("notificationsCount", notificationsCount);
@@ -1222,13 +1225,13 @@ public class HomePageController {
 			}else{
 				session.setAttribute("notificationsList", "");
 			}*/
-			List<Map<String,Object>> shortlistedByMeList = objUsersDao.getShortlistedByMeMembers(sessionBean.getId()+"",0);
+			/*List<Map<String,Object>> shortlistedByMeList = objUsersDao.getShortlistedByMeMembers(sessionBean.getId()+"",0);
 			if(shortlistedByMeList!=null && shortlistedByMeList.size()>0){	
 				
 				objectMapper = new ObjectMapper();
 				sJson = objectMapper.writeValueAsString(shortlistedByMeList);
 				request.setAttribute("shortlistedList", sJson);
-		}
+		}*/
 		}
 		catch (Exception e) {
 	   e.printStackTrace();
@@ -5572,6 +5575,24 @@ public String premiumMembers(@ModelAttribute("createProfile") UsersBean searchCr
 		match_score += addedScore;
 		
 		return match_score;
+	}
+	
+	@RequestMapping(value = "/refreshCounts")
+	public  @ResponseBody String getNotificationsCount( ModelMap model,
+			HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
+		JSONObject objJson =new JSONObject();
+		List<CityBean> ojCityBean = null;
+		try {
+			UsersBean userBean = (UsersBean)session.getAttribute("cacheGuest");
+			Map<String,Object> all_counts = this.objUsersDao.getInterestCounts(userBean);
+			objJson.put("all_counts", all_counts);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			logger.error(e);
+			logger.fatal("error in CountriesController class CountriesHome method  ");
+		}
+		return objJson.toString();
 	}
 } 
 

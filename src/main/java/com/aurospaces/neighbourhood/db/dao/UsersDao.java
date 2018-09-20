@@ -4914,7 +4914,6 @@ public boolean deletePhoto(String photoId){
 
 				int inactiveCount = jdbcTemplate.queryForInt(inactiveQry);
 				int updatedProfilesCount = jdbcTemplate.queryForInt(updatedProfilesQry);
-				
 				countsMap.put("inactive_count", inactiveCount);
 				countsMap.put("updated_count", updatedProfilesCount);
 				return countsMap;
@@ -5108,6 +5107,24 @@ public boolean deletePhoto(String photoId){
 			list = jdbcTemplate.queryForList(qry);
 		}catch (Exception e) {
 			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public List<Map<String,Object>> getSimilarProfiles(UsersBean presentProfile){
+		jdbcTemplate = custom.getJdbcTemplate();
+		List<Map<String,Object>> list = null;
+		try{
+				String qry = " select *,"
+						+ " ifnull(floor((datediff(current_date(),dob))/365),'') as age,"
+						+ " (select inches from height where id=u.height ) as heightInches ,"
+						+ " (select name from city where id=u.currentCity) as currentCityName, "
+						+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and uimg.status = '1' and uimg.is_profile_picture='1') as profileImage "
+						+ " from users u where  u.religion = "+presentProfile.getReligion()+" and u.caste =  "+presentProfile.getCaste();
+			list = jdbcTemplate.queryForList(qry);
+		}catch (Exception e) {
+			e.printStackTrace();
+			return null;
 		}
 		return list;
 	}

@@ -4,7 +4,7 @@ p{
 text-align:justify;
 }</style>
 
-
+<div class="products">
    <div class="container" style="background:white;padding:25px;">
       <div class="container-fluid">
 					<div class="panel panel-success">
@@ -22,6 +22,6 @@ Aarnamatrimony.com is one of the foremost and vivid Indian Matrimonial Site, pro
 	
 	<br></div>
 	</div>
-	</div>
+	</div></div>
 	
 <%@ include file="userFooter.jsp"%>

@@ -906,7 +906,7 @@ section.getquote {
     padding: 15px;
 }
 .navbar-brand > img{
-	max-width:90px;
+/* 	max-width:90px; */
 }
 .quote-form .form-control {
     height: 30px;
@@ -975,7 +975,7 @@ body{
 	font-size:100%;
 }
 .navbar-brand > img{
-	max-width:110px;
+/* 	max-width:110px; */
 }
 .navbar-collapse{
 	overflow:auto !important;

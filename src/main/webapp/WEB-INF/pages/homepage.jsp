@@ -472,12 +472,14 @@ padding-top: 85px !important;
     font-size: 19px ;
     text-align: left;
 }
+
 }
 @media only screen and (max-width: 1600px) and (min-width: 980px) {
 .navbar>.container-fluid .navbar-brand {
    margin-left: 39px; 
    margin-top:0px !important;
 }
+
 .grid figcaption h3 {
     margin: 0;
     padding: 0;
@@ -491,6 +493,9 @@ padding-top: 85px !important;
 font-size:18px;
 }}
 @media only screen and (max-width: 640px) and (min-width: 320px) {
+form {
+    margin-bottom: 0em !important;
+}
 .search {
     font-size: 16px;
     width: 65%;
@@ -733,13 +738,33 @@ td, th {
 		margin-left: 10px;
 	}
 }
+@media screen and only (max-width: 992px) {
+.navbar>.container-fluid .navbar-brand {
+    margin-left: -19px !imporatant;
+}
+.ntag {
+    margin-bottom: 0px;
+    display: inline-flex;
+    margin-top: -5px !important;
+    font-size: 9px !important;
+    color: #006699;
+}}
 @media ( min-width : 980px) {
 #strip .col-md-4 {
     text-align: center;
     width: 33%;
     float: left;
 }
-
+.ntag {
+    margin-bottom: 0px;
+    display: inline-flex;
+    margin-top: -5px;
+    font-size: 9px;
+    color: #006699;
+}
+.navbar>.container-fluid .navbar-brand {
+    margin-left: -18px;
+}
 .firstnam {
 width:120px;
 float:left;}
@@ -749,10 +774,10 @@ float:left;}
     display: inline-flex;
 }
 #welcome .navbar-right {
-    padding: 10px 0 0px !important;
+    padding: 38px 0 0px !important;
 }
 .navbar-header {
-    width: 28% !important;
+    width: 28% ;
 }
 .navbar>.container-fluid .navbar-brand {
    margin-left: 39px; 
@@ -825,7 +850,7 @@ span.has-error, span.hasError {
 	display: block !important;
 }
 #welcome .navbar-right {
-    padding: 27px 0 0px !important;
+    padding: 38px 0 0px !important;
 }
 .navbar-brand {
 padding:14px 15px !important;}
@@ -833,19 +858,27 @@ padding:14px 15px !important;}
  background: #cc !important;
     height: auto;
     padding: 10px 10px;
-    border-radius: 5px;
+/*     border: 1px solid rgba(0,0,0,0.5); */
+/*    border-radius: 10px 10px 2px 2px; */
+   background: rgba(0,0,0,0.25);
+   box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 0px rgba(255,255,255,0.2), inset 0 0px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);
+   -o-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 0px rgba(255,255,255,0.2), inset 0 0px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);
+   -webkit-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 0px rgba(255,255,255,0.2), inset 0 0px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);
+   -moz-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 0px rgba(255,255,255,0.2), inset 0 0px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);
+    
+   /*  border-radius: 5px;
     -webkit-box-shadow: 3px 4px 8px rgba(0,0,0,.21);
     -moz-box-shadow: 3px 4px 8px rgba(0,0,0,.21);
     box-shadow: 3px 4px 8px rgba(0,0,0,.21);
-    border: solid 3px rgba(220,220,220,.37);
+    border: solid 3px rgba(220,220,220,.37); */
     text-align: left;
     margin: 0 5px 0 5px;
     display: inline-block;
-    box-shadow: inset 0 0 0 300px rgba(255,255,255,0.3);
+/*     box-shadow: inset 0 0 0 300px rgba(255,255,255,0.3); */
     float: right;
     }
     form {
-    margin-bottom: -1em !important;
+    margin-bottom: -1em ;
 }
     /* .bannerform label {
     color:#fff;} */
@@ -877,7 +910,13 @@ padding-left:0px !important;}
     height: 32px !important;
     padding: 7px 6px !important;
 }
-
+.ntag {
+margin-bottom: 0px;
+    display: inline-flex;
+    margin-top: 15px;
+    font-size: 10px;
+    color: #006699;
+}
 </style>
 <title>Aarna Matrimony</title>
 
@@ -923,7 +962,10 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 						class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href="HomePage"><img
-					src="nimages/logo (1).png" alt="Aarna Matrimony"></a>
+					src="nimages/logo (1).png" style="display:block;" alt="Aarna Matrimony"></a>
+					
+					<img style="margin-top:8px;" src="nimages/title-bar-png.png" class="img-responsive">
+<!-- 					<p class="ntag">NO 1 MATCH MAKING ONLINE TELUGU MATRIMONIAL SITE</p> -->
 			</div>
 
 
@@ -1820,7 +1862,7 @@ Benzcircle Vijayawada</li>
 						</section> -->
 					</div>
 					<div class="col-md-2 footer-grids">
-					<img style="margin-top:70px;" class="img-responsive" src="nimages/satisfaction.png"/>
+					<img style="margin-top:70px; width:200px;" class="" src="nimages/satisfaction.png"/>
 <!-- 					<img class="img-responsive" src="nimages/secure11.gif"/>		 -->
 								</div>
 <!-- 					</div> -->
