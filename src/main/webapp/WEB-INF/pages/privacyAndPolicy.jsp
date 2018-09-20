@@ -5,6 +5,7 @@ p {
 	margin-bottom: 8px;
 }
 </style>
+<div class="products">
 <div class="container" style="background: white; padding: 25px;">
 	<div class="container-fluid">
 		<div class="panel panel-success">
@@ -34,5 +35,5 @@ p {
 			<a href="#" style="color:blue;"> https://www.aarnamatrimony.com </a>, mobile application ("Apps"), and/or
 			any related services, sales, marketing or events (we refer to them
 			collectively in this privacy policy as the "Sites").</p>
-			</div></div></div></div>
+			</div></div></div></div></div>
 			<%@ include file="userFooter.jsp"%>

@@ -249,9 +249,16 @@ padding-right:0px;
 font-size:13px;
 color:#000;
 }
+/* .thumbnail {
+    float: left;
+    width: 100%;
+    height: 65px;
+    padding: 0px;
+    margin: 0px;
+} */
 .preprofile {
     width: 120px;
-    height: 43px;
+    height: 65px;
     overflow: hidden;
     padding-top: 3px;
     padding-bottom: 3px;
@@ -433,8 +440,8 @@ padding-right:0px;
       </h4>
 
         </div>
-        <c:forEach var="loc_prof" items="${pref_loc_profiles}">
 	        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne" style="">
+        <c:forEach var="loc_prof" items="${pref_loc_profiles}">
 	            <div class="panel-body" style="padding:10px 0px;">
 	            <div class="col-md-3 col-xs-3" style="padding-right:0px; padding-left:0px;">
 	            <c:if test="${not empty loc_prof.profileImage}">
@@ -451,8 +458,8 @@ padding-right:0px;
 				<div class="col-md-1"><i class="fa fa-close"></i></div>
 	        </div>
 	        <br><a>View All (${pref_loc_profiles_size})</a>
-	        </div>
         </c:forEach>
+	        </div>
     </div><div class="clearfix"></div><hr>
     <div class="panel ">
         <div class="panel-heading" role="tab" id="headingTwo">

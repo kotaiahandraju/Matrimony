@@ -1,5 +1,5 @@
 <%@ include file="userCommonHeader.jsp"%>
-
+<div class="products">
 <div class="container" style="background: white; padding: 25px;">
 	<div class="container-fluid">
 		<div class="panel panel-success">
@@ -28,7 +28,5 @@
 
 
 			</div>
-		</div>
-	</div>
-
+		</div></div>
 	<%@ include file="userFooter.jsp"%>

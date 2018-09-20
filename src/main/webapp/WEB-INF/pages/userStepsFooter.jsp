@@ -41,8 +41,8 @@
 		</div>
 	</footer>
 </div>
-	
-    <div class="copyright clearfix">
+
+    <div class="copyright clearfix" style="">
         <div class="">
             <p class="copy">A product of Aarna Associates © 2017. All rights reserved</p>
 		</div>

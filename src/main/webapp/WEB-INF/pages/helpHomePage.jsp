@@ -1,5 +1,18 @@
 <%@ include file="userStepsHeader.jsp"%>
-<div class="container" style="background: white; padding: 25px;">
+<style>
+.newimg {
+float: right;
+    margin-right: 20%;
+}
+@media  (min-width: 320px) and (max-width:640px) {
+.newimg {
+float: right;
+    margin-right: 0% !important;
+    margin-top:15px
+}
+}
+</style>
+<div class="container" style="background: white; padding-top: 25px;">
 	<div class="container-fluid">
 		<div class="panel panel-success">
 			<div class="panel-heading">Help</div>
@@ -20,7 +33,7 @@
 
 <br>
 
-<img  src="nimages/secure.png" class="img-responsive"/>
+<img  src="nimages/secure.png" class="img-responsive newimg"/>
 
 
 				<%@ include file="userStepsFooter.jsp"%> 

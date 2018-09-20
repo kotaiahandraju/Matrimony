@@ -122,6 +122,19 @@ span.pro_details {
     width: auto;
 	}
 }
+@media screen and (max-width:1024px){
+	.navbar>.container-fluid .navbar-brand {
+    margin-left: -18px;
+}
+.ntag {
+    margin-bottom: 0px;
+    display: inline-flex;
+    margin-top: -5px !important;
+    font-size: 9px !important;
+    color: #006699;
+}	
+	
+	}
 @media screen and (max-width:992px){
 	.personal-page .col-md-6:nth-child(odd){padding-left:0px;}
 	.about-page .col-md-6:nth-child(even){padding-left:0px;}
@@ -146,11 +159,11 @@ float:left;
 	}
 	
 	.navbar-header {
-    width: 39%;
+    width: 28%;
 }
 .navbar-header  img
 {
-    width: 100%;
+/*     width: 100%; */
 }
 
 .nav>li>a {
@@ -158,9 +171,15 @@ float:left;
 }
 
 .navbar>.container-fluid .navbar-brand {
-    margin-left: -39px;
+    margin-left: -18px;
 }
-	
+.ntag {
+    margin-bottom: 0px;
+    display: inline-flex;
+    margin-top: -5px !important;
+    font-size: 9px !important;
+    color: #006699;
+}	
 }
 @media screen and (max-width:806px){
 	#search_form{text-align:left;}
