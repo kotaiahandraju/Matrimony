@@ -4941,16 +4941,20 @@ public boolean deletePhoto(String photoId){
 		jdbcTemplate = custom.getJdbcTemplate();
 		List<Map<String,Object>> list = null;
 		try{
-			
+			String rVal = userBean.getrCity();
+			String where_clause = " 1 ";
+			if(StringUtils.isNotBlank(rVal)) {
+				where_clause = " find_in_set(u.education,'"+rVal+"')>0 ";
+			}
 			String  qry = " select *,"
 					+ " ifnull(floor((datediff(current_date(),dob))/365),'') as age,"
 					+ " (select inches from height where id=u.height ) as heightInches ,"
 					+ " (select name from city where id=u.currentCity) as currentCityName, "
 					+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+userBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'interest_request') as expressedInterest, "
 					+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and uimg.status = '1' and uimg.is_profile_picture='1') as profileImage "
-					+ " from users u, userrequirement ureq where ureq.userId = u.id and u.status = '1' and u.gender not in ('"+userBean.getGender()+"') and if("+userBean.getrCity()+" is null or '"+userBean.getrCity()+"' = '',1,find_in_set(u.currentCity,'"+userBean.getrCity()+"')>0) limit 2";
+					+ " from users u, userrequirement ureq where ureq.userId = u.id and u.status = '1' and u.gender not in ('"+userBean.getGender()+"') and "+where_clause+" limit 2";
 			list = jdbcTemplate.queryForList(qry);
-			qry = " select count(1) from users u, userrequirement ureq where ureq.userId = u.id and u.status = '1' and u.gender not in ('"+userBean.getGender()+"') and if("+userBean.getrCity()+" is null or '"+userBean.getrCity()+"' = '',1,find_in_set(u.currentCity,'"+userBean.getrCity()+"')>0) ";
+			qry = " select count(1) from users u, userrequirement ureq where ureq.userId = u.id and u.status = '1' and u.gender not in ('"+userBean.getGender()+"') and "+where_clause;
 			int count = jdbcTemplate.queryForInt(qry);
 			if(count>0){
 				list.get(0).put("list_size", count);
@@ -4965,7 +4969,11 @@ public boolean deletePhoto(String photoId){
 		jdbcTemplate = custom.getJdbcTemplate();
 		List<Map<String,Object>> list = null;
 		try{
-			
+			String rVal = userBean.getrCity();
+			String where_clause = " 1 ";
+			if(StringUtils.isNotBlank(rVal)) {
+				where_clause = " find_in_set(u.education,'"+rVal+"')>0 ";
+			}
 			String  qry = " select *,"
 					+ " ifnull(floor((datediff(current_date(),dob))/365),'') as age,"
 					+ " (select inches from height where id=u.height ) as heightInches ,"
@@ -4979,7 +4987,7 @@ public boolean deletePhoto(String photoId){
 					+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+userBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'message') as message_sent_status, "
 					+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+userBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'short_listed') as shortlisted, "
 					+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+userBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'mobile_no_viewed') as mobileNumViewed "
-					+ " from users u, userrequirement ureq where ureq.userId = u.id and u.status = '1' and u.gender not in ('"+userBean.getGender()+"') and if("+userBean.getrCity()+" is null or '"+userBean.getrCity()+"' = '',1,find_in_set(u.currentCity,'"+userBean.getrCity()+"')>0)";
+					+ " from users u, userrequirement ureq where ureq.userId = u.id and u.status = '1' and u.gender not in ('"+userBean.getGender()+"') and "+where_clause;
 			list = jdbcTemplate.queryForList(qry);
 		
 		}catch (Exception e) {
@@ -4993,15 +5001,19 @@ public boolean deletePhoto(String photoId){
 		jdbcTemplate = custom.getJdbcTemplate();
 		List<Map<String,Object>> list = null;
 		try{
-			
+			String rVal = userBean.getrOccupation();
+			String where_clause = " 1 ";
+			if(StringUtils.isNotBlank(rVal)) {
+				where_clause = " find_in_set(u.education,'"+rVal+"')>0 ";
+			}
 			String  qry = " select *,"
 					+ " ifnull(floor((datediff(current_date(),dob))/365),'') as age,"
 					+ " (select inches from height where id=u.height ) as heightInches ,"
 					+ " (select name from city where id=u.currentCity) as currentCityName, "
 					+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and uimg.status = '1' and uimg.is_profile_picture='1') as profileImage "
-					+ " from users u, userrequirement ureq where ureq.userId = u.id and u.status = '1' and u.gender not in ('"+userBean.getGender()+"') and if("+userBean.getrOccupation()+" is null or '"+userBean.getrOccupation()+"' = '',1,find_in_set(u.occupation,'"+userBean.getrOccupation()+"')>0) limit 2";
+					+ " from users u, userrequirement ureq where ureq.userId = u.id and u.status = '1' and u.gender not in ('"+userBean.getGender()+"') and "+where_clause+" limit 2";
 			list = jdbcTemplate.queryForList(qry);
-			qry = " select count(1) from users u, userrequirement ureq where ureq.userId = u.id and u.status = '1' and u.gender not in ('"+userBean.getGender()+"') and if("+userBean.getrOccupation()+" is null or '"+userBean.getrOccupation()+"' = '',1,find_in_set(u.occupation,'"+userBean.getrOccupation()+"')>0) ";
+			qry = " select count(1) from users u, userrequirement ureq where ureq.userId = u.id and u.status = '1' and u.gender not in ('"+userBean.getGender()+"') and "+where_clause;
 			int count = jdbcTemplate.queryForInt(qry);
 			if(count>0){
 				list.get(0).put("list_size", count);
@@ -5012,25 +5024,87 @@ public boolean deletePhoto(String photoId){
 		}
 		return list;
 	}
-	
+
+	public List<Map<String,Object>> getpreferredProfessionProfilesAll(UsersBean userBean){
+		jdbcTemplate = custom.getJdbcTemplate();
+		List<Map<String,Object>> list = null;
+		try{
+			String rVal = userBean.getrOccupation();
+			String where_clause = " 1 ";
+			if(StringUtils.isNotBlank(rVal)) {
+				where_clause = " find_in_set(u.education,'"+rVal+"')>0 ";
+			}
+			String  qry = " select *,"
+					+ " ifnull(floor((datediff(current_date(),dob))/365),'') as age,"
+					+ " (select inches from height where id=u.height ) as heightInches ,"
+					+ " (select name from city where id=u.currentCity) as currentCityName, "
+					+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and uimg.status = '1' and uimg.is_profile_picture='1') as profileImage, "
+					+ " (select name from religion where id=u.religion) as religionName, "
+					+ " (select name from cast where id=u.caste) as castName, "
+					+ " (select name from occupation where id=u.occupation) as occupationName, "
+					+ " (select name from countries where id=u.currentCountry) as currentCountryName, "
+					+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+userBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'interest_request') as expressedInterest, "
+					+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+userBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'message') as message_sent_status, "
+					+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+userBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'short_listed') as shortlisted, "
+					+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+userBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'mobile_no_viewed') as mobileNumViewed "
+					+ " from users u, userrequirement ureq where ureq.userId = u.id and u.status = '1' and u.gender not in ('"+userBean.getGender()+"') and "+where_clause;
+			list = jdbcTemplate.queryForList(qry);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 	public List<Map<String,Object>> getPreferredEducationProfiles(UsersBean userBean){
 		jdbcTemplate = custom.getJdbcTemplate();
 		List<Map<String,Object>> list = null;
 		try{
-			
+			String rVal = userBean.getrEducation();
+			String where_clause = " 1 ";
+			if(StringUtils.isNotBlank(rVal)) {
+				where_clause = " find_in_set(u.education,'"+rVal+"')>0 ";
+			}
 			String  qry = " select *,"
 					+ " ifnull(floor((datediff(current_date(),dob))/365),'') as age,"
 					+ " (select inches from height where id=u.height ) as heightInches ,"
 					+ " (select name from city where id=u.currentCity) as currentCityName, "
 					+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and uimg.status = '1' and uimg.is_profile_picture='1') as profileImage "
-					+ " from users u, userrequirement ureq where ureq.userId = u.id and u.status = '1' and u.gender not in ('"+userBean.getGender()+"') and if("+userBean.getrEducation()+" is null or '"+userBean.getrEducation()+"' = '',1,find_in_set(u.education,'"+userBean.getrEducation()+"')>0) limit 2";
+					+ " from users u, userrequirement ureq where ureq.userId = u.id and u.status = '1' and u.gender not in ('"+userBean.getGender()+"') and "+where_clause+" limit 2";
 			list = jdbcTemplate.queryForList(qry);
-			qry = " select count(1) from users u, userrequirement ureq where ureq.userId = u.id and u.status = '1' and u.gender not in ('"+userBean.getGender()+"') and if("+userBean.getrEducation()+" is null or '"+userBean.getrEducation()+"' = '',1,find_in_set(u.education,'"+userBean.getrEducation()+"')>0) ";
+			qry = " select count(1) from users u, userrequirement ureq where ureq.userId = u.id and u.status = '1' and u.gender not in ('"+userBean.getGender()+"') and  "+where_clause;
 			int count = jdbcTemplate.queryForInt(qry);
 			if(count>0){
 				list.get(0).put("list_size", count);
 			}
 			return list;
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	public List<Map<String,Object>> getPreferredEducationProfilesAll(UsersBean userBean){
+		jdbcTemplate = custom.getJdbcTemplate();
+		List<Map<String,Object>> list = null;
+		try{
+				String rVal = userBean.getrEducation();
+				String where_clause = " 1 ";
+				if(StringUtils.isNotBlank(rVal)) {
+					where_clause = " find_in_set(u.education,'"+rVal+"')>0 ";
+				}
+			String  qry = " select *,"
+					+ " ifnull(floor((datediff(current_date(),dob))/365),'') as age,"
+					+ " (select inches from height where id=u.height ) as heightInches ,"
+					+ " (select name from city where id=u.currentCity) as currentCityName, "
+					+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and uimg.status = '1' and uimg.is_profile_picture='1') as profileImage,"
+					+ " (select name from religion where id=u.religion) as religionName, "
+					+ " (select name from cast where id=u.caste) as castName, "
+					+ " (select name from occupation where id=u.occupation) as occupationName, "
+					+ " (select name from countries where id=u.currentCountry) as currentCountryName, "
+					+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+userBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'interest_request') as expressedInterest, "
+					+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+userBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'message') as message_sent_status, "
+					+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+userBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'short_listed') as shortlisted, "
+					+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+userBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'mobile_no_viewed') as mobileNumViewed "
+					+ " from users u, userrequirement ureq where ureq.userId = u.id and u.status = '1' and u.gender not in ('"+userBean.getGender()+"') and "+where_clause;
+			list = jdbcTemplate.queryForList(qry);
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
