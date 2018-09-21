@@ -1444,7 +1444,7 @@ public class UsersDao extends BaseUsersDao
 							+"u.maritalStatus, u.caste,c.name as casteName, u.gotram, u.star,s.name as starName, u.dosam, u.dosamName, u.education, u.workingWith, u.companyName, " 
 							+"u.annualIncome, u.monthlyIncome, u.diet, u.smoking, u.drinking, u.height ,h.inches,h.cm, u.bodyType,b.name as bodyTypeName, u.complexion,com.name as complexionName, u.mobile, " 
 							+"u.aboutMyself, u.disability, u.status, u.showall,ur.userId, rAgeFrom, rAgeTo, "
-							+"rHeight, rMaritalStatus, rReligion,re1.name as requiredReligionName, rCaste,c1.name as requiredCasteName, rMotherTongue,l1.name as requiredMotherTongue,haveChildren,rCountry , con1.name as requiredCountry,rState,rEducation,e1.name as requiredEducationName, "
+							+"rHeight,rHeightTo, rMaritalStatus, rReligion,re1.name as requiredReligionName, rCaste,c1.name as requiredCasteName, rMotherTongue,l1.name as requiredMotherTongue,haveChildren,rCountry , con1.name as requiredCountry,rState,rCity,rEducation,e1.name as requiredEducationName, "
 							+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,"
 							//+" (select count(*) from express_intrest_view intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and interested='1') as expressedInterest, "
 							+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+objUserBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'interest_request') as expressedInterest, "
@@ -1468,7 +1468,7 @@ public class UsersDao extends BaseUsersDao
 							"caste","casteName","gotram","star","starName","dosam","dosamName","education","workingWith","companyName","annualIncome",
 							"monthlyIncome","diet","smoking","drinking","height","inches","cm",
 							"bodyType","bodyTypeName","complexion","complexionName","mobile","aboutMyself","disability",
-							"status","showall","userId","rAgeFrom","rAgeTo","rHeight","rMaritalStatus","rReligion","requiredReligionName","rCaste","requiredCasteName","rMotherTongue","requiredMotherTongue","haveChildren","rCountry","requiredCountry","rState","rEducation","requiredEducationName",
+							"status","showall","userId","rAgeFrom","rAgeTo","rHeight","rHeightTo","rMaritalStatus","rReligion","requiredReligionName","rCaste","requiredCasteName","rMotherTongue","requiredMotherTongue","haveChildren","rCountry","requiredCountry","rState","rCity","rEducation","requiredEducationName",
 							"rWorkingWith","rOccupation","requiredOccupationName","rAnnualIncome","rCreateProfileFor","rDiet","expressedInterest","message_sent_status","mobileNumViewed","age","dobString","profileImage","createProfileFor","short_listed","profile_highlighter"};
 				}else{
 					where_clause.append(" and u.status in ('1')    ");
@@ -1482,7 +1482,7 @@ public class UsersDao extends BaseUsersDao
 							+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+objUserBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'short_listed') as short_listed, "
 							+" '0' as expressedInterest, '0' as message_sent_status,'0' as mobileNumViewed, GROUP_CONCAT(uimg.image) as image,"
 							+ " rAgeFrom, rAgeTo, "
-							+"rHeight, rMaritalStatus, rReligion, rCaste, rMotherTongue,rCountry , rState,rEducation, "
+							+"rHeight,rHeightTo, rMaritalStatus, rReligion, rCaste, rMotherTongue,rCountry , rState,rCity,rEducation, "
 							+"rWorkingWith,rOccupation,rAnnualIncome,rCreateProfileFor,rDiet"
 							+" from users u left join userrequirement ur on u.id=ur.userId left join "
 							+" religion re on re.id=u.religion left join language l on l.id=u.motherTongue left join  "
@@ -1494,7 +1494,7 @@ public class UsersDao extends BaseUsersDao
 							"role_id","username","password","email","gender","dob","religion","religionName","motherTongue","motherTongueName",
 							"maritalStatus",
 							"caste","casteName","education","aboutMyself","height","inches","cm","age","dobString","profileImage","createProfileFor","short_listed","expressedInterest","message_sent_status","mobileNumViewed","image",
-							"rAgeFrom","rAgeTo","rHeight","rMaritalStatus","rReligion","rCaste","rMotherTongue","rCountry","rState","rEducation",
+							"rAgeFrom","rAgeTo","rHeight","rHeightTo","rMaritalStatus","rReligion","rCaste","rMotherTongue","rCountry","rState","rCity","rEducation",
 							"rWorkingWith","rOccupation","rAnnualIncome","rCreateProfileFor","rDiet"};
 				} 
 				

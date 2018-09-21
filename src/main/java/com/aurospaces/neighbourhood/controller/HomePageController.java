@@ -5423,6 +5423,8 @@ public String premiumMembers(@ModelAttribute("createProfile") UsersBean searchCr
 			if(age_from<=user_age && user_age<=age_to){
 				match_score += 8;
 			}
+		}else {
+			match_score += 8;
 		}
 		
 		String r_height_from = profileObj.get("rHeight");
@@ -5434,6 +5436,8 @@ public String premiumMembers(@ModelAttribute("createProfile") UsersBean searchCr
 			if(height_from<=user_height && user_height<=height_to){
 				match_score += 8;
 			}
+		}else {
+			match_score += 8;
 		}
 		
 		String r_val = profileObj.get("rMaritalStatus");
@@ -5481,10 +5485,10 @@ public String premiumMembers(@ModelAttribute("createProfile") UsersBean searchCr
 		user_val = userBean.getCurrentState();
 		addedScore = this.getMatchScoreOf(r_val, user_val);
 		match_score += addedScore;
-		r_val = profileObj.get("rCity");
+		/*r_val = profileObj.get("rCity");
 		user_val = userBean.getCurrentCity();
 		addedScore = this.getMatchScoreOf(r_val, user_val);
-		match_score += addedScore;
+		match_score += addedScore;*/
 		r_val = profileObj.get("rDiet");
 		user_val = userBean.getDiet();
 		addedScore = this.getMatchScoreOf(r_val, user_val);

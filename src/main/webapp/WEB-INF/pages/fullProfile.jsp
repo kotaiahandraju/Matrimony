@@ -1803,7 +1803,7 @@ if((height >= heightFrom) && (height <= heightTo)){
 	match_score += 8;
 	no_of_match +=1;
 }
-if(rMarrege!=null && rMarrege!=''){
+if(rMarrege!=null && rMarrege!='' && rMarrege!="any" ){
  if(rMarrege == marrege){
 	 $("#Marital_img img").attr("src","../nimages/Yes.png");
 	 match_score += 7;
@@ -1824,7 +1824,7 @@ else{
 	 alert("no sucess body Type");
  } */
  var motherToungArry=rMotherTongue.split(",");
- if(rMotherTongue!=null && rMotherTongue!=''){
+ if(rMotherTongue!=null && rMotherTongue!='' && rMotherTongue!='any'){
  for (var i=0;i<motherToungArry.length; i++){
  if(parseInt(motherToungArry[i]) == motherTongue){
 	 $("#Mothertongue_img img").attr("src","../nimages/Yes.png");
@@ -1842,7 +1842,7 @@ else{
 	 
  }
  var  dietArry=rdiet.split(",");
- if(rdiet!=null && rdiet!=''){
+ if(rdiet!=null && rdiet!='' && rdiet!='any'){
  for (var i=0;i<dietArry.length; i++){
  if(dietArry[i] == diet){
 	 $("#Eating_img img").attr("src","../nimages/Yes.png");
@@ -1868,7 +1868,7 @@ else{
 	 alert("no sucess drinking");
  } */
  var  regArry=rReligion.split(",");
- if(rReligion!=null && rReligion!=''){
+ if(rReligion!=null && rReligion!='' && rReligion!='any'){
  for (var i=0;i<regArry.length; i++){
  if(parseInt(regArry[i]) == religion){
 	 $("#religion_img img").attr("src","../nimages/Yes.png");
@@ -1886,7 +1886,7 @@ else{
 	 no_of_match +=1; 
  }
  var  castArray=rCaste.split(",");
- if(rCaste!=null && rCaste!=''){
+ if(rCaste!=null && rCaste!='' && rCaste!="any"){
  for (var i=0;i<castArray.length; i++){
  if(parseInt(castArray[i]) == caste){
 	 $("#cast_img img").attr("src","../nimages/Yes.png");
@@ -1919,7 +1919,7 @@ else{
  } */
 //  var educationarry = {};
 var  educationarry=rEducation.split(",");
-if(rEducation!=null && rEducation!=''){
+if(rEducation!=null && rEducation!='' && rEducation!='any'){
 for (var i=0;i<educationarry.length; i++){
  if(parseInt(educationarry[i]) == education){
 	 $("#Education_img img").attr("src","../nimages/Yes.png");
@@ -1937,7 +1937,7 @@ for (var i=0;i<educationarry.length; i++){
 	 no_of_match +=1;
 }
 var Occupationarry=rOccupation.split(",");
-if(rOccupation!=null && rOccupation!=''){
+if(rOccupation!=null && rOccupation!='' && rOccupation!='any'){
 for (var i=0;i<Occupationarry.length; i++){
  if(parseInt(Occupationarry[i]) == occupation){
 	 $("#Occupation_img img").attr("src","../nimages/Yes.png");
@@ -1953,7 +1953,7 @@ else{
 	 match_score += 7;
 	 no_of_match +=1;
 }
-if(rAnnualIncome!=null && rAnnualIncome!=''){
+if(rAnnualIncome!=null && rAnnualIncome!='' && rAnnualIncome!='any'){
  if(rAnnualIncome == annualIncome){
 	 $("#AnnualIncome_img img").attr("src","../nimages/Yes.png");
 	 match_score += 7;
@@ -1968,7 +1968,7 @@ else{
 	 no_of_match +=1;
 }
  var  workingWithArry=rWorkingWith.split(",");
- if(rWorkingWith!=null && rWorkingWith!=''){
+ if(rWorkingWith!=null && rWorkingWith!='' && rWorkingWith!='any'){
  for (var i=0;i<workingWithArry.length; i++){
  if(workingWithArry[i] == workingWith){
 	 $("#Working_img img").attr("src","../nimages/Yes.png");
@@ -1984,7 +1984,7 @@ else{
 		 no_of_match +=1; 
   }
  var  rCountryArry=rCountry.split(",");
- if(rCountry!=null && rCountry!=''){
+ if(rCountry!=null && rCountry!='' && rCountry!='any'){
  for (var i=0;i<rCountryArry.length; i++){
  if(parseInt(rCountryArry[i]) == country){
 	 $("#Country_img img").attr("src","../nimages/Yes.png");
@@ -2001,7 +2001,7 @@ else{
 	 no_of_match +=1;
  }
  var  rStateArry=rState.split(",");
- if(rState!=null && rState!=''){
+ if(rState!=null && rState!='' && rState!='any'){
  for (var i=0;i<rStateArry.length; i++){
  if(parseInt(rStateArry[i]) == state){
 	 $("#ResidingState_img img").attr("src","../nimages/Yes.png");
@@ -2018,7 +2018,7 @@ else{
 	 no_of_match +=1;	 
  }
  var  rCityArry=rCity.split(",");
- if(rCity!=null && rCity!=''){
+ if(rCity!=null && rCity!='' && rCity!='any'){
  for (var i=0;i<rCityArry.length; i++){
  if(parseInt(rCityArry[i]) == city){
 	  $("#ResidingCity_img img").attr("src","../nimages/Yes.png");

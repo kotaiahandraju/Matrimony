@@ -44,6 +44,7 @@
 			
 				<form:select path="occupation" class="form-control u">
 					<form:option value="">-- Choose Occupation --</form:option>
+					 <form:option value="">Doesn't Matter</form:option>
 					<form:options items="${occupation}"></form:options>
 				</form:select>
 				<div>
