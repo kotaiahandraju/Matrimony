@@ -366,10 +366,7 @@ $(".onlyCharacters").on("keypress",	function(event) {
                                 <c:set var="counter3" value="${0}" /> 
                                 <c:forEach items="${photosList}" var="photo" >
                                     <c:set var="counter3" value="${counter3+1}" />
-                                    <div class="profilethumbnail" style="float: left;width: 69px;
-    height: 69px;
-    padding: 0px;
-    margin: 5px; "> 
+                                    <div class="profilethumbnail" style="float: left;width: 69px; height: 69px;padding: 0px;margin: 5px; "> 
                                         <img src="${catalina_base}/${photo.image}" class="watermark_text" style="width:100%;  onclick="currentSlide_inpage('${photo.image}')"/> 
                                     </div>
                                 </c:forEach>
