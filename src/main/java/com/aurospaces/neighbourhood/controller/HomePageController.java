@@ -1216,6 +1216,12 @@ public class HomePageController {
 			
 			List<Map<String,Object>> similarProfiles = objUsersDao.getSimilarProfiles(profileBean);
 			
+			if(similarProfiles!=null && similarProfiles.size()>0){
+				request.setAttribute("similar_profiles", similarProfiles);
+			}else{
+				request.setAttribute("similar_profiles", "");
+			}
+			
 //			EmailUtil.viewFullProfileMail(sessionBean, profileBean, request, objContext);
 			/*int notificationsCount = objUsersDao.getNotificationsCount(sessionBean);
 			request.setAttribute("notificationsCount", notificationsCount);
@@ -1240,6 +1246,40 @@ public class HomePageController {
 	   logger.fatal("error in HomePageController class familyDetails method");
 	  }
 		return "fullProfile";
+	 }
+	 
+	 
+	 @RequestMapping(value = "/similarProfiles")
+	 public String getSimilarProfilesAll(@ModelAttribute("createProfile") UsersBean objUserssBean, Model objeModel, HttpServletRequest request, HttpSession session) {
+		ObjectMapper objectMapper=null;
+		String sJson=null;
+	 try {
+		 UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
+			if(sessionBean == null){
+				return "redirect:HomePage";
+			}
+		 
+		 
+		 String gender = request.getParameter("gender");
+		 String religion = request.getParameter("religion");
+		 String caste = request.getParameter("caste");
+		 
+		 
+		 List<Map<String,Object>> similarProfiles = objUsersDao.getSimilarProfilesAll(sessionBean,gender,religion,caste);
+		 if(similarProfiles!=null && similarProfiles.size()>0){
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(similarProfiles);
+				request.setAttribute("similarProfiles_profiles", sJson);
+			}else{
+				request.setAttribute("similarProfiles_profiles", "");
+			}
+	 }catch (Exception e) {
+	   e.printStackTrace();
+	   System.out.println(e);
+	   logger.error(e);
+	   logger.fatal("error in All Similar Profiles method");
+	  } 
+		 return "similarProfiles";
 	 }
 	 
 	 @RequestMapping(value = "/searchProfiles")

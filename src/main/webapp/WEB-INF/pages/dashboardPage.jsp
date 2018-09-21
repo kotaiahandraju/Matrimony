@@ -457,12 +457,6 @@ padding-right:0px;
 				<a href="#"><img src="../nimages/heart-icon.png" /> Send Interest</a></p></div>
 				<div class="col-md-1"><i class="fa fa-close"></i></div>
 	        </div>
-<%-- <<<<<<< HEAD
-	        <br><a>View All (${pref_loc_profiles_size})</a>
-        </c:forEach>
-	        </div>
-=======
-	        </div> --%>
         </c:forEach>
          <br><a href="preferredLocation">View All (${pref_loc_profiles_size})</a>
     </div></div><div class="clearfix"></div><hr>

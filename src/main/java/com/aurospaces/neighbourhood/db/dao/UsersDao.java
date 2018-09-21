@@ -1293,7 +1293,7 @@ public class UsersDao extends BaseUsersDao
 								//buffer.append(" and u.caste in ("+castValues+")  ");
 								
 								String sql =buffer.toString();
-								System.out.println(sql);
+//								System.out.println(sql);
 								
 								RowValueCallbackHandler handler = new RowValueCallbackHandler(handlerObj);
 								jdbcTemplate.query(sql, handler);
@@ -1578,7 +1578,7 @@ public class UsersDao extends BaseUsersDao
 								//buffer.append(" and u.caste in ("+castValues+")  ");
 								
 								String sql =buffer.toString();
-								System.out.println(sql);
+//								System.out.println(sql);
 								
 								RowValueCallbackHandler handler = new RowValueCallbackHandler(handlerObj);
 								jdbcTemplate.query(sql, handler);
@@ -1902,7 +1902,7 @@ public class UsersDao extends BaseUsersDao
 								+" (select activity_content from users_activity_log act_log where act_log.act_done_by_user_id = "+userId+" and act_log.set_as_mail_default_text = '1') as mail_default_text ";
 					
 			try{
-				System.out.println(qryStr);
+//				System.out.println(qryStr);
 				List<Map<String,Object>> list = jdbcTemplate.queryForList(qryStr);
 				if(list!=null)
 					return list.get(0);
@@ -5120,7 +5120,33 @@ public boolean deletePhoto(String photoId){
 						+ " (select inches from height where id=u.height ) as heightInches ,"
 						+ " (select name from city where id=u.currentCity) as currentCityName, "
 						+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and uimg.status = '1' and uimg.is_profile_picture='1') as profileImage "
-						+ " from users u where  u.religion = "+presentProfile.getReligion()+" and u.caste =  "+presentProfile.getCaste();
+						+ " from users u where u.status = '1' and u.gender ='"+presentProfile.getGender()+"' and  u.religion = "+presentProfile.getReligion()+" and u.caste =  "+presentProfile.getCaste()+" limit 2";
+			list = jdbcTemplate.queryForList(qry);
+		}catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		return list;
+	}
+	
+	public List<Map<String,Object>> getSimilarProfilesAll(UsersBean userBean,String gender,String religion_id,String caste_id){
+		jdbcTemplate = custom.getJdbcTemplate();
+		List<Map<String,Object>> list = null;
+		try{
+				String qry = " select *,"
+						+ " ifnull(floor((datediff(current_date(),dob))/365),'') as age,"
+						+ " (select inches from height where id=u.height ) as heightInches ,"
+						+ " (select name from city where id=u.currentCity) as currentCityName, "
+						+ " (select name from religion where id=u.religion) as religionName, "
+						+ " (select name from cast where id=u.caste) as castName, "
+						+ " (select name from occupation where id=u.occupation) as occupationName, "
+						+ " (select name from countries where id=u.currentCountry) as currentCountryName, "
+						+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+userBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'interest_request') as expressedInterest, "
+						+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+userBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'message') as message_sent_status, "
+						+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+userBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'short_listed') as shortlisted, "
+						+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+userBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'mobile_no_viewed') as mobileNumViewed ,"
+						+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and uimg.status = '1' and uimg.is_profile_picture='1') as profileImage "
+						+ " from users u where u.status = '1' and u.gender ='"+gender+"'  and u.religion = "+religion_id+" and u.caste =  "+caste_id;
 			list = jdbcTemplate.queryForList(qry);
 		}catch (Exception e) {
 			e.printStackTrace();

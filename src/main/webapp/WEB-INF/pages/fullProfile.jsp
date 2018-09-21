@@ -362,6 +362,9 @@ xpopup
 			<form:hidden path="redirectPage" value="dashboard"></form:hidden>
 			<form:hidden path="pageName"/>
 			<form:hidden path="id"/>
+			<form:hidden path="gender"/>
+			<form:hidden path="religion"/>
+			<form:hidden path="caste"/>
 			
 		<div class="col-md-8 products-grid-left" id="printProfile">
 		
@@ -1280,7 +1283,10 @@ xpopup
 things members look for
 in a profile. </p></div>
 	            	</div>
-	            </div><div class="clearfix"></div>
+	            </div>
+	            <div class="">
+					 <jsp:include page="sideGridForMatches.jsp" /></div>
+	            <div class="clearfix"></div>
 			
 			
 			
