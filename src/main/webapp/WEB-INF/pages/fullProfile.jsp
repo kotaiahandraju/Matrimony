@@ -433,7 +433,7 @@ xpopup
 							 	</p>
 							</c:otherwise>
 						</c:choose></div>
-						<span>MATCH SCORE:<div id="match_score_div"></div></span>
+						<p style="line-height:2; color:#000;font-size: 14px;">MATCH SCORE : <span id="match_score_div"></span></p>
 					 	<div class="col-md-12 likeprofile noPrint">
 					 	<c:if test="${profileBean.gender == 'Female'}">
 					 		<p>Like this profile? Take the next step by sending her a mail.</p>
