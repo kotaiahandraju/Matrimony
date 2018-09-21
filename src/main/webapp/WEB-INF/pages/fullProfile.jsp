@@ -8,7 +8,7 @@
 
     <!-- for documentation: you don't need them -->
     <link rel="stylesheet" href="${baseurl}/documentation/css/documentation.css" media="screen" type="text/css">
-    <link rel="stylesheet" href="../yandex.st/highlightjs/8.0/styles/default.min.css" media="screen" type="text/css">
+    <link rel="stylesheet" href="http://yandex.st/highlightjs/8.0/styles/default.min.css" media="screen" type="text/css">
     <script type="text/javascript" src="${baseurl}/documentation/js/document.js"></script>
     <script src="${baseurl}/documentation/js/highlight.pack.js"></script>
      
@@ -373,21 +373,21 @@ xpopup
 						</c:if>
 						<c:if test="${not empty fullProfilePhotosList}">
 						<div class="fullprofile" style="height:220px; overflow:hidden;"">	
-							<a href="#" id="fullProfilePicOuterTag" data-toggle="modal" data-target="#myModalFullProfile"><img  src="${catalina_base}/${fullProfilePhotosList[0].image}" class="hover-shadow cursor img img-responsive thumbnail watermark_text" style="margin-bottom:0;height:auto;width: 100%;" /></a>
+							<a href="#" id="fullProfilePicOuterTag" data-toggle="modal" data-target="#myModalFullProfile"><img  src="${catalina_base}/${fullProfilePhotosList[0].image}" class="hover-shadow cursor img img-responsive thumbnail watermark_text" style="margin-bottom:0;height:auto;width: 100%;"  /></a>
 							<%-- <a href="#" id="fullProfilePicOuterTag"><img src="${photosList[0].image}" style="width:100%; height:auto;" onclick="openModal();currentSlide(1)" class="hover-shadow cursor watermark_text"></a> --%>
 						</div>	
 							<div id="gallery-wrapper" class="noPrint">
 								<!-- thumbnail images -->
 								  <div id="thumbs-wrapper">
-								    <div id="gallery" style="margin:-10px 8px 8px;width:200%">
+								     <div id="gallery" style="margin:-10px 8px 8px;width:100%;width: 100%;
+    overflow: hidden;
+    height: 81px;
+    display: block;">
+                       
 								    	<c:set var="counter2" value="${0}" /> 
 								    	<c:forEach items="${fullProfilePhotosList}" var="photo" >
 								    		<c:set var="counter2" value="${counter2+1}" />
-									      	<div class="profilethumbnail" style="float: left;
-    width: 69px;
-    height: 69px;
-    padding: 0px;
-    margin: 5px; "> 
+									      	<div class="profilethumbnail" style="float: left;width: 69px;height: 69px;padding: 0px;margin: 5px; "> 
 										        <img src="${catalina_base}/${photo.image}" class="watermark_text" style="width:100%; height:auto;"  onclick="currentSlide_inpage('${photo.image}')"/> 
 										    </div>
 										</c:forEach>
@@ -396,8 +396,8 @@ xpopup
 								  
 								  <!-- thumbnail navigation -->
 								  <div id="thumbs-nav"> 
-								    <a id="gallery-next" style="margin-right:0px; margin-top:-80px;" href="#">next</a>
-								    <a id="gallery-prev" style="margin-left:0px; margin-top:-80px;" href="#">previous</a>
+								    <a id="gallery-next" style="margin-right:0px; margin-top:-92px;" href="#">next</a>
+								    <a id="gallery-prev" style="margin-left:0px; margin-top:-92px;" href="#">previous</a>
 								    <p id="gallery-pos" hidden="true">page 1 of 2</p>
 								  </div>
 							</div>
