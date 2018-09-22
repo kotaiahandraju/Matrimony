@@ -328,7 +328,7 @@ function displayMatches(listOrders) {
 			var profile_highlisht_str = '<div class="panel panel-default">';
 			var highlight_option = orderObj.profile_highlighter;
 			if(typeof highlight_option != "undefined" && highlight_option=='1'){
-				profile_highlisht_str = '<div class="panel panel-default" style="background-color:skyblue">';
+				profile_highlisht_str = '<div class="panel panel-default" style="background: url(../nimages/newbackground.png)">';
 			}
 			
 			var tblRow = profile_highlisht_str
@@ -345,11 +345,11 @@ function displayMatches(listOrders) {
 				+ '</h5>'
 				+ '</div>'
 				+ '<div class="panel-body">'
-				+ '<div class="col-md-2">'
+				+ '<div class="col-md-3">'
 				//+ '<a href="#"> <img src='+image+' class="img img-responsive thumbnail watermark_text beir"></a>'
 				+ slider
             	+ '</div>'
-            	+ '<div class="col-md-6">'
+            	+ '<div class="col-md-5">'
             	+ '<table>'
             	+ '	<tr><td>Age/Height</td><td><span>: '+age+', '+orderObj.inches+'</span></td></tr>'
             	+ '	<tr><td>Religion</td><td><span>: '+orderObj.religionName+'</span></td></tr>'
