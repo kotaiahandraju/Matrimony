@@ -1,7 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <div class="panel">
 	<div class="panel-heading">
-		<p style="font-weight: bold;">View Similar Profiles</p>
+		<b style="font-weight: bold;">View Similar Profiles</b>
 	</div>
 	<div class="panel-body" style="padding: 10px 0px;">
 		<!--  <div class="col-md-3 col-xs-3" style="padding-right:0px; padding-left:0px;">
@@ -36,7 +36,7 @@
         </div>
          -->
 		<c:forEach var="loc_prof" items="${similar_profiles}">
-			<div class="panel-body" style="padding: 10px 0px;">
+			<div class="panel-body" style="">
 				<div class="col-md-3 col-xs-3"
 					style="padding-right: 0px; padding-left: 0px;">
 					<c:if test="${not empty loc_prof.profileImage}">
@@ -64,20 +64,20 @@
 				</div>
 			</div>
 		</c:forEach>
-		<br>
-		<a href="#"; onclick="similarProfiles('${profileBean.gender}',${profileBean.religion},${profileBean.caste});">View All </a>
-	</div>
+		
+		<center><a href="#" style="padding-left:15px;" class="btn btn-info" onclick="similarProfiles('${profileBean.gender}',${profileBean.religion},${profileBean.caste});">View All </a>
+</center>	</div>
 </div>
 <div class="clearfix"></div>
 <div class="panel">
 	<div class="panel-heading">
-		<p style="font-weight: bold;">Recently Profiles</p>
+		<b style="font-weight: bold;">Recently Profiles</b>
 	</div>
-	<div class="panel-body" style="padding: 10px 0px;">
+	<div class="panel-body" >
 		<div class="col-md-4 col-xs-4"
 			style="padding-right: 0px; padding-left: 0px;">
 			<img src="../nimages/preicon.jpg"
-				style="cursor: pointer; no-repeat; width: 45px; height: 45px; display: block; border: 1px solid #e1e1e1; border-radius: 50%; background-size: 75px 75px;">
+				style="cursor: pointer; no-repeat; width: 55px; height: 55px; display: block; border: 1px solid #e1e1e1; border-radius: 50%; background-size: 75px 75px;">
 		</div>
 		<div class="col-md-8 col-xs-8"
 			style="padding-right: 0px; padding-left: 0px;">
@@ -86,11 +86,11 @@
 				<a href="#">Hyderabad</a><br>
 		</div>
 	</div>
-	<div class="panel-body" style="padding: 10px 0px;">
+	<div class="panel-body" >
 		<div class="col-md-4 col-xs-4"
 			style="padding-right: 0px; padding-left: 0px;">
 			<img src="../nimages/p8.png"
-				style="cursor: pointer; no-repeat; width: 45px; height: 45px; display: block; border: 1px solid #e1e1e1; border-radius: 50%; background-size: 75px 75px;">
+				style="cursor: pointer; no-repeat; width: 55px; height: 55px; display: block; border: 1px solid #e1e1e1; border-radius: 50%; background-size: 75px 75px;">
 		</div>
 		<div class="col-md-8 col-xs-8"
 			style="padding-right: 0px; padding-left: 0px;">
@@ -99,11 +99,11 @@
 				<a href="#">Hyderabad</a><br>
 		</div>
 	</div>
-	<div class="panel-body" style="padding: 10px 0px;">
+	<div class="panel-body" style="">
 		<div class="col-md-4 col-xs-4"
 			style="padding-right: 0px; padding-left: 0px;">
 			<img src="../nimages/p4.png"
-				style="cursor: pointer; no-repeat; width: 45px; height: 45px; display: block; border: 1px solid #e1e1e1; border-radius: 50%; background-size: 75px 75px;">
+				style="cursor: pointer; no-repeat; width: 55px; height: 55px; display: block; border: 1px solid #e1e1e1; border-radius: 50%; background-size: 75px 75px;">
 		</div>
 		<div class="col-md-8 col-xs-8"
 			style="padding-right: 0px; padding-left: 0px;">
