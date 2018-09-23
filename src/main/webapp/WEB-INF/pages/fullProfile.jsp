@@ -1378,7 +1378,7 @@ $(document).ready(function(){
 		});
 	
 	//alert("short_listed:"+short_listed);	
-	var listOrders1 = ${shortlistedList};
+	//var listOrders1 = ${shortlistedList};
 	//shortListData(listOrders1);
 
 	
