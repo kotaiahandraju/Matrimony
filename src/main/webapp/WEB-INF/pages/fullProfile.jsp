@@ -8,7 +8,7 @@
 
     <!-- for documentation: you don't need them -->
     <link rel="stylesheet" href="${baseurl}/documentation/css/documentation.css" media="screen" type="text/css">
-    <link rel="stylesheet" href="../yandex.st/highlightjs/8.0/styles/default.min.css" media="screen" type="text/css">
+    <link rel="stylesheet" href="http://yandex.st/highlightjs/8.0/styles/default.min.css" media="screen" type="text/css">
     <script type="text/javascript" src="${baseurl}/documentation/js/document.js"></script>
     <script src="${baseurl}/documentation/js/highlight.pack.js"></script>
      
@@ -362,6 +362,9 @@ xpopup
 			<form:hidden path="redirectPage" value="dashboard"></form:hidden>
 			<form:hidden path="pageName"/>
 			<form:hidden path="id"/>
+			<form:hidden path="gender"/>
+			<form:hidden path="religion"/>
+			<form:hidden path="caste"/>
 			
 		<div class="col-md-8 products-grid-left" id="printProfile">
 		
@@ -373,21 +376,21 @@ xpopup
 						</c:if>
 						<c:if test="${not empty fullProfilePhotosList}">
 						<div class="fullprofile" style="height:220px; overflow:hidden;"">	
-							<a href="#" id="fullProfilePicOuterTag" data-toggle="modal" data-target="#myModalFullProfile"><img  src="${catalina_base}/${fullProfilePhotosList[0].image}" class="hover-shadow cursor img img-responsive thumbnail watermark_text" style="margin-bottom:0;height:auto;width: 100%;" /></a>
+							<a href="#" id="fullProfilePicOuterTag" data-toggle="modal" data-target="#myModalFullProfile"><img  src="${catalina_base}/${fullProfilePhotosList[0].image}" class="hover-shadow cursor img img-responsive thumbnail watermark_text" style="margin-bottom:0;height:auto;width: 100%;"  /></a>
 							<%-- <a href="#" id="fullProfilePicOuterTag"><img src="${photosList[0].image}" style="width:100%; height:auto;" onclick="openModal();currentSlide(1)" class="hover-shadow cursor watermark_text"></a> --%>
 						</div>	
 							<div id="gallery-wrapper" class="noPrint">
 								<!-- thumbnail images -->
 								  <div id="thumbs-wrapper">
-								    <div id="gallery" style="margin:-10px 8px 8px;width:200%">
+								     <div id="gallery" style="margin:-10px 8px 8px;width:100%;width: 100%;
+    overflow: hidden;
+    height: 81px;
+    display: block;">
+                       
 								    	<c:set var="counter2" value="${0}" /> 
 								    	<c:forEach items="${fullProfilePhotosList}" var="photo" >
 								    		<c:set var="counter2" value="${counter2+1}" />
-									      	<div class="profilethumbnail" style="float: left;
-    width: 69px;
-    height: 69px;
-    padding: 0px;
-    margin: 5px; "> 
+									      	<div class="profilethumbnail" style="float: left;width: 69px;height: 69px;padding: 0px;margin: 5px; "> 
 										        <img src="${catalina_base}/${photo.image}" class="watermark_text" style="width:100%; height:auto;"  onclick="currentSlide_inpage('${photo.image}')"/> 
 										    </div>
 										</c:forEach>
@@ -396,8 +399,8 @@ xpopup
 								  
 								  <!-- thumbnail navigation -->
 								  <div id="thumbs-nav"> 
-								    <a id="gallery-next" style="margin-right:0px; margin-top:-80px;" href="#">next</a>
-								    <a id="gallery-prev" style="margin-left:0px; margin-top:-80px;" href="#">previous</a>
+								    <a id="gallery-next" style="margin-right:0px; margin-top:-92px;" href="#">next</a>
+								    <a id="gallery-prev" style="margin-left:0px; margin-top:-92px;" href="#">previous</a>
 								    <p id="gallery-pos" hidden="true">page 1 of 2</p>
 								  </div>
 							</div>
@@ -433,7 +436,7 @@ xpopup
 							 	</p>
 							</c:otherwise>
 						</c:choose></div>
-						<span>MATCH SCORE:<div id="match_score_div"></div></span>
+						<p style="line-height:2; color:#000;font-size: 14px;">MATCH SCORE : <span id="match_score_div"></span></p>
 					 	<div class="col-md-12 likeprofile noPrint">
 					 	<c:if test="${profileBean.gender == 'Female'}">
 					 		<p>Like this profile? Take the next step by sending her a mail.</p>
@@ -1280,7 +1283,10 @@ xpopup
 things members look for
 in a profile. </p></div>
 	            	</div>
-	            </div><div class="clearfix"></div>
+	            </div>
+	            <div class="">
+					 <jsp:include page="sideGridForMatches.jsp" /></div>
+	            <div class="clearfix"></div>
 			
 			
 			
@@ -1803,7 +1809,7 @@ if((height >= heightFrom) && (height <= heightTo)){
 	match_score += 8;
 	no_of_match +=1;
 }
-if(rMarrege!=null && rMarrege!=''){
+if(rMarrege!=null && rMarrege!='' && rMarrege!="any" ){
  if(rMarrege == marrege){
 	 $("#Marital_img img").attr("src","../nimages/Yes.png");
 	 match_score += 7;
@@ -1824,7 +1830,7 @@ else{
 	 alert("no sucess body Type");
  } */
  var motherToungArry=rMotherTongue.split(",");
- if(rMotherTongue!=null && rMotherTongue!=''){
+ if(rMotherTongue!=null && rMotherTongue!='' && rMotherTongue!='any'){
  for (var i=0;i<motherToungArry.length; i++){
  if(parseInt(motherToungArry[i]) == motherTongue){
 	 $("#Mothertongue_img img").attr("src","../nimages/Yes.png");
@@ -1842,7 +1848,7 @@ else{
 	 
  }
  var  dietArry=rdiet.split(",");
- if(rdiet!=null && rdiet!=''){
+ if(rdiet!=null && rdiet!='' && rdiet!='any'){
  for (var i=0;i<dietArry.length; i++){
  if(dietArry[i] == diet){
 	 $("#Eating_img img").attr("src","../nimages/Yes.png");
@@ -1868,7 +1874,7 @@ else{
 	 alert("no sucess drinking");
  } */
  var  regArry=rReligion.split(",");
- if(rReligion!=null && rReligion!=''){
+ if(rReligion!=null && rReligion!='' && rReligion!='any'){
  for (var i=0;i<regArry.length; i++){
  if(parseInt(regArry[i]) == religion){
 	 $("#religion_img img").attr("src","../nimages/Yes.png");
@@ -1886,7 +1892,7 @@ else{
 	 no_of_match +=1; 
  }
  var  castArray=rCaste.split(",");
- if(rCaste!=null && rCaste!=''){
+ if(rCaste!=null && rCaste!='' && rCaste!="any"){
  for (var i=0;i<castArray.length; i++){
  if(parseInt(castArray[i]) == caste){
 	 $("#cast_img img").attr("src","../nimages/Yes.png");
@@ -1919,7 +1925,7 @@ else{
  } */
 //  var educationarry = {};
 var  educationarry=rEducation.split(",");
-if(rEducation!=null && rEducation!=''){
+if(rEducation!=null && rEducation!='' && rEducation!='any'){
 for (var i=0;i<educationarry.length; i++){
  if(parseInt(educationarry[i]) == education){
 	 $("#Education_img img").attr("src","../nimages/Yes.png");
@@ -1937,7 +1943,7 @@ for (var i=0;i<educationarry.length; i++){
 	 no_of_match +=1;
 }
 var Occupationarry=rOccupation.split(",");
-if(rOccupation!=null && rOccupation!=''){
+if(rOccupation!=null && rOccupation!='' && rOccupation!='any'){
 for (var i=0;i<Occupationarry.length; i++){
  if(parseInt(Occupationarry[i]) == occupation){
 	 $("#Occupation_img img").attr("src","../nimages/Yes.png");
@@ -1953,7 +1959,7 @@ else{
 	 match_score += 7;
 	 no_of_match +=1;
 }
-if(rAnnualIncome!=null && rAnnualIncome!=''){
+if(rAnnualIncome!=null && rAnnualIncome!='' && rAnnualIncome!='any'){
  if(rAnnualIncome == annualIncome){
 	 $("#AnnualIncome_img img").attr("src","../nimages/Yes.png");
 	 match_score += 7;
@@ -1968,7 +1974,7 @@ else{
 	 no_of_match +=1;
 }
  var  workingWithArry=rWorkingWith.split(",");
- if(rWorkingWith!=null && rWorkingWith!=''){
+ if(rWorkingWith!=null && rWorkingWith!='' && rWorkingWith!='any'){
  for (var i=0;i<workingWithArry.length; i++){
  if(workingWithArry[i] == workingWith){
 	 $("#Working_img img").attr("src","../nimages/Yes.png");
@@ -1984,7 +1990,7 @@ else{
 		 no_of_match +=1; 
   }
  var  rCountryArry=rCountry.split(",");
- if(rCountry!=null && rCountry!=''){
+ if(rCountry!=null && rCountry!='' && rCountry!='any'){
  for (var i=0;i<rCountryArry.length; i++){
  if(parseInt(rCountryArry[i]) == country){
 	 $("#Country_img img").attr("src","../nimages/Yes.png");
@@ -2001,7 +2007,7 @@ else{
 	 no_of_match +=1;
  }
  var  rStateArry=rState.split(",");
- if(rState!=null && rState!=''){
+ if(rState!=null && rState!='' && rState!='any'){
  for (var i=0;i<rStateArry.length; i++){
  if(parseInt(rStateArry[i]) == state){
 	 $("#ResidingState_img img").attr("src","../nimages/Yes.png");
@@ -2018,7 +2024,7 @@ else{
 	 no_of_match +=1;	 
  }
  var  rCityArry=rCity.split(",");
- if(rCity!=null && rCity!=''){
+ if(rCity!=null && rCity!='' && rCity!='any'){
  for (var i=0;i<rCityArry.length; i++){
  if(parseInt(rCityArry[i]) == city){
 	  $("#ResidingCity_img img").attr("src","../nimages/Yes.png");

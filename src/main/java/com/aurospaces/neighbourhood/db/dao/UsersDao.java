@@ -1293,7 +1293,7 @@ public class UsersDao extends BaseUsersDao
 								//buffer.append(" and u.caste in ("+castValues+")  ");
 								
 								String sql =buffer.toString();
-								System.out.println(sql);
+//								System.out.println(sql);
 								
 								RowValueCallbackHandler handler = new RowValueCallbackHandler(handlerObj);
 								jdbcTemplate.query(sql, handler);
@@ -1444,7 +1444,7 @@ public class UsersDao extends BaseUsersDao
 							+"u.maritalStatus, u.caste,c.name as casteName, u.gotram, u.star,s.name as starName, u.dosam, u.dosamName, u.education, u.workingWith, u.companyName, " 
 							+"u.annualIncome, u.monthlyIncome, u.diet, u.smoking, u.drinking, u.height ,h.inches,h.cm, u.bodyType,b.name as bodyTypeName, u.complexion,com.name as complexionName, u.mobile, " 
 							+"u.aboutMyself, u.disability, u.status, u.showall,ur.userId, rAgeFrom, rAgeTo, "
-							+"rHeight, rMaritalStatus, rReligion,re1.name as requiredReligionName, rCaste,c1.name as requiredCasteName, rMotherTongue,l1.name as requiredMotherTongue,haveChildren,rCountry , con1.name as requiredCountry,rState,rEducation,e1.name as requiredEducationName, "
+							+"rHeight,rHeightTo, rMaritalStatus, rReligion,re1.name as requiredReligionName, rCaste,c1.name as requiredCasteName, rMotherTongue,l1.name as requiredMotherTongue,haveChildren,rCountry , con1.name as requiredCountry,rState,rCity,rEducation,e1.name as requiredEducationName, "
 							+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,"
 							//+" (select count(*) from express_intrest_view intr where intr.user_id="+objUserBean.getId()+" and intr.profile_id=u.id  and interested='1') as expressedInterest, "
 							+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+objUserBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'interest_request') as expressedInterest, "
@@ -1468,7 +1468,7 @@ public class UsersDao extends BaseUsersDao
 							"caste","casteName","gotram","star","starName","dosam","dosamName","education","workingWith","companyName","annualIncome",
 							"monthlyIncome","diet","smoking","drinking","height","inches","cm",
 							"bodyType","bodyTypeName","complexion","complexionName","mobile","aboutMyself","disability",
-							"status","showall","userId","rAgeFrom","rAgeTo","rHeight","rMaritalStatus","rReligion","requiredReligionName","rCaste","requiredCasteName","rMotherTongue","requiredMotherTongue","haveChildren","rCountry","requiredCountry","rState","rEducation","requiredEducationName",
+							"status","showall","userId","rAgeFrom","rAgeTo","rHeight","rHeightTo","rMaritalStatus","rReligion","requiredReligionName","rCaste","requiredCasteName","rMotherTongue","requiredMotherTongue","haveChildren","rCountry","requiredCountry","rState","rCity","rEducation","requiredEducationName",
 							"rWorkingWith","rOccupation","requiredOccupationName","rAnnualIncome","rCreateProfileFor","rDiet","expressedInterest","message_sent_status","mobileNumViewed","age","dobString","profileImage","createProfileFor","short_listed","profile_highlighter"};
 				}else{
 					where_clause.append(" and u.status in ('1')    ");
@@ -1482,7 +1482,7 @@ public class UsersDao extends BaseUsersDao
 							+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+objUserBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'short_listed') as short_listed, "
 							+" '0' as expressedInterest, '0' as message_sent_status,'0' as mobileNumViewed, GROUP_CONCAT(uimg.image) as image,"
 							+ " rAgeFrom, rAgeTo, "
-							+"rHeight, rMaritalStatus, rReligion, rCaste, rMotherTongue,rCountry , rState,rEducation, "
+							+"rHeight,rHeightTo, rMaritalStatus, rReligion, rCaste, rMotherTongue,rCountry , rState,rCity,rEducation, "
 							+"rWorkingWith,rOccupation,rAnnualIncome,rCreateProfileFor,rDiet"
 							+" from users u left join userrequirement ur on u.id=ur.userId left join "
 							+" religion re on re.id=u.religion left join language l on l.id=u.motherTongue left join  "
@@ -1494,7 +1494,7 @@ public class UsersDao extends BaseUsersDao
 							"role_id","username","password","email","gender","dob","religion","religionName","motherTongue","motherTongueName",
 							"maritalStatus",
 							"caste","casteName","education","aboutMyself","height","inches","cm","age","dobString","profileImage","createProfileFor","short_listed","expressedInterest","message_sent_status","mobileNumViewed","image",
-							"rAgeFrom","rAgeTo","rHeight","rMaritalStatus","rReligion","rCaste","rMotherTongue","rCountry","rState","rEducation",
+							"rAgeFrom","rAgeTo","rHeight","rHeightTo","rMaritalStatus","rReligion","rCaste","rMotherTongue","rCountry","rState","rCity","rEducation",
 							"rWorkingWith","rOccupation","rAnnualIncome","rCreateProfileFor","rDiet"};
 				} 
 				
@@ -1578,7 +1578,7 @@ public class UsersDao extends BaseUsersDao
 								//buffer.append(" and u.caste in ("+castValues+")  ");
 								
 								String sql =buffer.toString();
-								System.out.println(sql);
+//								System.out.println(sql);
 								
 								RowValueCallbackHandler handler = new RowValueCallbackHandler(handlerObj);
 								jdbcTemplate.query(sql, handler);
@@ -1902,7 +1902,7 @@ public class UsersDao extends BaseUsersDao
 								+" (select activity_content from users_activity_log act_log where act_log.act_done_by_user_id = "+userId+" and act_log.set_as_mail_default_text = '1') as mail_default_text ";
 					
 			try{
-				System.out.println(qryStr);
+//				System.out.println(qryStr);
 				List<Map<String,Object>> list = jdbcTemplate.queryForList(qryStr);
 				if(list!=null)
 					return list.get(0);
@@ -5120,7 +5120,33 @@ public boolean deletePhoto(String photoId){
 						+ " (select inches from height where id=u.height ) as heightInches ,"
 						+ " (select name from city where id=u.currentCity) as currentCityName, "
 						+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and uimg.status = '1' and uimg.is_profile_picture='1') as profileImage "
-						+ " from users u where  u.religion = "+presentProfile.getReligion()+" and u.caste =  "+presentProfile.getCaste();
+						+ " from users u where u.status = '1' and u.gender ='"+presentProfile.getGender()+"' and  u.religion = "+presentProfile.getReligion()+" and u.caste =  "+presentProfile.getCaste()+" limit 2";
+			list = jdbcTemplate.queryForList(qry);
+		}catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		return list;
+	}
+	
+	public List<Map<String,Object>> getSimilarProfilesAll(UsersBean userBean,String gender,String religion_id,String caste_id){
+		jdbcTemplate = custom.getJdbcTemplate();
+		List<Map<String,Object>> list = null;
+		try{
+				String qry = " select *,"
+						+ " ifnull(floor((datediff(current_date(),dob))/365),'') as age,"
+						+ " (select inches from height where id=u.height ) as heightInches ,"
+						+ " (select name from city where id=u.currentCity) as currentCityName, "
+						+ " (select name from religion where id=u.religion) as religionName, "
+						+ " (select name from cast where id=u.caste) as castName, "
+						+ " (select name from occupation where id=u.occupation) as occupationName, "
+						+ " (select name from countries where id=u.currentCountry) as currentCountryName, "
+						+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+userBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'interest_request') as expressedInterest, "
+						+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+userBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'message') as message_sent_status, "
+						+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+userBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'short_listed') as shortlisted, "
+						+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+userBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'mobile_no_viewed') as mobileNumViewed ,"
+						+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and uimg.status = '1' and uimg.is_profile_picture='1') as profileImage "
+						+ " from users u where u.status = '1' and u.gender ='"+gender+"'  and u.religion = "+religion_id+" and u.caste =  "+caste_id;
 			list = jdbcTemplate.queryForList(qry);
 		}catch (Exception e) {
 			e.printStackTrace();
