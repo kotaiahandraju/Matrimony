@@ -96,13 +96,12 @@
 			
 			var image = null; image = serviceUnitArray[id].image;
 			if(image == "" || image == null || image == "undefined"){
-				image = "img/default.png";
+				image = "${baseurl}/img/default.png";
 			}
 			else{
 			array = image.split(",");
-			
 			$.each(array,function(i){
-				image = array[i];
+				image ="${catalina_base}/"+array[i];
 //	 			   alert(array[i]);
 				});
 			}
@@ -264,7 +263,7 @@
 			if(rStateName == "" || rStateName == null || rStateName == "undefined"){rStateName = "---";}
 			
 			 var tblRow = 	"<div id='printProfile'><div class='col-sm-2' >"
-			 		+		"<img src=${baseurl }/"+image+" class='watermark_text' width='150px' align='right'/>"
+			 		+		"<img src="+image+" class='watermark_text' width='150px' align='right'/>"
 		//			+		"<i class='fa fa-user' style='font-size: 10em;'></i>"
 		// 	 		+		"<img class='img-responsive' src='../img/default.png' style='width: auto !important;height: 120px !important;'>"
 			 		+ 	"</div>" 
