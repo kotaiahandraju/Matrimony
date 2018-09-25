@@ -1,7 +1,7 @@
 <%@ include file="userCommonHeader.jsp"%>
 
 <div class="products">
-	<div class="container" style="background: #FFF;">
+	<div class="container" style="background: #FFF;min-height:500px;">
 	<div class="mid-grids">
 <div class="panel panel-success">
 					<div class="panel-heading">Similar Profiles</div>

@@ -1371,7 +1371,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 					</form:select></div>
            <div class="col-md-2"><h4> Religion </h4> 
           <form:select path="religion" id="religionId" onchange="getReliginCastAjax1();" class=" form-control" >
-<%-- 								<form:option value="">of Religion.... &nbsp;&nbsp;</form:option> --%>
+								<form:option value="">of Religion.... &nbsp;&nbsp;</form:option>
 								<form:options items="${religion}"></form:options>
 							</form:select>
 					</div>
