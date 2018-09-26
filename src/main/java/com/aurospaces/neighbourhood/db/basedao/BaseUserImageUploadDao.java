@@ -10,6 +10,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.apache.poi.util.SystemOutLogger;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -45,7 +46,8 @@ public class BaseUserImageUploadDao{
 		jdbcTemplate = custom.getJdbcTemplate();
 		
 	if(objUserImagesBean.getId() == 0)	{
-
+		final Date uDate = new Date();
+		final DateTime updated_time = new DateTime(uDate);
 	KeyHolder keyHolder = new GeneratedKeyHolder();
 	int update = jdbcTemplate.update(
 			new PreparedStatementCreator() {
@@ -54,18 +56,17 @@ public class BaseUserImageUploadDao{
 	
 					if(objUserImagesBean.getCreatedTime() == null)
 					{
-						objUserImagesBean.setCreatedTime( new Date());
+						objUserImagesBean.setCreatedTime( uDate);
 					}
 					java.sql.Timestamp createdTime = 
 						new java.sql.Timestamp(objUserImagesBean.getCreatedTime().getTime()); 
 							
 					if(objUserImagesBean.getUpdated_on() == null)
 					{
-						objUserImagesBean.setUpdated_on( new Date());
+						objUserImagesBean.setUpdated_on( uDate);
 					}
 					java.sql.Timestamp updatedTime = 
 						new java.sql.Timestamp(objUserImagesBean.getUpdated_on().getTime()); 
-							
 					PreparedStatement ps =
 									connection.prepareStatement(INSERT_SQL,new String[]{"id"});
 	ps.setString(1, objUserImagesBean.getUserId());
@@ -80,7 +81,8 @@ public class BaseUserImageUploadDao{
 				
 				Number unId = keyHolder.getKey();
 				objUserImagesBean.setId(unId.intValue());
-				
+				String update_qry = " update users set updated_time = '"+new java.sql.Timestamp(updated_time.getMillis())+"' where id = "+objUserImagesBean.getUserId()+" ";
+				jdbcTemplate.update(update_qry);
 				// set as profile pic if profile pic is not yet set 
 				String picQry = "select count(*) from vuser_images where user_id = "+objUserImagesBean.getUserId()+" and status = '1' and is_profile_picture = '1'";
 				int profile_pic_count = jdbcTemplate.queryForInt(picQry);

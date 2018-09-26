@@ -1417,6 +1417,15 @@ public class HomePageController {
 			}else{
 				request.setAttribute("pending_reqs", "");
 			}
+			
+			// get latest updated profiles
+			List<Map<String,Object>> latest_updated_profiles = objUsersDao.getLatestUpdatedProfiles(sessionBean);
+			if(latest_updated_profiles!=null && latest_updated_profiles.size()>0){
+				request.setAttribute("latest_updated_profiles", latest_updated_profiles);
+			}else{
+				request.setAttribute("latest_updated_profiles", "");
+			}
+			
 			// update notifications count also
 			int notificationsCount = objUsersDao.getNotificationsCount(sessionBean);
 			session.setAttribute("notificationsCount", notificationsCount);
