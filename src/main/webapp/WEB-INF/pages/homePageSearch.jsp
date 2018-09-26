@@ -1032,6 +1032,13 @@ Follow us on : 	<a href="#stayhere"><img src="nimages/fb.png" style="height:30px
 			  		if(typeof highlight_option != "undefined" && highlight_option=='1'){
 			  			profile_highlisht_str = '<div class="panel" style="background-color:">';
 			  		}
+			  		var abtMySelf = orderObj.About;
+					if(typeof abtMySelf == "undefined" || abtMySelf==null){
+						abtMySelf = "";
+					}else{
+						abtMySelf = abtMySelf.substring(0,40);
+					}
+			  		
 			  		var image = orderObj.profileImage;
 			  		if(typeof image == "undefined" || image=="" || image==null){
 			  			image = "img/default.png";
@@ -1047,7 +1054,7 @@ Follow us on : 	<a href="#stayhere"><img src="nimages/fb.png" style="height:30px
 			  		+ '<a href="HomePage" onclick="regFunction()">  <img src="'+image+'" class="img img-responsive thumbnail " style="margin-bottom:0;height: 153px;width: 100%;"></a>'
 			      	+ '</div>'
 			      	 + '<div class="col-md-4">'
-			       	 + '<h2 style="margin-top:10px;" class="pull-right"><a href="HomePage" data-toggle="tooltip" data-placement="bottom" title="View Mobile Number" ><img style="margin-top:-10px;" src="images/Mobile_Icon.png"/></a></h2></span><div class="clearfix"></div><blockquote style="min-height:100px; max-height:120px; "><p>'+orderObj.About+'</p><br><a href="HomePage" onclick="regFunction()"><p style="float:right;">...more</p></a></blockquote>'
+			       	 + '<h2 style="margin-top:10px;" class="pull-right"><a href="HomePage" data-toggle="tooltip" data-placement="bottom" title="View Mobile Number" ><img style="margin-top:-10px;" src="images/Mobile_Icon.png"/></a></h2></span><div class="clearfix"></div><blockquote style="min-height:100px; max-height:120px; "><p>'+abtMySelf+'</p><br><a href="HomePage" onclick="regFunction()"><p style="float:right;">...more</p></a></blockquote>'
 			       	+ '</div>' 
 			       	+  '<div class="col-md-1"></div>'
 			      	+ '<div class="col-md-5">'

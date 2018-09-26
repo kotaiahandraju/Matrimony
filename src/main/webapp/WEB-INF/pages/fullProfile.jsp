@@ -1036,7 +1036,7 @@ xpopup
 			</div>
 			<div class="col-md-4" style="width:390px; margin:55px 20px 0px 20px;">
 				
-				<div class="fleft"><div class="hdtxt paddl5 paddr5 txt-center" style="width:382px;">----- Your profile matches <div id=noOfProfileMatch></div>  / 14 of ${profileBean.lastName}'s preferences -----</div></div>
+				<div class="fleft"><div class="hdtxt paddl5 paddr5 txt-center" style="width:382px;">----- Your profile matches <span id=noOfProfileMatch></span>  / 14 of ${profileBean.lastName}'s preferences -----</div></div>
 				
 			</div>
 			<div class="col-md-2">

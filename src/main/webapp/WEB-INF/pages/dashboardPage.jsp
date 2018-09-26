@@ -427,7 +427,8 @@ padding-right:0px;
 					    </div>
 					</div></div></div></div>
 					</div></div><div class="col-md-2"><div class="products-grid-right">
-					<p style="width:250px; font-weight:bold; padding-bottom:4px;color:#000;">Discover Matches</p>
+					<%@ include file="sideGrid3.jsp"%>
+					<%-- <p style="width:250px; font-weight:bold; padding-bottom:4px;color:#000;">Discover Matches</p>
 					<div class="panel" style="width:250px;">
 <div class="panel-body" style="padding:10px 5px;">
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
@@ -603,21 +604,21 @@ padding-right:0px;
 					</form:select>
 					<h4> Religion </h4> 
           <form:select path="religion" id="religionId" onchange="getReliginCastAjaxSearch();" class=" form-control" >
-<%-- 								<form:option value="">of Religion.... &nbsp;&nbsp;</form:option> --%>
+								<form:option value="">of Religion.... &nbsp;&nbsp;</form:option>
 								<form:options items="${religion}"></form:options>
 							</form:select>
 							
 							<h4> Caste </h4>
 					 <form:select path="rCaste" id="castId" class="custom-select col-md-12 form-control">
 								<form:option value="">of Caste.... &nbsp;&nbsp;</form:option>
-<%-- 								<form:options items="${cast}"></form:options> --%>
+								<form:options items="${cast}"></form:options>
 							</form:select>
 							</form:form>
 							<h4>&nbsp;</h4> <button type="button" id="submit12" class="btn btn-primary" onclick="searchResult();">Search</button>
 							
         </div>
-    </div>
-    
+    </div> --%>
+    <div class="clearfix"></div>
 <div class="panel " style="width: 250px;">
 <div class="panel-heading"><b>Add Photos Now</b></div>
         <div class="panel-body table-responsive">

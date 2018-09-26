@@ -5,6 +5,11 @@
 <link rel="stylesheet" href="${baseurl}/css/jquery.awesome-cropper.css">
 <link href="${baseurl}/css/imgareaselect-default.css" rel="stylesheet" media="screen">
 <style>
+.imgareaselect-outer {
+ background-color: #fff;
+    filter: alpha(opacity=50);
+    opacity: 0.5;
+}
 canvas{display:none}
 </style>
 
