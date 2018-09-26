@@ -5010,6 +5010,7 @@ public boolean deletePhoto(String photoId){
 					+ " ifnull(floor((datediff(current_date(),dob))/365),'') as age,"
 					+ " (select inches from height where id=u.height ) as heightInches ,"
 					+ " (select name from city where id=u.currentCity) as currentCityName, "
+					+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+userBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'interest_request') as expressedInterest, "
 					+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and uimg.status = '1' and uimg.is_profile_picture='1') as profileImage "
 					+ " from users u, userrequirement ureq where ureq.userId = u.id and u.status = '1' and u.gender not in ('"+userBean.getGender()+"') and "+where_clause+" limit 2";
 			list = jdbcTemplate.queryForList(qry);
@@ -5067,6 +5068,7 @@ public boolean deletePhoto(String photoId){
 					+ " ifnull(floor((datediff(current_date(),dob))/365),'') as age,"
 					+ " (select inches from height where id=u.height ) as heightInches ,"
 					+ " (select name from city where id=u.currentCity) as currentCityName, "
+					+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+userBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'interest_request') as expressedInterest, "
 					+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and uimg.status = '1' and uimg.is_profile_picture='1') as profileImage "
 					+ " from users u, userrequirement ureq where ureq.userId = u.id and u.status = '1' and u.gender not in ('"+userBean.getGender()+"') and "+where_clause+" limit 2";
 			list = jdbcTemplate.queryForList(qry);
