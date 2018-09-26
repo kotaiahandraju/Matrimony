@@ -1,6 +1,6 @@
 
 
-<div class="col-md-3 products-grid-right">
+<div class="col-md-3 products-grid-right" style="padding-left:0px;">
 			<p style="width:250px; font-weight:bold; padding-bottom:4px;color:#000;">Discover Matches</p>
 					<div class="panel" style="width:250px;">
 <div class="panel-body" style="padding:10px 5px;">
