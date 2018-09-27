@@ -98,7 +98,7 @@
     <div class="panel ">
         <div class="panel-heading">
              <h4 class="panel-title">
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#panel1"><i class="glyphicon glyphicon-minus"></i><b>Membership Details</b></a>
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#panel1"><!-- <i class="glyphicon glyphicon-minus"></i> --><b>Membership Details</b></a>
             </h4>
 
         </div>
@@ -168,6 +168,6 @@
     
     
 </div>
-<a href="memberShipPage"><img  style="border-radius:10px;" src="../images/upgra.jpg" class="img-responsive"/></a>
+<a href="memberShipPage"><img  style="border-radius:10px;margin-top:8px;" src="../images/upgra.jpg" class="img-responsive"/></a>
 			</div>
 			<div id="dial1"></div>

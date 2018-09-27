@@ -32,6 +32,10 @@ width:100%;
     -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
     transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
+.midcontnet {
+    border-bottom: none;
+    padding-bottom: 40px;
+}
 @media only screen and (max-width: 640px) and (min-width: 320px) {
 .form-control {
     display: block;
@@ -54,7 +58,7 @@ position:relative;
 					<div class="panel panel-success">
 	   					<div class="panel-heading"> 
 	   						Enter your registered email-id/phone number/username
-	   						<a class="pull-right" href="HomePage" style=" color:#000;">Go To HomePage </a>
+<!-- 	   						<a class="pull-right" href="HomePage" style=" color:#000;">Go To HomePage </a> -->
 	   					</div>
 	   					
 		             		
@@ -165,5 +169,5 @@ function checkVal(event){
 }
 
 </script>
-
-<%@ include file="userStepsFooter.jsp"%>
+</div></div>
+<%@ include file="homeFooter.jsp"%>
