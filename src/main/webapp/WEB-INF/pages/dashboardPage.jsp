@@ -376,7 +376,7 @@ padding-right:0px;
     </c:if>
   </div>
 	</c:if>
-</div><div class="clearfix"></div><br>
+</div><div class="clearfix"></div>
 				<div class="panel panel-default col-md-12">
 					<div class="panel-body">
 						<c:if test="${profile_filled_status != '100'}">
