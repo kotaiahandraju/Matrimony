@@ -426,6 +426,17 @@ padding-right:0px;
         					<br><div align="center"><a class="btn btn-primary" href="newMatches">View all</a></div>
 					    </div>
 					</div></div></div></div>
+					<div class="panel" id="updated_div">
+					<div class="panel-heading"><b>Updated Profiles</b> </div>
+		            <form:form commandName="createProfile"  class="form-horizontal" id="searchForm3" name="searchForm3" role="form"   method="post">
+	             		<form:hidden path="id" />
+	             			<div class="panel-body" id="matches1" style="overflow-y:scroll; max-height: 350px">
+	             		
+							
+							</div>
+							<div class=""panel-footer" id="update_profiles">	<div align="center" style="padding:5px;"><a class="btn btn-primary" href="allUpdatedProfiles">View all</a></div></div>
+						</form:form>
+				</div>
 					</div></div><div class="col-md-2"><div class="products-grid-right">
 					<%@ include file="sideGrid3.jsp"%>
 					<%-- <p style="width:250px; font-weight:bold; padding-bottom:4px;color:#000;">Discover Matches</p>
@@ -782,10 +793,12 @@ if(allowed_limit=="unlimited"){
 }
 var listOrders1 = ${allOrders1};
 var newMatches = ${new_matches};
+var updateprofiles=${latest_updated_profiles};
 
 //if (listOrders1 != "") {
 	displayMatches(listOrders1);
 	displayNewMatches(newMatches);
+	displayNewMatches(updateprofiles);
 //}
 function displayMatches(listOrders) {
 	$('#matches').html('');
@@ -796,11 +809,15 @@ function displayMatches(listOrders) {
 		$("#preferred_div").prop("hidden",true);
 		$("#pagination_div").prop("hidden",true);
 		$("#preferred_viewall").prop("hidden",true);
+		$("#updated_div").prop("hidden",true);
+		$("#update_profiles").prop("hidden",true);
 	}
 	$.each(listOrders,function(i, orderObj) 
 	{
 		$("#preferred_div").removeAttr("hidden");
 		$("#preferred_viewall").removeAttr("hidden");
+		$("#updated_div").removeAttr("hidden");
+		$("#update_profiles").removeAttr("hidden");
 		paginationSetup(total_items_count);
 		$("#altLists").asPaginator('enable');
 		$("#pagination_div").removeAttr("hidden");

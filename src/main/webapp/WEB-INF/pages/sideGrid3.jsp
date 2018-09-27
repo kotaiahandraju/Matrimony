@@ -30,10 +30,10 @@
 				<a href="#">${loc_prof.age} Yrs, ${loc_prof.heightInches}</a><br>
 				<a href="#">${loc_prof.currentCityName}</a><br>
 				<c:if test="${loc_prof.expressedInterest==0}">
-				  <span id="expInterest'+orderObj.id+'" name="expInterest[]"><a   href="#no" type="button" class="btn btn-success btn-sm"  onclick="expressInterest('${loc_prof.id}')">  Send Interest  </a></span>
+				  <span id="expInterest'+orderObj.id+'" name="expInterest[]"><a   href="#no" type="button"   onclick="expressInterest('${loc_prof.id}')"><img src="../nimages/heart-icon.png" />  Send Interest  </a></span>
 				</c:if>
 				<c:if test="${loc_prof.expressedInterest > 0}">
-				<span><a type="button" class="btn btn-success btn-sm" disabled="true" style="text-size-adjust:auto">Expressed Interest</a></span>
+				<span><a type="button"  disabled="true" style="text-size-adjust:auto"><img src="../nimages/heart-icon.png" /> Expressed Interestd</a></span>
 				</c:if>
 				<!-- <a href="#"><img src="../nimages/heart-icon.png" /> Send Interest</a> --></p></div>
 				<div class="col-md-1"><i class="fa fa-close"></i></div>
@@ -64,10 +64,10 @@
 	<a href="#">${pref_prof.age} Yrs, ${pref_prof.heightInches}</a><br>
 	<a href="#">${pref_prof.currentCityName}</a><br>
 	<c:if test="${pref_prof.expressedInterest==0}">
-				  <span id="expInterest'+orderObj.id+'" name="expInterest[]"><a   href="#no" type="button" class="btn btn-success btn-sm"  onclick="expressInterest('${loc_prof.id}')">  Send Interest  </a></span>
+				  <span id="expInterest'+orderObj.id+'" name="expInterest[]"><a   href="#no" type="button" onclick="expressInterest('${pref_prof.id}')"> <img src="../nimages/heart-icon.png" /> Send Interest  </a></span>
 				</c:if>
 				<c:if test="${pref_prof.expressedInterest > 0}">
-				<span><a type="button" class="btn btn-success btn-sm" disabled="true" style="text-size-adjust:auto">Expressed Interest</a></span>
+				<span><a type="button" disabled="true" style="text-size-adjust:auto"><img src="../nimages/heart-icon.png" /> Expressed Interestd</a></span>
 				</c:if>
 	<!-- <a href="#"><img src="../nimages/heart-icon.png"> Send Interest</a> --></p></div><!-- <div class="col-md-1"><i class="fa fa-close"></i></div> -->
 	        </div>  <center><a href="preferredProfession" class="btn btn-info">View All (${pref_prof_profiles_size})</a> </center>      </div>
@@ -96,10 +96,10 @@
 	<a href="#">${pref_edu.age} Yrs, ${pref_edu.heightInches}</a><br>
 	<a href="#">${pref_edu.currentCityName}</a><br>
 	<c:if test="${pref_edu.expressedInterest==0}">
-				  <span id="expInterest'+orderObj.id+'" name="expInterest[]"><a   href="#no" type="button" class="btn btn-success btn-sm"  onclick="expressInterest('${loc_prof.id}')">  Send Interest  </a></span>
+				  <span id="expInterest'+orderObj.id+'" name="expInterest[]"><a   href="#no" type="button" onclick="expressInterest('${pref_edu.id}')"><img src="../nimages/heart-icon.png" />  Send Interest  </a></span>
 				</c:if>
 				<c:if test="${pref_edu.expressedInterest > 0}">
-				<span><a type="button" class="btn btn-success btn-sm" disabled="true" style="text-size-adjust:auto">Expressed Interest</a></span>
+				<span><a type="button" disabled="true" style="text-size-adjust:auto"><img src="../nimages/heart-icon.png" /> Expressed Interestd</a></span>
 				</c:if>
 	<!-- <a href="#"><img src="../nimages/heart-icon.png"> Send Interest</a> --></p></div>
 	<div class="col-md-1"><i class="fa fa-close"></i></div>

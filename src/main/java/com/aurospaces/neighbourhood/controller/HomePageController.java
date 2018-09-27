@@ -1421,7 +1421,9 @@ public class HomePageController {
 			// get latest updated profiles
 			List<Map<String,Object>> latest_updated_profiles = objUsersDao.getLatestUpdatedProfiles(sessionBean);
 			if(latest_updated_profiles!=null && latest_updated_profiles.size()>0){
-				request.setAttribute("latest_updated_profiles", latest_updated_profiles);
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(latest_updated_profiles);
+				request.setAttribute("latest_updated_profiles", sJson);
 			}else{
 				request.setAttribute("latest_updated_profiles", "");
 			}
@@ -1473,6 +1475,35 @@ public class HomePageController {
 	  }
 	  return "dashboardPage";
 	 }
+	 
+	 @RequestMapping(value = "/allUpdatedProfiles")
+	 public String UpdatedProfiles( @ModelAttribute("createProfile") UsersBean objUsersBean, Model objeModel,HttpServletRequest request, HttpSession session){
+				ObjectMapper objectMapper = null;
+				String sJson = null;
+				try {
+					UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
+					
+					if(sessionBean == null){
+						return "redirect:HomePage";
+					}
+					List<Map<String,Object>> latest_updated_profiles = objUsersDao.getLatestUpdatedProfiles(sessionBean);
+					if(latest_updated_profiles!=null && latest_updated_profiles.size()>0){
+						objectMapper = new ObjectMapper();
+						sJson = objectMapper.writeValueAsString(latest_updated_profiles);
+						request.setAttribute("latest_updated_profiles", sJson);
+					}else{
+						request.setAttribute("latest_updated_profiles", "");
+					}
+					
+				}catch(Exception e){
+					 e.printStackTrace();
+					   System.out.println(e);
+					   logger.error(e);
+					   logger.fatal("error in HomePageController class familyDetails method");
+					  }
+				
+		 return "allUpdatedProfiles";
+	 } 
 	 
 	 @RequestMapping(value = "/preferredLocation")
 	 public String getPreferredLocation(@ModelAttribute("createProfile") UsersBean objUsersBean, Model objeModel, HttpServletRequest request, HttpSession session) {
