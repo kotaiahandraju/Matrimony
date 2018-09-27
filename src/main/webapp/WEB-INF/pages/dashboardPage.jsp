@@ -428,7 +428,7 @@ padding-right:0px;
 					</div></div></div></div>
 					<div class="clearfix"></div>
 					<div class="panel" id="updated_div">
-					<div class="panel-heading"><b>Updated Profiles</b> </div>
+					<div class="panel-heading"><b>Latest Updates</b> </div>
 		            <form:form commandName="createProfile"  class="form-horizontal" id="searchForm3" name="searchForm3" role="form"   method="post">
 	             		<form:hidden path="id" />
 	             			<div class="panel-body" id="matches_updated" style="overflow-y:scroll; max-height: 250px">
@@ -1133,9 +1133,8 @@ function displayNewMatches_update(listOrders) {
 	            + 	"<img src='${catalina_base}/"+image+"' class='watermark_text img-responsive thumbnail ' >"
 	            + '</div>'
 	            + '<div class="col-md-9 col-xs-9">'
-	            + ' <p>'+firstname+'&nbsp;'+lastname+'|'+orderObj.username+'&nbsp;'+premiumMember+'&nbsp; '+age+' yrs,&nbsp; '+orderObj.religionName+', '+orderObj.castName+','+orderObj.heightInches+' , '+orderObj.occupationName+', '+orderObj.currentCityName+', '+orderObj.currentCountryName+'. </p> '
-	            + ' <p> '+interestStr+'| <a href="#no" type="button" class="btn" style="padding:; color:blue; border-radius:5px;" id="sendMail'+orderObj.id+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')">Send Mail</a> | <a href="#no" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="fullProfile('+orderObj.id+')"> Full Profile</a>| '+shortListedStr+' '
-	            + ' | <span id="mobileTD'+orderObj.id+'">'+mobile_num_Str+'</span> | </p> '
+	            + ' <p>'+firstname+'&nbsp;'+lastname+'|'+orderObj.username+'&nbsp;( '+age+' yrs,&nbsp; '+orderObj.heightInches+' ) matches your preferences and has updated her photo. </p> '
+	            + ' <p> '+interestStr+'| <a href="#no" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="fullProfile('+orderObj.id+')"> Full Profile</a> </p> '
 	            
 	            + '</div>'
 	            + '<div class="clearfix" style="border-bottom:1px solid #f1f11;margin-bottom:5px;"></div>'

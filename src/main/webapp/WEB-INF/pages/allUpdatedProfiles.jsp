@@ -71,9 +71,8 @@ function displayMatches(listOrders) {
        + 	"<img src='${catalina_base}/"+image+"' class='watermark_text img-responsive thumbnail ' >"
             + '</div>'
             + '<div class="col-md-10 col-xs-10">'
-            + ' <p>'+orderObj.firstName+'&nbsp;'+orderObj.lastName+','+orderObj.username+'&nbsp '+orderObj.age+' yrs,&nbsp; '+orderObj.religionName+', '+orderObj.castName+', '+orderObj.occupationName+', '+orderObj.currentCityName+', '+orderObj.currentCountryName+'. </p> '
-            + ' <p> '+interestStr+'|  <a href="#no" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" id="sendMail'+orderObj.id+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')">Send Mail</a> | <a href="#no" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="fullProfile('+orderObj.id+')"> Full Profile</a> '
-            + ' | <span id="mobileTD'+orderObj.id+'">'+mobile_num_Str+'</span> | '+shortListedStr+'</p> '
+            + ' <p>'+orderObj.firstName+'&nbsp;'+orderObj.lastName+','+orderObj.username+'&nbsp;( '+orderObj.agee+' yrs,&nbsp; '+orderObj.heightInches+' ) matches your preferences and has updated her photo. </p> '
+            + ' <p> '+interestStr+'| <a href="#no" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="fullProfile('+orderObj.id+')"> Full Profile</a> '
             + '</div>'
             + '<div class="clearfix" style="border-bottom:1px solid #f1f11;margin-bottom:5px;"></div>'
             + '<hr>'
