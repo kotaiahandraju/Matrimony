@@ -9,6 +9,12 @@
   background-color: #ddd;
   border-color: #cccccc;
 }
+.h4, .h5, .h6, h4, h5, h6 {
+    margin-top: 11px;
+    margin-bottom: 11px;
+}
+.address-left ul li {
+line-height:1.5;}
 	</style>
 	<br>
 	
