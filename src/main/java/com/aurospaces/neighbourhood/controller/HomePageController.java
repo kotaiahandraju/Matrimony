@@ -1486,7 +1486,7 @@ public class HomePageController {
 					if(sessionBean == null){
 						return "redirect:HomePage";
 					}
-					List<Map<String,Object>> latest_updated_profiles = objUsersDao.getLatestUpdatedProfiles(sessionBean);
+					List<Map<String,Object>> latest_updated_profiles = objUsersDao.getLatestUpdatedProfilesAll(sessionBean);
 					if(latest_updated_profiles!=null && latest_updated_profiles.size()>0){
 						objectMapper = new ObjectMapper();
 						sJson = objectMapper.writeValueAsString(latest_updated_profiles);

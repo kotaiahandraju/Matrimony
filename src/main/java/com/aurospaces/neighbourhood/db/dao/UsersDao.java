@@ -5165,9 +5165,66 @@ public boolean deletePhoto(String photoId){
 						+ " (select u.*,uimg.updated_on, date_format(updated_time,'%d-%b-%Y %h %p') as data_updated_time,max(updated_on), "
 						+ " ifnull(floor((datediff(current_date(),dob))/365),'') as agee,"
 						+ " (select inches from height where id=u.height ) as heightInches ,"
+						+ " (select name from city where id=u.currentCity) as currentCityName, "
+						+ " (select name from religion where id=u.religion) as religionName, "
+						+ " (select name from cast where id=u.caste) as castName, "
+						+ " (select name from occupation where id=u.occupation) as occupationName, "
+						+ " (select name from countries where id=u.currentCountry) as currentCountryName, "
 						+ " date_format(max(updated_on),'%d-%b-%Y %h %p') as photo_updated_time from users u left join vuser_images uimg on  u.id=uimg.user_id "
 						+ " where u.status = '1' and u.gender not in ('"+sessionUserBean.getGender()+"') and uimg.status = '1' and uimg.approved_status = '1' "
 						+" group by u.id order by u.updated_time desc limit 10) temp ";
+						
+				list =	jdbcTemplate.queryForList(qry);	
+				if(list != null && list.size()>0){
+					String user_ids = "";
+					for(Map<String,Object> obj:list){
+						user_ids += ","+obj.get("id");
+					}
+					if(StringUtils.isNotBlank(user_ids)){
+						user_ids = user_ids.substring(1);
+						qry = " select user_id,image,is_profile_picture from user_images where  find_in_set(user_id,'"+user_ids+"')>0 and is_profile_picture = '1' ";
+						List<Map<String,Object>> profile_image_list = jdbcTemplate.queryForList(qry);
+						if(profile_image_list != null && profile_image_list.size()>0){
+							for(Map<String,Object> image_obj:profile_image_list){
+								for(Map<String,Object> user_obj:list){
+									String str1 = String.valueOf(((Integer)image_obj.get("user_id")));
+									String str2 = String.valueOf(((Integer)user_obj.get("id")));
+									//if(((Integer)image_obj.get("user_id"))==((Integer)user_obj.get("id"))){
+									if(str1.equalsIgnoreCase(str2)){
+										//user_obj.put("profileImage", image_obj.get("image"));
+										Object tt = image_obj.get("image");
+										user_obj.put("profileImage", image_obj.get("image")+"");
+									}
+								}
+							}
+						}
+					}
+					
+				}
+				return list;	
+		}catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
+	
+	public List<Map<String,Object>> getLatestUpdatedProfilesAll(UsersBean sessionUserBean){
+		jdbcTemplate = custom.getJdbcTemplate();
+		List<Map<String,Object>> list = null;
+		try{
+				String qry = "select *,if(data_updated_time=photo_updated_time,'photo','data') as updated_content from "
+						+ " (select u.*,uimg.updated_on, date_format(updated_time,'%d-%b-%Y %h %p') as data_updated_time,max(updated_on), "
+						+ " ifnull(floor((datediff(current_date(),dob))/365),'') as agee,"
+						+ " (select inches from height where id=u.height ) as heightInches ,"
+						+ " (select name from city where id=u.currentCity) as currentCityName, "
+						+ " (select name from religion where id=u.religion) as religionName, "
+						+ " (select name from cast where id=u.caste) as castName, "
+						+ " (select name from occupation where id=u.occupation) as occupationName, "
+						+ " (select name from countries where id=u.currentCountry) as currentCountryName, "
+						+ " date_format(max(updated_on),'%d-%b-%Y %h %p') as photo_updated_time from users u left join vuser_images uimg on  u.id=uimg.user_id "
+						+ " where u.status = '1' and u.gender not in ('"+sessionUserBean.getGender()+"') and uimg.status = '1' and uimg.approved_status = '1' "
+						+" group by u.id order by u.updated_time desc) temp ";
 						
 				list =	jdbcTemplate.queryForList(qry);	
 				if(list != null && list.size()>0){
