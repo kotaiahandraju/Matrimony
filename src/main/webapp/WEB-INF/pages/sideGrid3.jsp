@@ -1,7 +1,18 @@
-
+<style>
+.panel-group {
+margin-bottom:0px;}
+.panel {
+    margin-bottom: 10px;
+    background-color: #fff;
+    border:none;
+    border-radius: 0px;
+    -webkit-box-shadow: none;
+    box-shadow:none;
+}}
+</style>
 
 <div class="col-md-3 products-grid-right" style="padding-left:0px;">
-			<p style="width:250px; font-weight:bold; padding-bottom:4px;color:#000;">Discover Matches</p>
+<!-- 			<p style="width:250px; font-weight:bold; padding-bottom:4px;color:#000;">Discover Matches</p> -->
 					<div class="panel" style="width:250px;">
 <div class="panel-body" style="padding:10px 5px;">
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
@@ -73,7 +84,7 @@
 	        </div>  <center><a href="preferredProfession" class="btn btn-info">View All (${pref_prof_profiles_size})</a> </center>      </div>
         </c:forEach>
         
-    </div><div class="clearfix"></div>
+    </div><div class="clearfix"></div><hr>
     <div class="panel ">
         <div class="panel-heading" role="tab" id="headingThree">
              <h4 class="panel-title">
@@ -106,7 +117,7 @@
 	        </div>  <center><a href="preferredEducation" class="btn btn-info">View All (${pref_edu_profiles_size})</a></center>      </div>
         </c:forEach>
        
-    </div>
+    </div><div class="clearfix"></div>
     
      
      

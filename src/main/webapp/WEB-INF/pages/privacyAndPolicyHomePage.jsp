@@ -35,4 +35,4 @@ p {
 			any related services, sales, marketing or events (we refer to them
 			collectively in this privacy policy as the "Sites").</p>
 			</div></div></div></div>
-<%-- 			<%@ include file="userFooter.jsp"%> --%>
+			<%@ include file="homeFooter.jsp"%>

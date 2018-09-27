@@ -1833,11 +1833,11 @@ Benzcircle Vijayawada</li>
 				<div class="col-md-3 footer-grids">
 						<h3>Quick links</h3>
 						<ul>
-							<li><a href="termsConditionsHomepage">Terms of use</a></li>
+							<li><a href="termsConditionsHomepage">Terms and Conditions</a></li>
 							<li><a href="privacyAndPolicyHomePage">Privacy Policy</a></li>
 							<li><a href="helpHomePage">Help</a></li>
 							<li><a href="aboutUsHomePage">About Us</a></li>
-							<li><a href="#">Register Free</a></li>
+							<li><a href="HomePage">Register Free</a></li>
 						</ul> 					</div>
 					<!-- <div class="col-md-4 footer-grids">
 					

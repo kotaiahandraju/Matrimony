@@ -35,5 +35,5 @@ float: right;
 
 <img  src="nimages/secure.png" class="img-responsive newimg"/>
 
-
-				<%@ include file="userStepsFooter.jsp"%> 
+</div></div></div></div>
+				<%@ include file="homeFooter.jsp"%> 

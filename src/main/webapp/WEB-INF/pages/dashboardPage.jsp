@@ -295,7 +295,7 @@ padding-right:0px;
 
 
 			<div class="col-md-9 products-grid-left">
-			<div class="col-md-8">                                                                           
+			<div class="col-md-8" style="padding-left:0px; padding-right:0px;">                                                                           
 			<div class="col-md-12 neewpendingr">
 			<div id="myCarousel" data-interval="false" class="carousel slide" data-ride="carousel">
     <!-- Indicators -->
@@ -426,6 +426,7 @@ padding-right:0px;
         					<br><div align="center"><a class="btn btn-primary" href="newMatches">View all</a></div>
 					    </div>
 					</div></div></div></div>
+					<div class="clearfix"></div>
 					<div class="panel" id="updated_div">
 					<div class="panel-heading"><b>Updated Profiles</b> </div>
 		            <form:form commandName="createProfile"  class="form-horizontal" id="searchForm3" name="searchForm3" role="form"   method="post">
@@ -905,8 +906,8 @@ function displayMatches(listOrders) {
 	            + '</div>'
 	            + '<div class="col-md-9 col-xs-9">'
 	            + ' <p>'+firstname+'&nbsp;'+lastname+'|'+orderObj.username+'&nbsp;'+premiumMember+'&nbsp; '+age+' yrs,&nbsp; '+orderObj.religionName+', '+orderObj.casteName+','+orderObj.inches+' , '+orderObj.occupationName+', '+orderObj.currentCityName+', '+orderObj.currentCountryName+'. </p> '
-	            + ' <p> '+interestStr+'| <a href="#no" type="button" class="btn" style="padding:; color:blue; border-radius:5px;" id="sendMail'+orderObj.id+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')">Send Mail</a> | <a href="#no" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="fullProfile('+orderObj.id+')"> Full Profile</a> '
-	            + ' | <span id="mobileTD'+orderObj.id+'">'+mobile_num_Str+'</span> | '+shortListedStr+'</p> '
+	            + ' <p> '+interestStr+'| <a href="#no" type="button" class="btn" style="padding:; color:blue; border-radius:5px;" id="sendMail'+orderObj.id+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')">Send Mail</a> | <a href="#no" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="fullProfile('+orderObj.id+')"> Full Profile</a>| '+shortListedStr+' '
+	            + ' | <span id="mobileTD'+orderObj.id+'">'+mobile_num_Str+'</span> | </p> '
 	            
 	            + '</div>'
 	            + '<div class="clearfix" style="border-bottom:1px solid #f1f11;margin-bottom:5px;"></div>'
