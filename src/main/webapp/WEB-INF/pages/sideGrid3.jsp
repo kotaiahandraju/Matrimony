@@ -42,7 +42,7 @@ margin-bottom:0px;}
 				<a href="#">${loc_prof.currentCityName}</a><br>
 				<img src="../nimages/heart-icon.png" />
 				<c:if test="${loc_prof.expressedInterest==0}">
-				  <span id="expInt${loc_prof.id}"><a   href="#no" type="button"   onclick="expressInterest_dashboard('${loc_prof.id}')"> Send Interest  </a></span>
+				  <span id="expInt${loc_prof.id}"><a   href="#no" type="button"   onclick="expressInterest_Sidegrid('${loc_prof.id}')"> Send Interest  </a></span>
 				</c:if>
 				<c:if test="${loc_prof.expressedInterest > 0}">
 				<span><a type="button"  disabled="true" style="text-size-adjust:auto">Expressed Interest</a></span>
@@ -77,7 +77,7 @@ margin-bottom:0px;}
 	<a href="#">${pref_prof.currentCityName}</a><br>
 	<img src="../nimages/heart-icon.png" />
 	<c:if test="${pref_prof.expressedInterest==0}">
-				  <span id="expInt${pref_prof.id}"><a   href="#no" type="button" onclick="expressInterest_dashboard('${pref_prof.id}')"> Send Interest  </a></span>
+				  <span id="expInt${pref_prof.id}"><a   href="#no" type="button" onclick="expressInterest_Sidegrid('${pref_prof.id}')"> Send Interest  </a></span>
 				</c:if>
 				<c:if test="${pref_prof.expressedInterest > 0}">
 				<span><a type="button" disabled="true" style="text-size-adjust:auto"> Expressed Interest</a></span>
@@ -110,7 +110,7 @@ margin-bottom:0px;}
 	<a href="#">${pref_edu.currentCityName}</a><br>
 	<img src="../nimages/heart-icon.png" />
 	<c:if test="${pref_edu.expressedInterest==0}">
-				  <span id="expInt${pref_edu.id}"><a   href="#no" type="button" onclick="expressInterest_dashboard('${pref_edu.id}')"> Send Interest  </a></span>
+				  <span id="expInt${pref_edu.id}"><a   href="#no" type="button" onclick="expressInterest_Sidegrid('${pref_edu.id}')"> Send Interest  </a></span>
 				</c:if>
 				<c:if test="${pref_edu.expressedInterest > 0}">
 				<span><a type="button" disabled="true" style="text-size-adjust:auto"> Expressed Interest</a></span>
