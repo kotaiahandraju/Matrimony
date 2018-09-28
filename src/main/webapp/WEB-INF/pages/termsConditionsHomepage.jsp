@@ -30,5 +30,5 @@
 			</div>
 		</div>
 	</div>
-	
-<%-- <%@ include file="userFooter.jsp"%> --%>
+	</div>
+<%@ include file="homeFooter.jsp"%>

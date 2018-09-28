@@ -9,6 +9,12 @@
   background-color: #ddd;
   border-color: #cccccc;
 }
+.h4, .h5, .h6, h4, h5, h6 {
+    margin-top: 11px;
+    margin-bottom: 11px;
+}
+.address-left ul li {
+line-height:1.5;}
 	</style>
 	<br>
 	
@@ -24,7 +30,7 @@
 	             	<h5>(AMNLR278358) Vamsi <span class="pull-right"><!-- <button class="back btn btn-primary">Back</button>  --> &nbsp;   <button class="next btn btn-primary">Next</button>
 </span></h5><br>
 	             	<p>Location : India / Marriage Date 09-june-2018</p>
-	             	<div class="col-md-4" style="margin-left:-15px;"><br>
+	             	<div class="col-md-4" style="margin-left:-15px; height:250px; overflow:hidden;"><br>
 	             	 <img src="user/images/portfolio/01-thumbnail.jpg" class="img-responsive" />
 	             	<!-- <section class="slider">
         <div id="slider" class="flexslider">
@@ -84,7 +90,7 @@
 	             	<button class="btn btn-default back">Prev</button> &nbsp; <button class="btn btn-primary next">Next</button></span> 
 	             	</h5><br>
 	             	<p>Location : India / Marriage Date 28-apr-2018</p><br>
-	             	<div class="col-md-4" style="margin-left:-15px;">
+	             	<div class="col-md-4" style="margin-left:-15px;height:250px; overflow:hidden;">
 	             	 <img src="user/images/portfolio/02-thumbnail.jpg" class="img-responsive" />
 	             	<!-- <section class="slider">
         <div id="slider" class="flexslider">
@@ -130,7 +136,7 @@
 	             	<button class="btn btn-default back">Prev</button> &nbsp;  <button class="btn btn-primary next">Next</button> </span>
 	             	</h5><br>
 	             	<p>Location : India / Marriage Date 05-Feb-2017</p><Br>
-	             	<div class="col-md-4" style="margin-left:-15px;">
+	             	<div class="col-md-4" style="margin-left:-15px;height:250px; overflow:hidden;">
 	             	 <img src="user/images/portfolio/03-thumbnail.jpg" class="img-responsive" />
 <!-- 	             	<section class="slider"> -->
 <!--         <div id="slider" class="flexslider"> -->
@@ -156,7 +162,7 @@
 	             	<button class="btn btn-default back">Prev</button> &nbsp;  <button class="btn btn-primary next">Next</button> </span>
 	             	</h5><br>
 	             	<p>Location : India / Marriage Date 07-December-2014</p><Br>
-	             	<div class="col-md-4" style="margin-left:-15px;">
+	             	<div class="col-md-4" style="margin-left:-15px; height:250px; overflow:hidden;">
 	             	 <img src="user/images/portfolio/04-thumbnail.jpg" class="img-responsive" />
 	             	<section class="slider">
         <div id="slider" class="flexslider">
@@ -182,7 +188,7 @@
 	             	<button class="btn btn-default back">Prev</button> &nbsp;  <!-- <button class="btn btn-primary next">Next</button> --> </span>
 	             	</h5><br>
 	             	<p>Location : India / Marriage Date 21-August-2013</p><Br>
-	             	<div class="col-md-4" style="margin-left:-15px;">
+	             	<div class="col-md-4" style="margin-left:-15px;height:250px; overflow:hidden;">
 	             	 <img src="user/images/portfolio/05-thumbnail.jpg" class="img-responsive" />
 	             	<section class="slider">
         <div id="slider" class="flexslider">
@@ -257,4 +263,4 @@ $('.back').click(function(){
       });
     });
   </script>
-<%@ include file="userStepsFooter.jsp"  %>
+<%@ include file="homeFooter.jsp"  %>

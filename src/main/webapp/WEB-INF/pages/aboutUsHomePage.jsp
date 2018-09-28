@@ -24,4 +24,4 @@ Aarnamatrimony.com is one of the foremost and vivid Indian Matrimonial Site, pro
 	</div>
 	</div>
 	
-<%-- <%@ include file="userFooter.jsp"%> --%>
+<%@ include file="homeFooter.jsp"%>

@@ -1,7 +1,18 @@
-
+<style>
+.panel-group {
+margin-bottom:0px;}
+.panel {
+    margin-bottom: 10px;
+    background-color: #fff;
+    border:none;
+    border-radius: 0px;
+    -webkit-box-shadow: none;
+    box-shadow:none;
+}}
+</style>
 
 <div class="col-md-3 products-grid-right" style="padding-left:0px;">
-			<p style="width:250px; font-weight:bold; padding-bottom:4px;color:#000;">Discover Matches</p>
+<!-- 			<p style="width:250px; font-weight:bold; padding-bottom:4px;color:#000;">Discover Matches</p> -->
 					<div class="panel" style="width:250px;">
 <div class="panel-body" style="padding:10px 5px;">
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
@@ -29,11 +40,12 @@
 				   </div><div class="col-md-7 col-xs-7" style="padding-right:0px; padding-left:0px;">   <p><a href="#"  onclick="fullProfile('${loc_prof.id}')">${loc_prof.username} </a><br>
 				<a href="#">${loc_prof.age} Yrs, ${loc_prof.heightInches}</a><br>
 				<a href="#">${loc_prof.currentCityName}</a><br>
+				<img src="../nimages/heart-icon.png" />
 				<c:if test="${loc_prof.expressedInterest==0}">
-				  <span id="expInterest'+orderObj.id+'" name="expInterest[]"><a   href="#no" type="button"   onclick="expressInterest('${loc_prof.id}')"><img src="../nimages/heart-icon.png" />  Send Interest  </a></span>
+				  <span id="expInt${loc_prof.id}"><a   href="#no" type="button"   onclick="expressInterest_dashboard('${loc_prof.id}')"> Send Interest  </a></span>
 				</c:if>
 				<c:if test="${loc_prof.expressedInterest > 0}">
-				<span><a type="button"  disabled="true" style="text-size-adjust:auto"><img src="../nimages/heart-icon.png" /> Expressed Interestd</a></span>
+				<span><a type="button"  disabled="true" style="text-size-adjust:auto">Expressed Interest</a></span>
 				</c:if>
 				<!-- <a href="#"><img src="../nimages/heart-icon.png" /> Send Interest</a> --></p></div>
 				<div class="col-md-1"><i class="fa fa-close"></i></div>
@@ -63,17 +75,18 @@
 	   </div><div class="col-md-7" style="padding-right:0px; padding-left:0px;">   <p><a href="#" onclick="fullProfile('${pref_prof.id}')">${pref_prof.username} </a><br>
 	<a href="#">${pref_prof.age} Yrs, ${pref_prof.heightInches}</a><br>
 	<a href="#">${pref_prof.currentCityName}</a><br>
+	<img src="../nimages/heart-icon.png" />
 	<c:if test="${pref_prof.expressedInterest==0}">
-				  <span id="expInterest'+orderObj.id+'" name="expInterest[]"><a   href="#no" type="button" onclick="expressInterest('${pref_prof.id}')"> <img src="../nimages/heart-icon.png" /> Send Interest  </a></span>
+				  <span id="expInt${pref_prof.id}"><a   href="#no" type="button" onclick="expressInterest_dashboard('${pref_prof.id}')"> Send Interest  </a></span>
 				</c:if>
 				<c:if test="${pref_prof.expressedInterest > 0}">
-				<span><a type="button" disabled="true" style="text-size-adjust:auto"><img src="../nimages/heart-icon.png" /> Expressed Interestd</a></span>
+				<span><a type="button" disabled="true" style="text-size-adjust:auto"> Expressed Interest</a></span>
 				</c:if>
 	<!-- <a href="#"><img src="../nimages/heart-icon.png"> Send Interest</a> --></p></div><!-- <div class="col-md-1"><i class="fa fa-close"></i></div> -->
 	        </div>  <center><a href="preferredProfession" class="btn btn-info">View All (${pref_prof_profiles_size})</a> </center>      </div>
         </c:forEach>
         
-    </div><div class="clearfix"></div>
+    </div><div class="clearfix"></div><hr>
     <div class="panel ">
         <div class="panel-heading" role="tab" id="headingThree">
              <h4 class="panel-title">
@@ -95,18 +108,19 @@
 	   </div><div class="col-md-7" style="padding-right:0px; padding-left:0px;">   <p><a href="#" onclick="fullProfile('${pref_edu.id}')">${pref_edu.username} </a><br>
 	<a href="#">${pref_edu.age} Yrs, ${pref_edu.heightInches}</a><br>
 	<a href="#">${pref_edu.currentCityName}</a><br>
+	<img src="../nimages/heart-icon.png" />
 	<c:if test="${pref_edu.expressedInterest==0}">
-				  <span id="expInterest'+orderObj.id+'" name="expInterest[]"><a   href="#no" type="button" onclick="expressInterest('${pref_edu.id}')"><img src="../nimages/heart-icon.png" />  Send Interest  </a></span>
+				  <span id="expInt${pref_edu.id}"><a   href="#no" type="button" onclick="expressInterest_dashboard('${pref_edu.id}')"> Send Interest  </a></span>
 				</c:if>
 				<c:if test="${pref_edu.expressedInterest > 0}">
-				<span><a type="button" disabled="true" style="text-size-adjust:auto"><img src="../nimages/heart-icon.png" /> Expressed Interestd</a></span>
+				<span><a type="button" disabled="true" style="text-size-adjust:auto"> Expressed Interest</a></span>
 				</c:if>
 	<!-- <a href="#"><img src="../nimages/heart-icon.png"> Send Interest</a> --></p></div>
 	<div class="col-md-1"><i class="fa fa-close"></i></div>
 	        </div>  <center><a href="preferredEducation" class="btn btn-info">View All (${pref_edu_profiles_size})</a></center>      </div>
         </c:forEach>
        
-    </div>
+    </div><div class="clearfix"></div>
     
      
      
