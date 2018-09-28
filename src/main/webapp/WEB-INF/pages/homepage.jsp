@@ -1370,13 +1370,13 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 									<option value="50">50</option> 					
 					</form:select></div>
            <div class="col-md-2"><h4> Religion </h4> 
-          <form:select path="religion" id="religionId" onchange="getReliginCastAjax1();" class=" form-control" >
+          <form:select path="religionId" onchange="getReliginCastAjax1();" class=" form-control" >
 								<form:option value="">of Religion.... &nbsp;&nbsp;</form:option>
 								<form:options items="${religion}"></form:options>
 							</form:select>
 					</div>
 					<div class="col-md-2"><h4> Caste </h4>
-					 <form:select path="caste" id="castId" class="custom-select col-md-12 form-control">
+					 <form:select path="castId" class="custom-select col-md-12 form-control">
 								<form:option value="">of Caste.... &nbsp;&nbsp;</form:option>
 <%-- 								<form:options items="${cast}"></form:options> --%>
 							</form:select>
