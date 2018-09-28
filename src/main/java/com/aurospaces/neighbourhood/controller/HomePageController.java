@@ -1416,6 +1416,7 @@ public class HomePageController {
 				request.setAttribute("pending_reqs_count", pending_requests.size());
 			}else{
 				request.setAttribute("pending_reqs", "");
+				request.setAttribute("pending_reqs_count", "0");
 			}
 			
 			// get latest updated profiles
