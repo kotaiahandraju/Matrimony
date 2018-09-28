@@ -53,6 +53,13 @@ function displayMatches(listOrders) {
 		}else if(expressed>0){
 			interestStr = '<span>Expressed Interest</span>';
 		}
+		var updatedString = orderObj.updated_content;
+		var Content="";
+		if(updatedString == "photo"){
+			Content="Added Photo.";	
+		}else if(updatedString == "data"){
+			Content="Updated Details.";	
+		}
 		var message_sent_status = orderObj.message_sent_status;
 		var messageStr = "";
 		if(message_sent_status>0){
@@ -71,7 +78,7 @@ function displayMatches(listOrders) {
        + 	"<img src='${catalina_base}/"+image+"' class='watermark_text img-responsive thumbnail ' >"
             + '</div>'
             + '<div class="col-md-10 col-xs-10">'
-            + ' <p>'+orderObj.firstName+'&nbsp;'+orderObj.lastName+','+orderObj.username+'&nbsp;( '+orderObj.agee+' yrs,&nbsp; '+orderObj.heightInches+' ) matches your preferences and has updated her photo. </p> '
+            + ' <p>'+orderObj.firstName+'&nbsp;'+orderObj.lastName+','+orderObj.username+'&nbsp;( '+orderObj.agee+' yrs,&nbsp; '+orderObj.heightInches+' ) &nbsp;'+Content+'  </p> '
             + ' <p> '+interestStr+'| <a href="#no" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="fullProfile('+orderObj.id+')"> Full Profile</a> '
             + '</div>'
             + '<div class="clearfix" style="border-bottom:1px solid #f1f11;margin-bottom:5px;"></div>'
