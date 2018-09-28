@@ -54,10 +54,13 @@ function displayMatches(listOrders) {
 		
 		var array = null;
 // 		var imageUrl =null;
-		var image = null; image = orderObj.profileImage;
-		if(image == "" || image == null || image == "undefined"){
+		var image = null; image_path = orderObj.profileImage;
+		if(image_path == "" || image_path == null || image_path == "undefined"){
 			image = "${baseurl}/img/default.png";
+		}else{
+			image = "${catalina_base}/"+image_path;
 		}
+		
 		var login_user_role_id = ${cacheGuest.roleId};
 		var firstname = '<img src="${baseurl}/images/blurr.png"/>',lastname='';
 		var ageStr = orderObj.age;
@@ -120,7 +123,7 @@ function displayMatches(listOrders) {
 		}
 		var tblRow = '<div class="row">'
 			+ '<div class=" col-md-2 col-xs-2 preprofile" >'
-            + 	"<img src='${baseurl}/"+image+"' class='watermark_text img-responsive thumbnail ' >"
+            + 	"<img src='"+image+"' class='watermark_text img-responsive thumbnail ' >"
             + '</div>'
             + '<div class="col-md-10 col-xs-10">'
             + ' <p>'+firstname+'&nbsp;'+lastname+'|'+orderObj.username+'&nbsp;'+premiumMember+'&nbsp; '+age+' yrs,&nbsp; '+orderObj.religionName+', '+orderObj.casteName+','+orderObj.inches+' , '+orderObj.occupationName+', '+orderObj.currentCityName+', '+orderObj.currentCountryName+'. </p> '

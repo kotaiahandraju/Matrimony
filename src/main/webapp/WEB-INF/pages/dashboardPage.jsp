@@ -828,9 +828,11 @@ function displayMatches(listOrders) {
 		var array = null;
 // 		var imageUrl =null;
 		
-		var image = null; image = orderObj.profileImage;
-		if(image == "" || image == null || image == "undefined"){
-			image = "${catalina_base}/img/default.png";
+		var image = null; image_path = orderObj.profileImage;
+		if(image_path == "" || image_path == null || image_path == "undefined"){
+			image = "${baseurl}/img/default.png";
+		}else{
+			image = "${catalina_base}/"+image_path;
 		}
 		/* else{
 		array = image.split(",");
@@ -902,7 +904,7 @@ function displayMatches(listOrders) {
 			}
 			var tblRow = '<div class="row">'
 				+ '<div class=" col-md-3 col-xs-3 preprofile" >'
-	            + 	"<img src='${catalina_base}/"+image+"' class='watermark_text img-responsive thumbnail ' >"
+	            + 	"<img src='"+image+"' class='watermark_text img-responsive thumbnail ' >"
 	            + '</div>'
 	            + '<div class="col-md-9 col-xs-9">'
 	            + ' <p>'+firstname+'&nbsp;'+lastname+'|'+orderObj.username+'&nbsp;'+premiumMember+'&nbsp; '+age+' yrs,&nbsp; '+orderObj.religionName+', '+orderObj.casteName+','+orderObj.inches+' , '+orderObj.occupationName+', '+orderObj.currentCityName+', '+orderObj.currentCountryName+'. </p> '
@@ -951,10 +953,14 @@ function displayNewMatches(listOrders) {
 		var array = null;
 // 		var imageUrl =null;
 		
-		var image = null; image = orderObj.profileImage;
-		if(image == "" || image == null || image == "undefined"){
-			image = "img/default.png";
+
+		var image = null; image_path = orderObj.profileImage;
+		if(image_path == "" || image_path == null || image_path == "undefined"){
+			image = "${baseurl}/img/default.png";
+		}else{
+			image = "${catalina_base}/"+image_path;
 		}
+		
 		console.log(image);
 		/* else{
 		array = image.split(",");
@@ -995,7 +1001,7 @@ function displayNewMatches(listOrders) {
 				interestStr = '<p align="center" style="margin: 11px 0px 10px 0px;"><a   type="button" disabled="true"  class="btn btn-warning btn-sm "  >Request Sent</a></p>';
 			}
 			 item =     item + ' 	<div class="col-md-4 thumbnailgal">'
-				         +' 		<div class="thumbnailmain">	<a class="thumbnail thumbimg" href="#no" style="margin: 0px 0px 0px 0px; width:100%; height:auto;"><img alt="" src="${catalina_base}/'+image+'" class="watermark_text"></a></div>'
+				         +' 		<div class="thumbnailmain">	<a class="thumbnail thumbimg" href="#no" style="margin: 0px 0px 0px 0px; width:100%; height:auto;"><img alt="" src="'+image+'" class="watermark_text"></a></div>'
 				         +' 			<p align="center" class="ptransition" style="margin: 10px 0px 0px 0px;"><span  class="ptransition" href="#no" onclick="fullProfile('+orderObj.id+')" style="transition: 0; padding:5px; color:blue; border-radius:5px;">'+orderObj.username+'</span></p>'
 				         +' 			<p align="center" style="margin: px 0px 0px -3px;">'+age+' yrs, '+orderObj.inches+'</p>'
 				         + 			    interestStr
@@ -1056,10 +1062,14 @@ function displayNewMatches_update(listOrders) {
 		var array = null;
 // 		var imageUrl =null;
 		
-		var image = null; image = orderObj.profileImage;
-		if(image == "" || image == null || image == "undefined"){
-			image = "${catalina_base}/img/default.png";
+
+		var image = null; image_path = orderObj.profileImage;
+		if(image_path == "" || image_path == null || image_path == "undefined"){
+			image = "${baseurl}/img/default.png";
+		}else{
+			image = "${catalina_base}/"+image_path;
 		}
+		
 		/* else{
 		array = image.split(",");
 		
@@ -1138,7 +1148,7 @@ function displayNewMatches_update(listOrders) {
 			}
 			var tblRow = '<div class="row">'
 				+ '<div class=" col-md-3 col-xs-3 preprofile" >'
-	            + 	"<img src='${catalina_base}/"+image+"' class='watermark_text img-responsive thumbnail ' >"
+	            + 	"<img src='"+image+"' class='watermark_text img-responsive thumbnail ' >"
 	            + '</div>'
 	            + '<div class="col-md-9 col-xs-9">'
 	            + ' <p>'+firstname+'&nbsp;'+lastname+'|'+orderObj.username+'&nbsp;( '+age+' yrs,&nbsp; '+orderObj.heightInches+' )&nbsp;'+Content+' </p> '
