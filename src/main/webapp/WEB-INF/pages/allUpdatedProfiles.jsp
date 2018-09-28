@@ -37,10 +37,11 @@ function displayMatches(listOrders) {
 	$.each(listOrders,function(i, orderObj) 
 	{
 		serviceUnitArray[orderObj.id] = orderObj;
-		var image = null;
-		image = orderObj.profileImage;
-		if(image == "" || image == null || image == "undefined"){
+		var image = null; image_path = orderObj.profileImage;
+		if(image_path == "" || image_path == null || image_path == "undefined"){
 			image = "${baseurl}/img/default.png";
+		}else{
+			image = "${catalina_base}/"+image_path;
 		}
 		var shortListedStr = '<span id="shortlistTD'+orderObj.id+'"><a href="#no" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="shortList_dashboard('+orderObj.id+')"> Shortlist</a></span>';
 		if(orderObj.shortlisted == "1"){
@@ -75,7 +76,7 @@ function displayMatches(listOrders) {
 		}
 		var tblRow = '<div class="row">'
 			+ '<div class=" col-md-2 col-xs-2 preprofile" >'
-       + 	"<img src='${catalina_base}/"+image+"' class='watermark_text img-responsive thumbnail ' >"
+       + 	"<img src='"+image+"' class='watermark_text img-responsive thumbnail ' >"
             + '</div>'
             + '<div class="col-md-10 col-xs-10">'
             + ' <p>'+orderObj.firstName+'&nbsp;'+orderObj.lastName+','+orderObj.username+'&nbsp;( '+orderObj.agee+' yrs,&nbsp; '+orderObj.heightInches+' ) &nbsp;'+Content+'  </p> '

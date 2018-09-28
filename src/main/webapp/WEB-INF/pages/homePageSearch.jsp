@@ -970,10 +970,13 @@ margin-left:10px;
 						abtMySelf = abtMySelf.substring(0,40);
 					}
 			  		
-			  		var image = orderObj.profileImage;
-			  		if(typeof image == "undefined" || image=="" || image==null){
-			  			image = "img/default.png";
-			  		}
+			  		var image = null; image_path = orderObj.profileImage;
+					if(image_path == "" || image_path == null || image_path == "undefined"){
+						image = "${baseurl}/img/default.png";
+					}else{
+						image = "${catalina_base}/"+image_path;
+					}
+			  		
 			  		var tblRow = profile_highlisht_str
 			  		+ '<div class="panel-heading">'
 			  		+ '<h5 class="panel-title" style="text-align:left;">'
