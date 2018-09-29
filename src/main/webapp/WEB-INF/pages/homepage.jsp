@@ -42,6 +42,16 @@
 	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 
 <style>
+/* #recent-profile .pro_img img {
+    height: 230px;
+    filter: grayscale(1);
+    transition: all .3s ease-in-out;
+    cursor: pointer;
+}
+#recent-profile:hover .pro_img:hover img {
+    filter: grayscale(0);
+    cursor: pointer;
+} */
 video {
 	width: 350px ;
 	height: 245px;
