@@ -3786,9 +3786,12 @@ public boolean deletePhoto(String photoId){
 		
 		try {
 			sSql = "select image from vuser_images where user_id =  "+userId+" and is_profile_picture = '1' and status = '1'";
-			
-			String image = jdbcTemplate.queryForObject(sSql, String.class);
-			return image;
+			List<Map<String,Object>> list = jdbcTemplate.queryForList(sSql);
+			if(list.size()>0){
+				String image = (String)list.get(0).get("image");
+				return image;
+			}
+			return "";
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "";
@@ -4797,22 +4800,22 @@ public boolean deletePhoto(String photoId){
 		if(mail_type.equalsIgnoreCase("shortlisted")){
 			short_str = " shortlisted your profile";
 			sender_details.append(senderBean.getAge()+" Yrs, "+senderBean.getHeight()+" Ft, "+senderBean.getReligionName()+", "+senderBean.getCasteName()+", <br> Location: "+senderBean.getCurrentCityName()+", <br> Education : "+senderBean.getEducationName()+", <br> Occupation : "+senderBean.getOccupationName()+" ");
-			actionUrl = baseurl+"/users/fullProfile?un="+senderBean.getUsername()+"&pun="+receiverBean.getUsername()+"&suc="+senderBean.getUnique_code()+"&puc="+receiverBean.getUnique_code();
+			actionUrl = baseurl+"/fullProfile?un="+receiverBean.getUsername()+"&pun="+senderBean.getUsername()+"&suc="+receiverBean.getUnique_code()+"&puc="+senderBean.getUnique_code();
 			sender_image = this.getProfilePicture(senderBean.getId());
 		}else if(mail_type.equalsIgnoreCase("message_mail")){
 			short_str = " sent you a personal message";
 			sender_details.append(senderBean.getAge()+" Yrs, "+senderBean.getHeight()+" Ft, "+senderBean.getReligionName()+", "+senderBean.getCasteName()+", <br> Location: "+senderBean.getCurrentCityName()+", <br> Education : "+senderBean.getEducationName()+", <br> Occupation : "+senderBean.getOccupationName()+" ");
-			actionUrl = baseurl+"/users/fullProfile?un="+senderBean.getUsername()+"&pun="+receiverBean.getUsername()+"&suc="+senderBean.getUnique_code()+"&puc="+receiverBean.getUnique_code();
+			actionUrl = baseurl+"/fullProfile?un="+receiverBean.getUsername()+"&pun="+senderBean.getUsername()+"&suc="+receiverBean.getUnique_code()+"&puc="+senderBean.getUnique_code();
 			sender_image = this.getProfilePicture(senderBean.getId());
 		}else if(mail_type.equalsIgnoreCase("profileviewed")){
 			short_str = " viewed your profile";
 			sender_details.append(senderBean.getAge()+" Yrs, "+senderBean.getHeight()+" Ft, "+senderBean.getReligionName()+", "+senderBean.getCasteName()+", <br> Location: "+senderBean.getCurrentCityName()+", <br> Education : "+senderBean.getEducationName()+", <br> Occupation : "+senderBean.getOccupationName()+" ");
-			actionUrl = baseurl+"/users/fullProfile?un="+senderBean.getUsername()+"&pun="+receiverBean.getUsername()+"&suc="+senderBean.getUnique_code()+"&puc="+receiverBean.getUnique_code();
+			actionUrl = baseurl+"/fullProfile?un="+receiverBean.getUsername()+"&pun="+senderBean.getUsername()+"&suc="+receiverBean.getUnique_code()+"&puc="+senderBean.getUnique_code();
 			sender_image = this.getProfilePicture(senderBean.getId());
 		}else if(mail_type.equalsIgnoreCase("interestrequest")){
 			short_str = " sent you an interest";					////////
 			sender_details.append(senderBean.getAge()+" Yrs, "+senderBean.getHeight()+" Ft, "+senderBean.getReligionName()+", "+senderBean.getCasteName()+", <br> Location: "+senderBean.getCurrentCityName()+", <br> Education : "+senderBean.getEducationName()+", <br> Occupation : "+senderBean.getOccupationName()+" ");
-			actionUrl = baseurl+"/users/fullProfile?un="+senderBean.getUsername()+"&pun="+receiverBean.getUsername()+"&suc="+senderBean.getUnique_code()+"&puc="+receiverBean.getUnique_code();
+			actionUrl = baseurl+"/fullProfile?un="+receiverBean.getUsername()+"&pun="+senderBean.getUsername()+"&suc="+receiverBean.getUnique_code()+"&puc="+senderBean.getUnique_code();
 			sender_image = this.getProfilePicture(senderBean.getId());
 		
 		

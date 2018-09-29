@@ -1172,19 +1172,19 @@ public class HomePageController {
 					objUsersDao.updateNotificationStatus(notification_id);
 				}else if(StringUtils.isNotBlank(sender_username) && StringUtils.isNotBlank(profile_username)){
 					UsersBean profileBean = objUsersDao.getUser(profile_username.trim());
-					objUserssBean.setId(profileBean.getId());// for local use
-					/*UsersBean senderBean = objUsersDao.getUser(sender_username.trim());
+					//objUserssBean.setId(profileBean.getId());// for local use
+					UsersBean senderBean = objUsersDao.getUser(sender_username.trim());
 					if(senderBean.getUnique_code().equals(sender_unique_code) && profileBean.getUnique_code().equals(profile_unique_code)){
 						LoginBean userObj = new LoginBean();
 						userObj.setUserName(sender_username);
 						userObj.setPassword(senderBean.getPassword());
-						UsersBean objUserBean = objUsersDao.loginChecking(userObj);
-						this.setInitialData(objUserBean, session, request);
+						//UsersBean objUserBean = objUsersDao.loginChecking(userObj);
+						//this.setInitialData(objUserBean, session, request);
 						sessionBean = (UsersBean)session.getAttribute("cacheGuest");
 						objUserssBean.setId(profileBean.getId());// for local use
 					}else{
 						return "redirect:HomePage";
-					}*/
+					}
 				}else{
 					if(sessionBean == null){
 						return "redirect:HomePage";
@@ -2995,8 +2995,10 @@ String sJson="";
 				if(success){
 					jsonObj.put("message", "success");
 					String profileImage = objUsersDao.getProfilePicture(userSessionBean.getId());
-					userSessionBean.setProfileImage(profileImage);
-		    		session.setAttribute("cacheGuest",userSessionBean);
+					if(StringUtils.isNotBlank(profileImage)){
+						userSessionBean.setProfileImage(profileImage);
+			    		session.setAttribute("cacheGuest",userSessionBean);
+					}
 				}else{
 					jsonObj.put("message", "Failed");
 				}

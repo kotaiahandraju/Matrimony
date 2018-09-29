@@ -1006,7 +1006,10 @@ try{
 		//		        inlineImages.put("image1", objContext.getRealPath("images" +File.separator+"telugu.png"));
 				        String sender_img = (String)emailEntry.get("sender_image");
 				        if(StringUtils.isNotBlank(sender_img)){
-				        	inlineImages.put("senderimage", objContext.getRealPath(sender_img));
+				        	String rootPath = System.getProperty("catalina.base");
+					        //File dir = new File(rootPath + File.separator + "img");
+						 	String image_path = rootPath + File.separator + "webapps"+ File.separator + sender_img.split("/")[0]+ File.separator + sender_img.split("/")[1];
+				        	inlineImages.put("senderimage", image_path);
 				        }else{
 				        	inlineImages.put("senderimage", objContext.getRealPath("img" +File.separator+"default.png"));
 				        }
