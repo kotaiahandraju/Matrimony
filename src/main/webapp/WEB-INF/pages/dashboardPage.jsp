@@ -1147,7 +1147,7 @@ function displayNewMatches_update(listOrders) {
 				mobile_num_Str = '<span ><a href="#no" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="displayMobileNum('+orderObj.id+')"> View Mobile No..</a></span>';
 			}
 			var tblRow = '<div class="row">'
-				+ '<div class=" col-md-3 col-xs-3 preprofile" >'
+				+ '<div class=" col-md-2 col-xs-2 preprofile1" >'
 	            + 	"<img src='"+image+"' class='watermark_text img-responsive thumbnail ' >"
 	            + '</div>'
 	            + '<div class="col-md-9 col-xs-9">'

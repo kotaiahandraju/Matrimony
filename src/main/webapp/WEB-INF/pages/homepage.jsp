@@ -42,6 +42,16 @@
 	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 
 <style>
+/* #recent-profile .pro_img img {
+    height: 230px;
+    filter: grayscale(1);
+    transition: all .3s ease-in-out;
+    cursor: pointer;
+}
+#recent-profile:hover .pro_img:hover img {
+    filter: grayscale(0);
+    cursor: pointer;
+} */
 video {
 	width: 350px ;
 	height: 245px;
@@ -1935,8 +1945,9 @@ Follow us on : 	<a href="#stayhere"><img src="nimages/fb.png" style="height:30px
      changeDate : true,
  	changeMonth : true,
  	changeYear : true,
+	minDate: "-50Y+nn",
+	maxDate: "-18Y",
 //  	maxDate :0,
- 	yearRange: "-50:-18",
 //  	 defaultDate: '01-01-1970'
  }); 
   window.setTimeout(function() {
@@ -2287,7 +2298,7 @@ $('img').bind('contextmenu', function(e) {
   		var profile_highlisht_str = '<div class="panel panel-default">';
   		var highlight_option = orderObj.profile_highlighter;
   		if(typeof highlight_option != "undefined" && highlight_option=='1'){
-  			profile_highlisht_str = '<div class="panel panel-default" style="background-color:skyblue">';
+  			profile_highlisht_str = '<div class="panel " style="background-color:skyblue">';
   		}
   		var image = orderObj.profileImage;
   		if(typeof image == "undefined" || image=="" || image==null){
