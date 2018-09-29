@@ -1334,7 +1334,19 @@ public class HomePageController {
 				request.setAttribute("total_records", MatrimonyConstants.FREE_USER_PROFILES_LIMIT);
 				request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
 			//}
-			
+			Map<Integer, String> cityMap = new LinkedHashMap<Integer, String>();
+			try {
+				List<CityBean> cities = objCityDao.getAllCities();
+				for (CityBean bean : cities) {
+					cityMap.put(bean.getId(), bean.getName());
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			} 
+			objectMapper = new ObjectMapper();
+			sJson = objectMapper.writeValueAsString(cityMap);
+			request.setAttribute("all_cities", sJson);
 			
 		} catch (Exception e) {
 	   e.printStackTrace();
@@ -1416,6 +1428,7 @@ public class HomePageController {
 				request.setAttribute("pending_reqs_count", pending_requests.size());
 			}else{
 				request.setAttribute("pending_reqs", "");
+				request.setAttribute("pending_reqs_count", "0");
 			}
 			
 			// get latest updated profiles

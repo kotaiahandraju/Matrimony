@@ -428,7 +428,7 @@ padding-right:0px;
 					</div></div></div></div>
 					<div class="clearfix"></div>
 					<div class="panel" id="updated_div">
-					<div class="panel-heading"><b>Updated Profiles</b> </div>
+					<div class="panel-heading"><b>Latest Updates</b> </div>
 		            <form:form commandName="createProfile"  class="form-horizontal" id="searchForm3" name="searchForm3" role="form"   method="post">
 	             		<form:hidden path="id" />
 	             			<div class="panel-body" id="matches_updated" style="overflow-y:scroll; max-height: 250px">
@@ -828,9 +828,11 @@ function displayMatches(listOrders) {
 		var array = null;
 // 		var imageUrl =null;
 		
-		var image = null; image = orderObj.profileImage;
-		if(image == "" || image == null || image == "undefined"){
-			image = "${catalina_base}/img/default.png";
+		var image = null; image_path = orderObj.profileImage;
+		if(image_path == "" || image_path == null || image_path == "undefined"){
+			image = "${baseurl}/img/default.png";
+		}else{
+			image = "${catalina_base}/"+image_path;
 		}
 		/* else{
 		array = image.split(",");
@@ -902,7 +904,7 @@ function displayMatches(listOrders) {
 			}
 			var tblRow = '<div class="row">'
 				+ '<div class=" col-md-3 col-xs-3 preprofile" >'
-	            + 	"<img src='${catalina_base}/"+image+"' class='watermark_text img-responsive thumbnail ' >"
+	            + 	"<img src='"+image+"' class='watermark_text img-responsive thumbnail ' >"
 	            + '</div>'
 	            + '<div class="col-md-9 col-xs-9">'
 	            + ' <p>'+firstname+'&nbsp;'+lastname+'|'+orderObj.username+'&nbsp;'+premiumMember+'&nbsp; '+age+' yrs,&nbsp; '+orderObj.religionName+', '+orderObj.casteName+','+orderObj.inches+' , '+orderObj.occupationName+', '+orderObj.currentCityName+', '+orderObj.currentCountryName+'. </p> '
@@ -951,10 +953,14 @@ function displayNewMatches(listOrders) {
 		var array = null;
 // 		var imageUrl =null;
 		
-		var image = null; image = orderObj.profileImage;
-		if(image == "" || image == null || image == "undefined"){
-			image = "img/default.png";
+
+		var image = null; image_path = orderObj.profileImage;
+		if(image_path == "" || image_path == null || image_path == "undefined"){
+			image = "${baseurl}/img/default.png";
+		}else{
+			image = "${catalina_base}/"+image_path;
 		}
+		
 		console.log(image);
 		/* else{
 		array = image.split(",");
@@ -995,7 +1001,7 @@ function displayNewMatches(listOrders) {
 				interestStr = '<p align="center" style="margin: 11px 0px 10px 0px;"><a   type="button" disabled="true"  class="btn btn-warning btn-sm "  >Request Sent</a></p>';
 			}
 			 item =     item + ' 	<div class="col-md-4 thumbnailgal">'
-				         +' 		<div class="thumbnailmain">	<a class="thumbnail thumbimg" href="#no" style="margin: 0px 0px 0px 0px; width:100%; height:auto;"><img alt="" src="${catalina_base}/'+image+'" class="watermark_text"></a></div>'
+				         +' 		<div class="thumbnailmain">	<a class="thumbnail thumbimg" href="#no" style="margin: 0px 0px 0px 0px; width:100%; height:auto;"><img alt="" src="'+image+'" class="watermark_text"></a></div>'
 				         +' 			<p align="center" class="ptransition" style="margin: 10px 0px 0px 0px;"><span  class="ptransition" href="#no" onclick="fullProfile('+orderObj.id+')" style="transition: 0; padding:5px; color:blue; border-radius:5px;">'+orderObj.username+'</span></p>'
 				         +' 			<p align="center" style="margin: px 0px 0px -3px;">'+age+' yrs, '+orderObj.inches+'</p>'
 				         + 			    interestStr
@@ -1056,10 +1062,14 @@ function displayNewMatches_update(listOrders) {
 		var array = null;
 // 		var imageUrl =null;
 		
-		var image = null; image = orderObj.profileImage;
-		if(image == "" || image == null || image == "undefined"){
-			image = "${catalina_base}/img/default.png";
+
+		var image = null; image_path = orderObj.profileImage;
+		if(image_path == "" || image_path == null || image_path == "undefined"){
+			image = "${baseurl}/img/default.png";
+		}else{
+			image = "${catalina_base}/"+image_path;
 		}
+		
 		/* else{
 		array = image.split(",");
 		
@@ -1119,6 +1129,14 @@ function displayNewMatches_update(listOrders) {
 			var messageStr = "";
 			if(message_sent_status>0){
 				messageStr = 'You sent an email to this member.';
+			} 
+			
+			var updatedString = orderObj.updated_content;
+			var Content="";
+			if(updatedString == "photo"){
+				Content="Added Photo.";	
+			}else if(updatedString == "data"){
+				Content="Updated Details.";	
 			}
 			var mobNumViewed = orderObj.mobileNumViewed;
 			var mobile_num_Str = "";
@@ -1130,12 +1148,11 @@ function displayNewMatches_update(listOrders) {
 			}
 			var tblRow = '<div class="row">'
 				+ '<div class=" col-md-3 col-xs-3 preprofile" >'
-	            + 	"<img src='${catalina_base}/"+image+"' class='watermark_text img-responsive thumbnail ' >"
+	            + 	"<img src='"+image+"' class='watermark_text img-responsive thumbnail ' >"
 	            + '</div>'
 	            + '<div class="col-md-9 col-xs-9">'
-	            + ' <p>'+firstname+'&nbsp;'+lastname+'|'+orderObj.username+'&nbsp;'+premiumMember+'&nbsp; '+age+' yrs,&nbsp; '+orderObj.religionName+', '+orderObj.castName+','+orderObj.heightInches+' , '+orderObj.occupationName+', '+orderObj.currentCityName+', '+orderObj.currentCountryName+'. </p> '
-	            + ' <p> '+interestStr+'| <a href="#no" type="button" class="btn" style="padding:; color:blue; border-radius:5px;" id="sendMail'+orderObj.id+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')">Send Mail</a> | <a href="#no" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="fullProfile('+orderObj.id+')"> Full Profile</a>| '+shortListedStr+' '
-	            + ' | <span id="mobileTD'+orderObj.id+'">'+mobile_num_Str+'</span> | </p> '
+	            + ' <p>'+firstname+'&nbsp;'+lastname+'|'+orderObj.username+'&nbsp;( '+age+' yrs,&nbsp; '+orderObj.heightInches+' )&nbsp;'+Content+' </p> '
+	            + ' <p> '+interestStr+'| <a href="#no" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="fullProfile('+orderObj.id+')"> Full Profile</a> </p> '
 	            
 	            + '</div>'
 	            + '<div class="clearfix" style="border-bottom:1px solid #f1f11;margin-bottom:5px;"></div>'
@@ -1182,7 +1199,6 @@ function expressInterest_dashboard(profile_id){
 	    			if("success"==msg){
 	    				alert("Interest request has been sent successfully");
 	    				$("#expInterest"+profile_id).html('Expressed Interest');
-	    				$("#expInt"+profile_id).html('Expressed Interest');
 	    				$("#expInterest"+profile_id).prop("disabled",true);
 	    				$("#mobileTD"+profile_id).html('<span style="background:url(${baseurl}/user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+profileObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="${baseurl}/user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>');
 	    				if(typeof limit != "undefined"){
@@ -1222,7 +1238,75 @@ function expressInterest_dashboard(profile_id){
 			});
 	}
 }
+function expressInterest_Sidegrid(profile_id){
+	var roleId = ${cacheGuest.roleId};
+	$("#id").val(profile_id);
+	if(roleId==4){
+		document.searchForm2.action = "memberShipPage"
+		document.searchForm2.submit();
+		return true;
+	}else{
+		var membershipStatus = ${cacheGuest.membership_status};
+		if(membershipStatus!="1"){
+			alert("Your membership validity period is over. Renew your membership plan and get more profiles");
+			return false;
+		} 
+		if(allowed_limit<=0){
+			alert("Exceeded allowed profiles limit. Renew your membership plan and get more profiles");
+			return false;
+		}
+		var profileObj = serviceUnitArray[profile_id];
 
+		var formData = new FormData();
+		formData.append('profile_id',profile_id);
+		jQuery.fn.makeMultipartRequest('POST', 'expressInterestTo', false,
+				formData, false, 'text', function(data){
+	    		var jsonobj = $.parseJSON(data);
+	    		var limit = jsonobj.allowed_limit;
+	    		var msg = jsonobj.message;
+	    		var profiles = jsonobj.allProfiles;
+	    		//if(typeof msg != "undefined" ){
+	    			if("success"==msg){
+	    				alert("Interest request has been sent successfully");
+	    				$("#expInt"+profile_id).html('Expressed Interest');
+	    				$("#mobileTD"+profile_id).html('<span style="background:url(${baseurl}/user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+profileObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="${baseurl}/user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>');
+	    				if(typeof limit != "undefined"){
+	    					if(limit=="unlimited"){
+	    						allowed_limit = "1";
+	    						allowed_limit = parseInt(allowed_limit);
+	    					}else{
+	    						allowed_limit = limit;
+	    					}
+	    				}
+	    				
+	    			}else if("failed"==msg || "exception"==msg){
+	    				alert("Interest request is not successful. Please try again.");
+	    			}
+	    		//}
+	    		/* if(profiles==""){
+	    			$('#countId').html('0');
+	    			var str = '<div class="panel panel-default"><h6>No results found.</h6></div>';
+	    			$('#searchResults').html('');
+	    			$(str).appendTo("#searchResults");
+	    		}else{
+	    			$('#countId').html(profiles.length);
+	    			displayMatches(profiles);
+	    		} */
+	    		/* var filtered_list = jsonobj.filtered_profiles;
+	    		$('#countId').html('');
+	    		if(filtered_list==""){
+	    			$('#countId').html('0');
+	    			var str = '<div class="panel panel-default"><h6>No results found.</h6></div>';
+	    			$('#searchResults').html('');
+	    			$(str).appendTo("#searchResults");
+	    		}else{
+	    			$('#countId').html(filtered_list.length);
+	    			displayMatches(filtered_list);
+	    		} */
+				
+			});
+	}
+}
 function expressInterest_dashboardnewmatches(profile_id){
 	var roleId = ${cacheGuest.roleId};
 	$("#id").val(profile_id);

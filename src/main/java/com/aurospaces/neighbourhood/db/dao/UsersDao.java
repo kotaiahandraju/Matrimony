@@ -5170,6 +5170,7 @@ public boolean deletePhoto(String photoId){
 						+ " (select name from cast where id=u.caste) as castName, "
 						+ " (select name from occupation where id=u.occupation) as occupationName, "
 						+ " (select name from countries where id=u.currentCountry) as currentCountryName, "
+						+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+sessionUserBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'interest_request') as expressedInterest, "
 						+ " date_format(max(updated_on),'%d-%b-%Y %h %p') as photo_updated_time from users u left join vuser_images uimg on  u.id=uimg.user_id "
 						+ " where u.status = '1' and u.gender not in ('"+sessionUserBean.getGender()+"') and uimg.status = '1' and uimg.approved_status = '1' "
 						+" group by u.id order by u.updated_time desc limit 10) temp ";
@@ -5222,6 +5223,7 @@ public boolean deletePhoto(String photoId){
 						+ " (select name from cast where id=u.caste) as castName, "
 						+ " (select name from occupation where id=u.occupation) as occupationName, "
 						+ " (select name from countries where id=u.currentCountry) as currentCountryName, "
+						+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+sessionUserBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'interest_request') as expressedInterest, "
 						+ " date_format(max(updated_on),'%d-%b-%Y %h %p') as photo_updated_time from users u left join vuser_images uimg on  u.id=uimg.user_id "
 						+ " where u.status = '1' and u.gender not in ('"+sessionUserBean.getGender()+"') and uimg.status = '1' and uimg.approved_status = '1' "
 						+" group by u.id order by u.updated_time desc) temp ";

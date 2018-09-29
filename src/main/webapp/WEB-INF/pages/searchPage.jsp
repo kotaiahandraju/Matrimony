@@ -1531,9 +1531,14 @@ function resetBtnfunction(){
 	    	$("#rCity").select2({
 	    	    placeholder: "-- Choose City --"
 	    	});
-	    	$("#city").select2({
+	    	/* $("#city").select2({
 	    	    placeholder: "-- Select City --"
-	    	});
+	    	}); */
+	    	//populate city dropdown
+	    	var city_map = ${all_cities};
+	    	  $.each(city_map,function(key, value) {
+	    				$("#city").append("<option value="+key+" >"+ value+ "</option>");
+	    			}); 
 	    }else{
 	    	var tt = selected_values.split(",");
 	        $("#rCity").val(selected_values.split(","));

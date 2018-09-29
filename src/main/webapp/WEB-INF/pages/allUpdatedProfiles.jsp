@@ -37,10 +37,11 @@ function displayMatches(listOrders) {
 	$.each(listOrders,function(i, orderObj) 
 	{
 		serviceUnitArray[orderObj.id] = orderObj;
-		var image = null;
-		image = orderObj.profileImage;
-		if(image == "" || image == null || image == "undefined"){
+		var image = null; image_path = orderObj.profileImage;
+		if(image_path == "" || image_path == null || image_path == "undefined"){
 			image = "${baseurl}/img/default.png";
+		}else{
+			image = "${catalina_base}/"+image_path;
 		}
 		var shortListedStr = '<span id="shortlistTD'+orderObj.id+'"><a href="#no" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="shortList_dashboard('+orderObj.id+')"> Shortlist</a></span>';
 		if(orderObj.shortlisted == "1"){
@@ -52,6 +53,13 @@ function displayMatches(listOrders) {
 			interestStr = '<span id="expInterest'+orderObj.id+'"><a   href="#no" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="expressInterest_dashboard('+orderObj.id+')">  Express Interest  </a></span>';
 		}else if(expressed>0){
 			interestStr = '<span>Expressed Interest</span>';
+		}
+		var updatedString = orderObj.updated_content;
+		var Content="";
+		if(updatedString == "photo"){
+			Content="Added Photo.";	
+		}else if(updatedString == "data"){
+			Content="Updated Details.";	
 		}
 		var message_sent_status = orderObj.message_sent_status;
 		var messageStr = "";
@@ -68,12 +76,11 @@ function displayMatches(listOrders) {
 		}
 		var tblRow = '<div class="row">'
 			+ '<div class=" col-md-2 col-xs-2 preprofile" >'
-       + 	"<img src='${catalina_base}/"+image+"' class='watermark_text img-responsive thumbnail ' >"
+       + 	"<img src='"+image+"' class='watermark_text img-responsive thumbnail ' >"
             + '</div>'
             + '<div class="col-md-10 col-xs-10">'
-            + ' <p>'+orderObj.firstName+'&nbsp;'+orderObj.lastName+','+orderObj.username+'&nbsp '+orderObj.age+' yrs,&nbsp; '+orderObj.religionName+', '+orderObj.castName+', '+orderObj.occupationName+', '+orderObj.currentCityName+', '+orderObj.currentCountryName+'. </p> '
-            + ' <p> '+interestStr+'|  <a href="#no" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" id="sendMail'+orderObj.id+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')">Send Mail</a> | <a href="#no" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="fullProfile('+orderObj.id+')"> Full Profile</a> '
-            + ' | <span id="mobileTD'+orderObj.id+'">'+mobile_num_Str+'</span> | '+shortListedStr+'</p> '
+            + ' <p>'+orderObj.firstName+'&nbsp;'+orderObj.lastName+','+orderObj.username+'&nbsp;( '+orderObj.agee+' yrs,&nbsp; '+orderObj.heightInches+' ) &nbsp;'+Content+'  </p> '
+            + ' <p> '+interestStr+'| <a href="#no" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="fullProfile('+orderObj.id+')"> Full Profile</a> '
             + '</div>'
             + '<div class="clearfix" style="border-bottom:1px solid #f1f11;margin-bottom:5px;"></div>'
             + '<hr>'
