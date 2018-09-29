@@ -2285,7 +2285,7 @@ $('img').bind('contextmenu', function(e) {
   		var profile_highlisht_str = '<div class="panel panel-default">';
   		var highlight_option = orderObj.profile_highlighter;
   		if(typeof highlight_option != "undefined" && highlight_option=='1'){
-  			profile_highlisht_str = '<div class="panel panel-default" style="background-color:skyblue">';
+  			profile_highlisht_str = '<div class="panel " style="background-color:skyblue">';
   		}
   		var image = orderObj.profileImage;
   		if(typeof image == "undefined" || image=="" || image==null){
