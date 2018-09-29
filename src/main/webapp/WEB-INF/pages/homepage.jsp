@@ -1935,8 +1935,9 @@ Follow us on : 	<a href="#stayhere"><img src="nimages/fb.png" style="height:30px
      changeDate : true,
  	changeMonth : true,
  	changeYear : true,
+	minDate: "-50Y+nn",
+	maxDate: "-18Y",
 //  	maxDate :0,
- 	yearRange: "-50:-18",
 //  	 defaultDate: '01-01-1970'
  }); 
   window.setTimeout(function() {
