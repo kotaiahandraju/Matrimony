@@ -580,7 +580,7 @@ video {
     margin-bottom: 37px;
 }
 .slider-container {
-    background: #becfd8 url(nimages/ban1.jpg) no-repeat;
+    background: #becfd8 url(user/images/banner1.jpg) no-repeat;
     width: 100%;
     background-size: contain !important;
     background-position: 60% 0px;}
@@ -974,7 +974,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 						class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href="HomePage"><img
-					src="nimages/logo (1).png" style="display:block;" alt="Aarna Matrimony"></a>
+					src="images/logo.png" style="display:block;" class="img-responsive" alt="Aarna Matrimony"></a>
 					
 					<img style="margin-top:8px;" src="nimages/title-bar-png.png" class="img-responsive">
 <!-- 					<p class="ntag">NO 1 MATCH MAKING ONLINE TELUGU MATRIMONIAL SITE</p> -->
@@ -1189,7 +1189,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 	</nav>
 	<div id="slider">
 
-		<div class="col-md-12 container-fluid slider-container" style="background: #becfd8 url(nimages/ban1.jpg) no-repeat;width: 100%;
+		<div class="col-md-12 container-fluid slider-container" style="background: #becfd8 url(user/images/banner1.jpg) no-repeat;width: 100%;
    
     background-size: cover;
     background-position: 60% 0px;
