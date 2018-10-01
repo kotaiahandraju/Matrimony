@@ -974,7 +974,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 						class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href="HomePage"><img
-					src="images/logo.png" style="display:block;" class="img-responsive" alt="Aarna Matrimony"></a>
+					src="images/logo.png" style="display:block;" class="" alt="Aarna Matrimony"></a>
 					
 					<img style="margin-top:8px;" src="nimages/title-bar-png.png" class="img-responsive">
 <!-- 					<p class="ntag">NO 1 MATCH MAKING ONLINE TELUGU MATRIMONIAL SITE</p> -->
@@ -1310,7 +1310,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 								<option value="Male" id="id2">Groom</option>
 							</form:select>
 </div>
-<div class="col-md-3"><h4>Aged  </h4>   
+<div class="col-md-3"><h4>Age  </h4>   
 <span>From </span> <form:select path="rAgeFrom" id="rAgeFrom" name="rAgeFrom"   class="for-control"  style="width:60px;">
 						            <option value="18">18</option>
 									<option value="19">19</option>
@@ -2259,6 +2259,9 @@ $('img').bind('contextmenu', function(e) {
 //    		$("#cast").select2({
 //    			placeholder : "-- Choose Cast --"
 //    		});
+   $("#religionId").val(1);
+   $('#religionId').trigger("chosen:updated");
+   getReliginCastAjax1();
    
     	  window.onload = function (){
     	    $(".bts-popup").delay(1000).addClass('is-visible');
