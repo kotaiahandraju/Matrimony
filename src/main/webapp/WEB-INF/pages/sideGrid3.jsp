@@ -137,7 +137,7 @@ margin-bottom:0px;}
 							</select> -->
 							<form:form commandName="createProfile"  class="form-horizontal" id="quickSearchForm" name="quickSearchForm" role="form" method="post">
 						<form:hidden path="id" />
-							<h4>Aged  </h4>   
+							<h4>Age  </h4>   
        <span>From </span> <form:select path="rAgeFrom"    class="for-control"  style="width:60px;">
 						            <option value="18">18</option>
 									<option value="19">19</option>
