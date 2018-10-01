@@ -1862,6 +1862,7 @@ tooltip:hover:after {
 						$("#default_text_opt").prop("checked",true);
 						var texttt = mail_default_textt; 
 						 texttt = texttt.replace(/##newline##/g,"\r\n");
+						 texttt = texttt.replace(/##newline##/g,"\n");
 						 texttt = texttt.replace(/##tabspace##/g,"\t");
 						 $("#mail_content").val(texttt);
 						 

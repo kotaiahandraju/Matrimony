@@ -47,6 +47,7 @@ position:relative;
 
 } }
 </style>
+<script type="text/javascript" src="${baseurl }/js/ajax.js"></script>				
 				<div class="col-md-5 col-sm-12"></div>
 	            <div  class="clearfix"></div>    
 			
@@ -63,7 +64,7 @@ position:relative;
 	   					
 		             		
 		             			<div class="panel-body">
-		             				<input type="text" class="col-md-5 form-control" id="forgotPasswordInput" placeholder="email-id/phone number/username" onkeyup="removeBorder(this.id)"  name="forgotPasswordInput"  /> 
+		             				<input type="text" class="col-md-5 form-control" id="forgotPasswordInput" placeholder="email-id/phone number/username"   name="forgotPasswordInput"  /> 
 		             				<button name="fpNextBtn" type="button" id="fpNextBtn" class="btn btn-primary" onclick="displayFpNextPage()">Next</button>
 								</div>
 						
