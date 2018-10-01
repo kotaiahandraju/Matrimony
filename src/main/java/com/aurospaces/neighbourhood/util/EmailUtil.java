@@ -174,7 +174,6 @@ public class EmailUtil {
 	        	
 	        	subject = prop.getProperty("profiles_list_subject");
 	            StringBuffer profiles_list = new StringBuffer("");
-	            System.out.println("#### preferred profilesList:"+profilesList);
 	            for(Map<String,String> profile:profilesList){
 	            	
 	            	String profile_format = prop.getProperty("profile_format_new");
@@ -200,7 +199,6 @@ public class EmailUtil {
 		            // url formation
 		            //String baseurl =  "";//request.getScheme() + "://" + request.getServerName() +      ":" +   request.getServerPort() +  request.getContextPath();
 					String actionUrl = baseurl+"fullProfile?un="+receiverBean.getUsername()+"&pun="+profile.get("username")+"&suc="+receiverBean.getUnique_code()+"&puc="+profile.get("unique_code");
-					System.out.println("##### actionUrl:"+actionUrl);
 					//profile_format = profile_format.replace("_actionurl_",actionUrl);
 					profile_format = profile_format.replace("_fullprofilelink_", actionUrl);
 					profile_format = profile_format.replace("_senderphoto_", "cid:senderimage"+profile.get("id"));
@@ -835,7 +833,6 @@ public class EmailUtil {
 			
 	       String baseUrl =  MiscUtils.getBaseUrl(request);
 			String link = baseUrl+"/users/emailvarificationlink?email="+mailTo+"&code="+objUsersBean.getUnique_code();
-			System.out.println(link);
 	       body = body.replace("_link_", link);
 	       body = body.replace("_customer_", objUsersBean.getFirstName()+" "+objUsersBean.getLastName());
 	       body = body.replace("_bodyimage_", "cid:image3");
@@ -910,10 +907,8 @@ try{
 			Properties prop = new Properties();
 			InputStream input = null;
 			String body = null;
-			System.out.println("##########.");
 			try{
 		    String propertiespath = objContext.getRealPath("Resources" +File.separator+"DataBase.properties");
-		    System.out.println("########## propertiespath:"+propertiespath);
 			input = new FileInputStream(propertiespath);
 			// load the properties file
 			prop.load(input);
@@ -923,11 +918,9 @@ try{
 			String password = prop.getProperty("mailpassword");
 			
 				   List<Map<String,Object>> emailEntriesList = objUsersDao.getEmailEntriesToSend();//"select * from messages where status = '0'");
-				   System.out.println("########## emailEntriesList:"+emailEntriesList);
 				   for(Map<String,Object> emailEntry:emailEntriesList){
 					   try{
 					   String mailTo = (String)emailEntry.get("receiver_email");
-					   System.out.println("########## mailTo:"+mailTo);
 					   //subject = prop.getProperty(emailEntry.get("type")+"_subject");
 					   //subject = subject.replace("_username_", (String)emailEntry.get("sender_display_name"));
 					   subject =  (String)emailEntry.get("sender_display_name")+(String)emailEntry.get("shortstr");
@@ -1001,7 +994,6 @@ try{
 						body = body.replace("_img4_", "cid:img4");
 						body = body.replace("_img5_", "cid:img5");
 						String str = body.toString();
-						System.out.println("########## body:"+str);
 				        // inline images
 				        Map<String, String> inlineImages = new HashMap<String, String>();
 		//		        inlineImages.put("image1", objContext.getRealPath("images" +File.separator+"telugu.png"));
@@ -1021,13 +1013,11 @@ try{
 				        inlineImages.put("img3", objContext.getRealPath("images" +File.separator+"img3.jpg"));
 				        inlineImages.put("img4", objContext.getRealPath("images" +File.separator+"img4.jpg"));
 				        inlineImages.put("img5", objContext.getRealPath("images" +File.separator+"img5.jpg"));
-				        System.out.println("########## before calling EmbeddedImageEmailUtil");
 				            EmbeddedImageEmailUtil.send(host, port, mailFrom, password, mailTo,
 				                subject, body.toString(), inlineImages);
 				            System.out.println("Email sent.");
 				            // update corresponding entry status in the mails table
 				            objUsersDao.updateEmailDeliveryStatus((Integer)emailEntry.get("id"),"1");
-				            System.out.println("updated status.");        
 		            
 		        }catch (Exception ex) {
 					objUsersDao.updateEmailDeliveryStatus((Integer)emailEntry.get("id"),"2");
