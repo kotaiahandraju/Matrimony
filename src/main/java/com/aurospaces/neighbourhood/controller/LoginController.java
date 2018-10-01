@@ -439,7 +439,15 @@ public class LoginController {
 				objUserBean.setViewedNotContactedCount((String.valueOf(interestCounts.get("viewedNotContactedCount"))));
 				objUserBean.setShortListedCount((String.valueOf(interestCounts.get("shortListedCount"))));
 				session.setAttribute("default_text_option", interestCounts.get("default_text_option"));
-				session.setAttribute("mail_default_text", interestCounts.get("mail_default_text"));
+				Object default_text = interestCounts.get("mail_default_text");
+				if(default_text!=null){
+					String excaped_text = ((String)default_text).replaceAll("\r\n", "##newline##");
+					excaped_text = excaped_text.replaceAll("\t", "##tabspace##");
+					session.setAttribute("mail_default_text", excaped_text);
+				}else{
+					session.setAttribute("mail_default_text", "''");
+				}
+				
 		}else{
 			session.setAttribute("notificationsCount", 0);
 			objUserBean.setSentInterestCount("0");
