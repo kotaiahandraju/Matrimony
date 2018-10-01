@@ -1438,7 +1438,7 @@ public class HomePageController {
 				sJson = objectMapper.writeValueAsString(latest_updated_profiles);
 				request.setAttribute("latest_updated_profiles", sJson);
 			}else{
-				request.setAttribute("latest_updated_profiles", "");
+				request.setAttribute("latest_updated_profiles", "''");
 			}
 			
 			// update notifications count also
@@ -4482,6 +4482,7 @@ String sJson="";
 						 if(saved){
 							 objJson.put("message", "success");
 							 String excaped_text = receipientUser.getMail_content().replaceAll("\r\n", "##newline##");
+							 excaped_text = receipientUser.getMail_content().replaceAll("\n", "##newline##");
 							 excaped_text = excaped_text.replaceAll("\t", "##tabspace##");
 							 objUsersDao.sendMailMessage(profile_id,excaped_text,default_text_option.equalsIgnoreCase("true")?"1":"0");
 							 //session.setAttribute("default_text_option", default_text_option.equalsIgnoreCase("true")?"1":"0");

@@ -140,6 +140,7 @@ public class EmailUtil {
 	        } catch (Exception ex) {
 	            System.out.println("Could not send email.");
 	            ex.printStackTrace();
+	            return null;
 	        }
 			return subject;
 	}

@@ -441,9 +441,10 @@ public class LoginController {
 				session.setAttribute("default_text_option", interestCounts.get("default_text_option"));
 				Object default_text = interestCounts.get("mail_default_text");
 				if(default_text!=null){
-					String excaped_text = ((String)default_text).replaceAll("\r\n", "##newline##");
-					excaped_text = excaped_text.replaceAll("\t", "##tabspace##");
-					session.setAttribute("mail_default_text", excaped_text);
+					/*String excaped_text = ((String)default_text).replaceAll("\r\n", "##newline##");
+					excaped_text = excaped_text.replaceAll("\n", "##newline##");
+					excaped_text = excaped_text.replaceAll("\t", "##tabspace##");*/
+					session.setAttribute("mail_default_text", default_text);
 				}else{
 					session.setAttribute("mail_default_text", "''");
 				}
@@ -705,9 +706,14 @@ public class LoginController {
 					if("emailTo".equalsIgnoreCase(selectedOption)){
 						try {
 							EmailUtil emailUtil = new EmailUtil();
-							emailUtil.sendResetPasswordEmail(userBean, objContext, "forgot_password");
-							request.setAttribute("sentToStr", "email id xxxxxxxx"+session.getAttribute("emailStr"));
-							request.setAttribute("message", "success");
+							String retVal = emailUtil.sendResetPasswordEmail(userBean, objContext, "forgot_password");
+							if(StringUtils.isNotBlank(retVal)){
+								request.setAttribute("sentToStr", "email id xxxxxxxx"+session.getAttribute("emailStr"));
+								request.setAttribute("message", "success");
+							}else{
+								request.setAttribute("message", "failed");
+							}
+							
 						} catch (Exception e) {
 							e.printStackTrace();
 							request.setAttribute("message", "failed");
