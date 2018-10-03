@@ -1155,9 +1155,9 @@ public class HomePageController {
 		  List<ReligionBean> religionList = null;
 		  List<EducationBean> educationList = null;
 		  String profileId = request.getParameter("id");
+		  UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
 		try {
 			
-			UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
 			request.setAttribute("sessionBeanList", sessionBean);
 				String sender_username = request.getParameter("un");
 				String profile_username = request.getParameter("pun");
@@ -1214,13 +1214,20 @@ public class HomePageController {
 			
 			objUserssBean.setId(sessionBean.getId());
 			
-			List<Map<String,Object>> similarProfiles = objUsersDao.getSimilarProfiles(profileBean);
+			List<Map<String,Object>> similarProfiles = objUsersDao.getSimilarProfiles(profileBean,sessionBean);
 			
 			if(similarProfiles!=null && similarProfiles.size()>0){
 				request.setAttribute("similar_profiles", similarProfiles);
 			}else{
 				request.setAttribute("similar_profiles", "");
 			}
+			
+			 List<Map<String, Object>> listOrderBeans1  = objUsersDao.getRecentlyViewedProfiles(sessionBean);
+			 if(listOrderBeans1!=null && listOrderBeans1.size()>0){
+					request.setAttribute("recently_profiles", listOrderBeans1);
+				}else{
+					request.setAttribute("recently_profiles", "");
+				}
 			
 //			EmailUtil.viewFullProfileMail(sessionBean, profileBean, request, objContext);
 			/*int notificationsCount = objUsersDao.getNotificationsCount(sessionBean);
