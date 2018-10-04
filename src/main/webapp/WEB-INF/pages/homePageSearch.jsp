@@ -4,6 +4,13 @@
 <link rel="stylesheet" href="user/css/flexslider.css" type="text/css" media="screen" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <style>
+.col-md-8 {
+padding-left:0px;
+padding-right:0px;
+}
+.modal-body {
+padding:0px;
+}
 video {
 	width: 350px ;
 	height: 245px;
