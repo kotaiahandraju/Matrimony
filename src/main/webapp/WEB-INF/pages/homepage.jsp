@@ -591,7 +591,7 @@ video {
 	color:#fff;}
 	.bannerform {
 	    float: right;
-    margin-top: 40% !important;
+    margin-top: 50% !important;
     width: 100%;
     margin-right: 0px !important;
 	}
@@ -969,7 +969,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 		<div class="container-fluid welcome header">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse"
-					data-target="#welcome">
+					data-target=".navbar-collapse">
 					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
@@ -2468,10 +2468,13 @@ $('img').bind('contextmenu', function(e) {
     /* $(".multiselect").click(function(){
     	$(".dropdown-content").css("display", 'block');
     }); */
-    $(".navbar-toggle").click(function(e){
+    /* $(".navbar-toggle").click(function(e){
     	  $(this).toggleClass("open");
-    	});
+    	}); */
     </script>
+    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+      <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+  
 </body>
 
 </html>
