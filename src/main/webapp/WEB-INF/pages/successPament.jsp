@@ -7,7 +7,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
   
 
-<div class="container" id="printDiv"  style="background:#fff;">
+<div class="container" id="printDiv"  style="background:#fff; min-height:500px;">
 	
 	<div align="center"><img src="${baseurl }/user/images/logo1.jpg" alt="logo"></div>
 <br>
@@ -15,7 +15,7 @@
     
 	</table>
 	<div class="col-md-3"></div>
-	<div class="col-md-6">
+	<div class="col-md-6" >
 	<table class="table table-bordered table-responsive" align="center" >      
 		<tr>
         <th>Name</th>
@@ -60,16 +60,16 @@
 			</c:if></div> --%>
 			</div><div class="clearfix"></div>
   <div class="col-md-3" style="text-align: center;"></div>
-       <div class="col-md-2" style="text-align: center;">
+       <div class="col-md-3" style="text-align: center;">
        <button class="btn btn-warning noPrint" onclick="PrintElem('#printDiv');" id="printpagebutton">Print</button>
        </div>
-       <div class="col-md-2" style="text-align: center;">
+       <div class="col-md-3" style="text-align: center;">
        		<a href="dashboard" type="button" class="btn btn-primary noPrint" id="myaccountBtn" >Goto My Account</a>
        </div>
-       <div class="col-md-2" style="text-align: center;">
+       <!-- <div class="col-md-2" style="text-align: center;">
        		<p><a href="HomePage" type="button" class="btn btn-success noPrint" id="homepagBtn" >Goto HomePage</a></p>
        
-       </div>
+       </div> -->
        <br><br>
 </div>
        <script>

@@ -1628,6 +1628,12 @@ function resetBtnfunction(){
 	});
 	
 	function submitMore(option_str){
+		var ageFrom = $("#age_from").val();
+		var ageTo = $("#age_to").val();
+		if(ageFrom > ageTo){
+			alert("Sorry, Invalid Age range");
+			return false;
+		}
 		var page = 1;
 			var formData = new FormData();
 			

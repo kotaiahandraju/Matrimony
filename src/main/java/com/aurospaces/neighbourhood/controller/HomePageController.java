@@ -1697,7 +1697,19 @@ String sJson="";
 				request.setAttribute("allOrders1", "''");
 				request.setAttribute("total_records", "0");
 			}
-			
+			Map<Integer, String> cityMap = new LinkedHashMap<Integer, String>();
+			try {
+				List<CityBean> cities = objCityDao.getAllCities();
+				for (CityBean bean : cities) {
+					cityMap.put(bean.getId(), bean.getName());
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			} 
+			objectMapper = new ObjectMapper();
+			sJson = objectMapper.writeValueAsString(cityMap);
+			request.setAttribute("all_cities", sJson);
 			
 			
 		} catch (Exception e) {
@@ -5392,6 +5404,19 @@ public String recentlyViewedProfiles(@ModelAttribute("createProfile") UsersBean 
 				request.setAttribute("allOrders1", "''");
 				request.setAttribute("total_records", "0");
 			}
+			Map<Integer, String> cityMap = new LinkedHashMap<Integer, String>();
+			try {
+				List<CityBean> cities = objCityDao.getAllCities();
+				for (CityBean bean : cities) {
+					cityMap.put(bean.getId(), bean.getName());
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			} 
+			objectMapper = new ObjectMapper();
+			sJson = objectMapper.writeValueAsString(cityMap);
+			request.setAttribute("all_cities", sJson);
 	  } catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e);
@@ -5474,6 +5499,19 @@ public String premiumMembers(@ModelAttribute("createProfile") UsersBean searchCr
 			request.setAttribute("allOrders1", "''");
 			request.setAttribute("total_records", "0");
 		}
+		Map<Integer, String> cityMap = new LinkedHashMap<Integer, String>();
+		try {
+			List<CityBean> cities = objCityDao.getAllCities();
+			for (CityBean bean : cities) {
+				cityMap.put(bean.getId(), bean.getName());
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+		objectMapper = new ObjectMapper();
+		sJson = objectMapper.writeValueAsString(cityMap);
+		request.setAttribute("all_cities", sJson);
   } catch (Exception e) {
 		e.printStackTrace();
 		System.out.println(e);

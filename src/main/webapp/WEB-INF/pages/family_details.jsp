@@ -10,7 +10,7 @@
 						<div class="form-group">
 					      <label class="control-label" for="textinput">Father Name</label> 
 					      
-					      	<form:input path="fatherName" class="form-control onlyCharacters" placeholder="Enter Father Name"/>
+					      	<form:input path="fatherName" class="form-control onlyCharacters notAllowFirstSpace" placeholder="Enter Father Name"/>
 					      </div>
 					    </div>
 					    
@@ -18,7 +18,7 @@
 					    <div class="form-group">
 					      <label class="control-label" for="textinput">Mother Name</label>  
 					      
-					      	<form:input path="motherName" class="form-control onlyCharacters" placeholder="Enter Mother Name"/>
+					      	<form:input path="motherName" class="form-control onlyCharacters notAllowFirstSpace" placeholder="Enter Mother Name"/>
 					      </div>
 					    </div>
 					    
