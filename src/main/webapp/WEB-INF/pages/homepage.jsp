@@ -1147,7 +1147,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 							<!--                                 <input id="email" type="email" class="form-control" name="email" value="" required placeholder="Email Address"> -->
 							<div class="input-group">
 						<span class="input-group-addon"><i class="fa fa-user"></i></span>
-							<input type="text" class="form-control"
+							<input type="text" class="form-control notAllowFirstSpace"
 								onkeydown="removeBorder(this.id)" name="userName" id="userName"
 								placeholder="Username"></div>
 						</div>
@@ -1204,12 +1204,12 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 <center><h4 style="margin-top:-1px;cursor : none;" class="btn btn-warning"">Register</h4></center>
 							<div class="form-group">
 								<label for="user_name">Your Email-Id :</label> 
-								<form:input	path="email" onkeydown="removeBorder(this.id)" class="form-control" placeholder="Email"/>
+								<form:input	path="email" onkeydown="removeBorder(this.id)" class="form-control notAllowFirstSpace" placeholder="Email"/>
 								<span class="hasError" id="emailError" style="font-size: 13px;"></span>
 							</div>
 							<div class="form-group">
 								<label for="user_password">Create Password :</label> 
-								<form:password path="regPassword" class="form-control" onkeydown="removeBorder(this.id)"  placeholder="Password"/>
+								<form:password path="regPassword" class="form-control" onkeydown="removeBorder(this.id)" maxlength="10" placeholder="Password"/>
 							</div>
 							<div class="form-group">
 								<label for="user_ssword">Create Profile for :</label> 
@@ -1243,10 +1243,10 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 									<label for="" class="col-md-12">Your Name</label>
 									<div class="">
 									<div class="col-md-6 firstnam" >
-										<input type="text" name="firstName" onkeydown="removeBorder(this.id)" class="form-control onlyCharacters" id="firstName" placeholder="First Name">
+										<input type="text" name="firstName" onkeydown="removeBorder(this.id)" class="form-control onlyCharacters notAllowFirstSpace" id="firstName" placeholder="First Name">
 									</div>
 									<div class="col-md-6 firstnam">
-										<input type="text" name="lastName" onkeydown="removeBorder(this.id)" class="form-control onlyCharacters" id="lastName" placeholder="Last Name">
+										<input type="text" name="lastName" onkeydown="removeBorder(this.id)" class="form-control onlyCharacters notAllowFirstSpace" id="lastName" placeholder="Last Name">
 									</div></div>
 									<div class="clearfix"></div>
 								</div>

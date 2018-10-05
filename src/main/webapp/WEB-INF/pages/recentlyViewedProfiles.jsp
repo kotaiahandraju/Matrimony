@@ -26,6 +26,17 @@ margin-bottom:15px;}
 			</div></div>	
 	<script type="text/javascript">	
 	
+	$(document).ready(function() {
+
+		$("#city").select2({
+			placeholder : "-- Select City --",
+			allowClear : true
+		});
+	});
+	var city_map = ${all_cities};
+	  $.each(city_map,function(key, value) {
+				$("#city").append("<option value="+key+" >"+ value+ "</option>");
+			}); 
 var total_items_count = ${total_records};
 var page_size = ${page_size};
 var allowed_limit = "${allowed_profiles_limit}";
@@ -485,5 +496,96 @@ $("#selectAllRequest").on("click", function() {
     $('.yet-to-send').prop('checked', false);
   }
 });
+
+function submitMore(option_str){
+	var ageFrom = $("#age_from").val();
+	var ageTo = $("#age_to").val();
+	if(ageFrom > ageTo){
+		alert("Sorry, Invalid Age range");
+		return false;
+	}
+	var page = 1;
+		var formData = new FormData();
+		
+		formData.append("rHeight", $("#rHeight").val());
+		formData.append("rHeightTo", $("#rHeightTo").val());
+		
+		formData.append("rMaritalStatus", $(
+				"#rMaritalStatus").val());
+		formData.append("rReligion", $("#rReligion")
+				.val());
+		formData.append("rCaste", $("#rCaste").val());
+		formData.append("rMotherTongue", $(
+				"#rMotherTongue").val());
+		formData.append("rCountry", $("#rCountry")
+				.val());
+		formData.append("rState", $("#rState").val());
+		
+		formData.append("page_no", page);
+		formData.append("request_from", "search");
+		
+		formData.append("rCity", $("#city").val());
+		formData.append("rAgeFrom", $("#age_from").val());
+		formData.append("rAgeTo", $("#age_to").val());
+		
+		if(option_str=="day"){
+			formData.append("with_in_day", "true");
+			clicked_link = "day";
+		}else if(option_str=="week"){
+			formData.append("with_in_week", "true");
+			clicked_link = "week";
+		}else if(option_str=="month"){
+			formData.append("with_in_month", "true");
+			clicked_link = "month";
+		}else if(option_str=="all"){
+			formData.append("all", "true");
+			clicked_link = "all";
+		}else if(option_str=="photo"){
+			formData.append("with_photo", "true");
+			clicked_link = "photo";
+		}
+		
+		
+		jQuery.fn.makeMultipartRequest('POST', 'displayPage', false,
+				formData, false, 'text', function(data){
+					var jsonobj = $.parseJSON(data);
+					var results = jsonobj.results;
+					total_items_count = jsonobj.total_records;
+					//$('#countId').html('');
+					$("#search_criteria").prop(
+							"hidden", true);
+					$('#searchresultsDiv')
+							.removeAttr(
+									"hidden");
+					if (results == "") {
+						$('#countId').html('');
+						$('#countId').html('0');
+						var str = '<div class="alert alert-danger ban"><h6>No results found..!</h6></div>';
+						$('#searchResults')
+								.html('');
+						$(str)
+								.appendTo(
+										"#searchResults");
+						$("#table_footer")
+								.prop("hidden",
+										true);
+						$("#altLists").prop(
+								"hidden", true);
+					} else {
+						$('#countId').html('');
+						$('#countId').html(total_items_count);
+						$("#altLists").asPaginator('destroy');
+						paginationSetupForSideGrid(total_items_count);
+		    			$("#altLists").asPaginator('enable');
+		    			displayMatches(results);
+		    			$("#table_footer").removeAttr("hidden");
+		    			$("#altLists").removeAttr("hidden");
+		    			displayTableFooter(1);
+		    			addWaterMark();
+					}
+		});
+}
+$(".searchPage").addClass("active");
+
 </script>
 <%@ include file="userFooter.jsp"%>

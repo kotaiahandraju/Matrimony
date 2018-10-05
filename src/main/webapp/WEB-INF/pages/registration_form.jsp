@@ -288,7 +288,7 @@
 					      <label class="col-md-4 control-label" for="textinput">About myself<span style="color:red;">*</span></label>
 					     
 					      <div class="col-md-6">
-					      	<form:textarea rows="6" path="aboutMyself" onkeyup="checkLen()"  onfocus="colorChange()" class="form-control u"></form:textarea>
+					      	<form:textarea rows="6" path="aboutMyself" onkeyup="checkLen()"  onfocus="colorChange()" class="form-control u notAllowFirstSpace"></form:textarea>
 					      	 <span id="errorMsg" style="color:red"></span>  
 					      </div>
 					    </div>

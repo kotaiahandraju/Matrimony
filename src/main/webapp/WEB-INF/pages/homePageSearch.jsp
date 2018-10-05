@@ -929,7 +929,11 @@ text-align:left;
 .panel-title .trigger.collapsed:before {
   content: '\e081';
 }
-
+blockquote p {
+    display: inline;
+    /* line-break: initial; */
+    word-wrap: break-word;
+}
 .new {
 margin-left:10px;
 }</style><link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
@@ -987,7 +991,7 @@ margin-left:10px;
 			  		var tblRow = profile_highlisht_str
 			  		+ '<div class="panel-heading">'
 			  		+ '<h5 class="panel-title" style="text-align:left;">'
-			  		+ '<div class="form-check">	<label class="form-check-label" style="color:#000;">  '+orderObj.firstName+'&nbsp;'+orderObj.lastName+'</label>	<span class="pull-right">Created by '+orderObj.createProfileFor+'</span></div>'
+			  		+ '<div class="form-check">	<label class="form-check-label" style="color:#000;"><a href="HomePage"><img src="${baseurl}/images/blurr.png"/>  </a></label>	<span class="pull-right">Created by '+orderObj.createProfileFor+'</span></div>'
 			  		+ '</h5>'
 			  		+ '</div>'
 			  		+ '<div class="panel-body">'

@@ -97,7 +97,7 @@
 						<div class="form-group">
 							<label class="col-md-4 control-label" for="textinput">Gothram</label>  
 							<div class="col-md-6">
-								<form:input path="gotram" type="text" class="form-control onlyCharacters u" placeholder="Enter Gotram" maxlength="255"/>
+								<form:input path="gotram" type="text" class="form-control onlyCharacters u notAllowFirstSpace" placeholder="Enter Gotram" maxlength="255"/>
 							</div>
 						</div>
 						<div class="form-group">
