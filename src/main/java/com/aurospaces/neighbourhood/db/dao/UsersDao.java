@@ -725,7 +725,7 @@ public class UsersDao extends BaseUsersDao
 						objUserBean.setViewedNotContactedCount(viewed_not_contacted_cnt+"");
 						session.setAttribute("cacheGuest",objUserBean);
 					}
-					
+					return true;
 				}catch(Exception e){
 					e.printStackTrace();
 					return false;
