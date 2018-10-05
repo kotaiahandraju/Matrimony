@@ -176,7 +176,7 @@ public class LoginController {
 		ObjectMapper objectMapper = null;
 		String sJson = null;
 		try {
-			String sSql = "select id,name from religion  where status='1' order by name asc";
+			String sSql = "select id,name from religion  where status='1' and priority is not null order by priority";
 			List<EducationBean> elist = objUsersDao.populate(sSql);
 			for (EducationBean bean : elist) {
 				if(list.size()<=8){
@@ -189,7 +189,7 @@ public class LoginController {
 					break;
 				}
 			}
-			sSql = "select id,name from cast  where status='1' order by name asc";
+			sSql = "select id,name from cast  where status='1' and priority is not null order by priority ";
 			elist = objUsersDao.populate(sSql);
 			for (EducationBean bean : elist) {
 				if(list.size()<=16){
