@@ -199,7 +199,7 @@ contacted (${cacheGuest.viewedNotContactedCount})</a><br>
       <option value="59">59</option><option value="60">60</option><option value="61">61</option><option value="62">62</option>
       <option value="63">63</option><option value="64">64</option><option value="65">65</option><option value="66">66</option>
       <option value="67">67</option><option value="68">68</option><option value="69">69</option><option value="70">70</option>
-      </select>&nbsp;&nbsp;Yrs<span class="errortext" id="ageerr"></span>&nbsp;&nbsp;<input class="" style="background: rgb(255, 255, 255) none repeat scroll 0% 0%; border-radius: 3px; color: rgb(2, 116, 203); font-weight: normal; font-size: 12px; margin-left: 0px; padding: 5px; margin-top: -2px; border: 1px solid rgb(214, 214, 214); line-height: 16px;cursor:pointer !important;" value="Submit" onclick="submitMore('')" type="button"></div>
+      </select>&nbsp;&nbsp;Yrs<span class="errortext" id="ageerr"></span>&nbsp;&nbsp;<input class="" style="background: rgb(255, 255, 255) none repeat scroll 0% 0%; border-radius: 3px; color: rgb(2, 116, 203); font-weight: normal; font-size: 12px; margin-left: 0px; padding: 5px; margin-top: -2px; border: 1px solid rgb(214, 214, 214); line-height: 16px;cursor:pointer !important;" value="Submit" onclick="submitMore('');" type="button"></div>
         </div>
     </div>
   </div>
@@ -221,6 +221,9 @@ contacted (${cacheGuest.viewedNotContactedCount})</a><br>
         </div>
     </div>
   </div>
-</div><a href="#"><img  style="border-radius:10px;" src="../images/upgra.jpg" class="img-responsive"/></a>
+</div><a href="memberShipPage"><img  style="border-radius:10px;" src="${baseurl}/images/upgra.jpg" class="img-responsive"/></a>
 			</div>
+			<script>
 			
+			
+			</script>

@@ -591,7 +591,7 @@ video {
 	color:#fff;}
 	.bannerform {
 	    float: right;
-    margin-top: 40% !important;
+    margin-top: 50% !important;
     width: 100%;
     margin-right: 0px !important;
 	}
@@ -755,11 +755,11 @@ td, th {
     margin-left: -19px !imporatant;
 }
 .ntag {
-    margin-bottom: 0px;
+    margin-bottom: 5px;
     display: inline-flex;
-    margin-top: -5px !important;
-    font-size: 9px !important;
-    color: #006699;
+    margin-top:  !important;
+    font-size: 12px !important;
+    color: #000;
 }}
 @media ( min-width : 980px) {
 #strip .col-md-4 {
@@ -768,11 +768,11 @@ td, th {
     float: left;
 }
 .ntag {
-    margin-bottom: 0px;
+    margin-bottom: 5px;
     display: inline-flex;
-    margin-top: -5px;
-    font-size: 9px;
-    color: #006699;
+    margin-top: px;
+    font-size: 10px;
+    color: #000;
 }
 .navbar>.container-fluid .navbar-brand {
     margin-left: -18px;
@@ -786,7 +786,7 @@ float:left;}
     display: inline-flex;
 }
 #welcome .navbar-right {
-    padding: 38px 0 0px !important;
+    padding: 31px 0 0px !important;
 }
 .navbar-header {
     width: 28% ;
@@ -862,7 +862,7 @@ span.has-error, span.hasError {
 	display: block !important;
 }
 #welcome .navbar-right {
-    padding: 38px 0 0px !important;
+    padding: 30px 0 0px !important;
 }
 .navbar-brand {
 padding:14px 15px !important;}
@@ -923,11 +923,13 @@ padding-left:0px !important;}
     padding: 7px 6px !important;
 }
 .ntag {
-margin-bottom: 0px;
+margin-bottom: 5px;
     display: inline-flex;
     margin-top: 15px;
-    font-size: 10px;
-    color: #006699;
+    font-size: 10.5px;
+    color: #3c3636;
+    margin-left: 3px;
+    font-weight:bold;
 }
 </style>
 <title>Aarna Matrimony</title>
@@ -976,8 +978,8 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 				<a class="navbar-brand" href="HomePage"><img
 					src="images/logo.png" style="display:block;" class="" alt="Aarna Matrimony"></a>
 					
-					<img style="margin-top:8px;" src="nimages/title-bar-png.png" class="img-responsive">
-<!-- 					<p class="ntag">NO 1 MATCH MAKING ONLINE TELUGU MATRIMONIAL SITE</p> -->
+<!-- 					<img style="margin-top:8px;" src="nimages/title-bar-png.png" class="img-responsive"> -->
+					<p class="ntag">NO 1 TELUGU MATRIMONIAL SERVICE</p>
 			</div>
 
 
@@ -1145,7 +1147,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 							<!--                                 <input id="email" type="email" class="form-control" name="email" value="" required placeholder="Email Address"> -->
 							<div class="input-group">
 						<span class="input-group-addon"><i class="fa fa-user"></i></span>
-							<input type="text" class="form-control"
+							<input type="text" class="form-control notAllowFirstSpace"
 								onkeydown="removeBorder(this.id)" name="userName" id="userName"
 								placeholder="Username"></div>
 						</div>
@@ -1199,15 +1201,15 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 
 <form:form commandName="createProfile" action="#"  id="registration"  method="post" class="login-form">
 <div id="firstForm">
-<center><h4 style="margin-top:-1px;color:;" class="btn btn-warning"">Register</h4></center>
+<center><h4 style="margin-top:-1px;cursor : none;" class="btn btn-warning"">Register</h4></center>
 							<div class="form-group">
 								<label for="user_name">Your Email-Id :</label> 
-								<form:input	path="email" onkeydown="removeBorder(this.id)" class="form-control" placeholder="Email"/>
+								<form:input	path="email" onkeydown="removeBorder(this.id)" class="form-control notAllowFirstSpace" placeholder="Email"/>
 								<span class="hasError" id="emailError" style="font-size: 13px;"></span>
 							</div>
 							<div class="form-group">
 								<label for="user_password">Create Password :</label> 
-								<form:password path="regPassword" class="form-control" onkeydown="removeBorder(this.id)"  placeholder="Password"/>
+								<form:password path="regPassword" class="form-control" onkeydown="removeBorder(this.id)" maxlength="10" placeholder="Password"/>
 							</div>
 							<div class="form-group">
 								<label for="user_ssword">Create Profile for :</label> 
@@ -1241,10 +1243,10 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 									<label for="" class="col-md-12">Your Name</label>
 									<div class="">
 									<div class="col-md-6 firstnam" >
-										<input type="text" name="firstName" onkeydown="removeBorder(this.id)" class="form-control onlyCharacters" id="firstName" placeholder="First Name">
+										<input type="text" name="firstName" onkeydown="removeBorder(this.id)" class="form-control onlyCharacters notAllowFirstSpace" id="firstName" placeholder="First Name">
 									</div>
 									<div class="col-md-6 firstnam">
-										<input type="text" name="lastName" onkeydown="removeBorder(this.id)" class="form-control onlyCharacters" id="lastName" placeholder="Last Name">
+										<input type="text" name="lastName" onkeydown="removeBorder(this.id)" class="form-control onlyCharacters notAllowFirstSpace" id="lastName" placeholder="Last Name">
 									</div></div>
 									<div class="clearfix"></div>
 								</div>
@@ -2468,10 +2470,18 @@ $('img').bind('contextmenu', function(e) {
     /* $(".multiselect").click(function(){
     	$(".dropdown-content").css("display", 'block');
     }); */
-    $(".navbar-toggle").click(function(e){
+    /* $(".navbar-toggle").click(function(e){
     	  $(this).toggleClass("open");
-    	});
+    	}); */
     </script>
+    <script type="text/javascript">
+    $(function () {
+        $('.navbar-collapse ul li a:not(.dropdown-toggle)').bind('click touchstart', function () {
+                $('.navbar-toggle:visible').click();
+        });
+});
+</script>
+  
 </body>
 
 </html>

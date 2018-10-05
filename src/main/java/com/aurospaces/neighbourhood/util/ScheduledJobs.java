@@ -27,13 +27,13 @@ public class ScheduledJobs {
 	//@Scheduled(cron = "0 0/15 6-16 * * *") //weekly, every monday at 12 am
 //	@Scheduled(cron = "0 0/3 * * * *") //weekly, every monday at 12 am
 //	@Scheduled(cron = "0 0 13 * * TUE") //weekly, every monday at 12 am
-	@Scheduled(cron = "0 0/1 * * * MON-FRI") //weekly, every monday at 12 am
+	@Scheduled(cron = "0 0 10 * * FRI") //weekly, every monday at 12 am
 	 public void sendWeeklyMatches(){
 		System.out.println("#########  sendWeeklyMatches ###########");
 		jobsController.weeklyMatchEmails();
 	 }
 	
-	@Scheduled(cron = "0 0/2 * * * *") //daily at 12 am
+	@Scheduled(cron = "0 0/1 * * * *") //daily at 12 am
 //	@Scheduled(cron = "0 0 14 * * *") //daily at 12 am
 	 public void sendEmails(){
 		System.out.println("#########  sendEmails ###########");
@@ -43,14 +43,14 @@ public class ScheduledJobs {
 	//@Scheduled(cron = "0 0/10 14-16 * * *") //daily at 12 am
 //	@Scheduled(cron = "0 0/1 * * * *") //daily at 12 am
 //	@Scheduled(cron = "0 0 11 * * *") //daily at 12 am
-	@Scheduled(cron = "0 0/3 * * * *") //daily at 12 am
+	@Scheduled(cron = "0 0/2 * * * *") //daily at 12 am
 	 public void checkMembershipValidity(){
 		System.out.println("#########  checkMembershipValidity ###########");
 		jobsController.checkMembershipValidity();
 	 }
 	
 //@Scheduled(cron = "0 0 12 * * *") //daily at 12 am
-@Scheduled(cron = "0 0/10 * * * *")
+@Scheduled(cron = "0 0/3 * * * *")
 	 public void splitProfilesToEmployees(){
 		System.out.println("#########  splitProfilesToEmployees ###########");
 		jobsController.splitProfilesToEmployees();

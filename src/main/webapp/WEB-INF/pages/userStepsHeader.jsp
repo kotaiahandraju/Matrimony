@@ -222,11 +222,11 @@ function getFilteredCitiesMultiSelect(id) {
 	<div class="row">
 		<div class="ilogo">
 			<div class="col-md-7 col-sm-12">
-				<a href="HomePage"><img src="${baseurl }/images/logo.png" class="img-responsive"></a>
+				<a href="${baseurl }/logoutHome"><img src="${baseurl }/images/logo.png" class="img-responsive"></a>
 <%-- 				<img src="${baseurl}/images/logo.png" class="img-responsive"> --%>
 			</div>
 			<div class="col-md-5">
-			<span class="pull-right home"><a class="pull-right" href="HomePage" style=" color:;">Go To HomePage </a></span>
+			<span class="pull-right home"><a class="pull-right" href="${baseurl }/logoutHome" style=" color:;">Go To HomePage </a></span>
 			</div></div>
 			</div>
 			

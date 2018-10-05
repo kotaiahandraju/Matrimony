@@ -256,8 +256,8 @@ http://pikselmatik.com
 }
 .raxus-slider .slider-relative .slide.fix-width .image img {
 	max-height: none !important;
-	width: 100% !important;
-	height: auto !important;
+	/* width: 100% !important;
+	height: auto !important; */
 }
 .raxus-slider.fit .slider-relative .slide .image img,
 .raxus-slider .slider-relative .slide.fit .image img {

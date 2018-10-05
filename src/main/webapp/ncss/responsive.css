@@ -127,11 +127,13 @@ span.pro_details {
     margin-left: -18px;
 }
 .ntag {
-    margin-bottom: 0px;
+    margin-bottom: 5px;
     display: inline-flex;
-    margin-top: -5px !important;
-    font-size: 9px !important;
-    color: #006699;
+    margin-top: px !important;
+    font-size: 10.5px;
+    color: #3c3636;
+    margin-left: 3px;
+    font-weight:bold;
 }	
 	
 	}
@@ -174,11 +176,13 @@ float:left;
     margin-left: -18px;
 }
 .ntag {
-    margin-bottom: 0px;
+    margin-bottom: 5px;
     display: inline-flex;
-    margin-top: -5px !important;
-    font-size: 9px !important;
-    color: #006699;
+    margin-top: px !important;
+    font-size: 10.5px;
+    color: #3c3636;
+    margin-left: 3px;
+    font-weight:bold;
 }	
 }
 @media screen and (max-width:806px){
@@ -454,7 +458,7 @@ display:none;
 
 	.navbar-toggle {
 
-    margin-top: 15px;
+    margin-top: 25px;
 	}
 	.form-group{
 		padding:1% 10%;

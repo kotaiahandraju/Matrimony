@@ -635,7 +635,7 @@ padding-right:0px;
 <div class="panel-heading"><b>Add Photos Now</b></div>
         <div class="panel-body table-responsive">
             <div class="col-md-3" style="width: 232px; display: -webkit-box;">
-         <a href="myPhotos" style="display: -webkit-inline-box;"><img src="http://localhost:8080/NBD/user/images/add-photo-edit-avatar.png" width="40" style="margin: 0px 0px 0px -25px;">
+         <a href="myPhotos" style="display: -webkit-inline-box;"><img src="${baseurl}/images/add-photo-edit-avatar.png" width="40" style="margin: 0px 0px 0px -25px;">
     <p style="margin-left: 10px;">Photos are the first things members look for in a profile.</p></a></div>
         </div>
     </div>
@@ -655,21 +655,21 @@ padding-right:0px;
         <div class="modal-content" style="margin-top:50px;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h2 class="modal-title grademember">Upgrade Membership</h2>
+                <h2 class="modal-title grademembe r">Upgrade Membership</h2>
             </div>
             <div class="modal-body newbody col-md-12">
 				<div class="col-md-4"><img src="${baseurl}/images/up.png" class="img-responsive"/></div>
 				<div class="col-md-8">
 				<p style="color:#b7f528;">Start Contacting Matches</p>
-				<p><img style="color:#fff;" src="../images/icon1.png"/> Get Unlimited Profiles</p>
+				<p><img style="color:#fff;" src="${baseurl}/images/icon1.png"/> Get Unlimited Profiles</p>
 				<!-- <p> <i class="fa fa-comment"></i> Chat Instantly</p> -->
 				 <div class="clearfix"></div>
-				 <p><img src="../images/icon2.png"/> Send Unlimited Personalized Messages</p>
-				 <p><img src="../images/profiletag.png"/> Valid Till Marriage</p>
+				 <p><img src="${baseurl}/images/icon2.png"/> Send Unlimited Personalized Messages</p>
+				 <p><img src="${baseurl}/images/profiletag.png"/> Valid Till Marriage</p>
 <!-- 				 <p style="padding:3px; font-size:15px;"> &nbsp; &nbsp; &nbsp;  <span class="fa fa-inr"></span> 999</p> -->
 				<!--  <p> &nbsp; &nbsp; &nbsp; On Classic Packages</p><br> --><br>
 				 <span class="btn btn-warning" align="center" h><a href="memberShipPage"  style="color:#fff;">Upgrade Now </a><i class="fa fa-chevron-right"></i></span>
-				<span class="pull-right"><img style="margin-top:-15px; height:65px;" src="../images/999.png"/></span>
+				<span class="pull-right"><img style="margin-top:-15px; height:65px;" src="${baseurl}/images/999.png"/></span>
 				 </div>
             </div>
         </div>
