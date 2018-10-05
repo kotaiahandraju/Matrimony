@@ -65,23 +65,28 @@ public class JobsController {
 		   System.out.println("### activeProfilesList:"+activeProfilesList);
 		   String baseUrl = objUsersDao.getBaseUrl(); //"http://localhost:8080/NBD/"
 		   //baseUrl += "users";
-		   for(Map<String,Object> profile:activeProfilesList){
-			   UsersBean receiverBean = new UsersBean();
-			   receiverBean.setId((Integer)profile.get("id"));
-			   receiverBean.setUsername((String)profile.get("username"));
-			   receiverBean.setUnique_code((String)profile.get("unique_code"));
-			   Object emailId = profile.get("email");
-			   receiverBean.setEmail((String)emailId);
-			   List<Map<String,String>> preferredProfiles = objUsersDao.getProfilesFilteredByPreferences(profile);
-			   System.out.println("### preferredProfiles size:"+preferredProfiles.size());
-			   try{
-				   EmailUtil.sendProfilesListEmail(receiverBean,preferredProfiles, "profiles_list_email",objContext,baseUrl);
-				   System.out.println("### matches sent");
-			   }catch(Exception e){
-				   e.printStackTrace();
-			   }
-			   
+		   if(activeProfilesList != null && activeProfilesList.size()>0){
+			   for(Map<String,Object> profile:activeProfilesList){
+				   UsersBean receiverBean = new UsersBean();
+				   receiverBean.setId((Integer)profile.get("id"));
+				   receiverBean.setUsername((String)profile.get("username"));
+				   receiverBean.setUnique_code((String)profile.get("unique_code"));
+				   Object emailId = profile.get("email");
+				   receiverBean.setEmail((String)emailId);
+				   List<Map<String,String>> preferredProfiles = objUsersDao.getProfilesFilteredByPreferences(profile);
+				   System.out.println("### preferredProfiles size:"+preferredProfiles.size());
+				   try{
+					   if(preferredProfiles != null && preferredProfiles.size()>0){
+						   EmailUtil.sendProfilesListEmail(receiverBean,preferredProfiles, "profiles_list_email",objContext,baseUrl);
+						   System.out.println("### matches sent");
+					   }
+				   }catch(Exception e){
+					   e.printStackTrace();
+				   }
+				   
+			   } 
 		   }
+		   
 		   
 		   return "";
 	   }
