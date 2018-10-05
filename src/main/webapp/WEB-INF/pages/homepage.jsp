@@ -755,11 +755,11 @@ td, th {
     margin-left: -19px !imporatant;
 }
 .ntag {
-    margin-bottom: 0px;
+    margin-bottom: 5px;
     display: inline-flex;
-    margin-top: -5px !important;
-    font-size: 9px !important;
-    color: #006699;
+    margin-top:  !important;
+    font-size: 12px !important;
+    color: #000;
 }}
 @media ( min-width : 980px) {
 #strip .col-md-4 {
@@ -768,11 +768,11 @@ td, th {
     float: left;
 }
 .ntag {
-    margin-bottom: 0px;
+    margin-bottom: 5px;
     display: inline-flex;
-    margin-top: -5px;
-    font-size: 9px;
-    color: #006699;
+    margin-top: px;
+    font-size: 10px;
+    color: #000;
 }
 .navbar>.container-fluid .navbar-brand {
     margin-left: -18px;
@@ -786,7 +786,7 @@ float:left;}
     display: inline-flex;
 }
 #welcome .navbar-right {
-    padding: 38px 0 0px !important;
+    padding: 31px 0 0px !important;
 }
 .navbar-header {
     width: 28% ;
@@ -862,7 +862,7 @@ span.has-error, span.hasError {
 	display: block !important;
 }
 #welcome .navbar-right {
-    padding: 38px 0 0px !important;
+    padding: 30px 0 0px !important;
 }
 .navbar-brand {
 padding:14px 15px !important;}
@@ -923,11 +923,13 @@ padding-left:0px !important;}
     padding: 7px 6px !important;
 }
 .ntag {
-margin-bottom: 0px;
+margin-bottom: 5px;
     display: inline-flex;
     margin-top: 15px;
-    font-size: 10px;
-    color: #006699;
+    font-size: 10.5px;
+    color: #3c3636;
+    margin-left: 3px;
+    font-weight:bold;
 }
 </style>
 <title>Aarna Matrimony</title>
@@ -969,15 +971,15 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 		<div class="container-fluid welcome header">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse"
-					data-target=".navbar-collapse">
+					data-target="#welcome">
 					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href="HomePage"><img
 					src="images/logo.png" style="display:block;" class="" alt="Aarna Matrimony"></a>
 					
-					<img style="margin-top:8px;" src="nimages/title-bar-png.png" class="img-responsive">
-<!-- 					<p class="ntag">NO 1 MATCH MAKING ONLINE TELUGU MATRIMONIAL SITE</p> -->
+<!-- 					<img style="margin-top:8px;" src="nimages/title-bar-png.png" class="img-responsive"> -->
+					<p class="ntag">NO 1 TELUGU MATRIMONIAL SERVICE</p>
 			</div>
 
 
@@ -1199,7 +1201,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 
 <form:form commandName="createProfile" action="#"  id="registration"  method="post" class="login-form">
 <div id="firstForm">
-<center><h4 style="margin-top:-1px;color:;" class="btn btn-warning"">Register</h4></center>
+<center><h4 style="margin-top:-1px;cursor : none;" class="btn btn-warning"">Register</h4></center>
 							<div class="form-group">
 								<label for="user_name">Your Email-Id :</label> 
 								<form:input	path="email" onkeydown="removeBorder(this.id)" class="form-control" placeholder="Email"/>
@@ -2472,8 +2474,13 @@ $('img').bind('contextmenu', function(e) {
     	  $(this).toggleClass("open");
     	}); */
     </script>
-    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
-      <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+    $(function () {
+        $('.navbar-collapse ul li a:not(.dropdown-toggle)').bind('click touchstart', function () {
+                $('.navbar-toggle:visible').click();
+        });
+});
+</script>
   
 </body>
 
