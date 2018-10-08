@@ -4643,10 +4643,68 @@ public boolean deletePhoto(String photoId){
 	}
 	
 	public List<Map<String, Object>> getRecentlyViewedProfiles(UsersBean objUserBean){
+		return this.getRecentlyViewedProfiles(objUserBean, null);
+	}
+	
+	public List<Map<String, Object>> getRecentlyViewedProfiles(UsersBean objUserBean,Map<String,String> filterOptions){
 
 		jdbcTemplate = custom.getJdbcTemplate();
 		StringBuffer buffer = new StringBuffer();
 		StringBuffer where_clause = new StringBuffer(" u.role_id not in (1) and u.status in ('1') and u.gender not in  ('"+objUserBean.getGender()+"') and u.id not in  ("+objUserBean.getId()+")");
+		// filter results options
+		if(filterOptions != null){
+			if(StringUtils.isNotBlank(filterOptions.get("with_photo")) && ((String)filterOptions.get("with_photo")).equalsIgnoreCase("true")){
+				where_clause.append(" and u.id in (select umg.user_id from vuser_images umg where umg.is_profile_picture = '1' and umg.approved_status = '1') ");
+			}
+			if(StringUtils.isNotBlank(filterOptions.get("with_in_day")) && ((String)filterOptions.get("with_in_day")).equalsIgnoreCase("true")){
+				where_clause.append(" and u.created_time between date_add(now(), interval -1 day) and now() ");
+			}
+			if(StringUtils.isNotBlank(filterOptions.get("with_in_week")) && ((String)filterOptions.get("with_in_week")).equalsIgnoreCase("true")){
+				where_clause.append(" and u.created_time between date_add(now(), interval -1 week) and now() ");
+			}
+			if(StringUtils.isNotBlank(filterOptions.get("with_in_month")) && ((String)filterOptions.get("with_in_month")).equalsIgnoreCase("true")){
+				where_clause.append(" and u.created_time between date_add(now(), interval -1 month) and now() ");
+			}
+			if(StringUtils.isNotBlank(filterOptions.get("created_at_any_time")) && ((String)filterOptions.get("created_at_any_time")).equalsIgnoreCase("true")){
+				//where_clause.append(" and u.created_time between date_add(now(), interval -1 month) and now() ");
+			}
+			if(StringUtils.isNotBlank(filterOptions.get("age_from"))){
+				where_clause.append( " and cast(floor((datediff(current_date(),u.dob))/365) as decimal(10,2)) >= "+filterOptions.get("age_from")+" ");
+				where_clause.append( " and cast(floor((datediff(current_date(),u.dob))/365) as decimal(10,2)) <= "+filterOptions.get("age_to")+" ");
+			}
+			if(StringUtils.isNotBlank(filterOptions.get("marital_status"))){
+				where_clause.append( " and  FIND_IN_SET(u.maritalStatus,'"+filterOptions.get("marital_status")+"')>0    ");
+			}
+			if(StringUtils.isNotBlank(filterOptions.get("height_from"))){
+				where_clause.append( " and cast(u.height as unsigned) >= cast('"+filterOptions.get("height_from")+"' as unsigned ) ");
+				where_clause.append( " and cast(u.height as unsigned) <= cast('"+filterOptions.get("height_to")+"' as unsigned ) ");
+			}
+			if(StringUtils.isNotBlank(filterOptions.get("mother_tongue"))){
+				where_clause.append( " and FIND_IN_SET(u.motherTongue,'"+filterOptions.get("mother_tongue")+"' )>0  ");
+			}
+			if(StringUtils.isNotBlank(filterOptions.get("caste"))){
+				where_clause.append( " and FIND_IN_SET(u.caste,'"+filterOptions.get("caste")+"')>0  ");
+			}
+			if(StringUtils.isNotBlank(filterOptions.get("education"))){
+				where_clause.append( " and FIND_IN_SET(u.education,'"+filterOptions.get("education")+"' )>0  ");
+			}
+			if(StringUtils.isNotBlank(filterOptions.get("occupation"))){
+				where_clause.append( " and FIND_IN_SET(u.occupation,'"+filterOptions.get("occupation")+"' )>0  ");
+			}
+			if(StringUtils.isNotBlank(filterOptions.get("annual_income"))){
+				where_clause.append(" and FIND_IN_SET(u.annualIncome,'"+filterOptions.get("occupation")+"' )>0  ");
+			}
+			if(StringUtils.isNotBlank(filterOptions.get("country"))){
+				where_clause.append( " and FIND_IN_SET(u.currentCountry,'"+filterOptions.get("country")+"' )>0  ");
+			}
+			if(StringUtils.isNotBlank(filterOptions.get("state"))){
+				where_clause.append( " and FIND_IN_SET(u.currentState,'"+filterOptions.get("state")+"' )>0  ");
+			}
+			if(StringUtils.isNotBlank(filterOptions.get("city")) && !((String)filterOptions.get("city")).equalsIgnoreCase("null")){
+				where_clause.append( " and FIND_IN_SET(u.currentCity,'"+filterOptions.get("city")+"' )>0  ");
+			}
+		}
+		///
 		try{
 			if(objUserBean.getRoleId()==MatrimonyConstants.AARNA_PREMIUM_USER_ROLE_ID 
 					|| objUserBean.getRoleId()==MatrimonyConstants.PREMIUM_USER_ROLE_ID
@@ -4699,6 +4757,13 @@ public boolean deletePhoto(String photoId){
 			} 
 			buffer.append(" where  "+where_clause+" and u.id = activity.act_done_on_user_id group by u.id order by activity.created_time desc ");
 		List<Map<String,Object>> list = jdbcTemplate.queryForList(buffer.toString());
+		int total_records = 0;
+		if(list.size()>0){
+			//get total records count
+			//String count_qry = "select count(1) from (select count(1) from users u left join user_images uimg on u.id = uimg.user_id where "+where_clause+" group by u.id) tmp ";
+			//total_records = jdbcTemplate.queryForInt(count_qry);
+			list.get(0).put("total_records", "10");//this value will be not used in jsp. so...
+		}
 		/*int total_records = 0;
 		if(list.size()>0){
 			//get total records count
@@ -4714,10 +4779,68 @@ public boolean deletePhoto(String photoId){
 	}
 	
 	public List<Map<String, Object>> getPremiumMembers(UsersBean objUserBean){
+		return this.getPremiumMembers(objUserBean, null);
+	}
+	
+	public List<Map<String, Object>> getPremiumMembers(UsersBean objUserBean,Map<String,String> filterOptions){
 
 		jdbcTemplate = custom.getJdbcTemplate();
 		StringBuffer buffer = new StringBuffer();
 		StringBuffer where_clause = new StringBuffer(" u.role_id not in (1) and u.status in ('1') and u.gender not in  ('"+objUserBean.getGender()+"') and u.id not in  ("+objUserBean.getId()+")");
+		// filter results options
+		if(filterOptions != null){
+			if(StringUtils.isNotBlank(filterOptions.get("with_photo")) && ((String)filterOptions.get("with_photo")).equalsIgnoreCase("true")){
+				where_clause.append(" and u.id in (select umg.user_id from vuser_images umg where umg.is_profile_picture = '1' and umg.approved_status = '1') ");
+			}
+			if(StringUtils.isNotBlank(filterOptions.get("with_in_day")) && ((String)filterOptions.get("with_in_day")).equalsIgnoreCase("true")){
+				where_clause.append(" and u.created_time between date_add(now(), interval -1 day) and now() ");
+			}
+			if(StringUtils.isNotBlank(filterOptions.get("with_in_week")) && ((String)filterOptions.get("with_in_week")).equalsIgnoreCase("true")){
+				where_clause.append(" and u.created_time between date_add(now(), interval -1 week) and now() ");
+			}
+			if(StringUtils.isNotBlank(filterOptions.get("with_in_month")) && ((String)filterOptions.get("with_in_month")).equalsIgnoreCase("true")){
+				where_clause.append(" and u.created_time between date_add(now(), interval -1 month) and now() ");
+			}
+			if(StringUtils.isNotBlank(filterOptions.get("created_at_any_time")) && ((String)filterOptions.get("created_at_any_time")).equalsIgnoreCase("true")){
+				//where_clause.append(" and u.created_time between date_add(now(), interval -1 month) and now() ");
+			}
+			if(StringUtils.isNotBlank(filterOptions.get("age_from"))){
+				where_clause.append( " and cast(floor((datediff(current_date(),u.dob))/365) as decimal(10,2)) >= "+filterOptions.get("age_from")+" ");
+				where_clause.append( " and cast(floor((datediff(current_date(),u.dob))/365) as decimal(10,2)) <= "+filterOptions.get("age_to")+" ");
+			}
+			if(StringUtils.isNotBlank(filterOptions.get("marital_status"))){
+				where_clause.append( " and  FIND_IN_SET(u.maritalStatus,'"+filterOptions.get("marital_status")+"')>0    ");
+			}
+			if(StringUtils.isNotBlank(filterOptions.get("height_from"))){
+				where_clause.append( " and cast(u.height as unsigned) >= cast('"+filterOptions.get("height_from")+"' as unsigned ) ");
+				where_clause.append( " and cast(u.height as unsigned) <= cast('"+filterOptions.get("height_to")+"' as unsigned ) ");
+			}
+			if(StringUtils.isNotBlank(filterOptions.get("mother_tongue"))){
+				where_clause.append( " and FIND_IN_SET(u.motherTongue,'"+filterOptions.get("mother_tongue")+"' )>0  ");
+			}
+			if(StringUtils.isNotBlank(filterOptions.get("caste"))){
+				where_clause.append( " and FIND_IN_SET(u.caste,'"+filterOptions.get("caste")+"')>0  ");
+			}
+			if(StringUtils.isNotBlank(filterOptions.get("education"))){
+				where_clause.append( " and FIND_IN_SET(u.education,'"+filterOptions.get("education")+"' )>0  ");
+			}
+			if(StringUtils.isNotBlank(filterOptions.get("occupation"))){
+				where_clause.append( " and FIND_IN_SET(u.occupation,'"+filterOptions.get("occupation")+"' )>0  ");
+			}
+			if(StringUtils.isNotBlank(filterOptions.get("annual_income"))){
+				where_clause.append(" and FIND_IN_SET(u.annualIncome,'"+filterOptions.get("occupation")+"' )>0  ");
+			}
+			if(StringUtils.isNotBlank(filterOptions.get("country"))){
+				where_clause.append( " and FIND_IN_SET(u.currentCountry,'"+filterOptions.get("country")+"' )>0  ");
+			}
+			if(StringUtils.isNotBlank(filterOptions.get("state"))){
+				where_clause.append( " and FIND_IN_SET(u.currentState,'"+filterOptions.get("state")+"' )>0  ");
+			}
+			if(StringUtils.isNotBlank(filterOptions.get("city")) && !((String)filterOptions.get("city")).equalsIgnoreCase("null")){
+				where_clause.append( " and FIND_IN_SET(u.currentCity,'"+filterOptions.get("city")+"' )>0  ");
+			}
+		}
+		///
 		try{
 			if(objUserBean.getRoleId()==MatrimonyConstants.AARNA_PREMIUM_USER_ROLE_ID 
 					|| objUserBean.getRoleId()==MatrimonyConstants.PREMIUM_USER_ROLE_ID

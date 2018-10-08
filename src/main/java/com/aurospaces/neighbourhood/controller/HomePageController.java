@@ -2802,6 +2802,10 @@ String sJson="";
 					Objresults = objUsersDao.getsentRequests(userSessionBean.getId()+"",page_no);
 				}else if("awaitingrequests".equalsIgnoreCase(request_coming_from)){
 					Objresults = objUsersDao.getAwaitingRequests(userSessionBean.getId()+"",page_no);
+				}else if("recently_viewed".equalsIgnoreCase(request_coming_from)){
+					Objresults = objUsersDao.getRecentlyViewedProfiles(userSessionBean,filterOptions);
+				}else if("premium_members".equalsIgnoreCase(request_coming_from)){
+					Objresults = objUsersDao.getPremiumMembers(userSessionBean,filterOptions);
 				}else if("inbox".equalsIgnoreCase(request_coming_from)){
 					String tabType = request.getParameter("tab_type");
 					String listType = request.getParameter("list_type");
@@ -5382,14 +5386,10 @@ public String recentlyViewedProfiles(@ModelAttribute("createProfile") UsersBean 
 				for(Map<String,Object> profileObj:listOrderBeans){
 					List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos((int) profileObj.get("id"));
 					if(photosList!=null && photosList.size()>0){
-						String imgStr = "";
-						for(Map<String,Object> photo:photosList){
-							if(StringUtils.isBlank(imgStr)){
-								imgStr = (String)photo.get("image");
-							}else
-								imgStr += ","+photo.get("image");
-						}
-						profileObj.put("photosList", imgStr);
+						//objectMapper = new ObjectMapper();
+						//sJson = objectMapper.writeValueAsString(photosList);
+						profileObj.put("photosList", photosList);
+						profileObj.put("photosListSize", photosList.size());
 					}else{
 						profileObj.put("photosList", "");
 					}
@@ -5475,14 +5475,10 @@ public String premiumMembers(@ModelAttribute("createProfile") UsersBean searchCr
 			for(Map<String,Object> profileObj:listOrderBeans){
 				List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos((int) profileObj.get("id"));
 				if(photosList!=null && photosList.size()>0){
-					String imgStr = "";
-					for(Map<String,Object> photo:photosList){
-						if(StringUtils.isBlank(imgStr)){
-							imgStr = (String)photo.get("image");
-						}else
-							imgStr += ","+photo.get("image");
-					}
-					profileObj.put("photosList", imgStr);
+					//objectMapper = new ObjectMapper();
+					//sJson = objectMapper.writeValueAsString(photosList);
+					profileObj.put("photosList", photosList);
+					profileObj.put("photosListSize", photosList.size());
 				}else{
 					profileObj.put("photosList", "");
 				}
