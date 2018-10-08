@@ -1199,7 +1199,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 <div class="col-md-8"></div>
 <div class="col-md-3 bannerform" style="float: right;    margin-right: 4%;">
 
-<form:form commandName="createProfile" action="#"  id="registration"  method="post" class="login-form">
+<form:form commandName="createProfile" action="#"  id="registration" autocomplete="off"  method="post" class="login-form">
 <div id="firstForm">
 <center><h4 style="margin-top:-1px;cursor : none;" class="btn btn-warning"">Register</h4></center>
 							<div class="form-group">
@@ -1209,7 +1209,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 							</div>
 							<div class="form-group">
 								<label for="user_password">Create Password :</label> 
-								<form:password path="regPassword" class="form-control" onkeydown="removeBorder(this.id)" maxlength="10" placeholder="Password"/>
+								<form:password path="regPassword" class="form-control" autocomplete="new-password" onkeydown="removeBorder(this.id)" maxlength="10" placeholder="Password"/>
 							</div>
 							<div class="form-group">
 								<label for="user_ssword">Create Profile for :</label> 
@@ -2406,24 +2406,13 @@ $('img').bind('contextmenu', function(e) {
     
     
     function searchSubmit(){
-    	var rPeople= $('#rPeople').val();
     	var rAgeFrom= $('#rAgeFrom').val();
     	var rAgeTo= $("#rAgeTo").val();
-    	var religion= $('#religionId').val();
-    	var castId= $('#castId').val();
-    	if(rPeople == "" && rAgeFrom == "" && rAgeTo == "" && religion == "" && castId == ""){
-    		alert("Please provide any input.");
-    		return false;
-    	}
+    	
     	if(rAgeFrom > rAgeTo){
     		alert("Sorry, Invalid Age range");
     		return false;
-    	}
-        if(rPeople == ""){
-    	alert("You are looking for?");
-    	return false;
-    	}
-        else{
+    	}else{
         	
         	
         	document.searchForm.action = "homePageSearchResults"

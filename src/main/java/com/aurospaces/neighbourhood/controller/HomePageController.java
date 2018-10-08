@@ -4815,8 +4815,9 @@ String sJson="";
 			UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
 			UsersBean currentUserBean = objUsersDao.getUser(sessionBean.getUsername());
 			String currentPassword = currentUserBean.getPassword();
-			
+			String loginemail=sessionBean.getEmail();
 			request.setAttribute("oldPassword", currentPassword);
+			request.setAttribute("loginemail", loginemail);
 			
 			///////
 			List<Map<String,Object>> castes_list =  objCastDao.getCastesBasedOnReligion(sessionBean.getReligion());
