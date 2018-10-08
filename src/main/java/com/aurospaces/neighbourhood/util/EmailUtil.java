@@ -198,7 +198,7 @@ public class EmailUtil {
 		            //profile_format = profile_format.replace("_unnamedimage_","cid:defaultimage");
 		            // url formation
 		            //String baseurl =  "";//request.getScheme() + "://" + request.getServerName() +      ":" +   request.getServerPort() +  request.getContextPath();
-					String actionUrl = baseurl+"fullProfile?un="+receiverBean.getUsername()+"&pun="+profile.get("username")+"&suc="+receiverBean.getUnique_code()+"&puc="+profile.get("unique_code");
+					String actionUrl = baseurl+"/fullProfile?un="+receiverBean.getUsername()+"&pun="+profile.get("username")+"&suc="+receiverBean.getUnique_code()+"&puc="+profile.get("unique_code");
 					//profile_format = profile_format.replace("_actionurl_",actionUrl);
 					profile_format = profile_format.replace("_fullprofilelink_", actionUrl);
 					profile_format = profile_format.replace("_senderphoto_", "cid:senderimage"+profile.get("id"));
@@ -216,11 +216,11 @@ public class EmailUtil {
 	            
 				   body = body.replace("_img_", "cid:image2");
 					body = body.replace("_bodyimage_", "cid:image3");
-					body = body.replace("_img1_", "cid:img1");
+					/*body = body.replace("_img1_", "cid:img1");
 					body = body.replace("_img2_", "cid:img2");
 					body = body.replace("_img3_", "cid:img3");
 					body = body.replace("_img4_", "cid:img4");
-					body = body.replace("_img5_", "cid:img5");
+					body = body.replace("_img5_", "cid:img5");*/
 	            
 				
 				body = body.replace("_logo_","cid:logo");
@@ -228,11 +228,11 @@ public class EmailUtil {
 				
 				inlineImages.put("image2", objContext.getRealPath("images" +File.separator+"logo.jpg"));
 		        inlineImages.put("image3", objContext.getRealPath("images" +File.separator+"matri.jpg"));
-		        inlineImages.put("img1", objContext.getRealPath("images" +File.separator+"img1.jpg"));
+		        /*inlineImages.put("img1", objContext.getRealPath("images" +File.separator+"img1.jpg"));
 		        inlineImages.put("img2", objContext.getRealPath("images" +File.separator+"img2.jpg"));
 		        inlineImages.put("img3", objContext.getRealPath("images" +File.separator+"img3.jpg"));
 		        inlineImages.put("img4", objContext.getRealPath("images" +File.separator+"img4.jpg"));
-		        inlineImages.put("img5", objContext.getRealPath("images" +File.separator+"img5.jpg"));
+		        inlineImages.put("img5", objContext.getRealPath("images" +File.separator+"img5.jpg"));*/
 	        }
 			//body = body.replace("_img_", "cid:image2");
 	        
