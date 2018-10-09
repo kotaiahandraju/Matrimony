@@ -17,9 +17,10 @@ margin-bottom:15px;}
  					<form:hidden path="id" />
              			<div class="col-md-9">
 							<div id="searchresultsDiv" class="bare">
-								<div class="searchresults">
 								    
-									<div id="searchResults"></div></div></div></div>
+									<div id="searchResults">
+									</div>
+							</div></div>
 										
 					</form:form>
 									</div> 
@@ -50,7 +51,7 @@ if (listOrders1 != "" && listOrders1 != null) {
 	/* $('#countId').html('');
 	$('#countId').html(total_items_count); */
 	displayMatches(listOrders1);
-	paginationSetup(total_items_count);
+	//paginationSetup(total_items_count);
 }
 
 
@@ -131,7 +132,7 @@ function paginationSetup(total_items_count) {
 							formData.append("rAgeFrom",$("#rAgeFrom").val());
 							formData.append("rAgeFrom",$("#rAgeFrom").val()); */
 							formData.append("page_no", page);
-							formData.append("request_from", "search");
+							formData.append("request_from", "recently_viewed");
 							//var tempData = $("#searchForm2").serialize();
 							$.fn
 									.makeMultipartRequest(
@@ -166,18 +167,18 @@ function paginationSetup(total_items_count) {
 													$("#altLists").prop(
 															"hidden", true);
 												} else {
-													paginationSetup(total_items_count);
-													$("#altLists")
+													//paginationSetup(total_items_count);
+													/* $("#altLists")
 															.asPaginator(
-																	'enable');
+																	'enable'); */
 													displayMatches(results);
-													$("#table_footer")
+													/* $("#table_footer")
 															.removeAttr(
 																	"hidden");
 													$("#altLists")
 															.removeAttr(
 																	"hidden");
-													displayTableFooter(page);
+													displayTableFooter(page); */
 													addWaterMark();
 												}
 
@@ -291,18 +292,18 @@ function displayMatches(listOrders) {
 			}else{
 				smallerSlideIndex[orderObj.id] = 0;
 				var slider = "", displayStyle = ' ';
-				var photosArray = photos_list.split(",");
-				$.each(photosArray,function(index){
-					if(photosArray[index]==orderObj.profileImage){
-						displayStyle = ' style="display:block;" '
+				//var photos_list = photos_list.split(",");
+				$.each(photos_list,function(index,photo){
+					if(photo.image==orderObj.profileImage){
+						displayStyle = ' style="display:block" '
 					}else{
-						displayStyle = ' style="display:none;" ';
+						displayStyle = ' style="display:none" ';
 					}
 					slider += '<div class="picstyle smallSlides'+orderObj.id+'" '+displayStyle+'>'
-							+'<a href="#" onclick="fullProfile('+orderObj.id+')"><img src="${catalina_base}/'+photosArray[index]+'" class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: auto;width: 100%;" ></a>'
+							+'<a href="#" onclick="fullProfile('+orderObj.id+')"><img src="${catalina_base}/'+photo.image+'" class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: auto;width: 100%;" ></a>'
 							+'</div>'
 				});
-				if(photosArray.length>1){
+				if(photos_list.length>1){
 					slider += '<p style="display: table;">'
 						+'	<a id="prevBtn'+orderObj.id+'" class="" style="text-decoration: none; margin: 0px 0px 0px 7px;" href="#no" onclick="plusSmallSlides(-1,'+orderObj.id+')">&#10094;</a>'
 						//+'	<span>'+(i+1)+' of '+photos_list.length+'</span><br>'
@@ -522,11 +523,14 @@ function submitMore(option_str){
 		formData.append("rState", $("#rState").val());
 		
 		formData.append("page_no", page);
-		formData.append("request_from", "search");
+		formData.append("request_from", "recently_viewed");
 		
 		formData.append("rCity", $("#city").val());
 		formData.append("rAgeFrom", $("#age_from").val());
 		formData.append("rAgeTo", $("#age_to").val());
+		
+		formData.append("age_from", $("#age_from").val());
+		formData.append("age_to", $("#age_to").val());
 		
 		if(option_str=="day"){
 			formData.append("with_in_day", "true");
@@ -574,13 +578,15 @@ function submitMore(option_str){
 					} else {
 						$('#countId').html('');
 						$('#countId').html(total_items_count);
-						$("#altLists").asPaginator('destroy');
-						paginationSetupForSideGrid(total_items_count);
-		    			$("#altLists").asPaginator('enable');
+						//$("#altLists").asPaginator('destroy');
+						//paginationSetupForSideGrid(total_items_count);
+		    			//$("#altLists").asPaginator('enable');
+		    			$('#searchResults')
+								.html('');
 		    			displayMatches(results);
-		    			$("#table_footer").removeAttr("hidden");
-		    			$("#altLists").removeAttr("hidden");
-		    			displayTableFooter(1);
+		    			//$("#table_footer").removeAttr("hidden");
+		    			//$("#altLists").removeAttr("hidden");
+		    			//displayTableFooter(1);
 		    			addWaterMark();
 					}
 		});
