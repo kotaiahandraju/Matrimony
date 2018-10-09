@@ -941,10 +941,19 @@ As a member, you have the benefit of receiving mobile alerts. We recommend you t
 
    		}
    	}
+       var loginemail="${loginemail}"
+    	   $("#changeEmail").val(loginemail);
        
+      
        function submitEmail(){
 
     	   var email=$("#changeEmail").val();
+    	   
+    	   if(email==loginemail){
+    		   alert("change email Id");
+    		   return false;
+    	   }
+    	   
     	   if (email == null || email == "" || email == "undefiend"){
     		   $('#changeEmail').css('border-color','red');
     			$('#changeEmail').css('color','#cc0000');
