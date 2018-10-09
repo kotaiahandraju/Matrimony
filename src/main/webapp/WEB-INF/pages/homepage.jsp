@@ -1209,7 +1209,8 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 							</div>
 							<div class="form-group">
 								<label for="user_password">Create Password :</label> 
-								<form:password path="regPassword" class="form-control" onkeydown="removeBorder(this.id)" maxlength="10" placeholder="Password"/>
+								<form:password path="regPassword" class="form-control" onkeydown="removeBorder(this.id)" maxlength="8" placeholder="Password" onkeyup="validatePassword();" autocomplete="new-password" />
+								<span class="hasError" id="password_error_div" style="font-size: 13px;font-weight: 800;"></span>
 							</div>
 							<div class="form-group">
 								<label for="user_ssword">Create Profile for :</label> 
@@ -2430,6 +2431,8 @@ $('img').bind('contextmenu', function(e) {
         		document.searchForm.submit();
         	
         }
+       
+   
     	/* {
 //     	var Female= $('#id1').val();
 //     	var Male= $('#id2').val();
@@ -2464,7 +2467,8 @@ $('img').bind('contextmenu', function(e) {
     		 
 //     		$('#myModal').modal('show');
     	});	 */
-    		
+    	 $("#password_error_div").html('');		
+    	
    
     } 
     /* $(".multiselect").click(function(){
@@ -2473,6 +2477,7 @@ $('img').bind('contextmenu', function(e) {
     /* $(".navbar-toggle").click(function(e){
     	  $(this).toggleClass("open");
     	}); */
+    
     </script>
     <script type="text/javascript">
     $(function () {
@@ -2480,6 +2485,77 @@ $('img').bind('contextmenu', function(e) {
                 $('.navbar-toggle:visible').click();
         });
 });
+    function validatePassword(){
+    	
+    	
+  	   var str = $("#regPassword").val();
+  	   var upper_text= new RegExp('[A-Z]');
+  	   var lower_text= new RegExp('[a-z]');
+  	   var number_check=new RegExp('[0-9]');
+  	   var special_char= new RegExp('[!/\'^£$%&*()}{@#~?><>,|=_+¬-\]');
+  	   
+  	   var upper_text_flag = false;
+  	   var lower_text_flag = false;
+  	   var number_check_flag = false;
+  	   var special_char_flag = false;
+  	   var min_length_flag = false;
+  	   if(str.match(upper_text)){
+  		 upper_text_flag = true;
+  		 $("#password_error_div").html('');
+  		$("#password_error_div").attr("hidden",true);
+  	   }else{
+  		   $("#password_error_div").html('');
+  		   $("#password_error_div").html('Enter atleast one uppercase letter');
+  		   $("#password_error_div").removeAttr("hidden");
+  		   return false;  
+  	   }
+  	 
+  	   if(str.match(lower_text)){
+  		   lower_text_flag = true;
+	  		 $("#password_error_div").html('');
+	   		$("#password_error_div").attr("hidden",true);
+  	   }else{
+  		   $("#password_error_div").html('');
+  		   $("#password_error_div").html('Enter atleast one lowercase letter');
+  		   $("#password_error_div").removeAttr("hidden");
+  		   return false;  
+  	   }
+  	   
+  	   if(str.match(number_check)){
+  		   number_check_flag = true;
+  		 	$("#password_error_div").html('');
+	   		$("#password_error_div").attr("hidden",true);
+  	   }else{
+  		   $("#password_error_div").html('');
+  		   $("#password_error_div").html('Enter atleast one number');
+  		   $("#password_error_div").removeAttr("hidden");
+  		   return false;  
+  	   }
+  	   
+  	   if(str.match(special_char)){
+  		   special_char_flag = true;
+  		 	$("#password_error_div").html('');
+	   		$("#password_error_div").attr("hidden",true);
+  	   }else{
+  		   $("#password_error_div").html('');
+  		   $("#password_error_div").html('Enter atleast one special character');
+  		   $("#password_error_div").removeAttr("hidden");
+  		   return false;  
+  	   }
+  	   
+  	   if(str.trim().length>=8){
+  		   min_length_flag = true;
+  			 $("#password_error_div").html('');
+	   		$("#password_error_div").attr("hidden",true);
+  	   }else{
+  		   $("#password_error_div").html('');
+  		   $("#password_error_div").html('Should contain minimum 8 characters');
+  		   $("#password_error_div").removeAttr("hidden");
+  		   return false;  
+  	   }
+  	   //$("#regPassword").val(str);
+  	   return true; 
+     }
 </script>
   
 </body>
