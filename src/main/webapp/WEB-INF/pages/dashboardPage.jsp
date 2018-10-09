@@ -388,6 +388,7 @@ padding-right:0px;
 								<%= session.getAttribute("profile_filled_status") %>% Complete 
 							</div>
 						</div>
+						<br>
 						<c:if test="${emailverify == '0'}">
 						
 						<p><span class="glyphicon glyphicon-envelope"></span> Verify your Email <a href="#no" onclick="verifyEmail()"><u>Verify Email Address</u></a></p>
@@ -1659,7 +1660,10 @@ function verifyEmail(){
   
 		$.fn.makeMultipartRequest('POST', 'verifyEmail', false,	formData, false, 'text', function(data){
 			var jsonobj = $.parseJSON(data);
-			alert(jsonobj.msg);
+			if(jsonobj.msg== true){
+				alert("verification link send to registered email");
+			}
+			
 			
 		});
 }
