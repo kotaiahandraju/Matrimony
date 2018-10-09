@@ -203,9 +203,14 @@ public class LoginController {
 				}
 				
 			}
-			//objectMapper = new ObjectMapper();
-			//sJson = objectMapper.writeValueAsString(list);
 			request.setAttribute("religionCasteList", list);
+			
+			// latest brides & grooms list to display
+			List<Map<String,Object>> latest_brides_grooms = objUsersDao.getLatestBridesAndGrooms();
+			//objectMapper = new ObjectMapper();
+			//sJson = objectMapper.writeValueAsString(latest_brides_grooms);
+			request.setAttribute("latest_brides_grooms", latest_brides_grooms);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

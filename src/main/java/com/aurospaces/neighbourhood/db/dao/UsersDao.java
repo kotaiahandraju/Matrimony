@@ -2864,17 +2864,17 @@ public class UsersDao extends BaseUsersDao
 		//String done_on_users = " select act.act_done_on_user_id from users_activity_log act where act.act_done_by_user_id = "+objUserBean.getId()+" "+activity_type_str+" ";
 		//String done_by_users = " select act.act_done_by_user_id from users_activity_log act where act.act_done_on_user_id = "+objUserBean.getId()+" "+activity_type_str+" ";
 		
-		if(    (((String)rejectedByMap.get("accepted_by_me")).equalsIgnoreCase("true") && ((String)rejectedByMap.get("accepted_by_others")).equalsIgnoreCase("true"))
-				|| (((String)rejectedByMap.get("accepted_by_me")).equalsIgnoreCase("false") && ((String)rejectedByMap.get("accepted_by_others")).equalsIgnoreCase("false"))){
+		if(    (((String)rejectedByMap.get("rejected_by_me")).equalsIgnoreCase("true") && ((String)rejectedByMap.get("rejected_by_others")).equalsIgnoreCase("true"))
+				|| (((String)rejectedByMap.get("rejected_by_me")).equalsIgnoreCase("false") && ((String)rejectedByMap.get("rejected_by_others")).equalsIgnoreCase("false"))){
 				
 				act_done_by_clause.append(" ((activity.act_done_by_user_id  = temp.id and activity.act_done_on_user_id = "+objUserBean.getId()+") or (activity.act_done_on_user_id  = temp.id and activity.act_done_by_user_id = "+objUserBean.getId()+")) ");
 				
 				//accepted_by_str = "  (activity.act_done_by_user_id = "+objUserBean.getId()+" or  activity.act_done_on_user_id = "+objUserBean.getId()+") ";
-			}else if(((String)rejectedByMap.get("accepted_by_me")).equalsIgnoreCase("true")){
+			}else if(((String)rejectedByMap.get("rejected_by_me")).equalsIgnoreCase("true")){
 				
 				act_done_by_clause.append(" (activity.act_done_on_user_id  = temp.id and activity.act_done_by_user_id = "+objUserBean.getId()+")");
 				//accepted_by_str = "  activity.act_done_by_user_id = "+objUserBean.getId()+" ";
-			}else if(((String)rejectedByMap.get("accepted_by_others")).equalsIgnoreCase("true")){
+			}else if(((String)rejectedByMap.get("rejected_by_others")).equalsIgnoreCase("true")){
 				
 				act_done_by_clause.append(" (activity.act_done_by_user_id  = temp.id and activity.act_done_on_user_id = "+objUserBean.getId()+")");
 				//accepted_by_str = "  activity.act_done_on_user_id = "+objUserBean.getId()+" ";
@@ -5354,6 +5354,54 @@ public boolean deletePhoto(String photoId){
 						+ " date_format(max(updated_on),'%d-%b-%Y %h %p') as photo_updated_time from users u left join vuser_images uimg on  u.id=uimg.user_id "
 						+ " where u.status = '1' and u.gender not in ('"+sessionUserBean.getGender()+"') and uimg.status = '1' and uimg.approved_status = '1' "
 						+" group by u.id order by u.updated_time desc) temp ";
+						
+				list =	jdbcTemplate.queryForList(qry);	
+				if(list != null && list.size()>0){
+					String user_ids = "";
+					for(Map<String,Object> obj:list){
+						user_ids += ","+obj.get("id");
+					}
+					if(StringUtils.isNotBlank(user_ids)){
+						user_ids = user_ids.substring(1);
+						qry = " select user_id,image,is_profile_picture from user_images where  find_in_set(user_id,'"+user_ids+"')>0 and is_profile_picture = '1' ";
+						List<Map<String,Object>> profile_image_list = jdbcTemplate.queryForList(qry);
+						if(profile_image_list != null && profile_image_list.size()>0){
+							for(Map<String,Object> image_obj:profile_image_list){
+								for(Map<String,Object> user_obj:list){
+									String str1 = String.valueOf(((Integer)image_obj.get("user_id")));
+									String str2 = String.valueOf(((Integer)user_obj.get("id")));
+									//if(((Integer)image_obj.get("user_id"))==((Integer)user_obj.get("id"))){
+									if(str1.equalsIgnoreCase(str2)){
+										//user_obj.put("profileImage", image_obj.get("image"));
+										Object tt = image_obj.get("image");
+										user_obj.put("profileImage", image_obj.get("image")+"");
+									}
+								}
+							}
+						}
+					}
+					
+				}
+				return list;	
+		}catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
+	
+	public List<Map<String,Object>> getLatestBridesAndGrooms(){
+		jdbcTemplate = custom.getJdbcTemplate();
+		List<Map<String,Object>> list = null;
+		try{
+			String  qry = " select *,"
+					+ " ifnull(floor((datediff(current_date(),dob))/365),'') as age,"
+					+ " (select inches from height where id=u.height ) as heightInches ,"
+					+ " (select name from religion where id=u.religion) as religionName, "
+					+ " (select name from city where id=u.currentCity) as currentCityName, "
+					+"  (select st.name from state st where st.id = u.currentState) as currentStateName ,"
+					+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and uimg.status = '1' and uimg.is_profile_picture='1') as profileImage "
+					+ " from users u where  u.status = '1'  order by created_time desc limit 10";
 						
 				list =	jdbcTemplate.queryForList(qry);	
 				if(list != null && list.size()>0){

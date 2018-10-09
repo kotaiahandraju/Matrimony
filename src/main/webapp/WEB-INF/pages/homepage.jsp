@@ -1443,7 +1443,30 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 					<h3>LATEST BRIDES & GROOMS</h3>
 				</div>
 
-
+				<c:forEach items="${latest_brides_grooms}" var="profile">
+					<div class="col-md-2">
+						<div class="pro_img">
+							<a href="#"> <span class="hidden"> </span>
+	
+								<c:if  test="${empty profile.profileImage}">
+									<div class="image_privacy"></div> <image src="${baseurl}/img/default.png"
+									width="250"></a>
+								</c:if>
+								<c:if  test="${not empty profile.profileImage}">
+									<div class="image_privacy"></div> <image src="${catalina_base}/${profile.profileImage}"
+									width="250"></a>
+								</c:if>
+								
+						</div>
+						<div class="pro_details">
+							Matri ID : ${profile.username} <br> <span>${profile.religionName}</span> <br> ${profile.currentCityName},
+							${profile.currentStateName}
+						</div>
+	
+	
+	
+					</div>
+				</c:forEach>
 				<div class="col-md-2">
 					<div class="pro_img">
 						<a href="#"> <span class="hidden"> </span>
