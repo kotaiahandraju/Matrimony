@@ -1209,7 +1209,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 							</div>
 							<div class="form-group">
 								<label for="user_password">Create Password :</label> 
-								<form:password path="regPassword" class="form-control" onkeydown="removeBorder(this.id)" maxlength="8" placeholder="Password" onkeyup="validatePassword();" autocomplete="new-password" />
+								<form:password path="regPassword" class="form-control" onkeydown="removeBorder(this.id)" maxlength="10" placeholder="Password" onkeyup="validatePassword();" autocomplete="new-password" />
 								<span class="hasError" id="password_error_div" style="font-size: 13px;font-weight: 800;"></span>
 							</div>
 							<div class="form-group">
@@ -1265,7 +1265,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 
 							<div class="form-group">
 								<label for="">Religion</label>
-								<form:select path="religion" onfocus="removeBorder(this.id)" onchange="getReliginCastAjax()" class="form-control">
+								<form:select path="religion" onfocus="removeBorder(this.id)" class="form-control">
 									<form:option value="">-- Choose Religion --</form:option>
 									<form:options items="${religion}"></form:options>
 								</form:select>
