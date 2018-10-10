@@ -2609,8 +2609,11 @@ String sJson="";
 					
 				if(roleId!=0){
 					boolean success = objUsersDao.upgradeUser(userId, roleId,packageId);
-					if(success)
-						;
+					if(success){
+						userSessionBean.setRoleId(roleId);
+						session.setAttribute("cacheGuest",userSessionBean);
+					}
+						
 				}
 				//SEND MAIL&SMS TO THE MEMBER
 				List<Map<String,Object>> paymentDetails = this.objUsersDao.getPaymentDetailsForPrint(txnid);
