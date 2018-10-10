@@ -387,7 +387,7 @@ padding-right:0px;
 							<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: ${profile_filled_status}%;">
 								<%= session.getAttribute("profile_filled_status") %>% Complete 
 							</div>
-						</div>
+						</div>&nbsp;&nbsp;<a href="myProfile">Complete now</a>
 						<br>
 						<c:if test="${emailverify == '0'}">
 						
@@ -808,18 +808,20 @@ function displayMatches(listOrders) {
 	if(listOrders==""){
 		//var tblRow = '<div>No matches found.</div>';
 		//$(tblRow).appendTo("#matches"); 
-		$("#preferred_div").prop("hidden",true);
+		//$("#preferred_div").prop("hidden",true);
+		var str = "<div>No preferred matches found.</div>";
+		$(str).appendTo("#matches");
 		$("#pagination_div").prop("hidden",true);
-		$("#preferred_viewall").prop("hidden",true);
-		$("#updated_div").prop("hidden",true);
-		$("#update_profiles").prop("hidden",true);
+		$("#preferred_viewall").attr("hidden",true);
+		//$("#updated_div").prop("hidden",true);
+		//$("#update_profiles").prop("hidden",true);
 	}
 	$.each(listOrders,function(i, orderObj) 
 	{
-		$("#preferred_div").removeAttr("hidden");
+		//$("#preferred_div").removeAttr("hidden");
 		$("#preferred_viewall").removeAttr("hidden");
-		$("#updated_div").removeAttr("hidden");
-		$("#update_profiles").removeAttr("hidden");
+		//$("#updated_div").removeAttr("hidden");
+		//$("#update_profiles").removeAttr("hidden");
 		paginationSetup(total_items_count);
 		$("#altLists").asPaginator('enable');
 		$("#pagination_div").removeAttr("hidden");
@@ -1042,22 +1044,18 @@ function displayNewMatches_update(listOrders) {
 	if(listOrders==""){
 		//var tblRow = '<div>No matches found.</div>';
 		//$(tblRow).appendTo("#matches"); 
-		$("#preferred_div").prop("hidden",true);
-		$("#pagination_div").prop("hidden",true);
-		$("#preferred_viewall").prop("hidden",true);
-		$("#updated_div").prop("hidden",true);
-		$("#update_profiles").prop("hidden",true);
+		
+		//$("#updated_div").attr("hidden",true);
+		//$("#update_profiles").attr("hidden",true);
 	}
 	$.each(listOrders,function(i, orderObj) 
 	{
-		$("#preferred_div").removeAttr("hidden");
-		$("#preferred_viewall").removeAttr("hidden");
-		$("#updated_div").removeAttr("hidden");
-		$("#update_profiles").removeAttr("hidden");
-		paginationSetup(total_items_count);
-		$("#altLists").asPaginator('enable');
-		$("#pagination_div").removeAttr("hidden");
-		displayTableFooter(1);
+		//$("#updated_div").removeAttr("hidden");
+		//$("#update_profiles").removeAttr("hidden");
+		//paginationSetup(total_items_count);
+		//$("#altLists").asPaginator('enable');
+		//$("#pagination_div").removeAttr("hidden");
+		//displayTableFooter(1);
 		serviceUnitArray[orderObj.id] = orderObj;
 		
 		var array = null;
