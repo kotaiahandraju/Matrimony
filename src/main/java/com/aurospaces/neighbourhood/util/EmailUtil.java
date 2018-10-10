@@ -106,14 +106,14 @@ public class EmailUtil {
 	        	subject = prop.getProperty("admin_reset_password_subject");
 	            
 				body = prop.getProperty("admin_reset_password_body");
-				body = body.replace("_name_",objUsersBean.getFirstName()+" "+objUsersBean.getLastName());
+				body = body.replace("_receiverdisplayname_",objUsersBean.getFirstName()+" "+objUsersBean.getLastName());
 				//body = body.replace("_username_", objUsersBean.getUsername());
 				body = body.replace("_password_", objUsersBean.getPassword());
 	        }else if("change_password".equalsIgnoreCase(mailType)){
 	        	subject = prop.getProperty("change_password_subject");
 	            
 				body = prop.getProperty("change_password_body");
-				body = body.replace("_name_",objUsersBean.getFirstName()+" "+objUsersBean.getLastName());
+				body = body.replace("_receiverdisplayname_",objUsersBean.getFirstName()+" "+objUsersBean.getLastName());
 				//body = body.replace("_username_", objUsersBean.getUsername());
 				body = body.replace("_email_", objUsersBean.getEmail());
 				body = body.replace("_dateandtime_", objUsersBean.getUpdatedTime().toString());
@@ -121,7 +121,7 @@ public class EmailUtil {
 	        	subject = prop.getProperty("forgot_password_subject");
 	            
 				body = prop.getProperty("forgot_password_body");
-				body = body.replace("_name_",objUsersBean.getFirstName()+" "+objUsersBean.getLastName());
+				body = body.replace("_receiverdisplayname_",objUsersBean.getFirstName()+" "+objUsersBean.getLastName());
 				body = body.replace("_email_", objUsersBean.getEmail());
 				body = body.replace("_newpassword_", objUsersBean.getPassword());
 	        }
@@ -966,8 +966,8 @@ try{
 							
 				        }else if(((String)emailEntry.get("type")).equalsIgnoreCase("emailVerify_mail")){
 				        	subject = prop.getProperty("emailVerify_mail_subject");
-							body = prop.getProperty("forgot_password_body");
-							
+							body = prop.getProperty("emailVerify_mail_body");
+							 body = body.replace("_receiverdisplayname_", (String)emailEntry.get("receiver_display_name"));
 					       body = body.replace("_link_",(String)emailEntry.get("emailVerifylink"));  
 //					       body = body.replace("_customer_", objUsersBean.getFirstName()+" "+objUsersBean.getLastName());
 				       
