@@ -236,6 +236,15 @@ public class HomePageController {
 			///
 			 objeModel.addAttribute("createProfile", objUsersBean);
 			 }
+			 //State based cities list
+			 Map<Integer, String> citiesMap = new LinkedHashMap<Integer, String>();
+			 if(StringUtils.isNotBlank(sessionBean.getCurrentState())){
+					List<CityBean> ojCityBean = objCityDao.filterByState(sessionBean.getCurrentState());
+					for (CityBean city : ojCityBean) {
+						citiesMap.put(city.getId(),city.getName());
+					}
+			 }
+			 request.setAttribute("cities_map", citiesMap);
 			}else{
 				return "redirect:HomePage";
 			}
