@@ -212,6 +212,11 @@ function displayMatches(listOrders) {
 	var r_age_to = "${r_age_to}";
 	$("#rAgeFrom").val(r_age_from);
 	$("#rAgeTo").val(r_age_to);  */
+	if(listOrders==""){
+		$("#searchResults").html('');
+		var tblRow = "No profiles found!!";
+		$(tblRow).appendTo("#searchResults");
+	}
 	$.each(listOrders,function(i, orderObj) 
 	{
 		serviceUnitArray[orderObj.id] = orderObj;
