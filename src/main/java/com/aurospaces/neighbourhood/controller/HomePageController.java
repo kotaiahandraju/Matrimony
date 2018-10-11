@@ -236,6 +236,15 @@ public class HomePageController {
 			///
 			 objeModel.addAttribute("createProfile", objUsersBean);
 			 }
+			 //State based cities list
+			 Map<Integer, String> citiesMap = new LinkedHashMap<Integer, String>();
+			 if(StringUtils.isNotBlank(sessionBean.getCurrentState())){
+					List<CityBean> ojCityBean = objCityDao.filterByState(sessionBean.getCurrentState());
+					for (CityBean city : ojCityBean) {
+						citiesMap.put(city.getId(),city.getName());
+					}
+			 }
+			 request.setAttribute("cities_map", citiesMap);
 			}else{
 				return "redirect:HomePage";
 			}
@@ -2600,8 +2609,11 @@ String sJson="";
 					
 				if(roleId!=0){
 					boolean success = objUsersDao.upgradeUser(userId, roleId,packageId);
-					if(success)
-						;
+					if(success){
+						userSessionBean.setRoleId(roleId);
+						session.setAttribute("cacheGuest",userSessionBean);
+					}
+						
 				}
 				//SEND MAIL&SMS TO THE MEMBER
 				List<Map<String,Object>> paymentDetails = this.objUsersDao.getPaymentDetailsForPrint(txnid);

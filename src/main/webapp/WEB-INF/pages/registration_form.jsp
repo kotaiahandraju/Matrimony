@@ -57,11 +57,15 @@
 									<form:option value="">-- Choose State --</form:option>
 									<form:options items="${country_based_states}"></form:options>
 								</form:select>
-								<br>
-								<form:select path="currentCity" class="form-control u" onblur="validate(this.id,'');" onchange="updateUserName(this.value)"  onfocus="removeBorder(this.id)" disabled="true">
-									<form:option value="">-- Choose City --</form:option>
-									<form:options items="${citys }"></form:options>
-								</form:select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-4 control-label" for="textinput">City <span class='manditory'>*</span></label>
+							<div class="col-md-6">
+							<form:select path="currentCity" class="form-control u" onblur="validate(this.id,'');" onchange="updateUserName(this.value)"  onfocus="removeBorder(this.id)" disabled="true">
+								<form:option value="">-- Choose City --</form:option>
+								<form:options items="${cities_map}"></form:options>
+							</form:select>
 							</div>
 						</div>
 						<div class="form-group">

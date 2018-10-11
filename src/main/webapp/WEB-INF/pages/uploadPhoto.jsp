@@ -87,7 +87,8 @@ function checkImg(objImg)
 {
 	$("#previewImg").prop("src",window.URL.createObjectURL(objImg.files[0]));
 }
-  
+ 
+var fullImg = "";
 function imageAjax(){
 	if($("#imageName").val() == "" || $("#imageName").val() == "undefined" || $("#imageName").val() == null){
 		alert("Please Upload Image..!");
@@ -99,6 +100,7 @@ function imageAjax(){
 		var formData = new FormData();
 		//formData.append("imageName", imageName.files[0]);
 		formData.append("imageData", $("#imageName").val());
+		formData.append("fullImg", fullImg);
 	//	formData.append("id", id);
 	  	$.fn.makeMultipartRequest('POST', 'croppedPhotoUpload', false, formData, false, 'text', function(data){
 		  	var jsonobj = $.parseJSON(data);
