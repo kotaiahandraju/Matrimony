@@ -5394,42 +5394,16 @@ public boolean deletePhoto(String photoId){
 		jdbcTemplate = custom.getJdbcTemplate();
 		List<Map<String,Object>> list = null;
 		try{
-			String  qry = " select *,"
-					+ " ifnull(floor((datediff(current_date(),dob))/365),'') as age,"
+			String  qry = " select * from (select *,"
 					+ " (select inches from height where id=u.height ) as heightInches ,"
 					+ " (select name from religion where id=u.religion) as religionName, "
 					+ " (select name from city where id=u.currentCity) as currentCityName, "
 					+"  (select st.name from state st where st.id = u.currentState) as currentStateName ,"
 					+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and uimg.status = '1' and uimg.is_profile_picture='1') as profileImage "
-					+ " from users u where  u.status = '1'  order by created_time desc limit 10";
+					+ " from users u where  u.status = '1'  order by created_time desc"
+					+ " ) temp where profileImage is not null limit 10";
 						
 				list =	jdbcTemplate.queryForList(qry);	
-				if(list != null && list.size()>0){
-					String user_ids = "";
-					for(Map<String,Object> obj:list){
-						user_ids += ","+obj.get("id");
-					}
-					if(StringUtils.isNotBlank(user_ids)){
-						user_ids = user_ids.substring(1);
-						qry = " select user_id,image,is_profile_picture from user_images where  find_in_set(user_id,'"+user_ids+"')>0 and is_profile_picture = '1' ";
-						List<Map<String,Object>> profile_image_list = jdbcTemplate.queryForList(qry);
-						if(profile_image_list != null && profile_image_list.size()>0){
-							for(Map<String,Object> image_obj:profile_image_list){
-								for(Map<String,Object> user_obj:list){
-									String str1 = String.valueOf(((Integer)image_obj.get("user_id")));
-									String str2 = String.valueOf(((Integer)user_obj.get("id")));
-									//if(((Integer)image_obj.get("user_id"))==((Integer)user_obj.get("id"))){
-									if(str1.equalsIgnoreCase(str2)){
-										//user_obj.put("profileImage", image_obj.get("image"));
-										Object tt = image_obj.get("image");
-										user_obj.put("profileImage", image_obj.get("image")+"");
-									}
-								}
-							}
-						}
-					}
-					
-				}
 				return list;	
 		}catch (Exception e) {
 			e.printStackTrace();
