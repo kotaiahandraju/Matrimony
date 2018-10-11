@@ -4906,7 +4906,7 @@ public boolean deletePhoto(String photoId){
 		return null;
 	}
 	
-	public boolean saveEmailData(UsersBean senderBean, UsersBean receiverBean,String baseurl,String mail_type){
+	public boolean saveEmailData(UsersBean senderBean, UsersBean receiverBean,String baseurl,String mail_type) throws Exception{
 		jdbcTemplate = custom.getJdbcTemplate();
 		if(senderBean==null) {
 			senderBean = new UsersBean();
