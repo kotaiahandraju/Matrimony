@@ -18,7 +18,7 @@ float: right;
 			<div class="panel-heading">Help</div>
 			<div class="panel-body" style="min-height: 350px;">
 
-				<p align="justify">AarnaMatrimony is eager to help you find your partner at the
+				<p align="justify">Aarna Matrimony is eager to help you find your partner at the
 				earliest. Our Customer Service team will be pleased to assist you
 				anytime you have a query. You can contact our Customer Service team
 				in one of the following ways.</p></br>

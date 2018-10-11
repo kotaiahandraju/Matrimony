@@ -226,7 +226,7 @@ function getFilteredCitiesMultiSelect(id) {
 <%-- 				<img src="${baseurl}/images/logo.png" class="img-responsive"> --%>
 			</div>
 			<div class="col-md-5">
-			<span class="pull-right home"><a class="pull-right" href="${baseurl }/logoutHome" style=" color:;">Go To HomePage </a></span>
+			<span class="pull-right home"><a class="pull-right" href="${baseurl }/logoutHome" style=" color:;">Go To Home Page </a></span>
 			</div></div>
 			</div>
 			

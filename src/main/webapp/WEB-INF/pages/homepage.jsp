@@ -1149,7 +1149,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 						<span class="input-group-addon"><i class="fa fa-user"></i></span>
 							<input type="text" class="form-control notAllowFirstSpace"
 								onkeydown="removeBorder(this.id)" name="userName" id="userName"
-								placeholder="Email/AarnaId/MobileNum"></div>
+								placeholder="Email/Aarna Id/Mobile Num"></div>
 						</div>
 						<div class="form-group">
 							<!--                                 <input id="password" type="password" class="form-control" name="password" required placeholder="Password"> -->

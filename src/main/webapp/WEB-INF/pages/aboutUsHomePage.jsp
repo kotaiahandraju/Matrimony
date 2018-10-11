@@ -11,7 +11,7 @@ text-align:justify;
 					<div class="panel-heading">About Us </div>
 	             	<div class="panel-body">
 
-<p>Welcome to the profound world of Aarnamatrimony one of the most frequently visited and highly preferred matrimonial site. we are immensely known for the perfect matchmakings, handy navigation and commendable services. With the help of our unmatched quality services, we have been able to establish ourselves among the foremost players in the field of Indian Matrimonials. So feel free to search for prospective bride or bridegroom on the basis of mother tongue, country, religion, caste, occupation etc. from the immense database of profiles. 
+<p>Welcome to the profound world of Aarna Matrimony one of the most frequently visited and highly preferred matrimonial site. we are immensely known for the perfect matchmakings, handy navigation and commendable services. With the help of our unmatched quality services, we have been able to establish ourselves among the foremost players in the field of Indian Matrimonials. So feel free to search for prospective bride or bridegroom on the basis of mother tongue, country, religion, caste, occupation etc. from the immense database of profiles. 
 </p>
 <br>
 <p style="color:#006699;"><b>WHY CHOOSE US</b></p>

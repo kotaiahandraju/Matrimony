@@ -4548,15 +4548,15 @@ public boolean deletePhoto(String photoId){
 
 		jdbcTemplate = custom.getJdbcTemplate();
 		StringBuffer buffer = new StringBuffer();
-		buffer.append("select u.id ,u.gender,ur.rAgeFrom,ur.rAgeTo,u.firstName,u.lastName,u.aboutMyself as About,u.createProfileFor,c.name as castName,"
+		buffer.append("select u.id ,u.gender,u.age,u.firstName,u.lastName,u.aboutMyself as About,u.createProfileFor,c.name as castName,"
 				+ "ct.name as cityName,rl.name as religionName,ed.name as Education,u.occupation as Proffession, u.annualIncome as Income, "
 				+" floor((datediff(current_date(),u.dob))/365) as age, "
 				+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and  uimg.status = '1' and uimg.is_profile_picture='1') as profileImage, "
 				+" occ.name as Proffession "
 				+" from users u,"
-				+ "userrequirement ur,cast c,city ct,religion rl,education ed, occupation occ "
-				+ " where u.id=ur.userId and c.id=ur.rCaste and occ.id=u.occupation "
-				+ "and ur.rReligion=rl.id And ct.id=u.currentCity  and ed.id=u.education ");
+				+ " cast c,city ct,religion rl,education ed, occupation occ "
+				+ " where  occ.id=u.occupation "
+				+ "and  ct.id=u.currentCity  and ed.id=u.education and u.religion = rl.id ");
 		if(StringUtils.isNotBlank(searchCriteriaBean.getGender())) {
 			buffer.append(" and   u.gender = '"+searchCriteriaBean.getGender()+"'"); 
 		}
@@ -4566,10 +4566,10 @@ public boolean deletePhoto(String photoId){
 //			buffer.append(" and   ur.rAgeFrom='"+searchCriteriaBean.getrAgeFrom()+"' and ur.rAgeTo='"+searchCriteriaBean.getrAgeTo()+"'"); 
 		}
 		if(StringUtils.isNotBlank(searchCriteriaBean.getReligionId())) {
-			buffer.append(" and   ur.rReligion='"+searchCriteriaBean.getReligionId()+"'"); 
+			buffer.append(" and   u.religion='"+searchCriteriaBean.getReligionId()+"'"); 
 		}
 		if(StringUtils.isNotBlank(searchCriteriaBean.getCastId())) {
-			buffer.append(" and ur.rCaste='"+searchCriteriaBean.getCastId()+"'"); 
+			buffer.append(" and u.caste='"+searchCriteriaBean.getCastId()+"'"); 
 		}
 		buffer.append(" and u.status = '1' and u.role_id not in ('1') group by u.id order by u.package_id desc limit 20");
 		String sql =buffer.toString();
@@ -4584,22 +4584,22 @@ public boolean deletePhoto(String photoId){
 
 		jdbcTemplate = custom.getJdbcTemplate();
 		StringBuffer buffer = new StringBuffer();
-		buffer.append("select u.id ,u.gender,ur.rAgeFrom,ur.rAgeTo,u.firstName,u.lastName,u.aboutMyself as About,u.createProfileFor,c.name as castName,"
+		buffer.append("select u.id ,u.gender,u.age,u.firstName,u.lastName,u.aboutMyself as About,u.createProfileFor,c.name as castName,"
 				+ "ct.name as cityName,rl.name as religionName,ed.name as Education,u.occupation as Proffession, u.annualIncome as Income, "
 				+" floor((datediff(current_date(),u.dob))/365) as age, "
 				+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and  uimg.status = '1' and uimg.is_profile_picture='1') as profileImage, "
 				+" occ.name as Proffession "
 				+" from users u,"
-				+ "userrequirement ur,cast c,city ct,religion rl,education ed, occupation occ "
-				+ " where u.id=ur.userId and c.id=ur.rCaste and occ.id=u.occupation "
-				+ "and ur.rReligion=rl.id And ct.id=u.currentCity  and ed.id=u.education ");
+				+ "cast c,city ct,religion rl,education ed, occupation occ "
+				+ " where occ.id=u.occupation "
+				+ " and ct.id=u.currentCity  and ed.id=u.education and u.religion=rl.id ");
 		if(list_type.equals("religion")) {
 //			buffer.append (ur.rReligion = searchCriteriaBean.getReligionId() );
-			buffer.append("and ur.rReligion='"+searchCriteriaBean.getId()+"'"); 
+			buffer.append("and u.religion='"+searchCriteriaBean.getId()+"'"); 
 		}
 		if(list_type.equals("cast")) {
 //			buffer.append (ur.rReligion = searchCriteriaBean.getReligionId() );
-			buffer.append("and ur.rCaste='"+searchCriteriaBean.getId()+"'"); 
+			buffer.append("and u.caste='"+searchCriteriaBean.getId()+"'"); 
 		}
 		buffer.append(" and u.status = '1' and u.role_id not in ('1') group by u.id order by u.package_id desc limit 20");
 		String sql =buffer.toString();

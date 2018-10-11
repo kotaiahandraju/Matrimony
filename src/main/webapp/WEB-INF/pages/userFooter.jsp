@@ -10,7 +10,7 @@
 		<div class="container" style="background: #333333 !important;">
 			<div class="col-md-3 footer-grid">
 				<h6>About us</h6>
-				<p>Welcome to the profound world of Aarnamatrimony one of the most frequently visited and highly preferred matrimonial site..</p>
+				<p>Welcome to the profound world of Aarna Matrimony one of the most frequently visited and highly preferred matrimonial site..</p>
 			</div>
 			<div class="col-md-3 footer-grid">
 				<h6>Search</h6>
@@ -25,7 +25,7 @@
 				<ul>
 					<li><a href="dashboard">My Account</a></li>
 					<li><a href="myProfile">My Profile</a></li>
-					<li><a href="#">My Interest</a></li>
+<!-- 					<li><a href="#">My Interest</a></li> -->
 				</ul>
 			</div>
 			<div class="col-md-3 footer-grid">

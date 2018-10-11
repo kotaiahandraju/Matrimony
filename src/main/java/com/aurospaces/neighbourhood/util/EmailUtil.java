@@ -390,7 +390,7 @@ public class EmailUtil {
 	        
 	            String mobileNum = receiverBean.getMobile();
 	            try{
-					   String response = SendSMS.sendSMS("Dear "  +receiverBean.getFirstName()+ " "+receiverBean.getLastName()+","+"\n"+senderBean.getFirstName()+" "+senderBean.getLastName()+""+"("+senderBean.getUsername()+")"+" send a Message..\n \n "+receiverBean.getMail_content()+""+" \n \n Wishing You the best life partner \n Team - AarnaMatrimony", mobileNum);
+					   String response = SendSMS.sendSMS("Dear "  +receiverBean.getFirstName()+ " "+receiverBean.getLastName()+","+"\n"+senderBean.getFirstName()+" "+senderBean.getLastName()+""+"("+senderBean.getUsername()+")"+" send a Message..\n \n "+receiverBean.getMail_content()+""+" \n \n Wishing You the best life partner \n Team - Aarna Matrimony", mobileNum);
 					   
 					   if("OK".equalsIgnoreCase(response)){
 						   
@@ -481,7 +481,7 @@ public class EmailUtil {
 	            
 	            String mobileNum = receiverBean.getMobile();
 	            try{
-					   String response = SendSMS.sendSMS("Dear "  +receiverBean.getFirstName()+ " "+receiverBean.getLastName() +","+"\n"+senderBean.getFirstName()+" "+senderBean.getLastName()+""+"("+senderBean.getUsername()+")"+" send an Interest request to you.. \n \n Wishing You the best life partner \n Team - AarnaMatrimony", mobileNum);
+					   String response = SendSMS.sendSMS("Dear "  +receiverBean.getFirstName()+ " "+receiverBean.getLastName() +","+"\n"+senderBean.getFirstName()+" "+senderBean.getLastName()+""+"("+senderBean.getUsername()+")"+" send an Interest request to you.. \n \n Wishing You the best life partner \n Team - Aarna Matrimony", mobileNum);
 					   
 					   if("OK".equalsIgnoreCase(response)){
 						   
@@ -572,7 +572,7 @@ public class EmailUtil {
 	            
 	            String mobileNum = receiverBean.getMobile();
 	            try{
-					   String response = SendSMS.sendSMS("Dear "  +receiverBean.getFirstName()+ " "+receiverBean.getLastName() +","+"\n "+senderBean.getFirstName()+" "+senderBean.getLastName()+""+"("+senderBean.getUsername()+")"+" shortlisted your profile..\n \n Wishing You the best life partner \n Team - AarnaMatrimony", mobileNum);
+					   String response = SendSMS.sendSMS("Dear "  +receiverBean.getFirstName()+ " "+receiverBean.getLastName() +","+"\n "+senderBean.getFirstName()+" "+senderBean.getLastName()+""+"("+senderBean.getUsername()+")"+" shortlisted your profile..\n \n Wishing You the best life partner \n Team - Aarna Matrimony", mobileNum);
 					   
 					   if("OK".equalsIgnoreCase(response)){
 						   
@@ -663,7 +663,7 @@ public class EmailUtil {
 	            
 	            String mobileNum = receiverBean.getMobile();
 	            try{
-					   String response = SendSMS.sendSMS("Dear "  +receiverBean.getFirstName()+ " "+receiverBean.getLastName() +","+"\n "+senderBean.getFirstName()+" "+senderBean.getLastName()+""+"("+senderBean.getUsername()+")"+" Viewed your profile..\n \n Wishing You the best life partner \n Team - AarnaMatrimony", mobileNum);
+					   String response = SendSMS.sendSMS("Dear "  +receiverBean.getFirstName()+ " "+receiverBean.getLastName() +","+"\n "+senderBean.getFirstName()+" "+senderBean.getLastName()+""+"("+senderBean.getUsername()+")"+" Viewed your profile..\n \n Wishing You the best life partner \n Team - Aarna Matrimony", mobileNum);
 					   
 					   if("OK".equalsIgnoreCase(response)){
 						   
