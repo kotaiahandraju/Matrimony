@@ -240,13 +240,13 @@ public class UsersDao extends BaseUsersDao
 					+" where 1=1  ");
 								
 								if(type.equals("all")){
-									buffer.append( " and u.status in( '1')" );
+									buffer.append( " and u.status in( '1') and u.role_id not in ('3')" );
 								}
 								if(type.equals("delete")){
-									buffer.append( " and u.status in( '2')" );
+									buffer.append( " and u.status in( '2') and u.role_id not in ('3')" );
 								}
 								if(type.equals("inactive")){
-									buffer.append( " and u.status in( '0') and u.role_id not in (1) and "
+									buffer.append( " and u.status in( '0') and u.role_id not in (1,3) and "
 											+" if((select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) is null or "
 											+"    (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1)='0',0,1) ");
 								}
@@ -275,7 +275,7 @@ public class UsersDao extends BaseUsersDao
 									buffer.append( " and u.role_id in ('3') " );
 								}
 								if(type.equals("hidden")){
-									buffer.append( " and u.status in( '3')" );
+									buffer.append( " and u.status in( '3') and u.role_id not in ('3')" );
 								}
 								buffer.append(" group by u.id ");
 								UsersBean objuserBean = (UsersBean) session.getAttribute("cacheUserBean");

@@ -135,7 +135,7 @@ public class JobsController {
 	   //@RequestMapping(value="/splitProfilesToEmployees")
 	   public String splitProfilesToEmployees(){
 		   try{
-			   int free_users_count = 100;//objUsersDao.getFreeMembersCount();
+			   int free_users_count = objUsersDao.getFreeMembersCount();
 			   List<Map<String, Object>> emp_list = objUsersDao.getEmployeesList();
 			   int slot_size = 0;
 			   if(emp_list!=null && emp_list.size()>0){
