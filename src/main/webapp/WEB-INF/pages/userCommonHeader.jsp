@@ -22,12 +22,12 @@
 		addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 		function hideURLbar(){ window.scrollTo(0,1); }
 	
-	    /*  var auto_refresh = setInterval(
+	      var auto_refresh = setInterval(
 							     function ()
 							     {
 							     	//$('#load_me').load('${baseurl}/sample.jsp').fadeIn("slow");
 							     	var formData = new FormData();
-							    	 jQuery.fn.makeMultipartRequest('POST', 'refreshCounts', false,
+							    	 $.fn.makeMultipartRequest('POST', 'refreshCounts', false,
 												formData, false, 'text', function(data){
 									    		var jsonobj = $.parseJSON(data);
 									    		var all_counts = jsonobj.all_counts;
@@ -40,7 +40,7 @@
 									    		$("#inbox_count").html(all_counts.pendingRequestsCount);
 											});
 						
-							     }, 1000); */ // autorefresh the content of the div after
+							     }, 1000);  // autorefresh the content of the div after
 							                //every 1000 milliseconds(1sec)
     </script>
 	<!-- //for-mobile-apps -->

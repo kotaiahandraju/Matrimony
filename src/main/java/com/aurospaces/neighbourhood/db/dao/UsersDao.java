@@ -49,8 +49,8 @@ public class UsersDao extends BaseUsersDao
 	public UsersBean loginChecking(LoginBean objUsersBean) {
 		 jdbcTemplate = custom.getJdbcTemplate();
 			String sql = "SELECT * from logincheckingview "
-							+" where  AES_DECRYPT(PASSWORD,'mykey')= ? and  (email =? or username=? or mobile=? )";
-			List<Map<String,Object>> list = jdbcTemplate.queryForList("select * from users where AES_DECRYPT(PASSWORD,'mykey')= ? and  (email =? or username=? or mobile=? )", new Object[]{objUsersBean.getPassword(),objUsersBean.getUserName(),objUsersBean.getUserName(),objUsersBean.getUserName()});
+							+" where  AES_DECRYPT(PASSWORD,'mykey')= ? and  (email =? or username=? or mobile=? ) and status not in ('2')";
+			List<Map<String,Object>> list = jdbcTemplate.queryForList("select * from users where AES_DECRYPT(PASSWORD,'mykey')= ? and  (email =? or username=? or mobile=? ) and status not in ('2')", new Object[]{objUsersBean.getPassword(),objUsersBean.getUserName(),objUsersBean.getUserName(),objUsersBean.getUserName()});
 			if(list.size()==0){
 				return null;
 			}
@@ -277,14 +277,14 @@ public class UsersDao extends BaseUsersDao
 								if(type.equals("hidden")){
 									buffer.append( " and u.status in( '3') and u.role_id not in ('3')" );
 								}
-								buffer.append(" group by u.id ");
 								UsersBean objuserBean = (UsersBean) session.getAttribute("cacheUserBean");
 								if(objuserBean.getRoleId()==MatrimonyConstants.AARNA_EMPLOYEE_ROLE_ID){
+									buffer.append( " and u.status in( '1') and u.role_id in ('4') and u.role_id not in ('3') group by u.id" );
 									String sub_qry = "select (profiles_start_index-1) as start_index,profiles_size from users where id = "+objuserBean.getId();
 									Map<String,Object> limit_values = jdbcTemplate.queryForMap(sub_qry);
-									buffer.append(" order by u.id  limit "+limit_values.get("profiles_size")+" offset "+limit_values.get("start_index")+" ");
+									buffer.append(" order by u.id desc limit "+limit_values.get("profiles_size")+" offset "+limit_values.get("start_index")+" ");
 								}else{
-									buffer.append(" order by u.created_time desc ");
+									buffer.append(" group by u.id order by u.created_time desc ");
 								}
 								
 								String sql =buffer.toString();
@@ -3802,7 +3802,13 @@ public boolean deletePhoto(String photoId){
 	
 	public List<Map<String,Object>> getPackageExpiredProfiles(int package_id){
 		jdbcTemplate = custom.getJdbcTemplate();
-		String qryStr = "select u.*,u.id as userId,p.*,date_format(package_joined_date,'%d-%M-%Y') as package_joined_date from users u, package p  where u.package_id = p.id and p.id = "+package_id+" and p.status = '1' and current_date() > (select DATE_ADD(u.package_joined_date, INTERVAL p.duration MONTH)) and u.membership_status='0' group by u.package_id order by u.package_id desc";
+		//String qryStr = "select u.*,u.id as userId,p.*,date_format(package_joined_date,'%d-%M-%Y') as package_joined_date from users u, package p  where u.package_id = p.id and p.id = "+package_id+" and p.status = '1' and current_date() > (select DATE_ADD(u.package_joined_date, INTERVAL p.duration MONTH)) and u.membership_status='0' group by u.package_id order by u.package_id desc";
+		String qryStr = "select * from (select u.*,u.id as userId,pack.*,date_format(package_joined_date,'%d-%M-%Y') as package_joined_date, "
+		+ "(case duration_type when 'day' then (select datediff(date_add(u.package_joined_date, interval pack.duration day),current_date()))    "
+		+ "						when 'month' then (select datediff(date_add(u.package_joined_date, interval pack.duration month),current_date()))  	"
+		+ "						when 'year' then (select datediff(date_add(u.package_joined_date, interval pack.duration year),current_date()))  	"
+		+ "			else -1	end ) as validity  from users u, package pack where u.package_id = pack.id and pack.status = '1' and pack.id = "+package_id+" ) temp "
+		+ " where temp.validity between 0 and 10 ";
 		//String qryStr = "select u.*,u.id as userId,p.*,date_format(package_joined_date,'%d-%M-%Y') as package_joined_date from users u, package p  where u.package_id = p.id and p.id = "+package_id+" and p.status = '1'  group by u.package_id order by u.package_id desc";
 		try{
 			List<Map<String,Object>> list = jdbcTemplate.queryForList(qryStr);
