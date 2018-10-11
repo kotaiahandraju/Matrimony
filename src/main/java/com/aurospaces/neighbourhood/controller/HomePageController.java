@@ -1209,7 +1209,31 @@ public class HomePageController {
 					logger.fatal("error while updating profile viewed status in fullProfile method");
 				}else{
 					String baseurl =  request.getScheme() + "://" + request.getServerName() +      ":" +   request.getServerPort() +  request.getContextPath();
-					objUsersDao.saveEmailData(sessionBean, profileBean, baseurl, "profileviewed");
+					try {
+						
+						objUsersDao.saveEmailData(sessionBean, profileBean, baseurl, "profileviewed");
+					}catch(Exception e){
+						   e.printStackTrace();
+						   logger.error(e);
+						   logger.fatal("error in HomePageController viewProfile Mill method");
+					   }
+					
+					 String mobileNum = profileBean.getMobile();
+			            try{
+							   String response = SendSMS.sendSMS("Dear "  +profileBean.getFirstName()+ " "+profileBean.getLastName() +","+"\n"+sessionBean.getFirstName()+" "+sessionBean.getLastName()+""+"("+sessionBean.getUsername()+")"+" Viewed your profile..\n \n Wishing You the best life partner \n Team - Aarna Matrimony", mobileNum);
+							   
+							   if("OK".equalsIgnoreCase(response)){
+								   
+								   request.setAttribute("message", "success");
+							   }else{
+								   request.setAttribute("message", "failed"); 
+							   }
+							   //throw new Exception();
+						   }catch(Exception e){
+							   e.printStackTrace();
+							   request.setAttribute("message", "failed");
+							   //objUsersDao.delete(sessionBean.getId());
+						   }
 					
 				}
 			}else if(StringUtils.isNotBlank(request.getParameter("profileId"))){
