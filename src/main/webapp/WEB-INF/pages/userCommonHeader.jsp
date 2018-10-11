@@ -3853,8 +3853,9 @@ img.hover-shadow {
 							<%@ include file="sample.jsp" %>
 							</div> --%>
 							</a></li>
-							
+							<c:if test="${cacheGuest.roleId == '4' || cacheGuest.membership_status == '0'}">
 							<li><a class="upgradeOption animated flash infinite" href="memberShipPage" style="font-size: 18px; font-weight: bold; color: #fff;">Upgrade</a></li>
+							</c:if>
 							
                             
                             </ul>

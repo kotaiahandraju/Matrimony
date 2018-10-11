@@ -632,14 +632,16 @@ padding-right:0px;
         </div>
     </div> --%>
     <div class="clearfix"></div>
-<div class="panel " style="width: 250px;">
-<div class="panel-heading"><b>Add Photos Now</b></div>
-        <div class="panel-body table-responsive">
-            <div class="col-md-3" style="width: 232px; display: -webkit-box;">
-         <a href="myPhotos" style="display: -webkit-inline-box;"><img src="${baseurl}/images/add-photo-edit-avatar.png" width="40" style="margin: 0px 0px 0px -25px;">
-    <p style="margin-left: 10px;">Photos are the first things members look for in a profile.</p></a></div>
-        </div>
-    </div>
+    <c:if test="${empty cacheGuest.profileImage}">
+		<div class="panel " style="width: 250px;">
+		<div class="panel-heading"><b>Add Photos Now</b></div>
+		        <div class="panel-body table-responsive">
+		            <div class="col-md-3" style="width: 232px; display: -webkit-box;">
+		         <a href="myPhotos" style="display: -webkit-inline-box;"><img src="${baseurl}/images/add-photo-edit-avatar.png" width="40" style="margin: 0px 0px 0px -25px;">
+		    <p style="margin-left: 10px;">Photos are the first things members look for in a profile.</p></a></div>
+		        </div>
+		    </div>
+    </c:if>
     <div class="panel " style="width: 250px;">
     <img src="../nimages/couple.jpg" class="img-responsive"/>
     </div>
