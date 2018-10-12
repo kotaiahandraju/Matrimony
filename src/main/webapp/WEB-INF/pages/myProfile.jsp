@@ -349,7 +349,7 @@ $(".onlyCharacters").on("keypress",	function(event) {
         <div class="panel" style="background:#F7F6F7; padding:20px 15px;">
             <div class="col-md-5">
                 <c:if test="${not empty cacheGuest.profileImage}">
-                	<div class="fullprofile" style=" overflow:hidden;"">
+                	<div class="fullprofile" style="height:220px; overflow:hidden;"">
                 		<a href="#" id="fullProfilePicOuterTag" data-toggle="modal" data-target="#myModalNew"><img  src="${catalina_base}/${cacheGuest.profileImage}" class="hover-shadow cursor img img-responsive thumbnail watermark_text" style="margin-bottom:0;height:auto;width: 100%;" /></a>
                 	</div>
                 	<div align="center">
@@ -367,7 +367,7 @@ $(".onlyCharacters").on("keypress",	function(event) {
                                 <c:forEach items="${photosList}" var="photo" >
                                     <c:set var="counter3" value="${counter3+1}" />
                                     <div class="profilethumbnail" style="float: left;width: 69px; height: 69px;padding: 0px;margin: 5px; "> 
-                                        <img src="${catalina_base}/${photo.image}" class="watermark_text" style="width:100%;  onclick="currentSlide_inpage('${photo.image}')"/> 
+                                        <img src="${catalina_base}/${photo.image}" class="watermark_text" style="width:100%;"  onclick="currentSlide_inpage('${photo.image}',event)"/> 
                                     </div>
                                 </c:forEach>
                             </div> 
@@ -1123,7 +1123,40 @@ $(".onlyCharacters").on("keypress",	function(event) {
 <link href="${baseurl}/css/datepicker1.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
 $(document).ready(function(){
+	$('#gallery').gallery({
+
+		  // the number of rows of the thumbnail navigation
+		  'rows': 1,
+
+		  // the number of columns of the thumbnail navigation
+		  'cols': 4,
+
+		  // animation duration
+		  //duration: 400,
+
+		  // easing effect
+		  easing: 'swing'
+		  
+		});
 	
+	$('.cd-popup-trigger').on('click', function(event){
+		event.preventDefault();
+		$('.cd-popup').addClass('is-visible');
+	});
+	
+	//close popup
+	$('.cd-popup').on('click', function(event){
+		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') ) {
+			event.preventDefault();
+			$(this).removeClass('is-visible');
+		}
+	});
+	//close popup when clicking the esc keyboard button
+	$(document).keyup(function(event){
+    	if(event.which=='27'){
+    		$('.cd-popup').removeClass('is-visible');
+	    }
+    });
 	
 	$('.multiSelect').select2();
 	

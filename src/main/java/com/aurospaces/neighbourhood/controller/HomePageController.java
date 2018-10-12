@@ -5835,7 +5835,7 @@ public String premiumMembers(@ModelAttribute("createProfile") UsersBean searchCr
 	}
 	
 	@RequestMapping(value = "/refreshCounts")
-	public  @ResponseBody String getNotificationsCount( ModelMap model,
+	public  @ResponseBody String refreshCounts( ModelMap model,
 			HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
 		JSONObject objJson =new JSONObject();
 		List<CityBean> ojCityBean = null;
