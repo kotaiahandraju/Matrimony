@@ -2641,7 +2641,7 @@ public class UsersDao extends BaseUsersDao
 				+ " where "+inner_where_clause 
 				+ " group by u.id) temp, "
 				+" users_activity_log activity where activity.act_done_on_user_id  = "+objUserBean.getId()+" and activity.act_done_by_user_id = temp.id "
-				+ " activity.activity_type in ('interest_request','message','mobile_no_viewed') ");
+				+ " and activity.activity_type in ('interest_request','message','mobile_no_viewed') ");
 
 		
 		//buffer.append(where_clause);
