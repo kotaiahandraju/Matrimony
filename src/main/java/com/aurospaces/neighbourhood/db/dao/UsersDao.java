@@ -3803,7 +3803,7 @@ public boolean deletePhoto(String photoId){
 	public List<Map<String,Object>> getPackageExpiredProfiles(int package_id){
 		jdbcTemplate = custom.getJdbcTemplate();
 		//String qryStr = "select u.*,u.id as userId,p.*,date_format(package_joined_date,'%d-%M-%Y') as package_joined_date from users u, package p  where u.package_id = p.id and p.id = "+package_id+" and p.status = '1' and current_date() > (select DATE_ADD(u.package_joined_date, INTERVAL p.duration MONTH)) and u.membership_status='0' group by u.package_id order by u.package_id desc";
-		String qryStr = "select * from (select u.*,u.id as userId,pack.*,date_format(package_joined_date,'%d-%M-%Y') as package_joined_date, "
+		String qryStr = "select * from (select u.*,u.id as userId,date_format(package_joined_date,'%d-%M-%Y') as package_joined_datee, "
 		+ "(case duration_type when 'day' then (select datediff(date_add(u.package_joined_date, interval pack.duration day),current_date()))    "
 		+ "						when 'month' then (select datediff(date_add(u.package_joined_date, interval pack.duration month),current_date()))  	"
 		+ "						when 'year' then (select datediff(date_add(u.package_joined_date, interval pack.duration year),current_date()))  	"
@@ -4327,7 +4327,7 @@ public boolean deletePhoto(String photoId){
 
 		jdbcTemplate = custom.getJdbcTemplate();
 		StringBuffer buffer = new StringBuffer();
-		buffer.append("SELECT COUNT(`users`.`package_id`) as count, `package`.`name` FROM `users` RIGHT  JOIN `package`  ON (`package`.`id`=`users`.`package_id`) GROUP BY `package`.`id` ");
+		buffer.append("SELECT COUNT(`users`.`package_id`) as count, `package`.`name` FROM `users` RIGHT  JOIN `package`  ON (`package`.`id`=`users`.`package_id`) where `package`.`status` = '1' and `users`.`status` = '1'  GROUP BY `package`.`id` ");
 							String sql =buffer.toString();
 							System.out.println(sql);
 							List<Map<String, Object>> result = jdbcTemplate.queryForList(sql);
@@ -4339,7 +4339,7 @@ public boolean deletePhoto(String photoId){
 
 		jdbcTemplate = custom.getJdbcTemplate();
 		StringBuffer buffer = new StringBuffer();
-		buffer.append("SELECT COUNT(*) AS totalcount,'Free register' AS package FROM users WHERE role_id ='4' ");
+		buffer.append("SELECT COUNT(*) AS totalcount,'Free register' AS package FROM users WHERE role_id ='4'  and status = '1'");
 							String sql =buffer.toString();
 							System.out.println(sql);
 							List<Map<String, Object>> result = jdbcTemplate.queryForList(sql);

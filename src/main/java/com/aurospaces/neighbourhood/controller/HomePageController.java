@@ -5111,7 +5111,8 @@ String sJson="";
 			boolean updated = objUsersDao.updateStatus(objUsersBean);
 			if(updated){
 				jsOnObj.put("message", "success");
-				
+				sessionBean.setStatus(status);
+				session.setAttribute("cacheGuest",sessionBean);
 			}else{
 				jsOnObj.put("message", "failed");
 				

@@ -279,35 +279,7 @@ color: #cfcfcf !important;
 									</tr>
 								</table>
 								</div>
-								<div class="col-md-6">
-								<table>
-								<h3><legend>Mobile Number Count</legend></h3>
-									<tr>
-										<td>Total  Count &nbsp;</td>
-										<td>: &nbsp;</td>
-										<td id="total_profile_count"></td>
-									</tr>
-									<tr>
-										<td> Count Left</td>
-										<td>:</td>
-										<td id="left_profile_count"></td>
-									</tr> 
-								</table>
-								<br>
-								<table>
-								<h3><legend>SMS Count</legend></h3>
-									<tr>
-										<td>Total Count &nbsp;</td>
-										<td>: &nbsp;</td>
-										<td id="total_profile_count"></td>
-									</tr>
-									<tr>
-										<td>Count Left</td>
-										<td>:</td>
-										<td id="left_profile_count"></td>
-									</tr>
-								</table><br>
-								</div>
+								
 								</div>
 																
 							</div>
@@ -321,23 +293,42 @@ color: #cfcfcf !important;
 							<div class="panel-body">
 							<div class="row">
 							<div class="col-md-12">
-						<c:if test="${cacheGuest.status} == '1'">
-							Your profile is currently Active. Click on below button if you want to deactivate your profile.<br>
-							<input type="button" type="button" value="Deactivate My Account" onclick="changeProfileStatus(0)" />
-						</c:if><br>
+						<br>
 						<c:if test="${cacheGuest.status} == '2'">
+							<div id="inActiveAccDiv">
 							Your profile is currently In-Active. Click on below button if you want to activate your profile.<br>
 						Activate/Deactivate Profile<br>
-						</c:if><br>
-						<c:if test="${cacheGuest.status == '1'}">
+							</div>
+							<div id="activeAccDiv" hidden="true">
 							Your profile is currently Active. <br>
 							Click on below button if you want to deactivate your profile.You can activate it again whenever you want using settings.<br>
 							<br>
 							<input type="button" class="btn btn-warning"   value="Deactivate My Account" onclick="changeProfileStatus(0)" />
+							</div>
+						</c:if><br>
+						<c:if test="${cacheGuest.status == '1'}">
+							<div id="activeAccDiv">
+							Your profile is currently Active. <br>
+							Click on below button if you want to deactivate your profile.You can activate it again whenever you want using settings.<br>
+							<br>
+							<input type="button" class="btn btn-warning"   value="Deactivate My Account" onclick="changeProfileStatus(0)" />
+							</div>
+							<div id="inActiveAccDiv" hidden="true">
+							Your profile is currently In-Active. Click on below button to activate your profile.<br>
+							<input type="button" class="btn btn-warning" style="float: right;" value="Activate My Account" onclick="changeProfileStatus(1)" />
+							</div>
 						</c:if><br>
 						<c:if test="${cacheGuest.status == '0'}">
+							<div id="inActiveAccDiv">
 							Your profile is currently In-Active. Click on below button to activate your profile.<br>
-							<input type="button"  class="btn btn-warning" style="float: right;" value="Activate My Account" onclick="changeProfileStatus(1)" />
+							<input type="button" class="btn btn-warning" style="float: right;" value="Activate My Account" onclick="changeProfileStatus(1)" />
+							</div>
+							<div id="activeAccDiv" hidden="true">
+							Your profile is currently Active. <br>
+							Click on below button if you want to deactivate your profile.You can activate it again whenever you want using settings.<br>
+							<br>
+							<input type="button" class="btn btn-warning"   value="Deactivate My Account" onclick="changeProfileStatus(0)" />
+							</div>
 						</c:if>
 						</div></div></div>
 						</div>
@@ -1066,8 +1057,18 @@ function displaySettingsBlock(divId){
 						$("#membership_status").html("Active");
 					else
 						$("#membership_status").html("In-Active");
-					$("#membership_validity").html(membershipDetails.validity+" days");
-					$("#renewal_date").html(membershipDetails.renewal_date);
+					if(membershipDetails.validity=='-1101'){
+						$("#membership_validity").html("Till Marriage");
+					}else{
+						$("#membership_validity").html(membershipDetails.validity+" days");
+					}
+					
+					if(membershipDetails.validity=='-1101'){
+						$("#renewal_date").html("---");
+					}else{
+						$("#renewal_date").html(membershipDetails.renewal_date);
+					}
+					
 					$("#last_renewed").html(membershipDetails.last_renewed_date);
 					$("#total_profile_count").html(membershipDetails.allowed_profiles_limit);
 					$("#left_profile_count").html("${allowed_profiles_limit}");
@@ -1397,8 +1398,16 @@ function changeProfileStatus(status){
 		var msg = jsonobj.message;
 		var membershipDetails = jsonobj.membership_details;
 		if(msg=="success"){
-			
-				alert("Profile status updated successfully");
+				if(status==0){
+					alert("Profile Deactivated successfully");
+					$("#activeAccDiv").attr('hidden',true);
+					$("#inActiveAccDiv").removeAttr('hidden');
+				}else if(status==1){
+					alert("Profile Activated successfully");
+					$("#activeAccDiv").removeAttr('hidden');
+					$("#inActiveAccDiv").attr('hidden',true);
+				}
+				
 			
 			
 		}

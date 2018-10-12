@@ -113,7 +113,7 @@
             				<c:when test="${membership_details.validity < 0}">
             					<c:if test="${membership_details.validity == -1101}">
             						<b><c:out value="${membership_details.name}" /></b><br>
-					            	Validity: Unlimited<br>
+					            	Validity: Till Marriage<br>
 					            	Balance Profiles Limit : Unlimited
             					</c:if>
             					<c:if test="${membership_details.validity != -1101}">
