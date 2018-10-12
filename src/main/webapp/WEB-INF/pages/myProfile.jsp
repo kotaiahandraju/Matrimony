@@ -1104,7 +1104,7 @@ $(".onlyCharacters").on("keypress",	function(event) {
     <p style="margin-left: 29px;">It is simple and absolutely FREE!</p></div>
         </div>
     </div> --%>
-    
+ <c:if test="${empty cacheGuest.profileImage}">  
 <div class="panel " style="width: 250px;">
 <div class="panel-heading"><b> Add Photos Now</b></div>
         <div class="panel-body table-responsive">
@@ -1112,7 +1112,9 @@ $(".onlyCharacters").on("keypress",	function(event) {
         <img src="${baseurl}/user/images/add-photo-edit-avatar.png" width="40" style='margin: 0px 0px 0px -25px;'>
     <p style="margin-left: 29px;">Photos are the first things members look for in a profile.</p></div>
         </div>
-    </div><div class="clearfix"></div>
+    </div>
+    </c:if>
+    <div class="clearfix"></div>
 </div>
 </div>
  

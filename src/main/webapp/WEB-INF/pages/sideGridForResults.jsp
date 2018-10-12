@@ -220,7 +220,10 @@ margin-left:10px;
         </div>
     </div>
   </div>
-</div><a href="memberShipPage"><img  style="border-radius:10px;" src="${baseurl}/images/upgra.jpg" class="img-responsive"/></a>
+</div>
+<c:if test="${empty cacheGuest.profileImage}">
+<a href="memberShipPage"><img  style="border-radius:10px;" src="${baseurl}/images/upgra.jpg" class="img-responsive"/></a>
+</c:if>
 			</div>
 			<script>
 			

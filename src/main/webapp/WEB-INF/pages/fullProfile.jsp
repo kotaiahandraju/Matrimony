@@ -1274,16 +1274,18 @@ xpopup
 				</div><div class="col-md-9"><p>It is simple and absolutely FREE!</p></div>
 	            	</div>
 	            </div> --%>
-			<div class="panel ">
-			<div class="panel-heading"><b> Add Photos Now</b></div>
-					<div class="panel-body table-responsive">
-		            	<div class="col-md-3">
-					<img src="${baseurl}/user/images/add-photo-edit-avatar.png" width="40">
-				</div><div class="col-md-9"><p>Photos are the first
-things members look for
-in a profile. </p></div>
-	            	</div>
-	            </div>
+	        <c:if test="${empty cacheGuest.profileImage}">
+				<div class="panel ">
+				<div class="panel-heading"><b> Add Photos Now</b></div>
+						<div class="panel-body table-responsive">
+			            	<div class="col-md-3">
+						<img src="${baseurl}/user/images/add-photo-edit-avatar.png" width="40">
+					</div><div class="col-md-9"><p>Photos are the first
+	things members look for
+	in a profile. </p></div>
+		            	</div>
+		            </div>
+		     </c:if>
 	            <div class="">
 					 <jsp:include page="sideGridForMatches.jsp" /></div>
 	            <div class="clearfix"></div>

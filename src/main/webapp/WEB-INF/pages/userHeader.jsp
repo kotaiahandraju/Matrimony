@@ -168,6 +168,8 @@
     
     
 </div>
+<c:if test="${empty cacheGuest.profileImage}">
 <a href="memberShipPage"><img  style="border-radius:10px;margin-top:8px;" src="../images/upgra.jpg" class="img-responsive"/></a>
+</c:if>
 			</div>
 			<div id="dial1"></div>

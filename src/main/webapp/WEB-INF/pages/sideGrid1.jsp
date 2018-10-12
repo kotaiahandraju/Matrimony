@@ -30,7 +30,9 @@
 						</div>
 					</div>
 				</div>
+				<c:if test="${empty cacheGuest.profileImage}">
 				<a href="#"><img style="border-radius:10px;" src="../images/upgra.jpg" class="img-responsive"/></a>
+				</c:if>
 				<!-- <div class="panel-group" id="accordion">
     <div class="panel panel-default">
         <div class="panel-heading">
