@@ -36,7 +36,7 @@
 			<div class="box-title">
 				<h3>
 					<i class="fa fa-table"></i>
-					Classic Expired Profiles
+					Classic Profiles(about to expire)
 				</h3>
 			</div>
 			<div id="tableIdClassic">
@@ -50,7 +50,7 @@
 			<div class="box-title">
 				<h3>
 					<i class="fa fa-table"></i>
-					Classic Plus Expired Profiles
+					Classic Plus Profiles(about to expire)
 				</h3>
 			</div>
 			<div id="tableId1">
@@ -64,7 +64,7 @@
 			<div class="box-title">
 				<h3>
 					<i class="fa fa-table"></i>
-					Premium Expired Profiles
+					Premium Profiles(about to expire)
 				</h3>
 			</div>
 			<div id="tableId">
@@ -78,7 +78,7 @@
 			<div class="box-title">
 				<h3>
 					<i class="fa fa-table"></i>
-					Premium Plus Expired Profiles
+					Premium Plus Profiles(about to expire)
 				</h3>
 			</div>
 			<div id="tableIdPremiumPlus">
@@ -92,7 +92,7 @@
 			<div class="box-title">
 				<h3>
 					<i class="fa fa-table"></i>
-					Arna Premium Expired Profiles
+					Arna Premium Profiles(about to expire)
 				</h3>
 			</div>
 			<div id="tableIdArnaPremium">
@@ -248,7 +248,7 @@ var listOrders2 = ${classicPlusExpiredProfiles};
 							serviceUnitArray[orderObj.id] = orderObj;
 							var tblRow = "<tr>"
 								+ "<td title='"+orderObj.username+"'><a href='#' onclick='fullProfile("+orderObj.userId+")'>" + orderObj.username + "</a></td>"
-								+ "<td title='"+orderObj.package_joined_date+"'>" + orderObj.package_joined_date + "</td>"
+								+ "<td title='"+orderObj.package_joined_datee+"'>" + orderObj.package_joined_datee + "</td>"
 								+ "<td title='"+orderObj.mobile+"'>" + orderObj.mobile + "</td>"
 								+ "</tr >";
 							$(tblRow).appendTo("#"+tableId+" table tbody"); 

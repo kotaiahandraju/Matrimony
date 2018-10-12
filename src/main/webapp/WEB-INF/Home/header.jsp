@@ -392,7 +392,7 @@ var role_id = ${cacheUserBean.roleId};
 				</li>
 				<li class="profiles">
 					<a href="#" data-toggle="dropdown" class='dropdown-toggle'>
-						<span>Profiles<span class="matchcount inactive_cnt" id="inactive_profiles_cnt">${display_counts.inactive_count}</span></span>
+						<span>Profiles<c:if test="${roleId1 == 1}"><span class="matchcount inactive_cnt" id="inactive_profiles_cnt">${display_counts.inactive_count}</span></c:if></span>
 						<span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
