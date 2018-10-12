@@ -1125,40 +1125,7 @@ $(".onlyCharacters").on("keypress",	function(event) {
 <link href="${baseurl}/css/datepicker1.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
 $(document).ready(function(){
-	$('#gallery').gallery({
-
-		  // the number of rows of the thumbnail navigation
-		  'rows': 1,
-
-		  // the number of columns of the thumbnail navigation
-		  'cols': 4,
-
-		  // animation duration
-		  //duration: 400,
-
-		  // easing effect
-		  easing: 'swing'
-		  
-		});
 	
-	$('.cd-popup-trigger').on('click', function(event){
-		event.preventDefault();
-		$('.cd-popup').addClass('is-visible');
-	});
-	
-	//close popup
-	$('.cd-popup').on('click', function(event){
-		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') ) {
-			event.preventDefault();
-			$(this).removeClass('is-visible');
-		}
-	});
-	//close popup when clicking the esc keyboard button
-	$(document).keyup(function(event){
-    	if(event.which=='27'){
-    		$('.cd-popup').removeClass('is-visible');
-	    }
-    });
 	
 	$('.multiSelect').select2();
 	
@@ -1375,6 +1342,24 @@ $(document).ready(function(){
 	$("#rHeightTo").trigger("chosen:updated");
 	
 	$('.multiSelect').trigger('change.select2');
+	
+	 $('#gallery').gallery({
+
+		  // the number of rows of the thumbnail navigation
+		  'rows': 1,
+	
+		  // the number of columns of the thumbnail navigation
+		  'cols': 4,
+	
+		  // animation duration
+		  //duration: 400,
+	
+		  // easing effect
+		  easing: 'swing'
+		  
+		});
+	
+	
 	
 });
 function displayMobileNum(profileId,listType){
