@@ -27,7 +27,7 @@
 						<a href="#">${loc_prof.currentCityName}</a><br>
                 <img src="../nimages/heart-icon.png" />
 				<c:if test="${loc_prof.expressedInterest==0}">
-				  <span id="expInt${loc_prof.id}"><a   href="#no" type="button"   onclick="expressInterest_SidegridFullProfile('${loc_prof.id}')"> Send Interest  </a></span>
+				  <span id="expIntFullProfile${loc_prof.id}"><a   href="#no" type="button"   onclick="expressInterest_SidegridFullProfile('${loc_prof.id}')"> Send Interest  </a></span>
 				</c:if>
 				<c:if test="${loc_prof.expressedInterest > 0}">
 				<span><a type="button"  disabled="true" style="text-size-adjust:auto">Expressed Interest</a></span>
@@ -71,7 +71,7 @@
 						<a href="#">${rec_prof.currentCityName}</a><br>
                 <img src="../nimages/heart-icon.png" />
 				<c:if test="${rec_prof.expressedInterest==0}">
-				  <span id="expInt${rec_prof.id}"><a   href="#no" type="button"   onclick="expressInterest_SidegridFullProfile('${rec_prof.id}')"> Send Interest  </a></span>
+				  <span id="expIntFullProfile${rec_prof.id}"><a   href="#no" type="button"   onclick="expressInterest_SidegridFullProfile('${rec_prof.id}')"> Send Interest  </a></span>
 				</c:if>
 				<c:if test="${rec_prof.expressedInterest > 0}">
 				<span><a type="button"  disabled="true" style="text-size-adjust:auto">Expressed Interest</a></span>

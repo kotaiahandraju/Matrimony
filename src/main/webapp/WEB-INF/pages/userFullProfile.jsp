@@ -100,7 +100,7 @@ padding:0px !important;}
 							</c:if> 
 							<c:forEach items="${photosList}" var="photo" >
 					      		
-					      			<a href="#" onclick="displayImage('${baseurl }/${photo.image}')"><b>O</b></a>
+					      			<a href="#" onclick="displayImage('${catalina_base}/${photo.image}')"><b>O</b></a>
 					      		
 							</c:forEach><br>
 							<label><b>${profileBean.username}</b></label>

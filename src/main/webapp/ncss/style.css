@@ -406,13 +406,24 @@ font-size:14px;min-height:90px;
 #recent-profile .row
 {    margin: -0px 0;
 }
-
+.homeimages{
+	width: 200px;
+	max-width: 200px;
+	height:auto;	
+	overflow:hidden;
+	max-height:230px;
+	min-height:230px;
+}
    #recent-profile .pro_img img{
  /* box-shadow: 1px 1px 6px #c9c6c6;
     border: 6px solid #fff; */
-        height: 230px;
+    height:  auto;
+    width:100% ; 
+       
+        
   
 }
+.
  #recent-profile,#search
 {
 	background-color:#ffffff;
