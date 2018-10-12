@@ -844,21 +844,21 @@ footer {
 			<div class="footer-info w3-agileits-info">
 				<div class="col-md-3 address-left agileinfo">
 					<div class="footer-logo header-logo">
-						<h6>Get in Touch.</h6>
+						<h6>Get in Touch</h6>
 					</div>
 					<ul>
-						<li><i class="fa fa-map-marker"></i> Door No 58-2-3/1 Bagaiah Street,
+						<li><i class="fa fa-map-marker"></i> Door No 58-2-3/1,Bagaiah Street,
 Opposite Tanusri Hospital, <br>
 Pantakalava Road,
-Benzcircle Vijayawada</li>
+Benzcircle Vijayawada.</li>
 <!-- 						<li><i class="fa fa-mobile"></i> 333 222 3333 </li> -->
 						<li><i class="fa fa-phone"></i> +91 8466999991 </li>
 						<li><i class="fa fa-envelope-o"></i> <a href="#stayhere"> info@aarnamatrimony.com</a></li>
 					</ul> 
 				</div>
 <!-- 				<div class="col-md-4 address-right"> -->
-				<div class="col-md-3 footer-grids">
-						<h3>Quick links</h3>
+				<div class="col-md-3 footer-grids style="padding-left:-30px">
+						<h3 style="padding-left: 70px">Quick links</h3>
 						<ul>
 							<li><a href="termsConditionsHomepage">Terms and Conditions</a></li>
 							<li><a href="privacyAndPolicyHomePage">Privacy Policy</a></li>

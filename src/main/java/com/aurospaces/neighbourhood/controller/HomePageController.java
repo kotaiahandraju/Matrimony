@@ -5851,6 +5851,31 @@ public String premiumMembers(@ModelAttribute("createProfile") UsersBean searchCr
 		}
 		return objJson.toString();
 	}
+	
+	@RequestMapping(value = "/emailChecking")
+	public @ResponseBody String emailChecking(@ModelAttribute("createProfile") UsersBean objUsersBean, Model objeModel ,
+			HttpServletRequest request,HttpServletResponse response, HttpSession session) {
+//		System.out.println("emailChecking Page");
+		JSONObject objJson = new JSONObject();
+		
+		try {
+			UsersBean userbean = objUsersDao.emailExistOrNot(objUsersBean);
+			if(userbean == null){
+				objJson.put("msg", "notexist");
+			}else{
+				objJson.put("msg", "exist");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			logger.error(e);
+			logger.fatal("error in CreateProfile class createProfile method  ");
+			objJson.put("msg", e);
+		}
+		return String.valueOf(objJson);
+	}
+	
 } 
 
 

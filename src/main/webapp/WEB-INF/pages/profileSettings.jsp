@@ -944,16 +944,8 @@ As a member, you have the benefit of receiving mobile alerts. We recommend you t
        var loginemail="${loginemail}"
     	   $("#changeEmail").val(loginemail);
        
-      
        function submitEmail(){
-
     	   var email=$("#changeEmail").val();
-    	   
-    	   if(email==loginemail){
-    		   alert("change email Id");
-    		   return false;
-    	   }
-    	   
     	   if (email == null || email == "" || email == "undefiend"){
     		   $('#changeEmail').css('border-color','red');
     			$('#changeEmail').css('color','#cc0000');
@@ -988,6 +980,20 @@ As a member, you have the benefit of receiving mobile alerts. We recommend you t
        		$('#emailError1').text("");
        	  $('#submitId').removeAttr("disabled");
        	}
+       	if(email !=null && email != "" && email !="undefined"){
+	    	var formData = new FormData();
+	        formData.append('email', email);
+	    	$.fn.makeMultipartRequest('POST', 'emailChecking', false, formData, false, 'text', function(data){
+	    		var jsonobj = $.parseJSON(data);
+	    		if(jsonobj.msg =="exist"){
+	    			//error message write
+	    			$('#emailError1').text("Email already in Use. Please Try Another.");
+	    			return false;
+	    		}else{
+	    			$('#emailError1').text("");
+	    			return false;	    		}
+	    	});
+	    	}
        });
        
        function borderColor(){

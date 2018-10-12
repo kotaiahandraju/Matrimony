@@ -734,7 +734,7 @@ function getReliginCastAjaxSearch() {
    	} */
    		var optionsForClass = "";
    		optionsForClass = $("#castId").empty();
-   		optionsForClass.append(new Option("of Caste....", ""));
+   		optionsForClass.append(new Option("Caste", ""));
    		$.each(alldata, function(i, tests) {
    			var id=tests.id;
    			var casteName=tests.name;
