@@ -1204,7 +1204,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 <div id="firstForm">
 <center><h4 style="text-align:left;" >Register</h4></center>
 							<div class="form-group">
-								<label for="user_name">Your Email-Id :</label> 
+								<label for="user_name">Your eMail Id :</label> 
 								<form:input	path="email" onkeydown="removeBorder(this.id)" class="form-control notAllowFirstSpace" placeholder="Email"/>
 								<span class="hasError" id="emailError" style="font-size: 13px;"></span>
 							</div>
@@ -1214,7 +1214,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 								<span class="hasError" id="password_error_div" style="font-size: 13px;font-weight: 800;"></span>
 							</div>
 							<div class="form-group">
-								<label for="user_ssword">Create Profile for :</label> 
+								<label for="user_ssword">Create Profile For :</label> 
 								<select id="createProfileFor" name="createProfileFor" onfocus="removeBorder(this.id)" class="form-control">
 									<option value="">Select</option>
 									<option value="Self">Self</option>
@@ -1281,14 +1281,14 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 							</div>
 
 							<div class="form-group">
-								<label for="">Where do you live? </label>
+								<label for="">Where Do You Live? </label>
 								<form:select path="currentCountry" onfocus="removeBorder(this.id)" class="form-control">
 									<form:option value="">-- Choose Country --</form:option>
 									<form:options items="${countries}"></form:options>
 								</form:select>
 							</div>
 							<div class="form-group">
-								<input type="button" id="secondButton" value="SIGNUP..." class="btn btn-success btn-block">
+								<input type="button" id="secondButton" value="Sign Up" class="btn btn-success btn-block">
 								<!--                                                     <button type="button"  id ="secondButton" onclick="submit();" class="btn btn-info btn-block">SIGNUP...</button> -->
 							</div>
 						</div>
@@ -1306,18 +1306,18 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 </div>
 <div class="row search-box">
 <div class="col-md-12 search search-link">
-<div class="col-md-2"><h4> I am Looking for</h4>
+<div class="col-md-2"><h4> I am looking for</h4>
  <form:form commandName="createProfile"  class="form-horizontal" id="searchForm" name="searchForm" role="form"   method="post">
 <%-- <form:hidden path="gender"/> --%>
 <form:select id="rPeople" path="gender" class="custom-select col-md-12 form-control">
-				<option value="" selected>I am Looking for... &nbsp;&nbsp;</option>
+				<option value="" selected>I am looking for &nbsp;&nbsp;</option>
 								<option value="FeMale" id="id1">Bride</option>
 								<option value="Male" id="id2">Groom</option>
 							</form:select>
 </div>
 <div class="col-md-3"><h4>Age  </h4>   
 <span>From </span> <form:select path="rAgeFrom" id="rAgeFrom" name="rAgeFrom"   class="for-control"  style="width:60px;">
-						            <option value="" selected>From... &nbsp;&nbsp;</option>
+						            <option value="" selected>From &nbsp;&nbsp;</option>
 						            <option value="18">18</option>
 									<option value="19">19</option>
 									<option value="20">20</option>
@@ -1354,17 +1354,17 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 					</form:select>
 					<span>To </span>
 					<form:select path="rAgeTo" id="rAgeTo" name="rAgeTo"  class="formcontrol" style="width:60px;">
-									<option value="" selected>To... &nbsp;&nbsp;</option>
+									<option value="" selected>To &nbsp;&nbsp;</option>
 					</form:select></div>
            <div class="col-md-2"><h4> Religion </h4> 
           <form:select path="religionId" onchange="getReliginCastAjax1();" class=" form-control" >
-								<form:option value="">of Religion.... &nbsp;&nbsp;</form:option>
+								<form:option value="">Religion&nbsp;&nbsp;</form:option>
 								<form:options items="${religion}"></form:options>
 							</form:select>
 					</div>
 					<div class="col-md-2"><h4> Caste </h4>
 					 <form:select path="castId" class="custom-select col-md-12 form-control">
-								<form:option value="">of Caste.... &nbsp;&nbsp;</form:option>
+								<form:option value="">Caste &nbsp;&nbsp;</form:option>
 <%-- 								<form:options items="${cast}"></form:options> --%>
 							</form:select>
 					 </div>
@@ -1379,28 +1379,28 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 <div id="strip">
 <div class="container">
 <h1> Welcome to Aarna Matrimony</h1>
-<p> Feel Free To Register, Easy To Use, Get membership</p>
+<p> Feel Free to Register, Easy to Use, Get Membership</p>
 
 <div class="row">
 <div class="col-md-4 privacy">
 <div class="strip-content">
 <img src="nimages/privacy-icon.png" alt="Aarna Matrimony">
 <h2> Privacy</h2>
-<p> We dont sell your datas. We take care of your privacy first.</p>
+<p> We don't sell your data and take care of your privacy first.</p>
 </div>
 </div>
 <div class="col-md-4 quality">
 <div class="strip-content">
 <img src="nimages/quality-icon.png" alt="Aarna Matrimony">
 <h2> Quality</h2>
-<p> Quality is our motto. Our profile are completely verified. 100% assured. </p>
+<p> Quality is our motto. Our profiles are completely verified and 100% assured. </p>
 </div>
 </div>
 <div class="col-md-4 secure">
 <div class="strip-content">
 <img src="nimages/secure-icon.png" alt="Aarna Matrimony">
 <h2> Secure &amp; Safety</h2>
-<p> We never mark your details available publicly. Your details are seen only </p>
+<p> We never mark your details available publicly.</p>
 </div>
 
 </div>
@@ -1442,7 +1442,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 	
 					</div>
 				</c:forEach>
-				<div class="col-md-2">
+				<!-- <div class="col-md-2">
 					<div class="pro_img">
 						<a href="#"> <span class="hidden"> </span>
 
@@ -1601,10 +1601,10 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 
 
 
-				</div>
+				</div>-->
 			</div>
 		</div>
-	</div>
+	</div> 
 	<script type="text/javascript">
 	/* var religionList="${religionList}";
 	
@@ -1830,13 +1830,13 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 			<div class="footer-info w3-agileits-info">
 				<div class="col-md-3 address-left agileinfo">
 					<div class="footer-logo header-logo">
-						<h6>Get in Touch.</h6>
+						<h6>Get In Touch</h6>
 					</div>
 					<ul>
-						<li><i class="fa fa-map-marker"></i> Door No 58-2-3/1 Bagaiah Street,
+						<li><i class="fa fa-map-marker"></i> Door No 58-2-3/1,Bagaiah Street,
 Opposite Tanusri Hospital, <br>
 Pantakalava Road,
-Benzcircle Vijayawada</li>
+Benzcircle Vijayawada.</li>
 <!-- 						<li><i class="fa fa-mobile"></i> 333 222 3333 </li> -->
 						<li><i class="fa fa-phone"></i> +91 8466999991 </li>
 						<li><i class="fa fa-envelope-o"></i> <a href="#stayhere"> info@aarnamatrimony.com</a></li>
@@ -1844,7 +1844,7 @@ Benzcircle Vijayawada</li>
 				</div>
 <!-- 				<div class="col-md-4 address-right"> -->
 				<div class="col-md-3 footer-grids">
-						<h3>Quick links</h3>
+						<h3 style="padding-left: 34px">Quick links</h3>
 						<ul>
 							<li><a href="termsConditionsHomepage">Terms and Conditions</a></li>
 							<li><a href="privacyAndPolicyHomePage">Privacy Policy</a></li>
@@ -2260,11 +2260,10 @@ $('img').bind('contextmenu', function(e) {
 //    		});
 //    		$("#cast").select2({
 //    			placeholder : "-- Choose Cast --"
-//    		});
-   $("#religionId").val(1);
-   $('#religionId').trigger("chosen:updated");
-   getReliginCastAjax1();
-   
+//     		});
+//    $("#religionId").val(1);
+   $('#religionId').trigger("chosen:updated"); 
+   getReliginCastAjax1(); 
     	  window.onload = function (){
     	    $(".bts-popup").delay(1000).addClass('is-visible');
     		}
@@ -2355,7 +2354,7 @@ $('img').bind('contextmenu', function(e) {
     	} */
     		var optionsForClass = "";
     		optionsForClass = $("#castId").empty();
-    		optionsForClass.append(new Option("of Caste....", ""));
+    		optionsForClass.append(new Option("Caste", ""));
     		$.each(alldata, function(i, tests) {
     			var id=tests.id;
     			var casteName=tests.name;
@@ -2404,22 +2403,28 @@ $('img').bind('contextmenu', function(e) {
     		
     } 
     
-    
-    function searchSubmit(){
+    $("#submit12").click(function(e) {
+  	  
     	var rPeople= $('#rPeople').val();
     	var rAgeFrom= $('#rAgeFrom').val();
     	var rAgeTo= $("#rAgeTo").val();
     	 if(rPeople == ""){
     			alert("You are looking for?");
+    			e.preventDefault();
     			return false;
     			}
     	if(rAgeFrom > rAgeTo){
     		alert("Sorry, Invalid Age range");
+    		e.preventDefault();
     		return false;
     	}else{
         	document.searchForm.action = "homePageSearchResults"
         		document.searchForm.submit();
         }
+    	  
+    	});
+    
+   
     	$('#rAgeFrom').change(function() {
 			$('#rAgeFromTo').val('');
 			var val = $(this).val();
@@ -2469,7 +2474,7 @@ $('img').bind('contextmenu', function(e) {
     	 $("#password_error_div").html('');		
     	
    
-    } 
+    
     /* $(".multiselect").click(function(){
     	$(".dropdown-content").css("display", 'block');
     }); */
@@ -2484,6 +2489,8 @@ $('img').bind('contextmenu', function(e) {
                 $('.navbar-toggle:visible').click();
         });
 });
+    
+   
     function validatePassword(){
     	
     	
