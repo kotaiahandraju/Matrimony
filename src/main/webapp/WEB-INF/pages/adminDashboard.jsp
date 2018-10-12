@@ -92,7 +92,7 @@
 			<div class="box-title">
 				<h3>
 					<i class="fa fa-table"></i>
-					Arna Premium Expired Profiles
+					Aarna Premium Expired Profiles
 				</h3>
 			</div>
 			<div id="tableIdArnaPremium">
@@ -106,7 +106,7 @@
 			<div class="box-title">
 				<h3>
 					<i class="fa fa-table"></i>
-					Arna LAUNCHING_OFFER Profiles
+					Aarna LAUNCHING_OFFER Profiles
 				</h3>
 			</div>
 			<div id="tableIdSpecial">

@@ -1220,7 +1220,7 @@ public class HomePageController {
 					
 					 String mobileNum = profileBean.getMobile();
 			            try{
-							   String response = SendSMS.sendSMS("Dear "  +profileBean.getFirstName()+ " "+profileBean.getLastName() +","+"\n"+sessionBean.getFirstName()+" "+sessionBean.getLastName()+""+"("+sessionBean.getUsername()+")"+" Viewed your profile..\n \n Wishing You the best life partner \n Team - Aarna Matrimony", mobileNum);
+							   String response = SendSMS.sendSMS("Dear "  +profileBean.getFirstName()+ " "+profileBean.getLastName() +","+"\n"+sessionBean.getFirstName()+" "+sessionBean.getLastName()+""+"("+sessionBean.getUsername()+")"+" Viewed your profile..\n \nWishing You the best life partner \nTeam - Aarna Matrimony", mobileNum);
 							   
 							   if("OK".equalsIgnoreCase(response)){
 								   
@@ -1934,8 +1934,32 @@ String sJson="";
 					if(success){
 						objJson.put("message", "success");
 						String baseurl =  request.getScheme() + "://" + request.getServerName() +      ":" +   request.getServerPort() +  request.getContextPath();
-						objUsersDao.saveEmailData(userBean, receipientUser, baseurl, "shortlisted");
-						 //EmailUtil.sendShortListToMail(userBean, receipientUser, request, objContext);
+						try {
+							objUsersDao.saveEmailData(userBean, receipientUser, baseurl, "shortlisted");
+							//EmailUtil.sendShortListToMail(userBean, receipientUser, request, objContext);
+							
+						} catch (Exception e) {
+							// TODO: handle exception
+						}
+						
+						 String mobileNum = receipientUser.getMobile();
+				            try{
+								   String response = SendSMS.sendSMS("Dear "  +receipientUser.getFirstName()+ " "+receipientUser.getLastName() +","+"\n"+userBean.getFirstName()+" "+userBean.getLastName()+""+"("+userBean.getUsername()+")"+" shortlisted your profile..\n \nWishing You the best life partner \nTeam - Aarna Matrimony", mobileNum);
+								   
+								   if("OK".equalsIgnoreCase(response)){
+									   
+									   request.setAttribute("message", "success");
+								   }else{
+									   request.setAttribute("message", "failed"); 
+								   }
+								   //throw new Exception();
+							   }catch(Exception e){
+								   e.printStackTrace();
+								   request.setAttribute("message", "failed");
+								   //objUsersDao.delete(sessionBean.getId());
+							   }
+						
+						
 					}else{
 						objJson.put("message", "failed");
 					}
@@ -2007,8 +2031,28 @@ String sJson="";
 						receipientUser.setMail_content(mailContent);
 //					EmailUtil.sendExpressInterestToMail(userBean, receipientUser, request, objContext);
 					String baseurl =  request.getScheme() + "://" + request.getServerName() +      ":" +   request.getServerPort() +  request.getContextPath();
-					objUsersDao.saveEmailData(userBean, receipientUser, baseurl, "interestrequest");
+					try {
+						
+						objUsersDao.saveEmailData(userBean, receipientUser, baseurl, "interestrequest");
+					}catch (Exception e) {
+						// TODO: handle exception
 					}
+		            String mobileNum = receipientUser.getMobile();
+					  try{
+						   String response = SendSMS.sendSMS("Dear "  +receipientUser.getFirstName()+ " "+receipientUser.getLastName() +","+"\n"+userBean.getFirstName()+" "+userBean.getLastName()+""+"("+userBean.getUsername()+")"+" send an Interest request to you.. \n \nWishing You the best life partner \nTeam - Aarna Matrimony", mobileNum);
+						   
+						   if("OK".equalsIgnoreCase(response)){
+							   
+							   request.setAttribute("message", "success");
+						   }else{
+							   request.setAttribute("message", "failed"); 
+						   }
+						   //throw new Exception();
+					   }catch(Exception e){
+						   e.printStackTrace();
+						   request.setAttribute("message", "failed");
+						   //objUsersDao.delete(sessionBean.getId());
+					   }						}
 				}
 				else{
 					objJson.put("message", "failed");
@@ -2064,7 +2108,28 @@ String sJson="";
 					objJson.put("allowed_limit", allowed_limit);
 //					 EmailUtil.sendExpressInterestToMail(userBean, receipientUser, request, objContext);
 					 String baseurl =  request.getScheme() + "://" + request.getServerName() +      ":" +   request.getServerPort() +  request.getContextPath();
-						objUsersDao.saveEmailData(userBean, receipientUser, baseurl, "interestrequest");
+						try {
+							
+							objUsersDao.saveEmailData(userBean, receipientUser, baseurl, "interestrequest");
+						}catch (Exception e) {
+							// TODO: handle exception
+						}
+			            String mobileNum = receipientUser.getMobile();
+						  try{
+							   String response = SendSMS.sendSMS("Dear "  +receipientUser.getFirstName()+ " "+receipientUser.getLastName() +","+"\n"+userBean.getFirstName()+" "+userBean.getLastName()+""+"("+userBean.getUsername()+")"+" send an Interest request to you.. \n \nWishing You the best life partner \nTeam - Aarna Matrimony", mobileNum);
+							   
+							   if("OK".equalsIgnoreCase(response)){
+								   
+								   request.setAttribute("message", "success");
+							   }else{
+								   request.setAttribute("message", "failed"); 
+							   }
+							   //throw new Exception();
+						   }catch(Exception e){
+							   e.printStackTrace();
+							   request.setAttribute("message", "failed");
+							   //objUsersDao.delete(sessionBean.getId());
+						   }	
 					
 				}
 				else{
@@ -2642,7 +2707,7 @@ String sJson="";
 				//SEND MAIL&SMS TO THE MEMBER
 				List<Map<String,Object>> paymentDetails = this.objUsersDao.getPaymentDetailsForPrint(txnid);
 				String retVal = EmailUtil.sendPostPaymentMail(userSessionBean, paymentDetails.get(0), request, objContext);
-				String response = SendSMS.sendSMS("Dear member, Congratulations. The payment you made on "+paymentDetails.get(0).get("paymentDate")+" towards Aarna Matrimony membership is successful. Amount paid is:"+paymentDetails.get(0).get("price"), userSessionBean.getMobile());
+				String response = SendSMS.sendSMS("Dear "  +userSessionBean.getFirstName()+ " "+userSessionBean.getLastName()+",\nCongratulations. The payment you made on "+paymentDetails.get(0).get("paymentDate")+" towards Aarna Matrimony membership is successful. Amount paid is:"+paymentDetails.get(0).get("price"), userSessionBean.getMobile());
 				// notify Admin
 				objUsersDao.addAdminNotifications(userId+"",String.valueOf(paymentDetails.get(0).get("price")));
 		}
@@ -3763,7 +3828,7 @@ String sJson="";
 			   boolean success = objUsersDao.saveOtp(sessionBean.getId()+"",mobileNum,otp);
 			   if(success){
 				   try{
-					   String response = SendSMS.sendSMS("Thanks for registering with Aarna Matrimony. OTP for your registration is: "+otp, mobileNum);
+					   String response = SendSMS.sendSMS("Dear "  +sessionBean.getFirstName()+ " "+sessionBean.getLastName()+",\nThanks for registering with Aarna Matrimony. OTP for your registration is: "+otp, mobileNum);
 					   
 					   if("OK".equalsIgnoreCase(response)){
 						   
@@ -4563,6 +4628,23 @@ String sJson="";
 				 }catch(Exception e){
 					 objJson.put("message", "failed");
 				 }
+				
+	            String mobileNum = receipientUser.getMobile();
+	            try{
+					   String response = SendSMS.sendSMS("Dear "  +receipientUser.getFirstName()+ " "+receipientUser.getLastName()+","+"\n"+userBean.getFirstName()+" "+userBean.getLastName()+""+"("+userBean.getUsername()+")"+" send a Message..\n \n"+receipientUser.getMail_content()+""+" \n \nWishing You the best life partner \nTeam - Aarna Matrimony", mobileNum);
+					   
+					   if("OK".equalsIgnoreCase(response)){
+						   
+						   request.setAttribute("message", "success");
+					   }else{
+						   request.setAttribute("message", "failed"); 
+					   }
+					   //throw new Exception();
+				   }catch(Exception e){
+					   e.printStackTrace();
+					   request.setAttribute("message", "failed");
+					   //objUsersDao.delete(sessionBean.getId());
+				   }
 			}
 			
 		} catch (Exception e) {

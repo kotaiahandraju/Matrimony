@@ -707,7 +707,7 @@ public class EmailUtil {
 			String mailFrom = prop.getProperty("usermail");
 			String password = prop.getProperty("mailpassword");
 	        
-			subject = prop.getProperty("welcome_mailActivePrifile_subject");
+			subject = prop.getProperty("se");
 			
 			body = prop.getProperty("welcome_mailActivePrifile_body");
 			/*body = body.replace("_name_",objUsersBean.getFirstName());
@@ -930,10 +930,12 @@ try{
 						   body = body.replace("_content_", (String)emailEntry.get("mail_content"));
 						   
 					   }else if (((String)emailEntry.get("type")).equalsIgnoreCase("welcome_mail")){
+						   subject =  (String)emailEntry.get("receiver_display_name")+(String)emailEntry.get("shortstr");
 						   body = prop.getProperty("welcome_mail_body"); 
 					   }/*else if(((String)emailEntry.get("type")).equalsIgnoreCase("user_registered")){
 						   body = prop.getProperty("user_registered_body"); 
 					   }*/else if(((String)emailEntry.get("type")).equalsIgnoreCase("active_profile_mail")) {
+						   subject =  (String)emailEntry.get("receiver_display_name")+(String)emailEntry.get("shortstr");
 						   body = prop.getProperty("active_profile_mail_body"); 
 					   }else if(((String)emailEntry.get("type")).equalsIgnoreCase("admin_send_password")) {
 						    body = prop.getProperty("admin_send_password");

@@ -729,7 +729,7 @@ public class LoginController {
 						}
 					}else if("smsTo".equalsIgnoreCase(selectedOption)){
 						try{
-							   String response = SendSMS.sendSMS("New password has been generated for your Aarna Matrimony account "+userBean.getEmail()+". \n New password: "+userBean.getPassword(),userBean.getMobile());
+							   String response = SendSMS.sendSMS("Dear "  +userBean.getFirstName()+ " "+userBean.getLastName()+",\nNew password has been generated for your Aarna Matrimony account "+userBean.getEmail()+". \n New password: "+userBean.getPassword(),userBean.getMobile());
 							   
 							   if("OK".equalsIgnoreCase(response)){
 								   request.setAttribute("sentToStr", "mobile number xxxxxxx"+session.getAttribute("mobileStr"));

@@ -933,6 +933,7 @@ margin-bottom: 5px;
 }
 </style>
 <title>Aarna Matrimony</title>
+<link rel="shortcut icon" href="${baseurl }/img/aarna-fav.png"/>
 
 <!-- Styles -->
 <link href="ncss/app.css" rel="stylesheet">
@@ -1201,7 +1202,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 
 <form:form commandName="createProfile" action="#"  id="registration" autocomplete="off"  method="post" class="login-form">
 <div id="firstForm">
-<center><h4 style="margin-top:-1px;cursor : none;" class="btn btn-warning"">Register</h4></center>
+<center><h4 style="text-align:left;" >Register</h4></center>
 							<div class="form-group">
 								<label for="user_name">Your Email-Id :</label> 
 								<form:input	path="email" onkeydown="removeBorder(this.id)" class="form-control notAllowFirstSpace" placeholder="Email"/>
@@ -1309,12 +1310,14 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
  <form:form commandName="createProfile"  class="form-horizontal" id="searchForm" name="searchForm" role="form"   method="post">
 <%-- <form:hidden path="gender"/> --%>
 <form:select id="rPeople" path="gender" class="custom-select col-md-12 form-control">
+				<option value="" selected>I am Looking for... &nbsp;&nbsp;</option>
 								<option value="FeMale" id="id1">Bride</option>
 								<option value="Male" id="id2">Groom</option>
 							</form:select>
 </div>
 <div class="col-md-3"><h4>Age  </h4>   
 <span>From </span> <form:select path="rAgeFrom" id="rAgeFrom" name="rAgeFrom"   class="for-control"  style="width:60px;">
+						            <option value="" selected>From... &nbsp;&nbsp;</option>
 						            <option value="18">18</option>
 									<option value="19">19</option>
 									<option value="20">20</option>
@@ -1351,38 +1354,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 					</form:select>
 					<span>To </span>
 					<form:select path="rAgeTo" id="rAgeTo" name="rAgeTo"  class="formcontrol" style="width:60px;">
-									<option value="19">19</option>
-									<option value="20">20</option>
-									<option value="21">21</option>
-									<option value="22">22</option>
-									<option value="23">23</option>
-									<option value="24">24</option>
-									<option value="25">25</option>
-									<option value="26">26</option>
-									<option value="27">27</option>
-									<option value="28">28</option>
-									<option value="29">29</option>
-									<option value="30">30</option>
-									<option value="31">31</option>
-									<option value="32">32</option>
-									<option value="33">33</option>
-									<option value="34">34</option>
-									<option value="35">35</option>
-									<option value="36">36</option>
-									<option value="37">37</option>
-									<option value="38">38</option>
-									<option value="39">39</option>
-									<option value="40">40</option>
-									<option value="41">41</option>
-									<option value="42">42</option>
-									<option value="43">43</option>
-									<option value="44">44</option>
-									<option value="45">45</option>
-									<option value="46">46</option>
-									<option value="47">47</option>
-									<option value="48">48</option>
-									<option value="49">49</option>
-									<option value="50">50</option> 					
+									<option value="" selected>To... &nbsp;&nbsp;</option>
 					</form:select></div>
            <div class="col-md-2"><h4> Religion </h4> 
           <form:select path="religionId" onchange="getReliginCastAjax1();" class=" form-control" >
@@ -1453,8 +1425,11 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 									width="250"></a>
 								</c:if>
 								<c:if  test="${not empty profile.profileImage}">
-									<div class="image_privacy"></div> <image src="${catalina_base}/${profile.profileImage}"
-									width="250"></a>
+									<div class="image_privacy"></div> 
+									<div class="homeimages">
+									<image src="${catalina_base}/${profile.profileImage}">
+									</image></div>
+									</a>
 								</c:if>
 								
 						</div>
@@ -2431,20 +2406,31 @@ $('img').bind('contextmenu', function(e) {
     
     
     function searchSubmit(){
+    	var rPeople= $('#rPeople').val();
     	var rAgeFrom= $('#rAgeFrom').val();
     	var rAgeTo= $("#rAgeTo").val();
-    	
+    	 if(rPeople == ""){
+    			alert("You are looking for?");
+    			return false;
+    			}
     	if(rAgeFrom > rAgeTo){
     		alert("Sorry, Invalid Age range");
     		return false;
     	}else{
-        	
-        	
         	document.searchForm.action = "homePageSearchResults"
         		document.searchForm.submit();
-        	
         }
-       
+    	$('#rAgeFrom').change(function() {
+			$('#rAgeFromTo').val('');
+			var val = $(this).val();
+			$('#rAgeTo').find('option').not(':first').remove();
+			if(val!=''){
+			val=(val-0)+1;
+			for (var i = val; i <= 50; i++) {
+				$("#rAgeTo").append('<option>' + i + '</option>');
+			}
+			}
+		});
    
     	/* {
 //     	var Female= $('#id1').val();

@@ -29,6 +29,7 @@ import com.aurospaces.neighbourhood.db.dao.UsersDao;
 import com.aurospaces.neighbourhood.util.EmailUtil;
 import com.aurospaces.neighbourhood.util.MatrimonyConstants;
 import com.aurospaces.neighbourhood.util.MiscUtils;
+import com.aurospaces.neighbourhood.util.SendSMS;
 
 @Controller
 @RequestMapping(value = "/admin")
@@ -221,8 +222,31 @@ public class FilterController {
 					
 					//EmailUtil EmailUtil=new EmailUtil();
 //					EmailUtil.sendActiveProfileMail(usersBean,objContext);
-					String baseurl =  request.getScheme() + "://" + request.getServerName() +      ":" +   request.getServerPort() +  request.getContextPath();
-					objUsersDao.saveEmailData(null, usersBean, baseurl, "active_profile_mail");
+					try {
+						String baseurl =  request.getScheme() + "://" + request.getServerName() +      ":" +   request.getServerPort() +  request.getContextPath();
+						objUsersDao.saveEmailData(null, usersBean, baseurl, "active_profile_mail");
+					} catch (Exception e) {
+						// TODO: handle exception
+					}
+					
+
+					 String mobileNum = usersBean.getMobile();
+			            try{
+							   String response = SendSMS.sendSMS("Dear "  +usersBean.getFirstName()+ " "+usersBean.getLastName() +","+"\nYour Profile is Active Now..\nLogin and complete your profile for best response from matches.\nWishing You the best life partner \nTeam - Aarna Matrimony", mobileNum);
+							   
+							   if("OK".equalsIgnoreCase(response)){
+								   
+								   request.setAttribute("message", "success");
+							   }else{
+								   request.setAttribute("message", "failed"); 
+							   }
+							   //throw new Exception();
+						   }catch(Exception e){
+							   e.printStackTrace();
+							   request.setAttribute("message", "failed");
+							   //objUsersDao.delete(sessionBean.getId());
+						   }
+					
 					
 				}else if (delete){
 					jsonObj.put("message", "Success");

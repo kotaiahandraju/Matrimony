@@ -25,13 +25,13 @@ width:120px;
 					    <div class="form-group">
 					      <label class="col-md-4 control-label" for="textinput">Father Name</label>			  
 					      <div class="col-md-8">
-					      	<form:input path="fatherName" class="form-control onlyCharacters" placeholder="Enter Father Name"/>
+					      	<form:input path="fatherName" class="form-control onlyCharacters notAllowFirstSpace" placeholder="Enter Father Name"/>
 					      </div>
 					    </div>
 					    <div class="form-group">
 					      <label class="col-md-4 control-label" for="textinput">Mother Name</label>  
 					      <div class="col-md-8">
-					      	<form:input path="motherName" class="form-control onlyCharacters" placeholder="Enter Mother Name"/>
+					      	<form:input path="motherName" class="form-control onlyCharacters notAllowFirstSpace" placeholder="Enter Mother Name"/>
 					      </div>
 					    </div>
 					    <div class="form-group">

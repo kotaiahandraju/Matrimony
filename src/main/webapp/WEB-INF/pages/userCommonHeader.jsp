@@ -4153,7 +4153,7 @@ function myFunction2(id) {
 		    		//if(typeof msg != "undefined" ){
 		    			if("success"==msg){
 		    				alert("Interest request has been sent successfully");
-		    				$("#expInt"+profile_id).html('Expressed Interest');
+		    				$("#expIntFullProfile"+profile_id).html('Expressed Interest');
 		    				$("#mobileTD"+profile_id).html('<span style="background:url(${baseurl}/user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+profileObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="${baseurl}/user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>');
 		    				if(typeof limit != "undefined"){
 		    					if(limit=="unlimited"){
