@@ -1210,7 +1210,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 							</div>
 							<div class="form-group">
 								<label for="user_password">Create Password :</label> 
-								<form:password path="regPassword" class="form-control" onkeydown="removeBorder(this.id)" maxlength="10" placeholder="Password" onkeyup="validatePassword();" autocomplete="new-password" />
+								<form:password path="regPassword" class="form-control" onkeydown="removeBorder(this.id)" maxlength="15" placeholder="Password" onkeyup="validatePassword();" autocomplete="new-password" />
 								<span class="hasError" id="password_error_div" style="font-size: 13px;font-weight: 800;"></span>
 							</div>
 							<div class="form-group">

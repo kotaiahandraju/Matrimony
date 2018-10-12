@@ -298,6 +298,7 @@ tooltip:hover:after {
 	$(function(){
 		 //add text water mark;	
 	  addWaterMark();
+	  watermark_text_fullimg();
 	 });
 	 function addWaterMark(){
 		  $('.watermark_text').watermark({
@@ -310,6 +311,19 @@ tooltip:hover:after {
 			   //margin: 0,
 			   outputWidth: 'auto',
 			   outputHeight: 'auto'
+			 });
+	 }
+	 function watermark_text_fullimg(){
+		  $('.watermark_text_fullimg').watermark({
+			  text: 'aarnamatrimony.com',
+			  textWidth: 900,
+			  textSize: 60,
+			  textColor: 'white',
+			  gravity: 'w',
+			   opacity: 0.8,
+			   margin: 10
+			   //outputWidth: 'auto',
+			   //outputHeight: 'auto'
 			 });
 	 }
 		$(function(){
@@ -3985,7 +3999,7 @@ img.hover-shadow {
                 	<ul class="slider-relative" id="relative">
 						<c:forEach items="${logged_in_user_photosList}" var="photo" >
 					      	<li class="slide fix-width">
-	                            <img src="${catalina_base}/${photo.folder_name}/full-images/${photo.image_name}" alt="" class="watermark_text">
+	                            <img src="${catalina_base}/${photo.folder_name}/full-images/${photo.image_name}" alt="" class="watermark_text_fullimg">
 	                        </li>
 						</c:forEach>
                     

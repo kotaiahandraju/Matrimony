@@ -774,12 +774,40 @@ function searchResult(){
   $(function(){
 		 //add text water mark;	
 	  addWaterMark();
+	  addWaterMark_pref();
+	  addWaterMark_newmatches();
   });
   function addWaterMark(){
 	  $('.watermark_text').watermark({
 		  text: 'aarnamatrimony.com',
-		  textWidth: 700,
-		  textSize: 70,
+		  textWidth: 600,
+		  textSize: 45,
+		  textColor: 'white',
+		  gravity: 'w',
+		   opacity: 0.8,
+		   margin: 10,
+		   outputWidth: 'auto',
+		   outputHeight: 'auto'
+		 });
+  }
+  function addWaterMark_pref(){
+	  $('.watermark_text_pref').watermark({
+		  text: 'aarnamatrimony.com',
+		  textWidth: 500,
+		  textSize: 40,
+		  textColor: 'white',
+		  gravity: 'w',
+		   opacity: 0.8,
+		   //margin: 0,
+		   outputWidth: 'auto',
+		   outputHeight: 'auto'
+		 });
+  }
+  function addWaterMark_newmatches(){
+	  $('.watermark_text_newmatches').watermark({
+		  text: 'aarnamatrimony.com',
+		  textWidth: 200,
+		  textSize: 30,
 		  textColor: 'white',
 		  gravity: 'w',
 		   opacity: 0.8,
@@ -834,10 +862,12 @@ function displayMatches(listOrders) {
 // 		var imageUrl =null;
 		
 		var image = null; image_path = orderObj.profileImage;
+		var watermark_str = "";
 		if(image_path == "" || image_path == null || image_path == "undefined"){
 			image = "${baseurl}/img/default.png";
 		}else{
 			image = "${catalina_base}/"+image_path;
+			watermark_str = " watermark_text_pref ";
 		}
 		/* else{
 		array = image.split(",");
@@ -909,7 +939,7 @@ function displayMatches(listOrders) {
 			}
 			var tblRow = '<div class="row">'
 				+ '<div class=" col-md-3 col-xs-3 preprofile" >'
-	            + 	"<img src='"+image+"' class='watermark_text img-responsive thumbnail ' >"
+	            + 	"<img src='"+image+"'  class=' "+watermark_str+" img-responsive thumbnail ' >"
 	            + '</div>'
 	            + '<div class="col-md-9 col-xs-9">'
 	            + ' <p>'+firstname+'&nbsp;'+lastname+'|'+orderObj.username+'&nbsp;'+premiumMember+'&nbsp; '+age+' yrs,&nbsp; '+orderObj.religionName+', '+orderObj.casteName+','+orderObj.inches+' , '+orderObj.occupationName+', '+orderObj.currentCityName+', '+orderObj.currentCountryName+'. </p> '
@@ -1006,7 +1036,7 @@ function displayNewMatches(listOrders) {
 				interestStr = '<p align="center" style="margin: 11px 0px 10px 0px;"><a   type="button" disabled="true"  class="btn btn-warning btn-sm "  >Request Sent</a></p>';
 			}
 			 item =     item + ' 	<div class="col-md-4 thumbnailgal">'
-				         +' 		<div class="thumbnailmain">	<a class="thumbnail thumbimg" href="#no" style="margin: 0px 0px 0px 0px; width:100%; height:auto;"><img alt="" src="'+image+'" class="watermark_text"></a></div>'
+				         +' 		<div class="thumbnailmain">	<a class="thumbnail thumbimg" href="#no" style="margin: 0px 0px 0px 0px; width:100%; height:auto;"><img alt="" src="'+image+'" class="watermark_text_newmatches"></a></div>'
 				         +' 			<p align="center" class="ptransition" style="margin: 10px 0px 0px 0px;"><span  class="ptransition" href="#no" onclick="fullProfile('+orderObj.id+')" style="transition: 0; padding:5px; color:blue; border-radius:5px;">'+orderObj.username+'</span></p>'
 				         +' 			<p align="center" style="margin: px 0px 0px -3px;">'+age+' yrs, '+orderObj.inches+'</p>'
 				         + 			    interestStr
@@ -1239,7 +1269,7 @@ function expressInterest_dashboard(profile_id){
 			});
 	}
 }
-function expressInterest_Sidegrid(profile_id){
+function expressInterest_Sidegrid(profile_id,list_type){
 	var roleId = ${cacheGuest.roleId};
 	$("#id").val(profile_id);
 	if(roleId==4){
@@ -1269,8 +1299,7 @@ function expressInterest_Sidegrid(profile_id){
 	    		//if(typeof msg != "undefined" ){
 	    			if("success"==msg){
 	    				alert("Interest request has been sent successfully");
-	    				$("#expInt"+profile_id).html('Expressed Interest');
-	    				$("#mobileTD"+profile_id).html('<span style="background:url(${baseurl}/user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+profileObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="${baseurl}/user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>');
+	    				$("#expInt"+list_type+profile_id).html('Expressed Interest');
 	    				if(typeof limit != "undefined"){
 	    					if(limit=="unlimited"){
 	    						allowed_limit = "1";

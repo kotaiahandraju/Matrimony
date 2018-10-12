@@ -42,10 +42,10 @@ margin-bottom:0px;}
 				<a href="#">${loc_prof.currentCityName}</a><br>
 				<img src="../nimages/heart-icon.png" />
 				<c:if test="${loc_prof.expressedInterest==0}">
-				  <span id="expInt${loc_prof.id}"><a   href="#no" type="button"   onclick="expressInterest_Sidegrid('${loc_prof.id}')"> Send Interest  </a></span>
+				  <span id="expIntLoc${loc_prof.id}"><a   href="#no" type="button"   onclick="expressInterest_Sidegrid('${loc_prof.id}','Loc')"> Send Interest  </a></span>
 				</c:if>
 				<c:if test="${loc_prof.expressedInterest > 0}">
-				<span><a type="button"  disabled="true" style="text-size-adjust:auto">Expressed Interest</a></span>
+				<span>Expressed Interest</span>
 				</c:if>
 				<!-- <a href="#"><img src="../nimages/heart-icon.png" /> Send Interest</a> --></p></div>
 				<div class="col-md-1"><i class="fa fa-close"></i></div>
@@ -62,8 +62,9 @@ margin-bottom:0px;}
       </h4>
 
         </div>
+        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo" style="height: 0px;">
         <c:forEach var="pref_prof" items="${pref_prof_profiles}">
-	        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo" style="height: 0px;">
+	        
 	<div class="panel-body" style="padding:10px 0px;">
 	            <div class="col-md-3" style="padding-right:0px; padding-left:0px;">
 	            <c:if test="${not empty pref_prof.profileImage}">
@@ -77,14 +78,16 @@ margin-bottom:0px;}
 	<a href="#">${pref_prof.currentCityName}</a><br>
 	<img src="../nimages/heart-icon.png" />
 	<c:if test="${pref_prof.expressedInterest==0}">
-				  <span id="expInt${pref_prof.id}"><a   href="#no" type="button" onclick="expressInterest_Sidegrid('${pref_prof.id}')"> Send Interest  </a></span>
+				  <span id="expIntProf${pref_prof.id}"><a   href="#no" type="button" onclick="expressInterest_Sidegrid('${pref_prof.id}','Prof')"> Send Interest  </a></span>
 				</c:if>
 				<c:if test="${pref_prof.expressedInterest > 0}">
-				<span><a type="button" disabled="true" style="text-size-adjust:auto"> Expressed Interest</a></span>
+				<span>Expressed Interest</span>
 				</c:if>
 	<!-- <a href="#"><img src="../nimages/heart-icon.png"> Send Interest</a> --></p></div><!-- <div class="col-md-1"><i class="fa fa-close"></i></div> -->
-	        </div>  <center><a href="preferredProfession" class="btn btn-info">View All (${pref_prof_profiles_size})</a> </center>      </div>
+	        </div>        
         </c:forEach>
+        <center><a href="preferredProfession" class="btn btn-info">View All (${pref_prof_profiles_size})</a> </center>
+        </div>
         
     </div><div class="clearfix"></div><hr>
     <div class="panel ">
@@ -95,8 +98,9 @@ margin-bottom:0px;}
       </h4>
 
         </div>
+        <div id="collapseThree" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingThree">
         <c:forEach var="pref_edu" items="${pref_edu_profiles}">
-	        <div id="collapseThree" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingThree">
+	        
 			<div class="panel-body" style="padding:10px 0px;">
 	            <div class="col-md-3" style="padding-right:0px; padding-left:0px;">
 	            <c:if test="${not empty pref_edu.profileImage}">
@@ -110,16 +114,17 @@ margin-bottom:0px;}
 	<a href="#">${pref_edu.currentCityName}</a><br>
 	<img src="../nimages/heart-icon.png" />
 	<c:if test="${pref_edu.expressedInterest==0}">
-				  <span id="expInt${pref_edu.id}"><a   href="#no" type="button" onclick="expressInterest_Sidegrid('${pref_edu.id}')"> Send Interest  </a></span>
+				  <span id="expIntEdu${pref_edu.id}"><a   href="#no" type="button" onclick="expressInterest_Sidegrid('${pref_edu.id}','Edu')"> Send Interest  </a></span>
 				</c:if>
 				<c:if test="${pref_edu.expressedInterest > 0}">
-				<span><a type="button" disabled="true" style="text-size-adjust:auto"> Expressed Interest</a></span>
+				<span> Expressed Interest</span>
 				</c:if>
 	<!-- <a href="#"><img src="../nimages/heart-icon.png"> Send Interest</a> --></p></div>
 	<div class="col-md-1"><i class="fa fa-close"></i></div>
-	        </div>  <center><a href="preferredEducation" class="btn btn-info">View All (${pref_edu_profiles_size})</a></center>      </div>
+	        </div>        
         </c:forEach>
-       
+        <center><a href="preferredEducation" class="btn btn-info">View All (${pref_edu_profiles_size})</a></center>
+       </div>
     </div><div class="clearfix"></div>
     
      
