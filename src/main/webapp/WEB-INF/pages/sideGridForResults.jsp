@@ -221,7 +221,7 @@ margin-left:10px;
     </div>
   </div>
 </div>
-<c:if test="${empty cacheGuest.profileImage}">
+<c:if test="${cacheGuest.roleId == '4' || cacheGuest.membership_status == '0'}">
 <a href="memberShipPage"><img  style="border-radius:10px;" src="${baseurl}/images/upgra.jpg" class="img-responsive"/></a>
 </c:if>
 			</div>

@@ -1442,7 +1442,8 @@ function checkLen(){
    	formData.append("pageName",data_type);
    	formData.append("aboutMyself",$("#aboutMyself").val());
    	formData.append("createProfileFor",$("#createProfileFor").val());
-   	formData.append("gender",$("#gender").val());
+   	var selected_gender = $("input[type=radio][name=gender]:checked").val();
+   	formData.append("gender",selected_gender);
    	formData.append("firstName",$("#firstName").val().trim());
    	formData.append("lastName",$("#lastName").val().trim());
    	formData.append("dob",$("#dob").val());

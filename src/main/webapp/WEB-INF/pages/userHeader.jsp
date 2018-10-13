@@ -168,7 +168,7 @@
     
     
 </div>
-<c:if test="${empty cacheGuest.profileImage}">
+<c:if test="${cacheGuest.roleId == '4' || cacheGuest.membership_status == '0'}">
 <a href="memberShipPage"><img  style="border-radius:10px;margin-top:8px;" src="../images/upgra.jpg" class="img-responsive"/></a>
 </c:if>
 			</div>
