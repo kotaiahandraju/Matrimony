@@ -239,7 +239,7 @@ $(function(){
 	  textWidth: 500,
 	  textSize: 70,
 	  textColor: 'white',
-	  gravity: 'w',
+	  gravity: 'n',
 	   opacity: 0.7,
 	   margin: 5,
 	   outputWidth: 'auto',

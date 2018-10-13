@@ -4560,6 +4560,24 @@ public boolean deletePhoto(String photoId){
 	
 	}
 	
+	public boolean deleteConversation(String id){
+
+		jdbcTemplate = custom.getJdbcTemplate();
+		String qry = "delete from users_activity_log where id = "+id;
+		
+		try{
+			int count = jdbcTemplate.update(qry);
+			if(count==1){
+				return true;
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+		return false;
+	
+	}
+	
 	public List<Map<String, Object>> getHomeSearchResult( UsersBean searchCriteriaBean){
 
 		jdbcTemplate = custom.getJdbcTemplate();

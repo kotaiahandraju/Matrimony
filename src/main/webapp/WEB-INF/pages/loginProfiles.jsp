@@ -21,7 +21,7 @@ $( document ).ready(function() {
 		  textWidth: 600,
 		  textSize: 70,
 		  textColor: 'white',
-		  gravity: 'w',
+		  gravity: 'n',
 		   opacity: 0.7,
 		   margin: 10,
 		   outputWidth: 'auto',

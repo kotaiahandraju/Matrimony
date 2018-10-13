@@ -780,12 +780,12 @@ function searchResult(){
   function addWaterMark(){
 	  $('.watermark_text').watermark({
 		  text: 'aarnamatrimony.com',
-		  textWidth: 600,
+		  textWidth: 900,
 		  textSize: 45,
 		  textColor: 'white',
-		  gravity: 'w',
-		   opacity: 0.8,
-		   margin: 10,
+		  gravity: 'n',
+		   opacity: 0.6,
+		   margin: 5,
 		   outputWidth: 'auto',
 		   outputHeight: 'auto'
 		 });
@@ -796,7 +796,7 @@ function searchResult(){
 		  textWidth: 500,
 		  textSize: 40,
 		  textColor: 'white',
-		  gravity: 'w',
+		  gravity: 'n',
 		   opacity: 0.8,
 		   //margin: 0,
 		   outputWidth: 'auto',
@@ -806,10 +806,10 @@ function searchResult(){
   function addWaterMark_newmatches(){
 	  $('.watermark_text_newmatches').watermark({
 		  text: 'aarnamatrimony.com',
-		  textWidth: 200,
+		  textWidth: 800,
 		  textSize: 30,
 		  textColor: 'white',
-		  gravity: 'w',
+		  gravity: 'n',
 		   opacity: 0.8,
 		   //margin: 0,
 		   outputWidth: 'auto',
