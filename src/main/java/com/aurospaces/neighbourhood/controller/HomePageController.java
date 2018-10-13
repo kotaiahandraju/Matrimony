@@ -5002,12 +5002,21 @@ String sJson="";
  					return "redirect:HomePage";
  				}
  				System.out.println("Id:"+sessionBean.getId());
+ 				UsersBean userbean = objUsersDao.emailExistOrNot(email);
+ 				if(userbean == null){
  					boolean success = objUsersDao.updateEmail(email,sessionBean.getId());
- 			if(success) {
- 				jsOnObj.put("message", "email updated successfully");
- 			}else {
- 				jsOnObj.put("message", "failed");
- 			}
+ 					if(success) {
+ 						jsOnObj.put("msg", "success");
+ 						sessionBean.setEmail(email);
+ 						session.setAttribute("cacheGuest",sessionBean);
+ 					}else {
+ 						jsOnObj.put("msg", "failed");
+ 					}
+ 					
+ 				}else{
+ 					jsOnObj.put("msg", "duplicate");
+ 				}
+ 		
  		} catch (Exception e) {
  			e.printStackTrace();
  			System.out.println(e);

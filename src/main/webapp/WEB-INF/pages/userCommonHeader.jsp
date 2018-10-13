@@ -3975,14 +3975,14 @@ img.hover-shadow {
          
 
 
-<section class="welcome">
-    <div class="container">
+<section >
+    <div >
 
-        <div class="row">
+        <div >
             
-  <button style="float:right;" type="button" class="close" data-dismiss="modal">&times;</button>
-                <div id="mySlider" class="raxus-slider" data-autoplay="3000" data-arrows="show"  data-dots="show" data-keypress="true" data-thumbnail="bottom">
-                	<ul class="slider-relative" id="relative">
+  <button style="float:right;margin-bottom:5px;" type="button" class="close" data-dismiss="modal">&times;</button>
+                <div id="mySlider" class="raxus-slider" data-autoplay="4000" data-arrows="show"  data-dots="show" data-keypress="true" data-thumbnail="bottom">
+                	<ul class="slider-relative" >
 						<c:forEach items="${logged_in_user_photosList}" var="photo" >
 					      	<li class="slide fix-width">
 	                            <img src="${catalina_base}/${photo.folder_name}/full-images/${photo.image_name}" alt="" class="watermark_text">

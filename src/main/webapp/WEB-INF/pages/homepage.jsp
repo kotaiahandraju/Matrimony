@@ -1890,7 +1890,7 @@ Benzcircle Vijayawada.</li>
 <div class="container">
 <div class="row">
 <div class="col-md-8 footer-left" style="padding-top:8px;">
-All Rights Reserved | Design & Develop by Charvikent Ites Pvt Ltd.
+All Rights Reserved | Design & Developed by Charvikent ITES Pvt Ltd.
 </div>
 <!-- <div class="col-md-4 footer-center">
 

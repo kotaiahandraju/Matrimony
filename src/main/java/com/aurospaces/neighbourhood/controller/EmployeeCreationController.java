@@ -66,35 +66,68 @@ public class EmployeeCreationController {
 			try {
 				objUsersBean.setRoleId(3);
 				objUsersBean.setStatus("1");
-				usersBean=employeeCreationDao.getByEmployee(objUsersBean.getUsername(),objUsersBean.getEmail());
-				int dummyId = 0;
+				//usersBean=employeeCreationDao.getByEmployee(objUsersBean.getUsername(),objUsersBean.getEmail());
+				usersBean=employeeCreationDao.getByEmployeeByEmail(objUsersBean.getEmail());
+				UsersBean usersBean2=employeeCreationDao.getByEmployeeByUserName(objUsersBean.getUsername());
+				
+				int existing_id = 0,existing_id2 = 0;
 				if (usersBean != null) {
-					dummyId = usersBean.getId();
+					existing_id = usersBean.getId();
+				}
+				if (usersBean2 != null) {
+					existing_id2 = usersBean2.getId();
 				}
 				if (objUsersBean.getId() != 0) {
 					id = objUsersBean.getId();
-					if (id == dummyId || usersBean == null) {
+					if (((id == existing_id) && (id == existing_id2)) || (usersBean == null && usersBean2==null)) {
 //						objUsersDao.save(objUsersBean);
-						objUsersDao.updateEmployee(objUsersBean);
-						redir.addFlashAttribute("msg", "employee updated successfully");
-						redir.addFlashAttribute("cssMsg", "warning");
+						boolean success = objUsersDao.updateEmployee(objUsersBean);
+						if(success) {
+							
+							redir.addFlashAttribute("msg", "success");
+							redir.addFlashAttribute("cssMsg", "success");
+						}else {
+							redir.addFlashAttribute("msg", "failed");
+							redir.addFlashAttribute("cssMsg", "danger");
+						}
 					} else {
-						redir.addFlashAttribute("msg", "already employee exist.");
-						redir.addFlashAttribute("cssMsg", "danger");
+						
+						if (usersBean != null) {
+							redir.addFlashAttribute("msg", "duplicate_email");
+							redir.addFlashAttribute("cssMsg", "danger");
+						} else if (usersBean2 != null) {
+							redir.addFlashAttribute("msg", "duplicate_username");
+							redir.addFlashAttribute("cssMsg", "danger");
+						}
+						
 					}
+					
 				}
-				if (objUsersBean.getId() == 0 && usersBean == null) {
+				
+				if (objUsersBean.getId() == 0 && (usersBean == null && usersBean2 == null)) {
+				try {
 					objUsersDao.save(objUsersBean);
 					objUsersBean.setUserId(objUsersBean.getId());
 					objUsersBean.setId(0);
 					userrequirementDao.save(objUsersBean);
-					redir.addFlashAttribute("msg", "employee added successfully");
+					redir.addFlashAttribute("msg", "success");
 					redir.addFlashAttribute("cssMsg", "success");
-				}
-				if (objUsersBean.getId() == 0 && usersBean != null) {
-					redir.addFlashAttribute("msg", "already employee exist");
+				} catch (Exception e) {
+					// TODO: handle exception
+					redir.addFlashAttribute("msg", "failed");
+					redir.addFlashAttribute("cssMsg", "success");
 					redir.addFlashAttribute("cssMsg", "danger");
 				}
+				}else {
+					if (usersBean != null) {
+						redir.addFlashAttribute("msg", "duplicate_email");
+						redir.addFlashAttribute("cssMsg", "danger");
+					} else if (usersBean2 != null) {
+						redir.addFlashAttribute("msg", "duplicate_username");
+						redir.addFlashAttribute("cssMsg", "danger");
+					}
+				}
+				
 				
 			}catch(Exception e)
 			{
