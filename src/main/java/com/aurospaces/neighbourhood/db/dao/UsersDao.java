@@ -1681,6 +1681,16 @@ public class UsersDao extends BaseUsersDao
 					return retlist.get(0);
 				return null;
 			}
+		public UsersBean emailExistOrNot(String emailId) {
+			 jdbcTemplate = custom.getJdbcTemplate();
+				String sql = "SELECT * FROM users where email= ? ";
+				List<UsersBean> retlist = jdbcTemplate.query(sql,
+				new Object[]{emailId},
+				ParameterizedBeanPropertyRowMapper.newInstance(UsersBean.class));
+				if(retlist.size() > 0)
+					return retlist.get(0);
+				return null;
+			}
 		
 		public boolean mobileNumExistOrNot(UsersBean  objUsersBean) {
 			 jdbcTemplate = custom.getJdbcTemplate();

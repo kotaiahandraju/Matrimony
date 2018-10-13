@@ -943,20 +943,53 @@ As a member, you have the benefit of receiving mobile alerts. We recommend you t
     			$('#changeEmail').attr('placeholder','Enter Email Id');
     			return false;
     	   }
-    	   var formData = new FormData();
-    	   formData.append("email",email)
-   		$.fn.makeMultipartRequest('POST', 'changeEmailAction', false,
-   				formData, false, 'text', function(data){
-   			var jsonobj = $.parseJSON(data);
-   			var msg = jsonobj.message;
-   		   var email=$("#changeEmail").val('');
-   		   alert("email updated successfully");
-   			
-   		});
+    	   /* if(loginemail == email){
+    		   alert("Email already in Use. Please Try Another.");
+    		   return false;
+    	   } */
+    	   var expr = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
     	   
-       }
-       var expr = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
-       $('#changeEmail').blur(function() {
+    	   if(email == "" || !email.match(expr)){
+//       		alert("Please Enter Valid Email");
+          	$("#changeEmail").css("border-color","red");
+          	$("#changeEmail").attr("title","Email-ID");
+          	$('#changeEmail').css('color','red');
+          	$('#emailError1').text("Valid Email-ID..");
+          	//$('#submitId').attr("disabled","true");
+      		return false;
+      	}
+      	else{
+      		$('#emailError1').text("");
+      	  //$('#submitId').removeAttr("disabled");
+      	}
+    	   $('#submitId').attr("disabled","true");
+    	   //if(email !=null && email != "" && email !="undefined"){
+   	    	var formData = new FormData();
+   	        formData.append('email', email);
+   	    	
+   	    			$('#emailError1').text("");
+   	    			formData = new FormData();
+   	      	   		formData.append("email",email)
+   	     			$.fn.makeMultipartRequest('POST', 'changeEmailAction', false,
+   	     				formData, false, 'text', function(data){
+   	     			var jsonobj = $.parseJSON(data);
+   	     			var msg = jsonobj.msg;
+   	     			if(msg== "success"){
+   	     				alert("Email Updated successfully");
+   	     			return false;
+   	     			}else if(msg=="failed"){
+   	     				alert("email faild to Upload");
+   	     			}else if(msg == "duplicate"){
+   	     				alert("Email already in Use. Please Try Another.")
+   	     			return false;
+   	     			}
+   	     		});
+   	    			return true;	    		
+   	    	}
+   	    
+    	   
+      
+      /*  $('#changeEmail').blur(function() {
        	var email = $('#changeEmail').val();
        	if(email != "" && !email.match(expr)){
 //        		alert("Please Enter Valid Email");
@@ -971,21 +1004,7 @@ As a member, you have the benefit of receiving mobile alerts. We recommend you t
        		$('#emailError1').text("");
        	  $('#submitId').removeAttr("disabled");
        	}
-       	if(email !=null && email != "" && email !="undefined"){
-	    	var formData = new FormData();
-	        formData.append('email', email);
-	    	$.fn.makeMultipartRequest('POST', 'emailChecking', false, formData, false, 'text', function(data){
-	    		var jsonobj = $.parseJSON(data);
-	    		if(jsonobj.msg =="exist"){
-	    			//error message write
-	    			$('#emailError1').text("Email already in Use. Please Try Another.");
-	    			return false;
-	    		}else{
-	    			$('#emailError1').text("");
-	    			return false;	    		}
-	    	});
-	    	}
-       });
+    }); */
        
        function borderColor(){
     	   $('#changeEmail').css('border-color','');

@@ -28,9 +28,31 @@ public class EmployeeCreationDao {
 	}
 	public UsersBean getByEmployee( String username,String email) {
 		 jdbcTemplate = custom.getJdbcTemplate();
-			String sql = "SELECT * from users where username = ? and email=?";  
+			String sql = "SELECT * from users where username = ? or email=?";  
 			List<UsersBean> retlist = jdbcTemplate.query(sql,
 			new Object[]{username,email},
+			ParameterizedBeanPropertyRowMapper.newInstance(UsersBean.class));
+			if(retlist.size() > 0)
+				return retlist.get(0);
+			return null;
+		}
+	
+	public UsersBean getByEmployeeByEmail( String email) {
+		 jdbcTemplate = custom.getJdbcTemplate();
+			String sql = "SELECT * from users where  email=?";  
+			List<UsersBean> retlist = jdbcTemplate.query(sql,
+			new Object[]{email},
+			ParameterizedBeanPropertyRowMapper.newInstance(UsersBean.class));
+			if(retlist.size() > 0)
+				return retlist.get(0);
+			return null;
+		}
+	
+	public UsersBean getByEmployeeByUserName( String username) {
+		 jdbcTemplate = custom.getJdbcTemplate();
+			String sql = "SELECT * from users where username = ? ";  
+			List<UsersBean> retlist = jdbcTemplate.query(sql,
+			new Object[]{username},
 			ParameterizedBeanPropertyRowMapper.newInstance(UsersBean.class));
 			if(retlist.size() > 0)
 				return retlist.get(0);
