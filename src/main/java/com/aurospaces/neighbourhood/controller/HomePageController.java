@@ -2039,7 +2039,7 @@ String sJson="";
 					}
 		            String mobileNum = receipientUser.getMobile();
 					  try{
-						   String response = SendSMS.sendSMS("Dear "  +receipientUser.getFirstName()+ " "+receipientUser.getLastName() +","+"\n"+userBean.getFirstName()+" "+userBean.getLastName()+""+"("+userBean.getUsername()+")"+" send an Interest request to you.. \n \nWishing You the best life partner \nTeam - Aarna Matrimony", mobileNum);
+						   String response = SendSMS.sendSMS("Dear "  +receipientUser.getFirstName()+ " "+receipientUser.getLastName() +","+"\n"+userBean.getFirstName()+" "+userBean.getLastName()+""+"("+userBean.getUsername()+")"+" sent an Interest request to you.. \n \nWishing You the best life partner \nTeam - Aarna Matrimony", mobileNum);
 						   
 						   if("OK".equalsIgnoreCase(response)){
 							   
@@ -2116,7 +2116,7 @@ String sJson="";
 						}
 			            String mobileNum = receipientUser.getMobile();
 						  try{
-							   String response = SendSMS.sendSMS("Dear "  +receipientUser.getFirstName()+ " "+receipientUser.getLastName() +","+"\n"+userBean.getFirstName()+" "+userBean.getLastName()+""+"("+userBean.getUsername()+")"+" send an Interest request to you.. \n \nWishing You the best life partner \nTeam - Aarna Matrimony", mobileNum);
+							   String response = SendSMS.sendSMS("Dear "  +receipientUser.getFirstName()+ " "+receipientUser.getLastName() +","+"\n"+userBean.getFirstName()+" "+userBean.getLastName()+""+"("+userBean.getUsername()+")"+" sent an Interest request to you.. \n \nWishing You the best life partner \nTeam - Aarna Matrimony", mobileNum);
 							   
 							   if("OK".equalsIgnoreCase(response)){
 								   
@@ -4631,7 +4631,7 @@ String sJson="";
 				
 	            String mobileNum = receipientUser.getMobile();
 	            try{
-					   String response = SendSMS.sendSMS("Dear "  +receipientUser.getFirstName()+ " "+receipientUser.getLastName()+","+"\n"+userBean.getFirstName()+" "+userBean.getLastName()+""+"("+userBean.getUsername()+")"+" send a Message..\n \n"+receipientUser.getMail_content()+""+" \n \nWishing You the best life partner \nTeam - Aarna Matrimony", mobileNum);
+					   String response = SendSMS.sendSMS("Dear "  +receipientUser.getFirstName()+ " "+receipientUser.getLastName()+","+"\n"+userBean.getFirstName()+" "+userBean.getLastName()+""+"("+userBean.getUsername()+")"+" sent a Message..\n \n"+receipientUser.getMail_content()+""+" \n \nWishing You the best life partner \nTeam - Aarna Matrimony", mobileNum);
 					   
 					   if("OK".equalsIgnoreCase(response)){
 						   
@@ -5156,6 +5156,7 @@ String sJson="";
 	   target.setDrinking(source.getDrinking());
 	   target.setSmoking(source.getSmoking());
 	   target.setMaritalStatus(source.getMaritalStatus());
+	   target.setGender(source.getGender());
 	   return target;
    }
    private UsersBean copyReligionInfo(UsersBean source,UsersBean target){

@@ -392,10 +392,10 @@ $(".onlyCharacters").on("keypress",	function(event) {
              <div class="col-md-4">
                  <h3><p class="name_val">${profileBean.firstName} ${profileBean.lastName}</h3><h4> (${cacheGuest.username})</p></h4>
                 <p style=" color:#000;font-size: 13px; line-height:19px;">Profile created for <span id="createProfileFor_val">${cacheGuest.createProfileFor}</span><br>
-                ${profileBean.age} Yrs, ${profileBean.heightInches}<Br>
-                ${profileBean.religionName}, ${profileBean.casteName}<br>
-                ${profileBean.currentCityName}, ${profileBean.currentStateName}, ${profileBean.currentCountryName}<br>
-                ${profileBean.educationName}, ${profileBean.occupationName}</p>
+                <span class="all_age_val">${profileBean.age}</span> Yrs, <span class="all_height_val">${profileBean.heightInches}</span><Br>
+                <span class="all_religion_val">${profileBean.religionName}</span>, <span class="all_caste_val">${profileBean.casteName}</span><br>
+                <span class="all_currentCity_val">${profileBean.currentCityName}</span>, <span class="all_currentState_val">${profileBean.currentStateName}</span>, <span class="all_currentCountry_val">${profileBean.currentCountryName}</span><br>
+                <span class="all_education_val">${profileBean.educationName}</span>, <span class="all_occupation_val">${profileBean.occupationName}</span></p>
                 <div id="editMobileDiv" hidden="true">
                 	<input type="text" placeholder="+91-${cacheGuest.mobile}" id="mobile" class="numbersOnly" onblur="validate(this.id,'Enter Mobile Number');" maxlength="10" />
                 	<br><span class="hasError" id="mobileError111" style="font-size: 13px;color:red"></span>
@@ -464,7 +464,7 @@ $(".onlyCharacters").on("keypress",	function(event) {
                 </tr>
                 <tr>
                     <td>Age</td><td>:</td>
-                    <td id="age_val">
+                    <td id="age_val" class="all_age_val">
                         <c:if test="${not empty profileBean.age}">${profileBean.age} yrs</c:if>
                         <c:if test="${empty profileBean.age}">Not specified</c:if>
                     </td>
@@ -472,7 +472,7 @@ $(".onlyCharacters").on("keypress",	function(event) {
                 </tr>
                 <tr>
                     <td>Height</td><td>:</td>
-                    <td id="height_val">
+                    <td id="height_val" class="all_height_val">
                         <c:if test="${not empty profileBean.heightInches}">${profileBean.heightInches}</c:if>
                         <c:if test="${empty profileBean.heightInches}">Not specified</c:if>
                     </td>
@@ -572,13 +572,13 @@ $(".onlyCharacters").on("keypress",	function(event) {
     <div id="religion_info_view" class="all_visible_divs">
         <table class="col-md-6 table-responsive">
         <tr><td>Religion</td><td>:</td>
-            <td id="religion_val">
+            <td id="religion_val" class="all_religion_val">
                 <c:if test="${not empty profileBean.religionName}">${profileBean.religionName}</c:if>
                 <c:if test="${empty profileBean.religionName}">Not specified</c:if>
             </td>
         </tr>
         <tr><td>Caste / Sub Caste</td><td>:</td>
-            <td id="caste_val">
+            <td id="caste_val" class="all_caste_val">
             <c:if test="${not empty profileBean.casteName}">${profileBean.casteName}</c:if>
             <c:if test="${empty profileBean.casteName}">Not specified</c:if>
             </td>
@@ -641,20 +641,20 @@ $(".onlyCharacters").on("keypress",	function(event) {
 <div id="location_view" class="all_visible_divs">
 <table  class="col-md-6 table-responsive" cellspacing="10">
 <tr><td >Country &#160;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>:</td>
-    <td id="currentCountry_val">
+    <td id="currentCountry_val" class="all_currentCountry_val">
         <c:if test="${not empty profileBean.currentCountryName}">${profileBean.currentCountryName}</c:if>
         <c:if test="${empty profileBean.currentCountryName}">Not Specified</c:if>
     </td>
 </tr>
 <tr>
     <td>City</td><td>:</td>
-    <td id="currentCity_val">
+    <td id="currentCity_val" class="all_currentCity_val">
         <c:if test="${not empty profileBean.currentCityName}">${profileBean.currentCityName}</c:if>
         <c:if test="${empty profileBean.currentCityName}">Not Specified</c:if>
     </td>
 </tr>
 <tr><td>State</td><td>:</td>
-    <td id="currentState_val">
+    <td id="currentState_val" class="all_currentState_val">
         <c:if test="${not empty profileBean.currentStateName}">${profileBean.currentStateName}</c:if>
         <c:if test="${empty profileBean.currentStateName}">Not Specified</c:if>
     </td>
@@ -678,7 +678,7 @@ $(".onlyCharacters").on("keypress",	function(event) {
 <div id="professional_info_view" class="all_visible_divs">
 <table class="col-md-9 table-responsive">
 <tr><td>Education</td><td>:</td>
-    <td id="education_val">
+    <td id="education_val" class="all_education_val">
         <c:if test="${not empty profileBean.educationName}">${profileBean.educationName}</c:if>
         <c:if test="${empty profileBean.educationName}">Not Specified</c:if>
     </td>
@@ -690,7 +690,7 @@ $(".onlyCharacters").on("keypress",	function(event) {
     </td>
 </tr>
 <tr><td>Occupation</td><td>:</td>
-    <td id="occupation_val">
+    <td id="occupation_val" class="all_occupation_val">
         <c:if test="${not empty profileBean.occupationName}">${profileBean.occupationName}</c:if>
         <c:if test="${empty profileBean.occupationName}">Not Specified</c:if>
     </td>
@@ -1442,7 +1442,8 @@ function checkLen(){
    	formData.append("pageName",data_type);
    	formData.append("aboutMyself",$("#aboutMyself").val());
    	formData.append("createProfileFor",$("#createProfileFor").val());
-   	formData.append("gender",$("#gender").val());
+   	var selected_gender = $("input[type=radio][name=gender]:checked").val();
+   	formData.append("gender",selected_gender);
    	formData.append("firstName",$("#firstName").val().trim());
    	formData.append("lastName",$("#lastName").val().trim());
    	formData.append("dob",$("#dob").val());
@@ -1690,7 +1691,8 @@ function checkLen(){
 	    var dob_year = date1[2];
 	    var current_year = current_date.getFullYear();
 	    var age = current_year-dob_year;
-	    $("#age_val").html(age+" yrs");
+	    //$("#age_val").html(age+" yrs");
+	    $(".all_age_val").html(age+" yrs");
 	    ////partner preferences
 	    //updateMultiDropDownValues(data_type);
   }
@@ -1733,6 +1735,7 @@ function checkLen(){
 		  	  		$("#"+elemId+"_val").html(val+" - ");
 		  	  	}else{
 		  	  		$("#"+elemId+"_val").html(val);
+		  	  		$(".all_"+elemId+"_val").html(val);
 		  	  	}
 		  	  	
 		   		

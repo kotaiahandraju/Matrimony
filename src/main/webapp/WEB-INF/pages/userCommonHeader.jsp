@@ -1439,7 +1439,7 @@ tooltip:hover:after {
 									if(reply_content!=null && typeof reply_content != "undefined"){
 										reply_content = reply_content.replace(/##newline##/g," ");
 										reply_content = reply_content.replace(/##tabspace##/g," ");
-										reply_content = "---Original message---\r\nFrom:"+orderObj.username+"\r\nTo:${cacheGuest.username}\r\n"+reply_content;
+										reply_content = "\r\n\r\n\r\n\r\n---Original message---\r\nFrom:"+orderObj.username+"\r\nTo:${cacheGuest.username}\r\n"+reply_content;
 									}
 									//acceptOptions = '<span id="reply'+orderObj.requestId+'"><a type="button" class="btn btn-primary btn-sm" onclick="replyMessage('+orderObj.requestId+',\''+recent_activity.activity_content+'\')">Reply</a></span>';
 									acceptOptions = '<span id="replyBtn'+recent_activity.id+'"><button type="button" onclick="displayReplyArea(this.id)" id="'+recent_activity.id+'reply"  class="btn btn-warning btn-sm">Reply</button><button type="button" class="btn btn-danger btn-sm" id="'+recent_activity.id+'sendmail" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')" style="display:none">Send Mail</button></span>';

@@ -85,19 +85,16 @@ public class EmployeeCreationController {
 						if(success) {
 							
 							redir.addFlashAttribute("msg", "success");
-							redir.addFlashAttribute("cssMsg", "success");
 						}else {
 							redir.addFlashAttribute("msg", "failed");
-							redir.addFlashAttribute("cssMsg", "danger");
 						}
 					} else {
 						
 						if (usersBean != null) {
-							redir.addFlashAttribute("msg", "duplicate_email");
-							redir.addFlashAttribute("cssMsg", "danger");
-						} else if (usersBean2 != null) {
-							redir.addFlashAttribute("msg", "duplicate_username");
-							redir.addFlashAttribute("cssMsg", "danger");
+							redir.addFlashAttribute("duplicate_email", "duplicate_email");
+						}
+						if (usersBean2 != null) {
+							redir.addFlashAttribute("duplicate_username", "duplicate_username");
 						}
 						
 					}
@@ -111,20 +108,16 @@ public class EmployeeCreationController {
 					objUsersBean.setId(0);
 					userrequirementDao.save(objUsersBean);
 					redir.addFlashAttribute("msg", "success");
-					redir.addFlashAttribute("cssMsg", "success");
 				} catch (Exception e) {
 					// TODO: handle exception
 					redir.addFlashAttribute("msg", "failed");
-					redir.addFlashAttribute("cssMsg", "success");
-					redir.addFlashAttribute("cssMsg", "danger");
 				}
 				}else {
 					if (usersBean != null) {
-						redir.addFlashAttribute("msg", "duplicate_email");
-						redir.addFlashAttribute("cssMsg", "danger");
-					} else if (usersBean2 != null) {
-						redir.addFlashAttribute("msg", "duplicate_username");
-						redir.addFlashAttribute("cssMsg", "danger");
+						redir.addFlashAttribute("duplicate_email", "duplicate_email");
+					}
+					if (usersBean2 != null) {
+						redir.addFlashAttribute("duplicate_username", "duplicate_username");
 					}
 				}
 				

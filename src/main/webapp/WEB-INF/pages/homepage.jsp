@@ -2270,8 +2270,8 @@ $('img').bind('contextmenu', function(e) {
 //    			placeholder : "-- Choose Cast --"
 //     		});
 //    $("#religionId").val(1);
-   $('#religionId').trigger("chosen:updated"); 
-   getReliginCastAjax1(); 
+  // $('#religionId').trigger("chosen:updated"); 
+  // getReliginCastAjax1(); 
     	  window.onload = function (){
     	    $(".bts-popup").delay(1000).addClass('is-visible');
     		}
