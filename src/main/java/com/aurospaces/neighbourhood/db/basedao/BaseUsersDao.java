@@ -201,7 +201,7 @@ ps.setString(52, unique_code);
 			}
 	 public UsersBean getById(int id) {
 		 jdbcTemplate = custom.getJdbcTemplate();
-			String sql = "SELECT u.*,ur.*,DATE_FORMAT(u.dob, '%d-%M-%Y') as dob,DATE_FORMAT(u.dob, '%d-%M-%Y') as dob,u.dob as dob1,DATE_FORMAT(u.created_time, '%d-%M-%Y') as createdTimeAsString from users u left join userrequirement ur  on u.id=ur.userId where u.id = ? ";
+			String sql = "SELECT u.*,AES_DECRYPT(password,'mykey') as regPassword,ur.*,DATE_FORMAT(u.dob, '%d-%M-%Y') as dob,DATE_FORMAT(u.dob, '%d-%M-%Y') as dob,u.dob as dob1,DATE_FORMAT(u.created_time, '%d-%M-%Y') as createdTimeAsString from users u left join userrequirement ur  on u.id=ur.userId where u.id = ? ";
 			List<UsersBean> retlist = jdbcTemplate.query(sql,
 			new Object[]{id},
 			ParameterizedBeanPropertyRowMapper.newInstance(UsersBean.class));

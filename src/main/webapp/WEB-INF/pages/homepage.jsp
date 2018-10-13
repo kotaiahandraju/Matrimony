@@ -1210,7 +1210,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 							</div>
 							<div class="form-group">
 								<label for="user_password">Create Password :</label> 
-								<form:password path="regPassword" class="form-control" onkeydown="removeBorder(this.id)" maxlength="10" placeholder="Password" onkeyup="validatePassword();" autocomplete="new-password" />
+								<form:password path="regPassword" class="form-control" onkeydown="removeBorder(this.id)" maxlength="15" placeholder="Password" onkeyup="validatePassword();" autocomplete="new-password" />
 								<span class="hasError" id="password_error_div" style="font-size: 13px;font-weight: 800;"></span>
 							</div>
 							<div class="form-group">
@@ -2214,12 +2214,17 @@ $('img').bind('contextmenu', function(e) {
     	    		//alert("exist");
     	    		return false;
     	    	}
-    				
+    	    	var validPwd = validatePassword();
+    	    	if(!validPwd){
+    	    		return false;
+    	    	}
     			
 //     		 	$("#firstForm").css({'display':'none'})`	
 //     			$('#secondForm').css({'display':'block'});
 //    		 		$("#registration").submit();
     		 $('#registration').attr('action',"userRegistration");
+    		 $("#secondButton").attr('value','Please wait..');
+    		 $("#secondButton").attr('disabled',true);
     			$("#registration").submit();											
     			event.preventDefault();	
     		}
@@ -2505,18 +2510,18 @@ $('img').bind('contextmenu', function(e) {
   	   var number_check_flag = false;
   	   var special_char_flag = false;
   	   var min_length_flag = false;
-  	   if(str.match(upper_text)){
+  	   if(str.match(upper_text) || str.match(lower_text)){
   		 upper_text_flag = true;
   		 $("#password_error_div").html('');
   		$("#password_error_div").attr("hidden",true);
   	   }else{
   		   $("#password_error_div").html('');
-  		   $("#password_error_div").html('Enter atleast one uppercase letter');
+  		   $("#password_error_div").html('Enter atleast one alphabet letter');
   		   $("#password_error_div").removeAttr("hidden");
   		   return false;  
   	   }
   	 
-  	   if(str.match(lower_text)){
+  	   /* if(str.match(lower_text)){
   		   lower_text_flag = true;
 	  		 $("#password_error_div").html('');
 	   		$("#password_error_div").attr("hidden",true);
@@ -2525,7 +2530,7 @@ $('img').bind('contextmenu', function(e) {
   		   $("#password_error_div").html('Enter atleast one lowercase letter');
   		   $("#password_error_div").removeAttr("hidden");
   		   return false;  
-  	   }
+  	   } */
   	   
   	   if(str.match(number_check)){
   		   number_check_flag = true;

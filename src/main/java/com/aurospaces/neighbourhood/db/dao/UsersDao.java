@@ -2651,7 +2651,7 @@ public class UsersDao extends BaseUsersDao
 				+ " where "+inner_where_clause 
 				+ " group by u.id) temp, "
 				+" users_activity_log activity where activity.act_done_on_user_id  = "+objUserBean.getId()+" and activity.act_done_by_user_id = temp.id "
-				+ " activity.activity_type in ('interest_request','message','mobile_no_viewed') ");
+				+ " and activity.activity_type in ('interest_request','message','mobile_no_viewed') ");
 
 		
 		//buffer.append(where_clause);
@@ -5085,8 +5085,8 @@ public boolean deletePhoto(String photoId){
 		try{
 			String rVal = userBean.getrCity();
 			String where_clause = " 1 ";
-			if(StringUtils.isNotBlank(rVal)) {
-				where_clause = " find_in_set(u.education,'"+rVal+"')>0 ";
+			if(StringUtils.isNotBlank(rVal) && !rVal.equalsIgnoreCase("all") && !rVal.equalsIgnoreCase("any")) {
+				where_clause = " find_in_set(u.currentCity,'"+rVal+"')>0 ";
 			}
 			String  qry = " select *,"
 					+ " ifnull(floor((datediff(current_date(),dob))/365),'') as age,"
@@ -5113,8 +5113,8 @@ public boolean deletePhoto(String photoId){
 		try{
 			String rVal = userBean.getrCity();
 			String where_clause = " 1 ";
-			if(StringUtils.isNotBlank(rVal)) {
-				where_clause = " find_in_set(u.education,'"+rVal+"')>0 ";
+			if(StringUtils.isNotBlank(rVal) && !rVal.equalsIgnoreCase("all") && !rVal.equalsIgnoreCase("any")) {
+				where_clause = " find_in_set(u.currentCity,'"+rVal+"')>0 ";
 			}
 			String  qry = " select *,"
 					+ " ifnull(floor((datediff(current_date(),dob))/365),'') as age,"
@@ -5145,8 +5145,10 @@ public boolean deletePhoto(String photoId){
 		try{
 			String rVal = userBean.getrOccupation();
 			String where_clause = " 1 ";
-			if(StringUtils.isNotBlank(rVal)) {
-				where_clause = " find_in_set(u.education,'"+rVal+"')>0 ";
+			String offset_str = " offset 2 ";
+			if(StringUtils.isNotBlank(rVal) && !rVal.equalsIgnoreCase("all") && !rVal.equalsIgnoreCase("any")) {
+				where_clause = " find_in_set(u.occupation,'"+rVal+"')>0 ";
+				offset_str = "";
 			}
 			String  qry = " select *,"
 					+ " ifnull(floor((datediff(current_date(),dob))/365),'') as age,"
@@ -5154,7 +5156,7 @@ public boolean deletePhoto(String photoId){
 					+ " (select name from city where id=u.currentCity) as currentCityName, "
 					+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+userBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'interest_request') as expressedInterest, "
 					+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and uimg.status = '1' and uimg.is_profile_picture='1') as profileImage "
-					+ " from users u, userrequirement ureq where ureq.userId = u.id and u.status = '1' and u.gender not in ('"+userBean.getGender()+"') and "+where_clause+" limit 2";
+					+ " from users u, userrequirement ureq where ureq.userId = u.id and u.status = '1' and u.gender not in ('"+userBean.getGender()+"') and "+where_clause+" limit 2 "+offset_str;
 			list = jdbcTemplate.queryForList(qry);
 			qry = " select count(1) from users u, userrequirement ureq where ureq.userId = u.id and u.status = '1' and u.gender not in ('"+userBean.getGender()+"') and "+where_clause;
 			int count = jdbcTemplate.queryForInt(qry);
@@ -5174,8 +5176,8 @@ public boolean deletePhoto(String photoId){
 		try{
 			String rVal = userBean.getrOccupation();
 			String where_clause = " 1 ";
-			if(StringUtils.isNotBlank(rVal)) {
-				where_clause = " find_in_set(u.education,'"+rVal+"')>0 ";
+			if(StringUtils.isNotBlank(rVal) && !rVal.equalsIgnoreCase("all") && !rVal.equalsIgnoreCase("any")) {
+				where_clause = " find_in_set(u.occupation,'"+rVal+"')>0 ";
 			}
 			String  qry = " select *,"
 					+ " ifnull(floor((datediff(current_date(),dob))/365),'') as age,"
@@ -5203,8 +5205,10 @@ public boolean deletePhoto(String photoId){
 		try{
 			String rVal = userBean.getrEducation();
 			String where_clause = " 1 ";
-			if(StringUtils.isNotBlank(rVal)) {
+			String offset_str = " offset 4 ";
+			if(StringUtils.isNotBlank(rVal) && !rVal.equalsIgnoreCase("all") && !rVal.equalsIgnoreCase("any")) {
 				where_clause = " find_in_set(u.education,'"+rVal+"')>0 ";
+				offset_str = "";
 			}
 			String  qry = " select *,"
 					+ " ifnull(floor((datediff(current_date(),dob))/365),'') as age,"
@@ -5212,7 +5216,7 @@ public boolean deletePhoto(String photoId){
 					+ " (select name from city where id=u.currentCity) as currentCityName, "
 					+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+userBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'interest_request') as expressedInterest, "
 					+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and uimg.status = '1' and uimg.is_profile_picture='1') as profileImage "
-					+ " from users u, userrequirement ureq where ureq.userId = u.id and u.status = '1' and u.gender not in ('"+userBean.getGender()+"') and "+where_clause+" limit 2";
+					+ " from users u, userrequirement ureq where ureq.userId = u.id and u.status = '1' and u.gender not in ('"+userBean.getGender()+"') and "+where_clause+" limit 2 "+offset_str;
 			list = jdbcTemplate.queryForList(qry);
 			qry = " select count(1) from users u, userrequirement ureq where ureq.userId = u.id and u.status = '1' and u.gender not in ('"+userBean.getGender()+"') and  "+where_clause;
 			int count = jdbcTemplate.queryForInt(qry);
@@ -5231,7 +5235,7 @@ public boolean deletePhoto(String photoId){
 		try{
 				String rVal = userBean.getrEducation();
 				String where_clause = " 1 ";
-				if(StringUtils.isNotBlank(rVal)) {
+				if(StringUtils.isNotBlank(rVal) && !rVal.equalsIgnoreCase("all") && !rVal.equalsIgnoreCase("any")) {
 					where_clause = " find_in_set(u.education,'"+rVal+"')>0 ";
 				}
 			String  qry = " select *,"
