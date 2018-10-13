@@ -51,6 +51,7 @@
 	<!-- jQuery -->
 	<script src="${baseurl }/js/jquery.min.js"></script>
 	<script type="text/javascript" src="${baseurl }/js/ajax.js"></script>
+	<script src="${baseurl}/js/custemValidation1.js"></script>
 <%-- 	<script src="${baseurl }/js/jquery.watermark.js"></script> --%>
 	<!--[if lte IE 9]>
 		<script src="${baseurl }/js/plugins/placeholder/jquery.placeholder.min.js"></script>

@@ -48,7 +48,7 @@
 						  		<div class="col-md-offset-3 col-md-6">
 							  		<div class="form-group">
 										<div class="col-md-6">
-											<input class="btn btn-primary" type="submit" id="submit1" name="yt0" value="Add">
+											<input class="btn btn-primary" type="submit" id="submit2" name="yt0" value="Add">
 											<input class="btn btn-danger cancel" type="button" id="reset" name="yt1" value="Reset">
 										</div>
 								  	</div>
@@ -170,7 +170,7 @@ function displayTable(listOrders) {
 function editStar(id) {
 	$("#id").val(serviceUnitArray[id].id);
 	$("#name").val(serviceUnitArray[id].name);
-	$("#submit1").val("Update");
+	$("#submit2").val("Update");
 	$(window).scrollTop($('body').offset().top);
 }
 
@@ -252,4 +252,40 @@ $(function(){
 
 $(".catalog2").addClass("active");
 $(".star").addClass("active");
+$('#submit2').click(function(event) {
+	validation = true;
+	$.each(idArray, function(i, val) {
+		var value = $("#" + idArray[i]).val();
+		var placeholder = $("#" + idArray[i]).attr('placeholder');
+		if (value == null || value == "" || value == "undefined") {
+			
+			 $("#" + idArray[i] ).attr("placeholder", placeholder);
+			 $("#" + idArray[i] ).css('border-color','#e73d4a');
+			    $("#" + idArray[i] ).css('color','#e73d4a');
+			    $("#" + idArray[i] ).addClass('your-class');
+			    
+//			$("#" + idArray[i] + "Error").text("Please " + placeholder);
+			validation = false;
+		} 
+	});
+	if (validation) {
+		
+		$("#submit2").attr("disabled",true);
+		 $("#submit2").val("Please wait...");
+		 $("form").submit();											
+			event.preventDefault();
+		
+	} else {
+		return false;
+		event.preventDefault();
+	}
+	
+	
+});
+$('#name').on('keydown', function(e) {
+    console.log(this.value);
+    if (e.which === 32 &&  e.target.selectionStart === 0) {
+      return false;
+    }  
+  });
 </script>

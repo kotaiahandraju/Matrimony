@@ -10,8 +10,8 @@
 				<div class="col-md-3 col-xs-3"
 					style="padding-right: 0px; padding-left: 0px;">
 					<c:if test="${not empty loc_prof.profileImage}">
-						<img src="${catalina_base}/${loc_prof.profileImage}"
-							style="cursor: pointer; border-radius: 50%; no-repeat; width: 45px; height: 45px; display: block; border: 1px solid #e1e1e1; border-radius: 50%; background-size: 75px 75px;">
+						<a href="#"  onclick="fullProfile('${loc_prof.id}')"><img src="${catalina_base}/${loc_prof.profileImage}"
+							style="cursor: pointer; border-radius: 50%; no-repeat; width: 45px; height: 45px; display: block; border: 1px solid #e1e1e1; border-radius: 50%; background-size: 75px 75px;"></a>
 					</c:if>
 					<c:if test="${empty loc_prof.profileImage}">
 						<img src="${baseurl}/img/default.png"
@@ -30,12 +30,12 @@
 				  <span id="expIntFullProfile${loc_prof.id}"><a   href="#no" type="button"   onclick="expressInterest_SidegridFullProfile('${loc_prof.id}')"> Send Interest  </a></span>
 				</c:if>
 				<c:if test="${loc_prof.expressedInterest > 0}">
-				<span><a type="button"  disabled="true" style="text-size-adjust:auto">Expressed Interest</a></span>
+				<span>Expressed Interest</span>
 				</c:if>					</p>
 				</div>
-				<div class="col-md-1">
+				<!-- <div class="col-md-1">
 					<i class="fa fa-close"></i>
-				</div>
+				</div> -->
 			</div>
 		</c:forEach>
 		
@@ -54,8 +54,8 @@
 				<div class="col-md-3 col-xs-3"
 					style="padding-right: 0px; padding-left: 0px;">
 					<c:if test="${not empty rec_prof.profileImage}">
-						<img src="${catalina_base}/${rec_prof.profileImage}"
-							style="cursor: pointer; border-radius: 50%; no-repeat; width: 45px; height: 45px; display: block; border: 1px solid #e1e1e1; border-radius: 50%; background-size: 75px 75px;">
+					<a href="#"  onclick="fullProfile('${rec_prof.id}')">	<img src="${catalina_base}/${rec_prof.profileImage}"
+							style="cursor: pointer; border-radius: 50%; no-repeat; width: 45px; height: 45px; display: block; border: 1px solid #e1e1e1; border-radius: 50%; background-size: 75px 75px;"></a>
 					</c:if>
 					<c:if test="${empty rec_prof.profileImage}">
 						<img src="${baseurl}/img/default.png"
@@ -74,12 +74,12 @@
 				  <span id="expIntFullProfile${rec_prof.id}"><a   href="#no" type="button"   onclick="expressInterest_SidegridFullProfile('${rec_prof.id}')"> Send Interest  </a></span>
 				</c:if>
 				<c:if test="${rec_prof.expressedInterest > 0}">
-				<span><a type="button"  disabled="true" style="text-size-adjust:auto">Expressed Interest</a></span>
+                <span>Expressed Interest</span>
 				</c:if>					</p>
 				</div>
-				<div class="col-md-1">
+				<!-- <div class="col-md-1">
 					<i class="fa fa-close"></i>
-				</div>
+				</div> -->
 			</div>
 		</c:forEach>
 		

@@ -39,7 +39,7 @@
 										<label class="col-sm-3 control-label required"><spring:message code="label.bodyType" text="default text" /> <span class="impColor">*</span></label>
 										<div class="col-sm-6">
 											<form:hidden path="id"/>
-											<form:input path="name" type="text" class="form-control onlyCharacters validate" placeholder="Enter Body Type"  autocomplete="off"  maxlength="255"/>						
+											<form:input path="name" type="text" class="form-control onlyCharacters validate notAllowFirstSpace" placeholder="Enter Body Type"  autocomplete="off"  maxlength="255"/>						
 											<span class="hasError" id="nameError"></span>
 									  		<div><form:errors path="name" cssClass="error"/></div>										
 										</div>
@@ -50,7 +50,7 @@
 						  		<div class="col-md-offset-3 col-md-6">
 							  		<div class="form-group">
 										<div class="col-md-6">
-											<input class="btn btn-primary" type="submit" id="submit1" name="yt0" value="Add">
+											<input class="btn btn-primary" type="submit" id="submit2" name="yt0" value="Add">
 											<input class="btn btn-danger cancel" type="button" id="reset" name="yt1" value="Reset">
 										</div>
 								  	</div>
@@ -88,7 +88,7 @@
 		
 <script type="text/javascript">
 
-function validate(id)
+/* function validate(id)
 {
 	if($('#name').val() ==  null || $('#name').val() == "" || $('#name').val()=="undefined")
 	{
@@ -96,9 +96,9 @@ function validate(id)
 	    $("#nameError").text("Body Type cannot be blank.");
 	}
 	else{$("#nameError").text("");}
-}
+} */
 
-$("#submit11").click(function(){			
+/* $("#submit11").click(function(){			
 	if($('#name').val() ==  null || $('#name').val() == "" || $('#name').val()=="undefined")
 	{
 		if($('#name').val() ==  null || $('#name').val() == "" || $('#name').val()=="undefined") 
@@ -113,7 +113,7 @@ $("#submit11").click(function(){
 		$("#bodyType-form").submit();
 	}
 });
-
+ */
 var listOrders1 = ${allOrders1};
 if (listOrders1 != "") {
 	displayTable(listOrders1);
@@ -200,7 +200,7 @@ function editBodyType(id)
 {
 	$("#id").val(serviceUnitArray[id].id);
 	$("#name").val(serviceUnitArray[id].name);
-	$("#submit1").val("Update");
+	$("#submit2").val("Update");
 	$(window).scrollTop($('body').offset().top);
 }
 
@@ -285,4 +285,41 @@ $(function(){
 
 $(".catalog1").addClass("active");
 $(".bodyType").addClass("active"); 
+
+$('#submit2').click(function(event) {
+	validation = true;
+	$.each(idArray, function(i, val) {
+		var value = $("#" + idArray[i]).val();
+		var placeholder = $("#" + idArray[i]).attr('placeholder');
+		if (value == null || value == "" || value == "undefined") {
+			
+			 $("#" + idArray[i] ).attr("placeholder", placeholder);
+			 $("#" + idArray[i] ).css('border-color','#e73d4a');
+			    $("#" + idArray[i] ).css('color','#e73d4a');
+			    $("#" + idArray[i] ).addClass('your-class');
+			    
+//			$("#" + idArray[i] + "Error").text("Please " + placeholder);
+			validation = false;
+		} 
+	});
+	if (validation) {
+		
+		$("#submit2").attr("disabled",true);
+		 $("#submit2").val("Please wait...");
+		 $("form").submit();											
+			event.preventDefault();
+		
+	} else {
+		return false;
+		event.preventDefault();
+	}
+	
+	
+});
+$('#name').on('keydown', function(e) {
+    console.log(this.value);
+    if (e.which === 32 &&  e.target.selectionStart === 0) {
+      return false;
+    }  
+  });
 </script>

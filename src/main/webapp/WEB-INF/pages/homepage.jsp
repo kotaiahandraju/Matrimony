@@ -1205,7 +1205,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 <center><h4 style="text-align:left;" >Register</h4></center>
 							<div class="form-group">
 								<label for="user_name">Your eMail Id :</label> 
-								<form:input	path="email" onkeydown="removeBorder(this.id)" class="form-control notAllowFirstSpace" placeholder="Email"/>
+								<form:input	path="email" onkeydown="removeBorder(this.id)" class="form-control notAllowFirstSpace" placeholder="eMail"/>
 								<span class="hasError" id="emailError" style="font-size: 13px;"></span>
 							</div>
 							<div class="form-group">
@@ -1814,7 +1814,10 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 					</div>
 					<div class="col-md-6 col-sm-6">
 						<div class="contact-info">
-							<p class="email-add">
+							<p class="
+
+
+-add">
 								<span>Email:</span> info@aarnamatrimony.com
 							</p>
 						</div>
@@ -2079,7 +2082,7 @@ $('img').bind('contextmenu', function(e) {
         	$("#email").css("border-color","#e73d4a");
         	$("#email").attr("title","Email-ID");
         	$('#email').css('color','red');
-        	$('#emailError').text("Enter Valid Email-ID.");
+        	$('#emailError').text("Enter Valid eMail Id");
 //         	$('#email').focus();
     		return false;
     	}
@@ -2093,7 +2096,7 @@ $('img').bind('contextmenu', function(e) {
     		var jsonobj = $.parseJSON(data);
     		if(jsonobj.msg =="exist"){
     			//error message write
-    			$('#emailError').text("Email already in Use. Please Try Another.");
+    			$('#emailError').text("eMail already in Use. Please Try Another.");
     			emailExist = true;
     		}else{
     			$('#emailError').text("");

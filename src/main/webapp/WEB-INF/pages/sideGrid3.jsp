@@ -31,7 +31,7 @@ margin-bottom:0px;}
 	            <div class="panel-body" style="padding:10px 0px;">
 	            <div class="col-md-3 col-xs-3" style="padding-right:0px; padding-left:0px;">
 	            <c:if test="${not empty loc_prof.profileImage}">
-	            	<img src="${catalina_base}/${loc_prof.profileImage}" style="cursor: pointer;border-radius: 50%;no-repeat;width: 45px;height: 45px;display: block;border: 1px solid #e1e1e1;border-radius: 50%;background-size: 75px 75px;">
+	            	<a href="#"  onclick="fullProfile('${loc_prof.id}')"><img src="${catalina_base}/${loc_prof.profileImage}" style="cursor: pointer;border-radius: 50%;no-repeat;width: 45px;height: 45px;display: block;border: 1px solid #e1e1e1;border-radius: 50%;background-size: 75px 75px;"></a>
 	            </c:if>
 	            <c:if test="${empty loc_prof.profileImage}">
 	            	<img src="${baseurl}/img/default.png" style="cursor: pointer;border-radius: 50%;no-repeat;width: 45px;height: 45px;display: block;border: 1px solid #e1e1e1;border-radius: 50%;background-size: 75px 75px;">
@@ -48,7 +48,7 @@ margin-bottom:0px;}
 				<span>Expressed Interest</span>
 				</c:if>
 				<!-- <a href="#"><img src="../nimages/heart-icon.png" /> Send Interest</a> --></p></div>
-				<div class="col-md-1"><i class="fa fa-close"></i></div>
+<!-- 				<div class="col-md-1"><i class="fa fa-close"></i></div> -->
 	        </div>
         </c:forEach>
         <center><a href="preferredLocation" class="btn btn-info">View All (${pref_loc_profiles_size})</a></center>
@@ -68,7 +68,7 @@ margin-bottom:0px;}
 	<div class="panel-body" style="padding:10px 0px;">
 	            <div class="col-md-3" style="padding-right:0px; padding-left:0px;">
 	            <c:if test="${not empty pref_prof.profileImage}">
-	            	<img src="${catalina_base}/${pref_prof.profileImage}" style="cursor: pointer;border-radius: 50%;no-repeat;width: 45px;height: 45px;display: block;border: 1px solid #e1e1e1;border-radius: 50%;background-size: 75px 75px;">
+	            	<a href="#" onclick="fullProfile('${pref_prof.id}')"><img src="${catalina_base}/${pref_prof.profileImage}" style="cursor: pointer;border-radius: 50%;no-repeat;width: 45px;height: 45px;display: block;border: 1px solid #e1e1e1;border-radius: 50%;background-size: 75px 75px;"></a>
             	</c:if>
             	<c:if test="${empty pref_prof.profileImage}">
 	            	<img src="${baseurl}/img/default.png" style="cursor: pointer;border-radius: 50%;no-repeat;width: 45px;height: 45px;display: block;border: 1px solid #e1e1e1;border-radius: 50%;background-size: 75px 75px;">
@@ -104,7 +104,7 @@ margin-bottom:0px;}
 			<div class="panel-body" style="padding:10px 0px;">
 	            <div class="col-md-3" style="padding-right:0px; padding-left:0px;">
 	            <c:if test="${not empty pref_edu.profileImage}">
-	            	<img src="${catalina_base}/${pref_edu.profileImage}" style="cursor: pointer;border-radius: 50%;no-repeat;width: 45px;height: 45px;display: block;border: 1px solid #e1e1e1;border-radius: 50%;background-size: 75px 75px;">
+	            <a href="#" onclick="fullProfile('${pref_edu.id}')"><img src="${catalina_base}/${pref_edu.profileImage}" style="cursor: pointer;border-radius: 50%;no-repeat;width: 45px;height: 45px;display: block;border: 1px solid #e1e1e1;border-radius: 50%;background-size: 75px 75px;"></a>
 	            </c:if>
 	            <c:if test="${empty pref_edu.profileImage}">
 	            	<img src="${baseurl}/img/default.png" style="cursor: pointer;border-radius: 50%;no-repeat;width: 45px;height: 45px;display: block;border: 1px solid #e1e1e1;border-radius: 50%;background-size: 75px 75px;">
@@ -120,7 +120,7 @@ margin-bottom:0px;}
 				<span> Expressed Interest</span>
 				</c:if>
 	<!-- <a href="#"><img src="../nimages/heart-icon.png"> Send Interest</a> --></p></div>
-	<div class="col-md-1"><i class="fa fa-close"></i></div>
+<!-- 	<div class="col-md-1"><i class="fa fa-close"></i></div> -->
 	        </div>        
         </c:forEach>
         <center><a href="preferredEducation" class="btn btn-info">View All (${pref_edu_profiles_size})</a></center>
@@ -180,38 +180,7 @@ margin-bottom:0px;}
 					</form:select>
 					<span>To </span>
 					<form:select path="rAgeTo"  class="formcontrol" style="width:60px;">
-									<option value="19">19</option>
-									<option value="20">20</option>
-									<option value="21">21</option>
-									<option value="22">22</option>
-									<option value="23">23</option>
-									<option value="24">24</option>
-									<option value="25">25</option>
-									<option value="26">26</option>
-									<option value="27">27</option>
-									<option value="28">28</option>
-									<option value="29">29</option>
-									<option value="30">30</option>
-									<option value="31">31</option>
-									<option value="32">32</option>
-									<option value="33">33</option>
-									<option value="34">34</option>
-									<option value="35">35</option>
-									<option value="36">36</option>
-									<option value="37">37</option>
-									<option value="38">38</option>
-									<option value="39">39</option>
-									<option value="40">40</option>
-									<option value="41">41</option>
-									<option value="42">42</option>
-									<option value="43">43</option>
-									<option value="44">44</option>
-									<option value="45">45</option>
-									<option value="46">46</option>
-									<option value="47">47</option>
-									<option value="48">48</option>
-									<option value="49">49</option>
-									<option value="50">50</option> 					
+										<option value="19">19</option>			
 					</form:select>
 					<h4> Religion </h4> 
           <form:select path="religion" id="religionId" onchange="getReliginCastAjaxSearch();" class=" form-control" >
@@ -231,5 +200,18 @@ margin-bottom:0px;}
     </div>
 				 
 			</div>
+			<script>
 			
+			$('#rAgeFrom').change(function() {
+    			$('#rAgeTo').html('');
+    			var val = $(this).val();
+    			$('#rAgeTo').find('option').not(':first').remove();
+    			if(val!=''){
+    			val=(val-0)+1;
+    			for (var i = val; i <= 50; i++) {
+    				$("#rAgeTo").append('<option>' + i + '</option>');
+    			}
+    			}
+    		});
+			</script>
 			
