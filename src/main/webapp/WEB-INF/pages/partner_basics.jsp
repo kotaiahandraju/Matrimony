@@ -174,7 +174,7 @@ display:block;
       <label class="control-label" for="textinput">Community</label>  
       
       	<form:select path="rCaste" class="multiSelect pull-right" multiple="true">
-			<%-- <form:options items="${cast}"></form:options> --%>
+			<form:options items="${r_castesMap}"></form:options>
 		</form:select>
     </div>
     </div>
@@ -236,7 +236,15 @@ function getReliginCastAjax() {
 			var casteName=tests.name;
 			optionsForClass.append(new Option(casteName, id));
 		});
-		
+		var selected_vals = "${profileBean.rCaste}";
+	    if(selected_vals == "" || selected_vals==null){
+	    	$("#rCaste").select2({
+	    	    placeholder: "-- Choose Community --"
+	    	});
+	    }else{
+	        $("#rCaste").val(selected_vals.split(","));
+	    }
+	    $("#rCaste").trigger('change.select2');
 	});
 }
 
