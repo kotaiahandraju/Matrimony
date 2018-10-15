@@ -58,7 +58,7 @@ public class ScheduledJobs {
 	 }
 	
 //	@Scheduled(cron = "0 0 12 1 * ?") //every month 1st at 12 am
-@Scheduled(cron = "0 0/11 * * * *")
+@Scheduled(cron = "0 0/20 * * * *")
 	 public void rotateEmployeesProfilesSlot(){
 		System.out.println("#########  rotateEmployeesProfilesSlot ###########");
 		jobsController.rotateEmployeesProfilesSlot();
