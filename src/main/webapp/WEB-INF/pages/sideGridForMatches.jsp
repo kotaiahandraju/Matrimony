@@ -45,7 +45,7 @@
 <div class="clearfix"></div>
 <div class="panel">
 	<div class="panel-heading">
-		<b style="font-weight: bold;">Recently Profiles</b>
+		<b style="font-weight: bold;">Recently Viewed Profiles</b>
 	</div>
 	<div class="panel-body" style="padding: 10px 0px;">
 		
