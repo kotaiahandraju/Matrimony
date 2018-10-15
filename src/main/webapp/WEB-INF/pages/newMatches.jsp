@@ -382,6 +382,7 @@ function paginationSetupForSideGrid(total_items_count) {
 							formData.append('alreadyViewed',already_viewed);
 							formData.append('alreadyContacted',already_contacted);
 							
+							formData.append("rCaste", $("#caste").val());
 							formData.append("rCity", $("#city").val());
 							formData.append("rAgeFrom", $("#age_from").val());
 							formData.append("rAgeTo", $("#age_to").val());
@@ -553,11 +554,21 @@ $(document).ready(function(){
 		placeholder : "-- Select City --",
 		allowClear : true
 	});
+	$("#caste").select2({
+		placeholder : "-- Select Caste --",
+		allowClear : true
+	});
 	//populate city dropdown
 	var city_map = ${all_cities};
 	  $.each(city_map,function(key, value) {
 				$("#city").append("<option value="+key+" >"+ value+ "</option>");
-			});  
+			}); 
+	
+	//populate castes dropdown
+		var castes_map = ${all_castes};
+		  $.each(castes_map,function(key, value) {
+					$("#caste").append("<option value="+key+" >"+ value+ "</option>");
+				}); 
 	
 });
 
@@ -582,6 +593,7 @@ function submitMore(option_str){
 			clicked_link = "photo";
 		}
 		
+		formData.append("rCaste", $("#caste").val());
 		formData.append("rCity", $("#city").val());
 		formData.append("rAgeFrom", $("#age_from").val());
 		formData.append("rAgeTo", $("#age_to").val());

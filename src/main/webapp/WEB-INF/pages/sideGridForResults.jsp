@@ -221,6 +221,24 @@ margin-left:10px;
         </div>
     </div>
   </div>
+  <div class="panel ">
+    <div class="panel-heading" role="tab" id="headingSix">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" href="#collapseSix" aria-expanded="true" aria-controls="collapseSix" class="trigger">
+         <b> Caste</b> 
+        </a>
+      </h4>
+    </div>
+    <div id="collapseSix" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingSix">
+      <div class="panel-body">
+      <div class="" style="padding:5px;">
+      <select name="caste" id="caste" style="padding:5px;width: 196px;height:32px;" class="optiondiv multiselect"   multiple="multiple">
+      	<option value="all" >--Select Caste--</option>
+      
+      </select>&nbsp;&nbsp;<span class="errortext" id="cityerr"></span>&nbsp;&nbsp;<input class="" style="background: rgb(255, 255, 255) none repeat scroll 0% 0%; border-radius: 3px; color: rgb(2, 116, 203); font-weight: normal; font-size: 12px; margin:0 50px; margin-left: 0px; float:right; padding: 5px; margin-top: -2px; border: 1px solid rgb(214, 214, 214); line-height: 16px;cursor:pointer !important;" value="Submit" onclick="submitMore('')" type="button"></div>
+        </div>
+    </div>
+  </div>
 </div>
 <c:if test="${cacheGuest.roleId == '4' || cacheGuest.membership_status == '0'}">
 <a href="memberShipPage"><img  style="border-radius:10px;" src="${baseurl}/images/upgra.jpg" class="img-responsive"/></a>

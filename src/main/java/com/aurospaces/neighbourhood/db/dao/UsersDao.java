@@ -5287,7 +5287,7 @@ public boolean deletePhoto(String photoId){
 						+ " (select name from city where id=u.currentCity) as currentCityName, "
 						+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+sessionBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'interest_request') as expressedInterest, "
 						+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and uimg.status = '1' and uimg.is_profile_picture='1') as profileImage "
-						+ " from users u where u.status = '1' and u.gender ='"+presentProfile.getGender()+"' and  u.religion = "+presentProfile.getReligion()+" and u.caste =  "+presentProfile.getCaste()+" limit 2";
+						+ " from users u where u.status = '1' and u.gender ='"+presentProfile.getGender()+"' and  u.religion = "+presentProfile.getReligion()+" and u.caste =  "+presentProfile.getCaste()+" and u.id not in ("+presentProfile.getId()+") limit 2";
 			list = jdbcTemplate.queryForList(qry);
 		}catch (Exception e) {
 			e.printStackTrace();

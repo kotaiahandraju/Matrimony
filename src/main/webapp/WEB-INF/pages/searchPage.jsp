@@ -314,21 +314,28 @@ function getReliginCastAjax() {
 		var alldata = jsonobj.allOrders1;
 		var optionsForClass = "";
 		optionsForClass = $("#rCaste").empty();
+		var optionsForClass_caste = $("#caste").empty();
 		/* optionsForClass.append(new Option("-- Choose Community --", "")); */
 		$.each(alldata, function(i, tests) {
 			var id=tests.id;
 			var casteName=tests.name;
 			optionsForClass.append(new Option(casteName, id));
+			optionsForClass_caste.append(new Option(casteName, id));
 		});
 		var selected_values = "${createProfile.rCaste}";
 	    if(selected_values == "" || selected_values==null){
 	    	$("#rCaste").select2({
 	    	    placeholder: "-- Choose Community --"
 	    	});
+	    	$("#caste").select2({
+	    	    placeholder: "-- Choose Caste --"
+	    	});
 	    }else{
 	        $("#rCaste").val(selected_values.split(","));
+	        $("#caste").val(selected_values.split(","));
 	    }
 		$('#rCaste').trigger('change.select2');
+		$('#caste').trigger('change.select2');
 		
 	});
 }
@@ -1157,6 +1164,7 @@ function resetBtnfunction(){
 										.val());
 								formData.append("rState", $("#rState").val());
 								
+								formData.append("rCaste", $("#caste").val());
 								formData.append("rCity", $("#city").val());
 								formData.append("rAgeFrom", $("#age_from").val());
 								formData.append("rAgeTo", $("#age_to").val());
@@ -1395,6 +1403,7 @@ function resetBtnfunction(){
 				.val());
 		formData.append("rState", $("#rState").val());
 		
+		formData.append("rCaste", $("#caste").val());
 		formData.append("rCity", $("#city").val());
 		formData.append("rAgeFrom", $("#age_from").val());
 		formData.append("rAgeTo", $("#age_to").val());
@@ -1453,6 +1462,10 @@ function resetBtnfunction(){
 		$("#rCaste").select2({
 			placeholder : "-- Choose Community --"
 		});
+		$("#caste").select2({
+			placeholder : "-- Select Caste --",
+			allowClear : true
+		});
 		$("#rMotherTongue").select2({
 			placeholder : "-- Choose Mother Tongue --"
 		});
@@ -1472,6 +1485,10 @@ function resetBtnfunction(){
 		
 		$("#city").select2({
 			placeholder : "-- Select City --",
+			allowClear : true
+		});
+		$("#caste").select2({
+			placeholder : "-- Select Caste --",
 			allowClear : true
 		});
 		/* $("#rEducation").select2({
@@ -1575,9 +1592,14 @@ function resetBtnfunction(){
 	    	$("#rCaste").select2({
 	    	    placeholder: "-- Choose Community --"
 	    	});
+	    	var castes_map = ${all_castes};
+	    	  $.each(castes_map,function(key, value) {
+	    				$("#caste").append("<option value="+key+" >"+ value+ "</option>");
+	    			}); 
 	    }else{
 	    	var tt = selected_values.split(",");
 	        $("#rCaste").val(selected_values.split(","));
+	        $("#caste").val(selected_values.split(","));
 	    }
 		$('#rCaste').trigger('change.select2');
 		
@@ -1654,6 +1676,7 @@ function resetBtnfunction(){
 			formData.append("page_no", page);
 			formData.append("request_from", "search");
 			
+			formData.append("rCaste", $("#caste").val());
 			formData.append("rCity", $("#city").val());
 			formData.append("rAgeFrom", $("#age_from").val());
 			formData.append("rAgeTo", $("#age_to").val());

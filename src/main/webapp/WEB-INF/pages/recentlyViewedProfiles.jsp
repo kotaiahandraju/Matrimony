@@ -33,11 +33,20 @@ margin-bottom:15px;}
 			placeholder : "-- Select City --",
 			allowClear : true
 		});
+		$("#caste").select2({
+			placeholder : "-- Select Caste --",
+			allowClear : true
+		});
 	});
 	var city_map = ${all_cities};
 	  $.each(city_map,function(key, value) {
 				$("#city").append("<option value="+key+" >"+ value+ "</option>");
 			}); 
+	//populate castes dropdown
+		var castes_map = ${all_castes};
+		  $.each(castes_map,function(key, value) {
+					$("#caste").append("<option value="+key+" >"+ value+ "</option>");
+				}); 
 var total_items_count = ${total_records};
 var page_size = ${page_size};
 var allowed_limit = "${allowed_profiles_limit}";
@@ -530,6 +539,7 @@ function submitMore(option_str){
 		formData.append("page_no", page);
 		formData.append("request_from", "recently_viewed");
 		
+		formData.append("rCaste", $("#caste").val());
 		formData.append("rCity", $("#city").val());
 		formData.append("rAgeFrom", $("#age_from").val());
 		formData.append("rAgeTo", $("#age_to").val());
