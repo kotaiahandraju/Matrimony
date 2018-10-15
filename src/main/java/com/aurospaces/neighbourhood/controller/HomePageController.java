@@ -2853,6 +2853,7 @@ String sJson="";
 			String age_from = request.getParameter("age_from");
 			String age_to = request.getParameter("age_to");
 			String city = request.getParameter("rCity");
+			String caste = request.getParameter("rCaste");
 			
 			Map<String,String> filterOptions = new HashMap<String,String>();
 			filterOptions.put("with_photo", (StringUtils.isNotBlank(with_photo))?with_photo:"false");
@@ -2863,6 +2864,7 @@ String sJson="";
 			filterOptions.put("age_from", age_from);
 			filterOptions.put("age_to", age_to);
 			filterOptions.put("city", (StringUtils.isNotBlank(city))?city:null);
+			filterOptions.put("caste", (StringUtils.isNotBlank(caste))?caste:null);
 			
 			UsersBean userSessionBean = (UsersBean)session.getAttribute("cacheGuest");
 			if(userSessionBean == null){
@@ -3671,6 +3673,20 @@ String sJson="";
 				objectMapper = new ObjectMapper();
 				sJson = objectMapper.writeValueAsString(cityMap);
 				request.setAttribute("all_cities", sJson);
+				//
+				Map<Integer, String> casteMap = new LinkedHashMap<Integer, String>();
+				try {
+					List<CastBean> castes = objCastDao.getAllCasts();
+					for (CastBean bean : castes) {
+						casteMap.put(bean.getId(), bean.getName());
+					}
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				} 
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(casteMap);
+				request.setAttribute("all_castes", sJson);
 			} else {
 				request.setAttribute("allOrders1", "''");
 				request.setAttribute("total_records", "0");
@@ -4315,6 +4331,20 @@ String sJson="";
 			objectMapper = new ObjectMapper();
 			sJson = objectMapper.writeValueAsString(cityMap);
 			request.setAttribute("all_cities", sJson);
+			//
+			Map<Integer, String> casteMap = new LinkedHashMap<Integer, String>();
+			try {
+				List<CastBean> castes = objCastDao.getAllCasts();
+				for (CastBean bean : castes) {
+					casteMap.put(bean.getId(), bean.getName());
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			} 
+			objectMapper = new ObjectMapper();
+			sJson = objectMapper.writeValueAsString(casteMap);
+			request.setAttribute("all_castes", sJson);
 		} catch (Exception e) {
 	   e.printStackTrace();
 	   System.out.println(e);
@@ -4430,7 +4460,20 @@ String sJson="";
 			objectMapper = new ObjectMapper();
 			sJson = objectMapper.writeValueAsString(cityMap);
 			request.setAttribute("all_cities", sJson);
-			
+			//
+			Map<Integer, String> casteMap = new LinkedHashMap<Integer, String>();
+			try {
+				List<CastBean> castes = objCastDao.getAllCasts();
+				for (CastBean bean : castes) {
+					casteMap.put(bean.getId(), bean.getName());
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			} 
+			objectMapper = new ObjectMapper();
+			sJson = objectMapper.writeValueAsString(casteMap);
+			request.setAttribute("all_castes", sJson);
 		} catch (Exception e) {
 	   e.printStackTrace();
 	   System.out.println(e);
@@ -5555,6 +5598,20 @@ public String recentlyViewedProfiles(@ModelAttribute("createProfile") UsersBean 
 			objectMapper = new ObjectMapper();
 			sJson = objectMapper.writeValueAsString(cityMap);
 			request.setAttribute("all_cities", sJson);
+			//
+			Map<Integer, String> casteMap = new LinkedHashMap<Integer, String>();
+			try {
+				List<CastBean> castes = objCastDao.getAllCasts();
+				for (CastBean bean : castes) {
+					casteMap.put(bean.getId(), bean.getName());
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			} 
+			objectMapper = new ObjectMapper();
+			sJson = objectMapper.writeValueAsString(casteMap);
+			request.setAttribute("all_castes", sJson);
 	  } catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e);
@@ -5646,6 +5703,20 @@ public String premiumMembers(@ModelAttribute("createProfile") UsersBean searchCr
 		objectMapper = new ObjectMapper();
 		sJson = objectMapper.writeValueAsString(cityMap);
 		request.setAttribute("all_cities", sJson);
+		//
+		Map<Integer, String> casteMap = new LinkedHashMap<Integer, String>();
+		try {
+			List<CastBean> castes = objCastDao.getAllCasts();
+			for (CastBean bean : castes) {
+				casteMap.put(bean.getId(), bean.getName());
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+		objectMapper = new ObjectMapper();
+		sJson = objectMapper.writeValueAsString(casteMap);
+		request.setAttribute("all_castes", sJson);
   } catch (Exception e) {
 		e.printStackTrace();
 		System.out.println(e);
