@@ -1577,7 +1577,7 @@ function addWaterMark(){
 	  textWidth: 700,
 	  textSize: 76,
 	  textColor: 'white',
-	  gravity: 'w',
+	  gravity: 'n',
 	   opacity: 0.8,
 	   //margin: 0,
 	   outputWidth: 'auto',

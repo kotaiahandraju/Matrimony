@@ -7,11 +7,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.aurospaces.neighbourhood.bean.UsersBean;
 import com.aurospaces.neighbourhood.db.dao.UsersDao;
@@ -53,7 +56,6 @@ public class MoreConversationsController {
 			request.setAttribute("profileBean", profileBean);
 			List<Map<String,Object>> photosList = objUsersDao.getApprovedUserPhotos(Integer.parseInt(profile_id));
 			request.setAttribute("fullProfilePhotosList", photosList);
-			request.setAttribute("photosListSize", photosList.size());
 		} catch (Exception e) {
 	   e.printStackTrace();
 	   System.out.println(e);
@@ -61,6 +63,32 @@ public class MoreConversationsController {
 	   logger.fatal("error in getConversations method");
 	  }
 		return "moreConversation";
+	}
+	
+	@RequestMapping("/deleteConversation")
+	public  @ResponseBody String deleteConversation(@ModelAttribute("notificationsForm") UsersBean objUserssBean, Model objeModel, HttpServletRequest request, HttpSession session){
+		List<Map<String, Object>> conversations = null;
+		JSONObject jsonObj = new JSONObject();
+		try {
+			UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
+			if(sessionBean == null){
+				return "redirect:HomePage";
+			}
+			String conversation_id =request.getParameter("cid");
+			boolean success = objUsersDao.deleteConversation(conversation_id);
+			if(success){
+				jsonObj.put("message", "success");
+			}else{
+				jsonObj.put("message", "failed");
+			}
+		} catch (Exception e) {
+			   e.printStackTrace();
+			   System.out.println(e);
+			   logger.error(e);
+			   logger.fatal("error in deleteConversation method");
+			   jsonObj.put("msg", "failed");
+	   }
+		return jsonObj.toString();
 	}
 
 }

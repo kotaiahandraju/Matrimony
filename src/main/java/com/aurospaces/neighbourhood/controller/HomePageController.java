@@ -969,6 +969,13 @@ public class HomePageController {
 				}
 				request.setAttribute("filtered_cities", filtered_cities);
 			}
+			///////
+			List<Map<String,Object>> r_castes_list =  objCastDao.getCastesBasedOnReligion(sessionBean.getrReligion());
+			Map<Integer, String> r_castesMap = new LinkedHashMap<Integer, String>();
+			for (Map<String,Object> caste : r_castes_list) {
+				r_castesMap.put((Integer)caste.get("id"),(String)caste.get("name"));
+			}
+			request.setAttribute("r_castesMap", r_castesMap);
 			
 		} catch (Exception e) {
 	   e.printStackTrace();

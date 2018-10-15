@@ -34,6 +34,9 @@ background:#f8f8f8;
 padding:10px;}
 </style>
 <div class=" products container" style="padding:15px;">
+	<div id="msgDiv" class="form-group" style="padding-top:9px;" hidden="true">
+		<div class="msgcss fadeIn animated alert alert-danger">Deleted</div>
+	</div>
 <a type="button"   href="${back_link_val}" class="btn btn-success pull-right" > Back</a>
 <div class="clearfix"></div>
 <br>
@@ -100,7 +103,7 @@ padding:10px;}
 							</c:if>
 						</div>
 						<div class="col-md-10">
-						<h3>${profileBean.firstName} ${profileBean.lastName}<span><a href="#"><img  data-toggle="tooltip" title="View Mobile Number" src="${baseurl }/images/micon.png"/></a></span> <span class="pull-right"><a href="#"><i data-toggle="tooltip" title="Delete" class="fa fa-trash-o" style="font-size:16px;"></i></a></span></h3>
+						<h3>${profileBean.firstName} ${profileBean.lastName}</h3>
 						<p>${profileBean.age} Yrs, ${profileBean.heightInches}, ${profileBean.religionName}: ${profileBean.casteName}, ${profileBean.currentCityName}, ${profileBean.currentStateName}, ${profileBean.currentCountryName}, ${profileBean.educationName}, ${profileBean.occupationName}</p>
 						</div>
 						</div>
@@ -124,7 +127,7 @@ padding:10px;}
 								<c:set var="act_str" value="${''}" />
 								<c:set var="message_content" value="${''}" />
 								<c:set var="short_str_symbol" value="${'../images/arrowaccepted.png'}" />
-								
+								<div id="conDiv${conversation.id}">
 								<div class="col-md-12">
 									<c:if test="${act_done_by == cacheGuest.id }">
 										<c:set var="act_str" value="${'You'}" />
@@ -245,12 +248,13 @@ padding:10px;}
 										</c:if>
 										<c:set var="short_str" value="${'Shortlisted'}" />
 									</c:if>
-								<p><span><img src="${short_str_symbol}"/> <c:out value="${short_str}" /> <span class="pull-right"><c:out value="${conversation.created_on}" /> <a href="#"><i data-toggle="tooltip" title="Delete" class="fa fa-trash-o" style="font-size:16px;"></i></a></span></p>
+								<p><span><img src="${short_str_symbol}"/> <c:out value="${short_str}" /> <span class="pull-right"><c:out value="${conversation.created_on}" /> <a href="#" onclick="deleteConversation(${conversation.id})"><i data-toggle="tooltip" title="Delete" class="fa fa-trash-o" style="font-size:16px;"></i></a></span></p>
 								<p><strong> &nbsp; &nbsp; <c:out value="${act_str}" />.</strong></p>
 								<p><c:out value="${message_content}" /></p>
 								<a class="btn btn-danger" id="sendMail${profileBean.id}" onclick="displayMailPopup(${profileBean.id},'${profileBean.firstName} ${profileBean.lastName}')">Send mail</a> &nbsp; &nbsp;
 								</div>
 								<div class="clearfix"></div><br><hr>
+								</div>
 							</c:forEach>
 						</c:if>
 						<!-- <div class="col-md-12">
@@ -276,6 +280,13 @@ padding:10px;}
 </div>
 </div>
 <script type="text/javascript">
+$(window).scroll(function() {
+    if ($(this).scrollTop() >= 50) {        // If page is scrolled more than 50px
+        $('#return-to-top').fadeIn(200);    // Fade in the arrow
+    } else {
+        $('#return-to-top').fadeOut(200);   // Else fade out the arrow
+    }
+});
 var smallSlideIndex = 0;
 function plusSmallSlide(n,profile_id) {
 	if(n>0){
@@ -321,6 +332,24 @@ function plusSmallSlide(n,profile_id) {
 		  $("#prevBtn"+profile_id).attr("href","#no");
 		  $("#prevBtn"+profile_id).attr("onclick","plusSmallSlide(-1,"+profile_id+")");
 	  }
+}
+function deleteConversation(conv_id){
+	var formData = new FormData();
+	formData.append('cid',conv_id);
+	jQuery.fn.makeMultipartRequest('POST', 'deleteConversation', false,
+			formData, false, 'text', function(data){
+    		var jsonobj = $.parseJSON(data);
+    		var msg = jsonobj.message;
+    		if(typeof msg != "undefined"){
+    			if(msg=="success"){
+    				$("#conDiv"+conv_id).remove();
+    				$("#msgDiv").removeAttr("hidden");
+    			}else{
+    				alert("Some problem occured. Please try again.");
+    			}
+    		}
+    		
+	});
 }
 </script>
 <%@ include file="userFooter.jsp"%>
