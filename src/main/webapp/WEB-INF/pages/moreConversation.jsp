@@ -82,12 +82,12 @@ padding:10px;}
 								<c:forEach items="${fullProfilePhotosList}" var="photo">
 									<c:if test="${photo.image == profileBean.profileImage }">
 										<div class="picstyle smallSlides${profileBean.id}" style="display:block;">
-											<img src="${baseurl }/${photo.image}" class="img img-responsive watermark_text" style="margin-bottom:0;height: auto;width: 100%;" >
+											<img src="${catalina_base}/${photo.image}" class="img img-responsive watermark_text" style="margin-bottom:0;height: auto;width: 100%;" >
 										</div>
 									</c:if>
 									<c:if test="${photo.image != profileBean.profileImage }">
 										<div class="picstyle smallSlides${profileBean.id}" style="display:none;">
-											<img src="${baseurl }/${photo.image}" class="img img-responsive watermark_text" style="margin-bottom:0;height: auto;width: 100%;" >
+											<img src="${catalina_base}/${photo.image}" class="img img-responsive watermark_text" style="margin-bottom:0;height: auto;width: 100%;" >
 										</div>
 									</c:if>
 								</c:forEach>

@@ -47,7 +47,7 @@
 					<!-- 1st Step starts here-->
 					<div id="firstForm" class="dispnone">
 						<div class="col-md-12">
-							<h3>Thanks for Registering. Now let's build your profile</h3>
+							<h3>Thanks for Registering. Now let's build your profile to continue/login...</h3>
 						</div>
 						<!-- Text inputs-->
 						<div class="form-group">
