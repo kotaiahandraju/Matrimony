@@ -1421,7 +1421,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 					</div>
 					<div class="col-md-3">
 						<h4>Age</h4>
-						<span>From </span>
+						<!-- <span>From </span> -->
 						<form:select path="rAgeFrom" id="rAgeFrom" name="rAgeFrom"
 							class="for-control" style="width:60px;">
 							<option value="" selected>From &nbsp;&nbsp;</option>
@@ -1459,7 +1459,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 							<option value="49">49</option>
 							<option value="50">50</option>
 						</form:select>
-						<span>To </span>
+						<!-- <span>To </span> -->
 						<form:select path="rAgeTo" id="rAgeTo" name="rAgeTo"
 							class="formcontrol" style="width:60px;">
 							<option value="" selected>To &nbsp;&nbsp;</option>
@@ -1554,7 +1554,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 
 						</div>
 						<div class="pro_details">
-							Matri ID : ${profile.username} <br> <span>${profile.religionName}</span>
+							Aarna ID : ${profile.username} <br> <span>${profile.religionName}</span>
 							<br> ${profile.currentCityName}<br> ${profile.currentStateName}
 						</div>
 
@@ -2211,7 +2211,7 @@ $('img').bind('contextmenu', function(e) {
  
     var emailExist = false;
     // var validEmail = false;
-    var expr = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+    var expr = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|in|yahoo|edu|gov|mil|biz|info|mobi|name|aero|asia|jobs|museum)$/;
     $('#email').blur(function() {
     	var email = $('#email').val();
     	if(email == "" || email == null || email == "undefined")
@@ -2713,6 +2713,11 @@ $('img').bind('contextmenu', function(e) {
   	   //$("#regPassword").val(str);
   	   return true; 
      }
+  	   
+     $("#regPassword").on("keypress", function(e) {
+    	 if (e.which == 32)
+             return false;
+    	});
 </script>
 
 </body>

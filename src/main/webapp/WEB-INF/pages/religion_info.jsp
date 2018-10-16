@@ -146,5 +146,9 @@ function getReliginCastAjax1() {
 } 
  */
 
-
+ $('#gotram').on('keydown', function(e) {
+	    if (e.which === 32 &&  e.target.selectionStart === 0) {
+	      return false;
+	    }  
+	  });
 </script>

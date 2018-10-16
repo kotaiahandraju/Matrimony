@@ -39,7 +39,7 @@
 			</div>
 		</c:forEach>
 		
-		<center><a href="#" style="padding-left:15px;" class="btn btn-info" onclick="similarProfiles('${profileBean.gender}',${profileBean.religion},${profileBean.caste})";>View All </a>
+		<center><a href="#" style="padding-left:15px;" class="btn btn-info" onclick="similarProfiles(${profileBean.id},'${profileBean.gender}',${profileBean.religion},${profileBean.caste})";>View All </a>
 </center>	</div>
 </div>
 <div class="clearfix"></div>
@@ -88,8 +88,8 @@
 
 <script type="text/javascript">
 
-function similarProfiles(gender,religion,caste_val) {
-	
+function similarProfiles(profile_id,gender,religion,caste_val) {
+	$("#id").val(profile_id);
 	$("#gender").val(gender);
 	$("#religion").val(religion);
 	$("#caste").val(caste_val);

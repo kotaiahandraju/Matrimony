@@ -1825,7 +1825,11 @@ function checkLen(){
 //	  	maxDate :0,
 	 	yearRange: '1950:' + ss
 	 });  
-  
+  $('#aboutMyself').on('keydown', function(e) {
+	    if (e.which === 32 &&  e.target.selectionStart === 0) {
+	      return false;
+	    }  
+	  });
 </script>
 
 <%@ include file="userFooter.jsp"%>
