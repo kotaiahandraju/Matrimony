@@ -1306,13 +1306,13 @@ public class HomePageController {
 				return "redirect:HomePage";
 			}
 		 
-		 
+		 String profile_id=request.getParameter("id");
 		 String gender = request.getParameter("gender");
 		 String religion = request.getParameter("religion");
 		 String caste = request.getParameter("caste");
 		 
 		 
-		 List<Map<String,Object>> similarProfiles = objUsersDao.getSimilarProfilesAll(sessionBean,gender,religion,caste);
+		 List<Map<String,Object>> similarProfiles = objUsersDao.getSimilarProfilesAll(sessionBean,profile_id,gender,religion,caste);
 		 if(similarProfiles!=null && similarProfiles.size()>0){
 				objectMapper = new ObjectMapper();
 				sJson = objectMapper.writeValueAsString(similarProfiles);
@@ -1764,6 +1764,20 @@ String sJson="";
 			objectMapper = new ObjectMapper();
 			sJson = objectMapper.writeValueAsString(cityMap);
 			request.setAttribute("all_cities", sJson);
+			//
+			Map<Integer, String> casteMap = new LinkedHashMap<Integer, String>();
+			try {
+				List<CastBean> castes = objCastDao.getAllCasts();
+				for (CastBean bean : castes) {
+					casteMap.put(bean.getId(), bean.getName());
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			} 
+			objectMapper = new ObjectMapper();
+			sJson = objectMapper.writeValueAsString(casteMap);
+			request.setAttribute("all_castes", sJson);
 			
 			
 		} catch (Exception e) {

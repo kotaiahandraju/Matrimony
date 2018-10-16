@@ -149,7 +149,6 @@ $(".onlyCharacters").on("keypress",	function(event) {
 
 
 $('.notAllowFirstSpace').on('keydown', function(e) {
-    console.log(this.value);
     if (e.which === 32 &&  e.target.selectionStart === 0) {
       return false;
     }  

@@ -5296,7 +5296,7 @@ public boolean deletePhoto(String photoId){
 		return list;
 	}
 	
-	public List<Map<String,Object>> getSimilarProfilesAll(UsersBean userBean,String gender,String religion_id,String caste_id){
+	public List<Map<String,Object>> getSimilarProfilesAll(UsersBean userBean,String profile_id,String gender,String religion_id,String caste_id){
 		jdbcTemplate = custom.getJdbcTemplate();
 		List<Map<String,Object>> list = null;
 		try{
@@ -5313,7 +5313,7 @@ public boolean deletePhoto(String photoId){
 						+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+userBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'short_listed') as shortlisted, "
 						+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+userBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'mobile_no_viewed') as mobileNumViewed ,"
 						+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and uimg.status = '1' and uimg.is_profile_picture='1') as profileImage "
-						+ " from users u where u.status = '1' and u.gender ='"+gender+"'  and u.religion = "+religion_id+" and u.caste =  "+caste_id;
+						+ " from users u where u.status = '1' and u.gender ='"+gender+"'  and u.religion = "+religion_id+" and u.caste =  "+caste_id+" and u.id not in "+'('+profile_id+')';
 			list = jdbcTemplate.queryForList(qry);
 		}catch (Exception e) {
 			e.printStackTrace();

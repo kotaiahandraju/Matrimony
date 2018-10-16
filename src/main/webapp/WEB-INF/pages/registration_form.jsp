@@ -549,7 +549,7 @@ function thirdForm(event)
 				if(jsonobj.msg =="exist"){
 					mobileExists = true;
 					//error message write
-					$('#mobileError111').text("Mobile number already in Use. Please try another.");
+					$('#mobileError111').text("Mobile number already in use. Please try another.");
 					$("#firstForm").hide();
 					$('#secondForm').hide();
 					$("#thirdForm").show();

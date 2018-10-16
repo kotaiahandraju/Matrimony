@@ -412,7 +412,7 @@ font-size:14px;min-height:90px;
 	height:auto;	
 	overflow:hidden;
 	max-height:230px;
-	min-height:230px;
+/* 	min-height:230px; */
 }
    #recent-profile .pro_img img{
  /* box-shadow: 1px 1px 6px #c9c6c6;
