@@ -1409,7 +1409,7 @@ public class UsersDao extends BaseUsersDao
 					if(StringUtils.isNotBlank(filterOptions.get("mother_tongue"))){
 						where_clause.append( " and FIND_IN_SET(u.motherTongue,'"+filterOptions.get("mother_tongue")+"' )>0  ");
 					}
-					if(StringUtils.isNotBlank(filterOptions.get("caste"))){
+					if(StringUtils.isNotBlank(filterOptions.get("caste")) && !((String)filterOptions.get("caste")).equalsIgnoreCase("null")){
 						where_clause.append( " and FIND_IN_SET(u.caste,'"+filterOptions.get("caste")+"')>0  ");
 					}
 					if(StringUtils.isNotBlank(filterOptions.get("education"))){
@@ -3491,7 +3491,7 @@ public class UsersDao extends BaseUsersDao
 			if(StringUtils.isNotBlank(filterOptions.get("mother_tongue"))){
 				where_clause.append( " and FIND_IN_SET(u.motherTongue,'"+filterOptions.get("mother_tongue")+"' )>0  ");
 			}
-			if(StringUtils.isNotBlank(filterOptions.get("caste"))){
+			if(StringUtils.isNotBlank(filterOptions.get("caste")) && !((String)filterOptions.get("caste")).equalsIgnoreCase("null")){
 				where_clause.append( " and FIND_IN_SET(u.caste,'"+filterOptions.get("caste")+"')>0  ");
 			}
 			if(StringUtils.isNotBlank(filterOptions.get("education"))){
@@ -3602,7 +3602,7 @@ public class UsersDao extends BaseUsersDao
 			if(StringUtils.isNotBlank(filterOptions.get("mother_tongue"))){
 				where_clause.append( " and FIND_IN_SET(u.motherTongue,'"+filterOptions.get("mother_tongue")+"' )>0  ");
 			}
-			if(StringUtils.isNotBlank(filterOptions.get("caste"))){
+			if(StringUtils.isNotBlank(filterOptions.get("caste")) && !((String)filterOptions.get("caste")).equalsIgnoreCase("null")){
 				where_clause.append( " and FIND_IN_SET(u.caste,'"+filterOptions.get("caste")+"')>0  ");
 			}
 			if(StringUtils.isNotBlank(filterOptions.get("education"))){
@@ -4716,7 +4716,7 @@ public boolean deletePhoto(String photoId){
 			if(StringUtils.isNotBlank(filterOptions.get("mother_tongue"))){
 				where_clause.append( " and FIND_IN_SET(u.motherTongue,'"+filterOptions.get("mother_tongue")+"' )>0  ");
 			}
-			if(StringUtils.isNotBlank(filterOptions.get("caste"))){
+			if(StringUtils.isNotBlank(filterOptions.get("caste")) && !((String)filterOptions.get("caste")).equalsIgnoreCase("null")){
 				where_clause.append( " and FIND_IN_SET(u.caste,'"+filterOptions.get("caste")+"')>0  ");
 			}
 			if(StringUtils.isNotBlank(filterOptions.get("education"))){
@@ -4852,7 +4852,7 @@ public boolean deletePhoto(String photoId){
 			if(StringUtils.isNotBlank(filterOptions.get("mother_tongue"))){
 				where_clause.append( " and FIND_IN_SET(u.motherTongue,'"+filterOptions.get("mother_tongue")+"' )>0  ");
 			}
-			if(StringUtils.isNotBlank(filterOptions.get("caste"))){
+			if(StringUtils.isNotBlank(filterOptions.get("caste")) && !((String)filterOptions.get("caste")).equalsIgnoreCase("null")){
 				where_clause.append( " and FIND_IN_SET(u.caste,'"+filterOptions.get("caste")+"')>0  ");
 			}
 			if(StringUtils.isNotBlank(filterOptions.get("education"))){

@@ -1394,7 +1394,20 @@ public class HomePageController {
 			objectMapper = new ObjectMapper();
 			sJson = objectMapper.writeValueAsString(cityMap);
 			request.setAttribute("all_cities", sJson);
-			
+			//
+			Map<Integer, String> casteMap = new LinkedHashMap<Integer, String>();
+			try {
+				List<CastBean> castes = objCastDao.getAllCasts();
+				for (CastBean bean : castes) {
+					casteMap.put(bean.getId(), bean.getName());
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			} 
+			objectMapper = new ObjectMapper();
+			sJson = objectMapper.writeValueAsString(casteMap);
+			request.setAttribute("all_castes", sJson);
 		} catch (Exception e) {
 	   e.printStackTrace();
 	   System.out.println(e);
