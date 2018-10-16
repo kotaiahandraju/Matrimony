@@ -904,7 +904,7 @@ footer {
 <div class="container" style="background:#090909;">
 <div class="row">
 <div class="col-md-8 footer-left" style="padding-top:8px;">
-All Rights Reserved | Design & Develop by Charvikent Ites Pvt Ltd.
+A product of Aarna Associates © 2018. All Rights Reserved | Design & Develop by Charvikent Ites Pvt Ltd.
 </div>
 <!-- <div class="col-md-4 footer-center">
 
