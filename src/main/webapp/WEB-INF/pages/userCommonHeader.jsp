@@ -2241,11 +2241,12 @@ function showSlides(n) {
 	}
 	////Photo pop-up related script---ends
 
-	function getFilteredStatesMultiSelect(id){
+	/* function getFilteredStatesMultiSelect(id){
 		if($("#"+id).val()== null   || $('#'+id).val() == "" || $('#'+id).val()=="undefined"){
 			$("#"+id).select2({
 			    placeholder: "-- Choose Country --"
 			});
+			$("#rState").empty();
 			
 		}else{
 			var countryIds =$("#"+id).val();
@@ -2266,7 +2267,7 @@ function showSlides(n) {
 			});
 			
 		}
-	}
+	} */
 	
 	function getFilteredCitiesMultiSelect(id) {
 		if ($("#" + id).val() == null || $('#' + id).val() == ""
@@ -2426,6 +2427,7 @@ function plusSmallSlides(n,profile_id) {
 			$("#"+id).select2({
 			    placeholder: "-- Choose Country --"
 			});
+			$("#rState").empty();
 			
 		}else{
 			var countryIds =$("#"+id).val();
@@ -2437,7 +2439,7 @@ function plusSmallSlides(n,profile_id) {
 				var jsonobj = $.parseJSON(data);
 				var statesList = jsonobj.states_list;
 	         $("#rState").empty();
-				$("#rState").append("<option value='' >-- Choose State --</option>");
+				//$("#rState").append("<option value='' >-- Choose State --</option>");
 				
 				$.each(statesList, function(i, state) {
 					$("#rState").append("<option value="+state.id+" >"+ state.name+"</option>");
@@ -2582,7 +2584,7 @@ function goBack() {
 	<script type="text/javascript" src="${baseurl }/js/ajax.js"></script>
 	<script type="text/javascript" src="${baseurl }/js/jquery-asPaginator.js"></script>
 	<script src="${baseurl }/js/jquery.watermark.js"></script>
-	<script type="text/javascript" src="${baseurl }/js/common.js"></script>
+	<%-- <script type="text/javascript" src="${baseurl }/js/common.js"></script> --%>
 	
     <script type="text/javascript" src="${baseurl }/js/jquery.nailthumb.1.1.js"></script>
     

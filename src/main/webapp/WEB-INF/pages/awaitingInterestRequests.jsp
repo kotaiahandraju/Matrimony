@@ -752,7 +752,7 @@ function paginationSetup(total_items_count) {
 	    		}else{
 	    			paginationSetup(total_items_count);
 	    			$("#altLists").asPaginator('enable');
-	    			displayMatches_messages(results);
+	    			//displayMatches_messages(results);
 	    			displayMatches_inbox(results,listType,tabType);
 	    			$("#table_footer").removeAttr("hidden");
 	    			$("#altLists").removeAttr("hidden");
