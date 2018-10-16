@@ -1157,7 +1157,7 @@ function resetBtnfunction(){
 										"#rMaritalStatus").val());
 								formData.append("rReligion", $("#rReligion")
 										.val());
-								formData.append("rCaste", $("#rCaste").val());
+								//formData.append("rCaste", $("#rCaste").val());
 								formData.append("rMotherTongue", $(
 										"#rMotherTongue").val());
 								formData.append("rCountry", $("#rCountry")
@@ -1396,7 +1396,7 @@ function resetBtnfunction(){
 				"#rMaritalStatus").val());
 		formData.append("rReligion", $("#rReligion")
 				.val());
-		formData.append("rCaste", $("#rCaste").val());
+		//formData.append("rCaste", $("#rCaste").val());
 		formData.append("rMotherTongue", $(
 				"#rMotherTongue").val());
 		formData.append("rCountry", $("#rCountry")
@@ -1666,7 +1666,7 @@ function resetBtnfunction(){
 					"#rMaritalStatus").val());
 			formData.append("rReligion", $("#rReligion")
 					.val());
-			formData.append("rCaste", $("#rCaste").val());
+			//formData.append("rCaste", $("#rCaste").val());
 			formData.append("rMotherTongue", $(
 					"#rMotherTongue").val());
 			formData.append("rCountry", $("#rCountry")
