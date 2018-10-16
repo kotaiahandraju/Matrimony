@@ -161,10 +161,10 @@ a h4:hover {
 }
 .footer-logo.header-logo {
     float: none;
-    text-align: center;
+    text-align: left;
 }
 .footer-logo.header-logo h6 {
-    text-transform: uppercase;
+    text-transform: capitalize;
     font-size: 20px;
     letter-spacing: 1px;
     color: #ec3434;
@@ -176,7 +176,7 @@ a h4:hover {
     color: #4c4c4c;
     border-top: 1px solid #ffffff;
     padding-top: 20px;
-    text-align: center;
+    text-align: left;
 }
 label {
     display: inline-block;
@@ -270,9 +270,9 @@ label {
 .social {
     margin-top: -30px;
 }
-.footer-grids ul {
+/* .footer-grids ul {
     margin-inline-start: 65px;
-}
+} */
 .bts-popup-container img {
 	padding: 0px 0 0 0;
 }
@@ -847,19 +847,19 @@ footer {
 						<h6>Get in Touch</h6>
 					</div>
 					<ul>
-						<li><i class="fa fa-map-marker"></i> Door No 58-2-3/1,Bagaiah Street,
-Opposite Tanusri Hospital, <br>
-Pantakalava Road,
-Benzcircle Vijayawada.</li>
-<!-- 						<li><i class="fa fa-mobile"></i> 333 222 3333 </li> -->
-						<li><i class="fa fa-phone"></i> +91 8466999991 </li>
-						<li><i class="fa fa-envelope-o"></i> <a href="#stayhere"> info@aarnamatrimony.com</a></li>
+						<li><i class="fa fa-map-marker"></i> Door No 58-2-3/1,<br>Bagaiah
+							Street,<br> Opposite Tanusri Hospital, <br> Pantakalava
+							Road,<br> Benzcircle Vijayawada.</li>
+						<!-- 						<li><i class="fa fa-mobile"></i> 333 222 3333 </li> -->
+						<li><i class="fa fa-phone"></i> +91 8466999991</li>
+						<li><i class="fa fa-envelope-o"></i> <a href="#stayhere">
+								info@aarnamatrimony.com</a></li>
 					</ul> 
 				</div>
 <!-- 				<div class="col-md-4 address-right"> -->
-				<div class="col-md-3 footer-grids style="padding-left:-30px">
-						<h3 style="padding-left: 70px">Quick links</h3>
-						<ul>
+				<div class="col-md-3 footer-grids" style="padding-inline-start: 82px;">
+						<h3 style="text-align:left;text-transform:capitalize;">Quick links</h3>
+						<ul  style="padding-inline-start: 0px;">
 							<li><a href="termsConditionsHomepage">Terms and Conditions</a></li>
 							<li><a href="privacyAndPolicyHomePage">Privacy Policy</a></li>
 							<li><a href="helpHomePage">Help</a></li>

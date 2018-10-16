@@ -255,8 +255,12 @@ http://pikselmatik.com
 	height: auto;
 }
 .raxus-slider .slider-relative .slide.fix-width .image img {
-	max-height: none !important;
-	/* width: 100% !important;
+    max-height: 450px!important;
+    max-width: 600px !important;
+}
+.raxus-slider .slider-relative .slide.fix-width .image img {
+/* 	max-height: none !important;
+ */	/* width: 100% !important;
 	height: auto !important; */
 }
 .raxus-slider.fit .slider-relative .slide .image img,

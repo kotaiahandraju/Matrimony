@@ -92,7 +92,7 @@
 			<div class="box-title">
 				<h3>
 					<i class="fa fa-table"></i>
-					Arna Premium Profiles(about to expire)
+					Aarna Premium Profiles(about to expire)
 				</h3>
 			</div>
 			<div id="tableIdArnaPremium">

@@ -17,7 +17,7 @@ String baseurl =  request.getScheme() + "://" + request.getServerName() +      "
 session.setAttribute("baseurl", baseurl);
 %> --%>
 <div class="container" style="background:#fff;">
-<div class="col-md-12 failed">
+<div class="col-md-12 failed products">
 <%-- <%= request.getAttribute("params")%> --%>
 <div class="col-md-3"></div>
 <div class="col-md-6">

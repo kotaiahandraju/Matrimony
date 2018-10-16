@@ -156,7 +156,7 @@ margin-left:10px;
     </div>
   </div>
 
-  <div class="panel ">
+  <div class="panel" style="padding:10px 0px;">
     <div class="panel-heading" role="tab" id="headingFour">
       <h4 class="panel-title">
         <a role="button" data-toggle="collapse" href="#collapseFour" aria-expanded="true" aria-controls="collapseFour" class="trigger">
@@ -168,7 +168,7 @@ margin-left:10px;
       <div class="panel-body">
       <div class="">
       <select name="age_from" id="age_from" style="width:;height:30px;" class="optiondiv" size="1">
-      <option value="">-Fr-</option>
+      <option value="">-From-</option>
       <option value="18">18</option><option value="19">19</option><option value="20">20</option>
       <option value="21">21</option><option value="22">22</option><option value="23">23</option>
       <option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option>
@@ -221,7 +221,7 @@ margin-left:10px;
         </div>
     </div>
   </div>
-  <div class="panel ">
+  <div class="panel " style="margin-bottom:0px;">
     <div class="panel-heading" role="tab" id="headingSix">
       <h4 class="panel-title">
         <a role="button" data-toggle="collapse" href="#collapseSix" aria-expanded="true" aria-controls="collapseSix" class="trigger">
