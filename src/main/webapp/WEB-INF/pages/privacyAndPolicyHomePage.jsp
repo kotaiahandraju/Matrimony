@@ -1,4 +1,6 @@
 <%@ include file="userStepsHeader.jsp"%>
+<%@ include file="homeMenu.jsp"%>
+<div class="clearfix"></div>
 <style>
 p {
 	text-align: justify;

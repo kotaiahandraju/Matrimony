@@ -1,4 +1,6 @@
 <%@ include file="userStepsHeader.jsp"%>
+<%@ include file="homeMenu.jsp"%>
+<div class="clearfix"></div>
 
 <div class="container" style="background: white; padding: 25px;">
 	<div class="container-fluid">
@@ -18,6 +20,7 @@
 					Information Technology (Intermediaries Guidelines) Rules, 2011 that
 					require publishing the rules and regulations, privacy policy and
 					the terms and conditions for access or usage of
+					
 					  <a href="#" style="color:blue;"> www.aarnamatrimony.com</a> (the "Website"). Please read the following
 					terms and conditions very carefully as your use of the Website and
 					associated BM Services (as defined below) is subject to your

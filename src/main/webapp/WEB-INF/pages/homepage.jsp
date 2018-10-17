@@ -2012,9 +2012,10 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 						</section> -->
 				</div>
 				<div class="col-md-2 footer-grids">
-					<img style="margin-top: 70px; width: 200px;" class=""
+					<img style="margin-top: 5px; width: 200px;" class=""
 						src="nimages/satisfaction.png" />
 					<!-- 					<img class="img-responsive" src="nimages/secure11.gif"/>		 -->
+					<img  src="nimages/secure.png" class=" "/>
 				</div>
 				<!-- 					</div> -->
 

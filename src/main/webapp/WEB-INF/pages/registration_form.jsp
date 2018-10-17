@@ -881,4 +881,4 @@ function getCitys(id){
 		});
 	}
 </script>
-<%@ include file="userStepsFooter.jsp"  %>
+<%@ include file="homeFooter2.jsp"  %>
