@@ -301,6 +301,28 @@ $('#submit1').click(function(event) {
 			validation = false;
 		} 
 	});
+	var validPwd = validatePassword();
+	if(!validPwd){
+		//return false;
+		validation = false;
+	}
+	if($('#aboutMyself').val() ==  null || $('#aboutMyself').val().trim() == "" || $('#aboutMyself').val()=="undefined"){
+		
+		$('#aboutMyself').css('border-color','red');
+		$('#aboutMyself').css('color','#cc0000');
+		$('#aboutMyself').addClass('your-class');
+		$('#errorMsg').text("Enter some text..");
+		validation = false;
+		//return false;
+	}
+	var abtMySelfLen =$("#aboutMyself").val().trim().length;
+	if(abtMySelfLen < 50){
+		$('#errorMsg').text("Enter minimum 50 charecters...");
+		validation = false;
+		//return false;
+	}else{
+		$('#errorMsg').text("");
+	}
 	if($('#mobile').val().trim().length<10){
 		$('#mobileError111').text("Please enter a valid mobile number.");
 		validation = false;
@@ -373,6 +395,78 @@ $('#submit1').click(function(event) {
 		event.preventDefault();
 	}
 });
+
+function validatePassword(){
+	
+	
+	   var str = $("#regPassword").val();
+	   var upper_text= new RegExp('[A-Z]');
+	   var lower_text= new RegExp('[a-z]');
+	   var number_check=new RegExp('[0-9]');
+	   var special_char= new RegExp('[!/\'^£$%&*()}{@#~?><>,|=_+¬-\]');
+	   
+	   var upper_text_flag = false;
+	   var lower_text_flag = false;
+	   var number_check_flag = false;
+	   var special_char_flag = false;
+	   var min_length_flag = false;
+	   if(str.match(upper_text) || str.match(lower_text)){
+		 upper_text_flag = true;
+		 $("#password_error_div").html('');
+		$("#password_error_div").attr("hidden",true);
+	   }else{
+		   $("#password_error_div").html('');
+		   $("#password_error_div").html('Enter atleast one alphabet letter');
+		   $("#password_error_div").removeAttr("hidden");
+		   return false;  
+	   }
+	 
+	   /* if(str.match(lower_text)){
+		   lower_text_flag = true;
+	  		 $("#password_error_div").html('');
+	   		$("#password_error_div").attr("hidden",true);
+	   }else{
+		   $("#password_error_div").html('');
+		   $("#password_error_div").html('Enter atleast one lowercase letter');
+		   $("#password_error_div").removeAttr("hidden");
+		   return false;  
+	   } */
+	   
+	   if(str.match(number_check)){
+		   number_check_flag = true;
+		 	$("#password_error_div").html('');
+	   		$("#password_error_div").attr("hidden",true);
+	   }else{
+		   $("#password_error_div").html('');
+		   $("#password_error_div").html('Enter atleast one number');
+		   $("#password_error_div").removeAttr("hidden");
+		   return false;  
+	   }
+	   
+	   if(str.match(special_char)){
+		   special_char_flag = true;
+		 	$("#password_error_div").html('');
+	   		$("#password_error_div").attr("hidden",true);
+	   }else{
+		   $("#password_error_div").html('');
+		   $("#password_error_div").html('Enter atleast one special character');
+		   $("#password_error_div").removeAttr("hidden");
+		   return false;  
+	   }
+	   
+	   if(str.trim().length>=8){
+		   min_length_flag = true;
+			 $("#password_error_div").html('');
+	   		$("#password_error_div").attr("hidden",true);
+	   }else{
+		   $("#password_error_div").html('');
+		   $("#password_error_div").html('Should contain minimum 8 characters');
+		   $("#password_error_div").removeAttr("hidden");
+		   return false;  
+	   }
+	   //$("#regPassword").val(str);
+	   return true; 
+  }
 
 //remove border validation for edit-form
 $(".editIt").click(function()
