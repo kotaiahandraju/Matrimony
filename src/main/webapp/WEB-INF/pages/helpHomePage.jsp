@@ -25,17 +25,20 @@ float: right;
 				anytime you have a query. You can contact our Customer Service team
 				in one of the following ways.</p></br>
 				
+				<div class="col-md-6">
 				
-				
-				<b>Our Office :</b> D.No.35, Church Complex,<br>
-				Nirmala Convent Road, Benz Circle, VIJAYAWADA. +91 9440585588 <br>Email:
+				<b>Our Office :</b><br>Door No 58-2-3/1,<br>
+Bagaiah Street,<br>
+Opposite Tanusri Hospital,<br> 
+Pantakalava Road,<Br>
+Benzcircle Vijayawada.<br> +91 8466999991 <br>Email:
 				<a href="" style="color:blue;">info@aarnamatrimony.com</a>
-
+</div>
 
 
 <br>
-
-<img  src="nimages/secure.png" class="img-responsive newimg"/>
+	<div class="col-md-6">
+<img  src="nimages/secure.png" class="img-responsive newimg"/></div>
 
 </div></div></div></div>
 				<%@ include file="homeFooter.jsp"%> 
