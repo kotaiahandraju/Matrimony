@@ -36,7 +36,7 @@ border: none;
 </head>
 <body>
 <div class="container-fluid" style="line-height: 8px;">
-<nav class="navbar navbar container" style="background:#fff;">  
+<nav class="navbar navbar container" style="background:;">  
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
         <span class="icon-bar"></span>
@@ -51,6 +51,9 @@ border: none;
    
 </nav>
   </div>
+  
+  <%@ include file="homeMenu.jsp"%>
+<div class="clearfix"></div>
 <div class="container" style="padding: 85px 0px 0px 0px;">
 <div class='jumbotron'style="background-color: whitesmoke;">
 <p align="center" >${msg }.</p>
@@ -61,6 +64,6 @@ border: none;
 </div>
 </div>
 
-
+		<%@ include file="homeFooter2.jsp"%> 
 </body>
 </html>

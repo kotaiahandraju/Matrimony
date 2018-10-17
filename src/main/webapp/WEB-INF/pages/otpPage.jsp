@@ -60,7 +60,7 @@ width:100%;
 			      		<button type="button" id="resendBtn" onclick="resendOtp();" value="Create Profile" class="btn4 btn btn-info">Resend OTP</button>
 			      	
 			      	</div>
-			  </div>
+			  </div><br>
 			  
 		</c:if>
 		<c:if test="${message == msg2 }">
@@ -77,7 +77,7 @@ width:100%;
 		      </div>
    		</div>
    	</form:form>
-   </div>
+   </div><br>
   <script type="text/javascript">
 function checkOTP(){
 	var receivedOTP = $("#otp1").val();
@@ -138,4 +138,4 @@ function validate(id, errorMessage)
 	
 }
 </script> 
-<%@ include file="userStepsFooter.jsp"  %>
+<%@ include file="homeFooter2.jsp"  %>

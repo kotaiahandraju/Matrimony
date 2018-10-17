@@ -13,9 +13,20 @@
 				
 				
 				
-				<b>Our Office :</b> Door No 58-2-3/1 Bagaiah Street,<br> Opposite Tanusri Hospital, <br>
-Pantakalava Road, Benzcircle Vijayawada <br>+91 8466999991 <br>Email:
+				<div class="col-md-6">
+				
+				<b>Our Office :</b><br>Door No 58-2-3/1,<br>
+Bagaiah Street,<br>
+Opposite Tanusri Hospital,<br> 
+Pantakalava Road,<Br>
+Benzcircle Vijayawada.<br> +91 8466999991 <br>Email:
 				<a href="" style="color:blue;">info@aarnamatrimony.com</a>
+</div>
+
+
+<br>
+	<div class="col-md-6">
+<img  src="../nimages/secure.png" class="img-responsive newimg"/></div>
 
 
 

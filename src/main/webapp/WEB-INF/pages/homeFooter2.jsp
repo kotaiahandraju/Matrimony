@@ -889,9 +889,9 @@ footer {
 						</section> -->
 					</div>
 					<div class="col-md-2 footer-grids">
-					<img  src="nimages/secure.png" class="img-responsive newimg"/>
+					
 					<img style="margin-top:5px; width:200px;" class="" src="../nimages/satisfaction.png"/>
-<!-- 					<img class="img-responsive" src="nimages/secure11.gif"/>		 -->
+<!-- 					<img class="img-responsive" src="nimages/secure11.gif"/>		 --><img  src="../nimages/secure.png" class=""/>
 								</div>
 <!-- 					</div> -->
 					
@@ -913,7 +913,7 @@ A product of Aarna Associates © 2018. All Rights Reserved | Design & Develop by 
 <div class="col-md-4 footer-right">
 <div class="row social-secure">
 
-Follow us on : 	<a href="#stayhere"><img src="nimages/fb.png" style="height:30px;" alt="facebook"> </a><a href="#stayhere"> <img src="nimages/twt.png" style="height:30px;" alt="twitter"> </a><a href="#stayhere">  <img src="nimages/linkdn.png" style="height:30px;" alt="linkdn"></a>
+Follow us on : 	<a href="#stayhere"><img src="../nimages/fb.png" style="height:30px;" alt="facebook"> </a><a href="#stayhere"> <img src="../nimages/twt.png" style="height:30px;" alt="twitter"> </a><a href="#stayhere">  <img src="../nimages/linkdn.png" style="height:30px;" alt="linkdn"></a>
 
 
 </div>
