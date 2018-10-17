@@ -240,7 +240,7 @@ span.impColor{color: red;}
 	vertical-align: top;
 	margin: 2px 2px;
 }
-			
+	.imgareaselect-outer {background:#fff;}		
 </style>
 
 <script type="text/javascript">

@@ -34,7 +34,7 @@
 							<div class="row">
 					  			<div class="col-md-6">
 									<div class="form-group">
-										<label class="col-sm-4 control-label required"><spring:message text="FirstName" /> <span class="impColor">*</span></label>
+										<label class="col-sm-4 control-label required"><spring:message text="First Name" /> <span class="impColor">*</span></label>
 										<div class="col-sm-8">
 <%-- 											<form:hidden path="id"/> --%>
 											<form:input path="firstName" type="text" class="form-control nospecialCharacter onlyCharacters validate" autocomplete="off" placeholder="First Name" maxlength="255"/>						
@@ -45,7 +45,7 @@
 						  		</div>
 						  		<div class="col-md-6">
 									<div class="form-group">
-										<label class="col-sm-4 control-label required"><spring:message text="LastName" /> <span class="impColor">*</span></label>
+										<label class="col-sm-4 control-label required"><spring:message text="Last Name" /> <span class="impColor">*</span></label>
 										<div class="col-sm-8">
 											<form:hidden path="id"/>
 											<form:input path="lastName" type="text" class="form-control nospecialCharacter onlyCharacters validate" autocomplete="off" placeholder="Last Name" maxlength="255"/>						
@@ -66,9 +66,9 @@
 						  		</div>
 						  		<div class="col-md-6">
 						  			<div class="form-group">
-										<label class="col-sm-4 control-label required"><spring:message  text="UserName" /> <span style="color:red;">*</span></label>
+										<label class="col-sm-4 control-label required"><spring:message  text="User Name" /> <span style="color:red;">*</span></label>
 										<div class="col-sm-8">
-									  		<form:input path="username" type="text" class="form-control  validate"  autocomplete="off" Placeholder="UserName" maxlength="255"/>						
+									  		<form:input path="username" type="text" class="form-control  validate"  autocomplete="off" Placeholder="User Name" maxlength="255"/>						
 									  		<span class="hasError" id="durationError"></span>
 <%-- 									  		<div><form:errors path="duration" cssClass="error" /></div>										 --%>
 										</div>

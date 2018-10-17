@@ -1000,7 +1000,7 @@ $(".onlyCharacters").on("keypress",	function(event) {
         <a href="#no" style="font-size:13px; color:#C00;" class="all_a pull-right" id="partner_location_a" onclick="toggleDiv('partner_location');"> <i class="fa fa-edit"></i> Edit</a>
 </strong>
 <div id="partner_location_view" class="all_visible_divs">
-<table class="col-md-6 table-responsive">
+<table class="col-md-12 table-responsive">
 <tr><td>Country</td><td>:</td>
     <td id="rCountry_val">
         <c:if test="${not empty profileBean.rCountryName}">${profileBean.rCountryName}</c:if>
@@ -1276,8 +1276,8 @@ $(document).ready(function(){
 	selected_values = "${profileBean.rCountry}";
     if(selected_values == "" || selected_values==null){
     	$("#rCountry").select2({
-    	    placeholder: "-- Choose Country --"
-    	});
+/*     	    placeholder: "-- Choose Country --"
+ */    	});
     }else{
     	var tt = selected_values.split(",");
         $("#rCountry").val(selected_values.split(","));

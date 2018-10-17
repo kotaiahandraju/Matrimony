@@ -15,7 +15,7 @@ html,
 	
 body {
 	color:#898989;
-  	font-family: 'Open Sans', sans-serif;
+  	font-family: 'Open Sans', sans-serif !important;
         background-color:#DFF0D8;
 }
 

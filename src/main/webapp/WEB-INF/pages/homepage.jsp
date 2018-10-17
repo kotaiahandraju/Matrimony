@@ -244,11 +244,11 @@ a h4:hover {
 
 .footer-logo.header-logo {
 	float: none;
-	text-align: center;
+	text-align: left;
 }
 
 .footer-logo.header-logo h6 {
-	text-transform: uppercase;
+	text-transform: capitalize;
 	font-size: 20px;
 	letter-spacing: 1px;
 	color: #ec3434;
@@ -376,10 +376,10 @@ label {
 	margin-top: -30px;
 }
 
-.footer-grids ul {
+/* .footer-grids ul {
 	margin-inline-start: 44px;
 }
-
+ */
 .bts-popup-container img {
 	padding: 0px 0 0 0;
 }
@@ -1091,8 +1091,8 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 					<form class="form-inline" action="loginAction" id="quote"
 						name="quote" method="post" onsubmit="return loginSubmit()">
 						<c:if test="${not empty msg}">
-							<div class="form-group" style="padding-top: 9px;">
-								<div class="msgcss fadeIn animated alert alert-danger">${msg}</div>
+							<div class="form-group">
+								<a class="msgcss  alert alert-danger" style="padding-top:10px !important;">${msg}</a>
 							</div>
 						</c:if>
 
@@ -1977,9 +1977,9 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 					</ul>
 				</div>
 				<!-- 				<div class="col-md-4 address-right"> -->
-				<div class="col-md-3 footer-grids">
-					<h3 style="padding-left: 34px">Quick links</h3>
-					<ul>
+				<div class="col-md-3 footer-grids" style="padding-inline-start: 82px;">
+					<h3 style="text-align:left;text-transform:capitalize;">Quick links</h3>
+					<ul style="padding-inline-start: 0px;">
 						<li><a href="termsConditionsHomepage">Terms and
 								Conditions</a></li>
 						<li><a href="privacyAndPolicyHomePage">Privacy Policy</a></li>
@@ -2012,9 +2012,10 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 						</section> -->
 				</div>
 				<div class="col-md-2 footer-grids">
-					<img style="margin-top: 70px; width: 200px;" class=""
+					<img style="margin-top: 5px; width: 200px;" class=""
 						src="nimages/satisfaction.png" />
 					<!-- 					<img class="img-responsive" src="nimages/secure11.gif"/>		 -->
+					<img  src="nimages/secure.png" class=" "/>
 				</div>
 				<!-- 					</div> -->
 
@@ -2029,7 +2030,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 		<div class="container">
 			<div class="row">
 				<div class="col-md-8 footer-left" style="padding-top: 8px;">
-					All Rights Reserved | Design & Developed by Charvikent ITES Pvt
+					A product of Aarna Associates © 2018. All Rights Reserved | Design & Developed by Charvikent ITES Pvt
 					Ltd.</div>
 				<!-- <div class="col-md-4 footer-center">
 

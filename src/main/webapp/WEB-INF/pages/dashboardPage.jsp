@@ -382,12 +382,13 @@ padding-right:0px;
 						<c:if test="${profile_filled_status != '100'}">
 							Complete the Remaining Profile
 						</c:if>
-						
+						<div class="col-md-9">
 						<div class="progress" style="width:300px;">
 							<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: ${profile_filled_status}%;">
 								<%= session.getAttribute("profile_filled_status") %>% Complete 
 							</div>
-						</div>&nbsp;&nbsp;<a href="myProfile">Complete now</a>
+						</div></div>
+						<div class="col-md-3"><a href="myProfile" class="btn btn-info">Complete now</a></div>
 						<br>
 						<c:if test="${emailverify == '0'}">
 						
@@ -658,7 +659,7 @@ padding-right:0px;
         <div class="modal-content" style="margin-top:50px;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h2 class="modal-title grademembe r">Upgrade Membership</h2>
+                <h2 class="modal-title grademember">Upgrade Membership</h2>
             </div>
             <div class="modal-body newbody col-md-12">
 				<div class="col-md-4"><img src="${baseurl}/images/up.png" class="img-responsive"/></div>
@@ -846,8 +847,10 @@ function displayMatches(listOrders) {
 		//$("#updated_div").prop("hidden",true);
 		//$("#update_profiles").prop("hidden",true);
 	}
+	if(listOrders)
 	$.each(listOrders,function(i, orderObj) 
 	{
+		
 		//$("#preferred_div").removeAttr("hidden");
 		$("#preferred_viewall").removeAttr("hidden");
 		//$("#updated_div").removeAttr("hidden");
@@ -1080,7 +1083,8 @@ function displayNewMatches_update(listOrders) {
 		//$("#updated_div").attr("hidden",true);
 		//$("#update_profiles").attr("hidden",true);
 	}
-	$.each(listOrders,function(i, orderObj) 
+/* 	 if(listOrders<=serviceUnitArray) 
+ */	$.each(listOrders,function(i, orderObj) 
 	{
 		//$("#updated_div").removeAttr("hidden");
 		//$("#update_profiles").removeAttr("hidden");

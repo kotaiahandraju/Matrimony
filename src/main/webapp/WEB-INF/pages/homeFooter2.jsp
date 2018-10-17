@@ -1,16 +1,4 @@
-<%@ include file="userStepsHeader.jsp"%>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="user/css/demo.css" type="text/css" media="screen" />
-<link rel="stylesheet" href="user/css/flexslider.css" type="text/css" media="screen" />
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <style>
-.col-md-8 {
-padding-left:0px;
-padding-right:0px;
-}
-.modal-body {
-padding:0px;
-}
 video {
 	width: 350px ;
 	height: 245px;
@@ -66,7 +54,7 @@ video {
 
 
 /* Extra Things */
-body{background: #eee ;font-family: 'Open Sans', sans-serif;}h3{font-size: 30px; font-weight: 400;text-align: center;}h3 i{color: #444;}
+body{background: #eee ;font-family: 'Open Sans', sans-serif;}h3{font-size: px; font-weight: 400;text-align: center;}h3 i{color: #444;}
 .agileinfo ul {
 padding:0;
 }
@@ -173,10 +161,10 @@ a h4:hover {
 }
 .footer-logo.header-logo {
     float: none;
-    text-align: center;
+    text-align: left;
 }
 .footer-logo.header-logo h6 {
-    text-transform: uppercase;
+    text-transform: capitalize;
     font-size: 20px;
     letter-spacing: 1px;
     color: #ec3434;
@@ -188,12 +176,12 @@ a h4:hover {
     color: #4c4c4c;
     border-top: 1px solid #ffffff;
     padding-top: 20px;
-    text-align: center;
+    text-align: left;
 }
 label {
     display: inline-block;
     margin-bottom: 5px;
-    color: #fff;
+   
 }
 .dropdown-content a {
 	color: black;
@@ -765,12 +753,7 @@ float:left;}
 .edit, .delete, .active, .deactive {
 	cursor: pointer;
 }
-h3 {
-    margin: 0 0 8px;
-    color: #fff;
-    font-family: 'Open Sans', sans-serif !important;
-    text-shadow: none; 
-}
+
 span.has-error, span.hasError {
 	font-weight: normal;
 	border-color: #e73d4a;
@@ -843,185 +826,113 @@ padding-left:0px !important;}
 
 </style>
 <style>
-.btn-default {
-  color: #333333;
-  background-color: #ddd;
-  border-color: #cccccc;
+footer {
+    background: #090909;
+    padding: 10px;
+    font-size: 15px;
+    color: #fff;
 }
-.container {
-background:#f1f1f1;
+footer {
+    font-size: 14px;
 }
-/* 
+</style>
 
-.footer {
-    background-color: #f1f1f1;
-    padding: 0px 0 0px !important;
-} */
-	</style>
-	<style>
-blockquote {
-  background: #f9f9f9;
-  border-left: 1px solid #ccc;
-  margin: 1.5em 10px;
-  padding: 0.5em 10px;
-  quotes: "\201C""\201D""\2018""\2019";
-}
-blockquote:before {
-  color: #ccc;
-  content: open-quote;
-  font-size: 4em;
-  line-height: 0.1em;
-  margin-right: 0.25em;
-  vertical-align: -0.4em;
-}
-blockquote p {
-  display: inline;
-}
-.col-md-5 {
-padding-left:0px;
-padding-right:0px;
-}
-p {
-font-size:13px;
-}
-.matches1 {
-border: 1px solid #d6d6d6;
- background: #fff; 
+</div>
+<div class="clearfix"></div><a href="javascript:" id="return-to-top"><i class="fa fa-chevron-up"></i></a>
+	<div class="footer">
+		<div class="container"  style="background:#fff;">
+			<div class="footer-info w3-agileits-info">
+				<div class="col-md-3 address-left agileinfo">
+					<div class="footer-logo header-logo">
+						<h6>Get in Touch</h6>
+					</div>
+					<ul>
+						<li><i class="fa fa-map-marker"></i> Door No 58-2-3/1,<br>Bagaiah
+							Street,<br> Opposite Tanusri Hospital, <br> Pantakalava
+							Road,<br> Benzcircle Vijayawada.</li>
+						<!-- 						<li><i class="fa fa-mobile"></i> 333 222 3333 </li> -->
+						<li><i class="fa fa-phone"></i> +91 8466999991</li>
+						<li><i class="fa fa-envelope-o"></i> <a href="#stayhere">
+								info@aarnamatrimony.com</a></li>
+					</ul> 
+				</div>
+<!-- 				<div class="col-md-4 address-right"> -->
+				<div class="col-md-3 footer-grids" style="padding-inline-start: 82px;">
+						<h3 style="text-align:left;text-transform:capitalize;">Quick links</h3>
+						<ul  style="padding-inline-start: 0px;">
+							<li><a href="../termsConditionsHomepage">Terms and Conditions</a></li>
+							<li><a href="../privacyAndPolicyHomePage">Privacy Policy</a></li>
+							<li><a href="../helpHomePage">Help</a></li>
+							<li><a href="../aboutUsHomePage">About Us</a></li>
+							<li><a href="../HomePage">Register Free</a></li>
+						</ul> 					</div>
+					<!-- <div class="col-md-4 footer-grids">
+					
+						 <h3>Company</h3>
+						<ul style="margin-inline-start: 34px;">
+							
+						</ul>
+					</div> -->
+					<div class="col-md-4 footer-grids">
+					<a href="HomePage"><img src="../images/logo01.png" alt="" class="img-responsive" /></a>
+						<video poster="../user/images/bgvideo.jpg" controls
+							src="../user/images/Aarna Matrimony for Best Mate ,Together Forever.mp4"
+							type="video/mp4">
+						</video>
+						<!-- <h3>Follow Us on</h3>
+						<section class="social">
+                        <ul>
+							<li><a class="icon fb" href="#"><i class="fa fa-facebook"></i></a></li>
+							<li><a class="icon tw" href="#"><i class="fa fa-twitter"></i></a></li>	
+							<li><a class="icon gp" href="#"><i class="fa fa-google-plus"></i></a></li>
+						</ul>
+						</section> -->
+					</div>
+					<div class="col-md-2 footer-grids">
+					<img  src="nimages/secure.png" class="img-responsive newimg"/>
+					<img style="margin-top:5px; width:200px;" class="" src="../nimages/satisfaction.png"/>
+<!-- 					<img class="img-responsive" src="nimages/secure11.gif"/>		 -->
+								</div>
+<!-- 					</div> -->
+					
+					<div class="clearfix"></div><br>
+				
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
+<footer>
+<div class="container" style="background:#090909;">
+<div class="row">
+<div class="col-md-8 footer-left" style="padding-top:8px;">
+A product of Aarna Associates © 2018. All Rights Reserved | Design & Develop by Charvikent Ites Pvt Ltd.
+</div>
+<!-- <div class="col-md-4 footer-center">
 
-}
- .matches1 h4 {
-/* background: #f1f1f1; */
-margin-left:15px;
-font: bold 15px arial;
-}
-.Subl {
-background-color: #FFF;
-padding: 1px;
-}
-.on {
-/* background-color: #F1F1F1; */
-margin: 3px;
-padding: 6px 4px;
-font-weight: bold;
+</div> -->
+<div class="col-md-4 footer-right">
+<div class="row social-secure">
+
+Follow us on : 	<a href="#stayhere"><img src="nimages/fb.png" style="height:30px;" alt="facebook"> </a><a href="#stayhere"> <img src="nimages/twt.png" style="height:30px;" alt="twitter"> </a><a href="#stayhere">  <img src="nimages/linkdn.png" style="height:30px;" alt="linkdn"></a>
 
 
-}
-.picstyle {
-/* height:220px !important; */
-overflow:hidden !important;
-margin-bottom:5px;
-}
-.controls {
-  margin-bottom: 10px;
-}
-.panel-title {
-text-align:left;
-}
-.collapse-group {
-  
-  border: 1px solid #d6d6d6;
-  margin-bottom: 10px;
-}
-
-.panel-title .trigger:before {
-  content: '\e082';
-  font-family: 'Glyphicons Halflings';
-  vertical-align: text-bottom;
-  margin-left:2px;
-  float:right;
-}
-
-.panel-title .trigger.collapsed:before {
-  content: '\e081';
-}
-blockquote p {
-    display: inline;
-    /* line-break: initial; */
-    word-wrap: break-word;
-}
-.new {
-margin-left:10px;
-}</style><link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
-
-	<br>
-	
-<div class="container-fluid">
-<%-- <jsp:include page="sideGridForResults.jsp" /> --%>
-<div class="col-md-12" style="min-height:500px">
-<div class="col-md-2"></div>
-    <div class="col-md-8">
-		  <div class="modal-body">
-      	<div class="searchresults">
-									<div id="searchResults">
-									</div>			
-			
-	</div></div>
-	</div></div>
-	
-	</div><div class="clearfix"></div>
-	<%@ include file="homeFooter.jsp"%>	
-			<script type="text/javascript">
-			
-			var searchListOrders=${searchListOrders};
-				displaydata(searchListOrders);
-			
-			 function displaydata(data) {
-			    	
-			        if(data == ""){
-			           $('#searchResults').empty();	  
-			                var tblHistory='<td colspan="7" style="text-align:center; padding:10px;border:1px solid #777;"><h2>No Profiles on your Search.</h2><span></span></td>';
-			                $(tblHistory).appendTo("#searchResults");
-			        }
-
-			  	$.each(data,function(i, orderObj) {
-			  		var profile_highlisht_str = '<div class="panel">';
-			  		var highlight_option = orderObj.profile_highlighter;
-			  		if(typeof highlight_option != "undefined" && highlight_option=='1'){
-			  			profile_highlisht_str = '<div class="panel" style="background-color:">';
-			  		}
-			  		var abtMySelf = orderObj.About;
-					if(typeof abtMySelf == "undefined" || abtMySelf==null){
-						abtMySelf = "";
-					}else{
-						abtMySelf = abtMySelf.substring(0,40);
-					}
-			  		
-			  		var image = null; image_path = orderObj.profileImage;
-					if(image_path == "" || image_path == null || image_path == "undefined"){
-						image = "${baseurl}/img/default.png";
-					}else{
-						image = "${catalina_base}/"+image_path;
-					}
-			  		
-			  		var tblRow = profile_highlisht_str
-			  		+ '<div class="panel-heading">'
-			  		+ '<h5 class="panel-title" style="text-align:left;">'
-			  		+ '<div class="form-check">	<label class="form-check-label" style="color:#000;"><a href="HomePage"><img src="${baseurl}/images/blurr.png"/>  </a></label>	<span class="pull-right">Created by '+orderObj.createProfileFor+'</span></div>'
-			  		+ '</h5>'
-			  		+ '</div>'
-			  		+ '<div class="panel-body">'
-			  		+ '<div class="col-md-3" style="height:150px;overflow:hidden;">' 
-			  		+ '<a href="HomePage" onclick="regFunction()">  <img src="'+image+'" class="img img-responsive thumbnail " style="margin-bottom:0;height: ;width: 100%;"></a>'
-			      	+ '</div>'
-			      	 + '<div class="col-md-4">'
-			       	 + '<h2 style="margin-top:10px;" class="pull-right"><a href="HomePage" data-toggle="tooltip" data-placement="bottom" title="View Mobile Number" ><img style="margin-top:-10px;" src="images/Mobile_Icon.png"/></a></h2></span><div class="clearfix"></div><blockquote style="min-height:100px; max-height:120px; "><p>'+abtMySelf+'</p><br><a href="HomePage" onclick="regFunction()"><p style="float:right;">...more</p></a></blockquote>'
-			       	+ '</div>' 
-			       	+  '<div class="col-md-1"></div>'
-			      	+ '<div class="col-md-5">'
-			  		+ '<table><tbody><tr><td width="150px">Age</td><td><span>: '+orderObj.age+' yrs</span></td></tr>'
-			  		+ '<tr><td>Religion</td><td><span>: '+orderObj.religionName+'</span></td></tr>'	
-			  		+ '<tr><td>Community</td><td><span>: '+orderObj.castName+'</span></td></tr>'
-			  		+ '<tr><td>Location</td><td><span>: '+orderObj.cityName+'</span></td></tr>'
-			  		+ '<tr><td>Education</td><td><span>: '+orderObj.Education+'</span></td></tr>'
-			  		+ '<tr><td>Profession</td><td><span>: '+orderObj.Proffession+'</span></td></tr></tbody></table>'
-			      	+ ' <a href="HomePage" onclick="regFunction()"><button class="btn btn-warning">View Full Profile</button></a>'
-			      	+ '</div>'
-			      	+ '</div>' 
-			      	+ '</div>' 
-			      	+ '</div>'
-			      	+ '</div>';
-			  			$(tblRow).appendTo("#searchResults");
-			  	});
-			  }
-			</script>		
-<%-- <%@ include file="userStepsFooter.jsp"  %> --%>
+</div>
+</div>
+</div>
+</div>
+</footer>
+	<script>
+	// ===== Scroll to Top ==== 
+	$(window).scroll(function() {
+	    if ($(this).scrollTop() >= 50) {        // If page is scrolled more than 50px
+	        $('#return-to-top').fadeIn(200);    // Fade in the arrow
+	    } else {
+	        $('#return-to-top').fadeOut(200);   // Else fade out the arrow
+	    }
+	});
+	$('#return-to-top').click(function() {      // When arrow is clicked
+	    $('body,html').animate({
+	        scrollTop : 0                       // Scroll to top of body
+	    }, 500);
+	});
+	</script>

@@ -273,6 +273,8 @@ tooltip:hover:after {
 	
 		
 
+
+
 		</style>
 		
 		<script type="text/javascript">
@@ -3711,7 +3713,7 @@ img.hover-shadow {
 										<img id="profilepic" src="${catalina_base}/${cacheGuest.profileImage}" alt="" class="img img-responsive thumbnail watermark_text" style="border-radius:15%;"><i style="margin-right:-18px; margin-top:17px;font-size:22px;" class="fa fa-angle-down" aria-hidden="true"></i>
 									</c:if>
 									<c:if test="${empty cacheGuest.profileImage}">
-										<img id="profilepic" src="${baseurl}/img/default.png" alt="image" class="img-responsive thumbnail " style="border-radius:15%;"/><i style="margin-right: -18px;margin-top: 17px;font-size: 22px;" class="fa fa-angle-down" aria-hidden="true"></i>
+										<img id="profilepic" src="${baseurl}/img/default.png" alt="image" class="img-responsive thumbnail " style="border-radius:15%;height:50px;"/><i style="margin-right: -18px;margin-top: 17px;font-size: 22px;" class="fa fa-angle-down" aria-hidden="true"></i>
 									</c:if>
 
 									

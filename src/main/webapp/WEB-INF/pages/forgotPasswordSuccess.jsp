@@ -10,16 +10,19 @@ position:fixed;
 bottom:0;
 width:100%;
 } 
+.container{
+background:#eeeeee;}
 </style>
 				<div class="col-md-5 col-sm-12"></div>
 	            <div  class="clearfix"></div>    
 			</div>
 		</div>
      
-		<div class="row">
+		<div class="row" style="margin-top:25px;">
 			<div class="midcontnet">
-				<div id="fpStep1">
-					<div class="panel panel-success" style="padding:50px;">
+				<div id="fpStep1" style="min-height:350px;">
+				<div class="col-md-1"></div><div class="col-md-10">
+					<div class="panel panel-success " style="padding:50px;">
 	   					<c:if test="${message == 'success' }">
 				    		<span>New password has been sent to your ${sentToStr}.</span><br><br>
 				    		<a href="HomePage" class="btn4 btn btn-info">Login</a> with new password.
@@ -32,10 +35,10 @@ width:100%;
 		             		
 		             			
 						
-					</div>
+					</div></div>
 				</div>
 				
 <script src="${baseurl }/js/jquery-ui.min.js"></script>
 
 
-<%@ include file="userStepsFooter.jsp"%>
+<%@ include file="homeFooter.jsp"%>

@@ -52,7 +52,7 @@ position:relative;
 	            <div  class="clearfix"></div>    
 			
      
-		<div class="col-md-12"><br><br>
+		<div class="col-md-12" style="min-height:350px;"><br><br>
 			<div class="midcontnet">
 				<div id="errorMsg" hidden="true" style="color:red;"></div>
 				<div id="fpStep1" class="col-md-12">
