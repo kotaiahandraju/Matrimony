@@ -103,7 +103,8 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label required">Create Password <span style="color:red;"></span></label>
 									<div class="col-sm-8">
-									  	<form:input path="regPassword" class="form-control" placeholder="Enter Password"/> 
+									  	<form:input path="regPassword" class="form-control validate" placeholder="Enter Password" onkeyup="validatePassword();"/> 
+								  		<span class="hasError" id="password_error_div" style="font-size: 13px; font-weight: 800;"></span>
 								  		<div><form:errors path="regPassword" cssClass="error" /></div>
 									</div>
 							  	</div>
@@ -508,6 +509,7 @@
 									<label class="col-sm-4 control-label required">About myself</label>
 									<div class="col-sm-8">
 										<form:textarea rows="4" path="aboutMyself" class="form-control onlyCharacters u" placeholder="Enter few words about you"></form:textarea>
+								  		<span id="errorMsg" style="color:red"></span>
 								  		<div><form:errors path="aboutMyself" cssClass="error" /></div>
 									</div>
 							  	</div>
@@ -1242,7 +1244,7 @@ function populateBrothersMarried() {
 
 	var val = $("#noOfBrothers").val();
 
-	if (val == 'None') {
+	if (val == 'None' || val == '') {
 		$("#noOfBrothersMarried").val("");
 		$('#noOfBrothersMarried')
 				.attr("disabled", true);
@@ -1263,7 +1265,7 @@ function populateSistersMarried() {
 
 	var val = $("#noOfSisters").val();
 
-	if (val == 'None') {
+	if (val == 'None' || val == '') {
 		$("#noOfSistersMarried").val("");
 		$('#noOfSistersMarried')
 				.attr("disabled", true);
@@ -1301,7 +1303,7 @@ $(document).ready(
 
 						var val = $(this).val();
 
-						if (val == 'None') {
+						if (val == 'None' || val == '') {
 							$("#noOfBrothersMarried").val("");
 							$('#noOfBrothersMarried')
 									.attr("disabled", true);
@@ -1320,7 +1322,53 @@ $(document).ready(
 					});
 
 		});
+$('#noOfBrothers').change(
+		function() {
 
+			var val = $(this).val();
+
+			if (val == 'None' || val == '') {
+				$("#noOfBrothersMarried").val("");
+				$('#noOfBrothersMarried')
+						.attr("disabled", true);
+			} else {
+				$('#noOfBrothersMarried').find('option').not(
+						':first').remove();
+				$("#noOfBrothersMarried").append(
+						'<option>None</option>');
+				for (var i = 1; i <= val; i++) {
+					$("#noOfBrothersMarried").append(
+							'<option>' + i + '</option>');
+				}
+				$('#noOfBrothersMarried').attr("disabled",
+						false);
+			}
+		});
+		
+$('#noOfSisters')
+.change(
+		function() {
+
+			var val = $(this).val();
+
+			if (val == 'None' || val == '') {
+				$("#noOfSistersMarried").val("");
+				$('#noOfSistersMarried').attr(
+						"disabled", true);
+			} else {
+				$('#noOfSistersMarried').find('option')
+						.not(':first').remove();
+				$("#noOfSistersMarried").append(
+						'<option>None</option>');
+				for (var i = 1; i <= val; i++) {
+					$("#noOfSistersMarried").append(
+							'<option>' + i
+									+ '</option>');
+				}
+				$('#noOfSistersMarried').attr(
+						"disabled", false);
+			}
+		});
 $(document).ready(
 		function() {
 			$('#noOfSisters')
@@ -1329,7 +1377,7 @@ $(document).ready(
 
 								var val = $(this).val();
 
-								if (val == 'None') {
+								if (val == 'None' || val == '') {
 									$("#noOfSistersMarried").val("");
 									$('#noOfSistersMarried').attr(
 											"disabled", true);

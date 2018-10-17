@@ -1051,7 +1051,7 @@ $(".onlyCharacters").on("keypress",	function(event) {
   <label class="col-md-4 control-label" for="textinput">State living in</label>  
   <div class="col-md-7">
     <form:select path="rState" class="multiSelect" multiple="true" onchange="getFilteredCitiesMultiSelect(this.id)">
-        <form:options items="${filtered_states }"></form:options>
+        <%-- <form:options items="${filtered_states }"></form:options> --%>
     </form:select>
   </div>
 </div>

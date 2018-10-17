@@ -2276,6 +2276,13 @@ function showSlides(n) {
 				placeholder : "-- Choose State --"
 			});
 			$("#rCity").empty();
+			$("#city").empty();
+			$("#rCity").select2({
+	    	    placeholder: "-- Choose City --"
+	    	});
+	    	$("#city").select2({
+	    	    placeholder: "-- Select City --"
+	    	});
 			/* $("#rState").select2({
 				placeholder : "-- Choose State --"
 			}); */
@@ -2428,7 +2435,10 @@ function plusSmallSlides(n,profile_id) {
 			    placeholder: "-- Choose Country --"
 			});
 			$("#rState").empty();
-			
+			$("#rState").select2({
+	    	    placeholder: "-- Choose State --"
+	    	});
+			$("#rState").trigger('change.select2');
 		}else{
 			var countryIds =$("#"+id).val();
 			var formData = new FormData();
