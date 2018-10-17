@@ -27,40 +27,40 @@ public class ScheduledJobs {
 	//@Scheduled(cron = "0 0/15 6-16 * * *") //weekly, every monday at 12 am
 //	@Scheduled(cron = "0 0/3 * * * *") //weekly, every monday at 12 am
 //	@Scheduled(cron = "0 0 13 * * TUE") //weekly, every monday at 12 am
-	@Scheduled(cron = "0 0 10 * * FRI") //weekly, every monday at 12 am
+	//@Scheduled(cron = "0 0 10 * * FRI") //weekly, every monday at 12 am
 //	@Scheduled(cron = "0 0/15 * * * *") //weekly, every monday at 12 am
-	 public void sendWeeklyMatches(){
+	 /*public void sendWeeklyMatches(){
 		System.out.println("#########  sendWeeklyMatches ###########");
 		jobsController.weeklyMatchEmails();
 	 }
-	
-	@Scheduled(cron = "0 0/5 * * * *") //daily at 12 am
+	*/
+	//@Scheduled(cron = "0 0/5 * * * *") //daily at 12 am
 //	@Scheduled(cron = "0 0 14 * * *") //daily at 12 am
-	 public void sendEmails(){
+	/* public void sendEmails(){
 		System.out.println("#########  sendEmails ###########");
-		jobsController.sendEmails();
-	 }
+		//jobsController.sendEmails();
+	 }*/
 	
 	//@Scheduled(cron = "0 0/10 14-16 * * *") //daily at 12 am
 //	@Scheduled(cron = "0 0/1 * * * *") //daily at 12 am
 //	@Scheduled(cron = "0 0 11 * * *") //daily at 12 am
-	@Scheduled(cron = "0 0/6 * * * *") //daily at 12 am
-	 public void checkMembershipValidity(){
+	//@Scheduled(cron = "0 0/6 * * * *") //daily at 12 am
+	 /*public void checkMembershipValidity(){
 		System.out.println("#########  checkMembershipValidity ###########");
-		jobsController.checkMembershipValidity();
-	 }
+		//jobsController.checkMembershipValidity();
+	 }*/
 	
 //@Scheduled(cron = "0 0 12 * * *") //daily at 12 am
-@Scheduled(cron = "0 0/7 * * * *")
-	 public void splitProfilesToEmployees(){
+//@Scheduled(cron = "0 0/7 * * * *")
+	 /*public void splitProfilesToEmployees(){
 		System.out.println("#########  splitProfilesToEmployees ###########");
-		jobsController.splitProfilesToEmployees();
-	 }
+		//jobsController.splitProfilesToEmployees();
+	 }*/
 	
 //	@Scheduled(cron = "0 0 12 1 * ?") //every month 1st at 12 am
-@Scheduled(cron = "0 0/20 * * * *")
-	 public void rotateEmployeesProfilesSlot(){
+//@Scheduled(cron = "0 0/20 * * * *")
+	 /*public void rotateEmployeesProfilesSlot(){
 		System.out.println("#########  rotateEmployeesProfilesSlot ###########");
-		jobsController.rotateEmployeesProfilesSlot();
-	 }
+		//jobsController.rotateEmployeesProfilesSlot();
+	 }*/
 }
