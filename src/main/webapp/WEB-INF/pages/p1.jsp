@@ -108,7 +108,7 @@ width:100%;
 								<div class="form-group">
 									<label class="col-sm-4 control-label required">Marital Status </label>
 									<div class="col-sm-8">
-										<form:select path="rMaritalStatus" class="multiSelect" onchange="hideChildren();" multiple="true" >
+										<form:select path="rMaritalStatus" class="multiSelect"  multiple="true" >
 											<form:option value="any">Doesn't Matter</form:option>
 											<form:option value="Married">Married</form:option>
 											<form:option value="Unmarried">Unmarried</form:option>
