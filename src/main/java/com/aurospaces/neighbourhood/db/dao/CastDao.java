@@ -41,6 +41,7 @@ public class CastDao extends BaseCastDao {
 			StringBuffer buffer = new StringBuffer();
 			buffer.append("select id,name from cast where religionId in ( "+religion_id+" ) and status = '1' ");
 			String sql =buffer.toString();
+			System.out.println("#### getCastesBasedOnReligion:"+sql);
 			List<Map<String, Object>> castes = jdbcTemplate.queryForList(sql);
 			return castes;
 		}

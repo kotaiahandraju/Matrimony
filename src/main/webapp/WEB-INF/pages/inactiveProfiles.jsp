@@ -170,7 +170,13 @@
 	}
  
  function profileAction(id,statusId){
-		var checkstr =  confirm('Are you sure you want to do  this?');
+	 var checkstr = "";
+	 	if(statusId==1){
+	 		checkstr =  confirm('Are you sure you want to Activate this profile?');
+	 	}
+	 	if(statusId==2){
+	 		checkstr =  confirm('Are you sure you want to Delete  this profile?');
+	 	}
 		if(checkstr == true){
 		var formData = new FormData();
 	     formData.append('status', statusId);

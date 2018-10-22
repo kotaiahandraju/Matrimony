@@ -241,7 +241,7 @@ s.parentNode.insertBefore(ga, s);
 		} 
  }
  function restoreDeleteProfile(id){
-		var checkstr =  confirm('Are you sure you want to restore this?');
+		var checkstr =  confirm('Are you sure you want to Restore this profile?');
 		if(checkstr == true){
 		var formData = new FormData();
 	     formData.append('status', 1);
