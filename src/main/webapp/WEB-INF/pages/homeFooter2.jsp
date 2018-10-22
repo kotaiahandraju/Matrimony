@@ -921,6 +921,19 @@ Follow us on : 	<a href="#stayhere"><img src="../nimages/fb.png" style="height:3
 </div>
 </div>
 </footer>
+<script src="${baseurl}/user/js/ie10-viewport-bug-workaround.js"></script>
+<!--     <script src="user/vendor/jquery/jquery.min.js"></script> -->
+    <script src="${baseurl}/user/vendor/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+    <script src="${baseurl}/user/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="${baseurl}/user/vendor/scrollreveal/scrollreveal.min.js"></script>
+    <script src="${baseurl}/user/js/theme.js"></script>
+    <script src="${baseurl}/user/js/custom.js"></script>
+    <script defer src="${baseurl}/user/vendor/woocommerce-FlexSlider/jquery.flexslider.js"></script>
+    <script src="${baseurl}/user/js/toucheffects.js"></script>
+    <script src="${baseurl}/js/customValidation.js"></script>
+    <script src="${baseurl}/js/ajax.js"></script>
+    <script src="${baseurl}/js/common.js"></script>
+    <script src="${baseurl}/js/jquery.blockUI.min.js"></script>
 	<script>
 	// ===== Scroll to Top ==== 
 	$(window).scroll(function() {
