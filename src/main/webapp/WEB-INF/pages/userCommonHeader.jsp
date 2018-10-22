@@ -3729,7 +3729,7 @@ img.hover-shadow {
 						
 						</div>
 	</div>
-<div class="nav"  style="width:100%;background:#006699;">
+<div class="nav"  style="width:100%;background:#3c763d;">
 	<div class="container">
 		<div class="row">
 			<nav class="navbar navbar-custom navbar-inverse" role="navigation" >

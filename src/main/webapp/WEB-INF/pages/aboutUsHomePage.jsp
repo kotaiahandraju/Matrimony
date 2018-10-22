@@ -6,8 +6,8 @@ p{
 text-align:justify;
 }</style>
 
-
-   <div class="container" style="background:white;padding:25px;">
+<img src="nimages/aboutus.jpg" class="img-responsive" />
+   <div class="container" style="background:white;padding-top:25px;">
       <div class="container-fluid">
 					<div class="panel panel-success">
 					<div class="panel-heading">About Us </div>

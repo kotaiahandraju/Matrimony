@@ -14,6 +14,7 @@ float: right;
 }
 }
 </style>
+<img src="nimages/help.jpg" class="img-responsive" />
 <div class="container" style="background: white; padding-top: 25px;">
 	<div class="container-fluid">
 		<div class="panel panel-success">

@@ -510,7 +510,7 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label required">About myself</label>
 									<div class="col-sm-8">
-										<form:textarea rows="4" path="aboutMyself" class="form-control onlyCharacters u" placeholder="Enter few words about you"></form:textarea>
+										<form:textarea rows="4" path="aboutMyself" class="form-control onlyCharacters u validate" placeholder="Enter few words about you"></form:textarea>
 								  		<span id="errorMsg" style="color:red"></span>
 								  		<div><form:errors path="aboutMyself" cssClass="error" /></div>
 									</div>

@@ -1,8 +1,8 @@
 <%@ include file="userStepsHeader.jsp"%>
 <%@ include file="homeMenu.jsp"%>
 <div class="clearfix"></div>
-
-<div class="container" style="background: white; padding: 25px;">
+<img src="nimages/terms.jpg" class="img-responsive" />
+<div class="container" style="background: white; padding-top: 25px;">
 	<div class="container-fluid">
 		<div class="panel panel-success">
 			<div class="panel-heading">Terms &amp; Conditions</div>

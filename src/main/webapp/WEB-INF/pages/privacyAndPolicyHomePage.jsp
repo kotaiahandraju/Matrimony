@@ -7,6 +7,7 @@ p {
 	margin-bottom: 8px;
 }
 </style>
+<img src="nimages/privacy_policy.png" class="img-responsive" />
 <div class="container" style="background: white; padding: 25px;">
 	<div class="container-fluid">
 		<div class="panel panel-success">
