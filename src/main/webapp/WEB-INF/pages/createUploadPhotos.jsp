@@ -13,17 +13,35 @@
 canvas{display:none}
 </style>
 
-<div class="container">
-
-			<h3>Upload <span id="user" ></span> <span id="lastNameId"></span> Photo</h3>
-    <div class="pull-right"><a href="${baseurl}/admin/AllProfilesHome" class="btn btn-primary">Back to Active Profiles</a></div>
-			
-	<form method="POST" enctype="multipart/form-data" id="fileUploadForm">
-    <br><input type="hidden" name="files" id="imageName"/><br/>
-    <input type="submit" value="Upload Photo" onclick="imageAjax()" id=uploadBtn class="btn btn-primary"/>
-    <input type="button" style="display:none" value="Cancel" onclick="window.location.href='?'" id='uploadCancel' class="btn btn-danger"/>
-</form>	<br>	
-</div>
+<div class="col-md-8">
+			   	<fieldset>
+			   		
+			   		<div id="secondForm">
+			   			<div class="col-md-12">
+					      <h3>Upload photo.</h3>
+					    </div>
+					    <div class="form-group">
+					      <div class="col-md-8">
+					      	<!-- <input type="file" id='imageName1'  onchange="checkImg(this)"><br> -->
+					    	<form role="form">
+						      <input id="imageName" type="hidden" name="test[image]">
+						    </form>
+					      </div>
+					    </div>
+					    <div class="form-group">
+					    	<div class="col-md-8">
+<!-- 					    	<img alt="Preview" id="previewImg" align="middle" style="border-style: solid;height: 100px;width: 100px;border-bottom-style: none;border-left-style: none;border-top-style: none;"> -->
+					    	</div>
+					    </div>
+					    <div class="form-group">
+					    	<div class="col-md-8">
+					    		<input type="button" class="btn btn-primary" id="uploadBtn" value="Upload Photo" onclick="imageAjax()">
+					    	</div>
+					    </div>
+					    
+			   		</div>
+			   	</fieldset>
+			   </div>
 
 <script>
 
@@ -38,7 +56,7 @@ $('#lastNameId').html('${lastName}');
         	width: 626, height: 417, debug: true}
         );
     });
-    
+    var fullImg = "";
     function imageAjax(){
     	if($("#imageName").val() == "" || $("#imageName").val() == "undefined" || $("#imageName").val() == null){
     		alert("Please Select An Image..!");
@@ -49,10 +67,12 @@ $('#lastNameId').html('${lastName}');
    	 $("#uploadBtn").prop("disabled",true);
    		$("#uploadBtn").val("Please wait...");
    	var id= ${id};
-    var form = $('#fileUploadForm')[0];
-   	var formData = new FormData(form);
+    //var form = $('#fileUploadForm')[0];
+   	var formData = new FormData();
+   	formData.append("imageData", $("#imageName").val());
+	formData.append("fullImg", fullImg);
 //    	formData.append("imageName", imageName.files[0]);
-formData.append("imageData", $("#imageName").val());
+//formData.append("imageData", $("#imageName").val());
    	formData.append("id", id);
    	  $.fn.makeMultipartRequest('POST', '${baseurl}/admin/croppedImageUpload', false,
    				formData, false, 'text', function(data){
@@ -71,5 +91,5 @@ formData.append("imageData", $("#imageName").val());
     }
     }
     </script> 	
-<script src="${baseurl}/js/jquery.awesome-cropper.js"></script> 
-	<script src="${baseurl}/js/jquery.imgareaselect.js"></script> 
+	<script src="${baseurl}/js/jquery.imgareaselect.js"></script>
+	<script src="${baseurl}/js/jquery.awesome-cropper.js"></script> 

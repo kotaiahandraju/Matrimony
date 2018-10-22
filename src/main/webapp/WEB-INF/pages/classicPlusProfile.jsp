@@ -248,7 +248,13 @@ s.parentNode.insertBefore(ga, s);
 	
 		}
   function profileStatusChange(id,statusId){
-		var checkstr =  confirm('Are you sure you want to  this?');
+	  var checkstr = "";
+	 	if(statusId==0){
+	 		checkstr =  confirm('Are you sure you want to In-Activate this profile?');
+	 	}
+	 	if(statusId==2){
+	 		checkstr =  confirm('Are you sure you want to Delete  this profile?');
+	 	}
 		if(checkstr == true){
 		var formData = new FormData();
 	     formData.append('status', statusId);
