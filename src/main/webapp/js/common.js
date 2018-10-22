@@ -39,7 +39,7 @@ function resetPassword(id){
 }*/
 
 function moveToHidden(id,statusName){
-	var checkstr =  confirm('Are you sure you want to do this?');
+	var checkstr =  confirm('Are you sure you want to Hide this profile?');
 	if(checkstr == true){
 	var formData = new FormData();
      formData.append('id', id);

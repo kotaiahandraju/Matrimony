@@ -368,14 +368,14 @@ public class CreateProfileController {
 	}*/
 	
 	@RequestMapping(value = "/croppedImageUpload")
-	public @ResponseBody String imageUpload(ModelMap model,
+	public @ResponseBody String imageUpload(@RequestParam("fullImg") MultipartFile fullImage,ModelMap model,
 			HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
 		String id =null;
 		String msg= null;
 		String name=null;
 		String sTomcatRootPath = null;
 		String sDirPath = null;
-		String filepath = null;
+		String filepath = null,fullImgfilepath = null;
 		UserImagesBean objUerImagesBean = null;
 		JSONObject objJson =new JSONObject();
 		FileOutputStream osf;
@@ -391,21 +391,31 @@ public class CreateProfileController {
 			if (StringUtils.isNotBlank(imgData)) {
 				Base64Decoder decoder = new Base64Decoder(); 
 				byte[] imgBytes = decoder.decode(imgData.split(",")[1]);
+				byte[] fullImageBytes = fullImage.getBytes();
 				/*name=name.substring(n + 1);
 				name=name+".png";*/
+				//long millis = System.currentTimeMillis() % 1000;
+				//filepath= id+millis+".png";
 				long millis = System.currentTimeMillis() % 1000;
 				filepath= id+millis+".png";
-				
+				fullImgfilepath= id+millis+".png";
 				
 				
 				 String latestUploadPhoto = "";
-			        String rootPath = request.getSession().getServletContext().getRealPath("/");
-			        File dir = new File(rootPath + File.separator + "img");
+			        //String rootPath = request.getSession().getServletContext().getRealPath("/");
+				 	String rootPath = System.getProperty("catalina.base");
+			        //File dir = new File(rootPath + File.separator + "img");
+				 	File dir = new File(rootPath + File.separator + "webapps"+ File.separator + "aarna-user-images");
 			        if (!dir.exists()) {
 			            dir.mkdirs();
 			        }
 			         
-			        File serverFile = new File(dir.getAbsolutePath() + File.separator + filepath);
+			      //for saving full image
+			        File fullImgdir = new File(rootPath + File.separator + "webapps"+ File.separator + "aarna-user-images"+ File.separator +"full-images");
+			        if (!fullImgdir.exists()) {
+			        	fullImgdir.mkdirs();
+			        }
+			        //File serverFile = new File(dir.getAbsolutePath() + File.separator + filepath);
 			      //  latestUploadPhoto = file.getOriginalFilename();
 //			        file.transferTo(serverFile);
 			    //write uploaded image to disk
@@ -417,10 +427,21 @@ public class CreateProfileController {
 			            System.out.println("error : " + e);
 			        }
 				  
-				
-			        filepath= "img/"+filepath;
+			        try {
+			            
+			            osf = new FileOutputStream(new File(fullImgdir.getAbsolutePath() + File.separator + fullImgfilepath));
+			    		
+						 osf.write(fullImageBytes);
+						 osf.flush();
+			        } catch (IOException e) {
+			            System.out.println("error : " + e);
+			        }
+			        //filepath= "img/"+filepath;
+			        filepath= "aarna-user-images/"+filepath;
+			        objJson.put("image_path", filepath);
 			        objUerImagesBean.setImage(filepath);
 			        objUerImagesBean.setStatus("1");
+			        objUerImagesBean.setApprovedStatus("1");
 			        
 			     /*   ----------------------------------------*/
 			        sTomcatRootPath = System.getProperty("catalina.base");

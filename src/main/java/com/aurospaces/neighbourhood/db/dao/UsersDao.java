@@ -5437,7 +5437,7 @@ public boolean deletePhoto(String photoId){
 					+ " (select name from religion where id=u.religion) as religionName, "
 					+ " (select name from city where id=u.currentCity) as currentCityName, "
 					+"  (select st.name from state st where st.id = u.currentState) as currentStateName ,"
-					+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and uimg.status = '1' and uimg.is_profile_picture='1') as profileImage "
+					+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and uimg.status = '1' and uimg.approved_status = '1' and uimg.is_profile_picture='1') as profileImage "
 					+ " from users u where  u.status = '1'  order by created_time desc"
 					+ " ) temp where profileImage is not null limit 10";
 						

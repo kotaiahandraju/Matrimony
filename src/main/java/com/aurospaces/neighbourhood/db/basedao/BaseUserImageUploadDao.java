@@ -33,7 +33,7 @@ public class BaseUserImageUploadDao{
 
 	@Autowired HttpSession session;
 	 
-	public final String INSERT_SQL = "INSERT INTO user_images ( user_id, image,  updated_on, status) VALUES (?, ?, ?, ? )"; 
+	public final String INSERT_SQL = "INSERT INTO user_images ( user_id, image,  updated_on, status, approved_status) VALUES (?, ?, ?, ?, ? )"; 
 
 
 
@@ -73,6 +73,7 @@ public class BaseUserImageUploadDao{
 	ps.setString(2, objUserImagesBean.getImage());
 	ps.setTimestamp(3, updatedTime);
 	ps.setString(4, objUserImagesBean.getStatus());
+	ps.setString(5, objUserImagesBean.getApprovedStatus());
 
 							return ps;
 						}

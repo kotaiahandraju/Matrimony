@@ -8,6 +8,8 @@ public class UserImagesBean {
 	protected Date updated_on;
 	protected String userId;
 	protected String status;
+	protected String approvedStatus;
+	protected String isProfilePicture;
 	protected String image;
 	public int getId() {
 		return id;
@@ -44,6 +46,18 @@ public class UserImagesBean {
 	}
 	public void setImage(String image) {
 		this.image = image;
+	}
+	public String getIsProfilePicture() {
+		return isProfilePicture;
+	}
+	public void setIsProfilePicture(String isProfilePicture) {
+		this.isProfilePicture = isProfilePicture;
+	}
+	public String getApprovedStatus() {
+		return approvedStatus;
+	}
+	public void setApprovedStatus(String approvedStatus) {
+		this.approvedStatus = approvedStatus;
 	}
 	
 }

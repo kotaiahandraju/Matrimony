@@ -599,6 +599,7 @@ public class HomePageController {
 					        objJson.put("image_path", filepath);
 					        objUerImagesBean.setImage(filepath);
 					        objUerImagesBean.setStatus("1");
+					        objUerImagesBean.setApprovedStatus("0");
 					        
 					     /*   ----------------------------------------*/
 					        sTomcatRootPath = System.getProperty("catalina.base");
