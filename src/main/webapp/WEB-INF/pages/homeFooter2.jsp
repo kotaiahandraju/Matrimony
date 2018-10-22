@@ -74,7 +74,7 @@ padding: 0px 0px 0px 2px !imortant;
 }
 .select2-container-multi .select2-choices .select2-search-choice
 {
-padding: 3px 5px !important;
+padding: 3px 16px !important;
 }
 .select2-drop
 {
@@ -876,7 +876,7 @@ footer {
 					<div class="col-md-4 footer-grids">
 					<a href="HomePage"><img src="../images/logo01.png" alt="" class="img-responsive" /></a>
 						<video poster="../user/images/bgvideo.jpg" controls
-							src="../user/images/Aarna Matrimony for Best Mate ,Together Forever.mp4"
+							src="../user/images/Aarna Matrimony for Best Mate ,Together Forever.webm"
 							type="video/mp4">
 						</video>
 						<!-- <h3>Follow Us on</h3>
@@ -921,6 +921,19 @@ Follow us on : 	<a href="#stayhere"><img src="../nimages/fb.png" style="height:3
 </div>
 </div>
 </footer>
+<script src="${baseurl}/user/js/ie10-viewport-bug-workaround.js"></script>
+<!--     <script src="user/vendor/jquery/jquery.min.js"></script> -->
+    <script src="${baseurl}/user/vendor/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+    <script src="${baseurl}/user/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="${baseurl}/user/vendor/scrollreveal/scrollreveal.min.js"></script>
+    <script src="${baseurl}/user/js/theme.js"></script>
+    <script src="${baseurl}/user/js/custom.js"></script>
+    <script defer src="${baseurl}/user/vendor/woocommerce-FlexSlider/jquery.flexslider.js"></script>
+    <script src="${baseurl}/user/js/toucheffects.js"></script>
+    <script src="${baseurl}/js/customValidation.js"></script>
+    <script src="${baseurl}/js/ajax.js"></script>
+    <script src="${baseurl}/js/common.js"></script>
+    <script src="${baseurl}/js/jquery.blockUI.min.js"></script>
 	<script>
 	// ===== Scroll to Top ==== 
 	$(window).scroll(function() {

@@ -45,6 +45,10 @@
 	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 
 <style>
+.form-control {
+    height: 35px;
+    padding: 4px 6px !important;
+}
 /* #recent-profile .pro_img img {
     height: 230px;
     filter: grayscale(1);
@@ -1999,7 +2003,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 					<a href="HomePage"><img src="images/logo01.png" alt=""
 						class="img-responsive" /></a>
 					<video poster="user/images/bgvideo.jpg" controls
-						src="user/images/Aarna Matrimony for Best Mate ,Together Forever.mp4"
+						src="user/images/Aarna Matrimony for Best Mate ,Together Forever.webm"
 						type="video/mp4">
 					</video>
 					<!-- <h3>Follow Us on</h3>

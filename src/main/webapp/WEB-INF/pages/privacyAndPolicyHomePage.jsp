@@ -7,10 +7,11 @@ p {
 	margin-bottom: 8px;
 }
 </style>
+<img src="nimages/privacy_policy.png" class="img-responsive" />
 <div class="container" style="background: white; padding: 25px;">
 	<div class="container-fluid">
-		<div class="panel panel-success">
-			<div class="panel-heading">Privacy Policy</div>
+		<div class="panel ">
+			<div class="panel-heading"><h4>Privacy Policy</h4></div>
 			<div class="panel-body" style="min-height: 350px;">
 			<p align="justify">Thank you for choosing to be part of our community at
 			Aarnamatrimony.com ("company", "we", "us", or "our"). We are
