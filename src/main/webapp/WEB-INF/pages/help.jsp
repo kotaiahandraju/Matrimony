@@ -1,6 +1,7 @@
 <%@ include file="userCommonHeader.jsp"%>
 <div class="products">
-<div class="container" style="background: white; padding: 25px;">
+<img src="../nimages/help.jpg" class="container img-responsive" />
+<div class="container" style="background: white; padding-top: 25px; padding-left:0px; padding-right:0px;">
 	<div class="container-fluid">
 		<div class="panel panel-success">
 			<div class="panel-heading">Help</div>

@@ -74,7 +74,7 @@ padding: 0px 0px 0px 2px !imortant;
 }
 .select2-container-multi .select2-choices .select2-search-choice
 {
-padding: 3px 5px !important;
+padding: 3px 16px !important;
 }
 .select2-drop
 {

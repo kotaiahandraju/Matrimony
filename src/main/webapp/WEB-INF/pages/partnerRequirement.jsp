@@ -6,6 +6,15 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 <style>
+.select2-container-multi .select2-choices .select2-search-choice {
+    padding: 3px 16px !important;
+}
+.form-control {
+    display: block;
+    width: 100%;
+    height: 30px;
+    padding: 2px 12px;
+    }
 .form-control {
 width:190px !important;
 }
@@ -28,6 +37,7 @@ width:100%;
 .imgareaselect-outer {
 position:fixed !important;
 background:#fff !important;}
+}
 </style>
             <div class="col-md-5 col-sm-12">
             	<!-- <div class="stepwizard">
@@ -166,7 +176,7 @@ background:#fff !important;}
 				
 				    <div class="form-group" >
 				      <label class="col-md-4 control-label" for="textinput">Marital Status</label>  
-				      <div class="col-md-7">
+				      <div class="col-md-3">
 				      	<form:select path="rMaritalStatus" class="multiSelect" onchange="hideChildren();" multiple="true" >
 							<form:option value="any">Doesn't Matter</form:option>
 							<form:option value="Married">Married</form:option>
@@ -178,7 +188,7 @@ background:#fff !important;}
 				
 				    <div class="form-group" id="haveChildrenId" style="display: none">
 				      <label class="col-md-4 control-label" for="textinput" >Have Children</label>  
-				      <div class="col-md-7">
+				      <div class="col-md-3">
 				      	<form:select path="rhaveChildren" class="form-control u1">
 							<form:option value="">Doesn't Matter</form:option>
 							<form:option value="1">1</form:option>
@@ -190,7 +200,7 @@ background:#fff !important;}
 				
 				    <div class="form-group">
 				      <label class="col-md-4 control-label" for="textinput">Religion</label>  
-				      <div class="col-md-7">
+				      <div class="col-md-3">
 				      	<form:select path="rReligion" onchange="getReliginCastAjax()" class="multiSelect" multiple="true">
 							<form:options items="${religion}"></form:options>
 						</form:select>
@@ -199,7 +209,7 @@ background:#fff !important;}
 				
 				    <div class="form-group">
 				      <label class="col-md-4 control-label" for="textinput">Community</label>  
-				      <div class="col-md-7">
+				      <div class="col-md-3">
 				      	<form:select path="rCaste" class="multiSelect" multiple="true">
 <%-- 				      		<form:option value="" selected="">-- Choose Community --</form:option> --%>
 <%-- 							<form:options items="${cast}"></form:options> --%>
@@ -209,7 +219,7 @@ background:#fff !important;}
 				
 				    <div class="form-group">
 				      <label class="col-md-4 control-label" for="textinput">Mother Tongue</label>  
-				      <div class="col-md-7">
+				      <div class="col-md-3">
 				      	<form:select path="rMotherTongue" class="multiSelect"  multiple="true">
 							<form:options items="${language}"></form:options>
 						</form:select>
@@ -218,7 +228,7 @@ background:#fff !important;}
 				  
 				    <div class="form-group hideMe">
 				      <label class="col-md-4 control-label" for="textinput"></label>  
-				      <div class="col-md-7 text-center">
+				      <div class="col-md-3 text-center">
 				      	<span class="more" style="color: #0087AF;cursor: pointer;">MORE <i style="cursor: pointer;" class="fa fa-angle-down"></i></span>
 				      </div>
 				    </div>
@@ -227,12 +237,12 @@ background:#fff !important;}
 				    
 				    <div class="form-group">
 				      <label class="col-md-4 control-label" for="textinput"></label>
-				      <div class="col-md-7">Location Details</div>
+				      <div class="col-md-3">Location Details</div>
 				    </div>
 				   
 				    <div class="form-group">
 				      <label class="col-md-4 control-label" for="textinput">Country living in</label>  
-				      <div class="col-md-7">
+				      <div class="col-md-3">
 				      	<form:select path="rCountry" class="multiSelect" multiple="true" onchange="getFilteredStatesMultiSelect(this.id)">
 							<form:options items="${countries}"></form:options>
 							
@@ -242,7 +252,7 @@ background:#fff !important;}
 				    
 				    <div class="form-group">
 				      <label class="col-md-4 control-label" for="textinput">State living in</label>  
-				      <div class="col-md-7">
+				      <div class="col-md-3">
 				      	<form:select path="rState" class="multiSelect" multiple="true" onchange="getFilteredCitiesMultiSelect(this.id)">
 							<form:options items="${states }"></form:options>
 						</form:select>
@@ -251,7 +261,7 @@ background:#fff !important;}
 				    
 				    <div class="form-group">
 						<label class="col-md-4 control-label required">Residing City</label>
-							<div class="col-md-7">
+							<div class="col-md-3">
 							<form:select path="rCity"  class="multiSelect" multiple="true">
 								<%-- <form:option value="">-- Choose State --</form:option> --%>
 									<form:options items="${filtered_cities }"></form:options> 
@@ -262,12 +272,12 @@ background:#fff !important;}
 				    
 				    <div class="form-group">
 				      <label class="col-md-4 control-label" for="textinput"></label>
-				      <div class="col-md-7">Education & Profession Details</div>
+				      <div class="col-md-3">Education & Profession Details</div>
 				    </div>
 				<!--      rCountry,rState,rEducation,rWorkingWith,rOccupation,rAnnualIncome,rCreateProfileFor,rDiet -->
 				    <div class="form-group">
 				      <label class="col-md-4 control-label" for="textinput">Education</label>  
-				      <div class="col-md-7">
+				      <div class="col-md-3">
 				      	<form:select path="rEducation" class="multiSelect" multiple="true">
 							<form:option value="any">Doesn't Matter</form:option>
 							<form:options items="${education}"></form:options>
@@ -277,7 +287,7 @@ background:#fff !important;}
 				    
 				    <div class="form-group">
 				      <label class="col-md-4 control-label" for="textinput">Working with</label>  
-				      <div class="col-md-7">
+				      <div class="col-md-3">
 				      	<form:select path="rWorkingWith" class="multiSelect" multiple="true">
 							<form:option value="any">Doesn't Matter</form:option>
 							<form:option value="Private Company">Private Company</form:option>
@@ -290,7 +300,7 @@ background:#fff !important;}
 				    
 				    <div class="form-group">
 				      <label class="col-md-4 control-label" for="textinput">Profession area</label>  
-				      <div class="col-md-7">
+				      <div class="col-md-3">
 				      	<form:select path="rOccupation" class="multiSelect" multiple="true">
 							<form:option value="any">Doesn't Matter</form:option>
 							<form:options items="${occupation}"></form:options>
@@ -300,7 +310,7 @@ background:#fff !important;}
 				    
 				    <div class="form-group">
 				      <label class="col-md-4 control-label" for="textinput">Annual Income</label>  
-				      <div class="col-md-7">
+				      <div class="col-md-3">
 				      <!-- 	<input type="radio" name="annualIncome" class="incomeMatter" id="ai1" value=""> <label for="ai1">Doesn't Matter</label>
 				      	<input type="radio" name="annualIncome" class="incomeRange" id="ai2" value="Specify an income range"> <label for="ai2">Specify an income range</label> -->
 				      	<%-- <form:select path="education" class="form-control u">
@@ -320,14 +330,14 @@ background:#fff !important;}
 				    
 				    <div class="form-group incomeBlock">
 				      <label class="col-md-4 control-label" for="textinput"></label>  
-				      <div class="col-md-7">
+				      <div class="col-md-3">
 				      	
 				      </div>
 				    </div>
 				    
 				    <div class="form-group incomeBlock">
 				      <label class="col-md-4 control-label" for="textinput"></label>  
-				      <div class="col-md-7">
+				      <div class="col-md-3">
 				      	<!-- <input type="checkbox" name="includeProfiles" id="includeProfiles"> -->
 				      	<%-- <form:checkbox path="specifiedIncome" value="specifiedIncome" placeholder="Enter Height"/>
 				      	Include Profiles who have not specified their income --%>
@@ -336,12 +346,12 @@ background:#fff !important;}
 				    
 				    <div class="form-group">
 				      <label class="col-md-4 control-label" for="textinput"></label>
-				      <div class="col-md-7">Other Details</div>
+				      <div class="col-md-3">Other Details</div>
 				    </div>
 				    
 				    <div class="form-group">
 				      <label class="col-md-4 control-label" for="textinput">Diet</label>  
-				      <div class="col-md-7">
+				      <div class="col-md-3">
 				      	<form:select path="rDiet" class="multiSelect"  multiple="true">
 							<form:option value="Veg">Veg</form:option>
 							<form:option value="Non-Veg">Non-Veg</form:option>
@@ -367,7 +377,7 @@ background:#fff !important;}
 				<!-- 1st Step ends here-->
 				</form:form>
 			</div>
-
+<div class="clearfix"></div>
 
 <script src="${baseurl}/js/plugins/select2/select2.min.js"></script>
  <script src="${baseurl}/js/ajax.js"></script>

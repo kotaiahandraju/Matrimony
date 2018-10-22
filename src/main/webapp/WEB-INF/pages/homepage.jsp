@@ -45,6 +45,10 @@
 	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 
 <style>
+.form-control {
+    height: 35px;
+    padding: 4px 6px !important;
+}
 /* #recent-profile .pro_img img {
     height: 230px;
     filter: grayscale(1);

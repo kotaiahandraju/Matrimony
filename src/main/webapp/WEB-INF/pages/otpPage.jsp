@@ -21,7 +21,7 @@ width:100%;
    <div class="row">
    <div class="midcontnet"><br>
     <div class="col-md-1"></div>
-   <div class="col-md-8">
+   <div class="col-md-8" style="min-height:350px;">
    	<form:form commandName="createProfile" class="form-horizontal" id="otpForm" role="form"   method="post">
    		<c:set var="msg" value="success"/>
    		<c:set var="msg2" value="failed"/>

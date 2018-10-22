@@ -17,8 +17,8 @@ float: right;
 <img src="nimages/help.jpg" class="img-responsive" />
 <div class="container" style="background: white; padding-top: 25px;">
 	<div class="container-fluid">
-		<div class="panel panel-success">
-			<div class="panel-heading">Help</div>
+		<div class="panel ">
+			<div class="panel-heading"><h4>Help</h4></div>
 			<div class="panel-body" style="min-height: 350px;">
 
 				<p align="justify">Aarna Matrimony is eager to help you find your partner at the
