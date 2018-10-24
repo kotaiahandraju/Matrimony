@@ -126,10 +126,10 @@ $('#mobile').blur(function() {
 		var formData = new FormData();
 	    formData.append('mobile', $("#mobile").val());
 	    formData.append('id', $("#id").val());
-	    var actionStr = "../mobileNumChecking";
+	    var actionStr = "mobileNumChecking";
 	     var nextPage = nextPage1;
 	     if(nextPage!=null && nextPage!="" && nextPage!="undefined"){
-	    	 actionStr = "../../../mobileNumChecking";
+	    	 actionStr = "../../mobileNumChecking";
 	     }
 	     var req_from = $("#req_from").val();
 	     if(typeof req_from != "undefined" && req_from=="user"){
