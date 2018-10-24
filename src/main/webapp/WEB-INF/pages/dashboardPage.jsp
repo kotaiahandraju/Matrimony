@@ -285,6 +285,24 @@ color:#000;
 padding-left:0px;
 padding-right:0px;
 }
+
+.watermarkcontent_preferred {
+  position: absolute; /* Position the background text */
+  top: -15px; /* At the bottom. Use top:0 to append it to the top */
+  //background: rgb(0, 0, 0); /* Fallback color */
+  //background: rgba(0, 0, 0, 0.5); /* Black background with 0.5 opacity */
+  color: white; /* Grey text */
+  width: 100%; /* Full width */
+  padding: 10px; /* Some padding */
+  transform: rotate(90deg);
+//transform-origin: left top 0;
+width : 0;
+}
+.watermarkcontent_preferred span{
+opacity : 0.7;
+font-size : 8px;
+}
+
 </style>	
 
 
@@ -942,7 +960,10 @@ function displayMatches(listOrders) {
 			}
 			var tblRow = '<div class="row">'
 				+ '<div class=" col-md-3 col-xs-3 preprofile" >'
-	            + 	"<img src='"+image+"'  class=' "+watermark_str+" img-responsive thumbnail ' >"
+	            + 	"<img src='"+image+"'  class='  img-responsive thumbnail ' >"
+	            + '		<div class="watermarkcontent_preferred">'
+				+ '			<span>aarnamatrimony.com</span>'
+				+ '		</div>	'
 	            + '</div>'
 	            + '<div class="col-md-9 col-xs-9">'
 	            + ' <p>'+firstname+'&nbsp;'+lastname+'|'+orderObj.username+'&nbsp;'+premiumMember+'&nbsp; '+age+' yrs,&nbsp; '+orderObj.religionName+', '+orderObj.casteName+','+orderObj.inches+' , '+orderObj.occupationName+', '+orderObj.currentCityName+', '+orderObj.currentCountryName+'. </p> '
