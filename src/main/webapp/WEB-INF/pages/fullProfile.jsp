@@ -1321,7 +1321,10 @@ xpopup
                 	<ul class="slider-relative" id="relative">
 						<c:forEach items="${fullProfilePhotosList}" var="photo" >
 					      	<li class="slide fix-width">
-	                            <img src="${catalina_base}/${photo.folder_name}/full-images/${photo.image_name}" alt="" class="watermark_text">
+	                            <img src="${catalina_base}/${photo.folder_name}/full-images/${photo.image_name}" alt="" class="">
+	                            <div class="watermarkcontent_fullpic">
+									<span>aarnamatrimony.com</span>
+								</div>
 	                        </li>
 						</c:forEach>
                     </ul>

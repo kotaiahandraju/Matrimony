@@ -4,7 +4,20 @@
 <script src="${baseurl}/js/jquery-ui.min.js"></script>
 
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" />
-
+<style>
+	div .picstyle .watermarkcontent {
+  position: absolute; /* Position the background text */
+  top: -17px; /* At the bottom. Use top:0 to append it to the top */
+  //background: rgb(0, 0, 0); /* Fallback color */
+  //background: rgba(0, 0, 0, 0.5); /* Black background with 0.5 opacity */
+  color: white; /* Grey text */
+  width: 100%; /* Full width */
+  padding: 10px; /* Some padding */
+  transform: rotate(90deg);
+//transform-origin: left top 0;
+width : 0;
+}
+</style>
 
 <div class="products">
 	<div class="container" style="background: #FFF;">
@@ -41,7 +54,7 @@
 					</div>
 					<%-- <div class="col-md-2">
 					 <jsp:include page="sideGridForMatches.jsp" /></div> --%>
-			
+		
 <script type="text/javascript">
 
 var total_items_count = ${total_records};
