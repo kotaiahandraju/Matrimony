@@ -100,6 +100,9 @@
 	<definition name="aarnaPremiumProfile" extends="base.definition">
 		<put-attribute name="body" value="/WEB-INF/pages/aarnaPremiumProfile.jsp" />
 	</definition>
+	<definition name="launchingProfile" extends="base.definition">
+		<put-attribute name="body" value="/WEB-INF/pages/launchingProfile.jsp" />
+	</definition>
 	<definition name="StateHome" extends="base.definition">
 		<put-attribute name="body" value="/WEB-INF/pages/state.jsp" />
 	</definition>

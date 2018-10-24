@@ -560,6 +560,12 @@ public class HomePageController {
 					        //String rootPath = request.getSession().getServletContext().getRealPath("/");
 						 	String rootPath = System.getProperty("catalina.base");
 					        //File dir = new File(rootPath + File.separator + "img");
+
+						 	File dir1 = new File(rootPath + File.separator + "img");
+					        if (!dir1.exists()) {
+					            dir1.mkdirs();
+					        }
+						 	
 						 	File dir = new File(rootPath + File.separator + "webapps"+ File.separator + "aarna-user-images");
 					        if (!dir.exists()) {
 					            dir.mkdirs();
@@ -574,6 +580,13 @@ public class HomePageController {
 					      //  latestUploadPhoto = file.getOriginalFilename();
 	//				        file.transferTo(serverFile);
 					    //write uploaded image to disk
+					        try {
+					        	osf = new FileOutputStream(new File(dir1.getAbsolutePath() + File.separator + filepath));
+					        	osf.write(imgBytes);
+								 osf.flush();
+					        } catch (IOException e) {
+					            System.out.println("error : " + e);
+					        }
 					        try {
 					            
 					            osf = new FileOutputStream(new File(dir.getAbsolutePath() + File.separator + filepath));
@@ -594,8 +607,8 @@ public class HomePageController {
 					            System.out.println("error : " + e);
 					        }
 						  
-					        //filepath= "img/"+filepath;
-					        filepath= "aarna-user-images/"+filepath;
+					        filepath= "img/"+filepath;
+//					        filepath= "aarna-user-images/"+filepath;
 					        objJson.put("image_path", filepath);
 					        objUerImagesBean.setImage(filepath);
 					        objUerImagesBean.setStatus("1");

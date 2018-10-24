@@ -10,6 +10,10 @@ position:fixed;
 bottom:0;
 width:100%;
 }
+.midcontnet {
+    border-bottom: 12px solid #eeeeee;
+    padding-bottom: 40px;
+}
 </style>
             <div class="col-md-5 col-sm-12">
             	

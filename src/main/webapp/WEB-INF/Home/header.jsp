@@ -412,6 +412,7 @@ var role_id = ${cacheUserBean.roleId};
 						<li class="premiumProfiles"><a href="${baseurl }/admin/PremiumProfile">Premium Profiles</a></li>
 						<li class="premiumPlusProfiles"><a href="${baseurl }/admin/PremiumPlusProfile">Premium Plus Profiles</a></li>
 						<li class="aarnaPremiumProfiles"><a href="${baseurl }/admin/AarnaPremiumProfile">Aarna Premium Profiles</a></li>
+						<li class="launchingProfiles"><a href="${baseurl }/admin/launchingProfile">LAUNCHING_OFFER Profiles</a></li>
 						<c:if test="${roleId1 == 1}"> 
 						<li class="hiddenProfiles"><a href="${baseurl }/admin/HiddenProfilesHome">Hidden Profiles</a></li>
 						 </c:if>

@@ -1297,7 +1297,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 							<label for="user_password">Create Password :</label>
 							<form:password path="regPassword" class="form-control"
 								onkeydown="removeBorder(this.id)" maxlength="15"
-								placeholder="Password" onkeyup="validatePassword();"
+								placeholder="Password" 
 								autocomplete="new-password" />
 							<span class="hasError" id="password_error_div"
 								style="font-size: 13px; font-weight: 800;"></span>
