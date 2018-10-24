@@ -129,7 +129,7 @@
 							<div class="col-md-6">
 								<button type="submit" id="firstButton" onclick="firstForm(event);" class="btn1 btn btn-info">CONTINUE...</button>
 							</div>
-						</div>
+						</div><br>
 					</div>
 					<!-- 1st Step ends here-->
 					
@@ -193,7 +193,7 @@
 							<div class="col-md-6">
 								<button type="submit" id="secondButton" onclick="secondForm(event);" class="btn2 btn btn-info">CONTINUE...</button>
 							</div>
-						</div>
+						</div><br>
 					</div>
 					<!-- 2nd Step ends here-->
 
@@ -279,7 +279,7 @@
 					      <div class="col-md-6">
 					      <button type="button" id="thirdButton" onclick="thirdForm(event);" class="btn3 btn btn-info">CONTINUE...</button>
 					      </div>
-					    </div>
+					    </div><br>
 					</div>
 					<!-- 3rd Step ends here-->
 
@@ -314,7 +314,7 @@
 					<!--       <button type="button" id="skipfourthButton" onclick="skipfourthForm(event);" value="Skip" class="btn4 btn btn-info">Skip</button> -->
 <%-- 					      <a style="color: ;text-decoration: none;" class="btn btn-success " href="${baseurl}/family-details">&nbsp;&nbsp;Skip</a> --%>
 					      </div>
-					    </div>
+					    </div><br>
 					</div>
 					<!-- 4th Step ends here-->
 				</form:form>

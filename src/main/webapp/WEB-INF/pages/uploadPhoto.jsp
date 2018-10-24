@@ -43,10 +43,10 @@ display:none;}
      
 		<div class="row">
 			<div class="midcontnet">
-				<div class="col-md-8">
+				<div class="col-md-8" style="min-height:250px;">
    					<div id="secondForm">
 			   			<div class="col-md-1"></div><div class="col-md-11">
-					      <h3>Upload Photo.</h3>
+					      <h3 style="text-align:left;" >Upload Photo.</h3>
 					    </div>
 					    <div class="form-group">
 					      <label class="col-md-4 control-label" for="textinput"></label>

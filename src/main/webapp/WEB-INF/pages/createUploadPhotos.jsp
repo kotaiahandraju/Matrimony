@@ -5,15 +5,22 @@
 <link rel="stylesheet" href="${baseurl}/css/jquery.awesome-cropper.css">
 <link href="${baseurl}/css/imgareaselect-default.css" rel="stylesheet" media="screen">
 <style>
-.imgareaselect-outer {
- background-color: #fff;
+ .imgareaselect-border1, .imgareaselect-border2, .imgareaselect-border3, .imgareaselect-border4 {
     filter: alpha(opacity=50);
     opacity: 0.5;
 }
+.imgareaselect-outer {
+
+ background-color: #fff;
+    filter: alpha(opacity=50);
+    
+} 
 canvas{display:none}
 </style>
 
-<div class="col-md-8">
+				<div class="col-md-5 col-sm-12"></div>
+	            <div  class="clearfix"></div>    
+<div class="col-md-3"></div><div class="col-md-8">
 			   	<fieldset>
 			   		
 			   		<div id="secondForm">

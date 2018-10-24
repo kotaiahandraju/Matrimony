@@ -24,19 +24,19 @@ width:120px;
 					    </div>
 					    <div class="form-group">
 					      <label class="col-md-4 control-label" for="textinput">Father Name</label>			  
-					      <div class="col-md-8">
+					      <div class="col-md-3">
 					      	<form:input path="fatherName" class="form-control onlyCharacters" placeholder="Enter Father Name"/>
 					      </div>
 					    </div>
 					    <div class="form-group">
 					      <label class="col-md-4 control-label" for="textinput">Mother Name</label>  
-					      <div class="col-md-8">
+					      <div class="col-md-3">
 					      	<form:input path="motherName" class="form-control onlyCharacters" placeholder="Enter Mother Name"/>
 					      </div>
 					    </div>
 					    <div class="form-group">
 					      <label class="col-md-4 control-label" for="textinput">Father's Occupation</label>  
-					      <div class="col-md-8">
+					      <div class="col-md-3">
 					      	<form:select path="fOccupation" class="form-control u1" >
 						<form:options items="${maleOccupation}"></form:options>
 							</form:select>
@@ -45,7 +45,7 @@ width:120px;
 					    
 					    <div class="form-group">
 					      <label class="col-md-4 control-label" for="textinput">Mother's Occupation</label>  
-					      <div class="col-md-8">
+					      <div class="col-md-3">
 					      	<form:select path="mOccupation" class="form-control u1" >
 					      	<form:options items="${occupation}"></form:options>
 							</form:select>
@@ -63,7 +63,7 @@ width:120px;
 								<form:option value="3">3</form:option>
 							</form:select>
 					      </div>
-					      <label class="col-md-2">of whom</label>
+					      <label class="col-md-2" align="right">of whom</label>
 					      <div class="col-md-2">
 					      	<form:select path="noOfBrothersMarried" class="form-control u1 non">
 								<form:option value="">-- Select --</form:option>
@@ -84,7 +84,7 @@ width:120px;
 								<form:option value="3">3</form:option>
 							</form:select>
 					      </div>
-					      <label class="col-md-2">of whom</label>
+					      <label class="col-md-2" align="right">of whom</label>
 					      <div class="col-md-2">
 					      	<form:select path="noOfSistersMarried" class="form-control u1 non">
 								<form:option value="">-- Select --</form:option>
@@ -102,7 +102,7 @@ width:120px;
 					<!--     	<button type="button" id="skipsecondButton" class="btn2 btn btn-info" onclick="skip()">Skip</button> -->
 					    	<a  class="btn btn-success " href="${baseurl}/users/uploadPhotos">&nbsp;&nbsp;Skip</a>
 					      </div>
-					    </div>
+					    </div><br>
 					</div>
 					<!-- 2nd Step ends here-->
 				</form:form>
