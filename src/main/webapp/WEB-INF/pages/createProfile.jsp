@@ -687,7 +687,7 @@ function getReliginCastAjax() {
 	});
 }
 
-var ss =new Date().getFullYear()-18;
+/* var ss =new Date().getFullYear()-18;
 $("#dob").datepicker({
     dateFormat: "dd-MM-yy",
     changeDate : true,
@@ -696,7 +696,19 @@ $("#dob").datepicker({
 // 	maxDate :0,
 	yearRange: '1950:' + ss
 });
-$('#tob').mdtimepicker(); //Initializes the time picker
+$('#tob').mdtimepicker(); */ //Initializes the time picker
+
+$("#dob").datepicker({
+    dateFormat: "dd-MM-yy",
+    changeDate : true,
+	changeMonth : true,
+	changeYear : true,
+	minDate: "-50Y",
+	maxDate: "-18Y",
+	yearRange: "-65:+0"
+// 	maxDate :0,
+// 	 defaultDate: '01-01-1970'
+}); 
 
 function validate(id, errorMessage)
 {
