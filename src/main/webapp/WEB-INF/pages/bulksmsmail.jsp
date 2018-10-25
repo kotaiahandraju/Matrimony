@@ -39,7 +39,7 @@ border-radius:0px !important;}
 			<div class="col-md-12">
 				<div class="portlet" id="yw0" class="">
 					<div class="portlet-content w3-animate-zoom">
-						<form:form modelAttribute="usersForm" class="form-horizontal" action="submitbulkmessage" role="form" id="branch-form"  method="post">								
+						<form:form modelAttribute="usersForm" class="form-horizontal" action="submitbulkmessage" role="form" id="bodyType-form"  method="post">								
 							<div class="row">
 					  			<div class="col-md-12">
 					  			<div class="form-group">
