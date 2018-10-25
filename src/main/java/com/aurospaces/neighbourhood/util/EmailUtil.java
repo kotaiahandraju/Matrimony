@@ -989,12 +989,20 @@ try{
 					   
 					   body = body.replace("_senderphoto_", "cid:senderimage");
 					   body = body.replace("_img_", "cid:image2");
+					   if (((String)emailEntry.get("type")).equalsIgnoreCase("welcome_mail")){
+						   subject =  (String)emailEntry.get("receiver_display_name")+(String)emailEntry.get("shortstr");
+						   body = prop.getProperty("welcome_mail_body"); 
 						body = body.replace("_bodyimage_", "cid:image3");
-						/*body = body.replace("_img1_", "cid:img1");
+					   }
+					   if(((String)emailEntry.get("type")).equalsIgnoreCase("active_profile_mail")) {
+						   subject =  (String)emailEntry.get("receiver_display_name")+(String)emailEntry.get("shortstr");
+						   body = prop.getProperty("active_profile_mail_body"); 
+						body = body.replace("_img1_", "cid:img1");
 						body = body.replace("_img2_", "cid:img2");
 						body = body.replace("_img3_", "cid:img3");
 						body = body.replace("_img4_", "cid:img4");
-						body = body.replace("_img5_", "cid:img5");*/
+						body = body.replace("_img5_", "cid:img5");
+					   }
 						String str = body.toString();
 				        // inline images
 				        Map<String, String> inlineImages = new HashMap<String, String>();
@@ -1009,12 +1017,20 @@ try{
 				        	inlineImages.put("senderimage", objContext.getRealPath("img" +File.separator+"default.png"));
 				        }
 				        inlineImages.put("image2", objContext.getRealPath("images" +File.separator+"logo.jpg"));
+				        if (((String)emailEntry.get("type")).equalsIgnoreCase("welcome_mail")){
+							   subject =  (String)emailEntry.get("receiver_display_name")+(String)emailEntry.get("shortstr");
+							   body = prop.getProperty("welcome_mail_body"); 
 				        inlineImages.put("image3", objContext.getRealPath("images" +File.separator+"matri.jpg"));
-				        /*inlineImages.put("img1", objContext.getRealPath("images" +File.separator+"img1.jpg"));
+				        }
+				        if(((String)emailEntry.get("type")).equalsIgnoreCase("active_profile_mail")) {
+							   subject =  (String)emailEntry.get("receiver_display_name")+(String)emailEntry.get("shortstr");
+							   body = prop.getProperty("active_profile_mail_body"); 
+				        inlineImages.put("img1", objContext.getRealPath("images" +File.separator+"img1.jpg"));
 				        inlineImages.put("img2", objContext.getRealPath("images" +File.separator+"img2.jpg"));
 				        inlineImages.put("img3", objContext.getRealPath("images" +File.separator+"img3.jpg"));
 				        inlineImages.put("img4", objContext.getRealPath("images" +File.separator+"img4.jpg"));
-				        inlineImages.put("img5", objContext.getRealPath("images" +File.separator+"img5.jpg"));*/
+				        inlineImages.put("img5", objContext.getRealPath("images" +File.separator+"img5.jpg"));
+				        }
 				            EmbeddedImageEmailUtil.send(host, port, mailFrom, password, mailTo,
 				                subject, body.toString(), inlineImages);
 				            System.out.println("Email sent.");

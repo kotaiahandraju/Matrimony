@@ -112,7 +112,7 @@ function imageAjax(){
 		  	}
 		  	$("#uploadBtn").removeAttr("disabled");
 	   		$("#uploadBtn").val("Upload Photo");
-	   	// window.location.href="${baseurl}/users/partner-profile";
+	   	window.location.href="${baseurl}/users/partner-profile";
 		});
 	}
 }

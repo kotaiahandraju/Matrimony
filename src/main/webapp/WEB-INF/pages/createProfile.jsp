@@ -687,14 +687,15 @@ function getReliginCastAjax() {
 	});
 }
 
-var ss =new Date().getFullYear()-18;
+// var ss =new Date().getFullYear()-18;
 $("#dob").datepicker({
-    dateFormat: "dd-MM-yy",
-    changeDate : true,
-	changeMonth : true,
-	changeYear : true,
-// 	maxDate :0,
-	yearRange: '1950:' + ss
+	 dateFormat: "dd-MM-yy",
+     changeDate : true,
+ 	changeMonth : true,
+ 	changeYear : true,
+	minDate: "-50Y",
+	maxDate: "-18Y",
+	yearRange: "-65:+0"
 });
 $('#tob').mdtimepicker(); //Initializes the time picker
 

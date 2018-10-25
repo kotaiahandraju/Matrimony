@@ -1512,7 +1512,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 					</div>
 				</div>
 				<div class="col-md-4 quality">
-					<div class="strip-content">
+Enter atleast one alphabet letter					<div class="strip-content">
 						<img src="nimages/quality-icon.png" alt="Aarna Matrimony">
 						<h2>Quality</h2>
 						<p>Quality is our motto. Our profiles are completely verified
@@ -2365,10 +2365,10 @@ $('img').bind('contextmenu', function(e) {
     	    		//alert("exist");
     	    		return false;
     	    	}
-    	    	var validPwd = validatePassword();
-    	    	if(!validPwd){
-    	    		return false;
-    	    	}
+//     	    	var validPwd = validatePassword();
+//     	    	if(!validPwd){
+//     	    		return false;
+//     	    	}
     			
 //     		 	$("#firstForm").css({'display':'none'})`	
 //     			$('#secondForm').css({'display':'block'});
@@ -2647,30 +2647,30 @@ $('img').bind('contextmenu', function(e) {
 });
     
    
-    function validatePassword(){
+//     function validatePassword(){
     	
     	
-  	   var str = $("#regPassword").val();
-  	   var upper_text= new RegExp('[A-Z]');
-  	   var lower_text= new RegExp('[a-z]');
-  	   var number_check=new RegExp('[0-9]');
-  	   var special_char= new RegExp('[!/\'^£$%&*()}{@#~?><>,|=_+¬-\]');
+//   	   var str = $("#regPassword").val();
+//   	   var upper_text= new RegExp('[A-Z]');
+//   	   var lower_text= new RegExp('[a-z]');
+//   	   var number_check=new RegExp('[0-9]');
+//   	   var special_char= new RegExp('[!/\'^£$%&*()}{@#~?><>,|=_+¬-\]');
   	   
-  	   var upper_text_flag = false;
-  	   var lower_text_flag = false;
-  	   var number_check_flag = false;
-  	   var special_char_flag = false;
-  	   var min_length_flag = false;
-  	   if(str.match(upper_text) || str.match(lower_text)){
-  		 upper_text_flag = true;
-  		 $("#password_error_div").html('');
-  		$("#password_error_div").attr("hidden",true);
-  	   }else{
-  		   $("#password_error_div").html('');
-  		   $("#password_error_div").html('Enter atleast one alphabet letter');
-  		   $("#password_error_div").removeAttr("hidden");
-  		   return false;  
-  	   }
+//   	   var upper_text_flag = false;
+//   	   var lower_text_flag = false;
+//   	   var number_check_flag = false;
+//   	   var special_char_flag = false;
+//   	   var min_length_flag = false;
+//   	   if(str.match(upper_text) || str.match(lower_text)){
+//   		 upper_text_flag = true;
+//   		 $("#password_error_div").html('');
+//   		$("#password_error_div").attr("hidden",true);
+//   	   }else{
+//   		   $("#password_error_div").html('');
+//   		   $("#password_error_div").html('Enter atleast one alphabet letter');
+//   		   $("#password_error_div").removeAttr("hidden");
+//   		   return false;  
+//   	   }
   	 
   	   /* if(str.match(lower_text)){
   		   lower_text_flag = true;
@@ -2683,41 +2683,41 @@ $('img').bind('contextmenu', function(e) {
   		   return false;  
   	   } */
   	   
-  	   if(str.match(number_check)){
-  		   number_check_flag = true;
-  		 	$("#password_error_div").html('');
-	   		$("#password_error_div").attr("hidden",true);
-  	   }else{
-  		   $("#password_error_div").html('');
-  		   $("#password_error_div").html('Enter atleast one number');
-  		   $("#password_error_div").removeAttr("hidden");
-  		   return false;  
-  	   }
+//   	   if(str.match(number_check)){
+//   		   number_check_flag = true;
+//   		 	$("#password_error_div").html('');
+// 	   		$("#password_error_div").attr("hidden",true);
+//   	   }else{
+//   		   $("#password_error_div").html('');
+//   		   $("#password_error_div").html('Enter atleast one number');
+//   		   $("#password_error_div").removeAttr("hidden");
+//   		   return false;  
+//   	   }
   	   
-  	   if(str.match(special_char)){
-  		   special_char_flag = true;
-  		 	$("#password_error_div").html('');
-	   		$("#password_error_div").attr("hidden",true);
-  	   }else{
-  		   $("#password_error_div").html('');
-  		   $("#password_error_div").html('Enter atleast one special character');
-  		   $("#password_error_div").removeAttr("hidden");
-  		   return false;  
-  	   }
+//   	   if(str.match(special_char)){
+//   		   special_char_flag = true;
+//   		 	$("#password_error_div").html('');
+// 	   		$("#password_error_div").attr("hidden",true);
+//   	   }else{
+//   		   $("#password_error_div").html('');
+//   		   $("#password_error_div").html('Enter atleast one special character');
+//   		   $("#password_error_div").removeAttr("hidden");
+//   		   return false;  
+//   	   }
   	   
-  	   if(str.trim().length>=8){
-  		   min_length_flag = true;
-  			 $("#password_error_div").html('');
-	   		$("#password_error_div").attr("hidden",true);
-  	   }else{
-  		   $("#password_error_div").html('');
-  		   $("#password_error_div").html('Should contain minimum 8 characters');
-  		   $("#password_error_div").removeAttr("hidden");
-  		   return false;  
-  	   }
-  	   //$("#regPassword").val(str);
-  	   return true; 
-     }
+//   	   if(str.trim().length>=8){
+//   		   min_length_flag = true;
+//   			 $("#password_error_div").html('');
+// 	   		$("#password_error_div").attr("hidden",true);
+//   	   }else{
+//   		   $("#password_error_div").html('');
+//   		   $("#password_error_div").html('Should contain minimum 8 characters');
+//   		   $("#password_error_div").removeAttr("hidden");
+//   		   return false;  
+//   	   }
+//   	   //$("#regPassword").val(str);
+//   	   return true; 
+//      }
   	   
      $("#regPassword").on("keypress", function(e) {
     	 if (e.which == 32)

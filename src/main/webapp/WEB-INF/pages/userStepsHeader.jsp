@@ -13,7 +13,7 @@
     <meta name="author" content="Aarna Matrimony">
 
     <title>Aarna Matrimony</title>
-    <link rel="shortcut icon" href="img/aarna-fav.png"/>
+    <link rel="shortcut icon" href="${baseurl }/img/aarna-fav.png" />
 
     <!-- Bootstrap core CSS -->
     <link href="${baseurl }/user/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
