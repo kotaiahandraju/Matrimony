@@ -543,7 +543,34 @@ public class FilterController {
 		}
 		return "aarnaPremiumProfile";
 	}
+	@RequestMapping(value = "/launchingProfile")
+	public String launchingProfile(@ModelAttribute("createProfile") UsersBean objUsersBean, ModelMap model,
+			HttpServletRequest request, HttpSession session, RedirectAttributes redir) {
+		List<Map<String, String>> listOrderBeans = null;
+		ObjectMapper objectMapper = null;
+		String sJson = null;
+		try {
+			listOrderBeans = objUsersDao.getAllProfiles1(objUsersBean, "LAUNCHING_OFFER");
+			if (listOrderBeans != null && listOrderBeans.size() > 0) {
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(listOrderBeans);
+				request.setAttribute("allOrders1", sJson);
+				// System.out.println(sJson);
+			} else {
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(listOrderBeans);
+				request.setAttribute("allOrders1", "''");
+			}
 
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			logger.error(e);
+			logger.fatal("error in CountriesController class CountriesHome method  ");
+			return "CreateProfile";
+		}
+		return "launchingProfile";
+	}
 	@RequestMapping(value = "/PremiumPlusProfile")
 	public String premiumPlusProfile(@ModelAttribute("createProfile") UsersBean objUsersBean, ModelMap model,
 			HttpServletRequest request, HttpSession session, RedirectAttributes redir) {

@@ -272,12 +272,56 @@ tooltip:hover:after {
 		}
 	
 		
+.watermarkcontent span{
+opacity : 0.7;
+}
+.watermarkcontent_profilepic {
+  position: absolute; /* Position the background text */
+  top: -15px; /* At the bottom. Use top:0 to append it to the top */
+  //background: rgb(0, 0, 0); /* Fallback color */
+  //background: rgba(0, 0, 0, 0.5); /* Black background with 0.5 opacity */
+  color: white; /* Grey text */
+  width: 100%; /* Full width */
+  padding: 10px; /* Some padding */
+  transform: rotate(90deg);
+//transform-origin: left top 0;
+width : 0;
+}
+.watermarkcontent_profilepic span{
+opacity : 0.6;
+font-size : 13px;
+}
 
-
+.watermarkcontent_fullpic {
+  position: absolute; /* Position the background text */
+  top: -15px; /* At the bottom. Use top:0 to append it to the top */
+  //background: rgb(0, 0, 0); /* Fallback color */
+  //background: rgba(0, 0, 0, 0.5); /* Black background with 0.5 opacity */
+  color: white; /* Grey text */
+  //width: 100%; /* Full width */
+  padding: 10px; /* Some padding */
+  transform: rotate(90deg);
+//transform-origin: left top 0;
+width : 0;
+}
+.watermarkcontent_fullpic span{
+opacity : 0.3;
+font-size : 45px;
+}
 
 		</style>
 		
 		<script type="text/javascript">
+		/* $(function() {
+		    var text_height = $('.watermarkcontent_profilepic span').width() + 14 ;
+		    var image_height = $('.profileauto').height() ;
+			while( $('.watermarkcontent_profilepic span').width() > $('.profileauto').height() ) {
+		        $('.watermarkcontent_profilepic span').css('font-size', (parseInt($('.watermarkcontent_profilepic span').css('font-size')) - 1) + "px" );
+		    }
+		    while( $('.watermarkcontent_profilepic span').width() < $('.profileauto').height() ) {
+		        $('.watermarkcontent_profilepic span').css('font-size', (parseInt($('.watermarkcontent_profilepic span').css('font-size')) + 1) + "px" );
+		    }
+		}); */
 			$(document).ready(function(){ 
 			
 			$(window).scroll(function(){
@@ -302,13 +346,14 @@ tooltip:hover:after {
 	  addWaterMark();
 	  watermark_text_fullimg();
 	 });
+	var v1 = 40;var v2 = 40;
 	 function addWaterMark(){
 		  $('.watermark_text').watermark({
 			  text: 'aarnamatrimony.com',
 			  textWidth: 700,
-			  textSize: 76,
+			  textSize: v1+v2,
 			  textColor: 'white',
-			  gravity: 'n',
+			  gravity: 'w',
 			   opacity: 0.8,
 			   //margin: 0,
 			   outputWidth: 'auto',
@@ -953,7 +998,7 @@ tooltip:hover:after {
 									displayStyle = ' style="display:none;" ';
 								}
 								slider += '<div class="picstyle smallSlides'+orderObj.id+'" '+displayStyle+'>'
-										+'	<a href="#" onclick="fullProfile('+orderObj.id+')">	<img src="${catalina_base}/'+photosArray[index]+'" class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: 140px;width: 100%;" >'
+										+'	<a href="#" onclick="fullProfile('+orderObj.id+')">	<img src="${catalina_base}/'+photosArray[index]+'" class="img img-responsive thumbnail " style="margin-bottom:0;height: 140px;width: 100%;" >'
 										+'</div>'
 							});
 							if(photosArray.length>1){
@@ -1016,6 +1061,9 @@ tooltip:hover:after {
 						+ '<div class="col-md-3 picstyle" style="padding-left:0px; padding-right:0px;">'
 						//+ '<a href="#no"> <img src='+image+' class="img img-responsive thumbnail" style="width: 150px; height: 120px;"></a>'
 						+ slider
+						+ '<div class="watermarkcontent">'
+						+ '<span>aarnamatrimony.com</span>'
+						+ '</div>	'
 		            	+ '</div>'
 		            	+ '<div class="col-md-4">'
 		  				+ mobile_num_Str
@@ -4013,7 +4061,10 @@ img.hover-shadow {
                 	<ul class="slider-relative" >
 						<c:forEach items="${logged_in_user_photosList}" var="photo" >
 					      	<li class="slide fix-width">
-	                            <img src="${catalina_base}/${photo.folder_name}/full-images/${photo.image_name}" alt="" class="watermark_text_fullimg">
+	                            <img src="${catalina_base}/${photo.folder_name}/full-images/${photo.image_name}" alt="" class="">
+	                            <div class="watermarkcontent_fullpic">
+									<span>aarnamatrimony.com</span>
+								</div>
 	                        </li>
 						</c:forEach>
                     
