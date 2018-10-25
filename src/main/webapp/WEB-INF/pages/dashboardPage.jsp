@@ -402,7 +402,7 @@ padding-right:0px;
 					<div class="panel-heading"><b>Preferred Profiles</b> </div>
 		            <form:form commandName="createProfile"  class="form-horizontal" id="searchForm2" name="searchForm2" role="form"   method="post">
 	             		<form:hidden path="id" />
-	             			<div class="panel-body" id="matches" style="overflow-y:scroll; max-height: 350px">
+	             			<div class="panel-body" id="matches" style="overflow:hidden; max-height: 350px">
 	             		
 							
 							</div>
@@ -433,7 +433,7 @@ padding-right:0px;
 					<div class="panel-heading"><b>Latest Updates</b> </div>
 		            <form:form commandName="createProfile"  class="form-horizontal" id="searchForm3" name="searchForm3" role="form"   method="post">
 	             		<form:hidden path="id" />
-	             			<div class="panel-body" id="matches_updated" style="overflow-y:scroll; max-height: 250px">
+	             			<div class="panel-body" id="matches_updated" style="overflow:hidden; max-height: 210px">
 	             		
 							
 							</div>

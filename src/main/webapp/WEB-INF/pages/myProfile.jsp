@@ -860,7 +860,7 @@ $(".onlyCharacters").on("keypress",	function(event) {
     </td>
 </tr>
  <tr>
-    <td>Mothertongue</td><td>:</td>
+    <td>Mother Tongue</td><td>:</td>
     <td id="rMotherTongue_val">
         <c:if test="${not empty profileBean.rMotherTongueName}">${profileBean.rMotherTongueName}</c:if>
         <c:if test="${empty profileBean.rMotherTongueName}">Not Specified</c:if>
