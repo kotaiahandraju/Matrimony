@@ -1427,7 +1427,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 						<h4>Age</h4>
 						<!-- <span>From </span> -->
 						<form:select path="rAgeFrom" id="rAgeFrom" name="rAgeFrom"
-							class="for-control" style="width:60px;">
+							class="for-control" style="width:66px;">
 							<option value="" selected>From &nbsp;&nbsp;</option>
 							<option value="18">18</option>
 							<option value="19">19</option>
