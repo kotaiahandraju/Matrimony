@@ -550,7 +550,7 @@ public class FilterController {
 		ObjectMapper objectMapper = null;
 		String sJson = null;
 		try {
-			listOrderBeans = objUsersDao.getAllProfiles1(objUsersBean, "aarna_premium");
+			listOrderBeans = objUsersDao.getAllProfiles1(objUsersBean, "LAUNCHING_OFFER");
 			if (listOrderBeans != null && listOrderBeans.size() > 0) {
 				objectMapper = new ObjectMapper();
 				sJson = objectMapper.writeValueAsString(listOrderBeans);
