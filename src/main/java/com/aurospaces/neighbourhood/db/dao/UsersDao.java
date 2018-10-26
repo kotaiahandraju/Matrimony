@@ -4597,7 +4597,7 @@ public boolean deletePhoto(String photoId){
 				+" from users u,"
 				+ " cast c,city ct,religion rl,education ed, occupation occ "
 				+ " where  occ.id=u.occupation "
-				+ "and  ct.id=u.currentCity  and ed.id=u.education and u.religion = rl.id ");
+				+ "and  ct.id=u.currentCity  and ed.id=u.education and u.religion = rl.id and u.caste = c.id ");
 		if(StringUtils.isNotBlank(searchCriteriaBean.getGender())) {
 			buffer.append(" and   u.gender = '"+searchCriteriaBean.getGender()+"'"); 
 		}
@@ -4633,7 +4633,7 @@ public boolean deletePhoto(String photoId){
 				+" from users u,"
 				+ "cast c,city ct,religion rl,education ed, occupation occ "
 				+ " where occ.id=u.occupation "
-				+ " and ct.id=u.currentCity  and ed.id=u.education and u.religion=rl.id ");
+				+ " and ct.id=u.currentCity  and ed.id=u.education and u.religion=rl.id and u.caste = c.id ");
 		if(list_type.equals("religion")) {
 //			buffer.append (ur.rReligion = searchCriteriaBean.getReligionId() );
 			buffer.append("and u.religion='"+searchCriteriaBean.getId()+"'"); 
