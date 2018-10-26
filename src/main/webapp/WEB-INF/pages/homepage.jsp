@@ -1512,7 +1512,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 					</div>
 				</div>
 				<div class="col-md-4 quality">
-Enter atleast one alphabet letter					<div class="strip-content">
+					<div class="strip-content">
 						<img src="nimages/quality-icon.png" alt="Aarna Matrimony">
 						<h2>Quality</h2>
 						<p>Quality is our motto. Our profiles are completely verified
