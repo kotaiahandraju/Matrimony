@@ -294,19 +294,20 @@ font-size : 13px;
 
 .watermarkcontent_fullpic {
   position: absolute; /* Position the background text */
-  top: -15px; /* At the bottom. Use top:0 to append it to the top */
+  padding-top: 30%; /* At the bottom. Use top:0 to append it to the top */
   //background: rgb(0, 0, 0); /* Fallback color */
   //background: rgba(0, 0, 0, 0.5); /* Black background with 0.5 opacity */
   color: white; /* Grey text */
   //width: 100%; /* Full width */
-  padding: 10px; /* Some padding */
-  transform: rotate(90deg);
+  padding-left: 10px; /* Some padding */
+  transform: rotate(0deg);
 //transform-origin: left top 0;
-width : 0;
+width : 600px;
 }
 .watermarkcontent_fullpic span{
 opacity : 0.3;
 font-size : 45px;
+text-align:center;
 }
 
 		</style>
