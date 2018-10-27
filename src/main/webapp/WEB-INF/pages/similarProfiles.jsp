@@ -42,6 +42,13 @@ function displayMatches(listOrders) {
 		if(image == "" || image == null || image == "undefined"){
 			image = "${baseurl}/img/default.png";
 		}
+		var login_user_role_id = ${cacheGuest.roleId};
+		var firstname = '<img src="${baseurl}/images/blurr.png"/>',lastname='';
+		if((login_user_role_id == 6) || (login_user_role_id == 11) || (login_user_role_id == 12)
+				|| (login_user_role_id == 13) || (login_user_role_id == 14) || (login_user_role_id == 15)){ //means premium,premium_plus,aarna premium users
+			firstname = orderObj.firstName;
+			lastname = orderObj.lastName;
+		}
 		var shortListedStr = '<span id="shortlistTD'+orderObj.id+'"><a href="#no" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="shortList_dashboard('+orderObj.id+')"> Shortlist</a></span>';
 		if(orderObj.shortlisted == "1"){
 			shortListedStr = "<span>Shortlisted</span>";
@@ -71,7 +78,7 @@ function displayMatches(listOrders) {
        + 	"<img src='${catalina_base}/"+image+"' class='watermark_text img-responsive thumbnail ' >"
             + '</div>'
             + '<div class="col-md-10 col-xs-10">'
-            + ' <p>'+orderObj.firstName+'&nbsp;'+orderObj.lastName+','+orderObj.username+'&nbsp '+orderObj.age+' yrs,&nbsp; '+orderObj.religionName+', '+orderObj.castName+', '+orderObj.occupationName+', '+orderObj.currentCityName+', '+orderObj.currentCountryName+'. </p> '
+            + ' <p>'+firstname+'&nbsp;'+lastname+','+orderObj.username+'&nbsp '+orderObj.age+' yrs,&nbsp; '+orderObj.religionName+', '+orderObj.castName+', '+orderObj.occupationName+', '+orderObj.currentCityName+', '+orderObj.currentCountryName+'. </p> '
             + ' <p> '+interestStr+'|  <a href="#no" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" id="sendMail'+orderObj.id+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')">Send Mail</a> | <a href="#no" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="fullProfile('+orderObj.id+')"> Full Profile</a> '
             + ' | <span id="mobileTD'+orderObj.id+'">'+mobile_num_Str+'</span> | '+shortListedStr+'</p> '
             + '</div>'

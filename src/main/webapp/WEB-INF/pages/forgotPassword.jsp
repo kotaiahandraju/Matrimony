@@ -81,10 +81,10 @@ position:relative;
 		             			<div class="panel-body">
 		             				<div class="row" style="padding:20px">
 		             					<div class="col-md-20" >	
-			             				<input type="radio" name="sendTo"  value="emailTo" placeholder="Email To"> <span id="emailStr">Email new password to my registered email id.</span>
+			             				<input type="radio" name="sendTo"  value="emailTo" placeholder="Email To"> <span id="emailStr">New password send to my registered email id.</span>
 			             				</div>
 			             				<div class="col-md-20" id="mobile_option">	
-										<input type="radio" name="sendTo"  value="smsTo" placeholder="Email To"> <span id="mobileStr">SMS new password to my registered mobile number.</span>
+										<input type="radio" name="sendTo"  value="smsTo" placeholder="Email To"> <span id="mobileStr">New password send to my registered mobile number.</span>
 										</div><br>
 										<div class="col-md-20">	
 										<button type="button" class="btn btn-primary" onclick="checkVal(event);">Send</button>

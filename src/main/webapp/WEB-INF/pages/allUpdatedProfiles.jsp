@@ -43,6 +43,18 @@ function displayMatches(listOrders) {
 		}else{
 			image = "${catalina_base}/"+image_path;
 		}
+		
+		var login_user_role_id = ${cacheGuest.roleId};
+		var firstname = '<img src="${baseurl}/images/blurr.png"/>',lastname='';
+		if((login_user_role_id == 6) || (login_user_role_id == 11) || (login_user_role_id == 12)
+				|| (login_user_role_id == 13) || (login_user_role_id == 14) || (login_user_role_id == 15)){ //means premium,premium_plus,aarna premium users
+		
+			firstname = orderObj.firstName;
+			lastname = orderObj.lastName;
+			//mobile_no__str = '<tr id="row'+orderObj.id+'"><td><button type="button" class="btn1 btn btn-info"  id="mobileBtn'+orderObj.id+'" onclick="displayMobileNum('+orderObj.id+',\'preferences\')">View Mobile Number</button></td></tr>';
+			//more_details_str = '<tr><td><span><a href="#no" onclick="showMoreDetails(this)">read more...</a></span></td></tr>';
+			//mobile_no__str = '<tr><td><span><a href="#no" onclick="viewMobileNumber('+orderObj.id+')">View Mobile Number</a></span></td></tr>';
+		}
 		var shortListedStr = '<span id="shortlistTD'+orderObj.id+'"><a href="#no" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="shortList_dashboard('+orderObj.id+')"> Shortlist</a></span>';
 		if(orderObj.shortlisted == "1"){
 			shortListedStr = "<span>Shortlisted</span>";
@@ -79,7 +91,7 @@ function displayMatches(listOrders) {
        + 	"<img src='"+image+"' class='watermark_text img-responsive thumbnail ' >"
             + '</div>'
             + '<div class="col-md-10 col-xs-10">'
-            + ' <p>'+orderObj.firstName+'&nbsp;'+orderObj.lastName+','+orderObj.username+'&nbsp;( '+orderObj.agee+' yrs,&nbsp; '+orderObj.heightInches+' ) &nbsp;'+Content+'  </p> '
+            + ' <p>'+firstname+'&nbsp;'+lastname+','+orderObj.username+'&nbsp;( '+orderObj.agee+' yrs,&nbsp; '+orderObj.heightInches+' ) &nbsp;'+Content+'  </p> '
             + ' <p> '+interestStr+'| <a href="#no" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="fullProfile('+orderObj.id+')"> Full Profile</a> '
             + '</div>'
             + '<div class="clearfix" style="border-bottom:1px solid #f1f11;margin-bottom:5px;"></div>'
