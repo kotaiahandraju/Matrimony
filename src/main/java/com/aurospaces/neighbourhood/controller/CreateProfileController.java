@@ -449,7 +449,7 @@ public class CreateProfileController {
 			        } catch (IOException e) {
 			            System.out.println("error : " + e);
 			        }
-//			        filepath= "img/"+filepath;
+			        //filepath= "img/"+filepath;
 			        filepath= "aarna-user-images/"+filepath;
 			        objJson.put("image_path", filepath);
 			        objUerImagesBean.setImage(filepath);

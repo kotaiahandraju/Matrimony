@@ -607,7 +607,7 @@ public class HomePageController {
 					            System.out.println("error : " + e);
 					        }
 						  
-//					        filepath= "img/"+filepath;
+					        //filepath= "img/"+filepath;
 					        filepath= "aarna-user-images/"+filepath;
 					        objJson.put("image_path", filepath);
 					        objUerImagesBean.setImage(filepath);
@@ -2748,6 +2748,7 @@ String sJson="";
 					boolean success = objUsersDao.upgradeUser(userId, roleId,packageId);
 					if(success){
 						userSessionBean.setRoleId(roleId);
+						userSessionBean.setMembership_status("1");
 						session.setAttribute("cacheGuest",userSessionBean);
 					}
 						

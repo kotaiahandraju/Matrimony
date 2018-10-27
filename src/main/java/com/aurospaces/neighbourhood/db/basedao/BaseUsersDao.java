@@ -156,6 +156,8 @@ ps.setString(52, unique_code);
 				String settings_insert = "insert into user_settings(created_time,updated_time,user_id,product_promotion_emails,daily_matches_emails,weekly_matches_emails,auto_login,contact_filter,marketing_calls_permission) "
 						+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','"+new java.sql.Timestamp(new DateTime().getMillis())+"',"+users.getId()+",'1','0','1','1','anyone','1m'  ) "; 
 				jdbcTemplate.update(settings_insert);
+				// set opt status to 1 if it is created by admin
+				this.updateOtpStatus(users.getMobile(), "0", users.getId()+"");
 		}
 		else
 		{
@@ -236,4 +238,20 @@ ps.setString(52, unique_code);
 				return true;
 			return false;
 		}
+	 
+	 public boolean updateOtpStatus(String mobileNum,String otp,String user_id){
+			jdbcTemplate = custom.getJdbcTemplate();
+			String qryStr = "update user_otps set status='1', updated_time = '"+new java.sql.Timestamp(new DateTime().getMillis())+"' where mobile_no = "+mobileNum+" and user_id = "+user_id+" and otp = "+otp+" and date(updated_time) = current_date() ";
+			try{
+				int updated_count = jdbcTemplate.update(qryStr);
+				if(updated_count==1)
+					return true;
+				
+			}catch(Exception e){
+				e.printStackTrace();
+				return false;
+			}
+			return false;
+		}
+		
 }
