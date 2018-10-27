@@ -178,7 +178,7 @@ s.parentNode.insertBefore(ga, s);
  function displayTable(listOrders) {
 		$('#tableId').html('');
 		var tableHead = '<table class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,text,text,text,text,null">'
-			+ '<thead><tr><th>created</th><th>UserName</th><th>First Name</th><th>Last Name</th><th>Gender</th><th>Email</th><th>Mobile</th><th>Age</th><th>Caste</th><th>Package</th><th></th></tr></thead><tbody></tbody></table>';
+			+ '<thead><tr><th>Created On</th><th>UserName</th><th>First Name</th><th>Last Name</th><th>Gender</th><th>Email</th><th>Mobile</th><th>Age</th><th>Caste</th><th>Package</th><th></th></tr></thead><tbody></tbody></table>';
 		$('#tableId').html(tableHead);
 		serviceUnitArray = {};
 		$.each(listOrders,function(i, orderObj) {
@@ -215,7 +215,7 @@ s.parentNode.insertBefore(ga, s);
 								}
 								
 							var tblRow = "<tr >"
-								+ "<td title='"+orderObj.created_time+"'>" + orderObj.created_time + "</td>"
+								+ "<td title='"+orderObj.created_time_str+"'>" + orderObj.created_time_str + "</td>"
 								+ username
 								+ "<td title='"+orderObj.firstName+"'>" + orderObj.firstName + "</td>"
 								+ "<td title='"+orderObj.lastName+"'>" + orderObj.lastName + "</td>"

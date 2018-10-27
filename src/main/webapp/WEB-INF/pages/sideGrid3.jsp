@@ -142,6 +142,7 @@ margin-bottom:0px;}
 							</select> -->
 							<form:form commandName="createProfile"  class="form-horizontal" id="quickSearchForm" name="quickSearchForm" role="form" method="post">
 						<form:hidden path="id" />
+						<form:hidden path="rReligion" />
 							<h4>Age  </h4>   
        <span>From </span> <form:select path="rAgeFrom"    class="for-control"  style="width:60px;">
 						            <option value="18">18</option>
@@ -214,7 +215,7 @@ margin-bottom:0px;}
 									<option value="50">50</option>					
 					</form:select>
 					<h4> Religion </h4> 
-          <form:select path="religion" id="religionId" onchange="getReliginCastAjaxSearch();" class=" form-control" >
+          <form:select path="religionId"  onchange="getReliginCastAjaxSearch();" class=" form-control" >
 								<form:option value="">Religion &nbsp;&nbsp;</form:option>
 								<form:options items="${religion}"></form:options>
 							</form:select>
