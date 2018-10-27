@@ -369,9 +369,9 @@
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group">
-									<label class="col-sm-4 control-label required">As </label>
+									<label class="col-sm-4 control-label required">As <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-										<form:select path="occupation" class="form-control u">
+										<form:select path="occupation" class="form-control u validate">
 											<form:option value="">-- Choose Occupation --</form:option>
 											<form:options items="${occupation}"></form:options>
 										</form:select>
@@ -391,7 +391,11 @@
 											<form:option value="Upto INR 1 Lakh">Upto INR 1 Lakh</form:option>
 											<form:option value="INR 2 Lakh to 4 Lakh">INR 2 Lakh to 4 Lakh</form:option>
 											<form:option value="INR 5 Lakh to 7 Lakh">INR 5 Lakh to 7 Lakh</form:option>
-											<form:option value="Above INR 7 Lakh">Above INR 7 Lakh</form:option>
+											<form:option value="INR 8 Lakh to 10 Lakh">INR 8 Lakh to 10 Lakh</form:option>
+											<form:option value="INR 11 Lakh to 15 Lakh">INR 11 Lakh to 15 Lakh</form:option>
+											<form:option value="INR 16 Lakh to 20 Lakh">INR 16 Lakh to 20 Lakh</form:option>
+											<form:option value="INR 21 Lakh to 25 Lakh">INR 21 Lakh to 25 Lakh</form:option>
+											<form:option value="Above INR 25 Lakh">Above INR 25 Lakh</form:option>
 										</form:select>
 										<div><form:errors path="annualIncome" cssClass="error" /></div>
 									</div>
@@ -769,7 +773,7 @@ function submitSearch(){
 
 $("#submit11").click(function()
 {
-						if($('#email').val() ==  null || $('#email').val() == "" || $('#email').val()=="undefined"||$('#createProfileFor').val() ==  null || $('#createProfileFor').val() == ""  || $('#createProfileFor').val()=="undefined"||$('#lastName').val() ==  null || $('#lastName').val() == ""  || $('#lastName').val()=="undefined"||$('#dob').val() ==  null || $('#dob').val() == ""  || $('#dob').val()=="undefined"||$('#religion').val() ==  null || $('#religion').val() == ""  || $('#religion').val()=="undefined"||$('#motherTongue').val() ==  null || $('#motherTongue').val() == ""  || $('#motherTongue').val()=="undefined"||$('#currentCountry').val() ==  null || $('#currentCountry').val() == ""  || $('#currentCountry').val()=="undefined"||$('#currentState').val() ==  null || $('#currentState').val() == ""  || $('#currentState').val()=="undefined"||$('#currentCity').val() ==  null || $('#currentCity').val() == ""  || $('#currentCity').val()=="undefined"||$('#maritalStatus').val() ==  null || $('#maritalStatus').val() == ""  || $('#maritalStatus').val()=="undefined"||$('#caste').val() ==  null || $('#caste').val() == ""  || $('#caste').val()=="undefined"||$('#education').val() ==  null || $('#education').val() == ""  || $('#education').val()=="undefined"||$('#smoking').val() ==  null || $('#smoking').val() == ""  || $('#smoking').val()=="undefined"||$('#drinking').val() ==  null || $('#drinking').val() == ""  || $('#drinking').val()=="undefined"||$('#height').val() ==  null || $('#height').val() == ""  || $('#height').val()=="undefined"||$('#mobile').val() ==  null || $('#mobile').val() == ""  || $('#mobile').val()=="undefined"||$("input[name='gender']").is(':checked') != true||$("#mobile").val().length<10)
+						if($('#email').val() ==  null || $('#email').val() == "" || $('#email').val()=="undefined"||$('#createProfileFor').val() ==  null || $('#createProfileFor').val() == ""  || $('#createProfileFor').val()=="undefined"||$('#lastName').val() ==  null || $('#lastName').val() == ""  || $('#lastName').val()=="undefined"||$('#dob').val() ==  null || $('#dob').val() == ""  || $('#dob').val()=="undefined"||$('#religion').val() ==  null || $('#religion').val() == ""  || $('#religion').val()=="undefined"||$('#motherTongue').val() ==  null || $('#motherTongue').val() == ""  || $('#motherTongue').val()=="undefined"||$('#currentCountry').val() ==  null || $('#currentCountry').val() == ""  || $('#currentCountry').val()=="undefined"||$('#currentState').val() ==  null || $('#currentState').val() == ""  || $('#currentState').val()=="undefined"||$('#currentCity').val() ==  null || $('#currentCity').val() == ""  || $('#currentCity').val()=="undefined"||$('#maritalStatus').val() ==  null || $('#maritalStatus').val() == ""  || $('#maritalStatus').val()=="undefined"||$('#caste').val() ==  null || $('#caste').val() == ""  || $('#caste').val()=="undefined"||$('#education').val() ==  null || $('#education').val() == ""  || $('#education').val()=="undefined"||$('#occupation').val() ==  null || $('#occupation').val() == ""  || $('#occupation').val()=="undefined"||$('#smoking').val() ==  null || $('#smoking').val() == ""  || $('#smoking').val()=="undefined"||$('#drinking').val() ==  null || $('#drinking').val() == ""  || $('#drinking').val()=="undefined"||$('#height').val() ==  null || $('#height').val() == ""  || $('#height').val()=="undefined"||$('#mobile').val() ==  null || $('#mobile').val() == ""  || $('#mobile').val()=="undefined"||$("input[name='gender']").is(':checked') != true||$("#mobile").val().length<10)
 						{
 							 if($('#email').val() ==  null || $('#email').val() == ""  || $('#email').val()=="undefined" ) 
 							{
@@ -861,6 +865,13 @@ $("#submit11").click(function()
 								$('#education').css('border-color','#cc0000');
 								$('#education').attr('placeholder','Please Enter Education');
 								$('#education').addClass('placeholder-style');
+							}
+							if($('#occupation').val() ==  null || $('#occupation').val() == "" || $('#occupation').val()=="undefined") 
+							{
+								$('#occupation').css('color','#cc0000');
+								$('#occupation').css('border-color','#cc0000');
+// 								$('#occupation').attr('placeholder','Please Enter Education');
+								$('#occupation').addClass('placeholder-style');
 							}
 							if($('#smoking').val() ==  null || $('#smoking').val() == "" || $('#smoking').val()=="undefined") 
 							{

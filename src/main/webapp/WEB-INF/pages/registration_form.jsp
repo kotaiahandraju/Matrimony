@@ -176,7 +176,7 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-md-4 control-label" for="textinput">Your Annual Income <span class='manditory'></span></label>  
+							<label class="col-md-4 control-label" for="textinput">Your Annual Income <span class='manditory'>*</span></label>  
 							<div class="col-md-6">
 								<form:select path="annualIncome" class="form-control u" onblur="validate(this.id,'');" onfocus="removeBorder(this.id)">
 									<form:option value="">-- Annual Income --</form:option>
@@ -184,7 +184,11 @@
 									<form:option value="Upto INR 1 Lakh">Upto INR 1 Lakh</form:option>
 									<form:option value="INR 2 Lakh to 4 Lakh">INR 2 Lakh to 4 Lakh</form:option>
 									<form:option value="INR 5 Lakh to 7 Lakh">INR 5 Lakh to 7 Lakh</form:option>
-									<form:option value="Above INR 7 Lakh">Above INR 7 Lakh</form:option>
+									<form:option value="INR 5 Lakh to 7 Lakh">INR 7 Lakh to 10 Lakh</form:option>
+									<form:option value="INR 5 Lakh to 7 Lakh">INR 11 Lakh to 15 Lakh</form:option>
+									<form:option value="INR 5 Lakh to 7 Lakh">INR 16 Lakh to 20 Lakh</form:option>
+									<form:option value="INR 5 Lakh to 7 Lakh">INR 21 Lakh to 25 Lakh</form:option>
+									<form:option value="Above INR 7 Lakh">Above INR 25 Lakh</form:option>
 								</form:select>
 							</div>
 						</div>
@@ -451,7 +455,7 @@ function firstForm(event)
 
 function secondForm(event)
 {
-	if($('#education').val() ==  null || $('#education').val() == "" || $('#education').val()=="undefined" || $("#occupation").val()=="" || $('#occupation').val()=="undefined" || $('#occupation').val() ==  null) 
+	if($('#education').val() ==  null || $('#education').val() == "" || $('#education').val()=="undefined" || $("#occupation").val()==""  || $('#occupation').val() ==  null || $('#occupation').val()=="undefined" || $('#annualIncome').val() ==  null || $('#annualIncome').val() == "" || $('#annualIncome').val()=="undefined" ) 
 	{
 		if($('#education').val() ==  null || $('#education').val() == "" || $('#education').val()=="undefined" ) 
 		{			    
@@ -465,12 +469,12 @@ function secondForm(event)
 			$('#occupation').css('color','#cc0000');
 			$('#occupation').addClass('your-class');
 		}
-		 /* if($('#salaryperyear').val() ==  null || $('#salaryperyear').val() == "" || $('#salaryperyear').val()=="undefined" ) 
+	 if($('#annualIncome').val() ==  null || $('#annualIncome').val() == "" || $('#annualIncome').val()=="undefined" ) 
 		{			    
-			$('#salaryperyear').css('border-color','red');
-			$('#salaryperyear').css('color','#cc0000');
-			$('#salaryperyear').addClass('your-class');
-		} */ 
+			$('#annualIncome').css('border-color','red');
+			$('#annualIncome').css('color','#cc0000');
+			$('#annualIncome').addClass('your-class');
+		} 
 		event.preventDefault();
 		return false;
 	}
