@@ -402,10 +402,10 @@ public class CreateProfileController {
 				
 				
 				 String latestUploadPhoto = "";
-			        //String rootPath = request.getSession().getServletContext().getRealPath("/");
+			        String rootPath1 = request.getSession().getServletContext().getRealPath("/");
 				 	String rootPath = System.getProperty("catalina.base");
 				 	
-				 	File dir1 = new File(rootPath + File.separator + "img");
+				 	File dir1 = new File(rootPath1 + File.separator + "img");
 			        if (!dir1.exists()) {
 			            dir1.mkdirs();
 			        }

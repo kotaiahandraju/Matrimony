@@ -767,10 +767,14 @@ function searchResult(){
 	var ageFrom = $("#rAgeFrom").val();
 	var ageTo = $("#rAgeTo").val();
 	var maritalStatus = $("#rMaritalStatus").val();
-	var religion = $("#rReligion").val();
+	var religion = $("#religionId").val();
+	$("#rReligion").val(religion);
 	var caste = $("#rCaste").val();
 	if(ageFrom > ageTo){
 		alert("Sorry, Invalid Age range");
+		return false;
+	}
+	if(ageFrom=="" && ageTo=="" && religion==null &&  city==null){
 		return false;
 	}
 	else{
