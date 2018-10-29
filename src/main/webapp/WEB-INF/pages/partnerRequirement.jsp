@@ -323,7 +323,11 @@ background:#fff !important;}
 							<form:option value="Upto INR 1 Lakh">Upto INR 1 Lakh</form:option>
 							<form:option value="INR 2 Lakh to 4 Lakh">INR 2 Lakh to 4 Lakh</form:option>
 							<form:option value="INR 5 Lakh to 7 Lakh">INR 5 Lakh to 7 Lakh</form:option>
-							<form:option value="Above INR 7 Lakh">Above INR 7 Lakh</form:option>
+							<form:option value="INR 8 Lakh to 10 Lakh">INR 8 Lakh to 10 Lakh</form:option>
+							<form:option value="INR 11 Lakh to 15 Lakh">INR 11 Lakh to 15 Lakh</form:option>
+							<form:option value="INR 16 Lakh to 20 Lakh">INR 16 Lakh to 20 Lakh</form:option>
+							<form:option value="INR 21 Lakh to 25 Lakh">INR 21 Lakh to 25 Lakh</form:option>
+							<form:option value="Above INR 25 Lakh">Above INR 25 Lakh</form:option>
 						</form:select>
 				      </div>
 				    </div>

@@ -230,7 +230,8 @@ public class UsersDao extends BaseUsersDao
 					+"rHeight, rMaritalStatus, rReligion,re1.name as requiredReligionName, rCaste,c1.name as requiredCasteName, rMotherTongue,l1.name as requiredMotherTongue,haveChildren,rCountry , con1.name as requiredCountry,rState,rEducation,e1.name as requiredEducationName, "
 					+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,floor((datediff(current_date(),u.dob))/365) as age, IFNULL(p.name, 'Free Register') as planPackage,u.profileVerifyedBy, "
 					+" (select h.inches from height h where h.id = (select ur.rHeight from vuserrequirement ur where ur.userId = u.id)) as rHeightInches, "
-					+" (select h.inches from height h where h.id = (select ur.rHeightTo from vuserrequirement ur where ur.userId = u.id)) as rHeightToInches ,u.package_id "
+					+" (select h.inches from height h where h.id = (select ur.rHeightTo from vuserrequirement ur where ur.userId = u.id)) as rHeightToInches ,u.package_id,"
+					+ " DATE_FORMAT(u.created_time, '%d-%M-%Y') as created_time_str "
 					+"from users u left join userrequirement ur on u.id=ur.userId "
 					+"left join religion re on re.id=u.religion left join language l on l.id=u.motherTongue left join countries co on co.id=u.currentCountry "
 					+"left join cast c on c.id=u.caste left join star s on s.id =u.star left join height h on h.id=u.height left join body_type b on b.id=u.bodyType left join religion re1  on re1.id=rReligion "
@@ -302,7 +303,7 @@ public class UsersDao extends BaseUsersDao
 										"monthlyIncome","diet","smoking","drinking","height","inches","cm",
 										"bodyType","bodyTypeName","complexion","complexionName","mobile","aboutMyself","disability",
 										"status","showall","userId","rAgeFrom","rAgeTo","rHeight","rMaritalStatus","rReligion","requiredReligionName","rCaste","requiredCasteName","rMotherTongue","requiredMotherTongue","haveChildren","rCountry","requiredCountry","rState","rEducation","requiredEducationName",
-										"rWorkingWith","rOccupation","requiredOccupationName","rAnnualIncome","rCreateProfileFor","rDiet","dobString","age","planPackage","profileVerifyedBy","rHeightInches","rHeightToInches","package_id"});
+										"rWorkingWith","rOccupation","requiredOccupationName","rAnnualIncome","rCreateProfileFor","rDiet","dobString","age","planPackage","profileVerifyedBy","rHeightInches","rHeightToInches","package_id","created_time_str"});
 								jdbcTemplate.query(sql, handler);
 								List<Map<String, String>> result = handler.getResult();
 								return result;
@@ -4597,7 +4598,7 @@ public boolean deletePhoto(String photoId){
 				+" from users u,"
 				+ " cast c,city ct,religion rl,education ed, occupation occ "
 				+ " where  occ.id=u.occupation "
-				+ "and  ct.id=u.currentCity  and ed.id=u.education and u.religion = rl.id ");
+				+ "and  ct.id=u.currentCity  and ed.id=u.education and u.religion = rl.id and u.caste = c.id ");
 		if(StringUtils.isNotBlank(searchCriteriaBean.getGender())) {
 			buffer.append(" and   u.gender = '"+searchCriteriaBean.getGender()+"'"); 
 		}
@@ -4633,7 +4634,7 @@ public boolean deletePhoto(String photoId){
 				+" from users u,"
 				+ "cast c,city ct,religion rl,education ed, occupation occ "
 				+ " where occ.id=u.occupation "
-				+ " and ct.id=u.currentCity  and ed.id=u.education and u.religion=rl.id ");
+				+ " and ct.id=u.currentCity  and ed.id=u.education and u.religion=rl.id and u.caste = c.id ");
 		if(list_type.equals("religion")) {
 //			buffer.append (ur.rReligion = searchCriteriaBean.getReligionId() );
 			buffer.append("and u.religion='"+searchCriteriaBean.getId()+"'"); 

@@ -109,7 +109,7 @@ public class CreateProfileController {
 	@RequestMapping(value = "/CreateProfile/{id}/{page}")
 	public String CreateProfile1(@ModelAttribute("createProfile") UsersBean objUsersBean, Model objeModel ,
 			HttpServletRequest request, HttpSession session, @PathVariable("id") int id,@PathVariable("page") String pageName) {
-		System.out.println("CreateProfile Page");
+//		System.out.println("CreateProfile Page");
 		List<ContriesBean> listOrderBeans = null;
 		ObjectMapper objectMapper = null;
 		String sJson = null;
@@ -402,10 +402,10 @@ public class CreateProfileController {
 				
 				
 				 String latestUploadPhoto = "";
-			        //String rootPath = request.getSession().getServletContext().getRealPath("/");
+			        String rootPath1 = request.getSession().getServletContext().getRealPath("/");
 				 	String rootPath = System.getProperty("catalina.base");
 				 	
-				 	File dir1 = new File(rootPath + File.separator + "img");
+				 	File dir1 = new File(rootPath1 + File.separator + "img");
 			        if (!dir1.exists()) {
 			            dir1.mkdirs();
 			        }
@@ -449,8 +449,8 @@ public class CreateProfileController {
 			        } catch (IOException e) {
 			            System.out.println("error : " + e);
 			        }
-			        filepath= "img/"+filepath;
-			        //filepath= "aarna-user-images/"+filepath;
+			        //filepath= "img/"+filepath;
+			        filepath= "aarna-user-images/"+filepath;
 			        objJson.put("image_path", filepath);
 			        objUerImagesBean.setImage(filepath);
 			        objUerImagesBean.setStatus("1");

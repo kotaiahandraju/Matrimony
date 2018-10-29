@@ -115,7 +115,7 @@ function resendOtp(){
 			var mobileStr = jsonobj.mobileStr;
 			if(msg != "undefined" && "success"==msg){
 				$("#displayErrMsg").html('');
-				$("#displayMsg").html("For yopur request, we have resent the otp to your mobile number xxxxxxx"+mobileStr);
+				$("#displayMsg").html("For your request, we have resent the otp to your mobile number xxxxxxx"+mobileStr);
 			}else if(msg != "undefined" && "limit_exceeded"==msg){
 				$("#displayMsg").html('');
 				$("#displayErrMsg").html("OTP limit for the day has been exceeded. Please try again later.");

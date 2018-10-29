@@ -303,6 +303,13 @@ function getReliginCastAjax() {
 	var religionId = $("#rReligion").val();
 	if(religionId==null){
 		$("#rCaste").empty();
+		$("#rCaste").select2({
+    	    placeholder: "-- Choose Community --"
+    	});
+		$("#caste").empty();
+    	$("#caste").select2({
+    	    placeholder: "-- Choose Caste --"
+    	});
 		return true;
 	}
 		var formData = new FormData();
@@ -1277,6 +1284,9 @@ function resetBtnfunction(){
 				placeholder : "-- Choose Country --"
 			});
 			$("#rState").empty();
+			$("#rState").select2({
+	    	    placeholder: "-- Choose State --"
+	    	});
 			/* $("#rState").select2({
 				placeholder : "-- Choose State --"
 			}); */
@@ -1330,9 +1340,13 @@ function resetBtnfunction(){
 				placeholder : "-- Choose State --"
 			});
 			$("#rCity").empty();
-			/* $("#rState").select2({
-				placeholder : "-- Choose State --"
-			}); */
+			$("#city").empty();
+			$("#rCity").select2({
+	    	    placeholder: "-- Choose City --"
+	    	});
+			$("#city").select2({
+	    	    placeholder: "-- Select City --"
+	    	});
 		} else {
 			var stateIds = $("#" + id).val();
 			var formData = new FormData();
