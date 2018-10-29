@@ -5,11 +5,15 @@
 
 <%-- <% pages1 = "createprofile"; %> --%>
 <link href="${baseurl }/css/datepicker1.css" rel="stylesheet" type="text/css" />
-<%-- <link href="${baseurl }/css/mdtimepicker.css" rel="stylesheet" type="text/css" /> --%>
+<link href="${baseurl }/css/mdtimepicker.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="${baseurl }/css/plugins/select2/select2.css">
 <style type="text/css">
 .multiSelect{
 	width: 100%;
+}
+.col-sm-4 {
+padding-right:0;
+
 }
 </style>
 <script src="${baseurl }/js/jquery-ui.min.js"></script>
@@ -101,7 +105,7 @@
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
-									<label class="col-sm-4 control-label required">Create Password <span style="color:red;"></span></label>
+									<label class="col-sm-4 control-label required">Create Password <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
 									  	<form:input path="regPassword" class="form-control validate" placeholder="Enter Password" /> 
 								  		<span class="hasError" id="password_error_div" style="font-size: 13px; font-weight: 800;"></span>
@@ -512,7 +516,7 @@
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
-									<label class="col-sm-4 control-label required">About Myself</label>
+									<label class="col-sm-4 control-label required">About Myself <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
 										<form:textarea rows="4" path="aboutMyself" class="form-control onlyCharacters u validate" placeholder="Enter few words about you"></form:textarea>
 								  		<span id="errorMsg" style="color:red"></span>
