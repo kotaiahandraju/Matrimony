@@ -396,7 +396,7 @@ $('#submit1').click(function(event) {
 	}
 });
 
-function validatePassword(){
+/*function validatePassword(){
 	
 	
 	   var str = $("#regPassword").val();
@@ -419,7 +419,7 @@ function validatePassword(){
 		   $("#password_error_div").html('Enter atleast one alphabet letter');
 		   $("#password_error_div").removeAttr("hidden");
 		   return false;  
-	   }
+	   }*/
 	 
 	   /* if(str.match(lower_text)){
 		   lower_text_flag = true;
@@ -432,7 +432,7 @@ function validatePassword(){
 		   return false;  
 	   } */
 	   
-	   if(str.match(number_check)){
+	/*   if(str.match(number_check)){
 		   number_check_flag = true;
 		 	$("#password_error_div").html('');
 	   		$("#password_error_div").attr("hidden",true);
@@ -466,7 +466,7 @@ function validatePassword(){
 	   }
 	   //$("#regPassword").val(str);
 	   return true; 
-  }
+  }*/
 
 //remove border validation for edit-form
 $(".editIt").click(function()

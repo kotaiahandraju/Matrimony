@@ -5,7 +5,7 @@
 
 <%-- <% pages1 = "createprofile"; %> --%>
 <link href="${baseurl }/css/datepicker1.css" rel="stylesheet" type="text/css" />
-<link href="${baseurl }/css/mdtimepicker.css" rel="stylesheet" type="text/css" />
+<%-- <link href="${baseurl }/css/mdtimepicker.css" rel="stylesheet" type="text/css" /> --%>
 <link rel="stylesheet" href="${baseurl }/css/plugins/select2/select2.css">
 <style type="text/css">
 .multiSelect{

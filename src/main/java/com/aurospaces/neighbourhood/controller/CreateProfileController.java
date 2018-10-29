@@ -109,7 +109,7 @@ public class CreateProfileController {
 	@RequestMapping(value = "/CreateProfile/{id}/{page}")
 	public String CreateProfile1(@ModelAttribute("createProfile") UsersBean objUsersBean, Model objeModel ,
 			HttpServletRequest request, HttpSession session, @PathVariable("id") int id,@PathVariable("page") String pageName) {
-		System.out.println("CreateProfile Page");
+//		System.out.println("CreateProfile Page");
 		List<ContriesBean> listOrderBeans = null;
 		ObjectMapper objectMapper = null;
 		String sJson = null;
