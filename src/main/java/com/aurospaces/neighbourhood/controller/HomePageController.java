@@ -2749,6 +2749,9 @@ String sJson="";
 					if(success){
 						userSessionBean.setRoleId(roleId);
 						userSessionBean.setMembership_status("1");
+						String allowed_profiles_limit = objUsersDao.getAllowedProfilesLimit(userId);
+						session.setAttribute("allowed_profiles_limit", allowed_profiles_limit);
+						session.setAttribute("rolId", roleId);
 						session.setAttribute("cacheGuest",userSessionBean);
 					}
 						
