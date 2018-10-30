@@ -1734,9 +1734,7 @@ function toggleDiv(divElem){
   
  </script> 
 <script type="text/javascript"> 
- var profileBeanList="${profileBean}";
- var sessionBeanList="${sessionBeanList}";
-
+ 
 //profile Bean
 var ageFrom="${profileBean.rAgeFrom}";
 var ageTo="${profileBean.rAgeTo}";

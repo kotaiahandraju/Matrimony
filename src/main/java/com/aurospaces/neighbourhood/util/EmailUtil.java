@@ -1051,4 +1051,51 @@ try{
 	            return null;
 	        }
 	   }
+	   
+	   public static  String sendLeaveMessage(String userNmae,String eMail,String  Mobile,String content,ServletContext objContext) throws AddressException,
+				MessagingException, IOException {
+			String subject = null;
+			Properties prop = new Properties();
+			InputStream input = null;
+			String body = null;
+			try{
+		        String mailTo = "narendarreddy2222@gmail.com";
+//		        -------------------------------------------------------------------------------------------
+				
+		        String propertiespath = objContext.getRealPath("Resources" +File.separator+"DataBase.properties");
+				input = new FileInputStream(propertiespath);
+				prop.load(input);
+				String host = prop.getProperty("host");
+				String port = prop.getProperty("port");
+				String mailFrom = prop.getProperty("usermail");
+				String password = prop.getProperty("mailpassword");
+		        
+				subject = prop.getProperty("LeaveMessage_mail_subject");
+				body = prop.getProperty("LeaveMessage_mail_body");
+				body = body.replace("_username_", userNmae);
+				body = body.replace("_senderemail_", eMail);
+				body = body.replace("_senderMobile_", Mobile);
+				body = body.replace("_sendercontent_", content);
+				
+				body = body.replace("_img_", "cid:image2");
+		        String str = body.toString();
+		        // inline images
+		        Map<String, String> inlineImages = new HashMap<String, String>();
+		        
+		        inlineImages.put("image2", objContext.getRealPath("images" +File.separator+"logo.jpg"));
+		       
+		            EmbeddedImageEmailUtil.send(host, port, mailFrom, password, mailTo,
+		                subject, body.toString(), inlineImages);
+		            System.out.println("Email sent.");
+		           
+		            
+		        } catch (Exception ex) {
+		            System.out.println("Could not send email.");
+		            ex.printStackTrace();
+		            return null;
+		        }
+				return subject;
+		}
+		
+	   
 }
