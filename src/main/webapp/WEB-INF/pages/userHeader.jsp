@@ -22,7 +22,7 @@
 				</c:if>
 			</div>   
 			<div class="col-md-12">
-				<h4>Hello <%= userBean.getFirstName() %> <%= userBean.getLastName() %> <span>(<%= userBean.getUsername() %>)</span></h4>
+				<h4><%= userBean.getFirstName() %> <%= userBean.getLastName() %> <span>(<%= userBean.getUsername() %>)</span></h4>
 			</div>  
 			<div class="col-md-3 products-grid-right">
 				<div class="well">

@@ -31,7 +31,7 @@ color:#337ab7;}
  	color: #ec971f !important;
  } 
 </style>
-<h4><strong>Profile Settings</strong></h4>
+<h4><strong class="col-md-12">Settings</strong></h4><br>
 <div class="col-md-3 products-grid-right">
 				
 				<div class="panel panel-success" style="width:195px;" >
@@ -65,10 +65,10 @@ color:#337ab7;}
 											<td height="30"><a href="#" onclick="displaySettingsBlock('manage_mailalerts');" class="tablinks manage-mailalerts" >Manage Mail Alerts</a></td>
 										</tr>
 										<tr>
-											<td height="30"><a href="#" onclick="displaySettingsBlock('contact_filters');" class="tablinks contact-filters" >Contact filters</a></td>
+											<td height="30"><a href="#" onclick="displaySettingsBlock('contact_filters');" class="tablinks contact-filters" >Contact Filters</a></td>
 										</tr>
 										<tr>
-											<td height="30"><a href="#" onclick="displaySettingsBlock('unsubscribe_callinglist');" class="tablinks unsubscribe-callinglist" >Unsubscribe from calling list</a></td>
+											<td height="30"><a href="#" onclick="displaySettingsBlock('unsubscribe_callinglist');" class="tablinks unsubscribe-callinglist" >Unsubscribe From Calling List</a></td>
 										</tr>
 										<!-- <tr>
 											<td height="30"><a href="#" onclick="displaySettingsBlock('privacy');" class="tablinks privacy" >Privacy</a></td>
