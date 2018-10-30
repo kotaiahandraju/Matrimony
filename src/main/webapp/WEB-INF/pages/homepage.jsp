@@ -2237,7 +2237,11 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 	<script src="${baseurl}/js/custemValidation1.js"></script>
 	<script src="${baseurl}/js/ajax.js"></script>
 	<script src="${baseurl}/js/jquery-ui.min.js"></script>
+<<<<<<< HEAD
 	<div id="live-chat">
+=======
+	 <div id="live-chat">
+>>>>>>> 6ce9058678af8755813cc76e90754f54e29187e0
 		
 		<header class="clearfix">
 			
@@ -2251,6 +2255,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 		</header>
 
 		<div class="chat col-md-12">
+<<<<<<< HEAD
 			<div class="clearfix" style="padding-bottom:8px;"></div>
 			<div class="form-group">
 							<div class="input-group">
@@ -2267,9 +2272,28 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 									 name="email" id=""
 									placeholder="eMail">
 							</div>
+=======
+         <form:form commandName="createProfile" action="#" method="post" class="login-form">
+			<div class="clearfix" style="padding-bottom: 8px;"></div>
+			<div class="form-group">
+				<div class="input-group">
+					<span class="input-group-addon"><i class="fa fa-user"></i></span> <form:input
+						type="text" class="form-control validate"
+						path="leaveMsgUserName" placeholder="Name"></form:input>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="input-group">
+					<span class="input-group-addon"><i class="fa fa-lock"></i></span> <form:input
+						type="email" class="form-control validate" 
+						path="leaveMsgMail" placeholder="eMail"></form:input> 
+				</div>
+						 <span class="hasError" id="emailError1" style="color: red;"></span>
+>>>>>>> 6ce9058678af8755813cc76e90754f54e29187e0
 
 						</div>
 
+<<<<<<< HEAD
 					<div class="form-group">
 							<div class="input-group">
 								<span class="input-group-addon"><i class="fa fa-lock"></i></span>
@@ -2277,15 +2301,40 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 									 name="Mobile" id=""
 									placeholder="Mobile">
 							</div>
+=======
+			<div class="form-group">
+				<div class="input-group">
+					<span class="input-group-addon"><i class="fa fa-lock"></i></span> <form:input
+						type="text" class="form-control validate numbersOnly"
+						 path="leaveMsgMobile" maxlength="10" placeholder="Mobile"></form:input>
+				</div>
+>>>>>>> 6ce9058678af8755813cc76e90754f54e29187e0
 
 						</div>
 
+<<<<<<< HEAD
 					<div class="form-group">
 										<textarea id="" name="aboutMyself" placeholder="Enter few words about you" class="form-control " rows="2"></textarea>
 								  		<span id="errorMsg" style="color:red"></span>
 								  		<div>
 									</div>
 <div class="clearfix" style="padding-bottom:8px;"></div>
+=======
+			<div class="form-group">
+				<form:textarea path="leaveMsgText" 
+					placeholder="Enter few words about you"
+					class="form-control validate" rows="2"></form:textarea>
+				<span id="errorMsg" style="color: red"></span>
+				<div></div>
+				<div class="clearfix" style="padding-bottom: 8px;"></div>
+
+				<div class="form-group">
+					<button  type="submit" id="submit2"
+						class="btn btn-primary pull-right" >Submit</button>
+				</div>
+				<div class="clearfix" style="padding-bottom: 3px;"></div>
+					</form:form>
+>>>>>>> 6ce9058678af8755813cc76e90754f54e29187e0
 
 						<div class="form-group">
 
@@ -2301,7 +2350,13 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 			
 		</div> <!-- end chat -->
 
+<<<<<<< HEAD
 	</div> <!-- end live-chat -->
+=======
+		</div>
+	
+		<!-- end live-chat -->
+>>>>>>> 6ce9058678af8755813cc76e90754f54e29187e0
 
 	
 	<script>
@@ -2938,6 +2993,139 @@ $('img').bind('contextmenu', function(e) {
     	 if (e.which == 32)
              return false;
     	});
+<<<<<<< HEAD
+=======
+     
+     
+ 	var leaveMsgMail = $('#leaveMsgMail').val();
+ 	var expr = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|in|yahoo|edu|gov|mil|biz|info|mobi|name|aero|asia|jobs|museum)$/;
+	 $('#leaveMsgMail').blur(function() {
+	 /*  if(leaveMsgMail == "" || leaveMsgMail == null || leaveMsgMail == "undefined")
+	{
+	$("#leaveMsgMail").css("border-color","#e73d4a");
+   	$("#leaveMsgMail").attr("placeholder","Email");
+   	$('#leaveMsgMail').css('color','red');
+   	return false;
+	event.preventDefault();
+	}  */ 
+	var leaveMsgMaill = $('#leaveMsgMail').val();
+	if(leaveMsgMaill == "" || !leaveMsgMaill.match(expr)){
+//		alert("Please Enter Valid Email");
+   	$("#leaveMsgMail").css("border-color","#e73d4a");
+   	$("#leaveMsgMail").attr("title","Email-ID");
+   	$('#leaveMsgMail').css('color','red');
+   	$('#emailError1').html("Enter Valid eMail Id");
+//    	$('#email').focus();
+   	return false;
+	event.preventDefault();
+	}
+	else{
+		$('#emailError1').html("");
+	}
+	 });
+	 
+	 var idArray = $.makeArray($('.validate').map(function() {
+			return this.id;
+		}));
+	 $('#submit2').click(function(event) {
+			validation = true;
+			$.each(idArray, function(i, val) {
+				var value = $("#" + idArray[i]).val();
+				var placeholder = $("#" + idArray[i]).attr('placeholder');
+				if (value == null || value == "" || value == "undefined") {
+					
+					 $("#" + idArray[i] ).attr("placeholder", placeholder);
+					 $("#" + idArray[i] ).css('border-color','#e73d4a');
+					    $("#" + idArray[i] ).css('color','#e73d4a');
+					    $("#" + idArray[i] ).addClass('your-class');
+//					$("#" + idArray[i] + "Error").text("Please " + placeholder);
+					validation = false;
+				}
+			});
+				if(validation){
+					LeaveMsgSubmit();
+					$("#submit2").attr("disabled",true);
+				}else {
+					event.preventDefault();
+					return false;
+				}
+				
+		});
+	 
+	 $('.validate').keydown(function() {
+			var id = $(this).attr('id');
+			removeBorder(id);
+		});
+		//remove borders
+		function removeBorder(el){	
+			  $("#"+el).css("border", "");
+			  $("#"+el).css('color','black');
+			  $('#'+el).addClass('default-class');
+			  if ($("#" + el+"_chosen").length)
+				{
+					$("#" +el+"_chosen").children('a').css('border-color','black');
+				}
+		}
+		$('.numbersOnly').keyup(function() {
+			this.value = this.value.replace(/[^0-9]/g, '');
+		});
+
+		$(".numbersOnly").keydown(function(e) {
+			// Allow: backspace, delete, tab, escape, enter and .
+			if ($.inArray(e.keyCode, [ 46, 8, 9, 27, 13, 110 ]) !== -1 ||
+			// Allow: Ctrl+A, Command+A
+			(e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+			// Allow: home, end, left, right, down, up
+			(e.keyCode >= 35 && e.keyCode <= 40)) {
+				// let it happen, don't do anything
+				return;
+			}
+			// Ensure that it is a number and stop the keypress
+			if (e.keyCode===190 || ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57))
+					&& (e.keyCode < 96 || e.keyCode > 105))) {
+				e.preventDefault();
+			}
+		});
+
+     function LeaveMsgSubmit(){
+    	 var expr = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|in|yahoo|edu|gov|mil|biz|info|mobi|name|aero|asia|jobs|museum)$/;
+    		var leaveMsgUserName = $("#leaveMsgUserName").val();
+    		var leaveMsgMail = $("#leaveMsgMail").val();
+    		var leaveMsgMobile = $("#leaveMsgMobile").val();
+    		var leaveMsgText = $("#leaveMsgText").val();
+    		if(leaveMsgMail == "" || !leaveMsgMail.match(expr)){
+//    			alert("Please Enter Valid Email");
+    	   	$("#leaveMsgMail").css("border-color","#e73d4a");
+    	   	$("#leaveMsgMail").attr("title","Email-ID");
+    	   	$('#leaveMsgMail').css('color','red');
+    	   	$('#emailError1').html("Enter Valid eMail Id");
+//    	    	$('#email').focus();
+    	   	return false;
+    		event.preventDefault();
+    		}
+    		else{
+    			$('#emailError1').html("");
+    		}
+			
+			var formData = new FormData();
+    		formData.append("leaveMsgUserName",leaveMsgUserName);
+    		formData.append("leaveMsgMail",leaveMsgMail);
+    		formData.append("leaveMsgMobile",leaveMsgMobile);
+    		formData.append("leaveMsgText",leaveMsgText);
+    		
+    		$.fn.makeMultipartRequest('POST', 'LeaveMsgSubmit', false,
+    				formData, false, 'text', function(data){
+    			var jsonobj = $.parseJSON(data);
+  				alert("successfully Sent Message");
+  				$('#leaveMsgUserName').val("");
+  				$('#leaveMsgMail').val("");
+  				$('#leaveMsgMobile').val("");
+  				$('#leaveMsgText').val("");
+  				$("#submit2").attr("disabled",false);
+    			
+    		});
+     }
+     
 </script>
 <!-- <script type="text/javascript" async="async" defer="defer" data-cfasync="false" src="https://mylivechat.com/chatinline.aspx?hccid=17191231"></script> -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
