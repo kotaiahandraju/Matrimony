@@ -38,7 +38,7 @@ public class ScheduledJobs {
 //	@Scheduled(cron = "0 0 14 * * *") //daily at 12 am
 	 public void sendEmails(){
 		System.out.println("#########  sendEmails ###########");
-//		jobsController.sendEmails();
+		jobsController.sendEmails();
 	 }
 	
 	//@Scheduled(cron = "0 0/10 14-16 * * *") //daily at 12 am
