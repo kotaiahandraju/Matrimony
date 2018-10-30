@@ -2151,7 +2151,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 					<a href="HomePage"><img src="images/logo01.png" alt=""
 						class="img-responsive" /></a>
 					<video poster="user/images/bgvideo.jpg" controls
-						src="user/images/Aarna Matrimony for Best Mate ,Together Forever.webm"
+						src="user/images/video.mp4"
 						type="video/mp4">
 					</video>
 					<!-- <h3>Follow Us on</h3>
@@ -2237,7 +2237,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 	<script src="${baseurl}/js/custemValidation1.js"></script>
 	<script src="${baseurl}/js/ajax.js"></script>
 	<script src="${baseurl}/js/jquery-ui.min.js"></script>
-	<%-- <div id="live-chat">
+	<div id="live-chat">
 		
 		<header class="clearfix">
 			
@@ -2249,58 +2249,59 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 			
 
 		</header>
+
 		<div class="chat col-md-12">
-         <form action="">
-			<div class="clearfix" style="padding-bottom: 8px;"></div>
+			<div class="clearfix" style="padding-bottom:8px;"></div>
 			<div class="form-group">
-				<div class="input-group">
-					<span class="input-group-addon"><i class="fa fa-user"></i></span> <input
-						type="text" class="form-control validate " name="userName"
-						id="leaveMsgUserName" placeholder="Name">
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="input-group">
-					<span class="input-group-addon"><i class="fa fa-lock"></i></span> <input
-						type="email" class="form-control validate" name="email"
-						id="leaveMsgMail" placeholder="eMail"> <span
-						class="hasError" id="emailError1" style="color: red;"></span>
-				</div>
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-user"></i></span>
+								<input type="text" class="form-control "
+									 name="userName" id=""
+									placeholder="Name">
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-lock"></i></span>
+								<input type="email" class="form-control"
+									 name="email" id=""
+									placeholder="eMail">
+							</div>
 
-			</div>
+						</div>
 
-			<div class="form-group">
-				<div class="input-group">
-					<span class="input-group-addon"><i class="fa fa-lock"></i></span> <input
-						type="text" class="form-control validate numbersOnly"
-						name="Mobile" id="leaveMsgMobile" placeholder="Mobile">
-				</div>
+					<div class="form-group">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-lock"></i></span>
+								<input type="text" class="form-control"
+									 name="Mobile" id=""
+									placeholder="Mobile">
+							</div>
 
-			</div>
+						</div>
 
-			<div class="form-group">
-				<textarea id="leaveMsgText" name="aboutMyself"
-					placeholder="Enter few words about you"
-					class="form-control validate " rows="2"></textarea>
-				<span id="errorMsg" style="color: red"></span>
-				<div></div>
-				<div class="clearfix" style="padding-bottom: 8px;"></div>
+					<div class="form-group">
+										<textarea id="" name="aboutMyself" placeholder="Enter few words about you" class="form-control " rows="2"></textarea>
+								  		<span id="errorMsg" style="color:red"></span>
+								  		<div>
+									</div>
+<div class="clearfix" style="padding-bottom:8px;"></div>
 
-				<div class="form-group">
-					<button name="submit" type="submit" id="submit1"
-						class="btn btn-primary pull-right" onclick="LeaveMsgSubmit();">Submit</button>
-				</div>
-				<div class="clearfix" style="padding-bottom: 3px;"></div>
-					</form>
+						<div class="form-group">
 
+							<!--                                 <button type="submit" class="btn btn-primary"> -->
+							<!--                                     Log In -->
+							<!--                                 </button> -->
+							<button name="submit" type="submit" id="u"
+								class="btn btn-primary pull-right">Submit</button>
+						</div>
+<div class="clearfix" style="padding-bottom:3px;"></div>
+		
 
+			
+		</div> <!-- end chat -->
 
-			</div>
-			<!-- end chat -->
-
-		</div>
-	 --%>
-		<!-- end live-chat -->
+	</div> <!-- end live-chat -->
 
 	
 	<script>
@@ -2937,92 +2938,6 @@ $('img').bind('contextmenu', function(e) {
     	 if (e.which == 32)
              return false;
     	});
-     
-     
- 	var leaveMsgMail = $('#leaveMsgMail').val();
- 	var expr = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|in|yahoo|edu|gov|mil|biz|info|mobi|name|aero|asia|jobs|museum)$/;
-	 $('#leaveMsgMail').blur(function() {
-	  if(leaveMsgMail == "" || leaveMsgMail == null || leaveMsgMail == "undefined")
-	{
-		$("#leaveMsgMail").css("border-color","#e73d4a");
-   	$("#leaveMsgMail").attr("placeholder","Email");
-   	$('#leaveMsgMail').css('color','red');
-   	return false;
-	event.preventDefault();
-	}  
-	if(leaveMsgMail != "" && !leaveMsgMail.match(expr)){
-//		alert("Please Enter Valid Email");
-   	$("#leaveMsgMail").css("border-color","#e73d4a");
-   	$("#leaveMsgMail").attr("title","Email-ID");
-   	$('#leaveMsgMail').css('color','red');
-   	$('#emailError1').text("Enter Valid eMail Id");
-//    	$('#email').focus();
-   	return false;
-	event.preventDefault();
-	}
-	else{
-		$('#emailError').text("");
-	}
-	 });
-	
-     function LeaveMsgSubmit(){
-    	 
-    		var leaveMsgUserName = $("#leaveMsgUserName").val();
-    		var leaveMsgMail = $("#leaveMsgMail").val();
-    		var leaveMsgMobile = $("#leaveMsgMobile").val();
-    		var leaveMsgText = $("#leaveMsgText").val();
-    	 
-    	 if($('#leaveMsgUserName').val() ==  null || $('#leaveMsgUserName').val() == "" || $('#leaveMsgUserName').val()=="undefined"||$('#leaveMsgMail').val() ==  null || $('#leaveMsgMail').val() == ""  || $('#leaveMsgMail').val()=="undefined"||$('#leaveMsgMobile').val() ==  null || $('#leaveMsgMobile').val() == ""  || $('#leaveMsgMobile').val()=="undefined"||$('#leaveMsgText').val() ==  null || $('#leaveMsgText').val() == ""  || $('#leaveMsgText').val()=="undefined")
-			{
- 				 if(leaveMsgUserName==  null || leaveMsgUserName == ""  || leaveMsgUserName=="undefined" ) 
- 				{
-				$('#leaveMsgUserName').css('color','#cc0000');
- 					$('#leaveMsgUserName').css('border-color','#cc0000');
-					$('#leaveMsgUserName').addClass('placeholder-style');
- 				}
-			
-			if($('#leaveMsgMail').val() ==  null || $('#leaveMsgMail').val() == ""  || $('#leaveMsgMail').val()=="undefined" ) 
-				{
-					$('#leaveMsgMail').css('color','#cc0000');
-					$('#leaveMsgMail').css('border-color','#cc0000');
-					$('#leaveMsgMail').addClass('placeholder-style');
-				}
-				if($('#leaveMsgMobile').val() ==  null || $('#leaveMsgMobile').val() == "" || $('#leaveMsgMobile').val()=="undefined" ) 
-				{
-					$('#leaveMsgMobile').css('color','#cc0000');
-					$('#leaveMsgMobile').css('border-color','#cc0000');
-					$('#leaveMsgMobile').addClass('placeholder-style');
-				}
-				if($('#leaveMsgText').val() ==  null || $('#leaveMsgText').val() == "" || $('#leaveMsgText').val()=="undefined" ) 
-				{
-					$('#leaveMsgText').css('color','#cc0000');
-					$('#leaveMsgText').css('border-color','#cc0000');
-					$('#leaveMsgText').addClass('placeholder-style');
-				}
-			return false;
-		}
- 				else{
-					
- 					return true;
-					 				}  
-		
-			
-				var formData = new FormData();
-    		formData.append("leaveMsgUserName",leaveMsgUserName);
-    		formData.append("leaveMsgMail",leaveMsgMail);
-    		formData.append("leaveMsgMobile",leaveMsgMobile);
-    		formData.append("leaveMsgText",leaveMsgText);
-    		
-    		$.fn.makeMultipartRequest('POST', 'LeaveMsgSubmit', false,
-    				formData, false, 'text', function(data){
-    			var jsonobj = $.parseJSON(data);
-//     			var alldata = jsonobj.allOrders1;
-  				alert("successfully Sent Message");
-    			
-    		});
-     }
-     
-     
 </script>
 <!-- <script type="text/javascript" async="async" defer="defer" data-cfasync="false" src="https://mylivechat.com/chatinline.aspx?hccid=17191231"></script> -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
