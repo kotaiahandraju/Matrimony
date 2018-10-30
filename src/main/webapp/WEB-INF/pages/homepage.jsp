@@ -1067,7 +1067,7 @@ form {
 }
 
 #live-chat h4 {
-	font-size: 12px;
+	font-size: 13px;
 }
 
 #live-chat h5 {
@@ -1075,7 +1075,7 @@ form {
 }
 
 #live-chat form {
-	padding: 24px;
+
 }
 
 /* #live-chat input[type="text"] {
@@ -2237,42 +2237,15 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 	<script src="${baseurl}/js/custemValidation1.js"></script>
 	<script src="${baseurl}/js/ajax.js"></script>
 	<script src="${baseurl}/js/jquery-ui.min.js"></script>
-<<<<<<< HEAD
-	<div id="live-chat">
-=======
 	 <div id="live-chat">
->>>>>>> 6ce9058678af8755813cc76e90754f54e29187e0
-		
 		<header class="clearfix">
-			
 				<!-- <a href="#" class="chat-close">-</a> -->
 
-
 			<h4>Leave Message <span class="pull-right fa fa-minus"></span></h4>
-
-			
 
 		</header>
 
 		<div class="chat col-md-12">
-<<<<<<< HEAD
-			<div class="clearfix" style="padding-bottom:8px;"></div>
-			<div class="form-group">
-							<div class="input-group">
-								<span class="input-group-addon"><i class="fa fa-user"></i></span>
-								<input type="text" class="form-control "
-									 name="userName" id=""
-									placeholder="Name">
-							</div>
-						</div>
-						<div class="form-group">
-							<div class="input-group">
-								<span class="input-group-addon"><i class="fa fa-lock"></i></span>
-								<input type="email" class="form-control"
-									 name="email" id=""
-									placeholder="eMail">
-							</div>
-=======
          <form:form commandName="createProfile" action="#" method="post" class="login-form">
 			<div class="clearfix" style="padding-bottom: 8px;"></div>
 			<div class="form-group">
@@ -2289,37 +2262,17 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 						path="leaveMsgMail" placeholder="eMail"></form:input> 
 				</div>
 						 <span class="hasError" id="emailError1" style="color: red;"></span>
->>>>>>> 6ce9058678af8755813cc76e90754f54e29187e0
 
 						</div>
-
-<<<<<<< HEAD
-					<div class="form-group">
-							<div class="input-group">
-								<span class="input-group-addon"><i class="fa fa-lock"></i></span>
-								<input type="text" class="form-control"
-									 name="Mobile" id=""
-									placeholder="Mobile">
-							</div>
-=======
 			<div class="form-group">
 				<div class="input-group">
 					<span class="input-group-addon"><i class="fa fa-lock"></i></span> <form:input
 						type="text" class="form-control validate numbersOnly"
 						 path="leaveMsgMobile" maxlength="10" placeholder="Mobile"></form:input>
 				</div>
->>>>>>> 6ce9058678af8755813cc76e90754f54e29187e0
 
 						</div>
 
-<<<<<<< HEAD
-					<div class="form-group">
-										<textarea id="" name="aboutMyself" placeholder="Enter few words about you" class="form-control " rows="2"></textarea>
-								  		<span id="errorMsg" style="color:red"></span>
-								  		<div>
-									</div>
-<div class="clearfix" style="padding-bottom:8px;"></div>
-=======
 			<div class="form-group">
 				<form:textarea path="leaveMsgText" 
 					placeholder="Enter few words about you"
@@ -2334,29 +2287,16 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 				</div>
 				<div class="clearfix" style="padding-bottom: 3px;"></div>
 					</form:form>
->>>>>>> 6ce9058678af8755813cc76e90754f54e29187e0
 
-						<div class="form-group">
-
-							<!--                                 <button type="submit" class="btn btn-primary"> -->
-							<!--                                     Log In -->
-							<!--                                 </button> -->
-							<button name="submit" type="submit" id="u"
-								class="btn btn-primary pull-right">Submit</button>
-						</div>
 <div class="clearfix" style="padding-bottom:3px;"></div>
 		
 
 			
 		</div> <!-- end chat -->
 
-<<<<<<< HEAD
-	</div> <!-- end live-chat -->
-=======
 		</div>
 	
 		<!-- end live-chat -->
->>>>>>> 6ce9058678af8755813cc76e90754f54e29187e0
 
 	
 	<script>
@@ -2993,9 +2933,6 @@ $('img').bind('contextmenu', function(e) {
     	 if (e.which == 32)
              return false;
     	});
-<<<<<<< HEAD
-=======
-     
      
  	var leaveMsgMail = $('#leaveMsgMail').val();
  	var expr = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|in|yahoo|edu|gov|mil|biz|info|mobi|name|aero|asia|jobs|museum)$/;
