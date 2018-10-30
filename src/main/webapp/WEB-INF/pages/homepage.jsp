@@ -1067,7 +1067,7 @@ form {
 }
 
 #live-chat h4 {
-	font-size: 12px;
+	font-size: 13px;
 }
 
 #live-chat h5 {
@@ -1075,7 +1075,7 @@ form {
 }
 
 #live-chat form {
-	padding: 24px;
+
 }
 
 /* #live-chat input[type="text"] {
@@ -2151,7 +2151,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 					<a href="HomePage"><img src="images/logo01.png" alt=""
 						class="img-responsive" /></a>
 					<video poster="user/images/bgvideo.jpg" controls
-						src="user/images/Aarna Matrimony for Best Mate ,Together Forever.webm"
+						src="user/images/video.mp4"
 						type="video/mp4">
 					</video>
 					<!-- <h3>Follow Us on</h3>
@@ -2238,17 +2238,13 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 	<script src="${baseurl}/js/ajax.js"></script>
 	<script src="${baseurl}/js/jquery-ui.min.js"></script>
 	 <div id="live-chat">
-		
 		<header class="clearfix">
-			
 				<!-- <a href="#" class="chat-close">-</a> -->
-
 
 			<h4>Leave Message <span class="pull-right fa fa-minus"></span></h4>
 
-			
-
 		</header>
+
 		<div class="chat col-md-12">
          <form:form commandName="createProfile" action="#" method="post" class="login-form">
 			<div class="clearfix" style="padding-bottom: 8px;"></div>
@@ -2267,8 +2263,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 				</div>
 						 <span class="hasError" id="emailError1" style="color: red;"></span>
 
-			</div>
-
+						</div>
 			<div class="form-group">
 				<div class="input-group">
 					<span class="input-group-addon"><i class="fa fa-lock"></i></span> <form:input
@@ -2276,7 +2271,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 						 path="leaveMsgMobile" maxlength="10" placeholder="Mobile"></form:input>
 				</div>
 
-			</div>
+						</div>
 
 			<div class="form-group">
 				<form:textarea path="leaveMsgText" 
@@ -2293,10 +2288,11 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 				<div class="clearfix" style="padding-bottom: 3px;"></div>
 					</form:form>
 
+<div class="clearfix" style="padding-bottom:3px;"></div>
+		
 
-
-			</div>
-			<!-- end chat -->
+			
+		</div> <!-- end chat -->
 
 		</div>
 	
@@ -2938,7 +2934,6 @@ $('img').bind('contextmenu', function(e) {
              return false;
     	});
      
-     
  	var leaveMsgMail = $('#leaveMsgMail').val();
  	var expr = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|in|yahoo|edu|gov|mil|biz|info|mobi|name|aero|asia|jobs|museum)$/;
 	 $('#leaveMsgMail').blur(function() {
@@ -3067,7 +3062,6 @@ $('img').bind('contextmenu', function(e) {
     			
     		});
      }
-     
      
 </script>
 <!-- <script type="text/javascript" async="async" defer="defer" data-cfasync="false" src="https://mylivechat.com/chatinline.aspx?hccid=17191231"></script> -->
