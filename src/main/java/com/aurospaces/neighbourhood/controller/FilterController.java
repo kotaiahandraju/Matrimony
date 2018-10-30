@@ -426,6 +426,36 @@ public class FilterController {
 		}
 		return "freeRegisterProfile";
 	}
+	
+	@RequestMapping(value = "/UndefinedProfile")
+	public String undefinedProfile(@ModelAttribute("createProfile") UsersBean objUsersBean, ModelMap model,
+			HttpServletRequest request, HttpSession session, RedirectAttributes redir) {
+		// System.out.println("getAllProfiles Page");
+		List<Map<String, String>> listOrderBeans = null;
+		ObjectMapper objectMapper = null;
+		String sJson = null;
+		try {
+			listOrderBeans = objUsersDao.getAllProfiles1(objUsersBean, "undefined");
+			if (listOrderBeans != null && listOrderBeans.size() > 0) {
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(listOrderBeans);
+				request.setAttribute("allOrders1", sJson);
+				// System.out.println(sJson);
+			} else {
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(listOrderBeans);
+				request.setAttribute("allOrders1", "''");
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e);
+			logger.error(e);
+			logger.fatal("error in FilterController class freeRegisterProfile method");
+			return "CreateProfile";
+		}
+		return "undefinedProfile";
+	}
 
 	@RequestMapping(value = "/PremiumProfile")
 	public String premiumProfile(@ModelAttribute("createProfile") UsersBean objUsersBean, ModelMap model,

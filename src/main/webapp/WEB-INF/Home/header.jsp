@@ -240,7 +240,24 @@ span.impColor{color: red;}
 	vertical-align: top;
 	margin: 2px 2px;
 }
-	.imgareaselect-outer {background:#fff;}		
+	.imgareaselect-outer {background:#fff;}	
+	
+	.watermarkcontent_profilepic {
+  position: inherit; /* Position the background text */
+  top: -52px; /* At the bottom. Use top:0 to append it to the top */
+  //background: rgb(0, 0, 0); /* Fallback color */
+  //background: rgba(0, 0, 0, 0.5); /* Black background with 0.5 opacity */
+  color: white; /* Grey text */
+  width: 100%; /* Full width */
+  padding: 16px; /* Some padding */
+  //transform: rotate(90deg);
+//transform-origin: left top 0;
+width : 151px;
+}
+.watermarkcontent_profilepic span{
+opacity : 0.6;
+font-size : 13px;
+}	
 </style>
 
 <script type="text/javascript">
@@ -406,6 +423,7 @@ var role_id = ${cacheUserBean.roleId};
 						<li class="deleteProfiles"><a href="${baseurl }/admin/DeleteProfilesHome">Delete Profiles</a></li>
 						<li class="adminProfiles"><a href="${baseurl }/admin/AdminRegisterProfiles">Admin Register Profiles</a></li>
 						<li class="freeProfiles"><a href="${baseurl }/admin/FreeRegisterProfile">Free Register Profiles</a></li>
+						<li class="undefinedProfiles"><a href="${baseurl }/admin/UndefinedProfile">Undefined Profiles</a></li>
 						</c:if>
 						<li class="classicProfiles"><a href="${baseurl }/admin/ClassicProfile">Classic Profiles</a></li>
 						<li class="classicPlusProfiles"><a href="${baseurl }/admin/ClassicPlusProfile">Classic Plus Profiles</a></li>
