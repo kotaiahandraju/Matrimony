@@ -480,7 +480,7 @@ var role_id = ${cacheUserBean.roleId};
 												</a>
 												<br>
 												<c:out value="${notification.created_on}" />
-											.</p>
+											</p>
 										</div>
 										<div class="col-md-2"><span class="fa fa-trash pull-right" style="margin-top:5px;"></span></div>
 										<div class="clearfix"></div><hr style="margin-top:0px;margin-bottom:0px;">
