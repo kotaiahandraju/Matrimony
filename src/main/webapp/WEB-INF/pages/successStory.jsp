@@ -1,4 +1,6 @@
 <%@ include file="userStepsHeader.jsp"%>
+<%@ include file="homeMenu.jsp"%>
+<div class="clearfix"></div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="user/css/demo.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="user/css/flexslider.css" type="text/css" media="screen" />

@@ -28,6 +28,12 @@ text-align:left;
     float: right !important;
     content: "\f067";
 }
+.form-horizontal .control-label {
+    padding-top: 7px;
+    margin-bottom: 0;
+    text-align: right;
+    font-weight: bold;
+}
 .form-control {
 width:187px;
 border-radius:0px;

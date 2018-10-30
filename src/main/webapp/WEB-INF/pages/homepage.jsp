@@ -14,6 +14,26 @@
 %>
 <html lang="en">
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+<!-- For Google -->
+<meta name="description" content="no1 telugu matrimonial service, best telugu matrimony website" />
+<meta name="keywords" content="matrimonial, telugu matrimony, no1 matrimony in vijayawada" />
+
+<meta name="author" content="Aarna Associates" />
+<meta name="copyright" content="Aarna Matrimony" />
+<meta name="application-name" content="aarnamatrimony.com" />
+
+<!-- For Facebook -->
+<meta property="og:title" content="Aarna Matrimony" />
+<meta property="og:type" content="article" />
+<meta property="og:image" content="http://www.aarnamatrimony.com/facebook.jpg" />
+<meta property="og:url" content="http://www.aarnamatrimony.com" />
+<meta property="og:description" content="matrimonial, telugu matrimony, no1 matrimony in vijayawada" />
+
+<!-- For Twitter -->
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Aarna Matrimony" />
+<meta name="twitter:description" content="matrimonial, telugu matrimony, no1 matrimony in vijayawada" />
+<meta name="twitter:image" content="http://www.aarnamatrimony.com/twitter.jpg" />
 <head>
 <script
 	src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
@@ -1024,7 +1044,8 @@ form {
 	font-size: 12px;
 	right: 24px;
 	position: fixed;
-	width: 250px;
+	width: 320px;
+	z-index:999;
 }
 
 #live-chat header {
@@ -1046,7 +1067,7 @@ form {
 }
 
 #live-chat h4 {
-	font-size: 12px;
+	font-size: 13px;
 }
 
 #live-chat h5 {
@@ -1054,7 +1075,7 @@ form {
 }
 
 #live-chat form {
-	padding: 24px;
+
 }
 
 /* #live-chat input[type="text"] {
@@ -2130,7 +2151,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 					<a href="HomePage"><img src="images/logo01.png" alt=""
 						class="img-responsive" /></a>
 					<video poster="user/images/bgvideo.jpg" controls
-						src="user/images/Aarna Matrimony for Best Mate ,Together Forever.webm"
+						src="user/images/video.mp4"
 						type="video/mp4">
 					</video>
 					<!-- <h3>Follow Us on</h3>
@@ -2216,91 +2237,68 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 	<script src="${baseurl}/js/custemValidation1.js"></script>
 	<script src="${baseurl}/js/ajax.js"></script>
 	<script src="${baseurl}/js/jquery-ui.min.js"></script>
-	<%-- <div id="live-chat">
-		
+	 <div id="live-chat">
 		<header class="clearfix">
-			
 				<!-- <a href="#" class="chat-close">-</a> -->
-
 
 			<h4>Leave Message <span class="pull-right fa fa-minus"></span></h4>
 
-			
-
 		</header>
+
 		<div class="chat col-md-12">
-         <form action="">
+         <form:form commandName="createProfile" action="#" method="post" class="login-form">
 			<div class="clearfix" style="padding-bottom: 8px;"></div>
 			<div class="form-group">
 				<div class="input-group">
-					<span class="input-group-addon"><i class="fa fa-user"></i></span> <input
-						type="text" class="form-control validate " name="userName"
-						id="leaveMsgUserName" placeholder="Name">
+					<span class="input-group-addon"><i class="fa fa-user"></i></span> <form:input
+						type="text" class="form-control validate"
+						path="leaveMsgUserName" placeholder="Name"></form:input>
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="input-group">
-					<span class="input-group-addon"><i class="fa fa-lock"></i></span> <input
-						type="email" class="form-control validate" name="email"
-						id="leaveMsgMail" placeholder="eMail"> <span
-						class="hasError" id="emailError1" style="color: red;"></span>
+					<span class="input-group-addon"><i class="fa fa-lock"></i></span> <form:input
+						type="email" class="form-control validate" 
+						path="leaveMsgMail" placeholder="eMail"></form:input> 
 				</div>
+						 <span class="hasError" id="emailError1" style="color: red;"></span>
 
-			</div>
-
+						</div>
 			<div class="form-group">
 				<div class="input-group">
-					<span class="input-group-addon"><i class="fa fa-lock"></i></span> <input
+					<span class="input-group-addon"><i class="fa fa-lock"></i></span> <form:input
 						type="text" class="form-control validate numbersOnly"
-						name="Mobile" id="leaveMsgMobile" placeholder="Mobile">
+						 path="leaveMsgMobile" maxlength="10" placeholder="Mobile"></form:input>
 				</div>
 
-			</div>
+						</div>
 
 			<div class="form-group">
-				<textarea id="leaveMsgText" name="aboutMyself"
+				<form:textarea path="leaveMsgText" 
 					placeholder="Enter few words about you"
-					class="form-control validate " rows="2"></textarea>
+					class="form-control validate" rows="2"></form:textarea>
 				<span id="errorMsg" style="color: red"></span>
 				<div></div>
 				<div class="clearfix" style="padding-bottom: 8px;"></div>
 
 				<div class="form-group">
-					<button name="submit" type="submit" id="submit1"
-						class="btn btn-primary pull-right" onclick="LeaveMsgSubmit();">Submit</button>
+					<button  type="submit" id="submit2"
+						class="btn btn-primary pull-right" >Submit</button>
 				</div>
 				<div class="clearfix" style="padding-bottom: 3px;"></div>
-					</form>
+					</form:form>
 
+<div class="clearfix" style="padding-bottom:3px;"></div>
+		
 
-
-			</div>
-			<!-- end chat -->
+			
+		</div> <!-- end chat -->
 
 		</div>
-	 --%>
+	
 		<!-- end live-chat -->
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-	<script>
-(function() {
-
-	$('#live-chat header').on('click', function() {
-
-		$('.chat').slideToggle(300, 'swing');
-		$('.chat-message-counter').fadeToggle(300, 'swing');
-
-	});
-
-	$('.chat-close').on('click', function(e) {
-
-		e.preventDefault();
-		$('#live-chat').fadein(300);
-
-	});
-
-}) ();
-</script>
+	
 	<script>
 //   var ss =new Date().getFullYear()-18;
 //   var max =new Date().getFullYear()-40;
@@ -2936,76 +2934,117 @@ $('img').bind('contextmenu', function(e) {
              return false;
     	});
      
-     
  	var leaveMsgMail = $('#leaveMsgMail').val();
  	var expr = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|in|yahoo|edu|gov|mil|biz|info|mobi|name|aero|asia|jobs|museum)$/;
 	 $('#leaveMsgMail').blur(function() {
-	  if(leaveMsgMail == "" || leaveMsgMail == null || leaveMsgMail == "undefined")
+	 /*  if(leaveMsgMail == "" || leaveMsgMail == null || leaveMsgMail == "undefined")
 	{
-		$("#leaveMsgMail").css("border-color","#e73d4a");
+	$("#leaveMsgMail").css("border-color","#e73d4a");
    	$("#leaveMsgMail").attr("placeholder","Email");
    	$('#leaveMsgMail').css('color','red');
    	return false;
 	event.preventDefault();
-	}  
-	if(leaveMsgMail != "" && !leaveMsgMail.match(expr)){
+	}  */ 
+	var leaveMsgMaill = $('#leaveMsgMail').val();
+	if(leaveMsgMaill == "" || !leaveMsgMaill.match(expr)){
 //		alert("Please Enter Valid Email");
    	$("#leaveMsgMail").css("border-color","#e73d4a");
    	$("#leaveMsgMail").attr("title","Email-ID");
    	$('#leaveMsgMail').css('color','red');
-   	$('#emailError1').text("Enter Valid eMail Id");
+   	$('#emailError1').html("Enter Valid eMail Id");
 //    	$('#email').focus();
    	return false;
 	event.preventDefault();
 	}
 	else{
-		$('#emailError').text("");
+		$('#emailError1').html("");
 	}
 	 });
-	
+	 
+	 var idArray = $.makeArray($('.validate').map(function() {
+			return this.id;
+		}));
+	 $('#submit2').click(function(event) {
+			validation = true;
+			$.each(idArray, function(i, val) {
+				var value = $("#" + idArray[i]).val();
+				var placeholder = $("#" + idArray[i]).attr('placeholder');
+				if (value == null || value == "" || value == "undefined") {
+					
+					 $("#" + idArray[i] ).attr("placeholder", placeholder);
+					 $("#" + idArray[i] ).css('border-color','#e73d4a');
+					    $("#" + idArray[i] ).css('color','#e73d4a');
+					    $("#" + idArray[i] ).addClass('your-class');
+//					$("#" + idArray[i] + "Error").text("Please " + placeholder);
+					validation = false;
+				}
+			});
+				if(validation){
+					LeaveMsgSubmit();
+					$("#submit2").attr("disabled",true);
+				}else {
+					event.preventDefault();
+					return false;
+				}
+				
+		});
+	 
+	 $('.validate').keydown(function() {
+			var id = $(this).attr('id');
+			removeBorder(id);
+		});
+		//remove borders
+		function removeBorder(el){	
+			  $("#"+el).css("border", "");
+			  $("#"+el).css('color','black');
+			  $('#'+el).addClass('default-class');
+			  if ($("#" + el+"_chosen").length)
+				{
+					$("#" +el+"_chosen").children('a').css('border-color','black');
+				}
+		}
+		$('.numbersOnly').keyup(function() {
+			this.value = this.value.replace(/[^0-9]/g, '');
+		});
+
+		$(".numbersOnly").keydown(function(e) {
+			// Allow: backspace, delete, tab, escape, enter and .
+			if ($.inArray(e.keyCode, [ 46, 8, 9, 27, 13, 110 ]) !== -1 ||
+			// Allow: Ctrl+A, Command+A
+			(e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+			// Allow: home, end, left, right, down, up
+			(e.keyCode >= 35 && e.keyCode <= 40)) {
+				// let it happen, don't do anything
+				return;
+			}
+			// Ensure that it is a number and stop the keypress
+			if (e.keyCode===190 || ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57))
+					&& (e.keyCode < 96 || e.keyCode > 105))) {
+				e.preventDefault();
+			}
+		});
+
      function LeaveMsgSubmit(){
-    	 
+    	 var expr = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|in|yahoo|edu|gov|mil|biz|info|mobi|name|aero|asia|jobs|museum)$/;
     		var leaveMsgUserName = $("#leaveMsgUserName").val();
     		var leaveMsgMail = $("#leaveMsgMail").val();
     		var leaveMsgMobile = $("#leaveMsgMobile").val();
     		var leaveMsgText = $("#leaveMsgText").val();
-    	 
-    	 if($('#leaveMsgUserName').val() ==  null || $('#leaveMsgUserName').val() == "" || $('#leaveMsgUserName').val()=="undefined"||$('#leaveMsgMail').val() ==  null || $('#leaveMsgMail').val() == ""  || $('#leaveMsgMail').val()=="undefined"||$('#leaveMsgMobile').val() ==  null || $('#leaveMsgMobile').val() == ""  || $('#leaveMsgMobile').val()=="undefined"||$('#leaveMsgText').val() ==  null || $('#leaveMsgText').val() == ""  || $('#leaveMsgText').val()=="undefined")
-			{
- 				 if(leaveMsgUserName==  null || leaveMsgUserName == ""  || leaveMsgUserName=="undefined" ) 
- 				{
-				$('#leaveMsgUserName').css('color','#cc0000');
- 					$('#leaveMsgUserName').css('border-color','#cc0000');
-					$('#leaveMsgUserName').addClass('placeholder-style');
- 				}
+    		if(leaveMsgMail == "" || !leaveMsgMail.match(expr)){
+//    			alert("Please Enter Valid Email");
+    	   	$("#leaveMsgMail").css("border-color","#e73d4a");
+    	   	$("#leaveMsgMail").attr("title","Email-ID");
+    	   	$('#leaveMsgMail').css('color','red');
+    	   	$('#emailError1').html("Enter Valid eMail Id");
+//    	    	$('#email').focus();
+    	   	return false;
+    		event.preventDefault();
+    		}
+    		else{
+    			$('#emailError1').html("");
+    		}
 			
-			if($('#leaveMsgMail').val() ==  null || $('#leaveMsgMail').val() == ""  || $('#leaveMsgMail').val()=="undefined" ) 
-				{
-					$('#leaveMsgMail').css('color','#cc0000');
-					$('#leaveMsgMail').css('border-color','#cc0000');
-					$('#leaveMsgMail').addClass('placeholder-style');
-				}
-				if($('#leaveMsgMobile').val() ==  null || $('#leaveMsgMobile').val() == "" || $('#leaveMsgMobile').val()=="undefined" ) 
-				{
-					$('#leaveMsgMobile').css('color','#cc0000');
-					$('#leaveMsgMobile').css('border-color','#cc0000');
-					$('#leaveMsgMobile').addClass('placeholder-style');
-				}
-				if($('#leaveMsgText').val() ==  null || $('#leaveMsgText').val() == "" || $('#leaveMsgText').val()=="undefined" ) 
-				{
-					$('#leaveMsgText').css('color','#cc0000');
-					$('#leaveMsgText').css('border-color','#cc0000');
-					$('#leaveMsgText').addClass('placeholder-style');
-				}
-			return false;
-		}
- 				else{
-					
- 					return true;
-					 				}  
-		
-			
-				var formData = new FormData();
+			var formData = new FormData();
     		formData.append("leaveMsgUserName",leaveMsgUserName);
     		formData.append("leaveMsgMail",leaveMsgMail);
     		formData.append("leaveMsgMobile",leaveMsgMobile);
@@ -3014,16 +3053,38 @@ $('img').bind('contextmenu', function(e) {
     		$.fn.makeMultipartRequest('POST', 'LeaveMsgSubmit', false,
     				formData, false, 'text', function(data){
     			var jsonobj = $.parseJSON(data);
-//     			var alldata = jsonobj.allOrders1;
   				alert("successfully Sent Message");
+  				$('#leaveMsgUserName').val("");
+  				$('#leaveMsgMail').val("");
+  				$('#leaveMsgMobile').val("");
+  				$('#leaveMsgText').val("");
+  				$("#submit2").attr("disabled",false);
     			
     		});
      }
      
-     
 </script>
 <!-- <script type="text/javascript" async="async" defer="defer" data-cfasync="false" src="https://mylivechat.com/chatinline.aspx?hccid=17191231"></script> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+	<script>
+(function() {
 
+	$('#live-chat header').on('click', function() {
+
+		$('.chat').slideToggle(300, 'swing');
+		$('.chat-message-counter').fadeToggle(300, 'swing');
+
+	});
+
+	$('.chat-close').on('click', function(e) {
+
+		e.preventDefault();
+		$('#live-chat').fadein(300);
+
+	});
+
+}) ();
+</script>
 </body>
 
 </html>

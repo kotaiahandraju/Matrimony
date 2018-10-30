@@ -113,8 +113,34 @@ protected String membership_status;
 protected String unique_code,emailverify,profileVerifyedBy;
 protected String rEducationName,rOccupationName,rCountryName,rStateName,rHeightInches,rHeightToInches,religionId,castId;
 protected int message_sent_status;
-protected String  rCity,rCityName,country,state ,city; 
+protected String  rCity,rCityName,country,state ,city,leaveMsgUserName,leaveMsgMail,leaveMsgMobile,leaveMsgText; 
 
+
+
+public String getLeaveMsgUserName() {
+	return leaveMsgUserName;
+}
+public void setLeaveMsgUserName(String leaveMsgUserName) {
+	this.leaveMsgUserName = leaveMsgUserName;
+}
+public String getLeaveMsgMail() {
+	return leaveMsgMail;
+}
+public void setLeaveMsgMail(String leaveMsgMail) {
+	this.leaveMsgMail = leaveMsgMail;
+}
+public String getLeaveMsgMobile() {
+	return leaveMsgMobile;
+}
+public void setLeaveMsgMobile(String leaveMsgMobile) {
+	this.leaveMsgMobile = leaveMsgMobile;
+}
+public String getLeaveMsgText() {
+	return leaveMsgText;
+}
+public void setLeaveMsgText(String leaveMsgText) {
+	this.leaveMsgText = leaveMsgText;
+}
 public String getCity() {
 	return city;
 }
@@ -192,7 +218,9 @@ public String toString() {
 			+ rOccupationName + ", rCountryName=" + rCountryName + ", rStateName=" + rStateName + ", rHeightInches="
 			+ rHeightInches + ", rHeightToInches=" + rHeightToInches + ", religionId=" + religionId + ", castId="
 			+ castId + ", message_sent_status=" + message_sent_status + ", rCity=" + rCity + ", rCityName=" + rCityName
-			+ ", country=" + country + ", state=" + state + ", city=" + city + ", shortlisted=" + shortlisted + "]";
+			+ ", country=" + country + ", state=" + state + ", city=" + city + ", leaveMsgUserName=" + leaveMsgUserName
+			+ ", leaveMsgMail=" + leaveMsgMail + ", leaveMsgMobile=" + leaveMsgMobile + ", leaveMsgText=" + leaveMsgText
+			+ ", shortlisted=" + shortlisted + "]";
 }
 public String getCastId() {
 	return castId;
