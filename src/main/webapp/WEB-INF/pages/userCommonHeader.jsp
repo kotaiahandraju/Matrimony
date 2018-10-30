@@ -18,6 +18,26 @@
 	<!-- for-mobile-apps -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<!-- For Google -->
+<meta name="description" content="no1 telugu matrimonial service, best telugu matrimony website" />
+<meta name="keywords" content="matrimonial, telugu matrimony, no1 matrimony in vijayawada" />
+
+<meta name="author" content="Aarna Associates" />
+<meta name="copyright" content="Aarna Matrimony" />
+<meta name="application-name" content="aarnamatrimony.com" />
+
+<!-- For Facebook -->
+<meta property="og:title" content="Aarna Matrimony" />
+<meta property="og:type" content="article" />
+<meta property="og:image" content="http://www.aarnamatrimony.com/facebook.jpg" />
+<meta property="og:url" content="http://www.aarnamatrimony.com" />
+<meta property="og:description" content="matrimonial, telugu matrimony, no1 matrimony in vijayawada" />
+
+<!-- For Twitter -->
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Aarna Matrimony" />
+<meta name="twitter:description" content="matrimonial, telugu matrimony, no1 matrimony in vijayawada" />
+<meta name="twitter:image" content="http://www.aarnamatrimony.com/twitter.jpg" />
 	<script type="application/x-javascript">
 		addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 		function hideURLbar(){ window.scrollTo(0,1); }
@@ -62,6 +82,8 @@
 	<link href="${baseurl }/css/jquery.littlelightbox.css" rel="stylesheet" type="text/css">
 
 	<style type="text/css">
+	.newma  td:first-child { 
+	font-weight:bold;}
 	.products {
 	margin-top:100px;}
 	.products .container {
@@ -90,8 +112,13 @@
     color: #ec1212;
     background-color: #fffbfb;
     border-color: #ccc;
-    width: 71px !important;
+    width: 78px !important;
 }
+.btn {
+font-weight:bold;}
+.form-check-label a {
+font-weight:bold;
+font-size:15px;}
 	a {
 	cursor:pointer;}
 .note {
@@ -822,7 +849,7 @@ text-align:center;
 			            + '<div class="col-md-6">'
 			            + 	'<div class="profilesimilar">'
 			            + 		'<table width="100%" border="0" cellspacing="0" cellpadding="0">'
-			            + 			'<tr><td><h4><a href="#" onclick="fullProfile('+orderObj.id+')">'+firstname+'&nbsp;'+lastname+'</h4>&nbsp;('+orderObj.username+')</a>&nbsp;'+premiumMember+'</td></tr>'
+			            + 			'<tr><td><h4><a href="#" style="font-weight:bold;" onclick="fullProfile('+orderObj.id+')">'+firstname+'&nbsp;'+lastname+'</h4>&nbsp;('+orderObj.username+')</a>&nbsp;'+premiumMember+'</td></tr>'
 			            + 			'<tr><td><p>'+age+' yrs, '+orderObj.religionName+', '+orderObj.casteName+',</p></td></tr>'
 			            + 			'<tr><td><p>'+orderObj.inches+'&nbsp'+occName+', '+orderObj.currentCityName+', '+orderObj.currentCountryName+'.</p></td></tr>'
 			            //+			mobile_no__str
@@ -1570,7 +1597,7 @@ text-align:center;
 			            	+ '</div>'
 			            	+ '<div class="col-md-10 table-responsive">'
 			            	+ '<table style="width:100%;" class="table-responsive pendinginbox">'
-			            	+ '	<tr><td>'+firstname+' '+lastname+'&nbsp;('+orderObj.username+')&nbsp;<a href="#" data-toggle="tooltip" data-placement="bottom" title="View Mobile Number"></a>&nbsp;'+premiumMember+'<span class="pull-right"><img src="${baseurl}/images/ar.png"/>'+recent_activity.activity_done_on+'</span></td></tr>'
+			            	+ '	<tr><td style="font-weight:bold;">'+firstname+' '+lastname+'&nbsp;('+orderObj.username+')&nbsp;<a href="#" data-toggle="tooltip" data-placement="bottom" title="View Mobile Number"></a>&nbsp;'+premiumMember+'<span class="pull-right"><img src="${baseurl}/images/ar.png"/>'+recent_activity.activity_done_on+'</span></td></tr>'
 			            	+ '	<tr><td>'+orderObj.age+'Yrs,'+orderObj.inches+','+orderObj.religionName+','+orderObj.casteName+','
 			            	+ 		orderObj.currentCityName+','+orderObj.currentStateName+','+orderObj.currentCountryName+','
 			            	+ 		orderObj.educationName+','+orderObj.occupationName+'.'
@@ -2813,7 +2840,7 @@ body {
 margin-bottom:5px;
 }
 .btn-sm {
-width:120px;
+width:128px;
 }
 .panel-title {
 	font-size: 16px;
@@ -3778,7 +3805,7 @@ img.hover-shadow {
 						
 						</div>
 	</div>
-<div class="nav"  style="width:100%;background:#3c763d;">
+<div class="nav"  style="width:100%;background:#006699;">
 	<div class="container">
 		<div class="row">
 			<nav class="navbar navbar-custom navbar-inverse" role="navigation" >

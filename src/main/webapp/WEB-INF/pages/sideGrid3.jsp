@@ -20,7 +20,7 @@ margin-bottom:0px;}
         <div class="panel-heading" role="tab" id="headingOne">
              <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" class="collapsed">
-          Preferred Location
+          <b>Preferred Location</b>
         </a>
       </h4>
 
@@ -57,7 +57,7 @@ margin-bottom:0px;}
         <div class="panel-heading" role="tab" id="headingTwo">
              <h4 class="panel-title">
         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-       Preferred Profession
+      <b> Preferred Profession</b>
         </a>
       </h4>
 
@@ -94,7 +94,7 @@ margin-bottom:0px;}
         <div class="panel-heading" role="tab" id="headingThree">
              <h4 class="panel-title">
         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-      Preferred Education        </a>
+     <b> Preferred Education </b>       </a>
       </h4>
 
         </div>
