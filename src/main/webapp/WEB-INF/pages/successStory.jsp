@@ -23,7 +23,7 @@ line-height:1.5;}
 <div class="container-fluid">
     
     <div class="next-div panel panel-success" id="1">
-					<div class="panel-heading">Success Story <a class="pull-right" href="HomePage" style=" color:#000;">Go To HomePage </a> </div>
+<!-- 					<div class="panel-heading">Success Story <a class="pull-right" href="HomePage" style=" color:#000;">Go To HomePage </a> </div> -->
 <!-- <<<<<<< HEAD
 	             	<div class="panel-body">
 	             	<h5>(AMNLR278948) Avanigadda Sudha <span class="pull-right">    <button class="next btn btn-primary">Next</button>

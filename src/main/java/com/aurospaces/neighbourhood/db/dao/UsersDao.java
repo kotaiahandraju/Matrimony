@@ -248,16 +248,16 @@ public class UsersDao extends BaseUsersDao
 								}
 								if(type.equals("inactive")){
 									buffer.append( " and u.status in( '0') and u.role_id not in (1,3) and "
-											+" if((select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) is null or "
-											+"    (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1)='0',0,1) ");
+											+" (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) is not null "
+											+" and (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) <> '0' ");
 								}
 								if(type.equals("admin")){
 									buffer.append( " and u.registerwith is not null " );
 								}
 								if(type.equals("free")){
 									buffer.append( " and u.role_id in ('4') and "
-											+" if((select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) is null or "
-											+"    (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1)='0',0,1) ");
+											+" (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) is not null "
+											+" and (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) <> '0' ");
 								}
 								if(type.equals("premium")){
 									buffer.append( " and u.role_id in ('6') and u.status in ('1') " );
@@ -282,6 +282,11 @@ public class UsersDao extends BaseUsersDao
 								}
 								if(type.equals("hidden")){
 									buffer.append( " and u.status in( '3') and u.role_id not in ('3')" );
+								}
+								if(type.equals("undefined")){
+									buffer.append( " and u.status in( '0') and u.role_id not in ('3','1') and "
+											+" ((select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) is  null "
+											+" or (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) = '0') ");
 								}
 								UsersBean objuserBean = (UsersBean) session.getAttribute("cacheUserBean");
 								if(objuserBean.getRoleId()==MatrimonyConstants.AARNA_EMPLOYEE_ROLE_ID){
@@ -4158,8 +4163,8 @@ public boolean deletePhoto(String photoId){
 					if(objreReportsBean.getPackages().equals("FreeRegister")){
 						
 						buffer.append( " and u.role_id ='4' and "
-											+" if((select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) is null or "
-											+"    (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1)='0',0,1) ");
+								+" (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) is not null "
+								+" and (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) <> '0' ");
 					}else if(StringUtils.isNotBlank(objreReportsBean.getPackages())){
 						buffer.append( " and u.package_id ="+objreReportsBean.getPackages() );
 					}
@@ -5074,8 +5079,8 @@ public boolean deletePhoto(String photoId){
 		try{
 				String inactiveQry = "select count(1) from users u"
 						+" where u.status in ('0') and u.role_id not in (1) and "
-						+" if((select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) is null or "
-						+"    (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1)='0',0,1) ";
+						+" ((select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) is not null) "
+						+" and ((select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) <> '0') ";
 				
 				String updatedProfilesQry = "select count(1) from (select count(1) from vuser_images ui " 
 						+" where ui.user_id in (select u.id from users u where u.status='1') and ui.status = '1' and ui.approved_status = '0' group by user_id) temp  ";

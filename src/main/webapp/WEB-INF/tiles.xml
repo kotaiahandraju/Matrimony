@@ -85,6 +85,9 @@
 	<definition name="freeRegisterProfile" extends="base.definition">
 		<put-attribute name="body" value="/WEB-INF/pages/freeRegisterProfile.jsp" />
 	</definition>
+	<definition name="undefinedProfile" extends="base.definition">
+		<put-attribute name="body" value="/WEB-INF/pages/undefinedProfile.jsp" />
+	</definition>
 	<definition name="premiumProfile" extends="base.definition">
 		<put-attribute name="body" value="/WEB-INF/pages/premiumProfile.jsp" />
 	</definition>

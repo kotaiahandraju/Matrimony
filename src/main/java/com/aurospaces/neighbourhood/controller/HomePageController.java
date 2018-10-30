@@ -3849,7 +3849,21 @@ String sJson="";
 			   String otp = objUsersDao.getOtpOf(sessionBean.getId()+"",mobileNum)+"";
 			   if(StringUtils.isNotBlank(otp1)  &&  otp.equals(otp1)){
 				   objUsersDao.updateOtpStatus(mobileNum,otp);
-				   
+				   try{
+					   String ressponse = SendSMS.sendSMS("Dear "  +sessionBean.getFirstName()+ " "+sessionBean.getLastName()+",\n Your mobile number has been verified successfully.\n\n-Team AarnaMatrimony ", mobileNum);
+					   
+					   if("OK".equalsIgnoreCase(ressponse)){
+						   
+						   request.setAttribute("message", "success");
+					   }else{
+						   request.setAttribute("message", "failed"); 
+					   }
+					   //throw new Exception();
+				   }catch(Exception e){
+					   e.printStackTrace();
+					   request.setAttribute("message", "failed");
+					   //objUsersDao.delete(sessionBean.getId());
+				   }
 				   //return "redirect:saveUserProfile";
 				   return "redirect:dashboard";
 			   }else{

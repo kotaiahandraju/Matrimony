@@ -4,8 +4,6 @@
 <%@ taglib uri="http://displaytag.sf.net" prefix="display"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
-<link href="${baseurl }/css/imgareaselect-default.css" rel="stylesheet" media="screen">
-<link rel="stylesheet" href="${baseurl }/css/jquery.awesome-cropper.css">
 <style>
  .error {
         color: red; font-weight: bold;
@@ -13,32 +11,12 @@
 </style>
 <script type="text/javascript">
 $( document ).ready(function() {
-	$(function(){
-		 //add text water mark;	
-	 addWaterMark();
-	});
-	function addWaterMark(){
-	 $('.watermark_text').watermark({
-		  text: 'aarnamatrimony.com',
-		  textWidth: 600,
-		  textSize: 70,
-		  textColor: 'white',
-		  gravity: 'n',
-		   opacity: 0.7,
-		   margin: 10,
-		   outputWidth: 'auto',
-		   outputHeight: 'auto'
-		 });
-	}
     $("#editProfile").hide();
 });
 </script>
 <link href="${baseurl }/css/datepicker1.css" rel="stylesheet" type="text/css" />
 <script src="${baseurl }/js/jquery-ui.min.js"></script>
-
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" />
-
-	
 <!-- 	<script src="http://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script> -->
 <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.1/themes/black-tie/jquery-ui.css"> -->
 <!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.js"></script> -->
@@ -47,7 +25,7 @@ $( document ).ready(function() {
 <div class="container-fluid">
 	<div class="page-header">
 		<div class="pull-left">
-			<h1>Active Profiles </h1> 
+			<h1>Undefined Profiles </h1> 
 		</div>
 	</div>
 	<div class="breadcrumbs">
@@ -59,16 +37,11 @@ $( document ).ready(function() {
 			</li>
 			<li>
 				&nbsp;<i class="fa fa-file"></i>
-				<span style="color: #999;cursor: auto;">Active Profiles</span>
+				<span style="color: #999;cursor: auto;">Undefined Profiles</span>
 			</li>
 		</ul>
 		
 	</div>
-								<c:if test="${not empty msg}">
-									<div class="form-group col-md-8" style="margin-bottom: 0px;" align="right">
-										<div class="msgcss fadeIn animated alert alert-danger">${msg}</div>
-									</div>
-								</c:if>
 	<div class="col-lg-8">
 		<div>
 			<div class="portlet" id="yw0">
@@ -107,18 +80,16 @@ $( document ).ready(function() {
 
 <div class="row" id="allProfilesId">
 	<div class="col-sm-12">
-		<div class="box" style="min-height:500px;">
+		<div class="box">
 			<div class="box-title">
 				<h3>
 					<i class="fa fa-table"></i>
-					Active Profiles List
+					Undefined  Profiles List
 				</h3>
 			</div>
 			<div class="box-content nopadding table-responsive w3-animate-zoom" id="tableId">
-				<table id="tableToExport" class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,text,text,text,text,null">
-					<thead>
-					<tr>
-						<th>created</th><th>UserName</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Mobile</th>
+				<table class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,text,text,text,text,null">
+					<thead><tr><th>UserName</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Mobile</th><th>Age</th><th>Caste</th><th>Package</th>
 						<th></th>
 					</tr>
 					</thead>
@@ -131,32 +102,7 @@ $( document ).ready(function() {
 </div>
 </div>
 
-  <!-- Modal -->
-  <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Image Upload</h4>
-        </div>
-        <div class="modal-body">
-         <input type="hidden" name="profileId" id="profileId">
-        <!-- <input id="imageName" type="file" value="" name="imageName" > -->
-        	<form role="form">
-		      <input id="imageName" type="hidden" name="test[image]">
-		    </form>
-          <button type="button" id="uploadBtn" onclick="imageAjax()" class="btn btn-default" >Upload</button>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-      
-    </div>
-  </div>
-<script src="${baseurl}/js/common.js"></script>	
+<script src="${baseurl }/js/common.js"></script>		
 <script type="text/javascript">
 /* var _gaq = _gaq || [];
 _gaq.push(['_setAccount', 'UA-38620714-4']);
@@ -178,80 +124,60 @@ s.parentNode.insertBefore(ga, s);
  function displayTable(listOrders) {
 		$('#tableId').html('');
 		var tableHead = '<table class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,text,text,text,text,null">'
-			+ '<thead><tr><th>Created On</th><th>UserName</th><th>First Name</th><th>Last Name</th><th>Gender</th><th>Email</th><th>Mobile</th><th>Age</th><th>Caste</th><th>Package</th><th></th></tr></thead><tbody></tbody></table>';
+			+ '<thead><tr><th>created</th><th>UserName</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Mobile</th><th>Age</th><th>Caste</th><th>Package</th><th></th></tr></thead><tbody></tbody></table>';
 		$('#tableId').html(tableHead);
 		serviceUnitArray = {};
 		$.each(listOrders,function(i, orderObj) {
 			var viewProfile = "<a data-toggle='tooltip' title='View' onclick='viewProfileNew("+ orderObj.id+ ")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-eye'></i></a>"
-			var uploadPhotos = "";
-			var moveToHidden = "";
-			var editProfile = "";
-			var sendMail = "";
-			var inactive = "";
-// 			var compareProfiles = "";
-			var deleteProfile = "";
-// 			var payment = "";
-			var resetPassword = "";
-			if (role_id == 1){
-			uploadPhotos = "<a data-toggle='tooltip'  title='Upload Photos' onclick='uploadPhotos("+ orderObj.id+ ")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-photo'></i></a>"
-			moveToHidden = "<a data-toggle='tooltip' title='Move To Hidden' onclick='moveToHidden("+ orderObj.id+ ",\"all\")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-eye-slash'></i></a>"
-			editProfile = "<a data-toggle='tooltip' title='Edit' onclick='editProfile("+ orderObj.id+ ")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-pencil'></i></a>"
-			sendMail = "<a data-toggle='tooltip' title='Mail' onclick='sendMail("+ orderObj.id+ ")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-envelope'></i></a>"
-			inactive = "<a data-toggle='tooltip' title='Inactive' onclick='profileStatusChange("+ orderObj.id+ ",0)'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-remove'></i></a>"
-// 			compareProfiles = "<a data-toggle='tooltip' title='Compare Profiles' onclick='compareProfiles("+ orderObj.id+ ")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-exchange'></i></a>"
-			deleteProfile = "<a data-toggle='tooltip' title='Delete' onclick='profileStatusChange("+ orderObj.id+ ",2)'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-trash'></i></a>"
-// 			payment = "<a data-toggle='tooltip' title='Payment' onclick='payment("+ orderObj.id+ ",0)'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-usd'></i></a>"
-			resetPassword = "<a data-toggle='tooltip' title='Reset Password' onclick='resetPassword("+ orderObj.id+ ")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-repeat'></i></a>"
-			}
+			var uploadPhotos = "<a data-toggle='tooltip' title='Upload Photos' onclick='uploadPhotos("+ orderObj.id+ ")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-photo'></i></a>"
+			var moveToHidden = "<a data-toggle='tooltip' title='Move To Hidden' onclick='moveToHidden("+ orderObj.id+ ",\"free\")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-eye-slash'></i></a>"
+			var editProfile = "<a data-toggle='tooltip' title='Edit' onclick='editProfile("+ orderObj.id+ ")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-pencil'></i></a>"
+			var sendMail = "<a data-toggle='tooltip' title='Mail' onclick='sendMail("+ orderObj.id+ ")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-envelope'></i></a>"
+			var inactive = "<a data-toggle='tooltip' title='Inactive' onclick='profileStatusChange("+ orderObj.id+ ",0)'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-remove'></i></a>"
+// 			var compareProfiles = "<a data-toggle='tooltip' title='Compare Profiles' onclick='compareProfiles("+ orderObj.id+ ")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-exchange'></i></a>"
+			var deleteProfile = "<a data-toggle='tooltip' title='Delete' onclick='profileStatusChange("+ orderObj.id+ ",2)'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-trash'></i></a>"
+// 			var payment = "<a data-toggle='tooltip' title='Payment' onclick='payment("+ orderObj.id+ ",0)'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-usd'></i></a>"
+			var resetPassword = "<a data-toggle='tooltip' title='Reset Password' onclick='resetPassword("+ orderObj.id+ ",0)'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-repeat'></i></a>"
 			/* var viewProfile = "<a title='View Profile' onclick='viewProfile("+ orderObj.id+ ")'><i style='color: blue;' class='fa fa-eye'></i></a>"
 							var viewProfile = "<a title='View Profile' onclick='viewProfile("+ orderObj.id+ ")'><i style='color: blue;' class='fa fa-eye'></i></a>"
 							var viewProfile = "<a title='View Profile' onclick='viewProfile("+ orderObj.id+ ")'><i style='color: blue;' class='fa fa-eye'></i></a>" */
 							serviceUnitArray[orderObj.id] = orderObj;
 							if(orderObj.firstName !=null){
-								if(orderObj.profileVerifyedBy == '0'){
-									var username = "<td style='color: red;' title='"+orderObj.username+"'><b>" + orderObj.username + "</td>"
-								}else{
-									var username = "<td title='"+orderObj.username+"'>" + orderObj.username + "</td>"
-								}
-								
 							var tblRow = "<tr >"
-								+ "<td title='"+orderObj.created_time_str+"'>" + orderObj.created_time_str + "</td>"
-								+ username
+								+ "<td title='"+orderObj.created_time+"'>" + orderObj.created_time + "</td>"
+								+ "<td title='"+orderObj.username+"'>" + orderObj.username + "</td>"
 								+ "<td title='"+orderObj.firstName+"'>" + orderObj.firstName + "</td>"
 								+ "<td title='"+orderObj.lastName+"'>" + orderObj.lastName + "</td>"
-								+ "<td title='"+orderObj.gender+"'>" + orderObj.gender + "</td>"
 								+ "<td title='"+orderObj.email+"'>" + orderObj.email + "</td>"
 								+ "<td title='"+orderObj.mobile+"'>" + orderObj.mobile + "</td>"
 								+ "<td title='"+orderObj.age+"'>" + orderObj.age + "</td>"
 								+ "<td title='"+orderObj.casteName+"'>" + orderObj.casteName + "</td>"
 								+ "<td title='"+orderObj.planPackage+"'>" + orderObj.planPackage + "</td>"
-								+ "<td style='text-align: center;white-space: nowrap;'>" + viewProfile + "&nbsp;&nbsp;" + uploadPhotos + "&nbsp;&nbsp;" 
-								+	moveToHidden + "&nbsp;&nbsp;" + editProfile + "&nbsp;&nbsp;" + sendMail + "&nbsp;&nbsp;" 
-								+	inactive  + "&nbsp;&nbsp;" + deleteProfile + "&nbsp;&nbsp;"
-								+	resetPassword
-								+ "</td>"  
-								+ "</tr >";
+									+ "<td style='text-align: center;white-space: nowrap;'>" + viewProfile + "&nbsp;&nbsp;" + editProfile + "&nbsp;&nbsp;" + sendMail + "&nbsp;&nbsp;" 
+									 + deleteProfile + "&nbsp;&nbsp;"
+									+	 resetPassword
+									+ "</td>"  
+									+ "</tr >";
 							$(tblRow).appendTo("#tableId table tbody"); 
 							}
 						});
 		if(isCheck=="Yes"){
 			$('.dataTable').DataTable({
-				 "lengthChange": true,
 				 dom: 'lBfrtip',
-				 title: 'Active Profiles',
+				 title: 'Undefined Profiles',
 				 /* buttons: [
 				            'copy', 'csv', 'excel', 'pdf','print'
 				        ]	 */
 				        buttons: [
 						            {
 						                extend: 'excelHtml5',
-						                title: 'Active Profiles',
-						                filename: 'Active Profiles'
+						                title: 'Undefined Profiles',
+						                filename: 'Undefined Profiles'
 						            },
 						            {
 						                extend: 'pdfHtml5',
-//		 		                        messageTop : 'Active Profiles',
-					                        title : 'Active Profiles',
+//		 		                        messageTop : 'Free Register Profiles',
+					                        title : 'Undefined Profiles',
 					                        orientation : 'landscape',
 							                pageSize : 'LEGAL',
 							                text : '<i class="fa fa-file-pdf-o"> PDF</i>',
@@ -268,7 +194,7 @@ s.parentNode.insertBefore(ga, s);
 						  		     
 						            },{
 						                extend: 'print',
-						                title: 'Active Profiles',
+						                title: 'Undefined Profiles',
 						                customize: function(doc) {
 						                  doc.styles.title = {
 						                    color: 'red',
@@ -295,42 +221,10 @@ s.parentNode.insertBefore(ga, s);
 			});	
 		}
 	}
-/*  function uploadPhotos(id){
-	
-	 $("#profileId").val(id);
-	    $('#myModal').modal();
-	    
-}  */
- function imageAjax(){
-	 if($("#imageName").val() == "" || $("#imageName").val() == "undefined" || $("#imageName").val() == null){
-			alert("Please Select An Image..!");
-		}
-	 else{
-		 $("#uploadBtn").prop("disabled",true);
-			$("#uploadBtn").val("Please wait...");
-		var id= $("#profileId").val();
-		var formData = new FormData();
-		//formData.append("imageName", imageName.files[0]);
-		formData.append("imageData", $("#imageName").val());
-		formData.append("id", id);
-		  $.fn.makeMultipartRequest('POST', 'croppedImageUpload', false,
-					formData, false, 'text', function(data){
-			  	var jsonobj = $.parseJSON(data);
-			  	var msg = jsonobj.message;
-			  	if("success" == msg){
-			  		alert("Photo uploaded Successfully");
-			  	}else{
-			  		alert("Photo upload failed, Please try again..!");
-			  	}
-			  	$("#uploadBtn").removeAttr("disabled");
-		   		$("#uploadBtn").val("Upload Photo");
-			});
- 	}
- }
  function editProfile(id) {
 	 var location = $("#loc").val();
 //  	 var win = window.open(""+location+"/admin/CreateProfile/"+id+"");
- 	 window.location.href =location+"/admin/CreateProfile/"+id+"/AllProfilesHome";
+ 	 window.location.href =location+"/admin/CreateProfile/"+id+"/UndefinedProfile";
 	 if (win) {
 	     //Browser has allowed it to be opened
 	     win.focus();
@@ -341,40 +235,8 @@ s.parentNode.insertBefore(ga, s);
 	 
 	
 		}
- function uploadPhotos(id) {
-	 var location = $("#loc").val();
-//  	 var win = window.open(""+location+"/admin/CreateProfile/"+id+"");
-	firstName=serviceUnitArray[id].firstName;
-	lastName=serviceUnitArray[id].lastName;
- 	 window.location.href =location+"/admin/uploadPhotos/"+id+"/"+firstName+"/"+lastName;
-	 if (win) {
-	     //Browser has allowed it to be opened
-	     win.focus();
-	 } else {
-	     //Browser has blocked it
-	     alert('Please allow popups for this website');
-	 }
-	 
-	
-		}
- 
- function payment(id) {
-	 /* var location = $("#loc").val();
-//  	 var win = window.open(""+location+"/admin/CreateProfile/"+id+"");
- 	 window.location.href =location+"/admin/paymentDetails/"+id+"/AllProfilesHome";
-	 if (win) {
-	     //Browser has allowed it to be opened
-	     win.focus();
-	 } else {
-	     //Browser has blocked it
-	     alert('Please allow popups for this website');
-	 } */
-	 
-	
-}
- 
- function profileStatusChange(id,statusId){
-	 var checkstr = "";
+  function profileStatusChange(id,statusId){
+	  var checkstr = "";
 	 	if(statusId==0){
 	 		checkstr =  confirm('Are you sure you want to In-Activate this profile?');
 	 	}
@@ -385,7 +247,7 @@ s.parentNode.insertBefore(ga, s);
 		var formData = new FormData();
 	     formData.append('status', statusId);
 	     formData.append('id', id);
-	     formData.append('statusName', "all");
+	     formData.append('statusName', "undefined");
 		$.fn.makeMultipartRequest('POST', 'updateStatus', false,
 				formData, false, 'text', function(data){
 			var jsonobj = $.parseJSON(data);
@@ -397,28 +259,27 @@ s.parentNode.insertBefore(ga, s);
 		});
 		}
 		
-	}
- var username1 =null;
- function viewProfile(id){
+	} 
+ 
+  function viewProfile(id){
 		$('#dial1').html('');
 		
 		var username = serviceUnitArray[id].username;
-// 		var imageUrl = serviceUnitArray[id].image;
+//		var imageUrl = serviceUnitArray[id].image;
 		 username1 = username;
 		var array = null;
-// 		var imageUrl =null;
+//		var imageUrl =null;
 		
 		var image = null; image = serviceUnitArray[id].image;
 		if(image == "" || image == null || image == "undefined"){
-			image = "${baseurl}/img/default.png";
+			image = "img/default.png";
 		}
 		else{
 		array = image.split(",");
 		
 		$.each(array,function(i){
 			image = array[i];
-			image ="${catalina_base}/"+array[i];
-// 			   alert(array[i]);
+//			   alert(array[i]);
 			});
 		}
 		
@@ -505,7 +366,7 @@ s.parentNode.insertBefore(ga, s);
 		var drinking = null; drinking = serviceUnitArray[id].drinking;
 		if(drinking == "" || drinking == null || drinking == "undefined"){drinking = "---";}
 		
-		var height = null; height = serviceUnitArray[id].inches;
+		var height = null; height = serviceUnitArray[id].height;
 		if(height == "" || height == null || height == "undefined"){height = "---";}
 		
 		var bodyTypeName = null; bodyTypeName = serviceUnitArray[id].bodyTypeName;
@@ -529,11 +390,8 @@ s.parentNode.insertBefore(ga, s);
 		var rAgeTo = null; rAgeTo = serviceUnitArray[id].rAgeTo;
 		if(rAgeTo == "" || rAgeTo == null || rAgeTo == "undefined"){rAgeTo = "---";}
 		
-		var rHeight = null; rHeight = serviceUnitArray[id].rHeightInches;
+		var rHeight = null; rHeight = serviceUnitArray[id].rHeight;
 		if(rHeight == "" || rHeight == null || rHeight == "undefined"){rHeight = "---";}
-		
-		var rHeightTo = null; rHeightTo = serviceUnitArray[id].rHeightToInches;
-		if(rHeightTo == "" || rHeightTo == null || rHeightTo == "undefined"){rHeightTo = "---";}
 		
 		var rMaritalStatus = null; rMaritalStatus = serviceUnitArray[id].rMaritalStatus;
 		if(rMaritalStatus == "" || rMaritalStatus == null || rMaritalStatus == "undefined"){rMaritalStatus = "---";}
@@ -579,8 +437,7 @@ s.parentNode.insertBefore(ga, s);
 		if(rStateName == "" || rStateName == null || rStateName == "undefined"){rStateName = "---";}
 		
 		 var tblRow = 	"<div id='printProfile'><div class='col-sm-2' >"
-		 		+		"<img src='"+image+"' class='' width='150px' align='right'/>"
-		 		
+		 		+		"<img src=${baseurl }/"+image+" class='watermark_text' width='150px' align='right'/>"
 	//			+		"<i class='fa fa-user' style='font-size: 10em;'></i>"
 	// 	 		+		"<img class='img-responsive' src='../img/default.png' style='width: auto !important;height: 120px !important;'>"
 		 		+ 	"</div>" 
@@ -812,37 +669,26 @@ s.parentNode.insertBefore(ga, s);
 			displayTable(alldata); */
 		});
 	 }
- $("#exportBtn").click(function(){
-	  $("#tableToExport").table2excel({
-	    // exclude CSS class
-	    exclude: ".noExl",
-	    name: "Worksheet Name",
-	    filename: "SomeFile" //do not include extension
-	  }); 
-	});
+  
  $(function(){
 		$('.dataTable').DataTable({
-			 "lengthChange": true,
-			 "aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
 			 dom: 'lBfrtip',
-			 title: 'Active Profiles',
+			 title: 'Undefined Profiles',
 			 /* buttons: [
 			            'copy', 'csv', 'excel', 'pdf','print'
 			        ]	 */
 			        buttons: [
 					            {
 					                extend: 'excelHtml5',
-					                title: 'Active Profiles',
-					                filename: 'Active Profiles'
+					                title: 'Undefined Profiles',
+					                filename: 'Undefined Profiles'
 					            },
 					            {
 					                extend: 'pdfHtml5',
-//	 		                        messageTop : 'Active Profiles',
-				                        title : 'Active Profiles',
+//	 		                        messageTop : 'Free Register Profiles',
+				                        title : 'Undefined Profiles',
 				                        orientation : 'landscape',
 						                pageSize : 'LEGAL',
-						                text : '<i class="fa fa-file-pdf-o"> PDF</i>',
-						                titleAttr : 'PDF',
 									exportOptions: {columns: [0,1,2,3,4,5,6,7]},
 			                        customize: function ( doc ) {
 										doc.content.splice( 1, 0, {
@@ -855,7 +701,7 @@ s.parentNode.insertBefore(ga, s);
 					  		     
 					            },{
 					                extend: 'print',
-					                title: 'Active Profiles',
+					                title: 'Undefined Profiles',
 					                customize: function(doc) {
 					                  doc.styles.title = {
 					                    color: 'red',
@@ -881,401 +727,10 @@ s.parentNode.insertBefore(ga, s);
 					        ]
 		});	
 	});
- function PrintElem(elem)
- {
- 	$(".noPrint").hide();
-     Popup($("#printProfile").html());
-     
- }
-
-
- function Popup(data)
- {
- 	var mywindow = window.open('','new div');
-
-     var is_chrome = Boolean(mywindow.chrome);
-     var isPrinting = false;
-     mywindow.document.write('<html><head><title>'+username1+'</title> <link rel="stylesheet" type="text/css" href="../assets/css/img.css"><link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css"></head><body>');
-     mywindow.document.write(data);
-    
-     mywindow.document.write('</body></html>');
-     mywindow.document.close(); // necessary for IE >= 10 and necessary before onload for chrome
-
- 
- $(".noPrint").show();
-     if (is_chrome) {
-         mywindow.onload = function() { // wait until all resources loaded 
-             mywindow.focus(); // necessary for IE >= 10
-             mywindow.print();  // change window to mywindow
-             mywindow.close();// change window to mywindow
-         };
-     
-     
-    } else {
-         mywindow.document.close(); // necessary for IE >= 10
-         mywindow.focus(); // necessary for IE >= 10
-
-         mywindow.print();
-         mywindow.close();
-    }
-   
-     return true;
- }
- /* function profilePrit(id){
-
-		$('#dial1').html('');
-		
-		var username = serviceUnitArray[id].username;
-//		var imageUrl = serviceUnitArray[id].image;
-		
-		var array = null;
-//		var imageUrl =null;
-		
-		var image = null; image = serviceUnitArray[id].image;
-		if(image == "" || image == null || image == "undefined"){
-			image = "img/default.png";
-		}
-		else{
-		array = image.split(",");
-		
-		$.each(array,function(i){
-			image = array[i];
-//			   alert(array[i]);
-			});
-		}
-		
-		var registerwith = null; registerwith = serviceUnitArray[id].registerwith;
-		if(registerwith == "" || registerwith == null || registerwith == "undefined"){registerwith = "---";}
-		
-		var executiveName = null; executiveName = serviceUnitArray[id].executiveName;
-		if(executiveName == "" || executiveName == null || executiveName == "undefined"){executiveName = "---";}
-		
-		var email = null; email = serviceUnitArray[id].email;
-		if(email == "" || email == null || email == "undefined"){email = "---";}
-		
-		var createProfileFor = null; createProfileFor = serviceUnitArray[id].createProfileFor;
-		if(createProfileFor == "" || createProfileFor == null || createProfileFor == "undefined"){createProfileFor = "---";}		
-
-		var gender = null; gender = serviceUnitArray[id].gender;
-		if(gender == "" || gender == null || gender == "undefined"){gender = "---";}
-		
-		var firstName = null; firstName = serviceUnitArray[id].firstName;
-		if(firstName == "" || firstName == null || firstName == "undefined"){firstName = "---";}
-		
-		var lastName = null; lastName = serviceUnitArray[id].lastName;
-		if(lastName == "" || lastName == null || lastName == "undefined"){lastName = "---";}
-		
-		/* var dob = null; dob = serviceUnitArray[id].dob;
-		if(dob == "" || dob == null || dob == "undefined"){dob = "---";} */
-		
-/* 		var dob = null; dob = serviceUnitArray[id].dobString;
-		if(dob == "" || dob == null || dob == "undefined"){dob = "---";}
-		
-		var religionName = null; religionName = serviceUnitArray[id].religionName;
-		if(religionName == "" || religionName == null || religionName == "undefined"){religionName = "---";}
-
-		var motherTongueName = null; motherTongueName = serviceUnitArray[id].motherTongueName;
-		if(motherTongueName == "" || motherTongueName == null || motherTongueName == "undefined"){motherTongueName = "---";}
-		
-		var currentCountryName = null; currentCountryName = serviceUnitArray[id].currentCountryName;
-		if(currentCountryName == "" || currentCountryName == null || currentCountryName == "undefined"){currentCountryName = "---";}
-		
-		var currentStateName = null; currentStateName = serviceUnitArray[id].currentStateName;
-		if(currentStateName == "" || currentStateName == null || currentStateName == "undefined"){currentStateName = "---";}
-		
-		var currentCityName = null; currentCityName = serviceUnitArray[id].currentCityName;
-		if(currentCityName == "" || currentCityName == null || currentCityName == "undefined"){currentCityName = "---";}
-		
-		var maritalStatus = null; maritalStatus = serviceUnitArray[id].maritalStatus;
-		if(maritalStatus == "" || maritalStatus == null || maritalStatus == "undefined"){maritalStatus = "---";}
-		
-		var casteName = null; casteName = serviceUnitArray[id].casteName;
-		if(casteName == "" || casteName == null || casteName == "undefined"){casteName = "---";}
-		
-		var gotram = null; gotram = serviceUnitArray[id].gotram;
-		if(gotram == "" || gotram == null || gotram == "undefined"){gotram = "---";}
-		
-		var starName = null; starName = serviceUnitArray[id].starName;
-		if(starName == "" || starName == null || starName == "undefined"){starName = "---";}
-		
-		var dosam = null; dosam = serviceUnitArray[id].dosam;
-		if(dosam == "" || dosam == null || dosam == "undefined"){dosam = "---";}
-		
-		var dosamName = null; dosamName = serviceUnitArray[id].dosamName;
-		if(dosamName == "" || dosamName == null || dosamName == "undefined"){dosamName = "---";}
-		
-		//
-		var educationName = null; educationName = serviceUnitArray[id].educationName;
-		if(educationName == "" || educationName == null || educationName == "undefined"){educationName = "---";}
-		
-		var workingWith = null; workingWith = serviceUnitArray[id].workingWith;
-		if(workingWith == "" || workingWith == null || workingWith == "undefined"){workingWith = "---";}
-		
-		//
-		var occupationName = null; occupationName = serviceUnitArray[id].occupationName;
-		if(occupationName == "" || occupationName == null || occupationName == "undefined"){occupationName = "---";}
-		
-		var annualIncome = null; annualIncome = serviceUnitArray[id].annualIncome;
-		if(annualIncome == "" || annualIncome == null || annualIncome == "undefined"){annualIncome = "---";}
-		
-		var diet = null; diet = serviceUnitArray[id].diet;
-		if(diet == "" || diet == null || diet == "undefined"){diet = "---";}
-		
-		var smoking = null; smoking = serviceUnitArray[id].smoking;
-		if(smoking == "" || smoking == null || smoking == "undefined"){smoking = "---";}
-		
-		var drinking = null; drinking = serviceUnitArray[id].drinking;
-		if(drinking == "" || drinking == null || drinking == "undefined"){drinking = "---";}
-		
-		var height = null; height = serviceUnitArray[id].height;
-		if(height == "" || height == null || height == "undefined"){height = "---";}
-		
-		var bodyTypeName = null; bodyTypeName = serviceUnitArray[id].bodyTypeName;
-		if(bodyTypeName == "" || bodyTypeName == null || bodyTypeName == "undefined"){bodyTypeName = "---";}
-		
-		var complexionName = null; complexionName = serviceUnitArray[id].complexionName;
-		if(complexionName == "" || complexionName == null || complexionName == "undefined"){complexionName = "---";}
-		
-		var mobile = null; mobile = serviceUnitArray[id].mobile;
-		if(mobile == "" || mobile == null || mobile == "undefined"){mobile = "---";}
-		
-		var aboutMyself = null; aboutMyself = serviceUnitArray[id].aboutMyself;
-		if(aboutMyself == "" || aboutMyself == null || aboutMyself == "undefined"){aboutMyself = "---";}
-		
-		var disability = null; disability = serviceUnitArray[id].disability;
-		if(disability == "" || disability == null || disability == "undefined"){disability = "---";}
-		
-		var rAgeFrom = null; rAgeFrom = serviceUnitArray[id].rAgeFrom;
-		if(rAgeFrom == "" || rAgeFrom == null || rAgeFrom == "undefined"){rAgeFrom = "---";}
-		
-		var rAgeTo = null; rAgeTo = serviceUnitArray[id].rAgeTo;
-		if(rAgeTo == "" || rAgeTo == null || rAgeTo == "undefined"){rAgeTo = "---";}
-		
-		var rHeight = null; rHeight = serviceUnitArray[id].rHeight;
-		if(rHeight == "" || rHeight == null || rHeight == "undefined"){rHeight = "---";}
-		
-		var rMaritalStatus = null; rMaritalStatus = serviceUnitArray[id].rMaritalStatus;
-		if(rMaritalStatus == "" || rMaritalStatus == null || rMaritalStatus == "undefined"){rMaritalStatus = "---";}
-		
-		var requiredReligionName = null; requiredReligionName = serviceUnitArray[id].requiredReligionName;
-		if(requiredReligionName == "" || requiredReligionName == null || requiredReligionName == "undefined"){requiredReligionName = "---";}
-		
-		var requiredCasteName = null; requiredCasteName = serviceUnitArray[id].requiredCasteName;
-		if(requiredCasteName == "" || requiredCasteName == null || requiredCasteName == "undefined"){requiredCasteName = "---";}
-		
-		var requiredMotherTongue = null; requiredMotherTongue = serviceUnitArray[id].requiredMotherTongue;
-		if(requiredMotherTongue == "" || requiredMotherTongue == null || requiredMotherTongue == "undefined"){requiredMotherTongue = "---";}
-		
-		var requiredCountry = null; requiredCountry = serviceUnitArray[id].requiredCountry;
-		if(requiredCountry == "" || requiredCountry == null || requiredCountry == "undefined"){requiredCountry = "---";}
-		
-		//
-		var requiredStateName = null; requiredStateName = serviceUnitArray[id].requiredStateName;
-		if(requiredStateName == "" || requiredStateName == null || requiredStateName == "undefined"){requiredStateName = "---";}
-		
-		var requiredStateName = null; requiredStateName = serviceUnitArray[id].requiredStateName;
-		if(requiredStateName == "" || requiredStateName == null || requiredStateName == "undefined"){requiredStateName = "---";}
-		
-		var requiredEducationName = null; requiredEducationName = serviceUnitArray[id].requiredEducationName;
-		if(requiredEducationName == "" || requiredEducationName == null || requiredEducationName == "undefined"){requiredEducationName = "---";}
-		
-		var rWorkingWith = null; rWorkingWith = serviceUnitArray[id].rWorkingWith;
-		if(rWorkingWith == "" || rWorkingWith == null || rWorkingWith == "undefined"){rWorkingWith = "---";}
-		
-		var requiredOccupationName = null; requiredOccupationName = serviceUnitArray[id].requiredOccupationName;
-		if(requiredOccupationName == "" || requiredOccupationName == null || requiredOccupationName == "undefined"){requiredOccupationName = "---";}
-		
-		var rAnnualIncome = null; rAnnualIncome = serviceUnitArray[id].rAnnualIncome;
-		if(rAnnualIncome == "" || rAnnualIncome == null || rAnnualIncome == "undefined"){rAnnualIncome = "---";}
-		
-		var rCreateProfileFor = null; rCreateProfileFor = serviceUnitArray[id].rCreateProfileFor;
-		if(rCreateProfileFor == "" || rCreateProfileFor == null || rCreateProfileFor == "undefined"){rCreateProfileFor = "---";}
-		
-		var rDiet = null; rDiet = serviceUnitArray[id].rDiet;
-		if(rDiet == "" || rDiet == null || rDiet == "undefined"){rDiet = "---";}
-
-		var rStateName = null; rStateName = serviceUnitArray[id].rStateName;
-		if(rStateName == "" || rStateName == null || rStateName == "undefined"){rStateName = "---";}
-		 var tblRow = "<div class='container'>"
-			 +"<div style='border-bottom: 2px inset black; width: 100%;'>"
-			 +"<div style='float: right;'>"
-			 +"<img alt='User Pic' src=${baseurl }/"+image+" style='width:100px;height:100px;' id='profile-image1' class='img-circle img-responsive'>"
-			 +"<h4>User Name</h4></div>"
-			 +"</div>"
-			 +"</div>"
-			 +"<div class='container'>"
-			 +"<table class='table table-responsive'>"
-			 +"<legend>Basic Information</legend>"
-			 +"<tr>"
-			 +"<td>First Name</td>"
-			 +"<td></td>"
-			 +"<td>Last Name</td>"
-			 +"<td>&nbsp;</td>"
-			 +"</tr>"
-			 +"<tr>"
-			 +"<td>Gender</td>"
-			 +"<td>&nbsp;</td>"
-			 +"<td>Date of Birth</td>"
-			 +"<td>&nbsp;</td>"
-			 +"</tr>"
-			 +"<tr>"
-			 +"<td>Email</td>"
-			 +"<td>&nbsp;</td>"
-			 +"<td>Caste</td>"
-			 +"<td>&nbsp;</td>"
-			 +"</tr>"
-			 +"<tr>"
-			 +"<td>Gothram</td>"
-			 +"<td>&nbsp;</td>"
-			 +"<td>Nakshatram</td>"
-			 +"<td>&nbsp;</td>"
-			 +"</tr>"
-			 +"<tr>"
-			 +"<td>Dosham</td>"
-			 +"<td>&nbsp;</td>"
-			 +"<td>Dosham Name</td>"
-			 +"<td>&nbsp;</td>"
-			 +"</tr>"
-			 +"<tr>"
-			 +"<td>Marital Status</td>"
-			 +"<td>&nbsp;</td>"
-			 +"<td>&nbsp;</td>"
-			 +"<td>&nbsp;</td>"
-			 +"</tr>"
-			 +"<tr>"
-			 +"<td>Relegion</td>"
-			 +"<td>&nbsp;</td>"
-			 +"<td>Mother Tongue</td>"
-			 +"<td>&nbsp;</td>"
-			 +"</tr>"
-			 +"<tr>"
-			 +"<td>Country</td>"
-			 +"<td>&nbsp;</td>"
-			 +"<td>State</td>"
-			 +"<td>&nbsp;</td>"
-			 +"</tr>"
-			 +"<tr>"
-			 +"<td>City</td>"
-			 +"<td>&nbsp;</td>"
-			 +"<td>Mobile</td>"
-			 +"<td>&nbsp;</td>"
-			 +"</tr>"
-			 +"</table>"
-
-			 +"<table class='table table-responsive'>"
-			 +"<legend>Education & Job Information</legend>"
-			 +"<tr>"
-			 +"<td>Education</td>"
-			 +"<td>&nbsp;</td>"
-			 +"<td>Working With</td>"
-			 +"<td>&nbsp;</td>"
-			 +"</tr>"
-			 +"<tr>"
-			 +" <td>Occupation</td>"
-			 +" <td>&nbsp;</td>"
-			 +"<td>Annual Income</td>"
-			 +"<td>&nbsp;</td>"
-			 +"</tr>"
-			 +"</table>"
-
-
-			 +" <table class='table table-responsive'>"
-			 +"<legend>Personal Details</legend>"
-			 +"<tr>"
-			 +"<td>Diet</td>"
-			 +"<td>&nbsp;</td>"
-			 +"<td>Smoking</td>"
-			 +"<td>&nbsp;</td>"
-			 +" </tr>"
-			 +" <tr>"
-			 +" <td>Drinking</td>"
-			 +" <td>&nbsp;</td>"
-			 +"<td>Height</td>"
-			 +"<td>&nbsp;</td>"
-			 +" </tr>"
-			 +"<tr>"
-			 +"<td>Body Type</td>"
-			 +"<td>&nbsp;</td>"
-			 +"<td>Complexion</td>"
-			 +"<td>&nbsp;</td>"
-			 +"</tr>"
-			 +"<tr>"
-			 +"<td>About Yourself</td>"
-			 +"<td>&nbsp;</td>"
-			 +"<td>Any Disability</td>"
-			 +"<td>&nbsp;</td>"
-			 +"</tr>"
-			 +"</table>"
-
-			 +"<table class='table table-responsive'>"
-			 +"<legend>Basic Information</legend>"
-			 +" <tr>"
-			 +"<td>Height</td>"
-			 +"<td>&nbsp;</td>"
-			 +"<td>Age</td>"
-			 +"<td>&nbsp;</td>"
-			 +"</tr>"
-			 +" <tr>"
-			 +"<td>Marital Status</td>"
-			 +"<td>&nbsp;</td>"
-			 +" <td>&nbsp;</td>"
-			 +" <td>&nbsp;</td>"
-			 +"</tr>"
-			 +"<tr>"
-			 +"<td>Religion</td>"
-			 +"<td>&nbsp;</td>"
-			 +"<td>Caste</td>"
-			 +" <td>&nbsp;</td>"
-			 +"</tr>"
-			 +" <tr>"
-			 +" <td>Mother Tongue</td>"
-			 +"<td>&nbsp;</td>"
-			 +" <td>Country</td>"
-			 +"<td>&nbsp;</td>"
-			 +" </tr>"
-			 +"<tr>"
-			 +"<td>State</td>"
-			 +"<td>&nbsp;</td>"
-			 +" <td>Education</td>"
-			 +"<td>&nbsp;</td>"
-			 +"</tr>"
-			 +" <tr>"
-			 +" <td>Working with</td>"
-			 +"<td>&nbsp;</td>"
-			 +"<td>Profession Area</td>"
-		 +" <td>&nbsp;</td>"
-		 +" </tr>"
-		 +" <tr>"
-		 +"<td>Annual Income</td>"
-		 +" <td>&nbsp;</td>"
-		 +" <td>&nbsp;</td>"
-		 +" <td>&nbsp;</td>"
-		 +" </tr>"
-		 +" <tr>"
-		 +" <td>Profile Created by</td>"
-		 +"<td>&nbsp;</td>"
-		 +"<td>Diet</td>"
-		 +" <td>&nbsp;</td>"
-		 +" </tr>"
-		 +" </table>"
-		 +" </div>";
-		 
-		 $(tblRow).appendTo('#dial1');
-			 
-		 $('#dial1').dialog({title: "Profile of "+username, width: 1199, height: 600, modal: true}).dialog('open');
- }  */
  $(".profiles").addClass("active");
- $(".allProfiles").addClass("active"); 
+ $(".undefinedProfiles").addClass("active"); 
 </script>
-<script src="${baseurl }/js/jquery.imgareaselect.js"></script> 
-<script src="${baseurl }/js/jquery.awesome-cropper.js"></script> 
-<script>
-    $(document).ready(function () {
-        $('#imageName').awesomeCropper(
-        { width: 150, height: 150, debug: true }
-        );
-    });
-    </script>
+
 </body>
 
 
