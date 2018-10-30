@@ -2058,6 +2058,30 @@ text-align:center;
 		}
 		
 		function displayBlock(tabType,listType){
+			 
+			if(tabType == 'inbox'){
+				
+				$("#sent").removeAttr( 'style' );
+				$("#filtered").removeAttr( 'style' );
+			}
+			if(tabType == 'sent'){
+				$("#inbox").toggleClass('inbox' );
+				$("#inbox").removeClass('inbox');
+				$("#inbox").removeAttr( 'style' );
+				$("#filtered").removeAttr( 'style' );
+
+			}
+			if(tabType == 'filtered'){
+				$("#inbox").toggleClass('inbox' );
+				$("#inbox").removeClass('inbox');
+				$("#inbox").removeAttr( 'style' );
+				$("#sent").removeAttr( 'style' );
+			}
+			
+			
+				
+			$("#"+tabType).css('color', 'blue'); 
+			$("#"+tabType).css('font-weight', 'bold'); 
 			
 			filter_requests_flag = false;
 			

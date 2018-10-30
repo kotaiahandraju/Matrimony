@@ -19,15 +19,15 @@
 								<div class="tab" id="inbox">
 									<table width="100%" class="dotted-seperator">
 										<tr>
-											<td height="30"><a href="#" onclick="displayBlock('inbox','pending_requests');" class="tablinks" id="defaultOpen">Inbox</a></td>
+											<td height="30"><a href="#" onclick="displayBlock('inbox','pending_requests');" id="defaultOpen">Inbox</a></td>
 											
 										</tr>
 										<tr>
-											<td height="30"><a href="#" onclick="displayBlock('sent','sent_requests');" class="tablinks" >Sent</a></td>
+											<td height="30"><a href="#" id="sent" onclick="displayBlock('sent','sent_requests');" >Sent</a></td>
 											
 										</tr>
 										<tr>
-											<td height="30"><a href="#" onclick="displayBlock('filtered','filtered_requests');" class="tablinks" >Filtered</a></td>
+											<td height="30"><a href="#" id="filtered" onclick="displayBlock('filtered','filtered_requests');"  >Filtered</a></td>
 											
 										</tr>
 									</table>
@@ -79,21 +79,4 @@
 </div> -->
 			</div>
 			
-			<script>
-function displayBlock(evt, cityName) {
-    var i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-    }
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-    document.getElementById(cityName).style.display = "block";
-    evt.currentTarget.className += " active";
-}
-
-// Get the element with id="defaultOpen" and click on it
-document.getElementById("defaultOpen").click();
-</script>
+			
