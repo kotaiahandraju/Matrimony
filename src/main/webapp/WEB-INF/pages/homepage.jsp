@@ -14,6 +14,26 @@
 %>
 <html lang="en">
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+<!-- For Google -->
+<meta name="description" content="no1 telugu matrimonial service, best telugu matrimony website" />
+<meta name="keywords" content="matrimonial, telugu matrimony, no1 matrimony in vijayawada" />
+
+<meta name="author" content="Aarna Associates" />
+<meta name="copyright" content="Aarna Matrimony" />
+<meta name="application-name" content="aarnamatrimony.com" />
+
+<!-- For Facebook -->
+<meta property="og:title" content="Aarna Matrimony" />
+<meta property="og:type" content="article" />
+<meta property="og:image" content="http://www.aarnamatrimony.com/facebook.jpg" />
+<meta property="og:url" content="http://www.aarnamatrimony.com" />
+<meta property="og:description" content="matrimonial, telugu matrimony, no1 matrimony in vijayawada" />
+
+<!-- For Twitter -->
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Aarna Matrimony" />
+<meta name="twitter:description" content="matrimonial, telugu matrimony, no1 matrimony in vijayawada" />
+<meta name="twitter:image" content="http://www.aarnamatrimony.com/twitter.jpg" />
 <head>
 <script
 	src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
@@ -1024,7 +1044,8 @@ form {
 	font-size: 12px;
 	right: 24px;
 	position: fixed;
-	width: 250px;
+	width: 320px;
+	z-index:999;
 }
 
 #live-chat header {
@@ -2282,26 +2303,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 
 	</div> <!-- end live-chat -->
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-	<script>
-(function() {
-
-	$('#live-chat header').on('click', function() {
-
-		$('.chat').slideToggle(300, 'swing');
-		$('.chat-message-counter').fadeToggle(300, 'swing');
-
-	});
-
-	$('.chat-close').on('click', function(e) {
-
-		e.preventDefault();
-		$('#live-chat').fadein(300);
-
-	});
-
-}) ();
-</script>
+	
 	<script>
 //   var ss =new Date().getFullYear()-18;
 //   var max =new Date().getFullYear()-40;
@@ -2938,7 +2940,26 @@ $('img').bind('contextmenu', function(e) {
     	});
 </script>
 <!-- <script type="text/javascript" async="async" defer="defer" data-cfasync="false" src="https://mylivechat.com/chatinline.aspx?hccid=17191231"></script> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+	<script>
+(function() {
 
+	$('#live-chat header').on('click', function() {
+
+		$('.chat').slideToggle(300, 'swing');
+		$('.chat-message-counter').fadeToggle(300, 'swing');
+
+	});
+
+	$('.chat-close').on('click', function(e) {
+
+		e.preventDefault();
+		$('#live-chat').fadein(300);
+
+	});
+
+}) ();
+</script>
 </body>
 
 </html>

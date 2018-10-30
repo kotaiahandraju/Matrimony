@@ -1,5 +1,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<style>
+.tab td:hover {
+    background-color: #ddd;
+}
 
+/* Create an active/current "tab button" class */
+.tab td.active {
+    background-color: #ccc;
+}
+</style>
 <div class="col-md-3 products-grid-right">
 				<div class="panel panel-success">
 					<div class="panel-body">
@@ -70,4 +79,21 @@
 </div> -->
 			</div>
 			
-			
+			<script>
+function displayBlock(evt, cityName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+</script>

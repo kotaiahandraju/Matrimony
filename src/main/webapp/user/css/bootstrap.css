@@ -3957,6 +3957,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   background-color: #fff;
   border: 1px solid #ddd;
   border-bottom-color: transparent;
+  font-weight:bold;
 }
 .nav-tabs.nav-justified {
   width: 100%;
@@ -4509,7 +4510,7 @@ fieldset[disabled] .navbar-default .btn-link:focus {
   color: #ccc;
 }
 .navbar-inverse {
-    background-color: #3c763d;
+    background-color: #006699;
     border-color: #006699;
     border: none;
 }

@@ -34,7 +34,7 @@ max-width:50px;
 
 			<div class="col-md-9 products-grid-left">
             	<div class="panel panel-default">
-					<div class="panel-heading">Search Profiles</div>
+					<div class="panel-heading"><b>Search Profiles</b></div>
 					<div class="panel-body table-responsive">
 						<form:form commandName="createProfile"  class="form-horizontal" id="searchForm2" name="searchForm2" role="form" method="post">
 						<form:hidden path="id" />

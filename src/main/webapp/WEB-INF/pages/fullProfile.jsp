@@ -1047,7 +1047,7 @@ xpopup
 			</div>
 			
 			<div class="clearfix"><!--  --></div>
-		</div><strong class="font">Basic & Religion Preferences</strong>
+		</div><strong class="font"><img style="margin-left:-25px; padding-right:8px;" src="../nimages/reli.png">Basic & Religion Preferences</strong>
 				
 	<div id="partner_basic_view" class="all_visible_divs">
 	<table class="col-md-12 table-responsive">
@@ -1161,7 +1161,7 @@ xpopup
 <br>
 <div class="panel panel-success">
 			<div class="panel-body table-responsive">
-			<div class="col-md-12">	<strong class="font">Professional Preferences</strong>
+			<div class="col-md-12">	<strong class="font"><img style="margin-left:-25px; padding-right:8px;" src="../nimages/prof.png">Professional Preferences</strong>
 				
 	<div id="partner_professional_view" class="all_visible_divs">
 	<table class="col-md-12 table-responsive">
@@ -1206,7 +1206,7 @@ xpopup
 <br>
 <div class="panel panel-success" >
 			<div class="panel-body table-responsive">
-			<div class="col-md-12">	<strong class="font">Location Preferences</strong>
+			<div class="col-md-12">	<strong class="font"><img style="margin-left:-25px; padding-right:8px;" src="../nimages/loca.png">Location Preferences</strong>
 				
 	<div id="partner_location_view" class="all_visible_divs">
 	<table class="col-md-12 table-responsive">
