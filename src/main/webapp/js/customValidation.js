@@ -301,11 +301,11 @@ $('#submit1').click(function(event) {
 			validation = false;
 		} 
 	});
-	var validPwd = validatePassword();
+	/*var validPwd = validatePassword();
 	if(!validPwd){
 		//return false;
 		validation = false;
-	}
+	}*/
 	if($('#aboutMyself').val() ==  null || $('#aboutMyself').val().trim() == "" || $('#aboutMyself').val()=="undefined"){
 		
 		$('#aboutMyself').css('border-color','red');

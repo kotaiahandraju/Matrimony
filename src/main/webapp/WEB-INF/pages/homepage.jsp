@@ -329,7 +329,9 @@ label {
 	color: transparent;
 	white-space: nowrap;
 }
-
+div nobr a {
+display:none !important;
+}
 .bts-popup {
 	position: fixed;
 	left: 0;
@@ -1007,6 +1009,128 @@ form {
 	margin-left: 3px;
 	font-weight: bold;
 }
+
+.clearfix { *zoom: 1; } /* For IE 6/7 */
+.clearfix:before, .clearfix:after {
+    content: "";
+    display: table;
+}
+.clearfix:after { clear: both; }
+
+/* ---------- LIVE-CHAT ---------- */
+
+#live-chat {
+	bottom: 0;
+	font-size: 12px;
+	right: 24px;
+	position: fixed;
+	width: 250px;
+}
+
+#live-chat header {
+	background: #d60000;
+	border-radius: 5px 5px 0 0;
+	color: #fff;
+	cursor: pointer;
+	padding: 1px 24px;
+}
+
+#live-chat h4:before {
+	background: #1a8a34;
+	border-radius: 50%;
+	content: "";
+	display: inline-block;
+	height: 8px;
+	margin: 0 8px 0 0;
+	width: 8px;
+}
+
+#live-chat h4 {
+	font-size: 12px;
+}
+
+#live-chat h5 {
+	font-size: 10px;
+}
+
+#live-chat form {
+	padding: 24px;
+}
+
+/* #live-chat input[type="text"] {
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	padding: 8px;
+	outline: none;
+	
+}
+ */
+.chat-message-counter {
+	background: #e62727;
+	border: 1px solid #fff;
+	border-radius: 50%;
+	display: none;
+	font-size: 12px;
+	font-weight: bold;
+	height: 28px;
+	left: 0;
+	line-height: 28px;
+	margin: -15px 0 0 -15px;
+	position: absolute;
+	text-align: center;
+	top: 0;
+	width: 28px;
+}
+
+.chat-close {
+	background: #1b2126;
+	border-radius: 50%;
+	color: #fff;
+	display: block;
+	float: right;
+	font-size: 23px;
+	height: 25px;
+	line-height: 16px;
+	margin: 7px 0 0 0;
+	text-align: center;
+	width: 25px;
+}
+
+.chat {
+	background: #fff;
+	display:none;
+	-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5), inset 0 1px rgba(255, 255, 255, 0.3), inset 0 0px rgba(255, 255, 255, 0.2), inset 0 0px 1px rgba(255, 255, 255, 0.25), inset 0 -1px 30px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5), inset 0 1px rgba(255, 255, 255, 0.3), inset 0 0px rgba(255, 255, 255, 0.2), inset 0 0px 1px rgba(255, 255, 255, 0.25), inset 0 -1px 30px rgba(0, 0, 0, 0.3);
+}
+
+.chat-history {
+	height: 252px;
+	padding: 8px 24px;
+	overflow-y: scroll;
+}
+
+.chat-message {
+	margin: 16px 0;
+}
+
+.chat-message img {
+	border-radius: 50%;
+	float: left;
+}
+
+.chat-message-content {
+	margin-left: 56px;
+}
+
+.chat-time {
+	float: right;
+	font-size: 10px;
+}
+
+.chat-feedback {
+	font-style: italic;	
+	margin: 0 0 0 80px;
+}
 </style>
 <title>Aarna Matrimony</title>
 <link rel="shortcut icon" href="${baseurl }/img/aarna-fav.png" />
@@ -1030,16 +1154,17 @@ $('img').bind('contextmenu', function(e) {
 }); 
 </script>
 
-
 <!--Start of Zendesk Chat Script-->
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 window.$zopim||(function(d,s){var z=$zopim=function(c){z._.push(c)},$=z.s=
 d.createElement(s),e=d.getElementsByTagName(s)[0];z.set=function(o){z.set.
 _.push(o)};z._=[];z.set._=[];$.async=!0;$.setAttribute("charset","utf-8");
-$.src="";z.t=+new Date;$.
+$.src="http://v2.zopim.com/?4LsSdGEb46T830uJxhu2GheAQPqCwoJ9";z.t=+new Date;$.
 type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
-</script>
+</script> -->
 <!--End of Zendesk Chat Script-->
+	
+
 
 </head>
 <body>
@@ -1391,8 +1516,9 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 							</form:select>
 						</div>
 						<div class="form-group">
+						<label for="" style="padding-left:0px;" class="col-md-9"><input type="checkbox"/> I have agreed to the<a href="termsConditionsHomepage" style="color:#91fbd0;"> Terms and Condition</a> & have read & understood the <a href="privacyAndPolicyHomePage"  style="color:#91fbd0;">Privacy Policy</a></label>
 							<input type="button" id="secondButton" value="Sign Up"
-								class="btn btn-success btn-block">
+								class="btn btn-success btn-block col-md-3" style="width:25%; margin-top:20px;">
 							<!--                                                     <button type="button"  id ="secondButton" onclick="submit();" class="btn btn-info btn-block">SIGNUP...</button> -->
 						</div>
 					</div>
@@ -1755,6 +1881,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 	</script>
 
 	</div>
+	
 	<section class="about clearfix" id="about">
 		<!-- Section id-->
 		<div class="container">
@@ -2034,7 +2161,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 		<div class="container">
 			<div class="row">
 				<div class="col-md-8 footer-left" style="padding-top: 8px;">
-					A product of Aarna Associates © 2018. All Rights Reserved | Design & Developed by Charvikent ITES Pvt
+					A product of Aarna Associates Â© 2018. All Rights Reserved | Design & Developed by Charvikent ITES Pvt
 					Ltd.</div>
 				<!-- <div class="col-md-4 footer-center">
 
@@ -2089,6 +2216,91 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 	<script src="${baseurl}/js/custemValidation1.js"></script>
 	<script src="${baseurl}/js/ajax.js"></script>
 	<script src="${baseurl}/js/jquery-ui.min.js"></script>
+	<%-- <div id="live-chat">
+		
+		<header class="clearfix">
+			
+				<!-- <a href="#" class="chat-close">-</a> -->
+
+
+			<h4>Leave Message <span class="pull-right fa fa-minus"></span></h4>
+
+			
+
+		</header>
+		<div class="chat col-md-12">
+         <form action="">
+			<div class="clearfix" style="padding-bottom: 8px;"></div>
+			<div class="form-group">
+				<div class="input-group">
+					<span class="input-group-addon"><i class="fa fa-user"></i></span> <input
+						type="text" class="form-control validate " name="userName"
+						id="leaveMsgUserName" placeholder="Name">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="input-group">
+					<span class="input-group-addon"><i class="fa fa-lock"></i></span> <input
+						type="email" class="form-control validate" name="email"
+						id="leaveMsgMail" placeholder="eMail"> <span
+						class="hasError" id="emailError1" style="color: red;"></span>
+				</div>
+
+			</div>
+
+			<div class="form-group">
+				<div class="input-group">
+					<span class="input-group-addon"><i class="fa fa-lock"></i></span> <input
+						type="text" class="form-control validate numbersOnly"
+						name="Mobile" id="leaveMsgMobile" placeholder="Mobile">
+				</div>
+
+			</div>
+
+			<div class="form-group">
+				<textarea id="leaveMsgText" name="aboutMyself"
+					placeholder="Enter few words about you"
+					class="form-control validate " rows="2"></textarea>
+				<span id="errorMsg" style="color: red"></span>
+				<div></div>
+				<div class="clearfix" style="padding-bottom: 8px;"></div>
+
+				<div class="form-group">
+					<button name="submit" type="submit" id="submit1"
+						class="btn btn-primary pull-right" onclick="LeaveMsgSubmit();">Submit</button>
+				</div>
+				<div class="clearfix" style="padding-bottom: 3px;"></div>
+					</form>
+
+
+
+			</div>
+			<!-- end chat -->
+
+		</div>
+	 --%>
+		<!-- end live-chat -->
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+	<script>
+(function() {
+
+	$('#live-chat header').on('click', function() {
+
+		$('.chat').slideToggle(300, 'swing');
+		$('.chat-message-counter').fadeToggle(300, 'swing');
+
+	});
+
+	$('.chat-close').on('click', function(e) {
+
+		e.preventDefault();
+		$('#live-chat').fadein(300);
+
+	});
+
+}) ();
+</script>
 	<script>
 //   var ss =new Date().getFullYear()-18;
 //   var max =new Date().getFullYear()-40;
@@ -2654,7 +2866,7 @@ $('img').bind('contextmenu', function(e) {
 //   	   var upper_text= new RegExp('[A-Z]');
 //   	   var lower_text= new RegExp('[a-z]');
 //   	   var number_check=new RegExp('[0-9]');
-//   	   var special_char= new RegExp('[!/\'^£$%&*()}{@#~?><>,|=_+¬-\]');
+//   	   var special_char= new RegExp('[!/\'^Â£$%&*()}{@#~?><>,|=_+Â¬-\]');
   	   
 //   	   var upper_text_flag = false;
 //   	   var lower_text_flag = false;
@@ -2723,7 +2935,94 @@ $('img').bind('contextmenu', function(e) {
     	 if (e.which == 32)
              return false;
     	});
+     
+     
+ 	var leaveMsgMail = $('#leaveMsgMail').val();
+ 	var expr = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|in|yahoo|edu|gov|mil|biz|info|mobi|name|aero|asia|jobs|museum)$/;
+	 $('#leaveMsgMail').blur(function() {
+	  if(leaveMsgMail == "" || leaveMsgMail == null || leaveMsgMail == "undefined")
+	{
+		$("#leaveMsgMail").css("border-color","#e73d4a");
+   	$("#leaveMsgMail").attr("placeholder","Email");
+   	$('#leaveMsgMail').css('color','red');
+   	return false;
+	event.preventDefault();
+	}  
+	if(leaveMsgMail != "" && !leaveMsgMail.match(expr)){
+//		alert("Please Enter Valid Email");
+   	$("#leaveMsgMail").css("border-color","#e73d4a");
+   	$("#leaveMsgMail").attr("title","Email-ID");
+   	$('#leaveMsgMail').css('color','red');
+   	$('#emailError1').text("Enter Valid eMail Id");
+//    	$('#email').focus();
+   	return false;
+	event.preventDefault();
+	}
+	else{
+		$('#emailError').text("");
+	}
+	 });
+	
+     function LeaveMsgSubmit(){
+    	 
+    		var leaveMsgUserName = $("#leaveMsgUserName").val();
+    		var leaveMsgMail = $("#leaveMsgMail").val();
+    		var leaveMsgMobile = $("#leaveMsgMobile").val();
+    		var leaveMsgText = $("#leaveMsgText").val();
+    	 
+    	 if($('#leaveMsgUserName').val() ==  null || $('#leaveMsgUserName').val() == "" || $('#leaveMsgUserName').val()=="undefined"||$('#leaveMsgMail').val() ==  null || $('#leaveMsgMail').val() == ""  || $('#leaveMsgMail').val()=="undefined"||$('#leaveMsgMobile').val() ==  null || $('#leaveMsgMobile').val() == ""  || $('#leaveMsgMobile').val()=="undefined"||$('#leaveMsgText').val() ==  null || $('#leaveMsgText').val() == ""  || $('#leaveMsgText').val()=="undefined")
+			{
+ 				 if(leaveMsgUserName==  null || leaveMsgUserName == ""  || leaveMsgUserName=="undefined" ) 
+ 				{
+				$('#leaveMsgUserName').css('color','#cc0000');
+ 					$('#leaveMsgUserName').css('border-color','#cc0000');
+					$('#leaveMsgUserName').addClass('placeholder-style');
+ 				}
+			
+			if($('#leaveMsgMail').val() ==  null || $('#leaveMsgMail').val() == ""  || $('#leaveMsgMail').val()=="undefined" ) 
+				{
+					$('#leaveMsgMail').css('color','#cc0000');
+					$('#leaveMsgMail').css('border-color','#cc0000');
+					$('#leaveMsgMail').addClass('placeholder-style');
+				}
+				if($('#leaveMsgMobile').val() ==  null || $('#leaveMsgMobile').val() == "" || $('#leaveMsgMobile').val()=="undefined" ) 
+				{
+					$('#leaveMsgMobile').css('color','#cc0000');
+					$('#leaveMsgMobile').css('border-color','#cc0000');
+					$('#leaveMsgMobile').addClass('placeholder-style');
+				}
+				if($('#leaveMsgText').val() ==  null || $('#leaveMsgText').val() == "" || $('#leaveMsgText').val()=="undefined" ) 
+				{
+					$('#leaveMsgText').css('color','#cc0000');
+					$('#leaveMsgText').css('border-color','#cc0000');
+					$('#leaveMsgText').addClass('placeholder-style');
+				}
+			return false;
+		}
+ 				else{
+					
+ 					return true;
+					 				}  
+		
+			
+				var formData = new FormData();
+    		formData.append("leaveMsgUserName",leaveMsgUserName);
+    		formData.append("leaveMsgMail",leaveMsgMail);
+    		formData.append("leaveMsgMobile",leaveMsgMobile);
+    		formData.append("leaveMsgText",leaveMsgText);
+    		
+    		$.fn.makeMultipartRequest('POST', 'LeaveMsgSubmit', false,
+    				formData, false, 'text', function(data){
+    			var jsonobj = $.parseJSON(data);
+//     			var alldata = jsonobj.allOrders1;
+  				alert("successfully Sent Message");
+    			
+    		});
+     }
+     
+     
 </script>
+<!-- <script type="text/javascript" async="async" defer="defer" data-cfasync="false" src="https://mylivechat.com/chatinline.aspx?hccid=17191231"></script> -->
 
 </body>
 

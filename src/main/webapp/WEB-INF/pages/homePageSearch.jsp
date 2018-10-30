@@ -996,7 +996,7 @@ margin-left:10px;
 			  		var tblRow = profile_highlisht_str
 			  		+ '<div class="panel-heading">'
 			  		+ '<h5 class="panel-title" style="text-align:left;">'
-			  		+ '<div class="form-check">	<label class="form-check-label" style="color:#000;"><a href="HomePage"><img src="${baseurl}/images/blurr.png"/>  </a></label>	<span class="pull-right">Created by '+orderObj.createProfileFor+'</span></div>'
+			  		+ '<div class="form-check">	<label class="form-check-label" style="color:#000;"><a href="HomePage"><img src="${baseurl}/images/blurr.png"/>  </a></label>	<span class="pull-right">Created for '+orderObj.createProfileFor+'</span></div>'
 			  		+ '</h5>'
 			  		+ '</div>'
 			  		+ '<div class="panel-body">'

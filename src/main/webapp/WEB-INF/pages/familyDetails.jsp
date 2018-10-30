@@ -6,7 +6,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 <style>
 .non {
-width:120px;
+
 }
 </style>
             <div class="col-md-5 col-sm-12"></div>
@@ -15,7 +15,7 @@ width:120px;
 	</div>
 	<div class="row">
 		<div class="midcontnet">
-			<div class="col-md-8">
+			<div class="col-md-10">
 				<form:form commandName="familyDetails" action="saveImproveFamilyDetails" class="form-horizontal" id="saveImproveFamilyDetails"  method="post">
 					<!-- 2nd Step starts here-->
 					<div id="secondForm">
@@ -54,7 +54,7 @@ width:120px;
 					<!--     fatherName, motherName, fOccupation, mOccupation, noOfBrothers, noOfSisters, noOfBrothersMarried, noOfSistersMarried -->
 					    <div class="form-group">
 					      <label class="col-md-4 control-label" for="textinput">No. of Brothers</label>  
-					      <div class="col-md-2">
+					      <div class="col-md-3">
 					      	<form:select path="noOfBrothers" class="form-control u1 non">
 								<form:option value="">-- Select --</form:option>
 								<form:option value="None">None</form:option>
@@ -63,7 +63,7 @@ width:120px;
 								<form:option value="3">3</form:option>
 							</form:select>
 					      </div>
-					      <label class="col-md-2" align="right">of whom</label>
+					      <label class="col-md-1" align="right">of whom</label>
 					      <div class="col-md-2">
 					      	<form:select path="noOfBrothersMarried" class="form-control u1 non">
 								<form:option value="">-- Select --</form:option>
@@ -75,7 +75,7 @@ width:120px;
 					    
 					    <div class="form-group">
 					      <label class="col-md-4 control-label" for="textinput">No. of Sisters</label>  
-					      <div class="col-md-2">
+					      <div class="col-md-3">
 					      	<form:select path="noOfSisters" class="form-control u1 non">
 								<form:option value="">-- Select --</form:option>
 									<form:option value="None">None</form:option>
@@ -84,7 +84,7 @@ width:120px;
 								<form:option value="3">3</form:option>
 							</form:select>
 					      </div>
-					      <label class="col-md-2" align="right">of whom</label>
+					      <label class="col-md-1" align="right">of whom</label>
 					      <div class="col-md-2">
 					      	<form:select path="noOfSistersMarried" class="form-control u1 non">
 								<form:option value="">-- Select --</form:option>
