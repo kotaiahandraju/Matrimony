@@ -1537,7 +1537,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 							</form:select>
 						</div>
 						<div class="form-group">
-						<label for="" style="padding-left:0px;" class="col-md-9"><input type="checkbox"/> I have agreed to the<a href="termsConditionsHomepage" style="color:#91fbd0;"> Terms and Condition</a> & have read & understood the <a href="privacyAndPolicyHomePage"  style="color:#91fbd0;">Privacy Policy</a></label>
+						<label for="" style="padding-left:0px;" class="col-md-9"><input type="checkbox" id="accept" /> I have agreed to the<a href="termsConditionsHomepage" style="color:#91fbd0;"> Terms and Condition</a> & have read & understood the <a href="privacyAndPolicyHomePage"  style="color:#91fbd0;">Privacy Policy</a></label>
 							<input type="button" id="secondButton" value="Sign Up"
 								class="btn btn-success btn-block col-md-3" style="width:25%; margin-top:20px;">
 							<!--                                                     <button type="button"  id ="secondButton" onclick="submit();" class="btn btn-info btn-block">SIGNUP...</button> -->
@@ -2341,7 +2341,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 
 	}
   
-  function CheckForm(obj1) { 
+  function checkAcceptancy() { 
 
 if (!($('#accept').is(":checked"))){
   alert ("You must check the box to confirm you have read and accept the Terms And Conditions.");
@@ -2487,7 +2487,7 @@ $('img').bind('contextmenu', function(e) {
 
     $("#secondButton").click(function(event)
 //     		function formSubmit()
-    		{		
+    		{	
     	var email = $('#email').val();
     			if($('#email').val() ==  null || $('#email').val() == "" || $('#email').val()=="undefined" || $('#createProfileFor').val() ==  null || 
     			    $('#createProfileFor').val() == "" || $('#createProfileFor').val()=="undefined" || $('#regPassword').val() ==  null || $('#regPassword').val() == "" || $('#regPassword').val()=="undefined" || $('#firstName').val() ==  null || $('#firstName').val() == "" || $('#firstName').val()=="undefined" || 
@@ -2583,11 +2583,17 @@ $('img').bind('contextmenu', function(e) {
 //     		 	$("#firstForm").css({'display':'none'})`	
 //     			$('#secondForm').css({'display':'block'});
 //    		 		$("#registration").submit();
-    		 $('#registration').attr('action',"userRegistration");
-    		 $("#secondButton").attr('value','Please wait..');
-    		 $("#secondButton").attr('disabled',true);
-    			$("#registration").submit();											
-    			event.preventDefault();	
+				var accepted = checkAcceptancy();
+				if(accepted){
+					$('#registration').attr('action',"userRegistration");
+		    		 $("#secondButton").attr('value','Please wait..');
+		    		 $("#secondButton").attr('disabled',true);
+		    			$("#registration").submit();											
+		    			event.preventDefault();	
+				}else{
+					return false;
+				}	
+    		 
     		}
     		);
 
