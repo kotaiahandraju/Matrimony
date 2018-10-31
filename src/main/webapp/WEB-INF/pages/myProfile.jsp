@@ -1833,6 +1833,64 @@ function checkLen(){
 	      return false;
 	    }  
 	  });
+  
+  function getFilteredStates(id){
+		if($("#"+id).val()== null   || $('#'+id).val() == "" || $('#'+id).val()=="undefined"){
+			 $("#currentState").attr("readonly", true);
+			$("#currentState").attr("disabled" ,"disabled");
+			//$("#currentState").empty();
+			$("#currentState").val(""); 
+		}else{
+			$("#currentState").removeAttr("disabled");
+			$("#currentState").removeAttr("readonly");
+			var countryIds =$("#"+id).val();
+			var formData = new FormData();
+		     formData.append('country_ids', countryIds);
+		     //return false;
+			$.fn.makeMultipartRequest('POST', 'getFilteredStates', false,
+					formData, false, 'text', function(data){
+				var jsonobj = $.parseJSON(data);
+				var statesList = jsonobj.states_list;
+	         $("#currentState").empty();
+				$("#currentState").append("<option value='' >-- Choose State --</option>");
+				
+				$.each(statesList, function(i, state) {
+					$("#currentState").append("<option value="+state.id+" >"+ state.name+"</option>");
+				});
+				$("#currentState").val(""); 
+				$("#currentState").trigger("change");
+			});
+			
+		}
+	}
+  function getCitys(id){
+		
+		if($("#"+id).val()== null   || $('#'+id).val() == "" || $('#'+id).val()=="undefined"){
+			$("#currentCity").attr("readonly", true);
+			$("#currentCity").attr("disabled" ,"disabled");
+			$("#currentCity").val("");
+		}else{
+			$("#currentCity").removeAttr("disabled");
+			$("#currentCity").removeAttr("readonly");
+			var stateIds =$("#"+id).val();
+			var formData = new FormData();
+		     formData.append('state_ids', stateIds);
+			$.fn.makeMultipartRequest('POST', 'getCitys', false,
+					formData, false, 'text', function(data){
+				var jsonobj = $.parseJSON(data);
+				var alldata = jsonobj.citys;
+//	 			alert(alldata);
+	         $("#currentCity").empty();
+				$("#currentCity").append("<option value='' >-- Choose City --</option>");
+				
+				$.each(alldata, function(i, tests) {
+					$("#currentCity").append("<option value="+tests.id+" >"+ tests.name+"</option>");
+				});
+				
+			});
+			
+		}
+	}
 </script>
 
 <%@ include file="userFooter.jsp"%>
