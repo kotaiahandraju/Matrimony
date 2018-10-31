@@ -253,7 +253,7 @@ padding-right:0;
 								<div class="form-group">
 									<label class="col-sm-4 control-label required">Marital Status <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-										<form:select path="maritalStatus" class="form-control u validate" onfocus="removeBorder(this.id)">
+										<form:select path="maritalStatus" class="form-control u validate" onchange="hideChildren();" onfocus="removeBorder(this.id)">
 											<form:option value="">-- Marital Status --</form:option>
 											<form:option value="Married">Married</form:option>
 											<form:option value="Unmarried">Unmarried</form:option>
@@ -263,6 +263,17 @@ padding-right:0;
 									</div>
 							  	</div>
 							</div>
+							<div class="col-md-4" id="haveChildrenId" style="display: none">
+							<div class="form-group">
+							<label class="col-sm-4 control-label" for="textinput" >Have Children</label>  
+							<div class="col-sm-8">
+								<form:select path="haveChildren" class="form-control u">
+									<form:option value="No Children">No Children</form:option>
+									<form:option value="1">1</form:option>
+									<form:option value="2">2</form:option>
+								</form:select>
+							</div>
+						</div></div>
 							<div class="col-md-4">
 								<div class="form-group">
 									<label class="col-sm-4 control-label required">Community <span style="color:red;">*</span></label>
@@ -284,9 +295,7 @@ padding-right:0;
 									</div>
 							  	</div>
 							</div>
-						</div>
 						
-						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group">
 									<label class="col-sm-4 control-label required">Nakshatram </label>
@@ -375,7 +384,7 @@ padding-right:0;
 								<div class="form-group">
 									<label class="col-sm-4 control-label required">As <span style="color:red;">*</span></label>
 									<div class="col-sm-8">
-										<form:select path="occupation" class="form-control u validate">
+										<form:select path="occupation" class="form-control u validate"  onfocus="removeBorder(this.id)">
 											<form:option value="">-- Choose Occupation --</form:option>
 											<form:options items="${occupation}"></form:options>
 										</form:select>
@@ -1429,6 +1438,16 @@ $(document).ready(
 
 		});
 
+
+function hideChildren() {
+	 var maritalStatus=$("#maritalStatus").val();
+	 if(maritalStatus == "Unmarried" || maritalStatus ==""){
+		 $("#haveChildrenId").hide();
+		 $("#haveChildren").val();
+	 }else{
+		 $("#haveChildrenId").show();
+	 }
+	}
 </script>
 </body>
 

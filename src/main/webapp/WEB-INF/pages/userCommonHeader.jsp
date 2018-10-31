@@ -8,7 +8,7 @@
 	String baseurl =  request.getScheme() + "://" + request.getServerName() +      ":" +   request.getServerPort() +  request.getContextPath();
 	session.setAttribute("baseurl", baseurl);
 	String catalina_base =  request.getScheme() + "://" + request.getServerName() +":" +request.getServerPort();
-	session.setAttribute("catalina_base", catalina_base);
+	session.setAttribute("catalina_base", baseurl);
 %>				
 
 <html>
@@ -80,6 +80,8 @@
 	<script src="${baseurl }/js/jquery.watermark.js"></script>
 	<script src="${baseurl }/js/jquery.littlelightbox.js"></script>
 	<link href="${baseurl }/css/jquery.littlelightbox.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 
 	<style type="text/css">
 	.newma  td:first-child { 
@@ -2058,6 +2060,30 @@ text-align:center;
 		}
 		
 		function displayBlock(tabType,listType){
+			 
+			if(tabType == 'inbox'){
+				
+				$("#sent").removeAttr( 'style' );
+				$("#filtered").removeAttr( 'style' );
+			}
+			if(tabType == 'sent'){
+				$("#inbox").toggleClass('inbox' );
+				$("#inbox").removeClass('inbox');
+				$("#inbox").removeAttr( 'style' );
+				$("#filtered").removeAttr( 'style' );
+
+			}
+			if(tabType == 'filtered'){
+				$("#inbox").toggleClass('inbox' );
+				$("#inbox").removeClass('inbox');
+				$("#inbox").removeAttr( 'style' );
+				$("#sent").removeAttr( 'style' );
+			}
+			
+			
+				
+			$("#"+tabType).css('color', 'blue'); 
+			$("#"+tabType).css('font-weight', 'bold'); 
 			
 			filter_requests_flag = false;
 			

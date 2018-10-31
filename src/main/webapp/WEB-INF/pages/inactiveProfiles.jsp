@@ -93,7 +93,7 @@
 									var username = "<td style='color: blue;' title='"+orderObj.username+"'><b>" + orderObj.username + "</td>"
 								}
 							var tblRow = "<tr>"
-								+ "<td title='"+orderObj.created_time+"'>" + orderObj.created_time + "</td>"
+								+ "<td title='"+orderObj.created_time_str+"'>" + orderObj.created_time_str + "</td>"
 								 + username
 								+ "<td title='"+orderObj.firstName+"'>" + orderObj.firstName + "</td>"
 								+ "<td title='"+orderObj.lastName+"'>" + orderObj.lastName + "</td>"
