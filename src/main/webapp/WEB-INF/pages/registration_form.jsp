@@ -53,7 +53,7 @@
 						<div class="form-group">
 							<label class="col-md-4 control-label" for="textinput">You live in <span class='manditory'>*</span></label>  
 							<div class="col-md-6">
-								<form:select path="currentState" class="form-control u" onblur="validate(this.id,'');" onchange="getCitys(this.id)" onfocus="removeBorder(this.id)">
+								<form:select path="currentState" class="form-control u" onblur="validate(this.id,'');" onchange="getCitys_registration(this.id,'')" onfocus="removeBorder(this.id)">
 									<form:option value="">-- Choose State --</form:option>
 									<form:options items="${country_based_states}"></form:options>
 								</form:select>
@@ -339,11 +339,13 @@
 <!--  <script src="js/jquery.blockUI.min.js"></script> -->
 <script>
 var mobileExists = true;
+var saved_city_val = $("#currentCity").val();
 $( document ).ready(function() {
 	if($("#currentState").val()== null   || $("#currentState").val() == "" || $("#currentState").val()=="undefined"){
 		$("#currentCity").attr("readonly", true);
 	}else{
 		$("#currentCity").removeAttr("disabled");
+		getCitys_registration("currentState","doc_ready");
 	}
 	   $("#secondForm").hide();
 	      $("#thirdForm").hide();
@@ -722,7 +724,7 @@ $("#step4").click(function(){
 	 $("#step4").addClass("btn-primary");
 }); 
 
-function getCitys(id){
+function getCitys_registration(id,calling_from){
 	
 	if($("#"+id).val()== null   || $('#'+id).val() == "" || $('#'+id).val()=="undefined"){
 		$("#currentCity").attr("readonly", true);
@@ -746,6 +748,13 @@ function getCitys(id){
 			$.each(alldata, function(i, tests) {
 				$("#currentCity").append("<option value="+tests.id+" >"+ tests.name+"</option>");
 			});
+			if(calling_from!="" && calling_from=="doc_ready"){
+				if(saved_city_val!= null  &&  saved_city_val!="undefined"){
+					$("#currentCity").val(saved_city_val);
+					$("#currentCity").trigger("chosen:updated");
+				}
+			}
+			
 			
 		});
 		

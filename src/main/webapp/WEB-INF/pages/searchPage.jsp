@@ -1353,6 +1353,11 @@ function resetBtnfunction(){
 			$("#city").select2({
 	    	    placeholder: "-- Select City --"
 	    	});
+			//populate city dropdown
+	    	var city_map = ${all_cities};
+	    	  $.each(city_map,function(key, value) {
+	    				$("#city").append("<option value="+key+" >"+ value+ "</option>");
+	    			}); 
 		} else {
 			var stateIds = $("#" + id).val();
 			var formData = new FormData();
@@ -1393,6 +1398,11 @@ function resetBtnfunction(){
 							    	$("#city").select2({
 							    	    placeholder: "-- Select City --"
 							    	});
+							    	//populate city dropdown
+							    	var city_map = ${all_cities};
+							    	  $.each(city_map,function(key, value) {
+							    				$("#city").append("<option value="+key+" >"+ value+ "</option>");
+							    			}); 
 							    }else{
 							    	
 							        $("#rCity").val(selected_values.split(","));
