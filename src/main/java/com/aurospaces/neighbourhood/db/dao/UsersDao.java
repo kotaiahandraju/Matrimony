@@ -4658,11 +4658,17 @@ public boolean deletePhoto(String photoId){
 	}
 	
 	@Transactional
-	public boolean deleteNotification(int id) {
+	public boolean deleteNotification(int id,String mail_type) {
 		jdbcTemplate = custom.getJdbcTemplate();
 		boolean delete = false;
+		if(mail_type.equalsIgnoreCase("member")){
+			mail_type="member";
+		}
+		if(mail_type.equalsIgnoreCase("admin")){
+			mail_type="admin";
+		}
 		try{
-			String sql = "delete from user_notifications where id=?";
+			String sql = "delete from user_notifications where id='"+id+"' and user_type='"+mail_type+"'";
 			int intDelete = jdbcTemplate.update(sql, new Object[]{id});
 			if(intDelete != 0){
 				delete = true;
@@ -4674,11 +4680,17 @@ public boolean deletePhoto(String photoId){
 	}
 	
 	@Transactional
-	public boolean deleteALLNotification() {
+	public boolean deleteALLNotification(String mail_type) {
 		jdbcTemplate = custom.getJdbcTemplate();
 		boolean delete = false;
+		if(mail_type.equalsIgnoreCase("member")){
+			mail_type="member";
+		}
+		if(mail_type.equalsIgnoreCase("admin")){
+			mail_type="admin";
+		}
 		try{
-			String sql = "delete from user_notifications";
+			String sql = "delete from user_notifications where user_type='"+mail_type+"'";
 			int intDelete = jdbcTemplate.update(sql, new Object[] {});
 			if(intDelete != 0){
 				delete = true;

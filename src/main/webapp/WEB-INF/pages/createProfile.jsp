@@ -1448,6 +1448,17 @@ function hideChildren() {
 		 $("#haveChildrenId").show();
 	 }
 	}
+	
+$( document ).ready(function() {
+	 var maritalStatus=$("#maritalStatus").val();
+	 if(maritalStatus == "Unmarried" || maritalStatus ==""){
+		 $("#haveChildrenId").hide();
+		 $("#haveChildren").val();
+	 }else{
+		 $("#haveChildrenId").show();
+	 }
+});
+	
 </script>
 </body>
 

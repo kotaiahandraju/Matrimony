@@ -5554,9 +5554,9 @@ String sJson="";
 		JSONObject jsonObj = new JSONObject();
 		boolean delete = false;
 		String idParam=request.getParameter("id");
-		
+		String mail_type="member";
 		try {
-				delete = objUsersDao.deleteNotification(Integer.parseInt(idParam));
+				delete = objUsersDao.deleteNotification(Integer.parseInt(idParam),mail_type);
 				if (delete) {
 					jsonObj.put("delete", "delete");
 				} else {
@@ -5579,9 +5579,10 @@ String sJson="";
 		 List<Map<String, Object>> notifications = null;
 		JSONObject jsonObj = new JSONObject();
 		boolean delete = false;
-		
+		String mail_type="member";
 		try {
-				delete = objUsersDao.deleteALLNotification();
+				String String;
+				delete = objUsersDao.deleteALLNotification( mail_type);
 				if (delete) {
 					jsonObj.put("delete", "delete");
 				} else {

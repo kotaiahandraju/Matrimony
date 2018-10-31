@@ -357,14 +357,14 @@ var role_id = ${cacheUserBean.roleId};
 						<c:set var="roleId1"  value="${cacheUserBean.roleId}"/>  
 	<div id="navigation">
 		<div class="container-fluid">
-			<a href="dashboard" id="brand">
+			<a href="${baseurl}/admin/dashboard" id="brand">
 				<img  src="${baseurl}/images/logoo.jpg" class="img img-responsive"></a>
 			
 			<!-- <a href="#" class="toggle-nav" rel="tooltip" data-placement="bottom" title="Toggle navigation">
 				<i class="fa fa-bars"></i>
 			</a> -->
 			<ul class='main-nav'>
-				<li class="dashboard"><a href="dashboard"><span>Dashboard</span></a></li>
+				<li class="dashboard"><a href="${baseurl}/admin/dashboard"><span>Dashboard</span></a></li>
 				<li class="catalog1">
 				<c:if test="${roleId1 == 1}"> 
 					<a href="#" data-toggle="dropdown" class='dropdown-toggle'>
@@ -482,7 +482,7 @@ var role_id = ${cacheUserBean.roleId};
 												<c:out value="${notification.created_on}" />
 											</p>
 										</div>
-										<div class="col-md-2"><span class="fa fa-trash pull-right" style="margin-top:5px;"></span></div>
+										<div class="col-md-2"><a  href="#" onclick="removeNotification(${notification.id});"><span class="fa fa-trash pull-right" style="margin-top:5px;"></span></a></div>
 										<div class="clearfix"></div><hr style="margin-top:0px;margin-bottom:0px;">
 									</c:forEach>
 								</div>
@@ -578,5 +578,17 @@ var role_id = ${cacheUserBean.roleId};
 	    document.allNotificationsForm.submit();             // Submit the page
 	    return true;
 	}
+	
+	 function removeNotification(id){
+			var formData = new FormData();
+		    formData.append('id', id);
+			$.fn.makeMultipartRequest('POST', '${baseurl}/admin/removeNotificationInAdmin?id='+id, false, formData, false, 'text', function(data){
+				var jsonobj = $.parseJSON(data);
+				location.reload();
+			});
+		} 
+		 
+	
+	
 </script> 
 

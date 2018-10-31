@@ -886,4 +886,61 @@ public class FilterController {
 		}
 		return "loginProfiles";
 	}
+	
+	 @RequestMapping(value = "/removeNotificationInAdmin")
+		public @ResponseBody String removeNotificationInAdmin( HttpServletRequest request, HttpSession session,UsersBean objUsersBean) {
+			 System.out.println("removeNotification page...");
+			 List<Map<String, Object>> notifications = null;
+			JSONObject jsonObj = new JSONObject();
+			boolean delete = false;
+			String idParam=request.getParameter("id");
+			String mail_type="admin";
+			try {
+					delete = objUsersDao.deleteNotification(Integer.parseInt(idParam),mail_type);
+					if (delete) {
+						jsonObj.put("delete", "delete");
+					} else {
+						jsonObj.put("delete", "");
+					}
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println(e);
+				logger.error(e);
+				logger.fatal("error in userNotifications class removeNotification method");
+				jsonObj.put("message", "excetption" + e);
+				return String.valueOf(jsonObj);
+			}
+			return String.valueOf(jsonObj);
+		}
+
+	   @RequestMapping(value = "/removeALLNotificationInAdmin")
+		public @ResponseBody String removeALLNotificationInAdmin( HttpServletRequest request, HttpSession session,UsersBean objUsersBean) {
+			 System.out.println("removeALLNotification page...");
+			 List<Map<String, Object>> notifications = null;
+			JSONObject jsonObj = new JSONObject();
+			boolean delete = false;
+			String mail_type="admin";
+			try {
+					String String;
+					delete = objUsersDao.deleteALLNotification( mail_type);
+					if (delete) {
+						jsonObj.put("delete", "delete");
+					} else {
+						jsonObj.put("delete", "");
+					}
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println(e);
+				logger.error(e);
+				logger.fatal("error in userNotifications class removeAllNotification method");
+				jsonObj.put("message", "excetption" + e);
+				return String.valueOf(jsonObj);
+			}
+			return String.valueOf(jsonObj);
+		}
+	
+	
+	
+	
+	
 }

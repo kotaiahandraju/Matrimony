@@ -1819,14 +1819,15 @@ function checkLen(){
 	   	}
   }); */
   
-   var ss =new Date().getFullYear()-16;
+//    var ss =new Date().getFullYear()-16;
   $("#dob").datepicker({
-	     dateFormat: "dd-MM-yy",
+	  dateFormat: "dd-MM-yy",
 	     changeDate : true,
 	 	changeMonth : true,
 	 	changeYear : true,
-//	  	maxDate :0,
-	 	yearRange: '1950:' + ss
+		minDate: "-50Y",
+		maxDate: "-18Y",
+		yearRange: "-65:+0"
 	 });  
   $('#aboutMyself').on('keydown', function(e) {
 	    if (e.which === 32 &&  e.target.selectionStart === 0) {

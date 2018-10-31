@@ -83,7 +83,7 @@ hr:hover {
 								${notification.amount}
 							</a> <br>
 							<c:out value="${notification.created_on}" />
-							.<span class="fa fa-trash pull-right" style="margin-top:5px;"></span></a><br>
+							<span class="fa fa-trash pull-right" style="margin-top:5px;"></span></a><br>
 						</p>
 					</div>
 	

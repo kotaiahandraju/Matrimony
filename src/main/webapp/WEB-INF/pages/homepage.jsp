@@ -1539,7 +1539,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 							</form:select>
 						</div>
 						<div class="form-group">
-						<label for="" style="padding-left:0px;" class="col-md-9"><input type="checkbox" id="accept" checked="checked" /> I have agreed to the<a href="termsConditionsHomepage" style="color:#91fbd0;"> Terms and Condition</a> & have read & understood the <a href="privacyAndPolicyHomePage"  style="color:#91fbd0;">Privacy Policy</a></label>
+						<label for="" style="padding-left:0px;" class="col-md-9"><input type="checkbox" id="accept" checked="checked" /> I have agreed to the<a href="termsConditionsHomepage" style="color:#91fbd0;" target="_blank"> Terms and Condition</a> & have read & understood the <a href="privacyAndPolicyHomePage"  style="color:#91fbd0;" target="_blank">Privacy Policy</a></label>
 							<input type="button" id="secondButton" value="Sign Up"
 								class="btn btn-success btn-block col-md-3" style="width:25%; margin-top:20px;">
 							<!--                                                     <button type="button"  id ="secondButton" onclick="submit();" class="btn btn-info btn-block">SIGNUP...</button> -->
