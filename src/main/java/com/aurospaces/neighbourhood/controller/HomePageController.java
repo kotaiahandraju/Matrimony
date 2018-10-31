@@ -5268,7 +5268,7 @@ String sJson="";
 	   target.setLastName(source.getLastName());
 	   target.setBodyType(source.getBodyType());
 	   target.setComplexion(source.getComplexion());
-	   target.setAge(source.getAge());
+	   //target.setAge(source.getAge());
 	   target.setHeight(source.getHeight());
 	   target.setDisability(source.getDisability());
 	   target.setWeight(source.getWeight());
