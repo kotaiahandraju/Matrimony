@@ -955,6 +955,9 @@ public class UsersDao extends BaseUsersDao
 			if(objUserBean!=null){
 				try{
 					int updated_count = jdbcTemplate.update("update users_activity_log set activity_status = '"+columnValue+"' where find_in_set(id,'"+requestIds+"')>0");
+					String select_qry = "select id from users_activity_log where act_done_on_user_id = (select act_done_by_user_id from users_activity_log where id = "+requestIds+") and act_done_by_user_id = (select act_done_on_user_id from users_activity_log where id = "+requestIds+") and activity_type in (	'message') and activity_status in ('1') order by created_time desc limit 1";
+					int act_id = jdbcTemplate.queryForInt(select_qry);
+						updated_count = jdbcTemplate.update("update users_activity_log set activity_status = '"+columnValue+"'  where id = "+act_id);
 					if(updated_count>0){
 						buffer = new StringBuffer();
 						buffer.append(" select act_done_on_user_id from users_activity_log where id = "+requestIds);
@@ -3135,7 +3138,7 @@ public class UsersDao extends BaseUsersDao
 				}
 				if(request_type.equalsIgnoreCase("accepted_requests")){
 					String where_clause = " find_in_set(act_done_on_user_id,('"+userId+","+profile_id+"'))>0 and find_in_set(act_done_by_user_id,('"+userId+","+profile_id+"'))>0 and activity_type in ('message_accepted','message_replied','interest_accepted') ";
-					buffer.append("select *,date_format(created_time,'%d-%b-%Y') as activity_done_on, (select activity_content from users_activity_log where act_done_on_user_id = "+userId+" and act_done_by_user_id = "+profile_id+" and activity_type in ('message') order by created_time desc limit 1) as activity_content, "
+					buffer.append("select *,date_format(created_time,'%d-%b-%Y') as activity_done_on, (select activity_content from users_activity_log where act_done_on_user_id = "+userId+" and act_done_by_user_id = "+profile_id+" and activity_status in ('1') and activity_type in ('message') order by created_time desc limit 1) as activity_content, "
 								+ " (select activity_content from users_activity_log where find_in_set(act_done_on_user_id,('"+userId+","+profile_id+"'))>0 and find_in_set(act_done_by_user_id,('"+userId+","+profile_id+"'))>0 and activity_type in ('message_replied') order by created_time desc limit 1) as replied_msg_content, "
 								+" (select count(*) from users_activity_log where "+where_clause+") as  conversations_count "
 								+" from users_activity_log where "+where_clause+"  order by created_time desc limit 1 ");
