@@ -1036,7 +1036,7 @@ xpopup
 			</div>
 			<div class="col-md-4" style="width:390px; margin:55px 20px 0px 20px;">
 				
-				<div class="fleft"><div class="hdtxt paddl5 paddr5 txt-center" style="width:382px;">----- Your profile matches <span id=noOfProfileMatch></span>  / 14 of ${profileBean.firstName}'s preferences -----</div></div>
+				<div class="fleft"><div class="hdtxt paddl5 paddr5 txt-center" style="width:382px;">----- Your profile matches <span id=noOfProfileMatch></span>  / 14 of <span id=matchName></span>'s preferences -----</div></div>
 				
 			</div>
 			<div class="col-md-2">
@@ -2047,6 +2047,15 @@ else{
  $("#noOfProfileMatch").html(no_of_match);
  //$(match_score).appendTo("#match_score_div");
  $("#match_score_div").html(match_score);
+ 
+ 
+	var login_user_role_id = ${cacheGuest.roleId};
+var firstname = '<img src="${baseurl}/images/blurr.png"/>';
+   if((login_user_role_id == 6) || (login_user_role_id == 11) || (login_user_role_id == 12)
+	|| (login_user_role_id == 13) || (login_user_role_id == 14) || (login_user_role_id == 15)){ //means premium,premium_plus,aarna premium users
+firstname = orderObj.firstName;
+	$("#id=matchName").html(firstname);
+}
 </script> 
 
 

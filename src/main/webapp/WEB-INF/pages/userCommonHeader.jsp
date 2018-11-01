@@ -3897,11 +3897,12 @@ img.hover-shadow {
 							</li> -->
 							
 							<li class="dropdown dropdown1 notifications" id="notification_li">
-								<a href="#" id="notificationLink"> <span class="fa fa-bell"></span>Notifications <c:if test="${not empty notificationsList}"><span class="matchcount">${notificationsCount}</span></c:if></a>
+								<a href="#" id="notificationLink"> <span class="fa fa-bell"></span>Notifications <c:if test="${not empty notificationsList}"><span class="matchcount" id="matchcountId">${notificationsCount}</span></c:if></a>
 								<div id="notificationContainer" class="dropdown-menu dropdown-menu1">
 									<c:if test="${not empty notificationsList}">
 											<div id="notificationsBody" class="notifications">
 												<c:forEach var="notification" items="${notificationsList}">
+												<div class="notifyDivAll notifyDiv${notification.id}">
 													<div class="col-md-3 col-xs-3"  style="height:55px; overflow:hidden;padding-right:0px; padding-left:0px;" >
 														<c:if test="${not empty notification.profileImage}">
 															<img src="${catalina_base}/${notification.profileImage}" style="width: 100%;padding: 5px;">
@@ -3968,6 +3969,7 @@ img.hover-shadow {
 													<div class="col-md-2">
 													<a  href="#" onclick="removeNotification(${notification.id});"><span class="fa fa-trash pull-right" style="margin-top:5px;"></span></a></div>
 													<div class="clearfix"></div><hr>
+												</div>
 												</c:forEach>
 											</div>
 											<form:form commandName="notificationsForm"  class="form-horizontal" id="allNotificationsForm" name="allNotificationsForm" role="form"   method="post">
@@ -4228,7 +4230,21 @@ function myFunction2(id) {
     formData.append('id', id);
 	$.fn.makeMultipartRequest('POST', '${baseurl }/users/removeNotification?id='+id, false, formData, false, 'text', function(data){
 		var jsonobj = $.parseJSON(data);
-		location.reload();
+		var msg = jsonobj.message;//success or not check pettaledenti?
+		if(msg=="delete"){
+			
+			var count_str = $("#matchcountId").html();
+			var count_int = parseInt(count_str)-1;
+			if(count_int<0){
+				count_int = 0;
+			}
+			$("#matchcountId").html(count_int);
+		
+		$(".notifyDiv"+id).remove();
+		alert("Notification succelufully deleted");
+		}else{
+			alert("Some problem occured. Please try again.");
+		}
 	});
 } 
  

@@ -898,9 +898,16 @@ public class FilterController {
 			try {
 					delete = objUsersDao.deleteNotification(Integer.parseInt(idParam),mail_type);
 					if (delete) {
-						jsonObj.put("delete", "delete");
+						jsonObj.put("message", "delete");
+						//get payment notifications 
+						List<Map<String,Object>> paymentNotificationsList = objUsersDao.getAdminNotifications("payment",false);
+						if(paymentNotificationsList!=null && paymentNotificationsList.size()>0){
+							session.setAttribute("paymentNotificationsList", paymentNotificationsList);
+						}else{
+							session.setAttribute("paymentNotificationsList", "");
+						}
 					} else {
-						jsonObj.put("delete", "");
+						jsonObj.put("message", "");
 					}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -924,9 +931,16 @@ public class FilterController {
 					String String;
 					delete = objUsersDao.deleteALLNotification( mail_type);
 					if (delete) {
-						jsonObj.put("delete", "delete");
+						jsonObj.put("message", "delete");
+						//get payment notifications 
+						List<Map<String,Object>> paymentNotificationsList = objUsersDao.getAdminNotifications("payment",false);
+						if(paymentNotificationsList!=null && paymentNotificationsList.size()>0){
+							session.setAttribute("paymentNotificationsList", paymentNotificationsList);
+						}else{
+							session.setAttribute("paymentNotificationsList", "");
+						}
 					} else {
-						jsonObj.put("delete", "");
+						jsonObj.put("message", "");
 					}
 			} catch (Exception e) {
 				e.printStackTrace();

@@ -51,16 +51,16 @@ public class ScheduledJobs {
 	 }
 	
 //@Scheduled(cron = "0 0 12 * * *") //daily at 12 am
-//@Scheduled(cron = "0 0/7 * * * *")
+@Scheduled(cron = "0 0/7 * * * *")
 	public void splitProfilesToEmployees(){
 		System.out.println("#########  splitProfilesToEmployees ###########");
-//		jobsController.splitProfilesToEmployees();
+		jobsController.splitProfilesToEmployees();
 	 }
 	
 //	@Scheduled(cron = "0 0 12 1 * ?") //every month 1st at 12 am
-//@Scheduled(cron = "0 0/20 * * * *")
+@Scheduled(cron = "0 0/20 * * * *")
 	 public void rotateEmployeesProfilesSlot(){
 		System.out.println("#########  rotateEmployeesProfilesSlot ###########");
-//		jobsController.rotateEmployeesProfilesSlot();
+		jobsController.rotateEmployeesProfilesSlot();
 	 }
 }

@@ -36,7 +36,7 @@
 					</div>
 							</c:if>
 							<c:if test="${empty cacheGuest.profileImage}">
-								<div class="profilepic0"><a href="#" id="profilePicOuterTag"><img id="profilepic" src="${baseurl}/img/default.png" class="img-responsive thumbnail " style="margin-bottom:0;"></a>
+								<div class="profilepic0"><a href="myPhotos" id="profilePicOuterTag"><img id="profilepic" src="${baseurl}/img/default.png" class="img-responsive thumbnail " style="margin-bottom:0;"></a>
 							</div>
 							</c:if>
 						</div>	
