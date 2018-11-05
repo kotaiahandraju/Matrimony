@@ -169,7 +169,7 @@ function displayTable(listOrders) {
 							+ "<td title='"+orderObj.casteName+"'>" + orderObj.casteName + "</td>"
 							+ "<td title='"+orderObj.occupationName+"'>" + orderObj.occupationName + "</td>"
 							+ "<td title='"+orderObj.planPackage+"'>" + orderObj.planPackage + "</td>"
-							+ "<td style='text-align: center;'>" + viewProfile +"</td>"
+// 							+ "<td style='text-align: center;'>" + viewProfile +"</td>"
 							+ "</tr >";
 						$(tblRow).appendTo("#tableId table tbody"); 
 						}
