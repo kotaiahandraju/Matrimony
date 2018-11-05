@@ -19,20 +19,7 @@ float: right;
     -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
     box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
 }
-::placeholder {
-color:#000;
-}::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-  color: pink !important;
-}
-::-moz-placeholder { /* Firefox 19+ */
-  color: pink;
-}
-:-ms-input-placeholder { /* IE 10+ */
-  color: pink;
-}
-:-moz-placeholder { /* Firefox 18- */
-  color: pink;
-}
+
 .cha {
     min-height: 20px;
     padding: 19px;
