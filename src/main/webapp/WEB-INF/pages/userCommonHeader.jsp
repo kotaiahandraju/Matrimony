@@ -8,7 +8,7 @@
 	String baseurl =  request.getScheme() + "://" + request.getServerName() +      ":" +   request.getServerPort() +  request.getContextPath();
 	session.setAttribute("baseurl", baseurl);
 	String catalina_base =  request.getScheme() + "://" + request.getServerName() +":" +request.getServerPort();
-	session.setAttribute("catalina_base", catalina_base);
+	session.setAttribute("catalina_base", baseurl);
 %>				
 
 <html>
@@ -80,6 +80,8 @@
 	<script src="${baseurl }/js/jquery.watermark.js"></script>
 	<script src="${baseurl }/js/jquery.littlelightbox.js"></script>
 	<link href="${baseurl }/css/jquery.littlelightbox.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 
 	<style type="text/css">
 	.newma  td:first-child { 
@@ -750,7 +752,7 @@ text-align:center;
 					if(occName==null)
 						occName = "";
 					if((login_user_role_id == 6) || (login_user_role_id == 11) || (login_user_role_id == 12)
-							|| (login_user_role_id == 13) || (login_user_role_id == 14) || (login_user_role_id == 15)){ //means premium,premium_plus,aarna premium users
+							|| (login_user_role_id == 13) || (login_user_role_id == 14) || (login_user_role_id == 15) || (login_user_role_id == 16)){ //means premium,premium_plus,aarna premium users
 					
 						firstname = orderObj.firstName;
 						lastname = orderObj.lastName;
@@ -948,7 +950,7 @@ text-align:center;
 						}
 					} */
 					if((login_user_role_id == 6) || (login_user_role_id == 11) || (login_user_role_id == 12)
-							|| (login_user_role_id == 13) || (login_user_role_id == 14) || (login_user_role_id == 15)){ //means premium,premium_plus,aarna premium users
+							|| (login_user_role_id == 13) || (login_user_role_id == 14) || (login_user_role_id == 15) || (login_user_role_id == 16)){ //means premium,premium_plus,aarna premium users
 					
 						firstname = orderObj.firstName;
 						lastname = orderObj.lastName;
@@ -1209,7 +1211,7 @@ text-align:center;
 					var expressed = orderObj.expressedInterest;
 					var firstname = '<img src="${baseurl}/images/blurr.png"/>',lastname='';
 					if((login_user_role_id == 6) || (login_user_role_id == 11) || (login_user_role_id == 12)
-							|| (login_user_role_id == 13) || (login_user_role_id == 14) || (login_user_role_id == 15)){ //means premium,premium_plus,aarna premium users
+							|| (login_user_role_id == 13) || (login_user_role_id == 14) || (login_user_role_id == 15) || (login_user_role_id == 16)){ //means premium,premium_plus,aarna premium users
 					
 						firstname = orderObj.firstName;
 						lastname = orderObj.lastName;
@@ -3897,11 +3899,12 @@ img.hover-shadow {
 							</li> -->
 							
 							<li class="dropdown dropdown1 notifications" id="notification_li">
-								<a href="#" id="notificationLink"> <span class="fa fa-bell"></span>Notifications <c:if test="${not empty notificationsList}"><span class="matchcount">${notificationsCount}</span></c:if></a>
+								<a href="#" id="notificationLink"> <span class="fa fa-bell"></span>Notifications <c:if test="${not empty notificationsList}"><span class="matchcount" id="matchcountId">${notificationsCount}</span></c:if></a>
 								<div id="notificationContainer" class="dropdown-menu dropdown-menu1">
 									<c:if test="${not empty notificationsList}">
 											<div id="notificationsBody" class="notifications">
 												<c:forEach var="notification" items="${notificationsList}">
+												<div class="notifyDivAll notifyDiv${notification.id}">
 													<div class="col-md-3 col-xs-3"  style="height:55px; overflow:hidden;padding-right:0px; padding-left:0px;" >
 														<c:if test="${not empty notification.profileImage}">
 															<img src="${catalina_base}/${notification.profileImage}" style="width: 100%;padding: 5px;">
@@ -3968,6 +3971,7 @@ img.hover-shadow {
 													<div class="col-md-2">
 													<a  href="#" onclick="removeNotification(${notification.id});"><span class="fa fa-trash pull-right" style="margin-top:5px;"></span></a></div>
 													<div class="clearfix"></div><hr>
+												</div>
 												</c:forEach>
 											</div>
 											<form:form commandName="notificationsForm"  class="form-horizontal" id="allNotificationsForm" name="allNotificationsForm" role="form"   method="post">
@@ -4270,7 +4274,21 @@ function myFunction2(id) {
     formData.append('id', id);
 	$.fn.makeMultipartRequest('POST', '${baseurl }/users/removeNotification?id='+id, false, formData, false, 'text', function(data){
 		var jsonobj = $.parseJSON(data);
-		location.reload();
+		var msg = jsonobj.message;//success or not check pettaledenti?
+		if(msg=="delete"){
+			
+			var count_str = $("#matchcountId").html();
+			var count_int = parseInt(count_str)-1;
+			if(count_int<0){
+				count_int = 0;
+			}
+			$("#matchcountId").html(count_int);
+		
+		$(".notifyDiv"+id).remove();
+		alert("Notification succelufully deleted");
+		}else{
+			alert("Some problem occured. Please try again.");
+		}
 	});
 } 
  

@@ -695,6 +695,12 @@ $(".onlyCharacters").on("keypress",	function(event) {
         <c:if test="${empty profileBean.occupationName}">Not Specified</c:if>
     </td>
 </tr>
+<tr><td>AnnualIncome</td><td>:</td>
+    <td id="annualIncome_val" class="all_annualIncome_val">
+        <c:if test="${not empty profileBean.annualIncome}">${profileBean.annualIncome}</c:if>
+        <c:if test="${empty profileBean.annualIncome}">Not Specified</c:if>
+    </td>
+</tr>
 </table>
 </div>
 <div id="professional_info_edit" class="all_hidden_divs" hidden="true">
@@ -1474,6 +1480,7 @@ function checkLen(){
    	formData.append("education",$("#education").val());
    	formData.append("workingWith",$("#workingWith").val());
    	formData.append("occupation",$("#occupation").val());
+   	formData.append("annualIncome",$("#annualIncome").val());
    	// family details
    	formData.append("fatherName",$("#fatherName").val().trim());
    	formData.append("motherName",$("#motherName").val().trim());
@@ -1820,14 +1827,16 @@ function checkLen(){
   }); */
   
    var ss =new Date().getFullYear()-16;
+
   $("#dob").datepicker({
-	     dateFormat: "dd-MM-yy",
+	  dateFormat: "dd-MM-yy",
 	     changeDate : true,
 	 	changeMonth : true,
 	 	changeYear : true,
-//	  	maxDate :0,
-	 	yearRange: '1950:' + ss
-	 });  
+		minDate: "-50Y",
+		maxDate: "-18Y",
+		yearRange: "-65:+0"
+	 }); 
   $('#aboutMyself').on('keydown', function(e) {
 	    if (e.which === 32 &&  e.target.selectionStart === 0) {
 	      return false;

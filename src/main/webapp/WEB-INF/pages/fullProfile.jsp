@@ -1070,7 +1070,7 @@ xpopup
 			</div>
 			<div class="col-md-4 col-sm-4" style="width:410px; margin:55px 20px 0px 20px;">
 				
-				<div class="fleft"><div class="hdtxt paddl5 paddr5 txt-center" style="width:382px;">----- Your profile matches <span id=noOfProfileMatch></span>  / 14 of ${profileBean.firstName}'s preferences -----</div></div>
+				<div class="fleft"><div class="hdtxt paddl5 paddr5 txt-center" style="width:382px;">Your profile matches <span id=noOfProfileMatch></span>  / 14 of <c:if test="${cacheGuest.roleId == 4}"><img src="${baseurl}/images/blurr.png"/></c:if><c:if test="${cacheGuest.roleId != 4}">${profileBean.firstName}'s</c:if> preferences</div></div>
 				
 			</div>
 			<div class="col-md-2 col-sm-2">
@@ -2115,6 +2115,7 @@ else{
  $("#noOfProfileMatch").html(no_of_match);
  //$(match_score).appendTo("#match_score_div");
  $("#match_score_div").html(match_score);
+ 
 </script> 
 
 <script>

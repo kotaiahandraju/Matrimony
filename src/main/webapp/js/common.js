@@ -224,7 +224,8 @@ function getFilteredStates(id){
 	if($("#"+id).val()== null   || $('#'+id).val() == "" || $('#'+id).val()=="undefined"){
 		 $("#currentState").attr("readonly", true);
 		$("#currentState").attr("disabled" ,"disabled");
-		$("#currentState").val(""); 
+		$("#currentState").empty();
+		//$("#currentState").val(""); 
 	}else{
 		$("#currentState").removeAttr("disabled");
 		$("#currentState").removeAttr("readonly");

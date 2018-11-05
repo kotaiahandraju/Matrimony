@@ -54,12 +54,13 @@ hr:hover {
 </style>
 <div class="container" style="background:#fff; padding:15px;">
 	<div class="col-md-9">
-		<h5>Your Notifications </h5></div><div class="col-md-3"><button type="button" class="btn btn-danger pull-right">Delete All</button></span></div>
+		<h5>Your Notifications </h5></div><div class="col-md-3" id="allDeleteNotifications"><button type="button" class="btn btn-danger pull-right"><a href="#" onclick="removeALLNotification();" style="color:#fff;">Delete All</a></button></span></div>
 <div class="clearfix"></div>
 <hr><div class="col-md-12">
 		<c:if test="${not empty paymentNotificationsList}">
 			<div id="notificationsBody" class="notifications">
 				<c:forEach var="notification" items="${paymentNotificationsList}">
+				<div  class="notifyDivAll notifyDiv${notification.id}">
 				<div class="notifications1 col-md-12">
 					<div class="col-md-2 preprofile"
 						>
@@ -72,8 +73,7 @@ hr:hover {
 								style"max-width: 100%;height:60px;padding: 5px;">
 						</c:if>
 					</div>
-					<div class="col-md-10 notifications1"
-						>
+					<div class="col-md-10 notifications1">
 						<p>
 							<a
 								href="fullProfile?id=${notification.profile_id}"
@@ -83,10 +83,11 @@ hr:hover {
 								${notification.amount}
 							</a> <br>
 							<c:out value="${notification.created_on}" />
-							.<span class="fa fa-trash pull-right" style="margin-top:5px;"></span></a><br>
+							<a  href="#" onclick="removeNotification(${notification.id});"><span class="fa fa-trash pull-right" style="margin-top:5px;"></span></a><br>
 						</p>
+						</div>
 					</div>
-	
+	       </div>
 					</div>
 					
 					<div class="clearfix"></div>
@@ -94,3 +95,25 @@ hr:hover {
 				</c:forEach>
 			</div>
 		</c:if></div></div>
+		
+		<script type="text/javascript">
+		function removeALLNotification(){
+			 var checkstr =  confirm('Are you sure you want to delete all');
+				if(checkstr == true){
+			 var formData = new FormData();
+				$.fn.makeMultipartRequest('POST', '${baseurl}/admin/removeALLNotificationInAdmin', false, formData, false, 'text', function(data){
+					var jsonobj = $.parseJSON(data);
+					var msg = jsonobj.message;
+					if(msg=="delete"){
+						$("#allDeleteNotifications").remove();
+						$(".notifyDivAll").remove();
+					alert("Notification succelufully deleted");
+					}else{
+						alert("Some problem occured. Please try again.");
+					}
+				});
+			} 
+		}
+</script>
+		
+		

@@ -10,7 +10,7 @@
 	session.setAttribute("baseurl", baseurl);
 	String catalina_base = request.getScheme() + "://" + request.getServerName() + ":"
 			+ request.getServerPort();
-	session.setAttribute("catalina_base", catalina_base);
+	session.setAttribute("catalina_base", baseurl);
 %>
 <html lang="en">
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
@@ -63,6 +63,8 @@
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
 <script
 	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 
 <style>
 .form-control {
@@ -1537,7 +1539,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 							</form:select>
 						</div>
 						<div class="form-group">
-						<label for="" style="padding-left:0px;" class="col-md-9"><input type="checkbox" id="accept" checked="checked" /> I have agreed to the<a href="termsConditionsHomepage" style="color:#91fbd0;"> Terms and Condition</a> & have read & understood the <a href="privacyAndPolicyHomePage"  style="color:#91fbd0;">Privacy Policy</a></label>
+						<label for="" style="padding-left:0px;" class="col-md-9"><input type="checkbox" id="accept" checked="checked" /> I have agreed to the<a href="termsConditionsHomepage" style="color:#91fbd0;" target="_blank"> Terms and Condition</a> & have read & understood the <a href="privacyAndPolicyHomePage"  style="color:#91fbd0;" target="_blank">Privacy Policy</a></label>
 							<input type="button" id="secondButton" value="Sign Up"
 								class="btn btn-success btn-block col-md-3" style="width:25%; margin-top:20px;">
 							<!--                                                     <button type="button"  id ="secondButton" onclick="submit();" class="btn btn-info btn-block">SIGNUP...</button> -->
@@ -2251,7 +2253,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 			<div class="form-group">
 				<div class="input-group">
 					<span class="input-group-addon"><i class="fa fa-user"></i></span> <form:input
-						type="text" class="form-control validate"
+						type="text" class="form-control validate onlyCharacters notAllowFirstSpace"
 						path="leaveMsgUserName" placeholder="Name"></form:input>
 				</div>
 			</div>
@@ -2276,7 +2278,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 			<div class="form-group">
 				<form:textarea path="leaveMsgText" 
 					placeholder="Enter few words about you"
-					class="form-control validate" rows="2"></form:textarea>
+					class="form-control validate onlyCharacters notAllowFirstSpace" rows="2"></form:textarea>
 				<span id="errorMsg" style="color: red"></span>
 				<div></div>
 				<div class="clearfix" style="padding-bottom: 8px;"></div>
@@ -2344,7 +2346,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
   function checkAcceptancy() { 
 
 if (!($('#accept').is(":checked"))){
-  alert ("You must check the box to confirm you have read and accept the Terms And Conditions.");
+  alert ("You must read & accept our Terms and Conditions and Privacy Policy to Register.");
 return false;
 } 
 return true;
@@ -3029,7 +3031,34 @@ $('img').bind('contextmenu', function(e) {
 				e.preventDefault();
 			}
 		});
+		$(".onlyCharacters").on("keypress",	function(event) {
 
+			// Disallow anything not matching the regex pattern (A to Z
+			// uppercase, a to z lowercase and white space)
+			var englishAlphabetAndWhiteSpace = /[A-Za-z. ]/g;
+
+			// Retrieving the key from the char code passed in event.which
+			var key = String.fromCharCode(event.which);
+
+			// alert(event.keyCode);
+
+			if (event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 37
+					|| event.keyCode == 39
+					|| englishAlphabetAndWhiteSpace.test(key)) {
+				return true;
+			}
+
+			// If we got this far, just return false because a disallowed key
+			// was typed.
+			return false;
+		});
+
+
+$('.notAllowFirstSpace').on('keydown', function(e) {
+    if (e.which === 32 &&  e.target.selectionStart === 0) {
+      return false;
+    }  
+  });
      function LeaveMsgSubmit(){
     	 var expr = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|in|yahoo|edu|gov|mil|biz|info|mobi|name|aero|asia|jobs|museum)$/;
     		var leaveMsgUserName = $("#leaveMsgUserName").val();

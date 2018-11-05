@@ -955,6 +955,9 @@ public class UsersDao extends BaseUsersDao
 			if(objUserBean!=null){
 				try{
 					int updated_count = jdbcTemplate.update("update users_activity_log set activity_status = '"+columnValue+"' where find_in_set(id,'"+requestIds+"')>0");
+					String select_qry = "select id from users_activity_log where act_done_on_user_id = (select act_done_by_user_id from users_activity_log where id = "+requestIds+") and act_done_by_user_id = (select act_done_on_user_id from users_activity_log where id = "+requestIds+") and activity_type in (	'message') and activity_status in ('1') order by created_time desc limit 1";
+					int act_id = jdbcTemplate.queryForInt(select_qry);
+						updated_count = jdbcTemplate.update("update users_activity_log set activity_status = '"+columnValue+"'  where id = "+act_id);
 					if(updated_count>0){
 						buffer = new StringBuffer();
 						buffer.append(" select act_done_on_user_id from users_activity_log where id = "+requestIds);
@@ -3135,7 +3138,7 @@ public class UsersDao extends BaseUsersDao
 				}
 				if(request_type.equalsIgnoreCase("accepted_requests")){
 					String where_clause = " find_in_set(act_done_on_user_id,('"+userId+","+profile_id+"'))>0 and find_in_set(act_done_by_user_id,('"+userId+","+profile_id+"'))>0 and activity_type in ('message_accepted','message_replied','interest_accepted') ";
-					buffer.append("select *,date_format(created_time,'%d-%b-%Y') as activity_done_on, (select activity_content from users_activity_log where act_done_on_user_id = "+userId+" and act_done_by_user_id = "+profile_id+" and activity_type in ('message') order by created_time desc limit 1) as activity_content, "
+					buffer.append("select *,date_format(created_time,'%d-%b-%Y') as activity_done_on, (select activity_content from users_activity_log where act_done_on_user_id = "+userId+" and act_done_by_user_id = "+profile_id+" and activity_status in ('1') and activity_type in ('message') order by created_time desc limit 1) as activity_content, "
 								+ " (select activity_content from users_activity_log where find_in_set(act_done_on_user_id,('"+userId+","+profile_id+"'))>0 and find_in_set(act_done_by_user_id,('"+userId+","+profile_id+"'))>0 and activity_type in ('message_replied') order by created_time desc limit 1) as replied_msg_content, "
 								+" (select count(*) from users_activity_log where "+where_clause+") as  conversations_count "
 								+" from users_activity_log where "+where_clause+"  order by created_time desc limit 1 ");
@@ -4152,7 +4155,7 @@ public boolean deletePhoto(String photoId){
 				+"u.annualIncome, u.monthlyIncome, u.diet, u.smoking, u.drinking, u.height ,h.inches,h.cm, u.bodyType,b.name as bodyTypeName, u.complexion,com.name as complexionName, ifnull(u.mobile,'---') as mobile, " 
 				+"u.aboutMyself, u.disability, u.status, u.showall,ur.userId, rAgeFrom, rAgeTo, "
 				+"rHeight, rMaritalStatus, rReligion,re1.name as requiredReligionName, rCaste,c1.name as requiredCasteName, rMotherTongue,l1.name as requiredMotherTongue,haveChildren,rCountry , con1.name as requiredCountry,rState,rEducation,e1.name as requiredEducationName, "
-				+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,floor((datediff(current_date(),u.dob))/365) as age, IFNULL(p.name, 'Free Register') as planPackage from users u left join userrequirement ur on u.id=ur.userId "
+				+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,floor((datediff(current_date(),u.dob))/365) as age, IFNULL(p.name, 'Free Register') as planPackage,DATE_FORMAT(u.created_time, '%d-%M-%Y') as created_time_str from users u left join userrequirement ur on u.id=ur.userId "
 				+"left join religion re on re.id=u.religion left join language l on l.id=u.motherTongue left join countries co on co.id=u.currentCountry "
 				+"left join cast c on c.id=u.caste left join star s on s.id =u.star left join height h on h.id=u.height left join body_type b on b.id=u.bodyType left join religion re1  on re1.id=rReligion "
 				+"left join complexion com on com.id =u.complexion left join cast c1 on c1.id=rCaste left join language l1 on l1.id=rMotherTongue "
@@ -4658,12 +4661,18 @@ public boolean deletePhoto(String photoId){
 	}
 	
 	@Transactional
-	public boolean deleteNotification(int id) {
+	public boolean deleteNotification(int id,String mail_type) {
 		jdbcTemplate = custom.getJdbcTemplate();
 		boolean delete = false;
+		if(mail_type.equalsIgnoreCase("member")){
+			mail_type="member";
+		}
+		if(mail_type.equalsIgnoreCase("admin")){
+			mail_type="admin";
+		}
 		try{
-			String sql = "delete from user_notifications where id=?";
-			int intDelete = jdbcTemplate.update(sql, new Object[]{id});
+			String sql = "delete from user_notifications where id='"+id+"' and user_type='"+mail_type+"'";
+			int intDelete = jdbcTemplate.update(sql);
 			if(intDelete != 0){
 				delete = true;
 			}
@@ -4674,11 +4683,17 @@ public boolean deletePhoto(String photoId){
 	}
 	
 	@Transactional
-	public boolean deleteALLNotification() {
+	public boolean deleteALLNotification(String mail_type) {
 		jdbcTemplate = custom.getJdbcTemplate();
 		boolean delete = false;
+		if(mail_type.equalsIgnoreCase("member")){
+			mail_type="member";
+		}
+		if(mail_type.equalsIgnoreCase("admin")){
+			mail_type="admin";
+		}
 		try{
-			String sql = "delete from user_notifications";
+			String sql = "delete from user_notifications where user_type='"+mail_type+"'";
 			int intDelete = jdbcTemplate.update(sql, new Object[] {});
 			if(intDelete != 0){
 				delete = true;

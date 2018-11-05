@@ -37,7 +37,15 @@ function removeALLNotification(){
 	 var formData = new FormData();
 		$.fn.makeMultipartRequest('POST', '${baseurl }/users/removeALLNotification', false, formData, false, 'text', function(data){
 			var jsonobj = $.parseJSON(data);
-			location.reload();
+			var msg = jsonobj.message;
+			if(msg=="delete"){
+// 				$("#allDeleteNotifications").remove();
+				$(".notifyDivAll").remove();
+				$("#matchcountId").html("0");
+			alert("Notification succelufully deleted");
+			}else{
+				alert("Some problem occured. Please try again.");
+			}
 		});
 	} 
 
@@ -56,6 +64,7 @@ function removeALLNotification(){
 						<c:if test="${not empty notificationsList}">
 											<div id="notificationsBody" class="notifications">
 												<c:forEach var="notification" items="${notificationsList}">
+												<div class="notifyDivAll notifyDiv${notification.id}">
 													<div class="col-md-1 col-xs-1"  style="height:55px; overflow:hidden;padding-right:0px; padding-left:0px;" >
 														<c:if test="${not empty notification.profileImage}">
 															<img src="${catalina_base}/${notification.profileImage}" style="width: 100%;padding: 5px;">
@@ -122,6 +131,7 @@ function removeALLNotification(){
 													<div class="col-md-1">
 													<a  href="#" onclick="removeNotification(${notification.id});"><span class="fa fa-trash pull-right" style="margin-top:5px;"></span></a></div>
 													<div class="clearfix"></div><hr>
+													</div>
 												</c:forEach>
 											</div>
 										

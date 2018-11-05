@@ -607,8 +607,8 @@ public class HomePageController {
 					            System.out.println("error : " + e);
 					        }
 						  
-					        //filepath= "img/"+filepath;
-					        filepath= "aarna-user-images/"+filepath;
+					        filepath= "img/"+filepath;
+//					        filepath= "aarna-user-images/"+filepath;
 					        objJson.put("image_path", filepath);
 					        objUerImagesBean.setImage(filepath);
 					        objUerImagesBean.setStatus("1");
@@ -2749,6 +2749,9 @@ String sJson="";
 					if(success){
 						userSessionBean.setRoleId(roleId);
 						userSessionBean.setMembership_status("1");
+						String allowed_profiles_limit = objUsersDao.getAllowedProfilesLimit(userId);
+						session.setAttribute("allowed_profiles_limit", allowed_profiles_limit);
+						session.setAttribute("rolId", roleId);
 						session.setAttribute("cacheGuest",userSessionBean);
 					}
 						
@@ -3693,8 +3696,12 @@ String sJson="";
 						profileObj.put("photosList", "");
 					}
 					//get profile match score
-					int match_score = this.getProfileMatchScore(userBean, profileObj);
-					profileObj.put("match_score", match_score+"");
+					try{
+						int match_score = this.getProfileMatchScore(userBean, profileObj);
+						profileObj.put("match_score", match_score+"");
+					}catch(Exception exp){
+						exp.printStackTrace();profileObj.put("match_score", "exception");
+					}
 				}
 				
 				objectMapper = new ObjectMapper();
@@ -3900,36 +3907,44 @@ String sJson="";
 				objeModel.addAttribute("createProfile", savedUserData);
 				session.setAttribute("profileToBeCreated", savedUserData);
 				//String mobileNum = objUserssBean.getMobile();
+				/*************
+				check OTP limit for the day
 				
-				String otp = objUsersDao.genOtp();
-			   //insert into otp table
-				request.setAttribute("mobileStr", mobileNum.substring(mobileNum.length()-3));	
-			   boolean success = objUsersDao.saveOtp(sessionBean.getId()+"",mobileNum,otp);
-			   if(success){
-				   try{
-					   String response = SendSMS.sendSMS("Dear "  +sessionBean.getFirstName()+ " "+sessionBean.getLastName()+",\nThanks for registering with Aarna Matrimony. OTP for your registration is: "+otp, mobileNum);
-					   
-					   if("OK".equalsIgnoreCase(response)){
+				*************/
+			   int count = objUsersDao.getOTPCount(mobileNum);
+			   if(count<MatrimonyConstants.OTP_LIMIT){
+					String otp = objUsersDao.genOtp();
+				   //insert into otp table
+					request.setAttribute("mobileStr", mobileNum.substring(mobileNum.length()-3));	
+				   boolean success = objUsersDao.saveOtp(sessionBean.getId()+"",mobileNum,otp);
+				   if(success){
+					   try{
+						   String response = SendSMS.sendSMS("Dear "  +sessionBean.getFirstName()+ " "+sessionBean.getLastName()+",\nThanks for registering with Aarna Matrimony. OTP for your registration is: "+otp, mobileNum);
 						   
-						   request.setAttribute("message", "success");
-					   }else{
-						   request.setAttribute("message", "failed"); 
+						   if("OK".equalsIgnoreCase(response)){
+							   
+							   request.setAttribute("message", "success");
+						   }else{
+							   request.setAttribute("message", "failed"); 
+						   }
+						   //throw new Exception();
+					   }catch(Exception e){
+						   e.printStackTrace();
+						   request.setAttribute("message", "failed");
+						   //objUsersDao.delete(sessionBean.getId());
 					   }
-					   //throw new Exception();
-				   }catch(Exception e){
-					   e.printStackTrace();
+					   
+					   return "otpPage";
+					   /*objeModel.addAttribute("createProfile", objUserssBean);ff
+					   return "redirect:saveUserProfile";*/
+				   }else{
 					   request.setAttribute("message", "failed");
-					   //objUsersDao.delete(sessionBean.getId());
+					   return "otpPage";
 				   }
-				   
-				   return "otpPage";
-				   /*objeModel.addAttribute("createProfile", objUserssBean);ff
-				   return "redirect:saveUserProfile";*/
 			   }else{
-				   request.setAttribute("message", "failed");
+				   request.setAttribute("message", "success");
 				   return "otpPage";
 			   }
-			   
 			
 		} catch (Exception e) {
 		   e.printStackTrace();
@@ -3964,7 +3979,7 @@ String sJson="";
 				   //boolean success = objUsersDao.saveOtp(sessionBean.getId()+"",mobileNum,otp);
 				   if(StringUtils.isNotBlank(otp)){
 					   try{
-						   String response = SendSMS.sendSMS("OTP for your registration is: "+otp, mobileNum);
+						   String response = SendSMS.sendSMS("OTP for your registration is: "+otp+"\n\n --Team AarnaMatrimony", mobileNum);
 						   
 						   if("OK".equalsIgnoreCase(response)){
 							   objJson.put("message", "success");
@@ -5253,7 +5268,7 @@ String sJson="";
 	   target.setLastName(source.getLastName());
 	   target.setBodyType(source.getBodyType());
 	   target.setComplexion(source.getComplexion());
-	   target.setAge(source.getAge());
+	   //target.setAge(source.getAge());
 	   target.setHeight(source.getHeight());
 	   target.setDisability(source.getDisability());
 	   target.setWeight(source.getWeight());
@@ -5285,7 +5300,7 @@ String sJson="";
 	   target.setEducation(source.getEducation());
 	   target.setWorkingWith(source.getWorkingWith());
 	   target.setOccupation(source.getOccupation());
-	   
+	   target.setAnnualIncome(source.getAnnualIncome());
 	   return target;
    }
    private UsersBean copyFamilyDetails(UsersBean source,UsersBean target){
@@ -5554,13 +5569,13 @@ String sJson="";
 		JSONObject jsonObj = new JSONObject();
 		boolean delete = false;
 		String idParam=request.getParameter("id");
-		
+		String mail_type="member";
 		try {
-				delete = objUsersDao.deleteNotification(Integer.parseInt(idParam));
+				delete = objUsersDao.deleteNotification(Integer.parseInt(idParam),mail_type);
 				if (delete) {
-					jsonObj.put("delete", "delete");
+					jsonObj.put("message", "delete");
 				} else {
-					jsonObj.put("delete", "");
+					jsonObj.put("message", "");
 				}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -5579,13 +5594,14 @@ String sJson="";
 		 List<Map<String, Object>> notifications = null;
 		JSONObject jsonObj = new JSONObject();
 		boolean delete = false;
-		
+		String mail_type="member";
 		try {
-				delete = objUsersDao.deleteALLNotification();
+				String String;
+				delete = objUsersDao.deleteALLNotification( mail_type);
 				if (delete) {
-					jsonObj.put("delete", "delete");
+					jsonObj.put("message", "delete");
 				} else {
-					jsonObj.put("delete", "");
+					jsonObj.put("message", "");
 				}
 		} catch (Exception e) {
 			e.printStackTrace();

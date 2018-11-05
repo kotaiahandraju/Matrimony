@@ -472,7 +472,7 @@ function displayMatches(listOrders) {
 				}
 			} */
 			if((login_user_role_id == 6) || (login_user_role_id == 11) || (login_user_role_id == 12)
-					|| (login_user_role_id == 13) || (login_user_role_id == 14) || (login_user_role_id == 15)){ //means premium,premium_plus,aarna premium users
+					|| (login_user_role_id == 13) || (login_user_role_id == 14) || (login_user_role_id == 15) || (login_user_role_id == 16)){ //means premium,premium_plus,aarna premium users
 			
 				firstname = orderObj.firstName;
 				lastname = orderObj.lastName;
@@ -1353,6 +1353,11 @@ function resetBtnfunction(){
 			$("#city").select2({
 	    	    placeholder: "-- Select City --"
 	    	});
+			//populate city dropdown
+	    	var city_map = ${all_cities};
+	    	  $.each(city_map,function(key, value) {
+	    				$("#city").append("<option value="+key+" >"+ value+ "</option>");
+	    			}); 
 		} else {
 			var stateIds = $("#" + id).val();
 			var formData = new FormData();
@@ -1393,6 +1398,11 @@ function resetBtnfunction(){
 							    	$("#city").select2({
 							    	    placeholder: "-- Select City --"
 							    	});
+							    	//populate city dropdown
+							    	var city_map = ${all_cities};
+							    	  $.each(city_map,function(key, value) {
+							    				$("#city").append("<option value="+key+" >"+ value+ "</option>");
+							    			}); 
 							    }else{
 							    	
 							        $("#rCity").val(selected_values.split(","));
