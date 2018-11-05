@@ -5025,6 +5025,20 @@ public boolean deletePhoto(String photoId){
 			short_str = "emailVerify  mail";
 			emailVerifylink = baseurl+"/users/emailvarificationlink?email="+receiverBean.getEmail()+"&code="+receiverBean.getUnique_code();
 		}
+		else if(mail_type.equalsIgnoreCase("refer_friend")){
+			short_str = " Get unlimited matches ";
+			try{
+				
+				StringBuffer buffer = new StringBuffer(" insert into emails_data(sender_user_id,receiver_user_id,sender_email,receiver_display_name,sender_user_name,receiver_user_name,receiver_email,mail_content,status,type,full_profile_action_url,sender_image,receiver_password,shortstr,emailVerifylink,base_url,created_on) "
+									+ "	values("+senderBean.getId()+","+receiverBean.getId()+",'"+senderBean.getEmail()+"','"+receiverBean.getFirstName()+" "+receiverBean.getLastName()+" ("+receiverBean.getUsername()+")','"+senderBean.getUsername()+"','"+receiverBean.getUsername()+"','"+receiverBean.getEmail()+"','"+receiverBean.getMail_content()+"','0','"+mail_type+"','"+actionUrl+"','"+sender_image+"','"+receiver_password+"','"+short_str+"','"+emailVerifylink+"','"+baseurllink+"',current_timestamp())");
+				int inserted_count = jdbcTemplate.update(buffer.toString());
+				if(inserted_count==1){
+					return true;
+				}
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		try{
 			
 			StringBuffer buffer = new StringBuffer(" insert into emails_data(sender_user_id,receiver_user_id,sender_email,sender_details,sender_display_name,receiver_display_name,sender_user_name,receiver_user_name,receiver_email,mail_content,status,type,full_profile_action_url,sender_image,receiver_password,shortstr,emailVerifylink,base_url,created_on) "
@@ -5477,5 +5491,63 @@ public boolean deletePhoto(String photoId){
 		}
 		
 	}
+	
+	public UsersBean getUserByEmailId(String email_id) {
+		 jdbcTemplate = custom.getJdbcTemplate();
+		 try{
+			 UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
+			int count = jdbcTemplate.queryForInt("select count(*) from users where email = ?", new Object[]{email_id});
+			if(count==0){
+				return null;
+			}
+			String sql = "SELECT *  FROM users where  email = ?";
+			List<UsersBean> retlist = jdbcTemplate.query(sql,
+			new Object[]{email_id},
+			ParameterizedBeanPropertyRowMapper.newInstance(UsersBean.class));
+			if(retlist.size() > 0)
+				return retlist.get(0);
+			return null;
+		 }catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}
+	}
+	
+	public boolean updateProfileFilledPercentage(String user_id,String percentage_val){
+		jdbcTemplate = custom.getJdbcTemplate();
+		String updateQry = " update users set profile_filled_percentage = '"+percentage_val+"'  where id = "+user_id;
+		try{
+			int count = jdbcTemplate.update(updateQry);
+			if(count == 1){
+				return true;
+			}
+			return false;
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+
+	}
+	public int getPriceAfterConcession(String package_id,int package_price, String user_id){
+		jdbcTemplate = custom.getJdbcTemplate();
+		String qryStr = "";
+		int finalPrice = 0;
+		try{
+			String selectQry = "select count(*) from users where status = '1' and referred_by = '"+user_id+"' and profile_filled_percentage >= 80";
+			int members_count = jdbcTemplate.queryForInt(selectQry);
+			if(members_count>=MatrimonyConstants.REFERRED_MEMBERS_COUNT){
+				float concession_amount = MatrimonyConstants.CONCESSION_PRECENTAGE / 100;
+				concession_amount = package_price * concession_amount;
+				finalPrice = Math.round(concession_amount);
+			}else{
+				finalPrice = package_price;
+			}
+			return finalPrice;
+		}catch(Exception e){
+			e.printStackTrace();
+			return 0;
+		}
+	}
+	
 }
 
