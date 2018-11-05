@@ -106,7 +106,7 @@
 			<div class="box-title">
 				<h3>
 					<i class="fa fa-table"></i>
-					Aarna LAUNCHING_OFFER Profiles
+					Aarna Launching Offer Profiles
 				</h3>
 			</div>
 			<div id="tableIdSpecial">

@@ -1479,7 +1479,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 
 						<div class="row">
 							<div class="form-group">
-								<label for="" class="col-md-12">Your Name</label>
+								<label for="" class="col-md-12">Name</label>
 								<div class="">
 									<div class="col-md-6 firstnam">
 										<input type="text" name="firstName"
@@ -2454,7 +2454,7 @@ $('img').bind('contextmenu', function(e) {
     		var jsonobj = $.parseJSON(data);
     		if(jsonobj.msg =="exist"){
     			//error message write
-    			$('#emailError').text("eMail already in Use. Please Try Another.");
+    			$('#emailError').text("eMail already in use. Please try another.");
     			emailExist = true;
     		}else{
     			$('#emailError').text("");
