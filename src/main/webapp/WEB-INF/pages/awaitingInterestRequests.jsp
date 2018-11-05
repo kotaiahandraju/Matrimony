@@ -37,6 +37,12 @@
 		<style>
 		
 			/** Start: to style navigation tab **/
+			 textarea {
+    font-family: inherit; 
+    font-size: 12px;
+    line-height: inherit;
+    color: #000;
+}
 			.nav {
 			  margin-left: 0;
 			  list-style: none;

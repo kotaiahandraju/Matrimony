@@ -227,15 +227,15 @@ background: none !important;
 /* add pendingrequest new */
 .pendingre {
 padding:20px;
-border:1px solid #dedede;
 background:#fff;
+margin-bottom:10px;
 }
 .pleftc {
 margin:51px 98px 0px 0px;
 color:green;
 }
 .prightc {
-margin:51px 0px 0px 98px;
+margin:51px 0px 0px 22px;
 color:green;
 }
 .bgc {

@@ -369,8 +369,8 @@ color: #cfcfcf !important;
 					<div class="form-group" style="margin: auto;">
   						<label class="control-label" style="color: black;">Enter Email ID</label>  							
     							<!-- 
-    							 --><div class="input-group mb-3">
-      								<input type="text" placeholder="Enter Email id"  id="changeEmail" onkeyup="borderColor()" class="form-control" aria-label="Amount (to the nearest dollar)">      								     								
+    							 --><div class="input-group mb-3 col-md-4">
+      								<input type="text" placeholder="Enter Email id"  id="changeEmail" style="font-size:13px;" onkeyup="borderColor()" class="form-control" aria-label="Amount (to the nearest dollar)">      								     								
     							<span class="hasError" id="emailError1" style="color:red;"></span>
     							</div>
     							<br>

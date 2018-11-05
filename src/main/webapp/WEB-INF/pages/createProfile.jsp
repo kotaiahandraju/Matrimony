@@ -1244,7 +1244,7 @@ $('.emailOnly').blur(function(event) {
 			var jsonobj = $.parseJSON(data);
 			if(jsonobj.msg =="exist"){
 				//error message write
-				$('#emailError111').text("Email already in Use. Please Try Another.");
+				$('#emailError111').text("eMail already in use. Please try another.");
 				emailExist = false;
 				return false;
 			}else{
