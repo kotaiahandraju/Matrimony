@@ -439,8 +439,8 @@ function firstForm(event)
 	}
 	else
 	{
-		$("#firstButton").attr("disabled",true);
-	    $("#firstButton").val("Please wait...");
+		/* $("#firstButton").attr("disabled",true);
+	    $("#firstButton").val("Please wait..."); */
 	    $("#firstForm").hide();
 	    $('#secondForm').css({'display':'block'});
 	    ChangeUrl('page1', 'profile.htm?page=2');

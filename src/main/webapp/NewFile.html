@@ -40,7 +40,16 @@
     <link rel="stylesheet" href="../yandex.st/highlightjs/8.0/styles/default.min.css" media="screen" type="text/css">
     <script type="text/javascript" src="documentation/js/document.js"></script>
     <script src="documentation/js/highlight.pack.js"></script>
-     
+     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+		<link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+		<link rel="stylesheet" href="css/albery.css" type="text/css">
+		<style>
+		.container { margin: 150px auto; max-width: 960px; }
+		h1 { text-align: center; }
+	</style>
+	</head>
+
+	<body>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
     <!-- for documentation #end: you don't need them -->
@@ -345,6 +354,97 @@
       </div>
       
     </div>
+		
+		<div class="container">
+			<h1>Albery Gallery & Carousel Demo</h1>
+		<div class="albery-container">
+
+			<div class="albery-wrapper">
+
+				<div class="albery-item">
+					<img src="https://picsum.photos/1000/666?image=655" alt="">
+				</div>
+				<div class="albery-item">
+					<img src="https://picsum.photos/1000/666?image=656" alt="">
+				</div>
+				<div class="albery-item">
+					<img src="https://picsum.photos/1000/666?image=657" alt="">
+				</div>
+				<div class="albery-item">
+					<img src="https://picsum.photos/1000/666?image=658" alt="">
+				</div>
+				<div class="albery-item">
+					<img src="https://picsum.photos/1000/666?image=659" alt="">
+				</div>
+				<div class="albery-item">
+					<img src="https://picsum.photos/1000/666?image=660" alt="">
+				</div>
+				<div class="albery-item">
+					<img src="https://picsum.photos/1000/666?image=661" alt="">
+				</div>
+				<div class="albery-item">
+					<img src="https://picsum.photos/1000/666?image=662" alt="">
+				</div>
+				<div class="albery-item">
+					<img src="https://picsum.photos/1000/666?image=663" alt="">
+				</div>
+				<div class="albery-item">
+					<img src="https://picsum.photos/1000/666?image=664" alt="">
+				</div>
+
+			</div>
+
+			<div class="move-right">
+				<a href="#" id="rightArrow"></a>
+			</div>
+			<div class="move-left">
+				<a href="#" id="leftArrow"></a>
+			</div>
+
+		</div>
+
+		<div class="pagination-container">
+			<div class="pagination-wrapper">
+				<div class="pagination-item" data-item="1">
+					<img src="https://picsum.photos/116/77?image=655" alt="">
+				</div>
+				<div class="pagination-item" data-item="2">
+					<img src="https://picsum.photos/116/77?image=656" alt="">
+				</div>
+				<div class="pagination-item" data-item="3">
+					<img src="https://picsum.photos/116/77?image=657" alt="">
+				</div>
+				<div class="pagination-item" data-item="4">
+					<img src="https://picsum.photos/116/77?image=658" alt="">
+				</div>
+				<div class="pagination-item" data-item="5">
+					<img src="https://picsum.photos/116/77?image=659" alt="">
+				</div>
+				<div class="pagination-item" data-item="6">
+					<img src="https://picsum.photos/116/77?image=660" alt="">
+				</div>
+				<div class="pagination-item" data-item="7">
+					<img src="https://picsum.photos/116/77?image=661" alt="">
+				</div>
+				<div class="pagination-item" data-item="8">
+					<img src="https://picsum.photos/116/77?image=662" alt="">
+				</div>
+				<div class="pagination-item" data-item="9">
+					<img src="https://picsum.photos/116/77?image=663" alt="">
+				</div>
+				<div class="pagination-item" data-item="10">
+					<img src="https://picsum.photos/116/77?image=664" alt="">
+				</div>
+			</div>
+		</div>
+</div>
+	<script src="js/albery.js"></script>
+	<script>
+		$(".albery-container").albery({
+			speed: 500,
+			imgWidth: 600,
+		});
+	</script>
   </div>
 
 

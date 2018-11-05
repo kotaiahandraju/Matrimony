@@ -5306,7 +5306,7 @@ String sJson="";
 	   target.setEducation(source.getEducation());
 	   target.setWorkingWith(source.getWorkingWith());
 	   target.setOccupation(source.getOccupation());
-	   
+	   target.setAnnualIncome(source.getAnnualIncome());
 	   return target;
    }
    private UsersBean copyFamilyDetails(UsersBean source,UsersBean target){
@@ -5579,9 +5579,9 @@ String sJson="";
 		try {
 				delete = objUsersDao.deleteNotification(Integer.parseInt(idParam),mail_type);
 				if (delete) {
-					jsonObj.put("delete", "delete");
+					jsonObj.put("message", "delete");
 				} else {
-					jsonObj.put("delete", "");
+					jsonObj.put("message", "");
 				}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -5605,9 +5605,9 @@ String sJson="";
 				String String;
 				delete = objUsersDao.deleteALLNotification( mail_type);
 				if (delete) {
-					jsonObj.put("delete", "delete");
+					jsonObj.put("message", "delete");
 				} else {
-					jsonObj.put("delete", "");
+					jsonObj.put("message", "");
 				}
 		} catch (Exception e) {
 			e.printStackTrace();

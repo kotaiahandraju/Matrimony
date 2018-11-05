@@ -8,6 +8,7 @@
 .tab td.active {
     background-color: #ccc;
 }
+
 </style>
 <div class="col-md-3 products-grid-right">
 				<div class="panel panel-success">
@@ -16,10 +17,10 @@
 						<div class="tabbable" id="tabs-343694">
 							
 							<div class="tab-content">
-								<div class="tab" id="inbox">
+								<div class="tab">
 									<table width="100%" class="dotted-seperator">
 										<tr>
-											<td height="30"><a href="#" onclick="displayBlock('inbox','pending_requests');" id="defaultOpen">Inbox</a></td>
+											<td height="30"><a href="#" id="inbox" onclick="displayBlock('inbox','pending_requests');"  id="defaultOpen">Inbox</a></td>
 											
 										</tr>
 										<tr>

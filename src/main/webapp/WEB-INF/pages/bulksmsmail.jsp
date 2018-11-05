@@ -90,7 +90,7 @@ border-radius:0px !important;}
 								  	<div class="clearfix"></div><br>
 								
 								  	<div class="form-group">
-								  	<label class="col-sm-2 control-label required">message <span class="impColor">*</span></label>
+								  	<label class="col-sm-2 control-label required">Message <span class="impColor">*</span></label>
 								  	<div class="col-sm-6">
 											<form:textarea path="message" cols="50" rows="3" placeholder="Message " class="form-control"/>
 								  	</div>

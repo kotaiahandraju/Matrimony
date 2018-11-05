@@ -10,7 +10,7 @@
 	String baseurl =  request.getScheme() + "://" + request.getServerName() +      ":" +   request.getServerPort() +  request.getContextPath();
 	session.setAttribute("baseurl", baseurl);
 	String catalina_base =  request.getScheme() + "://" + request.getServerName() +":" +request.getServerPort();
-	session.setAttribute("catalina_base", catalina_base);
+	session.setAttribute("catalina_base", baseurl);
 %>
 <head>
 	<meta charset="utf-8">
@@ -458,31 +458,38 @@ var role_id = ${cacheUserBean.roleId};
  				<%-- <li class="paymentNotifications"><a href="${baseurl }/admin/paymentNotifications"><span>Payment Notifications</span></a></li> --%>
  				<li class="dropdown notifications" id="notification_li">
  					<c:if test="${roleId1 == 1}"> 
-					<a href="#" id="notificationLink"> <span class="fa fa-bell"></span>Notifications</a>
+ 					<c:if test="${empty paymentNotificationsList}">
+					<a href="#" id="notificationLink"> <span class="fa fa-bell"></span>Notifications </a>
+					</c:if>
+					<c:if test="${not empty paymentNotificationsList}">
+						<a href="#" id="notificationLink"> <span class="fa fa-bell"></span>Notifications<span class="matchcount inactive_cnt" id="inactive_profiles_cnt"></span></a>
+					</c:if>
 					</c:if>
 					<div id="notificationContainer" class="dropdown-menu">
 						<c:if test="${not empty paymentNotificationsList}">
 								<div id="notificationsBody" class="notifications">
 									<c:forEach var="notification" items="${paymentNotificationsList}">
-										<div class="col-md-3 col-xs-3"  style="height:70px; overflow:hidden;padding-right:0px; padding-left:0px;" >
-											<c:if test="${not empty notification.profileImage}">
-												<img src="${catalina_base}/${notification.profileImage}" style="width: 100%;padding: 5px;">
-											</c:if>
-											<c:if test="${empty notification.profileImage}">
-												<img src="${baseurl }/img/default.png" style="width: 100%;padding: 5px;">
-											</c:if>
+										<div class="notifyDivAll notifyDiv${notification.id}">
+											<div class="col-md-3 col-xs-3"  style="height:70px; overflow:hidden;padding-right:0px; padding-left:0px;" >
+												<c:if test="${not empty notification.profileImage}">
+													<img src="${catalina_base}/${notification.profileImage}" style="width: 100%;padding: 5px;">
+												</c:if>
+												<c:if test="${empty notification.profileImage}">
+													<img src="${baseurl }/img/default.png" style="width: 100%;padding: 5px;">
+												</c:if>
+											</div>
+											<div class="col-md-7 notsp" style="padding-right:0px; padding-left:0px;" >
+												<p>
+													<a href="fullProfile?id=${notification.profile_id}&nid=${notification.id}&rfrm=notifications" target="_blank" >
+														<b><c:out value="${notification.fullName}" /> (<c:out value="${notification.username}" />)</b> 
+														paid an amount of ${notification.amount}
+													</a>
+													<br>
+													<c:out value="${notification.created_on}" />
+												</p>
+											</div>
+											<div class="col-md-2"><a  href="#" onclick="removeNotification(${notification.id});"><span class="fa fa-trash pull-right" style="margin-top:5px;"></span></a></div>
 										</div>
-										<div class="col-md-7 notsp" style="padding-right:0px; padding-left:0px;" >
-											<p>
-												<a href="fullProfile?id=${notification.profile_id}&nid=${notification.id}&rfrm=notifications" target="_blank" >
-													<b><c:out value="${notification.fullName}" /> (<c:out value="${notification.username}" />)</b> 
-													paid an amount of ${notification.amount}
-												</a>
-												<br>
-												<c:out value="${notification.created_on}" />
-											</p>
-										</div>
-										<div class="col-md-2"><a  href="#" onclick="removeNotification(${notification.id});"><span class="fa fa-trash pull-right" style="margin-top:5px;"></span></a></div>
 										<div class="clearfix"></div><hr style="margin-top:0px;margin-bottom:0px;">
 									</c:forEach>
 								</div>
@@ -580,12 +587,21 @@ var role_id = ${cacheUserBean.roleId};
 	}
 	
 	 function removeNotification(id){
+		 var checkstr =  confirm('Are you sure you want to delete?');
+			if(checkstr == true){
 			var formData = new FormData();
 		    formData.append('id', id);
 			$.fn.makeMultipartRequest('POST', '${baseurl}/admin/removeNotificationInAdmin?id='+id, false, formData, false, 'text', function(data){
 				var jsonobj = $.parseJSON(data);
-				location.reload();
+				var msg = jsonobj.message;
+				if(msg=="delete"){
+				$(".notifyDiv"+id).remove();
+				alert("Notification succelufully deleted");
+				}else{
+					alert("Some problem occured. Please try again.");
+				}
 			});
+			}
 		} 
 		 
 	

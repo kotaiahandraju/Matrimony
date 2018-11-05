@@ -624,6 +624,8 @@ text-align:center;
 						return false;
 					}
 				}
+				$('#expressModal').show();
+				$('#expressModal').modal();
 				var formData = new FormData();
 			
 				formData.append('profile_id',profile_id);
@@ -750,7 +752,7 @@ text-align:center;
 					if(occName==null)
 						occName = "";
 					if((login_user_role_id == 6) || (login_user_role_id == 11) || (login_user_role_id == 12)
-							|| (login_user_role_id == 13) || (login_user_role_id == 14) || (login_user_role_id == 15)){ //means premium,premium_plus,aarna premium users
+							|| (login_user_role_id == 13) || (login_user_role_id == 14) || (login_user_role_id == 15) || (login_user_role_id == 16)){ //means premium,premium_plus,aarna premium users
 					
 						firstname = orderObj.firstName;
 						lastname = orderObj.lastName;
@@ -948,7 +950,7 @@ text-align:center;
 						}
 					} */
 					if((login_user_role_id == 6) || (login_user_role_id == 11) || (login_user_role_id == 12)
-							|| (login_user_role_id == 13) || (login_user_role_id == 14) || (login_user_role_id == 15)){ //means premium,premium_plus,aarna premium users
+							|| (login_user_role_id == 13) || (login_user_role_id == 14) || (login_user_role_id == 15) || (login_user_role_id == 16)){ //means premium,premium_plus,aarna premium users
 					
 						firstname = orderObj.firstName;
 						lastname = orderObj.lastName;
@@ -1209,7 +1211,7 @@ text-align:center;
 					var expressed = orderObj.expressedInterest;
 					var firstname = '<img src="${baseurl}/images/blurr.png"/>',lastname='';
 					if((login_user_role_id == 6) || (login_user_role_id == 11) || (login_user_role_id == 12)
-							|| (login_user_role_id == 13) || (login_user_role_id == 14) || (login_user_role_id == 15)){ //means premium,premium_plus,aarna premium users
+							|| (login_user_role_id == 13) || (login_user_role_id == 14) || (login_user_role_id == 15) || (login_user_role_id == 16)){ //means premium,premium_plus,aarna premium users
 					
 						firstname = orderObj.firstName;
 						lastname = orderObj.lastName;
@@ -3897,11 +3899,12 @@ img.hover-shadow {
 							</li> -->
 							
 							<li class="dropdown dropdown1 notifications" id="notification_li">
-								<a href="#" id="notificationLink"> <span class="fa fa-bell"></span>Notifications <c:if test="${not empty notificationsList}"><span class="matchcount">${notificationsCount}</span></c:if></a>
+								<a href="#" id="notificationLink"> <span class="fa fa-bell"></span>Notifications <c:if test="${not empty notificationsList}"><span class="matchcount" id="matchcountId">${notificationsCount}</span></c:if></a>
 								<div id="notificationContainer" class="dropdown-menu dropdown-menu1">
 									<c:if test="${not empty notificationsList}">
 											<div id="notificationsBody" class="notifications">
 												<c:forEach var="notification" items="${notificationsList}">
+												<div class="notifyDivAll notifyDiv${notification.id}">
 													<div class="col-md-3 col-xs-3"  style="height:55px; overflow:hidden;padding-right:0px; padding-left:0px;" >
 														<c:if test="${not empty notification.profileImage}">
 															<img src="${catalina_base}/${notification.profileImage}" style="width: 100%;padding: 5px;">
@@ -3968,6 +3971,7 @@ img.hover-shadow {
 													<div class="col-md-2">
 													<a  href="#" onclick="removeNotification(${notification.id});"><span class="fa fa-trash pull-right" style="margin-top:5px;"></span></a></div>
 													<div class="clearfix"></div><hr>
+												</div>
 												</c:forEach>
 											</div>
 											<form:form commandName="notificationsForm"  class="form-horizontal" id="allNotificationsForm" name="allNotificationsForm" role="form"   method="post">
@@ -4030,7 +4034,7 @@ img.hover-shadow {
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header" style="background: yellowgreen; border-radius: 0px; ">
-          <button type="button" id="closeBtn" class="close" data-dismiss="modal" style="margin-top:0px; margin-right:8px; font-size: 28px;color: black;">&times;</button>
+          <button type="button" id="closeBtn" class="close" data-dismiss="modal" style="margin-top:0px; margin-right:8px; font-size: 28px;color: #fff;opacity:1;'">&times;</button>
           <h4 class="modal-title" style="color: aliceblue;padding: 10px; padding-left: px; font-size: 18px;">Send Message <span id="member_name_todisplay"></span></h4>
         </div>
         <div class="modal-body" style="background: transparent;">
@@ -4045,21 +4049,63 @@ img.hover-shadow {
         		<textarea id="mail_content" placeholder="Enter Your " onblur="this.placeholder='Enter Your Message'" onfocus="this.placeholder=''" name="mail_content" cols="70" rows="10"style="margin-top:5px;" ></textarea>
         	</c:if> --%>
          	 <c:if test="${default_text_option != '0' }">
-        		<textarea id="mail_content" placeholder="" onblur="this.placeholder='Enter Your Message'" onfocus="this.placeholder=''" name="mail_content"   style="width:100%; height:250px;white-space: pre-wrap;margin-top:5px;" ><c:out value="${mail_default_text}" />
+        		<textarea id="mail_content" placeholder="" onblur="this.placeholder='Enter Your Message'" onfocus="this.placeholder=''" name="mail_content"   style="width:100%; height:150px;white-space: pre-wrap;margin-top:5px;" ><c:out value="${mail_default_text}" />
         			
         		</textarea>
         	</c:if> 
          	</div>
          	<br><div class="clearfix"></div>
           	
+        </div><div class="modal-footer">
+      <span style="float:left;">  &nbsp; <input type="checkbox" name="default_text_opt" id="default_text_opt" /> &nbsp; Set as default text </span>
+          <span type="button" id="sendMailBtn" onclick="sendMail()" class="btn btn-danger " style="  " >Send Message</span>
         </div>
-       &nbsp; <input type="checkbox" name="default_text_opt" id="default_text_opt" /><span>  &nbsp; Set as default text </span>
-          <button type="button" id="sendMailBtn" onclick="sendMail()" class="btn btn-danger " style="  margin: 10px 0px 10px 50px;" >Send Mail</button>
-        
       </div>
       
     </div>
 </div>	
+<div class="modal fade" id="expressModal" role="dialog" style="background: transparent;    background-color: rgba(0,0,0,0.4);">
+    <div class="modal-dialog" style="    border: 10px solid #888383; border-radius:15px;">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header" style="background:none;border-radius: 0px; ">
+          <button type="button" id="closeBtn" class="close" data-dismiss="modal" style="margin-top:0px; margin-right:8px; font-size: 28px;color: #000;'">&times;</button>
+          <h4 class="modal-title" style="color: aliceblue;padding: 10px; padding-left: px; font-size: 18px;"> <span id="member_name_todisplay"></span></h4>
+        </div>
+        <div class="modal-body" style="background: transparent;">
+       <p><b>Interest request has been sent successfully to Krishna Prasad (AM123456545)</b></p>
+         	</div>
+         	<br><div class="clearfix"></div>
+          	
+        <div class="modal-footer">
+          <span type="button" id="sendMailBtn" onclick="sendMail()" class="btn btn-danger " style="  " >Send Mail</span>
+        </div>
+      </div>
+      
+    </div>
+</div>	
+<div class="modal fade" id="shortlistModal" role="dialog" style="background: transparent;    background-color: rgba(0,0,0,0.4);">
+    <div class="modal-dialog" style="    border: 10px solid #888383; border-radius:15px;">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header" style="background:none;border-radius: 0px; ">
+          <button type="button" id="closeBtn" class="close" data-dismiss="modal" style="margin-top:0px; margin-right:8px; font-size: 28px;color: #000;'">&times;</button>
+          <h4 class="modal-title" style="color: aliceblue;padding: 10px; padding-left: px; font-size: 18px;"> <span id="member_name_todisplay"></span></h4>
+        </div>
+        <div class="modal-body" style="background: transparent;">
+       <p><b>Krishna Prasad (Am1625739) Profile has been shortlisted</b></p>
+         	</div>
+         	<br><div class="clearfix"></div>
+          	
+        <div class="modal-footer">
+          <span type="button" id="sendMailBtn" onclick="sendMail()" class="btn btn-danger " style="  " >Send Mail</span>
+        </div>
+      </div>
+      
+    </div>
+</div>
 <div id="myPhotoModal" class="modal">
   <span class="close cursor" onclick="closeModal()">&times;</span>
   <div class="modal-content">
@@ -4228,7 +4274,21 @@ function myFunction2(id) {
     formData.append('id', id);
 	$.fn.makeMultipartRequest('POST', '${baseurl }/users/removeNotification?id='+id, false, formData, false, 'text', function(data){
 		var jsonobj = $.parseJSON(data);
-		location.reload();
+		var msg = jsonobj.message;//success or not check pettaledenti?
+		if(msg=="delete"){
+			
+			var count_str = $("#matchcountId").html();
+			var count_int = parseInt(count_str)-1;
+			if(count_int<0){
+				count_int = 0;
+			}
+			$("#matchcountId").html(count_int);
+		
+		$(".notifyDiv"+id).remove();
+		alert("Notification succelufully deleted");
+		}else{
+			alert("Some problem occured. Please try again.");
+		}
 	});
 } 
  
