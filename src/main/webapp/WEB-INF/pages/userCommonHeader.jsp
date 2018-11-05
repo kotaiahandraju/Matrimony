@@ -750,7 +750,7 @@ text-align:center;
 					if(occName==null)
 						occName = "";
 					if((login_user_role_id == 6) || (login_user_role_id == 11) || (login_user_role_id == 12)
-							|| (login_user_role_id == 13) || (login_user_role_id == 14) || (login_user_role_id == 15)){ //means premium,premium_plus,aarna premium users
+							|| (login_user_role_id == 13) || (login_user_role_id == 14) || (login_user_role_id == 15) || (login_user_role_id == 16)){ //means premium,premium_plus,aarna premium users
 					
 						firstname = orderObj.firstName;
 						lastname = orderObj.lastName;
@@ -948,7 +948,7 @@ text-align:center;
 						}
 					} */
 					if((login_user_role_id == 6) || (login_user_role_id == 11) || (login_user_role_id == 12)
-							|| (login_user_role_id == 13) || (login_user_role_id == 14) || (login_user_role_id == 15)){ //means premium,premium_plus,aarna premium users
+							|| (login_user_role_id == 13) || (login_user_role_id == 14) || (login_user_role_id == 15) || (login_user_role_id == 16)){ //means premium,premium_plus,aarna premium users
 					
 						firstname = orderObj.firstName;
 						lastname = orderObj.lastName;
@@ -1209,7 +1209,7 @@ text-align:center;
 					var expressed = orderObj.expressedInterest;
 					var firstname = '<img src="${baseurl}/images/blurr.png"/>',lastname='';
 					if((login_user_role_id == 6) || (login_user_role_id == 11) || (login_user_role_id == 12)
-							|| (login_user_role_id == 13) || (login_user_role_id == 14) || (login_user_role_id == 15)){ //means premium,premium_plus,aarna premium users
+							|| (login_user_role_id == 13) || (login_user_role_id == 14) || (login_user_role_id == 15) || (login_user_role_id == 16)){ //means premium,premium_plus,aarna premium users
 					
 						firstname = orderObj.firstName;
 						lastname = orderObj.lastName;

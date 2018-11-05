@@ -1036,7 +1036,7 @@ xpopup
 			</div>
 			<div class="col-md-4" style="width:390px; margin:55px 20px 0px 20px;">
 				
-				<div class="fleft"><div class="hdtxt paddl5 paddr5 txt-center" style="width:382px;">----- Your profile matches <span id=noOfProfileMatch></span>  / 14 of <span id=matchName></span>'s preferences -----</div></div>
+				<div class="fleft"><div class="hdtxt paddl5 paddr5 txt-center" style="width:382px;">Your profile matches <span id=noOfProfileMatch></span>  / 14 of <c:if test="${cacheGuest.roleId == 4}"><img src="${baseurl}/images/blurr.png"/></c:if><c:if test="${cacheGuest.roleId != 4}">${profileBean.firstName}'s</c:if> preferences</div></div>
 				
 			</div>
 			<div class="col-md-2">
@@ -2048,14 +2048,6 @@ else{
  //$(match_score).appendTo("#match_score_div");
  $("#match_score_div").html(match_score);
  
- 
-	var login_user_role_id = ${cacheGuest.roleId};
-var firstname = '<img src="${baseurl}/images/blurr.png"/>';
-   if((login_user_role_id == 6) || (login_user_role_id == 11) || (login_user_role_id == 12)
-	|| (login_user_role_id == 13) || (login_user_role_id == 14) || (login_user_role_id == 15)){ //means premium,premium_plus,aarna premium users
-firstname = orderObj.firstName;
-	$("#id=matchName").html(firstname);
-}
 </script> 
 
 

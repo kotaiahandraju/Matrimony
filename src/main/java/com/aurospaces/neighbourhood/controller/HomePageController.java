@@ -5300,7 +5300,7 @@ String sJson="";
 	   target.setEducation(source.getEducation());
 	   target.setWorkingWith(source.getWorkingWith());
 	   target.setOccupation(source.getOccupation());
-	   
+	   target.setAnnualIncome(source.getAnnualIncome());
 	   return target;
    }
    private UsersBean copyFamilyDetails(UsersBean source,UsersBean target){

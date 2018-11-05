@@ -10,7 +10,7 @@
 	String baseurl =  request.getScheme() + "://" + request.getServerName() +      ":" +   request.getServerPort() +  request.getContextPath();
 	session.setAttribute("baseurl", baseurl);
 	String catalina_base =  request.getScheme() + "://" + request.getServerName() +":" +request.getServerPort();
-	session.setAttribute("catalina_base", catalina_base);
+	session.setAttribute("catalina_base", baseurl);
 %>
 <head>
 	<meta charset="utf-8">
