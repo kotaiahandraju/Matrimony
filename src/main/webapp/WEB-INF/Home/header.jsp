@@ -462,7 +462,7 @@ var role_id = ${cacheUserBean.roleId};
 					<a href="#" id="notificationLink"> <span class="fa fa-bell"></span>Notifications </a>
 					</c:if>
 					<c:if test="${not empty paymentNotificationsList}">
-						<a href="#" id="notificationLink"> <span class="fa fa-bell"></span>Notifications<span class="matchcount inactive_cnt" id="inactive_profiles_cnt"></span></a>
+						<a href="#" id="notificationLink"> <span class="fa fa-bell"></span>Notifications</a>
 					</c:if>
 					</c:if>
 					<div id="notificationContainer" class="dropdown-menu">
@@ -480,7 +480,7 @@ var role_id = ${cacheUserBean.roleId};
 											</div>
 											<div class="col-md-7 notsp" style="padding-right:0px; padding-left:0px;" >
 												<p>
-													<a href="fullProfile?id=${notification.profile_id}&nid=${notification.id}&rfrm=notifications" target="_blank" >
+													<a onclick="openFullProfile(${notification.profile_id});" href="#" style="list-style:none; text-decoration:none">
 														<b><c:out value="${notification.fullName}" /> (<c:out value="${notification.username}" />)</b> 
 														paid an amount of ${notification.amount}
 													</a>
@@ -585,7 +585,9 @@ var role_id = ${cacheUserBean.roleId};
 	    document.allNotificationsForm.submit();             // Submit the page
 	    return true;
 	}
-	
+	function openFullProfile(id){
+		window.location.href="${baseurl}/admin/fullProfile?id="+id;
+	}
 	 function removeNotification(id){
 		 var checkstr =  confirm('Are you sure you want to delete?');
 			if(checkstr == true){

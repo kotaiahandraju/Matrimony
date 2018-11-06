@@ -2278,7 +2278,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 			<div class="form-group">
 				<form:textarea path="leaveMsgText" 
 					placeholder="Enter few words about you"
-					class="form-control validate onlyCharacters notAllowFirstSpace" rows="2"></form:textarea>
+					class="form-control validate  notAllowFirstSpace" rows="2"></form:textarea>
 				<span id="errorMsg" style="color: red"></span>
 				<div></div>
 				<div class="clearfix" style="padding-bottom: 8px;"></div>

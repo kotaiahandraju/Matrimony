@@ -68,14 +68,14 @@ Benzcircle Vijayawada.<br> +91 8466999991 <br>Email:
 			<div class="form-group">
 				<div class="input-group">
 					<span class="input-group-addon"><i class="fa fa-user"></i></span> <form:input
-						type="text" class="form-control validate"
+						type="text" class="form-control validate notAllowFirstSpace"
 						path="leaveMsgUserName" placeholder="Name"></form:input>
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="input-group">
 					<span class="input-group-addon"><i class="fa fa-lock"></i></span> <form:input
-						type="email" class="form-control validate" 
+						type="email" class="form-control validate " 
 						path="leaveMsgMail" placeholder="eMail"></form:input> 
 				</div>
 						 <span class="hasError" id="emailError1" style="color: red;"></span>
@@ -93,7 +93,7 @@ Benzcircle Vijayawada.<br> +91 8466999991 <br>Email:
 			<div class="form-group">
 				<form:textarea path="leaveMsgText" 
 					placeholder="Enter few words about you"
-					class="form-control validate" rows="2"></form:textarea>
+					class="form-control validate notAllowFirstSpace" rows="2"></form:textarea>
 				<span id="errorMsg" style="color: red"></span>
 				<div></div>
 				<div class="clearfix" style="padding-bottom: 8px;"></div>
@@ -147,5 +147,105 @@ Benzcircle Vijayawada.<br> +91 8466999991 <br>Email:
 <script type="text/javascript" src="${baseurl}/engine1/wowslider.js"></script>
 <script type="text/javascript" src="${baseurl}/engine1/script.js"></script>
 <!-- End WOWSlider.com BODY section -->
+
+<<script type="text/javascript">
+
+var leaveMsgMail = $('#leaveMsgMail').val();
+	var expr = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|in|yahoo|edu|gov|mil|biz|info|mobi|name|aero|asia|jobs|museum)$/;
+ $('#leaveMsgMail').blur(function() {
+var leaveMsgMaill = $('#leaveMsgMail').val();
+if(leaveMsgMaill == "" || !leaveMsgMaill.match(expr)){
+	$("#leaveMsgMail").css("border-color","#e73d4a");
+	$("#leaveMsgMail").attr("title","Email-ID");
+	$('#leaveMsgMail').css('color','red');
+	$('#emailError1').html("Enter Valid eMail Id");
+	return false;
+event.preventDefault();
+}
+else{
+	$('#emailError1').html("");
+}
+ });
+
+
+
+var idArray = $.makeArray($('.validate').map(function() {
+	return this.id;
+}));
+$('#submit2').click(function(event) {
+	validation = true;
+	$.each(idArray, function(i, val) {
+		var value = $("#" + idArray[i]).val();
+		var placeholder = $("#" + idArray[i]).attr('placeholder');
+		if (value == null || value == "" || value == "undefined") {
+			
+			 $("#" + idArray[i] ).attr("placeholder", placeholder);
+			 $("#" + idArray[i] ).css('border-color','#e73d4a');
+			    $("#" + idArray[i] ).css('color','#e73d4a');
+			    $("#" + idArray[i] ).addClass('your-class');
+//			$("#" + idArray[i] + "Error").text("Please " + placeholder);
+			validation = false;
+		}
+	});
+		if(validation){
+			LeaveMsgSubmit();
+			$("#submit2").attr("disabled",true);
+		}else {
+			event.preventDefault();
+			return false;
+		}
+		
+});
+
+function LeaveMsgSubmit(){
+	 var expr = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|in|yahoo|edu|gov|mil|biz|info|mobi|name|aero|asia|jobs|museum)$/;
+		var leaveMsgUserName = $("#leaveMsgUserName").val();
+		var leaveMsgMail = $("#leaveMsgMail").val();
+		var leaveMsgMobile = $("#leaveMsgMobile").val();
+		var leaveMsgText = $("#leaveMsgText").val();
+		if(leaveMsgMail == "" || !leaveMsgMail.match(expr)){
+//			alert("Please Enter Valid Email");
+	   	$("#leaveMsgMail").css("border-color","#e73d4a");
+	   	$("#leaveMsgMail").attr("title","Email-ID");
+	   	$('#leaveMsgMail').css('color','red');
+	   	$('#emailError1').html("Enter Valid eMail Id");
+//	    	$('#email').focus();
+	   	return false;
+		event.preventDefault();
+		}
+		else{
+			$('#emailError1').html("");
+		}
+		
+		var formData = new FormData();
+		formData.append("leaveMsgUserName",leaveMsgUserName);
+		formData.append("leaveMsgMail",leaveMsgMail);
+		formData.append("leaveMsgMobile",leaveMsgMobile);
+		formData.append("leaveMsgText",leaveMsgText);
+		
+		$.fn.makeMultipartRequest('POST', 'LeaveMsgSubmit', false,
+				formData, false, 'text', function(data){
+			var jsonobj = $.parseJSON(data);
+				alert("successfully Sent Message");
+				$('#leaveMsgUserName').val("");
+				$('#leaveMsgMail').val("");
+				$('#leaveMsgMobile').val("");
+				$('#leaveMsgText').val("");
+				$("#submit2").attr("disabled",false);
+			
+		});
+}
+
+
+$('.notAllowFirstSpace').on('keydown', function(e) {
+    if (e.which === 32 &&  e.target.selectionStart === 0) {
+      return false;
+    }  
+  });
+</script>
+
+
+
+
 
 				<%@ include file="userFooter.jsp"%>

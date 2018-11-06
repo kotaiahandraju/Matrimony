@@ -115,4 +115,144 @@ Benzcircle Vijayawada.<br> +91 8466999991 <br>Email:
 			
 		</div>
 </div></div>
+<script src="${baseurl}/js/ajax.js"></script>
+<<script type="text/javascript">
+var leaveMsgMail = $('#leaveMsgMail').val();
+	var expr = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|in|yahoo|edu|gov|mil|biz|info|mobi|name|aero|asia|jobs|museum)$/;
+ $('#leaveMsgMail').blur(function() {
+var leaveMsgMaill = $('#leaveMsgMail').val();
+if(leaveMsgMaill == "" || !leaveMsgMaill.match(expr)){
+//	alert("Please Enter Valid Email");
+	$("#leaveMsgMail").css("border-color","#e73d4a");
+	$("#leaveMsgMail").attr("title","Email-ID");
+	$('#leaveMsgMail').css('color','red');
+	$('#emailError1').html("Enter Valid eMail Id");
+//	$('#email').focus();
+	return false;
+event.preventDefault();
+}
+else{
+	$('#emailError1').html("");
+}
+ });
+var idArray = $.makeArray($('.validate').map(function() {
+	return this.id;
+}));
+$('#submit2').click(function(event) {
+	validation = true;
+	$.each(idArray, function(i, val) {
+		var value = $("#" + idArray[i]).val();
+		var placeholder = $("#" + idArray[i]).attr('placeholder');
+		if (value == null || value == "" || value == "undefined") {
+			
+			 $("#" + idArray[i] ).attr("placeholder", placeholder);
+			 $("#" + idArray[i] ).css('border-color','#e73d4a');
+			    $("#" + idArray[i] ).css('color','#e73d4a');
+			    $("#" + idArray[i] ).addClass('your-class');
+//			$("#" + idArray[i] + "Error").text("Please " + placeholder);
+			validation = false;
+		}
+	});
+		if(validation){
+			LeaveMsgSubmit();
+			$("#submit2").attr("disabled",true);
+		}else {
+			event.preventDefault();
+			return false;
+		}
+		
+});
+
+$('.validate').keydown(function() {
+	var id = $(this).attr('id');
+	removeBorder(id);
+});
+//remove borders
+function removeBorder(el){	
+	  $("#"+el).css("border", "");
+	  $("#"+el).css('color','black');
+	  $('#'+el).addClass('default-class');
+	  if ($("#" + el+"_chosen").length)
+		{
+			$("#" +el+"_chosen").children('a').css('border-color','black');
+		}
+}
+$('.numbersOnly').keyup(function() {
+	this.value = this.value.replace(/[^0-9]/g, '');
+});
+
+$(".numbersOnly").keydown(function(e) {
+	// Allow: backspace, delete, tab, escape, enter and .
+	if ($.inArray(e.keyCode, [ 46, 8, 9, 27, 13, 110 ]) !== -1 ||
+	// Allow: Ctrl+A, Command+A
+	(e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+	// Allow: home, end, left, right, down, up
+	(e.keyCode >= 35 && e.keyCode <= 40)) {
+		// let it happen, don't do anything
+		return;
+	}
+	if (e.keyCode===190 || ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57))
+			&& (e.keyCode < 96 || e.keyCode > 105))) {
+		e.preventDefault();
+	}
+});
+$(".onlyCharacters").on("keypress",	function(event) {
+	var englishAlphabetAndWhiteSpace = /[A-Za-z. ]/g;
+	var key = String.fromCharCode(event.which);
+	if (event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 37
+			|| event.keyCode == 39
+			|| englishAlphabetAndWhiteSpace.test(key)) {
+		return true;
+	}
+	return false;
+});
+
+
+$('.notAllowFirstSpace').on('keydown', function(e) {
+if (e.which === 32 &&  e.target.selectionStart === 0) {
+return false;
+}  
+});
+function LeaveMsgSubmit(){
+ var expr = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|in|yahoo|edu|gov|mil|biz|info|mobi|name|aero|asia|jobs|museum)$/;
+	var leaveMsgUserName = $("#leaveMsgUserName").val();
+	var leaveMsgMail = $("#leaveMsgMail").val();
+	var leaveMsgMobile = $("#leaveMsgMobile").val();
+	var leaveMsgText = $("#leaveMsgText").val();
+	if(leaveMsgMail == "" || !leaveMsgMail.match(expr)){
+//		alert("Please Enter Valid Email");
+   	$("#leaveMsgMail").css("border-color","#e73d4a");
+   	$("#leaveMsgMail").attr("title","Email-ID");
+   	$('#leaveMsgMail').css('color','red');
+   	$('#emailError1').html("Enter Valid eMail Id");
+//    	$('#email').focus();
+   	return false;
+	event.preventDefault();
+	}
+	else{
+		$('#emailError1').html("");
+	}
+	
+	var formData = new FormData();
+	formData.append("leaveMsgUserName",leaveMsgUserName);
+	formData.append("leaveMsgMail",leaveMsgMail);
+	formData.append("leaveMsgMobile",leaveMsgMobile);
+	formData.append("leaveMsgText",leaveMsgText);
+	
+	$.fn.makeMultipartRequest('POST', 'LeaveMsgSubmit', false,
+			formData, false, 'text', function(data){
+		var jsonobj = $.parseJSON(data);
+			alert("successfully Sent Message");
+			$('#leaveMsgUserName').val("");
+			$('#leaveMsgMail').val("");
+			$('#leaveMsgMobile').val("");
+			$('#leaveMsgText').val("");
+			$("#submit2").attr("disabled",false);
+		
+	});
+}
+</script>
+
+
+
 				<%@ include file="homeFooter.jsp"%> 
