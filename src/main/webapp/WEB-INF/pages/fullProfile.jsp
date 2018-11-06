@@ -1,9 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ include file="userCommonHeader.jsp"%>
-<link rel="stylesheet" type="text/css" href="css1/demo.css" />
-		<link rel="stylesheet" type="text/css" href="${baseurl}/css1/style.css" />
-		<link rel="stylesheet" type="text/css" href="${baseurl}/css1/elastislide.css" />
  <!-- for Raxus Slider -->
    <!--  <link rel="stylesheet" href="css/raxus.css" media="screen" type="text/css">
     <script type="text/javascript" src="js/raxus-slider.min.js"></script> -->
@@ -14,8 +11,7 @@
     <link rel="stylesheet" href="http://yandex.st/highlightjs/8.0/styles/default.min.css" media="screen" type="text/css">
     <script type="text/javascript" src="${baseurl}/documentation/js/document.js"></script>
     <script src="${baseurl}/documentation/js/highlight.pack.js"></script>
-     <link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow&v1' rel='stylesheet' type='text/css' />
-		<link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css' />
+     
     <script>hljs.initHighlightingOnLoad();</script>
     <!-- for documentation #end: you don't need them -->
     <!-- Start WOWSlider.com HEAD section -->
@@ -256,12 +252,6 @@ margin-bottom:5px;}
   box-shadow: 0 3px 0 rgba(0, 0, 0, 0.07);
   
 }
-.profileskip .dropdown-menu {
-min-width:120px;
-}
-.profileskip .dropdown-menu:after {
-left:10px !important;
-}
 @media only screen and (min-width: 1170px) {
   .cd-popup-trigger {
     margin: 6em auto;
@@ -429,7 +419,7 @@ xpopup
 		
             	<div class="panel panel-success">
             	
-					<div class="col-md-5 col-sm-5"> <h4></h4>
+					<div class="col-md-5"> <h4></h4>
 						<c:if test="${empty fullProfilePhotosList}">
 							<img id="img_inpage" src="../img/default.png" class="img-responsive" style="margin-bottom:0;">
 						</c:if>
@@ -467,7 +457,7 @@ xpopup
 						</c:if>
 						
                      </div>
-                     <div class="col-md-7 col-sm-7"><h4></h4>
+                     <div class="col-md-7"><h4></h4>
 						 <h3>
 <%-- 						 <c:out value="${cacheGuest }"></c:out> --%>
 						 	<c:if test="${cacheGuest.roleId == 4}">
@@ -879,7 +869,7 @@ xpopup
 
 			<div class="panel-body table-responsive">
 			
-			<div class="col-md-12 col-sm-12">	
+			<div class="col-md-12">	
 			<strong class="font">Basic & Religion Preferences</strong>
 				
 	<div id="partner_basic_view" class="all_visible_divs">
@@ -1030,7 +1020,7 @@ xpopup
 			<div class="col-md-12">	<strong class="font">Location Preferences</strong>
 				
 	<div id="partner_location_view" class="all_visible_divs">
-	<table class="col-md-12 col-sm-12 table-responsive">
+	<table class="col-md-12 table-responsive">
 		<tr><td>Country</td><td>:</td>
 			<td id="rCountry_val">
 				<c:if test="${not empty profileBean.rCountryName}">${profileBean.rCountryName}</c:if>
@@ -1087,18 +1077,18 @@ xpopup
 
 			<div class="panel-body table-responsive">
 			
-			<div class="col-md-12 col-sm-12">	
+			<div class="col-md-12">	
 			<div style="width:700px; margin:0px auto 25px auto;">
-			<div class="col-md-2 col-sm-2">
+			<div class="col-md-2">
 				<div class="txt-center mediumtxt1">You</div>
 				<div class="fleft" style="border-radius:50%; border:1px solid #d6d6d6; width:98px; height:98px;"><img src="${catalina_base}/${cacheGuest.profileImage}"  width="98" height="98" border="0" alt="" style="border-radius:50%;"></div>
 			</div>
-			<div class="col-md-4 col-sm-4" style="width:410px; margin:55px 20px 0px 20px;">
+			<div class="col-md-4" style="width:390px; margin:55px 20px 0px 20px;">
 				
-				<div class="fleft"><div class="hdtxt paddl5 paddr5 txt-center" style="width:382px;">Your profile matches <span id=noOfProfileMatch></span>  / 14 of <c:if test="${cacheGuest.roleId == 4}"><img src="${baseurl}/images/blurr.png"/></c:if><c:if test="${cacheGuest.roleId != 4}">${profileBean.firstName}'s</c:if> preferences</div></div>
+				<div class="fleft"><div class="hdtxt paddl5 paddr5 txt-center" style="width:382px;">----- Your profile matches <span id=noOfProfileMatch></span>  / 14 of <c:if test="${cacheGuest.roleId == 4}"><img src="${baseurl}/images/blurr.png"/></c:if><c:if test="${cacheGuest.roleId != 4}">${profileBean.firstName}</c:if> preferences -----</div></div>
 				
 			</div>
-			<div class="col-md-2 col-sm-2">
+			<div class="col-md-2">
 				<div class="txt-center mediumtxt1"><c:if test="${profileBean.gender == 'Female'}">Her</c:if>
 				<c:if test="${profileBean.gender == 'Male'}">He</c:if></div>
 				
@@ -1109,7 +1099,7 @@ xpopup
 		</div><strong class="font"><img style="margin-left:-25px; padding-right:8px;" src="../nimages/reli.png">Basic & Religion Preferences</strong>
 				
 	<div id="partner_basic_view" class="all_visible_divs">
-	<table class="col-md-12 col-sm-12 table-responsive">
+	<table class="col-md-12 table-responsive">
 		<tr><td>
 				<c:if test="${profileBean.gender == 'Female'}">Groom</c:if>
 				<c:if test="${profileBean.gender == 'Male'}">Bride</c:if>
@@ -1177,7 +1167,7 @@ xpopup
 			
 		</tr> --%>
 	</table>
-	<table class="col-md-12 col-sm-12">
+	<table class="col-md-12">
 	<tr> 
 	<td>Height</td><td>:</td>
 			<td>
@@ -1220,10 +1210,10 @@ xpopup
 <br>
 <div class="panel panel-success">
 			<div class="panel-body table-responsive">
-			<div class="col-md-12 col-sm-12">	<strong class="font"><img style="margin-left:-25px; padding-right:8px;" src="../nimages/prof.png">Professional Preferences</strong>
+			<div class="col-md-12">	<strong class="font"><img style="margin-left:-25px; padding-right:8px;" src="../nimages/prof.png">Professional Preferences</strong>
 				
 	<div id="partner_professional_view" class="all_visible_divs">
-	<table class="col-md-12 col-sm-12 table-responsive">
+	<table class="col-md-12 table-responsive">
 		<tr><td>Education</td><td>:</td>
 			<td id="rEducation_val">
 				<c:if test="${not empty profileBean.rEducationName}">${profileBean.rEducationName}</c:if>
@@ -1265,10 +1255,10 @@ xpopup
 <br>
 <div class="panel panel-success" >
 			<div class="panel-body table-responsive">
-			<div class="col-md-12 col-sm-12">	<strong class="font"><img style="margin-left:-25px; padding-right:8px;" src="../nimages/loca.png">Location Preferences</strong>
+			<div class="col-md-12">	<strong class="font"><img style="margin-left:-25px; padding-right:8px;" src="../nimages/loca.png">Location Preferences</strong>
 				
 	<div id="partner_location_view" class="all_visible_divs">
-	<table class="col-md-12 col-sm-12 table-responsive">
+	<table class="col-md-12 table-responsive">
 		<tr><td>Country</td><td>:</td>
 			<td id="rCountry_val">
 				<c:if test="${not empty profileBean.rCountryName}">${profileBean.rCountryName}</c:if>
@@ -1394,7 +1384,7 @@ xpopup
 		<a href="#" title="pan card"><img src="${baseurl}/data1/tooltips/pan_card.jpg" alt="" /></a> --%>
 	</div>
 </div>
-<div class="ws_script" style="position:absolute;left:-99%"><a href="">html5 slideshow</a></div>
+<div class="ws_script" style="position:absolute;left:-99%"><a href=""></a></div>
 <div class="ws_shadow"></div>
 </div>
 
@@ -1526,7 +1516,7 @@ var short_listed =  ${profileBean.shortlisted};
 if(short_listed>0){
 	//alert("###");
 $("#sortlistdivId").html("");
-$("#sortlistdivId").append(' <li style="display: block;padding: 5px 20px;clear: both;font-weight: normal;line-height: 1.42857143;color: #333;nowrap;">Shortlisted</li>');
+$("#sortlistdivId").append(' <li>Shortlisted</li>');
 }
 //showSlides(slideIndex);
 var allowed_limit = "${allowed_profiles_limit}";
@@ -2213,21 +2203,10 @@ else{
  
 </script> 
 
-<script>
 
 </script>
 <script type="text/javascript" src="${baseurl}/engine1/wowslider.js"></script>
 <script type="text/javascript" src="${baseurl}/engine1/script.js"></script>
 <!-- End WOWSlider.com BODY section -->
 <%@ include file="userFooter.jsp"%>
-
-<!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script> 
-
-		<script type="text/javascript" src="${baseurl}/js1/jquery.tmpl.min.js"></script>
-		<script type="text/javascript" src="${baseurl}/js1/jquery.easing.1.3.js"></script>
-		<script type="text/javascript" src="${baseurl}/js1/jquery.elastislide.js"></script>
-		<script type="text/javascript" src="${baseurl}/js1/gallery.js"></script>-->
-
-
 
