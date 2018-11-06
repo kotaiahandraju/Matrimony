@@ -32,9 +32,9 @@ padding:0px;
 .conver12 {
 background:#f8f8f8;
 padding:10px;}
-.closebtn {
+/* .closebtn {
     margin-left: 15px;
-    color: white;
+    color: #000;
     font-weight: bold;
     float: right;
     font-size: 22px;
@@ -45,23 +45,19 @@ padding:10px;}
 
 .closebtn:hover {
     color: black;
-}
+} */
 </style>
 <script>
-function displayAlertMessage(message) {
-	var timeOut = 5
-	jQuery('#msgDiv1').text(message).fadeIn()
-	jQuery('#msgDiv1').css("display", "block")
-	setTimeout(function() {
-	jQuery('#msgDiv1').fadeOut()
-	jQuery('#msgDiv1').css("display", "none")
-	}, timeOut * 1000);
-	}
+window.setTimeout(function() {
+    $(".msgcss").fadeTo(500, 0).slideUp(500, function(){
+        $(this).remove(); 
+    });
+}, 4000);
 </script>
 <div class=" products container" style="padding:15px;">
 	<div id="msgDiv" class="form-group" style="padding-top:9px;" hidden="true">
 		<div class="msgcss fadeIn animated alert alert-danger" id="msgDiv1">
-		<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> Deleted </div>
+		 Deleted </div>
 	</div>
 <a type="button"   href="${back_link_val}" class="btn btn-success pull-right" > Back</a>
 <div class="clearfix"></div>
