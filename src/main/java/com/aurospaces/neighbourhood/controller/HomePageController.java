@@ -6037,6 +6037,26 @@ public String premiumMembers(@ModelAttribute("createProfile") UsersBean searchCr
 		return String.valueOf(objJson);
 	}
 	
+	@RequestMapping(value = "/LeaveMsgSubmit")
+	public @ResponseBody String LeaveMsgSubmit(@ModelAttribute("createProfile") UsersBean objUserssBean, Model objeModel, HttpServletRequest request, HttpSession session) {
+		   String leaveMsgUserName = request.getParameter("leaveMsgUserName");
+			String leaveMsgMail = request.getParameter("leaveMsgMail");
+			String leaveMsgMobile = request.getParameter("leaveMsgMobile");
+			String leaveMsgText = request.getParameter("leaveMsgText");
+			
+			JSONObject objJson = new JSONObject();
+			EmailUtil emailUtil = new EmailUtil();
+			try {
+				EmailUtil.sendLeaveMessage(leaveMsgUserName, leaveMsgMail, leaveMsgMobile, leaveMsgText,objContext);
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			
+	
+			return String.valueOf(objJson);		  
+			
+	}
+	
 } 
 
 
