@@ -25,7 +25,7 @@
 <!-- For Facebook -->
 <meta property="og:title" content="Aarna Matrimony" />
 <meta property="og:type" content="article" />
-<meta property="og:image" content="http://www.aarnamatrimony.com/facebook.jpg" />
+<meta property="og:image" content="${baseurl }/images/fac.jpg" />
 <meta property="og:url" content="http://www.aarnamatrimony.com" />
 <meta property="og:description" content="matrimonial, telugu matrimony, no1 matrimony in vijayawada" />
 
@@ -33,7 +33,7 @@
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="Aarna Matrimony" />
 <meta name="twitter:description" content="matrimonial, telugu matrimony, no1 matrimony in vijayawada" />
-<meta name="twitter:image" content="http://www.aarnamatrimony.com/twitter.jpg" />
+<meta name="twitter:image" content="${baseurl }/images/twi.jpg" />
 <head>
 <script
 	src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
