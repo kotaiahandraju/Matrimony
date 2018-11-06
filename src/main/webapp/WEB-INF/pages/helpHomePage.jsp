@@ -1,5 +1,11 @@
 <%@ include file="userStepsHeader.jsp"%>
 <%@ include file="homeMenu.jsp"%>
+<%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://displaytag.sf.net" prefix="display"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 <div class="clearfix"></div>
 <style>
 .newimg {
@@ -61,12 +67,12 @@ Benzcircle Vijayawada.<br> +91 8466999991 <br>Email:
 
 </div></div></div>
 <div class="col-md-4 cha"><h4>Leave Message</h4>
-         <form:form commandName="createProfile" action="#" method="post" class="login-form" style="min-height: 335px;">
+         <form:form commandName="createProfile" action="#" method="post" class="login-form">
 			<div class="clearfix" style="padding-bottom: 8px;"></div>
 			<div class="form-group">
 				<div class="input-group">
 					<span class="input-group-addon"><i class="fa fa-user"></i></span> <form:input
-						type="text" class="form-control validate"
+						type="text" class="form-control validate onlyCharacters notAllowFirstSpace"
 						path="leaveMsgUserName" placeholder="Name"></form:input>
 				</div>
 			</div>
@@ -91,7 +97,7 @@ Benzcircle Vijayawada.<br> +91 8466999991 <br>Email:
 			<div class="form-group">
 				<form:textarea path="leaveMsgText" 
 					placeholder="Enter few words about you"
-					class="form-control validate" rows="2"></form:textarea>
+					class="form-control validate onlyCharacters notAllowFirstSpace" rows="2"></form:textarea>
 				<span id="errorMsg" style="color: red"></span>
 				<div></div>
 				<div class="clearfix" style="padding-bottom: 8px;"></div>

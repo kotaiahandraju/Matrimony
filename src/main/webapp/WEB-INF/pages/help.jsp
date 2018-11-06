@@ -14,6 +14,15 @@ min-height: 20px;
     -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
     box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
     }
+    .modal{
+    background: rgba(0, 0, 0, 0.3) !important;
+		height: auto;
+		padding: 10px 10px;
+		border-radius: 5px;
+		-webkit-box-shadow: 3px 4px 8px rgba(0, 0, 0, .21);
+		-moz-box-shadow: 3px 4px 8px rgba(0, 0, 0, .21);
+		box-shadow: 3px 4px 8px rgba(0, 0, 0, .21);
+		border: solid 3px rgba(220, 220, 220, .37);}
 </style>
 <div class="products">
 <img src="../nimages/help.jpg" class="container img-responsive" />
@@ -101,7 +110,7 @@ Benzcircle Vijayawada.<br> +91 8466999991 <br>Email:
 
 			
 		</div></div><div class="clearfix"></div>
-<!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#pop">Open Modal</button> -->
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#pop">Open Modal</button>
 <div class="modal fade" id="pop" role="dialog">
     <div class="modal-dialog">
     <div class="modal-content" style="padding:10px;border:none;">
@@ -132,7 +141,7 @@ Benzcircle Vijayawada.<br> +91 8466999991 <br>Email:
 		<a href="#" title="pan card"><img src="${baseurl}/data1/tooltips/pan_card.jpg" alt="" /></a>
 	</div>
 </div>
-<div class="ws_script" style="position:absolute;left:-99%"><a href="http://wowslider.net">html5 slideshow</a> by WOWSlider.com v8.8</div>
+<div class="ws_script" style="position:absolute;left:-99%"><a href="">html5 slideshow</a></div>
 <div class="ws_shadow"></div>
 </div>	</div></div></div></div></div></div>
 <script type="text/javascript" src="${baseurl}/engine1/wowslider.js"></script>
