@@ -14,7 +14,56 @@
      
     <script>hljs.initHighlightingOnLoad();</script>
     <!-- for documentation #end: you don't need them -->
-
+    <!-- Start WOWSlider.com HEAD section -->
+<link rel="stylesheet" type="text/css" href="${baseurl}/engine1/style.css" />
+<%-- <script type="text/javascript" src="${baseurl}/engine1/jquery.js"></script> --%>
+<!-- End WOWSlider.com HEAD section -->
+<style>
+.cha {
+min-height: 20px;
+    padding: 19px;
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 1px solid #e3e3e3;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+    }
+    .modal{
+    background: rgba(0, 0, 0, 0.3) !important;
+		height: auto;
+		padding: 10px 10px;
+		border-radius: 5px;
+		-webkit-box-shadow: 3px 4px 8px rgba(0, 0, 0, .21);
+		-moz-box-shadow: 3px 4px 8px rgba(0, 0, 0, .21);
+		box-shadow: 3px 4px 8px rgba(0, 0, 0, .21);
+		border: solid 3px rgba(220, 220, 220, .37);}
+</style>
+<noscript>
+			<style>
+				.es-carousel ul{
+					display:block;
+				}
+				
+			</style>
+		</noscript>
+		<script id="img-wrapper-tmpl" type="text/x-jquery-tmpl">	
+			<div class="rg-image-wrapper">
+				{{if itemsCount > 1}}
+					<div class="rg-image-nav">
+						<a href="#" class="rg-image-nav-prev">Previous Image</a>
+						<a href="#" class="rg-image-nav-next">Next Image</a>
+					</div>
+				{{/if}}
+				<div class="rg-image"></div>
+				<div class="rg-loading"></div>
+				<div class="rg-caption-wrapper">
+					<div class="rg-caption" style="display:none;">
+						<p></p>
+					</div>
+				</div>
+			</div>
+		</script>
     <style>
    @media only screen and (max-width: 640px) {
    .pull-profile {
@@ -1308,10 +1357,39 @@ xpopup
         
         <div class="modal-body">
        
-         
+         <div id="wowslider-container1">
+<div class="ws_images"><ul>
+		<c:forEach items="${fullProfilePhotosList}" var="photo" >
+			<li><img src="${catalina_base}/${photo.folder_name}/${photo.image_name}" alt="${photo.image_name}" title="package" id="wows1_0"/></li>
+		</c:forEach>
+		<%-- <li><img src="${baseurl}/data1/images/package.jpg" alt="package" title="package" id="wows1_0"/></li>
+		<li><img src="${baseurl}/data1/images/aadhar_card_copy.jpg" alt="aadhar card copy" title="aadhar card copy" id="wows1_1"/></li>
+		<li><img src="${baseurl}/data1/images/blue_strip.jpg" alt="blue strip" title="blue strip" id="wows1_2"/></li>
+		<li><img src="${baseurl}/data1/images/tenali_m.jpg" alt="tenali m" title="tenali m" id="wows1_3"/></li>
+		<li><img src="${baseurl}/data1/images/tenali_m1.jpg" alt="tenali m1" title="tenali m1" id="wows1_4"/></li>
+		<li><a href="#"><img src="${baseurl}/data1/images/tenali.jpg" alt="css image gallery" title="TENALI" id="wows1_5"/></a></li>
+		<li><img src="${baseurl}/data1/images/pan_card.jpg" alt="pan card" title="pan card" id="wows1_6"/></li> --%>
+	</ul></div>
+	<div class="ws_thumbs">
+<div>
+		<c:forEach items="${fullProfilePhotosList}" var="photo" >
+			<a href="#" title="package"><img src="${catalina_base}/${photo.folder_name}/${photo.image_name}" alt="${photo.image_name}" /></a>
+		</c:forEach>
+		<%-- <a href="#" title="package"><img src="${baseurl}/data1/tooltips/package.jpg" alt="" /></a>
+		<a href="#" title="aadhar card copy"><img src="${baseurl}/data1/tooltips/aadhar_card_copy.jpg" alt="" /></a>
+		<a href="#" title="blue strip"><img src="${baseurl}/data1/tooltips/blue_strip.jpg" alt="" /></a>
+		<a href="#" title="tenali m"><img src="${baseurl}/data1/tooltips/tenali_m.jpg" alt="" /></a>
+		<a href="#" title="tenali m1"><img src="${baseurl}/data1/tooltips/tenali_m1.jpg" alt="" /></a>
+		<a href="#" title="TENALI"><img src="${baseurl}/data1/tooltips/tenali.jpg" alt="" /></a>
+		<a href="#" title="pan card"><img src="${baseurl}/data1/tooltips/pan_card.jpg" alt="" /></a> --%>
+	</div>
+</div>
+<div class="ws_script" style="position:absolute;left:-99%"><a href=""></a></div>
+<div class="ws_shadow"></div>
+</div>
 
 
-<section class="welcome">
+<%-- <section class="welcome">
     <div class="container">
 
         <div class="row">
@@ -1331,7 +1409,7 @@ xpopup
             </div>
         </div>
     </div>
-</section>
+</section> --%>
 
         </div>
        
@@ -1339,6 +1417,81 @@ xpopup
       
     </div>
   </div>
+ <%--  <div class="clearfix"></div>
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#pop">Open Modal</button>
+ <div class="modal fade" id="pop" role="dialog"> 
+    <div class="modal-dialog">
+    <div class="modal-content" style="padding:10px;border:none;">
+        <div class="modal-header" style="background:none;">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          
+        </div> 
+        <div class="modal-body">
+  <div class="content">
+				<div id="rg-gallery" class="rg-gallery">
+					
+						<div class="es-carousel-wrapper"><div class="rg-thumbs">
+							<div class="es-nav">
+								<span class="es-nav-prev">Previous</span>
+								<span class="es-nav-next">Next</span>
+							</div>
+							<div class="es-carousel">
+								<ul>
+									<li><a href="#"><img src="${baseurl}/images1/thumbs/1.jpg" data-large="${baseurl}/images1/1.jpg" alt="image01" /></a></li>
+									<li><a href="#"><img src="${baseurl}/images1/thumbs/2.jpg" data-large="${baseurl}/images1/2.jpg" alt="image02"  /></a></li>
+									<li><a href="#"><img src="${baseurl}/images1/thumbs/3.jpg" data-large="${baseurl}/images1/3.jpg" alt="image03"  /></a></li>
+									<li><a href="#"><img src="${baseurl}/images1/thumbs/4.jpg" data-large="${baseurl}/images1/4.jpg" alt="image04" /></a></li>
+									<li><a href="#"><img src="${baseurl}/images1/thumbs/5.jpg" data-large="${baseurl}/images1/5.jpg" alt="image05" /></a></li>
+									<li><a href="#"><img src="${baseurl}/images1/thumbs/6.jpg" data-large="${baseurl}/images1/6.jpg" alt="image06" /></a></li>
+									<li><a href="#"><img src="${baseurl}/images1/thumbs/7.jpg" data-large="${baseurl}/images1/7.jpg" alt="image07"  /></a></li>
+									<li><a href="#"><img src="${baseurl}/images1/thumbs/8.jpg" data-large="${baseurl}/images1/8.jpg" alt="image08" /></a></li>
+									</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div></div></div></div></div><div class="clearfix"></div>  --%>
+			<div class="clearfix"></div>
+<%-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#pop">Open Modal</button>
+<div class="modal fade" id="pop" role="dialog">
+    <div class="modal-dialog">
+    <div class="modal-content" style="padding:10px;border:none;">
+        <div class="modal-header" style="background:none;">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          
+        </div> 
+        <div class="modal-body">
+<div id="wowslider-container1">
+<div class="ws_images"><ul>
+		<c:forEach items="${fullProfilePhotosList}" var="photo" >
+			<li><img src="${catalina_base}/${photo.folder_name}/${photo.image_name}" alt="${photo.image_name}" title="package" id="wows1_0"/></li>
+		</c:forEach> --%>
+		<%-- <li><img src="${baseurl}/data1/images/package.jpg" alt="package" title="package" id="wows1_0"/></li>
+		<li><img src="${baseurl}/data1/images/aadhar_card_copy.jpg" alt="aadhar card copy" title="aadhar card copy" id="wows1_1"/></li>
+		<li><img src="${baseurl}/data1/images/blue_strip.jpg" alt="blue strip" title="blue strip" id="wows1_2"/></li>
+		<li><img src="${baseurl}/data1/images/tenali_m.jpg" alt="tenali m" title="tenali m" id="wows1_3"/></li>
+		<li><img src="${baseurl}/data1/images/tenali_m1.jpg" alt="tenali m1" title="tenali m1" id="wows1_4"/></li>
+		<li><a href="#"><img src="${baseurl}/data1/images/tenali.jpg" alt="css image gallery" title="TENALI" id="wows1_5"/></a></li>
+		<li><img src="${baseurl}/data1/images/pan_card.jpg" alt="pan card" title="pan card" id="wows1_6"/></li> --%>
+	<%-- </ul></div>
+	<div class="ws_thumbs">
+<div>
+		<c:forEach items="${fullProfilePhotosList}" var="photo" >
+			<a href="#" title="package"><img src="${catalina_base}/${photo.folder_name}/${photo.image_name}" alt="${photo.image_name}" /></a>
+		</c:forEach> --%>
+		<%-- <a href="#" title="package"><img src="${baseurl}/data1/tooltips/package.jpg" alt="" /></a>
+		<a href="#" title="aadhar card copy"><img src="${baseurl}/data1/tooltips/aadhar_card_copy.jpg" alt="" /></a>
+		<a href="#" title="blue strip"><img src="${baseurl}/data1/tooltips/blue_strip.jpg" alt="" /></a>
+		<a href="#" title="tenali m"><img src="${baseurl}/data1/tooltips/tenali_m.jpg" alt="" /></a>
+		<a href="#" title="tenali m1"><img src="${baseurl}/data1/tooltips/tenali_m1.jpg" alt="" /></a>
+		<a href="#" title="TENALI"><img src="${baseurl}/data1/tooltips/tenali.jpg" alt="" /></a>
+		<a href="#" title="pan card"><img src="${baseurl}/data1/tooltips/pan_card.jpg" alt="" /></a> --%>
+	<!-- </div>
+</div>
+<div class="ws_script" style="position:absolute;left:-99%"><a href="">html5 slideshow</a></div>
+<div class="ws_shadow"></div>
+</div>	</div></div> -->
+</div></div>
 <script type="text/javascript">
 /* var listOrders1 = ${shortlistedList};
 shortListData(listOrders1);
@@ -2051,5 +2204,9 @@ else{
 </script> 
 
 
-
+</script>
+<script type="text/javascript" src="${baseurl}/engine1/wowslider.js"></script>
+<script type="text/javascript" src="${baseurl}/engine1/script.js"></script>
+<!-- End WOWSlider.com BODY section -->
 <%@ include file="userFooter.jsp"%>
+
