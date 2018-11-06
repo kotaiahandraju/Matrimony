@@ -695,6 +695,12 @@ $(".onlyCharacters").on("keypress",	function(event) {
         <c:if test="${empty profileBean.occupationName}">Not Specified</c:if>
     </td>
 </tr>
+<tr><td>AnnualIncome</td><td>:</td>
+    <td id="annualIncome_val" class="all_annualIncome_val">
+        <c:if test="${not empty profileBean.annualIncome}">${profileBean.annualIncome}</c:if>
+        <c:if test="${empty profileBean.annualIncome}">Not Specified</c:if>
+    </td>
+</tr>
 </table>
 </div>
 <div id="professional_info_edit" class="all_hidden_divs" hidden="true">
