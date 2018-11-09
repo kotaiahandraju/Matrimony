@@ -29,7 +29,7 @@
 					<div class="row">
 						<div class="col-md-12 profileauto">
 							<c:if test="${not empty cacheGuest.profileImage}">
-								<div class="profilepic0"><a href="#" id="profilePicOuterTag" data-toggle="modal" data-target="#myModalNew"><img id="profilepic" src="${catalina_base}/${cacheGuest.profileImage}" class="hover-shadow cursor img img-responsive thumbnail " style="margin-bottom:0;height:auto;width: 100%;" /></a>
+								<div class="profilepic0"><a href="myPhotos" id="profilePicOuterTag" ><img id="profilepic" src="${catalina_base}/${cacheGuest.profileImage}" class="hover-shadow cursor img img-responsive thumbnail " style="margin-bottom:0;height:auto;width: 100%;" /></a>
 									<div class="watermarkcontent_profilepic">
 										<span>aarnamatrimony.com</span>
 									</div>							

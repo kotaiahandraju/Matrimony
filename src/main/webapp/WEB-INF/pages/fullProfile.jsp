@@ -96,7 +96,8 @@ height:600px;
 td, th {
 vertical-align:top;
 }
-        /* for tablet */
+ 
+}      /* for tablet */
         @media screen and (max-width: 980px) {
             #mySlider {
                 width: 100%;

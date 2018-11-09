@@ -4074,7 +4074,7 @@ img.hover-shadow {
           <h4 class="modal-title" style="color: aliceblue;padding: 10px; padding-left: px; font-size: 18px;"> <span id="member_name_todisplay"></span></h4>
         </div>
         <div class="modal-body" style="background: transparent;">
-       <p><b>Interest request has been sent successfully to Krishna Prasad (AM123456545)</b></p>
+       <p><b>Interest request has been sent successfully to ******** (AM123456545)</b></p>
          	</div>
          	<br><div class="clearfix"></div>
           	
@@ -4095,7 +4095,7 @@ img.hover-shadow {
           <h4 class="modal-title" style="color: aliceblue;padding: 10px; padding-left: px; font-size: 18px;"> <span id="member_name_todisplay"></span></h4>
         </div>
         <div class="modal-body" style="background: transparent;">
-       <p><b>Krishna Prasad (Am1625739) Profile has been shortlisted</b></p>
+       <p><b>******* (Am1625739) Profile has been shortlisted</b></p>
          	</div>
          	<br><div class="clearfix"></div>
           	
@@ -4139,7 +4139,7 @@ img.hover-shadow {
   </div>
 
  <!-- Modal -->
-  <div tabindex="-1" class="modal fade in" id="myModalNew" role="dialog">
+  <%-- <div tabindex="-1" class="modal fade in" id="myModalNew" role="dialog">
     <div class="modal-dialog">
     
       <!-- Modal content-->
@@ -4228,7 +4228,7 @@ img.hover-shadow {
       </div>
       
     </div>
-  </div>
+  </div> --%>
 
 	<%-- <div class="mega_nav">
 		<div class="container">
