@@ -76,7 +76,7 @@ function displayMatches(listOrders) {
 		}
 		var tblRow = '<div class="row">'
 			+ '<div class=" col-md-2 col-xs-2 preprofile" >'
-       + 	"<img src='${catalina_base}/"+image+"' class='watermark_text img-responsive thumbnail ' >"
+       + 	"<a href='#'  onclick='fullProfile("+orderObj.id+")'><img src='${catalina_base}/"+image+"' class='watermark_text img-responsive thumbnail ' ></a>"
             + '</div>'
             + '<div class="col-md-10 col-xs-10">'
             + ' <p>'+firstname+'&nbsp;'+lastname+','+orderObj.username+'&nbsp '+orderObj.age+' yrs,&nbsp; '+orderObj.religionName+', '+orderObj.castName+', '+orderObj.occupationName+', '+orderObj.currentCityName+', '+orderObj.currentCountryName+'. </p> '

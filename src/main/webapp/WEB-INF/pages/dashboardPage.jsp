@@ -964,7 +964,7 @@ function displayMatches(listOrders) {
 			}
 			var tblRow = '<div class="row">'
 				+ '<div class=" col-md-3 col-xs-3 preprofile" >'
-	            + 	"<img src='"+image+"'  class='  img-responsive thumbnail ' >"
+	            + 	"<a href='#'  onclick='fullProfile("+orderObj.id+")'><img src='"+image+"'  class='  img-responsive thumbnail ' ></a>"
 	            + '		<div class="watermarkcontent_preferred">'
 				+ '			<span>aarnamatrimony.com</span>'
 				+ '		</div>	'
@@ -1208,7 +1208,7 @@ function displayNewMatches_update(listOrders) {
 			}
 			var tblRow = '<div class="row">'
 				+ '<div class=" col-md-2 col-xs-2 preprofile1" >'
-	            + 	"<img src='"+image+"' class='watermark_text img-responsive thumbnail ' >"
+	            + 	"<a href='#'  onclick='fullProfile("+orderObj.id+")'><img src='"+image+"' class='watermark_text img-responsive thumbnail '></a>"
 	            + '</div>'
 	            + '<div class="col-md-9 col-xs-9">'
 	            + ' <p>'+firstname+'&nbsp;'+lastname+'|'+orderObj.username+'&nbsp;( '+age+' yrs,&nbsp; '+orderObj.heightInches+' )&nbsp;'+Content+' </p> '
