@@ -92,6 +92,9 @@ color: #006699;
 
 line-height: 2;
 font-size:18px;}
+.newc {
+	padding-left:15px ;
+}
 @media print {
 
   @page {                

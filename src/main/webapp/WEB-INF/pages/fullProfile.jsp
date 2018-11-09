@@ -396,6 +396,9 @@ xpopup
     margin: 8em auto;
   }
 }
+.profileskip .dropdown-menu:after {
+left:10px !important;
+}
 </style>
 
 <script src="${baseurl}/js/plugins/jquery.ImageGallery.js"></script> 
@@ -420,7 +423,7 @@ xpopup
 		
             	<div class="panel panel-success">
             	
-					<div class="col-md-5"> <h4></h4>
+					<div class="col-md-5 col-sm-5"> <h4></h4>
 						<c:if test="${empty fullProfilePhotosList}">
 							<img id="img_inpage" src="../img/default.png" class="img-responsive" style="margin-bottom:0;">
 						</c:if>
@@ -458,7 +461,7 @@ xpopup
 						</c:if>
 						
                      </div>
-                     <div class="col-md-7"><h4></h4>
+                     <div class="col-md-7 col-sm-7 newc"><h4></h4>
 						 <h3>
 <%-- 						 <c:out value="${cacheGuest }"></c:out> --%>
 						 	<c:if test="${cacheGuest.roleId == 4}">
@@ -545,7 +548,7 @@ xpopup
 			<div class="panel-body table-responsive">
 			<div class="col-md-12">	<strong class="font"><img style="margin-left:-25px; padding-right:8px;" src="../nimages/deta.png"/>Basic Details </strong>
 				<div id="basic_details_view" class="all_visible_divs">
-					<table class="col-md-6 table-responsive">
+					<table class="col-md-6 col-sm-6 table-responsive">
 						<%-- <tr><td>Name</td>
 							<td>:</td>
 							<td class="name_val">${profileBean.firstName}&nbsp; ${profileBean.lastName}</td>
@@ -597,7 +600,7 @@ xpopup
 							
 						</tr>
 					</table>
-					<table class="col-md-6 table-responsive">
+					<table class="col-md-6 col-sm-6 table-responsive">
 					<tr>
 					<td>Complexion</td><td>:</td>
 							<td id="complexion_val">
@@ -874,7 +877,7 @@ xpopup
 			<strong class="font">Basic & Religion Preferences</strong>
 				
 	<div id="partner_basic_view" class="all_visible_divs">
-	<table class="col-md-6 table-responsive">
+	<table class="col-md-6 col-sm-6 table-responsive">
 		<tr><td>
 				<c:if test="${profileBean.gender == 'Female'}">Groom</c:if>
 				<c:if test="${profileBean.gender == 'Male'}">Bride</c:if>
@@ -938,7 +941,7 @@ xpopup
 			
 		</tr> --%>
 	</table>
-	<table class="col-md-6">
+	<table class="col-md-6 col-sm-6">
 	<tr> 
 	<td>Height</td><td>:</td>
 			<td>
@@ -980,7 +983,7 @@ xpopup
 			<div class="col-md-12">	<strong class="font">Professional Preferences</strong>
 				
 	<div id="partner_professional_view" class="all_visible_divs">
-	<table class="col-md-12 table-responsive">
+	<table class="col-md-12 col-sm-12 table-responsive">
 		<tr><td>Education</td><td>:</td>
 			<td id="rEducation_val">
 				<c:if test="${not empty profileBean.rEducationName}">${profileBean.rEducationName}</c:if>
@@ -1021,7 +1024,7 @@ xpopup
 			<div class="col-md-12">	<strong class="font">Location Preferences</strong>
 				
 	<div id="partner_location_view" class="all_visible_divs">
-	<table class="col-md-12 table-responsive">
+	<table class="col-md-12 col-sm-12 table-responsive">
 		<tr><td>Country</td><td>:</td>
 			<td id="rCountry_val">
 				<c:if test="${not empty profileBean.rCountryName}">${profileBean.rCountryName}</c:if>
@@ -1078,18 +1081,18 @@ xpopup
 
 			<div class="panel-body table-responsive">
 			
-			<div class="col-md-12">	
+			<div class="col-md-12 col-sm-12">	
 			<div style="width:700px; margin:0px auto 25px auto;">
-			<div class="col-md-2">
+			<div class="col-md-2 col-sm-2">
 				<div class="txt-center mediumtxt1">You</div>
 				<div class="fleft" style="border-radius:50%; border:1px solid #d6d6d6; width:98px; height:98px;"><img src="${catalina_base}/${cacheGuest.profileImage}"  width="98" height="98" border="0" alt="" style="border-radius:50%;"></div>
 			</div>
-			<div class="col-md-4" style="width:390px; margin:55px 20px 0px 20px;">
+			<div class="col-md-4 col-sm-4" style="width:390px; margin:55px 20px 0px 20px;">
 				
 				<div class="fleft"><div class="hdtxt paddl5 paddr5 txt-center" style="width:382px;">----- Your profile matches <span id=noOfProfileMatch></span>  / 14 of <c:if test="${cacheGuest.roleId == 4}"><img src="${baseurl}/images/blurr.png"/></c:if><c:if test="${cacheGuest.roleId != 4}">${profileBean.firstName}</c:if> preferences -----</div></div>
 				
 			</div>
-			<div class="col-md-2">
+			<div class="col-md-2 col-sm-2">
 				<div class="txt-center mediumtxt1"><c:if test="${profileBean.gender == 'Female'}">Her</c:if>
 				<c:if test="${profileBean.gender == 'Male'}">He</c:if></div>
 				
@@ -1100,7 +1103,7 @@ xpopup
 		</div><strong class="font"><img style="margin-left:-25px; padding-right:8px;" src="../nimages/reli.png">Basic & Religion Preferences</strong>
 				
 	<div id="partner_basic_view" class="all_visible_divs">
-	<table class="col-md-12 table-responsive">
+	<table class="col-md-12 col-sm-12 table-responsive">
 		<tr><td>
 				<c:if test="${profileBean.gender == 'Female'}">Groom</c:if>
 				<c:if test="${profileBean.gender == 'Male'}">Bride</c:if>
@@ -1168,7 +1171,7 @@ xpopup
 			
 		</tr> --%>
 	</table>
-	<table class="col-md-12">
+	<table class="col-md-12 col-sm-12">
 	<tr> 
 	<td>Height</td><td>:</td>
 			<td>
@@ -1214,7 +1217,7 @@ xpopup
 			<div class="col-md-12">	<strong class="font"><img style="margin-left:-25px; padding-right:8px;" src="../nimages/prof.png">Professional Preferences</strong>
 				
 	<div id="partner_professional_view" class="all_visible_divs">
-	<table class="col-md-12 table-responsive">
+	<table class="col-md-12 col-sm-12 table-responsive">
 		<tr><td>Education</td><td>:</td>
 			<td id="rEducation_val">
 				<c:if test="${not empty profileBean.rEducationName}">${profileBean.rEducationName}</c:if>
@@ -1259,7 +1262,7 @@ xpopup
 			<div class="col-md-12">	<strong class="font"><img style="margin-left:-25px; padding-right:8px;" src="../nimages/loca.png">Location Preferences</strong>
 				
 	<div id="partner_location_view" class="all_visible_divs">
-	<table class="col-md-12 table-responsive">
+	<table class="col-md-12 col-sm-12 table-responsive">
 		<tr><td>Country</td><td>:</td>
 			<td id="rCountry_val">
 				<c:if test="${not empty profileBean.rCountryName}">${profileBean.rCountryName}</c:if>
@@ -1353,9 +1356,13 @@ xpopup
     <div class="modal-dialog">
     
       <!-- Modal content-->
-    
+   
       <div class="modal-content">
-        
+         <div class="modal-header" style="background:none;">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="padding-right:10px;">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
         <div class="modal-body">
        
          <div id="wowslider-container1">

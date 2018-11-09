@@ -1430,7 +1430,11 @@ $(document).ready(function(){
       <!-- Modal content-->
     
       <div class="modal-content">
-        
+         <div class="modal-header" style="background:none;">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"  style="padding-right:10px;">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
         <div class="modal-body">
        
          <div id="wowslider-container1">

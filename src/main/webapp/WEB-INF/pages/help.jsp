@@ -110,7 +110,7 @@ Benzcircle Vijayawada.<br> +91 8466999991 <br>Email:
 
 			
 		</div></div><div class="clearfix"></div>
-<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#pop">Open Modal</button>
+<!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#pop">Open Modal</button> -->
 <div class="modal fade" id="pop" role="dialog">
     <div class="modal-dialog">
     <div class="modal-content" style="padding:10px;border:none;">
