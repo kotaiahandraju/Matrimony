@@ -1739,7 +1739,7 @@ function addWaterMark(){
  $('.watermark_text').watermark({
 	  text: 'aarnamatrimony.com',
 	  textWidth: 700,
-	  textSize: 76,
+	  textSize: 46,
 	  textColor: 'white',
 	  gravity: 'n',
 	   opacity: 0.8,
