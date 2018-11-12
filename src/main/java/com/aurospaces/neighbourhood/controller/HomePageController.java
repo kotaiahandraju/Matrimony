@@ -6056,6 +6056,10 @@ public String premiumMembers(@ModelAttribute("createProfile") UsersBean searchCr
 			return String.valueOf(objJson);		  
 			
 	}
+	@RequestMapping(value = "/refer")
+	public String referPage() {
+		return "refer";
+	}
 	
 } 
 

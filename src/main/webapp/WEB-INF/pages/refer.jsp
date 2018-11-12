@@ -84,7 +84,7 @@ span.couponcode {
 <div class="container" style="background: white; padding-top: 25px; padding-left:0px; padding-right:0px;">
 	<div class="container-fluid">
 		<div class="col-md-12" style="padding-left:0px;">
-		<p align=""justify">Sign-up with your details - then Go to the Refer & Earn section and share your unique referral link with your friends
+		<p align="justify">Sign-up with your details - then Go to the Refer & Earn section and share your unique referral link with your friends
 Your friends would need to register successfully & you earn Rs 50/- for single registration (for new user).</p>
 <h5 align="center"><b>Share your link & earn more!</b></h5>
 <div class="col-md-4"></div><div class="col-md-3"><span class="refercode">http://www.aarnamatrimony.com/AM0123456</span></div>
