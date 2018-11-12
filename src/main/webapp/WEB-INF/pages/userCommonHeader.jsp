@@ -624,8 +624,7 @@ text-align:center;
 						return false;
 					}
 				}
-				$('#expressModal').show();
-				$('#expressModal').modal();
+				
 				var formData = new FormData();
 			
 				formData.append('profile_id',profile_id);
@@ -638,7 +637,9 @@ text-align:center;
 			    		//if(typeof msg != "undefined" ){
 			    			if("success"==msg){
 			    				$("#expInterest"+profile_id).html('<a type="button" class="btn btn-blue btn-sm" disabled="true">Expressed Interest</a>');
-			    				alert("Interest request has been sent successfully");
+// 			    				alert("Interest request has been sent successfully");
+			    				$('#expressModal').show();
+			    				$('#expressModal').modal();
 			    				//$("#expInterest"+profile_id).html('You Expressed Interest');
 			    				//$("#expInterest"+profile_id).attr("disabled",true);
 			    				if(typeof limit != "undefined"){
@@ -3922,7 +3923,7 @@ img.hover-shadow {
 															<%-- <a href="padma?pid=${notification.user_id}&nid=${notification.id}&rfrm=notifications" > --%>
 															
 																<%-- <c:out value="${notification.fullName}" /> (<c:out value="${notification.username}" />) --%>
-																<c:set var="name" value="${notification.fullName} (${notification.username})" />
+																<c:if test="${cacheGuest.roleId == 4}"><img src="${baseurl}/images/blurr.png"/></c:if><c:if test="${cacheGuest.roleId != 4}">${notification.fullName}</c:if><c:set var="name" value="(${notification.username})" />
 																<c:if test="${notification.notifi_type == 'interest'}">
 																	<a href="inboxAction?tab_type=inbox&list_type=pending_requests&nid=${notification.id}">
 																		<c:out value="${name}" /> expressed interest in your profile
@@ -4078,6 +4079,7 @@ img.hover-shadow {
           <h4 class="modal-title" style="color: aliceblue;padding: 10px; padding-left: px; font-size: 18px;"> <span id="member_name_todisplay"></span></h4>
         </div>
         <div class="modal-body" style="background: transparent;">
+       
        <p><b>Interest request has been sent successfully to ******** (AM123456545)</b></p>
          	</div>
          	<br><div class="clearfix"></div>

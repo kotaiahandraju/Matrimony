@@ -3857,7 +3857,7 @@ String sJson="";
 			   if(StringUtils.isNotBlank(otp1)  &&  otp.equals(otp1)){
 				   objUsersDao.updateOtpStatus(mobileNum,otp);
 				   try{
-					   String ressponse = SendSMS.sendSMS("Dear "  +sessionBean.getFirstName()+ " "+sessionBean.getLastName()+",\n Your mobile number has been verified successfully.\n\n-Team AarnaMatrimony ", mobileNum);
+					   String ressponse = SendSMS.sendSMS("Dear "  +sessionBean.getFirstName()+ " "+sessionBean.getLastName()+",\nYour mobile number has been verified successfully.\n\n-Team Aarna Matrimony ", mobileNum);
 					   
 					   if("OK".equalsIgnoreCase(ressponse)){
 						   

@@ -5,150 +5,145 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 
-<link href="${baseurl }/css/datepicker1.css" rel="stylesheet" type="text/css" />
+<link href="${baseurl }/css/datepicker1.css" rel="stylesheet"
+	type="text/css" />
 <script src="${baseurl }/js/jquery-ui.min.js"></script>
 
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" />
+<link rel="stylesheet"
+	href="https://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" />
 
-	
+
 <!-- 	<script src="http://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script> -->
 <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.1/themes/black-tie/jquery-ui.css"> -->
 <!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.js"></script> -->
 <input type="hidden" name="loc" id="loc" value="${baseurl }" />
 <div id="main">
-<div class="container-fluid">
-	<div class="page-header">
-		<div class="pull-left">
-			<h1>Dashboard </h1> 
+	<div class="container-fluid">
+		<div class="page-header">
+			<div class="pull-left">
+				<h1>Dashboard</h1>
+			</div>
 		</div>
-	</div>
-	
-	
-
-
-<div id="dial1"></div>
-
-<div class="row" id="allProfilesId">
-	<form:form commandName="dashboardForm"  class="form-horizontal" id="searchForm2" name="searchForm2" role="form"   method="post">
-	<form:hidden path="id"/>
-	<div class="col-sm-6">
-		<div class="box">
-			<div class="box-title">
-				<h3>
-					<i class="fa fa-table"></i>
-					Classic Profiles(about to expire)
-				</h3>
-			</div>
-			<div id="tableIdClassic">
-			</div>
-			<div id="paginatorClassic"></div>
-			<div id="table_footer_Classic"></div>
-		</div>
-	</div>
-	<div class="col-sm-6">
-		<div class="box">
-			<div class="box-title">
-				<h3>
-					<i class="fa fa-table"></i>
-					Classic Plus Profiles(about to expire)
-				</h3>
-			</div>
-			<div id="tableId1">
-			</div>
-			<div id="paginator1"></div>
-			<div id="table_footer1"></div>
-		</div>
-	</div>
-	<div class="col-sm-6">
-		<div class="box">
-			<div class="box-title">
-				<h3>
-					<i class="fa fa-table"></i>
-					Premium Profiles(about to expire)
-				</h3>
-			</div>
-			<div id="tableId">
-			</div>
-			<div id="paginator"></div>
-			<div id="table_footer"></div>
-		</div>
-	</div>
-	<div class="col-sm-6">
-		<div class="box">
-			<div class="box-title">
-				<h3>
-					<i class="fa fa-table"></i>
-					Premium Plus Profiles(about to expire)
-				</h3>
-			</div>
-			<div id="tableIdPremiumPlus">
-			</div>
-			<div id="paginatorPremiumPlus"></div>
-			<div id="table_footer_PremiumPlus"></div>
-		</div>
-	</div>
-	<div class="col-sm-6">
-		<div class="box">
-			<div class="box-title">
-				<h3>
-					<i class="fa fa-table"></i>
-					Aarna Premium Profiles(about to expire)
-				</h3>
-			</div>
-			<div id="tableIdArnaPremium">
-			</div>
-			<div id="paginatorArnaPremium"></div>
-			<div id="table_footer_ArnaPremium"></div>
-		</div>
-	</div>
-	<div class="col-sm-6">
-		<div class="box">
-			<div class="box-title">
-				<h3>
-					<i class="fa fa-table"></i>
-					Aarna Launching Offer Profiles
-				</h3>
-			</div>
-			<div id="tableIdSpecial">
-			</div>
-			<div id="paginatorArnaSpecialOffer"></div>
-			<div id="table_footer_ArnaPremium"></div>
-		</div>
-	</div>
-	</form:form>
-</div>
 
 
 
 
-</div>
+		<div id="dial1"></div>
+
+		<div class="row" id="allProfilesId">
+			<form:form commandName="dashboardForm" class="form-horizontal"
+				id="searchForm2" name="searchForm2" role="form" method="post">
+				<form:hidden path="id" />
+				<div class="col-sm-6">
+					<div class="box">
+						<div class="box-title">
+							<h3>
+								<i class="fa fa-table"></i> Classic Profiles(about to expire)
+							</h3>
+						</div>
+						<div id="tableIdClassic"></div>
+						<div id="paginatorClassic"></div>
+						<div id="table_footer_Classic"></div>
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<div class="box">
+						<div class="box-title">
+							<h3>
+								<i class="fa fa-table"></i> Classic Plus Profiles(about to
+								expire)
+							</h3>
+						</div>
+						<div id="tableId1"></div>
+						<div id="paginator1"></div>
+						<div id="table_footer1"></div>
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<div class="box">
+						<div class="box-title">
+							<h3>
+								<i class="fa fa-table"></i> Premium Profiles(about to expire)
+							</h3>
+						</div>
+						<div id="tableId"></div>
+						<div id="paginator"></div>
+						<div id="table_footer"></div>
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<div class="box">
+						<div class="box-title">
+							<h3>
+								<i class="fa fa-table"></i> Premium Plus Profiles(about to
+								expire)
+							</h3>
+						</div>
+						<div id="tableIdPremiumPlus"></div>
+						<div id="paginatorPremiumPlus"></div>
+						<div id="table_footer_PremiumPlus"></div>
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<div class="box">
+						<div class="box-title">
+							<h3>
+								<i class="fa fa-table"></i> Aarna Premium Profiles(about to
+								expire)
+							</h3>
+						</div>
+						<div id="tableIdArnaPremium"></div>
+						<div id="paginatorArnaPremium"></div>
+						<div id="table_footer_ArnaPremium"></div>
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<div class="box">
+						<div class="box-title">
+							<h3>
+								<i class="fa fa-table"></i> Aarna Launching Offer Profiles
+							</h3>
+						</div>
+						<div id="tableIdSpecial"></div>
+						<div id="paginatorArnaSpecialOffer"></div>
+						<div id="table_footer_ArnaPremium"></div>
+					</div>
+				</div>
+			</form:form>
+		</div>
+
+
+
+
+	</div>
 </div>
 <div class="container-fluid" id="tableId2"></div>
-  <!-- Modal -->
-  <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Image Upload</h4>
-        </div>
-        <div class="modal-body">
-         <input type="hidden" name="profileId" id="profileId">
-        <input id="imageName" type="file" value="" name="imageName" >
-          <button type="button" onclick="imageAjax()" class="btn btn-default" >upload</button>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-      
-    </div>
-  </div>
-<script src="${baseurl}/js/common.js"></script>	
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+	<div class="modal-dialog">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Image Upload</h4>
+			</div>
+			<div class="modal-body">
+				<input type="hidden" name="profileId" id="profileId"> <input
+					id="imageName" type="file" value="" name="imageName">
+				<button type="button" onclick="imageAjax()" class="btn btn-default">upload</button>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+
+	</div>
+</div>
+<script src="${baseurl}/js/common.js"></script>
 <script src="${baseurl}/js/jquery-asPaginator.js"></script>
-<link rel="stylesheet" type="text/css" href="${baseurl}/css/asPaginator.css">
+<link rel="stylesheet" type="text/css"
+	href="${baseurl}/css/asPaginator.css">
 <script type="text/javascript">
 
  var total_items_count = ${total_records};
@@ -235,7 +230,7 @@ var listOrders2 = ${classicPlusExpiredProfiles};
  function displayTable(listOrders,tableId) {
 		$('#'+tableId).html('');
 		var tableHead = '<table class="table table-hover table-nomargin table-bordered" >'
-			+ '<thead><tr><th>UserName</th><th>Joined On</th><th>Mobile No.</th></tr></thead><tbody></tbody></table>';
+			+ '<thead><tr><th>Username</th><th>Joined On</th><th>Mobile</th></tr></thead><tbody></tbody></table>';
 		$('#'+tableId).html(tableHead);
 		serviceUnitArray = {};
 		if(listOrders==""){

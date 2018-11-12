@@ -1539,7 +1539,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 							</form:select>
 						</div>
 						<div class="form-group">
-						<label for="" style="padding-left:0px;" class="col-md-9"><input type="checkbox" id="accept" checked="checked" /> I have agreed to the<a href="termsConditionsHomepage" style="color:#91fbd0;" target="_blank"> Terms and Condition</a> & have read & understood the <a href="privacyAndPolicyHomePage"  style="color:#91fbd0;" target="_blank">Privacy Policy</a></label>
+						<label for="" style="padding-left:0px;" class="col-md-9"><input type="checkbox" id="accept" /> I have agreed to the<a href="termsConditionsHomepage" style="color:#91fbd0;" target="_blank"> Terms and Condition</a> & have read & understood the <a href="privacyAndPolicyHomePage"  style="color:#91fbd0;" target="_blank">Privacy Policy</a></label>
 							<input type="button" id="secondButton" value="Sign Up"
 								class="btn btn-success btn-block col-md-3" style="width:25%; margin-top:20px;">
 							<!--                                                     <button type="button"  id ="secondButton" onclick="submit();" class="btn btn-info btn-block">SIGNUP...</button> -->
@@ -2184,8 +2184,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 		<div class="container">
 			<div class="row">
 				<div class="col-md-8 footer-left" style="padding-top: 8px;">
-					A product of Aarna Associates Â© 2018. All Rights Reserved | Design & Developed by Charvikent ITES Pvt
-					Ltd.</div>
+					A product of Aarna Associates © 2018. All Rights Reserved | Design & Developed by <a href="https://www.charvikent.com" style="color:#fff; text-decoration:none;" target="_blank"  >Charvikent ITES Pvt Ltd.</a></div>
 				<!-- <div class="col-md-4 footer-center">
 
 </div> -->

@@ -1141,7 +1141,7 @@ function displayNewMatches_update(listOrders) {
 		
 			var login_user_role_id = ${cacheGuest.roleId};
 			var firstname = '<img src="${baseurl}/images/blurr.png"/>',lastname='';
-			var ageStr = orderObj.age;
+			var ageStr = orderObj.agee;
 			var age = ageStr.split(".")[0];
 			if((login_user_role_id == 6) || (login_user_role_id == 11) || (login_user_role_id == 12)
 					|| (login_user_role_id == 13) || (login_user_role_id == 14) || (login_user_role_id == 15)  || (login_user_role_id == 16)){ //means premium,premium_plus,aarna premium users
