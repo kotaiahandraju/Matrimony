@@ -89,7 +89,7 @@ $( document ).ready(function() {
 			</div>
 			<div class="box-content nopadding table-responsive w3-animate-zoom" id="tableId">
 				<table class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,text,text,text,text,null">
-					<thead><tr><th>UserName</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Mobile</th><th>Age</th><th>Caste</th><th>Package</th>
+					<thead><tr><th>Username</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Mobile</th><th>Age</th><th>Caste</th><th>Package</th>
 						<th></th>
 					</tr>
 					</thead>
