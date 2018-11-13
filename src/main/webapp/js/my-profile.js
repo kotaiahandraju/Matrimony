@@ -106,6 +106,7 @@ function checkLen(){
    	formData.append("education",$("#education").val());
    	formData.append("workingWith",$("#workingWith").val());
    	formData.append("occupation",$("#occupation").val());
+	formData.append("annualIncome",$("#annualIncome").val());
    	// family details
    	formData.append("fatherName",$("#fatherName").val().trim());
    	formData.append("motherName",$("#motherName").val().trim());
@@ -451,17 +452,77 @@ function checkLen(){
 	   	}
   }); */
   
-   var ss =new Date().getFullYear()-16;
   $("#dob").datepicker({
-	     dateFormat: "dd-MM-yy",
+	  dateFormat: "dd-MM-yy",
 	     changeDate : true,
 	 	changeMonth : true,
 	 	changeYear : true,
-//	  	maxDate :0,
-	 	yearRange: '1950:' + ss
+		minDate: "-50Y",
+		maxDate: "-18Y",
+		yearRange: "-65:+0"
 	 });  
   $('#aboutMyself').on('keydown', function(e) {
 	    if (e.which === 32 &&  e.target.selectionStart === 0) {
 	      return false;
 	    }  
 	  });
+  
+  function getFilteredStates(id){
+		if($("#"+id).val()== null   || $('#'+id).val() == "" || $('#'+id).val()=="undefined"){
+			 $("#currentState").attr("readonly", true);
+			$("#currentState").attr("disabled" ,"disabled");
+			//$("#currentState").empty();
+			$("#currentState").val(""); 
+		}else{
+			$("#currentState").removeAttr("disabled");
+			$("#currentState").removeAttr("readonly");
+			var countryIds =$("#"+id).val();
+			var formData = new FormData();
+		     formData.append('country_ids', countryIds);
+		     //return false;
+			$.fn.makeMultipartRequest('POST', 'getFilteredStates', false,
+					formData, false, 'text', function(data){
+				var jsonobj = $.parseJSON(data);
+				var statesList = jsonobj.states_list;
+	         $("#currentState").empty();
+				$("#currentState").append("<option value='' >-- Choose State --</option>");
+				
+				$.each(statesList, function(i, state) {
+					$("#currentState").append("<option value="+state.id+" >"+ state.name+"</option>");
+				});
+				$("#currentState").val(""); 
+				$("#currentState").trigger("change");
+			});
+			
+		}
+	}
+function getCitys(id){
+		
+		if($("#"+id).val()== null   || $('#'+id).val() == "" || $('#'+id).val()=="undefined"){
+			$("#currentCity").attr("readonly", true);
+			$("#currentCity").attr("disabled" ,"disabled");
+			$("#currentCity").val("");
+		}else{
+			$("#currentCity").removeAttr("disabled");
+			$("#currentCity").removeAttr("readonly");
+			var stateIds =$("#"+id).val();
+			var formData = new FormData();
+		     formData.append('state_ids', stateIds);
+			$.fn.makeMultipartRequest('POST', 'getCitys', false,
+					formData, false, 'text', function(data){
+				var jsonobj = $.parseJSON(data);
+				var alldata = jsonobj.citys;
+//	 			alert(alldata);
+	         $("#currentCity").empty();
+				$("#currentCity").append("<option value='' >-- Choose City --</option>");
+				
+				$.each(alldata, function(i, tests) {
+					$("#currentCity").append("<option value="+tests.id+" >"+ tests.name+"</option>");
+				});
+				
+			});
+			
+		}
+	}
+  
+  

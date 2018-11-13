@@ -137,7 +137,7 @@ $( document ).ready(function() {
  function displayTable(listOrders) {
 		$('#tableId').html('');
 		var tableHead = '<table class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,text,text,text,text,null">'
-			+ '<thead><tr><th>Login Time</th><th>UserName</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Mobile</th><th>Age</th><th>Caste</th><th>Package</th><th>Profile Status</th><th></th></tr></thead><tbody></tbody></table>';
+			+ '<thead><tr><th>Login Time</th><th>Username</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Mobile</th><th>Age</th><th>Caste</th><th>Package</th><th>Profile Status</th><th></th></tr></thead><tbody></tbody></table>';
 		$('#tableId').html(tableHead);
 		serviceUnitArray = {};
 		$.each(listOrders,function(i, orderObj) {

@@ -1038,7 +1038,7 @@ public class LoginController {
 		}
 
 		@RequestMapping(value="/helpHomePage")
-		public String help() {
+		public String help(@ModelAttribute("createProfile") UsersBean objUserssBean) {
 			
 			return "helpHomePage";
 		}

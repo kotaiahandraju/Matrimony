@@ -964,7 +964,7 @@ function displayMatches(listOrders) {
 			}
 			var tblRow = '<div class="row">'
 				+ '<div class=" col-md-3 col-xs-3 preprofile" >'
-	            + 	"<img src='"+image+"'  class='  img-responsive thumbnail ' >"
+	            + 	"<a href='#'  onclick='fullProfile("+orderObj.id+")'><img src='"+image+"'  class='  img-responsive thumbnail ' ></a>"
 	            + '		<div class="watermarkcontent_preferred">'
 				+ '			<span>aarnamatrimony.com</span>'
 				+ '		</div>	'
@@ -1064,7 +1064,7 @@ function displayNewMatches(listOrders) {
 				interestStr = '<p align="center" style="margin: 11px 0px 10px 0px;"><a   type="button" disabled="true"  class="btn btn-warning btn-sm "  >Request Sent</a></p>';
 			}
 			 item =     item + ' 	<div class="col-md-4 thumbnailgal">'
-				         +' 		<div class="thumbnailmain">	<a class="thumbnail thumbimg" href="#no" style="margin: 0px 0px 0px 0px; width:100%; height:auto;"><img alt="" src="'+image+'" class="watermark_text_newmatches"></a></div>'
+				         +' 		<div class="thumbnailmain">	<a class="thumbnail thumbimg" href="#no" style="margin: 0px 0px 0px 0px; width:100%; height:auto;" onclick="fullProfile('+orderObj.id+')"><img alt="" src="'+image+'" class="watermark_text_newmatches"></a></div>'
 				         +' 			<p align="center" class="ptransition" style="margin: 10px 0px 0px 0px;"><span  class="ptransition" href="#no" onclick="fullProfile('+orderObj.id+')" style="transition: 0; padding:5px; color:blue; border-radius:5px;">'+orderObj.username+'</span></p>'
 				         +' 			<p align="center" style="margin: px 0px 0px -3px;">'+age+' yrs, '+orderObj.inches+'</p>'
 				         + 			    interestStr
@@ -1141,7 +1141,7 @@ function displayNewMatches_update(listOrders) {
 		
 			var login_user_role_id = ${cacheGuest.roleId};
 			var firstname = '<img src="${baseurl}/images/blurr.png"/>',lastname='';
-			var ageStr = orderObj.age;
+			var ageStr = orderObj.agee;
 			var age = ageStr.split(".")[0];
 			if((login_user_role_id == 6) || (login_user_role_id == 11) || (login_user_role_id == 12)
 					|| (login_user_role_id == 13) || (login_user_role_id == 14) || (login_user_role_id == 15)  || (login_user_role_id == 16)){ //means premium,premium_plus,aarna premium users
@@ -1181,7 +1181,7 @@ function displayNewMatches_update(listOrders) {
 			var expressed = orderObj.expressedInterest;
 			var interestStr = "";
 			if(expressed==0){
-				interestStr = '<span id="expInterest'+orderObj.id+'"><a   href="#no" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="expressInterest_dashboard('+orderObj.id+')">  Express Interest  </a></span>';
+				interestStr = '<span id="expInterestLaest'+orderObj.id+'"><a   href="#no" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="expressInterest_dashboard_latestUpdates('+orderObj.id+')">  Express Interest  </a></span>';
 			}else if(expressed>0){
 				interestStr = '<span>Expressed Interest</span>';
 			}
@@ -1208,7 +1208,7 @@ function displayNewMatches_update(listOrders) {
 			}
 			var tblRow = '<div class="row">'
 				+ '<div class=" col-md-2 col-xs-2 preprofile1" >'
-	            + 	"<img src='"+image+"' class='watermark_text img-responsive thumbnail ' >"
+	            + 	"<a href='#'  onclick='fullProfile("+orderObj.id+")'><img src='"+image+"' class='watermark_text img-responsive thumbnail '></a>"
 	            + '</div>'
 	            + '<div class="col-md-9 col-xs-9">'
 	            + ' <p>'+firstname+'&nbsp;'+lastname+'|'+orderObj.username+'&nbsp;( '+age+' yrs,&nbsp; '+orderObj.heightInches+' )&nbsp;'+Content+' </p> '
@@ -1406,6 +1406,76 @@ function expressInterest_dashboardnewmatches(profile_id){
 	    						allowed_limit = limit;
 	    					}
 	    				}
+	    			}else if("failed"==msg || "exception"==msg){
+	    				alert("Interest request is not successful. Please try again.");
+	    			}
+	    		//}
+	    		/* if(profiles==""){
+	    			$('#countId').html('0');
+	    			var str = '<div class="panel panel-default"><h6>No results found.</h6></div>';
+	    			$('#searchResults').html('');
+	    			$(str).appendTo("#searchResults");
+	    		}else{
+	    			$('#countId').html(profiles.length);
+	    			displayMatches(profiles);
+	    		} */
+	    		/* var filtered_list = jsonobj.filtered_profiles;
+	    		$('#countId').html('');
+	    		if(filtered_list==""){
+	    			$('#countId').html('0');
+	    			var str = '<div class="panel panel-default"><h6>No results found.</h6></div>';
+	    			$('#searchResults').html('');
+	    			$(str).appendTo("#searchResults");
+	    		}else{
+	    			$('#countId').html(filtered_list.length);
+	    			displayMatches(filtered_list);
+	    		} */
+				
+			});
+	}
+}
+function expressInterest_dashboard_latestUpdates(profile_id){
+	var roleId = ${cacheGuest.roleId};
+	$("#id").val(profile_id);
+	if(roleId==4){
+		document.searchForm2.action = "memberShipPage"
+		document.searchForm2.submit();
+		return true;
+	}else{
+		var membershipStatus = ${cacheGuest.membership_status};
+		if(membershipStatus!="1"){
+			alert("Your membership validity period is over. Renew your membership plan and get more profiles");
+			return false;
+		} 
+		if(allowed_limit<=0){
+			alert("Exceeded allowed profiles limit. Renew your membership plan and get more profiles");
+			return false;
+		}
+		var profileObj = serviceUnitArray[profile_id];
+
+		var formData = new FormData();
+		formData.append('profile_id',profile_id);
+		jQuery.fn.makeMultipartRequest('POST', 'expressInterestTo', false,
+				formData, false, 'text', function(data){
+	    		var jsonobj = $.parseJSON(data);
+	    		var limit = jsonobj.allowed_limit;
+	    		var msg = jsonobj.message;
+	    		var profiles = jsonobj.allProfiles;
+	    		//if(typeof msg != "undefined" ){
+	    			if("success"==msg){
+	    				alert("Interest request has been sent successfully");
+	    				$("#expInterestLaest"+profile_id).html('Expressed Interest');
+	    				$("#expInterestLaest"+profile_id).prop("disabled",true);
+	    				$("#mobileTD"+profile_id).html('<span style="background:url(${baseurl}/user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+profileObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="${baseurl}/user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>');
+	    				if(typeof limit != "undefined"){
+	    					if(limit=="unlimited"){
+	    						allowed_limit = "1";
+	    						allowed_limit = parseInt(allowed_limit);
+	    					}else{
+	    						allowed_limit = limit;
+	    					}
+	    				}
+	    				
 	    			}else if("failed"==msg || "exception"==msg){
 	    				alert("Interest request is not successful. Please try again.");
 	    			}

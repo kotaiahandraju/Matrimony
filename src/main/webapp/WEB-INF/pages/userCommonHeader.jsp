@@ -29,7 +29,7 @@
 <!-- For Facebook -->
 <meta property="og:title" content="Aarna Matrimony" />
 <meta property="og:type" content="article" />
-<meta property="og:image" content="http://www.aarnamatrimony.com/facebook.jpg" />
+<meta property="og:image" content="${baseurl }/images/fac.jpg" />
 <meta property="og:url" content="http://www.aarnamatrimony.com" />
 <meta property="og:description" content="matrimonial, telugu matrimony, no1 matrimony in vijayawada" />
 
@@ -37,7 +37,7 @@
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="Aarna Matrimony" />
 <meta name="twitter:description" content="matrimonial, telugu matrimony, no1 matrimony in vijayawada" />
-<meta name="twitter:image" content="http://www.aarnamatrimony.com/twitter.jpg" />
+<meta name="twitter:image" content="${baseurl }/images/twi.jpg" />
 	<script type="application/x-javascript">
 		addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 		function hideURLbar(){ window.scrollTo(0,1); }
@@ -624,8 +624,7 @@ text-align:center;
 						return false;
 					}
 				}
-				$('#expressModal').show();
-				$('#expressModal').modal();
+				
 				var formData = new FormData();
 			
 				formData.append('profile_id',profile_id);
@@ -638,7 +637,9 @@ text-align:center;
 			    		//if(typeof msg != "undefined" ){
 			    			if("success"==msg){
 			    				$("#expInterest"+profile_id).html('<a type="button" class="btn btn-blue btn-sm" disabled="true">Expressed Interest</a>');
-			    				alert("Interest request has been sent successfully");
+// 			    				alert("Interest request has been sent successfully");
+			    				$('#expressModal').show();
+			    				$('#expressModal').modal();
 			    				//$("#expInterest"+profile_id).html('You Expressed Interest');
 			    				//$("#expInterest"+profile_id).attr("disabled",true);
 			    				if(typeof limit != "undefined"){
@@ -3922,7 +3923,7 @@ img.hover-shadow {
 															<%-- <a href="padma?pid=${notification.user_id}&nid=${notification.id}&rfrm=notifications" > --%>
 															
 																<%-- <c:out value="${notification.fullName}" /> (<c:out value="${notification.username}" />) --%>
-																<c:set var="name" value="${notification.fullName} (${notification.username})" />
+																<c:if test="${cacheGuest.roleId == 4}"><img src="${baseurl}/images/blurr.png"/></c:if><c:if test="${cacheGuest.roleId != 4}">${notification.fullName}</c:if><c:set var="name" value="(${notification.username})" />
 																<c:if test="${notification.notifi_type == 'interest'}">
 																	<a href="inboxAction?tab_type=inbox&list_type=pending_requests&nid=${notification.id}">
 																		<c:out value="${name}" /> expressed interest in your profile
@@ -3984,6 +3985,10 @@ img.hover-shadow {
 								</div>	
 							</li>
 							<li><a href="help" >Help <%-- <div id="load_me">
+							<%@ include file="sample.jsp" %>
+							</div> --%>
+							</a></li>
+							<li><a href="refer" >Refer & Earn <%-- <div id="load_me">
 							<%@ include file="sample.jsp" %>
 							</div> --%>
 							</a></li>
@@ -4074,7 +4079,8 @@ img.hover-shadow {
           <h4 class="modal-title" style="color: aliceblue;padding: 10px; padding-left: px; font-size: 18px;"> <span id="member_name_todisplay"></span></h4>
         </div>
         <div class="modal-body" style="background: transparent;">
-       <p><b>Interest request has been sent successfully to Krishna Prasad (AM123456545)</b></p>
+       
+       <p><b>Interest request has been sent successfully to ******** (AM123456545)</b></p>
          	</div>
          	<br><div class="clearfix"></div>
           	
@@ -4095,7 +4101,7 @@ img.hover-shadow {
           <h4 class="modal-title" style="color: aliceblue;padding: 10px; padding-left: px; font-size: 18px;"> <span id="member_name_todisplay"></span></h4>
         </div>
         <div class="modal-body" style="background: transparent;">
-       <p><b>Krishna Prasad (Am1625739) Profile has been shortlisted</b></p>
+       <p><b>******* (Am1625739) Profile has been shortlisted</b></p>
          	</div>
          	<br><div class="clearfix"></div>
           	
@@ -4139,7 +4145,7 @@ img.hover-shadow {
   </div>
 
  <!-- Modal -->
-  <div tabindex="-1" class="modal fade in" id="myModalNew" role="dialog">
+  <%-- <div tabindex="-1" class="modal fade in" id="myModalNew" role="dialog">
     <div class="modal-dialog">
     
       <!-- Modal content-->
@@ -4228,7 +4234,7 @@ img.hover-shadow {
       </div>
       
     </div>
-  </div>
+  </div> --%>
 
 	<%-- <div class="mega_nav">
 		<div class="container">
@@ -4388,4 +4394,5 @@ function myFunction2(id) {
 	}
  
 </script>
+
 

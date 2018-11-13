@@ -5,6 +5,19 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 
+<style>
+.ui-widget-content {
+    border: 1px solid #aaaaaa;
+    background: #ffffff url(images/ui-bg_flat_75_ffffff_40x100.png) 50% 50% repeat-x !important;
+    color: #000 !important;
+}
+.ui-widget-content {
+    border: 1px solid #666;
+    background: #fff url(images/ui-bg_inset-soft_25_000000_1x100.png) 50% bottom repeat-x;
+    color: #000 !important;
+}
+
+</style>
 
 <link href="${baseurl }/css/datepicker1.css" rel="stylesheet" type="text/css" />
 <script src="${baseurl }/js/jquery-ui.min.js"></script>
@@ -102,7 +115,7 @@
 				</div>
 			</div>
 		</div>
-
+<div id="dial1"></div>
 		<div class="container-fluid">
 			<div class="col-sm-12">
 				<div class="box">
@@ -147,7 +160,7 @@ if (listOrders1 != "") {
 function displayTable(listOrders) {
 	$('#tableId').html('');
 	var tableHead = '<table class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,text,text,text,text,null">'
-		+ '<thead><tr><th>created</th><th>UserName</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Mobile</th><th>Age</th><th>Caste</th><th>Occupation</th><th>Package</th></tr></thead><tbody></tbody></table>';
+		+ '<thead><tr><th>Created On</th><th>Username</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Mobile</th><th>Age</th><th>Caste</th><th>Occupation</th><th>Package</th></tr></thead><tbody></tbody></table>';
 	$('#tableId').html(tableHead);
 	serviceUnitArray = {};
 	$.each(listOrders,function(i, orderObj) {
@@ -157,7 +170,7 @@ function displayTable(listOrders) {
 						
 						serviceUnitArray[orderObj.id] = orderObj;
 						if(orderObj.firstName !=null){
-						var viewProfile = "<a title='View Profile' onclick='viewProfileNew("+ orderObj.id+ ")'><i style='color: blue;cursor: pointer;' class='fa fa-eye'></i></a>"
+						var viewProfile = "<a title='View Profile' onclick='viewProfileNew("+ orderObj.id+ ");'><i style='color: blue;cursor: pointer;' class='fa fa-eye'></i></a>"
 						var tblRow = "<tr >"
 							+ "<td title='"+orderObj.created_time_str+"'>" + orderObj.created_time_str + "</td>"
 							+ "<td title='"+orderObj.username+"'>" + orderObj.username + "</td>"
@@ -169,7 +182,7 @@ function displayTable(listOrders) {
 							+ "<td title='"+orderObj.casteName+"'>" + orderObj.casteName + "</td>"
 							+ "<td title='"+orderObj.occupationName+"'>" + orderObj.occupationName + "</td>"
 							+ "<td title='"+orderObj.planPackage+"'>" + orderObj.planPackage + "</td>"
-// 							+ "<td style='text-align: center;'>" + viewProfile +"</td>"
+							+ "<td style='text-align: center;'>" + viewProfile +"</td>"
 							+ "</tr >";
 						$(tblRow).appendTo("#tableId table tbody"); 
 						}

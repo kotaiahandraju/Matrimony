@@ -32,10 +32,32 @@ padding:0px;
 .conver12 {
 background:#f8f8f8;
 padding:10px;}
+/* .closebtn {
+    margin-left: 15px;
+    color: #000;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.closebtn:hover {
+    color: black;
+} */
 </style>
+<script>
+window.setTimeout(function() {
+    $(".msgcss").fadeTo(500, 0).slideUp(500, function(){
+        $(this).remove(); 
+    });
+}, 4000);
+</script>
 <div class=" products container" style="padding:15px;">
 	<div id="msgDiv" class="form-group" style="padding-top:9px;" hidden="true">
-		<div class="msgcss fadeIn animated alert alert-danger">Deleted</div>
+		<div class="msgcss fadeIn animated alert alert-danger" id="msgDiv1">
+		 Deleted </div>
 	</div>
 <a type="button"   href="${back_link_val}" class="btn btn-success pull-right" > Back</a>
 <div class="clearfix"></div>
@@ -352,4 +374,5 @@ function deleteConversation(conv_id){
 	});
 }
 </script>
+
 <%@ include file="userFooter.jsp"%>

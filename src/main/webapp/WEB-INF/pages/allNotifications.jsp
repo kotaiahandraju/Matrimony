@@ -82,7 +82,7 @@ function removeALLNotification(){
 															<%-- <a href="padma?pid=${notification.user_id}&nid=${notification.id}&rfrm=notifications" > --%>
 															
 																<%-- <c:out value="${notification.fullName}" /> (<c:out value="${notification.username}" />) --%>
-																<c:set var="name" value="${notification.fullName} (${notification.username})" />
+																<c:if test="${cacheGuest.roleId == 4}"><img src="${baseurl}/images/blurr.png"/></c:if><c:if test="${cacheGuest.roleId != 4}">${notification.fullName}</c:if><c:set var="name" value="(${notification.username})" />
 																<c:if test="${notification.notifi_type == 'interest'}">
 																	<a href="inboxAction?tab_type=inbox&list_type=pending_requests&nid=${notification.id}">
 																		<c:out value="${name}" /> expressed interest in your profile

@@ -1547,11 +1547,11 @@ public class UsersDao extends BaseUsersDao
 					buffer.append(" group by u.id ");
 					
 					int page_size = MatrimonyConstants.PAGINATION_SIZE;
-					/*if(StringUtils.isNotBlank("listType") && "newmatches".equalsIgnoreCase(listType)){
+					if(StringUtils.isNotBlank("listType") && "newmatches".equalsIgnoreCase(listType)){
 						buffer.append(" order by u.updated_time desc limit "+page_size+" offset "+(page_no*page_size)+" ");
-					}else{*/
+					}else{
 						buffer.append(" order by u.package_id desc limit "+page_size+" offset "+(page_no*page_size)+" ");
-					//}
+					}
 					
 					/*if(objUserBean.getRoleId()==MatrimonyConstants.FREE_USER){
 						buffer.append(" limit "+MatrimonyConstants.FREE_USER_PROFILES_LIMIT+" ");

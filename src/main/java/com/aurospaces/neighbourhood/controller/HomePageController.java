@@ -3862,7 +3862,7 @@ String sJson="";
 			   if(StringUtils.isNotBlank(otp1)  &&  otp.equals(otp1)){
 				   objUsersDao.updateOtpStatus(mobileNum,otp);
 				   try{
-					   String ressponse = SendSMS.sendSMS("Dear "  +sessionBean.getFirstName()+ " "+sessionBean.getLastName()+",\n Your mobile number has been verified successfully.\n\n-Team AarnaMatrimony ", mobileNum);
+					   String ressponse = SendSMS.sendSMS("Dear "  +sessionBean.getFirstName()+ " "+sessionBean.getLastName()+",\nYour mobile number has been verified successfully.\n\n-Team Aarna Matrimony ", mobileNum);
 					   
 					   if("OK".equalsIgnoreCase(ressponse)){
 						   
@@ -6041,6 +6041,30 @@ public String premiumMembers(@ModelAttribute("createProfile") UsersBean searchCr
 			objJson.put("msg", e);
 		}
 		return String.valueOf(objJson);
+	}
+	
+	@RequestMapping(value = "/LeaveMsgSubmit")
+	public @ResponseBody String LeaveMsgSubmit(@ModelAttribute("createProfile") UsersBean objUserssBean, Model objeModel, HttpServletRequest request, HttpSession session) {
+		   String leaveMsgUserName = request.getParameter("leaveMsgUserName");
+			String leaveMsgMail = request.getParameter("leaveMsgMail");
+			String leaveMsgMobile = request.getParameter("leaveMsgMobile");
+			String leaveMsgText = request.getParameter("leaveMsgText");
+			
+			JSONObject objJson = new JSONObject();
+			EmailUtil emailUtil = new EmailUtil();
+			try {
+				EmailUtil.sendLeaveMessage(leaveMsgUserName, leaveMsgMail, leaveMsgMobile, leaveMsgText,objContext);
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			
+	
+			return String.valueOf(objJson);		  
+			
+	}
+	@RequestMapping(value = "/refer")
+	public String referPage() {
+		return "refer";
 	}
 	
 } 

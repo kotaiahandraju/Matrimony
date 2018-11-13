@@ -25,7 +25,7 @@
 <!-- For Facebook -->
 <meta property="og:title" content="Aarna Matrimony" />
 <meta property="og:type" content="article" />
-<meta property="og:image" content="http://www.aarnamatrimony.com/facebook.jpg" />
+<meta property="og:image" content="${baseurl }/images/fac.jpg" />
 <meta property="og:url" content="http://www.aarnamatrimony.com" />
 <meta property="og:description" content="matrimonial, telugu matrimony, no1 matrimony in vijayawada" />
 
@@ -33,7 +33,7 @@
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="Aarna Matrimony" />
 <meta name="twitter:description" content="matrimonial, telugu matrimony, no1 matrimony in vijayawada" />
-<meta name="twitter:image" content="http://www.aarnamatrimony.com/twitter.jpg" />
+<meta name="twitter:image" content="${baseurl }/images/twi.jpg" />
 <head>
 <script
 	src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
@@ -1546,7 +1546,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 						</div>
 						
 						<div class="form-group">
-						<label for="" style="padding-left:0px;" class="col-md-9"><input type="checkbox" id="accept" checked="checked" /> I have agreed to the<a href="termsConditionsHomepage" style="color:#91fbd0;" target="_blank"> Terms and Condition</a> & have read & understood the <a href="privacyAndPolicyHomePage"  style="color:#91fbd0;" target="_blank">Privacy Policy</a></label>
+						<label for="" style="padding-left:0px;" class="col-md-9"><input type="checkbox" id="accept" /> I have agreed to the<a href="termsConditionsHomepage" style="color:#91fbd0;" target="_blank"> Terms and Condition</a> & have read & understood the <a href="privacyAndPolicyHomePage"  style="color:#91fbd0;" target="_blank">Privacy Policy</a></label>
 							<input type="button" id="secondButton" value="Sign Up"
 								class="btn btn-success btn-block col-md-3" style="width:25%; margin-top:20px;">
 							<!--                                                     <button type="button"  id ="secondButton" onclick="submit();" class="btn btn-info btn-block">SIGNUP...</button> -->
@@ -2191,8 +2191,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 		<div class="container">
 			<div class="row">
 				<div class="col-md-8 footer-left" style="padding-top: 8px;">
-					A product of Aarna Associates Â© 2018. All Rights Reserved | Design & Developed by Charvikent ITES Pvt
-					Ltd.</div>
+					A product of Aarna Associates © 2018. All Rights Reserved | Design & Developed by <a href="https://www.charvikent.com" style="color:#fff; text-decoration:none;" target="_blank"  >Charvikent ITES Pvt Ltd.</a></div>
 				<!-- <div class="col-md-4 footer-center">
 
 </div> -->
@@ -2285,7 +2284,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 			<div class="form-group">
 				<form:textarea path="leaveMsgText" 
 					placeholder="Enter few words about you"
-					class="form-control validate onlyCharacters notAllowFirstSpace" rows="2"></form:textarea>
+					class="form-control validate  notAllowFirstSpace" rows="2"></form:textarea>
 				<span id="errorMsg" style="color: red"></span>
 				<div></div>
 				<div class="clearfix" style="padding-bottom: 8px;"></div>

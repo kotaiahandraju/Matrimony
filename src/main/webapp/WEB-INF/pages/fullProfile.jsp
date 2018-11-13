@@ -14,7 +14,56 @@
      
     <script>hljs.initHighlightingOnLoad();</script>
     <!-- for documentation #end: you don't need them -->
-
+    <!-- Start WOWSlider.com HEAD section -->
+<link rel="stylesheet" type="text/css" href="${baseurl}/engine1/style.css" />
+<%-- <script type="text/javascript" src="${baseurl}/engine1/jquery.js"></script> --%>
+<!-- End WOWSlider.com HEAD section -->
+<style>
+.cha {
+min-height: 20px;
+    padding: 19px;
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 1px solid #e3e3e3;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+    }
+    .modal{
+    background: rgba(0, 0, 0, 0.3) !important;
+		height: auto;
+		padding: 10px 10px;
+		border-radius: 5px;
+		-webkit-box-shadow: 3px 4px 8px rgba(0, 0, 0, .21);
+		-moz-box-shadow: 3px 4px 8px rgba(0, 0, 0, .21);
+		box-shadow: 3px 4px 8px rgba(0, 0, 0, .21);
+		border: solid 3px rgba(220, 220, 220, .37);}
+</style>
+<noscript>
+			<style>
+				.es-carousel ul{
+					display:block;
+				}
+				
+			</style>
+		</noscript>
+		<script id="img-wrapper-tmpl" type="text/x-jquery-tmpl">	
+			<div class="rg-image-wrapper">
+				{{if itemsCount > 1}}
+					<div class="rg-image-nav">
+						<a href="#" class="rg-image-nav-prev">Previous Image</a>
+						<a href="#" class="rg-image-nav-next">Next Image</a>
+					</div>
+				{{/if}}
+				<div class="rg-image"></div>
+				<div class="rg-loading"></div>
+				<div class="rg-caption-wrapper">
+					<div class="rg-caption" style="display:none;">
+						<p></p>
+					</div>
+				</div>
+			</div>
+		</script>
     <style>
    @media only screen and (max-width: 640px) {
    .pull-profile {
@@ -47,7 +96,8 @@ height:600px;
 td, th {
 vertical-align:top;
 }
-        /* for tablet */
+ 
+}      /* for tablet */
         @media screen and (max-width: 980px) {
             #mySlider {
                 width: 100%;
@@ -346,6 +396,9 @@ xpopup
     margin: 8em auto;
   }
 }
+.profileskip .dropdown-menu:after {
+left:10px !important;
+}
 </style>
 
 <script src="${baseurl}/js/plugins/jquery.ImageGallery.js"></script> 
@@ -370,7 +423,7 @@ xpopup
 		
             	<div class="panel panel-success">
             	
-					<div class="col-md-5"> <h4></h4>
+					<div class="col-md-5 col-sm-5"> <h4></h4>
 						<c:if test="${empty fullProfilePhotosList}">
 							<img id="img_inpage" src="../img/default.png" class="img-responsive" style="margin-bottom:0;">
 						</c:if>
@@ -408,7 +461,7 @@ xpopup
 						</c:if>
 						
                      </div>
-                     <div class="col-md-7"><h4></h4>
+                     <div class="col-md-7 col-sm-7 newc"><h4></h4>
 						 <h3>
 <%-- 						 <c:out value="${cacheGuest }"></c:out> --%>
 						 	<c:if test="${cacheGuest.roleId == 4}">
@@ -495,7 +548,7 @@ xpopup
 			<div class="panel-body table-responsive">
 			<div class="col-md-12">	<strong class="font"><img style="margin-left:-25px; padding-right:8px;" src="../nimages/deta.png"/>Basic Details </strong>
 				<div id="basic_details_view" class="all_visible_divs">
-					<table class="col-md-6 table-responsive">
+					<table class="col-md-6 col-sm-6 table-responsive">
 						<%-- <tr><td>Name</td>
 							<td>:</td>
 							<td class="name_val">${profileBean.firstName}&nbsp; ${profileBean.lastName}</td>
@@ -547,7 +600,7 @@ xpopup
 							
 						</tr>
 					</table>
-					<table class="col-md-6 table-responsive">
+					<table class="col-md-6 col-sm-6 table-responsive">
 					<tr>
 					<td>Complexion</td><td>:</td>
 							<td id="complexion_val">
@@ -824,7 +877,7 @@ xpopup
 			<strong class="font">Basic & Religion Preferences</strong>
 				
 	<div id="partner_basic_view" class="all_visible_divs">
-	<table class="col-md-6 table-responsive">
+	<table class="col-md-6 col-sm-6 table-responsive">
 		<tr><td>
 				<c:if test="${profileBean.gender == 'Female'}">Groom</c:if>
 				<c:if test="${profileBean.gender == 'Male'}">Bride</c:if>
@@ -888,7 +941,7 @@ xpopup
 			
 		</tr> --%>
 	</table>
-	<table class="col-md-6">
+	<table class="col-md-6 col-sm-6">
 	<tr> 
 	<td>Height</td><td>:</td>
 			<td>
@@ -930,7 +983,7 @@ xpopup
 			<div class="col-md-12">	<strong class="font">Professional Preferences</strong>
 				
 	<div id="partner_professional_view" class="all_visible_divs">
-	<table class="col-md-12 table-responsive">
+	<table class="col-md-12 col-sm-12 table-responsive">
 		<tr><td>Education</td><td>:</td>
 			<td id="rEducation_val">
 				<c:if test="${not empty profileBean.rEducationName}">${profileBean.rEducationName}</c:if>
@@ -971,7 +1024,7 @@ xpopup
 			<div class="col-md-12">	<strong class="font">Location Preferences</strong>
 				
 	<div id="partner_location_view" class="all_visible_divs">
-	<table class="col-md-12 table-responsive">
+	<table class="col-md-12 col-sm-12 table-responsive">
 		<tr><td>Country</td><td>:</td>
 			<td id="rCountry_val">
 				<c:if test="${not empty profileBean.rCountryName}">${profileBean.rCountryName}</c:if>
@@ -1028,18 +1081,18 @@ xpopup
 
 			<div class="panel-body table-responsive">
 			
-			<div class="col-md-12">	
+			<div class="col-md-12 col-sm-12">	
 			<div style="width:700px; margin:0px auto 25px auto;">
-			<div class="col-md-2">
+			<div class="col-md-2 col-sm-2">
 				<div class="txt-center mediumtxt1">You</div>
 				<div class="fleft" style="border-radius:50%; border:1px solid #d6d6d6; width:98px; height:98px;"><img src="${catalina_base}/${cacheGuest.profileImage}"  width="98" height="98" border="0" alt="" style="border-radius:50%;"></div>
 			</div>
-			<div class="col-md-4" style="width:390px; margin:55px 20px 0px 20px;">
+			<div class="col-md-4 col-sm-4" style="width:390px; margin:55px 20px 0px 20px;">
 				
 				<div class="fleft"><div class="hdtxt paddl5 paddr5 txt-center" style="width:382px;">----- Your profile matches <span id=noOfProfileMatch></span>  / 14 of <c:if test="${cacheGuest.roleId == 4}"><img src="${baseurl}/images/blurr.png"/></c:if><c:if test="${cacheGuest.roleId != 4}">${profileBean.firstName}</c:if> preferences -----</div></div>
 				
 			</div>
-			<div class="col-md-2">
+			<div class="col-md-2 col-sm-2">
 				<div class="txt-center mediumtxt1"><c:if test="${profileBean.gender == 'Female'}">Her</c:if>
 				<c:if test="${profileBean.gender == 'Male'}">He</c:if></div>
 				
@@ -1050,7 +1103,7 @@ xpopup
 		</div><strong class="font"><img style="margin-left:-25px; padding-right:8px;" src="../nimages/reli.png">Basic & Religion Preferences</strong>
 				
 	<div id="partner_basic_view" class="all_visible_divs">
-	<table class="col-md-12 table-responsive">
+	<table class="col-md-12 col-sm-12 table-responsive">
 		<tr><td>
 				<c:if test="${profileBean.gender == 'Female'}">Groom</c:if>
 				<c:if test="${profileBean.gender == 'Male'}">Bride</c:if>
@@ -1118,7 +1171,7 @@ xpopup
 			
 		</tr> --%>
 	</table>
-	<table class="col-md-12">
+	<table class="col-md-12 col-sm-12">
 	<tr> 
 	<td>Height</td><td>:</td>
 			<td>
@@ -1164,7 +1217,7 @@ xpopup
 			<div class="col-md-12">	<strong class="font"><img style="margin-left:-25px; padding-right:8px;" src="../nimages/prof.png">Professional Preferences</strong>
 				
 	<div id="partner_professional_view" class="all_visible_divs">
-	<table class="col-md-12 table-responsive">
+	<table class="col-md-12 col-sm-12 table-responsive">
 		<tr><td>Education</td><td>:</td>
 			<td id="rEducation_val">
 				<c:if test="${not empty profileBean.rEducationName}">${profileBean.rEducationName}</c:if>
@@ -1209,7 +1262,7 @@ xpopup
 			<div class="col-md-12">	<strong class="font"><img style="margin-left:-25px; padding-right:8px;" src="../nimages/loca.png">Location Preferences</strong>
 				
 	<div id="partner_location_view" class="all_visible_divs">
-	<table class="col-md-12 table-responsive">
+	<table class="col-md-12 col-sm-12 table-responsive">
 		<tr><td>Country</td><td>:</td>
 			<td id="rCountry_val">
 				<c:if test="${not empty profileBean.rCountryName}">${profileBean.rCountryName}</c:if>
@@ -1303,15 +1356,48 @@ xpopup
     <div class="modal-dialog">
     
       <!-- Modal content-->
-    
+   
       <div class="modal-content">
-        
+         <div class="modal-header" style="background:none;">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="padding-right:10px;">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
         <div class="modal-body">
        
-         
+         <div id="wowslider-container1">
+<div class="ws_images"><ul>
+		<c:forEach items="${fullProfilePhotosList}" var="photo" >
+			<li><img src="${catalina_base}/${photo.folder_name}/${photo.image_name}" alt="${photo.image_name}" title="package" id="wows1_0"/></li>
+		</c:forEach>
+		<%-- <li><img src="${baseurl}/data1/images/package.jpg" alt="package" title="package" id="wows1_0"/></li>
+		<li><img src="${baseurl}/data1/images/aadhar_card_copy.jpg" alt="aadhar card copy" title="aadhar card copy" id="wows1_1"/></li>
+		<li><img src="${baseurl}/data1/images/blue_strip.jpg" alt="blue strip" title="blue strip" id="wows1_2"/></li>
+		<li><img src="${baseurl}/data1/images/tenali_m.jpg" alt="tenali m" title="tenali m" id="wows1_3"/></li>
+		<li><img src="${baseurl}/data1/images/tenali_m1.jpg" alt="tenali m1" title="tenali m1" id="wows1_4"/></li>
+		<li><a href="#"><img src="${baseurl}/data1/images/tenali.jpg" alt="css image gallery" title="TENALI" id="wows1_5"/></a></li>
+		<li><img src="${baseurl}/data1/images/pan_card.jpg" alt="pan card" title="pan card" id="wows1_6"/></li> --%>
+	</ul></div>
+	<div class="ws_thumbs">
+<div>
+		<c:forEach items="${fullProfilePhotosList}" var="photo" >
+			<a href="#" title="package"><img src="${catalina_base}/${photo.folder_name}/${photo.image_name}" alt="${photo.image_name}" /></a>
+		</c:forEach>
+		<%-- <a href="#" title="package"><img src="${baseurl}/data1/tooltips/package.jpg" alt="" /></a>
+		<a href="#" title="aadhar card copy"><img src="${baseurl}/data1/tooltips/aadhar_card_copy.jpg" alt="" /></a>
+		<a href="#" title="blue strip"><img src="${baseurl}/data1/tooltips/blue_strip.jpg" alt="" /></a>
+		<a href="#" title="tenali m"><img src="${baseurl}/data1/tooltips/tenali_m.jpg" alt="" /></a>
+		<a href="#" title="tenali m1"><img src="${baseurl}/data1/tooltips/tenali_m1.jpg" alt="" /></a>
+		<a href="#" title="TENALI"><img src="${baseurl}/data1/tooltips/tenali.jpg" alt="" /></a>
+		<a href="#" title="pan card"><img src="${baseurl}/data1/tooltips/pan_card.jpg" alt="" /></a> --%>
+	</div>
+</div>
+<div class="ws_script" style="position:absolute;left:-99%"><a href=""></a></div>
+<div class="ws_shadow"></div>
+</div>
 
 
-<section class="welcome">
+<%-- <section class="welcome">
     <div class="container">
 
         <div class="row">
@@ -1331,7 +1417,7 @@ xpopup
             </div>
         </div>
     </div>
-</section>
+</section> --%>
 
         </div>
        
@@ -1339,6 +1425,81 @@ xpopup
       
     </div>
   </div>
+ <%--  <div class="clearfix"></div>
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#pop">Open Modal</button>
+ <div class="modal fade" id="pop" role="dialog"> 
+    <div class="modal-dialog">
+    <div class="modal-content" style="padding:10px;border:none;">
+        <div class="modal-header" style="background:none;">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          
+        </div> 
+        <div class="modal-body">
+  <div class="content">
+				<div id="rg-gallery" class="rg-gallery">
+					
+						<div class="es-carousel-wrapper"><div class="rg-thumbs">
+							<div class="es-nav">
+								<span class="es-nav-prev">Previous</span>
+								<span class="es-nav-next">Next</span>
+							</div>
+							<div class="es-carousel">
+								<ul>
+									<li><a href="#"><img src="${baseurl}/images1/thumbs/1.jpg" data-large="${baseurl}/images1/1.jpg" alt="image01" /></a></li>
+									<li><a href="#"><img src="${baseurl}/images1/thumbs/2.jpg" data-large="${baseurl}/images1/2.jpg" alt="image02"  /></a></li>
+									<li><a href="#"><img src="${baseurl}/images1/thumbs/3.jpg" data-large="${baseurl}/images1/3.jpg" alt="image03"  /></a></li>
+									<li><a href="#"><img src="${baseurl}/images1/thumbs/4.jpg" data-large="${baseurl}/images1/4.jpg" alt="image04" /></a></li>
+									<li><a href="#"><img src="${baseurl}/images1/thumbs/5.jpg" data-large="${baseurl}/images1/5.jpg" alt="image05" /></a></li>
+									<li><a href="#"><img src="${baseurl}/images1/thumbs/6.jpg" data-large="${baseurl}/images1/6.jpg" alt="image06" /></a></li>
+									<li><a href="#"><img src="${baseurl}/images1/thumbs/7.jpg" data-large="${baseurl}/images1/7.jpg" alt="image07"  /></a></li>
+									<li><a href="#"><img src="${baseurl}/images1/thumbs/8.jpg" data-large="${baseurl}/images1/8.jpg" alt="image08" /></a></li>
+									</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div></div></div></div></div><div class="clearfix"></div>  --%>
+			<div class="clearfix"></div>
+<%-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#pop">Open Modal</button>
+<div class="modal fade" id="pop" role="dialog">
+    <div class="modal-dialog">
+    <div class="modal-content" style="padding:10px;border:none;">
+        <div class="modal-header" style="background:none;">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          
+        </div> 
+        <div class="modal-body">
+<div id="wowslider-container1">
+<div class="ws_images"><ul>
+		<c:forEach items="${fullProfilePhotosList}" var="photo" >
+			<li><img src="${catalina_base}/${photo.folder_name}/${photo.image_name}" alt="${photo.image_name}" title="package" id="wows1_0"/></li>
+		</c:forEach> --%>
+		<%-- <li><img src="${baseurl}/data1/images/package.jpg" alt="package" title="package" id="wows1_0"/></li>
+		<li><img src="${baseurl}/data1/images/aadhar_card_copy.jpg" alt="aadhar card copy" title="aadhar card copy" id="wows1_1"/></li>
+		<li><img src="${baseurl}/data1/images/blue_strip.jpg" alt="blue strip" title="blue strip" id="wows1_2"/></li>
+		<li><img src="${baseurl}/data1/images/tenali_m.jpg" alt="tenali m" title="tenali m" id="wows1_3"/></li>
+		<li><img src="${baseurl}/data1/images/tenali_m1.jpg" alt="tenali m1" title="tenali m1" id="wows1_4"/></li>
+		<li><a href="#"><img src="${baseurl}/data1/images/tenali.jpg" alt="css image gallery" title="TENALI" id="wows1_5"/></a></li>
+		<li><img src="${baseurl}/data1/images/pan_card.jpg" alt="pan card" title="pan card" id="wows1_6"/></li> --%>
+	<%-- </ul></div>
+	<div class="ws_thumbs">
+<div>
+		<c:forEach items="${fullProfilePhotosList}" var="photo" >
+			<a href="#" title="package"><img src="${catalina_base}/${photo.folder_name}/${photo.image_name}" alt="${photo.image_name}" /></a>
+		</c:forEach> --%>
+		<%-- <a href="#" title="package"><img src="${baseurl}/data1/tooltips/package.jpg" alt="" /></a>
+		<a href="#" title="aadhar card copy"><img src="${baseurl}/data1/tooltips/aadhar_card_copy.jpg" alt="" /></a>
+		<a href="#" title="blue strip"><img src="${baseurl}/data1/tooltips/blue_strip.jpg" alt="" /></a>
+		<a href="#" title="tenali m"><img src="${baseurl}/data1/tooltips/tenali_m.jpg" alt="" /></a>
+		<a href="#" title="tenali m1"><img src="${baseurl}/data1/tooltips/tenali_m1.jpg" alt="" /></a>
+		<a href="#" title="TENALI"><img src="${baseurl}/data1/tooltips/tenali.jpg" alt="" /></a>
+		<a href="#" title="pan card"><img src="${baseurl}/data1/tooltips/pan_card.jpg" alt="" /></a> --%>
+	<!-- </div>
+</div>
+<div class="ws_script" style="position:absolute;left:-99%"><a href="">html5 slideshow</a></div>
+<div class="ws_shadow"></div>
+</div>	</div></div> -->
+</div></div>
 <script type="text/javascript">
 /* var listOrders1 = ${shortlistedList};
 shortListData(listOrders1);
@@ -1578,7 +1739,7 @@ function addWaterMark(){
  $('.watermark_text').watermark({
 	  text: 'aarnamatrimony.com',
 	  textWidth: 700,
-	  textSize: 76,
+	  textSize: 46,
 	  textColor: 'white',
 	  gravity: 'n',
 	   opacity: 0.8,
@@ -2051,5 +2212,9 @@ else{
 </script> 
 
 
-
+</script>
+<script type="text/javascript" src="${baseurl}/engine1/wowslider.js"></script>
+<script type="text/javascript" src="${baseurl}/engine1/script.js"></script>
+<!-- End WOWSlider.com BODY section -->
 <%@ include file="userFooter.jsp"%>
+

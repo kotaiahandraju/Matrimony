@@ -44,6 +44,7 @@
 		</div>
 	</div>
 </div>
+
 <a href="#" class="scrollup" style="display: none;">Scroll</a>
 <!-- //footer -->
 <script src="${baseurl }/js/customValidation.js"></script>

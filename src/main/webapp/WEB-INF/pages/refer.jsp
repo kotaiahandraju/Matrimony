@@ -1,6 +1,7 @@
 <%@ include file="userCommonHeader.jsp"%>
 <!-- Start WOWSlider.com HEAD section -->
 <link rel="stylesheet" type="text/css" href="${baseurl}/engine1/style.css" />
+<link rel="stylesheet" type="text/css" href="${baseurl}/ncss/bootstrap-social.css" />
 <%-- <script type="text/javascript" src="${baseurl}/engine1/jquery.js"></script> --%>
 <!-- End WOWSlider.com HEAD section -->
 <style>
@@ -23,93 +24,87 @@ min-height: 20px;
 		-moz-box-shadow: 3px 4px 8px rgba(0, 0, 0, .21);
 		box-shadow: 3px 4px 8px rgba(0, 0, 0, .21);
 		border: solid 3px rgba(220, 220, 220, .37);}
+.refercode {
+		padding:5px;
+		border:1px solid #006699;
+		color:#000;
+		}
+		.btn-social>:first-child {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 32px;
+    line-height: 28px;
+    font-size: 1.6em;
+    text-align: center;
+    border-right: 1px solid rgba(0,0,0,0.2);
+}
+div#couponblock span.couponcode {
+    color: rgb(8, 174, 234);
+}
+#couponblock .couponcode {
+    border-color: rgb(8, 174, 234);
+}
+span.couponcode {
+    display: block;
+    clear: both;
+    text-transform: uppercase;
+    font-family: "Futura W01 Bold";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-appearance: none;
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1em;
+    padding: 10px;
+    border-radius: 8px;
+    width: 200px;
+    position: relative;
+    margin: 10px auto;
+    color: #08aeea;
+    background-color: #fff;
+    border: 1px dashed #54c8f1;
+}
+.btn-social {
+    position: relative;
+    padding-left: 44px;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 10px;
+    width: 170px;
+    margin-left: 25%;
+}
 </style>
 <div class="products">
-<img src="../nimages/help.jpg" class="container img-responsive" />
+<img src="../nimages/refer.png" style=" padding-top: 5px;" class="container img-responsive" />
 <div class="container" style="background: white; padding-top: 25px; padding-left:0px; padding-right:0px;">
 	<div class="container-fluid">
-		<div class="col-md-8" style="padding-left:0px;">
-		<div class="panel ">
-			<div class="panel-heading"><b><h5>Help</h5></b></div>
-			<div class="panel-body" style="min-height: 350px;">
-
-				<p align="justify">Aarna Matrimony is eager to help you find your partner at the
-				earliest. Our Customer Service team will be pleased to assist you
-				anytime you have a query. You can contact our Customer Service team
-				in one of the following ways.</p></br>
-				
-				
-				
-				<div class="col-md-6">
-				
-				<b>Our Office :</b><br>Door No 58-2-3/1,<br>
-Bagaiah Street,<br>
-Opposite Tanusri Hospital,<br> 
-Pantakalava Road,<Br>
-Benzcircle Vijayawada.<br> +91 8466999991 <br>Email:
-				<a href="" style="color:blue;">info@aarnamatrimony.com</a>
+		<div class="col-md-12" style="padding-left:0px;">
+		<p align="justify">Sign-up with your details - then Go to the Refer & Earn section and share your unique referral link with your friends
+Your friends would need to register successfully & you earn Rs 50/- for single registration (for new user).</p>
+<h5 align="center"><b>Share your link & earn more!</b></h5>
+<div class="col-md-4"></div><div class="col-md-3"><span class="refercode">http://www.aarnamatrimony.com/AM0123456</span></div>
 </div>
-
-
-<br>
-	<div class="col-md-6">
-<img  src="../nimages/secure.png" class="img-responsive newimg"/></div>
-
-
-
-
-
-
-</div></div>
-</div>
-<div class="col-md-4 cha"><h5>Leave Message</h5>
-         <form:form commandName="createProfile" action="#" method="post" class="login-form" style="min-height: 335px;">
-			<div class="clearfix" style="padding-bottom: 8px;"></div>
-			<div class="form-group">
-				<div class="input-group">
-					<span class="input-group-addon"><i class="fa fa-user"></i></span> <form:input
-						type="text" class="form-control validate notAllowFirstSpace"
-						path="leaveMsgUserName" placeholder="Name"></form:input>
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="input-group">
-					<span class="input-group-addon"><i class="fa fa-lock"></i></span> <form:input
-						type="email" class="form-control validate " 
-						path="leaveMsgMail" placeholder="eMail"></form:input> 
-				</div>
-						 <span class="hasError" id="emailError1" style="color: red;"></span>
-
-						</div>
-			<div class="form-group">
-				<div class="input-group">
-					<span class="input-group-addon"><i class="fa fa-lock"></i></span> <form:input
-						type="text" class="form-control validate numbersOnly"
-						 path="leaveMsgMobile" maxlength="10" placeholder="Mobile"></form:input>
-				</div>
-
-						</div>
-
-			<div class="form-group">
-				<form:textarea path="leaveMsgText" 
-					placeholder="Enter few words about you"
-					class="form-control validate notAllowFirstSpace" rows="2"></form:textarea>
-				<span id="errorMsg" style="color: red"></span>
-				<div></div>
-				<div class="clearfix" style="padding-bottom: 8px;"></div>
-
-				<div class="form-group">
-					<button  type="submit" id="submit2"
-						class="btn btn-primary pull-right" >Submit</button>
-				</div>
-				<div class="clearfix" style="padding-bottom: 3px;"></div>
-					</form:form>
-
-<div class="clearfix" style="padding-bottom:3px;"></div>
-		
-
-			
-		</div></div><div class="clearfix"></div>
+</div><div class="clearfix"></div><br>
+<div class="col-md-2"></div>
+<div class="col-md-2 col-sm-2"><a href="https://www.facebook.com/" target="_blank" class="btn btn-block btn-social btn-facebook">
+    <span class="fa fa-facebook"></span> Facebook
+  </a></div>
+<div class="col-md-2 col-sm-2"><a href="https://www.twitter.com/" target="_blank" class="btn btn-block btn-social btn-twitter">
+    <span class="fa fa-twitter"></span> Twitter
+  </a></div>
+  <div class="col-md-2 col-sm-2"><a href="https://www.whatsapp.com/" target="_blank" class="btn btn-block btn-social btn-whatsapp">
+    <span class="fa fa-whatsapp"></span>  Whatsapp
+  </a></div>
+  <div class="col-md-2 col-sm-2"><a href="https://www.google.com/" target="_blank" class="btn btn-block btn-social btn-google">
+    <span class="fa fa-google"></span>  Google
+  </a></div><div class="clearfix"></div>
+  <h5 align="center"><b>Your Promo Code</b></h5>
+  <center><span class="couponcode"><span id="couponcode1">FREESHIP</span></span></center>
 <!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#pop">Open Modal</button> -->
 <div class="modal fade" id="pop" role="dialog">
     <div class="modal-dialog">
@@ -148,7 +143,7 @@ Benzcircle Vijayawada.<br> +91 8466999991 <br>Email:
 <script type="text/javascript" src="${baseurl}/engine1/script.js"></script>
 <!-- End WOWSlider.com BODY section -->
 
-<<script type="text/javascript">
+<script type="text/javascript">
 
 var leaveMsgMail = $('#leaveMsgMail').val();
 	var expr = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|in|yahoo|edu|gov|mil|biz|info|mobi|name|aero|asia|jobs|museum)$/;

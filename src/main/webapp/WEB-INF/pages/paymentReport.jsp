@@ -104,7 +104,7 @@
 					</div>
 					<div class="box-content nopadding w3-animate-zoom table-responsive" id="tableId">
 						<table class="table table-hover table-nomargin table-bordereddataTable-column_filter" data-column_filter_types="text,null">
-							<thead><tr><th>Create Time</th><th>UserName</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Mobile</th><th>Age</th><th>Caste</th><th>Package</th><th>Occupation</th></tr>
+							<thead><tr><th>Created On</th><th>Username</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Mobile</th><th>Age</th><th>Caste</th><th>Package</th><th>Occupation</th></tr>
 							</thead>
 							<tbody></tbody>
 						</table>
