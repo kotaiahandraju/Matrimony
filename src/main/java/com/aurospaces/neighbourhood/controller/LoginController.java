@@ -2,6 +2,7 @@ package com.aurospaces.neighbourhood.controller;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -249,6 +250,10 @@ public class LoginController {
 //			objUserDetailsDao.save(objUsersBean);
 			session.setAttribute("cacheGuest", objUsersBean);
 //			response.sendRedirect("profile?gp=page_1");
+			Map<String,Object> user_settings = new HashMap<String,Object>();
+			user_settings.put("contact_filter","");
+			session.setAttribute("user_settings", user_settings);
+			
 			}
 			
 		} catch (Exception e) {
@@ -481,8 +486,10 @@ public class LoginController {
 			List<Map<String,Object>> paymentNotificationsList = objUsersDao.getAdminNotifications("payment",false);
 			if(paymentNotificationsList!=null && paymentNotificationsList.size()>0){
 				session.setAttribute("paymentNotificationsList", paymentNotificationsList);
+				session.setAttribute("paymentNotificationsList_size", paymentNotificationsList.size());
 			}else{
 				session.setAttribute("paymentNotificationsList", "");
+				session.setAttribute("paymentNotificationsList_size", "0");
 			}
 			return "redirect:admin/dashboard";
 		}else if(objUserBean.getRoleId() == 4){
@@ -511,8 +518,9 @@ public class LoginController {
 			filled_status += 15;
 			if(StringUtils.isBlank(objUserBean.getHeight()) ||
 					StringUtils.isBlank(objUserBean.getSmoking()) ||
-					StringUtils.isBlank(objUserBean.getDrinking()) ||
-					StringUtils.isBlank(objUserBean.getMobile())){
+					StringUtils.isBlank(objUserBean.getDrinking()) 
+					//|| StringUtils.isBlank(objUserBean.getMobile())
+					){
 				return "redirect:users/profile.htm?page=3";
 			}
 			filled_status += 15;

@@ -1538,6 +1538,13 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 								<form:options items="${countries}"></form:options>
 							</form:select>
 						</div>
+						
+						<div class="form-group">
+							<label for="">Mobile Number </label>
+							<form:input path="mobile" class="form-control numbersOnly"  onkeydown="removeBorder(this.id)" maxlength="10" placeholder="Mobile Number"/>
+							<span class="hasError" id="mobileError111" style="font-size: 13px;"></span>
+						</div>
+						
 						<div class="form-group">
 						<label for="" style="padding-left:0px;" class="col-md-9"><input type="checkbox" id="accept" checked="checked" /> I have agreed to the<a href="termsConditionsHomepage" style="color:#91fbd0;" target="_blank"> Terms and Condition</a> & have read & understood the <a href="privacyAndPolicyHomePage"  style="color:#91fbd0;" target="_blank">Privacy Policy</a></label>
 							<input type="button" id="secondButton" value="Sign Up"
@@ -2497,7 +2504,8 @@ $('img').bind('contextmenu', function(e) {
     				$('#dob').val() ==  null || $('#dob').val() == "" || $('#dob').val()=="undefined"  || 
     				$('#religion').val() ==  null || $('#religion').val() == "" || $('#religion').val()=="undefined" ||
     				$('#motherTongue').val() ==  null || $('#motherTongue').val() == "" || $('#motherTongue').val()=="undefined" ||
-    				$('#currentCountry').val() ==  null || $('#currentCountry').val() == "" || $('#currentCountry').val()=="undefined" )
+    				$('#currentCountry').val() ==  null || $('#currentCountry').val() == "" || $('#currentCountry').val()=="undefined" ||
+    				$('#mobile').val() ==  null || $('#mobile').val().trim() == "" || $('#mobile').val().trim()=="undefined" )
     			{
     				if($('#email').val() ==  null || $('#email').val() == "" || $('#email').val()=="undefined") 
     	    		{
@@ -2563,6 +2571,18 @@ $('img').bind('contextmenu', function(e) {
     					$('#currentCountry').addClass('your-class');
     					$('#currentCountry').css('color','red');
     				}
+    				if($('#mobile').val() ==  null || $('#mobile').val().trim() == "" || $('#mobile').val().trim()=="undefined" ) 
+    				{
+    					$("#mobile").css("border-color","#e73d4a");
+    					$("#mobile").attr("placeholder","Enter Mobile Number");
+    					$('#mobile').addClass('your-class');
+    					$('#mobile').css('color','red');
+    					$('#mobileError111').text("");
+    				}
+    				return false;
+    			}
+    			if($('#mobile').val().trim().length>0 && $('#mobile').val().trim().length<10){
+    				$('#mobileError111').text("Enter a valid mobile number.");
     				return false;
     			}
     			if(email != "" && !email.match(expr)){
@@ -2577,6 +2597,28 @@ $('img').bind('contextmenu', function(e) {
     	    		//alert("exist");
     	    		return false;
     	    	}
+    	    	
+    	    	
+    				//isMobileNumDuplicate();
+    				$('#mobileError111').text('');
+    				var formData = new FormData();
+    			    formData.append('mobile', $("#mobile").val());
+    			    formData.append('id', $("#id").val());
+    				$.fn.makeMultipartRequest('POST', 'mobileNumChecking', false,formData, false, 'text', function(data){
+    					var jsonobj = $.parseJSON(data);
+    					if(jsonobj.msg =="exist"){
+    						mobileExists = true;
+    						//error message write
+    						$('#mobileError111').text("Mobile number already in use. Please try another.");
+    						return false;
+    					}else{
+    						mobileExists = false;
+    						$('#mobileError111').text("");
+    						return true;
+    					}
+    				});
+    				
+    				//return true;
 //     	    	var validPwd = validatePassword();
 //     	    	if(!validPwd){
 //     	    		return false;

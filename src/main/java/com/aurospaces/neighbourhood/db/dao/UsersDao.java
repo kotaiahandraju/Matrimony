@@ -5513,7 +5513,7 @@ public boolean deletePhoto(String photoId){
 			}
 	}
 	
-	public boolean updateProfileFilledPercentage(String user_id,String percentage_val){
+	public boolean updateProfileFilledPercentage(String percentage_val, String user_id){
 		jdbcTemplate = custom.getJdbcTemplate();
 		String updateQry = " update users set profile_filled_percentage = '"+percentage_val+"'  where id = "+user_id;
 		try{

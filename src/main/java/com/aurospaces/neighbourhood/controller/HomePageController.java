@@ -284,7 +284,7 @@ public class HomePageController {
 					UsersBean sessionBean =(UsersBean)session.getAttribute("cacheGuest");
 				//get session bean values 
 				UsersBean  objUsersBean1 = objUsersDao.getById(sessionBean.getId());
-				objUsersBean1.setMobile(objUsersBean.getMobile());
+				//objUsersBean1.setMobile(objUsersBean.getMobile());
 				 if(objUsersBean != null){
 				 objeModel.addAttribute("createProfile", objUsersBean);
 				 }
