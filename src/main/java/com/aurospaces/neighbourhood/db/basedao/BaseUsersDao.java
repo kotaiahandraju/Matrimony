@@ -158,7 +158,10 @@ ps.setString(53, users.getReferred_by());
 						+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','"+new java.sql.Timestamp(new DateTime().getMillis())+"',"+users.getId()+",'1','0','1','1','anyone','1m'  ) "; 
 				jdbcTemplate.update(settings_insert);
 				// set opt status to 1 if it is created by admin
-				this.updateOtpStatus(users.getMobile(), "0", users.getId()+"");
+				if(StringUtils.isNotBlank(users.getRegisterwith()) && users.getRegisterwith().equalsIgnoreCase("admin")){
+					this.updateOtpStatus(users.getMobile(), "0", users.getId()+"");
+				}
+				
 		}
 		else
 		{
