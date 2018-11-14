@@ -360,7 +360,7 @@ function displayMatches(listOrders) {
 				+ '<div class="form-check">'
 
 				+ '	<label class="form-check-label"> <input type="checkbox" id="chkbox'+orderObj.id+'" class="form-check-input '+check_box_str+'" value="'+orderObj.id+'"> <a href="#" onclick="fullProfile('+orderObj.id+')">'+firstname+' '+lastname+'&nbsp;('+orderObj.username+')</a>&nbsp;'+premiumMember+'</label>'
-				+ '	<span class="pull-right">Created by '+orderObj.createProfileFor+'</span>'
+				+ '	<span class="pull-right">Created for '+orderObj.createProfileFor+'</span>'
 				//+ '	<label class="form-check-label"> <input type="checkbox" class="form-check-input"> '+orderObj.firstName+' '+orderObj.lastName+'</label>'
 // 				+ '	<span class="pull-right">Created by '+orderObj.createProfileFor+'</span>'
 
