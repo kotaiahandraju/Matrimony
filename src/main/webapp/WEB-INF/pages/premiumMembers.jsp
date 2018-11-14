@@ -520,19 +520,19 @@ function submitMore(option_str){
 	var page = 1;
 		var formData = new FormData();
 		
-		formData.append("rHeight", $("#rHeight").val());
+		/* formData.append("rHeight", $("#rHeight").val());
 		formData.append("rHeightTo", $("#rHeightTo").val());
 		
 		formData.append("rMaritalStatus", $(
 				"#rMaritalStatus").val());
 		formData.append("rReligion", $("#rReligion")
 				.val());
-		formData.append("rCaste", $("#rCaste").val());
+		//formData.append("rCaste", $("#rCaste").val());
 		formData.append("rMotherTongue", $(
 				"#rMotherTongue").val());
 		formData.append("rCountry", $("#rCountry")
 				.val());
-		formData.append("rState", $("#rState").val());
+		formData.append("rState", $("#rState").val()); */
 		
 		formData.append("page_no", page);
 		formData.append("request_from", "premium_members");

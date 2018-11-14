@@ -522,7 +522,7 @@ function submitMore(option_str){
 	var page = 1;
 		var formData = new FormData();
 		
-		formData.append("rHeight", $("#rHeight").val());
+		/* formData.append("rHeight", $("#rHeight").val());
 		formData.append("rHeightTo", $("#rHeightTo").val());
 		
 		formData.append("rMaritalStatus", $(
@@ -534,7 +534,7 @@ function submitMore(option_str){
 				"#rMotherTongue").val());
 		formData.append("rCountry", $("#rCountry")
 				.val());
-		formData.append("rState", $("#rState").val());
+		formData.append("rState", $("#rState").val()); */
 		
 		formData.append("page_no", page);
 		formData.append("request_from", "recently_viewed");
