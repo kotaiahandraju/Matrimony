@@ -5025,7 +5025,7 @@ public boolean deletePhoto(String photoId){
 			short_str = "emailVerify  mail";
 			emailVerifylink = baseurl+"/users/emailvarificationlink?email="+receiverBean.getEmail()+"&code="+receiverBean.getUnique_code();
 		}
-		else if(mail_type.equalsIgnoreCase("refer_friend")){
+		if(mail_type.equalsIgnoreCase("refer_friend")){
 			short_str = " Get unlimited matches ";
 			try{
 				
@@ -5038,18 +5038,20 @@ public boolean deletePhoto(String photoId){
 			}catch (Exception e) {
 				e.printStackTrace();
 			}
-		}
-		try{
-			
-			StringBuffer buffer = new StringBuffer(" insert into emails_data(sender_user_id,receiver_user_id,sender_email,sender_details,sender_display_name,receiver_display_name,sender_user_name,receiver_user_name,receiver_email,mail_content,status,type,full_profile_action_url,sender_image,receiver_password,shortstr,emailVerifylink,base_url,created_on) "
-								+ "	values("+senderBean.getId()+","+receiverBean.getId()+",'"+senderBean.getEmail()+"','"+sender_details.toString()+"','"+senderBean.getFirstName()+" "+senderBean.getLastName()+" ("+senderBean.getUsername()+")','"+receiverBean.getFirstName()+" "+receiverBean.getLastName()+" ("+receiverBean.getUsername()+")','"+senderBean.getUsername()+"','"+receiverBean.getUsername()+"','"+receiverBean.getEmail()+"','"+receiverBean.getMail_content()+"','0','"+mail_type+"','"+actionUrl+"','"+sender_image+"','"+receiver_password+"','"+short_str+"','"+emailVerifylink+"','"+baseurllink+"',current_timestamp())");
-			int inserted_count = jdbcTemplate.update(buffer.toString());
-			if(inserted_count==1){
-				return true;
+		}else{
+			try{
+				
+				StringBuffer buffer = new StringBuffer(" insert into emails_data(sender_user_id,receiver_user_id,sender_email,sender_details,sender_display_name,receiver_display_name,sender_user_name,receiver_user_name,receiver_email,mail_content,status,type,full_profile_action_url,sender_image,receiver_password,shortstr,emailVerifylink,base_url,created_on) "
+									+ "	values("+senderBean.getId()+","+receiverBean.getId()+",'"+senderBean.getEmail()+"','"+sender_details.toString()+"','"+senderBean.getFirstName()+" "+senderBean.getLastName()+" ("+senderBean.getUsername()+")','"+receiverBean.getFirstName()+" "+receiverBean.getLastName()+" ("+receiverBean.getUsername()+")','"+senderBean.getUsername()+"','"+receiverBean.getUsername()+"','"+receiverBean.getEmail()+"','"+receiverBean.getMail_content()+"','0','"+mail_type+"','"+actionUrl+"','"+sender_image+"','"+receiver_password+"','"+short_str+"','"+emailVerifylink+"','"+baseurllink+"',current_timestamp())");
+				int inserted_count = jdbcTemplate.update(buffer.toString());
+				if(inserted_count==1){
+					return true;
+				}
+			}catch (Exception e) {
+				e.printStackTrace();
 			}
-		}catch (Exception e) {
-			e.printStackTrace();
 		}
+		
 		return false;
 	}
 	
@@ -5058,7 +5060,8 @@ public boolean deletePhoto(String photoId){
 		List<Map<String,Object>> list = null;
 		try{
 			
-			String  qry = " select *,DATE_FORMAT(created_on, '%d-%M-%Y') as created_on from emails_data where status = '0' "; // 0 means yet to send email
+			String  qry = " select *,DATE_FORMAT(created_on, '%d-%M-%Y') as created_on from emails_data where status = '0' " // 0 means yet to send email
+					+ " and sender_user_id in (select u.id from users u where u.status = '1') "; 
 			list = jdbcTemplate.queryForList(qry);
 			return list;
 		}catch (Exception e) {
