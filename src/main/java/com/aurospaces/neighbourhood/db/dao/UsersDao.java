@@ -5061,7 +5061,7 @@ public boolean deletePhoto(String photoId){
 		try{
 			
 			String  qry = " select *,DATE_FORMAT(created_on, '%d-%M-%Y') as created_on from emails_data where status = '0' " // 0 means yet to send email
-					+ " and sender_user_id in (select u.id from users u where u.status = '1') "; 
+					+ " and (sender_user_id = 0 or sender_user_id in (select u.id from users u where u.status = '1' and u.role_id not in (1,3))) "; 
 			list = jdbcTemplate.queryForList(qry);
 			return list;
 		}catch (Exception e) {
