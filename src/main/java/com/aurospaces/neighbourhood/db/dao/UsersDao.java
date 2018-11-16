@@ -3965,9 +3965,18 @@ public boolean deletePhoto(String photoId){
 	public boolean updateOtpStatus(String mobileNum,String otp){
 		jdbcTemplate = custom.getJdbcTemplate();
 		UsersBean userSessionBean =  (UsersBean) session.getAttribute("cacheGuest");
-		String qryStr = "update user_otps set status='1', updated_time = '"+new java.sql.Timestamp(new DateTime().getMillis())+"' where mobile_no = "+mobileNum+" and user_id = "+userSessionBean.getId()+" and otp = "+otp+" and date(updated_time) = current_date() ";
+		long current_time = new DateTime().getMillis();
+		String qryStr = "update user_otps set status='1', updated_time = '"+new java.sql.Timestamp(current_time)+"' where mobile_no = "+mobileNum+" and user_id = "+userSessionBean.getId()+" and otp = "+otp+" and date(updated_time) = current_date() ";
 		try{
 			int updated_count = jdbcTemplate.update(qryStr);
+			// client requirement: update first time otp verified time as the profile created time 
+			// first check if the user is getting verified for the first time OR getting verified bcz he changed his mobile number
+			// in the first case -- update profile created time
+			qryStr = " select count(*) from  user_otps where user_id = "+userSessionBean.getId()+" and status = '1' ";
+			int already_verified_count = jdbcTemplate.queryForInt(qryStr);
+			if(already_verified_count==0){
+				jdbcTemplate.update(" update users set created_time =  '"+new java.sql.Timestamp(current_time)+"' where id = "+userSessionBean.getId());
+			}
 			if(updated_count==1)
 				return true;
 			
