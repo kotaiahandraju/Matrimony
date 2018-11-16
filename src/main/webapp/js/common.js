@@ -254,27 +254,99 @@ function getFilteredStatesMultiSelect(id){
 		$("#"+id).select2({
 		    placeholder: "-- Choose Country --"
 		});
-		
+		$("#rState").empty();
+		$("#rState").select2({
+    	    placeholder: "-- Choose State --"
+    	});
+		$("#rState").trigger('change.select2');
 	}else{
 		var countryIds =$("#"+id).val();
 		var formData = new FormData();
 	     formData.append('country_ids', countryIds);
+	     
 	    $.fn.makeMultipartRequest('POST', 'getFilteredStates', false,
 				formData, false, 'text', function(data){
 			var jsonobj = $.parseJSON(data);
 			var statesList = jsonobj.states_list;
          $("#rState").empty();
-			$("#rState").append("<option value='' >-- Choose State --</option>");
+			//$("#rState").append("<option value='' >-- Choose State --</option>");
 			
 			$.each(statesList, function(i, state) {
 				$("#rState").append("<option value="+state.id+" >"+ state.name+"</option>");
 			});
+			$("#rState").trigger('change.select2');
+			var selected_values = "${partnerProfile.rState}";
+		    if(selected_values == "" || selected_values==null){
+		    	$("#rState").select2({
+		    	    placeholder: "-- Choose State --"
+		    	});
+		    }else{
+		    	
+		        $("#rState").val(selected_values.split(","));
+		    }
+		    $("#rState").trigger('change.select2');
 			
 		});
 		
 	}
 }
 
+   
+function getFilteredCitiesMultiSelect(id) {
+	if ($("#" + id).val() == null || $('#' + id).val() == ""
+			|| $('#' + id).val() == "undefined") {
+		$("#" + id).select2({
+			placeholder : "-- Choose State --"
+		});
+		$("#rCity").empty();
+		$("#rCity").select2({
+    	    placeholder: "-- Choose City --"
+    	});
+		/* $("#rState").select2({
+			placeholder : "-- Choose State --"
+		}); */
+	} else {
+		var stateIds = $("#" + id).val();
+		var formData = new FormData();
+		formData.append('state_ids', stateIds);
+		$.fn
+				.makeMultipartRequest(
+						'POST',
+						'getFilteredCities',
+						false,
+						formData,
+						false,
+						'text',
+						function(data) {
+							var jsonobj = $.parseJSON(data);
+							var citiesList = jsonobj.city_list;
+							$("#rCity").empty();
+							/* $("#rState")
+									.append(
+											"<option value='' >-- Choose State --</option>"); */
+
+							$.each(citiesList,
+									function(i, city) {
+										$("#rCity").append(
+												"<option value="+city.id+" >"
+														+ city.name
+														+ "</option>");
+									});
+							$("#rCity").trigger('change.select2');
+							var selected_values = "${partnerProfile.rCity}";
+						    if(selected_values == "" || selected_values==null){
+						    	$("#rCity").select2({
+						    	    placeholder: "-- Choose City --"
+						    	});
+						    }else{
+						    	
+						        $("#rCity").val(selected_values.split(","));
+						    }
+						    $("#rCity").trigger('change.select2');
+						});
+
+	}
+}
 
 function getCitys(id){
 	

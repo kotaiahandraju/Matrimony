@@ -633,7 +633,7 @@ $( document ).ready(function() {
 				+				"<td>:</td><td colspan='4'>"+rAnnualIncome+"</td>"
 				+			"</tr>"
 				+			"<tr>"
-				+				"<td><b>Profile Created by</b></td>"
+				+				"<td><b>Profile Created for</b></td>"
 				+				"<td>:</td><td>"+rCreateProfileFor+"</td>"
 				+				"<td><b>Diet</b></td>"
 				+				"<td>:</td><td>"+rDiet+"</td>"

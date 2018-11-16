@@ -39,4 +39,7 @@ public class MatrimonyConstants {
 	public static final int OTP_LIMIT = 5;
 	
 	public static final int ABOUT_MY_SELF_MIN_LENGTH_TO_DISPLAY = 40;
+	
+	public static final int REFERRED_MEMBERS_COUNT = 3;
+	public static final int CONCESSION_PRECENTAGE = 10;
 }

@@ -284,7 +284,7 @@ public class HomePageController {
 					UsersBean sessionBean =(UsersBean)session.getAttribute("cacheGuest");
 				//get session bean values 
 				UsersBean  objUsersBean1 = objUsersDao.getById(sessionBean.getId());
-				objUsersBean1.setMobile(objUsersBean.getMobile());
+				//objUsersBean1.setMobile(objUsersBean.getMobile());
 				 if(objUsersBean != null){
 				 objeModel.addAttribute("createProfile", objUsersBean);
 				 }
@@ -368,6 +368,7 @@ public class HomePageController {
 							newSessionBean.setViewedNotContactedCount(sessionBean.getViewedNotContactedCount());
 			
 				 int filled_status = objUsersDao.getProfileFilledStatus(newSessionBean);
+				 objUsersDao.updateProfileFilledPercentage((45+filled_status)+"",newSessionBean.getId()+"");
 				 //int filled_status = (Integer)session.getAttribute("profile_filled_status");
 				 /*if(StringUtils.isBlank(sessionBean.getAboutMyself()) && StringUtils.isNotBlank(newSessionBean.getAboutMyself())){
 					 filled_status += 10;
@@ -445,6 +446,7 @@ public class HomePageController {
 			 objUsersDao.save(objUsersBean1);
 			 UsersBean newBean = objUsersDao.loginChecking(objUsersBean1.getId());
 			 int filled_status = objUsersDao.getProfileFilledStatus(newBean);
+			 objUsersDao.updateProfileFilledPercentage((45+filled_status)+"",newBean.getId()+"");
 			 session.setAttribute("profile_filled_status", 45+filled_status);
 			 /*int filled_status = (Integer)session.getAttribute("profile_filled_status");
 			 int new_filled_status = getFamilyDetailsFilledStatus(filled_status,sessionBean,newBean);
@@ -624,6 +626,7 @@ public class HomePageController {
 						    	objUserImageUploadDao.save(objUerImagesBean);
 						    	UsersBean newBean = objUsersDao.loginChecking(sessionBean.getId());
 						    	int filled_status = objUsersDao.getProfileFilledStatus(newBean);
+						    	objUsersDao.updateProfileFilledPercentage((45+filled_status)+"",newBean.getId()+"");
 								session.setAttribute("profile_filled_status", 45+filled_status);
 						    	/*int filled_status = (Integer)session.getAttribute("profile_filled_status");
 								 if(StringUtils.isBlank(sessionBean.getImage()) && StringUtils.isNotBlank(newBean.getImage())){
@@ -745,6 +748,7 @@ public class HomePageController {
 						    	objUserImageUploadDao.save(objUerImagesBean);
 						    	UsersBean newBean = objUsersDao.loginChecking(sessionBean.getId());
 						    	int filled_status = objUsersDao.getProfileFilledStatus(newBean);
+						    	objUsersDao.updateProfileFilledPercentage((45+filled_status)+"",newBean.getId()+"");
 								session.setAttribute("profile_filled_status", 45+filled_status);
 						    	/*int filled_status = (Integer)session.getAttribute("profile_filled_status");
 								 if(StringUtils.isBlank(sessionBean.getImage()) && StringUtils.isNotBlank(newBean.getImage())){
@@ -2558,6 +2562,7 @@ String sJson="";
 			//String packId = request.getParameter("package_id"); commented temporarily
 			String packId = "6";
 			int price = objUsersDao.getPackagePriceById(Integer.parseInt(packId));
+			price = objUsersDao.getPriceAfterConcession(packId,price,userId+"");
 			session.setAttribute("packageId", packId);
 			JavaIntegrationKit integrationKit = new JavaIntegrationKit();
 	        Map<String, String> values = integrationKit.hashCalMethod(request, response, price);
@@ -4689,6 +4694,7 @@ String sJson="";
 				newSessionBean.setViewedNotContactedCount(userSessionBean.getViewedNotContactedCount());
 				
 				int filled_status = objUsersDao.getProfileFilledStatus(newSessionBean);
+				objUsersDao.updateProfileFilledPercentage((45+filled_status)+"",newSessionBean.getId()+"");
 				 session.setAttribute("profile_filled_status", 45+filled_status);
 				 session.setAttribute("cacheGuest",newSessionBean);//newSessionBean now holds the modified data also
 			}
@@ -5450,7 +5456,7 @@ String sJson="";
 			UsersBean objuserBean = (UsersBean) session.getAttribute("cacheGuest");
 			if(objuserBean != null ){
 				if(objuserBean.getEmailverify().equals("0")){
-					 EmailUtil emailUtil = new EmailUtil();
+					 //EmailUtil emailUtil = new EmailUtil();
 					 // email to user email verification link
 //						 response = emailUtil.emailVerify(objuserBean, objContext,request);
 						 String baseurl =  request.getScheme() + "://" + request.getServerName() +      ":" +   request.getServerPort() +  request.getContextPath();

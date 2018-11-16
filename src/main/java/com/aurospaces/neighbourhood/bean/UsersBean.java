@@ -114,7 +114,7 @@ protected String unique_code,emailverify,profileVerifyedBy;
 protected String rEducationName,rOccupationName,rCountryName,rStateName,rHeightInches,rHeightToInches,religionId,castId;
 protected int message_sent_status;
 protected String  rCity,rCityName,country,state ,city,leaveMsgUserName,leaveMsgMail,leaveMsgMobile,leaveMsgText; 
-
+protected String  referred_by;
 
 
 public String getLeaveMsgUserName() {
@@ -1151,6 +1151,12 @@ public int getShortlisted() {
 }
 public void setShortlisted(int shortlisted) {
 	this.shortlisted = shortlisted;
+}
+public String getReferred_by() {
+	return referred_by;
+}
+public void setReferred_by(String referred_by) {
+	this.referred_by = referred_by;
 }
 
 
