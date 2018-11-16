@@ -105,10 +105,12 @@ function populateBrothersMarried() {
 	var val = $("#noOfBrothers").val();
 
 	if (val == 'None') {
+		$("#noOfBrotherMarri").hide();
 		$("#noOfBrothersMarried").val("");
 		$('#noOfBrothersMarried')
 				.attr("disabled", true);
 	} else {
+		$("#noOfBrotherMarri").show();
 		$('#noOfBrothersMarried').find('option').not(
 				':first').remove();
 		$("#noOfBrothersMarried").append(
@@ -126,10 +128,12 @@ function populateSistersMarried() {
 	var val = $("#noOfSisters").val();
 
 	if (val == 'None') {
+		$("#noOfSisterMarri").hide();
 		$("#noOfSistersMarried").val("");
 		$('#noOfSistersMarried')
 				.attr("disabled", true);
 	} else {
+		$("#noOfSisterMarri").show();
 		$('#noOfSistersMarried').find('option').not(
 				':first').remove();
 		$("#noOfSistersMarried").append(
@@ -163,10 +167,12 @@ function populateSistersMarried() {
 							var val = $(this).val();
 
 							if (val == 'None') {
+								$("#noOfBrotherMarri").hide();
 								$("#noOfBrothersMarried").val("");
 								$('#noOfBrothersMarried')
 										.attr("disabled", true);
 							} else {
+								$("#noOfBrotherMarri").show();
 								$('#noOfBrothersMarried').find('option').not(
 										':first').remove();
 								$("#noOfBrothersMarried").append(
@@ -191,10 +197,12 @@ function populateSistersMarried() {
 									var val = $(this).val();
 
 									if (val == 'None') {
+										$("#noOfSisterMarri").hide();
 										$("#noOfSistersMarried").val("");
 										$('#noOfSistersMarried').attr(
 												"disabled", true);
 									} else {
+										$("#noOfSisterMarri").show();
 										$('#noOfSistersMarried').find('option')
 												.not(':first').remove();
 										$("#noOfSistersMarried").append(
