@@ -55,9 +55,9 @@
 									    		$("#yet_to_count").html(all_counts.yetToBeViewedCount);
 									    		$("#viewed_not_contacted_count").html(all_counts.viewedNotContactedCount);
 									    		$("#messages_count").html(all_counts.pendingRequestsCount);
-									    		$("#pend_req_count").html(all_counts.pendingRequestsCount);
+									    		$(".pend_req_count_class").html(all_counts.pendingRequestsCount);
 									    		$("#notifications_count").html(all_counts.notificationsCount);
-									    		$("#inbox_count").html(all_counts.pendingRequestsCount);
+									    		//$("#inbox_count").html(all_counts.pendingRequestsCount);
 											});
 						
 							     }, 1000);  // autorefresh the content of the div after
@@ -1442,7 +1442,7 @@ text-align:center;
 						var reply_content = "";
 						var received_msg_str = "";
 						var login_user_id = ${cacheGuest.id};
-						
+						var replyDivStr = '', idStr = '';
 						if(typeof recent_activity != "undefined"){
 							if(recent_activity.activity_type=="interest_request"){
 								if(login_user_id==recent_activity.act_done_by_user_id){
@@ -1456,6 +1456,7 @@ text-align:center;
 									act_short_str = "Interest Request Received";
 									activity_str = opp_gender_str +" sent an interest request to you. Would you like to take it further?" ;
 									//acceptOptions = '<span id="mail'+orderObj.id+'"><a type="button" class="btn btn-primary btn-sm" id="sendMail'+orderObj.requestId+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')">Send Mail</a></span>';
+									idStr = "id=\"profileBlock"+recent_activity.id+"\"";
 								}
 									
 							}
@@ -1511,6 +1512,7 @@ text-align:center;
 										received_msg_str = received_msg_str.replace(/##tabspace##/g," ")+".";
 									}
 									acceptOptions = "<span id='accept"+recent_activity.id+"'><a type='button' class='btn btn-primary btn-sm' onclick='acceptMessage("+recent_activity.id+",\"1\")'>Yes</a><a type='button' class='btn btn-danger btn-sm' id='reject"+recent_activity.id+"' href='#' onclick='acceptMessage("+recent_activity.id+", \"0\")'>Not Interested</a></span>";
+									idStr = "id=\"profileBlock"+recent_activity.id+"\"";
 								}
 								
 							}
@@ -1530,6 +1532,17 @@ text-align:center;
 									activity_str = opp_gender_str+" accepted your message";
 									acceptOptions = '<span id="mail'+orderObj.id+'"><a type="button" class="btn btn-primary btn-sm" id="sendMail'+recent_activity.id+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')">Send Mail</a></span>';
 								}
+								
+								replyDivStr = '<div class="panel panel-success" id="'+recent_activity.id+'myDIV"  style="display:none">'
+								+ '<div class="panel-heading">Reply To This Message </div>'
+		  						+ '<div class="panel-body">'
+									//+ '<textarea id="replyContent" style="width:100%; height:150px; overflow-y:scroll;" >'+reply_content
+								+ '<textarea id="replyContent'+recent_activity.id+'" style="width:100%; height:150px; overflow-y:scroll;" >'+reply_content
+								+ '</textarea>'
+								+  ' <br><button type="button" class="btn btn-warning pull-right " onclick="replyMessage('+recent_activity.id+')">Reply</button>'
+								+ '</div> '
+								+'</div>'
+								+'</div>';
 							}
 							if(recent_activity.activity_type=="message_rejected"){
 								act_short_str = "Message Rejected";
@@ -1593,7 +1606,7 @@ text-align:center;
 							profile_highlisht_str = '<div class="panel panel-default" style="    background: url(../nimages/newbackground.png); padding-top:5px;">';
 						}
 						var tblRow = profile_highlisht_str
-							+ '<div class="panel-body">'
+							+ '<div class="panel-body" '+idStr+'>'
 							+ '<div class="col-md-2" >'
 							//+ ' <div class="smallSlides" style="display:block"> '
 							//+ '		<a href="#no"> <img src='+image+' class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: 60px;width: 60px;" ></a>'
@@ -1627,16 +1640,8 @@ text-align:center;
 			            	//+ '<tr><td><button type="button" class="btn btn-danger btn-sm" id="sendMail'+orderObj.requestId+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')" style="display:none">Send Mail</button></td></tr>'
 			            	+ '</table>'
 			            	+ '<!-- Reply start -->'
-			            	+ '<div class="panel panel-success" id="'+recent_activity.id+'myDIV"  style="display:none">'
-							+ '<div class="panel-heading">Reply To This Message </div>'
-      						+ '<div class="panel-body">'
- 							+ '<textarea id="replyContent" style="width:100%; height:150px; overflow-y:scroll;" >'+reply_content
-							+ '</textarea>'
-							+  ' <br><button type="button" class="btn btn-warning pull-right " onclick="replyMessage('+recent_activity.id+')">Reply</button>'
-							+ '</div>'
-							+'</div>'
+			            	+ replyDivStr
 							+'<!-- Reply End -->'
-			            	+ '</div>'
 			            	+ '</div>'
 			            	+ '</div>';
 					$(tblRow).appendTo("#"+divId);
@@ -2169,6 +2174,7 @@ text-align:center;
 			    		var msg = jsonobj.message;
 			    		
 			    			if("success"==msg){
+			    				displayFilterRequestsBlock();
 			    				if(flag==1){
 			    					alert("Request accepted successfully");
 			    					$("#accept"+requestId).html('');
@@ -2178,6 +2184,8 @@ text-align:center;
 			    					$("#accept"+requestId).html('');
 			    					$("#accept"+requestId).html("<a type='button' class='btn btn-danger btn-sm' disabled='true' >Ignored</a>");
 			    				}
+			    				$("#pend_req_count_span").html("${cacheGuest.pendingRequestsCount}");
+			    				$(".pend_req_count_class").html("${cacheGuest.pendingRequestsCount}");
 			    			}else if("failed"==msg || "exception"==msg){
 			    				alert("Some problem occured. Please try again.");
 			    			}
@@ -2214,8 +2222,8 @@ text-align:center;
 						formData, false, 'text', function(data){
 			    		var jsonobj = $.parseJSON(data);
 			    		var msg = jsonobj.message;
-			    		
 			    			if("success"==msg){
+			    				displayFilterRequestsBlock();
 			    				if(flag==1){
 			    					alert("Message accepted successfully");
 			    					$("#accept"+requestId).html('');
@@ -2225,6 +2233,8 @@ text-align:center;
 			    					$("#accept"+requestId).html('');
 			    					$("#accept"+requestId).html("<a type='button' class='btn btn-danger btn-sm' disabled='true' >Ignored</a>");
 			    				}
+			    				$("#pend_req_count_span").html("${cacheGuest.pendingRequestsCount}");
+			    				$(".pend_req_count_class").html("${cacheGuest.pendingRequestsCount}");
 			    			}else if("failed"==msg || "exception"==msg){
 			    				alert("Some problem occured. Please try again.");
 			    			}
@@ -2268,7 +2278,7 @@ text-align:center;
 				texttt = texttt.replace(/##tabspace##/g,"\t");
 				$("#replyArea").val(texttt);
 				$("#replyArea").removeAttr("hidden"); */ 
-				var message_content = $("#replyContent").val();
+				var message_content = $("#replyContent"+requestId).val();
 				//alert("message_content:"+message_content);
 				var reply_content = message_content.split("---Original message---")[0];
 				var formData = new FormData();
@@ -3883,9 +3893,9 @@ img.hover-shadow {
 								</ul>
 							</li>
 							<li class="dropdown messages">
-								<a href="#no" class="dropdown-toggle" data-toggle="dropdown">Messages <span class="matchcount" id="pend_req_count">${cacheGuest.pendingRequestsCount}</span></a>
+								<a href="#no" class="dropdown-toggle" data-toggle="dropdown">Messages <span class="matchcount pend_req_count_class" id="pend_req_count">${cacheGuest.pendingRequestsCount}</span></a>
 								<ul class="dropdown-menu">
-									<li><a href="inboxAction?tab_type=inbox&list_type=pending_requests">Inbox - Pending ${cacheGuest.pendingRequestsCount}</a></li>
+									<li><a href="inboxAction?tab_type=inbox&list_type=pending_requests">Inbox - Pending <span class="pend_req_count_class">${cacheGuest.pendingRequestsCount}</span></a></li>
 									<li><a href="inboxAction?tab_type=inbox&list_type=accepted_requests" >Inbox - Accepted </a></li>
 									<li><a href="inboxAction?tab_type=sent&list_type=sent_requests" >Sent All</a></li>
 									<!-- <li><a href="#no">SMS received/sent</a></li> -->
