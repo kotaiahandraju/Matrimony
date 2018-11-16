@@ -120,10 +120,11 @@
 			<div class="col-sm-12">
 				<div class="box">
 					<div class="box-title">
-						<h3><i class="fa fa-table"></i> </h3>
+						<h3><i class="fa fa-table"></i> Reports</h3>
 					</div>
 					<div class="box-content nopadding w3-animate-zoom table-responsive" id="tableId">
-						<table class="table table-hover table-nomargin table-bordereddataTable-column_filter" data-column_filter_types="text,null">
+<!-- 						<table class="table table-hover table-nomargin table-bordered dataTable-column_filter" data-column_filter_types="text,null"> -->
+							<table class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,text,text,text,text,null">
 							<thead><tr><th>UserName</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Mobile</th><th>Age</th><th>Caste</th><th>Package</th><th>Occupation</th></tr>
 							</thead>
 							<tbody></tbody>
@@ -160,7 +161,7 @@ if (listOrders1 != "") {
 function displayTable(listOrders) {
 	$('#tableId').html('');
 	var tableHead = '<table class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,text,text,text,text,null">'
-		+ '<thead><tr><th>Created On</th><th>Username</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Mobile</th><th>Age</th><th>Caste</th><th>Occupation</th><th>Package</th></tr></thead><tbody></tbody></table>';
+		+ '<thead><tr><th>Created On</th><th>Username</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Mobile</th><th>Age</th><th>Caste</th><th>Occupation</th><th>Package</th><th></th></tr></thead><tbody></tbody></table>';
 	$('#tableId').html(tableHead);
 	serviceUnitArray = {};
 	$.each(listOrders,function(i, orderObj) {
@@ -256,7 +257,10 @@ function SearchReport()
 	var occupation = $("#occupation").val();
 	var fromdate = $("#fromdate").val();
 	var todate = $("#todate").val();
-	
+	if(packages == "" && caste=="" && fromdate=="" && todate=="" ){
+		alert("Enter any input");
+		return false;
+	}
 		var formData = new FormData();
 	    formData.append('packages', packages);
 	    formData.append('caste', caste);

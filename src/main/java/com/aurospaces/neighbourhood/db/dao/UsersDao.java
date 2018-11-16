@@ -223,7 +223,7 @@ public class UsersDao extends BaseUsersDao
 			return result;*/
 			buffer.append("select u.id,sta.name as currentStateName,cit.name as currentCityName,u.occupation,oc.name as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username,AES_DECRYPT( u.password,'mykey') as password, u.email, u.createProfileFor,u.gender, "
 					+"u.firstName, u.lastName, u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName, u.currentCountry,co.name as currentCountryName, " 
-					+"u.currentState, u.currentCity, " 
+					+"u.currentState, u.currentCity,u.fatherName,u.motherName,u.noOfBrothers,u.noOfSisters,u.noOfBrothersMarried,u.noOfSistersMarried," 
 					+"u.maritalStatus, u.caste,c.name as casteName, u.gotram, u.star,s.name as starName, u.dosam, u.dosamName, u.education, u.workingWith, u.companyName, " 
 					+"u.annualIncome, u.monthlyIncome, u.diet, u.smoking, u.drinking, u.height ,h.inches,h.cm, u.bodyType,b.name as bodyTypeName, u.complexion,com.name as complexionName, u.mobile, " 
 					+"u.aboutMyself, u.disability, u.status, u.showall,ur.userId, rAgeFrom, rAgeTo, "
@@ -231,8 +231,10 @@ public class UsersDao extends BaseUsersDao
 					+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,floor((datediff(current_date(),u.dob))/365) as age, IFNULL(p.name, 'Free Register') as planPackage,u.profileVerifyedBy, "
 					+" (select h.inches from height h where h.id = (select ur.rHeight from vuserrequirement ur where ur.userId = u.id)) as rHeightInches, "
 					+" (select h.inches from height h where h.id = (select ur.rHeightTo from vuserrequirement ur where ur.userId = u.id)) as rHeightToInches ,u.package_id,"
-					+ " DATE_FORMAT(u.created_time, '%d-%M-%Y') as created_time_str "
-					+"from users u left join userrequirement ur on u.id=ur.userId "
+					+ " DATE_FORMAT(u.created_time, '%d-%M-%Y') as created_time_str, "
+					+ " (select name from occupation where id = u.fOccupation) as fOccupation,"
+				    + " (select name from occupation where id = u.mOccupation) as mOccupation"
+					+" from users u left join userrequirement ur on u.id=ur.userId "
 					+"left join religion re on re.id=u.religion left join language l on l.id=u.motherTongue left join countries co on co.id=u.currentCountry "
 					+"left join cast c on c.id=u.caste left join star s on s.id =u.star left join height h on h.id=u.height left join body_type b on b.id=u.bodyType left join religion re1  on re1.id=rReligion "
 					+"left join complexion com on com.id =u.complexion left join cast c1 on c1.id=rCaste left join language l1 on l1.id=rMotherTongue "
@@ -303,7 +305,7 @@ public class UsersDao extends BaseUsersDao
 								
 								RowValueCallbackHandler handler = new RowValueCallbackHandler(new String[] {"id","currentStateName","currentCityName","occupation","occupationName","educationName","userrequirementId","image","created_time","updated_time",
 										"role_id","username","password","email","createProfileFor","gender","firstName","lastName","dob","religion","religionName","motherTongue","motherTongueName","currentCountry","currentCountryName",
-										"currentState","currentCity","maritalStatus",
+										"currentState","currentCity","fatherName","motherName","fOccupation","mOccupation","noOfBrothers","noOfSisters","noOfBrothersMarried","noOfSistersMarried","maritalStatus",
 										"caste","casteName","gotram","star","starName","dosam","dosamName","education","workingWith","companyName","annualIncome",
 										"monthlyIncome","diet","smoking","drinking","height","inches","cm",
 										"bodyType","bodyTypeName","complexion","complexionName","mobile","aboutMyself","disability",
@@ -313,7 +315,8 @@ public class UsersDao extends BaseUsersDao
 								List<Map<String, String>> result = handler.getResult();
 								return result;
 			/*}
-			return new LinkedList<Map<String, String>>();*/
+			return new LinkedList<Map<
+			String, String>>();*/
 			
 		}
 	 /*public List<Map<String, String>> getProfilesFilteredByCast(String castValues){
@@ -4539,7 +4542,7 @@ public boolean deletePhoto(String photoId){
 				+"u.annualIncome, u.monthlyIncome, u.diet, u.smoking, u.drinking, u.height ,h.inches,h.cm, u.bodyType,b.name as bodyTypeName, u.complexion,com.name as complexionName, ifnull(u.mobile,'---') as mobile, " 
 				+"u.aboutMyself, u.disability, u.status, u.showall,ur.userId, rAgeFrom, rAgeTo, "
 				+"rHeight, rMaritalStatus, rReligion,re1.name as requiredReligionName, rCaste,c1.name as requiredCasteName, rMotherTongue,l1.name as requiredMotherTongue,haveChildren,rCountry , con1.name as requiredCountry,rState,rEducation,e1.name as requiredEducationName, "
-				+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,floor((datediff(current_date(),u.dob))/365) as age, IFNULL(p.name, 'Free Register') as planPackage,p.price as price from users u left join userrequirement ur on u.id=ur.userId "
+				+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,floor((datediff(current_date(),u.dob))/365) as age, IFNULL(p.name, 'Free Register') as planPackage,p.price as price, DATE_FORMAT(u.created_time, '%d-%M-%Y') as created_time_str from users u left join userrequirement ur on u.id=ur.userId "
 				+"left join religion re on re.id=u.religion left join language l on l.id=u.motherTongue left join countries co on co.id=u.currentCountry "
 				+"left join cast c on c.id=u.caste left join star s on s.id =u.star left join height h on h.id=u.height left join body_type b on b.id=u.bodyType left join religion re1  on re1.id=rReligion "
 				+"left join complexion com on com.id =u.complexion left join cast c1 on c1.id=rCaste left join language l1 on l1.id=rMotherTongue "

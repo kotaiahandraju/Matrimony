@@ -605,6 +605,9 @@ text-align:center;
 			var roleId = ${cacheGuest.roleId};
 			$("#id").val(profile_id);
 			var profileObj = serviceUnitArray[profile_id];
+			$("#expressModalName").html("");
+			var expIntUserName=profileObj.firstName+" "+profileObj.lastName+""+"("+profileObj.username+")";
+			$("#expressModalName").html(expIntUserName);
 			if(typeof profileObj == "undefined"){
 				profileObj = serviceUnitArray2[profile_id];
 			}
@@ -638,6 +641,7 @@ text-align:center;
 			    			if("success"==msg){
 			    				$("#expInterest"+profile_id).html('<a type="button" class="btn btn-blue btn-sm" disabled="true">Expressed Interest</a>');
 // 			    				alert("Interest request has been sent successfully");
+								$("#sendMailexpressModal").attr("onclick","displayMailPopup(profile_id,'"+expIntUserName+"')");
 			    				$('#expressModal').show();
 			    				$('#expressModal').modal();
 			    				//$("#expInterest"+profile_id).html('You Expressed Interest');
@@ -3998,10 +4002,10 @@ img.hover-shadow {
 							<%@ include file="sample.jsp" %>
 							</div> --%>
 							</a></li>
-							<li><a href="refer" >Refer & Earn <%-- <div id="load_me">
+							<%-- <li><a href="refer" >Refer & Earn <div id="load_me">
 							<%@ include file="sample.jsp" %>
-							</div> --%>
-							</a></li>
+							</div>
+							</a></li> --%>
 							<c:if test="${cacheGuest.roleId == '4' || cacheGuest.membership_status == '0'}">
 							<li><a class="upgradeOption animated flash infinite" href="memberShipPage" style="font-size: 18px; font-weight: bold; color: #fff;">Upgrade</a></li>
 							</c:if>
@@ -4090,12 +4094,12 @@ img.hover-shadow {
         </div>
         <div class="modal-body" style="background: transparent;">
        
-       <p><b>Interest request has been sent successfully to ******** (AM123456545)</b></p>
+       <p><b>Interest request has been sent successfully to <span id="expressModalName"></span></b></p>
          	</div>
          	<br><div class="clearfix"></div>
           	
         <div class="modal-footer">
-          <span type="button" id="sendMailBtn" onclick="sendMail()" class="btn btn-danger " style="  " >Send Mail</span>
+          <a type="button" id="sendMailexpressModal" class="btn btn-danger" onclick="sendMailexpressModalClose();">Send Mail</a>
         </div>
       </div>
       
@@ -4269,6 +4273,13 @@ img.hover-shadow {
 
 <!-- body starts here-->
 <script>
+$( document).ready(function() {
+$("#sendMailExpressModal").click(function(){
+	$('#expressModal').hide();
+	$('#expressModal').modal();
+  });
+});
+
 function myFunction1(id) {
     var x = document.getElementById("myDIV");
     var replay = document.getElementById("replay");
