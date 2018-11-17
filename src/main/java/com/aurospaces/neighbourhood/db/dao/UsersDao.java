@@ -292,7 +292,7 @@ public class UsersDao extends BaseUsersDao
 								}
 								UsersBean objuserBean = (UsersBean) session.getAttribute("cacheUserBean");
 								if(objuserBean.getRoleId()==MatrimonyConstants.AARNA_EMPLOYEE_ROLE_ID){
-									buffer.append( " and u.status in( '1') and u.role_id in ('4') and u.role_id not in ('3') group by u.id" );
+									buffer.append( " and u.status in( '1') and u.role_id not in ('1','3') group by u.id" );
 									String sub_qry = "select (profiles_start_index-1) as start_index,profiles_size from users where id = "+objuserBean.getId();
 									Map<String,Object> limit_values = jdbcTemplate.queryForMap(sub_qry);
 									buffer.append(" order by u.id desc limit "+limit_values.get("profiles_size")+" offset "+limit_values.get("start_index")+" ");
@@ -5041,8 +5041,8 @@ public boolean deletePhoto(String photoId){
 			short_str = " Get unlimited matches ";
 			try{
 				
-				StringBuffer buffer = new StringBuffer(" insert into emails_data(sender_user_id,receiver_user_id,sender_email,receiver_display_name,sender_user_name,receiver_user_name,receiver_email,mail_content,status,type,full_profile_action_url,sender_image,receiver_password,shortstr,emailVerifylink,base_url,created_on) "
-									+ "	values("+senderBean.getId()+","+receiverBean.getId()+",'"+senderBean.getEmail()+"','"+receiverBean.getFirstName()+" "+receiverBean.getLastName()+" ("+receiverBean.getUsername()+")','"+senderBean.getUsername()+"','"+receiverBean.getUsername()+"','"+receiverBean.getEmail()+"','"+receiverBean.getMail_content()+"','0','"+mail_type+"','"+actionUrl+"','"+sender_image+"','"+receiver_password+"','"+short_str+"','"+emailVerifylink+"','"+baseurllink+"',current_timestamp())");
+				StringBuffer buffer = new StringBuffer(" insert into emails_data(sender_user_id,receiver_user_id,sender_email,receiver_display_name,sender_user_name,receiver_user_name,receiver_email,mail_content,status,type,full_profile_action_url,sender_image,receiver_password,shortstr,emailVerifylink,base_url,created_on,receiver_role_id) "
+									+ "	values("+senderBean.getId()+","+receiverBean.getId()+",'"+senderBean.getEmail()+"','"+receiverBean.getFirstName()+" "+receiverBean.getLastName()+" ("+receiverBean.getUsername()+")','"+senderBean.getUsername()+"','"+receiverBean.getUsername()+"','"+receiverBean.getEmail()+"','"+receiverBean.getMail_content()+"','0','"+mail_type+"','"+actionUrl+"','"+sender_image+"','"+receiver_password+"','"+short_str+"','"+emailVerifylink+"','"+baseurllink+"',current_timestamp(),'"+receiverBean.getRoleId()+"')");
 				int inserted_count = jdbcTemplate.update(buffer.toString());
 				if(inserted_count==1){
 					return true;
@@ -5053,8 +5053,8 @@ public boolean deletePhoto(String photoId){
 		}else{
 			try{
 				
-				StringBuffer buffer = new StringBuffer(" insert into emails_data(sender_user_id,receiver_user_id,sender_email,sender_details,sender_display_name,receiver_display_name,sender_user_name,receiver_user_name,receiver_email,mail_content,status,type,full_profile_action_url,sender_image,receiver_password,shortstr,emailVerifylink,base_url,created_on) "
-									+ "	values("+senderBean.getId()+","+receiverBean.getId()+",'"+senderBean.getEmail()+"','"+sender_details.toString()+"','"+senderBean.getFirstName()+" "+senderBean.getLastName()+" ("+senderBean.getUsername()+")','"+receiverBean.getFirstName()+" "+receiverBean.getLastName()+" ("+receiverBean.getUsername()+")','"+senderBean.getUsername()+"','"+receiverBean.getUsername()+"','"+receiverBean.getEmail()+"','"+receiverBean.getMail_content()+"','0','"+mail_type+"','"+actionUrl+"','"+sender_image+"','"+receiver_password+"','"+short_str+"','"+emailVerifylink+"','"+baseurllink+"',current_timestamp())");
+				StringBuffer buffer = new StringBuffer(" insert into emails_data(sender_user_id,receiver_user_id,sender_email,sender_details,sender_display_name,receiver_display_name,sender_user_name,receiver_user_name,receiver_email,mail_content,status,type,full_profile_action_url,sender_image,receiver_password,shortstr,emailVerifylink,base_url,created_on,receiver_role_id) "
+									+ "	values("+senderBean.getId()+","+receiverBean.getId()+",'"+senderBean.getEmail()+"','"+sender_details.toString()+"','"+senderBean.getFirstName()+" "+senderBean.getLastName()+" ("+senderBean.getUsername()+")','"+receiverBean.getFirstName()+" "+receiverBean.getLastName()+" ("+receiverBean.getUsername()+")','"+senderBean.getUsername()+"','"+receiverBean.getUsername()+"','"+receiverBean.getEmail()+"','"+receiverBean.getMail_content()+"','0','"+mail_type+"','"+actionUrl+"','"+sender_image+"','"+receiver_password+"','"+short_str+"','"+emailVerifylink+"','"+baseurllink+"',current_timestamp(),'"+receiverBean.getRoleId()+"')");
 				int inserted_count = jdbcTemplate.update(buffer.toString());
 				if(inserted_count==1){
 					return true;
@@ -5073,7 +5073,7 @@ public boolean deletePhoto(String photoId){
 		try{
 			
 			String  qry = " select *,DATE_FORMAT(created_on, '%d-%M-%Y') as created_on from emails_data where status = '0' " // 0 means yet to send email
-					+ " and (sender_user_id = 0 or sender_user_id in (select u.id from users u where u.status = '1' and u.role_id not in (1,3))) "; 
+					+ " and (sender_user_id = 0 or sender_user_id in (select u.id from users u where u.status = '1' and u.role_id not in (1,3))) "; // sender_id=0 means mail from admin to member
 			list = jdbcTemplate.queryForList(qry);
 			return list;
 		}catch (Exception e) {
