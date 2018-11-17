@@ -482,7 +482,7 @@ var role_id = ${cacheUserBean.roleId};
 											</div>
 											<div class="col-md-7 notsp" style="padding-right:0px; padding-left:0px;" >
 												<p>
-													<a onclick="openFullProfile(${notification.profile_id});" href="#" style="list-style:none; text-decoration:none">
+													<a onclick="openFullProfile(${notification.user_id});" href="#" style="list-style:none; text-decoration:none">
 														<b><c:out value="${notification.fullName}" /> (<c:out value="${notification.username}" />)</b> 
 														paid an amount of ${notification.amount}
 													</a>

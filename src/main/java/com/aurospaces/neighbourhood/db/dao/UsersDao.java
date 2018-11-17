@@ -276,7 +276,7 @@ public class UsersDao extends BaseUsersDao
 								if(type.equals("aarna_premium")){
 									buffer.append( " and u.role_id in ('14') and u.status in ('1') " );
 								}
-								if(type.equals("LAUNCHING_OFFER")){
+								if(type.equalsIgnoreCase("LAUNCHING_OFFER")){
 									buffer.append( " and u.role_id in ('15') and u.status in ('1') " );
 								}
 								if(type.equals("employee")){
