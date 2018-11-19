@@ -290,7 +290,7 @@
 			var rStateName = null; rStateName = serviceUnitArray[id].rStateName;
 			if(rStateName == "" || rStateName == null || rStateName == "undefined"){rStateName = "---";}
 			
-			 var tblRow = 	"<div id='printProfile'><div class='col-sm-2' >"
+			 var tblRow = 	"<div id='printProfile'><div class='col-sm-10' ><img src='${baseurl}/images/logo.png'/>"
 			 		+		"<img src="+image+" class='watermark_text' width='150px' align='right'/>"
 		//			+		"<i class='fa fa-user' style='font-size: 10em;'></i>"
 		// 	 		+		"<img class='img-responsive' src='../img/default.png' style='width: auto !important;height: 120px !important;'>"
