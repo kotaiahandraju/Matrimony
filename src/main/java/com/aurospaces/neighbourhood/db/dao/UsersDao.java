@@ -292,7 +292,7 @@ public class UsersDao extends BaseUsersDao
 								}
 								UsersBean objuserBean = (UsersBean) session.getAttribute("cacheUserBean");
 								if(objuserBean.getRoleId()==MatrimonyConstants.AARNA_EMPLOYEE_ROLE_ID){
-									buffer.append( " and u.status in( '1') and u.role_id in ('4') and u.role_id not in ('3') group by u.id" );
+									buffer.append( " and u.status in( '1') and u.role_id not in ('1','3') group by u.id" );
 									String sub_qry = "select (profiles_start_index-1) as start_index,profiles_size from users where id = "+objuserBean.getId();
 									Map<String,Object> limit_values = jdbcTemplate.queryForMap(sub_qry);
 									buffer.append(" order by u.id desc limit "+limit_values.get("profiles_size")+" offset "+limit_values.get("start_index")+" ");

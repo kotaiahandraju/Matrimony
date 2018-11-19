@@ -114,7 +114,7 @@
 			/** End: to style navigation tab **/
 		</style>
 <div class="products">
-	<div class="container" style="background: #FFF;">
+	<div class="container" style="background: #FFF;min-height:400px;">
 		<div class="mid-grids">
 			
 			<jsp:include page="sideGrid2.jsp" />
