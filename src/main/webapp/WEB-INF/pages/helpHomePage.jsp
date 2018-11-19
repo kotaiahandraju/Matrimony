@@ -19,6 +19,13 @@ float: right;
     margin-top:15px
 }
 }
+
+.form-control {
+font-size:12px;
+}
+body {
+    font-size: 13px;
+}
 .panel {
     border: 1px solid #e3e3e3;
     border-radius: 4px;

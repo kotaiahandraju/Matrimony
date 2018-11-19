@@ -16,6 +16,11 @@
     
 } 
 canvas{display:none}
+btn-primary {
+    
+    margin-top: 10px;
+}
+
 </style>
 
 				<div class="col-md-5 col-sm-12"></div>
@@ -31,7 +36,7 @@ canvas{display:none}
 					      <div class="col-md-8">
 					      	<!-- <input type="file" id='imageName1'  onchange="checkImg(this)"><br> -->
 					    	<form role="form">
-						      <input id="imageName" type="hidden" name="test[image]">
+						      <input id="imageName" type="hidden" name="test[image]" class="img-responsive">
 						    </form>
 					      </div>
 					    </div>

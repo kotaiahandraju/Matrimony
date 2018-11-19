@@ -84,6 +84,8 @@
 
 
 	<style type="text/css">
+	input, button, select, textarea {
+    font-family: 'Open Sans', sans-serif;}
 	.newma  td:first-child { 
 	font-weight:bold;}
 	.products {
@@ -1059,7 +1061,7 @@ text-align:center;
 									displayStyle = ' style="display:none" ';
 								}
 								slider += '<div class=" picstyle smallSlides'+orderObj.id+'" '+displayStyle+'>'
-										+	'<a href="#" onclick="fullProfile('+orderObj.id+')"> <img src="${catalina_base}/'+photo.image+'" class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: auto;width: 100%;" ></a>'
+										+	'<a href="#" onclick="fullProfile('+orderObj.id+')"> <img src="${catalina_base}/'+photo.image+'" class="img img-responsive thumbnail" style="margin-bottom:0;height: auto;width: 100%;" ></a>'
 										+'</div>'
 							});
 							if(photos_list.length>1){
@@ -1428,7 +1430,7 @@ text-align:center;
 									displayStyle = ' style="display:none" ';
 								}
 								slider += '<div class="smallSlides'+orderObj.id+'" '+displayStyle+'>'
-										+'<a href="#" onclick="fullProfile('+orderObj.id+')"><img src="${catalina_base}/'+photo.image+'" class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: auto;width: 100%;" ></a>'
+										+'<a href="#" onclick="fullProfile('+orderObj.id+')"><img src="${catalina_base}/'+photo.image+'" class="img img-responsive thumbnail " style="margin-bottom:0;height: auto;width: 100%;" ></a>'
 										+'</div>'
 							});
 							if(photos_list.length>1){
@@ -2332,7 +2334,7 @@ function currentSlide(n) {
 }
 
 function currentSlide_inpage(current_img){
-	var str = '<img id="profilepic" src="${catalina_base}/'+current_img+'" class="hover-shadow cursor img img-responsive thumbnail watermark_text" style="margin-bottom:0;height:auto;width: 100%;">';
+	var str = '<img id="profilepic" src="${catalina_base}/'+current_img+'" class="hover-shadow cursor img img-responsive thumbnail " style="margin-bottom:0;height:auto;width: 100%;">';
 	//$("#profilepic").prop("src",photoImage);
 	$("#fullProfilePicOuterTag").html('');
 	$("#fullProfilePicOuterTag").html(str);
@@ -4002,10 +4004,10 @@ img.hover-shadow {
 							<%@ include file="sample.jsp" %>
 							</div> --%>
 							</a></li>
-							<%-- <li><a href="refer" >Refer & Earn <div id="load_me">
-							<%@ include file="sample.jsp" %>
-							</div>
-							</a></li> --%>
+							<li><a href="refer" >Refer & Earn <%-- <div id="load_me">
+							<%@ include file="refer.jsp" %>
+							</div> --%>
+							</a></li>
 							<c:if test="${cacheGuest.roleId == '4' || cacheGuest.membership_status == '0'}">
 							<li><a class="upgradeOption animated flash infinite" href="memberShipPage" style="font-size: 18px; font-weight: bold; color: #fff;">Upgrade</a></li>
 							</c:if>

@@ -207,6 +207,34 @@
 			var disability = null; disability = serviceUnitArray[id].disability;
 			if(disability == "" || disability == null || disability == "undefined"){disability = "---";}
 			
+			// Family Details         
+			var fatherName = null; fatherName = serviceUnitArray[id].fatherName;
+			if(fatherName == "" || fatherName == null || fatherName == "undefined"){fatherName = "---";}
+			
+			var motherName = null; motherName = serviceUnitArray[id].motherName;
+			if(motherName == "" || motherName == null || motherName == "undefined"){motherName = "---";}
+			
+			var fOccupation = null; fOccupation = serviceUnitArray[id].fOccupation;
+			if(fOccupation == "" || fOccupation == null || fOccupation == "undefined"){fOccupation = "---";}
+			
+			var mOccupation = null; mOccupation = serviceUnitArray[id].mOccupation;
+			if(mOccupation == "" || mOccupation == null || mOccupation == "undefined"){mOccupation = "---";}
+			
+			var noOfBrothers = null; noOfBrothers = serviceUnitArray[id].noOfBrothers;
+			if(noOfBrothers == "" || noOfBrothers == null || noOfBrothers == "undefined"){noOfBrothers = "---";}
+			
+			var noOfSisters = null; noOfSisters = serviceUnitArray[id].noOfSisters;
+			if(noOfSisters == "" || noOfSisters == null || noOfSisters == "undefined"){noOfSisters = "---";}
+			
+			var noOfBrothersMarried = null; noOfBrothersMarried = serviceUnitArray[id].noOfBrothersMarried;
+			if(noOfBrothersMarried == "" || noOfBrothersMarried == null || noOfBrothersMarried == "undefined"){noOfBrothersMarried = "---";}
+			
+			var noOfSistersMarried = null; noOfSistersMarried = serviceUnitArray[id].noOfSistersMarried;
+			if(noOfSistersMarried == "" || noOfSistersMarried == null || noOfSistersMarried == "undefined"){noOfSistersMarried = "---";}
+			
+			
+			
+			
 			var rAgeFrom = null; rAgeFrom = serviceUnitArray[id].rAgeFrom;
 			if(rAgeFrom == "" || rAgeFrom == null || rAgeFrom == "undefined"){rAgeFrom = "---";}
 			
@@ -262,7 +290,7 @@
 			var rStateName = null; rStateName = serviceUnitArray[id].rStateName;
 			if(rStateName == "" || rStateName == null || rStateName == "undefined"){rStateName = "---";}
 			
-			 var tblRow = 	"<div id='printProfile'><div class='col-sm-2' >"
+			 var tblRow = 	"<div id='printProfile'><div class='col-sm-2' >"<img src='${baseurl}/images/logo.png'/>"
 			 		+		"<img src="+image+" class='' width='150px' align='right'/>"
 			 		+'		<div class="watermarkcontent_profilepic">'
 			 		+'			<span>aarnamatrimony.com</span>'
@@ -377,6 +405,32 @@
 					+				"<td>:</td><td>"+aboutMyself+"</td>"
 					+				"<td><b>Any Disability</b></td>"
 					+				"<td>:</td><td>"+disability+"</td>"
+					+			"</tr>"
+					//Family Details   
+					+			"<tr class='bg'><td colspan='6' style='color: green;'><b>Family Details</b></td></tr>"
+					+			"<tr>"
+					+				"<td><b>Father's Name</b></td>"
+					+				"<td>:</td><td>"+fatherName+"</td>"
+					+				"<td><b>Mother's Name</b></td>"
+					+				"<td>:</td><td>"+motherName+"</td>"
+					+			"</tr>"
+					+			"<tr>"
+					+				"<td><b>Father's Occupation	</b></td>"
+					+				"<td>:</td><td>"+fOccupation+"</td>"
+					+				"<td><b>Mother's Occupation</b></td>"
+					+				"<td>:</td><td>"+mOccupation+"</td>"
+					+			"</tr>"
+					+			"<tr>"
+					+				"<td><b>No. of Brothers</b></td>"
+					+				"<td>:</td><td>"+noOfBrothers+"</td>"
+					+				"<td><b>Brothers Married</b></td>"
+					+				"<td>:</td><td>"+noOfBrothersMarried+"</td>"
+					+			"</tr>"
+					+			"<tr>"
+					+				"<td><b>No. of Sisters</b></td>"
+					+				"<td>:</td><td>"+noOfSisters+"</td>"
+					+				"<td><b>Sisters Married</b></td>"
+					+				"<td>:</td><td>"+noOfSistersMarried+"</td>"
 					+			"</tr>"
 					//Life Partner Requirements
 					+			"<tr class='bg'><td colspan='6' style='color: green;'><b>Life Partner Requirements</b></td></tr>"

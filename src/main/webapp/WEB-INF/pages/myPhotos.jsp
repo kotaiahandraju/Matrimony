@@ -5,7 +5,7 @@
 <script src="${baseurl}/js/jquery.awesome-cropper.js"></script> 
 <style>
 .progress img {
-height:250px;
+height:  250px;
 }
 @media screen and (max-width: 640px) and (min-width: 320px) {
 .modal-footer {
@@ -280,10 +280,12 @@ $(".dashboard").addClass("active");
 <script src="${baseurl}/js/jquery.imgareaselect.js"></script> 
 <script src="${baseurl}/js/jquery.awesome-cropper.js"></script> 
 <script>
+
     $(document).ready(function () {
         $('#imageName').awesomeCropper(
         { width: 626, height: 417, debug: true }
         );
     });
-    </script> 
+    </script>
+   
 <%@ include file="userFooter.jsp"%>
