@@ -326,7 +326,7 @@ font-size : 8px;
     <!-- Wrapper for slides -->
     <c:if test="${not empty pending_reqs}">
     <div id="pending_req_div"  class="carousel-inner pendingre">
-    		<span id="pending_count"><span id="pend_req_count_span">${pending_reqs_count}</span> requests pending</span><br>
+    		<span id="pending_count"><span id="pend_req_count_span" class="pend_req_count_class">${pending_reqs_count}</span> requests pending</span><br>
     		<c:set value="${0}" var="count" />
     		<c:set value="${0}" var="counter" scope="page" />
     		<c:set value="" var="reqId" scope="page" />
@@ -1676,16 +1676,18 @@ function acceptMessage_pendingReq(requestId,flag){
 	    				}
 	    				if(total_item_count==0){
 	    					$("#myCarousel").remove();
-   					}else{
-   						$("#pend_req_count_span").html(total_item_count);
-   						if(item_count>total_item_count){
-   							item_count = total_item_count;
-   							$("#pending_prev").trigger("click");
-   						}else{
-   							$("#pending_next").trigger("click");
-   						}
-	    					
-   					}
+	   					}else{
+	   						$("#pend_req_count_span").html(total_item_count);
+	   						if(item_count>total_item_count){
+	   							item_count = total_item_count;
+	   							$("#pending_prev").trigger("click");
+	   						}else{
+	   							$("#pending_next").trigger("click");
+	   						}
+		    					
+	   					}
+	    				$("#pend_req_count").html(total_item_count);
+	    				$(".pend_req_count_class").html("${cacheGuest.pendingRequestsCount}");
 	    				/* var req_count = jsonobj.req_count;
 	    				if(req_count=="0"){
 	    					$("#pending_req_div").remove();

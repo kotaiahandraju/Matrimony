@@ -70,7 +70,7 @@
 									<table width="100%" class="dotted-seperator">
 										<tr>
 											<td height="30"><a href="inboxAction?tab_type=inbox&list_type=pending_requests">Pending</a></td>
-											<td><span class="badge pull-right">${cacheGuest.pendingRequestsCount}</span></td>
+											<td><span class="badge pull-right pend_req_count_class">${cacheGuest.pendingRequestsCount}</span></td>
 										</tr>
 										<tr>
 											<td height="30"><a href="inboxAction?tab_type=inbox&list_type=accepted_requests">Accepted</a></td>

@@ -678,7 +678,8 @@ public class FilterController {
 			if (sessionBean == null) {
 				return "redirect:HomePage";
 			}
-			int profile_id = objUserssBean.getId();
+			//int profile_id = objUserssBean.getId();
+			int profile_id = Integer.parseInt(profileId);
 			UsersBean profileBean = objUsersDao.loginChecking(profile_id);
 			request.setAttribute("profileBean", profileBean);
 			List<Map<String, Object>> photosList = objUsersDao.getUserPhotos(profile_id);

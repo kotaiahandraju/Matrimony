@@ -921,10 +921,20 @@ try{
 				   for(Map<String,Object> emailEntry:emailEntriesList){
 					   try{
 					   String mailTo = (String)emailEntry.get("receiver_email");
+					   String receiver_role_id = (String)emailEntry.get("receiver_role_id");
 					   //subject = prop.getProperty(emailEntry.get("type")+"_subject");
 					   //subject = subject.replace("_username_", (String)emailEntry.get("sender_display_name"));
-					   subject =  (String)emailEntry.get("sender_display_name")+(String)emailEntry.get("shortstr");
-		
+					   String sender_display_name = "";
+					   if(StringUtils.isNotBlank(receiver_role_id)){
+						   
+						   if(receiver_role_id.equals(MatrimonyConstants.FREE_USER_ROLE_ID+"")){
+							   sender_display_name = "<img src=\"cid:blur_img\"/> ("+(String)emailEntry.get("receiver_user_name")+")" ; 
+						   }else{
+							   sender_display_name = (String)emailEntry.get("sender_display_name");
+						   }
+					   }
+					   //subject =  (String)emailEntry.get("sender_display_name")+(String)emailEntry.get("shortstr");
+					   subject =  sender_display_name+(String)emailEntry.get("shortstr");
 					   if(((String)emailEntry.get("type")).equalsIgnoreCase("message_mail")){
 						   body = prop.getProperty("message_mail_body"); 
 						   body = body.replace("_content_", (String)emailEntry.get("mail_content"));
@@ -977,7 +987,7 @@ try{
 						   body = prop.getProperty("mail_body");  
 					   }
 					   
-					   body = body.replace("_senderdisplayname_", (String)emailEntry.get("sender_display_name"));
+					   body = body.replace("_senderdisplayname_", sender_display_name);
 					   body = body.replace("_shortstr_", (String)emailEntry.get("shortstr"));
 					   
 					   body = body.replace("_receiverdisplayname_", (String)emailEntry.get("receiver_display_name"));
@@ -1030,6 +1040,10 @@ try{
 				        inlineImages.put("img3", objContext.getRealPath("images" +File.separator+"img3.jpg"));
 				        inlineImages.put("img4", objContext.getRealPath("images" +File.separator+"img4.jpg"));
 				        inlineImages.put("img5", objContext.getRealPath("images" +File.separator+"img5.jpg"));
+				        
+				        }
+				        if(StringUtils.isNotBlank(receiver_role_id) && receiver_role_id.equals(MatrimonyConstants.FREE_USER_ROLE_ID+"")){
+				        	inlineImages.put("blur_img", objContext.getRealPath("images" +File.separator+"blurr.png"));
 				        }
 				            EmbeddedImageEmailUtil.send(host, port, mailFrom, password, mailTo,
 				                subject, body.toString(), inlineImages);
