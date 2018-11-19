@@ -25,7 +25,7 @@ $( document ).ready(function() {
 <div class="container-fluid">
 	<div class="page-header">
 		<div class="pull-left">
-			<h1>Premium Plus Profiles </h1> 
+			<h1>Launchinh Offer Profiles </h1> 
 		</div>
 	</div>
 	<div class="breadcrumbs">
@@ -37,7 +37,7 @@ $( document ).ready(function() {
 			</li>
 			<li>
 				&nbsp;<i class="fa fa-file"></i>
-				<span style="color: #999;cursor: auto;">Premium Plus  Profiles</span>
+				<span style="color: #999;cursor: auto;">Launchinh Offer  Profiles</span>
 			</li>
 		</ul>
 		
@@ -84,7 +84,7 @@ $( document ).ready(function() {
 			<div class="box-title">
 				<h3>
 					<i class="fa fa-table"></i>
-					Premium Plus  Profiles List
+					Launchinh Offer  Profiles List
 				</h3>
 			</div>
 			<div class="box-content nopadding table-responsive w3-animate-zoom" id="tableId">
@@ -176,20 +176,20 @@ s.parentNode.insertBefore(ga, s);
 		if(isCheck=="Yes"){
 			$('.dataTable').DataTable({
 				 dom: 'lBfrtip',
-				 title: 'Premium Plus Profiles',
+				 title: 'Launchinh Offer Profiles',
 				 /* buttons: [
 				            'copy', 'csv', 'excel', 'pdf','print'
 				        ]	 */
 				        buttons: [
 						            {
 						                extend: 'excelHtml5',
-						                title: 'Premium Plus Profiles',
-						                filename: 'Premium Plus Profiles'
+						                title: 'Launchinh Offer Profiles',
+						                filename: 'Launchinh Offer Profiles'
 						            },
 						            {
 						                extend: 'pdfHtml5',
-//		 		                        messageTop : 'Premium Plus Profiles',
-					                        title : 'Premium Plus Profiles',
+//		 		                        messageTop : 'Launchinh Offer Profiles',
+					                        title : 'Launchinh Offer Profiles',
 					                        orientation : 'landscape',
 							                pageSize : 'LEGAL',
 							                text : '<i class="fa fa-file-pdf-o"> PDF</i>',
@@ -206,7 +206,7 @@ s.parentNode.insertBefore(ga, s);
 						  		     
 						            },{
 						                extend: 'print',
-						                title: 'Premium Plus Profiles',
+						                title: 'Launchinh Offer Profiles',
 						                customize: function(doc) {
 						                  doc.styles.title = {
 						                    color: 'red',
@@ -602,7 +602,7 @@ s.parentNode.insertBefore(ga, s);
 				+				"<td>:</td><td colspan='4'>"+rAnnualIncome+"</td>"
 				+			"</tr>"
 				+			"<tr>"
-				+				"<td><b>Profile Created by</b></td>"
+				+				"<td><b>Profile Created for</b></td>"
 				+				"<td>:</td><td>"+rCreateProfileFor+"</td>"
 				+				"<td><b>Diet</b></td>"
 				+				"<td>:</td><td>"+rDiet+"</td>"
@@ -685,20 +685,20 @@ s.parentNode.insertBefore(ga, s);
  $(function(){
 		$('.dataTable').DataTable({
 			 dom: 'lBfrtip',
-			 title: 'Premium Plus Profiles',
+			 title: 'Launchinh Offer Profiles',
 			 /* buttons: [
 			            'copy', 'csv', 'excel', 'pdf','print'
 			        ]	 */
 			        buttons: [
 					            {
 					                extend: 'excelHtml5',
-					                title: 'Premium Plus Profiles',
-					                filename: 'Premium Plus Profiles'
+					                title: 'Launchinh Offer Profiles',
+					                filename: 'Launchinh Offer Profiles'
 					            },
 					            {
 					                extend: 'pdfHtml5',
-//	 		                        messageTop : 'Premium Plus Profiles',
-				                        title : 'Premium Plus Profiles',
+//	 		                        messageTop : 'Launchinh Offer Profiles',
+				                        title : 'Launchinh Offer Profiles',
 				                        orientation : 'landscape',
 						                pageSize : 'LEGAL',
 						                text : '<i class="fa fa-file-pdf-o"> PDF</i>',
@@ -715,7 +715,7 @@ s.parentNode.insertBefore(ga, s);
 					  		     
 					            },{
 					                extend: 'print',
-					                title: 'Premium Plus Profiles',
+					                title: 'Launchinh Offer Profiles',
 					                customize: function(doc) {
 					                  doc.styles.title = {
 					                    color: 'red',
@@ -742,7 +742,7 @@ s.parentNode.insertBefore(ga, s);
 		});	
 	});
  $(".profiles").addClass("active");
- $(".premiumPlusProfiles").addClass("active"); 
+ $(".launchingProfiles").addClass("active"); 
 </script>
 
 </body>

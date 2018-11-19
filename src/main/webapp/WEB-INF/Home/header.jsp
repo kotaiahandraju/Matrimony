@@ -422,7 +422,9 @@ var role_id = ${cacheUserBean.roleId};
 						<li class="inactiveProfiles"><a href="${baseurl }/admin/InactiveProfilesHome">Inactive Profiles<span class="matchcount inactive_cnt" id="inactive_profiles_count">${display_counts.inactive_count}</span></a></li>
 						<li class="deleteProfiles"><a href="${baseurl }/admin/DeleteProfilesHome">Delete Profiles</a></li>
 						<li class="adminProfiles"><a href="${baseurl }/admin/AdminRegisterProfiles">Admin Register Profiles</a></li>
+						</c:if>
 						<li class="freeProfiles"><a href="${baseurl }/admin/FreeRegisterProfile">Free Register Profiles</a></li>
+						<c:if test="${roleId1 == 1}"> 
 						<li class="undefinedProfiles"><a href="${baseurl }/admin/UndefinedProfile">Undefined Profiles</a></li>
 						</c:if>
 						<li class="classicProfiles"><a href="${baseurl }/admin/ClassicProfile">Classic Profiles</a></li>
@@ -480,7 +482,7 @@ var role_id = ${cacheUserBean.roleId};
 											</div>
 											<div class="col-md-7 notsp" style="padding-right:0px; padding-left:0px;" >
 												<p>
-													<a onclick="openFullProfile(${notification.profile_id});" href="#" style="list-style:none; text-decoration:none">
+													<a onclick="openFullProfile(${notification.user_id});" href="#" style="list-style:none; text-decoration:none">
 														<b><c:out value="${notification.fullName}" /> (<c:out value="${notification.username}" />)</b> 
 														paid an amount of ${notification.amount}
 													</a>

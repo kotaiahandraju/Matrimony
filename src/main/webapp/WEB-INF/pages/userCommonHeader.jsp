@@ -55,9 +55,9 @@
 									    		$("#yet_to_count").html(all_counts.yetToBeViewedCount);
 									    		$("#viewed_not_contacted_count").html(all_counts.viewedNotContactedCount);
 									    		$("#messages_count").html(all_counts.pendingRequestsCount);
-									    		$("#pend_req_count").html(all_counts.pendingRequestsCount);
+									    		$(".pend_req_count_class").html(all_counts.pendingRequestsCount);
 									    		$("#notifications_count").html(all_counts.notificationsCount);
-									    		$("#inbox_count").html(all_counts.pendingRequestsCount);
+									    		//$("#inbox_count").html(all_counts.pendingRequestsCount);
 											});
 						
 							     }, 1000);  // autorefresh the content of the div after
@@ -607,6 +607,9 @@ text-align:center;
 			var roleId = ${cacheGuest.roleId};
 			$("#id").val(profile_id);
 			var profileObj = serviceUnitArray[profile_id];
+			$("#expressModalName").html("");
+			var expIntUserName=profileObj.firstName+" "+profileObj.lastName+""+"("+profileObj.username+")";
+			$("#expressModalName").html(expIntUserName);
 			if(typeof profileObj == "undefined"){
 				profileObj = serviceUnitArray2[profile_id];
 			}
@@ -640,6 +643,7 @@ text-align:center;
 			    			if("success"==msg){
 			    				$("#expInterest"+profile_id).html('<a type="button" class="btn btn-blue btn-sm" disabled="true">Expressed Interest</a>');
 // 			    				alert("Interest request has been sent successfully");
+								$("#sendMailexpressModal").attr("onclick","displayMailPopup(profile_id,'"+expIntUserName+"')");
 			    				$('#expressModal').show();
 			    				$('#expressModal').modal();
 			    				//$("#expInterest"+profile_id).html('You Expressed Interest');
@@ -1057,7 +1061,7 @@ text-align:center;
 									displayStyle = ' style="display:none" ';
 								}
 								slider += '<div class=" picstyle smallSlides'+orderObj.id+'" '+displayStyle+'>'
-										+	'<a href="#" onclick="fullProfile('+orderObj.id+')"> <img src="${catalina_base}/'+photo.image+'" class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: auto;width: 100%;" ></a>'
+										+	'<a href="#" onclick="fullProfile('+orderObj.id+')"> <img src="${catalina_base}/'+photo.image+'" class="img img-responsive thumbnail" style="margin-bottom:0;height: auto;width: 100%;" ></a>'
 										+'</div>'
 							});
 							if(photos_list.length>1){
@@ -1426,7 +1430,7 @@ text-align:center;
 									displayStyle = ' style="display:none" ';
 								}
 								slider += '<div class="smallSlides'+orderObj.id+'" '+displayStyle+'>'
-										+'<a href="#" onclick="fullProfile('+orderObj.id+')"><img src="${catalina_base}/'+photo.image+'" class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: auto;width: 100%;" ></a>'
+										+'<a href="#" onclick="fullProfile('+orderObj.id+')"><img src="${catalina_base}/'+photo.image+'" class="img img-responsive thumbnail " style="margin-bottom:0;height: auto;width: 100%;" ></a>'
 										+'</div>'
 							});
 							if(photos_list.length>1){
@@ -1444,7 +1448,7 @@ text-align:center;
 						var reply_content = "";
 						var received_msg_str = "";
 						var login_user_id = ${cacheGuest.id};
-						
+						var replyDivStr = '', idStr = '';
 						if(typeof recent_activity != "undefined"){
 							if(recent_activity.activity_type=="interest_request"){
 								if(login_user_id==recent_activity.act_done_by_user_id){
@@ -1458,6 +1462,7 @@ text-align:center;
 									act_short_str = "Interest Request Received";
 									activity_str = opp_gender_str +" sent an interest request to you. Would you like to take it further?" ;
 									//acceptOptions = '<span id="mail'+orderObj.id+'"><a type="button" class="btn btn-primary btn-sm" id="sendMail'+orderObj.requestId+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')">Send Mail</a></span>';
+									idStr = "id=\"profileBlock"+recent_activity.id+"\"";
 								}
 									
 							}
@@ -1513,6 +1518,7 @@ text-align:center;
 										received_msg_str = received_msg_str.replace(/##tabspace##/g," ")+".";
 									}
 									acceptOptions = "<span id='accept"+recent_activity.id+"'><a type='button' class='btn btn-primary btn-sm' onclick='acceptMessage("+recent_activity.id+",\"1\")'>Yes</a><a type='button' class='btn btn-danger btn-sm' id='reject"+recent_activity.id+"' href='#' onclick='acceptMessage("+recent_activity.id+", \"0\")'>Not Interested</a></span>";
+									idStr = "id=\"profileBlock"+recent_activity.id+"\"";
 								}
 								
 							}
@@ -1532,6 +1538,17 @@ text-align:center;
 									activity_str = opp_gender_str+" accepted your message";
 									acceptOptions = '<span id="mail'+orderObj.id+'"><a type="button" class="btn btn-primary btn-sm" id="sendMail'+recent_activity.id+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')">Send Mail</a></span>';
 								}
+								
+								replyDivStr = '<div class="panel panel-success" id="'+recent_activity.id+'myDIV"  style="display:none">'
+								+ '<div class="panel-heading">Reply To This Message </div>'
+		  						+ '<div class="panel-body">'
+									//+ '<textarea id="replyContent" style="width:100%; height:150px; overflow-y:scroll;" >'+reply_content
+								+ '<textarea id="replyContent'+recent_activity.id+'" style="width:100%; height:150px; overflow-y:scroll;" >'+reply_content
+								+ '</textarea>'
+								+  ' <br><button type="button" class="btn btn-warning pull-right " onclick="replyMessage('+recent_activity.id+')">Reply</button>'
+								+ '</div> '
+								+'</div>'
+								+'</div>';
 							}
 							if(recent_activity.activity_type=="message_rejected"){
 								act_short_str = "Message Rejected";
@@ -1595,7 +1612,7 @@ text-align:center;
 							profile_highlisht_str = '<div class="panel panel-default" style="    background: url(../nimages/newbackground.png); padding-top:5px;">';
 						}
 						var tblRow = profile_highlisht_str
-							+ '<div class="panel-body">'
+							+ '<div class="panel-body" '+idStr+'>'
 							+ '<div class="col-md-2" >'
 							//+ ' <div class="smallSlides" style="display:block"> '
 							//+ '		<a href="#no"> <img src='+image+' class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: 60px;width: 60px;" ></a>'
@@ -1629,16 +1646,8 @@ text-align:center;
 			            	//+ '<tr><td><button type="button" class="btn btn-danger btn-sm" id="sendMail'+orderObj.requestId+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')" style="display:none">Send Mail</button></td></tr>'
 			            	+ '</table>'
 			            	+ '<!-- Reply start -->'
-			            	+ '<div class="panel panel-success" id="'+recent_activity.id+'myDIV"  style="display:none">'
-							+ '<div class="panel-heading">Reply To This Message </div>'
-      						+ '<div class="panel-body">'
- 							+ '<textarea id="replyContent" style="width:100%; height:150px; overflow-y:scroll;" >'+reply_content
-							+ '</textarea>'
-							+  ' <br><button type="button" class="btn btn-warning pull-right " onclick="replyMessage('+recent_activity.id+')">Reply</button>'
-							+ '</div>'
-							+'</div>'
+			            	+ replyDivStr
 							+'<!-- Reply End -->'
-			            	+ '</div>'
 			            	+ '</div>'
 			            	+ '</div>';
 					$(tblRow).appendTo("#"+divId);
@@ -2171,6 +2180,7 @@ text-align:center;
 			    		var msg = jsonobj.message;
 			    		
 			    			if("success"==msg){
+			    				displayFilterRequestsBlock();
 			    				if(flag==1){
 			    					alert("Request accepted successfully");
 			    					$("#accept"+requestId).html('');
@@ -2180,6 +2190,8 @@ text-align:center;
 			    					$("#accept"+requestId).html('');
 			    					$("#accept"+requestId).html("<a type='button' class='btn btn-danger btn-sm' disabled='true' >Ignored</a>");
 			    				}
+			    				$("#pend_req_count_span").html("${cacheGuest.pendingRequestsCount}");
+			    				$(".pend_req_count_class").html("${cacheGuest.pendingRequestsCount}");
 			    			}else if("failed"==msg || "exception"==msg){
 			    				alert("Some problem occured. Please try again.");
 			    			}
@@ -2216,8 +2228,8 @@ text-align:center;
 						formData, false, 'text', function(data){
 			    		var jsonobj = $.parseJSON(data);
 			    		var msg = jsonobj.message;
-			    		
 			    			if("success"==msg){
+			    				displayFilterRequestsBlock();
 			    				if(flag==1){
 			    					alert("Message accepted successfully");
 			    					$("#accept"+requestId).html('');
@@ -2227,6 +2239,8 @@ text-align:center;
 			    					$("#accept"+requestId).html('');
 			    					$("#accept"+requestId).html("<a type='button' class='btn btn-danger btn-sm' disabled='true' >Ignored</a>");
 			    				}
+			    				$("#pend_req_count_span").html("${cacheGuest.pendingRequestsCount}");
+			    				$(".pend_req_count_class").html("${cacheGuest.pendingRequestsCount}");
 			    			}else if("failed"==msg || "exception"==msg){
 			    				alert("Some problem occured. Please try again.");
 			    			}
@@ -2270,7 +2284,7 @@ text-align:center;
 				texttt = texttt.replace(/##tabspace##/g,"\t");
 				$("#replyArea").val(texttt);
 				$("#replyArea").removeAttr("hidden"); */ 
-				var message_content = $("#replyContent").val();
+				var message_content = $("#replyContent"+requestId).val();
 				//alert("message_content:"+message_content);
 				var reply_content = message_content.split("---Original message---")[0];
 				var formData = new FormData();
@@ -2320,7 +2334,7 @@ function currentSlide(n) {
 }
 
 function currentSlide_inpage(current_img){
-	var str = '<img id="profilepic" src="${catalina_base}/'+current_img+'" class="hover-shadow cursor img img-responsive thumbnail watermark_text" style="margin-bottom:0;height:auto;width: 100%;">';
+	var str = '<img id="profilepic" src="${catalina_base}/'+current_img+'" class="hover-shadow cursor img img-responsive thumbnail " style="margin-bottom:0;height:auto;width: 100%;">';
 	//$("#profilepic").prop("src",photoImage);
 	$("#fullProfilePicOuterTag").html('');
 	$("#fullProfilePicOuterTag").html(str);
@@ -3885,9 +3899,9 @@ img.hover-shadow {
 								</ul>
 							</li>
 							<li class="dropdown messages">
-								<a href="#no" class="dropdown-toggle" data-toggle="dropdown">Messages <span class="matchcount" id="pend_req_count">${cacheGuest.pendingRequestsCount}</span></a>
+								<a href="#no" class="dropdown-toggle" data-toggle="dropdown">Messages <span class="matchcount pend_req_count_class" id="pend_req_count">${cacheGuest.pendingRequestsCount}</span></a>
 								<ul class="dropdown-menu">
-									<li><a href="inboxAction?tab_type=inbox&list_type=pending_requests">Inbox - Pending ${cacheGuest.pendingRequestsCount}</a></li>
+									<li><a href="inboxAction?tab_type=inbox&list_type=pending_requests">Inbox - Pending <span class="pend_req_count_class">${cacheGuest.pendingRequestsCount}</span></a></li>
 									<li><a href="inboxAction?tab_type=inbox&list_type=accepted_requests" >Inbox - Accepted </a></li>
 									<li><a href="inboxAction?tab_type=sent&list_type=sent_requests" >Sent All</a></li>
 									<!-- <li><a href="#no">SMS received/sent</a></li> -->
@@ -3990,10 +4004,10 @@ img.hover-shadow {
 							<%@ include file="sample.jsp" %>
 							</div> --%>
 							</a></li>
-							<li><a href="refer" >Refer & Earn <%-- <div id="load_me">
+							<%-- <li><a href="refer" >Refer & Earn <div id="load_me">
 							<%@ include file="sample.jsp" %>
-							</div> --%>
-							</a></li>
+							</div>
+							</a></li> --%>
 							<c:if test="${cacheGuest.roleId == '4' || cacheGuest.membership_status == '0'}">
 							<li><a class="upgradeOption animated flash infinite" href="memberShipPage" style="font-size: 18px; font-weight: bold; color: #fff;">Upgrade</a></li>
 							</c:if>
@@ -4082,12 +4096,12 @@ img.hover-shadow {
         </div>
         <div class="modal-body" style="background: transparent;">
        
-       <p><b>Interest request has been sent successfully to ******** (AM123456545)</b></p>
+       <p><b>Interest request has been sent successfully to <span id="expressModalName"></span></b></p>
          	</div>
          	<br><div class="clearfix"></div>
           	
         <div class="modal-footer">
-          <span type="button" id="sendMailBtn" onclick="sendMail()" class="btn btn-danger " style="  " >Send Mail</span>
+          <a type="button" id="sendMailexpressModal" class="btn btn-danger" onclick="sendMailexpressModalClose();">Send Mail</a>
         </div>
       </div>
       
@@ -4261,6 +4275,13 @@ img.hover-shadow {
 
 <!-- body starts here-->
 <script>
+$( document).ready(function() {
+$("#sendMailExpressModal").click(function(){
+	$('#expressModal').hide();
+	$('#expressModal').modal();
+  });
+});
+
 function myFunction1(id) {
     var x = document.getElementById("myDIV");
     var replay = document.getElementById("replay");

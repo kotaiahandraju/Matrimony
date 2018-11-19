@@ -240,7 +240,7 @@ public class CreateProfileController {
 				objUsersDao.save(objUsersBean);
 				//
 				try {
-					EmailUtil emailUtil = new EmailUtil();
+					//EmailUtil emailUtil = new EmailUtil();
 					if(StringUtils.isNotBlank(objUsersBean.getEmail())){
 //						emailUtil.sendEmail(objUsersBean, objContext, "admin_send_password");
 						

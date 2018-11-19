@@ -75,7 +75,20 @@ text-align:left;
 }
 .new {
 margin-left:10px;
-}</style>
+}
+div .picstyle .watermarkcontent {
+  position: absolute; /* Position the background text */
+  top: -17px; /* At the bottom. Use top:0 to append it to the top */
+  //background: rgb(0, 0, 0); /* Fallback color */
+  //background: rgba(0, 0, 0, 0.5); /* Black background with 0.5 opacity */
+  color: white; /* Grey text */
+  width: 100%; /* Full width */
+  padding: 10px; /* Some padding */
+  transform: rotate(90deg);
+//transform-origin: left top 0;
+width : 0;
+}
+</style>
 <div class="products">
 	<div class="container" style="background: #FFF;">
 	<div class="col-md-12">

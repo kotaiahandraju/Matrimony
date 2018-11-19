@@ -269,14 +269,14 @@
 							</form:select>
 					      </div>
 					    </div>
-					    <div class="form-group">
+					    <%-- <div class="form-group">
 					      <label class="col-md-4 control-label" for="textinput">Your Mobile Number <span class='manditory'>*</span></label>  
 					      <div class="col-md-6">
 					      <form:input path="mobile" class="form-control numbersOnly u"  onkeydown="removeBorder(this.id)" maxlength="10" placeholder="Mobile Number"/>
 					      <span class="hasError" id="mobileError111" style="font-size: 13px;color:red"></span>
 					      <input type="hidden" id="req_from" value="user" >
 					      </div>
-					    </div>
+					    </div> --%>
 					
 					    <div class="form-group">
 					      <label class="col-md-4 control-label" for="textinput"></label>  
@@ -507,8 +507,9 @@ function thirdForm(event)
 	} */
 	if($('#smoking').val() ==  null || $('#smoking').val() == "" || $('#smoking').val()=="undefined" || 
 		$('#drinking').val() ==  null || $('#drinking').val() == ""  || $('#drinking').val()=="undefined" || 
-		$('#height').val() ==  null || $('#height').val() == ""  || $('#height').val()=="undefined" || 
-		$('#mobile').val() ==  null || $('#mobile').val() == ""  || $('#mobile').val()=="undefined")
+		$('#height').val() ==  null || $('#height').val() == ""  || $('#height').val()=="undefined"  
+		//$('#mobile').val() ==  null || $('#mobile').val() == ""  || $('#mobile').val()=="undefined"
+		)
 	{
 		if($('#smoking').val() ==  null || $('#smoking').val() == "" || $('#smoking').val()=="undefined") 
 		{			    
@@ -528,18 +529,30 @@ function thirdForm(event)
 			$('#height').css('color','#cc0000');
 			$('#height').addClass('your-class');
 		}
-		if($('#mobile').val() ==  null || $('#mobile').val() == "" || $('#mobile').val()=="undefined") 
+		/* if($('#mobile').val() ==  null || $('#mobile').val() == "" || $('#mobile').val()=="undefined") 
 		{			    
 			$('#mobile').css('border-color','red');
 			$('#mobile').css('color','#cc0000');
 			$('#mobile').addClass('your-class');
-		}
+		} */
 		event.preventDefault();
 		return false;
 	}
 	else
 	{
-		if($('#mobile').val().trim().length<10){
+		$("#firstForm").hide();
+		$('#secondForm').hide();
+		$("#thirdForm").hide();
+		$('#fourthForm').show();
+		ChangeUrl('page1', 'profile.htm?page=4');
+		event.preventDefault();
+		
+		$("#step1").removeClass("btn-primary");
+		 $("#step2").removeClass("btn-primary");
+		 $("#step3").removeClass("btn-primary");
+		 $("#step4").addClass("btn-primary");
+		return true;
+		/* if($('#mobile').val().trim().length<10){
 			$('#mobileError111').text("Enter a valid mobile number.");
 			event.preventDefault();
 			return false;
@@ -585,7 +598,7 @@ function thirdForm(event)
 			});
 			
 			//return true;
-		}
+		} */
 		return true;
 	}
 }

@@ -27,11 +27,11 @@ public class ScheduledJobs {
 	//@Scheduled(cron = "0 0/15 6-16 * * *") //weekly, every monday at 12 am
 //	@Scheduled(cron = "0 0/3 * * * *") //weekly, every monday at 12 am
 //	@Scheduled(cron = "0 0 13 * * TUE") //weekly, every monday at 12 am
-//	@Scheduled(cron = "0 0 10 * * FRI") //weekly, every monday at 12 am
+	@Scheduled(cron = "0 0 10 * * FRI") //weekly, every monday at 12 am
 //	@Scheduled(cron = "0 0/15 * * * *") //weekly, every monday at 12 am
 	 public void sendWeeklyMatches(){
 		System.out.println("#########  sendWeeklyMatches ###########");
-//	jobsController.weeklyMatchEmails();
+	jobsController.weeklyMatchEmails();
 	 }
 	
 	@Scheduled(cron = "0 0/5 * * * *") //daily at 12 am
@@ -51,7 +51,7 @@ public class ScheduledJobs {
 	 }
 	
 //@Scheduled(cron = "0 0 12 * * *") //daily at 12 am
-@Scheduled(cron = "0 0/7 * * * *")
+@Scheduled(cron = "0 0/1 * * * *")
 	public void splitProfilesToEmployees(){
 		System.out.println("#########  splitProfilesToEmployees ###########");
 		jobsController.splitProfilesToEmployees();

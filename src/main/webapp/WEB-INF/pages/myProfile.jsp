@@ -487,7 +487,7 @@ $(".onlyCharacters").on("keypress",	function(event) {
             </p>
         </div>
        
-        <div id="about_edit" class="all_hidden_divs onlyCharacters" hidden="true">
+        <div id="about_edit" class="all_hidden_divs " hidden="true">
             <form:textarea path="aboutMyself" onfocus="colorChange()" onkeyup="checkLen()" cols="90" rows="6"/><br>
       		<span id="errorMsg" style="color:red"></span>  
       					 <div class="row">
@@ -812,13 +812,13 @@ $(".onlyCharacters").on("keypress",	function(event) {
         <c:if test="${not empty profileBean.mOccupation}">${profileBean.mOccupationName}</c:if>
         <c:if test="${empty profileBean.mOccupation}">Not Specified</c:if>
     </td></tr>
-    <tr>
+    <tr id="noOfBrotherMarri">
     <td>Brothers Married</td><td>:</td>
     <td id="noOfBrothersMarried_val">
         <c:if test="${not empty profileBean.noOfBrothersMarried}">${profileBean.noOfBrothersMarried}</c:if>
         <c:if test="${empty profileBean.noOfBrothersMarried}">Not Specified</c:if>
     </td></tr>
-    <tr>
+    <tr id="noOfSisterMarri">
 <td>Sisters Married</td><td>:</td>
     <td id="noOfSistersMarried_val">
         <c:if test="${not empty profileBean.noOfSistersMarried}">${profileBean.noOfSistersMarried}</c:if>

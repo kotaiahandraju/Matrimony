@@ -5,7 +5,19 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 
+<style>
+.ui-widget-content {
+    border: 1px solid #aaaaaa;
+    background: #ffffff url(images/ui-bg_flat_75_ffffff_40x100.png) 50% 50% repeat-x !important;
+    color: #000 !important;
+}
+.ui-widget-content {
+    border: 1px solid #666;
+    background: #fff url(images/ui-bg_inset-soft_25_000000_1x100.png) 50% bottom repeat-x;
+    color: #000 !important;
+}
 
+</style>
 <link href="${baseurl }/css/datepicker1.css" rel="stylesheet" type="text/css" />
 <script src="${baseurl }/js/jquery-ui.min.js"></script>
 <div id="main">
@@ -95,17 +107,17 @@
 				</div>
 			</div>
 		</div>
-
+<div id="dial1"></div>
 		<div class="row container-fluid">
 			<div class="col-sm-12">
 				<div class="box">
 					<div class="box-title">
-						<h3><i class="fa fa-table"></i> </h3>
+						<h3><i class="fa fa-table"></i>Payment Report </h3>
 					</div>
 					<div class="box-content nopadding w3-animate-zoom table-responsive" id="tableId">
-						<table class="table table-hover table-nomargin table-bordereddataTable-column_filter" data-column_filter_types="text,null">
-							<thead><tr><th>Created On</th><th>Username</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Mobile</th><th>Age</th><th>Caste</th><th>Package</th><th>Occupation</th></tr>
-							</thead>
+<!-- 						<table class="table table-hover table-nomargin table-bordereddataTable-column_filter" data-column_filter_types="text,null"> -->
+                            <table class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,text,text,text,text,null">
+							<thead><tr><th>Create On</th><th>UserName</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Mobile</th><th>Age</th><th>Caste</th><th>Occupation</th><th>Amount</th><th>Package</th></tr></thead><tbody></tbody></table>
 							<tbody></tbody>
 						</table>
 					</div>
@@ -140,7 +152,7 @@ $("#todate").datepicker({
 function displayTable(listOrders) {
 	$('#tableId').html('');
 	var tableHead = '<table class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,text,text,text,text,null">'
-		+ '<thead><tr><th>Create Time</th><th>UserName</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Mobile</th><th>Age</th><th>Caste</th><th>Occupation</th><th>Amount</th><th>Package</th></tr></thead><tbody></tbody></table>';
+		+ '<thead><tr><th>Create On</th><th>UserName</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Mobile</th><th>Age</th><th>Caste</th><th>Occupation</th><th>Amount</th><th>Package</th><th></th></tr></thead><tbody></tbody></table>';
 	$('#tableId').html(tableHead);
 	serviceUnitArray = {};
 	$.each(listOrders,function(i, orderObj) {
@@ -149,8 +161,9 @@ function displayTable(listOrders) {
 						var viewProfile = "<a title='View Profile' onclick='viewProfile("+ orderObj.id+ ")'><i style='color: blue;' class='fa fa-eye'></i></a>" */
 						serviceUnitArray[orderObj.id] = orderObj;
 						if(orderObj.firstName !=null){
+							var viewProfile = "<a title='View Profile' onclick='viewProfileNew("+ orderObj.id+ ");'><i style='color: blue;cursor: pointer;' class='fa fa-eye'></i></a>"
 						var tblRow = "<tr >"
-							+ "<td title='"+orderObj.created_time+"'>" + orderObj.created_time + "</td>"
+							+ "<td title='"+orderObj.created_time_str+"'>" + orderObj.created_time_str + "</td>"
 							+ "<td title='"+orderObj.username+"'>" + orderObj.username + "</td>"
 							+ "<td title='"+orderObj.firstName+"'>" + orderObj.firstName + "</td>"
 							+ "<td title='"+orderObj.lastName+"'>" + orderObj.lastName + "</td>"
@@ -161,6 +174,7 @@ function displayTable(listOrders) {
 							+ "<td title='"+orderObj.occupationName+"'>" + orderObj.occupationName + "</td>"
 							+ "<td title='"+orderObj.price+"'>" + orderObj.price + "</td>"
 							+ "<td title='"+orderObj.planPackage+"'>" + orderObj.planPackage + "</td>"
+							+ "<td style='text-align: center;'>" + viewProfile +"</td>"
 							+ "</tr >";
 						$(tblRow).appendTo("#tableId table tbody"); 
 						}
@@ -235,6 +249,10 @@ function SearchReport()
 	var fromdate = $("#fromdate").val();
 	var todate = $("#todate").val();
 	
+	if(packages == "" && caste=="" && fromdate=="" && todate=="" ){
+		alert("Enter any input");
+		return false;
+	}
 		var formData = new FormData();
 	    formData.append('packages', packages);
 	    formData.append('caste', caste);

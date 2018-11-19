@@ -223,7 +223,7 @@ public class UsersDao extends BaseUsersDao
 			return result;*/
 			buffer.append("select u.id,sta.name as currentStateName,cit.name as currentCityName,u.occupation,oc.name as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username,AES_DECRYPT( u.password,'mykey') as password, u.email, u.createProfileFor,u.gender, "
 					+"u.firstName, u.lastName, u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName, u.currentCountry,co.name as currentCountryName, " 
-					+"u.currentState, u.currentCity, " 
+					+"u.currentState, u.currentCity,u.fatherName,u.motherName,u.noOfBrothers,u.noOfSisters,u.noOfBrothersMarried,u.noOfSistersMarried," 
 					+"u.maritalStatus, u.caste,c.name as casteName, u.gotram, u.star,s.name as starName, u.dosam, u.dosamName, u.education, u.workingWith, u.companyName, " 
 					+"u.annualIncome, u.monthlyIncome, u.diet, u.smoking, u.drinking, u.height ,h.inches,h.cm, u.bodyType,b.name as bodyTypeName, u.complexion,com.name as complexionName, u.mobile, " 
 					+"u.aboutMyself, u.disability, u.status, u.showall,ur.userId, rAgeFrom, rAgeTo, "
@@ -231,8 +231,10 @@ public class UsersDao extends BaseUsersDao
 					+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,floor((datediff(current_date(),u.dob))/365) as age, IFNULL(p.name, 'Free Register') as planPackage,u.profileVerifyedBy, "
 					+" (select h.inches from height h where h.id = (select ur.rHeight from vuserrequirement ur where ur.userId = u.id)) as rHeightInches, "
 					+" (select h.inches from height h where h.id = (select ur.rHeightTo from vuserrequirement ur where ur.userId = u.id)) as rHeightToInches ,u.package_id,"
-					+ " DATE_FORMAT(u.created_time, '%d-%M-%Y') as created_time_str "
-					+"from users u left join userrequirement ur on u.id=ur.userId "
+					+ " DATE_FORMAT(u.created_time, '%d-%M-%Y') as created_time_str, "
+					+ " (select name from occupation where id = u.fOccupation) as fOccupation,"
+				    + " (select name from occupation where id = u.mOccupation) as mOccupation"
+					+" from users u left join userrequirement ur on u.id=ur.userId "
 					+"left join religion re on re.id=u.religion left join language l on l.id=u.motherTongue left join countries co on co.id=u.currentCountry "
 					+"left join cast c on c.id=u.caste left join star s on s.id =u.star left join height h on h.id=u.height left join body_type b on b.id=u.bodyType left join religion re1  on re1.id=rReligion "
 					+"left join complexion com on com.id =u.complexion left join cast c1 on c1.id=rCaste left join language l1 on l1.id=rMotherTongue "
@@ -274,7 +276,7 @@ public class UsersDao extends BaseUsersDao
 								if(type.equals("aarna_premium")){
 									buffer.append( " and u.role_id in ('14') and u.status in ('1') " );
 								}
-								if(type.equals("LAUNCHING_OFFER")){
+								if(type.equalsIgnoreCase("LAUNCHING_OFFER")){
 									buffer.append( " and u.role_id in ('15') and u.status in ('1') " );
 								}
 								if(type.equals("employee")){
@@ -290,7 +292,7 @@ public class UsersDao extends BaseUsersDao
 								}
 								UsersBean objuserBean = (UsersBean) session.getAttribute("cacheUserBean");
 								if(objuserBean.getRoleId()==MatrimonyConstants.AARNA_EMPLOYEE_ROLE_ID){
-									buffer.append( " and u.status in( '1') and u.role_id in ('4') and u.role_id not in ('3') group by u.id" );
+									buffer.append( " and u.status in( '1') and u.role_id not in ('1','3') group by u.id" );
 									String sub_qry = "select (profiles_start_index-1) as start_index,profiles_size from users where id = "+objuserBean.getId();
 									Map<String,Object> limit_values = jdbcTemplate.queryForMap(sub_qry);
 									buffer.append(" order by u.id desc limit "+limit_values.get("profiles_size")+" offset "+limit_values.get("start_index")+" ");
@@ -303,7 +305,7 @@ public class UsersDao extends BaseUsersDao
 								
 								RowValueCallbackHandler handler = new RowValueCallbackHandler(new String[] {"id","currentStateName","currentCityName","occupation","occupationName","educationName","userrequirementId","image","created_time","updated_time",
 										"role_id","username","password","email","createProfileFor","gender","firstName","lastName","dob","religion","religionName","motherTongue","motherTongueName","currentCountry","currentCountryName",
-										"currentState","currentCity","maritalStatus",
+										"currentState","currentCity","fatherName","motherName","fOccupation","mOccupation","noOfBrothers","noOfSisters","noOfBrothersMarried","noOfSistersMarried","maritalStatus",
 										"caste","casteName","gotram","star","starName","dosam","dosamName","education","workingWith","companyName","annualIncome",
 										"monthlyIncome","diet","smoking","drinking","height","inches","cm",
 										"bodyType","bodyTypeName","complexion","complexionName","mobile","aboutMyself","disability",
@@ -313,7 +315,8 @@ public class UsersDao extends BaseUsersDao
 								List<Map<String, String>> result = handler.getResult();
 								return result;
 			/*}
-			return new LinkedList<Map<String, String>>();*/
+			return new LinkedList<Map<
+			String, String>>();*/
 			
 		}
 	 /*public List<Map<String, String>> getProfilesFilteredByCast(String castValues){
@@ -3965,9 +3968,18 @@ public boolean deletePhoto(String photoId){
 	public boolean updateOtpStatus(String mobileNum,String otp){
 		jdbcTemplate = custom.getJdbcTemplate();
 		UsersBean userSessionBean =  (UsersBean) session.getAttribute("cacheGuest");
-		String qryStr = "update user_otps set status='1', updated_time = '"+new java.sql.Timestamp(new DateTime().getMillis())+"' where mobile_no = "+mobileNum+" and user_id = "+userSessionBean.getId()+" and otp = "+otp+" and date(updated_time) = current_date() ";
+		long current_time = new DateTime().getMillis();
+		String qryStr = "update user_otps set status='1', updated_time = '"+new java.sql.Timestamp(current_time)+"' where mobile_no = "+mobileNum+" and user_id = "+userSessionBean.getId()+" and otp = "+otp+" and date(updated_time) = current_date() ";
 		try{
 			int updated_count = jdbcTemplate.update(qryStr);
+			// client requirement: update first time otp verified time as the profile created time 
+			// first check if the user is getting verified for the first time OR getting verified bcz he changed his mobile number
+			// in the first case -- update profile created time
+			qryStr = " select count(*) from  user_otps where user_id = "+userSessionBean.getId()+" and status = '1' ";
+			int already_verified_count = jdbcTemplate.queryForInt(qryStr);
+			if(already_verified_count==0){
+				jdbcTemplate.update(" update users set created_time =  '"+new java.sql.Timestamp(current_time)+"' where id = "+userSessionBean.getId());
+			}
 			if(updated_count==1)
 				return true;
 			
@@ -4530,7 +4542,7 @@ public boolean deletePhoto(String photoId){
 				+"u.annualIncome, u.monthlyIncome, u.diet, u.smoking, u.drinking, u.height ,h.inches,h.cm, u.bodyType,b.name as bodyTypeName, u.complexion,com.name as complexionName, ifnull(u.mobile,'---') as mobile, " 
 				+"u.aboutMyself, u.disability, u.status, u.showall,ur.userId, rAgeFrom, rAgeTo, "
 				+"rHeight, rMaritalStatus, rReligion,re1.name as requiredReligionName, rCaste,c1.name as requiredCasteName, rMotherTongue,l1.name as requiredMotherTongue,haveChildren,rCountry , con1.name as requiredCountry,rState,rEducation,e1.name as requiredEducationName, "
-				+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,floor((datediff(current_date(),u.dob))/365) as age, IFNULL(p.name, 'Free Register') as planPackage,p.price as price from users u left join userrequirement ur on u.id=ur.userId "
+				+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,floor((datediff(current_date(),u.dob))/365) as age, IFNULL(p.name, 'Free Register') as planPackage,p.price as price, DATE_FORMAT(u.created_time, '%d-%M-%Y') as created_time_str from users u left join userrequirement ur on u.id=ur.userId "
 				+"left join religion re on re.id=u.religion left join language l on l.id=u.motherTongue left join countries co on co.id=u.currentCountry "
 				+"left join cast c on c.id=u.caste left join star s on s.id =u.star left join height h on h.id=u.height left join body_type b on b.id=u.bodyType left join religion re1  on re1.id=rReligion "
 				+"left join complexion com on com.id =u.complexion left join cast c1 on c1.id=rCaste left join language l1 on l1.id=rMotherTongue "
@@ -5025,17 +5037,33 @@ public boolean deletePhoto(String photoId){
 			short_str = "emailVerify  mail";
 			emailVerifylink = baseurl+"/users/emailvarificationlink?email="+receiverBean.getEmail()+"&code="+receiverBean.getUnique_code();
 		}
-		try{
-			
-			StringBuffer buffer = new StringBuffer(" insert into emails_data(sender_user_id,receiver_user_id,sender_email,sender_details,sender_display_name,receiver_display_name,sender_user_name,receiver_user_name,receiver_email,mail_content,status,type,full_profile_action_url,sender_image,receiver_password,shortstr,emailVerifylink,base_url,created_on) "
-								+ "	values("+senderBean.getId()+","+receiverBean.getId()+",'"+senderBean.getEmail()+"','"+sender_details.toString()+"','"+senderBean.getFirstName()+" "+senderBean.getLastName()+" ("+senderBean.getUsername()+")','"+receiverBean.getFirstName()+" "+receiverBean.getLastName()+" ("+receiverBean.getUsername()+")','"+senderBean.getUsername()+"','"+receiverBean.getUsername()+"','"+receiverBean.getEmail()+"','"+receiverBean.getMail_content()+"','0','"+mail_type+"','"+actionUrl+"','"+sender_image+"','"+receiver_password+"','"+short_str+"','"+emailVerifylink+"','"+baseurllink+"',current_timestamp())");
-			int inserted_count = jdbcTemplate.update(buffer.toString());
-			if(inserted_count==1){
-				return true;
+		if(mail_type.equalsIgnoreCase("refer_friend")){
+			short_str = " Get unlimited matches ";
+			try{
+				
+				StringBuffer buffer = new StringBuffer(" insert into emails_data(sender_user_id,receiver_user_id,sender_email,receiver_display_name,sender_user_name,receiver_user_name,receiver_email,mail_content,status,type,full_profile_action_url,sender_image,receiver_password,shortstr,emailVerifylink,base_url,created_on,receiver_role_id) "
+									+ "	values("+senderBean.getId()+","+receiverBean.getId()+",'"+senderBean.getEmail()+"','"+receiverBean.getFirstName()+" "+receiverBean.getLastName()+" ("+receiverBean.getUsername()+")','"+senderBean.getUsername()+"','"+receiverBean.getUsername()+"','"+receiverBean.getEmail()+"','"+receiverBean.getMail_content()+"','0','"+mail_type+"','"+actionUrl+"','"+sender_image+"','"+receiver_password+"','"+short_str+"','"+emailVerifylink+"','"+baseurllink+"',current_timestamp(),'"+receiverBean.getRoleId()+"')");
+				int inserted_count = jdbcTemplate.update(buffer.toString());
+				if(inserted_count==1){
+					return true;
+				}
+			}catch (Exception e) {
+				e.printStackTrace();
 			}
-		}catch (Exception e) {
-			e.printStackTrace();
+		}else{
+			try{
+				
+				StringBuffer buffer = new StringBuffer(" insert into emails_data(sender_user_id,receiver_user_id,sender_email,sender_details,sender_display_name,receiver_display_name,sender_user_name,receiver_user_name,receiver_email,mail_content,status,type,full_profile_action_url,sender_image,receiver_password,shortstr,emailVerifylink,base_url,created_on,receiver_role_id) "
+									+ "	values("+senderBean.getId()+","+receiverBean.getId()+",'"+senderBean.getEmail()+"','"+sender_details.toString()+"','"+senderBean.getFirstName()+" "+senderBean.getLastName()+" ("+senderBean.getUsername()+")','"+receiverBean.getFirstName()+" "+receiverBean.getLastName()+" ("+receiverBean.getUsername()+")','"+senderBean.getUsername()+"','"+receiverBean.getUsername()+"','"+receiverBean.getEmail()+"','"+receiverBean.getMail_content()+"','0','"+mail_type+"','"+actionUrl+"','"+sender_image+"','"+receiver_password+"','"+short_str+"','"+emailVerifylink+"','"+baseurllink+"',current_timestamp(),'"+receiverBean.getRoleId()+"')");
+				int inserted_count = jdbcTemplate.update(buffer.toString());
+				if(inserted_count==1){
+					return true;
+				}
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
+		
 		return false;
 	}
 	
@@ -5044,7 +5072,8 @@ public boolean deletePhoto(String photoId){
 		List<Map<String,Object>> list = null;
 		try{
 			
-			String  qry = " select *,DATE_FORMAT(created_on, '%d-%M-%Y') as created_on from emails_data where status = '0' "; // 0 means yet to send email
+			String  qry = " select *,DATE_FORMAT(created_on, '%d-%M-%Y') as created_on from emails_data where status = '0' " // 0 means yet to send email
+					+ " and (sender_user_id = 0 or sender_user_id in (select u.id from users u where u.status = '1' and u.role_id not in (1,3))) "; // sender_id=0 means mail from admin to member
 			list = jdbcTemplate.queryForList(qry);
 			return list;
 		}catch (Exception e) {
@@ -5477,5 +5506,63 @@ public boolean deletePhoto(String photoId){
 		}
 		
 	}
+	
+	public UsersBean getUserByEmailId(String email_id) {
+		 jdbcTemplate = custom.getJdbcTemplate();
+		 try{
+			 UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
+			int count = jdbcTemplate.queryForInt("select count(*) from users where email = ?", new Object[]{email_id});
+			if(count==0){
+				return null;
+			}
+			String sql = "SELECT *  FROM users where  email = ?";
+			List<UsersBean> retlist = jdbcTemplate.query(sql,
+			new Object[]{email_id},
+			ParameterizedBeanPropertyRowMapper.newInstance(UsersBean.class));
+			if(retlist.size() > 0)
+				return retlist.get(0);
+			return null;
+		 }catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}
+	}
+	
+	public boolean updateProfileFilledPercentage(String percentage_val, String user_id){
+		jdbcTemplate = custom.getJdbcTemplate();
+		String updateQry = " update users set profile_filled_percentage = '"+percentage_val+"'  where id = "+user_id;
+		try{
+			int count = jdbcTemplate.update(updateQry);
+			if(count == 1){
+				return true;
+			}
+			return false;
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+
+	}
+	public int getPriceAfterConcession(String package_id,int package_price, String user_id){
+		jdbcTemplate = custom.getJdbcTemplate();
+		String qryStr = "";
+		int finalPrice = 0;
+		try{
+			String selectQry = "select count(*) from users where status = '1' and referred_by = '"+user_id+"' and profile_filled_percentage >= 80";
+			int members_count = jdbcTemplate.queryForInt(selectQry);
+			if(members_count>=MatrimonyConstants.REFERRED_MEMBERS_COUNT){
+				float concession_amount = MatrimonyConstants.CONCESSION_PRECENTAGE / 100;
+				concession_amount = package_price * concession_amount;
+				finalPrice = Math.round(concession_amount);
+			}else{
+				finalPrice = package_price;
+			}
+			return finalPrice;
+		}catch(Exception e){
+			e.printStackTrace();
+			return 0;
+		}
+	}
+	
 }
 

@@ -623,7 +623,7 @@ function displayMatches(listOrders) {
 				+ '<h5 class="panel-title">'
 				+ '<div class="form-check">'
 				+ '	<label class="form-check-label"> <input type="checkbox" class="form-check-input"> '+orderObj.firstName+' '+orderObj.lastName+'</label>'
-				+ '	<span class="pull-right">Created by '+orderObj.createProfileFor+'</span>'
+				+ '	<span class="pull-right">Created for '+orderObj.createProfileFor+'</span>'
 				+ '</div>'
 				+ '</h5>'
 				+ '</div>'

@@ -284,7 +284,7 @@ public class HomePageController {
 					UsersBean sessionBean =(UsersBean)session.getAttribute("cacheGuest");
 				//get session bean values 
 				UsersBean  objUsersBean1 = objUsersDao.getById(sessionBean.getId());
-				objUsersBean1.setMobile(objUsersBean.getMobile());
+				//objUsersBean1.setMobile(objUsersBean.getMobile());
 				 if(objUsersBean != null){
 				 objeModel.addAttribute("createProfile", objUsersBean);
 				 }
@@ -368,6 +368,7 @@ public class HomePageController {
 							newSessionBean.setViewedNotContactedCount(sessionBean.getViewedNotContactedCount());
 			
 				 int filled_status = objUsersDao.getProfileFilledStatus(newSessionBean);
+				 objUsersDao.updateProfileFilledPercentage((45+filled_status)+"",newSessionBean.getId()+"");
 				 //int filled_status = (Integer)session.getAttribute("profile_filled_status");
 				 /*if(StringUtils.isBlank(sessionBean.getAboutMyself()) && StringUtils.isNotBlank(newSessionBean.getAboutMyself())){
 					 filled_status += 10;
@@ -445,6 +446,7 @@ public class HomePageController {
 			 objUsersDao.save(objUsersBean1);
 			 UsersBean newBean = objUsersDao.loginChecking(objUsersBean1.getId());
 			 int filled_status = objUsersDao.getProfileFilledStatus(newBean);
+			 objUsersDao.updateProfileFilledPercentage((45+filled_status)+"",newBean.getId()+"");
 			 session.setAttribute("profile_filled_status", 45+filled_status);
 			 /*int filled_status = (Integer)session.getAttribute("profile_filled_status");
 			 int new_filled_status = getFamilyDetailsFilledStatus(filled_status,sessionBean,newBean);
@@ -624,6 +626,7 @@ public class HomePageController {
 						    	objUserImageUploadDao.save(objUerImagesBean);
 						    	UsersBean newBean = objUsersDao.loginChecking(sessionBean.getId());
 						    	int filled_status = objUsersDao.getProfileFilledStatus(newBean);
+						    	objUsersDao.updateProfileFilledPercentage((45+filled_status)+"",newBean.getId()+"");
 								session.setAttribute("profile_filled_status", 45+filled_status);
 						    	/*int filled_status = (Integer)session.getAttribute("profile_filled_status");
 								 if(StringUtils.isBlank(sessionBean.getImage()) && StringUtils.isNotBlank(newBean.getImage())){
@@ -745,6 +748,7 @@ public class HomePageController {
 						    	objUserImageUploadDao.save(objUerImagesBean);
 						    	UsersBean newBean = objUsersDao.loginChecking(sessionBean.getId());
 						    	int filled_status = objUsersDao.getProfileFilledStatus(newBean);
+						    	objUsersDao.updateProfileFilledPercentage((45+filled_status)+"",newBean.getId()+"");
 								session.setAttribute("profile_filled_status", 45+filled_status);
 						    	/*int filled_status = (Integer)session.getAttribute("profile_filled_status");
 								 if(StringUtils.isBlank(sessionBean.getImage()) && StringUtils.isNotBlank(newBean.getImage())){
@@ -1240,6 +1244,7 @@ public class HomePageController {
 					   }
 					
 					 String mobileNum = profileBean.getMobile();
+					 if("1".equals(sessionBean.getStatus())){
 			            try{
 							   String response = SendSMS.sendSMS("Dear "  +profileBean.getFirstName()+ " "+profileBean.getLastName() +","+"\n"+sessionBean.getFirstName()+" "+sessionBean.getLastName()+""+"("+sessionBean.getUsername()+")"+" Viewed your profile..\n \nWishing You the best life partner \nTeam - Aarna Matrimony", mobileNum);
 							   
@@ -1255,7 +1260,7 @@ public class HomePageController {
 							   request.setAttribute("message", "failed");
 							   //objUsersDao.delete(sessionBean.getId());
 						   }
-					
+					 }
 				}
 			}else if(StringUtils.isNotBlank(request.getParameter("profileId"))){
 				profile_id = Integer.parseInt(request.getParameter("profileId"));
@@ -1976,42 +1981,44 @@ String sJson="";
 				if(userBean == null){
 					return "redirect:HomePage";
 				}
-				String profile_id = request.getParameter("profile_id");
-				if(StringUtils.isNotBlank(profile_id)){
-					boolean success = objUsersDao.shortlistProfile(profile_id);
-					if(success){
-						objJson.put("message", "success");
-						String baseurl =  request.getScheme() + "://" + request.getServerName() +      ":" +   request.getServerPort() +  request.getContextPath();
-						try {
-							objUsersDao.saveEmailData(userBean, receipientUser, baseurl, "shortlisted");
-							//EmailUtil.sendShortListToMail(userBean, receipientUser, request, objContext);
+					String profile_id = request.getParameter("profile_id");
+					if(StringUtils.isNotBlank(profile_id)){
+						boolean success = objUsersDao.shortlistProfile(profile_id);
+						if(success){
+							objJson.put("message", "success");
 							
-						} catch (Exception e) {
-							// TODO: handle exception
+								String baseurl =  request.getScheme() + "://" + request.getServerName() +      ":" +   request.getServerPort() +  request.getContextPath();
+								try {
+									objUsersDao.saveEmailData(userBean, receipientUser, baseurl, "shortlisted");
+									//EmailUtil.sendShortListToMail(userBean, receipientUser, request, objContext);
+									
+								} catch (Exception e) {
+									// TODO: handle exception
+								}
+								
+								 String mobileNum = receipientUser.getMobile();
+								 if("1".equals(userBean.getStatus())){
+						            try{
+										   String response = SendSMS.sendSMS("Dear "  +receipientUser.getFirstName()+ " "+receipientUser.getLastName() +","+"\n"+userBean.getFirstName()+" "+userBean.getLastName()+""+"("+userBean.getUsername()+")"+" shortlisted your profile..\n \nWishing You the best life partner \nTeam - Aarna Matrimony", mobileNum);
+										   
+										   if("OK".equalsIgnoreCase(response)){
+											   
+											   request.setAttribute("message", "success");
+										   }else{
+											   request.setAttribute("message", "failed"); 
+										   }
+										   //throw new Exception();
+									   }catch(Exception e){
+										   e.printStackTrace();
+										   request.setAttribute("message", "failed");
+										   //objUsersDao.delete(sessionBean.getId());
+									   }
+								 }
+							
+						}else{
+							objJson.put("message", "failed");
 						}
-						
-						 String mobileNum = receipientUser.getMobile();
-				            try{
-								   String response = SendSMS.sendSMS("Dear "  +receipientUser.getFirstName()+ " "+receipientUser.getLastName() +","+"\n"+userBean.getFirstName()+" "+userBean.getLastName()+""+"("+userBean.getUsername()+")"+" shortlisted your profile..\n \nWishing You the best life partner \nTeam - Aarna Matrimony", mobileNum);
-								   
-								   if("OK".equalsIgnoreCase(response)){
-									   
-									   request.setAttribute("message", "success");
-								   }else{
-									   request.setAttribute("message", "failed"); 
-								   }
-								   //throw new Exception();
-							   }catch(Exception e){
-								   e.printStackTrace();
-								   request.setAttribute("message", "failed");
-								   //objUsersDao.delete(sessionBean.getId());
-							   }
-						
-						
-					}else{
-						objJson.put("message", "failed");
 					}
-				}
 				/*if(StringUtils.isNotBlank(list_type)){
 					if("preferences".equalsIgnoreCase(list_type)){
 						//filteredProfiles = objUsersDao.getProfilesFilteredByPreferences();
@@ -2069,7 +2076,7 @@ String sJson="";
 					if(StringUtils.isNotEmpty(userBean.getSentInterestCount())){
 						sent_count = Integer.parseInt(userBean.getSentInterestCount());
 					}
-					userBean.setSentInterestCount((sent_count+1)+"");
+					userBean.setSentInterestCount((sent_count+profileArry.length)+"");
 					session.setAttribute("cacheGuest",userBean);
 					String allowed_limit = (String)session.getAttribute("allowed_profiles_limit");
 					objJson.put("allowed_limit", allowed_limit);
@@ -2078,29 +2085,32 @@ String sJson="";
 						receipientUser = objUsersDao.loginChecking(Integer.parseInt(profileArry[j]));
 						receipientUser.setMail_content(mailContent);
 //					EmailUtil.sendExpressInterestToMail(userBean, receipientUser, request, objContext);
-					String baseurl =  request.getScheme() + "://" + request.getServerName() +      ":" +   request.getServerPort() +  request.getContextPath();
-					try {
-						
-						objUsersDao.saveEmailData(userBean, receipientUser, baseurl, "interestrequest");
-					}catch (Exception e) {
-						// TODO: handle exception
-					}
-		            String mobileNum = receipientUser.getMobile();
-					  try{
-						   String response = SendSMS.sendSMS("Dear "  +receipientUser.getFirstName()+ " "+receipientUser.getLastName() +","+"\n"+userBean.getFirstName()+" "+userBean.getLastName()+""+"("+userBean.getUsername()+")"+" sent an Interest request to you.. \n \nWishing You the best life partner \nTeam - Aarna Matrimony", mobileNum);
-						   
-						   if("OK".equalsIgnoreCase(response)){
-							   
-							   request.setAttribute("message", "success");
-						   }else{
-							   request.setAttribute("message", "failed"); 
-						   }
-						   //throw new Exception();
-					   }catch(Exception e){
-						   e.printStackTrace();
-						   request.setAttribute("message", "failed");
-						   //objUsersDao.delete(sessionBean.getId());
-					   }						}
+						String baseurl =  request.getScheme() + "://" + request.getServerName() +      ":" +   request.getServerPort() +  request.getContextPath();
+						try {
+							
+							objUsersDao.saveEmailData(userBean, receipientUser, baseurl, "interestrequest");
+						}catch (Exception e) {
+							// TODO: handle exception
+						}
+			            String mobileNum = receipientUser.getMobile();
+			            if("1".equals(userBean.getStatus())){
+							  try{
+								   String response = SendSMS.sendSMS("Dear "  +receipientUser.getFirstName()+ " "+receipientUser.getLastName() +","+"\n"+userBean.getFirstName()+" "+userBean.getLastName()+""+"("+userBean.getUsername()+")"+" sent an Interest request to you.. \n \nWishing You the best life partner \nTeam - Aarna Matrimony", mobileNum);
+								   
+								   if("OK".equalsIgnoreCase(response)){
+									   
+									   request.setAttribute("message", "success");
+								   }else{
+									   request.setAttribute("message", "failed"); 
+								   }
+								   //throw new Exception();
+							   }catch(Exception e){
+								   e.printStackTrace();
+								   request.setAttribute("message", "failed");
+								   //objUsersDao.delete(sessionBean.getId());
+							   }
+			            }
+					  }
 				}
 				else{
 					objJson.put("message", "failed");
@@ -2163,6 +2173,7 @@ String sJson="";
 							// TODO: handle exception
 						}
 			            String mobileNum = receipientUser.getMobile();
+			            if("1".equals(userBean.getStatus())){
 						  try{
 							   String response = SendSMS.sendSMS("Dear "  +receipientUser.getFirstName()+ " "+receipientUser.getLastName() +","+"\n"+userBean.getFirstName()+" "+userBean.getLastName()+""+"("+userBean.getUsername()+")"+" sent an Interest request to you.. \n \nWishing You the best life partner \nTeam - Aarna Matrimony", mobileNum);
 							   
@@ -2178,7 +2189,7 @@ String sJson="";
 							   request.setAttribute("message", "failed");
 							   //objUsersDao.delete(sessionBean.getId());
 						   }	
-					
+			            }
 				}
 				else{
 					objJson.put("message", "failed");
@@ -2558,6 +2569,7 @@ String sJson="";
 			//String packId = request.getParameter("package_id"); commented temporarily
 			String packId = "6";
 			int price = objUsersDao.getPackagePriceById(Integer.parseInt(packId));
+			price = objUsersDao.getPriceAfterConcession(packId,price,userId+"");
 			session.setAttribute("packageId", packId);
 			JavaIntegrationKit integrationKit = new JavaIntegrationKit();
 	        Map<String, String> values = integrationKit.hashCalMethod(request, response, price);
@@ -4676,19 +4688,21 @@ String sJson="";
 				objUserrequirementBean.setUserId(userSessionBean.getId());
 				objUserrequirementBean.setUserrequirementId(newSessionBean.getUserrequirementId());
 				objUserrequirementDao.save(objUserrequirementBean);*/
-				newSessionBean.setSentInterestCount(userSessionBean.getSentInterestCount());
-				newSessionBean.setReceivedInterestCount(userSessionBean.getReceivedInterestCount());
-				newSessionBean.setAcceptedInterestCount(userSessionBean.getAcceptedInterestCount());
-				newSessionBean.setProfileViewedCount(userSessionBean.getProfileViewedCount());
-				newSessionBean.setRejectedInterestCount(userSessionBean.getRejectedInterestCount());
-				newSessionBean.setProfilesViewedByMeCount(userSessionBean.getProfilesViewedByMeCount());
-				newSessionBean.setMobileNumViewedCount(userSessionBean.getMobileNumViewedCount());
-				newSessionBean.setMobileNumViewedByMeCount(userSessionBean.getMobileNumViewedByMeCount());
-				newSessionBean.setPendingRequestsCount(userSessionBean.getPendingRequestsCount());
-				newSessionBean.setYetToBeViewedCount(userSessionBean.getYetToBeViewedCount());
-				newSessionBean.setViewedNotContactedCount(userSessionBean.getViewedNotContactedCount());
+				Map<String,Object> interestCounts = objUsersDao.getInterestCounts(newSessionBean);
+				newSessionBean.setSentInterestCount((String.valueOf(interestCounts.get("sentInterestCount"))));
+				newSessionBean.setReceivedInterestCount((String.valueOf(interestCounts.get("receivedInterestCount"))));
+				newSessionBean.setAcceptedInterestCount((String.valueOf(interestCounts.get("acceptedInterestCount"))));
+				newSessionBean.setProfileViewedCount((String.valueOf(interestCounts.get("profileViewedCount"))));
+				newSessionBean.setRejectedInterestCount((String.valueOf(interestCounts.get("rejectedInterestCount"))));
+				newSessionBean.setProfilesViewedByMeCount((String.valueOf(interestCounts.get("profilesViewedByMeCount"))));
+				newSessionBean.setMobileNumViewedCount((String.valueOf(interestCounts.get("mobileNumViewedCount"))));
+				newSessionBean.setMobileNumViewedByMeCount((String.valueOf(interestCounts.get("mobileNumViewedByMeCount"))));
+				newSessionBean.setPendingRequestsCount((String.valueOf(interestCounts.get("pendingRequestsCount"))));
+				newSessionBean.setYetToBeViewedCount((String.valueOf(interestCounts.get("yetToBeViewedCount"))));
+				newSessionBean.setViewedNotContactedCount((String.valueOf(interestCounts.get("viewedNotContactedCount"))));
 				
 				int filled_status = objUsersDao.getProfileFilledStatus(newSessionBean);
+				objUsersDao.updateProfileFilledPercentage((45+filled_status)+"",newSessionBean.getId()+"");
 				 session.setAttribute("profile_filled_status", 45+filled_status);
 				 session.setAttribute("cacheGuest",newSessionBean);//newSessionBean now holds the modified data also
 			}
@@ -4751,21 +4765,23 @@ String sJson="";
 				 }
 				
 	            String mobileNum = receipientUser.getMobile();
-	            try{
-					   String response = SendSMS.sendSMS("Dear "  +receipientUser.getFirstName()+ " "+receipientUser.getLastName()+","+"\n"+userBean.getFirstName()+" "+userBean.getLastName()+""+"("+userBean.getUsername()+")"+" sent a Message..\n \n"+receipientUser.getMail_content()+""+" \n \nWishing You the best life partner \nTeam - Aarna Matrimony", mobileNum);
-					   
-					   if("OK".equalsIgnoreCase(response)){
+	            if("1".equals(userBean.getStatus())){
+		            try{
+						   String response = SendSMS.sendSMS("Dear "  +receipientUser.getFirstName()+ " "+receipientUser.getLastName()+","+"\n"+userBean.getFirstName()+" "+userBean.getLastName()+""+"("+userBean.getUsername()+")"+" sent a Message..\n \n"+receipientUser.getMail_content()+""+" \n \nWishing You the best life partner \nTeam - Aarna Matrimony", mobileNum);
 						   
-						   request.setAttribute("message", "success");
-					   }else{
-						   request.setAttribute("message", "failed"); 
+						   if("OK".equalsIgnoreCase(response)){
+							   
+							   request.setAttribute("message", "success");
+						   }else{
+							   request.setAttribute("message", "failed"); 
+						   }
+						   //throw new Exception();
+					   }catch(Exception e){
+						   e.printStackTrace();
+						   request.setAttribute("message", "failed");
+						   //objUsersDao.delete(sessionBean.getId());
 					   }
-					   //throw new Exception();
-				   }catch(Exception e){
-					   e.printStackTrace();
-					   request.setAttribute("message", "failed");
-					   //objUsersDao.delete(sessionBean.getId());
-				   }
+	            }
 			}
 			
 		} catch (Exception e) {
@@ -5016,7 +5032,12 @@ String sJson="";
 						reqObj.put("recent_activity_map", "");
 						//add recent activity data
 						Map<String,Object> recent_activity = objUsersDao.getRecentActivityOf(sessionBean.getId()+"",(Integer)reqObj.get("id"),list_type);
-						reqObj.put("recent_activity_map", recent_activity);
+						if(recent_activity!=null){
+							reqObj.put("recent_activity_map", recent_activity);
+						}else{
+							reqObj.put("recent_activity_map", "");
+						}
+						
 						
 					}
 					jsOnObj.put("inbox_requests", requests);
@@ -5450,7 +5471,7 @@ String sJson="";
 			UsersBean objuserBean = (UsersBean) session.getAttribute("cacheGuest");
 			if(objuserBean != null ){
 				if(objuserBean.getEmailverify().equals("0")){
-					 EmailUtil emailUtil = new EmailUtil();
+					 //EmailUtil emailUtil = new EmailUtil();
 					 // email to user email verification link
 //						 response = emailUtil.emailVerify(objuserBean, objContext,request);
 						 String baseurl =  request.getScheme() + "://" + request.getServerName() +      ":" +   request.getServerPort() +  request.getContextPath();

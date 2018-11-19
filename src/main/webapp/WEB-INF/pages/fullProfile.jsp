@@ -782,6 +782,12 @@ left:10px !important;
 				<c:if test="${empty profileBean.occupationName}">Not Specified</c:if>
 			</td>
 		</tr>
+		<tr><td>Annual Income</td><td>:</td>
+			<td id="annualIncome_val">
+				<c:if test="${not empty profileBean.annualIncome}">${profileBean.annualIncome}</c:if>
+				<c:if test="${empty profileBean.annualIncome}">Not Specified</c:if>
+			</td>
+		</tr>
 	</table>
 	</div>
 	
@@ -843,20 +849,22 @@ left:10px !important;
 				<c:if test="${empty profileBean.mOccupation}">Not Specified</c:if>
 			</td>
 	</tr>
+	<c:if test="${not empty profileBean.noOfBrothersMarried}">
 	<tr>
 	<td>Brothers Married</td><td>:</td>
 			<td id="noOfBrothersMarried_val">
 				<c:if test="${not empty profileBean.noOfBrothersMarried}">${profileBean.noOfBrothersMarried}</c:if>
 				<c:if test="${empty profileBean.noOfBrothersMarried}">Not Specified</c:if>
 			</td>
-	</tr>
+	</tr></c:if>
+	<c:if test="${not empty profileBean.noOfSistersMarried}">
 	<tr>
 	<td>Sisters Married</td><td>:</td>
 			<td id="noOfSistersMarried_val">
 				<c:if test="${not empty profileBean.noOfSistersMarried}">${profileBean.noOfSistersMarried}</c:if>
 				<c:if test="${empty profileBean.noOfSistersMarried}">Not Specified</c:if>
 			</td>
-	</tr>
+	</tr></c:if>
 	</table>
 	</div>
 	
@@ -1089,7 +1097,7 @@ left:10px !important;
 			</div>
 			<div class="col-md-4 col-sm-4" style="width:390px; margin:55px 20px 0px 20px;">
 				
-				<div class="fleft"><div class="hdtxt paddl5 paddr5 txt-center" style="width:382px;">----- Your profile matches <span id=noOfProfileMatch></span>  / 14 of <c:if test="${cacheGuest.roleId == 4}"><img src="${baseurl}/images/blurr.png"/></c:if><c:if test="${cacheGuest.roleId != 4}">${profileBean.firstName}</c:if> preferences -----</div></div>
+				<div class="fleft"><div class="hdtxt paddl5 paddr5 txt-center" style="width:382px;">Your profile matches <span id=noOfProfileMatch></span>  / 14 of <c:if test="${cacheGuest.roleId == 4}"><img src="${baseurl}/images/blurr.png"/></c:if><c:if test="${cacheGuest.roleId != 4}">${profileBean.firstName}</c:if> preferences</div></div>
 				
 			</div>
 			<div class="col-md-2 col-sm-2">
@@ -1524,7 +1532,7 @@ var short_listed =  ${profileBean.shortlisted};
 if(short_listed>0){
 	//alert("###");
 $("#sortlistdivId").html("");
-$("#sortlistdivId").append(' <li>Shortlisted</li>');
+$("#sortlistdivId").append(' <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shortlisted</li>');
 }
 //showSlides(slideIndex);
 var allowed_limit = "${allowed_profiles_limit}";
@@ -1838,7 +1846,7 @@ function toggleDiv(divElem){
 	    			if(msg=="success"){
 	    				alert("This profile has been shortlisted.");
 	    				$("#sortlistdivId").html("");
-	    				$("#sortlistdivId").append(' <li>Shortlisted</li>');
+	    				$("#sortlistdivId").append(' <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shortlisted</li>');
 	    				//if($("#id").val(profileId)!=null&&$("#id").val(profileId)!="")
 	    					
 	    				
