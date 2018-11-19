@@ -84,6 +84,8 @@
 
 
 	<style type="text/css">
+	input, button, select, textarea {
+    font-family: 'Open Sans', sans-serif;}
 	.newma  td:first-child { 
 	font-weight:bold;}
 	.products {
