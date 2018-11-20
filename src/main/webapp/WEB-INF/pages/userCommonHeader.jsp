@@ -378,7 +378,7 @@ text-align:center;
 	  addWaterMark();
 	  watermark_text_fullimg();
 	 });
-	var v1 = 40;var v2 = 40;
+	var v1 = 23;var v2 = 23;
 	 function addWaterMark(){
 		  $('.watermark_text').watermark({
 			  text: 'aarnamatrimony.com',
