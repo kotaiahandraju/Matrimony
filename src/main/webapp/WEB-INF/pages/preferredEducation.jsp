@@ -49,14 +49,14 @@ function displayMatches(listOrders) {
 			firstname = orderObj.firstName;
 			lastname = orderObj.lastName;
 		}
-		var shortListedStr = '<span id="shortlistTD'+orderObj.id+'"><a href="#no" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="shortList_dashboard('+orderObj.id+')"> Shortlist</a></span>';
+		var shortListedStr = '<span id="shortlistEdu'+orderObj.id+'"><a href="#no" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="shortList_dashboard_edu('+orderObj.id+')"> Shortlist</a></span>';
 		if(orderObj.shortlisted == "1"){
 			shortListedStr = "<span>Shortlisted</span>";
 		}
 		var expressed = orderObj.expressedInterest;
 		var interestStr = "";
 		if(expressed==0){
-			interestStr = '<span id="expInterest'+orderObj.id+'"><a   href="#no" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="expressInterest_dashboard('+orderObj.id+')">  Express Interest  </a></span>';
+			interestStr = '<span id="expInterestEdu'+orderObj.id+'"><a   href="#no" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="expressInterest_dashboard_edu('+orderObj.id+')">  Express Interest  </a></span>';
 		}else if(expressed>0){
 			interestStr = '<span>Expressed Interest</span>';
 		}
@@ -91,9 +91,13 @@ function displayMatches(listOrders) {
 	
 });
 }
-function expressInterest_dashboard(profile_id){
+function expressInterest_dashboard_edu(profile_id){
 	var roleId = ${cacheGuest.roleId};
 	$("#id").val(profile_id);
+	var profileObj = serviceUnitArray[profile_id];
+	$("#expressModalName").html("");
+	var expIntUserName=profileObj.firstName+" "+profileObj.lastName+""+"("+profileObj.username+")";
+	$("#expressModalName").html(expIntUserName);
 	if(roleId==4){
 		document.searchForm2.action = "memberShipPage"
 		document.searchForm2.submit();
@@ -108,7 +112,6 @@ function expressInterest_dashboard(profile_id){
 			alert("Exceeded allowed profiles limit. Renew your membership plan and get more profiles");
 			return false;
 		}
-		var profileObj = serviceUnitArray[profile_id];
 
 		var formData = new FormData();
 		formData.append('profile_id',profile_id);
@@ -120,9 +123,15 @@ function expressInterest_dashboard(profile_id){
 	    		var profiles = jsonobj.allProfiles;
 	    		//if(typeof msg != "undefined" ){
 	    			if("success"==msg){
-	    				alert("Interest request has been sent successfully");
-	    				$("#expInterest"+profile_id).html('Expressed Interest');
-	    				$("#expInterest"+profile_id).prop("disabled",true);
+// 	    				alert("Interest request has been sent successfully");
+								$("#profile_id").val(profile_id);
+			    				$("#memberName").val(expIntUserName);
+			    				$("#member_name_todisplay").html(" to "+profileObj.firstName+" "+profileObj.lastName);
+			    				$("#sendMailexpressModal").attr("onclick","displayMailPopup("+profile_id+",'"+expIntUserName+"')");
+								$('#expressModal').show();
+			    				$('#expressModal').modal();
+	    				$("#expInterestEdu"+profile_id).html('Expressed Interest');
+	    				$("#expInterestEdu"+profile_id).prop("disabled",true);
 	    				$("#mobileTD"+profile_id).html('<span style="background:url(${baseurl}/user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+profileObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="${baseurl}/user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>');
 	    				if(typeof limit != "undefined"){
 	    					if(limit=="unlimited"){
@@ -160,9 +169,12 @@ function expressInterest_dashboard(profile_id){
 			});
 	}
 }
-function shortList_dashboard(profileId){
+function shortList_dashboard_edu(profileId){
 	$("#id").val(profileId);
 	var profileObj = serviceUnitArray[profileId];
+	$("#shortListModalName").html("");
+	var expIntUserName=profileObj.firstName+" "+profileObj.lastName+""+"("+profileObj.username+")";
+	$("#shortListModalName").html(expIntUserName);
 	var formData = new FormData();
 	formData.append('profile_id',profileId);
 	jQuery.fn.makeMultipartRequest('POST', 'shortList', false,
@@ -171,7 +183,12 @@ function shortList_dashboard(profileId){
     		var msg = jsonobj.message;
     		if(typeof msg != "undefined"){
     			if(msg=="success"){
-    				$("#shortlistTD"+profileId).html('Shortlisted');
+    				$("#profile_id").val(profileId);
+    				$("#memberName").val(expIntUserName);
+    				$("#sendMailShortlistModal").attr("onclick","displayMailPopup("+profileId+",'"+expIntUserName+"')");
+					$('#shortlistModal').show();
+    				$('#shortlistModal').modal();
+    				$("#shortlistEdu"+profileId).html('Shortlisted');
     				//$("#shortlistTD"+profileId).removeAttr("href");
     				//$("#shortlistTD"+profileId).attr("disabled");
     			}else{

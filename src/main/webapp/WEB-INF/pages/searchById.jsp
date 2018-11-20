@@ -518,74 +518,74 @@ function validateInput(id, errorMessage)
    // }
 }); */
 
-function expressInterest(profile_id){
-	var roleId = ${cacheGuest.roleId};
-	$("#id").val(profile_id);
-	if(roleId==4){
-		document.searchForm2.action = "memberShipPage"
-		document.searchForm2.target = "_blank";    // Open in a new window
-		document.searchForm2.submit();
-		return true;
-	}else{
-		var membershipStatus = ${cacheGuest.membership_status};
-		if(membershipStatus!="1"){
-			alert("Your membership validity period is over. Renew your membership plan and get more profiles");
-			return false;
-		}
-		if(allowed_limit<=0){
-			alert("Exceeded allowed profiles limit. Renew your membership plan and get more profiles");
-			return false;
-		}
-		var formData = new FormData();
+// function expressInterest(profile_id){
+// 	var roleId = ${cacheGuest.roleId};
+// 	$("#id").val(profile_id);
+// 	if(roleId==4){
+// 		document.searchForm2.action = "memberShipPage"
+// 		document.searchForm2.target = "_blank";    // Open in a new window
+// 		document.searchForm2.submit();
+// 		return true;
+// 	}else{
+// 		var membershipStatus = ${cacheGuest.membership_status};
+// 		if(membershipStatus!="1"){
+// 			alert("Your membership validity period is over. Renew your membership plan and get more profiles");
+// 			return false;
+// 		}
+// 		if(allowed_limit<=0){
+// 			alert("Exceeded allowed profiles limit. Renew your membership plan and get more profiles");
+// 			return false;
+// 		}
+// 		var formData = new FormData();
 	
-		formData.append('profile_id',profile_id);
-		jQuery.fn.makeMultipartRequest('POST', 'expressInterestTo', false,
-				formData, false, 'text', function(data){
-	    		var jsonobj = $.parseJSON(data);
-	    		var limit = jsonobj.allowed_limit;
-	    		var msg = jsonobj.message;
-	    		var profiles = jsonobj.allProfiles;
-	    		//if(typeof msg != "undefined" ){
-	    			if("success"==msg){
-	    				alert("Interest request has been sent successfully");
-	    				$("#expInterest"+profile_id).html('Expressed Interest');
-	    				$("#expInterest"+profile_id).prop("disabled",true);
-	    				if(typeof limit != "undefined"){
-	    					if(limit=="unlimited"){
-	    						allowed_limit = "1";
-	    						allowed_limit = parseInt(allowed_limit);
-	    					}else{
-	    						allowed_limit = limit;
-	    					}
-	    				}
-	    			}else if("failed"==msg || "exception"==msg){
-	    				alert("Interest request is not successful. Please try again.");
-	    			}
-	    		//}
-	    		/* if(profiles==""){
-	    			$('#countId').html('0');
-	    			var str = '<div class="panel panel-default"><h6>No results found..!</h6></div>';
-	    			$('#searchResults').html('');
-	    			$(str).appendTo("#searchResults");
-	    		}else{
-	    			$('#countId').html(profiles.length);
-	    			displayMatches(profiles);
-	    		} */
-	    		/* var filtered_list = jsonobj.filtered_profiles;
-	    		$('#countId').html('');
-	    		if(filtered_list==""){
-	    			$('#countId').html('0');
-	    			var str = '<div class="panel panel-default"><h6>No results found..!</h6></div>';
-	    			$('#searchResults').html('');
-	    			$(str).appendTo("#searchResults");
-	    		}else{
-	    			$('#countId').html(filtered_list.length);
-	    			displayMatches(filtered_list);
-	    		} */
+// 		formData.append('profile_id',profile_id);
+// 		jQuery.fn.makeMultipartRequest('POST', 'expressInterestTo', false,
+// 				formData, false, 'text', function(data){
+// 	    		var jsonobj = $.parseJSON(data);
+// 	    		var limit = jsonobj.allowed_limit;
+// 	    		var msg = jsonobj.message;
+// 	    		var profiles = jsonobj.allProfiles;
+// 	    		//if(typeof msg != "undefined" ){
+// 	    			if("success"==msg){
+// 	    				alert("Interest request has been sent successfully");
+// 	    				$("#expInterest"+profile_id).html('Expressed Interest');
+// 	    				$("#expInterest"+profile_id).prop("disabled",true);
+// 	    				if(typeof limit != "undefined"){
+// 	    					if(limit=="unlimited"){
+// 	    						allowed_limit = "1";
+// 	    						allowed_limit = parseInt(allowed_limit);
+// 	    					}else{
+// 	    						allowed_limit = limit;
+// 	    					}
+// 	    				}
+// 	    			}else if("failed"==msg || "exception"==msg){
+// 	    				alert("Interest request is not successful. Please try again.");
+// 	    			}
+// 	    		//}
+// 	    		/* if(profiles==""){
+// 	    			$('#countId').html('0');
+// 	    			var str = '<div class="panel panel-default"><h6>No results found..!</h6></div>';
+// 	    			$('#searchResults').html('');
+// 	    			$(str).appendTo("#searchResults");
+// 	    		}else{
+// 	    			$('#countId').html(profiles.length);
+// 	    			displayMatches(profiles);
+// 	    		} */
+// 	    		/* var filtered_list = jsonobj.filtered_profiles;
+// 	    		$('#countId').html('');
+// 	    		if(filtered_list==""){
+// 	    			$('#countId').html('0');
+// 	    			var str = '<div class="panel panel-default"><h6>No results found..!</h6></div>';
+// 	    			$('#searchResults').html('');
+// 	    			$(str).appendTo("#searchResults");
+// 	    		}else{
+// 	    			$('#countId').html(filtered_list.length);
+// 	    			displayMatches(filtered_list);
+// 	    		} */
 				
-			});
-	}
-}
+// 			});
+// 	}
+// }
 
 /* $(".more").click(function(){
 	$(".hideMe").hide();
