@@ -88,7 +88,7 @@ hr:hover {
 						</div>
 					</div>
 	       </div>
-					</div>
+					
 					
 					<div class="clearfix"></div>
 					<hr>

@@ -14,6 +14,16 @@ min-height: 20px;
     -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
     box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
     }
+   /*  p{
+    font-size:14px;
+    } */
+    .form-control {
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 12px;
+    }
     .modal{
     background: rgba(0, 0, 0, 0.3) !important;
 		height: auto;
@@ -42,12 +52,12 @@ min-height: 20px;
 				
 				<div class="col-md-6">
 				
-				<b>Our Office :</b><br>Door No 58-2-3/1,<br>
+				<p><b>Our Office :</b><br>Door No 58-2-3/1,<br>
 Bagaiah Street,<br>
 Opposite Tanusri Hospital,<br> 
 Pantakalava Road,<Br>
 Benzcircle Vijayawada.<br> +91 8466999991 <br>Email:
-				<a href="" style="color:blue;">info@aarnamatrimony.com</a>
+				<a href="" style="color:blue;">info@aarnamatrimony.com</a></p>
 </div>
 
 

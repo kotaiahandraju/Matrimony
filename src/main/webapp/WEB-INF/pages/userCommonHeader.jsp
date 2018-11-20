@@ -84,6 +84,8 @@
 
 
 	<style type="text/css">
+	input, button, select, textarea {
+    font-family: 'Open Sans', sans-serif;}
 	.newma  td:first-child { 
 	font-weight:bold;}
 	.products {
@@ -376,7 +378,7 @@ text-align:center;
 	  addWaterMark();
 	  watermark_text_fullimg();
 	 });
-	var v1 = 40;var v2 = 40;
+	var v1 = 23;var v2 = 23;
 	 function addWaterMark(){
 		  $('.watermark_text').watermark({
 			  text: 'aarnamatrimony.com',
@@ -4031,10 +4033,10 @@ img.hover-shadow {
 							<%@ include file="sample.jsp" %>
 							</div> --%>
 							</a></li>
-							<%-- <li><a href="refer" >Refer & Earn <div id="load_me">
-							<%@ include file="sample.jsp" %>
-							</div>
-							</a></li> --%>
+							<li><a href="refer" >Refer & Earn <%-- <div id="load_me">
+							<%@ include file="refer.jsp" %>
+							</div> --%>
+							</a></li>
 							<c:if test="${cacheGuest.roleId == '4' || cacheGuest.membership_status == '0'}">
 							<li><a class="upgradeOption animated flash infinite" href="memberShipPage" style="font-size: 18px; font-weight: bold; color: #fff;">Upgrade</a></li>
 							</c:if>
