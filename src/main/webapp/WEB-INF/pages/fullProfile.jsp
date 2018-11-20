@@ -1492,7 +1492,7 @@ left:10px !important;
                     <img data-u="thumb" src="${catalina_base}/${photo.folder_name}/${photo.image_name}" alt="${photo.image_name}" />
                 </div>
 			</div>
-		</c:forEach>
+		  </c:forEach>
           
            <!--  <div>
                 <img data-u="image" src="img/022.jpg" />
