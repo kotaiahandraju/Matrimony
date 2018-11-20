@@ -214,10 +214,12 @@ color:green;
     left: 0;
     z-index: 1040;
     background-color: #000;
+    display:none;
 }
+
 .modal-backdrop.in {
   
-    opacity: .5;
+/*     opacity: .5; */
 }   
 .modal
 {
@@ -857,7 +859,7 @@ var updateprofiles=${latest_updated_profiles};
 //}
 function displayMatches(listOrders) {
 	$('#matches').html('');
-	serviceUnitArray = {};
+	serviceUnitArraypreferred = {};
 	if(listOrders==""){
 		//var tblRow = '<div>No matches found.</div>';
 		//$(tblRow).appendTo("#matches"); 
@@ -881,7 +883,7 @@ function displayMatches(listOrders) {
 		$("#altLists").asPaginator('enable');
 		$("#pagination_div").removeAttr("hidden");
 		displayTableFooter(1);
-		serviceUnitArray[orderObj.id] = orderObj;
+		serviceUnitArraypreferred[orderObj.id] = orderObj;
 		
 		var array = null;
 // 		var imageUrl =null;
@@ -1227,11 +1229,15 @@ function displayNewMatches_update(listOrders) {
 		
 	});
 }
-	
+// 	var serviceUnitArraypreferred = {};
 function expressInterest_dashboard(profile_id){
 	var roleId = ${cacheGuest.roleId};
 	$("#id").val(profile_id);
-	if(roleId==4){
+	var profileObj = serviceUnitArraypreferred[profile_id];
+	$("#expressModalName").html("");
+	var expIntUserName=profileObj.firstName+" "+profileObj.lastName+""+"("+profileObj.username+")";
+	$("#expressModalName").html(expIntUserName);
+	$("#shortListModalName").html(expIntUserName);	if(roleId==4){
 		document.searchForm2.action = "memberShipPage"
 		document.searchForm2.submit();
 		return true;
@@ -1245,7 +1251,6 @@ function expressInterest_dashboard(profile_id){
 			alert("Exceeded allowed profiles limit. Renew your membership plan and get more profiles");
 			return false;
 		}
-		var profileObj = serviceUnitArray[profile_id];
 
 		var formData = new FormData();
 		formData.append('profile_id',profile_id);
@@ -1257,7 +1262,13 @@ function expressInterest_dashboard(profile_id){
 	    		var profiles = jsonobj.allProfiles;
 	    		//if(typeof msg != "undefined" ){
 	    			if("success"==msg){
-	    				alert("Interest request has been sent successfully");
+	    				$("#profile_id").val(profile_id);
+	    				$("#memberName").val(expIntUserName);
+	    				$("#member_name_todisplay").html(" to "+profileObj.firstName+" "+profileObj.lastName);
+// 	    				alert("Interest request has been sent successfully");
+						$("#sendMailexpressModal").attr("onclick","displayMailPopup("+profile_id+",'"+expIntUserName+"')");
+								$('#expressModal').show();
+			    				$('#expressModal').modal();
 	    				$("#expInterest"+profile_id).html('Expressed Interest');
 	    				$("#expInterest"+profile_id).prop("disabled",true);
 	    				$("#mobileTD"+profile_id).html('<span style="background:url(${baseurl}/user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+profileObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="${baseurl}/user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>');
@@ -1301,6 +1312,7 @@ function expressInterest_dashboard(profile_id){
 function expressInterest_Sidegrid(profile_id,list_type){
 	var roleId = ${cacheGuest.roleId};
 	$("#id").val(profile_id);
+
 	if(roleId==4){
 		document.searchForm2.action = "memberShipPage"
 		document.searchForm2.submit();
@@ -1327,7 +1339,7 @@ function expressInterest_Sidegrid(profile_id,list_type){
 	    		var profiles = jsonobj.allProfiles;
 	    		//if(typeof msg != "undefined" ){
 	    			if("success"==msg){
-	    				alert("Interest request has been sent successfully");
+// 	    				alert("Interest request has been sent successfully");
 	    				$("#expInt"+list_type+profile_id).html('Expressed Interest');
 	    				if(typeof limit != "undefined"){
 	    					if(limit=="unlimited"){
@@ -1369,6 +1381,10 @@ function expressInterest_Sidegrid(profile_id,list_type){
 function expressInterest_dashboardnewmatches(profile_id){
 	var roleId = ${cacheGuest.roleId};
 	$("#id").val(profile_id);
+	var profileObj = serviceUnitArray2[profile_id];
+	$("#expressModalName").html("");
+	var expIntUserName=profileObj.firstName+" "+profileObj.lastName+""+"("+profileObj.username+")";
+	$("#expressModalName").html(expIntUserName);
 	if(roleId==4){
 		document.searchForm2.action = "memberShipPage"
 		document.searchForm2.submit();
@@ -1395,7 +1411,13 @@ function expressInterest_dashboardnewmatches(profile_id){
 	    		var profiles = jsonobj.allProfiles;
 	    		//if(typeof msg != "undefined" ){
 	    			if("success"==msg){
-	    				alert("Interest request has been sent successfully");
+	    				$("#profile_id").val(profile_id);
+	    				$("#memberName").val(expIntUserName);
+	    				$("#member_name_todisplay").html(" to "+profileObj.firstName+" "+profileObj.lastName);
+// 	    				alert("Interest request has been sent successfully");
+					$("#sendMailexpressModal").attr("onclick","displayMailPopup("+profile_id+",'"+expIntUserName+"')");
+								$('#expressModal').show();
+			    				$('#expressModal').modal();
 	    				$("#expInterest"+profile_id).html('<a   type="button" disabled="true"  class="btn btn-warning "  >Request Sent</a>');
 	    				$("#expInterest"+profile_id).prop("disabled",true);
 	    				if(typeof limit != "undefined"){
@@ -1437,6 +1459,10 @@ function expressInterest_dashboardnewmatches(profile_id){
 function expressInterest_dashboard_latestUpdates(profile_id){
 	var roleId = ${cacheGuest.roleId};
 	$("#id").val(profile_id);
+	var profileObj = serviceUnitArray2[profile_id];
+	$("#expressModalName").html("");
+	var expIntUserName=profileObj.firstName+" "+profileObj.lastName+""+"("+profileObj.username+")";
+	$("#expressModalName").html(expIntUserName);
 	if(roleId==4){
 		document.searchForm2.action = "memberShipPage"
 		document.searchForm2.submit();
@@ -1463,7 +1489,14 @@ function expressInterest_dashboard_latestUpdates(profile_id){
 	    		var profiles = jsonobj.allProfiles;
 	    		//if(typeof msg != "undefined" ){
 	    			if("success"==msg){
-	    				alert("Interest request has been sent successfully");
+// 	    				alert("Interest request has been sent successfully");
+								$("#profile_id").val(profile_id);
+	    				$("#memberName").val(expIntUserName);
+	    				$("#member_name_todisplay").html(" to "+profileObj.firstName+" "+profileObj.lastName);
+// 	    				alert("Interest request has been sent successfully");
+					$("#sendMailexpressModal").attr("onclick","displayMailPopup("+profile_id+",'"+expIntUserName+"')");
+								$('#expressModal').show();
+			    				$('#expressModal').modal();
 	    				$("#expInterestLaest"+profile_id).html('Expressed Interest');
 	    				$("#expInterestLaest"+profile_id).prop("disabled",true);
 	    				$("#mobileTD"+profile_id).html('<span style="background:url(${baseurl}/user/images/mobile.gif) no-repeat left top;padding-left:13px;font:bold 14px/18px Arial;">&nbsp;+91-'+profileObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="${baseurl}/user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>');
@@ -1506,7 +1539,10 @@ function expressInterest_dashboard_latestUpdates(profile_id){
 }
 function shortList_dashboard(profileId){
 	$("#id").val(profileId);
-	var profileObj = serviceUnitArray[profileId];
+	var profileObj = serviceUnitArraypreferred[profileId];
+	$("#shortListModalName").html("");
+	var expIntUserName=profileObj.firstName+" "+profileObj.lastName+""+"("+profileObj.username+")";
+	$("#shortListModalName").html(expIntUserName);
 	var formData = new FormData();
 	formData.append('profile_id',profileId);
 	jQuery.fn.makeMultipartRequest('POST', 'shortList', false,
@@ -1515,7 +1551,14 @@ function shortList_dashboard(profileId){
     		var msg = jsonobj.message;
     		if(typeof msg != "undefined"){
     			if(msg=="success"){
+    				$("#profile_id").val(profileId);
+    				$("#memberName").val(expIntUserName);
+    				$("#member_name_todisplay").html(" to "+profileObj.firstName+" "+profileObj.lastName);
     				$("#shortlistTD"+profileId).html('Shortlisted');
+    				$("#sendMailShortlistModal").attr("onclick","displayMailPopup("+profileId+",'"+expIntUserName+"')");
+//					$("#sendMailexpressModal").attr('data-popup-close')
+					$('#shortlistModal').show();
+					$('#shortlistModal').modal();
     				//$("#shortlistTD"+profileId).removeAttr("href");
     				//$("#shortlistTD"+profileId).attr("disabled");
     			}else{
