@@ -28,10 +28,13 @@
 
 <!-- For Facebook -->
 <meta property="og:title" content="Aarna Matrimony" />
-<meta property="og:type" content="article" />
+<!-- <meta property="og:type" content="article" /> -->
 <meta property="og:image" content="${baseurl }/images/fac.jpg" />
 <meta property="og:url" content="http://www.aarnamatrimony.com" />
 <meta property="og:description" content="matrimonial, telugu matrimony, no1 matrimony in vijayawada" />
+
+<!-- <meta property="og:url"           content="http://www.aarnamatrimony.com/" /> -->
+<meta property="og:type"          content="website" />
 
 <!-- For Twitter -->
 <meta name="twitter:card" content="summary" />

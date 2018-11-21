@@ -91,18 +91,37 @@ Your friends would need to register successfully & you earn Rs 50/- for single r
 </div>
 </div><div class="clearfix"></div><br>
 <div class="col-md-2"></div>
-<div class="col-md-2 col-sm-2"><a href="https://www.facebook.com/" target="_blank" class="btn btn-block btn-social btn-facebook">
+<!-- <div class="col-md-2 col-sm-2"><a href="https://www.facebook.com/" target="_blank" class="btn btn-block btn-social btn-facebook">
     <span class="fa fa-facebook"></span> Facebook
-  </a></div>
-<div class="col-md-2 col-sm-2"><a href="https://www.twitter.com/" target="_blank" class="btn btn-block btn-social btn-twitter">
+  </a></div> -->
+  <div class="col-md-2 col-sm-2 fb-share-button" data-href="http://www.aarnamatrimony.com?refcode=123456" data-layout="button" data-size="large" data-mobile-iframe="false">
+  	<a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.aarnamatrimony.com%2F%3Frefcode%3D123456&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore btn btn-block btn-social btn-facebook"><span class="fa fa-facebook"></span>Share</a>
+  </div>
+	<!-- <a href="https://twitter.com/home?status=http%3A//www.aarnamatrimony.com" class="btn btn-block btn-social btn-twitter"><span class="fa fa-twitter"></span>Share on Twitter</a> -->
+    
+  <div class="col-md-2 col-sm-2">
+  	<a href="https://twitter.com/home?status=http%3A//www.aarnamatrimony.com" class="btn btn-block btn-social btn-twitter">
     <span class="fa fa-twitter"></span> Twitter
   </a></div>
-  <div class="col-md-2 col-sm-2"><a href="https://www.whatsapp.com/" target="_blank" class="btn btn-block btn-social btn-whatsapp">
+  <!-- <div class="col-md-2 col-sm-2"><a href="https://www.whatsapp.com/" target="_blank" class="btn btn-block btn-social btn-whatsapp">
     <span class="fa fa-whatsapp"></span>  Whatsapp
-  </a></div>
-  <div class="col-md-2 col-sm-2"><a href="https://www.google.com/" target="_blank" class="btn btn-block btn-social btn-google">
+  </a></div> -->
+  <div id="mobile-share">
+  	<a href="whatsapp://send?text=http://www.aarnamatrimony.com" data-action="share/whatsapp/share" class="btn btn-block btn-social btn-whatsapp">
+  		<span class="fa fa-whatsapp"></span>Whatsapp
+  	</a>
+  </div>
+  <!-- <div class="col-md-2 col-sm-2"><a href="https://www.google.com/" target="_blank" class="btn btn-block btn-social btn-google">
     <span class="fa fa-google"></span>  Google
-  </a></div><div class="clearfix"></div>
+  </a></div>  -->
+  <div class="g-plus" data-action="share" class="btn btn-block btn-social btn-google" data-height="34" data-href="http://www.aarnamatrimony.com">
+  </div>
+  <!-- <div class="col-md-2 col-sm-2 g-plus" >
+  	<a href="https://plus.google.com/share?url=http%3A//www.aarnamatrimony.com" target="_blank"  class="btn btn-block btn-social btn-google">
+  	<span class="fa fa-google"></span>Share on Google+
+  	</a>
+  </div> -->
+  <div class="clearfix"></div>
   <h5 align="center"><b>Your Promo Code</b></h5>
   <center><span class="couponcode"><span id="couponcode1">FREESHIP</span></span></center>
 <!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#pop">Open Modal</button> -->

@@ -5564,5 +5564,20 @@ public boolean deletePhoto(String photoId){
 		}
 	}
 	
+	public int getCountOfReferredBy(String user_id){
+		jdbcTemplate = custom.getJdbcTemplate();
+		String qryStr = "";
+		int finalPrice = 0;
+		try{
+			String selectQry = "select count(*) from users where referred_by = '"+user_id+"' and profile_filled_percentage >= 80"
+						+ " and id in (select user_id from user_otps where status = 1) ";
+			int members_count = jdbcTemplate.queryForInt(selectQry);
+			return members_count;
+		}catch(Exception e){
+			e.printStackTrace();
+			return 0;
+		}
+	}
+	
 }
 

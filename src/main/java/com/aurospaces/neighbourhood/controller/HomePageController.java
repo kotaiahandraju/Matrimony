@@ -837,7 +837,19 @@ public class HomePageController {
 			}
 			List<MemberShipBean> packagesList = objUsersDao.getPackagesList();
 			request.setAttribute("packagesList", packagesList);
-	  return "memberShipPage3";
+			int referred_count = objUsersDao.getCountOfReferredBy(sessionBean.getId()+"");
+			if(referred_count>=MatrimonyConstants.REFERRED_MEMBERS_COUNT){
+				request.setAttribute("eligible_for_consession", "eligible");
+			}else{
+				request.setAttribute("eligible_for_consession", "");
+			}
+			if(packagesList != null && packagesList.size()==1 && packagesList.get(0).getId()==MatrimonyConstants.LAUNCHING_OFFER_999_PACK){
+				request.setAttribute("launching_offer_pack_id", MatrimonyConstants.LAUNCHING_OFFER_999_PACK+"");
+				return "memberShipPage3";
+			}else{
+				return "memberShipPageForAllPacks";
+			}
+	 // return "memberShipPage3";
 	  
 	 }
 	 
@@ -2566,8 +2578,8 @@ String sJson="";
 				return null;
 			
 			int userId = userSessionBean.getId();
-			//String packId = request.getParameter("package_id"); commented temporarily
-			String packId = "6";
+			String packId = request.getParameter("package_id"); 
+			//String packId = "6";
 			int price = objUsersDao.getPackagePriceById(Integer.parseInt(packId));
 			price = objUsersDao.getPriceAfterConcession(packId,price,userId+"");
 			session.setAttribute("packageId", packId);
@@ -6077,10 +6089,7 @@ public String premiumMembers(@ModelAttribute("createProfile") UsersBean searchCr
 			return String.valueOf(objJson);		  
 			
 	}
-	@RequestMapping(value = "/refer")
-	public String referPage() {
-		return "refer";
-	}
+	
 	
 } 
 

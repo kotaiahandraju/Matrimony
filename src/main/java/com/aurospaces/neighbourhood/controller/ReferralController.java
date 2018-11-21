@@ -52,6 +52,9 @@ public class ReferralController {
 		return josOnObj.toString();
 	}
 	
-	
+	@RequestMapping(value = "/refer")
+	public String referPage() {
+		return "refer";
+	}
 
 }
