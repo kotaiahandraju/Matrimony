@@ -310,7 +310,13 @@
 							</form:select>
 					      </div>
 					    </div>
-					
+					 <div class="form-group">
+					      <label class="col-md-4 control-label" for="referral">Referral Code</label>  
+					      <div class="col-md-6">
+					      	<input type="text" class="form-control" placeholder="Referral Code" />
+					      </div>
+					      <div class="col-md-2"><button class="btn btn-success form-control">Apply Code</button></div>
+					    </div>
 					    <div class="form-group">
 					      <label class="col-md-4 control-label" for="textinput"></label>  
 					      <div class="col-md-6">

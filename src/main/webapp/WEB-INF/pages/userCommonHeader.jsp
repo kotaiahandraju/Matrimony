@@ -381,7 +381,7 @@ text-align:center;
 	  addWaterMark();
 	  watermark_text_fullimg();
 	 });
-	var v1 = 40;var v2 = 40;
+	var v1 = 23;var v2 = 23;
 	 function addWaterMark(){
 		  $('.watermark_text').watermark({
 			  text: 'aarnamatrimony.com',
@@ -494,6 +494,10 @@ text-align:center;
 		
 		function shortList(profileId){
 			$("#id").val(profileId);
+			var profileObj = serviceUnitArray[profileId];
+			$("#shortListModalName").html("");
+			var expIntUserName=profileObj.firstName+" "+profileObj.lastName+""+"("+profileObj.username+")";
+			$("#shortListModalName").html(expIntUserName);
 			//var profileObj = serviceUnitArray[profileId];
 			var formData = new FormData();
 			formData.append('profile_id',profileId);
@@ -503,8 +507,14 @@ text-align:center;
 		    		var msg = jsonobj.message;
 		    		if(typeof msg != "undefined"){
 		    			if(msg=="success"){
+		    				$("#profile_id").val(profileId);
+		    				$("#memberName").val(expIntUserName);
+		    				$("#member_name_todisplay").html(" to "+profileObj.firstName+" "+profileObj.lastName);
 		    				$("#shortlistTD"+profileId).html('');
 		    				$("#shortlistTD"+profileId).html('<a type="button" class="btn btn-warning btn-sm" disabled="true"> Shortlisted</a>');
+		    				$("#sendMailShortlistModal").attr("onclick","displayMailPopup("+profileId+",'"+expIntUserName+"')");
+							$('#shortlistModal').show();
+		    				$('#shortlistModal').modal();
 		    				//$("#shortlistTD"+profileId).removeAttr("href");
 		    				//$("#shortlistTD"+profileId).attr("disabled");
 		    			}else{
@@ -644,11 +654,16 @@ text-align:center;
 			    		var profiles = jsonobj.allProfiles;
 			    		//if(typeof msg != "undefined" ){
 			    			if("success"==msg){
+			    				$("#profile_id").val(profile_id);
+			    				$("#memberName").val(expIntUserName);
+			    				$("#member_name_todisplay").html(" to "+profileObj.firstName+" "+profileObj.lastName);
+// 			    				$("#shortlistTD"+profile_id).html('');
 			    				$("#expInterest"+profile_id).html('<a type="button" class="btn btn-blue btn-sm" disabled="true">Expressed Interest</a>');
 // 			    				alert("Interest request has been sent successfully");
-								$("#sendMailexpressModal").attr("onclick","displayMailPopup(profile_id,'"+expIntUserName+"')");
-			    				$('#expressModal').show();
+								$("#sendMailexpressModal").attr("onclick","displayMailPopup("+profile_id+",'"+expIntUserName+"')");
+								$('#expressModal').show();
 			    				$('#expressModal').modal();
+                           
 			    				//$("#expInterest"+profile_id).html('You Expressed Interest');
 			    				//$("#expInterest"+profile_id).attr("disabled",true);
 			    				if(typeof limit != "undefined"){
@@ -1953,6 +1968,9 @@ text-align:center;
 		var option_selection = "${default_text_option}";
 		
 		function displayMailPopup(profile_id,memberName){
+            $('#expressModal').hide();
+            $('#shortlistModal').hide();
+            
 			var roleId = ${cacheGuest.roleId};
 			if(roleId==4 || roleId==12 || roleId==13){
 				document.searchForm2.action = "memberShipPage"
@@ -1982,6 +2000,7 @@ text-align:center;
 						$("#mail_content").val("");
 					}
 				}
+				
 				$('#myModal').show();
 				$('#myModal').modal();
 				
@@ -2745,6 +2764,16 @@ function goBack() {
     <!-- for documentation #end: you don't need them -->
 
     <style>
+     .modal fade .in {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1040;
+    background-color: #000;
+    display:none;
+}
         #mySlider {
             width: 580px;
             height: 520px;
@@ -4104,7 +4133,7 @@ img.hover-shadow {
          	<br><div class="clearfix"></div>
           	
         <div class="modal-footer">
-          <a type="button" id="sendMailexpressModal" class="btn btn-danger" onclick="sendMailexpressModalClose();">Send Mail</a>
+          <a type="button" id="sendMailexpressModal" class="btn btn-danger" >Send Mail</a>
         </div>
       </div>
       
@@ -4120,12 +4149,12 @@ img.hover-shadow {
           <h4 class="modal-title" style="color: aliceblue;padding: 10px; padding-left: px; font-size: 18px;"> <span id="member_name_todisplay"></span></h4>
         </div>
         <div class="modal-body" style="background: transparent;">
-       <p><b>******* (Am1625739) Profile has been shortlisted</b></p>
+       <p><b><span id="shortListModalName"></span> Profile has been shortlisted</b></p>
          	</div>
          	<br><div class="clearfix"></div>
           	
         <div class="modal-footer">
-          <span type="button" id="sendMailBtn" onclick="sendMail()" class="btn btn-danger " style="  " >Send Mail</span>
+          <span type="button" id="sendMailShortlistModal" class="btn btn-danger">Send Mail</span>
         </div>
       </div>
       
@@ -4278,13 +4307,6 @@ img.hover-shadow {
 
 <!-- body starts here-->
 <script>
-$( document).ready(function() {
-$("#sendMailExpressModal").click(function(){
-	$('#expressModal').hide();
-	$('#expressModal').modal();
-  });
-});
-
 function myFunction1(id) {
     var x = document.getElementById("myDIV");
     var replay = document.getElementById("replay");

@@ -6091,8 +6091,11 @@ public String premiumMembers(@ModelAttribute("createProfile") UsersBean searchCr
 	}
 	
 	
-} 
 
+@RequestMapping(value = "/referOffer")
+public String referOffer() {
+	return "referOffer";
+}
 
-
+}
 

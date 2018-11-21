@@ -1372,37 +1372,265 @@ left:10px !important;
         </button>
       </div>
         <div class="modal-body">
-       
-         <div id="wowslider-container1">
+       <div style="padding:0px; margin:0px; background-color:#fff;font-family:arial,helvetica,sans-serif,verdana,'Open Sans'">
+
+    <!-- #region Jssor Slider Begin -->
+    <!-- Generator: Jssor Slider Maker -->
+    <!-- Source: https://www.jssor.com -->
+    <script src="${baseurl}/js/jssor.slider-27.5.0.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        jssor_1_slider_init = function() {
+
+            var jssor_1_SlideshowTransitions = [
+              {$Duration:800,x:0.3,$During:{$Left:[0.3,0.7]},$Easing:{$Left:$Jease$.$InCubic,$Opacity:$Jease$.$Linear},$Opacity:2},
+              {$Duration:800,x:-0.3,$SlideOut:true,$Easing:{$Left:$Jease$.$InCubic,$Opacity:$Jease$.$Linear},$Opacity:2},
+              {$Duration:800,x:-0.3,$During:{$Left:[0.3,0.7]},$Easing:{$Left:$Jease$.$InCubic,$Opacity:$Jease$.$Linear},$Opacity:2},
+              {$Duration:800,x:0.3,$SlideOut:true,$Easing:{$Left:$Jease$.$InCubic,$Opacity:$Jease$.$Linear},$Opacity:2},
+              {$Duration:800,y:0.3,$During:{$Top:[0.3,0.7]},$Easing:{$Top:$Jease$.$InCubic,$Opacity:$Jease$.$Linear},$Opacity:2},
+              {$Duration:800,y:-0.3,$SlideOut:true,$Easing:{$Top:$Jease$.$InCubic,$Opacity:$Jease$.$Linear},$Opacity:2},
+              {$Duration:800,y:-0.3,$During:{$Top:[0.3,0.7]},$Easing:{$Top:$Jease$.$InCubic,$Opacity:$Jease$.$Linear},$Opacity:2},
+              {$Duration:800,y:0.3,$SlideOut:true,$Easing:{$Top:$Jease$.$InCubic,$Opacity:$Jease$.$Linear},$Opacity:2},
+              {$Duration:800,x:0.3,$Cols:2,$During:{$Left:[0.3,0.7]},$ChessMode:{$Column:3},$Easing:{$Left:$Jease$.$InCubic,$Opacity:$Jease$.$Linear},$Opacity:2},
+              {$Duration:800,x:0.3,$Cols:2,$SlideOut:true,$ChessMode:{$Column:3},$Easing:{$Left:$Jease$.$InCubic,$Opacity:$Jease$.$Linear},$Opacity:2},
+              {$Duration:800,y:0.3,$Rows:2,$During:{$Top:[0.3,0.7]},$ChessMode:{$Row:12},$Easing:{$Top:$Jease$.$InCubic,$Opacity:$Jease$.$Linear},$Opacity:2},
+              {$Duration:800,y:0.3,$Rows:2,$SlideOut:true,$ChessMode:{$Row:12},$Easing:{$Top:$Jease$.$InCubic,$Opacity:$Jease$.$Linear},$Opacity:2},
+              {$Duration:800,y:0.3,$Cols:2,$During:{$Top:[0.3,0.7]},$ChessMode:{$Column:12},$Easing:{$Top:$Jease$.$InCubic,$Opacity:$Jease$.$Linear},$Opacity:2},
+              {$Duration:800,y:-0.3,$Cols:2,$SlideOut:true,$ChessMode:{$Column:12},$Easing:{$Top:$Jease$.$InCubic,$Opacity:$Jease$.$Linear},$Opacity:2},
+              {$Duration:800,x:0.3,$Rows:2,$During:{$Left:[0.3,0.7]},$ChessMode:{$Row:3},$Easing:{$Left:$Jease$.$InCubic,$Opacity:$Jease$.$Linear},$Opacity:2},
+              {$Duration:800,x:-0.3,$Rows:2,$SlideOut:true,$ChessMode:{$Row:3},$Easing:{$Left:$Jease$.$InCubic,$Opacity:$Jease$.$Linear},$Opacity:2},
+              {$Duration:800,x:0.3,y:0.3,$Cols:2,$Rows:2,$During:{$Left:[0.3,0.7],$Top:[0.3,0.7]},$ChessMode:{$Column:3,$Row:12},$Easing:{$Left:$Jease$.$InCubic,$Top:$Jease$.$InCubic,$Opacity:$Jease$.$Linear},$Opacity:2},
+              {$Duration:800,x:0.3,y:0.3,$Cols:2,$Rows:2,$During:{$Left:[0.3,0.7],$Top:[0.3,0.7]},$SlideOut:true,$ChessMode:{$Column:3,$Row:12},$Easing:{$Left:$Jease$.$InCubic,$Top:$Jease$.$InCubic,$Opacity:$Jease$.$Linear},$Opacity:2},
+              {$Duration:800,$Delay:20,$Clip:3,$Assembly:260,$Easing:{$Clip:$Jease$.$InCubic,$Opacity:$Jease$.$Linear},$Opacity:2},
+              {$Duration:800,$Delay:20,$Clip:3,$SlideOut:true,$Assembly:260,$Easing:{$Clip:$Jease$.$OutCubic,$Opacity:$Jease$.$Linear},$Opacity:2},
+              {$Duration:800,$Delay:20,$Clip:12,$Assembly:260,$Easing:{$Clip:$Jease$.$InCubic,$Opacity:$Jease$.$Linear},$Opacity:2},
+              {$Duration:800,$Delay:20,$Clip:12,$SlideOut:true,$Assembly:260,$Easing:{$Clip:$Jease$.$OutCubic,$Opacity:$Jease$.$Linear},$Opacity:2}
+            ];
+
+            var jssor_1_options = {
+              $AutoPlay: 1,
+              $SlideshowOptions: {
+                $Class: $JssorSlideshowRunner$,
+                $Transitions: jssor_1_SlideshowTransitions,
+                $TransitionsOrder: 1
+              },
+              $ArrowNavigatorOptions: {
+                $Class: $JssorArrowNavigator$
+              },
+              $ThumbnailNavigatorOptions: {
+                $Class: $JssorThumbnailNavigator$
+              }
+            };
+
+            var jssor_1_slider = new $JssorSlider$("jssor_1", jssor_1_options);
+
+            /*#region responsive code begin*/
+
+            var MAX_WIDTH = 626;
+
+            function ScaleSlider() {
+                var containerElement = jssor_1_slider.$Elmt.parentNode;
+                var containerWidth = containerElement.clientWidth;
+
+                if (containerWidth) {
+
+                    var expectedWidth = Math.min(MAX_WIDTH || containerWidth, containerWidth);
+
+                    jssor_1_slider.$ScaleWidth(expectedWidth);
+                }
+                else {
+                    window.setTimeout(ScaleSlider, 30);
+                }
+            }
+
+            ScaleSlider();
+
+            $Jssor$.$AddEvent(window, "load", ScaleSlider);
+            $Jssor$.$AddEvent(window, "resize", ScaleSlider);
+            $Jssor$.$AddEvent(window, "orientationchange", ScaleSlider);
+            /*#endregion responsive code end*/
+        };
+    </script>
+    <style>
+        /*jssor slider loading skin spin css*/
+        .jssorl-009-spin img {
+            animation-name: jssorl-009-spin;
+            animation-duration: 1.6s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+        }
+
+        @keyframes jssorl-009-spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /*jssor slider arrow skin 051 css*/
+        .jssora051 {display:block;position:absolute;cursor:pointer;}
+        .jssora051 .a {fill:none;stroke:#fff;stroke-width:360;stroke-miterlimit:10;}
+        .jssora051:hover {opacity:.8;}
+        .jssora051.jssora051dn {opacity:.5;}
+        .jssora051.jssora051ds {opacity:.3;pointer-events:none;}
+
+        /*jssor slider thumbnail skin 111 css*/
+        .jssort111 .p {position:absolute;top:0;left:0;width:100px;height:70px;background-color:#000;margin:2px;}
+        .jssort111 .p img {position:absolute;top:0;left:0;width:100%;height:100%;}
+        .jssort111 .t {position:absolute;top:0;left:0;width:100%;height:100%;border:none;opacity:.45;}
+        .jssort111 .p:hover .t{opacity:.8;}
+        .jssort111 .pav .t, .jssort111 .pdn .t, .jssort111 .p:hover.pdn .t{opacity:1;}
+        .jssort111 .ti {position:absolute;bottom:0px;left:0px;width:100%;height:28px;line-height:28px;text-align:center;font-size:12px;color:#fff;background-color:rgba(0,0,0,.3)}
+        .jssort111 .pav .ti, .jssort111 .pdn .ti, .jssort111 .p:hover.pdn .ti{color:#000;background-color:rgba(255,255,255,.6);}
+    </style>
+    <div id="jssor_1" style="position:relative;margin:0 auto;top:0px;left:0px;width:626px;height:505px;overflow:hidden;visibility:hidden;">
+        <!-- Loading Screen -->
+        <div data-u="loading" class="jssorl-009-spin" style="position:absolute;top:0px;left:0px;width:100%;height:100%;text-align:center;background-color:rgba(0,0,0,0.7);">
+            <img style="margin-top:-19px;position:relative;top:50%;width:38px;height:38px;" src="img/spin.svg" />
+        </div>
+        <div data-u="slides" style="cursor:default;position:relative;top:0px;left:0px;width:626px;height:417px;overflow:hidden;">
+          <c:forEach items="${fullProfilePhotosList}" var="photo" >
+			<div><img data-u="image"  src="${catalina_base}/${photo.folder_name}/${photo.image_name}" alt="${photo.image_name}" title="" id=""/>
+			<div class="clearfix"></div><div data-u="thumb">
+                    <img data-u="thumb" src="${catalina_base}/${photo.folder_name}/${photo.image_name}" alt="${photo.image_name}" />
+                </div>
+			</div>
+		  </c:forEach>
+          
+           <!--  <div>
+                <img data-u="image" src="img/022.jpg" />
+                <div data-u="thumb">
+                    <img data-u="thumb" src="img/022-s200x100.jpg" />
+                    <div class="ti">Slide Description</div>
+                </div>
+            </div>
+            <div>
+                <img data-u="image" src="img/023.jpg" />
+                <div data-u="thumb">
+                    <img data-u="thumb" src="img/023-s200x100.jpg" />
+                    <div class="ti">Slide Description</div>
+                </div>
+            </div>
+            <div>
+                <img data-u="image" src="img/024.jpg" />
+                <div data-u="thumb">
+                    <img data-u="thumb" src="img/024-s200x100.jpg" />
+                    <div class="ti">Slide Description</div>
+                </div>
+            </div>
+            <div>
+                <img data-u="image" src="img/025.jpg" />
+                <div data-u="thumb">
+                    <img data-u="thumb" src="img/025-s200x100.jpg" />
+                    <div class="ti">Slide Description</div>
+                </div>
+            </div>
+            <div>
+                <img data-u="image" src="img/026.jpg" />
+                <div data-u="thumb">
+                    <img data-u="thumb" src="img/026-s200x100.jpg" />
+                    <div class="ti">Slide Description</div>
+                </div>
+            </div>
+            <div>
+                <img data-u="image" src="img/027.jpg" />
+                <div data-u="thumb">
+                    <img data-u="thumb" src="img/027-s200x100.jpg" />
+                    <div class="ti">Slide Description</div>
+                </div>
+            </div>
+            <div>
+                <img data-u="image" src="img/021.jpg" />
+                <div data-u="thumb">
+                    <img data-u="thumb" src="img/021-s200x100.jpg" />
+                    <div class="ti">Slide Description</div>
+                </div>
+            </div>
+            <div>
+                <img data-u="image" src="img/028.jpg" />
+                <div data-u="thumb">
+                    <img data-u="thumb" src="img/028-s200x100.jpg" />
+                    <div class="ti">Slide Description</div>
+                </div>
+            </div>
+            <div>
+                <img data-u="image" src="img/029.jpg" />
+                <div data-u="thumb">
+                    <img data-u="thumb" src="img/029-s200x100.jpg" />
+                    <div class="ti">Slide Description</div>
+                </div>
+            </div>
+            <div>
+                <img data-u="image" src="img/030.jpg" />
+                <div data-u="thumb">
+                    <img data-u="thumb" src="img/030-s200x100.jpg" />
+                    <div class="ti">Slide Description</div>
+                </div>
+            </div>
+            <div>
+                <img data-u="image" src="img/031.jpg" />
+                <div data-u="thumb">
+                    <img data-u="thumb" src="img/031-s200x100.jpg" />
+                    <div class="ti">Slide Description</div>
+                </div>
+            </div>
+            <div>
+                <img data-u="image" src="img/032.jpg" />
+                <div data-u="thumb">
+                    <img data-u="thumb" src="img/032-s200x100.jpg" />
+                    <div class="ti">Slide Description</div>
+                </div>
+            </div> -->
+        </div>
+        <!-- Thumbnail Navigator -->
+        <div data-u="thumbnavigator" class="jssort111" style="position:absolute;left:0px;bottom:0px;width:624px;height:100px;cursor:default;" data-autocenter="1" data-scale-bottom="0.75">
+            <div data-u="slides">
+                <div data-u="prototype" class="p">
+                    <div data-u="thumbnailtemplate" class="t"></div>
+                </div>
+            </div>
+        </div>
+        <!-- Arrow Navigator -->
+        <div data-u="arrowleft" class="jssora051" style="width:35px;height:35px;top:162px;left:25px;" data-autocenter="2" data-scale="0.75" data-scale-left="0.75">
+            <svg viewbox="0 0 16000 16000" style="position:absolute;top:0;left:0;width:100%;height:100%;">
+                <polyline class="a" points="11040,1920 4960,8000 11040,14080 "></polyline>
+            </svg>
+        </div>
+        <div data-u="arrowright" class="jssora051" style="width:35px;height:35px;top:162px;right:25px;" data-autocenter="2" data-scale="0.75" data-scale-right="0.75">
+            <svg viewbox="0 0 16000 16000" style="position:absolute;top:0;left:0;width:100%;height:100%;">
+                <polyline class="a" points="4960,1920 11040,8000 4960,14080 "></polyline>
+            </svg>
+        </div>
+    </div>
+    <script type="text/javascript">jssor_1_slider_init();</script>
+    <!-- #endregion Jssor Slider End -->
+         <%-- <div id="wowslider-container1">
 <div class="ws_images"><ul>
 		<c:forEach items="${fullProfilePhotosList}" var="photo" >
 			<li><img src="${catalina_base}/${photo.folder_name}/${photo.image_name}" alt="${photo.image_name}" title="package" id="wows1_0"/></li>
 		</c:forEach>
-		<%-- <li><img src="${baseurl}/data1/images/package.jpg" alt="package" title="package" id="wows1_0"/></li>
+		<li><img src="${baseurl}/data1/images/package.jpg" alt="package" title="package" id="wows1_0"/></li>
 		<li><img src="${baseurl}/data1/images/aadhar_card_copy.jpg" alt="aadhar card copy" title="aadhar card copy" id="wows1_1"/></li>
 		<li><img src="${baseurl}/data1/images/blue_strip.jpg" alt="blue strip" title="blue strip" id="wows1_2"/></li>
 		<li><img src="${baseurl}/data1/images/tenali_m.jpg" alt="tenali m" title="tenali m" id="wows1_3"/></li>
 		<li><img src="${baseurl}/data1/images/tenali_m1.jpg" alt="tenali m1" title="tenali m1" id="wows1_4"/></li>
 		<li><a href="#"><img src="${baseurl}/data1/images/tenali.jpg" alt="css image gallery" title="TENALI" id="wows1_5"/></a></li>
-		<li><img src="${baseurl}/data1/images/pan_card.jpg" alt="pan card" title="pan card" id="wows1_6"/></li> --%>
+		<li><img src="${baseurl}/data1/images/pan_card.jpg" alt="pan card" title="pan card" id="wows1_6"/></li>
 	</ul></div>
 	<div class="ws_thumbs">
 <div>
 		<c:forEach items="${fullProfilePhotosList}" var="photo" >
 			<a href="#" title="package"><img src="${catalina_base}/${photo.folder_name}/${photo.image_name}" alt="${photo.image_name}" /></a>
 		</c:forEach>
-		<%-- <a href="#" title="package"><img src="${baseurl}/data1/tooltips/package.jpg" alt="" /></a>
+		<a href="#" title="package"><img src="${baseurl}/data1/tooltips/package.jpg" alt="" /></a>
 		<a href="#" title="aadhar card copy"><img src="${baseurl}/data1/tooltips/aadhar_card_copy.jpg" alt="" /></a>
 		<a href="#" title="blue strip"><img src="${baseurl}/data1/tooltips/blue_strip.jpg" alt="" /></a>
 		<a href="#" title="tenali m"><img src="${baseurl}/data1/tooltips/tenali_m.jpg" alt="" /></a>
 		<a href="#" title="tenali m1"><img src="${baseurl}/data1/tooltips/tenali_m1.jpg" alt="" /></a>
 		<a href="#" title="TENALI"><img src="${baseurl}/data1/tooltips/tenali.jpg" alt="" /></a>
-		<a href="#" title="pan card"><img src="${baseurl}/data1/tooltips/pan_card.jpg" alt="" /></a> --%>
+		<a href="#" title="pan card"><img src="${baseurl}/data1/tooltips/pan_card.jpg" alt="" /></a>
 	</div>
 </div>
 <div class="ws_script" style="position:absolute;left:-99%"><a href=""></a></div>
 <div class="ws_shadow"></div>
-</div>
+</div> --%>
 
 
 <%-- <section class="welcome">
@@ -1508,6 +1736,7 @@ left:10px !important;
 <div class="ws_shadow"></div>
 </div>	</div></div> -->
 </div></div>
+
 <script type="text/javascript">
 /* var listOrders1 = ${shortlistedList};
 shortListData(listOrders1);
@@ -1739,7 +1968,7 @@ jQuery(document).ready(function($){
 	    }
     });
 });
-$(function(){
+/* $(function(){
 	 //add text water mark;	
  addWaterMark();
 });
@@ -1747,7 +1976,7 @@ function addWaterMark(){
  $('.watermark_text').watermark({
 	  text: 'aarnamatrimony.com',
 	  textWidth: 700,
-	  textSize: 46,
+	  textSize: v1+v2,
 	  textColor: 'white',
 	  gravity: 'n',
 	   opacity: 0.8,
@@ -1755,7 +1984,7 @@ function addWaterMark(){
 	   outputWidth: 'auto',
 	   outputHeight: 'auto'
 	 });
-}
+} */
 function toggleDiv(divElem){
 	var isHidden = $("#"+divElem+"_edit").attr("hidden");
 	$(".all_hidden_divs").attr("hidden",true);
