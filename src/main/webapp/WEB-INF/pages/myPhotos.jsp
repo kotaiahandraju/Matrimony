@@ -32,7 +32,7 @@ height:250px;
     background-image: url(${baseurl }/img/close.png);
     background-repeat: no-repeat;
 }
-.well a {
+.well #profilepic {
     color: #000;
     pointer-events: none;
 }
