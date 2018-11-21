@@ -32,6 +32,10 @@ height:250px;
     background-image: url(${baseurl }/img/close.png);
     background-repeat: no-repeat;
 }
+.well a {
+    color: #000;
+    pointer-events: none;
+}
 </style>
 			<div class="col-md-8 products-grid-left">
 				<div class="panel panel-success">
