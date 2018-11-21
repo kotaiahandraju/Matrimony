@@ -6538,12 +6538,12 @@ label, input, button, select, textarea {
 }
 .ui-datepicker .ui-datepicker-prev:before {
   content: "\f104";
-  font-family: Verdana, sans-serif;
+  font-family: FontAwesome;
   display: block;
   position: absolute;
   left: 7px;
   top: 2px;
-  color: #444;
+  color: #fff;
 }
 .ui-datepicker .ui-datepicker-next {
   float: right;
@@ -6574,12 +6574,12 @@ label, input, button, select, textarea {
 }
 .ui-datepicker .ui-datepicker-next:before {
   content: "\f105";
-  font-family: Verdana, sans-serif;
+  font-family: FontAwesome;
   display: block;
   position: absolute;
   right: 7px;
   top: 2px;
-  color: #444;
+  color: #fff;
 }
 .ui-datepicker .ui-datepicker-calendar {
   margin-bottom: 2px;
