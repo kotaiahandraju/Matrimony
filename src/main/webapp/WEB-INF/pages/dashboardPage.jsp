@@ -231,7 +231,7 @@ background: none !important;
 padding:20px;
 background:#fff;
 margin-bottom:10px;
-min-height:130px;
+min-height:110px;
 }
 .pleftc {
 margin:51px 98px 0px 0px;
@@ -318,7 +318,7 @@ font-size : 8px;
 			<div class="col-md-9 products-grid-left">
 			<div class="col-md-8" style="padding-left:0px; padding-right:0px;">                                                                           
 			<div class="col-md-12 neewpendingr">
-			<div id="myCarousel" data-interval="false" class="carousel slide" data-ride="carousel">
+			<div id="myCarousel" data-interval="false" class="carousel slide" data-ride="carousel" style="background:#fff;">
     <!-- Indicators -->
    <!--  <ol class="carousel-indicators">
       <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -328,8 +328,8 @@ font-size : 8px;
  -->
     <!-- Wrapper for slides -->
     <c:if test="${not empty pending_reqs}">
+    <span id="pending_count" style="padding:8px;"><span id="pend_req_count_span" class="pend_req_count_class">${pending_reqs_count}</span> requests pending</span>		
     <div id="pending_req_div"  class="carousel-inner pendingre">
-    		<span id="pending_count"><span id="pend_req_count_span" class="pend_req_count_class">${pending_reqs_count}</span> requests pending</span><br>
     		<c:set value="${0}" var="count" />
     		<c:set value="${0}" var="counter" scope="page" />
     		<c:set value="" var="reqId" scope="page" />
@@ -384,6 +384,8 @@ font-size : 8px;
 			</c:forEach>
       
 
+  </div>
+  
     <!-- Left and right controls -->
     <a class="left carousel-control bgc active" href="#myCarousel" data-slide="prev" id="pending_prev" onclick="prevBtnClicked();">
       <span class="fa fa-chevron-left pleftc" > </span>
@@ -395,7 +397,6 @@ font-size : 8px;
 	      <span class="sr-only">Next</span>
 	    </a>
     </c:if>
-  </div>
 	</c:if>
 </div><div class="clearfix"></div>
 				<div class="panel panel-default col-md-12">
