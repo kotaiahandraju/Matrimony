@@ -231,6 +231,7 @@ background: none !important;
 padding:20px;
 background:#fff;
 margin-bottom:10px;
+min-height:130px;
 }
 .pleftc {
 margin:51px 98px 0px 0px;
