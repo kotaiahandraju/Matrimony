@@ -289,7 +289,8 @@ border:none;}
 <div class="products">
  <div class="container" style="background:#fff; padding-top:25px; z-index:0;">
  	<form:form commandName="payment"  class="form-horizontal" id="payment-form" role="form" method="post">
-  		<a href="#" onclick="makePayment(event)"><img src="../images/launchingbanner.jpg" class="img-responsive"/></a>
+<!--   		<a href="#" onclick="makePayment(event)"><img src="../images/launchingbanner.jpg" class="img-responsive"/></a> -->
+<a href="referOffer"><img src="../images/launchingbanner.jpg" class="img-responsive"/></a>
   	</form:form>
   	</div>
 <%-- <div class="demo1">
