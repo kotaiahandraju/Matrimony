@@ -1,5 +1,6 @@
 package com.aurospaces.neighbourhood.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.aurospaces.neighbourhood.bean.MemberShipBean;
 import com.aurospaces.neighbourhood.bean.UsersBean;
 import com.aurospaces.neighbourhood.db.dao.UsersDao;
+import com.aurospaces.neighbourhood.util.MatrimonyConstants;
 
 @Controller
 @RequestMapping(value="/users")
@@ -56,5 +59,32 @@ public class ReferralController {
 	public String referPage() {
 		return "refer";
 	}
-
+	
+	@RequestMapping(value = "/concessionPage")
+	public String concessionPage(@ModelAttribute("payment") UsersBean objUserssBean, Model objeModel, HttpServletRequest request, HttpSession session){
+		try{
+			UsersBean sessionBean = (UsersBean)session.getAttribute("cacheGuest");
+			String packId = request.getParameter("package_id"); 
+			request.setAttribute("selected_package_id", packId);
+			int price = objUsersDao.getPackagePriceById(Integer.parseInt(packId));
+			price = objUsersDao.getPriceAfterConcession(packId,price,sessionBean.getId()+"");
+			HashMap<String,String> discount_details = new HashMap<String,String>();
+			List<MemberShipBean> packagesList = (List<MemberShipBean>)session.getAttribute("packagesList");
+			for(MemberShipBean pack:packagesList){
+				if((pack.getId()+"").equals(packId)){
+					discount_details.put("package_name", pack.getName());
+					request.setAttribute("package_name", pack.getName());
+				}
+			}
+			request.setAttribute("discount", MatrimonyConstants.CONCESSION_PRECENTAGE+"");
+			request.setAttribute("net_amount", price+"");
+			
+		} catch (Exception e) {
+			   e.printStackTrace();
+			   System.out.println(e);
+			   logger.error(e);
+			   logger.fatal("error in concessionPage method");
+			  }
+		return "referOffer";
+	}
 }

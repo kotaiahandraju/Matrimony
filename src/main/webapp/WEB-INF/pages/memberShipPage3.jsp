@@ -289,7 +289,7 @@ border:none;}
 <div class="products">
  <div class="container" style="background:#fff; padding-top:25px; z-index:0;">
  	<form:form commandName="payment"  class="form-horizontal" id="payment-form" role="form" method="post">
- 		<input type="hidden" id="package_id" value="${launching_offer_pack_id}" />
+ 		<input type="hidden" id="package_id" name="package_id" value="${launching_offer_pack_id}" />
   		<a href="#" onclick="makePayment(event)"><img src="../images/launchingbanner.jpg" class="img-responsive"/></a>
   	</form:form>
   	</div>
@@ -445,9 +445,6 @@ border:none;}
     </div>
     <script>    
     var eligible = "${eligible_for_consession}";
-    if(eligible!="" && eligible=="eligible"){
-    	alert("Congrats!! You are eligible for a consession.");
-    }
     $("input[name=package_id]").click(function(){
     	$('.pricingTable').each(function(){
         	var rcls1 = $(this).attr('class').split(' ');
@@ -483,14 +480,20 @@ border:none;}
 		
 	} */
 	function makePayment(event){
-		
-			$("#makePaymentBtn").attr("disabled",true);
-			$("#makePaymentBtn").val("Please wait...");
-			$("#payment-form").attr('action',"savePayment");
-			$("#payment-form").submit();
-			event.preventDefault(); 
-		
-		
+			if(eligible!="" && eligible=="eligible"){
+		    	alert("Congrats!! You are eligible for a consession.");
+		    	$("#makePaymentBtn").attr("disabled",true);
+				$("#makePaymentBtn").val("Please wait...");
+				$("#payment-form").attr('action',"concessionPage");
+				$("#payment-form").submit();
+				event.preventDefault(); 
+		    }else{
+		    	$("#makePaymentBtn").attr("disabled",true);
+				$("#makePaymentBtn").val("Please wait...");
+				$("#payment-form").attr('action',"savePayment");
+				$("#payment-form").submit();
+				event.preventDefault(); 
+		    }
 	}
     function displayDetails(divId){
 		$(".pack_details").attr("hidden",true);

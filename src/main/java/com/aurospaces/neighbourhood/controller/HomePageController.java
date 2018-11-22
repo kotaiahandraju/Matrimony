@@ -836,7 +836,7 @@ public class HomePageController {
 				return "redirect:HomePage";
 			}
 			List<MemberShipBean> packagesList = objUsersDao.getPackagesList();
-			request.setAttribute("packagesList", packagesList);
+			session.setAttribute("packagesList", packagesList);
 			int referred_count = objUsersDao.getCountOfReferredBy(sessionBean.getId()+"");
 			if(referred_count>=MatrimonyConstants.REFERRED_MEMBERS_COUNT){
 				request.setAttribute("eligible_for_consession", "eligible");
@@ -844,7 +844,7 @@ public class HomePageController {
 				request.setAttribute("eligible_for_consession", "");
 			}
 			if(packagesList != null && packagesList.size()==1 && packagesList.get(0).getId()==MatrimonyConstants.LAUNCHING_OFFER_999_PACK){
-				request.setAttribute("launching_offer_pack_id", MatrimonyConstants.LAUNCHING_OFFER_999_PACK+"");
+				session.setAttribute("launching_offer_pack_id", MatrimonyConstants.LAUNCHING_OFFER_999_PACK+"");
 				return "memberShipPage3";
 			}else{
 				return "memberShipPageForAllPacks";
@@ -6090,12 +6090,5 @@ public String premiumMembers(@ModelAttribute("createProfile") UsersBean searchCr
 			
 	}
 	
-	
-
-@RequestMapping(value = "/referOffer")
-public String referOffer() {
-	return "referOffer";
-}
-
 }
 

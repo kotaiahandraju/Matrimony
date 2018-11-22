@@ -173,9 +173,9 @@ public class LoginController {
 		}
 		String referral_code = request.getParameter("refcode");
 		if(StringUtils.isNotBlank(referral_code)){
-			request.setAttribute("referral_code", referral_code);
+			session.setAttribute("referral_code", referral_code);
 		}else{
-			request.setAttribute("referral_code", "");
+			session.setAttribute("referral_code", "");
 		}
 		List<Map<String, String>> list = new LinkedList<Map<String, String>>();
 		Map<String, String> statesMap;

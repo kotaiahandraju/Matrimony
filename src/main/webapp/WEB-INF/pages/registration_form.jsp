@@ -313,7 +313,7 @@
 					 <div class="form-group">
 					      <label class="col-md-4 control-label" for="referral">Referral Code</label>  
 					      <div class="col-md-6">
-					      	<input type="text" class="form-control" placeholder="Referral Code" />
+					      	<form:input path="referred_by" class="form-control u" placeholder="Referral Code" />
 					      </div>
 					      <div class="col-md-2"><button class="btn btn-success form-control">Apply Code</button></div>
 					    </div>
@@ -347,6 +347,12 @@
 var mobileExists = true;
 var saved_city_val = $("#currentCity").val();
 $( document ).ready(function() {
+	
+	// set referral code in the respective field
+	var refcode = "${referral_code}";
+	if(typeof refcode != "undefined" && refcode != "" && refcode != null){
+		$("#referred_by").val(refcode);
+	}
 	if($("#currentState").val()== null   || $("#currentState").val() == "" || $("#currentState").val()=="undefined"){
 		$("#currentCity").attr("readonly", true);
 	}else{

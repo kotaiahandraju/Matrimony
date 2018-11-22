@@ -17,27 +17,31 @@
 	<div class="col-md-12"><img src="../nimages/referf.png" class="img-responsive"/></div>
 	<div class="col-md-3"></div>
 	<div class="col-md-6" >
+	<form:form commandName="payment"  class="form-horizontal" id="payment-form" role="form" method="post">
+	<input type="hidden" id="package_id" name="package_id" value="${selected_package_id}" />
 	<table class="table table-bordered table-responsive" align="center" >      
 		
       <tr>
         
         <th>Plan</th>
-        <td id="">Rs.999</td>
+        <td id="">${package_name}</td>
         </tr>
          <tr>
         
         <th>Referral Discount</th>
-        <td id="">10% Off</td>
+        <td id="">${discount}%</td>
         </tr>
         <tr>
        
         <th>Net Amount</th>
-        <td id="">Rs.899</td>
+        <td id="">Rs.${net_amount}</td>
       </tr>
       <tr>
-      <th>Payment</th><td><a href="dashboard" type="button" class="btn btn-success" id="" >Submit</a></td></tr>
+      <th>Payment</th><td><a href="#" type="button" class="btn btn-success" id="" onclick="submitPayment(event);">Submit</a></td></tr>
       
-  </table></div>
+  </table>
+  </form:form>
+  </div>
   <div class="col-md-2">
 <%-- <div align="center">	<c:if test="${not empty cacheGuest.profileImage}">
         		<img src="${cacheGuest.profileImage}" alt="passport pic" id="imageID1" style="width: 150px;height: 150px;">
@@ -61,81 +65,14 @@
        </div> -->
        <br><br>
 </div>
-       <!-- <script>
-       function printpage() {
-           var printButton = document.getElementById("printpagebutton");
-           printButton.style.visibility = 'hidden';
-           $("#printButton").attr("hidden",true);
-           $("#myaccountBtn").attr("hidden",true);
-           $("#homepagBtn").attr("hidden",true);
-           window.print()
-           printButton.style.visibility = 'visible';
-           $("#printButton").removeAttr("hidden");
-           $("#myaccountBtn").removeAttr("hidden");
-           $("#homepagBtn").removeAttr("hidden");
-       }
-      var listOrders1 = ${payment_details};
-  	if (listOrders1 != "") {
-  		$.each(listOrders1,function(i, orderObj) {
-  			$("#createdDate").text(orderObj.paymentDate);
-  			$("#txid").text(orderObj.transactionId);
-  			$("#packageName").text(orderObj.packageName);
-  			$("#totalPrice").text(orderObj.price);
-  			$("#email").text(orderObj.email);
-  			$("#nameID").text(orderObj.firstName+" "+orderObj.lastName);
-  			// $("#imageID1").attr("src", "${baseurl }/"+orderObj.memberImage);
-  			
-  			/*$("#createdBy").text(orderObj.createdBy); */
-  			// var date =new Date(orderObj.createdDate);
-  			//date=	String(date).replace("GMT+0530 (India Standard Time)","")
-//   			date =date.replace("GMT+0530 (India Standard Time)","") ;
-  			//$("#createdDate").text(date);
-//   			alert(new Date(orderObj.createdDate));
-  		});
-  	}
-  	function PrintElem(elem)
-  	{
-  		$(".noPrint").hide();
-  		$(".printbtn").hide();
-  		 $("#printFooter").show();
-  	    Popup($(elem).html());
-  	    
-  	}
-  	function Popup(data)
-  	{
-  		var mywindow = window.open('','new div');
-
-  	    var is_chrome = Boolean(mywindow.chrome);
-  	    var isPrinting = false;
-  	    mywindow.document.write('<html><head><link rel="stylesheet" type="text/css" href="${baseurl }/user/css/bootstrap.css"></head><body>');
-  	    mywindow.document.write(data);
-  	   
-  	    mywindow.document.write('</body></html>');
-  	    mywindow.document.close(); // necessary for IE >= 10 and necessary before onload for chrome
-
-  	$(".printbtn").show();
-  	$(".noPrint").show();
-  	$("#printFooter").hide();
-  	    if (is_chrome) {
-  	        mywindow.onload = function() { // wait until all resources loaded 
-  	            mywindow.focus(); // necessary for IE >= 10
-  	            mywindow.print();  // change window to mywindow
-  	            mywindow.close();// change window to mywindow
-  	        };
-  	    
-  	    
-  	   } else {
-  	        mywindow.document.close(); // necessary for IE >= 10
-  	        mywindow.focus(); // necessary for IE >= 10
-
-  	        mywindow.print();
-  	        mywindow.close();
-  	   }
-  		
-  		
-  		
-  	 
-  	    return true;
-  	}
-</script> -->
+<script>
+	function submitPayment(event){
+		$("#makePaymentBtn").attr("disabled",true);
+		$("#makePaymentBtn").val("Please wait...");
+		$("#payment-form").attr('action',"savePayment");
+		$("#payment-form").submit();
+		event.preventDefault(); 
+	}
+       
+</script> 
 <%@ include file="userFooter.jsp"%>

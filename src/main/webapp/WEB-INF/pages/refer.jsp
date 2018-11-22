@@ -87,15 +87,15 @@ span.couponcode {
 		<p align="justify">Sign-up with your details - then Go to the Refer & Earn section and share your unique referral link with your friends
 Your friends would need to register successfully & you earn Rs 50/- for single registration (for new user).</p>
 <h5 align="center"><b>Share your link & earn more!</b></h5>
-<div class="col-md-4"></div><div class="col-md-3"><span class="refercode">http://www.aarnamatrimony.com/AM0123456</span></div>
+<div class="col-md-4"></div><div class="col-md-3"><span class="refercode">http://www.aarnamatrimony.com/${cacheGuest.unique_code}</span></div>
 </div>
 </div><div class="clearfix"></div><br>
 <div class="col-md-2"></div>
 <!-- <div class="col-md-2 col-sm-2"><a href="https://www.facebook.com/" target="_blank" class="btn btn-block btn-social btn-facebook">
     <span class="fa fa-facebook"></span> Facebook
   </a></div> -->
-  <div class="col-md-2 col-sm-2 fb-share-button" data-href="http://www.aarnamatrimony.com?refcode=123456" data-layout="button" data-size="large" data-mobile-iframe="false">
-  	<a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.aarnamatrimony.com%2F%3Frefcode%3D123456&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore btn btn-block btn-social btn-facebook"><span class="fa fa-facebook"></span>Share</a>
+  <div class="col-md-2 col-sm-2 fb-share-button" data-href="http://www.aarnamatrimony.com?refcode=${cacheGuest.unique_code}" data-layout="button" data-size="large" data-mobile-iframe="false">
+  	<a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.aarnamatrimony.com%2F%3Frefcode%3D${cacheGuest.unique_code}&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore btn btn-block btn-social btn-facebook"><span class="fa fa-facebook"></span>Share</a>
   </div>
 	<!-- <a href="https://twitter.com/home?status=http%3A//www.aarnamatrimony.com" class="btn btn-block btn-social btn-twitter"><span class="fa fa-twitter"></span>Share on Twitter</a> -->
     

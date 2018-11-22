@@ -83,18 +83,18 @@ public class UsersDao extends BaseUsersDao
 							+" date_format(last_login_time,'%d-%b-%Y %r') as last_login_time, "
 							+" (select occup.name from occupation occup where occup.id = u.fOccupation) as fOccupationName, "
 							+" (select occup.name from occupation occup where occup.id = u.mOccupation) as mOccupationName, "
-							+" (select GROUP_CONCAT(rMaritalStatus) from vuserrequirement where userId = "+id+") as rMaritalStatusName, "
-							+" (select GROUP_CONCAT(rel.name) from religion rel where find_in_set(rel.id,(select rReligion from vuserrequirement where userId = "+id+"))>0) as rReligionName, "
-							+" (select GROUP_CONCAT(name) from cast where find_in_set(id,(select rCaste from vuserrequirement where userId = "+id+"))>0) as rCasteName, "
-							+" (select GROUP_CONCAT(rDiet) from vuserrequirement where userId = "+id+") as rDietName, "
-							+" (select GROUP_CONCAT(name) from language where find_in_set(id,(select rMotherTongue from vuserrequirement where userId = "+id+"))>0) as rMotherTongueName, "
-							+" (select GROUP_CONCAT(name) from education where find_in_set(id,(select rEducation from vuserrequirement where userId = "+id+"))>0) as rEducationName, "
-							+" (select GROUP_CONCAT(name) from occupation where find_in_set(id,(select rOccupation from vuserrequirement where userId = "+id+"))>0) as rOccupationName, "
-							+" (select GROUP_CONCAT(name) from countries where find_in_set(id,(select rCountry from vuserrequirement where userId = "+id+"))>0) as rCountryName, "
-							+" (select GROUP_CONCAT(name) from state where find_in_set(id,(select rState from vuserrequirement where userId = "+id+"))>0) as rStateName, "
-							+" (select GROUP_CONCAT(name) from city where find_in_set(id,(select rCity from userrequirement where userId = "+id+"))>0) as rCityName, "
-							+" (select h.inches from height h where h.id = (select ur.rHeight from vuserrequirement ur where ur.userId = "+id+")) as rHeightInches, "
-							+" (select h.inches from height h where h.id = (select ur.rHeightTo from vuserrequirement ur where ur.userId = "+id+")) as rHeightToInches, "
+							+" (select GROUP_CONCAT(ureq.rMaritalStatus)) as rMaritalStatusName, "
+							+" (select GROUP_CONCAT(rel.name) from religion rel where id in (ureq.rReligion)) as rReligionName, "
+							+" (select GROUP_CONCAT(name) from cast where id in (ureq.rCaste)) as rCasteName, "
+							+" (select GROUP_CONCAT(rDiet)) as rDietName, "
+							+" (select GROUP_CONCAT(name) from language where id in (ureq.rMotherTongue)) as rMotherTongueName, "
+							+" if(locate('any',ureq.rEducation)>0,\"Doesn't Matter\",(select GROUP_CONCAT(name) from education where id in (ureq.rEducation))) as rEducationName, "
+							+" if(locate('any',ureq.rOccupation)>0,\"Doesn't Matter\",(select GROUP_CONCAT(name) from occupation where id in (ureq.rOccupation))) as rOccupationName, "
+							+" (select GROUP_CONCAT(name) from countries where id in (ureq.rCountry)) as rCountryName, "
+							+" (select GROUP_CONCAT(name) from state where id in (ureq.rState)) as rStateName, "
+							+" (select GROUP_CONCAT(name) from city where id in (ureq.rCity)) as rCityName, "
+							+" (select h.inches from height h where h.id  = (ureq.rHeight)) as rHeightInches, "
+							+" (select h.inches from height h where h.id  = (ureq.rHeightTo)) as rHeightToInches, "
 							+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+sessionBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'interest_request') as expressedInterest, "
 							+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+sessionBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'message') as message_sent_status, "
 							+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+sessionBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'short_listed') as shortlisted, "
@@ -5548,12 +5548,13 @@ public boolean deletePhoto(String photoId){
 		String qryStr = "";
 		int finalPrice = 0;
 		try{
-			String selectQry = "select count(*) from users where status = '1' and referred_by = '"+user_id+"' and profile_filled_percentage >= 80";
+			String selectQry = "select count(*) from users where status = '1' and referred_by = (select unique_code from users where id = "+user_id+") and profile_filled_percentage >= '80'"
+							+ " and id in (select user_id from user_otps where status = '1') ";
 			int members_count = jdbcTemplate.queryForInt(selectQry);
 			if(members_count>=MatrimonyConstants.REFERRED_MEMBERS_COUNT){
-				float concession_amount = MatrimonyConstants.CONCESSION_PRECENTAGE / 100;
-				concession_amount = package_price * concession_amount;
-				finalPrice = Math.round(concession_amount);
+				//float concession_amount = MatrimonyConstants.CONCESSION_PRECENTAGE / 100;
+				float concession_amount = package_price * MatrimonyConstants.CONCESSION_PRECENTAGE / 100;
+				finalPrice = package_price - Math.round(concession_amount);
 			}else{
 				finalPrice = package_price;
 			}
@@ -5569,8 +5570,8 @@ public boolean deletePhoto(String photoId){
 		String qryStr = "";
 		int finalPrice = 0;
 		try{
-			String selectQry = "select count(*) from users where referred_by = '"+user_id+"' and profile_filled_percentage >= 80"
-						+ " and id in (select user_id from user_otps where status = 1) ";
+			String selectQry = "select count(*) from users where referred_by = (select unique_code from users where id = "+user_id+")  and profile_filled_percentage >= '80'"
+						+ " and id in (select user_id from user_otps where status = '1') ";
 			int members_count = jdbcTemplate.queryForInt(selectQry);
 			return members_count;
 		}catch(Exception e){
