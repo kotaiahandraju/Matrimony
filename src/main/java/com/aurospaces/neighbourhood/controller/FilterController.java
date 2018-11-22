@@ -694,6 +694,36 @@ public class FilterController {
 		return "userFullProfile";
 	}
 
+    @RequestMapping(value = "/adminNotificationFullProfile")
+   	public String notificationfullProfile(@ModelAttribute("createProfile") UsersBean objUserssBean, Model objeModel,
+   			HttpServletRequest request, HttpSession session) {
+   		// System.out.println("fullProfile Page");
+   		List<Map<String, String>> listOrderBeans = null;
+   		UsersBean objUsersBean = null;
+   		ObjectMapper objectMapper = null;
+   		String sJson = null;
+   		String profileId = request.getParameter("id");
+   		try {
+
+   			UsersBean sessionBean = (UsersBean) session.getAttribute("cacheUserBean");
+   			if (sessionBean == null) {
+   				return "redirect:HomePage";
+   			}
+   			//int profile_id = objUserssBean.getId();
+   			int profile_id = Integer.parseInt(profileId);
+   			UsersBean profileBean = objUsersDao.loginChecking(profile_id);
+   			request.setAttribute("profileBean", profileBean);
+   			List<Map<String, Object>> photosList = objUsersDao.getUserPhotos(profile_id);
+   			request.setAttribute("photosList", photosList);
+
+   		} catch (Exception e) {
+   			e.printStackTrace();
+   			System.out.println(e);
+   			logger.error(e);
+   			logger.fatal("error in FilterController class fullProfile method");
+   		}
+   		return "adminNotificationFullProfile";
+   	}
 	@RequestMapping(value = "/updatedProfiles")
 	public String updatedProfiles(@ModelAttribute("createProfile") UsersBean objUsersBean, ModelMap model,
 			HttpServletRequest request, HttpSession session, RedirectAttributes redir) {

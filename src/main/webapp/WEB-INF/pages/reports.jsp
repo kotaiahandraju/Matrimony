@@ -260,7 +260,7 @@ function SearchReport()
 	var fromdate = $("#fromdate").val();
 	var todate = $("#todate").val();
 	if(packages == "" && caste=="" && fromdate=="" && todate=="" ){
-		alert("Enter any input");
+		alert("select any input");
 		return false;
 	}
 		var formData = new FormData();

@@ -588,7 +588,7 @@ var role_id = ${cacheUserBean.roleId};
 	    return true;
 	}
 	function openFullProfile(id){
-		window.location.href="${baseurl}/admin/fullProfile?id="+id;
+		window.location.href="${baseurl}/admin/adminNotificationFullProfile?id="+id;
 	}
 	 function removeNotification(id){
 		 var checkstr =  confirm('Are you sure you want to delete?');

@@ -1073,7 +1073,7 @@ try{
 			InputStream input = null;
 			String body = null;
 			try{
-		        String mailTo = "krishnaajonnadula@gmail.com";
+		        String mailTo = "narendarreddy2222@gmail.com";
 //		        -------------------------------------------------------------------------------------------
 				
 		        String propertiespath = objContext.getRealPath("Resources" +File.separator+"DataBase.properties");

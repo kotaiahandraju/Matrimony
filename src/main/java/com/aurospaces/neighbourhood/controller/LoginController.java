@@ -1067,5 +1067,28 @@ public class LoginController {
 				return String.valueOf(objJson);		  
 				
 		}
+		
+		@RequestMapping(value = "/mobileNumChecking")
+		public @ResponseBody String mobileNumChecking(@ModelAttribute("createProfile") UsersBean objUsersBean, Model objeModel ,
+				HttpServletRequest request,HttpServletResponse response, HttpSession session) {
+			JSONObject objJson = new JSONObject();
+			
+			try {
+				boolean exists = objUsersDao.mobileNumExistOrNot(objUsersBean);
+				if(!exists){
+					objJson.put("msg", "notexist");
+				}else{
+					objJson.put("msg", "exist");
+				}
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println(e);
+				logger.error(e);
+				logger.fatal("error in mobileNumChecking method  ");
+				objJson.put("msg", e);
+			}
+			return String.valueOf(objJson);
+		}
 		  
 }

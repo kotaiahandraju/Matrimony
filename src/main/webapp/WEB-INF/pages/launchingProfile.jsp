@@ -25,7 +25,7 @@ $( document ).ready(function() {
 <div class="container-fluid">
 	<div class="page-header">
 		<div class="pull-left">
-			<h1>Launchinh Offer Profiles </h1> 
+			<h1>Launching Offer Profiles </h1> 
 		</div>
 	</div>
 	<div class="breadcrumbs">
@@ -37,7 +37,7 @@ $( document ).ready(function() {
 			</li>
 			<li>
 				&nbsp;<i class="fa fa-file"></i>
-				<span style="color: #999;cursor: auto;">Launchinh Offer  Profiles</span>
+				<span style="color: #999;cursor: auto;">Launching Offer  Profiles</span>
 			</li>
 		</ul>
 		
