@@ -1001,6 +1001,7 @@ $(".onlyCharacters").on("keypress",	function(event) {
   <label class="col-md-4 control-label" for="textinput">Occupation</label>  
   <div class="col-md-7">
     <form:select path="rOccupation" class="multiSelect" multiple="true">
+    	<form:option value="any">Doesn't Matter</form:option>
         <form:options items="${occupation}"></form:options>
     </form:select>
   </div>
