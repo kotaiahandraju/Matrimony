@@ -85,8 +85,10 @@ public class EmployeeCreationController {
 						if(success) {
 							
 							redir.addFlashAttribute("msg", "success");
+							redir.addFlashAttribute("cssMsg", "success");
 						}else {
 							redir.addFlashAttribute("msg", "failed");
+							redir.addFlashAttribute("cssMsg", "danger");
 						}
 					} else {
 						
@@ -108,9 +110,11 @@ public class EmployeeCreationController {
 					objUsersBean.setId(0);
 					userrequirementDao.save(objUsersBean);
 					redir.addFlashAttribute("msg", "success");
+					redir.addFlashAttribute("cssMsg", "success");
 				} catch (Exception e) {
 					// TODO: handle exception
 					redir.addFlashAttribute("msg", "failed");
+					redir.addFlashAttribute("cssMsg", "danger");
 				}
 				}else {
 					if (usersBean != null) {

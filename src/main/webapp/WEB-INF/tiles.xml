@@ -131,6 +131,9 @@
 	<definition name="userFullProfile" extends="base.definition">
 		<put-attribute name="body" value="/WEB-INF/pages/userFullProfile.jsp" />
 	</definition>
+	<definition name="adminNotificationFullProfile" extends="base.definition">
+		<put-attribute name="body" value="/WEB-INF/pages/adminNotificationFullProfile.jsp" />
+	</definition>
 	<definition name="adminDashboard" extends="base.definition">
 		<put-attribute name="body" value="/WEB-INF/pages/adminDashboard.jsp" />
 	</definition>

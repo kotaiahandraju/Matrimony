@@ -1546,7 +1546,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 						</div>
 						
 						<div class="form-group">
-						<label for="" style="padding-left:0px;" class="col-md-9"><input type="checkbox" id="accept" /> I have agreed to the<a href="termsConditionsHomepage" style="color:#91fbd0;" target="_blank"> Terms and Condition</a> & have read & understood the <a href="privacyAndPolicyHomePage"  style="color:#91fbd0;" target="_blank">Privacy Policy</a></label>
+						<label for="" style="padding-left:0px;" class="col-md-9"><input type="checkbox" id="accept" checked="checked" /> I have agreed to the<a href="termsConditionsHomepage" style="color:#91fbd0;" target="_blank"> Terms and Condition</a> & have read & understood the <a href="privacyAndPolicyHomePage"  style="color:#91fbd0;" target="_blank">Privacy Policy</a></label>
 							<input type="button" id="secondButton" value="Sign Up"
 								class="btn btn-success btn-block col-md-3" style="width:25%; margin-top:20px;">
 							<!--                                                     <button type="button"  id ="secondButton" onclick="submit();" class="btn btn-info btn-block">SIGNUP...</button> -->
@@ -2613,7 +2613,17 @@ $('img').bind('contextmenu', function(e) {
     					}else{
     						mobileExists = false;
     						$('#mobileError111').text("");
-    						return true;
+    						var accepted = checkAcceptancy();
+    						if(accepted){
+    							$('#registration').attr('action',"userRegistration");
+    				    		 $("#secondButton").attr('value','Please wait..');
+    				    		 $("#secondButton").attr('disabled',true);
+    				    			$("#registration").submit();											
+    				    			event.preventDefault();	
+    						}else{
+    							return false;
+    						}
+    						//return true;
     					}
     				});
     				
@@ -2626,16 +2636,7 @@ $('img').bind('contextmenu', function(e) {
 //     		 	$("#firstForm").css({'display':'none'})`	
 //     			$('#secondForm').css({'display':'block'});
 //    		 		$("#registration").submit();
-				var accepted = checkAcceptancy();
-				if(accepted){
-					$('#registration').attr('action',"userRegistration");
-		    		 $("#secondButton").attr('value','Please wait..');
-		    		 $("#secondButton").attr('disabled',true);
-		    			$("#registration").submit();											
-		    			event.preventDefault();	
-				}else{
-					return false;
-				}	
+					
     		 
     		}
     		);

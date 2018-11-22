@@ -147,15 +147,19 @@ $("#todate").datepicker({
 
 $("#submit11").click(function(){			
 		 
-		if($('#message').val() ==  null || $('#message').val() == "" || $('#message').val()=="undefined") 
-		{
-			alert("Please Enter message");
-			return false;
-		} 
-		if($('#messageType').val() ==  null || $('#messageType').val() == "" || $('#messageType').val()=="undefined"){
-			alert("Please Enter message Type");
+		if($('#mailSubject').val() ==  null || $('#mailSubject').val() == "" || $('#mailSubject').val()=="undefined"){
+			alert("Enter mailSubject");
 			return false;
 		}
+		if($('#messageType').val() ==  null || $('#messageType').val() == "" || $('#messageType').val()=="undefined"){
+			alert("selecet message Type");
+			return false;
+		}
+		if($('#message').val() ==  null || $('#message').val() == "" || $('#message').val()=="undefined") 
+		{
+			alert("Enter message");
+			return false;
+		} 
 		$("#submit11").prop('disabled', true);
 		$("#submit11").text("Please wait..");
 		$("#bodyType-form").submit();
