@@ -6,7 +6,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 <style>
 .select2-container{
-width:179px !important;
+width:164px !important;
 }
 .select2-container-multi .select2-choices {
 border-radius:0px !important;}
@@ -36,7 +36,7 @@ border-radius:0px !important;}
 			</ul>
 		</div>
 		<div class="row">
-			<div class="col-md-12">
+			<div class="container">
 				<div class="portlet" id="yw0" class="">
 					<div class="portlet-content w3-animate-zoom">
 						<form:form modelAttribute="usersForm" class="form-horizontal" action="submitbulkmessage" role="form" id="bodyType-form"  method="post">								

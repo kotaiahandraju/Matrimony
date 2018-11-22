@@ -20,7 +20,9 @@ btn-primary {
     
     margin-top: 10px;
 }
-
+#uploadBtn {
+margin-top:10px;
+}
 </style>
 
 				<div class="col-md-5 col-sm-12"></div>
