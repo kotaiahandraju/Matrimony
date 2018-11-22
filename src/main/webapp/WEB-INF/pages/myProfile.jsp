@@ -762,6 +762,7 @@ $(".onlyCharacters").on("keypress",	function(event) {
 
 
 <br>
+<div id="partnerPreferences">
 <div class="panel panel-default" style="background:#FDFDFD;">
     <div class="panel-body table-responsive">
     <div >	<strong class="font">Family Details
@@ -835,7 +836,7 @@ $(".onlyCharacters").on("keypress",	function(event) {
 </div>
 
 <br>
-<div id="partnerPreferences">
+
 <h3>Partner Preferences</h3>
 <div class="panel panel-default" style="background:#FDFDFD;">
     <div class="panel-body table-responsive">
