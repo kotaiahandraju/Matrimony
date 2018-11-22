@@ -234,11 +234,11 @@ margin-bottom:10px;
 min-height:110px;
 }
 .pleftc {
-margin:51px 98px 0px 0px;
+margin:66px 98px 0px 0px;
 color:green;
 }
 .prightc {
-margin:51px 0px 0px 22px;
+margin:66px 0px 0px 22px;
 color:green;
 }
 .bgc {
@@ -260,13 +260,14 @@ color:#000;
     margin: 0px;
 } */
 .preprofile {
-    width: 120px;
+    width:93px;
     height: 93px;
     overflow: hidden;
     padding-top: 3px;
     padding-bottom: 3px;
     margin-bottom: 4px;
 }
+
 @media only screen and (max-width: 640px) and (min-width: 320px) {
 .pendingre {
     padding: 20px;
@@ -335,10 +336,10 @@ font-size : 8px;
     		<c:set value="" var="reqId" scope="page" />
 			<c:forEach items="${pending_reqs}" var="pend_req">
 				<c:if test="${count == 0}">
-					<div class="item active" style="padding-top:5px;" id="pending_div${pend_req.requestId}">
+					<div class="item active" style="padding-top:5px; border:1px solid #f1f1f1; width:95%;height:100px; margin-top:-13px;" id="pending_div${pend_req.requestId}">
 				</c:if>
 				<c:if test="${count != 0}">
-					<div class="item" id="pending_div${pend_req.requestId}">
+					<div class="item" id="pending_div${pend_req.requestId}" style="padding-top:5px; border:1px solid #f1f1f1; width:95%;height:100px; margin-top:-13px;">
 				</c:if>
 					<c:set value="${pend_req.requestId}" var="reqId" />
 			        <div class="col-md-2">
