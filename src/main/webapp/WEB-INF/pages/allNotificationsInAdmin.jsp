@@ -75,9 +75,8 @@ hr:hover {
 					</div>
 					<div class="col-md-10 notifications1">
 						<p>
-							<a
-								href="fullProfile?id=${notification.profile_id}"
-								target="_blank"> <b><c:out
+							<a onclick="openFullProfile1(${notification.user_id});" href="#" style="list-style:none; text-decoration:none">
+							 <b><c:out
 										value="${notification.fullName}" /> (<c:out
 										value="${notification.username}" />)</b> paid an amount of
 								${notification.amount}
@@ -114,6 +113,11 @@ hr:hover {
 				});
 			} 
 		}
+		function openFullProfile1(id){
+			target = "_blank";
+			window.location.href="${baseurl}/admin/adminNotificationFullProfile?id="+id;
+		}
+	
 </script>
 		
 		

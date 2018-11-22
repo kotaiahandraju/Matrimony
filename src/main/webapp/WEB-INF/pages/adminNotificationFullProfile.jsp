@@ -61,36 +61,10 @@ padding:0px !important;}
 			<div class="col-md-12 products-grid-left" style="margin-top:10px;">
 					
 	            <div class="panel panel-success">
-	             <div class="panel-heading pull-right">
-	             <c:set value="${photosList[0]}" var="photoFirstObj"/>
-	             <span class=""><input type="checkbox" id="selectAllCheackbox"/> Select All &nbsp; <a  onclick="requetAllCheckboxApprov(1,${photoFirstObj.photo1.user_id});" href="#" style="text-decoration:none;">Approve &nbsp; </a></span>
-				 <span class=""><a id="reject${photo1.id}" onclick="requetAllCheckboxApprov(2,${photo1.user_id});" href="#" style="text-decoration:none;">Reject </a></span>
-	            </div><div class="clearfix"></div>
+	             
+	            <div class="clearfix"></div>
 		            <div class="panel-body">
-		            	<div id="imagesDiv" class="row" style="margin-bottom: 0.4em;">
-					      	<c:forEach items="${photosList}" var="photo1" >
-					      		<c:set var="uId" value="${photo1.user_id}" scope="page" />
-					      		<div class="col-md-2">
-					      			<img src="${catalina_base}/${photo1.image}" class="img-responsive thumbnail watermark_text" style="margin-bottom:0;">
-					      			<c:if test="${photo1.approved_status == '1'}">
-										<span>Approved</span>
-										
-									</c:if>
-									<c:if test="${photo1.approved_status == '2'}">
-										<span>Rejected</span>
-									</c:if>
-									<c:if test="${photo1.approved_status == '0'}">
-										<div id="approveDiv${photo1.id}">
-										<input type="checkbox" class="check-box" id="${photo1.id}" value="${photo1.id}" />
-											<a id="approve${photo1.id}" href="#" onclick="approvePhoto(${photo1.id},1,${photo1.user_id})" >Approve</a>
-											<a id="reject${photo1.id}" href="#" style="padding-left:5px;" onclick="approvePhoto(${photo1.id},2,${photo1.user_id})">Reject</a>
-										</div>
-									</c:if>
-					      			
-					      		</div>
-					      		
-							</c:forEach>
-												    </div>
+		            	
 						<div class="col-md-3">
 							 <c:if test="${not empty profileBean.profileImage}">
 								<img id="profImage" src="${catalina_base}/${profileBean.profileImage}" class="img-responsive thumbnail watermark_text" style="margin-bottom:0;">
@@ -98,11 +72,7 @@ padding:0px !important;}
 							<c:if test="${empty profileBean.profileImage}">
 								<img src="${baseurl }/img/default.png" class="img-responsive thumbnail" style="margin-bottom:0;">
 							</c:if> 
-							<c:forEach items="${photosList}" var="photo" >
-					      		
-					      			<a href="#" onclick="displayImage('${catalina_base}/${photo.image}')"><b>O</b></a>
-					      		
-							</c:forEach><br>
+							
 							<label><b>${profileBean.username}</b></label>
 		            	</div>
 		            	<div class="col-md-9 well">

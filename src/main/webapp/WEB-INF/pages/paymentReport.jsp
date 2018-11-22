@@ -6,7 +6,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 
 <style>
-.ui-widget-content {
+/* .ui-widget-content {
     border: 1px solid #aaaaaa;
     background: #ffffff url(images/ui-bg_flat_75_ffffff_40x100.png) 50% 50% repeat-x !important;
     color: #000 !important;
@@ -15,7 +15,8 @@
     border: 1px solid #666;
     background: #fff url(images/ui-bg_inset-soft_25_000000_1x100.png) 50% bottom repeat-x;
     color: #000 !important;
-}
+} */
+
 
 </style>
 <link href="${baseurl }/css/datepicker1.css" rel="stylesheet" type="text/css" />
@@ -250,7 +251,7 @@ function SearchReport()
 	var todate = $("#todate").val();
 	
 	if(packages == "" && caste=="" && fromdate=="" && todate=="" ){
-		alert("Enter any input");
+		alert("select any input");
 		return false;
 	}
 		var formData = new FormData();
@@ -328,5 +329,5 @@ $(function(){
 	});	
 });
 
-$(".reports").addClass("active"); 
+$(".paymentreport").addClass("active"); 
 </script>

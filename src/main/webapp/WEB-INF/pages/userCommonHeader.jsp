@@ -3807,7 +3807,33 @@ img.hover-shadow {
 		margin-top: -11px;
 		font-size: 11px;
 		}
-
+@media screen and only (max-width: 992px) {
+.ntag {
+		margin-bottom: 5px;
+		display: inline-flex;
+		margin-top: !important;
+		font-size: 12px !important;
+		color: #000;
+	}
+}
+@media ( min-width : 980px) {
+	.ntag {
+		margin-bottom: 5px;
+		display: inline-flex;
+		margin-top: px;
+		font-size: 10px;
+		color: #000;
+	}
+	}
+	.ntag {
+	margin-bottom: 5px;
+	display: inline-flex;
+	font-size: 10.5px;
+	color: #3c3636;
+	margin-left: 3px;
+	font-weight: bold;
+}
+	
 </style>
 </head>
 <body style="background: ;">
@@ -3831,6 +3857,7 @@ img.hover-shadow {
     	<div class="col-md-3">
 			<div class="logo" style="margin-top:5px;">
 				<a href="dashboard"><img  src="${baseurl}/images/logo.png" class="img img-responsive"></a>
+				<!-- <p class="ntag">NO. 1 TELUGU MATRIMONIAL SERVICE</p> -->
 			</div>
 			<div class="clearfix"></div>
 		</div>

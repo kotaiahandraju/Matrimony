@@ -6,7 +6,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 <style>
 .select2-container{
-width:179px !important;
+width:164px !important;
 }
 .select2-container-multi .select2-choices {
 border-radius:0px !important;}
@@ -36,7 +36,7 @@ border-radius:0px !important;}
 			</ul>
 		</div>
 		<div class="row">
-			<div class="col-md-12">
+			<div class="container">
 				<div class="portlet" id="yw0" class="">
 					<div class="portlet-content w3-animate-zoom">
 						<form:form modelAttribute="usersForm" class="form-horizontal" action="submitbulkmessage" role="form" id="bodyType-form"  method="post">								
@@ -147,15 +147,19 @@ $("#todate").datepicker({
 
 $("#submit11").click(function(){			
 		 
-		if($('#message').val() ==  null || $('#message').val() == "" || $('#message').val()=="undefined") 
-		{
-			alert("Please Enter message");
-			return false;
-		} 
-		if($('#messageType').val() ==  null || $('#messageType').val() == "" || $('#messageType').val()=="undefined"){
-			alert("Please Enter message Type");
+		if($('#mailSubject').val() ==  null || $('#mailSubject').val() == "" || $('#mailSubject').val()=="undefined"){
+			alert("Enter mailSubject");
 			return false;
 		}
+		if($('#messageType').val() ==  null || $('#messageType').val() == "" || $('#messageType').val()=="undefined"){
+			alert("selecet message Type");
+			return false;
+		}
+		if($('#message').val() ==  null || $('#message').val() == "" || $('#message').val()=="undefined") 
+		{
+			alert("Enter message");
+			return false;
+		} 
 		$("#submit11").prop('disabled', true);
 		$("#submit11").text("Please wait..");
 		$("#bodyType-form").submit();

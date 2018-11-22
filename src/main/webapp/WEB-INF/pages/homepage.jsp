@@ -2614,7 +2614,18 @@ $('img').bind('contextmenu', function(e) {
     					}else{
     						mobileExists = false;
     						$('#mobileError111').text("");
-    						return true;
+    						var accepted = checkAcceptancy();
+    						if(accepted){
+    							$("#referred_by").val("${referral_code}");
+    							$('#registration').attr('action',"userRegistration");
+    				    		 $("#secondButton").attr('value','Please wait..');
+    				    		 $("#secondButton").attr('disabled',true);
+    				    			$("#registration").submit();											
+    				    			event.preventDefault();	
+    						}else{
+    							return false;
+    						}
+    						//return true;
     					}
     				});
     				
@@ -2627,18 +2638,6 @@ $('img').bind('contextmenu', function(e) {
 //     		 	$("#firstForm").css({'display':'none'})`	
 //     			$('#secondForm').css({'display':'block'});
 //    		 		$("#registration").submit();
-				var accepted = checkAcceptancy();
-				if(accepted){
-					$("#referred_by").val("${referral_code}");
-					$('#registration').attr('action',"userRegistration");
-		    		 $("#secondButton").attr('value','Please wait..');
-		    		 $("#secondButton").attr('disabled',true);
-		    			$("#registration").submit();											
-		    			event.preventDefault();	
-				}else{
-					return false;
-				}	
-    		 
     		}
     		);
 
