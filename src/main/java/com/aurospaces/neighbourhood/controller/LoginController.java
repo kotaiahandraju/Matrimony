@@ -171,7 +171,12 @@ public class LoginController {
 			logger.error(e);
 			logger.fatal("error in CreateProfile class createProfile method  ");
 		}
-		
+		String referral_code = request.getParameter("refcode");
+		if(StringUtils.isNotBlank(referral_code)){
+			session.setAttribute("referral_code", referral_code);
+		}else{
+			session.setAttribute("referral_code", "");
+		}
 		List<Map<String, String>> list = new LinkedList<Map<String, String>>();
 		Map<String, String> statesMap;
 		ObjectMapper objectMapper = null;

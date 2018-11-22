@@ -762,6 +762,7 @@ $(".onlyCharacters").on("keypress",	function(event) {
 
 
 <br>
+<div id="partnerPreferences">
 <div class="panel panel-default" style="background:#FDFDFD;">
     <div class="panel-body table-responsive">
     <div >	<strong class="font">Family Details
@@ -835,7 +836,7 @@ $(".onlyCharacters").on("keypress",	function(event) {
 </div>
 
 <br>
-<div id="partnerPreferences">
+
 <h3>Partner Preferences</h3>
 <div class="panel panel-default" style="background:#FDFDFD;">
     <div class="panel-body table-responsive">
@@ -1001,6 +1002,7 @@ $(".onlyCharacters").on("keypress",	function(event) {
   <label class="col-md-4 control-label" for="textinput">Occupation</label>  
   <div class="col-md-7">
     <form:select path="rOccupation" class="multiSelect" multiple="true">
+    	<form:option value="any">Doesn't Matter</form:option>
         <form:options items="${occupation}"></form:options>
     </form:select>
   </div>

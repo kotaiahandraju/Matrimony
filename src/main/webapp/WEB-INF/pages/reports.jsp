@@ -259,7 +259,7 @@ function SearchReport()
 	var occupation = $("#occupation").val();
 	var fromdate = $("#fromdate").val();
 	var todate = $("#todate").val();
-	if(packages == "" && caste=="" && fromdate=="" && todate=="" ){
+	if(packages == "" && caste=="" && fromdate=="" && todate=="" && occupation=="" ){
 		alert("select any input");
 		return false;
 	}
