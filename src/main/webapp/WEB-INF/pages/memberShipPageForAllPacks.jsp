@@ -286,14 +286,8 @@ button {
 border:none;}
 </style>
 <body>
-<div class="products">
  <div class="container" style="background:#fff; padding-top:25px; z-index:0;">
- 	<form:form commandName="payment"  class="form-horizontal" id="payment-form" role="form" method="post">
- 		<input type="hidden" id="package_id" name="package_id" value="${launching_offer_pack_id}" />
-  		<a href="#" onclick="makePayment(event)"><img src="../images/launchingbanner.jpg" class="img-responsive"/></a>
-  	</form:form>
-  	</div>
-<%-- <div class="demo1">
+<div class="demo1">
    <form:form commandName="payment"  class="form-horizontal" id="payment-form" role="form" method="post">
         <div class="row">
         	<c:if test="${not empty packagesList}">
@@ -413,9 +407,9 @@ border:none;}
 						 <p><img  src="${baseurl}/images/icon2.png"/>  No Personalized  Messages *</p>
 						    </div>
 			    		</c:if>
-			    		<div class="col-md-4">
+			    		<%-- <div class="col-md-4">
 			    			<p><img style="width:16px; heigth:16px;" src="${baseurl}/images/icon6.gif"/"/>  View Unlimited Horoscopes</p>
-			    		</div>
+			    		</div> --%>
 			    		<div class="clearfix"></div>
 			    		<div class="col-md-4">
 			    			<p style="margin-top:10px;"><img  src="${baseurl}/images/profiletag.png"/> Profile tagged with "<c:out value="${pack.name}"/>" member</p>
@@ -439,12 +433,10 @@ border:none;}
 	</c:forEach>
 </c:if>
     
-    <div class="clearfix"></div> --%>
+    <div class="clearfix"></div>
     <br><br>
-   
     </div>
     <script>    
-    var eligible = "${eligible_for_consession}";
     $("input[name=package_id]").click(function(){
     	$('.pricingTable').each(function(){
         	var rcls1 = $(this).attr('class').split(' ');
@@ -464,7 +456,7 @@ border:none;}
     	$("#benifitDiv").css('display','block');
     });
     $(".pack_details").attr("hidden",true);
-    /* function makePayment(event){
+    function makePayment(event){
 		var selected_pack = $("input[name=package_id]:checked").val();
 		if((typeof(selected_pack) == "undefined") || (selected_pack=="")){
 			alert("Select any package");
@@ -478,22 +470,6 @@ border:none;}
 		}
 		
 		
-	} */
-	function makePayment(event){
-			if(eligible!="" && eligible=="eligible"){
-		    	alert("Congrats!! You are eligible for a consession.");
-		    	$("#makePaymentBtn").attr("disabled",true);
-				$("#makePaymentBtn").val("Please wait...");
-				$("#payment-form").attr('action',"concessionPage");
-				$("#payment-form").submit();
-				event.preventDefault(); 
-		    }else{
-		    	$("#makePaymentBtn").attr("disabled",true);
-				$("#makePaymentBtn").val("Please wait...");
-				$("#payment-form").attr('action',"savePayment");
-				$("#payment-form").submit();
-				event.preventDefault(); 
-		    }
 	}
     function displayDetails(divId){
 		$(".pack_details").attr("hidden",true);

@@ -101,7 +101,7 @@
     <div class="panel ">
         <div class="panel-heading">
              <h4 class="panel-title">
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#panel1"><!-- <i class="glyphicon glyphicon-minus"></i> --><b>Membership Details</b></a>
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#panel1"><img src="../images/crown.png" class=""/>&nbsp;<!-- <i class="glyphicon glyphicon-minus"></i> --><b>Membership Details</b></a>
             </h4>
 
         </div>

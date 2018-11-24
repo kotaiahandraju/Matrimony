@@ -28,10 +28,13 @@
 
 <!-- For Facebook -->
 <meta property="og:title" content="Aarna Matrimony" />
-<meta property="og:type" content="article" />
+<!-- <meta property="og:type" content="article" /> -->
 <meta property="og:image" content="${baseurl }/images/fac.jpg" />
 <meta property="og:url" content="http://www.aarnamatrimony.com" />
 <meta property="og:description" content="matrimonial, telugu matrimony, no1 matrimony in vijayawada" />
+
+<!-- <meta property="og:url"           content="http://www.aarnamatrimony.com/" /> -->
+<meta property="og:type"          content="website" />
 
 <!-- For Twitter -->
 <meta name="twitter:card" content="summary" />
@@ -3880,7 +3883,7 @@ img.hover-shadow {
 		<div class="col-md-1 col-xs-1">
 		<div class="pull-right" style="width:80px;">
 		<ul class="nav navbar-nav navbar-right">
-							<li class="dropdown dropdown1 settings pull-right" style="height:62px; width:96px; background:#f1f1f1; padding:0px;">
+							<li class="dropdown dropdown1 settings pull-right" style="height:62px; width:96px; background:#f1f1f1; padding:0px;border-right:none;">
 								<a href="#no" class="dropdown-toggle setpic" data-toggle="dropdown" style="background:#f1f1f1;">
 									
 									
@@ -3906,7 +3909,7 @@ img.hover-shadow {
 						
 						</div>
 	</div>
-<div class="nav"  style="width:100%;background:#006699;">
+<div class="nav"  style="width:100%;background:#322d65;">
 	<div class="container">
 		<div class="row">
 			<nav class="navbar navbar-custom navbar-inverse" role="navigation" >
