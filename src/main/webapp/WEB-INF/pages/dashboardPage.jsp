@@ -249,7 +249,7 @@ padding-left:0px;
 padding-right:0px;
 }
 .pendingre p{
-font-size:13px;
+font-size:14px;
 color:#000;
 }
 /* .thumbnail {
@@ -964,7 +964,7 @@ function displayMatches(listOrders) {
 				mobile_num_Str = '<span class="mobilenum" style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;    display: -webkit-inline-box;font:bold 14px/18px Arial;">&nbsp;+91-'+orderObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="${baseurl}/user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>';
 				
 			}else{
-				mobile_num_Str = '<span ><a href="#no" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="displayMobileNum('+orderObj.id+')"> View Mobile No..</a></span>';
+				mobile_num_Str = '<span ><a href="#no" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="displayMobileNum('+orderObj.id+')"> View Mobile No.</a></span>';
 			}
 			var tblRow = '<div class="row">'
 				+ '<div class=" col-md-3 col-xs-3 preprofile" >'
@@ -973,10 +973,10 @@ function displayMatches(listOrders) {
 				+ '			<span>aarnamatrimony.com</span>'
 				+ '		</div>	'
 	            + '</div>'
-	            + '<div class="col-md-9 col-xs-9">'
-	            + ' <p>'+firstname+'&nbsp;'+lastname+'|'+orderObj.username+'&nbsp;'+premiumMember+'&nbsp; '+age+' yrs,&nbsp; '+orderObj.religionName+', '+orderObj.casteName+','+orderObj.inches+' , '+orderObj.occupationName+', '+orderObj.currentCityName+', '+orderObj.currentCountryName+'. </p> '
-	            + ' <p> '+interestStr+'| <a href="#no" type="button" class="btn" style="padding:; color:blue; border-radius:5px;" id="sendMail'+orderObj.id+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')">Send Mail</a> | <a href="#no" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="fullProfile('+orderObj.id+')"> Full Profile</a>| '+shortListedStr+' '
-	            + ' | <span id="mobileTD'+orderObj.id+'">'+mobile_num_Str+'</span> | </p> '
+	            + '<div class="col-md-9 col-xs-9" style="padding-right:0px;">'
+	            + ' <p><span style="font-weight:bold">'+firstname+'&nbsp;'+lastname+'|'+orderObj.username+'</span>&nbsp;'+premiumMember+'&nbsp; ('+age+' yrs,'+orderObj.religionName+') '+orderObj.casteName+','+orderObj.inches+' , '+orderObj.occupationName+', '+orderObj.currentCityName+', '+orderObj.currentCountryName+'. </p> '
+	            + ' <p> '+interestStr+'| <a href="#no" type="button" class="btn" style="padding:; color:blue; border-radius:5px;" id="sendMail'+orderObj.id+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')">Send Mail</a> | '+shortListedStr+' '
+	            + ' | <span id="mobileTD'+orderObj.id+'">'+mobile_num_Str+'</span>  </p> '
 	            
 	            + '</div>'
 	            + '<div class="clearfix" style="border-bottom:1px solid #f1f11;margin-bottom:5px;"></div>'
@@ -1215,7 +1215,7 @@ function displayNewMatches_update(listOrders) {
 	            + 	"<a href='#'  onclick='fullProfile("+orderObj.id+")'><img src='"+image+"' class='watermark_text img-responsive thumbnail '></a>"
 	            + '</div>'
 	            + '<div class="col-md-9 col-xs-9">'
-	            + ' <p>'+firstname+'&nbsp;'+lastname+'|'+orderObj.username+'&nbsp;( '+age+' yrs,&nbsp; '+orderObj.heightInches+' )&nbsp;'+Content+' </p> '
+	            + ' <p><span style="font-weight:bold">'+firstname+'&nbsp;'+lastname+'|'+orderObj.username+'</span>&nbsp;( '+age+' yrs,&nbsp; '+orderObj.heightInches+' )&nbsp;'+Content+' </p> '
 	            + ' <p> '+interestStr+'| <a href="#no" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="fullProfile('+orderObj.id+')"> Full Profile</a> </p> '
 	            
 	            + '</div>'

@@ -1876,7 +1876,7 @@ h4.panel-title a {
   padding:10px 15px;
   color: #212121;
   line-height: 1.8em;
-  font-size: 12px;
+  font-size: 14px;
 }
 .panel-default > .panel-heading {
   color: #000;
@@ -3309,7 +3309,7 @@ label.radio {
   }
     
 .well { padding:10px;}
-.profiletable table tr td a { font-size:13px;}
+.profiletable table tr td a { font-size:14px;}
 
 .glyphicon.glyphicon-envelope {
     font-size: 22px;
