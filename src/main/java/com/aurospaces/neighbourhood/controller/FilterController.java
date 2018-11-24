@@ -934,8 +934,10 @@ public class FilterController {
 						List<Map<String,Object>> paymentNotificationsList = objUsersDao.getAdminNotifications("payment",false);
 						if(paymentNotificationsList!=null && paymentNotificationsList.size()>0){
 							session.setAttribute("paymentNotificationsList", paymentNotificationsList);
+							session.setAttribute("paymentNotificationsList_size", paymentNotificationsList.size());
 						}else{
 							session.setAttribute("paymentNotificationsList", "");
+							session.setAttribute("paymentNotificationsList_size", "0");
 						}
 					} else {
 						jsonObj.put("message", "");

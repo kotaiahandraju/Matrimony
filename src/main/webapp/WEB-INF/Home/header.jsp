@@ -464,7 +464,7 @@ var role_id = ${cacheUserBean.roleId};
 					<a href="#" id="notificationLink"> <span class="fa fa-bell"></span>Notifications </a>
 					</c:if>
 					<c:if test="${not empty paymentNotificationsList}">
-						<a href="#" id="notificationLink"> <span class="fa fa-bell"></span>Notifications</a>
+						<a href="#" id="notificationLink"> <span class="fa fa-bell"></span>Notifications <span class="matchcount" id="notification_cnt">${paymentNotificationsList_size}</span></a>
 					</c:if>
 					</c:if>
 					<div id="notificationContainer" class="dropdown-menu">
@@ -599,6 +599,13 @@ var role_id = ${cacheUserBean.roleId};
 				var jsonobj = $.parseJSON(data);
 				var msg = jsonobj.message;
 				if(msg=="delete"){
+					var count_str = $("#notification_cnt").html();
+					var count_int = parseInt(count_str)-1;
+					if(count_int<0){
+						count_int = 0;
+					}
+					$("#notification_cnt").html(count_int);
+					
 				$(".notifyDiv"+id).remove();
 				alert("Notification succelufully deleted");
 				}else{

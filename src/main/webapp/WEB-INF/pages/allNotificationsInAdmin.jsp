@@ -106,6 +106,7 @@ hr:hover {
 					if(msg=="delete"){
 						$("#allDeleteNotifications").remove();
 						$(".notifyDivAll").remove();
+						$("#notification_cnt").html("0");
 					alert("Notification succelufully deleted");
 					}else{
 						alert("Some problem occured. Please try again.");
