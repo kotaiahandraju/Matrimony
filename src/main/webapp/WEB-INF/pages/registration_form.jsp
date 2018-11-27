@@ -311,11 +311,11 @@
 					      </div>
 					    </div>
 					 <div class="form-group">
-					      <label class="col-md-4 control-label" for="referral">Referral Code</label>  
+					      <label class="col-md-4 control-label" for="referral" >Referral Code</label>  
 					      <div class="col-md-6">
-					      	<form:input path="referred_by" class="form-control u" placeholder="Referral Code" />
+					      	<form:input path="referred_by" class="form-control" placeholder="Referral Code" readonly="true"/>
 					      </div>
-					      <div class="col-md-2"><button class="btn btn-success form-control">Apply Code</button></div>
+<!-- 					      <div class="col-md-2"><button class="btn btn-success form-control">Apply Code</button></div> -->
 					    </div>
 					    <div class="form-group">
 					      <label class="col-md-4 control-label" for="textinput"></label>  

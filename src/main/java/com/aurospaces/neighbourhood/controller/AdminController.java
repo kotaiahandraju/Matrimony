@@ -206,7 +206,7 @@ public class AdminController {
 		return "adminDashboard";
 	}
 
-   @RequestMapping(value = "/refreshhCounts")
+   @RequestMapping(value = "/refreshCountsAdmin")
 	public  @ResponseBody String refreshhCounts( ModelMap model,
 			HttpServletRequest request, HttpSession session,RedirectAttributes redir) {
 		JSONObject objJson =new JSONObject();

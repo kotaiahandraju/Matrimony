@@ -100,14 +100,14 @@ Your friends would need to register successfully & you earn Rs 50/- for single r
 	<!-- <a href="https://twitter.com/home?status=http%3A//www.aarnamatrimony.com" class="btn btn-block btn-social btn-twitter"><span class="fa fa-twitter"></span>Share on Twitter</a> -->
     
   <div class="col-md-2 col-sm-2">
-  	<a href="https://twitter.com/home?status=http%3A//www.aarnamatrimony.com" class="btn btn-block btn-social btn-twitter">
+  	<a target="_blank" href="https://twitter.com/home?status=http%3A//www.aarnamatrimony.com?refcode=${cacheGuest.unique_code}" class="btn btn-block btn-social btn-twitter">
     <span class="fa fa-twitter"></span> Twitter
   </a></div>
   <!-- <div class="col-md-2 col-sm-2"><a href="https://www.whatsapp.com/" target="_blank" class="btn btn-block btn-social btn-whatsapp">
     <span class="fa fa-whatsapp"></span>  Whatsapp
   </a></div> -->
   <div id="mobile-share">
-  	<a href="whatsapp://send?text=http://www.aarnamatrimony.com" data-action="share/whatsapp/share" class="btn btn-block btn-social btn-whatsapp">
+  	<a target="_blank" href="whatsapp://send?text=http://www.aarnamatrimony.com?refcode=${cacheGuest.unique_code}" data-action="share/whatsapp/share" class="btn btn-block btn-social btn-whatsapp">
   		<span class="fa fa-whatsapp"></span>Whatsapp
   	</a>
   </div>
@@ -123,7 +123,7 @@ Your friends would need to register successfully & you earn Rs 50/- for single r
   </div> -->
   <div class="clearfix"></div>
   <h5 align="center"><b>Your Promo Code</b></h5>
-  <center><span class="couponcode"><span id="couponcode1">FREESHIP</span></span></center>
+  <center><span class="couponcode"><span id="couponcode1">${cacheGuest.unique_code}</span></span></center>
 <!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#pop">Open Modal</button> -->
 <div class="modal fade" id="pop" role="dialog">
     <div class="modal-dialog">

@@ -342,7 +342,7 @@ font-size : 8px;
 					<div class="item" id="pending_div${pend_req.requestId}" style="padding-top:5px; border:1px solid #f1f1f1; width:95%;height:100px; margin-top:-13px;">
 				</c:if>
 					<c:set value="${pend_req.requestId}" var="reqId" />
-			        <div class="col-md-2">
+			        <div class="col-md-3">
 			        	<c:if test="${not empty pend_req.profileImage}">
 			        		<img class="thumbnail img-responsive" src="${catalina_base}/${pend_req.profileImage}"/>
 			        	</c:if>
@@ -350,7 +350,7 @@ font-size : 8px;
 			        		<img class="thumbnail img-responsive" src="${baseurl}/img/default.png"/>
 			        	</c:if>
 			        </div>
-			         <div class="col-md-7">
+			         <div class="col-md-6">
 			      <p><b>
 			      		<c:if test="${cacheGuest.roleId == '4'}">
 			      			<a href="inboxAction?tab_type=inbox&list_type=pending_requests">xxxxxxx</a>
@@ -365,12 +365,12 @@ font-size : 8px;
 			 			Do you like this profile?</p>
 			       </div>
 
-			       <div class="col-md-3"><span>
+			       <div class="col-md-3" style="margin-top:27px;"><span>
 			       		<c:if test="${not empty pend_req.activity_content}">
-			       			<a href="#" onclick="acceptMessage_pendingReq(${pend_req.requestId},'1')"><i class="fa fa-check-circle" style="font-size:25px;color:green"></i></a> &nbsp; <a href="#" onclick="acceptMessage_pendingReq(${pend_req.requestId},'0')"><i class="fa fa-times-circle-o" aria-hidden="true"  style="font-size:25px;color:red"></i></a>
+			       			<a href="#" onclick="acceptMessage_pendingReq(${pend_req.requestId},'1')"><i class="fa fa-check-circle" style="font-size:27px;color:green"></i></a> &nbsp; <a href="#" onclick="acceptMessage_pendingReq(${pend_req.requestId},'0')"><i class="fa fa-times-circle-o" aria-hidden="true"  style="font-size:25px;color:red"></i></a>
 			       		</c:if>
 			       		<c:if test="${empty pend_req.activity_content}">
-				       		<a href="#" onclick="acceptRequest_pendingReq(${pend_req.requestId},'1')"><i class="fa fa-check-circle" style="font-size:25px;color:green"></i></a> &nbsp; <a href="#" onclick="acceptRequest_pendingReq(${pend_req.requestId},'0')"><i class="fa fa-times-circle-o" aria-hidden="true"  style="font-size:25px;color:red"></i></a>
+				       		<a href="#" onclick="acceptRequest_pendingReq(${pend_req.requestId},'1')"><i class="fa fa-check-circle" style="font-size:27px;color:green"></i></a> &nbsp; <a href="#" onclick="acceptRequest_pendingReq(${pend_req.requestId},'0')"><i class="fa fa-times-circle-o" aria-hidden="true"  style="font-size:25px;color:red"></i></a>
 			       		</c:if>
 			       </span></div>
 

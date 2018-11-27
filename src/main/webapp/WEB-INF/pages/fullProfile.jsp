@@ -1347,8 +1347,9 @@ left:10px !important;
 		            	</div>
 		            </div>
 		     </c:if>
+		     <c:if test="${cacheGuest.id != profileBean.id}">
 	            <div class="">
-					 <jsp:include page="sideGridForMatches.jsp" /></div>
+					 <jsp:include page="sideGridForMatches.jsp" /></div></c:if>
 	            <div class="clearfix"></div>
 			
 			

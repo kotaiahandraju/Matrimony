@@ -59,7 +59,7 @@
 									    		$("#viewed_not_contacted_count").html(all_counts.viewedNotContactedCount);
 									    		$("#messages_count").html(all_counts.pendingRequestsCount);
 									    		$(".pend_req_count_class").html(all_counts.pendingRequestsCount);
-									    		$("#notifications_count").html(all_counts.notificationsCount);
+									    		$("#matchcountId").html(all_counts.notificationsCount);
 									    		//$("#inbox_count").html(all_counts.pendingRequestsCount);
 											});
 						
@@ -3948,11 +3948,11 @@ img.hover-shadow {
 								</ul>
 							</li>
 							<li class="dropdown matches">
-								<a href="#no" class="dropdown-toggle" data-toggle="dropdown">Matches <span class="matchcount">${cacheGuest.yetToBeViewedCount}</span></a>
+								<a href="#no" class="dropdown-toggle" data-toggle="dropdown">Matches <span class="matchcount" id="matches_count">${cacheGuest.yetToBeViewedCount}</span></a>
 								<ul class="dropdown-menu">
 									<li><a href="newMatches">New Matches</a></li>
 									<li><a href="yetToBeViewed">Yet to be viewed(${cacheGuest.yetToBeViewedCount}) </a></li>
-									<li><a href="viewedNotContacted">Viewed & not contacted(${cacheGuest.viewedNotContactedCount})</a></li>
+									<li><a href="viewedNotContacted">Viewed & not contacted<span id="viewed_not_contacted_count">(${cacheGuest.viewedNotContactedCount})</span></a></li>
 									<li><a href="shortListedByMe">Shortlisted Matches</a></li>
 									<!-- <li><a href="#no">Premium Members</a></li> -->
 								</ul>

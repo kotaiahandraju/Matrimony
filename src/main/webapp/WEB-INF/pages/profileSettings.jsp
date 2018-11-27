@@ -1531,9 +1531,13 @@ function getReliginCastAjax() {
 	var religionId = $("#rReligion").val();
 		var formData = new FormData();
 		formData.append("religionId",religionId);
+// 		$('#caste').find('option').not(':first').remove();
 	$.fn.makeMultipartRequest('POST', '../castesBasedOnReligion', false,
 			formData, false, 'text', function(data){
+		var rCaste=$("#rCaste").val();
+	if (rCaste==null){
 		$("#rCaste").select2('val','');
+	}
 		var jsonobj = $.parseJSON(data);
 		var alldata = jsonobj.allOrders1;
 		var optionsForClass = "";
