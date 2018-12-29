@@ -23,6 +23,8 @@
   margin-right: 3px;
   margin-left: 0px;
   background-color: #ddd;
+  border: 1px solid #999;
+    border-radius: 4px;
 }
 .asPaginator li a {
   padding: 6px 10px;
