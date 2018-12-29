@@ -3,7 +3,12 @@
 
 
 <style>
-.mobilenum 
+/* .modal-header {
+    background-color: #00b2e3;
+    padding: 0;
+} */
+
+.mobilenum {
 display: -webkit-inline-box;
 }
 .media-carousel {
@@ -40,7 +45,7 @@ b, strong {
     color: #000;
 }
 .grademember {
-background:#2da3de;
+background:#00b2e4;
 color:#fff;
 padding:8px;
 font-size:19px;
@@ -54,7 +59,7 @@ border-top-left-radius: 33px;
     opacity: 1;
 }
 .newbody {
-background:#2da3de;
+background:#00b2e4;
 color:#fff;
 border-bottom-left-radius: 33px;
     border-bottom-right-radius: 33px;
@@ -274,15 +279,16 @@ color:#000;
     border: 1px solid #dedede;
     background: #fff;
     margin-top: 8px;
+    min-height:220px;}
 }
 .preprofile {
-    width: 68px;
-    height: 43px;
+    width: 93px;
+    height: 93px;
     overflow: hidden;
     padding-top: 3px;
     padding-bottom: 3px;
-    margin-bottom: 4px;
-}
+    margin-bottom: 4px;}
+   
 }
 /* add pendingrequest new */
 .products-grid-left {
@@ -344,10 +350,10 @@ font-size : 8px;
 					<c:set value="${pend_req.requestId}" var="reqId" />
 			        <div class="col-md-2">
 			        	<c:if test="${not empty pend_req.profileImage}">
-			        		<img class="thumbnail img-responsive" src="${catalina_base}/${pend_req.profileImage}"/>
+			        		<img class="" style="width:70px; height:70px;" src="${catalina_base}/${pend_req.profileImage}"/>
 			        	</c:if>
 			        	<c:if test="${empty pend_req.profileImage}">
-			        		<img class="thumbnail img-responsive" src="${baseurl}/img/default.png"/>
+			        		<img class="" style="width:70px; height:70px;" src="${baseurl}/img/default.png"/>
 			        	</c:if>
 			        </div>
 			         <div class="col-md-7">
@@ -365,7 +371,7 @@ font-size : 8px;
 			 			Do you like this profile?</p>
 			       </div>
 
-			       <div class="col-md-3"><span>
+			       <div class="col-md-3" style="margin-top:25px;"><span>
 			       		<c:if test="${not empty pend_req.activity_content}">
 			       			<a href="#" onclick="acceptMessage_pendingReq(${pend_req.requestId},'1')"><i class="fa fa-check-circle" style="font-size:25px;color:green"></i></a> &nbsp; <a href="#" onclick="acceptMessage_pendingReq(${pend_req.requestId},'0')"><i class="fa fa-times-circle-o" aria-hidden="true"  style="font-size:25px;color:red"></i></a>
 			       		</c:if>
@@ -456,7 +462,7 @@ font-size : 8px;
 					<div class="panel-heading"><b>Latest Updates</b> </div>
 		            <form:form commandName="createProfile"  class="form-horizontal" id="searchForm3" name="searchForm3" role="form"   method="post">
 	             		<form:hidden path="id" />
-	             			<div class="panel-body" id="matches_updated" style="overflow:hidden; max-height: 210px">
+	             			<div class="panel-body" id="matches_updated" style="overflow:hidden; max-height: 257px">
 	             		
 							
 							</div>
@@ -687,7 +693,7 @@ font-size : 8px;
             <div class="modal-body newbody col-md-12">
 				<div class="col-md-4"><img src="${baseurl}/images/up.png" class="img-responsive"/></div>
 				<div class="col-md-8">
-				<p style="color:#b7f528;">Start Contacting Matches</p>
+				<p style="color:#322d65;">Start Contacting Matches</p>
 				<p><img style="color:#fff;" src="${baseurl}/images/icon1.png"/> Get Unlimited Profiles</p>
 				<!-- <p> <i class="fa fa-comment"></i> Chat Instantly</p> -->
 				 <div class="clearfix"></div>
@@ -969,7 +975,7 @@ function displayMatches(listOrders) {
 			}
 			var tblRow = '<div class="row">'
 				+ '<div class=" col-md-3 col-xs-3 preprofile" >'
-	            + 	"<a href='#'  onclick='fullProfile("+orderObj.id+")'><img src='"+image+"'  class='  img-responsive thumbnail ' ></a>"
+	            + 	"<a href='#'  onclick='fullProfile("+orderObj.id+")'><img src='"+image+"'  class='  ' style='width:70px; height:70px;' ></a>"
 	            + '		<div class="watermarkcontent_preferred">'
 				+ '			<span>aarnamatrimony.com</span>'
 				+ '		</div>	'
@@ -1064,12 +1070,12 @@ function displayNewMatches(listOrders) {
 			 var expressed = orderObj.expressedInterest;
 			var interestStr = "";
 			if(expressed==0){
-				interestStr = '<p  align="center" style="margin: 11px 0px 10px 0px;" id="expInterest'+orderObj.id+'"><a  href="#no" type="button" class="btn btn-warning  btn-sm"  onclick="expressInterest_dashboardnewmatches('+orderObj.id+')">Send Interest</a></p>';
+				interestStr = '<p  align="center" style="margin: 11px 0px 10px 0px;" id="expInterest'+orderObj.id+'"><a  href="#no" type="button" class="btn btn-danger  btn-sm"  onclick="expressInterest_dashboardnewmatches('+orderObj.id+')">Send Interest</a></p>';
 			}else if(expressed>0){
-				interestStr = '<p align="center" style="margin: 11px 0px 10px 0px;"><a   type="button" disabled="true"  class="btn btn-warning btn-sm "  >Request Sent</a></p>';
+				interestStr = '<p align="center" style="margin: 11px 0px 10px 0px;"><a   type="button" disabled="true"  class="btn btn-danger btn-sm "  >Request Sent</a></p>';
 			}
 			 item =     item + ' 	<div class="col-md-4 thumbnailgal">'
-				         +' 		<div class="thumbnailmain">	<a class="thumbnail thumbimg" href="#no" style="margin: 0px 0px 0px 0px; width:100%; height:auto;" onclick="fullProfile('+orderObj.id+')"><img alt="" src="'+image+'" class="watermark_text_newmatches"></a></div>'
+				         +' 		<div class="thumbnailmain">	<a class="" href="#no" style="margin: 0px 0px 0px 0px; width:100%; height:auto;" onclick="fullProfile('+orderObj.id+')"><img alt="" src="'+image+'" class="watermark_text_newmatches" style="width:150px;height:150px;"></a></div>'
 				         +' 			<p align="center" class="ptransition" style="margin: 10px 0px 0px 0px;"><span  class="ptransition" href="#no" onclick="fullProfile('+orderObj.id+')" style="transition: 0; padding:5px; color:blue; border-radius:5px;">'+orderObj.username+'</span></p>'
 				         +' 			<p align="center" style="margin: px 0px 0px -3px;">'+age+' yrs, '+orderObj.inches+'</p>'
 				         + 			    interestStr
@@ -1212,10 +1218,10 @@ function displayNewMatches_update(listOrders) {
 				mobile_num_Str = '<span ><a href="#no" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="displayMobileNum('+orderObj.id+')"> View Mobile No..</a></span>';
 			}
 			var tblRow = '<div class="row">'
-				+ '<div class=" col-md-2 col-xs-2 preprofile1" >'
-	            + 	"<a href='#'  onclick='fullProfile("+orderObj.id+")'><img src='"+image+"' class='watermark_text img-responsive thumbnail '></a>"
+				+ '<div class=" col-md-2 preprofile1" >'
+	            + 	"<a href='#'  onclick='fullProfile("+orderObj.id+")'><img src='"+image+"' class='watermark_text' style='width:70px; height:70px;'></a>"
 	            + '</div>'
-	            + '<div class="col-md-9 col-xs-9">'
+	            + '<div class="col-md-9">'
 	            + ' <p>'+firstname+'&nbsp;'+lastname+'|'+orderObj.username+'&nbsp;( '+age+' yrs,&nbsp; '+orderObj.heightInches+' )&nbsp;'+Content+' </p> '
 	            + ' <p> '+interestStr+'| <a href="#no" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="fullProfile('+orderObj.id+')"> Full Profile</a> </p> '
 	            
@@ -1421,7 +1427,7 @@ function expressInterest_dashboardnewmatches(profile_id){
 					$("#sendMailexpressModal").attr("onclick","displayMailPopup("+profile_id+",'"+expIntUserName+"')");
 								$('#expressModal').show();
 			    				$('#expressModal').modal();
-	    				$("#expInterest"+profile_id).html('<a   type="button" disabled="true"  class="btn btn-warning "  >Request Sent</a>');
+	    				$("#expInterest"+profile_id).html('<a   type="button" disabled="true"  class="btn btn-danger "  >Request Sent</a>');
 	    				$("#expInterest"+profile_id).prop("disabled",true);
 	    				if(typeof limit != "undefined"){
 	    					if(limit=="unlimited"){

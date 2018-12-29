@@ -87,6 +87,11 @@
 
 
 	<style type="text/css">
+	.navbar-inverse {
+    background-color: #00b2e4;
+    border-color: #322d65;
+    border: none;
+}
 	input, button, select, textarea {
     font-family: 'Open Sans', sans-serif;}
 	.newma  td:first-child { 
@@ -2735,7 +2740,9 @@ function goBack() {
             $('.nailthumb-container').nailthumb();
         });
     </script>
-    
+    <%--  <script src="${baseurl}/crop/js/jquery.min.js"></script>
+        <script src="${baseurl}/crop/js/jquery.Jcrop.min.js"></script>
+        <script src="${baseurl}/crop/js/script.js"></script> --%>
 	<script type="text/javascript" src="${baseurl }/js/ajax.js"></script>
 	<script type="text/javascript" src="${baseurl }/js/jquery-asPaginator.js"></script>
 	<script src="${baseurl }/js/jquery.watermark.js"></script>
@@ -2850,6 +2857,9 @@ blockquote p {
   min-height:10px;
  
 }
+.navbar-inverse .navbar-nav > li > a {
+    color: #ffff;
+}
 .preprofile {
 	width:90px;
 	height:65px;
@@ -2862,8 +2872,11 @@ blockquote p {
 margin-bottom:5px;
 }
 .thumbnailmain {
-height:88px;
+height:150px;
+width:150px;
 overflow:hidden;
+margin-left:auto;
+margin-right:auto;
 }
 /* .profilepic0 {
 height:220px;
@@ -3909,7 +3922,7 @@ img.hover-shadow {
 						
 						</div>
 	</div>
-<div class="nav"  style="width:100%;background:#322d65;">
+<div class="nav"  style="width:100%;background:#00b2e4;">
 	<div class="container">
 		<div class="row">
 			<nav class="navbar navbar-custom navbar-inverse" role="navigation" >
@@ -4059,10 +4072,8 @@ img.hover-shadow {
 									</c:if>
 								</div>	
 							</li>
-							<li><a href="help" >Help <%-- <div id="load_me">
-							<%@ include file="sample.jsp" %>
-							</div> --%>
-							</a></li>
+							<!-- <li><a href="help" >Help 
+							</a></li> -->
 							<li><a href="refer" >Refer & Earn <%-- <div id="load_me">
 							<%@ include file="refer.jsp" %>
 							</div> --%>

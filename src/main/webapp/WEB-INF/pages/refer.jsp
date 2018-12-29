@@ -76,7 +76,7 @@ span.couponcode {
     text-overflow: ellipsis;
     margin-bottom: 10px;
     width: 170px;
-    margin-left: 25%;
+   /*  margin-left: 25%; */
 }
 </style>
 <div class="products">
@@ -85,12 +85,12 @@ span.couponcode {
 	<div class="container-fluid">
 		<div class="col-md-12" style="padding-left:0px;">
 		<p align="justify">Sign-up with your details - then Go to the Refer & Earn section and share your unique referral link with your friends
-Your friends would need to register successfully & you earn Rs 50/- for single registration (for new user).</p>
+Your friends would need to register successfully 80% profile completion  & you earn 3% on your payment/package- for single registration (for each refer).</p>
 <h5 align="center"><b>Share your link & earn more!</b></h5>
 <div class="col-md-4"></div><div class="col-md-3"><span class="refercode">http://www.aarnamatrimony.com/${cacheGuest.unique_code}</span></div>
 </div>
 </div><div class="clearfix"></div><br>
-<div class="col-md-2"></div>
+<div class="col-md-3"></div>
 <!-- <div class="col-md-2 col-sm-2"><a href="https://www.facebook.com/" target="_blank" class="btn btn-block btn-social btn-facebook">
     <span class="fa fa-facebook"></span> Facebook
   </a></div> -->
