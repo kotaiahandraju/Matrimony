@@ -320,13 +320,14 @@ var role_id = ${cacheUserBean.roleId};
 		     {
 		     	//$('#load_me').load('${baseurl}/sample.jsp').fadeIn("slow");
 		     	var formData = new FormData();
-		    	 jQuery.fn.makeMultipartRequest('POST', 'refreshhCounts', false,
+		    	 jQuery.fn.makeMultipartRequest('POST', 'refreshCountsAdmin', false,
 							formData, false, 'text', function(data){
 				    		var jsonobj = $.parseJSON(data);
 				    		var all_counts = jsonobj.display_counts;
 				    		$("#updated_cnt").html(all_counts.updated_count);
 				    		$("#inactive_profiles_count").html(all_counts.inactive_count);
 				    		$("#inactive_profiles_cnt").html(all_counts.inactive_count);
+				    		$("#notification_cnt").html(all_counts.notification_cnt);
 						});
 	
 		     }, 1000); // autorefresh the content of the div after
@@ -464,7 +465,7 @@ var role_id = ${cacheUserBean.roleId};
 					<a href="#" id="notificationLink"> <span class="fa fa-bell"></span>Notifications </a>
 					</c:if>
 					<c:if test="${not empty paymentNotificationsList}">
-						<a href="#" id="notificationLink"> <span class="fa fa-bell"></span>Notifications</a>
+						<a href="#" id="notificationLink"> <span class="fa fa-bell"></span>Notifications <span class="matchcount" id="notification_cnt">${display_counts.notification_cnt}</span></a>
 					</c:if>
 					</c:if>
 					<div id="notificationContainer" class="dropdown-menu">
@@ -599,6 +600,13 @@ var role_id = ${cacheUserBean.roleId};
 				var jsonobj = $.parseJSON(data);
 				var msg = jsonobj.message;
 				if(msg=="delete"){
+					var count_str = $("#notification_cnt").html();
+					var count_int = parseInt(count_str)-1;
+					if(count_int<0){
+						count_int = 0;
+					}
+					$("#notification_cnt").html(count_int);
+					
 				$(".notifyDiv"+id).remove();
 				alert("Notification succelufully deleted");
 				}else{

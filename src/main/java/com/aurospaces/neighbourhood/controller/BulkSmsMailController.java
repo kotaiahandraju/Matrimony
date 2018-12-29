@@ -67,21 +67,27 @@ public class BulkSmsMailController {
 					if(messageType.equals("1")){
 						if(StringUtils.isNotBlank(userbean.getMobile())){
 							SendSMS.sendSMS(message, userbean.getMobile());
+							redir.addFlashAttribute("msg", "Message Sent Successfully");
+							redir.addFlashAttribute("cssMsg", "success");
 						}
 					}
 					if(messageType.equals("2")){
 						if(StringUtils.isNotBlank(userbean.getEmail())){
 							emailutill.bulkmail(userbean, objContext, request, objReportsBean);
+							redir.addFlashAttribute("msg", "Message Sent Successfully");
+							redir.addFlashAttribute("cssMsg", "success");
 						}
 					}
 					if(messageType.equals("3")){
 						if(StringUtils.isNotBlank(userbean.getMobile())){
 							SendSMS.sendSMS(message, userbean.getMobile());
+							
 						}
 						if(StringUtils.isNotBlank(userbean.getEmail())){
 						emailutill.bulkmail(userbean, objContext, request, objReportsBean);
 						}
-						
+						redir.addFlashAttribute("msg", "Message Sent Successfully");
+						redir.addFlashAttribute("cssMsg", "success");
 					}
 					
 				}

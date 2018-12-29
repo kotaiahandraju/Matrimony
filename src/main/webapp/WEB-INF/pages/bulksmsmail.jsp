@@ -147,6 +147,15 @@ $("#todate").datepicker({
 
 $("#submit11").click(function(){			
 		 
+	var fromdate = $("#fromdate").val();
+	var todate = $("#todate").val();
+	var profiles = $("#profiles").val();
+	var packages = $("#packages").val();
+	
+	if(fromdate == "" && todate=="" && profiles=="" && packages== null ){
+		alert("select any input");
+		return false;
+	}
 		if($('#mailSubject').val() ==  null || $('#mailSubject').val() == "" || $('#mailSubject').val()=="undefined"){
 			alert("Enter mailSubject");
 			return false;

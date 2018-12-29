@@ -4367,7 +4367,7 @@ public boolean deletePhoto(String photoId){
 		StringBuffer buffer = new StringBuffer();
 		buffer.append("SELECT COUNT(`users`.`package_id`) as count, `package`.`name` FROM `users` RIGHT  JOIN `package`  ON (`package`.`id`=`users`.`package_id`) where `package`.`status` = '1' and `users`.`status` = '1'  GROUP BY `package`.`id` ");
 							String sql =buffer.toString();
-							System.out.println(sql);
+//							System.out.println(sql);
 							List<Map<String, Object>> result = jdbcTemplate.queryForList(sql);
 							return result;
 		
@@ -4379,7 +4379,7 @@ public boolean deletePhoto(String photoId){
 		StringBuffer buffer = new StringBuffer();
 		buffer.append("SELECT COUNT(*) AS totalcount,'Free register' AS package FROM users WHERE role_id ='4'  and status = '1'");
 							String sql =buffer.toString();
-							System.out.println(sql);
+//							System.out.println(sql);
 							List<Map<String, Object>> result = jdbcTemplate.queryForList(sql);
 							return result;
 		
@@ -5120,6 +5120,7 @@ public boolean deletePhoto(String photoId){
 		Map<String, Integer> countsMap = new HashMap<String, Integer>();
 		countsMap.put("inactive_count", 0);
 		countsMap.put("updated_count", 0);
+		countsMap.put("notification_cnt", 0);
 		try{
 				String inactiveQry = "select count(1) from users u"
 						+" where u.status in ('0') and u.role_id not in (1) and "
@@ -5128,11 +5129,14 @@ public boolean deletePhoto(String photoId){
 				
 				String updatedProfilesQry = "select count(1) from (select count(1) from vuser_images ui " 
 						+" where ui.user_id in (select u.id from users u where u.status='1') and ui.status = '1' and ui.approved_status = '0' group by user_id) temp  ";
+				String qryStr= "select count(*) from user_notifications where user_type = 'admin' and notifi_type ='payment' order by created_on desc";
 
 				int inactiveCount = jdbcTemplate.queryForInt(inactiveQry);
 				int updatedProfilesCount = jdbcTemplate.queryForInt(updatedProfilesQry);
+				int notification = jdbcTemplate.queryForInt(qryStr);
 				countsMap.put("inactive_count", inactiveCount);
 				countsMap.put("updated_count", updatedProfilesCount);
+				countsMap.put("notification_cnt", notification);
 				return countsMap;
 			}catch (Exception e) {
 				e.printStackTrace();

@@ -254,7 +254,7 @@ padding-left:0px;
 padding-right:0px;
 }
 .pendingre p{
-font-size:13px;
+font-size:14px;
 color:#000;
 }
 /* .thumbnail {
@@ -348,7 +348,7 @@ font-size : 8px;
 					<div class="item" id="pending_div${pend_req.requestId}" style="padding-top:5px; border:1px solid #f1f1f1; width:95%;height:100px; margin-top:-13px;">
 				</c:if>
 					<c:set value="${pend_req.requestId}" var="reqId" />
-			        <div class="col-md-2">
+			        <div class="col-md-3">
 			        	<c:if test="${not empty pend_req.profileImage}">
 			        		<img class="" style="width:70px; height:70px;" src="${catalina_base}/${pend_req.profileImage}"/>
 			        	</c:if>
@@ -356,7 +356,7 @@ font-size : 8px;
 			        		<img class="" style="width:70px; height:70px;" src="${baseurl}/img/default.png"/>
 			        	</c:if>
 			        </div>
-			         <div class="col-md-7">
+			         <div class="col-md-6">
 			      <p><b>
 			      		<c:if test="${cacheGuest.roleId == '4'}">
 			      			<a href="inboxAction?tab_type=inbox&list_type=pending_requests">xxxxxxx</a>
@@ -371,12 +371,13 @@ font-size : 8px;
 			 			Do you like this profile?</p>
 			       </div>
 
-			       <div class="col-md-3" style="margin-top:25px;"><span>
+
+			       <div class="col-md-3" style="margin-top:27px;"><span>
 			       		<c:if test="${not empty pend_req.activity_content}">
-			       			<a href="#" onclick="acceptMessage_pendingReq(${pend_req.requestId},'1')"><i class="fa fa-check-circle" style="font-size:25px;color:green"></i></a> &nbsp; <a href="#" onclick="acceptMessage_pendingReq(${pend_req.requestId},'0')"><i class="fa fa-times-circle-o" aria-hidden="true"  style="font-size:25px;color:red"></i></a>
+			       			<a href="#" onclick="acceptMessage_pendingReq(${pend_req.requestId},'1')"><i class="fa fa-check-circle" style="font-size:27px;color:green"></i></a> &nbsp; <a href="#" onclick="acceptMessage_pendingReq(${pend_req.requestId},'0')"><i class="fa fa-times-circle-o" aria-hidden="true"  style="font-size:25px;color:red"></i></a>
 			       		</c:if>
 			       		<c:if test="${empty pend_req.activity_content}">
-				       		<a href="#" onclick="acceptRequest_pendingReq(${pend_req.requestId},'1')"><i class="fa fa-check-circle" style="font-size:25px;color:green"></i></a> &nbsp; <a href="#" onclick="acceptRequest_pendingReq(${pend_req.requestId},'0')"><i class="fa fa-times-circle-o" aria-hidden="true"  style="font-size:25px;color:red"></i></a>
+				       		<a href="#" onclick="acceptRequest_pendingReq(${pend_req.requestId},'1')"><i class="fa fa-check-circle" style="font-size:27px;color:green"></i></a> &nbsp; <a href="#" onclick="acceptRequest_pendingReq(${pend_req.requestId},'0')"><i class="fa fa-times-circle-o" aria-hidden="true"  style="font-size:25px;color:red"></i></a>
 			       		</c:if>
 			       </span></div>
 
@@ -971,7 +972,7 @@ function displayMatches(listOrders) {
 				mobile_num_Str = '<span class="mobilenum" style="background:url(user/images/mobile.gif) no-repeat left top;padding-left:13px;    display: -webkit-inline-box;font:bold 14px/18px Arial;">&nbsp;+91-'+orderObj.mobile+'&nbsp;<font class="mediumtxt">(&nbsp;<img src="${baseurl}/user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font></span>';
 				
 			}else{
-				mobile_num_Str = '<span ><a href="#no" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="displayMobileNum('+orderObj.id+')"> View Mobile No..</a></span>';
+				mobile_num_Str = '<span ><a href="#no" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="displayMobileNum('+orderObj.id+')"> View Mobile No.</a></span>';
 			}
 			var tblRow = '<div class="row">'
 				+ '<div class=" col-md-3 col-xs-3 preprofile" >'
@@ -980,10 +981,10 @@ function displayMatches(listOrders) {
 				+ '			<span>aarnamatrimony.com</span>'
 				+ '		</div>	'
 	            + '</div>'
-	            + '<div class="col-md-9 col-xs-9">'
-	            + ' <p>'+firstname+'&nbsp;'+lastname+'|'+orderObj.username+'&nbsp;'+premiumMember+'&nbsp; '+age+' yrs,&nbsp; '+orderObj.religionName+', '+orderObj.casteName+','+orderObj.inches+' , '+orderObj.occupationName+', '+orderObj.currentCityName+', '+orderObj.currentCountryName+'. </p> '
-	            + ' <p> '+interestStr+'| <a href="#no" type="button" class="btn" style="padding:; color:blue; border-radius:5px;" id="sendMail'+orderObj.id+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')">Send Mail</a> | <a href="#no" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="fullProfile('+orderObj.id+')"> Full Profile</a>| '+shortListedStr+' '
-	            + ' | <span id="mobileTD'+orderObj.id+'">'+mobile_num_Str+'</span> | </p> '
+	            + '<div class="col-md-9 col-xs-9" style="padding-right:0px;">'
+	            + ' <p><span style="font-weight:bold">'+firstname+'&nbsp;'+lastname+'|'+orderObj.username+'</span>&nbsp;'+premiumMember+'&nbsp; ('+age+' yrs,'+orderObj.religionName+') '+orderObj.casteName+','+orderObj.inches+' , '+orderObj.occupationName+', '+orderObj.currentCityName+', '+orderObj.currentCountryName+'. </p> '
+	            + ' <p> '+interestStr+'| <a href="#no" type="button" class="btn" style="padding:; color:blue; border-radius:5px;" id="sendMail'+orderObj.id+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')">Send Mail</a> | '+shortListedStr+' '
+	            + ' | <span id="mobileTD'+orderObj.id+'">'+mobile_num_Str+'</span>  </p> '
 	            
 	            + '</div>'
 	            + '<div class="clearfix" style="border-bottom:1px solid #f1f11;margin-bottom:5px;"></div>'
@@ -1221,8 +1222,8 @@ function displayNewMatches_update(listOrders) {
 				+ '<div class=" col-md-2 preprofile1" >'
 	            + 	"<a href='#'  onclick='fullProfile("+orderObj.id+")'><img src='"+image+"' class='watermark_text' style='width:70px; height:70px;'></a>"
 	            + '</div>'
-	            + '<div class="col-md-9">'
-	            + ' <p>'+firstname+'&nbsp;'+lastname+'|'+orderObj.username+'&nbsp;( '+age+' yrs,&nbsp; '+orderObj.heightInches+' )&nbsp;'+Content+' </p> '
+	            + '<div class="col-md-9 col-xs-9">'
+	            + ' <p><span style="font-weight:bold">'+firstname+'&nbsp;'+lastname+'|'+orderObj.username+'</span>&nbsp;( '+age+' yrs,&nbsp; '+orderObj.heightInches+' )&nbsp;'+Content+' </p> '
 	            + ' <p> '+interestStr+'| <a href="#no" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="fullProfile('+orderObj.id+')"> Full Profile</a> </p> '
 	            
 	            + '</div>'

@@ -290,8 +290,8 @@
 			var rStateName = null; rStateName = serviceUnitArray[id].rStateName;
 			if(rStateName == "" || rStateName == null || rStateName == "undefined"){rStateName = "---";}
 			
-			 var tblRow = 	"<div id='printProfile'><div class='col-sm-2' >"<img src='${baseurl}/images/logo.png'/>"
-			 		+		"<img src="+image+" class='' width='150px' align='right'/>"
+			 var tblRow = 	"<div id='printProfile'><div class='col-sm-2' ><img src='${baseurl}/images/logo.png'/></div>"
+			 		+		"<div class='col-sm-2' style='float:right;'><img src="+image+" class='' width='150px' align='right'/>"
 			 		+'		<div class="watermarkcontent_profilepic">'
 			 		+'			<span>aarnamatrimony.com</span>'
 			 		+'		</div>'
@@ -300,10 +300,10 @@
 			 		+ 	"</div>" 
 					 +"<div  class='container table-responsive'>"
 				   
-					 +"<div class='row'>"
-			 		+"<a href='' class='noPrint' onclick='PrintElem()' style='background: turquoise;border-radius: 3px;padding: 2px;font-size: 18px;''>Print</a>"
+					 +"<div class='row' style='margin-right:0px;'>"
+			 		+"<a href='' class='noPrint' onclick='PrintElem()' style='background: turquoise;border-radius: 3px;padding: 2px;font-size: 18px; float:right;''>Print</a>"
 			 		+ 	"<div class='col-sm-10' >"
-			 		+		"<table class='table table-hoverable table-condensed' style='width: 100%;'>"
+			 		+		"<table class='table table-hoverable table-condensed' style='width: 100%;margin-top:25px;'>"
 					+			"<tr>"
 					+				"<td><b>Profile Created for</b></td>"
 					+				"<td>:</td><td>"+createProfileFor+"</td>"

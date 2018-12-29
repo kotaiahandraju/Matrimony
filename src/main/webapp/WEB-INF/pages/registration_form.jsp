@@ -311,11 +311,11 @@
 					      </div>
 					    </div>
 					 <div class="form-group">
-					      <label class="col-md-4 control-label" for="referral">Referral Code</label>  
+					      <label class="col-md-4 control-label" for="referral" >Referral Code</label>  
 					      <div class="col-md-6">
-					      	<form:input path="referred_by" class="form-control u" placeholder="Referral Code" />
+					      	<form:input path="referred_by" class="form-control" placeholder="Referral Code" readonly="true"/>
 					      </div>
-					      <div class="col-md-2"><button class="btn btn-success form-control">Apply Code</button></div>
+<!-- 					      <div class="col-md-2"><button class="btn btn-success form-control">Apply Code</button></div> -->
 					    </div>
 					    <div class="form-group">
 					      <label class="col-md-4 control-label" for="textinput"></label>  
@@ -469,6 +469,20 @@ function firstForm(event)
 
 function secondForm(event)
 {
+	var formOne = firstForm(event);
+	if(!formOne){
+		ChangeUrl('page1', 'profile.htm?page=1');
+		$("#firstForm").show();
+	 	$('#secondForm').hide();
+		$("#thirdForm").hide();
+		$('#fourthForm').hide();
+		 $("#step1").addClass("btn-primary");
+		 $("#step2").removeClass("btn-primary");
+		 $("#step3").removeClass("btn-primary");
+		 $("#step4").removeClass("btn-primary");
+		return false;
+	}
+	
 	if($('#education').val() ==  null || $('#education').val() == "" || $('#education').val()=="undefined" || $("#occupation").val()==""  || $('#occupation').val() ==  null || $('#occupation').val()=="undefined" || $('#annualIncome').val() ==  null || $('#annualIncome').val() == "" || $('#annualIncome').val()=="undefined" ) 
 	{
 		if($('#education').val() ==  null || $('#education').val() == "" || $('#education').val()=="undefined" ) 
@@ -512,6 +526,29 @@ function secondForm(event)
 
 function thirdForm(event)
 {
+	var formOne = firstForm(event);
+	var formTwo = secondForm(event);
+	if(!formOne){
+		ChangeUrl('page1', 'profile.htm?page=1');
+		$("#firstForm").show();
+	 	$('#secondForm').hide();
+		$("#thirdForm").hide();
+		$('#fourthForm').hide();
+		 $("#step1").addClass("btn-primary");
+		 $("#step2").removeClass("btn-primary");
+		 $("#step3").removeClass("btn-primary");
+		 $("#step4").removeClass("btn-primary");
+		return false;
+	}
+	if(!formTwo){
+		ChangeUrl('page1', 'profile.htm?page=2');
+		$("#firstForm").hide();
+	 	$('#secondForm').show();
+		$("#thirdForm").hide();
+		$('#fourthForm').hide();
+		
+		return false;
+	}
 	mobileExists = false;
 	/* if($('#mobile').val() !=  null && $('#mobile').val() != ""  && $('#mobile').val()!="undefined"){
 		isMobileNumDuplicate();
@@ -624,6 +661,10 @@ function fourthForm(event){
 	 	$('#secondForm').hide();
 		$("#thirdForm").hide();
 		$('#fourthForm').hide();
+		 $("#step1").addClass("btn-primary");
+		 $("#step2").removeClass("btn-primary");
+		 $("#step3").removeClass("btn-primary");
+		 $("#step4").removeClass("btn-primary");
 		return false;
 	}
 	if(!formTwo){
@@ -632,6 +673,7 @@ function fourthForm(event){
 	 	$('#secondForm').show();
 		$("#thirdForm").hide();
 		$('#fourthForm').hide();
+		
 		return false;
 	}
 	if(!formThree){
