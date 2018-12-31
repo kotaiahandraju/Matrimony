@@ -763,7 +763,13 @@ text-align:center;
 				
 				var image = null; image = orderObj.profileImage;
 				if(image == "" || image == null || image == "undefined"){
-					image = "img/default.png";
+					var genderStr = orderObj.gender;
+					if(genderStr == "Female"){
+						image = "images/girl.jpg";
+					}else if(genderStr == "Male"){
+						image = "images/boy.jpg";
+					}
+					
 				}
 				/* else{
 				array = image.split(",");
@@ -857,7 +863,7 @@ text-align:center;
 								displayStyle = ' style="display:none" ';
 							}
 							slider += '<div class="picstyle smallSlides'+orderObj.id+'" '+displayStyle+'>'
-									+'	<a href="#"	onclick="fullProfile('+orderObj.id+')"><img src="${catalina_base}/'+photo.image+'" class="img img-responsive watermark_text" style="margin-bottom:0;height: auto;width: 100%;" ></a>'
+									+'	<a href="#"	onclick="fullProfile('+orderObj.id+')"><img src="${catalina_base}/'+photo.image+'" class="img img-responsive watermark_text" style="margin-bottom:0;height: 150px;width: 150px;" ></a>'
 									+'</div>'
 						});
 						if(photos_list.length>1){
@@ -868,7 +874,7 @@ text-align:center;
 									+'</p>'
 						}
 					}else{
-						slider = '<a href="#"	onclick="fullProfile('+orderObj.id+')"><img src="${catalina_base}/'+image+'" class="img-responsive thumbnail" style="margin-bottom: 0px; "></a>';
+						slider = '<a href="#"	onclick="fullProfile('+orderObj.id+')"><img src="${catalina_base}/'+image+'" class="img-responsive thumbnail" style="margin-bottom: 0px; width:150px;height:150px; "></a>';
 					}
 					var profile_highlisht_str = '<div class="panel panel-default" style="padding-top:5px;" >';
 					var highlight_option = orderObj.profile_highlighter;
@@ -876,7 +882,7 @@ text-align:center;
 						profile_highlisht_str = '<div class="panel panel-default" style="background:url(); padding-top:5px;">';
 					}
 					var tblRow = profile_highlisht_str
-						+ '<div class="col-md-2" style="margin-right:0; padding-right:0;">'
+						+ '<div class="col-md-3" style="margin-right:0; padding-right:0;">'
 			            //+ 	"<img src="+image+" class='img-responsive thumbnail' style='margin-bottom: 0px;'>"
 			            + slider
 			            + '</div>'
@@ -945,7 +951,12 @@ text-align:center;
 				
 				var image = null; image = orderObj.profileImage;
 				if(image == "" || image == null || image == "undefined"){
-					image = "../img/default.png";
+					var genderStr = orderObj.gender;
+					if(genderStr == "Female"){
+						image = "images/girl.jpg";
+					}else if(genderStr == "Male"){
+						image = "images/boy.jpg";
+					}
 				}
 				/* else{
 				array = image.split(",");
@@ -1048,7 +1059,7 @@ text-align:center;
 						var photos_list = orderObj.photosList;
 						var slider = "", displayStyle = ' ';
 						if(photos_list == "" || typeof photos_list == "undefined"){
-							slider = '<a href="#" onclick="fullProfile('+orderObj.id+')"><img src="../img/default.png" class="img img-responsive thumbnail " style="margin-bottom:0;height: 140px;width: 100%;" ></a>';
+							slider = '<a href="#" onclick="fullProfile('+orderObj.id+')"><img src="${catalina_base}/'+image+'" class="img img-responsive thumbnail " style="margin-bottom:0;height: 150px;width: 150px;" ></a>';
 						}else{
 							smallerSlideIndex[orderObj.id] = 0;
 							var slider = "", displayStyle = ' ';
@@ -1060,7 +1071,7 @@ text-align:center;
 									displayStyle = ' style="display:none;" ';
 								}
 								slider += '<div class="picstyle smallSlides'+orderObj.id+'" '+displayStyle+'>'
-										+'	<a href="#" onclick="fullProfile('+orderObj.id+')">	<img src="${catalina_base}/'+photosArray[index]+'" class="img img-responsive thumbnail " style="margin-bottom:0;height: 140px;width: 100%;" >'
+										+'	<a href="#" onclick="fullProfile('+orderObj.id+')">	<img src="${catalina_base}/'+photosArray[index]+'" class="img img-responsive thumbnail  " style="margin-bottom:0;height: 150px;width: 150px;" >'
 										+'</div>'
 							});
 							if(photosArray.length>1){
@@ -1084,7 +1095,7 @@ text-align:center;
 									displayStyle = ' style="display:none" ';
 								}
 								slider += '<div class=" picstyle smallSlides'+orderObj.id+'" '+displayStyle+'>'
-										+	'<a href="#" onclick="fullProfile('+orderObj.id+')"> <img src="${catalina_base}/'+photo.image+'" class="img img-responsive thumbnail" style="margin-bottom:0;height: auto;width: 100%;" ></a>'
+										+	'<a href="#" onclick="fullProfile('+orderObj.id+')"> <img src="${catalina_base}/'+photo.image+'" class="img img-responsive thumbnail" style="margin-bottom:0;height: 150px;width: 150px;" ></a>'
 										+'</div>'
 							});
 							if(photos_list.length>1){
@@ -1095,7 +1106,7 @@ text-align:center;
 										+'</p>'
 							}
 						}else{
-							slider = '<a href="#" onclick="fullProfile('+orderObj.id+')"><img src="${catalina_base}/'+image+'" class="img-responsive thumbnail" style="margin-bottom: 0px;"></a>';
+							slider = '<a href="#" onclick="fullProfile('+orderObj.id+')"><img src="${catalina_base}/'+image+'" class="img-responsive thumbnail" style="margin-bottom: 0px;width:150px;height:150px;"></a>';
 						}
 					}
 					var profile_highlisht_str = '<div class="panel panel-default">';
@@ -1229,7 +1240,13 @@ text-align:center;
 				
 				var image = null; image = orderObj.profileImage;
 				if(image == "" || image == null || image == "undefined"){
-					image = "${baseurl}/img/default.png";
+					//image = "${baseurl}/img/default.png";
+					var genderStr = orderObj.gender;
+					if(genderStr == "Female"){
+						image = "images/girl.jpg";
+					}else if(genderStr == "Male"){
+						image = "images/boy.jpg";
+					}
 				}
 
 				if(orderObj.firstName !=null)
@@ -1442,7 +1459,7 @@ text-align:center;
 						var photos_list = orderObj.photosList;
 						var slider = "", displayStyle = ' ';
 						if(photos_list == "" || typeof photos_list == "undefined"){
-							slider = '<a href="#" onclick="fullProfile('+orderObj.id+')"><img src="${baseurl}/img/default.png" class="img img-responsive thumbnail " style="margin-bottom:0;height: 60px;width: 60px;" ></a>';
+							slider = '<a href="#" onclick="fullProfile('+orderObj.id+')"><img src="${catalina_base}/'+image+'" class="img img-responsive thumbnail " style="margin-bottom:0;height: 60px;width: 60px;" ></a>';
 						}else{
 							smallerSlideIndex[orderObj.id] = 0;
 							var slider = "", displayStyle = ' ';
