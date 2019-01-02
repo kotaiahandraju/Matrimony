@@ -7,7 +7,11 @@
     background-color: #00b2e3;
     padding: 0;
 } */
-
+.media-carousel {
+    margin-bottom: 0;
+    padding: 0 0px 0px 0px;
+    margin-top: 30px;
+}
 .mobilenum {
 display: -webkit-inline-box;
 }
@@ -981,7 +985,7 @@ function displayMatches(listOrders) {
 				+ '			<span>aarnamatrimony.com</span>'
 				+ '		</div>	'
 	            + '</div>'
-	            + '<div class="col-md-9 col-xs-9" style="padding-right:0px;">'
+	            + '<div class="col-md-9 col-xs-9" style="padding-right:0px;padding-left:0px;">'
 	            + ' <p><span style="font-weight:bold">'+firstname+'&nbsp;'+lastname+'|'+orderObj.username+'</span>&nbsp;'+premiumMember+'&nbsp; ('+age+' yrs,'+orderObj.religionName+') '+orderObj.casteName+','+orderObj.inches+' , '+orderObj.occupationName+', '+orderObj.currentCityName+', '+orderObj.currentCountryName+'. </p> '
 	            + ' <p> '+interestStr+'| <a href="#no" type="button" class="btn" style="padding:; color:blue; border-radius:5px;" id="sendMail'+orderObj.id+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')">Send Mail</a> | '+shortListedStr+' '
 	            + ' | <span id="mobileTD'+orderObj.id+'">'+mobile_num_Str+'</span>  </p> '
