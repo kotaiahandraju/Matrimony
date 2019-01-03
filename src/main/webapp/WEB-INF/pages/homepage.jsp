@@ -1696,7 +1696,34 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 					<h3>LATEST BRIDES & GROOMS</h3>
 				</div>
 
-				<c:forEach items="${latest_brides_grooms}" var="profile">
+				<c:forEach items="${latest_brides}" var="profile">
+					<div class="col-md-2">
+						<div class="pro_img">
+							<a href="#"> <span class="hidden"> </span> <c:if
+									test="${empty profile.profileImage}">
+									<div class="image_privacy"></div>
+									<image src="${baseurl}/img/default.png" width="250"></a>
+							</c:if>
+							<c:if test="${not empty profile.profileImage}">
+								<div class="image_privacy"></div>
+								<div class="homeimages">
+									<image src="${catalina_base}/${profile.profileImage}">
+									</image>
+								</div>
+								</a>
+							</c:if>
+
+						</div>
+						<div class="pro_details">
+							Aarna ID : ${profile.username} <br> <span>${profile.religionName}</span>
+							<br> ${profile.currentCityName}<br> ${profile.currentStateName}
+						</div>
+
+
+
+					</div>
+				</c:forEach>
+				<c:forEach items="${latest_grooms}" var="profile">
 					<div class="col-md-2">
 						<div class="pro_img">
 							<a href="#"> <span class="hidden"> </span> <c:if
@@ -2722,8 +2749,16 @@ $('img').bind('contextmenu', function(e) {
   		}
   		var image = orderObj.profileImage;
   		if(typeof image == "undefined" || image=="" || image==null){
-  			image = "img/default.png";
-  		}
+  			//image = "img/default.png";
+  			var genderStr = orderObj.gender;
+			if(genderStr == "Female"){
+				image = "${baseurl}/images/girl.jpg";
+			}else if(genderStr == "Male"){
+				image = "${baseurl}/images/boy.jpg";
+			}
+  		}else{
+			image = "${catalina_base}/"+image;
+		}
   		var tblRow = profile_highlisht_str
   		+ '<div class="panel-heading">'
   		+ '<h5 class="panel-title" style="text-align:left;">'

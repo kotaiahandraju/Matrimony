@@ -311,6 +311,24 @@ var listOrders2 = ${classicPlusExpiredProfiles};
 			+ "</tr >";
 		$(tblRow).appendTo("#tableId2 table tbody"); 
 	});
+  var femaleUsersCount  = ${femaleUsersCount};
+  $.each(femaleUsersCount,function(i, orderObj) {
+		var tblRow = "<tr>"
+			
+			+ "<td title='"+orderObj.femaleGroup+"'>" + orderObj.femaleGroup + "</td>"
+			+ "<td title='"+orderObj.totalcount+"'>" + orderObj.totalcount + "</td>"
+			+ "</tr >";
+		$(tblRow).appendTo("#tableId2 table tbody"); 
+	});
+  var maleUsersCount  = ${maleUsersCount};
+  $.each(maleUsersCount,function(i, orderObj) {
+		var tblRow = "<tr>"
+			
+			+ "<td title='"+orderObj.maleGroup+"'>" + orderObj.maleGroup + "</td>"
+			+ "<td title='"+orderObj.totalcount+"'>" + orderObj.totalcount + "</td>"
+			+ "</tr >";
+		$(tblRow).appendTo("#tableId2 table tbody"); 
+	});
   
  $(".dashboard").addClass("active");
 </script>

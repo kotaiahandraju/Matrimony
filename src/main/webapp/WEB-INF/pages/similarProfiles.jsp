@@ -40,7 +40,14 @@ function displayMatches(listOrders) {
 		var image = null;
 		image = orderObj.profileImage;
 		if(image == "" || image == null || image == "undefined"){
-			image = "${baseurl}/img/default.png";
+			var genderStr = orderObj.gender;
+			if(genderStr == "Female"){
+				image = "${baseurl}/images/girl.jpg";
+			}else if(genderStr == "Male"){
+				image = "${baseurl}/images/boy.jpg";
+			}
+		}else{
+			image = "${catalina_base}/"+image;
 		}
 		var login_user_role_id = ${cacheGuest.roleId};
 		var firstname = '<img src="${baseurl}/images/blurr.png"/>',lastname='';

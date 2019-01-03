@@ -52,6 +52,7 @@ import com.aurospaces.neighbourhood.db.dao.UserrequirementDao;
 import com.aurospaces.neighbourhood.db.dao.UsersDao;
 import com.aurospaces.neighbourhood.util.EmailUtil;
 import com.aurospaces.neighbourhood.util.HRMSUtil;
+import com.aurospaces.neighbourhood.util.MatrimonyConstants;
 import com.aurospaces.neighbourhood.util.MiscUtils;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -238,6 +239,11 @@ public class CreateProfileController {
 				}
 				
 				objUsersDao.save(objUsersBean);
+				int role_id = objuserBean1.getRoleId();
+				// if profile created by admin then update the profile's otp status as verified
+				if(role_id==MatrimonyConstants.ADMIN) {
+					objUsersDao.saveOtp(objUsersBean.getId()+"", objUsersBean.getMobile(), "0", "1");
+				}
 				//
 				try {
 					//EmailUtil emailUtil = new EmailUtil();

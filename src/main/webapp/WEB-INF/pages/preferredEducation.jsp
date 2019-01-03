@@ -40,7 +40,15 @@ function displayMatches(listOrders) {
 		var image = null;
 		image = orderObj.profileImage;
 		if(image == "" || image == null || image == "undefined"){
-			image = "${baseurl}/img/default.png";
+			//image = "${baseurl}/img/default.png";
+			var genderStr = orderObj.gender;
+			if(genderStr == "Female"){
+				image = "${baseurl}/images/girl.jpg";
+			}else if(genderStr == "Male"){
+				image = "${baseurl}/images/boy.jpg";
+			}
+		}else{
+			image = "${catalina_base}/"+image;
 		}
 		var login_user_role_id = ${cacheGuest.roleId};
 		var firstname = '<img src="${baseurl}/images/blurr.png"/>',lastname='';
@@ -75,7 +83,7 @@ function displayMatches(listOrders) {
 		}
 		var tblRow = '<div class="row">'
 			+ '<div class=" col-md-2 col-xs-2 preprofile" >'
-       + 	"<a href='#'  onclick='fullProfile("+orderObj.id+")'><img src='${catalina_base}/"+image+"' class='watermark_text img-responsive thumbnail ' ></a>"
+       + 	"<a href='#'  onclick='fullProfile("+orderObj.id+")'><img src='"+image+"' class='watermark_text img-responsive thumbnail ' ></a>"
             + '</div>'
             + '<div class="col-md-10 col-xs-10">'
             + ' <p>'+firstname+'&nbsp;'+lastname+','+orderObj.username+'&nbsp '+orderObj.age+' yrs,&nbsp; '+orderObj.religionName+', '+orderObj.castName+', '+orderObj.occupationName+', '+orderObj.currentCityName+', '+orderObj.currentCountryName+'. </p> '

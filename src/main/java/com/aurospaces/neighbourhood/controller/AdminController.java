@@ -189,6 +189,28 @@ public class AdminController {
 				request.setAttribute("freeusersCount", "''");
 			}
 			
+			// female users count
+			listOfOrders  = objUsersDao.getFemaleUsersCount();
+			if (listOfOrders != null && listOfOrders.size() > 0) {
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(listOfOrders);
+				request.setAttribute("femaleUsersCount", sJson);
+				// System.out.println(sJson);
+			} else {
+				request.setAttribute("femaleUsersCount", "''");
+			}
+			
+			// male users count
+			listOfOrders  = objUsersDao.getMaleUsersCount();
+			if (listOfOrders != null && listOfOrders.size() > 0) {
+				objectMapper = new ObjectMapper();
+				sJson = objectMapper.writeValueAsString(listOfOrders);
+				request.setAttribute("maleUsersCount", sJson);
+				// System.out.println(sJson);
+			} else {
+				request.setAttribute("maleUsersCount", "''");
+			}
+			
 			request.setAttribute("page_size", MatrimonyConstants.PAGINATION_SIZE);
 			request.setAttribute("total_records", 2);
 			

@@ -128,16 +128,17 @@ s.parentNode.insertBefore(ga, s);
 		$('#tableId').html(tableHead);
 		serviceUnitArray = {};
 		$.each(listOrders,function(i, orderObj) {
-			var viewProfile = "<a data-toggle='tooltip' title='View' onclick='viewProfileNew("+ orderObj.id+ ")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-eye'></i></a>"
-			var uploadPhotos = "<a data-toggle='tooltip' title='Upload Photos' onclick='uploadPhotos("+ orderObj.id+ ")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-photo'></i></a>"
-			var moveToHidden = "<a data-toggle='tooltip' title='Move To Hidden' onclick='moveToHidden("+ orderObj.id+ ",\"free\")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-eye-slash'></i></a>"
-			var editProfile = "<a data-toggle='tooltip' title='Edit' onclick='editProfile("+ orderObj.id+ ")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-pencil'></i></a>"
-			var sendMail = "<a data-toggle='tooltip' title='Mail' onclick='sendMail("+ orderObj.id+ ")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-envelope'></i></a>"
-			var inactive = "<a data-toggle='tooltip' title='Inactive' onclick='profileStatusChange("+ orderObj.id+ ",0)'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-remove'></i></a>"
+			var viewProfile = "<a data-toggle='tooltip' title='View' onclick='viewProfileNew("+ orderObj.id+ ")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-eye'></i></a>";
+			var uploadPhotos = "<a data-toggle='tooltip' title='Upload Photos' onclick='uploadPhotos("+ orderObj.id+ ")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-photo'></i></a>";
+			var moveToHidden = "<a data-toggle='tooltip' title='Move To Hidden' onclick='moveToHidden("+ orderObj.id+ ",\"free\")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-eye-slash'></i></a>";
+			var editProfile = "<a data-toggle='tooltip' title='Edit' onclick='editProfile("+ orderObj.id+ ")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-pencil'></i></a>";
+			var sendMail = "<a data-toggle='tooltip' title='Mail' onclick='sendMail("+ orderObj.id+ ")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-envelope'></i></a>";
+			var inactive = "<a data-toggle='tooltip' title='Inactive' onclick='profileStatusChange("+ orderObj.id+ ",0)'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-remove'></i></a>";
 // 			var compareProfiles = "<a data-toggle='tooltip' title='Compare Profiles' onclick='compareProfiles("+ orderObj.id+ ")'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-exchange'></i></a>"
-			var deleteProfile = "<a data-toggle='tooltip' title='Delete' onclick='profileStatusChange("+ orderObj.id+ ",2)'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-trash'></i></a>"
+			var deleteProfile = "<a data-toggle='tooltip' title='Delete' onclick='profileStatusChange("+ orderObj.id+ ",2)'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-trash'></i></a>";
 // 			var payment = "<a data-toggle='tooltip' title='Payment' onclick='payment("+ orderObj.id+ ",0)'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-usd'></i></a>"
-			var resetPassword = "<a data-toggle='tooltip' title='Reset Password' onclick='resetPassword("+ orderObj.id+ ",0)'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-repeat'></i></a>"
+			//var resetPassword = "<a data-toggle='tooltip' title='Reset Password' onclick='resetPassword("+ orderObj.id+ ",0)'><i style='color: #3c8dbc;cursor: pointer;' class='fa fa-repeat'></i></a>"
+			var activate = "<a  title='Activate Profile' onclick='profileStatusChange("+ orderObj.id+ ",1)'><i style='color: green;cursor: pointer;' class='fa fa-repeat'></i></a>";
 			/* var viewProfile = "<a title='View Profile' onclick='viewProfile("+ orderObj.id+ ")'><i style='color: blue;' class='fa fa-eye'></i></a>"
 							var viewProfile = "<a title='View Profile' onclick='viewProfile("+ orderObj.id+ ")'><i style='color: blue;' class='fa fa-eye'></i></a>"
 							var viewProfile = "<a title='View Profile' onclick='viewProfile("+ orderObj.id+ ")'><i style='color: blue;' class='fa fa-eye'></i></a>" */
@@ -155,7 +156,7 @@ s.parentNode.insertBefore(ga, s);
 								+ "<td title='"+orderObj.planPackage+"'>" + orderObj.planPackage + "</td>"
 									+ "<td style='text-align: center;white-space: nowrap;'>" + viewProfile + "&nbsp;&nbsp;" + editProfile + "&nbsp;&nbsp;" + sendMail + "&nbsp;&nbsp;" 
 									 + deleteProfile + "&nbsp;&nbsp;"
-									+	 resetPassword
+									 +	 activate
 									+ "</td>"  
 									+ "</tr >";
 							$(tblRow).appendTo("#tableId table tbody"); 
@@ -242,6 +243,9 @@ s.parentNode.insertBefore(ga, s);
 	 	}
 	 	if(statusId==2){
 	 		checkstr =  confirm('Are you sure you want to Delete  this profile?');
+	 	}
+	 	if(statusId==1){
+	 		checkstr =  confirm('Are you sure you want to Activate  this profile?');
 	 	}
 		if(checkstr == true){
 		var formData = new FormData();
@@ -727,6 +731,36 @@ s.parentNode.insertBefore(ga, s);
 					        ]
 		});	
 	});
+ function profileAction(id,statusId){
+	 var checkstr = "";
+	 	if(statusId==1){
+	 		checkstr =  confirm('Are you sure you want to Activate this profile?');
+	 	}
+	 	if(statusId==2){
+	 		checkstr =  confirm('Are you sure you want to Delete  this profile?');
+	 	}
+		if(checkstr == true){
+		var formData = new FormData();
+	     formData.append('status', statusId);
+	     formData.append('id', id);
+	     formData.append('statusName', "inactive");
+		$.fn.makeMultipartRequest('POST', 'updateStatus', false,
+				formData, false, 'text', function(data){
+			var jsonobj = $.parseJSON(data);
+			var msg = jsonobj.message;
+			alert(jsonobj.message);
+			if(msg == "Success"){
+				var existing_count = $("#inactive_profiles_cnt").html();
+				var new_count = parseInt(existing_count)-1;
+				$(".inactive_cnt").html(new_count);
+			}
+			var alldata = jsonobj.allOrders1;
+			console.log(jsonobj.allOrders1);
+			displayTable(alldata);
+		});
+		}
+		
+	}
  $(".profiles").addClass("active");
  $(".undefinedProfiles").addClass("active"); 
 </script>
