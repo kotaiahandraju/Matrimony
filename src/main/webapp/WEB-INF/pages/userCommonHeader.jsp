@@ -348,7 +348,21 @@ opacity : 0.3;
 font-size : 45px;
 text-align:center;
 }
-
+.jssora051 .a {
+    fill: none;
+    stroke: #0d1d39 !important;
+    stroke-width: 882px !important;
+    stroke-miterlimit: 10;
+}
+.jssora051 {
+    display: block;
+    position: absolute;
+    cursor: pointer;
+    background: #fff;
+    border-radius: 5px;
+    width:28px !important;
+    height:28px !important;
+}
 		</style>
 		
 		<script type="text/javascript">
@@ -1174,7 +1188,7 @@ text-align:center;
 		            	+ '    </div>'
 		            	+ '</div>' */
 		            	+ '<div class="col-md-3">'
-		            	+ ' Profile Score <button type="button" class="btn btn-primary" style="padding: 0px 1px !important;"><span class="badge"  style="padding: 1px 7px !important;">'+orderObj.match_score+'%</span></button>'
+		            	+ ' Match Score <button type="button" class="btn btn-primary" style="padding: 0px 1px !important;"><span class="badge"  style="padding: 1px 7px !important;">'+orderObj.match_score+'%</span></button>'
 		            	+ '</div>'
 		            	+ '<div class="col-md-2">'
 		            	+ '<a href="#no" type="button" class="btn btn-default btn-sm" id="sendMail'+orderObj.id+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')">Send Mail</a>'

@@ -837,6 +837,7 @@ function searchResult(){
 		  textColor: 'white',
 		  gravity: 'n',
 		   opacity: 0.8,
+		   margin: 5,
 		   //margin: 0,
 		   outputWidth: 'auto',
 		   outputHeight: 'auto'
@@ -845,12 +846,12 @@ function searchResult(){
   function addWaterMark_newmatches(){
 	  $('.watermark_text_newmatches').watermark({
 		  text: 'aarnamatrimony.com',
-		  textWidth: 800,
+		  textWidth: 1000,
 		  textSize: 30,
 		  textColor: 'white',
 		  gravity: 'n',
 		   opacity: 0.8,
-		   //margin: 0,
+	   //margin: 0,
 		   outputWidth: 'auto',
 		   outputHeight: 'auto'
 		 });
