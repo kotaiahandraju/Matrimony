@@ -779,9 +779,9 @@ text-align:center;
 				if(image == "" || image == null || image == "undefined"){
 					var genderStr = orderObj.gender;
 					if(genderStr == "Female"){
-						image = "images/girl.jpg";
+						image = "${baseurl}/images/girl.jpg";
 					}else if(genderStr == "Male"){
-						image = "images/boy.jpg";
+						image = "${baseurl}/images/boy.jpg";
 					}
 					
 				}
@@ -884,11 +884,11 @@ text-align:center;
 							slider += '<p style="display: table;">'
 									+'	<a id="prevBtn'+orderObj.id+'" class="" style="text-decoration: none; margin: 0px 0px 0px 7px;" href="#no" onclick="plusSmallSlides(-1,'+orderObj.id+')">&#10094;</a>'
 									//+'	<span>'+(i+1)+' of '+photos_list.length+'</span><br>'
-				    			    +'	<a id="nextBtn'+orderObj.id+'" class="" style="text-decoration: none; margin-left: 41px;" href="#no" onclick="plusSmallSlides(1,'+orderObj.id+')">&#10095;</a>'
+				    			    +'	<a id="nextBtn'+orderObj.id+'" class="" style="text-decoration: none; margin-left: 121px;" href="#no" onclick="plusSmallSlides(1,'+orderObj.id+')">&#10095;</a>'
 									+'</p>'
 						}
 					}else{
-						slider = '<a href="#"	onclick="fullProfile('+orderObj.id+')"><img src="${catalina_base}/'+image+'" class="img-responsive thumbnail" style="margin-bottom: 0px; width:150px;height:150px; "></a>';
+						slider = '<a href="#"	onclick="fullProfile('+orderObj.id+')"><img src="'+image+'" class="img-responsive thumbnail" style="margin-bottom: 0px; width:150px;height:150px; "></a>';
 					}
 					var profile_highlisht_str = '<div class="panel panel-default" style="padding-top:5px;" >';
 					var highlight_option = orderObj.profile_highlighter;
@@ -1073,7 +1073,7 @@ text-align:center;
 						var photos_list = orderObj.photosList;
 						var slider = "", displayStyle = ' ';
 						if(photos_list == "" || typeof photos_list == "undefined"){
-							slider = '<a href="#" onclick="fullProfile('+orderObj.id+')"><img src="${catalina_base}/'+image+'" class="img img-responsive thumbnail " style="margin-bottom:0;height: 150px;width: 150px;" ></a>';
+							slider = '<a href="#" onclick="fullProfile('+orderObj.id+')"><img src="'+image+'" class="img img-responsive thumbnail " style="margin-bottom:0;height: 150px;width: 150px;" ></a>';
 						}else{
 							smallerSlideIndex[orderObj.id] = 0;
 							var slider = "", displayStyle = ' ';
@@ -1092,7 +1092,7 @@ text-align:center;
 								slider += '<p style="display: table;">'
 									+'	<a id="prevBtn'+orderObj.id+'" class="" style="text-decoration: none; margin: 0px 0px 0px 7px;" href="#no" onclick="plusSmallSlides(-1,'+orderObj.id+')">&#10094;</a>'
 									//+'	<span>'+(i+1)+' of '+photos_list.length+'</span><br>'
-				    			    +'	<a id="nextBtn'+orderObj.id+'" class="" style="text-decoration: none; margin-left: 41px;" href="#no" onclick="plusSmallSlides(1,'+orderObj.id+')">&#10095;</a>'
+				    			    +'	<a id="nextBtn'+orderObj.id+'" class="" style="text-decoration: none; margin-left: 117px;" href="#no" onclick="plusSmallSlides(1,'+orderObj.id+')">&#10095;</a>'
 									+'</p>'
 							}
 							
@@ -1116,11 +1116,11 @@ text-align:center;
 								slider += '<p style="display: table;">'
 										+'	<a id="prevBtn'+orderObj.id+'" class="" style="text-decoration: none; margin: 0px 0px 0px 7px;" href="#no" onclick="plusSmallSlides(-1,'+orderObj.id+')">&#10094;</a>'
 										//+'	<span>'+(i+1)+' of '+photos_list.length+'</span><br>'
-					    			    +'	<a id="nextBtn'+orderObj.id+'" class="" style="text-decoration: none; margin-left: 41px;" href="#no" onclick="plusSmallSlides(1,'+orderObj.id+')">&#10095;</a>'
+					    			    +'	<a id="nextBtn'+orderObj.id+'" class="" style="text-decoration: none; margin-left: 117px;" href="#no" onclick="plusSmallSlides(1,'+orderObj.id+')">&#10095;</a>'
 										+'</p>'
 							}
 						}else{
-							slider = '<a href="#" onclick="fullProfile('+orderObj.id+')"><img src="${catalina_base}/'+image+'" class="img-responsive thumbnail" style="margin-bottom: 0px;width:150px;height:150px;"></a>';
+							slider = '<a href="#" onclick="fullProfile('+orderObj.id+')"><img src="'+image+'" class="img-responsive thumbnail" style="margin-bottom: 0px;width:150px;height:150px;"></a>';
 						}
 					}
 					var profile_highlisht_str = '<div class="panel panel-default">';
@@ -1473,7 +1473,7 @@ text-align:center;
 						var photos_list = orderObj.photosList;
 						var slider = "", displayStyle = ' ';
 						if(photos_list == "" || typeof photos_list == "undefined"){
-							slider = '<a href="#" onclick="fullProfile('+orderObj.id+')"><img src="${catalina_base}/'+image+'" class="img img-responsive thumbnail " style="margin-bottom:0;height: 60px;width: 60px;" ></a>';
+							slider = '<a href="#" onclick="fullProfile('+orderObj.id+')"><img src="'+image+'" class="img img-responsive thumbnail " style="margin-bottom:0;height: 60px;width: 60px;" ></a>';
 						}else{
 							smallerSlideIndex[orderObj.id] = 0;
 							var slider = "", displayStyle = ' ';
@@ -1489,9 +1489,9 @@ text-align:center;
 							});
 							if(photos_list.length>1){
 								slider += '<p style="display: table;">'
-									+'	<a id="prevBtn'+orderObj.id+'" class="" style="text-decoration: none; margin: 0px 0px 0px 7px;" href="#no" onclick="plusSmallSlides(-1,'+orderObj.id+')">&#10094;</a>'
+									+'	<a id="prevBtn'+orderObj.id+'" class="" style="text-decoration: none; margin: 0px 0px 0px 1px;" href="#no" onclick="plusSmallSlides(-1,'+orderObj.id+')">&#10094;</a>'
 									//+'	<span>'+(i+1)+' of '+photos_list.length+'</span><br>'
-				    			    +'	<a id="nextBtn'+orderObj.id+'" class="" style="text-decoration: none; margin-left: 41px;" href="#no" onclick="plusSmallSlides(1,'+orderObj.id+')">&#10095;</a>'
+				    			    +'	<a id="nextBtn'+orderObj.id+'" class="" style="text-decoration: none; margin-left: 80px;" href="#no" onclick="plusSmallSlides(1,'+orderObj.id+')">&#10095;</a>'
 									+'</p>'	
 							}
 							
@@ -1570,6 +1570,7 @@ text-align:center;
 									if(received_msg_str!=null && typeof received_msg_str != "undefined"){
 										received_msg_str = received_msg_str.replace(/##newline##/g," ");
 										received_msg_str = received_msg_str.replace(/##tabspace##/g," ")+".";
+										received_msg_str = "\""+received_msg_str+"\"";
 									}
 									acceptOptions = "<span id='accept"+recent_activity.id+"'><a type='button' class='btn btn-primary btn-sm' onclick='acceptMessage("+recent_activity.id+",\"1\")'>Yes</a><a type='button' class='btn btn-danger btn-sm' id='reject"+recent_activity.id+"' href='#' onclick='acceptMessage("+recent_activity.id+", \"0\")'>Not Interested</a></span>";
 									idStr = "id=\"profileBlock"+recent_activity.id+"\"";

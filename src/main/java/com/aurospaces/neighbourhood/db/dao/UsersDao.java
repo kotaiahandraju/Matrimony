@@ -83,10 +83,10 @@ public class UsersDao extends BaseUsersDao
 							+" date_format(last_login_time,'%d-%b-%Y %r') as last_login_time, "
 							+" (select occup.name from occupation occup where occup.id = u.fOccupation) as fOccupationName, "
 							+" (select occup.name from occupation occup where occup.id = u.mOccupation) as mOccupationName, "
-							+" (select GROUP_CONCAT(ureq.rMaritalStatus)) as rMaritalStatusName, "
+							+" ureq.rMaritalStatus as rMaritalStatusName, "
 							+" (select GROUP_CONCAT(rel.name) from religion rel where id in (ureq.rReligion)) as rReligionName, "
 							+" (select GROUP_CONCAT(name) from cast where id in (ureq.rCaste)) as rCasteName, "
-							+" (select GROUP_CONCAT(rDiet)) as rDietName, "
+							+" rDiet as rDietName, "
 							+" (select GROUP_CONCAT(name) from language where id in (ureq.rMotherTongue)) as rMotherTongueName, "
 							+" if(locate('any',ureq.rEducation)>0,\"Doesn't Matter\",(select GROUP_CONCAT(name) from education where id in (ureq.rEducation))) as rEducationName, "
 							+" if(locate('any',ureq.rOccupation)>0,\"Doesn't Matter\",(select GROUP_CONCAT(name) from occupation where id in (ureq.rOccupation))) as rOccupationName, "
@@ -3990,6 +3990,7 @@ public boolean deletePhoto(String photoId){
 		return false;
 	}
 	
+	
 	public String getOtpOf(String userId, String mobileNum){
 		jdbcTemplate = custom.getJdbcTemplate();
 		String qryStr = "select otp from user_otps where user_id = "+userId+" and mobile_no = "+mobileNum+" and date(updated_time) = current_date() ";
@@ -4380,6 +4381,30 @@ public boolean deletePhoto(String photoId){
 		buffer.append("SELECT COUNT(*) AS totalcount,'Free register' AS package FROM users WHERE role_id ='4'  and status = '1'");
 							String sql =buffer.toString();
 //							System.out.println(sql);
+							List<Map<String, Object>> result = jdbcTemplate.queryForList(sql);
+							return result;
+		
+	
+	}
+	
+	public List<Map<String, Object>> getFemaleUsersCount(){
+
+		jdbcTemplate = custom.getJdbcTemplate();
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("SELECT COUNT(*) AS totalcount,'Female Members' AS femaleGroup FROM users WHERE gender ='Female'  and status = '1'");
+							String sql =buffer.toString();
+							List<Map<String, Object>> result = jdbcTemplate.queryForList(sql);
+							return result;
+		
+	
+	}
+	
+	public List<Map<String, Object>> getMaleUsersCount(){
+
+		jdbcTemplate = custom.getJdbcTemplate();
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("SELECT COUNT(*) AS totalcount,'Male Members' AS maleGroup FROM users WHERE gender ='Male'  and status = '1'");
+							String sql =buffer.toString();
 							List<Map<String, Object>> result = jdbcTemplate.queryForList(sql);
 							return result;
 		
@@ -5503,6 +5528,53 @@ public boolean deletePhoto(String photoId){
 					+ " ) temp where profileImage is not null limit 10";
 						
 				list =	jdbcTemplate.queryForList(qry);	
+				return list;	
+		}catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
+	
+	public List<Map<String,Object>> getLatestGrooms(){
+		jdbcTemplate = custom.getJdbcTemplate();
+		List<Map<String,Object>> list = null;
+		try{
+			String  qry = " select * from (select *,"
+					+ " (select inches from height where id=u.height ) as heightInches ,"
+					+ " (select name from religion where id=u.religion) as religionName, "
+					+ " (select name from city where id=u.currentCity) as currentCityName, "
+					+"  (select st.name from state st where st.id = u.currentState) as currentStateName ,"
+					+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and uimg.status = '1' and uimg.approved_status = '1' and uimg.is_profile_picture='1') as profileImage "
+					+ " from users u where  u.status = '1' and u.gender = 'Male' order by created_time desc"
+					+ " ) temp where profileImage is not null limit 5";
+						
+				list =	jdbcTemplate.queryForList(qry);	
+				return list;	
+		}catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
+	
+	public List<Map<String,Object>> getLatestBrides(){
+		jdbcTemplate = custom.getJdbcTemplate();
+		List<Map<String,Object>> list = null;
+		try{
+			String  qry = " select * from (select *,"
+					+ " (select inches from height where id=u.height ) as heightInches ,"
+					+ " (select name from religion where id=u.religion) as religionName, "
+					+ " (select name from city where id=u.currentCity) as currentCityName, "
+					+"  (select st.name from state st where st.id = u.currentState) as currentStateName ,"
+					+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and uimg.status = '1' and uimg.approved_status = '1' and uimg.is_profile_picture='1') as profileImage "
+					+ " from users u where  u.status = '1' and u.gender = 'Female' order by created_time desc"
+					+ " ) temp where profileImage is not null limit 5";
+						
+				list =	jdbcTemplate.queryForList(qry);	
+				if(list != null && list.size()<5) {
+					
+				}
 				return list;	
 		}catch (Exception e) {
 			e.printStackTrace();

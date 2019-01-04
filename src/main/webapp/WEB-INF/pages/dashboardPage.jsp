@@ -906,7 +906,13 @@ function displayMatches(listOrders) {
 		var image = null; image_path = orderObj.profileImage;
 		var watermark_str = "";
 		if(image_path == "" || image_path == null || image_path == "undefined"){
-			image = "${baseurl}/img/default.png";
+			//image = "${baseurl}/img/default.png";
+			var genderStr = orderObj.gender;
+			if(genderStr == "Female"){
+				image = "${baseurl}/images/girl.jpg";
+			}else if(genderStr == "Male"){
+				image = "${baseurl}/images/boy.jpg";
+			}
 		}else{
 			image = "${catalina_base}/"+image_path;
 			watermark_str = " watermark_text_pref ";
@@ -1036,7 +1042,13 @@ function displayNewMatches(listOrders) {
 
 		var image = null; image_path = orderObj.profileImage;
 		if(image_path == "" || image_path == null || image_path == "undefined"){
-			image = "${baseurl}/img/default.png";
+			//image = "${baseurl}/img/default.png";
+			var genderStr = orderObj.gender;
+			if(genderStr == "Female"){
+				image = "${baseurl}/images/girl.jpg";
+			}else if(genderStr == "Male"){
+				image = "${baseurl}/images/boy.jpg";
+			}
 		}else{
 			image = "${catalina_base}/"+image_path;
 		}
@@ -1142,7 +1154,13 @@ function displayNewMatches_update(listOrders) {
 
 		var image = null; image_path = orderObj.profileImage;
 		if(image_path == "" || image_path == null || image_path == "undefined"){
-			image = "${baseurl}/img/default.png";
+			//image = "${baseurl}/img/default.png";
+			var genderStr = orderObj.gender;
+			if(genderStr == "Female"){
+				image = "${baseurl}/images/girl.jpg";
+			}else if(genderStr == "Male"){
+				image = "${baseurl}/images/boy.jpg";
+			}
 		}else{
 			image = "${catalina_base}/"+image_path;
 		}

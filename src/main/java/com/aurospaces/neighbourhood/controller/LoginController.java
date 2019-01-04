@@ -213,9 +213,13 @@ public class LoginController {
 			
 			// latest brides & grooms list to display
 			List<Map<String,Object>> latest_brides_grooms = objUsersDao.getLatestBridesAndGrooms();
+			List<Map<String,Object>> latest_brides = objUsersDao.getLatestBrides();
+			List<Map<String,Object>> latest_grooms = objUsersDao.getLatestGrooms();
 			//objectMapper = new ObjectMapper();
 			//sJson = objectMapper.writeValueAsString(latest_brides_grooms);
-			request.setAttribute("latest_brides_grooms", latest_brides_grooms);
+			//request.setAttribute("latest_brides_grooms", latest_brides_grooms);
+			request.setAttribute("latest_brides", latest_brides);
+			request.setAttribute("latest_grooms", latest_grooms);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

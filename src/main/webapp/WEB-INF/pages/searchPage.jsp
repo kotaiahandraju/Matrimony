@@ -422,7 +422,12 @@ function displayMatches(listOrders) {
 		
 		var image = null; image = orderObj.profileImage;
 		if(image == "" || image == null || image == "undefined"){
-			image = "${baseurl}/img/default.png";
+			var genderStr = orderObj.gender;
+			if(genderStr == "Female"){
+				image = "${baseurl}/images/girl.jpg";
+			}else if(genderStr == "Male"){
+				image = "${baseurl}/images/boy.jpg";
+			}
 		}
 		/* else{
 		array = image.split(",");
@@ -486,8 +491,8 @@ function displayMatches(listOrders) {
 			var photos_list = orderObj.photosList;
 			var slider = "", displayStyle = ' ';
 			if(photos_list == "" || typeof photos_list == "undefined"){
-				slider = '<a href="#" onclick="fullProfile('+orderObj.id+')"><img src="img/default.png" class="img img-responsive thumbnail " style="margin-bottom:0;height: auto;width: 100%;" ></a>';
-				slider = '<img src="${baseurl}/img/default.png" class="img img-responsive thumbnail " style="margin-bottom:0;height: auto;width: 100%;" >';
+				slider = '<a href="#" onclick="fullProfile('+orderObj.id+')"><img src="'+image+'" class="img img-responsive thumbnail " style="margin-bottom:0;height: auto;width: 100%;" ></a>';
+				//slider = '<img src="${baseurl}/img/default.png" class="img img-responsive thumbnail " style="margin-bottom:0;height: auto;width: 100%;" >';
 			}else{
 				smallerSlideIndex[orderObj.id] = 0;
 				var slider = "", displayStyle = ' ';

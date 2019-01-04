@@ -992,7 +992,13 @@ margin-left:10px;
 			  		
 			  		var image = null; image_path = orderObj.profileImage;
 					if(image_path == "" || image_path == null || image_path == "undefined"){
-						image = "${baseurl}/img/default.png";
+						//image = "${baseurl}/img/default.png";
+						var genderStr = orderObj.gender;
+						if(genderStr == "Female"){
+							image = "${baseurl}/images/girl.jpg";
+						}else if(genderStr == "Male"){
+							image = "${baseurl}/images/boy.jpg";
+						}
 					}else{
 						image = "${catalina_base}/"+image_path;
 					}
