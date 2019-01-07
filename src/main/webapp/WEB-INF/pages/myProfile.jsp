@@ -22,6 +22,8 @@
 <%-- <script type="text/javascript" src="${baseurl}/engine1/jquery.js"></script> --%>
 <!-- End WOWSlider.com HEAD section -->
 <style>
+.watermark_text {
+font-size:13px}
 .cha {
 min-height: 20px;
     padding: 19px;
@@ -434,7 +436,7 @@ $(".onlyCharacters").on("keypress",	function(event) {
                     </div> 
                 </c:if>
                 <c:if test="${empty cacheGuest.profileImage}">
-                    <img src="../img/default.png" class="img-responsive" style="margin-bottom:0;">
+                    <img src="../img/default.png" class="img-responsive " style="margin-bottom:0;">
                     <div align="center">
 	                    <a href="myPhotos" style="font-size:12px; padding:12px 0; text-align:center; font-weight:600; color:#006699;"> Add / Edit  Photos</a>
 	                </div>
@@ -1559,7 +1561,7 @@ $(document).ready(function(){
           <c:forEach items="${logged_in_user_photosList}" var="photo" >
 			<div><img data-u="image"  src="${catalina_base}/${photo.folder_name}/full-images/${photo.image_name}" alt="${photo.image_name}" title="" id=""/>
 			<div class="clearfix"></div><div data-u="thumb">
-                    <img data-u="thumb" src="${catalina_base}/${photo.folder_name}/${photo.image_name}" alt="${photo.image_name}" />
+                    <img data-u="thumb" class="watermark_text" src="${catalina_base}/${photo.folder_name}/${photo.image_name}" alt="${photo.image_name}" />
                 </div>
 			</div>
 		</c:forEach>

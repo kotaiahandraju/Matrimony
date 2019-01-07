@@ -85,11 +85,13 @@
 	
 	<link href="${baseurl }/css/jquery.littlelightbox.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
- <script src="${baseurl}/crop/js/jquery.min.js"></script> 
+
+<%-- <script src="${baseurl}/crop/js/jquery.min.js"></script> --%>
 <script src="${baseurl}/crop/js/jquery.Jcrop.min.js"></script> 
  <script src="${baseurl}/crop/js/script.js"></script>
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> -->
-<script src="dist/select3-full.js"></script><script src="${baseurl }/js/jquery.littlelightbox.js"></script>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.1.0/chosen.jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.1.0/chosen.min.css">
 	<style type="text/css">
 	.navbar-inverse {
     background-color: #00b2e4;
@@ -334,7 +336,22 @@ width : 0;
 opacity : 0.6;
 font-size : 13px;
 }
-
+.watermarkcontent1_profilepic {
+  position: absolute; /* Position the background text */
+  top: -18px; /* At the bottom. Use top:0 to append it to the top */
+  //background: rgb(0, 0, 0); /* Fallback color */
+  //background: rgba(0, 0, 0, 0.5); /* Black background with 0.5 opacity */
+  color: white; /* Grey text */
+  width: 100%; /* Full width */
+  padding: 10px; /* Some padding */
+  transform: rotate(90deg);
+//transform-origin: left top 0;
+width : 0;
+}
+.watermarkcontent1_profilepic span{
+opacity : 0.6;
+font-size : 6px;
+}
 .watermarkcontent_fullpic {
   position: absolute; /* Position the background text */
   padding-top: 30%; /* At the bottom. Use top:0 to append it to the top */
@@ -352,7 +369,21 @@ opacity : 0.3;
 font-size : 45px;
 text-align:center;
 }
-
+.jssora051 .a {
+    fill: none;
+    stroke: #007c9f !important;
+    stroke-width: 882px !important;
+    stroke-miterlimit: 10;
+}
+.jssora051 {
+    display: block;
+    position: absolute;
+    cursor: pointer;
+    background: #fff;
+    border-radius: 5px;
+    width:28px !important;
+    height:28px !important;
+}
 		</style>
 		
 		<script type="text/javascript">
@@ -390,7 +421,7 @@ text-align:center;
 	  addWaterMark();
 	  watermark_text_fullimg();
 	 });
-	var v1 = 23;var v2 = 23;
+	var v1 = 19;var v2 = 19;
 	 function addWaterMark(){
 		  $('.watermark_text').watermark({
 			  text: 'aarnamatrimony.com',
@@ -774,9 +805,9 @@ text-align:center;
 				if(image == "" || image == null || image == "undefined"){
 					var genderStr = orderObj.gender;
 					if(genderStr == "Female"){
-						image = "${baseurl}/images/girl.jpg";
+						image = "${baseurl}/images/girl.png";
 					}else if(genderStr == "Male"){
-						image = "${baseurl}/images/boy.jpg";
+						image = "${baseurl}/images/boy.png";
 					}
 					
 				}
@@ -962,9 +993,9 @@ text-align:center;
 				if(image == "" || image == null || image == "undefined"){
 					var genderStr = orderObj.gender;
 					if(genderStr == "Female"){
-						image = "images/girl.jpg";
+						image = "images/girl.png";
 					}else if(genderStr == "Male"){
-						image = "images/boy.jpg";
+						image = "images/boy.png";
 					}
 				}
 				/* else{
@@ -1183,7 +1214,7 @@ text-align:center;
 		            	+ '    </div>'
 		            	+ '</div>' */
 		            	+ '<div class="col-md-3">'
-		            	+ ' Profile Score <button type="button" class="btn btn-primary" style="padding: 0px 1px !important;"><span class="badge"  style="padding: 1px 7px !important;">'+orderObj.match_score+'%</span></button>'
+		            	+ ' Match Score <button type="button" class="btn btn-primary" style="padding: 0px 1px !important;"><span class="badge"  style="padding: 1px 7px !important;">'+orderObj.match_score+'%</span></button>'
 		            	+ '</div>'
 		            	+ '<div class="col-md-2">'
 		            	+ '<a href="#no" type="button" class="btn btn-default btn-sm" id="sendMail'+orderObj.id+'" onclick="displayMailPopup('+orderObj.id+',\''+orderObj.firstName+' '+orderObj.lastName+'\')">Send Mail</a>'
@@ -1252,9 +1283,9 @@ text-align:center;
 					//image = "${baseurl}/img/default.png";
 					var genderStr = orderObj.gender;
 					if(genderStr == "Female"){
-						image = "images/girl.jpg";
+						image = "images/girl.png";
 					}else if(genderStr == "Male"){
-						image = "images/boy.jpg";
+						image = "images/boy.png";
 					}
 				}
 
@@ -2767,10 +2798,8 @@ function goBack() {
             $('.nailthumb-container').nailthumb();
         });
     </script>
-    <%--  <script src="${baseurl}/crop/js/jquery.min.js"></script>
-        <script src="${baseurl}/crop/js/jquery.Jcrop.min.js"></script>
-        <script src="${baseurl}/crop/js/script.js"></script> --%>
-	<script type="text/javascript" src="${baseurl }/js/ajax.js"></script>
+    
+    
 	<script type="text/javascript" src="${baseurl }/js/jquery-asPaginator.js"></script>
 	<script src="${baseurl }/js/jquery.watermark.js"></script>
 	<%-- <script type="text/javascript" src="${baseurl }/js/common.js"></script> --%>

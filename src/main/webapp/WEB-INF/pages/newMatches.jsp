@@ -17,6 +17,21 @@
 //transform-origin: left top 0;
 width : 0;
 }
+blockquote
+{background:#f7f7f7;padding:15px;border:1px solid #eee;text-align:justify;position:relative;
+font-weight:500;clear:both;}
+blockquote {
+    background: #f9f9f9;
+    border-left: 1px solid #ccc;
+    margin: 1.5em 10px;
+    padding: 0.9em 17px;
+    quotes: "\201C""\201D""\2018""\2019";
+}
+blockquote:before{color:#319604;position:absolute;line-height:1;font-size:10px;z-index:0;
+transition:.2s ease-in;font-family:FontAwesome;left: -3px;
+    top: -2px;font-style:normal;padding:5px;content:"\f10d";}
+blockquote:after{content:"\f10e";position:absolute;font-size:10px;color:#319604;z-index:0;
+font-family:FontAwesome;line-height:1;bottom:-4px;right:-3px;font-style:normal;transition:.2s ease-in;padding:7px;}
 </style>
 
 <div class="products">

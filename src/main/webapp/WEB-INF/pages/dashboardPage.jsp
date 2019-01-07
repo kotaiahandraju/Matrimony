@@ -355,9 +355,14 @@ font-size : 8px;
 			        <div class="col-md-3">
 			        	<c:if test="${not empty pend_req.profileImage}">
 			        		<img class="" style="width:70px; height:70px;" src="${catalina_base}/${pend_req.profileImage}"/>
-			        	</c:if>
+			        	<div class="watermarkcontent1_profilepic">
+										<span>aarnamatrimony.com</span>
+									</div></c:if>
 			        	<c:if test="${empty pend_req.profileImage}">
 			        		<img class="" style="width:70px; height:70px;" src="${baseurl}/img/default.png"/>
+			        		<div class="watermarkcontent1_profilepic">
+										<span>aarnamatrimony.com</span>
+									</div>
 			        	</c:if>
 			        </div>
 			         <div class="col-md-6">
@@ -837,6 +842,7 @@ function searchResult(){
 		  textColor: 'white',
 		  gravity: 'n',
 		   opacity: 0.8,
+		   margin: 5,
 		   //margin: 0,
 		   outputWidth: 'auto',
 		   outputHeight: 'auto'
@@ -845,12 +851,12 @@ function searchResult(){
   function addWaterMark_newmatches(){
 	  $('.watermark_text_newmatches').watermark({
 		  text: 'aarnamatrimony.com',
-		  textWidth: 800,
+		  textWidth: 1000,
 		  textSize: 30,
 		  textColor: 'white',
 		  gravity: 'n',
 		   opacity: 0.8,
-		   //margin: 0,
+	   //margin: 0,
 		   outputWidth: 'auto',
 		   outputHeight: 'auto'
 		 });
@@ -1092,7 +1098,7 @@ function displayNewMatches(listOrders) {
 				interestStr = '<p align="center" style="margin: 11px 0px 10px 0px;"><a   type="button" disabled="true"  class="btn btn-danger btn-sm "  >Request Sent</a></p>';
 			}
 			 item =     item + ' 	<div class="col-md-4 thumbnailgal">'
-				         +' 		<div class="thumbnailmain">	<a class="" href="#no" style="margin: 0px 0px 0px 0px; width:100%; height:auto;" onclick="fullProfile('+orderObj.id+')"><img alt="" src="'+image+'" class="watermark_text_newmatches" style="width:150px;height:150px;"></a></div>'
+				         +' 		<div class="thumbnailmain">	<a class="" href="#no" style="margin: 0px 0px 0px 0px; width:100%; height:auto;" onclick="fullProfile('+orderObj.id+')"><img alt="" src="'+image+'" class="" style="width:150px;height:150px;"><div class="watermarkcontent_profilepic"><span>aarnamatrimony.com</span></div></a></div>'
 				         +' 			<p align="center" class="ptransition" style="margin: 10px 0px 0px 0px;"><span  class="ptransition" href="#no" onclick="fullProfile('+orderObj.id+')" style="transition: 0; padding:5px; color:blue; border-radius:5px;">'+orderObj.username+'</span></p>'
 				         +' 			<p align="center" style="margin: px 0px 0px -3px;">'+age+' yrs, '+orderObj.inches+'</p>'
 				         + 			    interestStr
@@ -1242,7 +1248,7 @@ function displayNewMatches_update(listOrders) {
 			}
 			var tblRow = '<div class="row">'
 				+ '<div class=" col-md-2 preprofile1" >'
-	            + 	"<a href='#'  onclick='fullProfile("+orderObj.id+")'><img src='"+image+"' class='watermark_text' style='width:70px; height:70px;'></a>"
+	            + 	"<a href='#'  onclick='fullProfile("+orderObj.id+")'><img src='"+image+"' class='' style='width:70px; height:70px;'/><div class='watermarkcontent1_profilepic'><span>aarnamatrimony.com</span></div></a>"
 	            + '</div>'
 	            + '<div class="col-md-9 col-xs-9">'
 	            + ' <p><span style="font-weight:bold">'+firstname+'&nbsp;'+lastname+'|'+orderObj.username+'</span>&nbsp;( '+age+' yrs,&nbsp; '+orderObj.heightInches+' )&nbsp;'+Content+' </p> '
