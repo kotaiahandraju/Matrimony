@@ -58,6 +58,7 @@ $(function ($) {
 </script>
 	<script src="${baseurl }/js/bootstrap.min.js"></script>
 	<script src="${baseurl }/js/jquery.blockUI.min.js"></script>
+	<script src="${baseurl }/js/plugins/select2/select2.min.js"></script>
 	
 	<!-- start-smoth-scrolling -->
 	<!-- <script type="text/javascript" src="user/js/move-top.js"></script> -->

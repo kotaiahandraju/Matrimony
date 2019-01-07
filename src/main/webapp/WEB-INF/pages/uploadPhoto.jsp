@@ -4,7 +4,11 @@
 <%@ taglib uri="http://displaytag.sf.net" prefix="display"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
-
+<script src="${baseurl}/crop/js/jquery.min.js"></script>
+<script src="${baseurl}/crop/js/jquery.Jcrop.min.js"></script> 
+ <script src="${baseurl}/crop/js/script.js"></script>
+<link href="${baseurl}/crop/css/main.css" rel="stylesheet" type="text/css" />
+<link href="${baseurl}/crop/css/jquery.Jcrop.min.css" rel="stylesheet" type="text/css" />
 <style>
 @media screen and (max-width: 640px) and (min-width: 320px) {
 .modal-footer {
@@ -35,7 +39,7 @@ canvas {
 display:none;}
 </style>
 <link href="${baseurl}/css/imgareaselect-default.css" rel="stylesheet" media="screen">
-<link rel="stylesheet" href="${baseurl}/css/jquery.awesome-cropper.css">
+<%-- <link rel="stylesheet" href="${baseurl}/css/jquery.awesome-cropper.css"> --%>
 				<div class="col-md-5 col-sm-12"></div>
 	            <div  class="clearfix"></div>    
 			</div>
@@ -53,9 +57,35 @@ display:none;}
 					      <div class="col-md-8">
 <%-- 					      	<img src="${baseurl}/img/default.png" alt="Preview" id="previewImg" align="middle" style="border-style: solid;height: 100px;width: 100px;border-bottom-style: none;border-left-style: none;border-top-style: none;"> --%>
 					      	<!-- <input type="file" id='imageName'  onchange="checkImg(this)"> -->
-					      	<form role="form">
-						      <input id="imageName" type="hidden" name="test[image]">
-						    </form>
+					      	<div><input type="file" name="image_file" id="image_file" onChange="fileSelectHandler()"  /></div>
+                                        <input type="hidden" id="x1" name="x1" />
+					                     <input type="hidden" id="y1" name="y1" />
+					                     <input type="hidden" id="x2" name="x2" />
+					                     <input type="hidden" id="y2" name="y2" />
+					                     <div class="error"></div>
+
+					                     <div class="step2">
+					                         <h2>Step2: Please select a crop region</h2>
+					                         <div class="table-responsive">
+					                         <img id="preview"  />
+											</div>
+					
+					                         <div class="info">
+					                             <label>File size</label> <input type="text" id="filesize" name="filesize" />
+					                             <label>Type</label> <input type="text" id="filetype" name="filetype" />
+					                             <label>Image dimension</label> <input type="text" id="filedim" name="filedim" />
+					                             <label>W</label> <input type="text" id="w" name="w" />
+					                             <label>H</label> <input type="text" id="h" name="h" />
+					                         </div>
+					
+					                         <div class="form-group">
+										    	<div class="col-md-offset-4 col-md-8">
+										    		<input type="button" class="btn btn-info" id="uploadBtn" value="Upload Photo" onclick="imageAjax()">
+								<!-- 		    		<button id="secondButton" class="btn2 btn btn-warning" onclick="goToNextPage()">Continue/Skip</button> -->
+										    		<a class="btn btn-success " href="${baseurl}/users/partner-profile">&nbsp;&nbsp;Continue</a>
+										    	</div>
+										    </div>
+					                     </div>
 					      	<br>
 					      </div>
 					    </div>
@@ -64,13 +94,13 @@ display:none;}
 					    		<img src="${baseurl}/img/default.png" alt="Preview" id="previewImg" align="middle" style="border-style: solid;height: 100px;width: 100px;border-bottom-style: none;border-left-style: none;border-top-style: none;">
 					    	</div>
 					    </div> --%>
-					    <div class="form-group">
+					    <%-- <div class="form-group">
 					    	<div class="col-md-offset-4 col-md-8">
 					    		<input type="button" class="btn btn-info" id="uploadBtn" value="Upload Photo" onclick="imageAjax()">
 			<!-- 		    		<button id="secondButton" class="btn2 btn btn-warning" onclick="goToNextPage()">Continue/Skip</button> -->
 					    		<a class="btn btn-success " href="${baseurl}/users/partner-profile">&nbsp;&nbsp;Continue</a>
 					    	</div>
-					    </div>
+					    </div> --%>
 					    <div class="form-group">
 					      <label class="col-md-4 control-label" for="textinput"></label>  
 					      <div class="col-md-6">
@@ -90,17 +120,23 @@ function checkImg(objImg)
  
 var fullImg = "";
 function imageAjax(){
-	if($("#imageName").val() == "" || $("#imageName").val() == "undefined" || $("#imageName").val() == null){
-		alert("Please Upload Image..!");
+	var selected_image = $("#preview").attr("src");
+	if(selected_image == "" || selected_image == "undefined" || selected_image == null){
+		alert("Please Select An Image..!");
 	}
 	else
 	{
-		$("#uploadBtn").prop("disabled",true);
-		$("#uploadBtn").val("Please wait...");
-		var formData = new FormData();
-		//formData.append("imageName", imageName.files[0]);
-		formData.append("imageData", $("#imageName").val());
-		formData.append("fullImg", fullImg);
+	$("#uploadBtn").prop("disabled",true);
+	$("#uploadBtn").val("Please wait...");
+	var formData = new FormData();
+	//var imgurl =  $("#imageName").getCroppedCanvas().toDataURL();
+	//formData.append("imageName", $("#imageName").val());
+	formData.append("imageData", $("#preview").attr("src"));
+	formData.append("fullImg", $('#image_file')[0].files[0]);
+	 formData.append("x_val", $("#x1").val());
+	 formData.append("y_val", $("#y1").val());
+	 formData.append("width", $("#w").val());
+	 formData.append("height", $("#h").val());
 	//	formData.append("id", id);
 	  	$.fn.makeMultipartRequest('POST', 'croppedPhotoUpload', false, formData, false, 'text', function(data){
 		  	var jsonobj = $.parseJSON(data);
@@ -124,12 +160,12 @@ function goToNextPage(){
 
 </script>
 <script src="${baseurl}/js/jquery.imgareaselect.js"></script> 
-<script src="${baseurl}/js/jquery.awesome-cropper.js"></script> 
+<%-- <script src="${baseurl}/js/jquery.awesome-cropper.js"></script> --%> 
 <script>
     $(document).ready(function () {
-        $('#imageName').awesomeCropper(
+        /* $('#imageName').awesomeCropper(
         { width: 626, height: 417, debug: true }
-        );
+        ); */
     });
     </script>
 <%@ include file="homeFooter2.jsp"%>

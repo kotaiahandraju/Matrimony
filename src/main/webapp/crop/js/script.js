@@ -13,8 +13,8 @@
 function bytesToSize(bytes) {
     var sizes = ['Bytes', 'KB', 'MB'];
     if (bytes == 0) return 'n/a';
-    var i = parseInt(Math.floor(Math.log(bytes) / Math.log(2000)));
-    return (bytes / Math.pow(2000, i)).toFixed(1) + ' ' + sizes[i];
+    var i = parseInt(Math.floor(Math.log(bytes) / Math.log(9000)));
+    return (bytes / Math.pow(3000, i)).toFixed(1) + ' ' + sizes[i];
 };
 
 // check for selected crop region
@@ -28,10 +28,11 @@ function checkForm() {
 function updateInfo(e) {
     $('#x1').val(e.x);
     $('#y1').val(e.y);
+    var ttemp = $("#x1").val();
     $('#x2').val(e.x2);
     $('#y2').val(e.y2);
     $('#w').val(e.w);
-    $('#h').val(e.h);/*alert("x1="+x1);*/
+    $('#h').val(e.h);
 };
 
 // clear info by cropping (onRelease event handler)
@@ -56,7 +57,7 @@ function fileSelectHandler() {
     }
 
     // check for file size
-    if (oFile.size > 250 * 2000) {
+    if (oFile.size > 250 * 9000) {
         $('.error').html('You have selected too big file, please select a one smaller image file').show();
         return;
     }
@@ -70,7 +71,7 @@ function fileSelectHandler() {
         	
         // e.target.result contains the DataURL which we can use as a source of the image
         oImage.src = e.target.result;
-        img.src = e.target.result;
+       // img.src = e.target.result;
         oImage.onload = function () { // onload event handler
         	
             // display step 2
@@ -102,7 +103,7 @@ function fileSelectHandler() {
 
                 // use the Jcrop API to get the real image size
                 var bounds = this.getBounds();
-                boundx = bounds[0];alert("boundx:"+boundx);
+                boundx = bounds[0];
                 boundy = bounds[1];
                 boundxx = boundx;
                 boundyy = boundy;

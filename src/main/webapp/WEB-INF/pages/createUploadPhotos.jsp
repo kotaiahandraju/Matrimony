@@ -2,8 +2,14 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://displaytag.sf.net" prefix="display"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<link rel="stylesheet" href="${baseurl}/css/jquery.awesome-cropper.css">
+<%-- <link rel="stylesheet" href="${baseurl}/css/jquery.awesome-cropper.css"> --%>
 <link href="${baseurl}/css/imgareaselect-default.css" rel="stylesheet" media="screen">
+<script src="${baseurl}/crop/js/jquery.min.js"></script>
+<script src="${baseurl}/crop/js/jquery.Jcrop.min.js"></script> 
+ <script src="${baseurl}/crop/js/script.js"></script>
+<link href="${baseurl}/crop/css/main.css" rel="stylesheet" type="text/css" />
+<link href="${baseurl}/crop/css/jquery.Jcrop.min.css" rel="stylesheet" type="text/css" />
+
 <style>
  .imgareaselect-border1, .imgareaselect-border2, .imgareaselect-border3, .imgareaselect-border4 {
     filter: alpha(opacity=50);
@@ -34,24 +40,43 @@ margin-top:10px;
 			   			<div class="col-md-12">
 					      <h3>Upload photo.</h3>
 					    </div>
-					    <div class="form-group">
-					      <div class="col-md-8">
-					      	<!-- <input type="file" id='imageName1'  onchange="checkImg(this)"><br> -->
-					    	<form role="form">
-						      <input id="imageName" type="hidden" name="test[image]" class="img-responsive">
-						    </form>
-					      </div>
-					    </div>
-					    <div class="form-group">
+							    <div><input type="file" name="image_file" id="image_file" onChange="fileSelectHandler()"  /></div>
+		                                        <input type="hidden" id="x1" name="x1" />
+							                     <input type="hidden" id="y1" name="y1" />
+							                     <input type="hidden" id="x2" name="x2" />
+							                     <input type="hidden" id="y2" name="y2" />
+		                     <div class="error"></div>
+		
+		                     <div class="step2">
+		                         <h2>Step2: Please select a crop region</h2>
+		                         <div class="table-responsive">
+			                         <img id="preview"  />
+									</div>
+		
+		                         <div class="info">
+		                             <label>File size</label> <input type="text" id="filesize" name="filesize" />
+		                             <label>Type</label> <input type="text" id="filetype" name="filetype" />
+		                             <label>Image dimension</label> <input type="text" id="filedim" name="filedim" />
+		                             <label>W</label> <input type="text" id="w" name="w" />
+		                             <label>H</label> <input type="text" id="h" name="h" />
+		                         </div>
+		
+		                         <div class="form-group">
+							    	<div class="col-md-8">
+							    		<input type="button" class="btn btn-primary" id="uploadBtn" value="Upload Photo" onclick="imageAjax()">
+							    	</div>
+							    </div>
+		                     </div>
+					    <!-- <div class="form-group">
 					    	<div class="col-md-8">
-<!-- 					    	<img alt="Preview" id="previewImg" align="middle" style="border-style: solid;height: 100px;width: 100px;border-bottom-style: none;border-left-style: none;border-top-style: none;"> -->
+					    	<img alt="Preview" id="previewImg" align="middle" style="border-style: solid;height: 100px;width: 100px;border-bottom-style: none;border-left-style: none;border-top-style: none;">
 					    	</div>
-					    </div>
-					    <div class="form-group">
+					    </div> -->
+					    <!-- <div class="form-group">
 					    	<div class="col-md-8">
 					    		<input type="button" class="btn btn-primary" id="uploadBtn" value="Upload Photo" onclick="imageAjax()">
 					    	</div>
-					    </div>
+					    </div> -->
 					    
 			   		</div>
 			   	</fieldset>
@@ -65,28 +90,32 @@ $('#lastNameId').html('${lastName}');
 
 
     $(document).ready(function () {
-        $('#imageName').awesomeCropper(
+        /* $('#imageName').awesomeCropper(
         {
         	width: 626, height: 417, debug: true}
-        );
+        ); */
     });
     var fullImg = "";
-    function imageAjax(){
-    	if($("#imageName").val() == "" || $("#imageName").val() == "undefined" || $("#imageName").val() == null){
-    		alert("Please Select An Image..!");
-    	}
-    	else
-    	{
- 	$('#imageName').hide();
-   	 $("#uploadBtn").prop("disabled",true);
-   		$("#uploadBtn").val("Please wait...");
-   	var id= ${id};
-    //var form = $('#fileUploadForm')[0];
-   	var formData = new FormData();
-   	formData.append("imageData", $("#imageName").val());
-	formData.append("fullImg", fullImg);
-//    	formData.append("imageName", imageName.files[0]);
-//formData.append("imageData", $("#imageName").val());
+
+function imageAjax(){
+	var selected_image = $("#preview").attr("src");
+	if(selected_image == "" || selected_image == "undefined" || selected_image == null){
+		alert("Please Select An Image..!");
+	}
+	else
+	{
+		$("#uploadBtn").prop("disabled",true);
+		$("#uploadBtn").val("Please wait...");
+		var id= ${id};
+		var formData = new FormData();
+		//var imgurl =  $("#imageName").getCroppedCanvas().toDataURL();
+		//formData.append("imageName", $("#imageName").val());
+		formData.append("imageData", $("#preview").attr("src"));
+		formData.append("fullImg", $('#image_file')[0].files[0]);
+		 formData.append("x_val", $("#x1").val());
+		 formData.append("y_val", $("#y1").val());
+		 formData.append("width", $("#w").val());
+		 formData.append("height", $("#h").val());
    	formData.append("id", id);
    	  $.fn.makeMultipartRequest('POST', '${baseurl}/admin/croppedImageUpload', false,
    				formData, false, 'text', function(data){

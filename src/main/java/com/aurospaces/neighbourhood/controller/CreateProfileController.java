@@ -1,5 +1,7 @@
 package com.aurospaces.neighbourhood.controller;
 
+import java.awt.image.BufferedImage;
+import java.awt.image.ColorConvertOp;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -11,6 +13,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -415,6 +418,11 @@ public class CreateProfileController {
 			        if (!dir1.exists()) {
 			            dir1.mkdirs();
 			        }
+			        //temporary
+			        File img_full = new File(rootPath1 + File.separator + "img"+ File.separator +"full-images");
+			        if (!img_full.exists()) {
+			        	img_full.mkdirs();
+			        }
 			        //File dir = new File(rootPath + File.separator + "img");
 				 	File dir = new File(rootPath + File.separator + "webapps"+ File.separator + "aarna-user-images");
 			        if (!dir.exists()) {
@@ -430,7 +438,7 @@ public class CreateProfileController {
 			      //  latestUploadPhoto = file.getOriginalFilename();
 //			        file.transferTo(serverFile);
 			    //write uploaded image to disk
-			        try {
+			       /* try {
 			        	osf = new FileOutputStream(new File(dir1.getAbsolutePath() + File.separator + filepath));
 			        	osf.write(imgBytes);
 						 osf.flush();
@@ -444,7 +452,7 @@ public class CreateProfileController {
 						 osf.flush();
 			        } catch (IOException e) {
 			            System.out.println("error : " + e);
-			        }
+			        }*/
 				  
 			        try {
 			            
@@ -455,6 +463,34 @@ public class CreateProfileController {
 			        } catch (IOException e) {
 			            System.out.println("error : " + e);
 			        }
+			        //temporary
+			        try {
+			            
+			            osf = new FileOutputStream(new File(img_full.getAbsolutePath() + File.separator + fullImgfilepath));
+			    		
+						 osf.write(fullImageBytes);
+						 osf.flush();
+			        } catch (IOException e) {
+			            System.out.println("error : " + e);
+			        }
+			        /////
+			        //int x = Math.round(Integer.parseInt(request.getParameter("x_val")));
+			        int x = Math.round(Float.parseFloat(request.getParameter("x_val")));
+			        int y =  Math.round(Float.parseFloat(request.getParameter("y_val")));
+			        int width =  Math.round(Float.parseFloat(request.getParameter("width")));
+			        int height =  Math.round(Float.parseFloat(request.getParameter("height")));
+			        BufferedImage image = ImageIO.read(new File(fullImgdir.getAbsolutePath() + File.separator + fullImgfilepath));
+			        BufferedImage rgbImage = new BufferedImage(image.getWidth(), image.getHeight(),
+			        	    BufferedImage.TYPE_3BYTE_BGR);
+			        	    ColorConvertOp op = new ColorConvertOp(null);
+			        	    op.filter(image, rgbImage);
+			        BufferedImage crp = rgbImage.getSubimage(x,y,width,height);
+			        File f = new File(dir.getAbsolutePath() + File.separator + filepath);  //output file path
+				     ImageIO.write(crp, "png", f);
+				     // to img folder
+				     File f1 = new File(dir1.getAbsolutePath() + File.separator + filepath);  //output file path
+				     ImageIO.write(crp, "png", f1);
+			        ////
 			        filepath= "img/"+filepath;
 //			        filepath= "aarna-user-images/"+filepath;
 			        objJson.put("image_path", filepath);

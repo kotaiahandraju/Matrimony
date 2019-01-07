@@ -73,11 +73,11 @@ window.setTimeout(function() {
 								<div class="tab" id="inbox">
 									<table width="100%" class="dotted-seperator">
 										<tbody><tr>
-											<td height="30"><a href="#" onclick="displayBlock('inbox','pending_requests');" class="tablinks" id="defaultOpen">Inbox</a></td>
+											<td height="30"><a href="inboxAction?tab_type=inbox&list_type=pending_requests" class="tablinks" id="defaultOpen">Inbox</a></td>
 											
 										</tr>
 										<tr>
-											<td height="30"><a href="#" onclick="displayBlock('sent','sent_requests');" class="tablinks">Sent</a></td>
+											<td height="30"><a href="inboxAction?tab_type=sent&list_type=sent_requests" class="tablinks">Sent</a></td>
 											
 										</tr>
 										

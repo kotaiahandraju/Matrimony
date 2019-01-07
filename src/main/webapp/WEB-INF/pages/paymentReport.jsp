@@ -50,20 +50,20 @@
 							<div class="row">
 					  			<div class="col-md-12">
 					  			
-										<label class="col-sm-2 control-label required">From Date <span class="impColor">*</span></label>
+										<label class="col-sm-2 control-label required">From Date </label>
 										<div class="col-sm-2">
 <%-- 											<form:hidden path="id"/> --%>
 											<form:input path="fromdate" type="text" class="form-control  "  placeholder="Enter From Date"  autocomplete="off"  maxlength="255" readonly="true"/>						
 											<span class="hasError" id="nameError"></span>
 										</div>
 										
-										<label class="col-sm-2 control-label required">To Date<span class="impColor">*</span></label>
+										<label class="col-sm-2 control-label required">To Date</label>
 										<div class="col-sm-2">
 											<form:input path="todate" type="text" class="form-control " placeholder="Enter To Date"  autocomplete="off"  maxlength="255" readonly="true"/>						
 											<span class="hasError" id="nameError"></span>
 								  	</div>
 								  	
-								  	<label class="col-sm-1 control-label required">Plan <span class="impColor">*</span></label>
+								  	<label class="col-sm-1 control-label required">Plan </label>
 										<div class="col-sm-2">
 											<form:select path="packages" class="form-control">
 											<form:option value="">--Select Package --</form:option>
@@ -76,7 +76,7 @@
 						  		<div>&nbsp;</div>
 						  		<div class="row">
 						  		<div class="col-md-12">
-										<label class="col-sm-2 control-label required">Caste <span class="impColor">*</span></label>
+										<label class="col-sm-2 control-label required">Caste </label>
 										<div class="col-sm-2">
 <%-- 											<form:hidden path="id"/> --%>
 											<form:select path="caste" class="form-control">
@@ -153,7 +153,7 @@ $("#todate").datepicker({
 function displayTable(listOrders) {
 	$('#tableId').html('');
 	var tableHead = '<table class="table table-hover table-nomargin table-bordered dataTable dataTable-column_filter" data-column_filter_types="text,text,text,text,text,null">'
-		+ '<thead><tr><th>Create On</th><th>UserName</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Mobile</th><th>Age</th><th>Caste</th><th>Occupation</th><th>Amount</th><th>Package</th><th></th></tr></thead><tbody></tbody></table>';
+		+ '<thead><tr><th>Paid On</th><th>UserName</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Mobile</th><th>Age</th><th>Caste</th><th>Occupation</th><th>Amount</th><th>Package</th><th></th></tr></thead><tbody></tbody></table>';
 	$('#tableId').html(tableHead);
 	serviceUnitArray = {};
 	$.each(listOrders,function(i, orderObj) {

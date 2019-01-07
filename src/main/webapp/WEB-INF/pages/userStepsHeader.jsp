@@ -19,7 +19,7 @@
     <link href="${baseurl }/user/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
            
     <script src="${baseurl }/user/js/ie-emulation-modes-warning.js"></script>
-    <link href="${baseurl }/user/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <%-- <link href="${baseurl }/user/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"> --%>
 	<link rel="stylesheet" href="${baseurl }/user/vendor/woocommerce-FlexSlider/flexslider.css" type="text/css" media="screen" />
     <link href="${baseurl }/user/css/style.css" rel="stylesheet">
     <link href="${baseurl }/user/css/custom.css" rel="stylesheet">
@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="${baseurl }/css/plugins/select2/select2.css">
     <script src="${baseurl }/user/vendor/jquery/jquery.min.js"></script>
     <script src="${baseurl }/user/js/modernizr.custom.js"></script>
-    
+    <script type="text/javascript" src="${baseurl }/js/ajax.js"></script>
     <style type="text/css">
     .home {
         padding-top: 20px;

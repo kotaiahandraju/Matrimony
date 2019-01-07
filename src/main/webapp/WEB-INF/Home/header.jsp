@@ -19,7 +19,28 @@
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 	<!-- Apple devices fullscreen -->
 	<meta names="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-
+	<script type="application/x-javascript">
+			addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+			function hideURLbar(){ window.scrollTo(0,1); }
+		
+		      var auto_refresh = setInterval(
+								     function ()
+								     {
+								     	//$('#load_me').load('${baseurl}/sample.jsp').fadeIn("slow");
+								     	var formData = new FormData();
+								    	 $.fn.makeMultipartRequest('POST', 'refreshCountsAdmin', false,
+													formData, false, 'text', function(data){
+									    		 	var jsonobj = $.parseJSON(data);
+										    		var all_counts = jsonobj.display_counts;
+										    		$("#updated_cnt").html(all_counts.updated_count);
+										    		$("#inactive_profiles_count").html(all_counts.inactive_count);
+										    		$("#inactive_profiles_cnt").html(all_counts.inactive_count);
+										    		$("#notification_cnt").html(all_counts.notification_cnt);
+												});
+							
+								     }, 1000);  // autorefresh the content of the div after
+								                //every 1000 milliseconds(1sec)
+	    </script>
 	<title>Aarna Matrimony</title>
 	<link rel="shortcut icon" href="${baseurl }/img/aarna-fav.png"/>
 	
@@ -315,23 +336,7 @@ var role_id = ${cacheUserBean.roleId};
 	return false;
 	});
 	
-	var auto_refresh = setInterval(
-		     function ()
-		     {
-		     	//$('#load_me').load('${baseurl}/sample.jsp').fadeIn("slow");
-		     	var formData = new FormData();
-		    	 jQuery.fn.makeMultipartRequest('POST', 'refreshCountsAdmin', false,
-							formData, false, 'text', function(data){
-				    		var jsonobj = $.parseJSON(data);
-				    		var all_counts = jsonobj.display_counts;
-				    		$("#updated_cnt").html(all_counts.updated_count);
-				    		$("#inactive_profiles_count").html(all_counts.inactive_count);
-				    		$("#inactive_profiles_cnt").html(all_counts.inactive_count);
-				    		$("#notification_cnt").html(all_counts.notification_cnt);
-						});
 	
-		     }, 1000); // autorefresh the content of the div after
-		                //every 1000 milliseconds(1sec)
 
 	});</script>
 

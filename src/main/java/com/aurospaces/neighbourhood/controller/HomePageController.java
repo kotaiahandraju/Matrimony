@@ -1,5 +1,7 @@
 package com.aurospaces.neighbourhood.controller;
 
+import java.awt.image.BufferedImage;
+import java.awt.image.ColorConvertOp;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -19,6 +21,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
+import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -567,6 +570,11 @@ public class HomePageController {
 					        if (!dir1.exists()) {
 					            dir1.mkdirs();
 					        }
+					        //temporary
+					        File img_full = new File(rootPath1 + File.separator + "img"+ File.separator +"full-images");
+					        if (!img_full.exists()) {
+					        	img_full.mkdirs();
+					        }
 						 	
 						 	File dir = new File(rootPath + File.separator + "webapps"+ File.separator + "aarna-user-images");
 					        if (!dir.exists()) {
@@ -582,14 +590,14 @@ public class HomePageController {
 					      //  latestUploadPhoto = file.getOriginalFilename();
 	//				        file.transferTo(serverFile);
 					    //write uploaded image to disk
-					        try {
+					        /*try {
 					        	osf = new FileOutputStream(new File(dir1.getAbsolutePath() + File.separator + filepath));
 					        	osf.write(imgBytes);
 								 osf.flush();
 					        } catch (IOException e) {
 					            System.out.println("error : " + e);
-					        }
-					        try {
+					        }*/
+					        /*try {
 					            
 					            osf = new FileOutputStream(new File(dir.getAbsolutePath() + File.separator + filepath));
 					    		
@@ -597,7 +605,7 @@ public class HomePageController {
 								 osf.flush();
 					        } catch (IOException e) {
 					            System.out.println("error : " + e);
-					        }
+					        }*/
 					        
 					        try {
 					            
@@ -608,7 +616,34 @@ public class HomePageController {
 					        } catch (IOException e) {
 					            System.out.println("error : " + e);
 					        }
-						  
+					        //temporary
+					        try {
+					            
+					            osf = new FileOutputStream(new File(img_full.getAbsolutePath() + File.separator + fullImgfilepath));
+					    		
+								 osf.write(fullImageBytes);
+								 osf.flush();
+					        } catch (IOException e) {
+					            System.out.println("error : " + e);
+					        }
+					        /////
+					        //int x = Math.round(Integer.parseInt(request.getParameter("x_val")));
+					        int x = Math.round(Float.parseFloat(request.getParameter("x_val")));
+					        int y =  Math.round(Float.parseFloat(request.getParameter("y_val")));
+					        int width =  Math.round(Float.parseFloat(request.getParameter("width")));
+					        int height =  Math.round(Float.parseFloat(request.getParameter("height")));
+					        BufferedImage image = ImageIO.read(new File(fullImgdir.getAbsolutePath() + File.separator + fullImgfilepath));
+					        BufferedImage rgbImage = new BufferedImage(image.getWidth(), image.getHeight(),
+					        	    BufferedImage.TYPE_3BYTE_BGR);
+					        	    ColorConvertOp op = new ColorConvertOp(null);
+					        	    op.filter(image, rgbImage);
+					        BufferedImage crp = rgbImage.getSubimage(x,y,width,height);
+					        File f = new File(dir.getAbsolutePath() + File.separator + filepath);  //output file path
+						     ImageIO.write(crp, "png", f);
+						     // to img folder -- temporary
+						     File f1 = new File(dir1.getAbsolutePath() + File.separator + filepath);  //output file path
+						     ImageIO.write(crp, "png", f1);
+					        ////
 					        filepath= "img/"+filepath;
 //					        filepath= "aarna-user-images/"+filepath;
 					        objJson.put("image_path", filepath);
@@ -1006,7 +1041,9 @@ public class HomePageController {
 				r_castesMap.put((Integer)caste.get("id"),(String)caste.get("name"));
 			}
 			request.setAttribute("r_castesMap", r_castesMap);
-			
+			// get the logged in users's photos
+			List<Map<String,Object>> login_user_photosList = objUsersDao.getApprovedUserPhotos(sessionBean.getId());
+			session.setAttribute("logged_in_user_photosList", photosList);
 		} catch (Exception e) {
 	   e.printStackTrace();
 	   System.out.println(e);
@@ -1260,7 +1297,7 @@ public class HomePageController {
 					 if("1".equals(sessionBean.getStatus())){
 			            try{
 			            	 String response="";
-			            	if(sessionBean.getRoleId() == MatrimonyConstants.FREE_USER_ROLE_ID) {
+			            	if(sessionBean.getRoleId() != MatrimonyConstants.FREE_USER_ROLE_ID) {
 			            		response = SendSMS.sendSMS("Dear "  +profileBean.getFirstName()+ " "+profileBean.getLastName() +","+"\n"+sessionBean.getFirstName()+" "+sessionBean.getLastName()+""+"("+sessionBean.getUsername()+")"+" Viewed your profile..\n \nWishing You the best life partner \nTeam - Aarna Matrimony", mobileNum);
 			            	}else {
 			            		response = SendSMS.sendSMS("Dear "  +profileBean.getFirstName()+ " "+profileBean.getLastName() +","+"\n*****"+"("+sessionBean.getUsername()+")"+" Viewed your profile..\n \nWishing You the best life partner \nTeam - Aarna Matrimony", mobileNum);
@@ -2017,7 +2054,7 @@ String sJson="";
 								 if("1".equals(userBean.getStatus())){
 						            try{
 						            	 String response="";
-										  if(userBean.getRoleId() ==  MatrimonyConstants.FREE_USER_ROLE_ID) {
+										  if(userBean.getRoleId() !=  MatrimonyConstants.FREE_USER_ROLE_ID) {
 											  response = SendSMS.sendSMS("Dear "  +receipientUser.getFirstName()+ " "+receipientUser.getLastName() +","+"\n"+userBean.getFirstName()+" "+userBean.getLastName()+""+"("+userBean.getUsername()+")"+" shortlisted your profile..\n \nWishing You the best life partner \nTeam - Aarna Matrimony", mobileNum);
 										  }else {
 											  response = SendSMS.sendSMS("Dear "  +receipientUser.getFirstName()+ " "+receipientUser.getLastName() +","+"\n*****"+"("+userBean.getUsername()+")"+" shortlisted your profile..\n \nWishing You the best life partner \nTeam - Aarna Matrimony", mobileNum);
@@ -2118,7 +2155,7 @@ String sJson="";
 			            if("1".equals(userBean.getStatus())){
 							  try{
 								  String response="";
-								  if(userBean.getRoleId() ==  MatrimonyConstants.FREE_USER_ROLE_ID) {
+								  if(userBean.getRoleId() !=  MatrimonyConstants.FREE_USER_ROLE_ID) {
 									  response = SendSMS.sendSMS("Dear "  +receipientUser.getFirstName()+ " "+receipientUser.getLastName() +","+"\n"+userBean.getFirstName()+" "+userBean.getLastName()+""+"("+userBean.getUsername()+")"+" sent an Interest request to you.. \n \nWishing You the best life partner \nTeam - Aarna Matrimony", mobileNum);
 								  }else {
 									  response = SendSMS.sendSMS("Dear "  +receipientUser.getFirstName()+ " "+receipientUser.getLastName() +","+"\n*****"+"("+userBean.getUsername()+")"+" sent an Interest request to you.. \n \nWishing You the best life partner \nTeam - Aarna Matrimony", mobileNum);
@@ -2203,7 +2240,7 @@ String sJson="";
 			            if("1".equals(userBean.getStatus())){
 						  try{
 							  String response="";
-							  if(userBean.getRoleId()==MatrimonyConstants.FREE_USER_ROLE_ID) {
+							  if(userBean.getRoleId()!=MatrimonyConstants.FREE_USER_ROLE_ID) {
 								    response = SendSMS.sendSMS("Dear "  +receipientUser.getFirstName()+ " "+receipientUser.getLastName() +","+"\n"+userBean.getFirstName()+" "+userBean.getLastName()+""+"("+userBean.getUsername()+")"+" sent an Interest request to you.. \n \nWishing You the best life partner \nTeam - Aarna Matrimony", mobileNum);
 							  }else {
 								  response = SendSMS.sendSMS("Dear "  +receipientUser.getFirstName()+ " "+receipientUser.getLastName() +","+"\n*****"+"("+userBean.getUsername()+")"+" sent an Interest request to you.. \n \nWishing You the best life partner \nTeam - Aarna Matrimony", mobileNum);
@@ -4799,7 +4836,7 @@ String sJson="";
 	            if("1".equals(userBean.getStatus())){
 		            try{
 		            	 String response="";
-						  if(userBean.getRoleId() ==  MatrimonyConstants.FREE_USER_ROLE_ID) {
+						  if(userBean.getRoleId() !=  MatrimonyConstants.FREE_USER_ROLE_ID) {
 						     response = SendSMS.sendSMS("Dear "  +receipientUser.getFirstName()+ " "+receipientUser.getLastName()+","+"\n"+userBean.getFirstName()+" "+userBean.getLastName()+""+"("+userBean.getUsername()+")"+" sent a Message..\n \n"+receipientUser.getMail_content()+""+" \n \nWishing You the best life partner \nTeam - Aarna Matrimony", mobileNum);
 						  }else {
 							  response = SendSMS.sendSMS("Dear "  +receipientUser.getFirstName()+ " "+receipientUser.getLastName()+","+"\n*****"+"("+userBean.getUsername()+")"+" sent a Message..\n \n"+receipientUser.getMail_content()+""+" \n \nWishing You the best life partner \nTeam - Aarna Matrimony", mobileNum);

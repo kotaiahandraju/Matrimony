@@ -1,12 +1,8 @@
 <%@ include file="userHeader.jsp"%>
-<%-- <link href="${baseurl}/css/imgareaselect-default.css" rel="stylesheet" media="screen">
+<link href="${baseurl}/css/imgareaselect-default.css" rel="stylesheet" media="screen">
 <link rel="stylesheet" href="${baseurl}/css/jquery.awesome-cropper.css">
 <script src="${baseurl}/js/jquery.imgareaselect.js"></script> 
-<script src="${baseurl}/js/jquery.awesome-cropper.js"></script> --%> 
-
-<link href="${baseurl}/crop/css/main.css" rel="stylesheet" type="text/css" />
-<link href="${baseurl}/crop/css/jquery.Jcrop.min.css" rel="stylesheet" type="text/css" />
-
+<script src="${baseurl}/js/jquery.awesome-cropper.js"></script> 
 <style>
 .progress img {
 height:  250px;
@@ -80,32 +76,8 @@ height:250px;
 			    	
 			    </div>
    
-			   <!-- <div class="col-md-8">
-			   	<fieldset> -->
-			   		 <div class="col-md-12">
-                            <div><input type="file" name="image_file" id="image_file" onChange="fileSelectHandler()"  /></div>
-                                        <input type="hidden" id="x1" name="x1" />
-					                     <input type="hidden" id="y1" name="y1" />
-					                     <input type="hidden" id="x2" name="x2" />
-					                     <input type="hidden" id="y2" name="y2" />
-                     <div class="error"></div>
-
-                     <div class="step2">
-                         <h2>Step2: Please select a crop region</h2>
-                         <div class="table-responsive">
-                         <img id="preview"  />
-						</div>
-                         <div class="info">
-                             <label>File size</label> <input type="text" id="filesize" name="filesize" />
-                             <label>Type</label> <input type="text" id="filetype" name="filetype" />
-                             <label>Image dimension</label> <input type="text" id="filedim" name="filedim" />
-                             <label>W</label> <input type="text" id="w" name="w" />
-                             <label>H</label> <input type="text" id="h" name="h" />
-                         </div>
-
-                         <input type="button" value="Upload" onclick="imageAjax()" />
-                     </div>
-                                <!-- <fieldset>
+			   <div class="col-md-8">
+			   	<fieldset>
 			   		
 			   		<div id="secondForm">
 			   			<div class="col-md-12">
@@ -114,25 +86,25 @@ height:250px;
 					    <div class="form-group">
 					      <div class="col-md-8">
 					      	<!-- <input type="file" id='imageName1'  onchange="checkImg(this)"><br> -->
-					    	<!-- <form role="form">
+					    	<form role="form">
 						      <input id="imageName" type="hidden" name="test[image]">
 						    </form>
 					      </div>
 					    </div>
 					    <div class="form-group">
 					    	<div class="col-md-8">
-					    	<img alt="Preview" id="previewImg" align="middle" style="border-style: solid;height: 100px;width: 100px;border-bottom-style: none;border-left-style: none;border-top-style: none;">
+<!-- 					    	<img alt="Preview" id="previewImg" align="middle" style="border-style: solid;height: 100px;width: 100px;border-bottom-style: none;border-left-style: none;border-top-style: none;"> -->
 					    	</div>
-					    </div> -->
-					    <!-- <div class="form-group">
+					    </div>
+					    <div class="form-group">
 					    	<div class="col-md-8">
 					    	<br>
 					    		<input type="button" class="btn btn-primary" id="uploadBtn" value="Upload Photo" onclick="imageAjax()">
 					    	</div>
-					    </div> -->
+					    </div>
 					    
 			   		</div>
-			   	<!-- </fieldset> -->
+			   	</fieldset>
 			   </div>
    
     
@@ -194,8 +166,7 @@ function checkImg(objImg)
 }
 
 function imageAjax(){
-	var selected_image = $("#preview").attr("src");
-	if(selected_image == "" || selected_image == "undefined" || selected_image == null){
+	if($("#imageName").val() == "" || $("#imageName").val() == "undefined" || $("#imageName").val() == null){
 		alert("Please Select An Image..!");
 	}
 	else
@@ -205,13 +176,8 @@ function imageAjax(){
 		var formData = new FormData();
 		//var imgurl =  $("#imageName").getCroppedCanvas().toDataURL();
 		//formData.append("imageName", $("#imageName").val());
-		formData.append("imageData", $("#preview").attr("src"));
-		formData.append("fullImg", $('#image_file')[0].files[0]);
-		 formData.append("x_val", $("#x1").val());
-		 formData.append("y_val", $("#y1").val());
-		 formData.append("width", $("#w").val());
-		 formData.append("height", $("#h").val());
-
+		formData.append("imageData", $("#imageName").val());
+		formData.append("fullImg", fullImg);
 		//formData.append("id", id);
 	  	$.fn.makeMultipartRequest('POST', 'croppedPhotoUpload', false, formData, false, 'text', function(data){
 		  	var jsonobj = $.parseJSON(data);
@@ -315,15 +281,15 @@ $(".dashboard").addClass("active");
 
 </script>
 
-<%-- <script src="${baseurl}/js/jquery.imgareaselect.js"></script> 
+<script src="${baseurl}/js/jquery.imgareaselect.js"></script> 
+<script src="${baseurl}/js/jquery.awesome-cropper.js"></script> 
 <script>
 
     $(document).ready(function () {
-       /*  $('#imageName').awesomeCropper(
+        $('#imageName').awesomeCropper(
         { width: 626, height: 417, debug: true }
-        ); */
+        );
     });
-    </script> --%>
-   		
- 
+    </script>
+   
 <%@ include file="userFooter.jsp"%>

@@ -96,7 +96,7 @@ Your friends would need to register successfully 80% profile completion  & you e
   </a></div> -->
   
   <div class="col-md-2 col-sm-2 g-plus" >
-  	<a href="https://plus.google.com/share?url=http%3A//www.aarnamatrimony.com" target="_blank"  class="btn btn-block btn-social btn-google">
+  	<a href="https://plus.google.com/share?url=http%3A//www.aarnamatrimony.com?refcode=${cacheGuest.unique_code}" target="_blank"  class="btn btn-block btn-social btn-google">
   	<span class="fa fa-google"></span>Share on Google+
   	</a>
   </div>

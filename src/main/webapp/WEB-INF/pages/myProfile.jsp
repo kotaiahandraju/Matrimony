@@ -15,6 +15,8 @@
 
 <script src="${baseurl}/js/plugins/jquery.ImageGallery.js"></script> 
 <script src="${baseurl}/js/plugins/jquery.imagesloaded.min.js"></script>
+<script src="${baseurl }/js/plugins/select2/select2.min.js"></script>
+<link rel="stylesheet" href="${baseurl }/css/plugins/select2/select2.css">
   <!-- Start WOWSlider.com HEAD section -->
 <link rel="stylesheet" type="text/css" href="${baseurl}/engine1/style.css" />
 <%-- <script type="text/javascript" src="${baseurl}/engine1/jquery.js"></script> --%>
@@ -1185,6 +1187,8 @@ $(".onlyCharacters").on("keypress",	function(event) {
 <script src="${baseurl}/js/jquery-ui.min.js"></script>
 <script src="${baseurl}/js/my-profile.js"></script>
 <link href="${baseurl}/css/datepicker1.css" rel="stylesheet" type="text/css" />
+<%-- <script src="${baseurl }/js/plugins/select2/select2.min.js"></script> --%>
+<%-- <link rel="stylesheet" href="${baseurl }/css/plugins/select2/select2.css"> --%>
 <script type="text/javascript">
 $(document).ready(function(){
 	
@@ -1553,7 +1557,7 @@ $(document).ready(function(){
         </div>
         <div data-u="slides" style="cursor:default;position:relative;top:0px;left:0px;width:626px;height:417px;overflow:hidden;">
           <c:forEach items="${logged_in_user_photosList}" var="photo" >
-			<div><img data-u="image"  src="${catalina_base}/${photo.folder_name}/${photo.image_name}" alt="${photo.image_name}" title="" id=""/>
+			<div><img data-u="image"  src="${catalina_base}/${photo.folder_name}/full-images/${photo.image_name}" alt="${photo.image_name}" title="" id=""/>
 			<div class="clearfix"></div><div data-u="thumb">
                     <img data-u="thumb" src="${catalina_base}/${photo.folder_name}/${photo.image_name}" alt="${photo.image_name}" />
                 </div>

@@ -67,7 +67,6 @@
 							                //every 1000 milliseconds(1sec)
     </script>
 	<!-- //for-mobile-apps -->
-	
 	<link href="${baseurl }/user/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 	<link href="${baseurl }/user/css/style-profile.css" rel="stylesheet" type="text/css" media="all" />
 	<link href="${baseurl }/user/css/megamenu.css" rel="stylesheet" type="text/css" media="all" />
@@ -80,16 +79,13 @@
 	<link href="${baseurl }/user/css/style.css" rel="stylesheet" type="text/css">
 	<link href="${baseurl }/user/css/style-profile.css" rel="stylesheet" type="text/css">
 	<script src="${baseurl }/user/js/jquery-1.11.1.min.js"></script>
-	<%-- <script src="${baseurl }/js/plugins/select2/select2.min.js"></script> --%>
+	<script src="${baseurl }/js/plugins/select2/select2.min.js"></script>
 	<script src="${baseurl }/js/jquery.watermark.js"></script>
-	
+	<script src="${baseurl }/js/jquery.littlelightbox.js"></script>
 	<link href="${baseurl }/css/jquery.littlelightbox.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
- <script src="${baseurl}/crop/js/jquery.min.js"></script> 
-<script src="${baseurl}/crop/js/jquery.Jcrop.min.js"></script> 
- <script src="${baseurl}/crop/js/script.js"></script>
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> -->
-<script src="dist/select3-full.js"></script><script src="${baseurl }/js/jquery.littlelightbox.js"></script>
+
+
 	<style type="text/css">
 	.navbar-inverse {
     background-color: #00b2e4;
@@ -505,12 +501,7 @@ text-align:center;
 			$("#id").val(profileId);
 			var profileObj = serviceUnitArray[profileId];
 			$("#shortListModalName").html("");
-			var rolee_id = ${cacheGuest.roleId};
 			var expIntUserName=profileObj.firstName+" "+profileObj.lastName+""+"("+profileObj.username+")";
-			if(rolee_id=="4"){
-				expIntUserName='<img src="${baseurl}/images/blurr.png"/>'+"("+profileObj.username+")";
-			}
-			
 			$("#shortListModalName").html(expIntUserName);
 			//var profileObj = serviceUnitArray[profileId];
 			var formData = new FormData();

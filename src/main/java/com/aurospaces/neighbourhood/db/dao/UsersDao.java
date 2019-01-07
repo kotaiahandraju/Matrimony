@@ -84,15 +84,15 @@ public class UsersDao extends BaseUsersDao
 							+" (select occup.name from occupation occup where occup.id = u.fOccupation) as fOccupationName, "
 							+" (select occup.name from occupation occup where occup.id = u.mOccupation) as mOccupationName, "
 							+" ureq.rMaritalStatus as rMaritalStatusName, "
-							+" (select GROUP_CONCAT(rel.name) from religion rel where id in (ureq.rReligion)) as rReligionName, "
-							+" (select GROUP_CONCAT(name) from cast where id in (ureq.rCaste)) as rCasteName, "
+							+" (select GROUP_CONCAT(rel.name) from religion rel where find_in_set(id,ureq.rReligion)>0) as rReligionName, "
+							+" (select GROUP_CONCAT(name) from cast where find_in_set(id,ureq.rCaste)>0) as rCasteName, "
 							+" rDiet as rDietName, "
-							+" (select GROUP_CONCAT(name) from language where id in (ureq.rMotherTongue)) as rMotherTongueName, "
-							+" if(locate('any',ureq.rEducation)>0,\"Doesn't Matter\",(select GROUP_CONCAT(name) from education where id in (ureq.rEducation))) as rEducationName, "
-							+" if(locate('any',ureq.rOccupation)>0,\"Doesn't Matter\",(select GROUP_CONCAT(name) from occupation where id in (ureq.rOccupation))) as rOccupationName, "
-							+" (select GROUP_CONCAT(name) from countries where id in (ureq.rCountry)) as rCountryName, "
-							+" (select GROUP_CONCAT(name) from state where id in (ureq.rState)) as rStateName, "
-							+" (select GROUP_CONCAT(name) from city where id in (ureq.rCity)) as rCityName, "
+							+" (select GROUP_CONCAT(name) from language where find_in_set(id,ureq.rMotherTongue)>0) as rMotherTongueName, "
+							+" if(locate('any',ureq.rEducation)>0,\"Doesn't Matter\",(select GROUP_CONCAT(name) from education where find_in_set(id,ureq.rEducation)>0)) as rEducationName, "
+							+" if(locate('any',ureq.rOccupation)>0,\"Doesn't Matter\",(select GROUP_CONCAT(name) from occupation where find_in_set(id,ureq.rOccupation)>0)) as rOccupationName, "
+							+" (select GROUP_CONCAT(country.name) from countries country where find_in_set(country.id,ureq.rCountry)>0) as rCountryName, "
+							+" (select GROUP_CONCAT(st.name) from state st where find_in_set(st.id,ureq.rState)>0) as rStateName, "
+							+" (select GROUP_CONCAT(ct.name) from city ct where find_in_set(ct.id,ureq.rCity)>0) as rCityName, "
 							+" (select h.inches from height h where h.id  = (ureq.rHeight)) as rHeightInches, "
 							+" (select h.inches from height h where h.id  = (ureq.rHeightTo)) as rHeightToInches, "
 							+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+sessionBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'interest_request') as expressedInterest, "
@@ -231,7 +231,7 @@ public class UsersDao extends BaseUsersDao
 					+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,floor((datediff(current_date(),u.dob))/365) as age, IFNULL(p.name, 'Free Register') as planPackage,u.profileVerifyedBy, "
 					+" (select h.inches from height h where h.id = (select ur.rHeight from vuserrequirement ur where ur.userId = u.id)) as rHeightInches, "
 					+" (select h.inches from height h where h.id = (select ur.rHeightTo from vuserrequirement ur where ur.userId = u.id)) as rHeightToInches ,u.package_id,"
-					+ " DATE_FORMAT(u.created_time, '%d-%M-%Y') as created_time_str, "
+					+ " DATE_FORMAT(u.created_time, '%d-%M-%Y %r') as created_time_str, "
 					+ " (select name from occupation where id = u.fOccupation) as fOccupation,"
 				    + " (select name from occupation where id = u.mOccupation) as mOccupation"
 					+" from users u left join userrequirement ur on u.id=ur.userId "
@@ -243,7 +243,9 @@ public class UsersDao extends BaseUsersDao
 					+" where 1=1  ");
 								
 								if(type.equals("all")){
-									buffer.append( " and u.status in( '1') and u.role_id not in ('3')" );
+									buffer.append( " and u.status in( '1') and u.role_id not in ('3') and "  
+																						+" (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) is not null "  
+																						+" and (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) <> '0' ");
 								}
 								if(type.equals("delete")){
 									buffer.append( " and u.status in( '2') and u.role_id not in ('3')" );
@@ -254,10 +256,12 @@ public class UsersDao extends BaseUsersDao
 											+" and (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) <> '0' ");
 								}
 								if(type.equals("admin")){
-									buffer.append( " and u.registerwith is not null " );
+									buffer.append( " and u.registerwith is not null and " 
+									+" (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) is not null "
+									+" and (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) <> '0' ");
 								}
 								if(type.equals("free")){
-									buffer.append( " and u.role_id in ('4') and "
+									buffer.append( " and u.role_id in ('4') and u.status in( '1') and "
 											+" (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) is not null "
 											+" and (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) <> '0' ");
 								}
@@ -2029,7 +2033,9 @@ public class UsersDao extends BaseUsersDao
 		
 		public int getFreeMembersCount(){
 			jdbcTemplate = custom.getJdbcTemplate();
-			String qryStr = "select count(*) from users where role_id = "+MatrimonyConstants.FREE_USER_ROLE_ID+" and status = '1'";
+			String qryStr = "select count(*) from users u where u.role_id = "+MatrimonyConstants.FREE_USER_ROLE_ID+" and u.status = '1' and  "  
+																				+" (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) is not null "  
+																				+" and (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) <> '0' ";
 			try{
 				int free_users_count = jdbcTemplate.queryForInt(qryStr);
 				return free_users_count;
@@ -3688,7 +3694,7 @@ public class UsersDao extends BaseUsersDao
 		int page_size = MatrimonyConstants.PAGINATION_SIZE;
 		String inner_where_clause = " ui.user_id in (select u.id from users u where u.status='1') and ui.status = '1' and ui.approved_status = '0' ";
 		//String qryStr = "select *,(select count(*) from users where status = '1') as total_count,date_format(updated_time,'%d-%M-%Y') as updatedOn from users where status = '1' order by updated_time desc limit "+page_size+" offset "+(page_no*page_size)+" ";
-		String qryStr = "select *,(select u.username from users u where u.id = ui.user_id) as username, date_format(updated_on,'%d-%M-%Y') as updatedOn, "
+		String qryStr = "select *,(select u.username from users u where u.id = ui.user_id) as username, date_format(updated_on,'%d-%M-%Y %r') as updatedOn, "
 						+" (select count(*) from (select * from vuser_images ui where  "+inner_where_clause+" group by ui.user_id) tt) as total_count  from vuser_images ui " 
 						+" where "+inner_where_clause+" group by username order by ui.updated_on "
 						+" limit "+page_size+" offset "+(page_no*page_size)+" ";
@@ -4378,7 +4384,9 @@ public boolean deletePhoto(String photoId){
 
 		jdbcTemplate = custom.getJdbcTemplate();
 		StringBuffer buffer = new StringBuffer();
-		buffer.append("SELECT COUNT(*) AS totalcount,'Free register' AS package FROM users WHERE role_id ='4'  and status = '1'");
+		buffer.append("SELECT COUNT(*) AS totalcount,'Free register' AS package FROM users u WHERE u.role_id ='4'  and u.status = '1' and "  
+															+" (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) is not null "  
+															+" and (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) <> '0' ");
 							String sql =buffer.toString();
 //							System.out.println(sql);
 							List<Map<String, Object>> result = jdbcTemplate.queryForList(sql);
@@ -4447,7 +4455,7 @@ public boolean deletePhoto(String photoId){
 		jdbcTemplate = custom.getJdbcTemplate();
 		StringBuffer buffer = new StringBuffer();
 		buffer.append("select *,(select concat(u.firstName,' ',u.lastName) from users u where u.id=user_notifications.user_id) as fullName, "
-				+" (select u.username from users u where u.id=user_notifications.user_id) as userName,date_format(user_notifications.created_on,'%d-%M-%Y %H:%i') as created_on, "
+				+" (select u.username from users u where u.id=user_notifications.user_id) as userName,date_format(user_notifications.created_on,'%d-%M-%Y %r') as created_on, "
 				+" (select uimg.image from vuser_images uimg where uimg.user_id=user_notifications.user_id and  uimg.status = '1' and uimg.is_profile_picture='1') as profileImage "
 				+" from user_notifications where profile_id = "+objUserBean.getId()+" and user_type = 'member' "
 				+"  and user_id in (select u.id from users u where u.id = user_id and u.status = '1' ) and user_notifications.read_status = '0' "
@@ -4468,7 +4476,7 @@ public boolean deletePhoto(String photoId){
 		jdbcTemplate = custom.getJdbcTemplate();
 		StringBuffer buffer = new StringBuffer();
 		buffer.append("select *,(select concat(u.firstName,' ',u.lastName) from users u where u.id=user_notifications.user_id) as fullName, "
-				+" (select u.username from users u where u.id=user_notifications.user_id) as userName,date_format(user_notifications.created_on,'%d-%M-%Y') as created_on, "
+				+" (select u.username from users u where u.id=user_notifications.user_id) as userName,date_format(user_notifications.created_on,'%d-%M-%Y %r') as created_on, "
 				+" (select uimg.image from vuser_images uimg where uimg.user_id=user_notifications.user_id and  uimg.status = '1' and uimg.is_profile_picture='1') as profileImage "
 				+" from user_notifications where user_type = 'admin' and notifi_type = '"+notification_type+"' order by created_on desc ");
 		if(!all_notifications){
@@ -4486,7 +4494,7 @@ public boolean deletePhoto(String photoId){
 		jdbcTemplate = custom.getJdbcTemplate();
 		StringBuffer buffer = new StringBuffer();
 		buffer.append("select *,(select concat(u.firstName,' ',u.lastName) from users u where u.id=user_notifications.profile_id) as fullName, "
-				+" (select u.username from users u where u.id=user_notifications.profile_id) as userName,date_format(user_notifications.created_on,'%d-%M-%Y') as created_on, "
+				+" (select u.username from users u where u.id=user_notifications.profile_id) as userName,date_format(user_notifications.created_on,'%d-%M-%Y %r') as created_on, "
 				+" (select uimg.image from vuser_images uimg where uimg.user_id=user_notifications.profile_id and  uimg.status = '1' and uimg.is_profile_picture='1') as profileImage "
 				+" from user_notifications where user_type = 'admin'  order by created_on desc ");
 		if(!all_notifications){
@@ -4560,14 +4568,17 @@ public boolean deletePhoto(String photoId){
 		jdbcTemplate = custom.getJdbcTemplate();
 		StringBuffer buffer = new StringBuffer();
 		
-		buffer.append("select u.id,sta.name as currentStateName,cit.name as currentCityName,u.occupation,ifnull(oc.name,'--') as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
+		buffer.append("select result1.*,DATE_FORMAT(ph.created_time, '%d-%M-%Y %r') as created_time_str" + 
+				"from" + 
+				"(select u.id,sta.name as currentStateName,cit.name as currentCityName,u.occupation,ifnull(oc.name,'--') as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
 				+"u.firstName, u.lastName, u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName, u.currentCountry,co.name as currentCountryName, " 
 				+"u.currentState, u.currentCity, " 
 				+"u.maritalStatus, u.caste,c.name as casteName, u.gotram, u.star,s.name as starName, u.dosam, u.dosamName, u.education, u.workingWith, u.companyName, " 
 				+"u.annualIncome, u.monthlyIncome, u.diet, u.smoking, u.drinking, u.height ,h.inches,h.cm, u.bodyType,b.name as bodyTypeName, u.complexion,com.name as complexionName, ifnull(u.mobile,'---') as mobile, " 
 				+"u.aboutMyself, u.disability, u.status, u.showall,ur.userId, rAgeFrom, rAgeTo, "
 				+"rHeight, rMaritalStatus, rReligion,re1.name as requiredReligionName, rCaste,c1.name as requiredCasteName, rMotherTongue,l1.name as requiredMotherTongue,haveChildren,rCountry , con1.name as requiredCountry,rState,rEducation,e1.name as requiredEducationName, "
-				+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,floor((datediff(current_date(),u.dob))/365) as age, IFNULL(p.name, 'Free Register') as planPackage,p.price as price, DATE_FORMAT(u.created_time, '%d-%M-%Y') as created_time_str from users u left join userrequirement ur on u.id=ur.userId "
+				+"rWorkingWith,rOccupation,oc1.name as requiredOccupationName,rAnnualIncome,rCreateProfileFor,rDiet,DATE_FORMAT(u.dob, '%d-%M-%Y') as dobString,floor((datediff(current_date(),u.dob))/365) as age, IFNULL(p.name, 'Free Register') as planPackage,p.price as price "
+				+ "  from users u left join userrequirement ur on u.id=ur.userId "
 				+"left join religion re on re.id=u.religion left join language l on l.id=u.motherTongue left join countries co on co.id=u.currentCountry "
 				+"left join cast c on c.id=u.caste left join star s on s.id =u.star left join height h on h.id=u.height left join body_type b on b.id=u.bodyType left join religion re1  on re1.id=rReligion "
 				+"left join complexion com on com.id =u.complexion left join cast c1 on c1.id=rCaste left join language l1 on l1.id=rMotherTongue "
@@ -4585,9 +4596,9 @@ public boolean deletePhoto(String photoId){
 						buffer.append( " and u.caste="+objreReportsBean.getCaste() );
 					}
 						buffer.append( " and u.role_id not in ('4' ) ");
-					
-							buffer.append(" group by u.id ");
-							buffer.append(" order by u.created_time desc ");
+					buffer.append(" result1,paymenthistory ph where result1.id = ph.memberId group by result1.id  order by result1.created_time desc ");
+							//buffer.append(" group by u.id ");
+							//buffer.append(" order by u.created_time desc ");
 							String sql =buffer.toString();
 							System.out.println(sql);
 							
@@ -5413,7 +5424,7 @@ public boolean deletePhoto(String photoId){
 		List<Map<String,Object>> list = null;
 		try{
 				String qry = "select *,if(data_updated_time=photo_updated_time,'photo','data') as updated_content from "
-						+ " (select u.*,uimg.updated_on, date_format(updated_time,'%d-%b-%Y %h %p') as data_updated_time,max(updated_on), "
+						+ " (select u.*,uimg.updated_on, date_format(updated_time,'%d-%b-%Y %r') as data_updated_time,max(updated_on), "
 						+ " ifnull(floor((datediff(current_date(),dob))/365),'') as agee,"
 						+ " (select inches from height where id=u.height ) as heightInches ,"
 						+ " (select name from city where id=u.currentCity) as currentCityName, "
@@ -5422,7 +5433,7 @@ public boolean deletePhoto(String photoId){
 						+ " (select name from occupation where id=u.occupation) as occupationName, "
 						+ " (select name from countries where id=u.currentCountry) as currentCountryName, "
 						+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+sessionUserBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'interest_request') as expressedInterest, "
-						+ " date_format(max(updated_on),'%d-%b-%Y %h %p') as photo_updated_time from users u left join vuser_images uimg on  u.id=uimg.user_id "
+						+ " date_format(max(updated_on),'%d-%b-%Y %r') as photo_updated_time from users u left join vuser_images uimg on  u.id=uimg.user_id "
 						+ " where u.status = '1' and u.gender not in ('"+sessionUserBean.getGender()+"') and uimg.status = '1' and uimg.approved_status = '1' "
 						+" group by u.id order by u.updated_time desc limit 10) temp ";
 						
@@ -5466,7 +5477,7 @@ public boolean deletePhoto(String photoId){
 		List<Map<String,Object>> list = null;
 		try{
 				String qry = "select *,if(data_updated_time=photo_updated_time,'photo','data') as updated_content from "
-						+ " (select u.*,uimg.updated_on, date_format(updated_time,'%d-%b-%Y %h %p') as data_updated_time,max(updated_on), "
+						+ " (select u.*,uimg.updated_on, date_format(updated_time,'%d-%b-%Y %r') as data_updated_time,max(updated_on), "
 						+ " ifnull(floor((datediff(current_date(),dob))/365),'') as agee,"
 						+ " (select inches from height where id=u.height ) as heightInches ,"
 						+ " (select name from city where id=u.currentCity) as currentCityName, "
@@ -5475,7 +5486,7 @@ public boolean deletePhoto(String photoId){
 						+ " (select name from occupation where id=u.occupation) as occupationName, "
 						+ " (select name from countries where id=u.currentCountry) as currentCountryName, "
 						+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+sessionUserBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'interest_request') as expressedInterest, "
-						+ " date_format(max(updated_on),'%d-%b-%Y %h %p') as photo_updated_time from users u left join vuser_images uimg on  u.id=uimg.user_id "
+						+ " date_format(max(updated_on),'%d-%b-%Y %r') as photo_updated_time from users u left join vuser_images uimg on  u.id=uimg.user_id "
 						+ " where u.status = '1' and u.gender not in ('"+sessionUserBean.getGender()+"') and uimg.status = '1' and uimg.approved_status = '1' "
 						+" group by u.id order by u.updated_time desc) temp ";
 						
