@@ -4568,7 +4568,7 @@ public boolean deletePhoto(String photoId){
 		jdbcTemplate = custom.getJdbcTemplate();
 		StringBuffer buffer = new StringBuffer();
 		
-		buffer.append("select result1.*,DATE_FORMAT(ph.created_time, '%d-%M-%Y %r') as created_time_str" + 
+		buffer.append("select result1.*,DATE_FORMAT(ph.created_time, '%d-%M-%Y %r') as created_time_str " + 
 				"from" + 
 				"(select u.id,sta.name as currentStateName,cit.name as currentCityName,u.occupation,ifnull(oc.name,'--') as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
 				+"u.firstName, u.lastName, u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName, u.currentCountry,co.name as currentCountryName, " 
@@ -4596,7 +4596,7 @@ public boolean deletePhoto(String photoId){
 						buffer.append( " and u.caste="+objreReportsBean.getCaste() );
 					}
 						buffer.append( " and u.role_id not in ('4' ) ");
-					buffer.append(" result1,paymenthistory ph where result1.id = ph.memberId group by result1.id  order by result1.created_time desc ");
+					buffer.append(" )result1,paymenthistory ph where result1.id = ph.memberId group by result1.id  order by result1.created_time desc ");
 							//buffer.append(" group by u.id ");
 							//buffer.append(" order by u.created_time desc ");
 							String sql =buffer.toString();
