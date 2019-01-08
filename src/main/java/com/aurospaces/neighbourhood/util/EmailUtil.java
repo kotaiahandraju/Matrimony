@@ -1021,7 +1021,9 @@ try{
 				        if(StringUtils.isNotBlank(sender_img)){
 				        	String rootPath = System.getProperty("catalina.base");
 					        //File dir = new File(rootPath + File.separator + "img");
-						 	String image_path = rootPath + File.separator + "webapps"+ File.separator + sender_img.split("/")[0]+ File.separator + sender_img.split("/")[1];
+						 	//String image_path = System.getProperty("catalina.base") + File.separator + "webapps"+ File.separator + sender_img.split("/")[0]+ File.separator + sender_img.split("/")[1];
+						 	//temporary
+						 	String image_path = objContext.getRealPath(sender_img.split("/")[0]+ File.separator + sender_img.split("/")[1]);
 				        	inlineImages.put("senderimage", image_path);
 				        }else{
 				        	inlineImages.put("senderimage", objContext.getRealPath("img" +File.separator+"default.png"));
