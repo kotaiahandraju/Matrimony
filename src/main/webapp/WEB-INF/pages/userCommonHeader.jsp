@@ -338,7 +338,7 @@ width : 0;
 opacity : 0.6;
 font-size : 18px;
 }
-.watermarkcontent7_profilepic {
+.watermarkcontent2_profilepic {
   position: absolute; /* Position the background text */
   top: -15px; /* At the bottom. Use top:0 to append it to the top */
   //background: rgb(0, 0, 0); /* Fallback color */
@@ -350,9 +350,26 @@ font-size : 18px;
 //transform-origin: left top 0;
 width : 0;
 }
+.watermarkcontent2_profilepic span{
+opacity : 0.6;
+font-size : 9px;
+}
+.watermarkcontent7_profilepic {
+  position: absolute; /* Position the background text */
+  top: -15px; /* At the bottom. Use top:0 to append it to the top */
+  //background: rgb(0, 0, 0); /* Fallback color */
+  //background: rgba(0, 0, 0, 0.5); /* Black background with 0.5 opacity */
+  color: white; /* Grey text */
+  width: 100%; /* Full width */
+  padding-left: 40px; /* Some padding */
+  transform: rotate(90deg);
+//transform-origin: left top 0;
+width : 0;
+}
 .watermarkcontent7_profilepic span{
 opacity : 0.6;
-font-size : 25px;
+font-size : 30px;
+color:#fff;
 }
 .watermarkcontent1_profilepic {
   position: absolute; /* Position the background text */
@@ -370,6 +387,42 @@ width : 0;
 opacity : 0.6;
 font-size : 6px;
 }
+.watermarkcontent8_profilepic {
+  position: absolute; /* Position the background text */
+  top: -18px; /* At the bottom. Use top:0 to append it to the top */
+  //background: rgb(0, 0, 0); /* Fallback color */
+  //background: rgba(0, 0, 0, 0.5); /* Black background with 0.5 opacity */
+  color: white; /* Grey text */
+  width: 100%; /* Full width */
+  padding: 10px; /* Some padding */
+  transform: rotate(90deg);
+//transform-origin: left top 0;
+width : 0;
+}
+.watermarkcontent8_profilepic span{
+opacity : 0.6;
+font-size : 35px;
+}
+ .watermarkcontent9_profilepic {
+  position: absolute; /* Position the background text */
+  top: -15px; /* At the bottom. Use top:0 to append it to the top */
+  //background: rgb(0, 0, 0); /* Fallback color */
+  //background: rgba(0, 0, 0, 0.5); /* Black background with 0.5 opacity */
+  color: white; /* Grey text */
+  width: 100%; /* Full width */
+  padding: 10px; /* Some padding */
+  transform: rotate(90deg);
+//transform-origin: left top 0;
+width : 0;
+}
+.watermarkcontent9_profilepic span{
+opacity : 0.6;
+font-size : 14px;
+}
+.picstyle {
+    height: 168px !important;
+    }
+   
 .watermarkcontent_fullpic {
   position: absolute; /* Position the background text */
   padding-top: 30%; /* At the bottom. Use top:0 to append it to the top */
@@ -921,7 +974,7 @@ text-align:center;
 								displayStyle = ' style="display:none" ';
 							}
 							slider += '<div class="picstyle smallSlides'+orderObj.id+'" '+displayStyle+'>'
-									+'	<a href="#"	onclick="fullProfile('+orderObj.id+')"><img src="${catalina_base}/'+photo.image+'" class="img img-responsive watermark_text" style="margin-bottom:0;height: 150px;width: 150px;" ></a>'
+									+'	<a href="#"	onclick="fullProfile('+orderObj.id+')"><img src="${catalina_base}/'+photo.image+'" class="img img-responsive " style="margin-bottom:0;height: auto;width: 100%;" ><div class="watermarkcontent9_profilepic"><span>aarnamatrimony.com</span></div></a>'
 									+'</div>'
 						});
 						if(photos_list.length>1){
@@ -1527,8 +1580,8 @@ text-align:center;
 								}else{
 									displayStyle = ' style="display:none" ';
 								}
-								slider += '<div class="smallSlides'+orderObj.id+'" '+displayStyle+'>'
-										+'<a href="#" onclick="fullProfile('+orderObj.id+')"><img src="${catalina_base}/'+photo.image+'" class="img img-responsive thumbnail " style="margin-bottom:0;height: auto;width: 100%;" ></a>'
+								slider += '<div class="smallSlides'+orderObj.id+'" '+displayStyle+' style="margin-bottom:0;height: 96px;width: 96px;">'
+										+'<a href="#" onclick="fullProfile('+orderObj.id+')"><img src="${catalina_base}/'+photo.image+'" class=" " style="margin-bottom:0;height: 96px;width: 96px;" ><div class="watermarkcontent2_profilepic"><span>aarnamatrimony.com</span></div></a>'
 										+'</div>'
 							});
 							if(photos_list.length>1){
@@ -4040,8 +4093,8 @@ img.hover-shadow {
 								<a href="#no" class="dropdown-toggle" data-toggle="dropdown">Matches <span class="matchcount" id="matches_count">${cacheGuest.yetToBeViewedCount}</span></a>
 								<ul class="dropdown-menu">
 									<li><a href="newMatches">New Matches</a></li>
-									<li><a href="yetToBeViewed">Yet to be viewed(${cacheGuest.yetToBeViewedCount}) </a></li>
-									<li><a href="viewedNotContacted">Viewed & not contacted<span id="viewed_not_contacted_count">(${cacheGuest.viewedNotContactedCount})</span></a></li>
+									<li><a href="yetToBeViewed">Yet to be viewed (${cacheGuest.yetToBeViewedCount}) </a></li>
+									<li><a href="viewedNotContacted">Viewed & not contacted (<span id="viewed_not_contacted_count">(${cacheGuest.viewedNotContactedCount})</span>)</a></li>
 									<li><a href="shortListedByMe">Shortlisted Matches</a></li>
 									<!-- <li><a href="#no">Premium Members</a></li> -->
 								</ul>
@@ -4072,10 +4125,14 @@ img.hover-shadow {
 												<div class="notifyDivAll notifyDiv${notification.id}">
 													<div class="col-md-3 col-xs-3"  style="height:55px; overflow:hidden;padding-right:0px; padding-left:0px;" >
 														<c:if test="${not empty notification.profileImage}">
-															<img src="${catalina_base}/${notification.profileImage}" style="width: 100%;padding: 5px;">
+															<img src="${catalina_base}/${notification.profileImage}" style="width: 100%;padding: 5px;"><div class="watermarkcontent1_profilepic">
+										<span>aarnamatrimony.com</span>
+									</div>
 														</c:if>
 														<c:if test="${empty notification.profileImage}">
-															<img src="${baseurl}/img/default.png" style="width: 100%;padding: 5px;">
+															<img src="${baseurl}/img/default.png" style="width: 100%;padding: 5px;"><div class="watermarkcontent1_profilepic">
+										<span>aarnamatrimony.com</span>
+									</div>
 														</c:if>
 													</div>
 													<div class="col-md-7" style="padding-right:0px; padding-left:0px;" >

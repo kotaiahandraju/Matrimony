@@ -31,10 +31,14 @@ margin-bottom:0px;}
 	            <div class="panel-body" style="padding:10px 0px;">
 	            <div class="col-md-5 col-xs-5" style="padding-right:0px; padding-left:0px;">
 	            <c:if test="${not empty loc_prof.profileImage}">
-	            	<a href="#"  onclick="fullProfile('${loc_prof.id}')"><img src="${catalina_base}/${loc_prof.profileImage}" style="cursor: pointer;border-radius: 50%;no-repeat;width: 80px;height: 80px;display: block;border: 1px solid #e1e1e1;border-radius: 50%;background-size: 75px 75px;"></a>
+	            	<a href="#"  onclick="fullProfile('${loc_prof.id}')"><img src="${catalina_base}/${loc_prof.profileImage}" style="cursor: pointer;border-radius: 50%;no-repeat;width: 80px;height: 80px;display: block;border: 1px solid #e1e1e1;border-radius: 50%;background-size: 75px 75px;"><div class="watermarkcontent1_profilepic">
+										<span>aarnamatrimony.com</span>
+									</div></a>
 	            </c:if>
 	            <c:if test="${empty loc_prof.profileImage}">
-	            	<img src="${baseurl}/img/default.png" style="cursor: pointer;border-radius: 50%;no-repeat;width: 80px;height: 80px;display: block;border: 1px solid #e1e1e1;border-radius: 50%;background-size: 75px 75px;">
+	            	<img src="${baseurl}/img/default.png" style="cursor: pointer;border-radius: 50%;no-repeat;width: 80px;height: 80px;display: block;border: 1px solid #e1e1e1;border-radius: 50%;background-size: 75px 75px;"><div class="watermarkcontent1_profilepic">
+										<span>aarnamatrimony.com</span>
+									</div>
 	            </c:if>
 	            
 				   </div><div class="col-md-7 col-xs-7" style="padding-right:0px; padding-left:0px;">   <p><a href="#" style="color:blue;"  onclick="fullProfile('${loc_prof.id}')">${loc_prof.username} </a><br>
@@ -68,10 +72,14 @@ margin-bottom:0px;}
 	<div class="panel-body" style="padding:10px 0px;">
 	            <div class="col-md-5 col-xs-5" style="padding-right:0px; padding-left:0px;">
 	            <c:if test="${not empty pref_prof.profileImage}">
-	            	<a href="#" onclick="fullProfile('${pref_prof.id}')"><img src="${catalina_base}/${pref_prof.profileImage}" style="cursor: pointer;border-radius: 50%;no-repeat;width: 80px;height: 80px;display: block;border: 1px solid #e1e1e1;border-radius: 50%;background-size: 75px 75px;"></a>
+	            	<a href="#" onclick="fullProfile('${pref_prof.id}')"><img src="${catalina_base}/${pref_prof.profileImage}" style="cursor: pointer;border-radius: 50%;no-repeat;width: 80px;height: 80px;display: block;border: 1px solid #e1e1e1;border-radius: 50%;background-size: 75px 75px;"><div class="watermarkcontent1_profilepic">
+										<span>aarnamatrimony.com</span>
+									</div></a>
             	</c:if>
             	<c:if test="${empty pref_prof.profileImage}">
-	            	<img src="${baseurl}/img/default.png" style="cursor: pointer;border-radius: 50%;no-repeat;width: 80px;height: 80px;display: block;border: 1px solid #e1e1e1;border-radius: 50%;background-size: 75px 75px;">
+	            	<img src="${baseurl}/img/default.png" style="cursor: pointer;border-radius: 50%;no-repeat;width: 80px;height: 80px;display: block;border: 1px solid #e1e1e1;border-radius: 50%;background-size: 75px 75px;"><div class="watermarkcontent1_profilepic">
+										<span>aarnamatrimony.com</span>
+									</div>
 	            </c:if>
 	   </div><div class="col-md-7 col-xs-5" style="padding-right:0px; padding-left:0px;">   <p><a href="#" style="color:blue;" onclick="fullProfile('${pref_prof.id}')">${pref_prof.username} </a><br>
 	<a href="#">${pref_prof.age} Yrs, ${pref_prof.heightInches}</a><br>
@@ -104,10 +112,14 @@ margin-bottom:0px;}
 			<div class="panel-body" style="padding:10px 0px;">
 	            <div class="col-md-5 col-xs-5" style="padding-right:0px; padding-left:0px;">
 	            <c:if test="${not empty pref_edu.profileImage}">
-	            <a href="#" onclick="fullProfile('${pref_edu.id}')"><img src="${catalina_base}/${pref_edu.profileImage}" style="cursor: pointer;border-radius: 50%;no-repeat;width: 80px;height: 80px;display: block;border: 1px solid #e1e1e1;border-radius: 50%;background-size: 75px 75px;"></a>
+	            <a href="#" onclick="fullProfile('${pref_edu.id}')"><img src="${catalina_base}/${pref_edu.profileImage}" style="cursor: pointer;border-radius: 50%;no-repeat;width: 80px;height: 80px;display: block;border: 1px solid #e1e1e1;border-radius: 50%;background-size: 75px 75px;"><div class="watermarkcontent1_profilepic">
+										<span>aarnamatrimony.com</span>
+									</div></a>
 	            </c:if>
 	            <c:if test="${empty pref_edu.profileImage}">
-	            	<img src="${baseurl}/img/default.png" style="cursor: pointer;border-radius: 50%;no-repeat;width: 80px;height: 80px;display: block;border: 1px solid #e1e1e1;border-radius: 50%;background-size: 75px 75px;">
+	            	<img src="${baseurl}/img/default.png" style="cursor: pointer;border-radius: 50%;no-repeat;width: 80px;height: 80px;display: block;border: 1px solid #e1e1e1;border-radius: 50%;background-size: 75px 75px;"><div class="watermarkcontent1_profilepic">
+										<span>aarnamatrimony.com</span>
+									</div>
 	            </c:if>
 	   </div><div class="col-md-7 col-xs-7" style="padding-right:0px; padding-left:0px;">   <p><a href="#" style="color:blue;" onclick="fullProfile('${pref_edu.id}')">${pref_edu.username} </a><br>
 	<a href="#">${pref_edu.age} Yrs, ${pref_edu.heightInches}</a><br>
