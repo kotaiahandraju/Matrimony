@@ -36,6 +36,38 @@
 		</script> -->
 <!-- //the jScrollPane script -->
 <style>
+.watermarkcontent2_profilepic {
+  position: absolute; /* Position the background text */
+  top: -15px; /* At the bottom. Use top:0 to append it to the top */
+  //background: rgb(0, 0, 0); /* Fallback color */
+  //background: rgba(0, 0, 0, 0.5); /* Black background with 0.5 opacity */
+  color: white; /* Grey text */
+  width: 100%; /* Full width */
+  padding-left: 30px; /* Some padding */
+  transform: rotate(90deg);
+//transform-origin: left top 0;
+width : 0;
+}
+.watermarkcontent2_profilepic span{
+opacity : 0.6;
+font-size : 13px;
+}
+.watermarkcontent3_profilepic {
+  position: absolute; /* Position the background text */
+  top: -15px; /* At the bottom. Use top:0 to append it to the top */
+  //background: rgb(0, 0, 0); /* Fallback color */
+  //background: rgba(0, 0, 0, 0.5); /* Black background with 0.5 opacity */
+  color: white; /* Grey text */
+  width: 100%; /* Full width */
+  padding-left: 30px; /* Some padding */
+  transform: rotate(90deg);
+//transform-origin: left top 0;
+width : 0;
+}
+.watermarkcontent3_profilepic span{
+opacity : 0.6;
+font-size : 16px;
+}
 @media only screen and (max-width: 640px) and (min-width: 320px) {
 .container .col-md-12 {
 padding:0px !important;
@@ -71,7 +103,9 @@ padding:0px !important;}
 					      	<c:forEach items="${photosList}" var="photo1" >
 					      		<c:set var="uId" value="${photo1.user_id}" scope="page" />
 					      		<div class="col-md-2">
-					      			<img src="${catalina_base}/${photo1.image}" class="img-responsive thumbnail watermark_text" style="margin-bottom:0;">
+					      			<img src="${catalina_base}/${photo1.image}" class="img-responsive thumbnail " style="margin-bottom:0;"><div class="watermarkcontent2_profilepic">
+										<span>aarnamatrimony.com</span>
+									</div>
 					      			<c:if test="${photo1.approved_status == '1'}">
 										<span>Approved</span>
 										
@@ -93,7 +127,10 @@ padding:0px !important;}
 												    </div>
 						<div class="col-md-3">
 							 <c:if test="${not empty profileBean.profileImage}">
-								<img id="profImage" src="${catalina_base}/${profileBean.profileImage}" class="img-responsive thumbnail watermark_text" style="margin-bottom:0;">
+								<img id="profImage" src="${catalina_base}/${profileBean.profileImage}" class="img-responsive thumbnail " style="margin-bottom:0;">
+							<div class="watermarkcontent3_profilepic">
+										<span>aarnamatrimony.com</span>
+									</div>
 							</c:if>
 							<c:if test="${empty profileBean.profileImage}">
 								<img src="${baseurl }/img/default.png" class="img-responsive thumbnail" style="margin-bottom:0;">
