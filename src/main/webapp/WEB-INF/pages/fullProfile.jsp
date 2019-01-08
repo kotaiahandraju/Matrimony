@@ -1488,7 +1488,7 @@ left:10px !important;
         </div>
         <div data-u="slides" style="cursor:default;top:0px;left:0px;width:625px;max-width:625px;height:600px;max-height:600px;">
           <c:forEach items="${fullProfilePhotosList}" var="photo" >
-			<div><img  style="width:auto; max-width:625px; height;auto;"  class="watermark_text"  src="${catalina_base}/${photo.folder_name}/${photo.image_name}" alt="${photo.image_name}" title="" id=""/>
+			<div><img  style="width:auto; max-width:625px; height;auto;"  class="watermark_text"  src="${catalina_base}/${photo.folder_name}/full-images/${photo.image_name}" alt="${photo.image_name}" title="" id=""/>
 			<div class="clearfix"></div><div data-u="thumb">
                     <img data-u="thumb" style="width:100%;height:auto;" class="watermark_text" src="${catalina_base}/${photo.folder_name}/${photo.image_name}" alt="${photo.image_name}" />
                 </div>

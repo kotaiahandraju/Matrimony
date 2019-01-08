@@ -4568,9 +4568,7 @@ public boolean deletePhoto(String photoId){
 		jdbcTemplate = custom.getJdbcTemplate();
 		StringBuffer buffer = new StringBuffer();
 		
-		buffer.append("select result1.*,DATE_FORMAT(ph.created_time, '%d-%M-%Y %r') as created_time_str " + 
-				"from" + 
-				"(select u.id,sta.name as currentStateName,cit.name as currentCityName,u.occupation,ifnull(oc.name,'--') as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
+		buffer.append("select u.id,sta.name as currentStateName,cit.name as currentCityName,u.occupation,ifnull(oc.name,'--') as occupationName,ed.name as educationName,ur.userrequirementId,GROUP_CONCAT(uimg.image) as image,u.created_time, u.updated_time, u.role_id, u.username, u.password, u.email, u.createProfileFor,u.gender, "
 				+"u.firstName, u.lastName, u.dob, u.religion,re.name as religionName, u.motherTongue,l.name as motherTongueName, u.currentCountry,co.name as currentCountryName, " 
 				+"u.currentState, u.currentCity, " 
 				+"u.maritalStatus, u.caste,c.name as casteName, u.gotram, u.star,s.name as starName, u.dosam, u.dosamName, u.education, u.workingWith, u.companyName, " 
@@ -4585,21 +4583,33 @@ public boolean deletePhoto(String photoId){
 				+"left join countries con1 on con1.id=rCountry left join education e1 on e1.id=rEducation left join occupation oc1 on oc1.id=rOccupation  left join user_images uimg on uimg.user_id=u.id left join occupation oc on u.occupation=oc.id left join education ed on ed.id=u.education "
 				+ " left join state sta on sta.id=u.currentState left join city cit on cit.id=u.currentCity left join package p on u.package_id = p.id "
 				+" where 1=1  ");
+					
+		
 		
 					 if(StringUtils.isNotBlank(objreReportsBean.getPackages())){
 						buffer.append( " and u.package_id ="+objreReportsBean.getPackages() );
 					}
-					if(StringUtils.isNotBlank(objreReportsBean.getFromdate()) && StringUtils.isNotBlank(objreReportsBean.getTodate())){
-						buffer.append( " and Date(u.created_time) BETWEEN Date('"+new java.sql.Timestamp(objreReportsBean.getFromdate1().getTime())+"') AND Date('"+new java.sql.Timestamp(objreReportsBean.getTodate1().getTime())+"') " );
-					}
+					
 					if(StringUtils.isNotBlank(objreReportsBean.getCaste())){
 						buffer.append( " and u.caste="+objreReportsBean.getCaste() );
 					}
 						buffer.append( " and u.role_id not in ('4' ) ");
-					buffer.append(" )result1,paymenthistory ph where result1.id = ph.memberId group by result1.id  order by result1.created_time desc ");
+						buffer.append( " group by u.id ");
+						
+						StringBuffer buffer2 = new StringBuffer();	
+						buffer2.append(" select result1.*,ph.memberId,DATE_FORMAT(ph.created_time, '%d-%M-%Y %r') as created_time_str "
+								+ " from "
+								+ " (select memberId,created_time,paymentStatus from paymenthistory where paymentStatus = 'success') ph , "
+								+ " ("+buffer+") result1 "
+								+ " where result1.id = ph.memberId   ");
+						if(StringUtils.isNotBlank(objreReportsBean.getFromdate()) && StringUtils.isNotBlank(objreReportsBean.getTodate())){
+							buffer2.append( " and Date(ph.created_time) BETWEEN Date('"+new java.sql.Timestamp(objreReportsBean.getFromdate1().getTime())+"') AND Date('"+new java.sql.Timestamp(objreReportsBean.getTodate1().getTime())+"') " );
+						}
+						buffer2.append( " group by ph.created_time, ph.memberId  order by ph.created_time desc  ");
+					//buffer.append(" )result1,paymenthistory ph where result1.id = ph.memberId group by result1.id  order by result1.created_time desc ");
 							//buffer.append(" group by u.id ");
 							//buffer.append(" order by u.created_time desc ");
-							String sql =buffer.toString();
+							String sql =buffer2.toString();
 							System.out.println(sql);
 							
 							
