@@ -7,6 +7,9 @@
     background-color: #00b2e3;
     padding: 0;
 } */
+.panel-group .panel-heading + .panel-collapse > .panel-body, .panel-group .panel-heading + .panel-collapse > .list-group {
+     border-top: none; 
+}
 .media-carousel {
     margin-bottom: 0;
     padding: 0 0px 0px 0px;

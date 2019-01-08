@@ -6,6 +6,7 @@
 
     <!-- for documentation: you don't need them -->
     <link rel="stylesheet" href="${baseurl }/documentation/css/documentation.css" media="screen" type="text/css">
+    <link rel="stylesheet" href="${baseurl }/documentation/css/myprofile.css" media="screen" type="text/css">
     <link rel="stylesheet" href="http://yandex.st/highlightjs/8.0/styles/default.min.css" media="screen" type="text/css">
     <script type="text/javascript" src="${baseurl }/documentation/js/document.js"></script>
     <script src="${baseurl }/documentation/js/highlight.pack.js"></script>
@@ -22,27 +23,7 @@
 <%-- <script type="text/javascript" src="${baseurl}/engine1/jquery.js"></script> --%>
 <!-- End WOWSlider.com HEAD section -->
 <style>
-.watermark_text {
-font-size:13px}
-.cha {
-min-height: 20px;
-    padding: 19px;
-    margin-bottom: 20px;
-    background-color: #fff;
-    border: 1px solid #e3e3e3;
-    border-radius: 4px;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
-    }
-    .modal{
-    background: rgba(0, 0, 0, 0.3) !important;
-		height: auto;
-		padding: 10px 10px;
-		border-radius: 5px;
-		-webkit-box-shadow: 3px 4px 8px rgba(0, 0, 0, .21);
-		-moz-box-shadow: 3px 4px 8px rgba(0, 0, 0, .21);
-		box-shadow: 3px 4px 8px rgba(0, 0, 0, .21);
-		border: solid 3px rgba(220, 220, 220, .37);}
+
 </style>
 <noscript>
 			<style>
@@ -70,297 +51,7 @@ min-height: 20px;
 			</div>
 		</script> 
     <style>
-    #mobileNoText {
-    font-size:13px;
-    }
-        #mySlider {
-            width: 580px;
-            height: 520px;
-            margin: auto; /* for center alignment */
-        }
-        #mySlider .mini-images li {
-            width: 100px;
-            height: 50px;
-        }
-       td:first-child{ width: 150px; }
-       td:nth-child(2) {width:10px !important;}
-        td:fourth-child{ width: 150px; } 
-       /*  .modal-header .close {
-    margin-top: -12px;
-} */
-/* @media (min-width: 768px) {
-.modal-dialog {
-   width: px !important;
-    margin: 30px 250px !important;
-}
-} */
-td, th {
-vertical-align:top;
-}
-        /* for tablet */
-        @media screen and (max-width: 980px) {
-            #mySlider {
-                width: 100%;
-                height: 450px;
-            }
-        }
-        /* for mobile */
-        @media screen and (max-width: 640px) {
-            #mySlider {
-                width: 570px;
-                height: 450px;
-            }
-        }
-         @media screen and (max-width: 480px) {
-            #mySlider {
-                width: 400px;
-                height: 380px;
-            }
-        }
-         @media screen and (max-width: 414px) {
-            #mySlider {
-                width: 350px;
-                height: 350px;
-            }
-        }
-          @media screen and (max-width: 360px) {
-            #mySlider {
-                width: 300px;
-                height: 350px;
-            }
-        }
-          @media screen and (max-width: 320px) {
-            #mySlider {
-                width: 280px;
-                height: 250px;
-            }
-        }
-        @media  (min-width: 320px) and (max-width:640px) {
-        .anin {
-        width:100%;}
-        .navbar-custom .dropdown:hover .dropdown-menu {
-    display: block;
-  }
-        }
-        
-    </style>
-<style>
-       .anin{
-       border-radius:0px;
-       width : 187px;
-       }     	
-       
-.img-replace {
-  
-  display: inline-block;
-  overflow: hidden;
-  text-indent: 100%;
-  color: transparent;
-  white-space: nowrap;
-}
-.cd-nugget-info a {
-  position: relative;
-  font-size: 14px;
-  color: #5e6e8d;
-  -webkit-transition: all 0.2s;
-  -moz-transition: all 0.2s;
-  transition: all 0.2s;
-}
-.no-touch .cd-nugget-info a:hover {
-  opacity: .8;
-}
-.cd-nugget-info span {
-  vertical-align: middle;
-  display: inline-block;
-}
-.cd-nugget-info span svg {
-  display: block;
-}
-.cd-nugget-info .cd-nugget-info-arrow {
-  fill: #5e6e8d;
-}
-.mobileNoDiv {
-margin-bottom:5px;
-}
-
-/* -------------------------------- 
-
-Main components 
-
--------------------------------- */
-header {
-  height: 200px;
-  line-height: 200px;
-  text-align: center;
-  background-color: #5e6e8d;
-  color: #FFF;
-}
-header h1 {
-  font-size: 20px;
-  font-size: 1.25rem;
-}
-
-.cd-popup-trigger {
-  display: block;
-  width: 170px;
-  height: 50px;
-  line-height: 50px;
-  margin: 3em auto;
-  text-align: center;
-  color: #FFF;
-  font-size: 14px;
-  font-size: 0.875rem;
-  font-weight: bold;
-  text-transform: uppercase;
-  border-radius: 50em;
-  background: #35a785;
-  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.07);
-  
-}
-@media only screen and (min-width: 1170px) {
-  .cd-popup-trigger {
-    margin: 6em auto;
-  }
-}
-
-/* -------------------------------- 
-
-xpopup 
-
--------------------------------- */
-.cd-popup {
-  position: fixed;
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 100%;
-  background-color: rgba(94, 110, 141, 0.9);
-  opacity: 0;
-  visibility: hidden;
-  -webkit-transition: opacity 0.3s 0s, visibility 0s 0.3s;
-  -moz-transition: opacity 0.3s 0s, visibility 0s 0.3s;
-  transition: opacity 0.3s 0s, visibility 0s 0.3s;
-  
-}
-.cd-popup.is-visible {
-  opacity: 1;
-  visibility: visible;
-  -webkit-transition: opacity 0.3s 0s, visibility 0s 0s;
-  -moz-transition: opacity 0.3s 0s, visibility 0s 0s;
-  transition: opacity 0.3s 0s, visibility 0s 0s;
-}
-
-.cd-popup-container {
-  position: relative;
-  width: 90%;
-  max-width: 400px;
-  margin: 4em auto;
-  background: #FFF;
-  border-radius: .25em .25em .4em .4em;
-  text-align: center;
-  
-  -webkit-transform: translateY(-40px);
-  -moz-transform: translateY(-40px);
-  -ms-transform: translateY(-40px);
-  -o-transform: translateY(-40px);
-  transform: translateY(-40px);
-  /* Force Hardware Acceleration in WebKit */
-  -webkit-backface-visibility: hidden;
-  -webkit-transition-property: -webkit-transform;
-  -moz-transition-property: -moz-transform;
-  transition-property: transform;
-  -webkit-transition-duration: 0.3s;
-  -moz-transition-duration: 0.3s;
-  transition-duration: 0.3s;
-   -moz-box-shadow:    inset 0 0 10px #006699;
-   -webkit-box-shadow: inset 0 0 10px #006699;
-   box-shadow:         inset 0 0 10px #006699;
-}
-.cd-popup-container  {
-  padding: 3em 1em;
-  
-}
-.cd-popup-container p {
-  text-align:left;
-}
-.cd-popup-container .cd-buttons:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-.cd-popup-container .cd-buttons li {
-  float: left;
-  width: 50%;
-  list-style: none;
-}
-.cd-popup-container .cd-buttons a {
-  display: block;
-  height: 60px;
-  line-height: 60px;
-  text-transform: uppercase;
-  color: #FFF;
-  -webkit-transition: background-color 0.2s;
-  -moz-transition: background-color 0.2s;
-  transition: background-color 0.2s;
-}
-.cd-popup-container .cd-buttons li:first-child a {
-  background: #fc7169;
-  border-radius: 0 0 0 .25em;
-}
-.no-touch .cd-popup-container .cd-buttons li:first-child a:hover {
-  background-color: #fc8982;
-}
-.cd-popup-container .cd-buttons li:last-child a {
-  background: #b6bece;
-  border-radius: 0 0 .25em 0;
-}
-.no-touch .cd-popup-container .cd-buttons li:last-child a:hover {
-  background-color: #c5ccd8;
-}
-.cd-popup-container .cd-popup-close {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  width: 30px;
-  height: 30px;
-}
-.cd-popup-container .cd-popup-close::before, .cd-popup-container .cd-popup-close::after {
-  content: '';
-  position: absolute;
-  top: 12px;
-  width: 14px;
-  height: 3px;
-  background-color: #8f9cb5;
-}
-.cd-popup-container .cd-popup-close::before {
-  -webkit-transform: rotate(45deg);
-  -moz-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  -o-transform: rotate(45deg);
-  transform: rotate(45deg);
-  left: 8px;
-}
-.cd-popup-container .cd-popup-close::after {
-  -webkit-transform: rotate(-45deg);
-  -moz-transform: rotate(-45deg);
-  -ms-transform: rotate(-45deg);
-  -o-transform: rotate(-45deg);
-  transform: rotate(-45deg);
-  right: 8px;
-}
-.is-visible .cd-popup-container {
-  -webkit-transform: translateY(0);
-  -moz-transform: translateY(0);
-  -ms-transform: translateY(0);
-  -o-transform: translateY(0);
-  transform: translateY(0);
-}
-@media only screen and (min-width: 1170px) {
-  .cd-popup-container {
-    margin: 8em auto;
-  }
-}
-
+   
 
 </style>
 <script type="text/javascript">
@@ -454,14 +145,13 @@ $(".onlyCharacters").on("keypress",	function(event) {
                 	<input type="text" placeholder="+91-${cacheGuest.mobile}" id="mobile" class="numbersOnly" onblur="validate(this.id,'Enter Mobile Number');" maxlength="10" />
                 	<br><span class="hasError" id="mobileError111" style="font-size: 13px;color:red"></span>
                 </div> 
-                <div id="mobileNoDiv"><span style="background:url(${baseurl}/user/images/mobile.gif) no-repeat left top;padding-left:13px; font-weight:600;">&nbsp;<span id="mobileNoText">+91-${cacheGuest.mobile}</span>&nbsp;<font class="mediumtxt">(&nbsp;<img src="${baseurl}/user/images/tick.gif" alt="" title="" style="vertical-align:middle;" width="14" hspace="5" height="11"> <span style="color: green;font:14px/18px Arial;color:#4baa26;">Verified </span>)</font>&nbsp;&nbsp;</span>&nbsp;</div>
-                <a href="#no" id="editMobileAnchor" style="color:blue; font-size:12px; text-decoration:none;"  onclick="displayEditMobilenumberDiv(${profileBean.id},'${cacheGuest.mobile}')">Edit Mobile No.</a>
+                <div id="mobileNoDiv"><span style="background:url(${baseurl}/user/images/mobile.gif) no-repeat left top;padding-left:13px; font-weight:600;">&nbsp;<span id="mobileNoText">+91-${cacheGuest.mobile}</span>&nbsp;<font class="mediumtxt">(&nbsp;<img src="${baseurl}/user/images/tick.gif" alt="" title="" style="vertical-align:middle; width:14px; hspace:5; height:11px;"> <span style="color: green;font:14px/18px Arial ;color:#4baa26;">Verified </span>)</font>&nbsp;&nbsp;</span>&nbsp;</div>
+                <a href="#no" id="editMobileAnchor"   onclick="displayEditMobilenumberDiv(${profileBean.id},'${cacheGuest.mobile}')">Edit Mobile No.</a>
                  <br>
                 
                 </div>
                 <div class="col-md-3">
-               
-             <p style=" color:#000;font-size: 13px; text-align:center;">How your profile looks
+             <p style=" color:#000 ; font-size: 13px; text-align:center;">How your profile looks
                 to others <br><a href="#no" onclick="fullProfile(${profileBean.id})" class="" style=" width:auto; border:1px solid #cccccc;padding:7px 40px 7px 40px;display:inline-block;border-radius:5px;background:url(${baseurl}/user/images/eye.gif) no-repeat 10px 8px;margin-top:5px;text-decoration:none;">Profile Preview</a>
                 </p></div>
 

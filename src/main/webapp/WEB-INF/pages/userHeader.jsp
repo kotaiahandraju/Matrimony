@@ -1,7 +1,11 @@
 
 
 <%@ include file="userCommonHeader.jsp"%>
-
+<style>
+#profilePicOuterTag {
+height:217px; overflow:hidden;
+}
+</style>
 <!-- body starts here-->
 <div class="products">
 	<div class="container" style="background: #f1f1f1;">
@@ -30,7 +34,7 @@
 					<div class="row">
 						<div class="col-md-12 profileauto">
 							<c:if test="${not empty cacheGuest.profileImage}">
-								<div class="profilepic0"><a href="myPhotos"  id="profilePicOuterTag" ><img id="profilepic" src="${catalina_base}/${cacheGuest.profileImage}" class="hover-shadow cursor  " style="margin-bottom:0;height:150px;width: 150px;" /></a>
+								<div class="profilepic0"><a href="myPhotos"  id="profilePicOuterTag" ><img id="profilepic" src="${catalina_base}/${cacheGuest.profileImage}" class="hover-shadow cursor  " style="margin-bottom:0;height:auto;width: 100%;" /></a>
 									<div class="watermarkcontent_profilepic">
 										<span>aarnamatrimony.com</span>
 									</div>							

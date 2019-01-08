@@ -86,12 +86,14 @@
 	<link href="${baseurl }/css/jquery.littlelightbox.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<%-- <script src="${baseurl}/crop/js/jquery.min.js"></script> --%>
+<script src="${baseurl}/crop/js/jquery.min.js"></script>
 <script src="${baseurl}/crop/js/jquery.Jcrop.min.js"></script> 
  <script src="${baseurl}/crop/js/script.js"></script>
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.1.0/chosen.jquery.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.1.0/chosen.min.css">
+ 	<script src="${baseurl }/js/jquery.littlelightbox.js"></script>
+ 
+<!--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
+<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.1.0/chosen.jquery.min.js"></script> -->
+<!-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.1.0/chosen.min.css"> -->
 	<style type="text/css">
 	.navbar-inverse {
     background-color: #00b2e4;
@@ -334,7 +336,7 @@ width : 0;
 }
 .watermarkcontent_profilepic span{
 opacity : 0.6;
-font-size : 13px;
+font-size : 18px;
 }
 .watermarkcontent1_profilepic {
   position: absolute; /* Position the background text */
@@ -2799,7 +2801,7 @@ function goBack() {
         });
     </script>
     
-    
+   <script type="text/javascript" src="${baseurl }/js/ajax.js"></script> 
 	<script type="text/javascript" src="${baseurl }/js/jquery-asPaginator.js"></script>
 	<script src="${baseurl }/js/jquery.watermark.js"></script>
 	<%-- <script type="text/javascript" src="${baseurl }/js/common.js"></script> --%>
@@ -3952,17 +3954,17 @@ img.hover-shadow {
 		<div class="col-md-1 col-xs-1">
 		<div class="pull-right" style="width:80px;">
 		<ul class="nav navbar-nav navbar-right">
-							<li class="dropdown dropdown1 settings pull-right" style="height:62px; width:96px; background:#f1f1f1; padding:0px;border-right:none;">
-								<a href="#no" class="dropdown-toggle setpic" data-toggle="dropdown" style="background:#f1f1f1;">
+							<li class="dropdown dropdown1 settings pull-right" style="height:60px; width:60px; background:#f1f1f1; padding:0px;border-right:none;">
+								<a href="#no" class="dropdown-toggle setpic" data-toggle="dropdown" style="background:#f1f1f1;padding:0px;">
 									
 									
 <!-- 										<img id="profilepic" src="${baseurl}/img/default.png" class="img-responsive thumbnail " style="margin-top:-10px;height: 40px;width: 40px;border-radius:15%;">  -->
 
 									<c:if test="${not empty cacheGuest.profileImage}">
-										<img id="profilepic" src="${catalina_base}/${cacheGuest.profileImage}" alt="" class="img img-responsive thumbnail watermark_text" style="border-radius:15%;"><i style="margin-right:-18px; margin-top:17px;font-size:22px;" class="fa fa-angle-down" aria-hidden="true"></i>
+										<img id="profilepic" src="${catalina_base}/${cacheGuest.profileImage}" alt="" class="img img-responsive thumbnail watermark_text" style="border-radius:15%;width:100%; height:auto;"><i style="margin-right:-18px; margin-top:17px;font-size:22px;" class="fa fa-angle-down" aria-hidden="true"></i>
 									</c:if>
 									<c:if test="${empty cacheGuest.profileImage}">
-										<img id="profilepic" src="${baseurl}/img/default.png" alt="image" class="img-responsive thumbnail " style="border-radius:15%;height:50px;"/><i style="margin-right: -18px;margin-top: 17px;font-size: 22px;" class="fa fa-angle-down" aria-hidden="true"></i>
+										<img id="profilepic" src="${baseurl}/img/default.png" alt="image" class="img-responsive thumbnail " style="border-radius:15%;width:100%; height:auto;"/><i style="margin-right: -18px;margin-top: 17px;font-size: 22px;" class="fa fa-angle-down" aria-hidden="true"></i>
 									</c:if>
 
 									
