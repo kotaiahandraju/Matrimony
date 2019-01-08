@@ -1481,16 +1481,16 @@ left:10px !important;
         .jssort111 .ti {position:absolute;bottom:0px;left:0px;width:100%;height:28px;line-height:28px;text-align:center;font-size:12px;color:#fff;background-color:rgba(0,0,0,.3)}
         .jssort111 .pav .ti, .jssort111 .pdn .ti, .jssort111 .p:hover.pdn .ti{color:#000;background-color:rgba(255,255,255,.6);}
     </style>
-    <div id="jssor_1" style="position:relative;margin:0 auto;top:0px;left:0px;width:626px;height:505px;overflow:hidden;visibility:hidden;">
+    <div id="jssor_1" style="position:relative;margin:0 auto;top:0px;left:0px;width:626px;height:600px;max-height:600px;">
         <!-- Loading Screen -->
         <div data-u="loading" class="jssorl-009-spin" style="position:absolute;top:0px;left:0px;width:100%;height:100%;text-align:center;background-color:rgba(0,0,0,0.7);">
             <img style="margin-top:-19px;position:relative;top:50%;width:38px;height:38px;" src="img/spin.svg" />
         </div>
-        <div data-u="slides" style="cursor:default;position:relative;top:0px;left:0px;width:626px;height:417px;overflow:hidden;">
+        <div data-u="slides" style="cursor:default;top:0px;left:0px;width:625px;max-width:625px;height:600px;max-height:600px;">
           <c:forEach items="${fullProfilePhotosList}" var="photo" >
-			<div><img data-u="image" class="watermark_text"  src="${catalina_base}/${photo.folder_name}/${photo.image_name}" alt="${photo.image_name}" title="" id=""/>
+			<div><img  style="width:auto; max-width:625px; height;auto;"  class="watermark_text"  src="${catalina_base}/${photo.folder_name}/${photo.image_name}" alt="${photo.image_name}" title="" id=""/>
 			<div class="clearfix"></div><div data-u="thumb">
-                    <img data-u="thumb" class="watermark_text" src="${catalina_base}/${photo.folder_name}/${photo.image_name}" alt="${photo.image_name}" />
+                    <img data-u="thumb" style="width:100%;height:auto;" class="watermark_text" src="${catalina_base}/${photo.folder_name}/${photo.image_name}" alt="${photo.image_name}" />
                 </div>
 			</div>
 		  </c:forEach>

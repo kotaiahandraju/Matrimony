@@ -319,6 +319,22 @@ width : 0;
 opacity : 0.7;
 font-size : 8px;
 }
+.watermarkcontent6_profilepic {
+  position: absolute; /* Position the background text */
+  top: -15px; /* At the bottom. Use top:0 to append it to the top */
+  //background: rgb(0, 0, 0); /* Fallback color */
+  //background: rgba(0, 0, 0, 0.5); /* Black background with 0.5 opacity */
+  color: white; /* Grey text */
+  width: 100%; /* Full width */
+  padding: 10px; /* Some padding */
+  transform: rotate(90deg);
+//transform-origin: left top 0;
+width : 0;
+}
+.watermarkcontent6_profilepic span{
+opacity : 0.7;
+font-size : 14px;
+}
 
 </style>	
 
@@ -917,9 +933,9 @@ function displayMatches(listOrders) {
 			//image = "${baseurl}/img/default.png";
 			var genderStr = orderObj.gender;
 			if(genderStr == "Female"){
-				image = "${baseurl}/images/girl.jpg";
+				image = "${baseurl}/images/female";
 			}else if(genderStr == "Male"){
-				image = "${baseurl}/images/boy.jpg";
+				image = "${baseurl}/images/male.png";
 			}
 		}else{
 			image = "${catalina_base}/"+image_path;
@@ -1053,9 +1069,9 @@ function displayNewMatches(listOrders) {
 			//image = "${baseurl}/img/default.png";
 			var genderStr = orderObj.gender;
 			if(genderStr == "Female"){
-				image = "${baseurl}/images/girl.jpg";
+				image = "${baseurl}/images/female.png";
 			}else if(genderStr == "Male"){
-				image = "${baseurl}/images/boy.jpg";
+				image = "${baseurl}/images/male.png";
 			}
 		}else{
 			image = "${catalina_base}/"+image_path;
@@ -1101,7 +1117,7 @@ function displayNewMatches(listOrders) {
 				interestStr = '<p align="center" style="margin: 11px 0px 10px 0px;"><a   type="button" disabled="true"  class="btn btn-danger btn-sm "  >Request Sent</a></p>';
 			}
 			 item =     item + ' 	<div class="col-md-4 thumbnailgal">'
-				         +' 		<div class="thumbnailmain">	<a class="" href="#no" style="margin: 0px 0px 0px 0px; width:100%; height:auto;" onclick="fullProfile('+orderObj.id+')"><img alt="" src="'+image+'" class="" style="width:150px;height:150px;"><div class="watermarkcontent_profilepic"><span>aarnamatrimony.com</span></div></a></div>'
+				         +' 		<div class="thumbnailmain">	<a class="" href="#no" style="margin: 0px 0px 0px 0px; width:100%; height:auto;" onclick="fullProfile('+orderObj.id+')"><img alt="" src="'+image+'" class="" style="width:150px;height:150px;"><div class="watermarkcontent6_profilepic"><span>aarnamatrimony.com</span></div></a></div>'
 				         +' 			<p align="center" class="ptransition" style="margin: 10px 0px 0px 0px;"><span  class="ptransition" href="#no" onclick="fullProfile('+orderObj.id+')" style="transition: 0; padding:5px; color:blue; border-radius:5px;">'+orderObj.username+'</span></p>'
 				         +' 			<p align="center" style="margin: px 0px 0px -3px;">'+age+' yrs, '+orderObj.inches+'</p>'
 				         + 			    interestStr
@@ -1165,9 +1181,9 @@ function displayNewMatches_update(listOrders) {
 			//image = "${baseurl}/img/default.png";
 			var genderStr = orderObj.gender;
 			if(genderStr == "Female"){
-				image = "${baseurl}/images/girl.jpg";
+				image = "${baseurl}/images/female.png";
 			}else if(genderStr == "Male"){
-				image = "${baseurl}/images/boy.jpg";
+				image = "${baseurl}/images/male.png";
 			}
 		}else{
 			image = "${catalina_base}/"+image_path;

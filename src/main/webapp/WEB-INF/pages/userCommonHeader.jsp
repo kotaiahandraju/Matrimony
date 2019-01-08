@@ -338,6 +338,22 @@ width : 0;
 opacity : 0.6;
 font-size : 18px;
 }
+.watermarkcontent7_profilepic {
+  position: absolute; /* Position the background text */
+  top: -15px; /* At the bottom. Use top:0 to append it to the top */
+  //background: rgb(0, 0, 0); /* Fallback color */
+  //background: rgba(0, 0, 0, 0.5); /* Black background with 0.5 opacity */
+  color: white; /* Grey text */
+  width: 100%; /* Full width */
+  padding: 10px; /* Some padding */
+  transform: rotate(90deg);
+//transform-origin: left top 0;
+width : 0;
+}
+.watermarkcontent7_profilepic span{
+opacity : 0.6;
+font-size : 25px;
+}
 .watermarkcontent1_profilepic {
   position: absolute; /* Position the background text */
   top: -18px; /* At the bottom. Use top:0 to append it to the top */
@@ -807,9 +823,9 @@ text-align:center;
 				if(image == "" || image == null || image == "undefined"){
 					var genderStr = orderObj.gender;
 					if(genderStr == "Female"){
-						image = "${baseurl}/images/girl.png";
+						image = "${baseurl}/images/female.png";
 					}else if(genderStr == "Male"){
-						image = "${baseurl}/images/boy.png";
+						image = "${baseurl}/images/male.png";
 					}
 					
 				}
@@ -995,9 +1011,9 @@ text-align:center;
 				if(image == "" || image == null || image == "undefined"){
 					var genderStr = orderObj.gender;
 					if(genderStr == "Female"){
-						image = "images/girl.png";
+						image = "images/female.png";
 					}else if(genderStr == "Male"){
-						image = "images/boy.png";
+						image = "images/male.png";
 					}
 				}
 				/* else{
@@ -1285,9 +1301,9 @@ text-align:center;
 					//image = "${baseurl}/img/default.png";
 					var genderStr = orderObj.gender;
 					if(genderStr == "Female"){
-						image = "images/girl.png";
+						image = "images/female.png";
 					}else if(genderStr == "Male"){
-						image = "images/boy.png";
+						image = "images/male.png";
 					}
 				}
 
@@ -3961,7 +3977,9 @@ img.hover-shadow {
 <!-- 										<img id="profilepic" src="${baseurl}/img/default.png" class="img-responsive thumbnail " style="margin-top:-10px;height: 40px;width: 40px;border-radius:15%;">  -->
 
 									<c:if test="${not empty cacheGuest.profileImage}">
-										<img id="profilepic" src="${catalina_base}/${cacheGuest.profileImage}" alt="" class="img img-responsive thumbnail watermark_text" style="border-radius:15%;width:100%; height:auto;"><i style="margin-right:-18px; margin-top:17px;font-size:22px;" class="fa fa-angle-down" aria-hidden="true"></i>
+										<img id="profilepic" src="${catalina_base}/${cacheGuest.profileImage}" alt="" class="img img-responsive thumbnail " style="border-radius:15%;width:100%; height:auto;"><div class="watermarkcontent1_profilepic">
+										<span>aarnamatrimony.com</span>
+									</div><i style="margin-right:-18px; margin-top:17px;font-size:22px;" class="fa fa-angle-down" aria-hidden="true"></i>
 									</c:if>
 									<c:if test="${empty cacheGuest.profileImage}">
 										<img id="profilepic" src="${baseurl}/img/default.png" alt="image" class="img-responsive thumbnail " style="border-radius:15%;width:100%; height:auto;"/><i style="margin-right: -18px;margin-top: 17px;font-size: 22px;" class="fa fa-angle-down" aria-hidden="true"></i>
