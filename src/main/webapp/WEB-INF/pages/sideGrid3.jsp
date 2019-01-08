@@ -37,7 +37,7 @@ margin-bottom:0px;}
 	            	<img src="${baseurl}/img/default.png" style="cursor: pointer;border-radius: 50%;no-repeat;width: 80px;height: 80px;display: block;border: 1px solid #e1e1e1;border-radius: 50%;background-size: 75px 75px;">
 	            </c:if>
 	            
-				   </div><div class="col-md-7 col-xs-7" style="padding-right:0px; padding-left:0px;">   <p><a href="#"  onclick="fullProfile('${loc_prof.id}')">${loc_prof.username} </a><br>
+				   </div><div class="col-md-7 col-xs-7" style="padding-right:0px; padding-left:0px;">   <p><a href="#" style="color:blue;"  onclick="fullProfile('${loc_prof.id}')">${loc_prof.username} </a><br>
 				<a href="#">${loc_prof.age} Yrs, ${loc_prof.heightInches}</a><br>
 				<a href="#">${loc_prof.currentCityName}</a><br>
 				<img src="../nimages/heart-icon.png" />
@@ -73,7 +73,7 @@ margin-bottom:0px;}
             	<c:if test="${empty pref_prof.profileImage}">
 	            	<img src="${baseurl}/img/default.png" style="cursor: pointer;border-radius: 50%;no-repeat;width: 80px;height: 80px;display: block;border: 1px solid #e1e1e1;border-radius: 50%;background-size: 75px 75px;">
 	            </c:if>
-	   </div><div class="col-md-7 col-xs-5" style="padding-right:0px; padding-left:0px;">   <p><a href="#" onclick="fullProfile('${pref_prof.id}')">${pref_prof.username} </a><br>
+	   </div><div class="col-md-7 col-xs-5" style="padding-right:0px; padding-left:0px;">   <p><a href="#" style="color:blue;" onclick="fullProfile('${pref_prof.id}')">${pref_prof.username} </a><br>
 	<a href="#">${pref_prof.age} Yrs, ${pref_prof.heightInches}</a><br>
 	<a href="#">${pref_prof.currentCityName}</a><br>
 	<img src="../nimages/heart-icon.png" />
@@ -109,7 +109,7 @@ margin-bottom:0px;}
 	            <c:if test="${empty pref_edu.profileImage}">
 	            	<img src="${baseurl}/img/default.png" style="cursor: pointer;border-radius: 50%;no-repeat;width: 80px;height: 80px;display: block;border: 1px solid #e1e1e1;border-radius: 50%;background-size: 75px 75px;">
 	            </c:if>
-	   </div><div class="col-md-7 col-xs-7" style="padding-right:0px; padding-left:0px;">   <p><a href="#" onclick="fullProfile('${pref_edu.id}')">${pref_edu.username} </a><br>
+	   </div><div class="col-md-7 col-xs-7" style="padding-right:0px; padding-left:0px;">   <p><a href="#" style="color:blue;" onclick="fullProfile('${pref_edu.id}')">${pref_edu.username} </a><br>
 	<a href="#">${pref_edu.age} Yrs, ${pref_edu.heightInches}</a><br>
 	<a href="#">${pref_edu.currentCityName}</a><br>
 	<img src="../nimages/heart-icon.png" />

@@ -8,6 +8,22 @@
 <link href="${baseurl}/crop/css/jquery.Jcrop.min.css" rel="stylesheet" type="text/css" />
 
 <style>
+.watermarkcontent5_profilepic {
+  position: absolute; /* Position the background text */
+  top: -16px; /* At the bottom. Use top:0 to append it to the top */
+  //background: rgb(0, 0, 0); /* Fallback color */
+  //background: rgba(0, 0, 0, 0.5); /* Black background with 0.5 opacity */
+  color: white; /* Grey text */
+  width: 100%; /* Full width */
+  padding: 10px; /* Some padding */
+  transform: rotate(90deg);
+//transform-origin: left top 0;
+width : 0;
+}
+.watermarkcontent15profilepic span{
+opacity : 0.6;
+font-size :14px;
+}
 .progress img {
 height:  250px;
 }
@@ -41,7 +57,7 @@ height:250px;
     pointer-events: none;
 }
 </style>
-			<div class="col-md-8 products-grid-left">
+			<div class="col-md-9 products-grid-left">
 				<div class="panel panel-success">
 					<div class="panel-heading">My Photos</div>
 					<div class="panel-body">
@@ -49,7 +65,9 @@ height:250px;
 				<div id="imagesDiv" class="row" style="margin-bottom: 0.4em;">
 			      	<c:forEach items="${photosList}" var="photo" >
 			      		<div id="div${photo.id}" class="col-md-3" style="text-align:center;">
- 			      			<a href="${catalina_base}/${photo.image}" data-littlelightbox-group="gallery" class="lightbox thumbnail watermark_text1"><img id="photo${photo.id}" src="${catalina_base}/${photo.image}" class="img-responsive thumbnail watermark_text" style="margin-bottom:0;"></a>
+ 			      			<a href="${catalina_base}/${photo.image}" data-littlelightbox-group="gallery" class="lightbox thumbnail"><img id="photo${photo.id}" src="${catalina_base}/${photo.image}" class="img-responsive thumbnail " style="margin-bottom:0;"><div class="watermarkcontent5_profilepic">
+										<span>aarnamatrimony.com</span>
+									</div></a>
 			      			<c:if test="${photo.approved_status == '0' }">
 			      					<span style="display:block;">Approval Pending</span>
 			      			</c:if>
