@@ -3,6 +3,7 @@
 .panel-title {
 text-align:left;
 }
+
 .form-control {
 width:187px;
 border-radius:0px;
@@ -327,7 +328,7 @@ function displayMatches(listOrders) {
 						displayStyle = ' style="display:none" ';
 					}
 					slider += '<div class="picstyle smallSlides'+orderObj.id+'" '+displayStyle+'>'
-							+'<a href="#" onclick="fullProfile('+orderObj.id+')"><img src="${catalina_base}/'+photo.image+'" class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: auto;width: 100%;" ></a>'
+							+'<a href="#" onclick="fullProfile('+orderObj.id+')"><img src="${catalina_base}/'+photo.image+'" class="img img-responsive thumbnail " style="margin-bottom:0;height: auto;width: 100%;" ><div class="watermarkcontent9_profilepic"><span>aarnamatrimony.com</span></div></a>'
 							+'</div>'
 				});
 				if(photos_list.length>1){
