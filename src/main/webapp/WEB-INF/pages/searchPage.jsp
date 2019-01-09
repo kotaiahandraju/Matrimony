@@ -424,9 +424,9 @@ function displayMatches(listOrders) {
 		if(image == "" || image == null || image == "undefined"){
 			var genderStr = orderObj.gender;
 			if(genderStr == "Female"){
-				image = "${baseurl}/images/girl.jpg";
+				image = "${baseurl}/images/female.png";
 			}else if(genderStr == "Male"){
-				image = "${baseurl}/images/boy.jpg";
+				image = "${baseurl}/images/male.png";
 			}
 		}
 		/* else{
@@ -491,7 +491,7 @@ function displayMatches(listOrders) {
 			var photos_list = orderObj.photosList;
 			var slider = "", displayStyle = ' ';
 			if(photos_list == "" || typeof photos_list == "undefined"){
-				slider = '<a href="#" onclick="fullProfile('+orderObj.id+')"><img src="'+image+'" class="img img-responsive thumbnail " style="margin-bottom:0;height: auto;width: 100%;" ></a>';
+				slider = '<a href="#" onclick="fullProfile('+orderObj.id+')"><img src="'+image+'" class="img img-responsive thumbnail " style="margin-bottom:0;height: auto;width: 100%;" ><div class="watermarkcontent1_profilepic"><span>aarnamatrimony.com</span></div></a>';
 				//slider = '<img src="${baseurl}/img/default.png" class="img img-responsive thumbnail " style="margin-bottom:0;height: auto;width: 100%;" >';
 			}else{
 				smallerSlideIndex[orderObj.id] = 0;
@@ -563,7 +563,7 @@ function displayMatches(listOrders) {
 				+ '<div class="col-md-2">'
 				//+ '<a href="#"> <img src='+image+' class="img img-responsive thumbnail watermark_text beir"></a>'
 				+ slider
-        		+ ' Profile Score <button type="button" class="btn btn-primary" style="padding: 0px 1px !important;"><span class="badge"  style="padding: 1px 7px !important;">'+orderObj.match_score+'%</span></button>'
+        		+ ' Match Score <button type="button" class="btn btn-primary" style="padding: 0px 1px !important;"><span class="badge"  style="padding: 1px 7px !important;">'+orderObj.match_score+'%</span></button>'
             	+ '</div>'
             	+ '<div class="col-md-6">'
             	+ '<table>'
