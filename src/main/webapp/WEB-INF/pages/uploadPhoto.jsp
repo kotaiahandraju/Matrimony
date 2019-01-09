@@ -134,7 +134,7 @@ width:70% !important; height:70% !important;} */
 <%-- 					      	<img src="${baseurl}/img/default.png" alt="Preview" id="previewImg" align="middle" style="border-style: solid;height: 100px;width: 100px;border-bottom-style: none;border-left-style: none;border-top-style: none;"> --%>
 					      	<!-- <input type="file" id='imageName'  onchange="checkImg(this)"> -->
 					      	<div><input type="file" name="image_file" id="image_file" onChange="fileSelectHandler()"  /></div>
-                                        <input type="hidden" id="x1" name="x1" />
+                                        <input type="hidden" id="x1" name="x1"  />
 					                     <input type="hidden" id="y1" name="y1" />
 					                     <input type="hidden" id="x2" name="x2" />
 					                     <input type="hidden" id="y2" name="y2" />
@@ -147,11 +147,11 @@ width:70% !important; height:70% !important;} */
 											</div>
 					
 					                         <div class="info">
-					                             <label>File size</label> <input type="text" id="filesize" name="filesize" />
-					                             <label>Type</label> <input type="text" id="filetype" name="filetype" />
-					                             <label>Image dimension</label> <input type="text" id="filedim" name="filedim" />
-					                             <label>W</label> <input type="text" id="w" name="w" />
-					                             <label>H</label> <input type="text" id="h" name="h" />
+					                             <input type="text" id="filesize" name="filesize" style="display:none;"/>
+					                            <input type="text" id="filetype" name="filetype" style="display:none;" />
+					                              <input type="text" id="filedim" name="filedim" style="display:none;"/>
+					                             <input type="text" id="w" name="w" style="display:none;" />
+					                             <input type="text" id="h" name="h" style="display:none;" />
 					                         </div>
 					
 					                         <div class="form-group">
