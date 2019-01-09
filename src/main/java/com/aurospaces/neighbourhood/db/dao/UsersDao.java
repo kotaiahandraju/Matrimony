@@ -4180,13 +4180,14 @@ public boolean deletePhoto(String photoId){
 				+"left join complexion com on com.id =u.complexion left join cast c1 on c1.id=rCaste left join language l1 on l1.id=rMotherTongue "
 				+"left join countries con1 on con1.id=rCountry left join education e1 on e1.id=rEducation left join occupation oc1 on oc1.id=rOccupation  left join user_images uimg on uimg.user_id=u.id left join occupation oc on u.occupation=oc.id left join education ed on ed.id=u.education "
 				+ " left join state sta on sta.id=u.currentState left join city cit on cit.id=u.currentCity left join package p on u.package_id = p.id "
-				+" where 1=1  ");
+				+" where u.role_id not in (1,3)  and u.status = '1' and "  
+				+" (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) is not null "
+				+" and (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) <> '0' "
+				+ " and (u.package_id is null or u.package_id in (select id from package p where p.status = '1' ) ) ");
 		
 					if(objreReportsBean.getPackages().equals("FreeRegister")){
 						
-						buffer.append( " and u.role_id ='4' and "
-								+" (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) is not null "
-								+" and (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) <> '0' ");
+						buffer.append( " and u.role_id = 4 ");
 					}else if(StringUtils.isNotBlank(objreReportsBean.getPackages())){
 						buffer.append( " and u.package_id ="+objreReportsBean.getPackages() );
 					}

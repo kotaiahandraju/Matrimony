@@ -2839,7 +2839,7 @@ String sJson="";
 				//SEND MAIL&SMS TO THE MEMBER
 				List<Map<String,Object>> paymentDetails = this.objUsersDao.getPaymentDetailsForPrint(txnid);
 				String retVal = EmailUtil.sendPostPaymentMail(userSessionBean, paymentDetails.get(0), request, objContext);
-				String response = SendSMS.sendSMS("Dear "  +userSessionBean.getFirstName()+ " "+userSessionBean.getLastName()+",\nCongratulations. The payment you made on "+paymentDetails.get(0).get("paymentDate")+" towards Aarna Matrimony membership is successful. Amount paid is:"+paymentDetails.get(0).get("price"), userSessionBean.getMobile());
+				String response = SendSMS.sendSMS("Dear "  +userSessionBean.getFirstName()+ " "+userSessionBean.getLastName()+",\nCongratulations. The payment you made on "+paymentDetails.get(0).get("paymentDate")+" towards Aarna Matrimony membership is successful. Amount paid is:"+paymentDetails.get(0).get("price")+"\n\nTeam - Aarna Matrimony", userSessionBean.getMobile());
 				// notify Admin
 				objUsersDao.addAdminNotifications(userId+"",String.valueOf(paymentDetails.get(0).get("price")));
 		}
@@ -3999,7 +3999,7 @@ String sJson="";
 				   boolean success = objUsersDao.saveOtp(sessionBean.getId()+"",mobileNum,otp);
 				   if(success){
 					   try{
-						   String response = SendSMS.sendSMS("Dear "  +sessionBean.getFirstName()+ " "+sessionBean.getLastName()+",\nThanks for registering with Aarna Matrimony. OTP for your registration is: "+otp, mobileNum);
+						   String response = SendSMS.sendSMS("Dear "  +sessionBean.getFirstName()+ " "+sessionBean.getLastName()+",\nThanks for registering with Aarna Matrimony. OTP for your registration is: "+otp+"\n\nTeam - Aarna Matrimony", mobileNum);
 						   
 						   if("OK".equalsIgnoreCase(response)){
 							   
