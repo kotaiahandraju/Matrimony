@@ -1130,8 +1130,8 @@ $(document).ready(function(){
       <!-- Modal content-->
     
       <div class="modal-content">
-         <div class="modal-header" style="background:none;">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"  style="padding-right:10px;">
+         <div class="modal-header" style="background:none;padding:15px;">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"  style="margin-top:-8px;">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -1255,9 +1255,9 @@ $(document).ready(function(){
         </div>
        
        
-        <div data-u="slides" style="cursor:default;top:0px;left:0px;width:625px;max-width:625px;height:600px;max-height:600px;">
+        <div data-u="slides" style="cursor:default;top:0px;left:0px;width:600px;max-width:600px;height:500px;max-height:500px; text-align:center;">
           <c:forEach items="${logged_in_user_photosList}" var="photo" >
-			<div><img style="width:auto; max-width:625px; height;auto;"  src="${catalina_base}/${photo.folder_name}/full-images/${photo.image_name}" alt="${photo.image_name}" title="" id=""/>
+			<div><img style="width:auto; max-width:600px; min-width:300px; height:100%; max-height:500px;"  src="${catalina_base}/${photo.folder_name}/full-images/${photo.image_name}" alt="${photo.image_name}" title="" id=""/>
 			 <div class="watermarkcontent7_profilepic">
 										<span>aarnamatrimony.com</span>
 									</div>

@@ -1367,8 +1367,8 @@ left:10px !important;
       <!-- Modal content-->
    
       <div class="modal-content">
-         <div class="modal-header" style="background:none;">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="padding-right:10px;">
+         <div class="modal-header" style="background:none;padding:15px;">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top:-8px;">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -1486,11 +1486,17 @@ left:10px !important;
         <div data-u="loading" class="jssorl-009-spin" style="position:absolute;top:0px;left:0px;width:100%;height:100%;text-align:center;background-color:rgba(0,0,0,0.7);">
             <img style="margin-top:-19px;position:relative;top:50%;width:38px;height:38px;" src="img/spin.svg" />
         </div>
-        <div data-u="slides" style="cursor:default;top:0px;left:0px;width:625px;max-width:625px;height:600px;max-height:600px;">
+        <div data-u="slides" style="cursor:default;top:0px;left:0px;width:600px;max-width:600px;height:500px;max-height:500px; text-align:center;">
           <c:forEach items="${fullProfilePhotosList}" var="photo" >
-			<div><img  style="width:auto; max-width:625px; height;auto;"  class="watermark_text"  src="${catalina_base}/${photo.folder_name}/full-images/${photo.image_name}" alt="${photo.image_name}" title="" id=""/>
+			<div><img  style="width:auto; max-width:600px; min-width:300px; height:100%; max-height:500px;"  class=""  src="${catalina_base}/${photo.folder_name}/full-images/${photo.image_name}" alt="${photo.image_name}" title="" id=""/>
+			 <div class="watermarkcontent7_profilepic">
+										<span>aarnamatrimony.com</span>
+									</div>
 			<div class="clearfix"></div><div data-u="thumb">
-                    <img data-u="thumb" style="width:100%;height:auto;" class="watermark_text" src="${catalina_base}/${photo.folder_name}/${photo.image_name}" alt="${photo.image_name}" />
+                    <img data-u="thumb" style="width:100%;height:auto;" class="" src="${catalina_base}/${photo.folder_name}/${photo.image_name}" alt="${photo.image_name}" />
+                 <div class="watermarkcontent_profilepic">
+										<span>aarnamatrimony.com</span>
+									</div>
                 </div>
 			</div>
 		  </c:forEach>
