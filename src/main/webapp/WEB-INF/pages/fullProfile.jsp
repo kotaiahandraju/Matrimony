@@ -428,7 +428,7 @@ left:10px !important;
 							<img id="img_inpage" src="../img/default.png" class="img-responsive" style="margin-bottom:0;">
 						</c:if>
 						<c:if test="${not empty fullProfilePhotosList}">
-						<div class="fullprofile" style="height:220px; overflow:hidden;"">	
+						<div class="fullprofile" style="">	
 							<a href="#" id="fullProfilePicOuterTag" data-toggle="modal" data-target="#myModalFullProfile"><img  src="${catalina_base}/${fullProfilePhotosList[0].image}" class="hover-shadow cursor img img-responsive thumbnail watermark_text" style="margin-bottom:0;height:auto;width: 100%;"  /></a>
 							<%-- <a href="#" id="fullProfilePicOuterTag"><img src="${photosList[0].image}" style="width:100%; height:auto;" onclick="openModal();currentSlide(1)" class="hover-shadow cursor watermark_text"></a> --%>
 						</div>	

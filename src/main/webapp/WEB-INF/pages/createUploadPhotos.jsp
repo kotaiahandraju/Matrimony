@@ -52,14 +52,20 @@ margin-top:10px;
 		                         <div class="table-responsive">
 			                         <img id="preview"  />
 									</div>
-		
-		                         <div class="info">
+		<div class="info">
+					                             <input type="text" id="filesize" name="filesize" style="display:none;"/>
+					                            <input type="text" id="filetype" name="filetype" style="display:none;" />
+					                              <input type="text" id="filedim" name="filedim" style="display:none;"/>
+					                             <input type="text" id="w" name="w" style="display:none;" />
+					                             <input type="text" id="h" name="h" style="display:none;" />
+					                         </div>
+		                        <!--  <div class="info">
 		                             <label>File size</label> <input type="text" id="filesize" name="filesize" />
 		                             <label>Type</label> <input type="text" id="filetype" name="filetype" />
 		                             <label>Image dimension</label> <input type="text" id="filedim" name="filedim" />
 		                             <label>W</label> <input type="text" id="w" name="w" />
 		                             <label>H</label> <input type="text" id="h" name="h" />
-		                         </div>
+		                         </div> -->
 		
 		                         <div class="form-group">
 							    	<div class="col-md-8">

@@ -419,9 +419,9 @@ width : 0;
 opacity : 0.6;
 font-size : 14px;
 }
-.picstyle {
-    height: 168px !important;
-    }
+/* .picstyle { */
+/*     height: 168px !important; */
+/*     } */
    
 .watermarkcontent_fullpic {
   position: absolute; /* Position the background text */
