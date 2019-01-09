@@ -406,7 +406,15 @@ function getReliginCastAjax() {
 			var casteName=tests.name;
 			optionsForClass.append(new Option(casteName, id));
 		});
-		
+		var selected_vals = "${partnerProfile.rCaste}";
+	    if(selected_vals == "" || selected_vals==null){
+	    	$("#rCaste").select2({
+	    	    placeholder: "-- Choose Community --"
+	    	});
+	    }else{
+	        $("#rCaste").val(selected_vals.split(","));
+	    }
+	    $("#rCaste").trigger('change.select2');
 	}); 
 }
 
