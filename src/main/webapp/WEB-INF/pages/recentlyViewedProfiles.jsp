@@ -335,7 +335,7 @@ function displayMatches(listOrders) {
 					slider += '<p style="display: table;">'
 						+'	<a id="prevBtn'+orderObj.id+'" class="" style="text-decoration: none; margin: 0px 0px 0px 7px;" href="#no" onclick="plusSmallSlides(-1,'+orderObj.id+')">&#10094;</a>'
 						//+'	<span>'+(i+1)+' of '+photos_list.length+'</span><br>'
-	    			    +'	<a id="nextBtn'+orderObj.id+'" class="" style="text-decoration: none; margin-left: 41px;" href="#no" onclick="plusSmallSlides(1,'+orderObj.id+')">&#10095;</a>'
+	    			    +'	<a id="nextBtn'+orderObj.id+'" class="" style="text-decoration: none; margin-left: 131px;" href="#no" onclick="plusSmallSlides(1,'+orderObj.id+')">&#10095;</a>'
 						+'</p>'
 				}
 				

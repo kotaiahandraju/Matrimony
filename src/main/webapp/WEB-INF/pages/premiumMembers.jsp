@@ -325,14 +325,14 @@ function displayMatches(listOrders) {
 						displayStyle = ' style="display:none" ';
 					}
 					slider += '<div class="picstyle smallSlides'+orderObj.id+'" '+displayStyle+'>'
-							+'<a href="#" onclick="fullProfile('+orderObj.id+')"><img src="${catalina_base}/'+photo.image+'" class="img img-responsive thumbnail watermark_text" style="margin-bottom:0;height: auto;width: 100%;" ></a>'
+							+'<a href="#" onclick="fullProfile('+orderObj.id+')"><img src="${catalina_base}/'+photo.image+'" class="img img-responsive thumbnail " style="margin-bottom:0;height: auto;width: 100%;" ><div class="watermarkcontent1_profilepic"><span>aarnamatrimony.com</span></div></a>'
 							+'</div>'
 				});
 				if(photos_list.length>1){
 					slider += '<p style="display: table;">'
 						+'	<a id="prevBtn'+orderObj.id+'" class="" style="text-decoration: none; margin: 0px 0px 0px 7px;" href="#no" onclick="plusSmallSlides(-1,'+orderObj.id+')">&#10094;</a>'
 						//+'	<span>'+(i+1)+' of '+photos_list.length+'</span><br>'
-	    			    +'	<a id="nextBtn'+orderObj.id+'" class="" style="text-decoration: none; margin-left: 41px;" href="#no" onclick="plusSmallSlides(1,'+orderObj.id+')">&#10095;</a>'
+	    			    +'	<a id="nextBtn'+orderObj.id+'" class="" style="text-decoration: none; margin-left: 75px;" href="#no" onclick="plusSmallSlides(1,'+orderObj.id+')">&#10095;</a>'
 						+'</p>'
 				}
 				
