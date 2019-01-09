@@ -262,23 +262,23 @@ span.impColor{color: red;}
 	margin: 2px 2px;
 }
 	.imgareaselect-outer {background:#fff;}	
-	
 	.watermarkcontent_profilepic {
-  position: inherit; /* Position the background text */
-  top: -52px; /* At the bottom. Use top:0 to append it to the top */
+  position: absolute; /* Position the background text */
+  top: -23px; /* At the bottom. Use top:0 to append it to the top */
   //background: rgb(0, 0, 0); /* Fallback color */
   //background: rgba(0, 0, 0, 0.5); /* Black background with 0.5 opacity */
   color: white; /* Grey text */
   width: 100%; /* Full width */
-  padding: 16px; /* Some padding */
-  //transform: rotate(90deg);
+  padding-left: 50px; /* Some padding */
+  transform: rotate(90deg);
 //transform-origin: left top 0;
-width : 151px;
+width : 0;
 }
 .watermarkcontent_profilepic span{
 opacity : 0.6;
 font-size : 13px;
-}	
+}
+	
 </style>
 
 <script type="text/javascript">

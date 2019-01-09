@@ -94,7 +94,7 @@ $(".onlyCharacters").on("keypress",	function(event) {
         <div class="panel" style="background:#F7F6F7; padding:20px 15px;">
             <div class="col-md-5">
                 <c:if test="${not empty cacheGuest.profileImage}">
-                	<div class="fullprofile" style="height:220px; overflow:hidden;"">
+                	<div class="fullprofile" style="">
                 		<a href="#" id="fullProfilePicOuterTag" data-toggle="modal" data-target="#myModalNew"><img  src="${catalina_base}/${cacheGuest.profileImage}" class="hover-shadow cursor img img-responsive thumbnail " style="margin-bottom:0;height:auto;width: 100%;" /><div class="watermarkcontent_profilepic">
 										<span>aarnamatrimony.com</span>
 									</div></a>
