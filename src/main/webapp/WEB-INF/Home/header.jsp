@@ -89,7 +89,15 @@
 .notsp p, b  {
 font-size:11px;
 }
-
+.ui-dialog .ui-dialog-titlebar-close {
+    position: absolute;
+    right: .3em;
+    top: 50%;
+    width: 20px;
+    margin: -10px 0 0 0;
+    padding: 0px !important;
+    height: 24px !important;
+}
 span.has-error,span.hasError
 {
   font-weight:normal;
