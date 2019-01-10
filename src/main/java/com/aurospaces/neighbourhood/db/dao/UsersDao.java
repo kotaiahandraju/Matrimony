@@ -2019,7 +2019,7 @@ public class UsersDao extends BaseUsersDao
 		
 		public List<Map<String,Object>> getAllSubscribedUsersForWeeklyMatchEmails(){
 			jdbcTemplate = custom.getJdbcTemplate();
-			String qryStr = "select * from users where status = '1' and role_id not in (1) and id in (select us.user_id from user_settings us where us.weekly_matches_emails = '1') ";
+			String qryStr = "select * from users where status = '1' and role_id not in (1,3) and id in (select us.user_id from user_settings us where us.weekly_matches_emails = '1') ";
 			try{
 				List<Map<String,Object>> list = jdbcTemplate.queryForList(qryStr);
 				if(list!=null)

@@ -1297,7 +1297,7 @@ public class HomePageController {
 					 if("1".equals(sessionBean.getStatus())){
 			            try{
 			            	 String response="";
-			            	if(sessionBean.getRoleId() != MatrimonyConstants.FREE_USER_ROLE_ID) {
+			            	if(profileBean.getRoleId() != MatrimonyConstants.FREE_USER_ROLE_ID) {
 			            		response = SendSMS.sendSMS("Dear "  +profileBean.getFirstName()+ " "+profileBean.getLastName() +","+"\n"+sessionBean.getFirstName()+" "+sessionBean.getLastName()+""+"("+sessionBean.getUsername()+")"+" Viewed your profile..\n \nWishing You the best life partner \nTeam - Aarna Matrimony", mobileNum);
 			            	}else {
 			            		response = SendSMS.sendSMS("Dear "  +profileBean.getFirstName()+ " "+profileBean.getLastName() +","+"\n*****"+"("+sessionBean.getUsername()+")"+" Viewed your profile..\n \nWishing You the best life partner \nTeam - Aarna Matrimony", mobileNum);
@@ -2054,7 +2054,7 @@ String sJson="";
 								 if("1".equals(userBean.getStatus())){
 						            try{
 						            	 String response="";
-										  if(userBean.getRoleId() !=  MatrimonyConstants.FREE_USER_ROLE_ID) {
+										  if(receipientUser.getRoleId() !=  MatrimonyConstants.FREE_USER_ROLE_ID) {
 											  response = SendSMS.sendSMS("Dear "  +receipientUser.getFirstName()+ " "+receipientUser.getLastName() +","+"\n"+userBean.getFirstName()+" "+userBean.getLastName()+""+"("+userBean.getUsername()+")"+" shortlisted your profile..\n \nWishing You the best life partner \nTeam - Aarna Matrimony", mobileNum);
 										  }else {
 											  response = SendSMS.sendSMS("Dear "  +receipientUser.getFirstName()+ " "+receipientUser.getLastName() +","+"\n*****"+"("+userBean.getUsername()+")"+" shortlisted your profile..\n \nWishing You the best life partner \nTeam - Aarna Matrimony", mobileNum);
@@ -2155,7 +2155,7 @@ String sJson="";
 			            if("1".equals(userBean.getStatus())){
 							  try{
 								  String response="";
-								  if(userBean.getRoleId() !=  MatrimonyConstants.FREE_USER_ROLE_ID) {
+								  if(receipientUser.getRoleId() !=  MatrimonyConstants.FREE_USER_ROLE_ID) {
 									  response = SendSMS.sendSMS("Dear "  +receipientUser.getFirstName()+ " "+receipientUser.getLastName() +","+"\n"+userBean.getFirstName()+" "+userBean.getLastName()+""+"("+userBean.getUsername()+")"+" sent an Interest request to you.. \n \nWishing You the best life partner \nTeam - Aarna Matrimony", mobileNum);
 								  }else {
 									  response = SendSMS.sendSMS("Dear "  +receipientUser.getFirstName()+ " "+receipientUser.getLastName() +","+"\n*****"+"("+userBean.getUsername()+")"+" sent an Interest request to you.. \n \nWishing You the best life partner \nTeam - Aarna Matrimony", mobileNum);
@@ -2240,7 +2240,7 @@ String sJson="";
 			            if("1".equals(userBean.getStatus())){
 						  try{
 							  String response="";
-							  if(userBean.getRoleId()!=MatrimonyConstants.FREE_USER_ROLE_ID) {
+							  if(receipientUser.getRoleId()!=MatrimonyConstants.FREE_USER_ROLE_ID) {
 								    response = SendSMS.sendSMS("Dear "  +receipientUser.getFirstName()+ " "+receipientUser.getLastName() +","+"\n"+userBean.getFirstName()+" "+userBean.getLastName()+""+"("+userBean.getUsername()+")"+" sent an Interest request to you.. \n \nWishing You the best life partner \nTeam - Aarna Matrimony", mobileNum);
 							  }else {
 								  response = SendSMS.sendSMS("Dear "  +receipientUser.getFirstName()+ " "+receipientUser.getLastName() +","+"\n*****"+"("+userBean.getUsername()+")"+" sent an Interest request to you.. \n \nWishing You the best life partner \nTeam - Aarna Matrimony", mobileNum);
@@ -4836,7 +4836,7 @@ String sJson="";
 	            if("1".equals(userBean.getStatus())){
 		            try{
 		            	 String response="";
-						  if(userBean.getRoleId() !=  MatrimonyConstants.FREE_USER_ROLE_ID) {
+						  if(receipientUser.getRoleId() !=  MatrimonyConstants.FREE_USER_ROLE_ID) {
 						     response = SendSMS.sendSMS("Dear "  +receipientUser.getFirstName()+ " "+receipientUser.getLastName()+","+"\n"+userBean.getFirstName()+" "+userBean.getLastName()+""+"("+userBean.getUsername()+")"+" sent a Message..\n \n"+receipientUser.getMail_content()+""+" \n \nWishing You the best life partner \nTeam - Aarna Matrimony", mobileNum);
 						  }else {
 							  response = SendSMS.sendSMS("Dear "  +receipientUser.getFirstName()+ " "+receipientUser.getLastName()+","+"\n*****"+"("+userBean.getUsername()+")"+" sent a Message..\n \n"+receipientUser.getMail_content()+""+" \n \nWishing You the best life partner \nTeam - Aarna Matrimony", mobileNum);
