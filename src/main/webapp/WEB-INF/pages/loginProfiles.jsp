@@ -480,7 +480,7 @@ $( document ).ready(function() {
 		if(rStateName == "" || rStateName == null || rStateName == "undefined"){rStateName = "---";}
 		
 		 var tblRow = 	"<div id='printProfile'><div class='col-sm-2' >"
-		 		+		"<img src=${baseurl }/"+image+" class='watermark_text' width='150px' align='right'/>"
+		 		+		"<img src=${baseurl }/"+image+" class='' width='150px' align='right'/><div class='watermarkcontent_profilepic'><span>aarnamatrimony.com</span></div>"
 	//			+		"<i class='fa fa-user' style='font-size: 10em;'></i>"
 	// 	 		+		"<img class='img-responsive' src='../img/default.png' style='width: auto !important;height: 120px !important;'>"
 		 		+ 	"</div>" 

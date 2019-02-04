@@ -28,12 +28,13 @@ btn-primary {
 }
 #uploadBtn {
 margin-top:10px;
+margin-bottom:15px;
 }
 </style>
 
 				<div class="col-md-5 col-sm-12"></div>
 	            <div  class="clearfix"></div>    
-<div class="col-md-3"></div><div class="col-md-8">
+<div class="col-md-12">
 			   	<fieldset>
 			   		
 			   		<div id="secondForm">

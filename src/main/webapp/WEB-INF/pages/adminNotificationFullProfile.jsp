@@ -67,10 +67,10 @@ padding:0px !important;}
 		            	
 						<div class="col-md-3">
 							 <c:if test="${not empty profileBean.profileImage}">
-								<img id="profImage" src="${catalina_base}/${profileBean.profileImage}" class="img-responsive thumbnail watermark_text" style="margin-bottom:0;">
+								<img id="profImage" src="${catalina_base}/${profileBean.profileImage}" class="img-responsive thumbnail " style="margin-bottom:0;"><div class="watermarkcontent_profilepic"><span>aarnamatrimony.com</span></div>
 							</c:if>
 							<c:if test="${empty profileBean.profileImage}">
-								<img src="${baseurl }/img/default.png" class="img-responsive thumbnail" style="margin-bottom:0;">
+								<img src="${baseurl }/img/default.png" class="img-responsive thumbnail" style="margin-bottom:0;"><div class="watermarkcontent_profilepic"><span>aarnamatrimony.com</span></div>
 							</c:if> 
 							
 							<label><b>${profileBean.username}</b></label>
