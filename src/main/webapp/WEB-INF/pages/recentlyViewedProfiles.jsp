@@ -244,9 +244,9 @@ function displayMatches(listOrders) {
 		if(image == "" || image == null || image == "undefined"){
 			var genderStr = orderObj.gender;
 			if(genderStr == "Female"){
-				image = "${baseurl}/images/girl.jpg";
+				image = "${baseurl}/images/female.png";
 			}else if(genderStr == "Male"){
-				image = "${baseurl}/images/boy.jpg";
+				image = "${baseurl}/images/male.png";
 			}
 		}else{
 			image = "${catalina_base}/"+image;

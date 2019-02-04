@@ -1269,7 +1269,7 @@ function displayNewMatches_update(listOrders) {
 				+ '<div class=" col-md-2 preprofile1" >'
 	            + 	"<a href='#'  onclick='fullProfile("+orderObj.id+")'><img src='"+image+"' class='' style='width:70px; height:70px;'/><div class='watermarkcontent1_profilepic'><span>aarnamatrimony.com</span></div></a>"
 	            + '</div>'
-	            + '<div class="col-md-9 col-xs-9">'
+	            + '<div class="col-md-10 col-xs-10">'
 	            + ' <p><span style="font-weight:bold">'+firstname+'&nbsp;'+lastname+'|'+orderObj.username+'</span>&nbsp;( '+age+' yrs,&nbsp; '+orderObj.heightInches+' )&nbsp;'+Content+' </p> '
 	            + ' <p> '+interestStr+'| <a href="#no" type="button" class="btn" style="padding:5px; color:blue; border-radius:5px;" onclick="fullProfile('+orderObj.id+')"> Full Profile</a> </p> '
 	            

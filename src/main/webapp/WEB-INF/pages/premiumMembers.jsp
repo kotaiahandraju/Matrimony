@@ -241,9 +241,9 @@ function displayMatches(listOrders) {
 		if(image == "" || image == null || image == "undefined"){
 			var genderStr = orderObj.gender;
 			if(genderStr == "Female"){
-				image = "${baseurl}/images/girl.jpg";
+				image = "${baseurl}/images/female.png";
 			}else if(genderStr == "Male"){
-				image = "${baseurl}/images/boy.jpg";
+				image = "${baseurl}/images/male.png";
 			}
 		}else{
 			image = "${catalina_base}/"+image;
@@ -384,7 +384,7 @@ function displayMatches(listOrders) {
 				+ '<div class="col-md-2">'
 				//+ '<a href="#"> <img src='+image+' class="img img-responsive thumbnail watermark_text beir"></a>'
 				+ slider
-				+ ' Profile Score <button type="button" class="btn btn-primary" style="padding: 0px 1px !important;"><span class="badge"  style="padding: 1px 7px !important;">'+orderObj.match_score+'%</span></button>'
+				+ ' Match Score <button type="button" class="btn btn-primary" style="padding: 0px 1px !important;"><span class="badge"  style="padding: 1px 7px !important;">'+orderObj.match_score+'%</span></button>'
             	+ '</div>'
             	+ '<div class="col-md-6">'
             	+ '<table>'

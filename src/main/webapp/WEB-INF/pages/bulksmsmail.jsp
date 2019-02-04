@@ -105,7 +105,7 @@ border-radius:0px !important;}
 						  		<div class="col-md-offset-6 col-md-6">
 							  		<div class="form-group">
 										<div class="col-md-6">
-											<input style="padding: 8px 21px;" class="btn btn-primary" type="submit" name="yt0" value="submit" id="submit11">
+											<input style="padding: 8px 21px;" class="btn btn-primary" type="submit" name="yt0" value="Submit" id="submit11">
 											<input style="padding: 8px 21px;" class="btn btn-danger cancel" type="reset" id="reset" name="yt1" value="Reset">
 										</div>
 								  	</div>

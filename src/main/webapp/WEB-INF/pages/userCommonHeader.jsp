@@ -29,7 +29,7 @@
 <!-- For Facebook -->
 <meta property="og:title" content="Aarna Matrimony" />
 <!-- <meta property="og:type" content="article" /> -->
-<meta property="og:image" content="${baseurl }/images/fac.jpg" />
+<meta property="og:image" content="images/fac.jpg" />
 <meta property="og:url" content="http://www.aarnamatrimony.com" />
 <meta property="og:description" content="matrimonial, telugu matrimony, no1 matrimony in vijayawada" />
 
@@ -40,7 +40,7 @@
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="Aarna Matrimony" />
 <meta name="twitter:description" content="matrimonial, telugu matrimony, no1 matrimony in vijayawada" />
-<meta name="twitter:image" content="${baseurl }/images/twi.jpg" />
+<meta name="twitter:image" content="images/twi.jpg" />
 	<script type="application/x-javascript">
 		addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 		function hideURLbar(){ window.scrollTo(0,1); }
@@ -372,20 +372,10 @@ font-size : 30px;
 color:#fff;
 }
 .watermarkcontent1_profilepic {
-  position: absolute; /* Position the background text */
-  top: -18px; /* At the bottom. Use top:0 to append it to the top */
-  //background: rgb(0, 0, 0); /* Fallback color */
-  //background: rgba(0, 0, 0, 0.5); /* Black background with 0.5 opacity */
-  color: white; /* Grey text */
-  width: 100%; /* Full width */
-  padding: 10px; /* Some padding */
-  transform: rotate(90deg);
-//transform-origin: left top 0;
-width : 0;
+  position: absolute; /* Position the background text */top: -18px; /* At the bottom. Use top:0 to append it to the top */ //background: rgb(0, 0, 0); /* Fallback color *///background: rgba(0, 0, 0, 0.5); /* Black background with 0.5 opacity */color: white; /* Grey text */ width: 100%; /* Full width */padding: 10px; /* Some padding */transform: rotate(90deg);//transform-origin: left top 0;width : 0;
 }
 .watermarkcontent1_profilepic span{
-opacity : 0.6;
-font-size : 6px;
+opacity : 0.6;font-size : 6px;
 }
 .watermarkcontent8_profilepic {
   position: absolute; /* Position the background text */
@@ -4077,7 +4067,7 @@ img.hover-shadow {
 									
 									<li><a href="mobileNumViewedByMeList">Mobile no viewed by me</a></li>
 									<li><a href="myMobileNoViewsList">Who viewed my mobile number</a></li>
-									<li><a href="inboxAction?tab_type=inbox&list_type=rejected_requests">Ignored profiles</a></li>
+									<!-- <li><a href="inboxAction?tab_type=inbox&list_type=rejected_requests">Ignored profiles</a></li> -->
 								</ul>
 							</li>
 							<li class="dropdown searchPage">

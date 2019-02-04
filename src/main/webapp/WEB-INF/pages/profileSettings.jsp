@@ -354,7 +354,7 @@ color: #cfcfcf !important;
 						<input type="radio" /> &nbsp;&nbsp;&nbsp;Other Reasons
 						</div>
 						</div><br>
-						<input type="button" class="btn btn-danger" type="button" value="Delete Account" onclick="deleteProfile('delete_profile')" />
+						<input type="button" class="btn btn-danger" type="button" value="Delete Account" onclick="submitProfileSettings('delete_profile')" />
 					</div></div></div></div></div>
 	
 					<div id="edit_emailaddress" class="all_settings_divs" hidden="true">

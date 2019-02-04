@@ -6,6 +6,23 @@
 <link rel="stylesheet" href="user/css/flexslider.css" type="text/css" media="screen" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <style>
+.watermarkcontent_profilepic {
+  position: absolute; /* Position the background text */
+  top: -15px; /* At the bottom. Use top:0 to append it to the top */
+  //background: rgb(0, 0, 0); /* Fallback color */
+  //background: rgba(0, 0, 0, 0.5); /* Black background with 0.5 opacity */
+  color: white; /* Grey text */
+  width: 100%; /* Full width */
+  padding: 10px; /* Some padding */
+  transform: rotate(90deg);
+//transform-origin: left top 0;
+width : 0;
+margin-left:4px;
+}
+.watermarkcontent_profilepic span{
+opacity : 0.6;
+font-size : 14px;
+}
 .col-md-8 {
 padding-left:0px;
 padding-right:0px;
@@ -995,9 +1012,9 @@ margin-left:10px;
 						//image = "${baseurl}/img/default.png";
 						var genderStr = orderObj.gender;
 						if(genderStr == "Female"){
-							image = "${baseurl}/images/girl.jpg";
+							image = "${baseurl}/images/female.png";
 						}else if(genderStr == "Male"){
-							image = "${baseurl}/images/boy.jpg";
+							image = "${baseurl}/images/mael.png";
 						}
 					}else{
 						image = "${catalina_base}/"+image_path;
@@ -1011,7 +1028,7 @@ margin-left:10px;
 			  		+ '</div>'
 			  		+ '<div class="panel-body">'
 			  		+ '<div class="col-md-3" style="height:150px;overflow:hidden;">' 
-			  		+ '<a href="HomePage" onclick="regFunction()">  <img src="'+image+'" class="img img-responsive thumbnail " style="margin-bottom:0;height: ;width: 100%;"></a>'
+			  		+ '<a href="HomePage" onclick="regFunction()">  <img src="'+image+'" class="img img-responsive thumbnail " style="margin-bottom:0;height: ;width: 100%;"><div class="watermarkcontent_profilepic"><span>AarnaMatrimony.com</span></div></a>'
 			      	+ '</div>'
 			      	 + '<div class="col-md-4">'
 			       	 + '<h2 style="margin-top:10px;" class="pull-right"><a href="HomePage" data-toggle="tooltip" data-placement="bottom" title="View Mobile Number" ><img style="margin-top:-10px;" src="images/Mobile_Icon.png"/></a></h2></span><div class="clearfix"></div><blockquote style="min-height:100px; max-height:120px; "><p>'+abtMySelf+'</p><br><a href="HomePage" onclick="regFunction()"><p style="float:right;">...more</p></a></blockquote>'
