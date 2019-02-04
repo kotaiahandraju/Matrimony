@@ -1274,7 +1274,9 @@ public class UsersDao extends BaseUsersDao
 						+"left join countries con1 on con1.id=rCountry left join education e1 on e1.id=rEducation left join occupation oc1 on oc1.id=rOccupation  left join user_images uimg on uimg.user_id=u.id left join occupation oc on u.occupation=oc.id left join education ed on ed.id=u.education "
 						+ " left join state sta on sta.id=u.currentState left join city cit on cit.id=u.currentCity "
 						+" where 1=1  ");*/
-			
+				// get only otp verified profiles
+				where_clause.append( " and  (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) is not null "
+						+" and (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) <> '0' ");
 					buffer.append(where_clause.toString());
 					
 					buffer.append(" group by id ");
@@ -1453,6 +1455,11 @@ public class UsersDao extends BaseUsersDao
 					}
 				}
 				///
+				// get only otp verified profiles
+				where_clause.append( " and  (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) is not null "
+						+" and (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) <> '0' ");
+						
+				
 				if(objUserBean.getRoleId()==MatrimonyConstants.AARNA_PREMIUM_USER_ROLE_ID 
 						|| objUserBean.getRoleId()==MatrimonyConstants.PREMIUM_USER_ROLE_ID
 						|| objUserBean.getRoleId()==MatrimonyConstants.PREMIUM_PLUS_USER_ROLE_ID 
@@ -4400,7 +4407,9 @@ public boolean deletePhoto(String photoId){
 
 		jdbcTemplate = custom.getJdbcTemplate();
 		StringBuffer buffer = new StringBuffer();
-		buffer.append("SELECT COUNT(*) AS totalcount,'Female Members' AS femaleGroup FROM users WHERE gender ='Female'  and status = '1'");
+		buffer.append("SELECT COUNT(*) AS totalcount,'Female Members' AS femaleGroup FROM users WHERE gender ='Female'  and status = '1' and "  
+						+" (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) is not null " 
+						+" and (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) <> '0' ");
 							String sql =buffer.toString();
 							List<Map<String, Object>> result = jdbcTemplate.queryForList(sql);
 							return result;
@@ -4412,7 +4421,9 @@ public boolean deletePhoto(String photoId){
 
 		jdbcTemplate = custom.getJdbcTemplate();
 		StringBuffer buffer = new StringBuffer();
-		buffer.append("SELECT COUNT(*) AS totalcount,'Male Members' AS maleGroup FROM users WHERE gender ='Male'  and status = '1'");
+		buffer.append("SELECT COUNT(*) AS totalcount,'Male Members' AS maleGroup FROM users WHERE gender ='Male'  and status = '1' and "
+				+" (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) is not null " 
+				+" and (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) <> '0' ");
 							String sql =buffer.toString();
 							List<Map<String, Object>> result = jdbcTemplate.queryForList(sql);
 							return result;
@@ -5071,8 +5082,8 @@ public boolean deletePhoto(String photoId){
 		}else if(mail_type.equalsIgnoreCase("active_profile_mail")){
 			short_str = "Your Profile is Active Now";
 		}else if(mail_type.equalsIgnoreCase("admin_send_password")){
-			short_str = "admin send password";
-			receiver_password.append(receiverBean.getPassword());
+			short_str = "Your Aarna Matrimony Login details";
+			receiver_password.append(receiverBean.getRegPassword());
 		}else if(mail_type.equalsIgnoreCase("admin_reset_password")){
 			short_str = "admin reset password";
 			receiver_password.append(receiverBean.getPassword());
@@ -5150,7 +5161,7 @@ public boolean deletePhoto(String photoId){
 		
 		try{
 			
-			StringBuffer buffer = new StringBuffer(" select base_url from emails_data where  base_url is not null and base_url <> '' limit 1");
+			StringBuffer buffer = new StringBuffer(" select base_url from emails_data where  base_url is not null and base_url <> '' order by created_on desc limit 1");
 			String baseUrl = jdbcTemplate.queryForObject(buffer.toString(), String.class);
 			if(StringUtils.isNotBlank(baseUrl)){
 				return baseUrl.split("admin")[0];
@@ -5282,7 +5293,10 @@ public boolean deletePhoto(String photoId){
 					+ " (select name from city where id=u.currentCity) as currentCityName, "
 					+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+userBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'interest_request') as expressedInterest, "
 					+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and uimg.status = '1' and uimg.is_profile_picture='1') as profileImage "
-					+ " from users u, userrequirement ureq where ureq.userId = u.id and u.status = '1' and u.gender not in ('"+userBean.getGender()+"') and "+where_clause+" limit 2 "+offset_str;
+					+ " from users u, userrequirement ureq where ureq.userId = u.id and u.status = '1' and u.gender not in ('"+userBean.getGender()+"') and "+where_clause+" "
+					+" and  (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) is not null " 
+					+" and (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) <> '0' "
+					+ "limit 2 "+offset_str;
 			list = jdbcTemplate.queryForList(qry);
 			qry = " select count(1) from users u, userrequirement ureq where ureq.userId = u.id and u.status = '1' and u.gender not in ('"+userBean.getGender()+"') and "+where_clause;
 			int count = jdbcTemplate.queryForInt(qry);
@@ -5318,7 +5332,9 @@ public boolean deletePhoto(String photoId){
 					+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+userBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'message') as message_sent_status, "
 					+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+userBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'short_listed') as shortlisted, "
 					+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+userBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'mobile_no_viewed') as mobileNumViewed "
-					+ " from users u, userrequirement ureq where ureq.userId = u.id and u.status = '1' and u.gender not in ('"+userBean.getGender()+"') and "+where_clause;
+					+ " from users u, userrequirement ureq where ureq.userId = u.id and u.status = '1' and u.gender not in ('"+userBean.getGender()+"') and "+where_clause
+					+" and  (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) is not null " 
+					+" and (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) <> '0' ";
 			list = jdbcTemplate.queryForList(qry);
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -5342,7 +5358,10 @@ public boolean deletePhoto(String photoId){
 					+ " (select name from city where id=u.currentCity) as currentCityName, "
 					+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+userBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'interest_request') as expressedInterest, "
 					+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and uimg.status = '1' and uimg.is_profile_picture='1') as profileImage "
-					+ " from users u, userrequirement ureq where ureq.userId = u.id and u.status = '1' and u.gender not in ('"+userBean.getGender()+"') and "+where_clause+" limit 2 "+offset_str;
+					+ " from users u, userrequirement ureq where ureq.userId = u.id and u.status = '1' and u.gender not in ('"+userBean.getGender()+"') and "+where_clause
+					+" and  (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) is not null " 
+					+" and (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) <> '0' "
+					+ " limit 2 "+offset_str;
 			list = jdbcTemplate.queryForList(qry);
 			qry = " select count(1) from users u, userrequirement ureq where ureq.userId = u.id and u.status = '1' and u.gender not in ('"+userBean.getGender()+"') and  "+where_clause;
 			int count = jdbcTemplate.queryForInt(qry);
@@ -5377,7 +5396,9 @@ public boolean deletePhoto(String photoId){
 					+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+userBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'message') as message_sent_status, "
 					+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+userBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'short_listed') as shortlisted, "
 					+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+userBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'mobile_no_viewed') as mobileNumViewed "
-					+ " from users u, userrequirement ureq where ureq.userId = u.id and u.status = '1' and u.gender not in ('"+userBean.getGender()+"') and "+where_clause;
+					+ " from users u, userrequirement ureq where ureq.userId = u.id and u.status = '1' and u.gender not in ('"+userBean.getGender()+"') and "+where_clause
+					+" and  (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) is not null " 
+					+" and (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) <> '0' ";
 			list = jdbcTemplate.queryForList(qry);
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -5395,7 +5416,10 @@ public boolean deletePhoto(String photoId){
 						+ " (select name from city where id=u.currentCity) as currentCityName, "
 						+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+sessionBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'interest_request') as expressedInterest, "
 						+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and uimg.status = '1' and uimg.is_profile_picture='1') as profileImage "
-						+ " from users u where u.status = '1' and u.gender ='"+presentProfile.getGender()+"' and  u.religion = "+presentProfile.getReligion()+" and u.caste =  "+presentProfile.getCaste()+" and u.id not in ("+presentProfile.getId()+") limit 2";
+						+ " from users u where u.status = '1' and u.gender ='"+presentProfile.getGender()+"' and  u.religion = "+presentProfile.getReligion()+" and u.caste =  "+presentProfile.getCaste()+" and u.id not in ("+presentProfile.getId()+") "
+						+" and  (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) is not null " 
+						+" and (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) <> '0' "
+						+ "limit 2";
 			list = jdbcTemplate.queryForList(qry);
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -5421,7 +5445,9 @@ public boolean deletePhoto(String photoId){
 						+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+userBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'short_listed') as shortlisted, "
 						+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+userBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'mobile_no_viewed') as mobileNumViewed ,"
 						+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and uimg.status = '1' and uimg.is_profile_picture='1') as profileImage "
-						+ " from users u where u.status = '1' and u.gender ='"+gender+"'  and u.religion = "+religion_id+" and u.caste =  "+caste_id+" and u.id not in "+'('+profile_id+')';
+						+ " from users u where u.status = '1' and u.gender ='"+gender+"'  and u.religion = "+religion_id+" and u.caste =  "+caste_id+" and u.id not in ("+profile_id+") " 
+						+" and  (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) is not null " 
+						+" and (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) <> '0' ";
 			list = jdbcTemplate.queryForList(qry);
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -5446,6 +5472,8 @@ public boolean deletePhoto(String photoId){
 						+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+sessionUserBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'interest_request') as expressedInterest, "
 						+ " date_format(max(updated_on),'%d-%b-%Y %r') as photo_updated_time from users u left join vuser_images uimg on  u.id=uimg.user_id "
 						+ " where u.status = '1' and u.gender not in ('"+sessionUserBean.getGender()+"') and uimg.status = '1' and uimg.approved_status = '1' "
+								+" and  (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) is not null " 
+								+" and (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) <> '0' "
 						+" group by u.id order by u.updated_time desc limit 10) temp ";
 						
 				list =	jdbcTemplate.queryForList(qry);	
@@ -5499,6 +5527,8 @@ public boolean deletePhoto(String photoId){
 						+" (select count(1) from users_activity_log act_log where act_log.act_done_by_user_id="+sessionUserBean.getId()+" and act_log.act_done_on_user_id=u.id and act_log.activity_type = 'interest_request') as expressedInterest, "
 						+ " date_format(max(updated_on),'%d-%b-%Y %r') as photo_updated_time from users u left join vuser_images uimg on  u.id=uimg.user_id "
 						+ " where u.status = '1' and u.gender not in ('"+sessionUserBean.getGender()+"') and uimg.status = '1' and uimg.approved_status = '1' "
+								+" and  (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) is not null " 
+								+" and (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) <> '0' "
 						+" group by u.id order by u.updated_time desc) temp ";
 						
 				list =	jdbcTemplate.queryForList(qry);	
@@ -5546,7 +5576,10 @@ public boolean deletePhoto(String photoId){
 					+ " (select name from city where id=u.currentCity) as currentCityName, "
 					+"  (select st.name from state st where st.id = u.currentState) as currentStateName ,"
 					+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and uimg.status = '1' and uimg.approved_status = '1' and uimg.is_profile_picture='1') as profileImage "
-					+ " from users u where  u.status = '1'  order by created_time desc"
+					+ " from users u where  u.status = '1' "
+					+" and  (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) is not null " 
+					+" and (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) <> '0' "
+					+ " order by created_time desc"
 					+ " ) temp where profileImage is not null limit 10";
 						
 				list =	jdbcTemplate.queryForList(qry);	
@@ -5568,7 +5601,10 @@ public boolean deletePhoto(String photoId){
 					+ " (select name from city where id=u.currentCity) as currentCityName, "
 					+"  (select st.name from state st where st.id = u.currentState) as currentStateName ,"
 					+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and uimg.status = '1' and uimg.approved_status = '1' and uimg.is_profile_picture='1') as profileImage "
-					+ " from users u where  u.status = '1' and u.gender = 'Male' order by created_time desc"
+					+ " from users u where  u.status = '1' and u.gender = 'Male' "
+					+" and  (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) is not null " 
+					+" and (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) <> '0' "
+					+ "order by created_time desc"
 					+ " ) temp where profileImage is not null limit 5";
 						
 				list =	jdbcTemplate.queryForList(qry);	
@@ -5590,7 +5626,10 @@ public boolean deletePhoto(String photoId){
 					+ " (select name from city where id=u.currentCity) as currentCityName, "
 					+"  (select st.name from state st where st.id = u.currentState) as currentStateName ,"
 					+" (select uimg.image from vuser_images uimg where uimg.user_id=u.id and uimg.status = '1' and uimg.approved_status = '1' and uimg.is_profile_picture='1') as profileImage "
-					+ " from users u where  u.status = '1' and u.gender = 'Female' order by created_time desc"
+					+ " from users u where  u.status = '1' and u.gender = 'Female' "
+					+" and  (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) is not null " 
+					+" and (select status from user_otps where user_id =u.id   and mobile_no = u.mobile order by user_otps.updated_time desc limit 1) <> '0' "
+					+ "order by created_time desc"
 					+ " ) temp where profileImage is not null limit 5";
 						
 				list =	jdbcTemplate.queryForList(qry);	
@@ -5676,7 +5715,21 @@ public boolean deletePhoto(String photoId){
 			e.printStackTrace();
 			return 0;
 		}
-	}
+	}	
+		public String getGenderOf(String user_id){
+			jdbcTemplate = custom.getJdbcTemplate();
+			try{
+				String selectQry = "select gender from users where id = "+user_id;
+				String gender = jdbcTemplate.queryForObject(selectQry, String.class);
+				return gender;
+			}catch(Exception e){
+				e.printStackTrace();
+				return "";
+			}
+		}
+	
+	
+	
 	
 }
 

@@ -558,7 +558,7 @@ public class HomePageController {
 						long millis = System.currentTimeMillis() % 1000;
 						filepath= id+millis+".png";
 						fullImgfilepath= id+millis+".png";
-						
+						String water_marked_img = id+millis+"_watermarked.png";
 						
 						
 						 String latestUploadPhoto = "";
@@ -659,6 +659,16 @@ public class HomePageController {
 						    //file.transferTo(file1);
 						    try{
 						    	objUserImageUploadDao.save(objUerImagesBean);
+						    	
+						    	// overlay settings
+						        String text = "aarnamatrimony.com";
+						        //File input = new File("/tmp/duke.jpg");
+						        File output = new File(dir1.getAbsolutePath() + File.separator + water_marked_img);
+						        
+						        // adding text as overlay to an image
+						        MiscUtils.addTextWatermark(text, "png", f1, output);
+						    	
+						    	
 						    	UsersBean newBean = objUsersDao.loginChecking(sessionBean.getId());
 						    	int filled_status = objUsersDao.getProfileFilledStatus(newBean);
 						    	objUsersDao.updateProfileFilledPercentage((45+filled_status)+"",newBean.getId()+"");

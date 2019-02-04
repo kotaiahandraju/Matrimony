@@ -61,32 +61,37 @@ public class JobsController {
 		   /*if(userSessionBean==null)
 			   return "redirect:HomePage";*/
 		   System.out.println("### in weeklyMatchEmails");
-		   List<Map<String,Object>> activeProfilesList = objUsersDao.getAllSubscribedUsersForWeeklyMatchEmails();
-		   System.out.println("### activeProfilesList:"+activeProfilesList);
-		   String baseUrl = objUsersDao.getBaseUrl(); //"http://localhost:8080/NBD/"
-		   //baseUrl += "users";
-		   if(activeProfilesList != null && activeProfilesList.size()>0){
-			   for(Map<String,Object> profile:activeProfilesList){
-				   UsersBean receiverBean = new UsersBean();
-				   receiverBean.setId((Integer)profile.get("id"));
-				   receiverBean.setUsername((String)profile.get("username"));
-				   receiverBean.setUnique_code((String)profile.get("unique_code"));
-				   Object emailId = profile.get("email");
-				   receiverBean.setEmail((String)emailId);
-				   List<Map<String,String>> preferredProfiles = objUsersDao.getProfilesFilteredByPreferences(profile);
-				   System.out.println("### preferredProfiles size:"+preferredProfiles.size());
-				   try{
-					   if(preferredProfiles != null && preferredProfiles.size()>0){
-						   EmailUtil.sendProfilesListEmail(receiverBean,preferredProfiles, "profiles_list_email",objContext,baseUrl);
-						   System.out.println("### matches sent");
+		   try {
+			   List<Map<String,Object>> activeProfilesList = objUsersDao.getAllSubscribedUsersForWeeklyMatchEmails();
+			   System.out.println("### activeProfilesList:"+activeProfilesList);
+			   String baseUrl = objUsersDao.getBaseUrl(); //"http://localhost:8080/NBD/"
+			   //baseUrl += "users";
+			   if(activeProfilesList != null && activeProfilesList.size()>0){
+				   for(Map<String,Object> profile:activeProfilesList){
+					   UsersBean receiverBean = new UsersBean();
+					   receiverBean.setId((Integer)profile.get("id"));
+					   receiverBean.setUsername((String)profile.get("username"));
+					   receiverBean.setUnique_code((String)profile.get("unique_code"));
+					   receiverBean.setGender((String)profile.get("gender"));
+					   receiverBean.setRoleId((Integer)profile.get("role_id"));
+					   Object emailId = profile.get("email");
+					   receiverBean.setEmail((String)emailId);
+					   List<Map<String,String>> preferredProfiles = objUsersDao.getProfilesFilteredByPreferences(profile);
+					   System.out.println("### preferredProfiles size:"+preferredProfiles.size());
+					   try{
+						   if(preferredProfiles != null && preferredProfiles.size()>0){
+							   EmailUtil.sendProfilesListEmail(receiverBean,preferredProfiles, "profiles_list_email",objContext,baseUrl);
+							   System.out.println("### matches sent");
+						   }
+					   }catch(Exception e){
+						   e.printStackTrace();
 					   }
-				   }catch(Exception e){
-					   e.printStackTrace();
-				   }
-				   
-			   } 
+					   
+				   } 
+			   }
+		   }catch(Exception e){
+			   e.printStackTrace();
 		   }
-		   
 		   
 		   return "";
 	   }
@@ -130,7 +135,7 @@ public class JobsController {
 		   
 	   }
 	   
-	    /* Total profiles list should be divided equally  among all the employees of aarna matrimony */
+	    /* Total profiles list should be divided equally  among all the employees of  matrimony */
 	    
 	   //@RequestMapping(value="/splitProfilesToEmployees")
 	   public String splitProfilesToEmployees(){

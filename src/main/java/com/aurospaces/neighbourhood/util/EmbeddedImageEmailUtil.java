@@ -60,6 +60,7 @@ public class EmbeddedImageEmailUtil {
 	        properties.put("mail.user", userName);
 	        properties.put("mail.password", password);
 	        properties.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+	        //properties.put("mail.smtp.ssl.trust", "mail.charvikent.com");
 	        // creates a new session with an authenticator
 	        Authenticator auth = new Authenticator() {
 	            public PasswordAuthentication getPasswordAuthentication() {
