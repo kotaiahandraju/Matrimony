@@ -75,14 +75,6 @@ JdbcTemplate jdbcTemplate;
 					java.sql.Timestamp updatedTime = 
 						new java.sql.Timestamp(users.getUpdatedTime().getTime()); 
 					float age = 0.0f;
-					if(StringUtils.isNotBlank(users.getDob())){
-						Date dob = HRMSUtil.dateFormate(users.getDob());
-						LocalDate birthdate = new LocalDate (dob); 
-						LocalDate now = new LocalDate();
-						Period period = new Period(birthdate, now, PeriodType.yearMonthDay());
-						//age = Float.valueOf(period.getYears()+"."+period.getMonths());
-						age = Float.valueOf(period.getYears());
-					}
 					
 					String unique_code = MiscUtils.generateRandomString(12);
 					
@@ -139,7 +131,7 @@ ps.setString(48, users.getNoOfSistersMarried());
 ps.setString(49, users.getHaveChildren());
 ps.setString(50, age+"");
 ps.setString(51, users.getOccupation());
-ps.setString(52, unique_code);//unique_code also will be used as referral code of this employee
+ps.setString(52, unique_code);
 ps.setString(53, users.getReferred_by());
 
 							return ps;
@@ -150,25 +142,15 @@ ps.setString(53, users.getReferred_by());
 				Number unId = keyHolder.getKey();
 				users.setId(unId.intValue());
 				
-				if(StringUtils.isNotBlank(users.getCurrentCity())){
-					String sSql = "update users set username = concat('AM',(select city_code from city where id = "+users.getCurrentCity()+"),'"+MiscUtils.generateRandomNumber(6)+"') where id = "+users.getId();
-					int updated_count = jdbcTemplate.update(sSql);
-				}
-				String settings_insert = "insert into user_settings(created_time,updated_time,user_id,product_promotion_emails,daily_matches_emails,weekly_matches_emails,auto_login,contact_filter,marketing_calls_permission) "
-						+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','"+new java.sql.Timestamp(new DateTime().getMillis())+"',"+users.getId()+",'1','0','1','1','anyone','1m'  ) "; 
-				jdbcTemplate.update(settings_insert);
+				
 		}
 		else
 		{
 
 			try{
 				
-				UsersBean adminSessionBean =  (UsersBean) session.getAttribute("cacheUserBean");
-				String passwordStr = "";
-				if(adminSessionBean != null){
-					passwordStr = "password = AES_ENCRYPT('"+users.getRegPassword()+"','mykey'),";
-				}
-				String sql = "UPDATE users  set "+passwordStr+" updated_time = ?  ,createProfileFor = ? ,gender = ? ,firstName = ? ,lastName = ? ,dob = ? ,religion = ? ,motherTongue = ? ,currentCountry = ? ,currentState = ? ,currentCity = ? ,maritalStatus = ? ,caste = ? ,gotram = ? ,star = ? ,dosam = ? ,dosamName = ? ,education = ? ,workingWith = ? ,companyName = ? ,annualIncome = ? ,monthlyIncome = ? ,diet = ? ,smoking = ? ,drinking = ? ,height = ? ,bodyType = ? ,complexion = ? ,mobile = ? ,aboutMyself = ? ,disability = ? ,fatherName=?, motherName=?, fOccupation=?, mOccupation=?, noOfBrothers=?, noOfSisters=?, noOfBrothersMarried=?, noOfSistersMarried=?,haveChildren=?,occupation=?  where id = ? ";
+				
+				String sql = "UPDATE users  set  updated_time = ?  ,createProfileFor = ? ,gender = ? ,firstName = ? ,lastName = ? ,dob = ? ,religion = ? ,motherTongue = ? ,currentCountry = ? ,currentState = ? ,currentCity = ? ,maritalStatus = ? ,caste = ? ,gotram = ? ,star = ? ,dosam = ? ,dosamName = ? ,education = ? ,workingWith = ? ,companyName = ? ,annualIncome = ? ,monthlyIncome = ? ,diet = ? ,smoking = ? ,drinking = ? ,height = ? ,bodyType = ? ,complexion = ? ,mobile = ? ,aboutMyself = ? ,disability = ? ,fatherName=?, motherName=?, fOccupation=?, mOccupation=?, noOfBrothers=?, noOfSisters=?, noOfBrothersMarried=?, noOfSistersMarried=?,haveChildren=?,occupation=?  where id = ? ";
 				int updated_count = jdbcTemplate.update(sql, new Object[]{new java.sql.Timestamp(new DateTime().getMillis()),users.getCreateProfileFor(),users.getGender(),users.getFirstName(),users.getLastName(),new java.sql.Timestamp(users.getDob1().getTime()),users.getReligion(),users.getMotherTongue(),users.getCurrentCountry(),users.getCurrentState(),users.getCurrentCity(),users.getMaritalStatus(),users.getCaste(),users.getGotram(),users.getStar(),users.getDosam(),users.getDosamName(),users.getEducation(),users.getWorkingWith(),users.getCompanyName(),users.getAnnualIncome(),users.getMonthlyIncome(),users.getDiet(),users.getSmoking(),users.getDrinking(),users.getHeight(),users.getBodyType(),users.getComplexion(),users.getMobile(),users.getAboutMyself(),users.getDisability(),users.getFatherName(),users.getMotherName(),users.getfOccupation(),users.getmOccupation(), users.getNoOfBrothers(),users.getNoOfSisters(),users.getNoOfBrothersMarried(),users.getNoOfSistersMarried(),users.getHaveChildren(),users.getOccupation(),users.getId()});
 				if(updated_count==1)
 					;
@@ -211,53 +193,5 @@ ps.setString(53, users.getReferred_by());
 			return null;
 		}
 	 
-	 public int getPackagePriceById(int id) {
-		 jdbcTemplate = custom.getJdbcTemplate();
-			String sql = "select ifnull(price,0) from package where id = "+id;
-			int price = jdbcTemplate.queryForInt(sql);
-			
-			return price;
-		}
-	 
-	 @Transactional
-		public boolean upgradeUser(int userId,int roleId,String package_id) {
-			jdbcTemplate = custom.getJdbcTemplate();
-			String sql = "update users set package_id = ?, package_joined_date = ?, role_id = ?, membership_status = '1' where id = ?";
-			int updatedCount = jdbcTemplate.update(sql, new Object[]{package_id,new java.sql.Timestamp(new Date().getTime()),roleId,userId});
-			if(updatedCount==1)
-				return true;
-			return false;
-		}
-	 @Transactional
-		public boolean updateEmployee(UsersBean objUsersBean) {
-			jdbcTemplate = custom.getJdbcTemplate();
-			String sql = "update users set firstName=?,lastName=?,email=?,username=?,password= AES_ENCRYPT(?,?)  where id = ?";
-			int updatedCount = jdbcTemplate.update(sql, new Object[]{objUsersBean.getFirstName(),objUsersBean.getLastName(),objUsersBean.getEmail(),objUsersBean.getUsername(),objUsersBean.getPassword(),"mykey",objUsersBean.getId()});
-			if(updatedCount==1)
-				return true;
-			return false;
-		}
-	 
-	 public boolean updateOtpStatus(String mobileNum,String otp,String user_id){
-			jdbcTemplate = custom.getJdbcTemplate();
-			String qryStr = "";
-			try{
-				String selectQry = "select count(*) from user_otps where user_id = "+user_id+" and mobile_no = "+mobileNum+" and date(updated_time) = current_date() ";
-				int existing_count = jdbcTemplate.queryForInt(selectQry);
-				if(existing_count==0){
-					qryStr = "insert into user_otps(created_time,updated_time,user_id,mobile_no,otp,status,count) "
-							+" values('"+new java.sql.Timestamp(new DateTime().getMillis())+"','"+new java.sql.Timestamp(new DateTime().getMillis())+"',"+user_id+","+mobileNum+","+otp+",'1',1)";
-				}else{
-					qryStr = "update user_otps set updated_time = '"+new java.sql.Timestamp(new DateTime().getMillis())+"', otp = "+otp+", count = (count+1) where user_id = "+user_id+" and mobile_no = "+mobileNum+" and date(updated_time) = current_date() ";
-				}
-				int updated_count = jdbcTemplate.update(qryStr);
-				if(updated_count==1)
-					return true;
-				
-			}catch(Exception e){
-				e.printStackTrace();
-				return false;
-			}
-			return false;
-		}
+	
 }
