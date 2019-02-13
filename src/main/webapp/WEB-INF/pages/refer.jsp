@@ -91,42 +91,11 @@ Your friends would need to register successfully 80% profile completion  & you e
 </div>
 </div><div class="clearfix"></div><br>
 <div class="col-md-3"></div>
-<!-- <div class="col-md-2 col-sm-2"><a href="https://www.facebook.com/" target="_blank" class="btn btn-block btn-social btn-facebook">
-    <span class="fa fa-facebook"></span> Facebook
-  </a></div> -->
-  
-  <div class="col-md-2 col-sm-2 g-plus" >
-  	<a href="https://plus.google.com/share?url=http%3A//www.aarnamatrimony.com?refcode=${cacheGuest.unique_code}" target="_blank"  class="btn btn-block btn-social btn-google">
-  	<span class="fa fa-google"></span>Share on Google+
-  	</a>
-  </div>
-  
-  <div class="col-md-2 col-sm-2 fb-share-button" data-href="http://www.aarnamatrimony.com?refcode=${cacheGuest.unique_code}" data-layout="button" data-size="large" data-mobile-iframe="false">
-  	<a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.aarnamatrimony.com%2F%3Frefcode%3D${cacheGuest.unique_code}&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore btn btn-block btn-social btn-facebook"><span class="fa fa-facebook"></span>Share</a>
-  </div>
-	<!-- <a href="https://twitter.com/home?status=http%3A//www.aarnamatrimony.com" class="btn btn-block btn-social btn-twitter"><span class="fa fa-twitter"></span>Share on Twitter</a> -->
-    
-  <div class="col-md-2 col-sm-2">
-  	<a target="_blank" href="https://twitter.com/home?status=http%3A//www.aarnamatrimony.com?refcode=${cacheGuest.unique_code}" class="btn btn-block btn-social btn-twitter">
-    <span class="fa fa-twitter"></span> Twitter
-  </a></div>
-  <!-- <div class="col-md-2 col-sm-2"><a href="https://www.whatsapp.com/" target="_blank" class="btn btn-block btn-social btn-whatsapp">
-    <span class="fa fa-whatsapp"></span>  Whatsapp
-  </a></div> -->
-  <div id="mobile-share">
-  	<a target="_blank" href="whatsapp://send?text=http://www.aarnamatrimony.com?refcode=${cacheGuest.unique_code}" data-action="share/whatsapp/share" class="btn btn-block btn-social btn-whatsapp">
-  		<span class="fa fa-whatsapp"></span>Whatsapp
-  	</a>
-  </div>
-  <!-- <div class="col-md-2 col-sm-2"><a href="https://www.google.com/" target="_blank" class="btn btn-block btn-social btn-google">
-    <span class="fa fa-google"></span>  Google
-  </a></div>  -->
-  <!-- <div class="g-plus" data-action="share"  data-height="34" data-href="http://www.aarnamatrimony.com">
-  </div> -->
+
   
   <div class="clearfix"></div>
   <h5 align="center"><b>Your Promo Code</b></h5>
-  <center><span class="couponcode"><span id="couponcode1">${cacheGuest.unique_code}</span></span></center>
+  <center><span class="couponcode"><span id="couponcode1"></span></span></center>
 <!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#pop">Open Modal</button> -->
 <div class="modal fade" id="pop" role="dialog">
     <div class="modal-dialog">
